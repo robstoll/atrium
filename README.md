@@ -7,18 +7,19 @@
 [![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?tag=v0.8.0-alpha)](https://www.meterian.com/report/gh/robstoll/atrium?tag=v0.8.0-alpha)
 
 # Atrium
-Atrium is an open-source assertion library for Kotlin with a fluent API.
+Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
 The project was inspired by AssertJ at first (and was named AssertK) but it moved on and provides now more 
 flexibility, features and hints to its users (so to you :wink:).
 
 ----
 :warning: You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [REAMDE of v0.7.0](https://github.com/robstoll/atrium/tree/v0.7.0/README.md).
+For instance, the [REAMDE of v0.8.0-alpha](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/README.md).
 
 ----
 
-Atrium is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization-1) (i18n).
+Atrium is designed to support different [APIs](#apis), different reporting styles, [Internationalization](#internationalization-1) (i18n) 
+and supports multiple platforms (namely JVM, JS and Android).
 The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
 thus allow you to extend or replace components easily.
 
@@ -64,7 +65,7 @@ but can also be retrieved directly from [bintray](https://bintray.com/robstoll/t
 *gradle*: 
 ```
 buildscript {
-    ext { atrium_version='0.7.0' }
+    ext { atrium_version='0.8.0-alpha' }
 }
 repositories {
     jcenter()
@@ -75,14 +76,17 @@ dependencies {
     testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version"
 }
 ```
-We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll` in the above example which provides a pure fluent API.
+We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll` in the above example 
+which provides a pure fluent API for the JVM platform. 
+You have to add `-js` or `-android` as suffix if you want to use it for another platform  
+
 
 <details>
 <summary>click to see how the setup for the infix api looks like</summary>
 
 ```
 buildscript {
-    ext { atrium_version='0.7.0' }
+    ext { atrium_version='0.8.0-alpha' }
 }
 repositories {
     jcenter()
@@ -91,13 +95,13 @@ repositories {
 }
 dependencies {
     testCompile("ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB-jvm' 
+        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB' 
     }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-jvm-robstoll:$atrium_version")
+    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll:$atrium_version")
 }
 ```
 
-We have to define an `exclude` due to a [missing feature](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
+We have to define an `exclude` due to a [missing feature in gradle](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
 (or you could call it a bug) so that maven dependencies defined with `<scope>runtime</scope>` are treated as compile nonetheless.
 If you are using gradle > 4.6, then you can put `enableFeaturePreview("IMPROVED_POM_SUPPORT")` in your settings.gradle
 and simplify the dependencies section to the following: 
@@ -107,6 +111,8 @@ dependencies {
 }
 ```
 
+As mentioned above, add `-js` or `-android` suffix if you want to use it on a different platform than JVM.
+
 <hr/>
 </details>
 
@@ -115,7 +121,7 @@ dependencies {
 
 ```
 buildscript {
-    ext { atrium_version='0.7.0' }
+    ext { atrium_version='0.8.0-alpha' }
 }
 repositories {
     jcenter()
@@ -124,13 +130,13 @@ repositories {
 }
 dependencies {
     testCompile("ch.tutteli.atrium:atrium-cc-de_CH-robstoll:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB-jvm' 
+        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB' 
     }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-jvm-robstoll:$atrium_version")
+    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll:$atrium_version")
 }
 ```
 
-We have to define an `exclude` due to a [missing feature](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
+We have to define an `exclude` due to a [missing feature in gradle](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
 (or you could call it a bug) so that maven dependencies defined with `<scope>runtime</scope>` are treated as compile nonetheless.
 If you are using gradle > 4.6, then you can put `enableFeaturePreview("IMPROVED_POM_SUPPORT")` in your settings.gradle
 and simplify the dependencies section to the following: 
@@ -139,6 +145,8 @@ dependencies {
     testCompile "ch.tutteli.atrium:atrium-cc-de_CH-robstoll:$atrium_version" 
 }
 ```
+
+As mentioned above, add `-js` or `-android` suffix if you want to use it on a different platform than JVM.
 
 <hr/>
 </details><br/>
@@ -156,7 +164,7 @@ That is all, you are all set. The next section shows how to use Atrium.
 We are using the API provided by the bundle module 
 [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-en_GB-robstoll/build.gradle)
 in the following examples. 
-It provides a pure fluent API.
+It provides a pure fluent API for the JVM platform.
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md)
 to see how the infix API looks like, how they differ respectively.
@@ -169,7 +177,7 @@ val x = 10
 assert(x).toBe(9)
 ``` 
 The statement can be read as "I assert, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
-Since this is false an `AssertionError` is thrown with the following message:
+Since this is false, an `AssertionError` is thrown with the following message:
 ```text
 assert: 10        (java.lang.Integer <934275857>)
 ◆ to be: 9        (java.lang.Integer <1364913072>)
