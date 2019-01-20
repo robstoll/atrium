@@ -3,18 +3,21 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.cr
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers.ExplanatoryFailureHandler
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion.IS_A
 import kotlin.reflect.KClass
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Will be removed with 1.0.0")
 fun <T : Any> _isNotNull(
     plant: AssertionPlantNullable<T?>,
     type: KClass<T>,
     assertionCreator: AssertionPlant<T>.() -> Unit
 ) {
-    _downCast(IS_A, type, plant, assertionCreator, ExplanatoryFailureHandler())
+    plant.addAssertion(AssertImpl.any.isNotNull(plant, type, assertionCreator))
 }
 
 fun <TSub : Any> _isA(

@@ -22,9 +22,7 @@ fun <K, V : Any> _containsNullable(
     type: KClass<V>,
     pairs: List<Pair<K, V?>>
 ): Assertion = containsNullable(plant, pairs) { value ->
-    //TODO add toBe(Any?) to AssertionPlantNullable?
-    if (value == null) toBe(null)
-    else AssertImpl.any.typeTransformation.isNotNull(this, type) { toBe(value) }
+    addAssertion(AssertImpl.any.isNullable(this, type, value))
 }
 
 fun <K, V : Any> _containsKeyWithValueAssertion(
@@ -37,9 +35,7 @@ fun <K, V : Any> _containsKeyWithNullableValueAssertions(
     type: KClass<V>,
     keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
 ): Assertion = containsNullable(plant, keyValues.map{ it }) { assertionCreator ->
-    //TODO add this functionality to AssertionPlantNullable?
-    if(assertionCreator == null) toBe(null)
-    else AssertImpl.any.typeTransformation.isNotNull(this, type ){ assertionCreator() }
+    addAssertion(AssertImpl.any.isNullIfNullElse(this, type, assertionCreator))
 }
 
 private fun <K, V : Any, M> containsNonNullable(

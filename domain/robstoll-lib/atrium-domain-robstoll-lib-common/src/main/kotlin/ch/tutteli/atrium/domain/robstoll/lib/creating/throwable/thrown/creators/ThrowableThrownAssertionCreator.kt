@@ -20,7 +20,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     override fun executeActAssertNothingThrown(throwableThrownBuilder: ThrowableThrown.Builder){
         val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
         val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
-        if(throwable == null){
+        if (throwable == null){
             subjectPlant.addAssertion(
                 AssertImpl.builder.createDescriptive(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2)) {true}
             )
