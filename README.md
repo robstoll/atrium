@@ -44,6 +44,10 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Further Examples](#further-examples)  
 - [How is Atrium different from other Assertion Libraries](#how-is-atrium-different-from-other-assertion-libraries)
 - [Write own Assertion Functions](#write-own-assertion-functions)
+    - [Boolean based Assertions](#boolean-based-assertions)
+    - [Compose Functions](#compose-assertion-functions)
+    - [Enhanced Reporting](#enhanced-reporting)
+    - [Own Sophisticated Assertion Builders](#own-sophisticated-assertion-builders)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
   - [ReporterBuilder](#reporterbuilder)
 - [Internationalization](#internationalization-1)
@@ -398,14 +402,11 @@ You might be asking yourself why I bothered providing the assertion function `me
 
 The only drawback IMO of using an existing property is that a few more key strokes are required compared to 
 [writing an own assertion function](#write-own-assertion-functions) once and then reuse it (as I did with `message`).
-Yet, I do not recommend to write an own assertion function for every single property, because one quickly forgets to 
+Yet, I do not recommend to write an own assertion function for every single property.
+I think it makes sense to add one if you use it a lot and (preferably) it is a stable API, because one quickly forgets to 
 rename the assertion function if the property as such is renamed (e.g., as part of an IDE refactoring). 
 As you can see, you would need to keep the property and the assertion function in sync to be meaningful 
 (otherwise you either quickly confuse things or you have multiple names for the same thing). 
-
-Hence, only write an own assertion function in case you use it a lot and you need to apply other transformations first. 
-For instance, if you need to apply `noToBeNull` first -- which is the case when the property has a nullable type (as for `Throwable::message`, see [Nullable Types](#nullable-types) for further information). 
-In such a case I would find it too cumbersome to write `property(subject::xY).notToBeNull { ... }` all the time and would prefer `xY { ... }` and make some extra effort when the property is renamed. 
 
 </details>
 
@@ -763,7 +764,7 @@ assert(mapOf("a" to 1, "b" to 2)).contains(
 
 In most cases, Atrium provides a separate function with `Nullable` as suffix 
 if the value type of the `Map` is nullable. For instance:
-```
+```kotlin
 assert(mapOf("a" to null, null to null, "b" to 1)).containsNullable(
     null to 1, "a" to 1, "b" to 1
 )
@@ -995,8 +996,12 @@ Are you missing an assertion function for a specific type and the generic functi
 [property](#property-assertions) and [returnValueOf](#method-assertions) 
 are not good enough?
 
-Writing one is very simple and a pull request of your new assertion function is very much appreciated.
-Following an example:
+The following sub chapters will show you how you can write your own assertions. 
+A pull request of your new assertion function is very much appreciated.
+
+## Boolean based Assertions
+
+This is kind of the simplest way of defining assertion functions. Following an example:
 
 ```kotlin
 fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
@@ -1014,24 +1019,12 @@ Let us see how we actually defined `isMultipleOf`.
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
     Hence we define `isMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Assert<Int>`.
 
-2. *Use the method `createAndAddAssertion`* (which is provided by `AssertionPlant`) to create the assertion 
+2. *Use the method `createAndAddAssertion`* (which is provided by `Assert`) to create the assertion 
     and add it to the plant itself. 
-    The method returns the `AssertionPlant` making it easy for you to provide a fluent API as well.
-   
-    <details>
-    <summary>:information_source: Wait what is an AssertionPlant?</summary>
-     
-    `Assert` is a `typealias` for `AssertionPlant<T>`. 
-    We get an `AssertionPlant<Int>` when we call `assert(12)` and an `AssertionPlant<String>` for `assert("hello")`.
-    In our case we want to define the assertion function only for `subject`s of type `Int` and thus used `Assert<Int>`.
-    You could have written the extension for `AssertionPlant<Int>` which is exactly the same. 
-    Whether you prefer `Assert` or `AssertionPlant` is up to you, 
-    though we recommend to use `Assert` for API functions and `AssertionPlant` in other context 
-    (such as in domain functions, see [API in a different Language](#api-in-a-different-language) for instance).
-    <hr/>
-    </details>
+    The method returns the `Assert` making it easy for you to provide a fluent API as well.
  
-    The method [createAndAddAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html) expects:
+    The method [createAndAddAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html)
+    expects:
     - a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
       as  description of your assertion.
     - the representation of the expected value.
@@ -1040,7 +1033,7 @@ Let us see how we actually defined `isMultipleOf`.
 We used an `Untranslatable` in the above example as first argument because we are not bothered with internationalization at this point
 (have a look at [Internationalization](#internationalization-1)).
 
-Typically you use the expected value itself as its representation -- so you pass it as second argument.
+In most cases you probably use the expected value itself as its representation -- so you pass it as second argument.
 And finally you specify the test as such in the lambda passed as third argument.
 
 <details>
@@ -1053,7 +1046,7 @@ without breaking reporting.
 For instance, `assert(listOf(1, 2, 5, 8,9)).all { isMultipleOf(2) }` would blow up in the middle of error reporting if we did not adhere to the `subjectless reporting` property.
 
 It is recommended to verify your assertion functions against two abstract specs which are contained in `atrium-spec`.
-I will provide more information if someone is interested.
+I will provide more information if someone is interested, please open an issue or contact me on slack.
 <hr/>
 </details>
 
@@ -1076,20 +1069,169 @@ assert(13).isEven()
     // ◆ is: an even number
 ```
 
-<details>
-<summary>:interrobang: provide some extra hints</summary>
+## Compose Assertion Functions
 
-Do you want to provide extra hints in case the assertion fails? 
-Have a look at [`AssertImpl.builder.descriptive.withTest({...}).withFailureHint`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
-You might want to have a look at [`AssertImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
-in general, it is kind of the entry point for assertion-function-writers.
-It guides you to existing assertion function implementations 
-as well as to the `AssertionBuilder` which itself helps you with creating assertions. 
+So far I ran quickly into the situation where I want to compose functions or 
+reuse existing functions but with different arguments. 
+We will show both use cases here, starting off by composing functions. 
 
-</details><br/>
+Say you want to build a `isBetween` assertion function for `java.util.Date`, you could write it as follows:
+```kotlin
+fun Assert<Date>.isBetween(lowerBoundInlc: Date, upperBoundExclusive: Date) = 
+    isGreaterOrEquals(lowerBoundInlc).and.isLessThan(upperBoundExclusive)
+```
+Pretty simply isn't it. 
+Notice though, that this function fails fast, which means, the upper bound is not evaluated 
+if the assertion about the lower bound already fails. 
+You need to use an [assertion group block](#define-single-assertions-or-assertion-groups) 
+if you want that both are evaluated:
+```kotlin
+fun Assert<Date>.isBetween(lowerBoundInclusive: Date, upperBoundExclusive: Date) = and {
+    isGreaterOrEquals(lowerBoundInclusive)
+    isLessThan(upperBoundExclusive)
+}
+``` 
+Still simple enough.
+(As side notice, Atrium tends to use `addAssertionsCreatedBy` internally instead of `and` as `and` delegates to `addAssertionsCreatedBy`).   
 
-<details>
-<summary>:interrobang: create a sophisticated assertion builder</summary>
+So lets move on to an example which is a bit more complicated. Assume the following data class `Person`
+
+```kotlin
+data class Person(
+  val firstName: String, 
+  val lastName: String, 
+  val age: Int,
+  val children: Collection<Person> 
+  // ...  and others 
+)
+```
+
+Say you want to make an assertion about the number of children a person has:
+```kotlin
+fun Assert<Person>.hasNumberOfChildren(number: Int) = 
+    apply { property(Person::children).hasSize(number) }
+```
+Two things to notice here: 
+1. we make use of a [property assertion]((#property-assertions))
+2. We use `apply` so that subsequent assertions are still made on Person and not on `children` 
+   (you could also use `return this` instead of `apply`)
+ 
+Its usage is then as follows:
+```kotlin
+assert(Person("Susanne", "Whitley", listOf()))
+  .hasNumberOfChildren(2) 
+
+    // assert: Person(firstName=Susanne, lastName=Whitley, children=[])        (Person <692342133>)
+    // ◆ ▶ children: []        (kotlin.collections.EmptyList <654845766>)
+    //     ◾ ▶ size: 0        (kotlin.Int <1712536284>)
+    //         ◾ to be: 2        (kotlin.Int <2080166188>)    
+```
+Another example: assert the person has children which are all adults (assuming 18 as legal age).
+```kotlin
+fun Assert<Person>.hasAdultChildren() = apply {
+    property(Person::children)
+        .all { property(Person::age).isGreaterOrEquals(18) }
+}
+```
+We also use `apply` here for the same reason as above.
+We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
+but we don't have to, as `all` already checks that there is at least one element. 
+```
+assert: Person(firstName=Susanne, lastName=Whitley, children=[], age=30)        (Person <1870252780>)
+◆ ▶ children: []        (kotlin.collections.EmptyList <761960786>)
+    ◾ ▶ has at least one element: false
+        ◾ is: true
+```
+
+If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function
+(assuming the API of Person is stable enough).
+```kotlin
+val Assert<Person>.children get(): Assert<Collection<Person>> = property(Person::children)
+fun Assert<Person>.children(assertionCreator: Assert<Collection<Person>>.() -> Unit): Assert<Person>
+    = apply { children.addAssertionsCreatedBy(assertionCreator) }
+```
+With this, we can write things like:
+```kotlin
+assert(person)
+  .children { // sub-assertions don't fail fast
+    none { property(Person::firstName).startsWith("Ro") }
+    all { property(Person::lastName).toBe("Stoll") }
+  } // subject is still Person here
+  .apply {
+    children  // subsequent assertions are about children and fail fast
+      .hasSize(2)
+      .any { property(Person::age).isGreaterThan(18) }
+  } // subject is still Person here
+  .children // subsequent assertions are about children and fail fast
+      .hasSize(2)
+      .contains(...)
+```
+
+<hr/>
+
+Enough of feature assertions. Let's move on to an example where we want to reuse an existing function but with different
+arguments. Say we have a function which returns a list of first name / last name `Pair`s. 
+We want to assert that the pairs contain only the first name / last name pairs of certain `Person` in any order.
+[Collection Assertions](#collection-assertions) will help us with this. 
+However, `contains.inAnyOrder.values` expects `Pair`s.
+So we have to map from `Person` to `Pair` upfront.
+As we have a variable length argument list and want to pass it to a variable length argument list, this cannot be done with a simple `map`. 
+And it gets worse if we want to use `contains.inAnyOrder.entries` which expects at least one identification lambda (`Assert<T>.() -> Unit`)
+because Kotlin cannot infer the types automatically.
+
+`mapArguments` to the rescue, you can write the assertion function as follows:
+```kotlin
+fun Assert<List<Pair<String, String>>>.areNamesOf(
+    person: Person, vararg otherPersons: Person
+): Assert<List<Pair<String, String>>> {
+    val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
+    return contains.inAnyOrder.only.values(pair, *otherPairs)
+}
+```
+As you can see we moved the mapping inside the function so that the consumer of our API can happily use it as follows:
+```kotlin
+assert(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
+```
+
+Another fictional example, say we want to assert that the pairs have the same initials as the given persons and in the given order.
+Which means, this time we need to use identification lambdas. This can be written as follows:
+```kotlin
+fun Assert<List<Pair<String, String>>>.sameInitialsAs(
+    person: Person, vararg otherPersons: Person
+): Assert<List<Pair<String, String>>> {
+    val (first, others) = mapArguments(person, otherPersons).toAssert<Pair<String, String>> {
+        first.startsWith(it.firstName[0].toString())
+        second.startsWith(it.lastName[0].toString())
+    }
+    return contains.inOrder.only.entries(first, *others)
+}
+``` 
+
+## Enhanced Reporting
+
+[Composing assertion functions](#compose-assertion-functions) give already quite a bit of power to an assertion function writer.
+Yet, sometimes we would like to create functions which have a better error reporting than the one we get when we compose assertion functions.
+
+[`AssertImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html) 
+is the entry point in this case.
+Its a builder and thus lets you find the functions you need via code completion.
+
+Following a quick overview what it provides:
+- all assertion functions on the Domain level (what you have seen in [Compose-assertion-functions](#compose-assertion-functions) 
+was the API level) so that you can reuse them (e.g. `AssertImpl.collection.hasSize(...)`).
+- `AssertImpl.builder` to create different kinds of [Assertions](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-assertion/index.html)
+- `AssertImpl.changeSubject` which allows to change the subject silently, 
+   meaning it does not show up in reporting (e.g. `Assert<Array<out T>>.asIterable()` uses it)
+- `AssertImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions
+- `AssertImpl.feature.extractor` for feature assertions which are not always save to extract   
+
+You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/blob/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
+which makes use of explanatory assertions as well as providing a failure hint.
+
+Unfortunately I do not have the time to cover all cases, so let me know (e.g. via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+([Invite yourself](http://slack.kotlinlang.org/)) if you want to know more.
+
+## Own Sophisticated Assertion Builders
 
 Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
 Great, I do not provide hands on documentation yet (had only one question about it so far). 
@@ -1101,7 +1243,6 @@ I am willing to provide more documentation if you need it (please open an issue)
 In the meantime I might help you via slack, please post your questions in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet).
 
-</details>
 
 # Use own Assertion Verbs
 
