@@ -35,12 +35,12 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
         }
 
         private fun toBeNullable(plant: AssertionPlantNullable<Int?>, expected: Int?){
-            if(expected == null) plant toBe null
+            if (expected == null) plant toBe null
             else plant notToBeNull { toBe(expected) }
         }
 
         private fun toBeNullIfNullElse(plant: AssertionPlantNullable<Int?>, assertionCreator: (Assert<Int>.() -> Unit)?) {
-            if(assertionCreator == null) plant toBe null
+            if (assertionCreator == null) plant toBe null
             else plant notToBeNull assertionCreator
         }
 

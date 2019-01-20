@@ -81,8 +81,7 @@ fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(expectedOrNull: T?) {
-    if(expectedOrNull == null) toBe(null)
-    else notToBeNullBut(expectedOrNull)
+    addAssertion(AssertImpl.any.isNullable(this, T::class, expectedOrNull))
 }
 
 /**
@@ -99,8 +98,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(expectedOrN
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
-    if(assertionCreatorOrNull == null) toBe(null)
-    else notToBeNull(assertionCreatorOrNull)
+    addAssertion(AssertImpl.any.isNullIfNullElse(this, T::class, assertionCreatorOrNull))
 }
 
 /**

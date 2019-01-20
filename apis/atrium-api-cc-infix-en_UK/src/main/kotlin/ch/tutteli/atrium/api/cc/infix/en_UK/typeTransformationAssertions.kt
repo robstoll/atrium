@@ -17,7 +17,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.notToBeNull(assertionCreator)"))
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
-    AssertImpl.any.typeTransformation.isNotNull(this, T::class, assertionCreator)
+    addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
 }
 
 /**

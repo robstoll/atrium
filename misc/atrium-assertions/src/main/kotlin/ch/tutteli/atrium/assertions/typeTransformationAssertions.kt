@@ -19,7 +19,7 @@ inline fun <reified T : Any> _isNotNull(
     plant: AssertionPlantNullable<T?>,
     noinline assertionCreator: AssertionPlant<T>.() -> Unit
 ) {
-    AssertImpl.any.typeTransformation.isNotNull(plant, T::class, assertionCreator)
+    plant.addAssertion(AssertImpl.any.isNotNull(plant, T::class, assertionCreator))
 }
 
 @Deprecated("Use AssertImpl.any.typeTransformation.isA; will be removed with 1.0.0",

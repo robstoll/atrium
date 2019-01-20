@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
-    AssertImpl.any.typeTransformation.isNotNull(this, T::class, assertionCreator)
+    addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
 }
 
 /**

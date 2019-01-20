@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline assertionCreator: Assert<T>.() -> Unit) {
-    AssertImpl.any.typeTransformation.isNotNull(this, T::class, assertionCreator)
+    addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
 }
 
 /**
