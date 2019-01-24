@@ -36,6 +36,8 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>
 infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePairs.toList()))
 
+
+
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second].
@@ -110,6 +112,27 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  */
 inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValues: All<KeyNullableValue<K, V>>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList()))
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] only contains keys as defined by [keyValuePairs]'s [Pair.first]
+ * with a corresponding values as defined by [keyValuePairs]'s [Pair.second].
+ *
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.containsInAnyOrderOnly(keyValuePairs: List<Pair<K, V>>)
+    =addAssertion(AssertImpl.map.containsInAnyOrderOnly(this, keyValuePairs.toList()))
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] only contains keys as defined by [keyValuePairs]'s [Pair.first]
+ * with a corresponding values as defined by [keyValuePairs]'s [Pair.second].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsInAnyOrderOnlyNullable(keyValuePairs: List<Pair<K, V?>>)
+    = addAssertion(AssertImpl.map.containsInAnyOrderOnlyNullable(this, V::class, keyValuePairs.toList()))
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key].

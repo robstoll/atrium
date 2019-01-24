@@ -17,13 +17,26 @@ import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import kotlin.reflect.KClass
 
 fun <K, V : Any> _contains(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion
-    = containsNonNullable(plant, pairs) { value -> toBe(value) }
+    = containsNonNullable(plant, pairs) { value -> toBe(value)}
 
 fun <K, V : Any> _containsNullable(
     plant: AssertionPlant<Map<K, V?>>,
     type: KClass<V>,
     pairs: List<Pair<K, V?>>
 ): Assertion = containsNullable(plant, pairs) { value ->
+    //TODO add toBe(Any?) to AssertionPlantNullable?
+    if (value == null) toBe(null)
+    else AssertImpl.any.typeTransformation.isNotNull(this, type) { toBe(value) }
+}
+
+fun <K, V : Any> _containsInAnyOrderOnly(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion
+    = containsInAnyOrderOnlyNonNullable(plant, pairs) { value -> toBe(value) }
+
+fun <K, V : Any> _containsInAnyOrderOnlyNullable(
+    plant: AssertionPlant<Map<K, V?>>,
+    type: KClass<V>,
+    pairs: List<Pair<K, V?>>
+): Assertion = containsInAnyOrderOnlyNullable(plant, pairs) { value ->
     //TODO add toBe(Any?) to AssertionPlantNullable?
     if (value == null) toBe(null)
     else AssertImpl.any.typeTransformation.isNotNull(this, type) { toBe(value) }
@@ -64,6 +77,28 @@ private fun <K, V : Any, M> containsNullable(
     assertionCreator
 )
 
+private fun <K, V : Any, M> containsInAnyOrderOnlyNonNullable(
+    plant: AssertionPlant<Map<K, V>>,
+    pairs: List<Pair<K, M>>,
+    assertionCreator: AssertionPlant<V>.(M) -> Unit
+) = containsInAnyOrderOnly(
+    pairs,
+    { option, key -> option.withParameterObject(createGetParameterObject(plant, key)) },
+    assertionCreator,
+    plant
+)
+
+private fun <K, V : Any, M> containsInAnyOrderOnlyNullable(
+    plant: AssertionPlant<Map<K, V?>>,
+    pairs: List<Pair<K, M>>,
+    assertionCreator: AssertionPlantNullable<V?>.(M) -> Unit
+) = containsInAnyOrderOnly(
+    pairs,
+    { option, key -> option.withParameterObjectNullable(createGetParameterObject(plant, key)) },
+    assertionCreator,
+    plant
+)
+
 private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
     pairs: List<Pair<K, M>>,
     parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.Creator<V, A, C>,
@@ -79,6 +114,34 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
         parameterObjectOption(option, key)
             .extractAndAssertIt{ assertionCreator(matcher) }
     }
+    AssertImpl.builder.list
+        .withDescriptionAndEmptyRepresentation(DescriptionMapAssertion.CONTAINS_IN_ANY_ORDER)
+        .withAssertions(assertions)
+        .build()
+}
+
+private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> containsInAnyOrderOnly(
+    pairs: List<Pair<K, M>>,
+    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.Creator<V, A, C>,
+    assertionCreator: C.(M) -> Unit,
+    plant: AssertionPlant<Map<K, V>>
+): Assertion =  LazyThreadUnsafeAssertionGroup {
+    //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
+    val methodCallFormatter = AssertImpl.coreFactory.newMethodCallFormatter()
+
+    val keyValueAssertions = pairs.map { (key: K, matcher: M) ->
+        val option = AssertImpl.feature.extractor
+            .withDescription(
+                TranslatableWithArgs(DescriptionMapAssertion.ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
+            )
+        parameterObjectOption(option, key)
+            .extractAndAssertIt{ assertionCreator(matcher) }
+    }
+    val onlyAssertions = listOf<Assertion>(AssertImpl
+        .builder
+        .createDescriptive(DescriptionMapAssertion.MAP_CONTAINS_ONLY, plant.subject) { plant.subject.size <= pairs.size })
+
+    val assertions = keyValueAssertions.plus(onlyAssertions)
     AssertImpl.builder.list
         .withDescriptionAndEmptyRepresentation(DescriptionMapAssertion.CONTAINS_IN_ANY_ORDER)
         .withAssertions(assertions)

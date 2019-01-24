@@ -7,10 +7,13 @@ import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import kotlin.reflect.KFunction2
 
+
 class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     AssertionVerbFactory,
     containsFun.name to Companion::contains,
     containsNullableFun.name to Companion::containsNullable,
+    Assert<Map<String, Int>>::containsInAnyOrderOnly.name to Companion::contains, //TODO FIX cant map to containsInAnyOrderOnly
+    Assert<Map<String, Int>>::containsInAnyOrderOnlyNullable.name to Companion::containsNullable, //TODO FIX cant map to containsInAnyOrderOnlyNullable
     "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyWithValueAssertions,
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyNullableValue::class.simpleName}" to Companion::containsKeyWithNullableValueAssertions,
     Assert<Map<String, Int>>::containsKey.name to Companion::containsKey,
@@ -39,6 +42,9 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
                 plant containsNullable Pairs(pair, *otherPairs)
             }
         }
+
+        private fun containsInAnyOrderOnly(plant: Assert<Map<String, Int>>, pairs: List<Pair<String, Int>>) = plant containsInAnyOrderOnly pairs
+        private fun containsInAnyOrderOnlyNullable(plant: Assert<Map<String, Int?>>, pairs: List<Pair<String, Int?>>) = plant containsInAnyOrderOnlyNullable  pairs
 
         private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<String, Int>>, KeyValue<String, Int>, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::contains
         private fun containsKeyWithValueAssertions(plant: Assert<Map<String, Int>>, keyValue: KeyValue<String, Int>, otherKeyValues: Array<out KeyValue<String, Int>>): Assert<Map<String, Int>> {

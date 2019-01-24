@@ -39,6 +39,32 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg othe
 inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, entry glue otherEntries))
 
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherPairs] and asserts that [Assert.subject][AssertionPlant.subject] contains only keys defined
+ * in [keyValuePair], [otherPairs]
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaeltInEinOrdnenNur(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
+    = addAssertion(AssertImpl.map.containsInAnyOrderOnly(this, entry glue otherEntries))
+
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherPairs] and asserts that [Assert.subject][AssertionPlant.subject] contains only keys defined
+ * in [keyValuePair], [otherPairs]
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltInEinOrdnenNurNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+    = addAssertion(AssertImpl.map.containsInAnyOrderOnlyNullable(this, V::class, entry glue otherEntries))
+
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which holds all assertions [keyValue]'s [KeyValue.valueAssertionCreator] might create.

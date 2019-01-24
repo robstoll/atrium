@@ -72,6 +72,30 @@ inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyVal
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValue glue otherKeyValues))
 
 /**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherPairs] and asserts that [Assert.subject][AssertionPlant.subject] contains only keys defined
+ * in [keyValuePair], [otherPairs]
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V : Any, T: Map<K, V>> Assert<T>.containsInAnyOrderOnly(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
+    = addAssertion(AssertImpl.map.containsInAnyOrderOnly(this, keyValuePair glue otherPairs))
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherPairs] and asserts that [Assert.subject][AssertionPlant.subject] contains only keys defined
+ * in [keyValuePair], [otherPairs]
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsInAnyOrderOnlyNullable(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+    = addAssertion(AssertImpl.map.containsInAnyOrderOnlyNullable(this, V::class, keyNullableValuePair glue otherEntries))
+
+/**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key].
  *
  * @return This plant to support a fluent API.

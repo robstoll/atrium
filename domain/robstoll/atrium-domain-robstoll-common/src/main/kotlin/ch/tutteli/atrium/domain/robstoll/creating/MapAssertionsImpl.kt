@@ -23,6 +23,15 @@ class MapAssertionsImpl : MapAssertions {
         keyValuePairs: List<Pair<K, V?>>
     ) = _containsNullable(plant, type, keyValuePairs)
 
+    override fun <K, V: Any> containsInAnyOrderOnly(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>)
+        = _containsInAnyOrderOnly(plant, keyValuePairs)
+
+    override fun <K, V: Any> containsInAnyOrderOnlyNullable(
+        plant: AssertionPlant<Map<K, V?>>,
+        type: KClass<V>,
+        keyValuePairs: List<Pair<K, V?>>
+    ) = _containsInAnyOrderOnlyNullable(plant, type, keyValuePairs)
+
     override fun <K, V : Any> containsKeyWithValueAssertions(
         plant: AssertionPlant<Map<K, V>>,
         keyValues: List<KeyValue<K, V>>

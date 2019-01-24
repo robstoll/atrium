@@ -23,6 +23,8 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
 interface MapAssertions {
     fun <K, V: Any> contains(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
     fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
+    fun <K, V: Any> containsInAnyOrderOnly(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
+    fun <K, V: Any> containsInAnyOrderOnlyNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
     fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<K, V>>, keyValues: List<KeyValue<K, V>>): Assertion
     fun <K, V: Any> containsKeyWithNullableValueAssertions(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValues: List<KeyNullableValue<K, V>>): Assertion
     fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
