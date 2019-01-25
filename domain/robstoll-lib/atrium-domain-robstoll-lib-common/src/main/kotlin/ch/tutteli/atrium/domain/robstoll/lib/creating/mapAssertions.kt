@@ -139,7 +139,11 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
     }
     val onlyAssertions = listOf<Assertion>(AssertImpl
         .builder
-        .createDescriptive(DescriptionMapAssertion.MAP_CONTAINS_ONLY, plant.subject) { plant.subject.size <= pairs.size })
+        .list
+        .withDescriptionAndEmptyRepresentation(DescriptionMapAssertion.MAP_CONTAINS_ONLY)
+        .withAssertions(createMismatchAssertionsForInAnyOrderOnly(pairs, plant))
+        .build())
+       
 
     val assertions = keyValueAssertions.plus(onlyAssertions)
     AssertImpl.builder.list
@@ -185,6 +189,13 @@ private fun <K, V> createGetParameterObject(
         plant.subject[key] as V
     }
 )
+
+private fun <K, V> createMismatchAssertionsForInAnyOrderOnly(pairs: List<Pair<K, V>>, plant: AssertionPlant<Map<K, V>>) : List<Assertion> { // TODO check this implementation please
+    val pairsKeys = pairs.map { it.first }.toList()
+    return plant.subject.map {AssertImpl.builder
+        .createDescriptive(DescriptionMapAssertion.MAP_KEYS_MISMATCH, it.key) {pairsKeys.contains(it.key)}
+    }.toList()
+}
 
 fun _hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion = AssertImpl.collector.collect(plant) {
     property(Map<*, *>::size) { toBe(size) }

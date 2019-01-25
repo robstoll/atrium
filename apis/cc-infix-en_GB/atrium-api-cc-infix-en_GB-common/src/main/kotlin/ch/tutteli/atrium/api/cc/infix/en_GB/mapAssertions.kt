@@ -121,9 +121,8 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.containsInAnyOrderOnly(keyValuePairs: List<Pair<K, V>>)
-    =addAssertion(AssertImpl.map.containsInAnyOrderOnly(this, keyValuePairs.toList()))
-
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.containsInAnyOrderOnly(keyValuePairs: Pairs<K, V>)
+    = addAssertion(AssertImpl.map.containsInAnyOrderOnly(this, keyValuePairs.toList()))
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] only contains keys as defined by [keyValuePairs]'s [Pair.first]
  * with a corresponding values as defined by [keyValuePairs]'s [Pair.second].
@@ -131,7 +130,7 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.containsInAnyOrderOnly(keyValuePa
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsInAnyOrderOnlyNullable(keyValuePairs: List<Pair<K, V?>>)
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsInAnyOrderOnlyNullable(keyValuePairs: Pairs<K, V?>)
     = addAssertion(AssertImpl.map.containsInAnyOrderOnlyNullable(this, V::class, keyValuePairs.toList()))
 
 /**

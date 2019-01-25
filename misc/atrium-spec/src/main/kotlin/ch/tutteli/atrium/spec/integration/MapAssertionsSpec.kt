@@ -117,7 +117,8 @@ abstract class MapAssertionsSpec(
     val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
     val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-    val notOnlyDescr = DescriptionMapAssertion.MAP_CONTAINS_ONLY.getDefault()
+    val onlyDescr = DescriptionMapAssertion.MAP_CONTAINS_ONLY.getDefault()
+    val keyMismatchDescr = DescriptionMapAssertion.MAP_KEYS_MISMATCH.getDefault()
 
     fun entry(key: String): String
         = String.format(DescriptionMapAssertion.ENTRY_WITH_KEY.getDefault(), "\"$key\"")
@@ -210,7 +211,6 @@ abstract class MapAssertionsSpec(
                     fluent.containsInAnyOrderOnlyFun(it.first(), it.drop(1).toTypedArray())
                 }
             }
-
             test("{a to 1, b to 3, c to 4} throws AssertionError, reports b and c") {
                 expect {
                     fluent.containsInAnyOrderOnlyFun("a" to 1, arrayOf("b" to 3, "c" to 4))
@@ -226,11 +226,12 @@ abstract class MapAssertionsSpec(
                     }
                 }
             }
-            test("{a to 1} throws AssertionError, reports size mismatch") {
+            test("{a to 1} throws AssertionError, reports keys mismatch") {
                 expect {
                     fluent.containsInAnyOrderOnlyFun("a" to 1, arrayOf())
                 }.toThrow<AssertionError>{
-                    messageContains(notOnlyDescr)
+                    messageContains(onlyDescr)
+                    messageContains("$keyMismatchDescr: \"b\"")
                 }
             }
         }
@@ -263,11 +264,21 @@ abstract class MapAssertionsSpec(
                     }
                 }
             }
-            test("{a to null, null to 2} throws AssertionError, reports size mismatch") {
+            test("{a to null, null to 2} throws AssertionError,  reports keys mismatch") {
                 expect {
-                    nullableFluent.containsInAnyOrderOnlyNullableFun("a" to null, arrayOf("null" to 2))
+                    nullableFluent.containsInAnyOrderOnlyNullableFun("a" to null, arrayOf(null to 1))
                 }.toThrow<AssertionError>{
-                    messageContains(notOnlyDescr)
+                    messageContains(onlyDescr)
+                    messageContains("$keyMismatchDescr: \"b\"")
+                }
+            }
+
+            test("{a to null, null to 2} throws AssertionError,  reports keys mismatch") {
+                expect {
+                    nullableFluent.containsInAnyOrderOnlyNullableFun("a" to null, arrayOf("b" to 2))
+                }.toThrow<AssertionError>{
+                    messageContains(onlyDescr)
+                    messageContains("$keyMismatchDescr: \"null\"")
                 }
             }
         }
