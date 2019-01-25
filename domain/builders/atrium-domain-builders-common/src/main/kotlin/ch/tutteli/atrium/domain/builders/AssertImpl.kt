@@ -3,15 +3,19 @@ package ch.tutteli.atrium.domain.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
@@ -90,11 +94,32 @@ interface AssertImplCommon {
         originalPlant: BaseAssertionPlant<T, *>,
         subjectProvider: () -> R
     ): AssertionPlant<R> {
-        val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(originalPlant)
-        val assertionVerb = Untranslatable(
-            "Should not be shown to the user; if you see this, please file a bug report at $BUG_REPORT_URL"
-        )
+        val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalPlant)
         return AssertImpl.coreFactory.newReportingPlant(assertionVerb, subjectProvider, assertionChecker)
+    }
+
+    /**
+     * Creates a new [AssertionPlantNullable] based on the given [subjectProvider] whereas the [AssertionPlant]
+     * delegates assertion checking to the given [originalPlant].
+     *
+     * This method is useful if you want to make feature assertion(s) but you do not want that the feature is shown up
+     * in reporting. For instance, if a class can behave as another class (e.g. `Sequence::asIterable`) or you want to
+     * hide a conversion (e.g. `Int::toChar`) then you can use this function.
+     *
+     * Notice, if you do not require the resulting [AssertionPlantNullable] but merely want to make feature
+     * assertions so that you can use them as part of a bigger assertion, then use [collector] instead.
+     */
+    fun <T, R> changeToNullableSubject(
+        originalPlant: BaseAssertionPlant<T, *>,
+        subjectProvider: () -> R
+    ): AssertionPlantNullable<R> {
+        val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalPlant)
+        return AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, subjectProvider, assertionChecker)
+    }
+
+    fun <T> createDelegatingAssertionCheckerAndVerb(originalPlant: BaseAssertionPlant<T, *>): Pair<AssertionChecker, Untranslatable> {
+        val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(originalPlant)
+        return assertionChecker to Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
     }
 
 
