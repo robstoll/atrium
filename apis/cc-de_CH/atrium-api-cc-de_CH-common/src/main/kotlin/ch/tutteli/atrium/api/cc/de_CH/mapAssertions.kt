@@ -49,7 +49,7 @@ inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(entry: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaeltInEinOrdnenNur(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
+fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaeltInBeliebigerReihenfolgeNur(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
     = addAssertion(AssertImpl.map.containsInAnyOrderOnly(this, entry glue otherEntries))
 
 
@@ -62,7 +62,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaeltInEinOrdnenNur(entry: Pair<K, V
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltInEinOrdnenNurNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltInBeliebigerReihenfolgeNurNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
     = addAssertion(AssertImpl.map.containsInAnyOrderOnlyNullable(this, V::class, entry glue otherEntries))
 
 /**

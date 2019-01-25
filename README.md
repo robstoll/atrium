@@ -1197,7 +1197,6 @@ Some assertion functions which I miss myself will follow in the next version.
 They are listed in the [Roadmap](#roadmap) below.
 
 Atrium does not support (yet):
-- contains assertion functions for `Map` (you can use `assert(map.entries)` in the meantime -- or `keys`/`values` if your assertion is only about keys or values)
 - infinite `Iterable`s
 
 # FAQ
