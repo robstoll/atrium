@@ -1,4 +1,4 @@
-Atrium © Copyright Robert Stoll <rstoll@tutteli.ch> 2017, 2018
+Atrium © Copyright Robert Stoll <rstoll@tutteli.ch> 2017, 2019
 
 EUROPEAN UNION PUBLIC LICENCE v. 1.2
 EUPL © the European Union 2007, 2016
