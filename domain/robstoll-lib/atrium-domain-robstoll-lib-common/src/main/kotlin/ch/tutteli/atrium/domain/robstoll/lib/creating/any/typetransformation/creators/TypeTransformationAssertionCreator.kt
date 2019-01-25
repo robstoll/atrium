@@ -12,6 +12,7 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
         failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ) {
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
+        //TODO not subject less
         val subject = subjectPlant.subject
         if (subject != null && canBeTransformed(subject)) {
             val plant = AssertImpl.changeSubject(subjectPlant) { transform(subject) }
