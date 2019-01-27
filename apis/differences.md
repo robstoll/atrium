@@ -382,14 +382,18 @@ assert(x) all NullableEntry(null)
 # List get
 *atrium-api-cc-en_GB*
 ```kotlin
+assert(x).get(0).isLessThan(1)
 assert(x).get(0) { isGreaterThan(1) }
+assert(x).getNullable(0).toBe(null)
 assert(x).getNullable(0) { notToBeNullBut(1) }
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) get 0 assertIt { o isGreaterThan 1 }
-assert(x) getNullable 0 assertIt { o notToBeNullBut 1 }
+assert(x) get 0 isLessThan 1
+assert(x) get Index(0) assertIt { o isGreaterThan 1 }
+assert(x) getNullable 0 toBe null
+assert(x) getNullable Index(0) assertIt { o notToBeNullBut 1 }
 ```
 
 # Map get
@@ -404,9 +408,9 @@ assert(x).getExistingNullable("a") { notToBeNullBut(1) }
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) getExisting "a" isLessThan 1
-assert(x) getExisting Key("a") assertValue { o isGreaterThan 1 }
+assert(x) getExisting Key("a") assertIt { o isGreaterThan 1 }
 assert(x) getExistingNullable "a" toBe null
-assert(x) getExistingNullable Key("a") assertValue { o notToBeNullBut 1 }
+assert(x) getExistingNullable Key("a") assertIt { o notToBeNullBut 1 }
 ```
 
 # Map contains

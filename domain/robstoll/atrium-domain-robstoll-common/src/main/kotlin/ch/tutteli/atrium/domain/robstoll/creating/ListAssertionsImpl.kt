@@ -10,6 +10,8 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._getNullable
  * Robstoll's implementation of [ListAssertions].
  */
 class ListAssertionsImpl : ListAssertions {
+    override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T>
+        = _get(plant, index)
 
     override fun <T : Any> get(
         plant: AssertionPlant<List<T>>,
@@ -22,5 +24,8 @@ class ListAssertionsImpl : ListAssertions {
         index: Int,
         assertionCreator: AssertionPlantNullable<T>.() -> Unit
     ) = _getNullable(plant, index, assertionCreator)
+
+    override fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int): AssertionPlantNullable<T>
+        = _getNullable(plant, index)
 
 }

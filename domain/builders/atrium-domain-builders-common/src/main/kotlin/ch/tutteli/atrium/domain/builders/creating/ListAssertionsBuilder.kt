@@ -13,12 +13,18 @@ import ch.tutteli.atrium.domain.creating.listAssertions
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ListAssertionsBuilder : ListAssertions {
+    override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T>
+        = listAssertions.get(plant, index)
 
     override inline fun <T: Any> get(
         plant: AssertionPlant<List<T>>,
         index: Int,
         noinline assertionCreator: AssertionPlant<T>.() -> Unit
     ) = listAssertions.get(plant, index, assertionCreator)
+
+
+    override fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int): AssertionPlantNullable<T>
+        = listAssertions.getNullable(plant, index)
 
     override inline fun <T> getNullable(
         plant: AssertionPlant<List<T>>,

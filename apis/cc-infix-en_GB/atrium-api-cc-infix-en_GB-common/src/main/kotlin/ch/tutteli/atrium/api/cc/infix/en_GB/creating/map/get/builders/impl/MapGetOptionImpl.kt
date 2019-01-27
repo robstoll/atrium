@@ -9,6 +9,6 @@ internal class MapGetOptionImpl<K, V : Any, T: Map<K, V>>(
     override val key: K
 ) : MapGetOption<K, V, T> {
 
-    override infix fun assertValue(assertionCreator: Assert<V>.() -> Unit): Assert<T>
+    override infix fun assertIt(assertionCreator: Assert<V>.() -> Unit): Assert<T>
         = plant.addAssertion(AssertImpl.map.getExisting(plant, key, assertionCreator))
 }

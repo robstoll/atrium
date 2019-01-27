@@ -39,12 +39,12 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapFeatureAs
             = plant getExisting key
 
         fun getExisting(plant: Assert<Map<String, Int>>, key: String, assertionCreator: Assert<Int>.() -> Unit)
-            = plant getExisting Key(key) assertValue { assertionCreator() }
+            = plant getExisting Key(key) assertIt { assertionCreator() }
 
         fun getExistingNullablePlant(plant: Assert<Map<String, Int?>>, key: String)
             = plant getExistingNullable key
 
         fun getExistingNullable(plant: Assert<Map<String, Int?>>, key: String, assertionCreator: AssertionPlantNullable<Int?>.() -> Unit)
-            = plant getExistingNullable Key(key) assertValue { assertionCreator()  }
+            = plant getExistingNullable Key(key) assertIt { assertionCreator()  }
     }
 }

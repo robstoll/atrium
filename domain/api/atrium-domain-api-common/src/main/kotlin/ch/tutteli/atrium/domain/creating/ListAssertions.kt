@@ -18,7 +18,9 @@ val listAssertions by lazy { loadSingleService(ListAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ListAssertions {
+    fun <T: Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T>
     fun <T: Any> get(plant: AssertionPlant<List<T>>, index: Int, assertionCreator: AssertionPlant<T>.() -> Unit): Assertion
+    fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int): AssertionPlantNullable<T>
     fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int, assertionCreator: AssertionPlantNullable<T>.() -> Unit): Assertion
 }
 
