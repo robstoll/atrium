@@ -292,13 +292,71 @@ for the subject as if it had a non-nullable type  (`String` in the above example
 [assertion group block](#define-single-assertions-or-assertion-groups) 
 -- `{ startsWith("atrium") }` in the above example. 
 
-<details>
-<summary>:information_source: dealing a lot with nullable types...</summary>
+Atrium provides a few shortcuts in case you have to deal a lot with nullable types. 
+The first is `notToBeNullBut(x)` which is short for `notToBeNull { toBe(x) }`.
 
-There is a shortcut function `notToBeNullBut(x)` in case you have to deal a lot with nullable types.
-It is short for `notToBeNull { toBe(x) }`.
 
-Also, if you deal with a container type such as `Iterable`/`Collection`/`Map` and have a nullable entry type 
+The other two are indented for [data driven testing](#data-driven-testing) involving nullable types.
+`toBeNullable` accepts a nullable value in contrast to `toBe` which only accepts `null` in case of a nullable subject. 
+Following an example for `toBeNullable`:
+```kotlin
+fun myFun(i: Int) = if (i > 0) i.toString() else null
+
+assert("calling myFun with ...") {
+    mapOf(
+        Int.MIN_VALUE to null,
+        -1 to null, 
+        0 to null, 
+        1 to "1", 
+        2 to "2", 
+        Int.MAX_VALUE to Int.MAX_VALUE.toString()
+    ).forEach { arg, result ->
+        returnValueOf(::myFun, arg).toBeNullable(result)
+    }
+}
+
+    // assert: "calling myFun with ..."        <472654579>
+    // ◆ ▶ myFun(-2147483648): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)        
+    //       » to be: "min"        <1282788025>
+    // ◆ ▶ myFun(0): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //       » to be: "zero"        <519569038>
+    // ◆ ▶ myFun(2147483647): "2147483647"        <97730845>
+    //     ◾ to be: "max"        <611437735>
+```
+in the above case `toBeNullable` is short for `if (result == null) toBe(null) else notToBeNullBut(result)`.
+
+Similarly you can use `toBeNullIfNullElse` to perfom more complicated assertions in case you expect the result not to be null.
+It is short for `if (result == null) toBe(null) else notToBeNull(assertionCreator)`. 
+Following another fictional example reusing `myFun` from above:
+```kotlin
+assert("calling myFun with ...") {
+    mapOf(
+        Int.MIN_VALUE to subAssert<String> { contains("min") },
+        -1 to null,
+        0 to null,
+        1 to subAssert { toBe("1") },
+        2 to subAssert { endsWith("2") },
+        Int.MAX_VALUE to  subAssert { toBe("max") }
+    ).forEach { arg, assertionCreatorOrNull ->
+        returnValueOf(::myFun, arg).toBeNullIfNullElse(assertionCreatorOrNull)
+    }
+}
+
+    // assert: "calling myFun with ..."        <1989972246>
+    // ◆ ▶ myFun(-2147483648): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //         ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to kotlin.String failed.
+    // Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions
+    // ◆ ▶ myFun(0): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //       » starts with: "zero"        <1543727556>
+    // ◆ ▶ myFun(2147483647): "2147483647"        <401424608>
+    //     ◾ to be: "max"        <1348949648>
+``` 
+
+Last but not least, if you deal with a container type such as `Iterable`/`Collection`/`Map` and have a nullable entry type 
 (e.g. `Iterable<String?>`) then in most cases you find a function which has `Nullable` as suffix and allows to pass 
 `null`.
 For instance:
@@ -306,7 +364,9 @@ For instance:
 assert(listOf("a", null)).containsNullableValues("a", null)
 ```
 
-You might want to have a look at the [Java Interoperability](#java-interoperability) section if you have to deal with nullable types due to Java code.
+<details>
+<summary>:information_source: dealing a lot with nullable types from Java...</summary>
+... in this case I recommend to have a look at the [Java Interoperability](#java-interoperability) section.
 
 </details>
  
@@ -342,7 +402,7 @@ Notice `message` in the
 is a shortcut for `property(subject::message).notToBeNull { ... }`, which creates a property assertion (see next section) 
 about `Throwable::message`.  
 
-There is also the counterpart to `toThrow` named `noToThrow`:
+There is also the counterpart to `toThrow` named `notToThrow`:
 ```kotlin
 assert {
     //this block does something but eventually...
@@ -910,6 +970,29 @@ That is also the reason why the call of `myFun(2)` is not listed (as the result 
 
 Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 if you want to see a summary instead -- I happily add more functionality if it is of use for someone.
+
+Following another example which involves an assertion creator lambda and not only a simple `toBe` check. 
+We are going to reuse the `myFun` from above
+```kotlin
+assert("calling myFun with ...") {
+    mapOf(
+        1 to subAssert<Char> { isLessThan('f') },
+        2 to subAssert { toBe('c') } ,
+        3 to subAssert { isGreaterThan('e') }
+    ).forEach { (arg, assertionCreator) ->
+        returnValueOf(::myFun, arg, assertionCreator)
+    }
+}
+    
+    // assert: "calling myFun with ..."        <537548559>
+    // ◆ ▶ myFun(3): 'd'
+    //     ◾ is greater than: 'e'
+```
+The example should be self explanatory.
+One detail to note though is the usage of `subAssert`. 
+It is helper function which circumvents certain [Kotlin type inference bugs](#kotlin-bugs) (upvote them please).
+Writing the same as `mapOf<Int, Assert<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
+involved in a Pair is not inferred correctly.
 
 ## Further Examples
 
