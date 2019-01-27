@@ -826,8 +826,8 @@ assert(mapOf("a" to 1, "b" to 2)).contains(
 In most cases, Atrium provides a separate function with `Nullable` as suffix 
 if the value type of the `Map` is nullable. For instance:
 ```kotlin
-assert(mapOf("a" to null, null to null, "b" to 1)).containsNullable(
-    null to 1, "a" to 1, "b" to 1
+assert(mapOf("a" to null, null to null, "b" to null, "c" to 1)).containsNullable(
+    null to 1, "a" to null, "b" to 1, "c" to 1
 )
 
     // assert: {a=null, null=null, b=1}        (java.util.LinkedHashMap <503938393>)
@@ -835,10 +835,41 @@ assert(mapOf("a" to null, null to null, "b" to 1)).containsNullable(
     //   ⚬ ▶ entry null: null
     //       ◾ is type or sub-type of: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
     //         » to be: 1        (kotlin.Int <970865974>)
-    //   ⚬ ▶ entry "a": null
+    //   ⚬ ▶ entry "b": null
     //       ◾ is type or sub-type of: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
     //         » to be: 1        (kotlin.Int <970865974>)
 ```
+
+In case you want to postulate an assertion about a value of one particular key, then you can use `getExisting`.
+For instance:
+```kotlin
+data class Person(
+    val firstName: String,
+    val lastName: String,
+    val age: Int,
+    val children: Collection<Person>
+    // ...  and others 
+)
+val bernstein = Person("Leonard", "Bernstein", 50, children=listOf(/*...*/))
+
+assert(mapOf("bernstein" to bernstein))
+    .getExisting("bernstein") { 
+        property(subject::firstName).toBe("Leonard")
+        property(subject::age).toBe(60) 
+    }
+    .getExisting("einstein") { 
+        property(subject::firstName).toBe("Albert") 
+    }
+    
+    // assert: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])}        (java.util.Collections.SingletonMap <1389647288>)
+    // ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])        (Person <12209492>)
+    //     ◾ ▶ age: 50        (kotlin.Int <314337396>)
+    //         ◾ to be: 60        (kotlin.Int <232824863>)
+    // ◆ ▶ get("einstein"): ❗❗ key does not exist
+    //         ❗❗ Could not evaluate the defined assertion(s) -- given key does not exist.
+    // Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions
+```
+
 
 In case you want to make an assertion only about the keys or values of the `Map` then you can use `keys` or `values`:
 ```kotlin
@@ -894,35 +925,6 @@ assert(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
 ```
 `isKeyValue` as well as `key {}` and `value {}` are assertion functions defined for `Map.Entry<K, V>`.
 
-In case you want to postulate an assertion about a value of one particular key, then you can use `getExisting`.
-For instance:
-```kotlin
-data class Person(
-    val firstName: String,
-    val lastName: String,
-    val age: Int,
-    val children: Collection<Person>
-    // ...  and others 
-)
-val bernstein = Person("Leonard", "Bernstein", 50, children=listOf(/*...*/))
-
-assert(mapOf("bernstein" to bernstein))
-    .getExisting("bernstein") { 
-        property(subject::firstName).toBe("Leonard")
-        property(subject::age).toBe(60) 
-    }
-    .getExisting("einstein") { 
-        property(subject::firstName).toBe("Albert") 
-    }
-    
-    // assert: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])}        (java.util.Collections.SingletonMap <1389647288>)
-    // ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])        (Person <12209492>)
-    //     ◾ ▶ age: 50        (kotlin.Int <314337396>)
-    //         ◾ to be: 60        (kotlin.Int <232824863>)
-    // ◆ ▶ get("einstein"): ❗❗ key does not exist
-    //         ❗❗ Could not evaluate the defined assertion(s) -- given key does not exist.
-    // Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions
-```
 
 Following a non-exhaustive list of further functions: `containsKey`/`containsNotKey`, `isEmpty`, `hasSize` ...  
 More examples are given at [apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md)
