@@ -14,7 +14,11 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
 expect class AtriumError internal constructor(message: String) : AssertionError {
 
     companion object {
-        fun create(message: String, errorAdjuster: AtriumErrorAdjuster): AtriumError
+        /**
+         * Creates an [AtriumError] and adjusts it with the given [atriumErrorAdjuster] before it is returned.
+         * @return The newly created [AtriumError]
+         */
+        fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError
     }
 }
 

@@ -2,8 +2,8 @@
 
 package ch.tutteli.atrium.domain.builders.utils
 
-import ch.tutteli.atrium.core.polyfills.JvmName
 import kotlin.reflect.*
+import kotlin.jvm.JvmName
 
 
 /**

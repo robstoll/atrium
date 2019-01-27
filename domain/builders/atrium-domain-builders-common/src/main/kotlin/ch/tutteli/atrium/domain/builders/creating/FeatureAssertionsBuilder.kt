@@ -1,7 +1,6 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -11,6 +10,7 @@ import ch.tutteli.atrium.domain.creating.featureAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.*
+import kotlin.jvm.JvmName
 
 /**
  * Delegates inter alia to the implementation of [FeatureAssertions].

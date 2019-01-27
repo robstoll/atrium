@@ -3,13 +3,13 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.Reporter
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] is (equal to) [expected].

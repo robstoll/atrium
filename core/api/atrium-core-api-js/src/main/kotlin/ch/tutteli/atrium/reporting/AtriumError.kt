@@ -15,11 +15,14 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
 
     actual companion object {
         /**
-         * Creates an [AtriumError] and might filter the `stack`.
+         * Creates an [AtriumError] and adjusts it with the given [atriumErrorAdjuster] before it is returned
+         * (this might filter the `stack`).
          *
          * As side notice, `stack` is a property of Error which is currently not visible in Kotlin.
+         *
+         * @return The newly created [AtriumError]
          */
-        actual fun create(message: String, errorAdjuster: AtriumErrorAdjuster): AtriumError
-            = createAtriumError(message, errorAdjuster)
+        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError
+            = createAtriumError(message, atriumErrorAdjuster)
     }
 }

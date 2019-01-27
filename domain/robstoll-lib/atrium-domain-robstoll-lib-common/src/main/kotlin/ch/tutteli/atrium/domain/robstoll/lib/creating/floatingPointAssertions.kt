@@ -5,8 +5,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
-import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -15,6 +13,8 @@ import ch.tutteli.atrium.domain.builders.assertions.builders.withFailureHint
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion.*
 import kotlin.math.absoluteValue
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float): Assertion
     = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance) { (plant.subject - expected).absoluteValue }

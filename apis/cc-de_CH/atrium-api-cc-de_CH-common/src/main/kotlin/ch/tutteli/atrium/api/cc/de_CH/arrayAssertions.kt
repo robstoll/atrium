@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import kotlin.jvm.JvmName
 
 /**
  * Turns `Assert<Array<E>>` into `Assert<Iterable<E>>`.
