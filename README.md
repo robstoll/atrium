@@ -41,6 +41,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
     - [Shortcut Functions](#shortcut-functions)
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders)
   - [Map Assertions](#map-assertions)    
+  - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)  
 - [How is Atrium different from other Assertion Libraries](#how-is-atrium-different-from-other-assertion-libraries)
 - [Write own Assertion Functions](#write-own-assertion-functions)
@@ -869,6 +870,46 @@ More examples are given at [apis/differences.md](https://github.com/robstoll/atr
 And in case you should miss an assertion function, then please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 For instance, you might want to upvote [containsInAnyOrderOnly](https://github.com/robstoll/atrium/issues/68)
 in case you want this shortcut function as well.
+
+## Data Driven Testing
+
+Atrium is not intended for data driven testing in the narrowed sense in terms that it cannot produce multiple tests.
+This is the responsibility of your test runner.
+However, Atrium let you define multiple assertions within one test and reports them all if you want.
+In this sense it can be used for data driven testing.
+This is especially helpful in case your test runner does not support data driven testing (or other mechanisms like hierarchical or dynamic tests).
+As an example, Atrium can help you writing data driven tests in a common module of a multi-platform-project.
+
+The trick is to wrap your assertions into an [assertion group block](#define-single-assertions-or-assertion-groups)
+and create [Method Assertions](#method-assertions). Following an example:
+
+```kotlin
+fun myFun(i: Int) = (i + 97).toChar()
+
+@Test
+fun myFun_happyCases() {
+    assert("calling myFun with...") {
+        mapOf(
+            1 to 'a',
+            2 to 'c',
+            3 to 'e'
+        ).forEach { (arg, result) ->
+            returnValueOf(::myFun, arg).toBe(result)
+        }
+    }
+}
+
+    // assert: "calling myFun with..."        <1608446010>
+    // ◆ ▶ myFun(1): 'b'
+    //     ◾ to be: 'a'
+    // ◆ ▶ myFun(3): 'd'
+    //     ◾ to be: 'e'
+```
+Depending on the chosen [reporting style](#reporterbuilder) it will only show the failing cases (default behaviour).
+That is also the reason why the call of `myFun(2)` is not listed (as the result is `c` as expected).
+
+Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
+if you want to see a summary instead -- I happily add more functionality if it is of use for someone.
 
 ## Further Examples
 

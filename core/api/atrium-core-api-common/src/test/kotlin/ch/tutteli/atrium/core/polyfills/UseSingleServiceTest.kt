@@ -30,11 +30,7 @@ class UseSingleServiceTest {
     @Test
     fun twoServiceFound_ReturnsTheService() {
         expect {
-            useSingleService(
-                InterfaceWithTwoImplementation::class, listOf(
-                    Service1(),
-                    Service2()
-                ).iterator())
+            useSingleService(InterfaceWithTwoImplementation::class, listOf(Service1(), Service2()).iterator())
         }.toThrow<IllegalStateException> {
             this messageContains Values(
                 "Found more than one implementation ",
