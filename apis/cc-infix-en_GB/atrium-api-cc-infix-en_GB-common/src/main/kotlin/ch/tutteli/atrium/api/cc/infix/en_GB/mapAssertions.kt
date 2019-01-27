@@ -17,7 +17,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>)
+infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>)
     = this contains Pairs(keyValuePair)
 
 /**
@@ -31,7 +31,7 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>)
+infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePairs.toList()))
 
 /**
@@ -43,7 +43,7 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValuePair: Pair<K, V?>)
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValuePair: Pair<K, V?>)
     = this containsNullable Pairs(keyValuePair)
 
 /**
@@ -53,7 +53,7 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValuePairs: Pairs<K, V?>)
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValuePairs: Pairs<K, V?>)
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyValuePairs.toList()))
 
 /**
@@ -63,7 +63,7 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>)
+infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>)
     = contains(All(keyValue))
 
 /**
@@ -78,7 +78,7 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
+infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList().map { it.toPair() }))
 
 /**
@@ -90,7 +90,7 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValues: All<KeyValue<
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>)
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>)
     = containsNullable(All(keyValue))
 
 /**
@@ -106,7 +106,7 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValues: All<KeyNullableValue<K, V>>)
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValues: All<KeyNullableValue<K, V>>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList().map { it.toPair() }))
 
 /**
@@ -115,7 +115,7 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K> Assert<Map<K, *>>.containsKey(key: K)
+infix fun <K> Assert<Map<out K, *>>.containsKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
@@ -124,7 +124,7 @@ infix fun <K> Assert<Map<K, *>>.containsKey(key: K)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
+infix fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 
@@ -136,7 +136,7 @@ infix fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K)
+infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K)
     = AssertImpl.map.getExisting(this, key)
 
 /**
@@ -144,7 +144,7 @@ infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K)
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: Key<K>): MapGetOption<K, V, T>
+infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: Key<K>): MapGetOption<K, V, T>
     = MapGetOption.create(this, key.key)
 
 /**
@@ -154,7 +154,7 @@ infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: Key<K>): MapGetOp
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K)
+infix fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: K)
     = AssertImpl.map.getExistingNullable(this, key)
 
 /**
@@ -165,7 +165,7 @@ infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K)
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: Key<K>): MapGetNullableOption<K, V, T>
+infix fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: Key<K>): MapGetNullableOption<K, V, T>
     = MapGetNullableOption.create(this, key.key)
 
 
@@ -207,7 +207,7 @@ infix fun <T : Map<*, *>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty:
  *
  * @return The newly created [AssertionPlant].
  */
-val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::keys)
+val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out K, V>::keys)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [keys][Map.keys] holds all assertions the given
@@ -217,7 +217,7 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-infix fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
+infix fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
@@ -229,7 +229,7 @@ infix fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.(
  *
  * @return The newly created [AssertionPlant].
  */
-val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map<K, V>::values)
+val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property(Map<out K, V>::values)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [values][Map.values] holds all assertions the given
@@ -239,22 +239,22 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-infix fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
+infix fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
- * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
+ * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
  *
  * The transformation as such is not reflected in reporting.
  * Use `property(subject::entries)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
+fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
 
 /**
- * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
+ * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
  * [assertionCreator] might create hold.
  *
  * The transformation as such is not reflected in reporting.
@@ -262,5 +262,5 @@ fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-infix fun <K, V> Assert<Map<K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
+infix fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
     = asEntries().addAssertionsCreatedBy(assertionCreator)

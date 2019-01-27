@@ -19,7 +19,7 @@ import ch.tutteli.kbox.glue
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
+fun <K, V : Any, T: Map<out K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, entry glue otherEntries))
 
 /**
@@ -34,7 +34,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg othe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.enthaeltNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, entry glue otherEntries))
 
 /**
@@ -49,7 +49,7 @@ inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(entry: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
+fun <K, V : Any, T: Map<out K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
@@ -66,7 +66,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, vara
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
+inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.enthaeltNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 
@@ -76,7 +76,7 @@ inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(keyVal
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K> Assert<Map<K, *>>.enthaeltKey(key: K)
+fun <K> Assert<Map<out K, *>>.enthaeltKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
@@ -85,7 +85,7 @@ fun <K> Assert<Map<K, *>>.enthaeltKey(key: K)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K> Assert<Map<K, *>>.enthaeltNichtKey(key: K)
+fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 
@@ -97,7 +97,7 @@ fun <K> Assert<Map<K, *>>.enthaeltNichtKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K): Assert<V>
+fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
 
 /**
@@ -109,7 +109,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K): Assert<V>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
+fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
 
@@ -120,7 +120,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K, assertionCreator:
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-fun <K, V, T: Map<K, V>> Assert<T>.getExistierendNullable(key: K)
+fun <K, V, T: Map<out K, V>> Assert<T>.getExistierendNullable(key: K)
     = AssertImpl.map.getExistingNullable(this, key)
 
 /**
@@ -135,7 +135,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.getExistierendNullable(key: K)
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V, T: Map<K, V>> Assert<T>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
+fun <K, V, T: Map<out K, V>> Assert<T>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
 
 
@@ -176,7 +176,7 @@ fun <T : Map<*, *>> Assert<T>.istNichtLeer()
  *
  * @return The newly created [AssertionPlant].
  */
-val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::keys)
+val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out K, V>::keys)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [keys][Map.keys] holds all assertions the given
@@ -186,7 +186,7 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
+fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
@@ -198,7 +198,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
  *
  * @return The newly created [AssertionPlant].
  */
-val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map<K, V>::values)
+val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property(Map<out K, V>::values)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [values][Map.values] holds all assertions the given
@@ -208,22 +208,22 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
+fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
- * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
+ * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
  *
  * The transformation as such is not reflected in reporting.
  * Use `property(subject::entries)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
+fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
 
 /**
- * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
+ * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
  * [assertionCreator] might create hold.
  *
  * The transformation as such is not reflected in reporting.
@@ -231,5 +231,5 @@ fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-fun <K, V> Assert<Map<K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
+fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
     = asEntries().addAssertionsCreatedBy(assertionCreator)

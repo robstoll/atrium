@@ -14,11 +14,11 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import kotlin.reflect.KClass
 
-fun <K, V : Any> _contains(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion
+fun <K, V : Any> _contains(plant: AssertionPlant<Map<out K, V>>, pairs: List<Pair<K, V>>): Assertion
     = containsNonNullable(plant, pairs) { value -> toBe(value) }
 
 fun <K, V : Any> _containsNullable(
-    plant: AssertionPlant<Map<K, V?>>,
+    plant: AssertionPlant<Map<out K, V?>>,
     type: KClass<V>,
     pairs: List<Pair<K, V?>>
 ): Assertion = containsNullable(plant, pairs) { value ->
@@ -26,12 +26,12 @@ fun <K, V : Any> _containsNullable(
 }
 
 fun <K, V : Any> _containsKeyWithValueAssertion(
-    plant: AssertionPlant<Map<K, V>>,
+    plant: AssertionPlant<Map<out K, V>>,
     keyValues: List<Pair<K, Assert<V>.() -> Unit>>
 ): Assertion = containsNonNullable(plant, keyValues.map { it }) { assertionCreator -> assertionCreator() }
 
 fun <K, V : Any> _containsKeyWithNullableValueAssertions(
-    plant: AssertionPlant<Map<K, V?>>,
+    plant: AssertionPlant<Map<out K, V?>>,
     type: KClass<V>,
     keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
 ): Assertion = containsNullable(plant, keyValues.map{ it }) { assertionCreator ->
@@ -39,7 +39,7 @@ fun <K, V : Any> _containsKeyWithNullableValueAssertions(
 }
 
 private fun <K, V : Any, M> containsNonNullable(
-    plant: AssertionPlant<Map<K, V>>,
+    plant: AssertionPlant<Map<out K, V>>,
     pairs: List<Pair<K, M>>,
     assertionCreator: AssertionPlant<V>.(M) -> Unit
 ) = contains(
@@ -49,7 +49,7 @@ private fun <K, V : Any, M> containsNonNullable(
 )
 
 private fun <K, V : Any, M> containsNullable(
-    plant: AssertionPlant<Map<K, V?>>,
+    plant: AssertionPlant<Map<out K, V?>>,
     pairs: List<Pair<K, M>>,
     assertionCreator: AssertionPlantNullable<V?>.(M) -> Unit
 ) = contains(
@@ -60,7 +60,7 @@ private fun <K, V : Any, M> containsNullable(
 
 private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
     pairs: List<Pair<K, M>>,
-    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.CreatorLike<Map<K, V>, V, A, C>,
+    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.CreatorLike<Map<out K, V>, V, A, C>,
     assertionCreator: C.(M) -> Unit
 ): Assertion =  LazyThreadUnsafeAssertionGroup {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
@@ -80,33 +80,33 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
 }
 
 
-fun <K> _containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
+fun <K> _containsKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_KEY, key) { plant.subject.containsKey(key) }
 
-fun <K> _containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
+fun <K> _containsNotKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_NOT_KEY, key) { plant.subject.containsKey(key).not()  }
 
 
-fun <K, V : Any> _getExisting(plant: AssertionPlant<Map<K, V>>, key: K): AssertionPlant<V>
+fun <K, V : Any> _getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V>
     = extractorForGetCall(key)
         .withParameterObject(createGetParameterObject(plant, key))
         .extract()
 
 fun <K, V : Any> _getExisting(
-    plant: AssertionPlant<Map<K, V>>,
+    plant: AssertionPlant<Map<out K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlant<V>.() -> Unit
 ): Assertion = extractorForGetCall(key)
     .withParameterObject(createGetParameterObject(plant, key))
     .extractAndAssertIt(assertionCreator)
 
-fun <K, V> _getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K): AssertionPlantNullable<V>
+fun <K, V> _getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlantNullable<V>
     = extractorForGetCall(key)
         .withParameterObjectNullable(createGetParameterObject(plant, key))
         .extract()
 
 fun <K, V> _getExistingNullable(
-    plant: AssertionPlant<Map<K, V>>,
+    plant: AssertionPlant<Map<out K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlantNullable<V>.() -> Unit
 ): Assertion = extractorForGetCall(key)
@@ -117,9 +117,9 @@ fun <K, V> _getExistingNullable(
 private fun <K> extractorForGetCall(key: K) = AssertImpl.feature.extractor.methodCall("get", key)
 
 private fun <K, V> createGetParameterObject(
-    plant: AssertionPlant<Map<K, V>>,
+    plant: AssertionPlant<Map<out K, V>>,
     key: K
-): FeatureExtractor.ParameterObject<Map<K, V>, V> = FeatureExtractor.ParameterObject(
+): FeatureExtractor.ParameterObject<Map<out K, V>, V> = FeatureExtractor.ParameterObject(
     plant,
     extractionNotSuccessful = DescriptionMapAssertion.KEY_DOES_NOT_EXIST,
     warningCannotEvaluate = DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
@@ -140,9 +140,9 @@ fun _isEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
 fun _isNotEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { plant.subject.isNotEmpty() }
 
-fun <K> _keys(plant: AssertionPlant<Map<K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+fun <K> _keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
-    = AssertImpl.collector.collect(plant) { property(Map<K, *>::keys, assertionCreator) }
+    = AssertImpl.collector.collect(plant) { property(Map<out K, *>::keys, assertionCreator) }
 
 fun <V> _values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy

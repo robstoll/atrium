@@ -13,14 +13,14 @@ import org.jetbrains.spek.api.include
 
 abstract class MapAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, Assert<Map<String, Int>>.(Pair<String, Int>, Array<out Pair<String, Int>>) -> Assert<Map<String, Int>>>,
-    containsNullablePair: Pair<String, Assert<Map<String?, Int?>>.(Pair<String?, Int?>, Array<out Pair<String?, Int?>>) -> Assert<Map<String?, Int?>>>,
-    containsKeyWithValueAssertionsPair: Pair<String, Assert<Map<String, Int>>.(Pair<String, Assert<Int>.() -> Unit>, Array<out Pair<String, Assert<Int>.() -> Unit>>) -> Assert<Map<String, Int>>>,
-    containsKeyWithNullableValueAssertionsPair: Pair<String, Assert<Map<String?, Int?>>.(Pair<String?, (Assert<Int>.() -> Unit)?>, Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>) -> Assert<Map<String?, Int?>>>,
-    containsKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
-    containsNullableKeyPair: Pair<String, Assert<Map<String?, *>>.(String?) -> Assert<Map<String?, *>>>,
-    containsNotKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
-    containsNotNullableKeyPair: Pair<String, Assert<Map<String?, *>>.(String?) -> Assert<Map<String?, *>>>,
+    containsPair: Pair<String, Assert<Map<out String, Int>>.(Pair<String, Int>, Array<out Pair<String, Int>>) -> Assert<Map<out String, Int>>>,
+    containsNullablePair: Pair<String, Assert<Map<out String?, Int?>>.(Pair<String?, Int?>, Array<out Pair<String?, Int?>>) -> Assert<Map<out String?, Int?>>>,
+    containsKeyWithValueAssertionsPair: Pair<String, Assert<Map<out String, Int>>.(Pair<String, Assert<Int>.() -> Unit>, Array<out Pair<String, Assert<Int>.() -> Unit>>) -> Assert<Map<out String, Int>>>,
+    containsKeyWithNullableValueAssertionsPair: Pair<String, Assert<Map<out String?, Int?>>.(Pair<String?, (Assert<Int>.() -> Unit)?>, Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>) -> Assert<Map<out String?, Int?>>>,
+    containsKeyPair: Pair<String, Assert<Map<out String, *>>.(String) -> Assert<Map<*, *>>>,
+    containsNullableKeyPair: Pair<String, Assert<Map<out String?, *>>.(String?) -> Assert<Map<out String?, *>>>,
+    containsNotKeyPair: Pair<String, Assert<Map<out String, *>>.(String) -> Assert<Map<*, *>>>,
+    containsNotNullableKeyPair: Pair<String, Assert<Map<out String?, *>>.(String?) -> Assert<Map<out String?, *>>>,
     hasSizePair: Pair<String, Assert<Map<*, *>>.(Int) -> Assert<Map<*, *>>>,
     isEmptyPair: Pair<String, Assert<Map<*, *>>.() -> Assert<Map<*, *>>>,
     isNotEmptyPair: Pair<String, Assert<Map<*, *>>.() -> Assert<Map<*, *>>>,
@@ -33,7 +33,7 @@ abstract class MapAssertionsSpec(
     fun keyNullableValue(key: String?, assertionCreator: (Assert<Int>.() -> Unit)?): Pair<String?, (Assert<Int>.() -> Unit)?>
         = key to assertionCreator
 
-    include(object : SubjectLessAssertionSpec<Map<String, Int>>(describePrefix,
+    include(object : SubjectLessAssertionSpec<Map<out String, Int>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, "key" to 1, arrayOf()) },
         containsKeyWithValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithValueAssertionsPair.second(this, keyValue("a") { toBe(1) }, arrayOf(keyValue("a") { isLessOrEquals(2) })) },
         containsKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
@@ -42,7 +42,7 @@ abstract class MapAssertionsSpec(
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
-    include(object : SubjectLessAssertionSpec<Map<String?, Int?>>("$describePrefix[nullable Key] ",
+    include(object : SubjectLessAssertionSpec<Map<out String?, Int?>>("$describePrefix[nullable Key] ",
         containsNullablePair.first to mapToCreateAssertion{ containsNullablePair.second(this, null to 1, arrayOf("a" to null)) },
         containsKeyWithNullableValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithNullableValueAssertionsPair.second(this, keyNullableValue(null) { toBe(1) }, arrayOf(keyNullableValue("a", null))) },
         containsNullableKeyPair.first to mapToCreateAssertion{ containsNullableKeyPair.second(this, null) },
@@ -83,7 +83,7 @@ abstract class MapAssertionsSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Map<String, Int>) -> Assert<Map<String, Int>> = verbs::checkImmediately
+    val assert: (Map<out String, Int>) -> Assert<Map<out String, Int>> = verbs::checkImmediately
     val expect = verbs::checkException
     val map = mapOf("a" to 1, "b" to 2)
     val fluent = assert(map)

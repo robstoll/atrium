@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  * @param V the value type of the [Map].
  * @param T A subtype of [Map].
  */
-interface MapGetNullableOption<K, V, T: Map<K, V>> {
+interface MapGetNullableOption<K, V, T: Map<out K, V>> {
     /**
      * The [AssertionPlant] for which this assertion is created
      */
@@ -40,7 +40,7 @@ interface MapGetNullableOption<K, V, T: Map<K, V>> {
     infix fun assertIt(assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<T>
 
     companion object {
-        fun <K, V, T: Map<K, V>> create(plant: Assert<T>, key: K): MapGetNullableOption<K, V, T>
+        fun <K, V, T: Map<out K, V>> create(plant: Assert<T>, key: K): MapGetNullableOption<K, V, T>
             = MapGetNullableOptionImpl(plant, key)
     }
 }

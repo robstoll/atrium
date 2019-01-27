@@ -20,21 +20,21 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
-    fun <K, V: Any> contains(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
-    fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
-    fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<K, V>>, keyValues: List<Pair<K, Assert<V>.() -> Unit>>): Assertion
-    fun <K, V: Any> containsKeyWithNullableValueAssertions(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>): Assertion
-    fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
-    fun <K> containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
+    fun <K, V: Any> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
+    fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<out K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
+    fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<out K, V>>, keyValues: List<Pair<K, Assert<V>.() -> Unit>>): Assertion
+    fun <K, V: Any> containsKeyWithNullableValueAssertions(plant: AssertionPlant<Map<out K, V?>>, type: KClass<V>, keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>): Assertion
+    fun <K> containsKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
+    fun <K> containsNotKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
 
-    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K): AssertionPlant<V>
-    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
-    fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K): AssertionPlantNullable<V>
-    fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
+    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V>
+    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
+    fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlantNullable<V>
+    fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
 
     fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
     fun isEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
     fun isNotEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
-    fun <K> keys(plant: AssertionPlant<Map<K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+    fun <K> keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
     fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
 }

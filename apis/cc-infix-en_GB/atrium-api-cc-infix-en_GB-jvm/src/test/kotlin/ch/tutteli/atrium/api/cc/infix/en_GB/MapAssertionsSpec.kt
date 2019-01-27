@@ -12,17 +12,17 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     containsNullableFun.name to Companion::containsNullable,
     "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyWithValueAssertions,
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyNullableValue::class.simpleName}" to Companion::containsKeyWithNullableValueAssertions,
-    Assert<Map<String, Int>>::containsKey.name to Companion::containsKey,
-    "${Assert<Map<String?, *>>::containsKey.name} for nullable" to Companion::containsNullableKey,
-    Assert<Map<String, Int>>::containsNotKey.name to Companion::containsNotKey,
-    "${Assert<Map<String?, *>>::containsNotKey.name} for nullable" to Companion::containsNotNullableKey,
+    Assert<Map<out String, Int>>::containsKey.name to Companion::containsKey,
+    "${Assert<Map<out String?, *>>::containsKey.name} for nullable" to Companion::containsNullableKey,
+    Assert<Map<out String, Int>>::containsNotKey.name to Companion::containsNotKey,
+    "${Assert<Map<out String?, *>>::containsNotKey.name} for nullable" to Companion::containsNotNullableKey,
     Assert<Map<*, *>>::hasSize.name to Companion::hasSize,
     "${Assert<Map<*, *>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
     "${Assert<Map<*, *>>::notToBe.name} ${Empty::class.simpleName}" to Companion::isNotEmpty
 ) {
     companion object {
-        private val containsFun : KFunction2<Assert<Map<String, Int>>, Pair<String, Int>, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::contains
-        private fun contains(plant: Assert<Map<String, Int>>, pair: Pair<String, Int>, otherPairs: Array<out Pair<String, Int>>): Assert<Map<String, Int>> {
+        private val containsFun : KFunction2<Assert<Map<out String, Int>>, Pair<String, Int>, Assert<Map<out String, Int>>> = Assert<Map<out String, Int>>::contains
+        private fun contains(plant: Assert<Map<out String, Int>>, pair: Pair<String, Int>, otherPairs: Array<out Pair<String, Int>>): Assert<Map<out String, Int>> {
             return if (otherPairs.isEmpty()) {
                 plant contains (pair.first to pair.second)
             } else {
@@ -30,8 +30,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsNullableFun : KFunction2<Assert<Map<String?, Int?>>, Pair<String?, Int?>,Assert<Map<String?, Int?>>> = Assert<Map<String?, Int?>>::containsNullable
-        private fun containsNullable(plant: Assert<Map<String?, Int?>>, pair: Pair<String?, Int?>, otherPairs: Array<out Pair<String?, Int?>>): Assert<Map<String?, Int?>> {
+        private val containsNullableFun : KFunction2<Assert<Map<out String?, Int?>>, Pair<String?, Int?>,Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::containsNullable
+        private fun containsNullable(plant: Assert<Map<out String?, Int?>>, pair: Pair<String?, Int?>, otherPairs: Array<out Pair<String?, Int?>>): Assert<Map<out String?, Int?>> {
             return if (otherPairs.isEmpty()) {
                 plant containsNullable (pair.first to pair.second)
             } else {
@@ -39,8 +39,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<String, Int>>, KeyValue<String, Int>, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::contains
-        private fun containsKeyWithValueAssertions(plant: Assert<Map<String, Int>>, keyValue: Pair<String, Assert<Int>.() -> Unit>, otherKeyValues: Array<out Pair<String, Assert<Int>.() -> Unit>>) : Assert<Map<String, Int>> {
+        private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<out String, Int>>, KeyValue<String, Int>, Assert<Map<out String, Int>>> = Assert<Map<out String, Int>>::contains
+        private fun containsKeyWithValueAssertions(plant: Assert<Map<out String, Int>>, keyValue: Pair<String, Assert<Int>.() -> Unit>, otherKeyValues: Array<out Pair<String, Assert<Int>.() -> Unit>>) : Assert<Map<out String, Int>> {
             return if (otherKeyValues.isEmpty()) {
                 plant contains KeyValue(keyValue.first, keyValue.second)
             } else {
@@ -50,8 +50,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<String?, Int?>>, KeyNullableValue<String, Int>, Assert<Map<String?, Int?>>> = Assert<Map<String?, Int?>>::containsNullable
-        private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<String?, Int?>>, keyValue: Pair<String?, (Assert<Int>.() -> Unit)?>, otherKeyValues: Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>): Assert<Map<String?, Int?>> {
+        private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<out String?, Int?>>, KeyNullableValue<String, Int>, Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::containsNullable
+        private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<out String?, Int?>>, keyValue: Pair<String?, (Assert<Int>.() -> Unit)?>, otherKeyValues: Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>): Assert<Map<out String?, Int?>> {
             return if (otherKeyValues.isEmpty()) {
                 plant containsNullable KeyNullableValue(keyValue.first, keyValue.second)
             } else {
@@ -61,16 +61,16 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private fun containsKey(plant: Assert<Map<String, *>>, key: String)
+        private fun containsKey(plant: Assert<Map<out String, *>>, key: String)
             = plant containsKey key
 
-        private fun containsNullableKey(plant: Assert<Map<String?, *>>, key: String?)
+        private fun containsNullableKey(plant: Assert<Map<out String?, *>>, key: String?)
             = plant containsKey key
 
-        private fun containsNotKey(plant: Assert<Map<String, *>>, key: String)
+        private fun containsNotKey(plant: Assert<Map<out String, *>>, key: String)
             = plant containsNotKey key
 
-        private fun containsNotNullableKey(plant: Assert<Map<String?, *>>, key: String?)
+        private fun containsNotNullableKey(plant: Assert<Map<out String?, *>>, key: String?)
             = plant containsNotKey key
 
         private fun hasSize(plant: Assert<Map<*, *>>, size: Int)

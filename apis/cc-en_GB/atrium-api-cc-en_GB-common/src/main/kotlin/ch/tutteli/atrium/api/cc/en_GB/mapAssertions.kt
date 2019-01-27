@@ -19,7 +19,7 @@ import ch.tutteli.kbox.glue
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
+fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
 /**
@@ -34,7 +34,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vara
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyNullableValuePair glue otherEntries))
 
 /**
@@ -49,7 +49,7 @@ inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(keyNull
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
+fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
@@ -66,7 +66,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, vara
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
+inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
@@ -75,7 +75,7 @@ inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyVal
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K> Assert<Map<K, *>>.containsKey(key: K)
+fun <K> Assert<Map<out K, *>>.containsKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
@@ -84,7 +84,7 @@ fun <K> Assert<Map<K, *>>.containsKey(key: K)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
+fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 
@@ -96,7 +96,7 @@ fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K)
+fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K)
     = AssertImpl.map.getExisting(this, key)
 
 /**
@@ -108,7 +108,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K)
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K, assertionCreator: Assert<V>.() -> Unit)
+fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
 
@@ -119,7 +119,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K, assertionCreator: As
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-fun <K, V: Any, T: Map<K, V?>> Assert<T>.getExistingNullable(key: K)
+fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExistingNullable(key: K)
     = AssertImpl.map.getExistingNullable(this, key)
 
 /**
@@ -134,7 +134,7 @@ fun <K, V: Any, T: Map<K, V?>> Assert<T>.getExistingNullable(key: K)
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
+fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
 
 
