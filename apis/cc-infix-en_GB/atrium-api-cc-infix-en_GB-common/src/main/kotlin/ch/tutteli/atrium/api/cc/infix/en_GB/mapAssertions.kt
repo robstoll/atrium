@@ -131,7 +131,7 @@ infix fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
- * assertion plant for corresponding value and returns the newly created plant.
+ * assertion plant for the corresponding value and returns the newly created plant.
  *
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
@@ -149,7 +149,7 @@ infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: Key<K>): MapGetOp
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
- * assertion plant for corresponding nullable value and returns the newly created plant.
+ * assertion plant for the corresponding nullable value and returns the newly created plant.
  *
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.

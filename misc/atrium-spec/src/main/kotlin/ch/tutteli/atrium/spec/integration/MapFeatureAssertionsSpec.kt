@@ -31,11 +31,11 @@ abstract class MapFeatureAssertionsSpec(
         "fun ${keysFunPair.first}" to mapToCreateAssertion { keysFunPair.second(this) { isEmpty() } },
         "val ${valuesValPair.first}" to mapToCreateAssertion { valuesValPair.second(this).isEmpty() },
         "fun ${valuesFunPair.first}" to mapToCreateAssertion { valuesFunPair.second(this) { isEmpty() } },
-        "${getExistingPlantPair.first} plant" to mapToCreateAssertion { getExistingPlantPair.second(this, "a" ).isGreaterThan(1) },
+        "${getExistingPlantPair.first} returns plant" to mapToCreateAssertion { getExistingPlantPair.second(this, "a" ).isGreaterThan(1) },
         getExistingPair.first to mapToCreateAssertion { getExistingPair.second(this, "a" ){ isGreaterThan(1) } }
     ){})
     include(object : SubjectLessAssertionSpec<Map<String, Int?>>("$describePrefix[nullable Key] ",
-        "${getExistingNullablePlantPair.first} plant" to mapToCreateAssertion { getExistingNullablePlantPair.second(this, "a" ).toBe(null) },
+        "${getExistingNullablePlantPair.first} returns plant" to mapToCreateAssertion { getExistingNullablePlantPair.second(this, "a" ).toBe(null) },
         getExistingNullablePair.first to mapToCreateAssertion { getExistingNullablePair.second(this, "a" ){ toBe(null) } }
     ) {})
 
@@ -44,7 +44,7 @@ abstract class MapFeatureAssertionsSpec(
         checkingTriple("fun ${keysFunPair.first}", { keysFunPair.second(this) { contains("a").and.hasSize(1) } }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple("val ${valuesValPair.first}", { valuesValPair.second(this).containsExactly(1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple("fun ${valuesFunPair.first}", { valuesFunPair.second(this) { contains(1).hasSize(1) } }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
-        checkingTriple("${getExistingPlantPair.first} plant", { getExistingPlantPair.second(this, "a").isGreaterThan(1) }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2)),
+        checkingTriple("${getExistingPlantPair.first} returns plant", { getExistingPlantPair.second(this, "a").isGreaterThan(1) }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2)),
         checkingTriple(getExistingPair.first, { getExistingPair.second(this, "a") { isGreaterThan(1) } }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2))
     ){})
     include(object : CheckingAssertionSpec<Map<String, Int?>>(verbs, "$describePrefix[nullable Key] ",
@@ -148,14 +148,14 @@ abstract class MapFeatureAssertionsSpec(
         }
     }
 
-    describeFun("$getExistingPlant plant") {
+    describeFun("$getExistingPlant returns plant") {
         context("map $map") {
             test("can perform sub-assertion on existing key") {
                 fluent.getExistingPlantFun("a").toBe(1)
             }
             test("non-existing key throws") {
                 expect {
-                    fluent.getExistingPlantFun("c")
+                    fluent.getExistingPlantFun("c").toBe(1)
                 }.toThrow<AssertionError> {
                     messageContains("get(\"c\"): $keyDoesNotExist")
                 }
@@ -183,7 +183,7 @@ abstract class MapFeatureAssertionsSpec(
         }
     }
 
-    describeFun("$getExistingNullablePlant plant") {
+    describeFun("$getExistingNullablePlant returns plant") {
         context("map $mapNullable") {
             test("can perform sub-assertion on existing key") {
                 fluentNullable.getExistingNullablePlantFun("a").notToBeNullBut(1)
@@ -193,7 +193,7 @@ abstract class MapFeatureAssertionsSpec(
             }
             test("non-existing key throws") {
                 expect {
-                    fluent.getExistingNullablePlantFun("c")
+                    fluent.getExistingNullablePlantFun("c").toBe(null)
                 }.toThrow<AssertionError> {
                     messageContains("get(\"c\"): $keyDoesNotExist")
                 }

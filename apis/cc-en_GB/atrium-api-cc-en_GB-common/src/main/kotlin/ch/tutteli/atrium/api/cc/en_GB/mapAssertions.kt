@@ -91,7 +91,7 @@ fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
- * assertion plant for corresponding value and returns the newly created plant.
+ * assertion plant for the corresponding value and returns the newly created plant.
  *
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
@@ -100,8 +100,8 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K)
     = AssertImpl.map.getExisting(this, key)
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that the corresponding value
- * holds all assertions the given [assertionCreator] might create for it.
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that
+ * the corresponding value holds all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
@@ -114,7 +114,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K, assertionCreator: As
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
- * assertion plant for corresponding nullable value and returns the newly created plant.
+ * assertion plant for the corresponding nullable value and returns the newly created plant.
  *
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
@@ -123,8 +123,8 @@ fun <K, V: Any, T: Map<K, V?>> Assert<T>.getExistingNullable(key: K)
     = AssertImpl.map.getExistingNullable(this, key)
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that the corresponding nullable value
- * holds all assertions the given [assertionCreator] might create for it.
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that
+ * the corresponding nullable value holds all assertions the given [assertionCreator] might create for it.
  *
  * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
  * nullable value type.

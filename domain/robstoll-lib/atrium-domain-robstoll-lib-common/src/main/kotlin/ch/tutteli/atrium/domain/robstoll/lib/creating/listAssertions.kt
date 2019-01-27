@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -10,11 +11,25 @@ import ch.tutteli.atrium.translations.DescriptionListAssertion
 
 fun <T : Any> _get(
     plant: AssertionPlant<List<T>>,
+    index: Int
+): AssertionPlant<T> = extractorForGetCall(index)
+    .withParameterObject(createGetParameterObject(plant, index))
+    .extract()
+
+fun <T : Any> _get(
+    plant: AssertionPlant<List<T>>,
     index: Int,
     assertionCreator: CollectingAssertionPlant<T>.() -> Unit
 ): Assertion = extractorForGetCall(index)
     .withParameterObject(createGetParameterObject(plant, index))
     .extractAndAssertIt(assertionCreator)
+
+fun <T> _getNullable(
+    plant: AssertionPlant<List<T>>,
+    index: Int
+): AssertionPlantNullable<T> = extractorForGetCall(index)
+    .withParameterObjectNullable(createGetParameterObject(plant, index))
+    .extract()
 
 fun <T> _getNullable(
     plant: AssertionPlant<List<T>>,

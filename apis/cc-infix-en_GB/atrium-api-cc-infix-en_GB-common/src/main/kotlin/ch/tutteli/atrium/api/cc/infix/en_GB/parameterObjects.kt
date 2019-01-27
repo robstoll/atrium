@@ -97,7 +97,12 @@ class NullableEntries<in T : Any>(
 }
 
 /**
- * Wrapper for a single key.
+ * Wrapper for a single index -- can be used as distinguishable type for an overload where Int is already in use.
+ */
+data class Index(val index: Int)
+
+/**
+ * Wrapper for a single key -- can be used as distinguishable type for an overload where [K] is already in use.
  */
 data class Key<out K>(val key: K)
 
