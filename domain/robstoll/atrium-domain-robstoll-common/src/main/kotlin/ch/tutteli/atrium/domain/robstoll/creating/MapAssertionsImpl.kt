@@ -39,17 +39,25 @@ class MapAssertionsImpl : MapAssertions {
     override fun <K> containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = _containsNotKey(plant, key)
 
+
+    override fun <K, V : Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K)
+        = _getExisting(plant, key)
+
     override fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<K, V>>,
         key: K,
         assertionCreator: AssertionPlant<V>.() -> Unit
     ) = _getExisting(plant, key, assertionCreator)
 
+    override fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K)
+        = _getExistingNullable(plant, key)
+
     override fun <K, V> getExistingNullable(
         plant: AssertionPlant<Map<K, V>>,
         key: K,
         assertionCreator: AssertionPlantNullable<V>.() -> Unit
     ) = _getExistingNullable(plant, key, assertionCreator)
+
 
     override fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int)
         = _hasSize(plant, size)
@@ -65,5 +73,7 @@ class MapAssertionsImpl : MapAssertions {
 
     override fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
         = _values(plant, assertionCreator)
+
+
 
 }

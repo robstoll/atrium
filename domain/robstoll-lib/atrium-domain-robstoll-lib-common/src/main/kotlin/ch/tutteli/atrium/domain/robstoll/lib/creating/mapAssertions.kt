@@ -60,7 +60,7 @@ private fun <K, V : Any, M> containsNullable(
 
 private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
     pairs: List<Pair<K, M>>,
-    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.Creator<V, A, C>,
+    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.CreatorLike<Map<K, V>, V, A, C>,
     assertionCreator: C.(M) -> Unit
 ): Assertion =  LazyThreadUnsafeAssertionGroup {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
@@ -86,6 +86,12 @@ fun <K> _containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
 fun <K> _containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_NOT_KEY, key) { plant.subject.containsKey(key).not()  }
 
+
+fun <K, V : Any> _getExisting(plant: AssertionPlant<Map<K, V>>, key: K): AssertionPlant<V>
+    = extractorForGetCall(key)
+        .withParameterObject(createGetParameterObject(plant, key))
+        .extract()
+
 fun <K, V : Any> _getExisting(
     plant: AssertionPlant<Map<K, V>>,
     key: K,
@@ -93,6 +99,11 @@ fun <K, V : Any> _getExisting(
 ): Assertion = extractorForGetCall(key)
     .withParameterObject(createGetParameterObject(plant, key))
     .extractAndAssertIt(assertionCreator)
+
+fun <K, V> _getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K): AssertionPlantNullable<V>
+    = extractorForGetCall(key)
+        .withParameterObjectNullable(createGetParameterObject(plant, key))
+        .extract()
 
 fun <K, V> _getExistingNullable(
     plant: AssertionPlant<Map<K, V>>,
@@ -102,12 +113,14 @@ fun <K, V> _getExistingNullable(
     .withParameterObjectNullable(createGetParameterObject(plant, key))
     .extractAndAssertIt(assertionCreator)
 
+
 private fun <K> extractorForGetCall(key: K) = AssertImpl.feature.extractor.methodCall("get", key)
 
 private fun <K, V> createGetParameterObject(
     plant: AssertionPlant<Map<K, V>>,
     key: K
-): FeatureExtractor.ParameterObject<V> = FeatureExtractor.ParameterObject(
+): FeatureExtractor.ParameterObject<Map<K, V>, V> = FeatureExtractor.ParameterObject(
+    plant,
     extractionNotSuccessful = DescriptionMapAssertion.KEY_DOES_NOT_EXIST,
     warningCannotEvaluate = DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
     canBeExtracted = { plant.subject.containsKey(key) },

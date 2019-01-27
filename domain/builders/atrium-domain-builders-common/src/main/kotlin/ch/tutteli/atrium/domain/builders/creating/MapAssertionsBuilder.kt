@@ -47,17 +47,25 @@ object MapAssertionsBuilder : MapAssertions {
     override inline fun <K> containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = mapAssertions.containsNotKey(plant, key)
 
+
+    override inline fun <K, V : Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K)
+        = mapAssertions.getExisting(plant, key)
+
     override inline fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ) = mapAssertions.getExisting(plant, key, assertionCreator)
 
+    override inline fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K)
+        = mapAssertions.getExistingNullable(plant, key)
+
     override inline fun <K, V> getExistingNullable(
         plant: AssertionPlant<Map<K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
     )= mapAssertions.getExistingNullable(plant, key, assertionCreator)
+
 
     override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int)
         = mapAssertions.hasSize(plant, size)

@@ -36,7 +36,7 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         if (subject != null && canBeTransformed(subject)) {
             val assertionVerb = Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
             val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
-            val plant = coreFactory.newReportingPlant(assertionVerb,{ transform(subject) }, assertionChecker)
+            val plant = coreFactory.newReportingPlant(assertionVerb, { transform(subject) }, assertionChecker)
             plant.addAssertion(AssertImpl.builder.descriptive
                 .holding
                 .withDescriptionAndRepresentation(description, representation)

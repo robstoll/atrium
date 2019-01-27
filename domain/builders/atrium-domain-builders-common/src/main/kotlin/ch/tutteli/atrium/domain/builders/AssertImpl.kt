@@ -117,7 +117,7 @@ interface AssertImplCommon {
         return AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, subjectProvider, assertionChecker)
     }
 
-    fun <T> createDelegatingAssertionCheckerAndVerb(originalPlant: BaseAssertionPlant<T, *>): Pair<AssertionChecker, Untranslatable> {
+    private fun <T> createDelegatingAssertionCheckerAndVerb(originalPlant: BaseAssertionPlant<T, *>): Pair<AssertionChecker, Untranslatable> {
         val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(originalPlant)
         return assertionChecker to Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
     }
