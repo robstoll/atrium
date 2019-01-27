@@ -409,7 +409,7 @@ assert {
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 
-    //  assert: java.lang.IllegalArgumentException
+    //  assert the thrown exception: java.lang.IllegalArgumentException
     //  ◆ is: not thrown at all
     //    » Properties of the unexpected IllegalArgumentException
     //      » message: "name is empty"        <401424608>
@@ -426,6 +426,8 @@ assert {
 Notice that stacks are filtered so that you only see what is of interest. 
 Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
 Stack frames of Atrium and of test runners (Spek, Kotlintest and JUnit for JVM, mocha for JS) are excluded per default.
+[Create a Feature Request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
+in case you use a different runner, we can add yours to the list as well. 
  
 ## Property Assertions
 ```kotlin
@@ -457,6 +459,7 @@ So the above output can be read as "I assert, Person's name (which is actually `
 
 <details>
 <summary>:interrobang: Wrap each property into an assertion function? </summary>
+
 You might be asking yourself why I bothered providing the assertion function `message` shown in the example 
 [Expect an Exception](#expect-an-exception) and whether it is better to [write an own assertion function](#write-own-assertion-functions) or use `property`: 
 
