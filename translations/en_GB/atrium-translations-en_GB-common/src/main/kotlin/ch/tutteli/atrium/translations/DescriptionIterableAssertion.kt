@@ -34,4 +34,4 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
 }
 
 internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS = "Could not evaluate the defined assertion(s)"
-internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS = "Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions"
+internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS = "Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions"

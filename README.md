@@ -348,7 +348,7 @@ assert("calling myFun with ...") {
     // ◆ ▶ myFun(-2147483648): null
     //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
     //         ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to kotlin.String failed.
-    // Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions
+    // Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions
     // ◆ ▶ myFun(0): null
     //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
     //       » starts with: "zero"        <1543727556>
@@ -867,7 +867,7 @@ assert(mapOf("bernstein" to bernstein))
     //         ◾ to be: 60        (kotlin.Int <232824863>)
     // ◆ ▶ get("einstein"): ❗❗ key does not exist
     //         ❗❗ Could not evaluate the defined assertion(s) -- given key does not exist.
-    // Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions
+    // Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions
 ```
 
 
