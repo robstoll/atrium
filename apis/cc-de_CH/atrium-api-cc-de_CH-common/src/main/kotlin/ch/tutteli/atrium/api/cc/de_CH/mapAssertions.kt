@@ -88,6 +88,18 @@ fun <K> Assert<Map<K, *>>.enthaeltKey(key: K)
 fun <K> Assert<Map<K, *>>.enthaeltNichtKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
+
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
+ * assertion plant for corresponding value and returns the newly created plant.
+ *
+ * @return The newly created plant for the feature
+ * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
+ */
+fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K): Assert<V>
+    = AssertImpl.map.getExisting(this, key)
+
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that the corresponding value
  * holds all assertions the given [assertionCreator] might create for it.
@@ -99,6 +111,17 @@ fun <K> Assert<Map<K, *>>.enthaeltNichtKey(key: K)
  */
 fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
+
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
+ * assertion plant for corresponding nullable value and returns the newly created plant.
+ *
+ * @return The newly created plant for the feature
+ * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
+ */
+fun <K, V, T: Map<K, V>> Assert<T>.getExistierendNullable(key: K)
+    = AssertImpl.map.getExistingNullable(this, key)
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that the corresponding nullable value
@@ -114,6 +137,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K, assertionCreator:
  */
 fun <K, V, T: Map<K, V>> Assert<T>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
+
 
 
 /**

@@ -227,7 +227,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
+    fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
     /**
      * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]

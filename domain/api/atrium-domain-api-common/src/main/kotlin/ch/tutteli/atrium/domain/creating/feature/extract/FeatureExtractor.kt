@@ -12,7 +12,6 @@ import ch.tutteli.atrium.domain.creating.feature.extract.impl.RepresentationOpti
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
-
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
@@ -66,32 +65,26 @@ interface FeatureExtractor {
          * Uses the given [parameterObject] where a non-nullable feature is extracted by
          * [ParameterObject.featureExtraction].
          */
-        fun <T : Any> withParameterObject(
-            parameterObject: ParameterObject<T>
-        ): Creator<T, Assert<T>, CollectingAssertionPlant<T>> {
-            return featureExtractorCreatorFactory.create(
-                featureRepresentation, parameterObject, coreFactory::newCollectingPlant
-            )
-        }
+        fun <TSubject : Any, T : Any> withParameterObject(
+            parameterObject: ParameterObject<TSubject, T>
+        ): Creator<TSubject, T>
+            = featureExtractorCreatorFactory.create(featureRepresentation, parameterObject)
 
         /**
          * Uses the given [parameterObject] where a nullable feature is extracted by
          * [ParameterObject.featureExtraction].
          */
-        fun <T : Any?> withParameterObjectNullable(
-            parameterObject: ParameterObject<T>
-        ): Creator<T, AssertionPlantNullable<T>, CollectingAssertionPlantNullable<T>> {
-            return featureExtractorCreatorFactory.create(
-                featureRepresentation, parameterObject, coreFactory::newCollectingPlantNullable
-            )
-        }
+        fun <TSubject : Any, T : Any?> withParameterObjectNullable(
+            parameterObject: ParameterObject<TSubject, T>
+        ): CreatorNullable<TSubject, T>
+            = featureExtractorCreatorFactory.createNullable(featureRepresentation, parameterObject)
     }
 
     /**
-     * Final step of the sophisticated `safe feature extraction` where once can define [extractAndAssertIt] for the extracted
-     * feature.
+     * Final step of the sophisticated `safe feature extraction` where one can define [extractAndAssertIt]
+     * for the extracted feature or use [extract] to get the assertion plant.
      */
-    interface Creator<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>  {
+    interface CreatorLike<TSubject, T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> {
         /**
          * The previously chosen feature representation.
          */
@@ -100,13 +93,16 @@ interface FeatureExtractor {
         /**
          * The previously created [ParameterObject].
          */
-        val parameterObject: ParameterObject<T>
+        val parameterObject: ParameterObject<TSubject, T>
 
         /**
-         * The factory method which creates the appropriate collecting plant which is suitable
-         * for the given `assertionCreator` argument when calling [extractAndAssertIt].
+         * Extracts a feature with the help of the specified
+         * [parameterObject].[featureExtraction][ParameterObject.featureExtraction] if it
+         * [parameterObject].[canBeExtracted][ParameterObject.canBeExtracted] and returns an assertion plant for it.
+         *
+         * @returns The newly created feature assertion plant.
          */
-        val collectingPlantFactory: (() -> T) -> C
+        fun extract(): A
 
         /**
          * Extracts a feature with the help of the specified
@@ -127,14 +123,31 @@ interface FeatureExtractor {
          * assertions within explanatory assertions).
          *
          * @param assertionCreator A lambda which creates the [Assertion]s for the extracted feature.
+         *
+         * @returns The assertion representing the feature extraction.
          */
         fun extractAndAssertIt(assertionCreator: C.() -> Unit): Assertion
     }
 
     /**
+     * Final step of the sophisticated `safe feature extraction` where one can define [extractAndAssertIt]
+     * for the extracted feature or use [extract] to get a feature [AssertionPlant].
+     */
+    interface Creator<TSubject, T : Any> :
+        CreatorLike<TSubject, T, AssertionPlant<T>, CollectingAssertionPlant<T>>
+
+    /**
+     * Final step of the sophisticated `safe feature extraction` where one can define [extractAndAssertIt]
+     * for the extracted feature or use [extract] to get a feature [AssertionPlantNullable].
+     */
+    interface CreatorNullable<TSubject, T> :
+        CreatorLike<TSubject, T, AssertionPlantNullable<T>, CollectingAssertionPlantNullable<T>>
+
+    /**
      * A parameter object which contains all necessary information to extract a feature -- however, not to create
      * assertions.
      *
+     * @param subjectPlant The [AssertionPlant] which contains the subject from which the subject is extracted.
      * @param extractionNotSuccessful Used as [AssertionGroup.representation] in case [canBeExtracted]
      *   evaluates to false.
      * @param warningCannotEvaluate The [Translatable] used to explain why the extraction could not be carried out.
@@ -143,7 +156,8 @@ interface FeatureExtractor {
      *   counter part to [Map.get])
      * @param featureExtraction The feature extraction as such (e.g. [Map.get], [List.get] etc.)
      */
-    data class ParameterObject<T>(
+    data class ParameterObject<TSubject, T>(
+        val subjectPlant: BaseAssertionPlant<TSubject, *>,
         val extractionNotSuccessful: Translatable,
         val warningCannotEvaluate: Translatable,
         val canBeExtracted: () -> Boolean,

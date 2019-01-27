@@ -10,6 +10,6 @@ internal class MapGetNullableOptionImpl<K, V, T: Map<K, V>>(
     override val key: K
 ) : MapGetNullableOption<K, V, T> {
 
-    override infix fun assertIt(assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<T>
+    override infix fun assertValue(assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<T>
         = plant.addAssertion(AssertImpl.map.getExistingNullable(plant, key, assertionCreator))
 }

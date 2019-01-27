@@ -29,7 +29,8 @@ private fun extractorForGetCall(index: Int) = AssertImpl.feature.extractor.metho
 private fun <T> createGetParameterObject(
     plant: AssertionPlant<List<T>>,
     index: Int
-): FeatureExtractor.ParameterObject<T> = FeatureExtractor.ParameterObject(
+): FeatureExtractor.ParameterObject<List<T>, T> = FeatureExtractor.ParameterObject(
+    plant,
     extractionNotSuccessful = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS,
     warningCannotEvaluate = DescriptionListAssertion.CANNOT_EVALUATE_INDEX_OUT_OF_BOUNDS,
     canBeExtracted = { index < plant.subject.size },

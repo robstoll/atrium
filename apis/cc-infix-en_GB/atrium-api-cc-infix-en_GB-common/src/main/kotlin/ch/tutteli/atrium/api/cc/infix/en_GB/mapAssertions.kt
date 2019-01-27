@@ -127,13 +127,35 @@ infix fun <K> Assert<Map<K, *>>.containsKey(key: K)
 infix fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
+
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
+ * assertion plant for corresponding value and returns the newly created plant.
+ *
+ * @return The newly created plant for the feature
+ * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
+ */
+infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K)
+    = AssertImpl.map.getExisting(this, key)
+
 /**
  * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K): MapGetOption<K, V, T>
-    = MapGetOption.create(this, key)
+infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: Key<K>): MapGetOption<K, V, T>
+    = MapGetOption.create(this, key.key)
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key], creates a feature
+ * assertion plant for corresponding nullable value and returns the newly created plant.
+ *
+ * @return The newly created plant for the feature
+ * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
+ */
+infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K)
+    = AssertImpl.map.getExistingNullable(this, key)
 
 /**
  * Prepares the assertion about the nullable return value of calling [get][Map.get] with the given [key].
@@ -143,8 +165,10 @@ infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K): MapGetOption<
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K): MapGetNullableOption<K, V, T>
-    = MapGetNullableOption.create(this, key)
+infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: Key<K>): MapGetNullableOption<K, V, T>
+    = MapGetNullableOption.create(this, key.key)
+
+
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s [Map.size] is [size].

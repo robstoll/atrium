@@ -33,7 +33,7 @@ interface MapGetOption<K, V : Any, T : Map<K, V>> {
      * does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
      */
-    infix fun assertIt(assertionCreator: Assert<V>.() -> Unit): Assert<T>
+    infix fun assertValue(assertionCreator: Assert<V>.() -> Unit): Assert<T>
 
     companion object {
         fun <K, V : Any, T: Map<K, V>> create(plant: Assert<T>, key: K): MapGetOption<K, V, T>
