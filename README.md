@@ -8,8 +8,17 @@
 
 # Atrium
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
+It is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization-1) (i18n). 
 The project was inspired by AssertJ at first (and was named AssertK) but it moved on and provides now more 
 flexibility, features and hints to its users (so to you :wink:).
+
+Atrium is designed to be extensible as well as configurable 
+and allows you to extend it with your own assertion functions, customise reporting 
+or even replace core components with your own implementation in an easy way.
+
+Atrium currently provides two [API](#apis) styles:
+pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
+See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 ----
 :warning: You are taking a *sneak peek* at the next version. 
@@ -17,15 +26,6 @@ Please have a look at the README of the git tag in case you are looking for the 
 For instance, the [REAMDE of v0.8.0-alpha](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/README.md).
 
 ----
-
-Atrium is designed to support different [APIs](#apis), different reporting styles, [Internationalization](#internationalization-1) (i18n) 
-and supports multiple platforms (namely JVM, JS and Android).
-The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
-thus allow you to extend or replace components easily.
-
-Atrium currently provides two [API](#apis) styles:
-pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
-See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 **Table of Content**
 - [Installation](#installation)
@@ -1750,7 +1750,6 @@ Please upvote them (especially if you encouter them yourself):
 - [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 
 And some features which would be handy
-- [Hide fun with DeprecationLevel=Error from code completion](https://youtrack.jetbrains.com/issue/KT-25263)
 - [Method reference without `this`](https://youtrack.jetbrains.com/issue/KT-22920)
 - [Infix function call with type parameters](https://youtrack.jetbrains.com/issue/KT-21593)
 - [Extensibility for infix API](https://youtrack.jetbrains.com/issue/KT-27659)
