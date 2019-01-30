@@ -8,6 +8,6 @@ import ch.tutteli.atrium.checking.AssertionChecker
  * Builder to create the root [AssertionGroup] -- do not use it in assertion functions; this group should only be
  * created by [AssertionChecker]s.
  */
-@Suppress("unused")
+@Suppress("unused"  /* it's fine if we don't use AssertionBuilder */)
 val AssertionBuilder.root: DefaultAssertionGroupBuilderOptions<RootAssertionGroupType>
-    get() = AssertionGroupDescriptionAndRepresentationOption.create(RootAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
+    get() = AssertionGroupDescriptionAndRepresentationOption.create(RootAssertionGroupType, AssertionsOption.factoryWithDefaultFinalStep())

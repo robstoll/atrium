@@ -11,6 +11,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 val assertionBuilder: AssertionBuilder = AssertionBuilderImpl
 
+/**
+ * Type alias which can be used if only the [AssertionGroupType] is parameterised and the next step is
+ * an [AssertionsOption] which in turn has the [BasicAssertionGroupFinalStep] as final step.
+ */
 typealias DefaultAssertionGroupBuilderOptions<T> = AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, BasicAssertionGroupFinalStep>>
 
 /**

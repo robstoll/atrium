@@ -47,6 +47,10 @@ interface Explanatory {
         fun withDescription(explanation: Any?) : FinalStep
 
         companion object {
+            /**
+             * Factory method to create the [ExplanationOption] step in the building process
+             * of an [ExplanatoryAssertion].
+             */
             fun create(): ExplanationOption = ExplanationOptionImpl
         }
     }
@@ -61,6 +65,10 @@ interface Explanatory {
         val explanation: Any?
 
         companion object {
+            /**
+             * Factory method to create the [FinalStep] in the building process of a [ExplanatoryAssertion] based on the
+             * given [explanation].
+             */
             fun create(explanation: Any?): FinalStep = FinalStepImpl(explanation)
         }
     }

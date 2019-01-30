@@ -33,6 +33,10 @@ interface BasicAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGrou
     val assertions: List<Assertion>
 
     companion object {
+        /**
+         * Factory method to create a [BasicAssertionGroupFinalStep] in the building process of an [AssertionGroup]
+         * with [groupType], [description] and [representation] as well as the given [assertions].
+         */
         fun create(
             groupType: AssertionGroupType,
             description: Translatable,

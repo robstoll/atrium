@@ -43,6 +43,11 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
 
 
     companion object {
+        /**
+         * Factory method to create an [AssertionGroupDescriptionAndRepresentationOption] with the
+         * given assertion group [type] and another [factory] method which creates the next step in the
+         * building process.
+         */
         fun <T: AssertionGroupType, R> create(
             type: T,
             factory: (T, Translatable, Any) -> R

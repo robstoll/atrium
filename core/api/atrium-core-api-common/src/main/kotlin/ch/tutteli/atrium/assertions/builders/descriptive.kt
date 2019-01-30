@@ -34,6 +34,9 @@ interface Descriptive {
         fun withTest(test: () -> Boolean): DescriptionOption<FinalStep>
 
         companion object {
+            /**
+             * Factory method to create the [HoldsOption] step in the process of building a descriptive assertion.
+             */
             fun create(): HoldsOption = HoldsOptionImpl
         }
     }
@@ -49,17 +52,16 @@ interface Descriptive {
 
         /**
          * Uses the given [description] as [DescriptiveAssertion.description] and [representation]
-         * as [DescriptiveAssertion.representation] unless [representation] is null in which case [RawString.NULL] is used.
+         * as [DescriptiveAssertion.representation] unless [representation] is null in which case a representation for
+         * null is used (e.g. [RawString.NULL]).
          */
-        fun withDescriptionAndNullableRepresentation(description: Translatable, representation: Any?): R
-            = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)
-
-        /**
-         * Uses the given [description] as [AssertionGroup.description] and [representation] as [AssertionGroup.representation].
-         */
-        fun withDescriptionAndRepresentation(description: Translatable, representation: Any): R
+        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R
 
         companion object {
+            /**
+             * Factory method to create the [DescriptionOption] step based on the given [test] and
+             * another [factory] method which creates the next step in the building process of a descriptive assertion.
+             */
             fun <R> create(
                 test: () -> Boolean,
                 factory: (() -> Boolean, Translatable, Any) -> R
@@ -89,6 +91,11 @@ interface Descriptive {
         val representation: Any
 
         companion object {
+            /**
+             * Factory method to create the [FinalStep] in the building process of a [DescriptiveAssertion] based on the
+             * given [test] which indicates whether the assertion holds or not, a [description] as well as a
+             * [representation].
+             */
             fun create(
                 test: () -> Boolean,
                 description: Translatable,

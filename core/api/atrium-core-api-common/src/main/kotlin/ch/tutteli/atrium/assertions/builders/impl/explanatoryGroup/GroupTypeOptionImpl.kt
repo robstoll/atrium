@@ -25,7 +25,7 @@ internal object GroupTypeOptionImpl : ExplanatoryGroup.GroupTypeOption {
             groupType, GroupTypeOptionImpl::createExplanatoryAssertionGroupFinalStep
         )
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("UNUSED_PARAMETER" /* params are here so that we can use a method reference */)
     private fun <T : ExplanatoryAssertionGroupType> createExplanatoryAssertionGroupFinalStep(
         groupType: T,
         ignoredDescription: Translatable,

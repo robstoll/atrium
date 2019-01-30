@@ -18,11 +18,16 @@ interface AssertionGroupDescriptionAndEmptyRepresentationOption<out T: Assertion
 
 
     /**
-     * Uses the given [description] as [AssertionGroup.description] and [RawString.EMPTY] as [AssertionGroup.representation].
+     * Uses the given [description] as [AssertionGroup.description] and
+     * [RawString.EMPTY] as [AssertionGroup.representation].
      */
     fun withDescription(description: Translatable): R
 
     companion object {
+        /**
+         * Factory method to create a [AssertionGroupDescriptionAndEmptyRepresentationOption] step in the building
+         * process of an [AssertionGroup].
+         */
         fun <T: AssertionGroupType, R> create(
             type: T,
             factory: (T, Translatable, Any) -> R
