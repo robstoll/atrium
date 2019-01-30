@@ -177,9 +177,9 @@ to see how the infix API looks like, how they differ respectively.
 ## Your First Assertion
 We start off with a simple example:
 ```kotlin
-import ch.tutteli.atrium.verbs.assert
+import ch.tutteli.atrium.verbs.expect
 val x = 10
-assert(x).toBe(9)
+expect(x).toBe(9)
 ``` 
 The statement can be read as "I assert, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with the following message:
@@ -190,7 +190,7 @@ assert: 10        (java.lang.Integer <934275857>)
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
 
-We have used the predefined assertion verb `assert` in the above example which we had to import first. 
+We have used the predefined assertion verb `expect` in the above example which we had to import first. 
 We will omit the `import` statement in the remaining examples for brevity. 
 
 **You want to run the example yourself?**
@@ -202,8 +202,8 @@ then you can skip now to the next section (otherwise click on the arrow to expan
 <details>
 <summary>:information_source: further assertion verbs...</summary>
 
-Atrium provides two further assertion verbs out of the box: `assertThat` and `expect`
-which you can import with `import ch.tutteli.atrium.verbs.assertThat`, `import ch.tutteli.atrium.verbs.expect` respectively. 
+Atrium provides two further assertion verbs next to `expect` out of the box: `assert` and `assertThat`
+which you can import with `import ch.tutteli.atrium.verbs.assert`, `import ch.tutteli.atrium.verbs.assertThat` respectively. 
 Yet, you can also define your [own assertion verbs](#use-own-assertion-verbs) if another is your favourite.
 <hr/>
 </details> 
@@ -215,20 +215,20 @@ The next section shows how you can define multiple assertions for the same subje
 ```kotlin
  // two single assertions
  
-assert(4 + 6).isLessThan(5).isGreaterThan(10)
+expect(4 + 6).isLessThan(5).isGreaterThan(10)
     // assert: 10        (java.lang.Integer <1841396611>)
     // ◆ is less than: 5        (java.lang.Integer <1577592551>)
 ```
 
 
-Using the fluent API allows you to write the `assert(...)` part only once but making several single assertions for the same 
+Using the fluent API allows you to write the `expect(...)` part only once but making several single assertions for the same 
 [subject](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-base-assertion-plant/subject.html).
 The expression which determines the subject of the assertion (`4 + 6` in the above example) is evaluated only once. 
 
 In this sense we could have written it also as follows (which is only the same because `4 + 6` does not have side effects).
 ```kotlin
-assert(4 + 6).isLessThan(5)
-assert(4 + 6).isGreaterThan(10)
+expect(4 + 6).isLessThan(5)
+expect(4 + 6).isGreaterThan(10)
 ``` 
 
 Correspondingly, the first `assert` statement (which does not hold) throws an `AssertionError`. 
@@ -239,7 +239,7 @@ If you want that both assertions are evaluated together, then use the assertion 
 ```kotlin
 // assertion group
 
-assert(4 + 6) {
+expect(4 + 6) {
     isLessThan(5)
     isGreaterThan(10)
 }
@@ -252,9 +252,9 @@ An assertion group throws an `AssertionError` at the end of its block; hence rep
 
 You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
-assert(4 + 6).isLessThan(5).and.isGreaterThan(10)
+expect(4 + 6).isLessThan(5).and.isGreaterThan(10)
 
-assert(4 + 6) { 
+expect(4 + 6) { 
     // ... 
 } and { 
     // ...
@@ -266,7 +266,7 @@ assert(4 + 6) {
  
 An assertion group block is actually nothing else than a [lambda with a receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
 of type `Assert` (code-ish speaking `Assert<T>.() -> Unit`).
-The only thing you need to know about `Assert` at the moment is, that `assert(4 + 6)` creates an `Assert<Int>` 
+The only thing you need to know about `Assert` at the moment is, that `expect(4 + 6)` creates an `Assert<Int>` 
 and that all assertion functions are defined as [extension function](https://kotlinlang.org/docs/reference/extensions.html)
 of `Assert`.
 Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `Assert`.
@@ -277,11 +277,11 @@ Have a look at [writing an own assertion function](#write-own-assertion-function
 ## Nullable Types
 ```kotlin
 val subtitle : String? = "postulating assertions made easy"
-assert(subtitle).toBe(null)
+expect(subtitle).toBe(null)
     // assert: "postulating assertions made easy"        <22600334>
     // ◆ to be: null
 
-assert(subtitle).notToBeNull { startsWith("atrium") }
+expect(subtitle).notToBeNull { startsWith("atrium") }
     //assert: "postulating assertions made easy"        <651100072>
     //◆ starts with: "atrium"        <222427158>
 ```
@@ -302,7 +302,7 @@ Following an example for `toBeNullable`:
 ```kotlin
 fun myFun(i: Int) = if (i > 0) i.toString() else null
 
-assert("calling myFun with ...") {
+expect("calling myFun with ...") {
     mapOf(
         Int.MIN_VALUE to null,
         -1 to null, 
@@ -331,7 +331,7 @@ Similarly you can use `toBeNullIfNullElse` to perfom more complicated assertions
 It is short for `if (result == null) toBe(null) else notToBeNull(assertionCreator)`. 
 Following another fictional example reusing `myFun` from above:
 ```kotlin
-assert("calling myFun with ...") {
+expect("calling myFun with ...") {
     mapOf(
         Int.MIN_VALUE to subAssert<String> { contains("min") },
         -1 to null,
@@ -361,11 +361,12 @@ Last but not least, if you deal with a container type such as `Iterable`/`Collec
 `null`.
 For instance:
 ```
-assert(listOf("a", null)).containsNullableValues("a", null)
+expect(listOf("a", null)).containsNullableValues("a", null)
 ```
 
 <details>
 <summary>:information_source: dealing a lot with nullable types from Java...</summary>
+
 ... in this case I recommend to have a look at the [Java Interoperability](#java-interoperability) section.
 
 </details>
@@ -434,7 +435,7 @@ in case you use a different runner, we can add yours to the list as well.
 data class Person(val name: String, val isStudent: Boolean)
 val myPerson = Person("Robert", false) 
 
-assert(myPerson) {
+expect(myPerson) {
     property(subject::name).toBe("Peter")
     property(subject::isStudent).toBe(true)
 }
@@ -448,7 +449,7 @@ You can also make assertions about one or several properties of the subject usin
 -- general speaking, it allows you to create feature assertions without the need of own assertion functions. 
 
 `subject` within an assertion group block refers to the subject of the assertion (`myPerson` in the above example). 
-As a reminder, an assertion group block is a lambda with receiver where the receiver is the `Assert` created by `assert(...)` (see [assertion group block](#define-single-assertions-or-assertion-groups) for further details). 
+As a reminder, an assertion group block is a lambda with receiver where the receiver is the `Assert` created by `expect(...)` (see [assertion group block](#define-single-assertions-or-assertion-groups) for further details). 
 You probably have already guessed it, `subject` is actually a property of `Assert`. 
 
 Back to property assertions. In the above example we created two feature assertions: one for the property `name` and the other for the property `isStudent` of `myPerson`.
@@ -485,7 +486,7 @@ data class Person(val firstName: String, val lastName: String) {
 }
 val person = Person("Robert", "Stoll")
 
-assert(person) {
+expect(person) {
     returnValueOf(subject::fullName).contains("treboR", "llotS")
     returnValueOf(subject::nickname, false).toBe("Robert aka. Stoll")
 }
@@ -522,7 +523,7 @@ As workaround you can use the domain function `returnValueOfX` where `X` needs t
 Hopefully you never encounter the bug but in case... following an example:
 ```kotlin
 import ch.tutteli.atrium.domain.builders.AssertImpl
-assert(person) {
+expect(person) {
     AssertImpl.feature.returnValueOf1(this, Person::nickname, arg1= false).toBe("Robert aka. Stoll")
 }
 ```
@@ -552,7 +553,7 @@ data class SubType1(val number: Int): SuperType
 data class SubType2(val word: String): SuperType
 
 val x: SuperType = SubType2("hello")
-assert(x).isA<SubType1> {
+expect(x).isA<SubType1> {
     property(subject::number).toBe(2)
 }
     // assert: SubType2(s=hello)        (ch.tutteli.atrium.api.cc.en_GB.SubType2 <2134607032>)
@@ -587,7 +588,7 @@ The following sub sections show both use cases by examples.
 
 ### Shortcut Functions
 ```kotlin
-assert(listOf(1, 2, 2, 4)).contains(2, 3)        
+expect(listOf(1, 2, 2, 4)).contains(2, 3)        
 
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1448525331>) 
     // ◆ contains, in any order: 3        (java.lang.Integer <1108924067>)
@@ -617,7 +618,7 @@ Atrium allows us to write identification lambdas in form of [assertion group blo
 An entry is considered as identified, if it holds all specified assertions of such a block.
 Following an example:
 ```kotlin
-assert(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLessThan(4) })
+expect(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLessThan(4) })
 
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1144068272>) 
     // ◆ contains, in any order:   
@@ -643,16 +644,16 @@ Atrium provides also a `containsNot` shortcut function.
 Furthermore, it provides aliases for `contains` and `containsNot` named `any` and `none`,  which might be a better 
 choice if you think in terms of asserting a predicate holds. These two are completed with an `all` assertion function:
 ```kotlin
-assert(listOf(1, 2, 3, 4)).any { isLessThan(0) }
-assert(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
-assert(listOf(1, 2, 3, 4)).all { isGreatherThan(2) }
+expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
+expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
+expect(listOf(1, 2, 3, 4)).all { isGreatherThan(2) }
 ```
 
 In case you deal with a nullable entry type (e.g. `List<String?>` where `String?` is the entry type) then you can 
 use `containsNullableValue`/`containsNullableValues` and `containsNullableEntry`/`containsNullableEntries` where you 
 can pass `null` in case you expect the entry to be null. Following an example:
 ```kotlin
-assert(listOf("hello", "world")).containsNullableEntries(null, { startsWith("wo") })
+expect(listOf("hello", "world")).containsNullableEntries(null, { startsWith("wo") })
     // assert: [hello, world]        (java.util.Arrays.ArrayList <1072506992>)
     // ◆ contains, in any order: 
     //   ⚬ an entry which: 
@@ -673,7 +674,7 @@ the fluent builders will guide you through your decision making :relaxed:
 
 Following on the last section we will start with an `inOrder` example:
 ```kotlin
-assert(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
  
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <817978763>)
     // ◆ contains only, in order:     
@@ -718,7 +719,7 @@ In case you have a question (no matter about which section), then please turn up
 and I happily answer your question there. 
 
 ```kotlin
-assert(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
+expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1362728240>)
     // ◆ contains only, in order:   
@@ -735,7 +736,7 @@ assert(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
     //   ✘ ▶ size: 4
     //       ◾ to be: 5
 
-assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
+expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
 
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1092572064>)
     // ◆ contains, in any order:   
@@ -745,7 +746,7 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({
     //         ◾ is at most: 2
 
 
-assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
+expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
             
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <922511709>)
     // ◆ contains only, in any order:    
@@ -758,7 +759,7 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
     //   ❗❗ following entries were mismatched:    
     //      ⚬ 2        (java.lang.Integer <1948471365>)
     
-assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
+expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 
     // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <331994761>)
     // ◆ contains only, in any order:   
@@ -775,7 +776,7 @@ In case you deal with a nullable entry type (e.g. `List<Int?>` where `Int?` is t
 use `nullableValue`/`nullableValues` and `nullableEntry`/`nullableEntries` as terminal function.
 Following an example:
 ```kotlin
-assert(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4)
+expect(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4)
 
     // assert: [1, 2, null, 4]        (java.util.Arrays.ArrayList <858232531>)
     // ◆ contains only, in order: 
@@ -794,7 +795,7 @@ assert(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4
 ## Map Assertions
 
 ```kotlin
-assert(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
+expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
 
     // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
     // ◆ contains, in any order: 
@@ -810,7 +811,7 @@ That is the reason why we are not going into too much detail here because we ass
 Next to making assertions based on key value pairs one can also define sub assertions for the value of an entry with 
 the help of the parameter object `KeyValue`:
 ```kotlin
-assert(mapOf("a" to 1, "b" to 2)).contains(
+expect(mapOf("a" to 1, "b" to 2)).contains(
     KeyValue("c") { toBe(2) },
     KeyValue("a") { isGreaterThan(2) },
     KeyValue("b") { isLessThan(2) }
@@ -829,7 +830,7 @@ assert(mapOf("a" to 1, "b" to 2)).contains(
 In most cases, Atrium provides a separate function with `Nullable` as suffix 
 if the value type of the `Map` is nullable. For instance:
 ```kotlin
-assert(mapOf("a" to null, null to null, "b" to null, "c" to 1)).containsNullable(
+expect(mapOf("a" to null, null to null, "b" to null, "c" to 1)).containsNullable(
     null to 1, "a" to null, "b" to 1, "c" to 1
 )
 
@@ -855,7 +856,7 @@ data class Person(
 )
 val bernstein = Person("Leonard", "Bernstein", 50, children=listOf(/*...*/))
 
-assert(mapOf("bernstein" to bernstein))
+expect(mapOf("bernstein" to bernstein))
     .getExisting("bernstein") { 
         property(subject::firstName).toBe("Leonard")
         property(subject::age).toBe(60) 
@@ -876,7 +877,7 @@ assert(mapOf("bernstein" to bernstein))
 
 In case you want to make an assertion only about the keys or values of the `Map` then you can use `keys` or `values`:
 ```kotlin
-assert(mapOf("a" to 1, "b" to 2)) {
+expect(mapOf("a" to 1, "b" to 2)) {
     keys { all { startsWith("a") } }
     values { none { isGreaterThan(1) } }
 }
@@ -902,7 +903,7 @@ functions and sophisticated builders shown in [Collection Assertions](#collectio
 
 For instance, say you have a `LinkedHashMap` and want to be sure that the order is correct:
 ```kotlin
-assert(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
+expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
     { isKeyValue("a", 1) },
     {
         key { startsWith("a") }
@@ -953,7 +954,7 @@ fun myFun(i: Int) = (i + 97).toChar()
 
 @Test
 fun myFun_happyCases() {
-    assert("calling myFun with...") {
+    expect("calling myFun with...") {
         mapOf(
             1 to 'a',
             2 to 'c',
@@ -979,7 +980,7 @@ if you want to see a summary instead -- I happily add more functionality if it i
 Following another example which involves an assertion creator lambda and not only a simple `toBe` check. 
 We are going to reuse the `myFun` from above
 ```kotlin
-assert("calling myFun with ...") {
+expect("calling myFun with ...") {
     mapOf(
         1 to subAssert<Char> { isLessThan('f') },
         2 to subAssert { toBe('c') } ,
@@ -1043,7 +1044,7 @@ But in case, you can also browse the online documentation, e.g. [KDoc of toBe](h
 Atrium adds extra information to error messages so that you get quickly a better idea of what went wrong. 
 For instance, for the following assertion (which fails) 
 ```kotlin
-assert(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
+expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
 ```
 Atrium points out which `values` were found, makes an implicit assertion about the size and also states which entries were additionally contained in the list:
 
@@ -1062,7 +1063,7 @@ assert: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
 
 Let us have a look at another example.
 ```kotlin
-assert(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
+expect(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
 ```
 The above assertion looks good at first sight but actually fails (at least on my machine). 
 And without some extra information in the output we would believe that there is actually a bug in the assertion library itself.
@@ -1168,7 +1169,7 @@ fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
 and its usage:
 
 ```kotlin
-assert(12).isMultipleOf(5)
+expect(12).isMultipleOf(5)
     // assert: 12        (java.lang.Integer <934275857>)
     // ◆ is multiple of: 5        (java.lang.Integer <1364913072>)
 ```
@@ -1201,7 +1202,7 @@ if you do not access `subject` other than in the lambda passed as third argument
 then you have what I call a `subjectless reporting function`.
 This is a good property because it means your function can be used in [explanation groups](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/explanatory-group.html)
 without breaking reporting.
-For instance, `assert(listOf(1, 2, 5, 8,9)).all { isMultipleOf(2) }` would blow up in the middle of error reporting if we did not adhere to the `subjectless reporting` property.
+For instance, `expect(listOf(1, 2, 5, 8,9)).all { isMultipleOf(2) }` would blow up in the middle of error reporting if we did not adhere to the `subjectless reporting` property.
 
 It is recommended to verify your assertion functions against two abstract specs which are contained in `atrium-spec`.
 I will provide more information if someone is interested, please open an issue or contact me on slack.
@@ -1222,7 +1223,7 @@ Also notice, that we are reusing a common description (`DescriptionBasic.IS`) as
 Its usage looks then as follows:
 
 ```kotlin
-assert(13).isEven()
+expect(13).isEven()
     // assert: 13        (java.lang.Integer <1841396611>)
     // ◆ is: an even number
 ```
@@ -1276,7 +1277,7 @@ Two things to notice here:
  
 Its usage is then as follows:
 ```kotlin
-assert(Person("Susanne", "Whitley", listOf()))
+expect(Person("Susanne", "Whitley", listOf()))
   .hasNumberOfChildren(2) 
 
     // assert: Person(firstName=Susanne, lastName=Whitley, children=[])        (Person <692342133>)
@@ -1310,7 +1311,7 @@ fun Assert<Person>.children(assertionCreator: Assert<Collection<Person>>.() -> U
 ```
 With this, we can write things like:
 ```kotlin
-assert(person)
+expect(person)
   .children { // sub-assertions don't fail fast
     none { property(Person::firstName).startsWith("Ro") }
     all { property(Person::lastName).toBe("Stoll") }
@@ -1348,7 +1349,7 @@ fun Assert<List<Pair<String, String>>>.areNamesOf(
 ```
 As you can see we moved the mapping inside the function so that the consumer of our API can happily use it as follows:
 ```kotlin
-assert(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
+expect(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
 ```
 
 Another fictional example, say we want to assert that the pairs have the same initials as the given persons and in the given order.
@@ -1464,7 +1465,7 @@ Instead of using `.withTextSameLineAssertionPairFormatter()` you use the followi
 ```
 The output for:
 ```kotlin
-assert(x).toBe(9)
+expect(x).toBe(9)
 ```
 Would then look as follows:
 ```text
@@ -1684,7 +1685,7 @@ Some assertion functions which I miss myself will follow in the next version.
 They are listed in the [Roadmap](#roadmap) below.
 
 Atrium does not support (yet):
-- contains assertion functions for `Map` (you can use `assert(map.entries)` in the meantime -- or `keys`/`values` if your assertion is only about keys or values)
+- contains assertion functions for `Map` (you can use `expect(map.entries)` in the meantime -- or `keys`/`values` if your assertion is only about keys or values)
 - infinite `Iterable`s
 
 # FAQ
@@ -1699,7 +1700,7 @@ because they would basically duplicate the functions available for `Iterable<E>`
 However, Atrium provides `asIterable` so that you can turn `Assert<Sequence<E>>` 
 into `Assert<Iterable<E>>`. An example:
 ```kotlin
-assert(sequenceOf(1, 2, 3)).asIterable().contains(2)
+expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 ```
 Likewise you can turn an `Assert<Array<E>>`, `Assert<DoubleArray>` etc. into an `Assert<Iterable<E>>`.
 
@@ -1710,7 +1711,7 @@ Likewise you can turn an `Assert<Array<E>>`, `Assert<DoubleArray>` etc. into an 
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
 as follows:
 ```
-assert(sequenceOf(1, 2, 3)).returnValueOf(Sequence::asIterable).contains(2)
+expect(sequenceOf(1, 2, 3)).returnValueOf(Sequence::asIterable).contains(2)
 ```
 
 </details>
