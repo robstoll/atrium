@@ -237,6 +237,3 @@ class ArgumentToNullOrMapperBuilder<T : Any>(
     ): Pair<(Assert<R>.() -> Unit)?, Array<out (Assert<R>.() -> Unit)?>> =
         argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subAssert<R> { assertionCreator(t) } } }
 }
-
-
-

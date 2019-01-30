@@ -58,6 +58,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
 - [FAQ](#faq)
+- [Kotlin Bugs](#kotlin-bugs)
 - [Roadmap](#roadmap)
 - [License](#license)
 
@@ -1285,7 +1286,7 @@ expect(Person("Susanne", "Whitley", listOf()))
     //     ◾ ▶ size: 0        (kotlin.Int <1712536284>)
     //         ◾ to be: 2        (kotlin.Int <2080166188>)    
 ```
-Another example: assert the person has children which are all adults (assuming 18 as legal age).
+Another example: assert the person has children which are all adults (assuming 18 is the age of majority).
 ```kotlin
 fun Assert<Person>.hasAdultChildren() = apply {
     property(Person::children)
@@ -1312,16 +1313,16 @@ fun Assert<Person>.children(assertionCreator: Assert<Collection<Person>>.() -> U
 With this, we can write things like:
 ```kotlin
 expect(person)
-  .children { // sub-assertions don't fail fast
+  .children { // using the fun -> sub-assertions don't fail fast
     none { property(Person::firstName).startsWith("Ro") }
     all { property(Person::lastName).toBe("Stoll") }
   } // subject is still Person here
   .apply {
-    children  // subsequent assertions are about children and fail fast
+    children  // using the val -> subsequent assertions are about children and fail fast
       .hasSize(2)
       .any { property(Person::age).isGreaterThan(18) }
   } // subject is still Person here
-  .children // subsequent assertions are about children and fail fast
+  .children // using the val -> subsequent assertions are about children and fail fast
       .hasSize(2)
       .contains(...)
 ```
@@ -1334,7 +1335,7 @@ We want to assert that the pairs contain only the first name / last name pairs o
 [Collection Assertions](#collection-assertions) will help us with this. 
 However, `contains.inAnyOrder.values` expects `Pair`s.
 So we have to map from `Person` to `Pair` upfront.
-As we have a variable length argument list and want to pass it to a variable length argument list, this cannot be done with a simple `map`. 
+As we have a variable length argument list and want to pass it to a variable length argument list, this cannot be done with a simple `map` from Kotlin. 
 And it gets worse if we want to use `contains.inAnyOrder.entries` which expects at least one identification lambda (`Assert<T>.() -> Unit`)
 because Kotlin cannot infer the types automatically.
 
@@ -1366,6 +1367,9 @@ fun Assert<List<Pair<String, String>>>.sameInitialsAs(
 }
 ``` 
 
+`mapArguments` provide a few methods an in case you want to provide your own implementation it suffices to create an 
+extension function for [ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html) 
+
 ## Enhanced Reporting
 
 [Composing assertion functions](#compose-assertion-functions) give already quite a bit of power to an assertion function writer.
@@ -1376,9 +1380,9 @@ is the entry point in this case.
 Its a builder and thus lets you find the functions you need via code completion.
 
 Following a quick overview what it provides:
-- all assertion functions on the Domain level (what you have seen in [Compose-assertion-functions](#compose-assertion-functions) 
+- all assertion functions on the domain level (what you have seen in [Compose-assertion-functions](#compose-assertion-functions) 
 was the API level) so that you can reuse them (e.g. `AssertImpl.collection.hasSize(...)`).
-- `AssertImpl.builder` to create different kinds of [Assertions](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-assertion/index.html)
+- `AssertImpl.builder` to create different kinds of assertions (see [AssertionBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information).
 - `AssertImpl.changeSubject` which allows to change the subject silently, 
    meaning it does not show up in reporting (e.g. `Assert<Array<out T>>.asIterable()` uses it)
 - `AssertImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions
@@ -1413,12 +1417,12 @@ In order to create an own assertion verb it is sufficient to:
  2. Create your own atriumVerbs.kt and paste the previously copied content.
  3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
  4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
- 5. exclude `atrium-verbs-jvm` (`atrium-verbs-js` respectively) from your dependencies. 
+ 5. exclude `atrium-verbs` (`atrium-verbs-js` respectively) from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
     ```
     dependencies {
         testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
-            exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs-jvm'
+            exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
         }
     }
     ```
@@ -1647,15 +1651,15 @@ Therefore you want to turn the platform type into the nullable version.
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with generics. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
-- [`nullable`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
+- [`nullable`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
   turns a type into a nullable type.
-- [`nullableContainer`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#40)
+- [`nullableContainer`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#40)
   turns an `Iterable` into an iterable with nullable entry type, likewise it does the same for `Array`.
-- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
+- [`nullableKeyMap`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)
   turns a `Map` into a map with a nullable value type.
-- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
+- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
   turns a `Map` into a map with a nullable key and nullable value type. 
  
 # Contribute
@@ -1722,6 +1726,38 @@ Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-cc-de_CH-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
 - [atrium-cc-en_GB-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
 - [atrium-cc-infix-en_GB-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
+
+# Kotlin Bugs
+The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
+Please upvote them (especially if you encouter them yourself):
+- [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that `containsNullable` does not show up on `Assert<List<String>>` (only on `Assert<List<T?>>`)
+- [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
+- [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
+- [Type inference KFunction overload bug 1](https://youtrack.jetbrains.com/issue/KT-17340)
+- [Type inference KFunction overload bug 2](https://youtrack.jetbrains.com/issue/KT-19884)
+- [Type inference KProperty/KFunction ambiguity bug](https://youtrack.jetbrains.com/issue/KT-17341)
+- [Type inference fails to infer T of KFunction0 for most types](https://youtrack.jetbrains.com/issue/KT-29515)
+- [Type inference type parameter bug](https://youtrack.jetbrains.com/issue/KT-12963)
+- [Type inference return type bug](https://youtrack.jetbrains.com/issue/KT-24918)
+- [Type inference out type parameter bug](https://youtrack.jetbrains.com/issue/KT-18401)
+- [Type inference explicit type and overloads](https://youtrack.jetbrains.com/issue/KT-23791)
+- [Type inference Pair with receiver type](https://youtrack.jetbrains.com/issue/KT-29129)
+- [Overload resolution nullable bug](https://youtrack.jetbrains.com/issue/KT-23768)
+- [Overload resolution primitive type bug](https://youtrack.jetbrains.com/issue/KT-24230)
+- [Overload resolution function type bug](https://youtrack.jetbrains.com/issue/KT-23883)
+- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from pacakge cc.en_GB when using cc.infix.en_GB)
+- [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
+- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
+
+And some features which would be handy
+- [Hide fun with DeprecationLevel=Error from code completion](https://youtrack.jetbrains.com/issue/KT-25263)
+- [Method reference without `this`](https://youtrack.jetbrains.com/issue/KT-22920)
+- [Infix function call with type parameters](https://youtrack.jetbrains.com/issue/KT-21593)
+- [Extensibility for infix API](https://youtrack.jetbrains.com/issue/KT-27659)
+- [Summarising overloads in code completion](https://youtrack.jetbrains.com/issue/KT-25079) 
+- [vararg for lambdas](https://youtrack.jetbrains.com/issue/KT-24287)
+- [delegate with inline modifier](https://youtrack.jetbrains.com/issue/KT-23241)
+
 
 # Roadmap
 
