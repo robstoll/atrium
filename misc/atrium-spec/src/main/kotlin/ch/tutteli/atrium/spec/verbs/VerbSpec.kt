@@ -35,14 +35,14 @@ private fun expect(act: () -> Unit)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
-        @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
         reporterBuilder
-            .withoutTranslations()
+            .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities()
+            .withTextCapabilities()
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     }
