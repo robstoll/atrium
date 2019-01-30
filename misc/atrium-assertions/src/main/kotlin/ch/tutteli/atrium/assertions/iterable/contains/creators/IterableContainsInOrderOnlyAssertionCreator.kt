@@ -97,7 +97,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
                     AssertImpl.builder.descriptive
                         .holding
-                        .withDescriptionAndNullableRepresentation(description, it)
+                        .withDescriptionAndRepresentation(description, it)
                         .build()
                 }
                 val warningAdditionalAssertions = AssertImpl.builder.list

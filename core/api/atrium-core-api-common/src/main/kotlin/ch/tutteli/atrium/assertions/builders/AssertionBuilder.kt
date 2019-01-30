@@ -88,7 +88,7 @@ interface AssertionBuilder {
      * ```
      * descriptive
      *   .withTest(test)
-     *   .withDescriptionAndNullableRepresentation(description, representation)
+     *   .withDescriptionAndRepresentation(description, representation)
      *   .build()
      * ```
      * @param description The description of the assertion, e.g. `to Be`
@@ -96,5 +96,5 @@ interface AssertionBuilder {
      * @param test The test which checks whether the assertion holds
      */
     fun createDescriptive(description: Translatable, representation: Any?, test: () -> Boolean)
-        = descriptive.withTest(test).withDescriptionAndNullableRepresentation(description, representation).build()
+        = descriptive.withTest(test).withDescriptionAndRepresentation(description, representation).build()
 }

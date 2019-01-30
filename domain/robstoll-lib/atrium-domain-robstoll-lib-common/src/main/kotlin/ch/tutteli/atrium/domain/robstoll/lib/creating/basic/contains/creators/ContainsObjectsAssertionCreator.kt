@@ -37,7 +37,7 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
         return  AssertImpl.builder.customType(getAssertionGroupType())
-            .withDescriptionAndNullableRepresentation(groupDescription, searchCriterion)
+            .withDescriptionAndRepresentation(groupDescription, searchCriterion)
             .withAssertions(decorateAssertion(plant, featureAssertion))
             .build()
     }
