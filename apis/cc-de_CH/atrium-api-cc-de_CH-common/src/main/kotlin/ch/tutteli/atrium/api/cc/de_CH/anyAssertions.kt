@@ -12,7 +12,7 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).ist(1.0)`
@@ -24,7 +24,7 @@ fun <T : Any> Assert<T>.ist(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istNicht(1.0)`
@@ -36,7 +36,7 @@ fun <T : Any> Assert<T>.istNicht(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istSelbeInstanzWie(1.0)`
@@ -48,7 +48,7 @@ fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istNichtSelbeInstanzWie(1.0)`
@@ -60,7 +60,7 @@ fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is `null`.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is `null`.
  *
  * @param null has to be `null`.
  *
@@ -73,7 +73,7 @@ fun <T : Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER") `null
 }
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is [expectedOrNull].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expectedOrNull].
  *
  * It is a shortcut for
  * ```kotlin
@@ -89,7 +89,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullable(expectedOrNu
 }
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
  * is null or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
  *
  * It is a shortcut for

@@ -36,7 +36,7 @@ infix fun <T : BigDecimal> AssertionPlantNullable<T?>.istNichtNullAber(expected:
     "Falls doch und du möchtest dass `scale` verglichen wird, dann verwende `istGleichInklusiveScale`.")
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is numerically equal to [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) == 0`)
@@ -54,7 +54,7 @@ fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not numerically equal to [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) != 0`)
@@ -73,7 +73,7 @@ fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [istNumerischGleichWie] which does not compare [BigDecimal.scale]
  * in contrast to this function.
@@ -88,7 +88,7 @@ fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::istNumerischGleichWie.name))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [istNichtNumerischGleichWie] which does not compare [BigDecimal.scale]
  * in contrast to this function.

@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import java.math.BigDecimal
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is equal to [expected] with an error [tolerance]
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *
  * It effectively compares the absolute difference between [Assert.subject][AssertionPlant.subject] and [expected] and compares it with

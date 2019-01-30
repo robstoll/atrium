@@ -30,7 +30,7 @@ val <K> Assert<Pair<K, *>>.nullableFirst get() : AssertionPlantNullable<K> = pro
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -42,7 +42,7 @@ fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit
     = addAssertion(AssertImpl.pair.first(this, assertionCreator))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`) holds
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`) holds
  * all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -78,7 +78,7 @@ val <V> Assert<Pair<*, V>>.nullableSecond get() : AssertionPlantNullable<V> = pr
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -90,7 +90,7 @@ fun <K, V: Any> Assert<Pair<K, V>>.second(assertionCreator: Assert<V>.() -> Unit
     = addAssertion(AssertImpl.pair.second(this, assertionCreator))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.

@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is `null`.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is `null`.
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  *

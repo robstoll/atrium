@@ -23,7 +23,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
 }
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] *is a* [TSub] (the same type or a sub-type) and if so,
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] *is a* [TSub] (the same type or a sub-type) and if so,
  * uses [assertionCreator] which could create further assertions which are added as a group.
  *
  * Notice, that asserting a function type is [flawed](https://youtrack.jetbrains.com/issue/KT-27846).

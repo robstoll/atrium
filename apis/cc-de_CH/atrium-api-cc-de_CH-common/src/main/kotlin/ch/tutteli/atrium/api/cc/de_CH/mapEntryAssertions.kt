@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s [Map.Entry.key] is (equal to) the given [key] and
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s [Map.Entry.key] is (equal to) the given [key] and
  * [Map.Entry.value] is [value].
  *
  * Kind of a shortcut for `this.key.ist(key).und.value.ist(value)` but should be evaluated in
@@ -43,7 +43,7 @@ val <K : Any> Assert<Map.Entry<K, *>>.key get() : Assert<K> = property(Map.Entry
 val <K> Assert<Map.Entry<K, *>>.nullableKey get() : AssertionPlantNullable<K> = property(Map.Entry<K, *>::key)
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [key][Map.Entry.key] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [key][Map.Entry.key] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -55,7 +55,7 @@ fun <K : Any, V> Assert<Map.Entry<K, V>>.key(assertionCreator: Assert<K>.() -> U
     = addAssertion(AssertImpl.map.entry.key(this, assertionCreator))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [key][Map.Entry.key] (which could be `null`) holds
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [key][Map.Entry.key] (which could be `null`) holds
  * all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -89,7 +89,7 @@ val <V : Any> Assert<Map.Entry<*, V>>.value get() : Assert<V> = property(Map.Ent
 val <V> Assert<Map.Entry<*, V>>.nullableValue get() : AssertionPlantNullable<V> = property(Map.Entry<*, V>::value)
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [value][Map.Entry.value] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [value][Map.Entry.value] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -101,7 +101,7 @@ fun <K, V: Any> Assert<Map.Entry<K, V>>.value(assertionCreator: Assert<V>.() -> 
     = addAssertion(AssertImpl.map.entry.value(this, assertionCreator))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [value][Map.Entry.value] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [value][Map.Entry.value] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
