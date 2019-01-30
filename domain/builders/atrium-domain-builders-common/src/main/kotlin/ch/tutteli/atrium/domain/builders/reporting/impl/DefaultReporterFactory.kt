@@ -7,14 +7,17 @@ import ch.tutteli.atrium.reporting.ReporterFactory
 /**
  * Represents the [ReporterFactory] with [ReporterFactory.id] `default`.
  *
- * It specifies:
- * - withoutTranslations
- * - withDetailedObjectFormatter
- * - withDefaultAssertionFormatterController
- * - withDefaultAssertionFormatterFacade
- * - withTextSameLineAssertionPairFormatter
- * - withDefaultTextCapabilities
- * - withOnlyFailureReporter
+ * It is defined as follows (currently):
+ * reporterBuilder
+ *    .withoutTranslationsUseDefaultLocale()
+ *    .withDetailedObjectFormatter()
+ *    .withDefaultAssertionFormatterController()
+ *    .withDefaultAssertionFormatterFacade()
+ *    .withTextSameLineAssertionPairFormatter()
+ *    .withTextCapabilities()
+ *    .withDefaultAtriumErrorAdjusters()
+ *    .withOnlyFailureReporter()
+ *    .build()
  *
  */
 class DefaultReporterFactory : ReporterFactory {

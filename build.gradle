@@ -8,8 +8,8 @@ buildscript {
         kbox_version = '0.12.1'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.71'
-        mockito_kotlin_version = '1.5.0'
-        mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
+        mockito_kotlin_version = '2.1.0'
+        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         // test
         jacoco_tool_version = '0.8.2'
