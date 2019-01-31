@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.reporting.impl.AssertionPairFormatterOptionImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
@@ -22,6 +23,13 @@ interface AssertionPairFormatterOption {
      * Uses [CoreFactory.newTextSameLineAssertionPairFormatter] as [AssertionPairFormatter].
      */
     fun withTextSameLineAssertionPairFormatter(): TextAssertionFormatterOption
+        = withTextAssertionPairFormatter(coreFactory::newTextSameLineAssertionPairFormatter)
+
+    /**
+     * Uses [CoreFactory.newTextNextLineAssertionPairFormatter] as [AssertionPairFormatter].
+     */
+    fun withTextNextLineAssertionPairFormatter(): TextAssertionFormatterOption
+        = withTextAssertionPairFormatter(coreFactory::newTextNextLineAssertionPairFormatter)
 
     /**
      * Uses the given [factory] to build a custom [AssertionPairFormatter].

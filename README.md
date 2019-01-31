@@ -1461,13 +1461,8 @@ where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
 then you can configure `ReporterBuilder` as follows.
-Instead of using `.withTextSameLineAssertionPairFormatter()` you use the following:
-```
-.withTextAssertionPairFormatter { objectFormatter, translator ->
-    TextNextLineAssertionPairFormatter(objectFormatter, translator)
-}
-```
-The output for:
+Instead of using `.withTextSameLineAssertionPairFormatter()` you choose `withTextNextLineAssertionPairFormatter()`.
+The output looks then as follows:
 ```kotlin
 expect(x).toBe(9)
 ```
