@@ -534,7 +534,7 @@ The output is the same as above.
 In other cases type inference will not be good enough to infer `T` of `Assert<T>.() -> Unit` 
 if you use the workaround ([this bug](https://youtrack.jetbrains.com/issue/KT-24230)).
 you can use the helper function `subAssert` in such cases which is merely an identity function. 
-As an example, have a look at [FeatureAssertionsClassReferenceSpec](https://github.com/robstoll/atrium/tre/master/apis/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
+As an example, have a look at [FeatureAssertionsClassReferenceSpec](https://github.com/robstoll/atrium/tree/release-0.8.0/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
 
 </details> <br/>
 
@@ -573,7 +573,7 @@ and on the other hand it turns the `subject` into the type which allows you to m
 Atrium provides the possibility to make arbitrary type transformations 
 as long as you can provide a checking function which can tell whether the transformation is safe or not 
 and a transformation function which performs the transformation as such.
-For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-robstoll-lib-jvm/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
+For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/robstoll-lib/atrium-domain-robstoll-lib-jvm/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
 
 </details>
 
@@ -1389,7 +1389,7 @@ was the API level) so that you can reuse them (e.g. `AssertImpl.collection.hasSi
 - `AssertImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions
 - `AssertImpl.feature.extractor` for feature assertions which are not always save to extract   
 
-You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/blob/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
+You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
 Unfortunately I do not have the time to cover all cases, so let me know (e.g. via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
@@ -1400,7 +1400,7 @@ Unfortunately I do not have the time to cover all cases, so let me know (e.g. vi
 Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
 Great, I do not provide hands on documentation yet (had only one question about it so far). 
 Therefore, please have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
-[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-api-jvm/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
+[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization-1).
 
 I am willing to provide more documentation if you need it (please open an issue). 
@@ -1458,7 +1458,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+Have a look at [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -1487,8 +1487,11 @@ Please let me know it by [writing a feature request](https://github.com/robstoll
 
 There are more options to choose from. 
 It does not matter if you use your [own assertion verb](#use-own-assertion-verbs) or a predefined one.
-You can provide your custom configured `Reporter` by providing a `ReporterFactory` (via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html)-mechanism).
-An example is given in [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
+This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
+and by calling `registerService` on JS where the call has to be before your tests run.  
+An example for JVM is given in [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/blob/release-0.8.0/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
 
@@ -1516,10 +1519,10 @@ enum class DescriptionIntAssertions(override val value: String) : StringBasedTra
 Typically you would put `DescriptionIntAssertions` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-en_GB-robstoll/build.gradle)
-uses `atrium-translations-en_GB` whereas 
-[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-de_CH-robstoll/build.gradle)
-uses `atrium-translations-de_CH`.  
+[atrium-cc-en_GB-robstoll-common](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/build.gradle)
+uses `atrium-translations-en_GB-common` whereas 
+[atrium-cc-de_CH-robstoll-common](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/build.gradle)
+uses `atrium-translations-de_CH-common`.  
 
 <details>
 <summary>:interrobang: Using a TranslationSupplier</summary>
@@ -1626,11 +1629,11 @@ Atrium is
 [built up by different modules](https://docs.atriumlib.org/latest#/doc/) 
 and it is your choice which implementation you want to use. 
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
-so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom):
+so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom in the maven world):
 
-- [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-en_GB-robstoll/build.gradle)
-- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-de_CH-robstoll/build.gradle)
-- [atrium-cc-infix-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-infix-en_GB-robstoll/build.gradle)
+- [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/build.gradle)
+- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/build.gradle)
+- [atrium-cc-infix-en_GB-robstoll](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/build.gradle)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md)
