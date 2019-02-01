@@ -20,7 +20,7 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
      * Uses the given [description] as [AssertionGroup.description] and [representationProvider] to create a
      * [LazyRepresentation] which is used as [AssertionGroup.representation].
      */
-    fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any): R
+    fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any?): R
         = withDescriptionAndRepresentation(description, LazyRepresentation(representationProvider))
 
     /**

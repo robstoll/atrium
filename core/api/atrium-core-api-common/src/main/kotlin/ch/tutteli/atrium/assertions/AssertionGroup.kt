@@ -2,8 +2,6 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.reporting.LazyRepresentation
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
