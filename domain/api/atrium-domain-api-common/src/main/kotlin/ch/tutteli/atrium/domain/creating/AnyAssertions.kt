@@ -43,7 +43,7 @@ interface AnyAssertions {
         expected: T
     ): Assertion
 
-    fun <T : Any> isNullIfNullElse(
+    fun <T : Any> isNullIfNullGivenElse(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
         assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?

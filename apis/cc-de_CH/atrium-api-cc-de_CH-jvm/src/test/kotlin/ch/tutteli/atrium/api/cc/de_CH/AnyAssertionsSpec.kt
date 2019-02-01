@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.esGilt
 import ch.tutteli.atrium.spec.integration.AnyAssertionsSpec
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
@@ -16,8 +17,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::istSelbeInstanzWie.name,
     Assert<Int>::istNichtSelbeInstanzWie.name,
     "${AssertionPlantNullable<Int?>::ist.name}(null)" to Companion::toBeNull,
-    AssertionPlantNullable<Int?>::istNullable.name to AssertionPlantNullable<Int?>::istNullable,
-    AssertionPlantNullable<Int?>::istNullWennNullSonst.name to AssertionPlantNullable<Int?>::istNullWennNullSonst,
+    toBeNullableFun.name to toBeNullableFun,
+    "${toBeNullableCreatorFun.name} with creator" to toBeNullableCreatorFun,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -29,6 +30,15 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     }
 
     companion object {
+        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::istNullable
+        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> =AssertionPlantNullable<Int?>::istNullable
+
+        @Suppress("unused")
+        val checkThereIsNoOverloadAmbiguity by lazy {
+            val i: Int? = 1
+            esGilt(i).istNullable(null)
+        }
+
 
         fun toBeNull(plant: AssertionPlantNullable<Int?>) {
             plant.ist(null)

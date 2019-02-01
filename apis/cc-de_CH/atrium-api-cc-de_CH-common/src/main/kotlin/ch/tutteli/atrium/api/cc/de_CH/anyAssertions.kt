@@ -101,8 +101,8 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullable(expectedOrNu
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullWennNullSonst(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
-    addAssertion(AssertImpl.any.isNullIfNullElse(this, T::class, assertionCreatorOrNull))
+inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullable(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
+    addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 }
 
 /**

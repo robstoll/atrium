@@ -18,7 +18,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::isNotSame.name,
     AssertionPlantNullable<*>::isNull.name to Companion::toBeNull,
     "toBeNullable not implemented in this api" to Companion::toBeNullable,
-    "toBeNullIfNullElse not implemented in this api" to Companion::toBeNullIfNullElse,
+    "toBeNullable with Creator not implemented in this api" to Companion::toBeNullIfNullElse,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {

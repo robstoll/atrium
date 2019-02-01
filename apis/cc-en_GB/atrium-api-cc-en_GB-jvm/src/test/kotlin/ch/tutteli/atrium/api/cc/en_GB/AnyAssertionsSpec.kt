@@ -16,8 +16,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::isSameAs.name,
     Assert<Int>::isNotSameAs.name,
     "${AssertionPlantNullable<Int?>::toBe.name}(null)" to Companion::toBeNull,
-    AssertionPlantNullable<Int?>::toBeNullable.name to AssertionPlantNullable<Int?>::toBeNullable,
-    AssertionPlantNullable<Int?>::toBeNullIfNullElse.name to AssertionPlantNullable<Int?>::toBeNullIfNullElse,
+    toBeNullableFun.name to toBeNullableFun,
+    "${toBeNullableCreatorFun.name} with creator" to toBeNullableCreatorFun,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -29,6 +29,14 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     }
 
     companion object {
+        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::toBeNullable
+        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> =AssertionPlantNullable<Int?>::toBeNullable
+
+        @Suppress("unused")
+        val checkThereIsNoOverloadAmbiguity by lazy {
+            val i: Int? = 1
+            ch.tutteli.atrium.verbs.internal.assert(i).toBeNullable(null)
+        }
 
         private fun toBeNull(plant: AssertionPlantNullable<Int?>){
             plant.toBe(null)

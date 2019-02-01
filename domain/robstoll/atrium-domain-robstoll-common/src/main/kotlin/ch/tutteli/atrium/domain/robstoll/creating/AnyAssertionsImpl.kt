@@ -44,9 +44,9 @@ class AnyAssertionsImpl : AnyAssertions {
         expected: T
     ) = _isNotNullBut(plant, type, expected)
 
-    override fun <T : Any> isNullIfNullElse(
+    override fun <T : Any> isNullIfNullGivenElse(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
         assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?
-    ) = _isNullIfNullElse(plant, type, assertionCreatorOrNull)
+    ) = _isNullIfNullGivenElse(plant, type, assertionCreatorOrNull)
 }

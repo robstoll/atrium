@@ -46,8 +46,8 @@ object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T : Any> isNotNullBut(plant: AssertionPlantNullable<T?>, type: KClass<T>, expected: T)
         = anyAssertions.isNotNullBut(plant, type, expected)
 
-    override inline fun <T : Any> isNullIfNullElse(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?)
-        = anyAssertions.isNullIfNullElse(plant, type, assertionCreatorOrNull)
+    override inline fun <T : Any> isNullIfNullGivenElse(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?)
+        = anyAssertions.isNullIfNullGivenElse(plant, type, assertionCreatorOrNull)
 
 
     /**

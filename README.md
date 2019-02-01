@@ -293,11 +293,11 @@ for the subject as if it had a non-nullable type  (`String` in the above example
 [assertion group block](#define-single-assertions-or-assertion-groups) 
 -- `{ startsWith("atrium") }` in the above example. 
 
-Atrium provides a few shortcuts in case you have to deal a lot with nullable types. 
+Atrium provides two shortcuts in case you have to deal a lot with nullable types. 
 The first is `notToBeNullBut(x)` which is short for `notToBeNull { toBe(x) }`.
 
 
-The other two are indented for [data driven testing](#data-driven-testing) involving nullable types.
+The other is indented for [data driven testing](#data-driven-testing) involving nullable types.
 `toBeNullable` accepts a nullable value in contrast to `toBe` which only accepts `null` in case of a nullable subject. 
 Following an example for `toBeNullable`:
 ```kotlin
@@ -328,7 +328,8 @@ expect("calling myFun with ...") {
 ```
 in the above case `toBeNullable` is short for `if (result == null) toBe(null) else notToBeNullBut(result)`.
 
-Similarly you can use `toBeNullIfNullElse` to perform more complicated assertions in case you expect the result not to be null.
+There is a second overload which accepts an assertion creator lambda (or null). 
+Use it in case you want to perform more complicated assertions than just comparing the subject with an equals check.
 It is short for `if (result == null) toBe(null) else notToBeNull(assertionCreator)`. 
 Following another fictional example reusing `myFun` from above:
 ```kotlin
@@ -341,7 +342,7 @@ expect("calling myFun with ...") {
         2 to subAssert { endsWith("2") },
         Int.MAX_VALUE to  subAssert { toBe("max") }
     ).forEach { arg, assertionCreatorOrNull ->
-        returnValueOf(::myFun, arg).toBeNullIfNullElse(assertionCreatorOrNull)
+        returnValueOf(::myFun, arg).toBeNullable(assertionCreatorOrNull)
     }
 }
 

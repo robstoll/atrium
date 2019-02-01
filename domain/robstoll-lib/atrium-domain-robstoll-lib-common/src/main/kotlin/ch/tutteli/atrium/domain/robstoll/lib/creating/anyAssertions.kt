@@ -52,7 +52,7 @@ fun <T : Any> _isNotNullBut(
     return AssertImpl.any.isNotNull(plant, type){ toBe(expected) }
 }
 
-fun <T : Any> _isNullIfNullElse(
+fun <T : Any> _isNullIfNullGivenElse(
     plant: AssertionPlantNullable<T?>,
     type: KClass<T>,
     assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?
