@@ -23,7 +23,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 ----
 :warning: You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [REAMDE of v0.8.0-alpha](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/README.md).
+For instance, the [README of v0.8.0-alpha](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/README.md).
 
 ----
 
@@ -182,10 +182,10 @@ import ch.tutteli.atrium.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ``` 
-The statement can be read as "I assert, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
+The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with the following message:
 ```text
-assert: 10        (java.lang.Integer <934275857>)
+expect: 10        (java.lang.Integer <934275857>)
 ◆ to be: 9        (java.lang.Integer <1364913072>)
 ```
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
@@ -217,7 +217,7 @@ The next section shows how you can define multiple assertions for the same subje
  // two single assertions
  
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
-    // assert: 10        (java.lang.Integer <1841396611>)
+    // expect: 10        (java.lang.Integer <1841396611>)
     // ◆ is less than: 5        (java.lang.Integer <1577592551>)
 ```
 
@@ -232,19 +232,19 @@ expect(4 + 6).isLessThan(5)
 expect(4 + 6).isGreaterThan(10)
 ``` 
 
-Correspondingly, the first `assert` statement (which does not hold) throws an `AssertionError`. 
+Correspondingly, the first `expect` statement (which does not hold) throws an `AssertionError`. 
 In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all.
 
 If you want that both assertions are evaluated together, then use the assertion group syntax as follows: 
 
 ```kotlin
-// assertion group
+// assertion group with two assertions
 
 expect(4 + 6) {
     isLessThan(5)
     isGreaterThan(10)
 }
-    // assert: 10        (java.lang.Integer <1841396611>)
+    // expect: 10        (java.lang.Integer <1841396611>)
     // ◆ is less than: 5        (java.lang.Integer <1577592551>)
     // ◆ is greater than: 10        (java.lang.Integer <1841396611>)
 ```
@@ -279,11 +279,11 @@ Have a look at [writing an own assertion function](#write-own-assertion-function
 ```kotlin
 val subtitle : String? = "postulating assertions made easy"
 expect(subtitle).toBe(null)
-    // assert: "postulating assertions made easy"        <22600334>
+    // expect: "postulating assertions made easy"        <22600334>
     // ◆ to be: null
 
 expect(subtitle).notToBeNull { startsWith("atrium") }
-    //assert: "postulating assertions made easy"        <651100072>
+    //expect: "postulating assertions made easy"        <651100072>
     //◆ starts with: "atrium"        <222427158>
 ```
 If the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
@@ -316,7 +316,7 @@ expect("calling myFun with ...") {
     }
 }
 
-    // assert: "calling myFun with ..."        <472654579>
+    // expect: "calling myFun with ..."        <472654579>
     // ◆ ▶ myFun(-2147483648): null
     //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)        
     //       » to be: "min"        <1282788025>
@@ -328,7 +328,7 @@ expect("calling myFun with ...") {
 ```
 in the above case `toBeNullable` is short for `if (result == null) toBe(null) else notToBeNullBut(result)`.
 
-Similarly you can use `toBeNullIfNullElse` to perfom more complicated assertions in case you expect the result not to be null.
+Similarly you can use `toBeNullIfNullElse` to perform more complicated assertions in case you expect the result not to be null.
 It is short for `if (result == null) toBe(null) else notToBeNull(assertionCreator)`. 
 Following another fictional example reusing `myFun` from above:
 ```kotlin
@@ -345,7 +345,7 @@ expect("calling myFun with ...") {
     }
 }
 
-    // assert: "calling myFun with ..."        <1989972246>
+    // expect: "calling myFun with ..."        <1989972246>
     // ◆ ▶ myFun(-2147483648): null
     //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
     //         ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to kotlin.String failed.
@@ -374,15 +374,15 @@ expect(listOf("a", null)).containsNullableValues("a", null)
  
 ## Expect an Exception
 ```kotlin
-assert {
+expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>{}
 
-    // assert the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
+    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
     // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
 ```
-You can define an `assert` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
+You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
 (`IllegalStateException` in the example above). 
 
 Moreover, you can define one or more subsequent assertions in the same assertion statement with the help of an 
@@ -390,12 +390,12 @@ Moreover, you can define one or more subsequent assertions in the same assertion
 The subsequent assertions are evaluated in case the expected `Throwable` is thrown and is of the same type as the expected one (or a subtype).
 For instance:
 ```kotlin
-assert {
+expect {
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalArgumentException> {
     message { startsWith("firstName") }
 }
-    // assert the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <371800738>)
+    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <371800738>)
     // ◆ ▶ message: "name is empty"        <1364767791>
     //     ◾ starts with: "firstName"        <1499136125>
 ```
@@ -406,12 +406,12 @@ about `Throwable::message`.
 
 There is also the counterpart to `toThrow` named `notToThrow`:
 ```kotlin
-assert {
+expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 
-    //  assert the thrown exception: java.lang.IllegalArgumentException
+    //  expect the thrown exception: java.lang.IllegalArgumentException
     //  ◆ is: not thrown at all
     //    » Properties of the unexpected IllegalArgumentException
     //      » message: "name is empty"        <401424608>
@@ -440,7 +440,7 @@ expect(myPerson) {
     property(subject::name).toBe("Peter")
     property(subject::isStudent).toBe(true)
 }
-    // assert: Person(name=Robert, isStudent=false)        (Person <1841396611>)
+    // expect: Person(name=Robert, isStudent=false)        (Person <1841396611>)
     // ◆ ▶ name: "Robert"        <1577592551>
     //     ◾ to be: "Peter"        <854587510>
     // ◆ ▶ isStudent: false
@@ -491,7 +491,7 @@ expect(person) {
     returnValueOf(subject::fullName).contains("treboR", "llotS")
     returnValueOf(subject::nickname, false).toBe("Robert aka. Stoll")
 }
-    // assert: Person(firstName=Robert, lastName=Stoll)        (ch.tutteli.atrium.api.cc.en_UK.IterableContainsInOrderOnlyEntriesSpec$1$2$Person <168907708>)
+    // expect: Person(firstName=Robert, lastName=Stoll)        (ch.tutteli.atrium.api.cc.en_UK.IterableContainsInOrderOnlyEntriesSpec$1$2$Person <168907708>)
     // ◆ ▶ fullName(): "Robert Stoll"        <447718425>
     //     ◾ contains: "treboR"        <1206569586>
     //       ⚬ ▶ number of occurrences: 0
@@ -557,7 +557,7 @@ val x: SuperType = SubType2("hello")
 expect(x).isA<SubType1> {
     property(subject::number).toBe(2)
 }
-    // assert: SubType2(s=hello)        (ch.tutteli.atrium.api.cc.en_GB.SubType2 <2134607032>)
+    // expect: SubType2(s=hello)        (ch.tutteli.atrium.api.cc.en_GB.SubType2 <2134607032>)
     // ◆ is type or sub-type of: SubType1 (ch.tutteli.atrium.api.cc.en_GB.SubType1)
     //    ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to ch.tutteli.atrium.api.cc.en_GB.SubType1 failed.
 ```
@@ -591,7 +591,7 @@ The following sub sections show both use cases by examples.
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains(2, 3)        
 
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1448525331>) 
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1448525331>) 
     // ◆ contains, in any order: 3        (java.lang.Integer <1108924067>)
     //   ⚬ ▶ number of occurrences: 0
     //       ◾ is at least: 1
@@ -621,7 +621,7 @@ Following an example:
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLessThan(4) })
 
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1144068272>) 
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1144068272>) 
     // ◆ contains, in any order:   
     //   ⚬ an entry which:   
     //       » is less than: 0        (java.lang.Integer <1985836631>) 
@@ -655,7 +655,7 @@ use `containsNullableValue`/`containsNullableValues` and `containsNullableEntry`
 can pass `null` in case you expect the entry to be null. Following an example:
 ```kotlin
 expect(listOf("hello", "world")).containsNullableEntries(null, { startsWith("wo") })
-    // assert: [hello, world]        (java.util.Arrays.ArrayList <1072506992>)
+    // expect: [hello, world]        (java.util.Arrays.ArrayList <1072506992>)
     // ◆ contains, in any order: 
     //   ⚬ an entry which: 
     //       » is: null
@@ -677,7 +677,7 @@ Following on the last section we will start with an `inOrder` example:
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
  
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <817978763>)
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <817978763>)
     // ◆ contains only, in order:     
     //   ✔ ▶ entry 0: 1        (java.lang.Integer <1578009262>)
     //       ◾ an entry which:    
@@ -722,7 +722,7 @@ and I happily answer your question there.
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1362728240>)
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1362728240>)
     // ◆ contains only, in order:   
     //   ✔ ▶ entry 0: 1        (java.lang.Integer <1578009262>)
     //       ◾ to be: 1        (java.lang.Integer <1578009262>)
@@ -739,7 +739,7 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
 
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1092572064>)
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1092572064>)
     // ◆ contains, in any order:   
     //   ⚬ an entry which:   
     //       » is less than: 3        (java.lang.Integer <1108924067>)
@@ -749,7 +749,7 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({
 
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
             
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <922511709>)
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <922511709>)
     // ◆ contains only, in any order:    
     //   ✔ an entry which is: 1        (java.lang.Integer <1578009262>) 
     //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>) 
@@ -762,7 +762,7 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
     
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 
-    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <331994761>)
+    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <331994761>)
     // ◆ contains only, in any order:   
     //   ✔ an entry which is: 4        (java.lang.Integer <1636506029>)
     //   ✘ an entry which is: 3        (java.lang.Integer <1108924067>)
@@ -779,7 +779,7 @@ Following an example:
 ```kotlin
 expect(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4)
 
-    // assert: [1, 2, null, 4]        (java.util.Arrays.ArrayList <858232531>)
+    // expect: [1, 2, null, 4]        (java.util.Arrays.ArrayList <858232531>)
     // ◆ contains only, in order: 
     //   ✔ ▶ entry 0: 1        (kotlin.Int <330128595>)
     //       ◾ to be: 1        (kotlin.Int <330128595>)
@@ -798,7 +798,7 @@ expect(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
 
-    // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
+    // expect: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
     // ◆ contains, in any order: 
     //   ⚬ ▶ entry "c": ❗❗ key does not exist
     //         » to be: 2        (kotlin.Int <970865974>)
@@ -818,7 +818,7 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
     KeyValue("b") { isLessThan(2) }
 )   
  
-    // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
+    // expect: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
     // ◆ contains, in any order: 
     //   ⚬ ▶ entry "c": ❗❗ key does not exist
     //         » to be: 2        (kotlin.Int <970865974>)
@@ -835,7 +835,7 @@ expect(mapOf("a" to null, null to null, "b" to null, "c" to 1)).containsNullable
     null to 1, "a" to null, "b" to 1, "c" to 1
 )
 
-    // assert: {a=null, null=null, b=1}        (java.util.LinkedHashMap <503938393>)
+    // expect: {a=null, null=null, b=1}        (java.util.LinkedHashMap <503938393>)
     // ◆ contains, in any order: 
     //   ⚬ ▶ entry null: null
     //       ◾ is type or sub-type of: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
@@ -866,7 +866,7 @@ expect(mapOf("bernstein" to bernstein))
         property(subject::firstName).toBe("Albert") 
     }
     
-    // assert: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])}        (java.util.Collections.SingletonMap <1389647288>)
+    // expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])}        (java.util.Collections.SingletonMap <1389647288>)
     // ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])        (Person <12209492>)
     //     ◾ ▶ age: 50        (kotlin.Int <314337396>)
     //         ◾ to be: 60        (kotlin.Int <232824863>)
@@ -882,7 +882,7 @@ expect(mapOf("a" to 1, "b" to 2)) {
     keys { all { startsWith("a") } }
     values { none { isGreaterThan(1) } }
 }
-    // assert: {a=1, b=2}        (java.util.LinkedHashMap <1690101810>)
+    // expect: {a=1, b=2}        (java.util.LinkedHashMap <1690101810>)
     // ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1502335674>)
     //     ◾ all entries: 
     //         » starts with: "a"        <1517640897>
@@ -911,7 +911,7 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
         value { isGreaterThan(2) }
     }
 )
-    // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
+    // expect: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
     // ◆ contains only, in order: 
     //   ✔ ▶ entry 0: a=1        (java.util.LinkedHashMap.Entry <970865974>)
     //       ◾ an entry which: 
@@ -966,7 +966,7 @@ fun myFun_happyCases() {
     }
 }
 
-    // assert: "calling myFun with..."        <1608446010>
+    // expect: "calling myFun with..."        <1608446010>
     // ◆ ▶ myFun(1): 'b'
     //     ◾ to be: 'a'
     // ◆ ▶ myFun(3): 'd'
@@ -991,7 +991,7 @@ expect("calling myFun with ...") {
     }
 }
     
-    // assert: "calling myFun with ..."        <537548559>
+    // expect: "calling myFun with ..."        <537548559>
     // ◆ ▶ myFun(3): 'd'
     //     ◾ is greater than: 'e'
 ```
@@ -1050,7 +1050,7 @@ expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
 Atrium points out which `values` were found, makes an implicit assertion about the size and also states which entries were additionally contained in the list:
 
 ```text
-assert: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
+expect: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
 ◆ contains only, in order: 
   ✔ ▶ entry 0: 1        (java.lang.Integer <6519275>)
       ◾ to be: 1        (java.lang.Integer <6519275>)
@@ -1070,7 +1070,7 @@ The above assertion looks good at first sight but actually fails (at least on my
 And without some extra information in the output we would believe that there is actually a bug in the assertion library itself.
 But Atrium shows where it goes wrong and even gives a possible hint:
 ```text
-assert: 9.99        (java.lang.Float <1287934450>)
+expect: 9.99        (java.lang.Float <1287934450>)
 ◆ to be (error ± 0.01): 10.0        (java.lang.Float <6519275>)
     » failure might be due to using java.lang.Float, see exact check on the next line
     » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
@@ -1079,7 +1079,7 @@ assert: 9.99        (java.lang.Float <1287934450>)
 One last example. This time about making an assertion that a certain `Throwable` is thrown but the assertion fails because it was the wrong one. 
 Atrium comes with a very useful hint, it shows the actual exception. For instance, for:
 ```kotlin
-assert {
+expect {
   try {
       throw UnsupportedOperationException("not supported")
   } catch(t: Throwable) {
@@ -1114,7 +1114,7 @@ Accordingly, the deprecation message of `toBe` (`notToBe` alike) explains the pr
 And if the user should decide to use `isEqualIncludingScale` and at some point an assertion fails only due to the comparison of `BigDecimal.scale`
 then Atrium reminds us of the possible pitfall. For instance:
 ```text
-assert: 10        (java.math.BigDecimal <1287934450>)
+expect: 10        (java.math.BigDecimal <1287934450>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <6519275>)
     » notice, if you used isNumericallyEqualTo then the assertion would have hold.
 ```
@@ -1171,7 +1171,7 @@ and its usage:
 
 ```kotlin
 expect(12).isMultipleOf(5)
-    // assert: 12        (java.lang.Integer <934275857>)
+    // expect: 12        (java.lang.Integer <934275857>)
     // ◆ is multiple of: 5        (java.lang.Integer <1364913072>)
 ```
 
@@ -1225,7 +1225,7 @@ Its usage looks then as follows:
 
 ```kotlin
 expect(13).isEven()
-    // assert: 13        (java.lang.Integer <1841396611>)
+    // expect: 13        (java.lang.Integer <1841396611>)
     // ◆ is: an even number
 ```
 
@@ -1281,7 +1281,7 @@ Its usage is then as follows:
 expect(Person("Susanne", "Whitley", listOf()))
   .hasNumberOfChildren(2) 
 
-    // assert: Person(firstName=Susanne, lastName=Whitley, children=[])        (Person <692342133>)
+    // expect: Person(firstName=Susanne, lastName=Whitley, children=[])        (Person <692342133>)
     // ◆ ▶ children: []        (kotlin.collections.EmptyList <654845766>)
     //     ◾ ▶ size: 0        (kotlin.Int <1712536284>)
     //         ◾ to be: 2        (kotlin.Int <2080166188>)    
@@ -1297,7 +1297,7 @@ We also use `apply` here for the same reason as above.
 We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
 but we don't have to, as `all` already checks that there is at least one element. 
 ```
-assert: Person(firstName=Susanne, lastName=Whitley, children=[], age=30)        (Person <1870252780>)
+expect: Person(firstName=Susanne, lastName=Whitley, children=[], age=30)        (Person <1870252780>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <761960786>)
     ◾ ▶ has at least one element: false
         ◾ is: true
@@ -1417,7 +1417,7 @@ In order to create an own assertion verb it is sufficient to:
  2. Create your own atriumVerbs.kt and paste the previously copied content.
  3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
  4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
- 5. exclude `atrium-verbs` (`atrium-verbs-js` respectively) from your dependencies. 
+ 5. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
     ```
     dependencies {
@@ -1427,10 +1427,11 @@ In order to create an own assertion verb it is sufficient to:
     }
     ```
 
-As you can see, it is up to you if you use the same name for all assertion functions or not 
+As you can see in [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt), 
+it is up to you if you use the same name for all assertion functions or not 
 (Atrium itself uses `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions).
 
-What are the benefits of creating an own assertion verb:
+What are the benefits of creating own assertion verbs:
 - you can limit the set of available assertion verbs. <br/>
   Say you want that everyone uses `expect` but not `assertThat`, removing `assertThat` is surely a better option than using a linter.
 - you can encapsulate the reporting style. <br/>
@@ -1442,7 +1443,7 @@ What are the benefits of creating an own assertion verb:
     
     I suggest you create an adapter project for Atrium where you specify the assertion verbs. 
     And most likely you will accumulate them with assertion functions which are so common 
-    that they appear in multiple projects (please share them with us if they are not of an internal nature :wink:)
+    that they appear in multiple projects -- please share them with us (get in touch with us via issue or slack) if they are not of an internal nature :wink:
     
     <hr/>
     </details>
