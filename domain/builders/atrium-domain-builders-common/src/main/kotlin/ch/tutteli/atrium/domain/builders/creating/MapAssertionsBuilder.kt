@@ -32,7 +32,7 @@ object MapAssertionsBuilder : MapAssertions {
 
     override inline fun <K, V : Any> containsKeyWithValueAssertions(
         plant: AssertionPlant<Map<out K, V>>,
-        keyValues: List<Pair<K, Assert<V>.()->Unit>>
+        keyValues: List<Pair<K, Assert<V>.() -> Unit>>
     ) = mapAssertions.containsKeyWithValueAssertions(plant, keyValues)
 
     override inline fun <K, V : Any> containsKeyWithNullableValueAssertions(

@@ -6,6 +6,8 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.kbox.glue
+import kotlin.js.JsName
+import kotlin.jvm.JvmName
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
@@ -19,6 +21,7 @@ import ch.tutteli.kbox.glue
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@JsName("contains")
 fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
@@ -34,7 +37,8 @@ fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+@JvmName("containsNullable")
+inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.contains(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyNullableValuePair glue otherEntries))
 
 /**
@@ -66,7 +70,7 @@ fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
+inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
@@ -96,7 +100,8 @@ fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K)
+@JsName("getExisting")
+fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
 
 /**
@@ -119,25 +124,8 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExistingNullable(key: K)
+fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlantNullable<V?>
     = AssertImpl.map.getExistingNullable(this, key)
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the given [key] and that
- * the corresponding nullable value holds all assertions the given [assertionCreator] might create for it.
- *
- * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
- * nullable value type.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
- *   does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
- */
-fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
-    = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
-
-
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s [Map.size] is [size].

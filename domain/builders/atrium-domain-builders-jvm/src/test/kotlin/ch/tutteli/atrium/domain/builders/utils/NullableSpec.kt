@@ -1,4 +1,4 @@
-//package ch.tutteli.atrium.domain.builders.utils
+package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.domain.builders.utils.*
@@ -103,7 +103,7 @@ object NullableSpec : Spek({
             }.toThrow<AssertionError> {  }
         }
         it("can pass `null` as key") {
-            assert(nullableKeyMap(testee.numbersWithString)[null]).toBe(null)
+            assert(nullableKeyMap(testee.numbersWithString)[null]).notToBeNullBut("tada")
         }
 
         it("can be combined with ${nullableFun.name}") {
@@ -116,11 +116,9 @@ object NullableSpec : Spek({
 
     describeFun(nullableValueMapFun.name) {
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
-            assert(nullableValueMap(testee.numbersWithString)).getExistingNullable(1).toBe(null)
+            assert(nullableValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
             expect {
-                assert(nullableValueMap(testee.numbersWithString)).getExistingNullable(1) {
-                    notToBeNullBut("hello")
-                }
+                assert(nullableValueMap(testee.numbersWithString)).getExisting(1).notToBeNullBut(1)
             }.toThrow<AssertionError> {  }
 
         }
@@ -136,18 +134,14 @@ object NullableSpec : Spek({
             assert(nullableKeyValueMap(testee.numbersWithString)){
 
             }
-            assert(nullableKeyValueMap(testee.numbersWithString)).getExistingNullable(1).toBe(null)
+            assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
             expect {
-                assert(nullableKeyValueMap(testee.numbersWithString)).getExistingNullable(1) {
-                    notToBeNullBut("hello")
-                }
+                assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).notToBeNullBut("hello")
             }.toThrow<AssertionError> {  }
         }
 
         it("can pass `null` as key") {
-            expect {
-                assert(nullableKeyMap(testee.numbersWithString)).getExistingNullable(null)
-            }.toThrow<AssertionError> {  }
+            assert(nullableKeyMap(testee.numbersWithString)).getExisting(null).toBe("tada")
         }
 
         it("can be combined with ${nullableFun.name}") {

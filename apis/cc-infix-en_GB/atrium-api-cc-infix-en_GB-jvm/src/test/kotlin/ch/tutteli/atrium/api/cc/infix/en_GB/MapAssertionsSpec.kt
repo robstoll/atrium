@@ -13,9 +13,9 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyWithValueAssertions,
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyNullableValue::class.simpleName}" to Companion::containsKeyWithNullableValueAssertions,
     Assert<Map<out String, Int>>::containsKey.name to Companion::containsKey,
-    "${Assert<Map<out String?, *>>::containsKey.name} for nullable" to Companion::containsNullableKey,
+    Assert<Map<out String?, *>>::containsKey.name to Companion::containsNullableKey,
     Assert<Map<out String, Int>>::containsNotKey.name to Companion::containsNotKey,
-    "${Assert<Map<out String?, *>>::containsNotKey.name} for nullable" to Companion::containsNotNullableKey,
+    Assert<Map<out String?, *>>::containsNotKey.name to Companion::containsNotNullableKey,
     Assert<Map<*, *>>::hasSize.name to Companion::hasSize,
     "${Assert<Map<*, *>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
     "${Assert<Map<*, *>>::notToBe.name} ${Empty::class.simpleName}" to Companion::isNotEmpty
@@ -30,12 +30,12 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsNullableFun : KFunction2<Assert<Map<out String?, Int?>>, Pair<String?, Int?>,Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::containsNullable
+        private val containsNullableFun : KFunction2<Assert<Map<out String?, Int?>>, Pair<String?, Int?>,Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::contains
         private fun containsNullable(plant: Assert<Map<out String?, Int?>>, pair: Pair<String?, Int?>, otherPairs: Array<out Pair<String?, Int?>>): Assert<Map<out String?, Int?>> {
             return if (otherPairs.isEmpty()) {
-                plant containsNullable (pair.first to pair.second)
+                plant contains (pair.first to pair.second)
             } else {
-                plant containsNullable Pairs(pair, *otherPairs)
+                plant contains Pairs(pair, *otherPairs)
             }
         }
 
@@ -50,13 +50,13 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<out String?, Int?>>, KeyNullableValue<String, Int>, Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::containsNullable
+        private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<out String?, Int?>>, KeyNullableValue<String, Int>, Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::contains
         private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<out String?, Int?>>, keyValue: Pair<String?, (Assert<Int>.() -> Unit)?>, otherKeyValues: Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>): Assert<Map<out String?, Int?>> {
             return if (otherKeyValues.isEmpty()) {
-                plant containsNullable KeyNullableValue(keyValue.first, keyValue.second)
+                plant contains KeyNullableValue(keyValue.first, keyValue.second)
             } else {
                 mapArguments(keyValue, otherKeyValues).to { KeyNullableValue(it.first, it.second) }.let{ (first, others) ->
-                    plant containsNullable All(first, *others)
+                    plant contains All(first, *others)
                 }
             }
         }

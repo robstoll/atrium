@@ -152,7 +152,7 @@ abstract class MapAssertionsSpec(
         }
     }
 
-    describeFun(containsNullable) {
+    describeFun("$containsNullable for nullable") {
         context("map $nullableMap") {
             listOf(
                 listOf("a" to null),
@@ -194,7 +194,7 @@ abstract class MapAssertionsSpec(
 
     describeFun(containsKeyWithValueAssertions) {
         context("map $map") {
-            listOf<Pair<String, List<Pair<String, Assert<Int>.() -> Unit>>>>(
+            listOf(
                 "a{ toBe(1) }" to listOf(keyValue("a") { toBe(1) } ),
                 "b{ toBe(2) }" to listOf(keyValue("b") { toBe(2) } ),
                 "a{ toBe(1) }, b{ toBe(2) }" to listOf(keyValue("a") { toBe(1) }, keyValue("b"){ toBe(2) }) ,
@@ -227,9 +227,9 @@ abstract class MapAssertionsSpec(
         }
     }
 
-    describeFun(containsKeyWithNullableValueAssertions) {
+    describeFun("$containsKeyWithNullableValueAssertions for nullable") {
         context("map $nullableMap") {
-            listOf<Pair<String, List<Pair<String?, (Assert<Int>.() -> Unit)?>>>>(
+            listOf(
                 "(a, null)" to
                     listOf(keyNullableValue("a" , null)),
                 "a{ toBe(1) }" to
@@ -295,7 +295,7 @@ abstract class MapAssertionsSpec(
         }
     }
 
-    describeFun(containsNullableKey) {
+    describeFun("$containsNullableKey for nullable key type") {
         it("does not throw if the map contains the key") {
             verbs.checkImmediately(mapOf("a" to 1, null to 2)).containsNullableKeyFun(null)
         }
@@ -323,7 +323,7 @@ abstract class MapAssertionsSpec(
         }
     }
 
-    describeFun(containsNotNullableKey) {
+    describeFun("$containsNotNullableKey for nullable key type") {
         it("does not throw if the map does not contain the key") {
             verbs.checkImmediately(mapOf<String?, Int>("a" to 1, "b" to 2)).containsNotNullableKeyFun(null)
         }

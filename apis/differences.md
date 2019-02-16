@@ -401,16 +401,12 @@ assert(x) getNullable Index(0) assertIt { o notToBeNullBut 1 }
 ```kotlin
 assert(x).getExisting("a").isLessThan(1)
 assert(x).getExisting("a") { isGreaterThan(1) }
-assert(x).getExistingNullable("a").toBe(null)
-assert(x).getExistingNullable("a") { notToBeNullBut(1) }
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) getExisting "a" isLessThan 1
 assert(x) getExisting Key("a") assertIt { o isGreaterThan 1 }
-assert(x) getExistingNullable "a" toBe null
-assert(x) getExistingNullable Key("a") assertIt { o notToBeNullBut 1 }
 ```
 
 # Map contains
@@ -421,10 +417,11 @@ assert(x).contains("a" to 1, "b" to 2)
 assert(x).contains(KeyValue("a") { isGreaterThan(3).and.isLessThan(10) })
 assert(x).contains(KeyValue("a") { toBe(2) }, KeyValue("b") { isLessThan(3) })
 
-assert(x).containsNullable("a" to null)
-assert(x).containsNullable("a" to null, "b" to 2)
-assert(x).containsNullable(KeyNullableValue("a", null))
-assert(x).containsNullable(
+//in case of a nullable value
+assert(x).contains("a" to null)
+assert(x).contains("a" to null, "b" to 2)
+assert(x).contains(KeyNullableValue("a", null))
+assert(x).contains(
   KeyNullableValue("a", null) 
   KeyNullableValue("b") { isLessThan(2) }
 )
@@ -440,10 +437,11 @@ assert(x) contains KeyValue("a") {
 }
 assert(x) contains All(KeyValue("a") { o toBe 2 }, KeyValue("b") { o isLessThan 3 })
 
-assert(x) containsNullable ("a" to null)
-assert(x) containsNullable Pairs("a" to null, "b" to 2)
-assert(x) containsNullable KeyNullableValue("a", null)
-assert(x) containsNullable All(
+//in case of a nullable value
+assert(x) contains ("a" to null)
+assert(x) contains Pairs("a" to null, "b" to 2)
+assert(x) contains KeyNullableValue("a", null)
+assert(x) contains All(
   KeyNullableValue("a", null), 
   KeyNullableValue("b") { o isLessThan 2 }
 )

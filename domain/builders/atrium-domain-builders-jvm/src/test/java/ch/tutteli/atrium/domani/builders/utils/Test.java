@@ -27,6 +27,7 @@ public class Test {
         HashMap<Integer, String> map = new HashMap<>();
         map.put(1, null);
         map.put(2, "hello");
+        map.put(null, "tada");
         return map;
     }
 

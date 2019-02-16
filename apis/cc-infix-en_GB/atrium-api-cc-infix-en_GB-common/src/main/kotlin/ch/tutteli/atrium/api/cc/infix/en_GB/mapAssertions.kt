@@ -7,6 +7,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import kotlin.js.JsName
+import kotlin.jvm.JvmName
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
@@ -17,6 +19,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@JsName("contains")
 infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>)
     = this contains Pairs(keyValuePair)
 
@@ -31,6 +34,7 @@ infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@JsName("containsPairs")
 infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePairs.toList()))
 
@@ -38,13 +42,14 @@ infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePairs: Pairs
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second].
  *
- * Delegates to `containsNullable Pairs(entry)`.
+ * Delegates to `contains Pairs(entry)`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValuePair: Pair<K, V?>)
-    = this containsNullable Pairs(keyValuePair)
+@JvmName("containsNullable")
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValuePair: Pair<K, V?>)
+    = this contains Pairs(keyValuePair)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains for each entry in [keyValuePairs], a key as defined by
@@ -53,7 +58,8 @@ inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNulla
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValuePairs: Pairs<K, V?>)
+@JvmName("containsNullable")
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValuePairs: Pairs<K, V?>)
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyValuePairs.toList()))
 
 /**
@@ -90,8 +96,8 @@ infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValues: All<KeyVa
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>)
-    = containsNullable(All(keyValue))
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValue: KeyNullableValue<K, V>)
+    = contains(All(keyValue))
 
 /**
  * Makes the assertion that for each of the [KeyNullableValue] in [keyValues], the [Assert.subject][AssertionPlant.subject] contains
@@ -106,7 +112,8 @@ inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNulla
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.containsNullable(keyValues: All<KeyNullableValue<K, V>>)
+@JvmName("containsNullable")
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValues: All<KeyNullableValue<K, V>>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList().map { it.toPair() }))
 
 /**
@@ -136,7 +143,8 @@ infix fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K)
+@JsName("getExisting")
+infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
 
 /**
@@ -154,7 +162,7 @@ infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: Key<K>): MapG
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-infix fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: K)
+infix fun <K, V, T: Map<out K, V>> Assert<T>.getExisting(key: K)
     = AssertImpl.map.getExistingNullable(this, key)
 
 /**
@@ -165,7 +173,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: K)
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <K, V, T: Map<out K, V>> Assert<T>.getExistingNullable(key: Key<K>): MapGetNullableOption<K, V, T>
+infix fun <K, V, T: Map<out K, V>> Assert<T>.getExisting(key: Key<K>): MapGetNullableOption<K, V, T>
     = MapGetNullableOption.create(this, key.key)
 
 
