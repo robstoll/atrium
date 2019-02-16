@@ -13,18 +13,14 @@ class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapEntr
     valueVal.name to valueVal,
     valueFun.name to valueFun,
     nullableKeyVal.name to nullableKeyVal,
-    nullableKeyFun.name to nullableKeyFun,
-    nullableValueVal.name to nullableValueVal,
-    nullableValueFun.name to nullableValueFun
+    nullableValueVal.name to nullableValueVal
 ){
     companion object {
         private val keyVal: KProperty1<Assert<Map.Entry<String, Int>>, Assert<String>> = Assert<Map.Entry<String, Int>>::key
         private val keyFun: KFunction2<Assert<Map.Entry<String, Int>>, Assert<String>.() -> Unit, Assert<Map.Entry<String, Int>>> = Assert<Map.Entry<String, Int>>::key
         private val valueVal: KProperty1<Assert<Map.Entry<String, Int>>, Assert<Int>> = Assert<Map.Entry<String, Int>>::value
         private val valueFun: KFunction2<Assert<Map.Entry<String, Int>>, Assert<Int>.() -> Unit, Assert<Map.Entry<String, Int>>> = Assert<Map.Entry<String, Int>>::value
-        private val nullableKeyVal: KProperty1<Assert<Map.Entry<String?, Int?>>, AssertionPlantNullable<String?>> = Assert<Map.Entry<String?, Int?>>::nullableKey
-        private val nullableKeyFun: KFunction2<Assert<Map.Entry<String?, Int?>>, AssertionPlantNullable<String?>.() -> Unit, Assert<Map.Entry<String?, Int?>>> = Assert<Map.Entry<String?, Int?>>::nullableKey
-        private val nullableValueVal: KProperty1<Assert<Map.Entry<String?, Int?>>, AssertionPlantNullable<Int?>> = Assert<Map.Entry<String?, Int?>>::nullableValue
-        private val nullableValueFun: KFunction2<Assert<Map.Entry<String?, Int?>>, AssertionPlantNullable<Int?>.() -> Unit, Assert<Map.Entry<String?, Int?>>> = Assert<Map.Entry<String?, Int?>>::nullableValue
+        private val nullableKeyVal: KProperty1<Assert<Map.Entry<String?, Int?>>, AssertionPlantNullable<String?>> = Assert<Map.Entry<String?, Int?>>::key
+        private val nullableValueVal: KProperty1<Assert<Map.Entry<String?, Int?>>, AssertionPlantNullable<Int?>> = Assert<Map.Entry<String?, Int?>>::value
     }
 }

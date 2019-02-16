@@ -21,9 +21,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
     valueValPair: Pair<String, Assert<T>.() -> Assert<Int>>,
     valueFunPair: Pair<String, Assert<T>.(assertionCreator: Assert<Int>.() -> Unit) -> Assert<T>>,
     nullableKeyValPair: Pair<String, Assert<TNullable>.() -> AssertionPlantNullable<String?>>,
-    nullableKeyFunPair: Pair<String, Assert<TNullable>.(assertionCreator: AssertionPlantNullable<String?>.() -> Unit) -> Assert<TNullable>>,
     nullableValueValPair: Pair<String, Assert<TNullable>.() -> AssertionPlantNullable<Int?>>,
-    nullableValueFunPair: Pair<String, Assert<TNullable>.(assertionCreator: AssertionPlantNullable<Int?>.() -> Unit) -> Assert<TNullable>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -37,12 +35,10 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
     ){})
     include(object : SubjectLessAssertionSpec<TNullable>("$describePrefix[nullable] ",
         "val ${nullableKeyValPair.first}" to mapToCreateAssertion { nullableKeyValPair.second(this).toBe(null) },
-        "fun ${nullableKeyFunPair.first}" to mapToCreateAssertion { nullableKeyFunPair.second(this) { toBe(null) } },
-        "val ${nullableValueValPair.first}" to mapToCreateAssertion { nullableValueValPair.second(this).toBe(null) } ,
+        "val ${nullableValueValPair.first}" to mapToCreateAssertion { nullableValueValPair.second(this).toBe(null) }
         //TODO should also be possible, notToBeNull is not subjectLess
 //        "fun ${nullableKeyFunPair.first}" to mapToCreateAssertion { nullableKeyFunPair.second(this) { notToBeNullBut("a") } },
 //        "val ${nullableValueValPair.first}" to mapToCreateAssertion { nullableValueValPair.second(this).notToBeNull { isGreaterThan(1) } } ,
-        "fun ${nullableValueFunPair.first}" to mapToCreateAssertion { nullableValueFunPair.second(this) { toBe(null) } }
     ){})
 
 
@@ -55,9 +51,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
 
      include(object : CheckingAssertionSpec<TNullable>(verbs, "$describePrefix[nullable] ",
         checkingTriple("val ${nullableKeyValPair.first}", { nullableKeyValPair.second(this).toBe(null) }, creatorNullable(null, 1), creatorNullable("ba", 2)),
-        checkingTriple("fun ${nullableKeyFunPair.first}", { nullableKeyFunPair.second(this) { notToBeNullBut("a") } }, creatorNullable("a", 1), creatorNullable("bc", 1)),
-        checkingTriple("val ${nullableValueValPair.first}", { nullableValueValPair.second(this).notToBeNull { isGreaterThan(1) } }, creatorNullable("a", 2), creatorNullable("a", 1)),
-        checkingTriple("fun ${nullableValueFunPair.first}", { nullableValueFunPair.second(this) { toBe(null) } }, creatorNullable("a", null), creatorNullable("a", 1))
+        checkingTriple("val ${nullableValueValPair.first}", { nullableValueValPair.second(this).notToBeNull { isGreaterThan(1) } }, creatorNullable("a", 2), creatorNullable("a", 1))
     ){})
     //@formatter:on
 
@@ -80,9 +74,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
     val (valueFunName, valueFun) = valueFunPair
 
     val (nullableKeyValName, nullableKeyVal) = nullableKeyValPair
-    val (nullableKeyFunName, nullableKeyFun) = nullableKeyFunPair
     val (nullableValueValName, nullableValueVal) = nullableValueValPair
-    val (nullableValueFunName, nullableValueFun) = nullableValueFunPair
 
     describeFun("val $keyValName") {
         context("$mapEntry") {
@@ -184,40 +176,6 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
         }
     }
 
-    describeFun("fun $nullableKeyFunName") {
-        context("$nullableMapEntry") {
-            test("notToBeNullBut(hello)") {
-                nullableFluent.nullableKeyFun { notToBeNullBut("hello") }
-            }
-            test("toBe(null) fails") {
-                expect {
-                    nullableFluent.nullableKeyFun { toBe(null) }
-                }.toThrow<AssertionError> {
-                    messageContains("$keyName: \"hello\"")
-                }
-            }
-        }
-        context("$nullMapEntry") {
-            test("toBe(null)") {
-                nullFluent.nullableKeyFun { toBe(null) }
-            }
-            test("notToBeNullBut(hello) fails") {
-                expect {
-                    nullFluent.nullableKeyFun { notToBeNullBut("hello") }
-                }.toThrow<AssertionError> {
-                    messageContains("$keyName: null")
-                }
-            }
-        }
-        //TODO should fail but does not since it has a feature assertion which itself is empty
-//            test("throws if no assertion is made") {
-//                expect {
-//                    fluent.keyFun { }
-//                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-//            }
-    }
-
-
     describeFun("val $nullableValueValName") {
         context("$nullableMapEntry") {
             test("isGreaterThan(0) holds") {
@@ -233,48 +191,15 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
         }
         context("$nullMapEntry") {
             test("toBe(null)") {
-                nullFluent.nullableValueFun { toBe(null) }
+                nullFluent.nullableValueVal().toBe(null)
             }
             test("notToBeNullBut(1) fails") {
                 expect {
-                    nullFluent.nullableValueFun { notToBeNullBut(1) }
+                    nullFluent.nullableValueVal().notToBeNullBut(1)
                 }.toThrow<AssertionError> {
                     messageContains("$valueName: null")
                 }
             }
         }
-    }
-
-    describeFun("fun $nullableValueFunName") {
-        context("map with two entries") {
-            test("isGreaterThan(0) holds") {
-                nullableFluent.nullableValueFun { notToBeNull { isGreaterThan(0) } }
-            }
-            test("toBe(null) fails") {
-                expect {
-                    nullableFluent.nullableValueFun { toBe(null) }
-                }.toThrow<AssertionError> {
-                    messageContains("$valueName: 1")
-                }
-            }
-        }
-        context("$nullMapEntry") {
-            test("toBe(null)") {
-                nullFluent.nullableValueFun { toBe(null) }
-            }
-            test("notToBeNullBut(1) fails") {
-                expect {
-                    nullFluent.nullableValueFun { notToBeNullBut(1) }
-                }.toThrow<AssertionError> {
-                    messageContains("$valueName: null")
-                }
-            }
-        }
-        //TODO should fail but does not since it has a feature assertion which itself is empty
-//            test("throws if no assertion is made") {
-//                expect {
-//                    fluent.valueFun { }
-//                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-//            }
     }
 })
