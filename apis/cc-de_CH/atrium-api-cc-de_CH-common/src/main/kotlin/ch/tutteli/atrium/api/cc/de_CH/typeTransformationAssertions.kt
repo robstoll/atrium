@@ -1,9 +1,13 @@
+@file:JvmMultifileClass
+@file:JvmName("TypeTransformationAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Makes the assertion that [AssertionPlantNullable.subject] is not null and if so, uses [assertionCreator]
@@ -43,18 +47,4 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline as
  */
 inline fun <reified TSub : Any> Assert<Any>.istEin(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
-}
-
-/**
- * Makes the assertion that [AssertionPlantNullable.subject] is not null but the [expected] value.
- *
- * Is a shortcut for `istNichtNull { ist(expected) }`
- *
- * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
- *   assertion ([Assert.subject][AssertionPlant.subject] is not null) holds or not.
- *
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNullAber(expected: T) {
-    istNichtNull { ist(expected) }
 }

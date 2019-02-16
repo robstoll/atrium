@@ -28,9 +28,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     }
 
     companion object {
-        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::toBeNullable
-        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> =AssertionPlantNullable<Int?>::toBeNullable
-
+        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::toBe
+        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> = AssertionPlantNullable<Int?>::toBeNullIfNullGivenElse
 
         fun toBeName(): String{
             val f : KFunction2<Assert<Int>, Int, Assert<Int>> = Assert<Int>::toBe
@@ -42,15 +41,15 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
             return f.name
         }
 
-        private fun toBeNull(plant: AssertionPlantNullable<Int?>){
+        private fun toBeNull(plant: AssertionPlantNullable<Int?>) {
             plant toBe null
         }
 
         private fun toBeNullable(plant: AssertionPlantNullable<Int?>, expected: Int?)
-            = plant toBeNullable expected
+            = plant toBe expected
 
         private fun toBeNullableCreator(plant: AssertionPlantNullable<Int?>, assertionCreator: (Assert<Int>.() -> Unit)?)
-            = plant toBeNullable assertionCreator
+            = plant toBe assertionCreator
 
         fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>>
             = andLazyName() to Assert<Int>::and

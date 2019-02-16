@@ -33,7 +33,7 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
         private fun notToBeNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound: Int, upperBound: Int)
             = plant.notToBeNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
 
-
+        @Suppress("DEPRECATION")
         private fun getNotToBeNullButPair()
             = AssertionPlantNullable<Int?>::notToBeNullBut.name to AssertionPlantNullable<Int?>::notToBeNullBut
 

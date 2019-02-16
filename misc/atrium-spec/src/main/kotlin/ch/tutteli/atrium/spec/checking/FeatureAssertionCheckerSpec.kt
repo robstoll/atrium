@@ -55,7 +55,7 @@ abstract class FeatureAssertionCheckerSpec(
             check("its ${AssertionGroup::representation.name} corresponds to the ${LazyRepresentation::class.simpleName} of the passed subject") {
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
                     property(subject::representation).isA<LazyRepresentation>{
-                        returnValueOf(subject::eval).notToBeNullBut(valueUnderTest)
+                        returnValueOf(subject::eval).toBe(valueUnderTest)
                     }
                 }
             }

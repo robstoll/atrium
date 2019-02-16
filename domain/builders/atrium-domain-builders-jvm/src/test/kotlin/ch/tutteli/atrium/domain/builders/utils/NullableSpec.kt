@@ -36,32 +36,32 @@ object NullableSpec : Spek({
         context("can be usd in feature assertions") {
             test("for a method with 0 arguments") {
                 assert(testee) {
-                    returnValueOf(nullable(testee::arg0)).notToBeNullBut(0)
+                    returnValueOf(nullable(testee::arg0)).toBe(0)
                 }
             }
             test("for a method with 1 arguments") {
                 assert(testee) {
-                    returnValueOf(nullable(testee::arg1), 1).notToBeNullBut(1)
+                    returnValueOf(nullable(testee::arg1), 1).toBe(1)
                 }
             }
             test("for a method with 2 arguments") {
                 assert(testee) {
-                    returnValueOf(nullable(testee::arg2), 1, 2).notToBeNullBut(2)
+                    returnValueOf(nullable(testee::arg2), 1, 2).toBe(2)
                 }
             }
             test("for a method with 3 arguments") {
                 assert(testee) {
-                    returnValueOf(nullable(testee::arg3), 1, 2, 3).notToBeNullBut(3)
+                    returnValueOf(nullable(testee::arg3), 1, 2, 3).toBe(3)
                 }
             }
             test("for a method with 4 arguments") {
                 assert(testee) {
-                    returnValueOf(nullable(testee::arg4), 1, 2, 3, 4).notToBeNullBut(4)
+                    returnValueOf(nullable(testee::arg4), 1, 2, 3, 4).toBe(4)
                 }
             }
             test("for a method with 5 arguments") {
                 assert(testee) {
-                    returnValueOf(nullable(testee::arg5), 1, 2, 3, 4, 5).notToBeNullBut(5)
+                    returnValueOf(nullable(testee::arg5), 1, 2, 3, 4, 5).toBe(5)
                 }
             }
         }
@@ -103,7 +103,7 @@ object NullableSpec : Spek({
             }.toThrow<AssertionError> {  }
         }
         it("can pass `null` as key") {
-            assert(nullableKeyMap(testee.numbersWithString)[null]).notToBeNullBut("tada")
+            assert(nullableKeyMap(testee.numbersWithString)[null]).toBe("tada")
         }
 
         it("can be combined with ${nullableFun.name}") {
@@ -118,7 +118,7 @@ object NullableSpec : Spek({
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
             assert(nullableValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
             expect {
-                assert(nullableValueMap(testee.numbersWithString)).getExisting(1).notToBeNullBut(1)
+                assert(nullableValueMap(testee.numbersWithString)).getExisting(1).toBe(1)
             }.toThrow<AssertionError> {  }
 
         }
@@ -136,7 +136,7 @@ object NullableSpec : Spek({
             }
             assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
             expect {
-                assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).notToBeNullBut("hello")
+                assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe("hello")
             }.toThrow<AssertionError> {  }
         }
 

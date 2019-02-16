@@ -1,3 +1,5 @@
+@file:JvmMultifileClass
+@file:JvmName("AnyAssertionsKt")
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED
@@ -8,6 +10,8 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.reporting.Reporter
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
@@ -68,33 +72,13 @@ infix fun <T : Any> Assert<T>.isNotSameAs(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is `null`.
- *
- * @param null Has to be `null`.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expected].
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
-    addAssertion(AssertImpl.any.isNull(this))
-}
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expectedOrNull].
- *
- * It is a shortcut for
- * ```kotlin
- * if (nullOrExpected == null)
- *   o toBe null
- * else
- *   o notToBeNullBut expectedOrNull
- * ```
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(expectedOrNull: T?) {
-    addAssertion(AssertImpl.any.isNullable(this, T::class, expectedOrNull))
+inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
+    addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
 }
 
 /**
@@ -103,7 +87,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(expec
  *
  * It is a shortcut for
  * ```kotlin
- * if (nullOrExpected == null)
+ * if (assertionCreatorOrNull == null)
  *   o toBe null
  * else
  *   o notToBeNull assertionCreatorOrNull
@@ -112,7 +96,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(expec
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
+inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
     addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 }
 

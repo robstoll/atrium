@@ -30,15 +30,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     }
 
     companion object {
-        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::istNullable
-        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> =AssertionPlantNullable<Int?>::istNullable
-
-        @Suppress("unused")
-        val checkThereIsNoOverloadAmbiguity by lazy {
-            val i: Int? = 1
-            esGilt(i).istNullable(null)
-        }
-
+        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::ist
+        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> = AssertionPlantNullable<Int?>::istNullWennNullGegebenSonst
 
         fun toBeNull(plant: AssertionPlantNullable<Int?>) {
             plant.ist(null)

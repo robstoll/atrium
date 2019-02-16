@@ -276,30 +276,32 @@ Have a look at [writing an own assertion function](#write-own-assertion-function
 
  
 ## Nullable Types
+Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
 ```kotlin
-val subtitle : String? = "postulating assertions made easy"
-expect(subtitle).toBe(null)
+val slogan1 : String? = "postulating assertions made easy"
+expect(slogan1).toBe(null)
     // expect: "postulating assertions made easy"        <22600334>
     // ◆ to be: null
-
-expect(subtitle).notToBeNull { startsWith("atrium") }
-    //expect: "postulating assertions made easy"        <651100072>
-    //◆ starts with: "atrium"        <222427158>
+    
+val slogan2 : String? = null    
+expect(slogan2).toBe("postulating assertions made easy")
+    // expect: null
+    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //   » to be: "postulating assertions made easy"        <461160828>
+    
+expect(slogan1).notToBeNull { startsWith("atrium") }
+    // expect: "postulating assertions made easy"        <651100072>
+    // ◆ starts with: "atrium"        <222427158>    
 ```
-If the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
-you need to define first, whether you expect it to be `null` or not. 
-In case you expect it `notToBeNull` you can define one or more subsequent assertions 
-for the subject as if it had a non-nullable type  (`String` in the above example) by defining an 
-[assertion group block](#define-single-assertions-or-assertion-groups) 
--- `{ startsWith("atrium") }` in the above example. 
-
-Atrium provides two shortcuts in case you have to deal a lot with nullable types. 
-The first is `notToBeNullBut(x)` which is short for `notToBeNull { toBe(x) }`.
+On one hand, you can use `toBe` and pass the same type (`String?` in the above example, so in other words either `null` or a `String`).
+On the other hand, you can use `notToBeNull` to turn the subject into its non-null version (`String` in the above example)
+and then define sub-assertions in the corresponding [assertion group block](#define-single-assertions-or-assertion-groups) 
+-- `{ startsWith("atrium") }` in the above example.
 
 
-The other is indented for [data driven testing](#data-driven-testing) involving nullable types.
-`toBeNullable` accepts a nullable value in contrast to `toBe` which only accepts `null` in case of a nullable subject. 
-Following an example for `toBeNullable`:
+Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
+involving nullable types.
+In case you want to make only simple is-equals-assertions, then you can use `toBe`:
 ```kotlin
 fun myFun(i: Int) = if (i > 0) i.toString() else null
 
@@ -312,7 +314,7 @@ expect("calling myFun with ...") {
         2 to "2", 
         Int.MAX_VALUE to Int.MAX_VALUE.toString()
     ).forEach { arg, result ->
-        returnValueOf(::myFun, arg).toBeNullable(result)
+        returnValueOf(::myFun, arg).toBe(result)
     }
 }
 
@@ -326,12 +328,11 @@ expect("calling myFun with ...") {
     // ◆ ▶ myFun(2147483647): "2147483647"        <97730845>
     //     ◾ to be: "max"        <611437735>
 ```
-in the above case `toBeNullable` is short for `if (result == null) toBe(null) else notToBeNullBut(result)`.
 
-There is a second overload which accepts an assertion creator lambda (or null). 
-Use it in case you want to perform more complicated assertions than just comparing the subject with an equals check.
-It is short for `if (result == null) toBe(null) else notToBeNull(assertionCreator)`. 
-Following another fictional example reusing `myFun` from above:
+Yet, if you wish to make sub-assertions on the non-nullable type of the subject, then you can use
+`toBeNullIfNullGivenElse` which accepts an assertion creator or `null`.
+It is short for `if (assertionCreatorOrNull == null) toBe(null) else notToBeNull(assertionCreatorOrNull)`. 
+Following another fictional example which illustrates `toBeNullIfNullGivenElse` (we are reusing `myFun` from above):
 ```kotlin
 expect("calling myFun with ...") {
     mapOf(
@@ -342,7 +343,7 @@ expect("calling myFun with ...") {
         2 to subAssert { endsWith("2") },
         Int.MAX_VALUE to  subAssert { toBe("max") }
     ).forEach { arg, assertionCreatorOrNull ->
-        returnValueOf(::myFun, arg).toBeNullable(assertionCreatorOrNull)
+        returnValueOf(::myFun, arg).toBeNullIfNullGivenElse(assertionCreatorOrNull)
     }
 }
 
@@ -357,14 +358,6 @@ expect("calling myFun with ...") {
     // ◆ ▶ myFun(2147483647): "2147483647"        <401424608>
     //     ◾ to be: "max"        <1348949648>
 ``` 
-
-Last but not least, if you deal with a container type such as `Iterable`/`Collection`/`Map` and have a nullable entry type 
-(e.g. `Iterable<String?>`) then in most cases you find a function which has `Nullable` as suffix and allows to pass 
-`null`.
-For instance:
-```
-expect(listOf("a", null)).containsNullableValues("a", null)
-```
 
 <details>
 <summary>:information_source: dealing a lot with nullable types from Java...</summary>

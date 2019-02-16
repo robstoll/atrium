@@ -36,8 +36,8 @@ abstract class ListFeatureAssertionsSpec(
         checkingTriple(getPair.first, { getPair.second(this, 0) { isGreaterThan(1) } }, listOf(2, 1), listOf(1, 2))
     ){})
     include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
-        checkingTriple("${getNullablePlantPair.first} returns plant", { getNullablePlantPair.second(this, 0).notToBeNullBut(1) }, listOf(1, null), listOf(2, 1)),
-        checkingTriple(getNullablePair.first, { getNullablePair.second(this, 0) { notToBeNullBut(1) } }, listOf(1, null), listOf(2, 1))
+        checkingTriple("${getNullablePlantPair.first} returns plant", { getNullablePlantPair.second(this, 0).toBe(1) }, listOf(1, null), listOf(2, 1)),
+        checkingTriple(getNullablePair.first, { getNullablePair.second(this, 0) { toBe(1) } }, listOf(1, null), listOf(2, 1))
     ) {})
     //@formatter:on
 
@@ -96,7 +96,7 @@ abstract class ListFeatureAssertionsSpec(
     describeFun("$getNullable for nullable returns plant") {
         context("list $listNullable") {
             test("can perform sub-assertion on existing key") {
-                fluentNullable.getNullablePlantFun(0).notToBeNullBut(1)
+                fluentNullable.getNullablePlantFun(0).toBe(1)
             }
             test("can perform sub-assertion on existing key with value null") {
                 fluentNullable.getNullablePlantFun(1).toBe(null)
@@ -115,7 +115,7 @@ abstract class ListFeatureAssertionsSpec(
     describeFun("$getNullablePlant for nullable") {
         context("list $listNullable") {
             test("can perform sub-assertion on existing key") {
-                fluentNullable.getNullableFun(0) { notToBeNullBut(1) }
+                fluentNullable.getNullableFun(0) { toBe(1) }
             }
             test("can perform sub-assertion on existing key with value null") {
                 fluentNullable.getNullableFun(1) { toBe(null) }

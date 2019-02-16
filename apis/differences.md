@@ -384,16 +384,18 @@ assert(x) all NullableEntry(null)
 ```kotlin
 assert(x).get(0).isLessThan(1)
 assert(x).get(0) { isGreaterThan(1) }
-assert(x).getNullable(0).toBe(null)
-assert(x).getNullable(0) { notToBeNullBut(1) }
+
+//in case of a nullable element type
+assert(x).get(0).toBe(null)
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) get 0 isLessThan 1
 assert(x) get Index(0) assertIt { o isGreaterThan 1 }
-assert(x) getNullable 0 toBe null
-assert(x) getNullable Index(0) assertIt { o notToBeNullBut 1 }
+
+//in case of a nullable element type
+assert(x) get 0 toBe null
 ```
 
 # Map get
@@ -401,12 +403,18 @@ assert(x) getNullable Index(0) assertIt { o notToBeNullBut 1 }
 ```kotlin
 assert(x).getExisting("a").isLessThan(1)
 assert(x).getExisting("a") { isGreaterThan(1) }
+
+//in case of a nullable value type
+assert(x).getExisting("a").notToBeNull { isGreaterThan(1) }
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) getExisting "a" isLessThan 1
 assert(x) getExisting Key("a") assertIt { o isGreaterThan 1 }
+
+//in case of a nullable value type
+assert(x) getExisting Key("a") notToBeNull { o isGreaterThan 1 }
 ```
 
 # Map contains
@@ -417,7 +425,7 @@ assert(x).contains("a" to 1, "b" to 2)
 assert(x).contains(KeyValue("a") { isGreaterThan(3).and.isLessThan(10) })
 assert(x).contains(KeyValue("a") { toBe(2) }, KeyValue("b") { isLessThan(3) })
 
-//in case of a nullable value
+//in case of a nullable value type
 assert(x).contains("a" to null)
 assert(x).contains("a" to null, "b" to 2)
 assert(x).contains(KeyNullableValue("a", null))
@@ -437,7 +445,7 @@ assert(x) contains KeyValue("a") {
 }
 assert(x) contains All(KeyValue("a") { o toBe 2 }, KeyValue("b") { o isLessThan 3 })
 
-//in case of a nullable value
+//in case of a nullable value type
 assert(x) contains ("a" to null)
 assert(x) contains Pairs("a" to null, "b" to 2)
 assert(x) contains KeyNullableValue("a", null)
@@ -445,5 +453,4 @@ assert(x) contains All(
   KeyNullableValue("a", null), 
   KeyNullableValue("b") { o isLessThan 2 }
 )
-
 ```

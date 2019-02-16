@@ -48,8 +48,8 @@ abstract class MapFeatureAssertionsSpec(
         checkingTriple(getExistingPair.first, { getExistingPair.second(this, "a") { isGreaterThan(1) } }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2))
     ){})
     include(object : CheckingAssertionSpec<Map<String, Int?>>(verbs, "$describePrefix[nullable Key] ",
-        checkingTriple("${getExistingNullablePlantPair.first} plant", { getExistingNullablePlantPair.second(this, "a").notToBeNullBut(1) }, mapOf("a" to 1), mapOf("a" to null, "b" to 2)),
-        checkingTriple(getExistingNullablePair.first, { getExistingNullablePair.second(this, "a") { notToBeNullBut(1) } }, mapOf("a" to 1), mapOf("a" to null, "b" to 2))
+        checkingTriple("${getExistingNullablePlantPair.first} plant", { getExistingNullablePlantPair.second(this, "a").toBe(1) }, mapOf("a" to 1), mapOf("a" to null, "b" to 2)),
+        checkingTriple(getExistingNullablePair.first, { getExistingNullablePair.second(this, "a") { toBe(1) } }, mapOf("a" to 1), mapOf("a" to null, "b" to 2))
     ) {})
     //@formatter:on
 
@@ -186,7 +186,7 @@ abstract class MapFeatureAssertionsSpec(
     describeFun("$getExistingNullablePlant for nullable returns plant") {
         context("map $mapNullable") {
             test("can perform sub-assertion on existing key") {
-                fluentNullable.getExistingNullablePlantFun("a").notToBeNullBut(1)
+                fluentNullable.getExistingNullablePlantFun("a").toBe(1)
             }
             test("can perform sub-assertion on existing key with null as value") {
                 fluentNullable.getExistingNullablePlantFun("b").toBe(null)
@@ -204,7 +204,7 @@ abstract class MapFeatureAssertionsSpec(
     describeFun("$getExistingNullable for nullable") {
         context("map $mapNullable") {
             test("can perform sub-assertion on existing key") {
-                fluentNullable.getExistingNullableFun("a") { notToBeNullBut(1) }
+                fluentNullable.getExistingNullableFun("a") { toBe(1) }
             }
             test("can perform sub-assertion on existing key with value null") {
                 fluentNullable.getExistingNullableFun("b") { toBe(null) }

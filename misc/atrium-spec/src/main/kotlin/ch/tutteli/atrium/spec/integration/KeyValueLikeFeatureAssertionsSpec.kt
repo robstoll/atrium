@@ -37,7 +37,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
         "val ${nullableKeyValPair.first}" to mapToCreateAssertion { nullableKeyValPair.second(this).toBe(null) },
         "val ${nullableValueValPair.first}" to mapToCreateAssertion { nullableValueValPair.second(this).toBe(null) }
         //TODO should also be possible, notToBeNull is not subjectLess
-//        "fun ${nullableKeyFunPair.first}" to mapToCreateAssertion { nullableKeyFunPair.second(this) { notToBeNullBut("a") } },
+//        "fun ${nullableKeyFunPair.first}" to mapToCreateAssertion { nullableKeyFunPair.second(this) { toBe("a") } },
 //        "val ${nullableValueValPair.first}" to mapToCreateAssertion { nullableValueValPair.second(this).notToBeNull { isGreaterThan(1) } } ,
     ){})
 
@@ -151,8 +151,8 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
 
     describeFun("val $nullableKeyValName") {
         context("$nullableMapEntry") {
-            test("notToBeNullBut(hello)") {
-                nullableFluent.nullableKeyVal().notToBeNullBut("hello")
+            test("toBe(hello)") {
+                nullableFluent.nullableKeyVal().toBe("hello")
             }
             test("toBe(null) fails") {
                 expect {
@@ -166,9 +166,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
             test("toBe(null)") {
                 nullFluent.nullableKeyVal().toBe(null)
             }
-            test("notToBeNullBut(hello) fails") {
+            test("toBe(hello) fails") {
                 expect {
-                    nullFluent.nullableKeyVal().notToBeNullBut("hello")
+                    nullFluent.nullableKeyVal().toBe("hello")
                 }.toThrow<AssertionError> {
                     messageContains("$keyName: null")
                 }
@@ -193,9 +193,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
             test("toBe(null)") {
                 nullFluent.nullableValueVal().toBe(null)
             }
-            test("notToBeNullBut(1) fails") {
+            test("toBe(1) fails") {
                 expect {
-                    nullFluent.nullableValueVal().notToBeNullBut(1)
+                    nullFluent.nullableValueVal().toBe(1)
                 }.toThrow<AssertionError> {
                     messageContains("$valueName: null")
                 }
