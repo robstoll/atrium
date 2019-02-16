@@ -28,7 +28,6 @@ class MapFeatureAssertionsSpec : Spek({
         getExistingNullableFun.name to MapFeatureAssertionsSpec.Companion::getExistingNullable
     ) {})
 
-
     describeFun("", arrayOf("getExisting for nullable")){
         test("throws if no assertion is made for existing key") {
             expect {

@@ -32,7 +32,7 @@ infix fun <E : Any, T: List<E>> Assert<T>.get(index: Index): ListGetOption<E, T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
-infix fun <E, T: List<E>> Assert<T>.getNullable(index: Int)
+infix fun <E, T: List<E>> Assert<T>.get(index: Int)
     = AssertImpl.list.getNullable(this, index)
 
 /**
@@ -43,6 +43,6 @@ infix fun <E, T: List<E>> Assert<T>.getNullable(index: Int)
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <E, T: List<E>> Assert<T>.getNullable(index: Index): ListGetNullableOption<E, T>
+infix fun <E, T: List<E>> Assert<T>.get(index: Index): ListGetNullableOption<E, T>
     = ListGetNullableOption.create(this, index.index)
 

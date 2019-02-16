@@ -11,12 +11,14 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.ListFeature
     getPlantFun.name to getPlantFun,
     getFun.name to getFun,
     getNullablePlantFun.name to getNullablePlantFun,
-    getNullableFun.name to getNullableFun
+    "get for nullable not implement in this API" to Companion::getNullable
 ){
     companion object {
         val getPlantFun: KFunction2<Assert<List<Int>>, Int, Assert<Int>> = Assert<List<Int>>::get
         val getFun: KFunction3<Assert<List<Int>>, Int, Assert<Int>.() -> Unit, Assert<List<Int>>> = Assert<List<Int>>::get
-        val getNullablePlantFun: KFunction2<Assert<List<Int?>>, Int, AssertionPlantNullable<Int?>> = Assert<List<Int?>>::getNullable
-        val getNullableFun: KFunction3<Assert<List<Int?>>, Int, AssertionPlantNullable<Int?>.() -> Unit, Assert<List<Int?>>> = Assert<List<Int?>>::getNullable
+        val getNullablePlantFun: KFunction2<Assert<List<Int?>>, Int, AssertionPlantNullable<Int?>> = Assert<List<Int?>>::get
+
+        fun getNullable(plant: Assert<List<Int?>>, index: Int, assertionCreator: AssertionPlantNullable<Int?>.() -> Unit): Assert<List<Int?>>
+            = plant.apply { get(index).assertionCreator() }
     }
 }
