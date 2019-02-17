@@ -157,6 +157,18 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactly(expectedOrNull: E, var
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator].
+ *
+ * It is a shortcut for `contains.inOrder.only.entry(assertionCreator)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+    = contains.inOrder.only.entry(assertionCreator)
+
+/**
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *

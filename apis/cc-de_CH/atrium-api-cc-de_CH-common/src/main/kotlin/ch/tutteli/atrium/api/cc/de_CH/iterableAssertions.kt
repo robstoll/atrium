@@ -160,6 +160,18 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExakt(expectedOrNull: E, varar
     = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only one entry which is holding
+ * the assertions created by the [assertionCreator].
+ *
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintrag(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(assertionCreator: Assert<E>.() -> Unit)
+    = enthaelt.inGegebenerReihenfolge.nur.eintrag(assertionCreator)
+
+/**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
