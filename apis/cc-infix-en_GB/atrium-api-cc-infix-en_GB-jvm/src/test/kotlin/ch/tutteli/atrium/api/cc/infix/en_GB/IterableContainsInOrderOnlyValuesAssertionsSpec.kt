@@ -44,7 +44,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         }
 
         fun getContainsNullablePair()
-            = "$toContain $inOrder $butOnly $inOrderOnlyValues nullable" to Companion::containsInOrderOnlyNullableValues
+            = "$toContain $inOrder $butOnly $inOrderOnlyValues" to Companion::containsInOrderOnlyNullableValues
 
         private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
@@ -58,10 +58,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
         private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
-            return when {
-                aX.isEmpty() -> plant containsExactly a
-                aX.size == 1 -> plant containsExactly Values(a, *aX)
-                else -> plant containsExactly Values(a, *aX)
+            return if (aX.isEmpty()) {
+                plant containsExactly a
+            } else {
+                plant containsExactly Values(a, *aX)
             }
         }
 
@@ -70,7 +70,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant containsExactly NullableValue(a)
+                plant containsExactly a
             } else {
                 plant containsExactly NullableValues(a, *aX)
             }

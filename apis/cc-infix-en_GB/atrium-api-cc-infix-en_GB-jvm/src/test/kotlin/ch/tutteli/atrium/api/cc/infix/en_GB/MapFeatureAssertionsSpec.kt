@@ -16,17 +16,7 @@ import java.lang.IllegalArgumentException
 
 class MapFeatureAssertionsSpec : Spek({
 
-    include(object : ch.tutteli.atrium.spec.integration.MapFeatureAssertionsSpec(
-        AssertionVerbFactory,
-        keysVal.name to keysVal,
-        keysFun.name to MapFeatureAssertionsSpec.Companion::keys,
-        valuesVal.name to valuesVal,
-        valuesFun.name to MapFeatureAssertionsSpec.Companion::values,
-        getExistingPlantFun.name to MapFeatureAssertionsSpec.Companion::getExistingPlant,
-        getExistingFun.name to MapFeatureAssertionsSpec.Companion::getExisting,
-        getExistingNullablePlantFun.name to MapFeatureAssertionsSpec.Companion::getExistingNullablePlant,
-        getExistingNullableFun.name to MapFeatureAssertionsSpec.Companion::getExistingNullable
-    ) {})
+    include(AtriumMapFeatureAssertionsSpec)
 
     describeFun("", arrayOf("getExisting for nullable")){
         test("throws if no assertion is made for existing key") {
@@ -42,6 +32,18 @@ class MapFeatureAssertionsSpec : Spek({
         }
     }
 }) {
+    object AtriumMapFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapFeatureAssertionsSpec(
+        AssertionVerbFactory,
+        keysVal.name to keysVal,
+        keysFun.name to MapFeatureAssertionsSpec.Companion::keys,
+        valuesVal.name to valuesVal,
+        valuesFun.name to MapFeatureAssertionsSpec.Companion::values,
+        getExistingPlantFun.name to MapFeatureAssertionsSpec.Companion::getExistingPlant,
+        getExistingFun.name to MapFeatureAssertionsSpec.Companion::getExisting,
+        getExistingNullablePlantFun.name to MapFeatureAssertionsSpec.Companion::getExistingNullablePlant,
+        getExistingNullableFun.name to MapFeatureAssertionsSpec.Companion::getExistingNullable
+    )
+
     companion object {
         val keysVal: KProperty1<Assert<Map<String, Int>>, Assert<Set<String>>> = Assert<Map<String, Int>>::keys
         val keysFun: KFunction2<Assert<Map<String, Int>>, Assert<Set<String>>.() -> Unit, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::keys

@@ -1,6 +1,5 @@
 @file:JvmMultifileClass
 @file:JvmName("AnyAssertionsKt")
-
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.AssertionPlantNullable

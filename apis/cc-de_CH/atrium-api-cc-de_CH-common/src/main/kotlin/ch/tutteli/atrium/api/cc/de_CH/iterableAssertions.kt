@@ -58,18 +58,6 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpec
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains the
- * [expected][expectedOrNull] nullable value.
- *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(expectedOrNull)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expectedOrNull: E): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(expectedOrNull)
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains the
  * [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values (if given).
  *
  * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expectedOrNull, *otherExpectedOrNulls)`
@@ -87,7 +75,7 @@ fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expectedOrNull: E):
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+fun <E: Any?, T: Iterable<E>> Assert<T>.enthaelt(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
@@ -125,7 +113,8 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+@JvmName("enthaeltNullable")
+fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)
 
 /**
@@ -139,8 +128,10 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+@JvmName("enthaeltNullable")
+fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
@@ -155,50 +146,6 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg other
     = enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
- * the defined order.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated(
-    message = "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExakt(expected,*otherExpected)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExakt")
-)
-fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = enthaeltExakt(expected, *otherExpected)
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only
- * the [expected][expectedOrNull] nullable value.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWert(expectedOrNull, *otherExpected)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWert(expectedOrNull: E): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.nullableWert(expectedOrNull)
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only
- * the [expected][expectedOrNull] nullable value.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWert(expectedOrNull, *otherExpected)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated(
-    message = "Replaced with enthaeltExaktNullableWert for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableWert(expectedOrNull)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableWert")
-)
-fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrNull: E): AssertionPlant<T>
-    = enthaeltExaktNullableWert(expectedOrNull)
-
-/**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only
  * the [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values
  * (if given) in the defined order.
@@ -208,25 +155,9 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrN
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+@JvmName("enthaeltExaktNullable")
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExakt(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only
- * the [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values
- * (if given) in the defined order.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated(
-    message = "Replaced with enthaeltExaktNullableWerte for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableWerte(expectedOrNull,*otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableWerte")
-)
-fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
-    = enthaeltExaktNullableWerte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -242,23 +173,6 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(assertionCreator: Assert<
     = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
- * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
- * holding the assertions created by them.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated(
-    message = "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExakt(assertionCreator,*otherAssertionCreators)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExakt")
-)
-fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
-    = enthaeltExakt(assertionCreator, *otherAssertionCreators)
-
-/**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
@@ -268,28 +182,12 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExaktNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+@JvmName("enthaeltExaktNullable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
- * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
- * is defined as `null`.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreatorOrNull)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated(
-    message = "Replaced with enthaeltExaktNullableEintrag for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableEintrag(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableEintrag")
-)
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaeltExaktNullableEintrag(assertionCreatorOrNull)
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null`
  * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
@@ -299,26 +197,10 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertio
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExaktNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+@JvmName("enthaeltExaktNullable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
- * the assertions created by [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null`
- * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
- * whereas the entries have to appear in the defined order.
- *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated(
-    message = "Replaced with enthaeltExaktNullableEintraege for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableEintraege(assertionCreatorOrNull,*otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableEintraege")
-)
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaeltExaktNullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain the [expected] value
@@ -334,6 +216,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assert
 @JvmName("enthaeltNichtNonNullable")
 fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
     = enthaeltNicht.werte(expected, *otherExpected)
+
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -357,8 +240,10 @@ fun <E : Any, T : Iterable<E>> Assert<T>.irgendEiner(assertionCreator: Assert<E>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEinNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+@JvmName("irgendEinNullable")
+fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEiner(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)
+
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain a single entry which holds all assertions
@@ -382,8 +267,10 @@ fun <E : Any, T : Iterable<E>> Assert<T>.keiner(assertionCreator: (Assert<E>.() 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Assert<T>.keinerDerNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
+@JvmName("keinerDerNullable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.keiner(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = enthaeltNicht.nullableEintrag(assertionCreatorOrNull)
+
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] has at least one element and that every element holds all
@@ -403,5 +290,6 @@ fun <E : Any, T : Iterable<E>> Assert<T>.alle(assertionCreator: Assert<E>.() -> 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Assert<T>.alleDerNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
+@JvmName("alleDerNullable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.alle(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = addAssertion(AssertImpl.iterable.all(this, assertionCreatorOrNull))

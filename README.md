@@ -629,9 +629,9 @@ expect(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLes
 ```
 In the above example neither of the two identification lambdas matched any entries and thus both are reported as failing (sub) assertions.
 
-Two other `contains` shortcut functions which Atrium provides for `Iterable<T>` are kind of the opposite of `inAnyOrder.atLeast(1)` and are named `containsStrictly`.
-Again, Atrium provides two overloads, one for values, e.g. `containsStrictly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` and
-a second one which expects one or more identification lambdas, e.g. `containsStriclty({ isLessThan(0) }, { isGreaterThan(5) })` 
+Two other `contains` shortcut functions which Atrium provides for `Iterable<T>` are kind of the opposite of `inAnyOrder.atLeast(1)` and are named `containsExactly`.
+Again, Atrium provides two overloads, one for values, e.g. `containsExactly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` and
+a second one which expects one or more identification lambdas, e.g. `containsExactly({ isLessThan(0) }, { isGreaterThan(5) })` 
 and effectively calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
 We will spare the examples here and show them in the following sections.
 
@@ -822,10 +822,9 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
     //       ◾ is less than: 2        (kotlin.Int <970865974>)
 ```
 
-In most cases, Atrium provides a separate function with `Nullable` as suffix 
-if the value type of the `Map` is nullable. For instance:
+In most cases, Atrium provides also shortcut function in case the value type of the `Map` is nullable. For instance:
 ```kotlin
-expect(mapOf("a" to null, null to null, "b" to null, "c" to 1)).containsNullable(
+expect(mapOf("a" to null, null to null, "b" to null, "c" to 1)).contains(
     null to 1, "a" to null, "b" to 1, "c" to 1
 )
 

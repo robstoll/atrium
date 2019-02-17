@@ -27,12 +27,12 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyEntriesPair.second(this, { toBe(2.5) }, arrayOf()) },
-        containsInOrderOnlyNullableEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
+        "${containsInOrderOnlyNullableEntriesPair.first} for nullable" to mapToCreateAssertion { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsInOrderOnlyEntriesPair.first, { containsInOrderOnlyEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5).asIterable(), listOf()),
-        checkingTriple(containsInOrderOnlyNullableEntriesPair.first, { containsInOrderOnlyNullableEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5).asIterable(), listOf())
+        checkingTriple("${containsInOrderOnlyNullableEntriesPair.first} for nullable", { containsInOrderOnlyNullableEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5).asIterable(), listOf())
     ) {})
 
     fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
@@ -251,7 +251,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(containsInOrderOnlyNullableEntries) {
+        describeFun("$containsInOrderOnlyNullableEntries for nullable") {
             absentSubjectTests(verbs, Assert<Iterable<Double?>>::containsInOrderOnlyNullableEntriesFun)
 
             val list = listOf(null, 1.0, null, 3.0)

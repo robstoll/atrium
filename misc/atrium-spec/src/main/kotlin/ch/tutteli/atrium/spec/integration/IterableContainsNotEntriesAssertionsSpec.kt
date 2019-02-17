@@ -25,12 +25,12 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsNotValuesPair.first to mapToCreateAssertion { containsNotValuesPair.second(this, { toBe(2.3) }, arrayOf()) },
-        containsNotNullableValuesPair.first to mapToCreateAssertion { containsNotNullableValuesPair.second(this, { toBe(2.3) }, arrayOf()) }
+        "${containsNotNullableValuesPair.first} for nullable" to mapToCreateAssertion { containsNotNullableValuesPair.second(this, { toBe(2.3) }, arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsNotValuesPair.first, { containsNotValuesPair.second(this, { toBe(2.3) }, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3)),
-        checkingTriple(containsNotNullableValuesPair.first, { containsNotNullableValuesPair.second(this, { toBe(2.3) }, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
+        checkingTriple("${containsNotNullableValuesPair.first} for nullable", { containsNotNullableValuesPair.second(this, { toBe(2.3) }, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
     ) {})
 
     fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
@@ -160,7 +160,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun(containsNotNullable) {
+        describeFun("$containsNotNullable for nullable") {
             context("iterable $oneToSeven") {
                 test("null does not throw") {
                     verbs.checkImmediately(oneToSeven).containsNotNullableFun(null)

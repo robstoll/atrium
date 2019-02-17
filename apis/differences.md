@@ -163,7 +163,7 @@ assert(x) contains Entries({ o isLessThan 2 }, { o isGreaterThan 5 })
 assert(x) to contain inAny order atLeast 1 butAtMost 2 value 3.2
 assert(x) to contain inAny order exactly 1 the Values("hello", "robert")
 assert(x) to contain inAny order atMost 2 entry { o isLessOrEquals 2 }
-assert(x) to contain inAny order notOrAtMost 2 the Entries({ notToBe(3) }, { isGreaterOrEquals(2) })
+assert(x) to contain inAny order notOrAtMost 2 the Entries({ o notToBe 3 }, { o isGreaterOrEquals 2 })
 assert(x) to contain inAny order but only value "hello")
 assert(x) to contain inAny order but only the Values(personA, personB)
 assert(x) to contain inAny order but only entry { o isLessThan 2 } 
@@ -179,10 +179,10 @@ are applicable to all shown examples
 
 *atrium-api-cc-en_GB*
 ```kotlin
-assert(listOf(null, 1)).containsNullableValue(null)
-assert(listOf(null, 1)).containsNullableValues(null, 1)
-assert(listOf(null, 1)).containsNullableEntry(null)
-assert(listOf(null, 1)).containsNullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)).contains(null)
+assert(listOf(null, 1)).contains(null,  { isLessThan(2) })
+assert(listOf(null, 1)).contains { isLessThan(2) }
+assert(listOf(null, 1)).contains(null,  { isLessThan(2) })
 
 assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableValue(null)
 assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableValues(null, 1)
@@ -193,10 +193,10 @@ assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableEntries(null, { i
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(listOf(null, 1)) contains NullableValue(null)
+assert(listOf(null, 1)) contains null
 assert(listOf(null, 1)) contains NullableValues(null, 1)
-assert(listOf(null, 1)) contains NullableEntry(null)
-assert(listOf(null, 1)) contains NullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)) contains { isLessThan(2) }
+assert(listOf(null, 1)) contains NullableEntries(null,  { o isLessThan 2 })
 
 assert(listOf(null, 1)) to contain inAny order atLeast 1 nullableValue null
 assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableValues(null, 1)
@@ -210,10 +210,10 @@ assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableEntries(nul
 
 *atrium-api-cc-en_GB*
 ```kotlin
-assert(x).containsStrictly(1.2)
-assert(x).containsStrictly(1.2, 5.7)
-assert(x).containsStrictly({ isLessThan(2) })
-assert(x).containsStrictly({ isLessThan(2) }, { isGreaterThan 5 })
+assert(x).containsExactly(1.2)
+assert(x).containsExactly(1.2, 5.7)
+assert(x).containsExactly({ isLessThan(2) })
+assert(x).containsExactly({ isLessThan(2) }, { isGreaterThan 5 })
 
 assert(x).contains.inOrder.only.value("hello")
 assert(x).contains.inOrder.only.values("hello", "world")
@@ -233,10 +233,10 @@ assert(x).contains.inOrder.only.grouped.within.inAnyOrder(
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) containsStrictly 1.2
-assert(x) containsStrictly Values(1.2, 5.7) // or Objects as alternative
-assert(x) containsStrictly { o isLessThan 2 }
-assert(x) containsStrictly Entries({ o isLessThan 2 }, { o isGreaterThan 5 })
+assert(x) containsExactly 1.2
+assert(x) containsExactly Values(1.2, 5.7) // or Objects as alternative
+assert(x) containsExactly { o isLessThan 2 }
+assert(x) containsExactly Entries({ o isLessThan 2 }, { o isGreaterThan 5 })
 
 assert(x) contains inGiven order and only value "hello"
 assert(x) contains inGiven order and only the Values("hello", "world")
@@ -258,10 +258,10 @@ assert(x) contains inGiven order and only grouped entries within group inAny Ord
 
 *atrium-api-cc-en_GB*
 ```kotlin
-assert(listOf(null, 1)).containsStrictlyNullableValue(null)
-assert(listOf(null, 1)).containsStrictlyNullableValues(null, 1)
-assert(listOf(null, 1)).containsStrictlyNullableEntry(null)
-assert(listOf(null, 1)).containsStrictlyNullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)).containsExactly(null)
+assert(listOf(null, 1)).containsExactly(null, 1)
+assert(listOf(null, 1)).containsExactly { isLessThan(2) }
+assert(listOf(null, 1)).containsExactly(null, { isLessThan(2) })
 
 assert(listOf(null, 1)).contains.inOrder.only.nullableValue(null)
 assert(listOf(null, 1)).contains.inOrder.only.nullableValues(null, 1)
@@ -282,10 +282,10 @@ assert(listOf(null, 1)).contains.inOrder.only.grouped.within.inAnyOrder(
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(listOf(null, 1)) containsStrictly NullableValue(null)
-assert(listOf(null, 1)) containsStrictly NullableValues(null, 1)
-assert(listOf(null, 1)) containsStrictly NullableEntry(null)
-assert(listOf(null, 1)) containsStrictly NullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)) containsExactly null
+assert(listOf(null, 1)) containsExactly NullableValues(null, 1)
+assert(listOf(null, 1)) containsExactly { o isLessThan(2) }
+assert(listOf(null, 1)) containsExactly NullableEntries(null,  { o isLessThan(2) })
 
 assert(listOf(null, 1)) to contain inGiven order and only nullableValue null
 assert(listOf(null, 1)) to contain inGiven order and only the NullableValues(null, 1)
@@ -367,16 +367,23 @@ For more sophisticated assertions such as "there should be two matches", use the
 
 *atrium-api-cc-en_GB*
 ```kotlin
-assert(x).anyOfNullable { startsWith("hello") }
-assert(x).noneOfNullable { endsWith(".") }
-assert(x).allNullables(null)
+assert(x).any(null)
+assert(x).any { startsWith("hello") }
+assert(x).none(null)
+assert(x).none { endsWith(".") }
+assert(x).all(null)
+assert(x).all { endsWith(".") }
+
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) any NullableEntry { o startsWith "hello" }
-assert(x) none NullableEntry { o endsWith "." }
-assert(x) all NullableEntry(null)
+assert(x) any null
+assert(x) any { o startsWith "hello" }
+assert(x) none null
+assert(x) none { o endsWith "." }
+assert(x) all null
+assert(x) all { o endsWith "." }
 ```
 
 # List get

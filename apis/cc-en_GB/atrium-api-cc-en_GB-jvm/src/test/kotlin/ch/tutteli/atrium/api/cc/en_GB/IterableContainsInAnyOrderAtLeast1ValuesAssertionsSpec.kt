@@ -39,7 +39,7 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
         }
 
         fun getContainsNullablePair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderValues nullable" to Companion::containsNullableValues
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderValues" to Companion::containsNullableValues
 
         private fun containsNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
@@ -53,17 +53,22 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
         private val containsFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
         fun getContainsShortcutPair() = containsFun.name to Companion::containsValuesShortcut
 
-        private fun containsValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant.contains(a, *aX)
+        private fun containsValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.contains(a)
+            } else {
+                plant.contains(a, *aX)
+            }
+        }
 
-        private val containsNullableFun: KFunction3<Assert<Iterable<Double?>>, Double, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNullableValues
+        private val containsNullableFun: KFunction3<Assert<Iterable<Double?>>, Double, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
         fun getContainsNullableShortcutPair() = containsNullableFun.name to Companion::containsNullableValuesShortcut
 
         private fun containsNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.containsNullableValue(a)
+                plant.contains(a)
             } else {
-                plant.containsNullableValues(a, *aX)
+                plant.contains(a, *aX)
             }
         }
     }

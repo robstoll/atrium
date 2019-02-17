@@ -25,7 +25,7 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spe
         }
 
         fun getContainsNullablePair() =
-            "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyValues nullable" to Companion::containsInAnyOrderOnlyNullableValues
+            "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnlyNullableValues
 
         private fun containsInAnyOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {

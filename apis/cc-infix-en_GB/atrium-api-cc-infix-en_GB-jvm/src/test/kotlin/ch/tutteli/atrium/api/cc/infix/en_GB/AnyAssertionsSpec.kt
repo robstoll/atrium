@@ -16,7 +16,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::isNotSameAs.name,
     "${AssertionPlantNullable<Int?>::toBe.name} null" to Companion::toBeNull,
     toBeNullableFun.name to Companion::toBeNullable,
-    "${toBeNullableCreatorFun.name} with creator" to Companion::toBeNullableCreator,
+    "${toBeNullableCreatorFun.name} with creator" to Companion::toBeNullIfNullGivenElse,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -48,8 +48,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
         private fun toBeNullable(plant: AssertionPlantNullable<Int?>, expected: Int?)
             = plant toBe expected
 
-        private fun toBeNullableCreator(plant: AssertionPlantNullable<Int?>, assertionCreator: (Assert<Int>.() -> Unit)?)
-            = plant toBe assertionCreator
+        private fun toBeNullIfNullGivenElse(plant: AssertionPlantNullable<Int?>, assertionCreator: (Assert<Int>.() -> Unit)?)
+            = plant toBeNullIfNullGivenElse assertionCreator
 
         fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>>
             = andLazyName() to Assert<Int>::and

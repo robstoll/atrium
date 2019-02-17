@@ -41,7 +41,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         }
 
         fun getContainsNullablePair()
-            = "$contains.$inOrder.$only.$inOrderOnlyValues nullable" to Companion::containsInOrderOnlyNullableValues
+            = "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnlyNullableValues
 
         private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
@@ -54,17 +54,22 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         private val containsShortcutFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsExactly
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
-        private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant.containsExactly(a, *aX)
+        private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.containsExactly(a)
+            } else {
+                plant.containsExactly(a, *aX)
+            }
+        }
 
-        private val containsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsExactlyNullableValues
+        private val containsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsExactly
         fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name to Companion::containsInOrderOnlyNullableValuesShortcut
 
         private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.containsExactlyNullableValue(a)
+                plant.containsExactly(a)
             } else {
-                plant.containsExactlyNullableValues(a, *aX)
+                plant.containsExactly(a, *aX)
             }
         }
     }

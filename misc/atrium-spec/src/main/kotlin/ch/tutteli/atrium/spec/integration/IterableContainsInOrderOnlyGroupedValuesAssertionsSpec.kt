@@ -34,12 +34,12 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyGroupedValuesPair.first to mapToCreateAssertion { containsInOrderOnlyGroupedValuesPair.second(this, group(2.5), group(4.1), arrayOf()) },
-        containsInOrderOnlyGroupedNullableValuesPair.first to mapToCreateAssertion { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(4.1), arrayOf()) }
+        "${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable" to mapToCreateAssertion { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(4.1), arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsInOrderOnlyGroupedValuesPair.first, { containsInOrderOnlyGroupedValuesPair.second(this, group(2.5), group(1.2, 2.2), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5)),
-        checkingTriple(containsInOrderOnlyGroupedNullableValuesPair.first, { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(1.2, 2.2), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
+        checkingTriple("${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable", { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(1.2, 2.2), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
     ) {})
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
@@ -144,7 +144,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     group("$describePrefix describe non-nullable cases") {
         mapOf<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Double>, GroupWithoutNullableEntries<Double>, Array<out GroupWithoutNullableEntries<Double>>) -> Any>(
             containsInOrderOnlyGroupedValues to { g1, g2, gX -> containsInOrderOnlyGroupedValuesFunArr(this, g1, g2, gX) },
-            containsInOrderOnlyGroupedNullableValues to { g1, g2, gX -> containsInOrderOnlyGroupedNullableValuesFunArr(this, groupToNullableGroup(g1), groupToNullableGroup(g2), gX.map { groupToNullableGroup(it)}.toTypedArray()) }
+            "$containsInOrderOnlyGroupedNullableValues for nullable" to { g1, g2, gX -> containsInOrderOnlyGroupedNullableValuesFunArr(this, groupToNullableGroup(g1), groupToNullableGroup(g2), gX.map { groupToNullableGroup(it)}.toTypedArray()) }
         ).forEach { (describe, containsFunArr) ->
 
             fun Assert<Iterable<Double>>.containsFun(t1: GroupWithoutNullableEntries<Double>, t2: GroupWithoutNullableEntries<Double>, vararg tX: GroupWithoutNullableEntries<Double>)
@@ -310,7 +310,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
     nullableCases(describePrefix){
 
-        describeFun(containsInOrderOnlyGroupedNullableValues){
+        describeFun("$containsInOrderOnlyGroupedNullableValues for nullable"){
             val list = listOf(null, 1.0, null, 3.0)
             val fluent = verbs.checkImmediately(list)
 

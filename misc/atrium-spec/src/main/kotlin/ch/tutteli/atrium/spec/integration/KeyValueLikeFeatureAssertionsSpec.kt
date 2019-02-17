@@ -149,7 +149,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
         }
     }
 
-    describeFun("val $nullableKeyValName") {
+    describeFun("val $nullableKeyValName for nullable") {
         context("$nullableMapEntry") {
             test("toBe(hello)") {
                 nullableFluent.nullableKeyVal().toBe("hello")
@@ -176,7 +176,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
         }
     }
 
-    describeFun("val $nullableValueValName") {
+    describeFun("val $nullableValueValName for nullable") {
         context("$nullableMapEntry") {
             test("isGreaterThan(0) holds") {
                 nullableFluent.nullableValueVal().notToBeNull { isGreaterThan(0) }

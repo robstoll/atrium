@@ -17,7 +17,7 @@ abstract class IterablePredicateSpecBase(verbs: AssertionVerbFactory, spec: Spec
             group("$describePrefix describe non-nullable cases") {
                 mapOf<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit) -> Any>(
                     containsPair.first to { a -> containsPair.second(this, a) },
-                    containsNullablePair.first to { a -> containsNullablePair.second(this, a) }
+                    "${containsNullablePair.first} for nullable" to { a -> containsNullablePair.second(this, a) }
                 ).forEach { (describe, containsEntriesFunArr) ->
                     describeFun(describe) {
                         action(containsEntriesFunArr)

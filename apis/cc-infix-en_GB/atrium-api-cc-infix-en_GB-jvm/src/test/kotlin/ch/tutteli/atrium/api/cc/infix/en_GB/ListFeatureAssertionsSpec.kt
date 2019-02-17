@@ -13,13 +13,7 @@ import java.lang.IllegalArgumentException
 import kotlin.reflect.KFunction2
 
 class ListFeatureAssertionsSpec : Spek({
-    include(object : ch.tutteli.atrium.spec.integration.ListFeatureAssertionsSpec(
-        AssertionVerbFactory,
-        getPlantFun.name to ListFeatureAssertionsSpec.Companion::getPlant,
-        getFun.name to ListFeatureAssertionsSpec.Companion::get,
-        getNullablePlantFun.name to ListFeatureAssertionsSpec.Companion::getNullablePlant,
-        getNullableFun.name to ListFeatureAssertionsSpec.Companion::getNullable
-    ) {})
+    include(AtriumFeatureAssertionsSpec)
 
     describeFun("", arrayOf("get for nullable")){
         test("throws if no assertion is made for index within bound") {
@@ -36,7 +30,14 @@ class ListFeatureAssertionsSpec : Spek({
     }
 
 }){
-    companion object {
+    object AtriumFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.ListFeatureAssertionsSpec(
+        AssertionVerbFactory,
+        getPlantFun.name to ListFeatureAssertionsSpec.Companion::getPlant,
+        getFun.name to ListFeatureAssertionsSpec.Companion::get,
+        getNullablePlantFun.name to ListFeatureAssertionsSpec.Companion::getNullablePlant,
+        getNullableFun.name to ListFeatureAssertionsSpec.Companion::getNullable
+    )
+            companion object {
         val getPlantFun: KFunction2<Assert<List<Int>>, Int, Assert<Int>> = Assert<List<Int>>::get
         val getFun: KFunction2<Assert<List<Int>>, Index, ListGetOption<Int, List<Int>>> = Assert<List<Int>>::get
         val getNullablePlantFun: KFunction2<Assert<List<Int?>>, Int, AssertionPlantNullable<Int?>> = Assert<List<Int?>>::get

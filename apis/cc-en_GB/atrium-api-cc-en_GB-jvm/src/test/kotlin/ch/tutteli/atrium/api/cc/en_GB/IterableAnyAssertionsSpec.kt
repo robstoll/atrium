@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -17,7 +18,7 @@ class IterableAnyAssertionsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.spec.integration.IterableAnyAssertionsSpec(
         AssertionVerbFactory,
         Assert<Iterable<Double>>::any.name to Assert<Iterable<Double>>::any,
-        Assert<Iterable<Double?>>::anyOfNullable.name to Assert<Iterable<Double?>>::anyOfNullable,
+        Assert<Iterable<Double?>>::any.name to Assert<Iterable<Double?>>::any,
         "◆ ",
         "[Atrium][Predicate] "
     )
@@ -54,11 +55,21 @@ class IterableAnyAssertionsSpec : Spek({
             = plant.contains.inAnyOrder.atLeast(1).entry(a)
 
         fun getContainsNullablePair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries nullable" to Companion::containsNullableEntries
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
             = plant.contains.inAnyOrder.atLeast(1).nullableEntry(a)
 
+
+        @Suppress("unused")
+        private fun checkShortcutOverloadAmbiguity() {
+            assert(listOf(1, 2)).contains { toBe(1) }
+            assert(listOf(1, 2)).contains({ toBe(1) }, { toBe(2) })
+            assert(listOf(null, 1, 2)).contains(null)
+            assert(listOf(null, 1, 2)).contains { toBe(1) }
+            assert(listOf(null, 1, 2)).contains({ toBe(1) }, null, { toBe(2) })
+        }
+        
         private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
@@ -69,7 +80,7 @@ class IterableAnyAssertionsSpec : Spek({
         fun getContainsNullableShortcutPair() = containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant.containsNullableEntry(a)
+            = plant.contains(a)
 
 
         private fun getContainsSequencePair()

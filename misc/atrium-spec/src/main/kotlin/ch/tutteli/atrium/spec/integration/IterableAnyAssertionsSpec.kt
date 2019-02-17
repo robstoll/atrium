@@ -19,12 +19,12 @@ abstract class IterableAnyAssertionsSpec(
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         anyPair.first to mapToCreateAssertion { anyPair.second(this) { toBe(2.5) } },
-        anyNullablePair.first to mapToCreateAssertion { anyNullablePair.second(this, null) }
+        "${anyNullablePair.first} for nullable" to mapToCreateAssertion { anyNullablePair.second(this, null) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(anyPair.first, { anyPair.second(this) { toBe(2.5) } }, listOf(2.5).asIterable(), listOf()),
-        checkingTriple(anyNullablePair.first, { anyNullablePair.second(this, { toBe(2.5) }) }, listOf(2.5).asIterable(), listOf())
+        checkingTriple("${anyNullablePair.first} for nullable", { anyNullablePair.second(this) { toBe(2.5) } }, listOf(2.5).asIterable(), listOf())
     ) {})
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
@@ -97,7 +97,7 @@ abstract class IterableAnyAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(anyOfNullable) {
+        describeFun("$anyOfNullable for nullable") {
 
             val list = listOf(null, 1.0, null, 3.0)
             val fluent = verbs.checkImmediately(list)

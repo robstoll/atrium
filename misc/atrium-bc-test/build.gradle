@@ -226,6 +226,7 @@ def createFixSrcTask(String apiName, String version, String file, Closure modify
     project."compileSrc_${nameUnderline070}Kotlin".dependsOn fixSrc
 }
 
+//@formatter:off
 createBcAndBbcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
         '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
@@ -300,6 +301,7 @@ createBcAndBbcTasksForApis('0.7.0',
     ')',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
+//@formatter:on
 
 def apis = ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB']
 apis.each {apiName ->
@@ -313,4 +315,3 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { Str
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
     return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
 }
-

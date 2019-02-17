@@ -26,7 +26,7 @@ class IterableContainsNotEntriesAssertionsSpec : ch.tutteli.atrium.spec.integrat
             }
         }
 
-        private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
+        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {

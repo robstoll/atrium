@@ -24,12 +24,12 @@ class IterableAllAssertionsSpec: Spek({
 
         private fun all(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit) = plant all a
 
-        private val anyNullableFun: KFunction2<Assert<Iterable<Double?>>, NullableEntry<Double>, Assert<Iterable<Double?>>> =
+        private val anyNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> =
             Assert<Iterable<Double?>>::any
 
         fun getAnyNullablePair() = anyNullableFun.name to Companion::allNullable
 
         private fun allNullable(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?) =
-            plant all NullableEntry(a)
+            plant all a
     }
 }

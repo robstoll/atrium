@@ -39,7 +39,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
         }
 
         fun getContainsNullablePair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries nullable" to Companion::containsNullableEntries
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
@@ -53,17 +53,22 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
         private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
-        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
-            = plant.contains(a, *aX)
+        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.contains(a)
+            } else {
+                plant.contains(a, *aX)
+            }
+        }
 
         private val containsEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNullableEntries
         fun getContainsNullableShortcutPair() = containsEntriesFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.containsNullableEntry(a)
+                plant.contains(a)
             } else {
-                plant.containsNullableEntries(a, *aX)
+                plant.contains(a, *aX)
             }
         }
     }
