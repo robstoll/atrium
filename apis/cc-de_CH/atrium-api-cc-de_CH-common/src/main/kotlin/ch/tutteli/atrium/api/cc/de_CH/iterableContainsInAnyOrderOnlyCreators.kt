@@ -29,15 +29,16 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected][expectedOrNull] nullable value.
  *
- * Delegates to `nullableWerte(expectedOrNull)`.
+ * Delegates to `werte(expectedOrNull)`.
  *
  * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWert(expectedOrNull: E): AssertionPlant<T>
-    = nullableWerte(expectedOrNull)
+@JvmName("nullableWert")
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.wert(expectedOrNull: E): AssertionPlant<T>
+    = werte(expectedOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
@@ -65,7 +66,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+@JvmName("nullableWerte")
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.werte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, expectedOrNull glue otherExpectedOrNulls))
 
 /**
@@ -87,15 +89,16 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * entry which holds all assertions created by the given [assertionCreatorOrNull] or is `null` in case
  * [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `nullableEintraege(assertionCreatorOrNull)`.
+ * Delegates to `eintraege(assertionCreatorOrNull)`.
  *
  * @param assertionCreatorOrNull The identification lambda.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEintraege(assertionCreatorOrNull)
+@JvmName("nullableEintrag")
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.eintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = eintraege(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
@@ -135,8 +138,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
  * first, not that a less specific lambda wins. For instance, given a `setOf(1, 2)` you should not search for
- * `nullableEintraege({ isGreaterThan(0) }, { toBe(1) })` but for
- * `nullableEintraege({ toBe(1) }, { isGreaterThan(0) })` otherwise
+ * `eintraege({ isGreaterThan(0) }, { toBe(1) })` but for
+ * `eintraege({ toBe(1) }, { isGreaterThan(0) })` otherwise
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
@@ -149,7 +152,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEintraege(
+@JvmName("nullableEintraege")
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.eintraege(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>

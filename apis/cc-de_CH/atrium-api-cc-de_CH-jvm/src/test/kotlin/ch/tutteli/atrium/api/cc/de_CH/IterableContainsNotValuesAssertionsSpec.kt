@@ -52,9 +52,9 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltNicht.nullableWert(a)
+                plant.enthaeltNicht.wert(a)
             } else {
-                plant.enthaeltNicht.nullableWerte(a, *aX)
+                plant.enthaeltNicht.werte(a, *aX)
             }
         }
 

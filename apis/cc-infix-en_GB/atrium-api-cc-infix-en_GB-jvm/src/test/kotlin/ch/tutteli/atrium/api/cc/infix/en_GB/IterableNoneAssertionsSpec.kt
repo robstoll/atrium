@@ -52,6 +52,6 @@ class IterableNoneAssertionsSpec : Spek({
         private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant notTo contain nullableEntry a
+            = plant notTo contain entry a
     }
 }

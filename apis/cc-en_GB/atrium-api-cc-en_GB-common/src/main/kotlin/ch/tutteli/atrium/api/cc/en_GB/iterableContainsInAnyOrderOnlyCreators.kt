@@ -1,3 +1,5 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableContainsInAnyOrderOnlyCreatorsKt")
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
@@ -6,6 +8,8 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -25,15 +29,16 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected][expectedOrNull] nullable value.
  *
- * Delegates to `nullableValues(expectedOrNull)`.
+ * Delegates to `values(expectedOrNull)`.
  *
  * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
-    = nullableValues(expectedOrNull)
+@JvmName("nullableValue")
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expectedOrNull: E): AssertionPlant<T>
+    = values(expectedOrNull)
 
 
 /**
@@ -62,7 +67,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+@JvmName("nullableValues")
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, expectedOrNull glue otherExpectedOrNulls))
 
 
@@ -85,15 +91,16 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * entry which holds all assertions created by the given [assertionCreatorOrNull] or is `null` in case
  * [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `nullableEntries(assertionCreatorOrNull)`.
+ * Delegates to `entries(assertionCreatorOrNull)`.
  *
  * @param assertionCreatorOrNull The identification lambda.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEntries(assertionCreatorOrNull)
+@JvmName("nullableEntry")
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = entries(assertionCreatorOrNull)
 
 
 /**
@@ -134,8 +141,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
  * first, not that a less specific lambda wins. For instance, given a `setOf(1, 2)` you should not search for
- * `nullableEntries({ isGreaterThan(0) }, { toBe(1) })` but for
- * `nullableEntries({ toBe(1) }, { isGreaterThan(0) })` otherwise
+ * `entries({ isGreaterThan(0) }, { toBe(1) })` but for
+ * `entries({ toBe(1) }, { isGreaterThan(0) })` otherwise
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
@@ -148,7 +155,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEntries(
+@JvmName("nullableEntries")
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>

@@ -43,9 +43,9 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
 
         private fun containsNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(a)
+                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).wert(a)
             } else {
-                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(a, *aX)
+                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(a, *aX)
             }
         }
 

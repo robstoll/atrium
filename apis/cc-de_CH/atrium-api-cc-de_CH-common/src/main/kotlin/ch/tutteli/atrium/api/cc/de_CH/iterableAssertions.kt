@@ -60,7 +60,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpec
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains the
  * [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values (if given).
  *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expectedOrNull, *otherExpectedOrNulls)`
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expectedOrNull, *otherExpectedOrNulls)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
  * [expectedOrNull] is defined as `'a'` and one of the [otherExpectedOrNulls] is defined as `'a'` as well, then both
@@ -68,15 +68,15 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpec
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `enthaelt.inBeliebigerReihenfolge.genau(2).nullableWert('a')`
+ *   `enthaelt.inBeliebigerReihenfolge.genau(2).wert('a')`
  * instead of:
- *   `enthaelt.nullableWerte('a', 'a')`
+ *   `enthaelt.werte('a', 'a')`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E: Any?, T: Iterable<E>> Assert<T>.enthaelt(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expectedOrNull, *otherExpectedOrNulls)
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -108,14 +108,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.()
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)`
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreatorOrNull)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltNullable")
 fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
@@ -123,14 +123,14 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert
  * is defined as `null` -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreatorsOrNulls].
  *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltNullable")
 fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
 /**
@@ -150,14 +150,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg other
  * the [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values
  * (if given) in the defined order.
  *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)`
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.werte(expectedOrNull, *otherExpectedOrNulls)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltExaktNullable")
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExakt(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)
+    = enthaelt.inGegebenerReihenfolge.nur.werte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only one entry which is holding
@@ -189,14 +189,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(assertionCreator: Assert<
  * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreatorOrNull)`
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintrag(assertionCreatorOrNull)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltExaktNullable")
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreatorOrNull)
+    = enthaelt.inGegebenerReihenfolge.nur.eintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
@@ -204,14 +204,14 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: 
  * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
  *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltExaktNullable")
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+    = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
 /**
@@ -247,14 +247,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.irgendEiner(assertionCreator: Assert<E>
  * the assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)`
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreatorOrNull)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("irgendEinNullable")
 fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEiner(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreatorOrNull)
 
 
 /**
@@ -274,14 +274,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.keiner(assertionCreator: (Assert<E>.() 
  * which holds all assertions created by [assertionCreatorOrNull] or does not contain a single entry which is `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
- *  It is a shortcut for `enthaeltNicht.nullableEintrag(assertionCreatorOrNull)`
+ *  It is a shortcut for `enthaeltNicht.eintrag(assertionCreatorOrNull)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("keinerDerNullable")
 fun <E : Any, T : Iterable<E?>> Assert<T>.keiner(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
-    = enthaeltNicht.nullableEintrag(assertionCreatorOrNull)
+    = enthaeltNicht.eintrag(assertionCreatorOrNull)
 
 
 /**

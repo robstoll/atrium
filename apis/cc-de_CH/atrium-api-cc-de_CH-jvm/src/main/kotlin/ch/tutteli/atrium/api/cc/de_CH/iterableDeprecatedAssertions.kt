@@ -44,9 +44,9 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Asse
 fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant.enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("Use `enthaeltNicht.nullableWerte` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("enthaeltNicht.nullableWerte(expected, *otherExpected)"))
+@Deprecated("Use `enthaeltNicht.werte` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("enthaeltNicht.werte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
-    = enthaeltNicht.nullableWerte(expected, *otherExpected)
+    = enthaeltNicht.werte(expected, *otherExpected)
 
 @Deprecated(
     "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",

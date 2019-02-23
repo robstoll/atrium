@@ -1,3 +1,5 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableContainsInAnyOrderCreatorsKt")
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
@@ -7,6 +9,8 @@ import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -26,15 +30,16 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * Finishes the specification of the sophisticated `contains` assertion where the [expectedOrNull][expectedOrNull]
  * nullable value shall be searched within the [Iterable].
  *
- * Delegates to `nullableValues(expectedOrNull)`.
+ * Delegates to `values(expectedOrNull)`.
  *
  * @param expectedOrNull The nullable value which is expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
-    = nullableValues(expectedOrNull)
+@JvmName("nullableValue")
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expectedOrNull: E): AssertionPlant<T>
+    = values(expectedOrNull)
 
 
 /**
@@ -70,9 +75,9 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.inAnyOrder.exactly(2).nullableValues('a')`
+ *   `contains.inAnyOrder.exactly(2).values('a')`
  * instead of:
- *   `contains.inAnyOrder.atLeast(1).nullableValues('a', 'a')`
+ *   `contains.inAnyOrder.atLeast(1).values('a', 'a')`
  *
  * @param expectedOrNull The object which is expected to be contained within the [Iterable].
  * @param otherExpectedOrNulls Additional objects which are expected to be contained within [Iterable].
@@ -80,7 +85,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+@JvmName("nullableValues")
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expectedOrNull glue otherExpectedOrNulls))
 
 
@@ -105,7 +111,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * Delegates to `nullableEntries(assertionCreatorOrNull)`.
+ * Delegates to `entries(assertionCreatorOrNull)`.
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -114,8 +120,9 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEntries(assertionCreatorOrNull)
+@JvmName("nullableEntry")
+fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = entries(assertionCreatorOrNull)
 
 
 /**
@@ -153,7 +160,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntries(
+@JvmName("nullableEntries")
+fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>

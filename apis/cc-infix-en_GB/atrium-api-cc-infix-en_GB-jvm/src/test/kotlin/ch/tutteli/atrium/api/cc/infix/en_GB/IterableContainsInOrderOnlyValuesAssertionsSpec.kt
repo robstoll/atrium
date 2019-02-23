@@ -48,7 +48,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant to contain inGiven order and only nullableValue a
+                plant to contain inGiven order and only value a
             } else {
                 plant to contain inGiven order and only the NullableValues(a, *aX)
             }

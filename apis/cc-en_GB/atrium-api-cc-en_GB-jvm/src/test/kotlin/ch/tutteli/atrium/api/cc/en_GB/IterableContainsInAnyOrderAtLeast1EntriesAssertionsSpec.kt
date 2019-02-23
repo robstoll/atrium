@@ -43,9 +43,9 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.contains.inAnyOrder.atLeast(1).nullableEntry(a)
+                plant.contains.inAnyOrder.atLeast(1).entry(a)
             } else {
-                plant.contains.inAnyOrder.atLeast(1).nullableEntries(a, *aX)
+                plant.contains.inAnyOrder.atLeast(1).entries(a, *aX)
             }
         }
 

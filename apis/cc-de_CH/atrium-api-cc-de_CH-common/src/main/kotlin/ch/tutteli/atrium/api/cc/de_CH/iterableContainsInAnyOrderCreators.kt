@@ -30,15 +30,16 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * Finishes the specification of the sophisticated `contains` assertion where the [expected][expectedOrNull]
  * nullable value shall be searched within the [Iterable].
  *
- * Delegates to `nullableWerte(expectedOrNull)`.
+ * Delegates to `werte(expectedOrNull)`.
  *
  * @param expectedOrNull The nullable value which is expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableWert(expectedOrNull: E): AssertionPlant<T>
-    = nullableWerte(expectedOrNull)
+@JvmName("nullableWert")
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.wert(expectedOrNull: E): AssertionPlant<T>
+    = werte(expectedOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
@@ -74,9 +75,9 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `enthaelt.inBeliebigerReihenfolge.genau(2).nullableWerte('a')`
+ *   `enthaelt.inBeliebigerReihenfolge.genau(2).werte('a')`
  * instead of:
- *   `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte('a', 'a')`
+ *   `enthaelt.inBeliebigerReihenfolge.zumindest(1).werte('a', 'a')`
  *
  * @param expectedOrNull The object which is expected to be contained within the [Iterable].
  * @param otherExpectedOrNulls Additional objects which are expected to be contained within [Iterable].
@@ -84,7 +85,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+@JvmName("nullableWerte")
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.werte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expectedOrNull glue otherExpectedOrNulls))
 
 /**
@@ -108,7 +110,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * Delegates to `nullableEintraege(assertionCreatorOrNull)`.
+ * Delegates to `eintraege(assertionCreatorOrNull)`.
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -117,8 +119,9 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEintraege(assertionCreatorOrNull)
+@JvmName("nullableEintrag")
+fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.eintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = eintraege(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
@@ -155,7 +158,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEintraege(
+@JvmName("nullableEintraege")
+fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.eintraege(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>

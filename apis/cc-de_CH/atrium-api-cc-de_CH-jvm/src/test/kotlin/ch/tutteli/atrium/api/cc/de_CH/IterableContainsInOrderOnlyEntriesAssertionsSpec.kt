@@ -53,9 +53,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
             aX: Array<out (Assert<Double>.() -> Unit)?>
         ): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(a)
+                plant.enthaelt.inGegebenerReihenfolge.nur.eintrag(a)
             } else {
-                plant.enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(a, *aX)
+                plant.enthaelt.inGegebenerReihenfolge.nur.eintraege(a, *aX)
             }
         }
 

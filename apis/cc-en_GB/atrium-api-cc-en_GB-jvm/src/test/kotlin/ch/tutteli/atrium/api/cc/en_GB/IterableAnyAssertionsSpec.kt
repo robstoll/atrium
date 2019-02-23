@@ -58,7 +58,7 @@ class IterableAnyAssertionsSpec : Spek({
             = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant.contains.inAnyOrder.atLeast(1).nullableEntry(a)
+            = plant.contains.inAnyOrder.atLeast(1).entry(a)
 
 
         @Suppress("unused")

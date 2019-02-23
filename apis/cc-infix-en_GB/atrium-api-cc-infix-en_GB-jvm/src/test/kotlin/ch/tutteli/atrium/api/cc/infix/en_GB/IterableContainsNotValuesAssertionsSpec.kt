@@ -46,7 +46,7 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant notTo contain nullableValue a
+                plant notTo contain value a
             } else {
                 plant notTo contain the NullableValues(a, *aX)
             }

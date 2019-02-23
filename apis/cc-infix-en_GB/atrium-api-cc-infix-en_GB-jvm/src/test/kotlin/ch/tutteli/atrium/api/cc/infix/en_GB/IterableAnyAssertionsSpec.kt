@@ -72,7 +72,7 @@ class IterableAnyAssertionsSpec : Spek({
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant to contain inAny order atLeast 1 nullableEntry a
+            = plant to contain inAny order atLeast 1 entry a
 
 
         private val containsShortcutFun : KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains

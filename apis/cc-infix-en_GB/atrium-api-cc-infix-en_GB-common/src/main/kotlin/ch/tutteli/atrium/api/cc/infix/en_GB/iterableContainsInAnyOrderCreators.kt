@@ -1,3 +1,5 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableContainsInAnyOrderCreatorsKt")
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
@@ -6,6 +8,8 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -32,7 +36,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
+@JvmName("nullableValue")
+infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expectedOrNull: E): AssertionPlant<T>
     = this the NullableValues(expectedOrNull)
 
 
@@ -70,7 +75,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  * number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `to contain inAny order exactly 2 nullableValue 'a'`
+ *   `to contain inAny order exactly 2 value 'a'`
  * instead of:
  *   `to contain inAny order exactly 1 the NullableValues('a', 'a')`
  *
@@ -113,7 +118,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+@JvmName("nullableEntry")
+infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this the NullableEntries(assertionCreatorOrNull)
 
 
