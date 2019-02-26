@@ -28,7 +28,7 @@ inline fun <T> nullable(t: T): T? = t
 inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
 
 /**
- * Turns an [Iterable] into an iterable with a nullable entry type.
+ * Turns an [Iterable] into an iterable with a nullable element type.
  *
  * Intended to be used in conjunction with [platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
  * such as `Iterable<String!>` or in other words, when you deal with Java and you want to turn a platform type into a nullable type.
@@ -40,7 +40,7 @@ inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
 inline fun <T> nullableContainer(iterable: Iterable<T>): Iterable<T?> = iterable
 
 /**
- * Turns an [Array] into an array with a nullable entry type.
+ * Turns an [Array] into an array with a nullable element type.
  *
  * Intended to be used in conjunction with [platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
  * such as `Array<String!>` or in other words, when you deal with Java and you want to turn a platform type into a nullable type.

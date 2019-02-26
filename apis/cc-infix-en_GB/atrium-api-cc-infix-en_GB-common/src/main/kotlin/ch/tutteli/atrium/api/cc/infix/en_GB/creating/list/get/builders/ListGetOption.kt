@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * Represents the extension point for another option after a `get index`-step within a
  * sophisticated `get` assertion building process for [List].
  *
- * @param E The entry type of the [List].
+ * @param E The element type of the [List].
  * @param T A subtype of [List].
  */
 interface ListGetOption<E : Any, T: List<E>> {

@@ -115,7 +115,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *   or not.
+ *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

@@ -644,7 +644,7 @@ expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
 expect(listOf(1, 2, 3, 4)).all { isGreatherThan(2) }
 ```
 
-In case you deal with a nullable entry type (e.g. `List<String?>` where `String?` is the entry type) then you can 
+In case you deal with a nullable element type (e.g. `List<String?>` where `String?` is the element type) then you can 
 use `containsNullableValue`/`containsNullableValues` and `containsNullableEntry`/`containsNullableEntries` where you 
 can pass `null` in case you expect the entry to be null. Following an example:
 ```kotlin
@@ -767,7 +767,7 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
     //       ◾ to be: 5
 ```     
 
-In case you deal with a nullable entry type (e.g. `List<Int?>` where `Int?` is the entry type) then you can 
+In case you deal with a nullable element type (e.g. `List<Int?>` where `Int?` is the element type) then you can 
 use `nullableValue`/`nullableValues` and `nullableEntry`/`nullableEntries` as terminal function.
 Following an example:
 ```kotlin
@@ -1646,7 +1646,7 @@ Thus, Atrium provides the following functions to ease dealing with Java Code at 
 - [`nullable`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
   turns a type into a nullable type.
 - [`nullableContainer`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#40)
-  turns an `Iterable` into an iterable with nullable entry type, likewise it does the same for `Array`.
+  turns an `Iterable` into an iterable with nullable element type, likewise it does the same for `Array`.
 - [`nullableKeyMap`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
   turns a `Map` into a map with a nullable key type.
 - [`nullableValueMap`](https://github.com/robstoll/atrium/blob/v0.8.0-alpha/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)

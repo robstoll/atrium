@@ -37,7 +37,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
  * For instance `isA<List<String>>` would only check if the [Assert.subject][AssertionPlant.subject] is a `List` without checking if
- * the entry type is actually `String`. Or in other words
+ * the element type is actually `String`. Or in other words
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first

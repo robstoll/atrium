@@ -31,7 +31,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  *
  * Delegates to `values(expectedOrNull)`.
  *
- * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
+ * @param expectedOrNull The nullable value which is expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -59,8 +59,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * [expected][expectedOrNull] nullable value as well as the [other expected][otherExpectedOrNulls] nullable values
  * (if given) in the specified order.
  *
- * @param expectedOrNull The value which is expectedOrNull to be contained within the [Iterable].
- * @param otherExpectedOrNulls Additional values which are expectedOrNull to be contained within [Iterable].
+ * @param expectedOrNull The value which is expected to be contained within the [Iterable].
+ * @param otherExpectedOrNulls Additional values which are expected to be contained within [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -129,9 +129,9 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *   or not.
- * @param otherAssertionCreatorsOrNull Additional identification lambdas which each kind of identify (separately) an entry
- *   which we are looking for.
+ *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
+ * @param otherAssertionCreatorsOrNull Additional identification lambdas which each identify (separately) an entry
+ *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

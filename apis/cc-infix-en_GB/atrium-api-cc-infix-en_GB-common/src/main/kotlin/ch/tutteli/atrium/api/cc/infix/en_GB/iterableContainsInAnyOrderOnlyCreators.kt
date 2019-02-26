@@ -30,7 +30,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
  *
  * Delegates to `the NullableValues(expectedOrNull)`.
  *
- * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
+ * @param expectedOrNull The nullable value which is expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

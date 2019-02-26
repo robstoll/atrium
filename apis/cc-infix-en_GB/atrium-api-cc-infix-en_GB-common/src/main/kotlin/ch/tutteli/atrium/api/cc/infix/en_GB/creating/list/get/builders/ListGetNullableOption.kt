@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  * Represents the extension point for another option after a `get index`-step within a
  * sophisticated `get` assertion building process for [List].
  *
- * @param E The entry type of the [List].
+ * @param E The element type of the [List].
  * @param T A subtype of [List].
  */
 interface ListGetNullableOption<E, T: List<E>> {
@@ -29,7 +29,7 @@ interface ListGetNullableOption<E, T: List<E>> {
      * the corresponding nullable entry holds all assertions the given [assertionCreator] might create for it.
      *
      * Notice, that the corresponding entry of the given [index] can be `null` even if the index is within bounds
-     * as the [List] has a nullable entry type.
+     * as the [List] has a nullable element type.
      *
      * @return This plant to support a fluent API.
      * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])

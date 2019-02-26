@@ -53,7 +53,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpec
     = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains the
  * [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values (if given).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expectedOrNull, *otherExpectedOrNulls)`
@@ -100,7 +100,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -114,7 +114,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull: (Assert
     = contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreatorsOrNulls].
@@ -142,7 +142,7 @@ fun <E : Any, T: Iterable<E>> Assert<T>.containsExactly(expected: E, vararg othe
     = contains.inOrder.only.values(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains only
  * the [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values
  * (if given) in the defined order.
  *
@@ -181,7 +181,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator: Asser
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -195,7 +195,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreatorOrNull
     = contains.inOrder.only.entry(assertionCreatorOrNull)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null`
  * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
@@ -236,7 +236,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.any(assertionCreator: Assert<E>.() -> U
     = contains.inAnyOrder.atLeast(1).entry(assertionCreator)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) contains an entry holding
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) contains an entry holding
  * the assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -263,7 +263,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.none(assertionCreator: (Assert<E>.() ->
     = containsNot.entry(assertionCreator)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) does not contain a single entry
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) does not contain a single entry
  * which holds all assertions created by [assertionCreatorOrNull] or does not contain a single entry which is `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -288,7 +288,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.all(assertionCreator: Assert<E>.() -> U
     = addAssertion(AssertImpl.iterable.all(this, assertionCreator))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable entry type) has at least one element and
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] (which has a nullable element type) has at least one element and
  * that every element holds all assertions created by the [assertionCreatorOrNull] or that all elements are `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
