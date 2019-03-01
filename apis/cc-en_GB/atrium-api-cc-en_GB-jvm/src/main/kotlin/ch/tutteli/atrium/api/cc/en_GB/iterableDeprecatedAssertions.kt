@@ -21,6 +21,8 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntry(assertionCreatorOr
 fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
+//infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(nullableValues: NullableValues<E>): AssertionPlant<T>
+
 
 @Deprecated(
    "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",

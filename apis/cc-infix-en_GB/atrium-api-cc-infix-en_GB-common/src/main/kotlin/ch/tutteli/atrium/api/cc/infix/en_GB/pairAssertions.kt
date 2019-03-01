@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */
@@ -22,7 +22,7 @@ val <K : Any> Assert<Pair<K, *>>.first get() : Assert<K> = property(Pair<K, *>::
  * so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */
@@ -47,7 +47,7 @@ infix fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */
@@ -58,7 +58,7 @@ val <V : Any> Assert<Pair<*, V>>.second get() : Assert<V> = property(Pair<*, V>:
  * (which could be `null`) so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */

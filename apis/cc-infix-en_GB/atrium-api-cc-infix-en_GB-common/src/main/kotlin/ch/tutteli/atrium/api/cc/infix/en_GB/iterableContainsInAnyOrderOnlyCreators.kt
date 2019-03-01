@@ -37,7 +37,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
  */
 @JvmName("nullableValue")
 infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expectedOrNull: E): AssertionPlant<T>
-    = this the NullableValues(expectedOrNull)
+    = this the Values(expectedOrNull)
 
 
 /**
@@ -61,7 +61,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(values: NullableValues<E>): AssertionPlant<T>
+@JvmName("theNullable")
+infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, values.toList()))
 
 
@@ -69,7 +70,7 @@ infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderO
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] must contain only one
  * entry which holds all assertions created by the given [assertionCreator].
  *
- * Delegates to `the Entries(assertionCreator)`
+ * Delegates to `the Entries(assertionCreatorOrNull)`
  *
  * @param assertionCreator The identification lambda.
  *
@@ -93,13 +94,13 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
  */
 @JvmName("nullableEntry")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = this the NullableEntries(assertionCreatorOrNull)
+    = this the Entries(assertionCreatorOrNull)
 
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [entries].[assertionCreator][Entries.expected] might create
- * -- likewise an entry for each [entries].[otherAssertionCreators][Entries.otherExpected]
+ * [Iterable] which holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] might create
+ * -- likewise an entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreatorsOrNulls]
  * needs to be contained in the [Iterable] where it does not matter in which order the entries appear but only as
  * many entries should be returned by the [Iterable] as assertion creators are defined.
  *
@@ -115,15 +116,15 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrder
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.toList()))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected]
+ * [Iterable] which holds all assertions [nullableEntries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull]
  * might create or it needs to be `null` in case
- * [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected] is defined as `null` -- likewise an
- * entry for each [nullableEntries].[otherAssertionCreatorsOrNulls][NullableEntries.otherExpected] needs to
+ * [nullableEntries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null` -- likewise an
+ * entry for each [nullableEntries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] needs to
  * be contained in the [Iterable] where it does not matter in which order the entries appear but only as many entries
  * should be returned by the [Iterable] as assertion creators are defined.
  *
@@ -139,5 +140,6 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+@JvmName("theNullable")
+infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(nullableEntries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, nullableEntries.toList()))

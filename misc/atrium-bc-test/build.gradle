@@ -315,3 +315,10 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { Str
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
     return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
 }
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyEntriesAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/ Entries<Double>/, ' Entries<Double, Assert<Double>.() -> Unit>')
+}
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')
+}
+

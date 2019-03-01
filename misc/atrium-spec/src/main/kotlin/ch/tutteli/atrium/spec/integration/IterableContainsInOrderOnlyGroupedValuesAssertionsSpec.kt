@@ -2,23 +2,20 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInOrderOnlyGroupedValuesPair: Pair<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Double>, GroupWithoutNullableEntries<Double>, Array<out GroupWithoutNullableEntries<Double>>) -> Assert<Iterable<Double>>>,
-    groupFactory: (Array<out Double>) -> GroupWithoutNullableEntries<Double>,
-    containsInOrderOnlyGroupedNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(GroupWithNullableEntries<Double?>, GroupWithNullableEntries<Double?>, Array<out GroupWithNullableEntries<Double?>>) -> Assert<Iterable<Double?>>>,
-    nullableGroupFactory: (Array<out Double?>) -> GroupWithNullableEntries<Double?>,
+    containsInOrderOnlyGroupedValuesPair: Pair<String, Assert<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Assert<Iterable<Double>>>,
+    groupFactory: (Array<out Double>) -> Group<Double>,
+    containsInOrderOnlyGroupedNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Group<Double?>, Group<Double?>, Array<out Group<Double?>>) -> Assert<Iterable<Double?>>>,
+    nullableGroupFactory: (Array<out Double?>) -> Group<Double?>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -29,7 +26,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    fun group(vararg doubles: Double): GroupWithoutNullableEntries<Double> = groupFactory(doubles.toTypedArray())
+    fun group(vararg doubles: Double) = groupFactory(doubles.toTypedArray())
     fun nullableGroup(vararg assertionCreators: Double?) = nullableGroupFactory(assertionCreators)
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
@@ -48,7 +45,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val (containsInOrderOnlyGroupedValues, containsInOrderOnlyGroupedValuesFunArr) = containsInOrderOnlyGroupedValuesPair
 
     val (containsInOrderOnlyGroupedNullableValues, containsInOrderOnlyGroupedNullableValuesFunArr) = containsInOrderOnlyGroupedNullableValuesPair
-    fun Assert<Iterable<Double?>>.containsInOrderOnlyGroupedNullableValuesFun(t1: GroupWithNullableEntries<Double?>, t2: GroupWithNullableEntries<Double?>, vararg tX: GroupWithNullableEntries<Double?>)
+    fun Assert<Iterable<Double?>>.containsInOrderOnlyGroupedNullableValuesFun(t1: Group<Double?>, t2: Group<Double?>, vararg tX: Group<Double?>)
         = containsInOrderOnlyGroupedNullableValuesFunArr(t1,t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
@@ -139,15 +136,15 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         )
     }
 
-    fun groupToNullableGroup(group: GroupWithoutNullableEntries<Double>) = nullableGroup(*group.toList().toTypedArray())
+    fun groupToNullableGroup(group: Group<Double>) = nullableGroup(*group.toList().toTypedArray())
 
     group("$describePrefix describe non-nullable cases") {
-        mapOf<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Double>, GroupWithoutNullableEntries<Double>, Array<out GroupWithoutNullableEntries<Double>>) -> Any>(
+        mapOf<String, Assert<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Any>(
             containsInOrderOnlyGroupedValues to { g1, g2, gX -> containsInOrderOnlyGroupedValuesFunArr(this, g1, g2, gX) },
             "$containsInOrderOnlyGroupedNullableValues for nullable" to { g1, g2, gX -> containsInOrderOnlyGroupedNullableValuesFunArr(this, groupToNullableGroup(g1), groupToNullableGroup(g2), gX.map { groupToNullableGroup(it)}.toTypedArray()) }
         ).forEach { (describe, containsFunArr) ->
 
-            fun Assert<Iterable<Double>>.containsFun(t1: GroupWithoutNullableEntries<Double>, t2: GroupWithoutNullableEntries<Double>, vararg tX: GroupWithoutNullableEntries<Double>)
+            fun Assert<Iterable<Double>>.containsFun(t1: Group<Double>, t2: Group<Double>, vararg tX: Group<Double>)
                 = containsFunArr(t1, t2, tX)
 
             describeFun(describe) {

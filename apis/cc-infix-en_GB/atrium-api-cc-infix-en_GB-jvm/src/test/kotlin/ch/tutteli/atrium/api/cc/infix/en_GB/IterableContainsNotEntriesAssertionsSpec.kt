@@ -29,7 +29,7 @@ class IterableContainsNotEntriesAssertionsSpec : ch.tutteli.atrium.spec.integrat
             return if (aX.isEmpty()) {
                 plant notTo contain entry  a
             } else {
-                plant notTo contain the NullableEntries(a, *aX)
+                plant notTo contain the Entries(a, *aX)
             }
         }
     }

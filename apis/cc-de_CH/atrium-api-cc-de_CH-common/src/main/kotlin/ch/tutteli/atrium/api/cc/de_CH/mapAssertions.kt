@@ -43,7 +43,7 @@ inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.enthaelt(entry: Pair
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
- * with a corresponding value which holds all assertions [keyValue]'s [KeyValue.valueAssertionCreator] might create.
+ * with a corresponding value which holds all assertions [keyValue]'s [valueAssertionCreator][KeyValue.valueAssertionCreatorOrNull] might create.
  * -- optionally the same assertions are created for the [otherKeyValues].
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
@@ -53,14 +53,14 @@ inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.enthaelt(entry: Pair
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<out K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
+fun <K, V : Any, T: Map<out K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V, Assert<V>.() -> Unit>, vararg otherKeyValues: KeyValue<K, V, Assert<V>.() -> Unit>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
- * [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
- * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`
+ * [KeyValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
  * -- optionally the same assertions are created for the [otherKeyValues].
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
@@ -70,7 +70,8 @@ fun <K, V : Any, T: Map<out K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.enthaelt(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
+@JvmName("enthaeltNullable")
+inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.enthaelt(keyValue: KeyValue<K, V, (Assert<V>.() -> Unit)?>, vararg otherKeyValues: KeyValue<K, V, (Assert<V>.() -> Unit)?>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 

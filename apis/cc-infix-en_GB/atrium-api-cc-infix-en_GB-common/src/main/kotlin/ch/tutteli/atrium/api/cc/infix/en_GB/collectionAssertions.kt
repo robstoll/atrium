@@ -39,7 +39,7 @@ infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Em
  * [size][Collection.size] so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */

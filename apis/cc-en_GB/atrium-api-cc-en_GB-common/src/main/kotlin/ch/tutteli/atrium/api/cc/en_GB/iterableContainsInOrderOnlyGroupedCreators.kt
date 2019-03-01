@@ -1,13 +1,16 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.groupsToList
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
@@ -24,9 +27,9 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
-    firstGroup: GroupWithoutNullableEntries<E>,
-    secondGroup: GroupWithoutNullableEntries<E>,
-    vararg otherExpectedGroups: GroupWithoutNullableEntries<E>
+    firstGroup: Group<E>,
+    secondGroup: Group<E>,
+    vararg otherExpectedGroups: Group<E>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
@@ -47,10 +50,11 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@JvmName("inAnyOrderNullableValues")
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
-    firstGroup: GroupWithNullableEntries<E>,
-    secondGroup: GroupWithNullableEntries<E>,
-    vararg otherExpectedGroups: GroupWithNullableEntries<E>
+    firstGroup: Group<E>,
+    secondGroup: Group<E>,
+    vararg otherExpectedGroups: Group<E>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
@@ -77,9 +81,9 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  */
 @JvmName("inAnyOrderEntries")
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
-    firstGroup: GroupWithoutNullableEntries<Assert<E>.() -> Unit>,
-    secondGroup: GroupWithoutNullableEntries<Assert<E>.() -> Unit>,
-    vararg otherExpectedGroups: GroupWithoutNullableEntries<Assert<E>.() -> Unit>
+    firstGroup: Group<Assert<E>.() -> Unit>,
+    secondGroup: Group<Assert<E>.() -> Unit>,
+    vararg otherExpectedGroups: Group<Assert<E>.() -> Unit>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
@@ -106,9 +110,9 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  */
 @JvmName("inAnyOrderNullableEntries")
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
-    firstGroup: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>,
-    secondGroup: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>,
-    vararg otherExpectedGroups: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>
+    firstGroup: Group<(Assert<E>.() -> Unit)?>,
+    secondGroup: Group<(Assert<E>.() -> Unit)?>,
+    vararg otherExpectedGroups: Group<(Assert<E>.() -> Unit)?>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,

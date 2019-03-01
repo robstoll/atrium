@@ -31,7 +31,7 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spe
             return if (aX.isEmpty()) {
                 plant to contain inAny order but only value(a)
             } else {
-                plant to contain inAny order but only the NullableValues(a, *aX)
+                plant to contain inAny order but only the Values(a, *aX)
             }
         }
     }

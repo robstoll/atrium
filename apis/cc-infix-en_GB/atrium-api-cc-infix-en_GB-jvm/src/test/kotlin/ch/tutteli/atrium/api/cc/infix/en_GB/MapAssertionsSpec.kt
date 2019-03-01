@@ -39,7 +39,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<out String, Int>>, KeyValue<String, Int>, Assert<Map<out String, Int>>> = Assert<Map<out String, Int>>::contains
+        private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<out String, Int>>, KeyValue<String, Int, Assert<Int>.() -> Unit>, Assert<Map<out String, Int>>> = Assert<Map<out String, Int>>::contains
         private fun containsKeyWithValueAssertions(plant: Assert<Map<out String, Int>>, keyValue: Pair<String, Assert<Int>.() -> Unit>, otherKeyValues: Array<out Pair<String, Assert<Int>.() -> Unit>>) : Assert<Map<out String, Int>> {
             return if (otherKeyValues.isEmpty()) {
                 plant contains KeyValue(keyValue.first, keyValue.second)
@@ -50,12 +50,12 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             }
         }
 
-        private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<out String?, Int?>>, KeyNullableValue<String, Int>, Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::contains
+        private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<out String?, Int?>>, KeyValue<String, Int, (Assert<Int>.() -> Unit)?>, Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::contains
         private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<out String?, Int?>>, keyValue: Pair<String?, (Assert<Int>.() -> Unit)?>, otherKeyValues: Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>): Assert<Map<out String?, Int?>> {
             return if (otherKeyValues.isEmpty()) {
-                plant contains KeyNullableValue(keyValue.first, keyValue.second)
+                plant contains KeyValue(keyValue.first, keyValue.second)
             } else {
-                mapArguments(keyValue, otherKeyValues).to { KeyNullableValue(it.first, it.second) }.let{ (first, others) ->
+                mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let{ (first, others) ->
                     plant contains All(first, *others)
                 }
             }

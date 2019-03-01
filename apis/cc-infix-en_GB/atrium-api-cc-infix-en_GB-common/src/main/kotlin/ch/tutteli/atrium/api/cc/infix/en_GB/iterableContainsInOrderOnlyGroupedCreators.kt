@@ -1,13 +1,16 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
+
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.groupsToList
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
@@ -21,7 +24,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<E, GroupWithoutNullableEntries<E>>
+    order: Order<E, Group<E>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
@@ -34,14 +37,16 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of nullable values need to be
  * contained in [Iterable] in the specified order whereas the values within the groups can occur in any order.
  *
+ * This function will be renamed on the JVM level to inAnyOrderNullableValues with 1.0.0;
+ *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderNullableValues")
+@JvmName("inAnyOrderNullableGroupedValues")
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<E, GroupWithNullableEntries<E>>
+    order: Order<E, Group<E>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
@@ -56,14 +61,16 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * need to be contained in [Iterable] in the specified order whereas the identification lambdas within the groups
  * can occur in any order.
  *
+ * This function will be renamed on the JVM level to inAnyOrderEntries with 1.0.0;
+ *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderEntries")
+@JvmName("inAnyOrderGroupedEntries")
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<Assert<E>.() -> Unit, GroupWithoutNullableEntries<Assert<E>.() -> Unit>>
+    order: Order<Assert<E>.() -> Unit, Group<Assert<E>.() -> Unit>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
@@ -79,14 +86,16 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  *
  * An identification lambda can also be defined with `null` in which case it matches an entry which is `null` as well.
  *
+ * This function will be renamed on the JVM level to inAnyOrderNullableEntries with 1.0.0;
+ *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderNullableEntries")
+@JvmName("inAnyOrderGroupedNullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<(Assert<E>.() -> Unit)?, GroupWithNullableEntries<(Assert<E>.() -> Unit)?>>
+    order: Order<(Assert<E>.() -> Unit)?, Group<(Assert<E>.() -> Unit)?>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,

@@ -69,13 +69,13 @@ inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyV
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>)
+infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValue: KeyValue<K, V, Assert<V>.() -> Unit>)
     = contains(All(keyValue))
 
 /**
  * Makes the assertion that for each of the [KeyValue] in [keyValues], the [Assert.subject][AssertionPlant.subject] contains a key
  * as defined by keyValue's [KeyValue.key] with a corresponding value which holds all assertions keyValues's
- * [KeyValue.valueAssertionCreator] might create.
+ * [KeyValue.valueAssertionCreatorOrNull] might create.
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the
  * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
@@ -84,26 +84,27 @@ infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValue: KeyValue<K
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
+infix fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V, Assert<V>.() -> Unit>>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList().map { it.toPair() }))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
- * [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
- * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`.
+ * [KeyValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValue: KeyNullableValue<K, V>)
+@JvmName("containsNullable")
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValue: KeyValue<K, V, (Assert<V>.() -> Unit)?>)
     = contains(All(keyValue))
 
 /**
- * Makes the assertion that for each of the [KeyNullableValue] in [keyValues], the [Assert.subject][AssertionPlant.subject] contains
- * a key as defined by keyValue's [KeyNullableValue.key] with a corresponding value which either holds all assertions
- * keyValue's [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
- * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`.
+ * Makes the assertion that for each of the [KeyValue] in [keyValues], the [Assert.subject][AssertionPlant.subject] contains
+ * a key as defined by keyValue's [KeyValue.key] with a corresponding value which either holds all assertions
+ * keyValue's [KeyValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the
  * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
@@ -113,7 +114,7 @@ inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyV
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsNullable")
-inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValues: All<KeyNullableValue<K, V>>)
+inline infix fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValues: All<KeyValue<K, V, (Assert<V>.() -> Unit)?>>)
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList().map { it.toPair() }))
 
 /**
@@ -211,7 +212,7 @@ infix fun <T : Map<*, *>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty:
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */
@@ -233,7 +234,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
- * which expects an assertionCreator lambda where sub assertions are evaluated together (form an assertion group block).
+ * which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).
  *
  * @return The newly created [AssertionPlant].
  */
