@@ -11,6 +11,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.verbs.internal.assert
 import kotlin.reflect.KFunction2
 
 abstract class IterableContainsSpecBase {
@@ -50,4 +51,51 @@ abstract class IterableContainsSpecBase {
     private val withinInAnyOrderFun : KFunction2<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, AssertionPlant<Iterable<Int>>>
         = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
     protected val withinInAnyOrder = "${withinInAnyOrderFun.name} ${order::class.simpleName}"
+
+
+    @Suppress("unused")
+    private fun ambiguityTest() {
+        assert(listOf(1)) contains 1
+        assert(listOf(1)) contains {}
+        assert(listOf(1 as Int?)) contains 1
+        assert(listOf(1 as Int?)) contains {}
+        //TODO should work, uncomment as soon as KT-6591 is fixed
+        //assert(listOf<Int?>(1)) contains null
+
+        assert(listOf(1)) to contain inAny order atLeast 1 value 1
+        assert(listOf(1)) to contain inAny order atLeast 1 value null
+        assert(listOf(1)) to contain inAny order atLeast 1 entry {}
+        assert(listOf(1)) to contain inAny order atLeast 1 entry null
+
+        assert(listOf(1)) to contain inAny order but only value 1
+        assert(listOf(1)) to contain inAny order but only value null
+        assert(listOf(1)) to contain inAny order but only entry {}
+        assert(listOf(1)) to contain inAny order but only entry null
+
+        assert(listOf(1)) to contain inGiven order and only value 1
+        assert(listOf(1)) to contain inGiven order and only value null
+        assert(listOf(1)) to contain inGiven order and only entry {}
+        assert(listOf(1)) to contain inGiven order and only entry null
+
+
+        assert(listOf(1)) to contain inGiven order and only grouped entries within group inAny Order(
+            Value(1),
+            Value(null),
+            Values(1),
+            Values(null),
+            Values(1, 1),
+            Values(1, null),
+            Values(null, null)
+        )
+        
+        assert(listOf(1)) to contain inGiven order and only grouped entries within group inAny Order(
+            Entry {},
+            Entry(null),
+            Entries({}),
+            Entries(null),
+            Entries({}, {}),
+            Entries({}, null),
+            Entries(null, null)
+        )
+    }
 }

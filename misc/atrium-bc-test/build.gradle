@@ -208,6 +208,10 @@ def createBcAndBbcTasks(String apiName, String version, String forgive) {
     bbcTests.dependsOn bbcTask
     bcTests.dependsOn jacocoBcReport
     bcTests.dependsOn bcTask
+    project."compileSrc_${nameUnderline}Kotlin" {
+        kotlinOptions.suppressWarnings = true
+    }
+    
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
@@ -308,15 +312,17 @@ apis.each {apiName ->
     createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
         return content.replaceAll(/Assert<Array<Int>>::asIterable.name/, '"asIterable"')
     }
+    createFixSrcTask(apiName, '0.7.0', 'IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec.kt') { String content ->
+        return content
+            .replaceAll(/ Entry\(groups\[0]\)/, ' Entry(groups[0]) as GroupWithoutNullableEntries<Assert<Double>.() -> Unit>')
+            .replaceAll(/ Entries\(groups\[0], \*groups.drop\(1\)\.toTypedArray\(\)\)/, ' Entries(groups[0], *groups.drop(1).toTypedArray()) as GroupWithoutNullableEntries<Assert<Double>.() -> Unit>')
+    }
 }
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { String content ->
     return content.replaceAll(/Assert<BigDecimal>::toBe.name/, '"toBe"').replaceAll(/Assert<BigDecimal>::notToBe.name/, '"notToBe"')
 }
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
     return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
-}
-createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyEntriesAssertionsSpec.kt') { String content ->
-    return content.replaceAll(/ Entries<Double>/, ' Entries<Double, Assert<Double>.() -> Unit>')
 }
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
     return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')

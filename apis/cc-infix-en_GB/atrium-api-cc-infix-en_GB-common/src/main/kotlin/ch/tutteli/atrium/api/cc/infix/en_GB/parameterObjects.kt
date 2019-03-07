@@ -25,14 +25,14 @@ class All<T>(override val expected: T, override vararg val otherExpected: T) : V
  *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
  *   `assertionCreatorOrNull` is defined as `null`.
  */
-class Entry<T: Any, A: ((Assert<T>) -> Unit)?>(
-    val assertionCreatorOrNull: A
-): GroupWithoutNullableEntries<A>, GroupWithNullableEntries<A> {
-    override fun toList(): List<A> = listOf(assertionCreatorOrNull)
+class Entry<T: Any>(
+    val assertionCreatorOrNull: (Assert<T>.() -> Unit)?
+): GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
+    override fun toList(): List<(Assert<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
 }
 
 /**
- * Parameter object to express a [Group] of nullable identification lambdas.
+ * Parameter object to express a [Group] of identification lambdas.
  *
  * It is also used to express `(Assert<T>.() -> Unit)?, vararg (Assert<T>.() -> Unit)?` at other places the infix-api.
  *
@@ -44,14 +44,14 @@ class Entry<T: Any, A: ((Assert<T>) -> Unit)?>(
  *   `assertionCreatorOrNull` is defined as `null`.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
-class Entries<T : Any, A: ((Assert<T>) -> Unit)?>(
-    val assertionCreatorOrNull: A,
-    vararg val otherAssertionCreatorsOrNulls: A
-) : GroupWithoutNullableEntries<A>, GroupWithNullableEntries<A>, VarArgHelper<(Assert<T>.() -> Unit)?> {
+class Entries<T : Any>(
+    val assertionCreatorOrNull: (Assert<T>.() -> Unit)?,
+    vararg val otherAssertionCreatorsOrNulls: (Assert<T>.() -> Unit)?
+) : GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?>, VarArgHelper<(Assert<T>.() -> Unit)?> {
     override val expected get() = assertionCreatorOrNull
     override val otherExpected get() = otherAssertionCreatorsOrNulls
 
-    override fun toList(): List<A> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
+    override fun toList(): List<(Assert<T>.() -> Unit)?> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
 }
 
 /**
@@ -65,7 +65,7 @@ data class Index(val index: Int)
 data class Key<out K>(val key: K)
 
 /**
- * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
+ * Parameter object to express a key/value [Pair] whose value type is a lambda with an
  * [Assert][AssertionPlant] receiver, which means one can either pass a lambda or `null`.
  */
 data class KeyValue<out K, V : Any, A: ((Assert<V>) -> Unit)?>(val key: K, val valueAssertionCreatorOrNull: A) {
@@ -80,7 +80,7 @@ data class KeyValue<out K, V : Any, A: ((Assert<V>) -> Unit)?>(val key: K, val v
  *
  * Notice, most probably the type parameter G will be removed in the future, will be fixed to [Group].
  */
-class Order<T, out G : Group<T>>(
+class Order<out T, out G : Group<T>>(
     val firstGroup: G,
     val secondGroup: G,
     vararg val otherExpectedGroups: G
@@ -113,7 +113,7 @@ data class Value<T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithout
 /**
  * Represents a [Group] of multiple values.
  */
-class Values<T>(
+class Values<out T>(
     val expected: T,
     vararg val otherExpected: T
 ) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T> {

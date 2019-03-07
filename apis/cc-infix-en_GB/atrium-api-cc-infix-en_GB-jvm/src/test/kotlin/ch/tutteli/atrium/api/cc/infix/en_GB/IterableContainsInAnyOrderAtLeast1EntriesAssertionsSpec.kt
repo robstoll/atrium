@@ -63,7 +63,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             }
         }
 
-        private val containsEntriesFun: KFunction2<Assert<Iterable<Double?>>, Entries<Double, (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
+        private val containsEntriesFun: KFunction2<Assert<Iterable<Double?>>, Entries<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
         fun getContainsNullableShortcutPair() = containsEntriesFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {

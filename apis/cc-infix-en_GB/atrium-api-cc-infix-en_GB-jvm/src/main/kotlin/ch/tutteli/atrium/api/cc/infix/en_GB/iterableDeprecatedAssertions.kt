@@ -68,7 +68,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: 
     "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
     ReplaceWith("this containsExactly entries", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
     = this containsExactly entries
 
 @Deprecated(
@@ -92,3 +92,4 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.none(nullableEntry: NullableEntr
 @Deprecated("Use `all` instead; will be removed with 1.0.0", ReplaceWith("this all nullableEntry.assertionCreator"))
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.all(nullableEntry: NullableEntry<E>)
     = this all nullableEntry.assertionCreator
+

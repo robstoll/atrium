@@ -9,8 +9,6 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
     AssertionVerbFactory,
     getContainsPair(),
     Companion::groupFactory,
-    getContainsNullablePair(),
-    Companion::nullableGroupFactory,
     "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
     "[Atrium][Builder] "
 ) {
@@ -19,26 +17,6 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
             = "$toContain $inOrder $butOnly $groupedEntries $withinGroup $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderEntries
 
         private fun containsInOrderOnlyGroupedInAnyOrderEntries(
-            plant: Assert<Iterable<Double>>,
-            a1: Group<Assert<Double>.() -> Unit>,
-            a2: Group<Assert<Double>.() -> Unit>,
-            aX: Array<out Group<Assert<Double>.() -> Unit>>
-        ): Assert<Iterable<Double>> {
-            return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
-        }
-
-        private fun groupFactory(groups: Array<out Assert<Double>.() -> Unit>): Group<Assert<Double>.() -> Unit> {
-            return when (groups.size) {
-                0 -> object : Group<Assert<Double>.() -> Unit>{ override fun toList() = listOf<Assert<Double>.() -> Unit>() }
-                1 -> Entry(groups[0])
-                else -> Entries(groups[0], *groups.drop(1).toTypedArray())
-            }
-        }
-
-        fun getContainsNullablePair()
-            = "$toContain $inOrder $butOnly $inOrderOnlyEntries $withinGroup $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedNullableEntriesPair
-
-        private fun containsInOrderOnlyGroupedNullableEntriesPair(
             plant: Assert<Iterable<Double?>>,
             a1: Group<(Assert<Double>.() -> Unit)?>,
             a2: Group<(Assert<Double>.() -> Unit)?>,
@@ -47,7 +25,7 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
             return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
         }
 
-        private fun nullableGroupFactory(groups: Array<out (Assert<Double>.() -> Unit)?>): Group<(Assert<Double>.() -> Unit)?> {
+        private fun groupFactory(groups: Array<out (Assert<Double>.() -> Unit)?>): Group<(Assert<Double>.() -> Unit)?> {
             return when(groups.size){
                 0 -> object: Group<(Assert<Double>.() -> Unit)?>{ override fun toList() = listOf<Assert<Double>.() -> Unit>() }
                 1 -> Entry(groups[0])
