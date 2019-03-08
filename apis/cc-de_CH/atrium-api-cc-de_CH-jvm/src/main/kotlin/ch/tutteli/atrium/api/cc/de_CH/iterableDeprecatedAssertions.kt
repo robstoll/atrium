@@ -35,6 +35,26 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(assertionCreat
     = enthaelt(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
+@Deprecated("Use extension function `enthaelt` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaelt(expected, *otherExpected)"))
+@JvmName("enthaeltNonNullable")
+fun <E : Any, T : Iterable<E>> enthaelt(plant: Assert<T>, expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = plant.enthaelt(expected, *otherExpected)
+
+@Deprecated("Use extension function `enthaelt` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaelt(assertionCreatorOrNull)"))
+@JvmName("enthaeltNullable")
+fun <E: Any, T: Iterable<E?>> enthaelt(plant: Assert<T>, assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = plant.enthaelt(assertionCreatorOrNull)
+
+@Deprecated("Use extension function `enthaelt` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaelt(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)"))
+@JvmName("enthaeltNullable")
+fun <E: Any, T: Iterable<E?>> enthaelt(plant: Assert<T>, assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = plant.enthaelt(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+
+@Deprecated("Use extension function `enthaeltNicht` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaeltNicht(expected, *otherExpected)"))
+fun <E, T : Iterable<E>> enthaeltNichtNonNullable(plant: Assert<T>, expected: E, vararg otherExpected: E)
+    = plant.enthaeltNicht(expected, *otherExpected)
+
+
 @JvmName("enthaeltStriktDeprecated")
 @Deprecated("Use `enthaeltExakt` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
@@ -43,10 +63,6 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Asse
 @Deprecated("Use the extension fun `enthaeltStriktNullableEintraege` instead; will be removed with 1.0.0", ReplaceWith("plant.enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant.enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)
-
-@Deprecated("Use `enthaeltNicht.werte` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("enthaeltNicht.werte(expected, *otherExpected)"))
-fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
-    = enthaeltNicht.werte(expected, *otherExpected)
 
 @Deprecated(
     "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
@@ -91,17 +107,14 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assert
     = enthaeltExakt(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
-@JvmName("irgendEinNullableDeprecated")
 @Deprecated("Use `irgendEiner` instead; will be removed with 1.0.0", ReplaceWith("irgendEiner(assertionCreatorOrNull)"))
 fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEinNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = irgendEiner(assertionCreatorOrNull)
 
-@JvmName("keinerDerNullableDeprecated")
 @Deprecated("Use `keiner` instead; will be removed with 1.0.0", ReplaceWith("keiner(assertionCreatorOrNull)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.keinerDerNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = keiner(assertionCreatorOrNull)
 
-@JvmName("alleDerNullableDeprecated")
 @Deprecated("Use `alle` instead; will be removed with 1.0.0", ReplaceWith("alle(assertionCreatorOrNull)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.alleDerNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = alle(assertionCreatorOrNull)

@@ -35,6 +35,23 @@ def bcTests = task("bcTests", group: 'Verification') {
     dependsOn build
 }
 
+['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB' /* TODO remove with 1.0.0 => */, 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
+    task("bcBbc-$apiName", group: 'Verification') {
+        description = "runs all backward compatibility and binary backward compatibility tests for $apiName"
+        dependsOn build
+    }
+
+    task("bc-$apiName", group: 'Verification') {
+        description = "runs all backward compatibility tests for $apiName"
+        dependsOn build
+    }
+
+    task("bbc-$apiName", group: 'Verification') {
+        description = "runs all binary backward compatibility tests for $apiName"
+        dependsOn build
+    }
+}
+
 def createBcAndBbcTasksForApis(String version, String forgive, String... apis) {
 
     def bc_version = task("bc-$version", group: 'Verification')
@@ -44,6 +61,11 @@ def createBcAndBbcTasksForApis(String version, String forgive, String... apis) {
         createBcAndBbcTasks(apiName, version, forgive)
         bc_version.dependsOn "bc-${apiName}-$version"
         bbc_version.dependsOn "bbc-${apiName}-$version"
+        def bcBbcApi = project."bcBbc-$apiName"
+        bcBbcApi.dependsOn "bc-${apiName}-$version"
+        bcBbcApi.dependsOn "bbc-${apiName}-$version"
+        project."bc-$apiName".dependsOn "bc-${apiName}-$version"
+        project."bbc-$apiName".dependsOn "bbc-${apiName}-$version"
     }
 }
 
@@ -313,9 +335,7 @@ apis.each {apiName ->
         return content.replaceAll(/Assert<Array<Int>>::asIterable.name/, '"asIterable"')
     }
     createFixSrcTask(apiName, '0.7.0', 'IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec.kt') { String content ->
-        return content
-            .replaceAll(/ Entry\(groups\[0]\)/, ' Entry(groups[0]) as GroupWithoutNullableEntries<Assert<Double>.() -> Unit>')
-            .replaceAll(/ Entries\(groups\[0], \*groups.drop\(1\)\.toTypedArray\(\)\)/, ' Entries(groups[0], *groups.drop(1).toTypedArray()) as GroupWithoutNullableEntries<Assert<Double>.() -> Unit>')
+        return content.replaceAll(/ ((?:Entry|Eintrag)\(groups\[0]\)|(?:Entries|Eintraege)\(groups\[0], \*groups.drop\(1\)\.toTypedArray\(\)\))/, ' $1 as GroupWithoutNullableEntries<Assert<Double>.() -> Unit>')
     }
 }
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { String content ->
