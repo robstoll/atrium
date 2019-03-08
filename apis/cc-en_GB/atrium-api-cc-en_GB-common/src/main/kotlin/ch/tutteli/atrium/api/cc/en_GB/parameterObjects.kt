@@ -14,34 +14,38 @@ import ch.tutteli.kbox.glue
 /**
  * Parameter object to express a [Group] with a single identification lambda.
  *
- * @param assertionCreator The identification lambda identifying the entry where an entry is considered
+ In case `null` is used for the identification lambda then it is expected that the corresponding entry
+ * is `null` as well.
+ *
+ * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
  *   to be identified if it holds all [Assertion]s the lambda might create.
+ *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
-class Entry<T : Any, A: ((Assert<T>) -> Unit)?>(
-    val assertionCreator: A
-) : GroupWithoutNullableEntries<A>, GroupWithNullableEntries<A> {
-    override fun toList(): List<A> = listOf(assertionCreator)
+class Entry<in T: Any>(
+    val assertionCreatorOrNull: (Assert<T>.() -> Unit)?
+): GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
+    override fun toList(): List<(Assert<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
 }
 
 /**
- * Parameter object to express a [Group] of nullable identification lambdas.
+ * Parameter object to express a [Group] of identification lambdas.
  *
  * In case `null` is used for an identification lambda then it is expected that the corresponding entry
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
- *   [assertionCreatorOrNull] is defined as `null`.
+ *   to be identified if it holds all [Assertion]s the lambda might create.
+ *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
-class Entries<T : Any, A: ((Assert<T>) -> Unit)?>(
-    val assertionCreatorOrNull: A,
-    vararg val otherAssertionCreatorsOrNulls: A
-) : GroupWithoutNullableEntries<A>, GroupWithNullableEntries<A>, VarArgHelper<(Assert<T>.() -> Unit)?> {
+class Entries<in T : Any>(
+    val assertionCreatorOrNull: (Assert<T>.() -> Unit)?,
+    vararg val otherAssertionCreatorsOrNulls: (Assert<T>.() -> Unit)?
+) : GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?>, VarArgHelper<(Assert<T>.() -> Unit)?> {
     override val expected get() = assertionCreatorOrNull
     override val otherExpected get() = otherAssertionCreatorsOrNulls
 
-    override fun toList(): List<A> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
+    override fun toList(): List<(Assert<T>.() -> Unit)?> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
 }
 
 
@@ -58,16 +62,16 @@ data class KeyValue<out K, V : Any, A: ((Assert<V>) -> Unit)?>(val key: K, val v
 /**
  * Represents a [Group] with a single value.
  */
-data class Value<T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
+data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
     override fun toList() = listOf(expected)
 }
 
 /**
  * Represents a [Group] of multiple values.
  */
-class Values<T>(
-    val expected: T,
-    vararg val otherExpected: T
-) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T> {
+class Values<out T>(
+    override val expected: T,
+    override vararg val otherExpected: T
+) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T>  {
     override fun toList() = listOf(expected, *otherExpected)
 }

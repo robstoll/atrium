@@ -74,6 +74,10 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionP
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry assertionCreatorOrNull`
  *
+ * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
+ *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -126,6 +130,10 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>): Ass
  * only one entry which is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * It is a shortcut for `to contain inGiven order and only entry assertionCreatorOrNull`
+ *
+ * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
+ *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

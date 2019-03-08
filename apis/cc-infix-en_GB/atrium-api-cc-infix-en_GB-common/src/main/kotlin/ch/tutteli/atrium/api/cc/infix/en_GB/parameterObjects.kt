@@ -15,17 +15,17 @@ import kotlin.jvm.JvmName
 /**
  * Parameter object to express `T, vararg T` in the infix-api.
  */
-class All<T>(override val expected: T, override vararg val otherExpected: T) : VarArgHelper<T>
+class All<out T>(override val expected: T, override vararg val otherExpected: T) : VarArgHelper<T>
 
 
 /**
  * Parameter object to express a [Group] with a single identification lambda.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
- *   `assertionCreatorOrNull` is defined as `null`.
+ *   to be identified if it holds all [Assertion]s the lambda might create.
+ *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
-class Entry<T: Any>(
+class Entry<in T: Any>(
     val assertionCreatorOrNull: (Assert<T>.() -> Unit)?
 ): GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
     override fun toList(): List<(Assert<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
@@ -40,11 +40,11 @@ class Entry<T: Any>(
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
- *   `assertionCreatorOrNull` is defined as `null`.
+ *   to be identified if it holds all [Assertion]s the lambda might create.
+ *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
-class Entries<T : Any>(
+class Entries<in T : Any>(
     val assertionCreatorOrNull: (Assert<T>.() -> Unit)?,
     vararg val otherAssertionCreatorsOrNulls: (Assert<T>.() -> Unit)?
 ) : GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?>, VarArgHelper<(Assert<T>.() -> Unit)?> {
@@ -106,7 +106,7 @@ class RegexPatterns(pattern: String, vararg otherPatterns: String) : VarArgHelpe
 /**
  * Represents a [Group] with a single value.
  */
-data class Value<T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
+data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
     override fun toList() = listOf(expected)
 }
 
@@ -114,8 +114,8 @@ data class Value<T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithout
  * Represents a [Group] of multiple values.
  */
 class Values<out T>(
-    val expected: T,
-    vararg val otherExpected: T
-) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T> {
+    override val expected: T,
+    override vararg val otherExpected: T
+) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T>  {
     override fun toList() = listOf(expected, *otherExpected)
 }
