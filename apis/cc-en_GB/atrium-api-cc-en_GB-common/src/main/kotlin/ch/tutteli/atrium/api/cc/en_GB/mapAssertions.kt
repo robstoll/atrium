@@ -7,7 +7,6 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.kbox.glue
 import kotlin.js.JsName
-import kotlin.jvm.JvmName
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
@@ -21,42 +20,8 @@ import kotlin.jvm.JvmName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JsName("contains")
-fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
+fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyNullableValuePair]'s [Pair.first]
- * with a corresponding value as defined by [keyNullableValuePair]'s [Pair.second] -- optionally the same assertions
- * are created for the [otherEntries].
- *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyNullableValuePair] is
- * defined as `'a' to 1` and one of the [otherEntries] is defined as `'a' to 1` as well, then both match,
- * even though they match the same entry.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@JvmName("containsNullable")
-inline fun <K, reified V: Any, T: Map<out K, V?>> Assert<T>.contains(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
-    = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyNullableValuePair glue otherEntries))
-
-/**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
- * with a corresponding value which holds all assertions [keyValue]'s [KeyValue.valueAssertionCreatorOrNull] might create.
- * -- optionally the same assertions are created for the [otherKeyValues].
- *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
- * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
- * , then both match, even though they match the same entry.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(
-    keyValue: KeyValue<K, V, Assert<V>.() -> Unit>,
-    vararg otherKeyValues: KeyValue<K, V, Assert<V>.() -> Unit>
-) = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -72,11 +37,10 @@ fun <K, V : Any, T: Map<out K, V>> Assert<T>.contains(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsNullable")
-inline fun <K, reified V : Any, T: Map<out K, V?>> Assert<T>.contains(
-    keyValue: KeyValue<K, V, (Assert<V>.() -> Unit)?>,
-    vararg otherKeyValues: KeyValue<K, V, (Assert<V>.() -> Unit)?>
-) = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() }))
+fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
+    keyValue: KeyValue<K, V>,
+    vararg otherKeyValues: KeyValue<K, V>
+) = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the given [key].

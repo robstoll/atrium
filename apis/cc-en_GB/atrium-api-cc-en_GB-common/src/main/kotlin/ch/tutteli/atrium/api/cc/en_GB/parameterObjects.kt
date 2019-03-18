@@ -14,7 +14,7 @@ import ch.tutteli.kbox.glue
 /**
  * Parameter object to express a [Group] with a single identification lambda.
  *
- In case `null` is used for the identification lambda then it is expected that the corresponding entry
+In case `null` is used for the identification lambda then it is expected that the corresponding entry
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
@@ -53,8 +53,8 @@ class Entries<in T : Any>(
  * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
  * [Assert][AssertionPlant] receiver, which means one can either pass a lambda or `null`.
  */
-data class KeyValue<out K, V : Any, A: ((Assert<V>) -> Unit)?>(val key: K, val valueAssertionCreatorOrNull: A) {
-    fun toPair(): Pair<K, A> = key to valueAssertionCreatorOrNull
+data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Assert<V>.() -> Unit)?) {
+    fun toPair(): Pair<K, (Assert<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
     override fun toString(): String
         = "KeyValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) "null" else "lambda"})"
 }

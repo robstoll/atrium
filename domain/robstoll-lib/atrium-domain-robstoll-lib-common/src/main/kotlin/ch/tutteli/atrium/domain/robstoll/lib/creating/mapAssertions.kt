@@ -3,8 +3,10 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
@@ -12,41 +14,38 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
-import kotlin.reflect.KClass
 
-fun <K, V : Any> _contains(plant: AssertionPlant<Map<out K, V>>, pairs: List<Pair<K, V>>): Assertion
-    = containsNonNullable(plant, pairs) { value -> toBe(value) }
-
-fun <K, V : Any> _containsNullable(
-    plant: AssertionPlant<Map<out K, V?>>,
-    type: KClass<V>,
-    pairs: List<Pair<K, V?>>
-): Assertion = containsNullable(plant, pairs) { value ->
-    addAssertion(AssertImpl.any.isNullable(this, type, value))
-}
+fun <K, V> _contains(
+    plant: AssertionPlant<Map<out K, V>>,
+    pairs: List<Pair<K, V>>
+): Assertion = _containsKeyWithValueAssertion<K, Any>(plant, pairs.map {
+    it.first to it.second?.let { expected -> subAssert<Any> { toBe(expected as Any) } }
+})
 
 fun <K, V : Any> _containsKeyWithValueAssertion(
-    plant: AssertionPlant<Map<out K, V>>,
-    keyValues: List<Pair<K, Assert<V>.() -> Unit>>
-): Assertion = containsNonNullable(plant, keyValues.map { it }) { assertionCreator -> assertionCreator() }
-
-fun <K, V : Any> _containsKeyWithNullableValueAssertions(
     plant: AssertionPlant<Map<out K, V?>>,
-    type: KClass<V>,
     keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
 ): Assertion = containsNullable(plant, keyValues.map{ it }) { assertionCreator ->
-    addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, type, assertionCreator))
+    val subjectIsNull = try {
+        this.subject == null
+    } catch (t: PlantHasNoSubjectException) {
+        true
+    }
+    if (assertionCreator != null && !subjectIsNull) {
+        AssertImpl.changeSubject(this) { this.subject as V }.assertionCreator()
+    } else if (subjectIsNull && assertionCreator == null){
+        addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider))
+    } else {
+        addAssertion(AssertImpl.builder.explanatoryGroup
+            .withDefaultType
+            .withAssertions(AssertImpl.collector.forExplanation.throwIfNoAssertionIsCollected.collect(
+                DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
+                MaybeSubject.Absent,
+                assertionCreator)
+            )
+            .build())
+    }
 }
-
-private fun <K, V : Any, M> containsNonNullable(
-    plant: AssertionPlant<Map<out K, V>>,
-    pairs: List<Pair<K, M>>,
-    assertionCreator: AssertionPlant<V>.(M) -> Unit
-) = contains(
-    pairs,
-    { option, key -> option.withParameterObject(createGetParameterObject(plant, key)) },
-    assertionCreator
-)
 
 private fun <K, V : Any, M> containsNullable(
     plant: AssertionPlant<Map<out K, V?>>,

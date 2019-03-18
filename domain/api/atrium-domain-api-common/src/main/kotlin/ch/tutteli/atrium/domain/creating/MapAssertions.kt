@@ -5,7 +5,6 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import kotlin.reflect.KClass
 
 /**
  * The access point to an implementation of [MapAssertions].
@@ -20,10 +19,8 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
-    fun <K, V: Any> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
-    fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<out K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
-    fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<out K, V>>, keyValues: List<Pair<K, Assert<V>.() -> Unit>>): Assertion
-    fun <K, V: Any> containsKeyWithNullableValueAssertions(plant: AssertionPlant<Map<out K, V?>>, type: KClass<V>, keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>): Assertion
+    fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
+    fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<out K, V?>>, keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>): Assertion
     fun <K> containsKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
     fun <K> containsNotKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
 

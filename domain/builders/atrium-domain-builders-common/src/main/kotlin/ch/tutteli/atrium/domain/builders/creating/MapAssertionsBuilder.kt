@@ -9,7 +9,6 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.creating.mapAssertions
-import kotlin.reflect.KClass
 
 /**
  * Delegates inter alia to the implementation of [MapAssertions].
@@ -24,22 +23,13 @@ object MapAssertionsBuilder : MapAssertions {
      */
     inline val entry get() : MapEntryAssertionsBuilder = MapEntryAssertionsBuilder
 
-    override inline fun <K, V: Any> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
+    override inline fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
         = mapAssertions.contains(plant, keyValuePairs)
 
-    override inline fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<out K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
-        = mapAssertions.containsNullable(plant, type, keyValuePairs)
-
     override inline fun <K, V : Any> containsKeyWithValueAssertions(
-        plant: AssertionPlant<Map<out K, V>>,
-        keyValues: List<Pair<K, Assert<V>.() -> Unit>>
-    ) = mapAssertions.containsKeyWithValueAssertions(plant, keyValues)
-
-    override inline fun <K, V : Any> containsKeyWithNullableValueAssertions(
         plant: AssertionPlant<Map<out K, V?>>,
-        type: KClass<V>,
         keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
-    ) = mapAssertions.containsKeyWithNullableValueAssertions(plant, type, keyValues)
+    ) = mapAssertions.containsKeyWithValueAssertions(plant, keyValues)
 
     override inline fun <K> containsKey(plant: AssertionPlant<Map<out K, *>>, key: K)
         = mapAssertions.containsKey(plant, key)
