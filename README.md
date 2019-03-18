@@ -1734,10 +1734,12 @@ Please upvote them (especially if you encouter them yourself):
 - [Type inference out type parameter bug](https://youtrack.jetbrains.com/issue/KT-18401)
 - [Type inference explicit type and overloads](https://youtrack.jetbrains.com/issue/KT-23791)
 - [Type inference Pair with receiver type](https://youtrack.jetbrains.com/issue/KT-29129)
+- [Overload resolution null bug](https://youtrack.jetbrains.com/issue/KT-6591) (reason why you need to specify what type `null` is in the infix API when using `assert(listOf(...)) contains null`)
 - [Overload resolution nullable bug](https://youtrack.jetbrains.com/issue/KT-23768)
 - [Overload resolution primitive type bug](https://youtrack.jetbrains.com/issue/KT-24230)
 - [Overload resolution function type bug](https://youtrack.jetbrains.com/issue/KT-23883)
-- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from pacakge cc.en_GB when using cc.infix.en_GB)
+- [Overload resolution generic upper bound bug](https://youtrack.jetbrains.com/issue/KT-30235)
+- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
 - [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
 - [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 

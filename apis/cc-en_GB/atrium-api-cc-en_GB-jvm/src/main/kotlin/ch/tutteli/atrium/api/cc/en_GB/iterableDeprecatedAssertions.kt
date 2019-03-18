@@ -21,9 +21,6 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntry(assertionCreatorOr
 fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
-//infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(nullableValues: NullableValues<E>): AssertionPlant<T>
-
-
 @Deprecated(
    "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
     ReplaceWith("containsExactly(expected, *otherExpected)", "ch.tutteli.atrium.api.cc.en_GB.containsExactly")
@@ -68,17 +65,14 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assert
     = containsExactly(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
-@JvmName("anyOfNullableDeprecated")
 @Deprecated("Use `any` instead; will be removed with 1.0.0", ReplaceWith("any(assertionCreatorOrNull)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.anyOfNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = any(assertionCreatorOrNull)
 
-@JvmName("noneOfNullableDeprecated")
 @Deprecated("Use `none` instead; will be removed with 1.0.0", ReplaceWith("none(assertionCreatorOrNull)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.noneOfNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = none(assertionCreatorOrNull)
 
-@JvmName("allOfNullableDeprecated")
 @Deprecated("Use `all` instead; will be removed with 1.0.0", ReplaceWith("all(assertionCreatorOrNull)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.allOfNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = all(assertionCreatorOrNull)

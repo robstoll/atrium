@@ -12,43 +12,28 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
- * within the [Iterable].
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected]
+ * value shall be searched within the [Iterable].
  *
- * Delegates to `the Values(expected)`.
+ * Delegates to `the Values(expectedOrNull)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
     = this the Values(expected)
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected][expectedOrNull]
- * nullable value shall be searched within the [Iterable].
- *
- * Delegates to `the NullableValues(expectedOrNull)`.
- *
- * @param expectedOrNull The value which is expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@JvmName("nullableValue")
-infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expectedOrNull: E): AssertionPlant<T>
-    = this the Values(expectedOrNull)
-
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
  * shall be searched within the [Iterable].
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
- * [values].[expected][Values.expected] is defined as `'a'` and one [values].[otherExpected][Values.otherExpected]
- * is defined as `'a'` as well, then both match, even though they match the same entry.
- * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
+ * [values].[expected][Values.expected] is defined as `'a'` and one
+ * [values].[otherExpected][Values.otherExpected] is defined as `'a'` as well, then both match,
+ * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
+ * number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `to contain inAny order exactly 2 value 'a'`
@@ -60,50 +45,8 @@ infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAny
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, values.toList()))
-
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [nullableValues]
- * shall be searched within the [Iterable].
- *
- * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
- * [nullableValues].[expected][Values.expected] is defined as `'a'` and one
- * [nullableValues].[otherExpected][Values.otherExpected] is defined as `'a'` as well, then both match,
- * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
- * number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `to contain inAny order exactly 2 value 'a'`
- * instead of:
- *   `to contain inAny order exactly 1 the Values('a', 'a')`
- *
- * @param nullableValues The nullableValues which are expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@JvmName("theNullable")
-infix fun <E: Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(nullableValues: Values<E>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, nullableValues.toList()))
-
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
- * all assertions [assertionCreator] might create.
- *
- * Delegates to `the Entries(assertionCreatorOrNull)`.
- *
- * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
- *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *   or not.
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
-    = this the Entries(assertionCreator)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -119,37 +62,20 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("nullableEntry")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this the Entries(assertionCreatorOrNull)
 
-
 /**
- * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
- * all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] might create -- likewise an entry
- * (can be the same) is searched for each of
- * the [entries].[otherAssertionCreators][Entries.otherAssertionCreatorsOrNulls].
+ * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
+ * holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] might create or
+ * needs to be `null` in case [entries].[assertionCreatorOrNull][Entries.otherAssertionCreatorsOrNulls]
+ * is defined as `null` -- likewise an entry (can be the same) is searched for each of
+ * the [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].
  *
  * @param entries The parameter object which contains the identification lambdas.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [nullableEntries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] might create or
- * needs to be `null` in case [nullableEntries].[assertionCreatorOrNull][Entries.otherAssertionCreatorsOrNulls]
- * is defined as `null` -- likewise an entry (can be the same) is searched for each of
- * the [nullableEntries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].
- *
- * @param nullableEntries The parameter object which contains the identification lambdas.
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@JvmName("theNullable")
-infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(nullableEntries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, nullableEntries.toList()))

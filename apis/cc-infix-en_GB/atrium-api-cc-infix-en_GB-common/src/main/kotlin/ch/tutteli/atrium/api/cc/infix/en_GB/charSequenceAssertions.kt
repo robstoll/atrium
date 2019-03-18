@@ -75,7 +75,7 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Assert<T>.contains(values: Values<out Any>): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionPlant<T>
     = this to contain atLeast 1 the values
 
 
@@ -141,7 +141,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<out Any>)
+infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
     = this notTo contain the values
 
 /**
