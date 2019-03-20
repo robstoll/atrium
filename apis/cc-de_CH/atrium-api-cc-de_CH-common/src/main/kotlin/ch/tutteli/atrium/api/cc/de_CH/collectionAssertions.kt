@@ -8,6 +8,8 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s [Collection.size] is [size].
  *
+ * Shortcut for `size.ist(expectedSize)` depends on the underlying implementation though.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
