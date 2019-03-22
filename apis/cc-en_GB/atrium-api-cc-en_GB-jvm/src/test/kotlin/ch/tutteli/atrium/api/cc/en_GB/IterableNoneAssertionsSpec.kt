@@ -35,7 +35,7 @@ class IterableNoneAssertionsSpec : Spek({
         private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
                 = plant.containsNot.entry(a)
 
-        private fun getContainsNotNullablePair() = "$containsNot" to Companion::containsNotNullableFun
+        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
                 = plant.containsNot.entry(a)

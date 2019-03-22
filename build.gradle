@@ -120,6 +120,9 @@ configure(subprojects - multiplatformProjects) {
     compileKotlin {
         kotlinOptions.allWarningsAsErrors = true
     }
+    compileTestKotlin{
+        kotlinOptions.allWarningsAsErrors = true
+    }
 
     dependencies {
         compile kotlinStdlib()
@@ -131,11 +134,19 @@ configure(commonProjects) {
     compileKotlinCommon {
         kotlinOptions.allWarningsAsErrors = true
     }
+    //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
+//    compileTestKotlinCommon{
+//        kotlinOptions.allWarningsAsErrors = true
+//    }
 }
 configure(jsProjects) {
     compileKotlin2Js {
         kotlinOptions.allWarningsAsErrors = true
     }
+    //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
+//    compileTestKotlin2Js{
+//        kotlinOptions.allWarningsAsErrors = true
+//    }
 }
 
 configure(subprojects - commonProjects - jsProjects) {
@@ -163,6 +174,9 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
 
     compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+    compileTestKotlin{
         kotlinOptions.allWarningsAsErrors = true
     }
 

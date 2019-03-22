@@ -41,7 +41,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * single entry which holds all assertions created by the given [assertionCreatorOrNull] or needs to be `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `the NullableEntries(assertionCreatorOrNull)`.
+ * Delegates to `the Entries(assertionCreatorOrNull)`.
  *
  * @param assertionCreatorOrNull The identification lambda.
  *

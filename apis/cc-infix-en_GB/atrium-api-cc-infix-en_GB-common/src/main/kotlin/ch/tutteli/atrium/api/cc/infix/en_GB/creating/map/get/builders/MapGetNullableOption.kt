@@ -26,8 +26,8 @@ interface MapGetNullableOption<K, V, T: Map<out K, V>> {
     val key: K
 
     /**
-     * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the previously specified [key] and that the
-     * corresponding nullable value holds all assertions the given [assertionCreator] might create for it.
+     * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the previously specified [key]
+     * and that the corresponding nullable value holds all assertions the given [assertionCreator] might create for it.
      *
      * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
      * nullable value type.

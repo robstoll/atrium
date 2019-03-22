@@ -66,7 +66,7 @@ class IterableAnyAssertionsSpec : Spek({
         private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
             = plant.contains(a)
 
-        private val containsShortcutNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNullableEntry
+        private val containsShortcutNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
         fun getContainsNullableShortcutPair() = containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
@@ -83,6 +83,6 @@ class IterableAnyAssertionsSpec : Spek({
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
 
         private fun containsNullableEntriesSequence(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().containsNullableEntry(a)
+            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().contains(a)
     }
 }

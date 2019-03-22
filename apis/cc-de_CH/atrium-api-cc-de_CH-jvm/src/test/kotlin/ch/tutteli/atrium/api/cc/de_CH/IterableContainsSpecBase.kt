@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.esGilt
@@ -31,7 +31,7 @@ abstract class IterableContainsSpecBase {
     protected val inOrderOnlyEntries = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::eintraege.name
     protected val grouped = IterableContains.Builder<*, *, InOrderOnlySearchBehaviour>::gruppiert.name
     protected val within = IterableContains.Builder<*, *, InOrderOnlyGroupedSearchBehaviour>::innerhalb.name
-    private val withinInAnyOrderFun : KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, GroupWithoutNullableEntries<Int>, GroupWithoutNullableEntries<Int>, Array<out GroupWithoutNullableEntries<Int>>, AssertionPlant<Iterable<Int>>>
+    private val withinInAnyOrderFun : KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, AssertionPlant<Iterable<Int>>>
         = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inBeliebigerReihenfolge
     protected val withinInAnyOrder = withinInAnyOrderFun.name
 

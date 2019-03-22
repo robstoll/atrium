@@ -65,7 +65,7 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [Iterable contains not](#iterable-contains-not)
 - [Iterable predicate-like assertions](#iterable-predicate-like-assertions)
 - [List get](#list-get)
-- [Map get](#map-get)
+- [Map getExisting](#map-getexisting)
 - [Map contains](#map-contains)
 
 ## Empty CharSequence / Collection
@@ -405,7 +405,7 @@ assert(x) get Index(0) assertIt { o isGreaterThan 1 }
 assert(x) get 0 toBe null
 ```
 
-# Map get
+# Map getExisting
 *atrium-api-cc-en_GB*
 ```kotlin
 assert(x).getExisting("a").isLessThan(1)

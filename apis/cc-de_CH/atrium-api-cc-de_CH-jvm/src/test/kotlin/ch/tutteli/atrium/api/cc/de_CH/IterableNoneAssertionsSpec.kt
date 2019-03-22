@@ -15,7 +15,7 @@ class IterableNoneAssertionsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.spec.integration.IterableNoneAssertionsSpec(
         AssertionVerbFactory,
         Assert<Iterable<Double>>::keiner.name to Assert<Iterable<Double>>::keiner,
-        Assert<Iterable<Double?>>::keinerDerNullable.name to Assert<Iterable<Double?>>::keinerDerNullable,
+        Assert<Iterable<Double?>>::keiner.name to Assert<Iterable<Double?>>::keiner,
         "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Predicate] "
     )
