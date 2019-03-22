@@ -61,16 +61,6 @@ class IterableAnyAssertionsSpec : Spek({
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
             = plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(a)
 
-
-        @Suppress("unused")
-        private fun checkShortcutOverloadAmbiguity() {
-            esGilt(listOf(1, 2)).enthaelt { ist(1) }
-            esGilt(listOf(1, 2)).enthaelt({ ist(1) }, { ist(2) })
-            esGilt(listOf(null, 1, 2)).enthaelt(null)
-            esGilt(listOf(null, 1, 2)).enthaelt { ist(1) }
-            esGilt(listOf(null, 1, 2)).enthaelt({ ist(1) }, null, { ist(2) })
-        }
-
         private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaelt
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 

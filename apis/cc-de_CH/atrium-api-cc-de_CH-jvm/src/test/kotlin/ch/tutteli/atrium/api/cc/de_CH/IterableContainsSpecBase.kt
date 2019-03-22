@@ -39,10 +39,28 @@ abstract class IterableContainsSpecBase {
     @Suppress("unused")
     private fun ambiguityTest() {
         esGilt(listOf(1)).enthaelt(1)
+        esGilt(listOf(1)).enthaelt(1, 2)
         esGilt(listOf(1)).enthaelt {}
+        esGilt(listOf(1)).enthaelt({}, {})
         esGilt(listOf(1 as Int?)).enthaelt(1)
+        esGilt(listOf(1 as Int?)).enthaelt(1, 1)
         esGilt(listOf(1 as Int?)).enthaelt {}
-        esGilt(listOf<Int?>(1)).enthaelt(null)
+        esGilt(listOf(1 as Int?)).enthaelt(null)
+        esGilt(listOf(1 as Int?)).enthaelt({}, null)
+        esGilt(listOf(1 as Int?)).enthaelt({}, {})
+        esGilt(listOf(1 as Int?)).enthaelt(null, {})
+
+        esGilt(listOf(1)).enthaeltExakt(1)
+        esGilt(listOf(1)).enthaeltExakt(1, 2)
+        esGilt(listOf(1)).enthaeltExakt {}
+        esGilt(listOf(1)).enthaeltExakt({}, {})
+        esGilt(listOf(1 as Int?)).enthaeltExakt(1)
+        esGilt(listOf(1 as Int?)).enthaeltExakt(1, 1)
+        esGilt(listOf(1 as Int?)).enthaeltExakt {}
+        esGilt(listOf(1 as Int?)).enthaeltExakt(null)
+        esGilt(listOf(1 as Int?)).enthaeltExakt({}, null)
+        esGilt(listOf(1 as Int?)).enthaeltExakt({}, {})
+        esGilt(listOf(1 as Int?)).enthaeltExakt(null, {})
 
         esGilt(listOf(1)).enthaelt.inBeliebigerReihenfolge.zumindest(1).wert(1)
         esGilt(listOf(1)).enthaelt.inBeliebigerReihenfolge.zumindest(1).wert(null)

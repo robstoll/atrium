@@ -32,7 +32,7 @@ val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, NotSearch
     get() = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
 
-/**
+/**c
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the
  * [expected] value and the [otherExpected] values (if given).
  *

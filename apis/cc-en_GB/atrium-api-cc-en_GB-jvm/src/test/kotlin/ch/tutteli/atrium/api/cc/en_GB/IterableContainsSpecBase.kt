@@ -38,10 +38,28 @@ abstract class IterableContainsSpecBase {
     @Suppress("unused")
     private fun ambiguityTest() {
         assert(listOf(1)).contains(1)
+        assert(listOf(1)).contains(1, 2)
         assert(listOf(1)).contains {}
+        assert(listOf(1)).contains({}, {})
         assert(listOf(1 as Int?)).contains(1)
+        assert(listOf(1 as Int?)).contains(1, 1)
         assert(listOf(1 as Int?)).contains {}
-        assert(listOf<Int?>(1)).contains(null)
+        assert(listOf(1 as Int?)).contains(null)
+        assert(listOf(1 as Int?)).contains({}, null)
+        assert(listOf(1 as Int?)).contains({}, {})
+        assert(listOf(1 as Int?)).contains(null, {})
+
+        assert(listOf(1)).containsExactly(1)
+        assert(listOf(1)).containsExactly(1, 2)
+        assert(listOf(1)).containsExactly {}
+        assert(listOf(1)).containsExactly({}, {})
+        assert(listOf(1 as Int?)).containsExactly(1)
+        assert(listOf(1 as Int?)).containsExactly(1, 1)
+        assert(listOf(1 as Int?)).containsExactly {}
+        assert(listOf(1 as Int?)).containsExactly(null)
+        assert(listOf(1 as Int?)).containsExactly({}, null)
+        assert(listOf(1 as Int?)).containsExactly({}, {})
+        assert(listOf(1 as Int?)).containsExactly(null, {})
 
         assert(listOf(1)).contains.inAnyOrder.atLeast(1).value(1)
         assert(listOf(1)).contains.inAnyOrder.atLeast(1).value(null)

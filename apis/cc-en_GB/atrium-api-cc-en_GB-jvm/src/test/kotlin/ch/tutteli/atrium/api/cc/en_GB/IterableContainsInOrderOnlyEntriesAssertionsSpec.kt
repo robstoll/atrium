@@ -67,7 +67,8 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.containsExactly(a)
+                if (a == null) plant.containsExactly(a)
+                else plant.containsExactly { a() }
             } else {
                 plant.containsExactly(a, *aX)
             }

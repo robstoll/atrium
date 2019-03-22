@@ -56,11 +56,38 @@ abstract class IterableContainsSpecBase {
     @Suppress("unused")
     private fun ambiguityTest() {
         assert(listOf(1)) contains 1
+        assert(listOf(1)) contains Values(1, 2)
+        assert(listOf(1)) contains {}
+        assert(listOf(1)) contains Entries({}, {})
+        assert(listOf(1 as Int?)) contains 1
+        assert(listOf(1 as Int?)) contains Values(1, 1)
+        assert(listOf(1 as Int?)) contains {}
+        //TODO should work, uncomment as soon as KT-6591 is fixed
+        //assert(listOf(1 as Int?)) contains null
+        assert(listOf(1 as Int?)) contains Entries({}, null)
+        assert(listOf(1 as Int?)) contains Entries({}, {})
+        assert(listOf(1 as Int?)) contains Entries(null, {})
+        assert(listOf(1)) contains 1
         assert(listOf(1)) contains {}
         assert(listOf(1 as Int?)) contains 1
         assert(listOf(1 as Int?)) contains {}
+
+        assert(listOf(1)) containsExactly 1
+        assert(listOf(1)) containsExactly Values(1, 2)
+        assert(listOf(1)) containsExactly {}
+        assert(listOf(1)) containsExactly Entries({}, {})
+        assert(listOf(1 as Int?)) containsExactly 1
+        assert(listOf(1 as Int?)) containsExactly Values(1, 1)
+        assert(listOf(1 as Int?)) containsExactly {}
         //TODO should work, uncomment as soon as KT-6591 is fixed
-        //assert(listOf<Int?>(1)) contains null
+        //assert(listOf(1 as Int?)) containsExactly null
+        assert(listOf(1 as Int?)) containsExactly Entries({}, null)
+        assert(listOf(1 as Int?)) containsExactly Entries({}, {})
+        assert(listOf(1 as Int?)) containsExactly Entries(null, {})
+        assert(listOf(1)) containsExactly 1
+        assert(listOf(1)) containsExactly {}
+        assert(listOf(1 as Int?)) containsExactly 1
+        assert(listOf(1 as Int?)) containsExactly {}
 
         assert(listOf(1)) to contain inAny order atLeast 1 value 1
         assert(listOf(1)) to contain inAny order atLeast 1 value null

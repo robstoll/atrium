@@ -64,18 +64,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyEntriesShortcut
 
-        @Suppress("unused")
-        private fun checkOverloadAmbiguity(){
-            esGilt(listOf(1,2)).enthaeltExakt { ist(1) }
-            esGilt(listOf(1,2)).enthaeltExakt({ ist(1) }, { ist(2) })
-            esGilt(listOf(null, 1, 2)).enthaeltExakt(null)
-            esGilt(listOf(null, 1, 2)).enthaeltExakt { ist(1) }
-            esGilt(listOf(null, 1, 2)).enthaeltExakt({ ist(1) }, null, { ist(2) })
-        }
-
         private fun containsInOrderOnlyEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltExakt(a)
+                plant.enthaeltExakt { a() }
             } else {
                 plant.enthaeltExakt(a, *aX)
             }
@@ -86,7 +77,8 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltExakt(a)
+                if (a == null) plant.enthaeltExakt(a)
+                else plant.enthaeltExakt { a() }
             } else {
                 plant.enthaeltExakt(a, *aX)
             }

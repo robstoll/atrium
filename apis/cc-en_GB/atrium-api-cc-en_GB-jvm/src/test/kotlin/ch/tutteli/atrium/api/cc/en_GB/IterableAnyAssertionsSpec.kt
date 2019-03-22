@@ -59,16 +59,6 @@ class IterableAnyAssertionsSpec : Spek({
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
             = plant.contains.inAnyOrder.atLeast(1).entry(a)
-
-
-        @Suppress("unused")
-        private fun checkShortcutOverloadAmbiguity() {
-            assert(listOf(1, 2)).contains { toBe(1) }
-            assert(listOf(1, 2)).contains({ toBe(1) }, { toBe(2) })
-            assert(listOf(null, 1, 2)).contains(null)
-            assert(listOf(null, 1, 2)).contains { toBe(1) }
-            assert(listOf(null, 1, 2)).contains({ toBe(1) }, null, { toBe(2) })
-        }
         
         private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
