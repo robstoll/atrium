@@ -1759,21 +1759,19 @@ And some features which would be handy
 
 I plan that Atrium is going to support certain features in the future. Following a rough plan (no guarantees).
 
-## 0.8.0
-- turn Atrium into a multi-platform project, supporting JS next to JVM
-- see if I could further improve error reporting in the IDE with the help of opentest4j exceptions.
-
 ## 0.9.0
+- Prepare the transition to an `Assert<T>` with an invariant `T` (see #56, the current solution with `Assert<out T>` will be deprecated with 1.0.0) 
+- Prepare the transition to `feature` instead of `property` and `returnValueOf` (see #40)
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
-- A sophisticated assertion builder for `toBeWithErrorTolerance` for floating point numbers
-  (so that one could extend it with `relativeOf`, `positiveOf` etc.).
+- Json assertions
   
-## 0.10.0 (or 1.0.0) 
+## 0.10.0  
+- see if I could further improve error reporting in the IDE with the help of opentest4j exceptions.
 - Generating testing reports in html.
   - generate multiple reports in the same test run.
   - extension for Spek so that reporting includes the `describe`, `it` etc. 
   
-## 0.11.0 (or 1.1.0)  
+## 0.11.0 (or 1.0.0)  
 - Inclusion of mockito's verify (so that it appears in the report as well).
     
 Are you missing something else? 
