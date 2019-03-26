@@ -21,7 +21,7 @@ The links point to the KDoc of their included API where you find an overview of 
 ----
 
 Following an excerpt of a build.gradle file which uses two APIs (see 
-[README#Installation](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/README.md#installation)
+[README#Installation](https://github.com/robstoll/atrium/tree/v0.8.0-beta/README.md#installation)
 for the rest):
 ```
 dependencies {
