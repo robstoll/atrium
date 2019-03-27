@@ -58,10 +58,11 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [Empty CharSequence / Collection](#empty-charsequence--collection)
 - [`and` property](#and-property)
 - [CharSequence contains](#charsequence-contains)
-- [Iterable contains in any order](#iterable-contains-in-any-order)
-- [Iterable contains in any order with nullable elements](#iterable-contains-in-any-order-with-nullable-elements)
-- [Iterable contains in order](#iterable-contains-in-order)
-- [Iterable contains in order with nullable elements](#iterable-contains-in-order-with-nullable-elements)
+- [Iterable contains](#iterable-contains)
+    - [in any order](#iterable-contains-in-any-order)
+    - [in any order with nullable elements](#iterable-contains-in-any-order-with-nullable-elements)
+    - [in order](#iterable-contains-in-order)
+    - [in order with nullable elements](#iterable-contains-in-order-with-nullable-elements)
 - [Iterable contains not](#iterable-contains-not)
 - [Iterable predicate-like assertions](#iterable-predicate-like-assertions)
 - [List get](#list-get)
@@ -128,8 +129,9 @@ in the sophisticated assertion building process
 are applicable to all shown examples 
 (e.g. `exactly(1).values("hello", "robert")` could have been finished with `exactly(1).regex("h(e|a)llo")` as well).
 
+## Iterable contains
 
-## Iterable contains in any order
+### Iterable contains in any order
 
 *atrium-api-cc-en_GB*
 ```kotlin
@@ -175,7 +177,7 @@ in the sophisticated assertion building process,
 are applicable to all shown examples 
 (e.g. `butAtMost 2 value 3.2` could have been finished with `Entries(...)` as well)
 
-## Iterable contains in any order with nullable elements
+### Iterable contains in any order with nullable elements
 
 *atrium-api-cc-en_GB*
 ```kotlin
@@ -206,7 +208,7 @@ assert(listOf(null, 1)) to contain inAny order atLeast 1 the Entries(null, { o i
 ```
 
 
-## Iterable contains in order
+### Iterable contains in order
 
 *atrium-api-cc-en_GB*
 ```kotlin
@@ -254,7 +256,7 @@ assert(x) contains inGiven order and only grouped entries within group inAny Ord
 )
 ```
 
-## Iterable contains in order with nullable elements
+### Iterable contains in order with nullable elements
 
 *atrium-api-cc-en_GB*
 ```kotlin

@@ -157,6 +157,33 @@ As mentioned above, add `-js` or `-android` suffix if you want to use it on a di
 <hr/>
 </details><br/>
 
+<details>
+<summary>click to see how the setup for the fluent API for the JS platform looks like</summary>
+
+```
+buildscript {
+    ext { atrium_version='0.8.0-beta' }
+}
+repositories {
+    jcenter()
+    // either use jcenter or the repository on the next line
+    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+}
+dependencies {
+    testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll-js:$atrium_version")
+}
+```
+Examples to setup various test frameworks is shown in the 
+[kotlin-examples repo](https://github.com/JetBrains/kotlin-examples/tree/master/gradle/js-tests).
+You can also have a look at the [build.gradle](https://github.com/robstoll/atrium/tree/v0.0.8-beta/build.gradle#L279)
+of Atrium which is optimised so that npm and node_modules are only downloaded once for all modules.
+We are using mocha
+
+
+
+<hr/>
+</details>
+
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
 a [settings.xml](https://github.com/robstoll/atrium/tree/v0.8.0-beta/misc/maven/settings.xml) 
@@ -549,7 +576,7 @@ For instance:
 ```kotlin
 fun Assert<File>.exists() = returnValueOf(File::exists)
 ```
-If not, then use `AssertImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
+If not, then use `AssertImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/v0.8.0-beta/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
 
 </details>
 
@@ -573,7 +600,7 @@ The output is the same as above.
 In other cases type inference will not be good enough to infer `T` of `Assert<T>.() -> Unit` 
 ([this bug](https://youtrack.jetbrains.com/issue/KT-24230)).
 You can use the helper function `subAssert` in such cases which is merely an identity function. 
-As an example, have a look at [FeatureAssertionsClassReferenceSpec](https://github.com/robstoll/atrium/tree/release-0.8.0/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
+As an example, have a look at [FeatureAssertionsClassReferenceSpec](https://github.com/robstoll/atrium/tree/v0.8.0-beta/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
 
 </details> <br/>
 
@@ -1379,11 +1406,11 @@ Following a quick overview what it provides:
 was the API level) so that you can reuse them (e.g. `AssertImpl.collection.hasSize(...)`).
 - `AssertImpl.builder` to create different kinds of assertions (see [AssertionBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information).
 - `AssertImpl.changeSubject` which allows to change the subject silently, 
-   meaning it does not show up in reporting (e.g. `Assert<Array<out T>>.asIterable()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/release-0.8.0/apis/cc-en_GB/atrium-api-cc-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/arrayAssertions.kt#L17))
-- `AssertImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions (see [mapAssertions](https://github.com/robstoll/atrium/tree/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/mapAssertions.kt#L41))
-- `AssertImpl.feature.extractor` for feature assertions which are not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt))   
+   meaning it does not show up in reporting (e.g. `Assert<Array<out T>>.asIterable()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/v0.8.0-beta/apis/cc-en_GB/atrium-api-cc-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/arrayAssertions.kt#L17))
+- `AssertImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions (see [mapAssertions](https://github.com/robstoll/atrium/tree/v0.8.0-beta/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/mapAssertions.kt#L41))
+- `AssertImpl.feature.extractor` for feature assertions which are not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/v0.8.0-beta/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt))   
 
-You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/release-0.8.0/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
+You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/v0.8.0-beta/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
 Unfortunately I do not have the time to cover all cases, so let me know (e.g. via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
@@ -1486,7 +1513,7 @@ You can provide your custom configured `Reporter` by providing a `ReporterFactor
 This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
 and by calling `registerService` on JS where the call has to be before your tests run.  
 An example for JVM is given in [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-beta/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
-An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/release-0.8.0/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
+An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/v0.8.0-beta/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
 
