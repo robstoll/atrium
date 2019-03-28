@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions.builders.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndRepresentationOption
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal class AssertionGroupDescriptionAndRepresentationOptionImpl<out T: AssertionGroupType, R>(
@@ -9,6 +10,6 @@ internal class AssertionGroupDescriptionAndRepresentationOptionImpl<out T: Asser
     private val factory: (T, Translatable, Any) -> R
 ) : AssertionGroupDescriptionAndRepresentationOption<T, R> {
 
-    override fun withDescriptionAndRepresentation(description: Translatable, representation: Any): R
-        = factory(groupType, description, representation)
+    override fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R
+        = factory(groupType, description, representation ?: RawString.NULL)
 }

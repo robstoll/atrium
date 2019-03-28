@@ -37,6 +37,19 @@ object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T> isNull(plant: AssertionPlantNullable<T>)
         = anyAssertions.isNull(plant)
 
+    override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?)
+        = anyAssertions.isNullable(plant, type, expectedOrNull)
+
+    override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
+        = anyAssertions.isNotNull(plant, type, assertionCreator)
+
+    override inline fun <T : Any> isNotNullBut(plant: AssertionPlantNullable<T?>, type: KClass<T>, expected: T)
+        = anyAssertions.isNotNullBut(plant, type, expected)
+
+    override inline fun <T : Any> isNullIfNullGivenElse(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?)
+        = anyAssertions.isNullIfNullGivenElse(plant, type, assertionCreatorOrNull)
+
+
     /**
      * Returns [AnyTypeTransformationAssertionsBuilder]
      * which inter alia delegates to the implementation of [AnyTypeTransformationAssertions].
@@ -51,6 +64,7 @@ object AnyAssertionsBuilder : AnyAssertions {
  */
 object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
         = anyTypeTransformationAssertions.isNotNull(plant, type, assertionCreator)
 

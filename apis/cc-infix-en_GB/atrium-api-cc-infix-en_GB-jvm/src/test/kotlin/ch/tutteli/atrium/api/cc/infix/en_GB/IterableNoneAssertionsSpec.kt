@@ -30,17 +30,17 @@ class IterableNoneAssertionsSpec : Spek({
         "[Atrium][Builder] "
     )
     companion object : IterableContainsSpecBase() {
-        private val noneFun : KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::any
+        private val noneFun : KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::none
         fun getNonePair() = noneFun.name to Companion::none
 
         private fun none(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
             = plant none a
 
-        private val noneNullableFun: KFunction2<Assert<Iterable<Double?>>, NullableEntry<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::any
+        private val noneNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::none
         fun getNoneNullablePair() = noneNullableFun.name to Companion::noneNullable
 
         private fun noneNullable(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant none NullableEntry(a)
+            = plant none a
 
 
         private fun getContainsNotPair()
@@ -49,9 +49,9 @@ class IterableNoneAssertionsSpec : Spek({
         private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
             = plant notTo contain entry a
 
-        private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
+        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant notTo contain nullableEntry a
+            = plant notTo contain entry a
     }
 }

@@ -5,7 +5,7 @@
     <artifactId>com.example.artifactId</artifactId>
 
     <properties>
-        <atrium.version>0.7.0</atrium.version>
+        <atrium.version>0.8.0-beta</atrium.version>
     </properties>
     <dependencies>
         <dependency>
@@ -20,7 +20,7 @@
             <!--<exclusions>-->
                 <!--<exclusion>-->
                     <!--<groupId>ch.tutteli.atrium</groupId>-->
-                    <!--<artifactId>atrium-verbs-jvm</artifactId>-->
+                    <!--<artifactId>atrium-verbs</artifactId>-->
                 <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>

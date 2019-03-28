@@ -20,7 +20,7 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
      * Uses the given [description] as [AssertionGroup.description] and [representationProvider] to create a
      * [LazyRepresentation] which is used as [AssertionGroup.representation].
      */
-    fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any): R
+    fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any?): R
         = withDescriptionAndRepresentation(description, LazyRepresentation(representationProvider))
 
     /**
@@ -30,19 +30,21 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
         = withDescriptionAndRepresentation(description, RawString.EMPTY)
 
     /**
-     * Uses the given [description] as [AssertionGroup.description] and [representation] as [AssertionGroup.representation]
-     * unless [representation] is null in which case [RawString.NULL] is used.
+     * Uses the given [description] as [AssertionGroup.description] and [representation]
+     * as [AssertionGroup.representation] unless [representation] is null in which case a representation for
+     * null is used (e.g. [RawString.NULL]).
+     *
+     * Use the overload which expects a representation provider in case the computation is expensive.
      */
-    fun withDescriptionAndNullableRepresentation(description: Translatable, representation: Any?): R
-        = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)
-
-    /**
-     * Uses the given [description] as [AssertionGroup.description] and [representation] as [AssertionGroup.representation].
-     */
-    fun withDescriptionAndRepresentation(description: Translatable, representation: Any): R
+    fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R
 
 
     companion object {
+        /**
+         * Factory method to create an [AssertionGroupDescriptionAndRepresentationOption] with the
+         * given assertion group [type] and another [factory] method which creates the next step in the
+         * building process.
+         */
         fun <T: AssertionGroupType, R> create(
             type: T,
             factory: (T, Translatable, Any) -> R

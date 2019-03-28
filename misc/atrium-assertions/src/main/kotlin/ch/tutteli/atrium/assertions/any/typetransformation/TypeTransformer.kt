@@ -5,7 +5,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.BUG_REPORT_URL
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -31,11 +31,12 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         canBeTransformed: (T) -> Boolean,
         transform: (T) -> TSub
     ) {
+        //TODO not subject less
         val subject = subjectPlant.subject
-        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please file a bug report at $BUG_REPORT_URL")
         if (subject != null && canBeTransformed(subject)) {
+            val assertionVerb = Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
             val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
-            val plant = coreFactory.newReportingPlant(assertionVerb,{ transform(subject) }, assertionChecker)
+            val plant = coreFactory.newReportingPlant(assertionVerb, { transform(subject) }, assertionChecker)
             plant.addAssertion(AssertImpl.builder.descriptive
                 .holding
                 .withDescriptionAndRepresentation(description, representation)

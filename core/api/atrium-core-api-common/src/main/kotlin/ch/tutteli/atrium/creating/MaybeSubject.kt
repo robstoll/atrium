@@ -37,7 +37,7 @@ sealed class MaybeSubject<out T> {
 
     companion object {
         operator fun <T: Any> invoke(subject: T?) =
-            if(subject == null) Absent
+            if (subject == null) Absent
             else Present(subject)
     }
 }

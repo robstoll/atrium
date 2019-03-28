@@ -8,13 +8,14 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.verbs.internal.assert
 import kotlin.reflect.KFunction2
 
 abstract class IterableContainsSpecBase {
-    private val Values = Values::class.simpleName
+    protected val Values = Values::class.simpleName
     private val Entries = Entries::class.simpleName
 
     private val containsNotFun: KFunction2<Assert<Iterable<Int>>, Int, Assert<Iterable<Int>>> = Assert<Iterable<Int>>::containsNot
@@ -47,7 +48,81 @@ abstract class IterableContainsSpecBase {
     protected val inOrderOnlyEntries = "$theInOrderOnly $Entries"
     protected val groupedEntries = "${IterableContains.Builder<*, Iterable<*>, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
     protected val withinGroup = "${IterableContains.Builder<*, Iterable<*>, InOrderOnlyGroupedSearchBehaviour>::within.name} ${group::class.simpleName}"
-    private val withinInAnyOrderFun : KFunction2<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, GroupWithoutNullableEntries<Int>>, AssertionPlant<Iterable<Int>>>
+    private val withinInAnyOrderFun : KFunction2<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, AssertionPlant<Iterable<Int>>>
         = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
     protected val withinInAnyOrder = "${withinInAnyOrderFun.name} ${order::class.simpleName}"
+
+
+    @Suppress("unused")
+    private fun ambiguityTest() {
+        assert(listOf(1)) contains 1
+        assert(listOf(1)) contains Values(1, 2)
+        assert(listOf(1)) contains {}
+        assert(listOf(1)) contains Entries({}, {})
+        assert(listOf(1 as Int?)) contains 1
+        assert(listOf(1 as Int?)) contains Values(1, 1)
+        assert(listOf(1 as Int?)) contains {}
+        //TODO should work, uncomment as soon as KT-6591 is fixed
+        //assert(listOf(1 as Int?)) contains null
+        assert(listOf(1 as Int?)) contains Entries({}, null)
+        assert(listOf(1 as Int?)) contains Entries({}, {})
+        assert(listOf(1 as Int?)) contains Entries(null, {})
+        assert(listOf(1)) contains 1
+        assert(listOf(1)) contains {}
+        assert(listOf(1 as Int?)) contains 1
+        assert(listOf(1 as Int?)) contains {}
+
+        assert(listOf(1)) containsExactly 1
+        assert(listOf(1)) containsExactly Values(1, 2)
+        assert(listOf(1)) containsExactly {}
+        assert(listOf(1)) containsExactly Entries({}, {})
+        assert(listOf(1 as Int?)) containsExactly 1
+        assert(listOf(1 as Int?)) containsExactly Values(1, 1)
+        assert(listOf(1 as Int?)) containsExactly {}
+        //TODO should work, uncomment as soon as KT-6591 is fixed
+        //assert(listOf(1 as Int?)) containsExactly null
+        assert(listOf(1 as Int?)) containsExactly Entries({}, null)
+        assert(listOf(1 as Int?)) containsExactly Entries({}, {})
+        assert(listOf(1 as Int?)) containsExactly Entries(null, {})
+        assert(listOf(1)) containsExactly 1
+        assert(listOf(1)) containsExactly {}
+        assert(listOf(1 as Int?)) containsExactly 1
+        assert(listOf(1 as Int?)) containsExactly {}
+
+        assert(listOf(1)) to contain inAny order atLeast 1 value 1
+        assert(listOf(1)) to contain inAny order atLeast 1 value null
+        assert(listOf(1)) to contain inAny order atLeast 1 entry {}
+        assert(listOf(1)) to contain inAny order atLeast 1 entry null
+
+        assert(listOf(1)) to contain inAny order but only value 1
+        assert(listOf(1)) to contain inAny order but only value null
+        assert(listOf(1)) to contain inAny order but only entry {}
+        assert(listOf(1)) to contain inAny order but only entry null
+
+        assert(listOf(1)) to contain inGiven order and only value 1
+        assert(listOf(1)) to contain inGiven order and only value null
+        assert(listOf(1)) to contain inGiven order and only entry {}
+        assert(listOf(1)) to contain inGiven order and only entry null
+
+
+        assert(listOf(1)) to contain inGiven order and only grouped entries within group inAny Order(
+            Value(1),
+            Value(null),
+            Values(1),
+            Values(null),
+            Values(1, 1),
+            Values(1, null),
+            Values(null, null)
+        )
+        
+        assert(listOf(1)) to contain inGiven order and only grouped entries within group inAny Order(
+            Entry {},
+            Entry(null),
+            Entries({}),
+            Entries(null),
+            Entries({}, {}),
+            Entries({}, null),
+            Entries(null, null)
+        )
+    }
 }

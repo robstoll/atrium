@@ -10,10 +10,10 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
  * For instance, an [AssertionGroup] with a [FeatureAssertionGroupType] has typically a
  * [AssertionGroup.representation] with a [LazyRepresentation].
  */
-class LazyRepresentation(private val provider: () -> Any) {
+class LazyRepresentation(private val provider: () -> Any?) {
 
     /**
      * Evaluates the representation.
      */
-    fun eval() = provider()
+    fun eval(): Any? = provider()
 }

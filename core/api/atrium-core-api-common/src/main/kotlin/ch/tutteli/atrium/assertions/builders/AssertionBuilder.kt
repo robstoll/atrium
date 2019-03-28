@@ -11,6 +11,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 val assertionBuilder: AssertionBuilder = AssertionBuilderImpl
 
+/**
+ * Type alias which can be used if only the [AssertionGroupType] is parameterised and the next step is
+ * an [AssertionsOption] which in turn has the [BasicAssertionGroupFinalStep] as final step.
+ */
 typealias DefaultAssertionGroupBuilderOptions<T> = AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, BasicAssertionGroupFinalStep>>
 
 /**
@@ -33,7 +37,8 @@ interface AssertionBuilder {
     /**
      * Builder to create an [AssertionGroup] with a [SummaryAssertionGroupType] -- use it if it is essential that also
      * [Assertion]s which hold are shown to a user in error reporting. This kind is inter alia used for [Iterable]
-     * `contains` assertions where it quickly gets confusing if you do not see the assertions which hold.
+     * `contains.inAnyOrder.only` assertions where it quickly gets confusing if you do not see the assertions which
+     * hold.
      *
      * For example, hamcrest has this problem; if you write the following using hamcrest:
      *
@@ -84,7 +89,7 @@ interface AssertionBuilder {
      * ```
      * descriptive
      *   .withTest(test)
-     *   .withDescriptionAndNullableRepresentation(description, representation)
+     *   .withDescriptionAndRepresentation(description, representation)
      *   .build()
      * ```
      * @param description The description of the assertion, e.g. `to Be`
@@ -92,5 +97,5 @@ interface AssertionBuilder {
      * @param test The test which checks whether the assertion holds
      */
     fun createDescriptive(description: Translatable, representation: Any?, test: () -> Boolean)
-        = descriptive.withTest(test).withDescriptionAndNullableRepresentation(description, representation).build()
+        = descriptive.withTest(test).withDescriptionAndRepresentation(description, representation).build()
 }

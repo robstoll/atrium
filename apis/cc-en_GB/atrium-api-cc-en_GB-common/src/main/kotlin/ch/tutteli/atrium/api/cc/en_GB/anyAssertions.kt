@@ -1,3 +1,5 @@
+@file:JvmMultifileClass
+@file:JvmName("AnyAssertionsKt")
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.checking.AssertionChecker
@@ -6,9 +8,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.Reporter
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).toBe(1.0)`
@@ -20,7 +24,7 @@ fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).notToBe(1.0)`
@@ -32,7 +36,7 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).isSameAs(1.0)`
@@ -44,7 +48,7 @@ fun <T : Any> Assert<T>.isSameAs(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).isNotSameAs(1.0)`
@@ -56,18 +60,32 @@ fun <T : Any> Assert<T>.isNotSameAs(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is `null`.
- *
- * @param null has to be `null`.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expected].
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
-    addAssertion(AssertImpl.any.isNull(this))
+inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
+    addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
 }
 
+/**
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
+ * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
+ *
+ * It is a shortcut for
+ * ```kotlin
+ * if (assertionCreatorOrNull == null) toBe(null)
+ * else notToBeNull(assertionCreatorOrNull)
+ * ```
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
+    addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+}
 
 /**
  * Can be used to separate assertions when using the fluent API.

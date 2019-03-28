@@ -21,6 +21,12 @@ val anyTypeTransformationAssertions by lazy { loadSingleService(AnyTypeTransform
  * which an implementation of the domain of Atrium has to provide.
  */
 interface AnyTypeTransformationAssertions {
+
+
+    @Deprecated("This function will be removed in v.1.0.0 in favour of AssertImpl.any.isNotNull", ReplaceWith(
+        "plant.addAssertion(AssertImpl.any.isNotNull(plant, type, assertionCreator))",
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
+    ))
     fun <T : Any> isNotNull(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,

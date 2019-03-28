@@ -12,6 +12,7 @@ import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.setUp
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -27,6 +28,8 @@ abstract class AnyAssertionsSpec(
     isSame: String,
     isNotSame: String,
     toBeNullPair: Pair<String, AssertionPlantNullable<Int?>.() -> Unit>,
+    toBeNullablePair: Pair<String, AssertionPlantNullable<Int?>.(Int?) -> Unit>,
+    toBeNullIfNullElsePair: Pair<String, AssertionPlantNullable<Int?>.((Assert<Int>.() -> Unit)?) -> Unit>,
     andPair: Pair<String, Assert<Int>.() -> Assert<Int>>,
     andLazyPair: Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>>,
     describePrefix: String = "[Atrium] "
@@ -59,6 +62,8 @@ abstract class AnyAssertionsSpec(
     val expect = verbs::checkException
     val assert: (Int) -> Assert<Int> = verbs::checkImmediately
     val (toBeNull, toBeNullFun) = toBeNullPair
+    val (toBeNullable, toBeNullableFun) = toBeNullablePair
+    val (toBeNullIfNullElse, toBeNullIfNullElseFun) = toBeNullIfNullElsePair
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
 
@@ -203,6 +208,84 @@ abstract class AnyAssertionsSpec(
             }
         }
     }
+
+    describeFun(toBeNullable) {
+
+        context("subject is null") {
+            val subject: Int? = null
+            it("does not throw if null is passed") {
+                verbs.checkNullable(subject).toBeNullableFun(null)
+            }
+            it("throws an AssertionError if not null is passed") {
+                expect {
+                    verbs.checkNullable(subject).toBeNullableFun(1)
+                }.toThrow<AssertionError> {
+                    messageContains(": null", "${TO_BE.getDefault()}: 1")
+                }
+            }
+        }
+
+        context("subject is not null") {
+            val subject: Int? = 1
+            it("does not throw if expected is subject") {
+                verbs.checkNullable(subject).toBeNullableFun(subject)
+            }
+            it("throws an AssertionError if null is passed"){
+                expect{
+                    verbs.checkNullable(subject).toBeNullableFun(null)
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${TO_BE.getDefault()}: null")
+                }
+            }
+            it("throws an AssertionError if expected does not equal subject"){
+                expect{
+                    verbs.checkNullable(subject).toBeNullableFun(2)
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${TO_BE.getDefault()}: 2")
+                }
+            }
+        }
+    }
+
+    describeFun(toBeNullIfNullElse) {
+
+        context("subject is null") {
+            val subject: Int? = null
+            it("does not throw if null is passed") {
+                verbs.checkNullable(subject).toBeNullIfNullElseFun(null)
+            }
+            it("throws an AssertionError if not null is passed") {
+                expect {
+                    verbs.checkNullable(subject).toBeNullIfNullElseFun { toBe(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(": null", "${TO_BE.getDefault()}: 1")
+                }
+            }
+        }
+
+        context("subject is not null") {
+            val subject: Int? = 1
+            it("does not throw if sub assertion holds") {
+                verbs.checkNullable(subject).toBeNullIfNullElseFun { isLessThan(2) }
+            }
+            it("throws an AssertionError if sub assertion does not hold"){
+                expect{
+                    verbs.checkNullable(subject).toBeNullIfNullElseFun{ isGreaterThan(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
+                }
+            }
+            it("throws an AssertionError if null is passed"){
+                expect{
+                    verbs.checkNullable(subject).toBeNullIfNullElseFun(null)
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${TO_BE.getDefault()}: null")
+                }
+            }
+
+        }
+    }
+
 
     prefixedDescribe("property `$and` immediate") {
         it("returns the same plant") {

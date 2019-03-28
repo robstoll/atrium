@@ -14,6 +14,6 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
  * [AssertionGroup.description] (making the assertions kind of sub-assertions of the [AssertionGroup.description]).
  * It is very likely that you do not need this kind of [AssertionGroup] and another type does a better job.
  */
-@Suppress("unused")
+@Suppress("unused" /* it's fine if we don't use AssertionBuilder */)
 val AssertionBuilder.invisibleGroup: AssertionsOption<InvisibleAssertionGroupType, BasicAssertionGroupFinalStep>
-    get() = AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(InvisibleAssertionGroupType)
+    by lazy { AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(InvisibleAssertionGroupType) }

@@ -11,9 +11,7 @@ abstract class MapEntryFeatureAssertionsSpec(
     valueValPair: Pair<String, Assert<Map.Entry<String, Int>>.() -> Assert<Int>>,
     valueFunPair: Pair<String, Assert<Map.Entry<String, Int>>.(assertionCreator: Assert<Int>.() -> Unit) -> Assert<Map.Entry<String, Int>>>,
     nullableKeyValPair: Pair<String, Assert<Map.Entry<String?, Int?>>.() -> AssertionPlantNullable<String?>>,
-    nullableKeyFunPair: Pair<String, Assert<Map.Entry<String?, Int?>>.(assertionCreator: AssertionPlantNullable<String?>.() -> Unit) -> Assert<Map.Entry<String?, Int?>>>,
     nullableValueValPair: Pair<String, Assert<Map.Entry<String?, Int?>>.() -> AssertionPlantNullable<Int?>>,
-    nullableValueFunPair: Pair<String, Assert<Map.Entry<String?, Int?>>.(assertionCreator: AssertionPlantNullable<Int?>.() -> Unit) -> Assert<Map.Entry<String?, Int?>>>,
     describePrefix: String = "[Atrium] "
 ) : KeyValueLikeFeatureAssertionsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
     verbs,
@@ -26,8 +24,6 @@ abstract class MapEntryFeatureAssertionsSpec(
     valueValPair,
     valueFunPair,
     nullableKeyValPair,
-    nullableKeyFunPair,
     nullableValueValPair,
-    nullableValueFunPair,
     describePrefix
 )

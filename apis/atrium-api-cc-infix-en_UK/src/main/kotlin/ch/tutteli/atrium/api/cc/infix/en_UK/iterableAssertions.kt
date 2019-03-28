@@ -43,7 +43,7 @@ fun <E, T : Iterable<E>> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") c
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the [expected] value.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the [expected] value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 value expected`
  *
@@ -55,7 +55,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the expected [values].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the expected [values].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Values(...)`
  *
@@ -77,7 +77,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionP
     = this to contain inAny order atLeast 1 the values
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the expected [objects].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the expected [objects].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Objects(...)`
  *
@@ -98,7 +98,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(objects: Objects<E>): Assertio
     = this to contain inAny order atLeast 1 the objects
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] where it does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -111,7 +111,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) where it
  * does not matter in which order the entries appear.
  *
@@ -125,7 +125,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
     = this to contain inAny order atLeast 1 the entries
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] where it does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -144,7 +144,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) where it
  * does not matter in which order the entries appear.
  *
@@ -164,7 +164,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entr
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only the [expected] value.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only the [expected] value.
  *
  * It is a shortcut for `to contain inGiven order but only value expected`
  *
@@ -176,7 +176,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): Assertio
     = this to contain inGiven order but only value expected
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only the expected [values] in the defined order.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only the expected [values] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order but only the Values(...)`
  *
@@ -188,7 +188,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): As
     = this to contain inGiven order but only the values
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only the expected [objects] in the defined order.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only the expected [objects] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order but only the Objects(...)`
  *
@@ -200,7 +200,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(objects: Objects<E>): 
     = this to contain inGiven order but only the objects
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only one entry which is holding the assertions created
  * by the [assertionCreator].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -213,7 +213,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
     = this to contain inGiven order but only entry assertionCreator
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
@@ -227,7 +227,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
     = this to contain inGiven order but only the entries
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only one entry which is holding the assertions created
  * by the [assertionCreator].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -246,7 +246,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, asser
 
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
@@ -265,7 +265,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entri
     = plant containsStrictly entries
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] does not contain the [expected] value.
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain the [expected] value.
  *
  * Delegates to `containsNot Values(expected)`.
  *
@@ -277,7 +277,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlan
     = this containsNot Values(expected)
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] does not contain the expected [values].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain the expected [values].
  *
  * It is a shortcut for `notTo contain the Values(...)`
  *
@@ -289,7 +289,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Asserti
     = this notTo contain the values
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] does not contain the expected [objects].
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain the expected [objects].
  *
  * It is a shortcut for `notTo contain the Objects(...)`
  *

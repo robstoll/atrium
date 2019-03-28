@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -29,7 +30,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *   the corresponding `Person`.
  */
-class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPlant<T>) : AssertionChecker {
+class FeatureAssertionChecker<out T>(private val subjectPlant: BaseAssertionPlant<T, *>) : AssertionChecker {
 
     /**
      * Creates an [AssertionGroup]s of [type][AssertionGroup] [FeatureAssertionGroupType] based on the

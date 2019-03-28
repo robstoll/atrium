@@ -3,10 +3,10 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import kotlin.jvm.JvmName
 import kotlin.reflect.*
 
 /**

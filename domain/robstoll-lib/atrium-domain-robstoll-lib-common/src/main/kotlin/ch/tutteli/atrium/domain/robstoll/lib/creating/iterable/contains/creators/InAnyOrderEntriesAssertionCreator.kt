@@ -80,7 +80,7 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
         return if (itr.hasNext()) {
             val first = itr.next()
             if (first != null) {
-                first to sequenceOf(first) + itr.asSequence()
+                first to sequence + sequenceOf(first) + itr.asSequence()
             } else {
                 getFirstNonNullAndSequence(itr, sequence + sequenceOf(first))
             }

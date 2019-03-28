@@ -34,10 +34,10 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
             = plant notToBeNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
 
         private fun getNotToBeNullButPair()
-            = AssertionPlantNullable<Int?>::notToBeNullBut.name to Companion::notToBeNullBut
+            = AssertionPlantNullable<Int?>::toBe.name to Companion::notToBeNullBut
 
         private fun notToBeNullBut(plant: AssertionPlantNullable<Int?>, expected: Int)
-            = plant notToBeNullBut expected
+            = plant toBe expected
 
         private fun getNameIsA(): String {
             val f: Assert<Any>.(Assert<Any>.() -> Unit) -> Unit = Assert<Any>::isA

@@ -5,10 +5,10 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.*
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl.*
-import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we are looking

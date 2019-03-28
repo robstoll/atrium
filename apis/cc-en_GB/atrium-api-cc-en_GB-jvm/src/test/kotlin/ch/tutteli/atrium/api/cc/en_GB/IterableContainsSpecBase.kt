@@ -4,9 +4,9 @@ import ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.AtLeas
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.verbs.internal.assert
 import kotlin.reflect.KProperty
 import kotlin.reflect.KFunction4
 
@@ -31,7 +31,70 @@ abstract class IterableContainsSpecBase {
     protected val inOrderOnlyEntries = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::entries.name
     protected val grouped = IterableContains.Builder<*, *, InOrderOnlySearchBehaviour>::grouped.name
     protected val within = IterableContains.Builder<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
-    private val withinInAnyOrderFun : KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, GroupWithoutNullableEntries<Int>, GroupWithoutNullableEntries<Int>, Array<out GroupWithoutNullableEntries<Int>>, AssertionPlant<Iterable<Int>>>
+    private val withinInAnyOrderFun : KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, AssertionPlant<Iterable<Int>>>
         = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder
     protected val withinInAnyOrder = withinInAnyOrderFun.name
+
+    @Suppress("unused")
+    private fun ambiguityTest() {
+        assert(listOf(1)).contains(1)
+        assert(listOf(1)).contains(1, 2)
+        assert(listOf(1)).contains {}
+        assert(listOf(1)).contains({}, {})
+        assert(listOf(1 as Int?)).contains(1)
+        assert(listOf(1 as Int?)).contains(1, 1)
+        assert(listOf(1 as Int?)).contains {}
+        assert(listOf(1 as Int?)).contains(null)
+        assert(listOf(1 as Int?)).contains({}, null)
+        assert(listOf(1 as Int?)).contains({}, {})
+        assert(listOf(1 as Int?)).contains(null, {})
+
+        assert(listOf(1)).containsExactly(1)
+        assert(listOf(1)).containsExactly(1, 2)
+        assert(listOf(1)).containsExactly {}
+        assert(listOf(1)).containsExactly({}, {})
+        assert(listOf(1 as Int?)).containsExactly(1)
+        assert(listOf(1 as Int?)).containsExactly(1, 1)
+        assert(listOf(1 as Int?)).containsExactly {}
+        assert(listOf(1 as Int?)).containsExactly(null)
+        assert(listOf(1 as Int?)).containsExactly({}, null)
+        assert(listOf(1 as Int?)).containsExactly({}, {})
+        assert(listOf(1 as Int?)).containsExactly(null, {})
+
+        assert(listOf(1)).contains.inAnyOrder.atLeast(1).value(1)
+        assert(listOf(1)).contains.inAnyOrder.atLeast(1).value(null)
+        assert(listOf(1)).contains.inAnyOrder.atLeast(1).entry {}
+        assert(listOf(1)).contains.inAnyOrder.atLeast(1).entry(null)
+
+        assert(listOf(1)).contains.inAnyOrder.only.value( 1)
+        assert(listOf(1)).contains.inAnyOrder.only.value( null)
+        assert(listOf(1)).contains.inAnyOrder.only.entry {}
+        assert(listOf(1)).contains.inAnyOrder.only.entry(null)
+
+        assert(listOf(1)).contains.inOrder.only.value(1)
+        assert(listOf(1)).contains.inOrder.only.value(null)
+        assert(listOf(1)).contains.inOrder.only.entry {}
+        assert(listOf(1)).contains.inOrder.only.entry(null)
+
+
+        assert(listOf(1)).contains.inOrder.only.grouped.within.inAnyOrder(
+            Value(1),
+            Value(null),
+            Values(1),
+            Values(null),
+            Values(1, 1),
+            Values(1, null),
+            Values(null, null)
+        )
+
+        assert(listOf(1)).contains.inOrder.only.grouped.within.inAnyOrder(
+            Entry {},
+            Entry(null),
+            Entries({}),
+            Entries(null),
+            Entries({}, {}),
+            Entries({}, null),
+            Entries(null, null)
+        )
+    }
 }

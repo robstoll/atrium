@@ -15,7 +15,7 @@ class IterableNoneAssertionsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.spec.integration.IterableNoneAssertionsSpec(
         AssertionVerbFactory,
         Assert<Iterable<Double>>::keiner.name to Assert<Iterable<Double>>::keiner,
-        Assert<Iterable<Double?>>::keinerDerNullable.name to Assert<Iterable<Double?>>::keinerDerNullable,
+        Assert<Iterable<Double?>>::keiner.name to Assert<Iterable<Double?>>::keiner,
         "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Predicate] "
     )
@@ -38,6 +38,6 @@ class IterableNoneAssertionsSpec : Spek({
         private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-                = plant.enthaeltNicht.nullableEintrag(a)
+                = plant.enthaeltNicht.eintrag(a)
     }
 }

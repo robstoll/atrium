@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -11,6 +10,7 @@ import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import kotlin.reflect.*
+import kotlin.jvm.JvmName
 
 /**
  * Creates an [AssertionPlant] for the given [property] which eventually adds [AssertionGroup]s with a

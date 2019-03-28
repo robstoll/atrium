@@ -41,13 +41,13 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
         }
 
         fun getContainsNullablePair()
-            = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderValues nullable" to Companion::containsNullableValues
+            = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderValues" to Companion::containsNullableValues
 
         private fun containsNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order atLeast 1 nullableValue a
+                plant to contain inAny order atLeast 1 value a
             } else {
-                plant to contain inAny order atLeast 1 the NullableValues(a, *aX)
+                plant to contain inAny order atLeast 1 the Values(a, *aX)
             }
         }
 
@@ -63,14 +63,14 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
             }
         }
 
-        private val containsNullableFun: KFunction2<Assert<Iterable<Double?>>, NullableValues<Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
-        fun getContainsNullableShortcutPair() = containsNullableFun.name + " nullable" to Companion::containsNullableValuesShortcut
+        private val containsNullableFun: KFunction2<Assert<Iterable<Double?>>, Values<Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
+        fun getContainsNullableShortcutPair() = containsNullableFun.name to Companion::containsNullableValuesShortcut
 
         private fun containsNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant contains NullableValue(a)
+                plant contains a
             } else {
-                plant contains NullableValues(a, *aX)
+                plant contains Values(a, *aX)
             }
         }
     }

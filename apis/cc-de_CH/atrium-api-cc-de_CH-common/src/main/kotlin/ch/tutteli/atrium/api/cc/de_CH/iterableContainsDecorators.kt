@@ -2,11 +2,11 @@
 @file:JvmName("IterableContainsDecoratorsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
-import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Defines that the search behaviour "find entries `in any order` in the [Iterable]" shall be applied to this

@@ -11,9 +11,7 @@ abstract class PairFeatureAssertionsSpec(
     secondValPair: Pair<String, Assert<Pair<String, Int>>.() -> Assert<Int>>,
     secondFunPair: Pair<String, Assert<Pair<String, Int>>.(assertionCreator: Assert<Int>.() -> Unit) -> Assert<Pair<String, Int>>>,
     nullableFirstValPair: Pair<String, Assert<Pair<String?, Int?>>.() -> AssertionPlantNullable<String?>>,
-    nullableFirstFunPair: Pair<String, Assert<Pair<String?, Int?>>.(assertionCreator: AssertionPlantNullable<String?>.() -> Unit) -> Assert<Pair<String?, Int?>>>,
     nullableSecondValPair: Pair<String, Assert<Pair<String?, Int?>>.() -> AssertionPlantNullable<Int?>>,
-    nullableSecondFunPair: Pair<String, Assert<Pair<String?, Int?>>.(assertionCreator: AssertionPlantNullable<Int?>.() -> Unit) -> Assert<Pair<String?, Int?>>>,
     describePrefix: String = "[Atrium] "
 ) : KeyValueLikeFeatureAssertionsSpec<Pair<String, Int>, Pair<String?, Int?>>(
     verbs,
@@ -26,8 +24,6 @@ abstract class PairFeatureAssertionsSpec(
     secondValPair,
     secondFunPair,
     nullableFirstValPair,
-    nullableFirstFunPair,
     nullableSecondValPair,
-    nullableSecondFunPair,
     describePrefix
 )

@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.8.0-SNAPSHOT'
+    rootProject.version = '0.8.0-beta'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -8,8 +8,8 @@ buildscript {
         kbox_version = '0.12.1'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.71'
-        mockito_kotlin_version = '1.5.0'
-        mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
+        mockito_kotlin_version = '2.1.0'
+        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         // test
         jacoco_tool_version = '0.8.2'
@@ -20,7 +20,7 @@ buildscript {
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
         ghPages_version = rootProject.version
-        dokka_sourceMapping = 'tree/master'
+        dokka_sourceMapping = 'tree/v0.8.0-beta'
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
 
@@ -120,6 +120,9 @@ configure(subprojects - multiplatformProjects) {
     compileKotlin {
         kotlinOptions.allWarningsAsErrors = true
     }
+    compileTestKotlin{
+        kotlinOptions.allWarningsAsErrors = true
+    }
 
     dependencies {
         compile kotlinStdlib()
@@ -131,11 +134,19 @@ configure(commonProjects) {
     compileKotlinCommon {
         kotlinOptions.allWarningsAsErrors = true
     }
+    //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
+//    compileTestKotlinCommon{
+//        kotlinOptions.allWarningsAsErrors = true
+//    }
 }
 configure(jsProjects) {
     compileKotlin2Js {
         kotlinOptions.allWarningsAsErrors = true
     }
+    //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
+//    compileTestKotlin2Js{
+//        kotlinOptions.allWarningsAsErrors = true
+//    }
 }
 
 configure(subprojects - commonProjects - jsProjects) {
@@ -163,6 +174,9 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
 
     compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+    compileTestKotlin{
         kotlinOptions.allWarningsAsErrors = true
     }
 
@@ -247,7 +261,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
                         services.append("() }")
                     }
                 }
-                services.append("\n}")
+                services.append("\n}\n")
             }
         }
         compileKotlin2Js.dependsOn registerJsServices
@@ -255,7 +269,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
 }
 
 
-createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.robstoll.core') { true }
+createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstoll') { true }
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     it != 'ch.tutteli.atrium.domain.creating.BigDecimalAssertions'
 }
@@ -331,7 +345,7 @@ Release & deploy a commit
 4. deploy to bintray:
     a) Temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
        export CI=true
-    b) gr clean publishBintray
+    b) gr clean publishToBintray
     c) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z

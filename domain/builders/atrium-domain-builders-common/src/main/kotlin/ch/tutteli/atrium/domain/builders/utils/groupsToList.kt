@@ -1,17 +1,25 @@
 package ch.tutteli.atrium.domain.builders.utils
 
+/**
+ * Represents a group of [T].
+ */
 interface Group<out T> {
+    /**
+     * Returns the members of the group as [List].
+     */
     fun toList(): List<T>
 }
 
 /**
  * Represents a group of [T] (where `T: Any`) which can be converted to a [List]`<T>`
  */
-interface GroupWithoutNullableEntries<out T: Any>: Group<T>
+@Deprecated("Use super-type Group instead; will be removed with 1.0.0", ReplaceWith("Group<T>"))
+interface GroupWithoutNullableEntries<out T>: Group<T>
 
 /**
  * Represents a group of [T] (where `T: Any?`) which can be converted to a [List]`<T>`
  */
+@Deprecated("Use super-type Group instead; will be removed with 1.0.0", ReplaceWith("Group<T>"))
 interface GroupWithNullableEntries<out T: Any?>: Group<T>
 
 /**

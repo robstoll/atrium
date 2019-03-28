@@ -2,8 +2,8 @@
 
 package ch.tutteli.atrium.domain.builders.utils
 
-import ch.tutteli.atrium.core.polyfills.JvmName
 import kotlin.reflect.*
+import kotlin.jvm.JvmName
 
 
 /**
@@ -28,7 +28,7 @@ inline fun <T> nullable(t: T): T? = t
 inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
 
 /**
- * Turns an [Iterable] into an iterable with a nullable entry type.
+ * Turns an [Iterable] into an iterable with a nullable element type.
  *
  * Intended to be used in conjunction with [platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
  * such as `Iterable<String!>` or in other words, when you deal with Java and you want to turn a platform type into a nullable type.
@@ -40,7 +40,7 @@ inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
 inline fun <T> nullableContainer(iterable: Iterable<T>): Iterable<T?> = iterable
 
 /**
- * Turns an [Array] into an array with a nullable entry type.
+ * Turns an [Array] into an array with a nullable element type.
  *
  * Intended to be used in conjunction with [platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
  * such as `Array<String!>` or in other words, when you deal with Java and you want to turn a platform type into a nullable type.
@@ -77,6 +77,19 @@ inline fun <K, V: Any> nullableKeyMap(map: Map<out K, V>): Map<out K?, V> = map
  * `getPersons() as Map<String, Person?>` you can write `nullableValueMap(getPersons())`
  */
 inline fun <K: Any, V> nullableValueMap(map: Map<K, V>): Map<K, V?> = map
+
+/**
+ * Turns a [Map] into a map with a nullable key and a nullable value type.
+ *
+ * Intended to be used in conjunction with [platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
+ * such as `Map<Int!, `String!`>! or in other words, when you deal with Java and you want to turn a platform type into a
+ * nullable type.
+ *
+ * Basically it is a replacement for cast but without introducing one explicitly (we only give an additional hint to the
+ * compiler that we expect a nullable type and not a non-nullable one). For instance, instead of writing
+ * `getPersons() as Map<String?, Person?>` you can write `nullableKeyValueMap(getPersons())`
+ */
+inline fun <K, V> nullableKeyValueMap(map: Map<out K, V>): Map<out K?, V?> = map
 
 /**
  * Turns the given function reference into a function reference with a nullable return type.

@@ -33,6 +33,10 @@ interface ExplanatoryGroup {
         override fun <T : ExplanatoryAssertionGroupType> withType(groupType: T): AssertionsOption<T, FinalStep>
 
         companion object {
+            /**
+             * Factory method to create the [GroupTypeOption] step in the building process
+             * of an [AssertionGroup] with an [ExplanatoryAssertionGroupType].
+             */
             fun create(): GroupTypeOption = GroupTypeOptionImpl
         }
     }
@@ -54,6 +58,10 @@ interface ExplanatoryGroup {
         override val explanatoryAssertions: List<Assertion>
 
         companion object {
+            /**
+             * Factory method to create the [FinalStep] in the building process of [AssertionGroup] with an
+             * [ExplanatoryAssertionGroupType] (specified by the given [groupType]) and [explanatoryAssertions].
+             */
             fun create(
                 groupType: ExplanatoryAssertionGroupType,
                 explanatoryAssertions: List<Assertion>

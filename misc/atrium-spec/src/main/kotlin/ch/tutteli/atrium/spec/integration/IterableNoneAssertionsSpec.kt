@@ -24,12 +24,12 @@ abstract class IterableNoneAssertionsSpec(
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         nonePair.first to mapToCreateAssertion { nonePair.second(this) { toBe(2.3) } },
-        noneNullablePair.first to mapToCreateAssertion { noneNullablePair.second(this) { toBe(2.3) } }
+        "${noneNullablePair.first} for nullable" to mapToCreateAssertion { noneNullablePair.second(this) { toBe(2.3) } }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(nonePair.first, { nonePair.second(this) { toBe(2.3) } }, listOf(2.1).asIterable(), listOf(2.1, 2.3)),
-        checkingTriple(noneNullablePair.first, { noneNullablePair.second(this) { toBe(2.3) } }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
+        checkingTriple("${noneNullablePair.first} for nullable", { noneNullablePair.second(this) { toBe(2.3) } }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
     ) {})
 
     fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
@@ -94,7 +94,7 @@ abstract class IterableNoneAssertionsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun(containsNotNullable) {
+        describeFun("$containsNotNullable for nullable") {
             context("iterable $oneToSeven") {
                 test("null does not throw") {
                     verbs.checkImmediately(oneToSeven).containsNotNullableFun(null)

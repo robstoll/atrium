@@ -22,8 +22,9 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
         return try {
             val collectedAssertions = collect(subject, assertionCreator)
 
+            //TODO change to check in v. 1.0.0
             require(!(throwIfNoAssertionIsCollected && collectedAssertions.isEmpty())) {
-                "There was not any assertion created which could identify an entry. Specify at least one assertion"
+                "There was not any assertion created. Specify at least one assertion"
             }
 
             // since assertions can be lazily computed we have to provoke their creation here,

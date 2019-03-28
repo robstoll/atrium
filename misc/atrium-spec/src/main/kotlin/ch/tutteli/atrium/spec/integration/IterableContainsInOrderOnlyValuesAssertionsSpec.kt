@@ -26,12 +26,12 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyValuesPair.first to mapToCreateAssertion { containsInOrderOnlyValuesPair.second(this, 2.5, arrayOf()) },
-        containsInOrderOnlyNullableValuesPair.first to mapToCreateAssertion { containsInOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf()) }
+        "${containsInOrderOnlyNullableValuesPair.first} for nullable" to mapToCreateAssertion { containsInOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsInOrderOnlyValuesPair.first, { containsInOrderOnlyValuesPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2).asIterable(), listOf(2.5, 2.2)),
-        checkingTriple(containsInOrderOnlyNullableValuesPair.first, { containsInOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2).asIterable(), listOf(2.5, 2.2))
+        checkingTriple("${containsInOrderOnlyNullableValuesPair.first} for nullable", { containsInOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2).asIterable(), listOf(2.5, 2.2))
     ) {})
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
@@ -208,7 +208,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(containsInOrderOnlyNullableValues) {
+        describeFun("$containsInOrderOnlyNullableValues for nullable") {
             val list = listOf(null, 1.0, null, 3.0)
             val fluent = verbs.checkImmediately(list)
 

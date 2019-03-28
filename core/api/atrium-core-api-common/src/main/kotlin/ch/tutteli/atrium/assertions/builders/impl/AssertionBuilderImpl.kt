@@ -12,7 +12,7 @@ internal object AssertionBuilderImpl : AssertionBuilder {
         = createDescriptionAndRepresentationOption(DefaultFeatureAssertionGroupType)
 
     override val summary: AssertionGroupDescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
-        = AssertionGroupDescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
+        = AssertionGroupDescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.factoryWithDefaultFinalStep())
 
     override val explanatoryGroup: ExplanatoryGroup.GroupTypeOption
         = ExplanatoryGroup.GroupTypeOption.create()
@@ -28,5 +28,5 @@ internal object AssertionBuilderImpl : AssertionBuilder {
 
 
     private fun <T: AssertionGroupType> createDescriptionAndRepresentationOption(type: T): DefaultAssertionGroupBuilderOptions<T>
-        = AssertionGroupDescriptionAndRepresentationOption.create(type, AssertionsOption.asFactoryWithDefaultFinalStep())
+        = AssertionGroupDescriptionAndRepresentationOption.create(type, AssertionsOption.factoryWithDefaultFinalStep())
 }

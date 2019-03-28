@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param V the value type of the [Map].
  * @param T A subtype of [Map].
  */
-interface MapGetOption<K, V : Any, T : Map<K, V>> {
+interface MapGetOption<K, V : Any, T : Map<out K, V>> {
     /**
      * The [AssertionPlant] for which this assertion is created
      */
@@ -25,7 +25,7 @@ interface MapGetOption<K, V : Any, T : Map<K, V>> {
     val key: K
 
     /**
-     * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the previously specified [key] and that the
+     * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the previously specified [key] and that the
      * corresponding value holds all assertions the given [assertionCreator] might create for it.
      *
      * @return This plant to support a fluent API.
@@ -36,7 +36,10 @@ interface MapGetOption<K, V : Any, T : Map<K, V>> {
     infix fun assertIt(assertionCreator: Assert<V>.() -> Unit): Assert<T>
 
     companion object {
-        fun <K, V : Any, T: Map<K, V>> create(plant: Assert<T>, key: K): MapGetOption<K, V, T>
+        /**
+         * Creates a [MapGetOption] based on the given [plant] and [key].
+         */
+        fun <K, V : Any, T: Map<out K, V>> create(plant: Assert<T>, key: K): MapGetOption<K, V, T>
             = MapGetOptionImpl(plant, key)
     }
 }

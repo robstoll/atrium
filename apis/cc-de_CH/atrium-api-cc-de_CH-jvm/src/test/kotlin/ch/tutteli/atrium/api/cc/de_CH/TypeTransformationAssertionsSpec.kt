@@ -34,7 +34,7 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
 
 
         private fun getNotToBeNullButPair()
-            = AssertionPlantNullable<Int?>::istNichtNullAber.name to AssertionPlantNullable<Int?>::istNichtNullAber
+            = AssertionPlantNullable<Int?>::ist.name to AssertionPlantNullable<Int?>::ist
 
 
         private fun getNameIsA(): String {

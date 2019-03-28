@@ -63,7 +63,7 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
 
         private fun createMessageHint(throwable: Throwable) = AssertImpl.builder.descriptive
             .holding
-            .withDescriptionAndNullableRepresentation(
+            .withDescriptionAndRepresentation(
                 DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
                 throwable.message
             )
@@ -112,7 +112,7 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
         ): AssertionGroup{
             val secondStackTrace = if (throwable.stackBacktrace.size > 1) throwable.stackBacktrace[1] else null
             return AssertImpl.builder.list
-                .withDescriptionAndNullableRepresentation(childDescription, child)
+                .withDescriptionAndRepresentation(childDescription, child)
                 .withAssertion(createHints(child, maxStackTrace, secondStackTrace))
                 .build()
         }

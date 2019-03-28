@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.notToBeNullBut
 import ch.tutteli.atrium.api.cc.infix.en_GB.toBe
 import ch.tutteli.atrium.verbs.internal.assert
 import kotlin.test.Test
@@ -17,7 +16,7 @@ class AtriumPropertyTest {
         //arrange
         setAtriumProperty("a", "b")
         //act & assert
-        assert(getAtriumProperty("a")) notToBeNullBut "b"
+        assert(getAtriumProperty("a")) toBe "b"
     }
 
     @Test
@@ -25,7 +24,7 @@ class AtriumPropertyTest {
         //act
         setAtriumProperty("a", "b")
         //assert
-        assert(getAtriumProperty("a")) notToBeNullBut "b"
+        assert(getAtriumProperty("a")) toBe "b"
     }
 
     @Test
@@ -35,6 +34,6 @@ class AtriumPropertyTest {
         //act
         setAtriumProperty("a", "c")
         //assert
-        assert(getAtriumProperty("a")) notToBeNullBut "c"
+        assert(getAtriumProperty("a")) toBe "c"
     }
 }

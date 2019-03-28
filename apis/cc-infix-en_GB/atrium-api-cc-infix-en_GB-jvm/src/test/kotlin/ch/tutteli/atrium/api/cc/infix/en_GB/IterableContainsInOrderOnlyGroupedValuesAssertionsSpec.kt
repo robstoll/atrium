@@ -2,8 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
 class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
@@ -21,38 +20,38 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec : ch.tutteli.atrium
 
         private fun containsInOrderOnlyGroupedInAnyOrder(
             plant: Assert<Iterable<Double>>,
-            a1: GroupWithoutNullableEntries<Double>,
-            a2: GroupWithoutNullableEntries<Double>,
-            aX: Array<out GroupWithoutNullableEntries<Double>>
+            a1: Group<Double>,
+            a2: Group<Double>,
+            aX: Array<out Group<Double>>
         ): Assert<Iterable<Double>> {
             return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
         }
 
-        private fun groupFactory(groups: Array<out Double>): GroupWithoutNullableEntries<Double> {
+        private fun groupFactory(groups: Array<out Double>): Group<Double> {
             return when (groups.size) {
-                0 -> object : GroupWithoutNullableEntries<Double> { override fun toList() = listOf<Double>() }
+                0 -> object : Group<Double> { override fun toList() = listOf<Double>() }
                 1 -> Value(groups[0])
                 else -> Values(groups[0], *groups.drop(1).toTypedArray())
             }
         }
 
         fun getContainsNullablePair() =
-            "$toContain $inOrder $butOnly $groupedEntries $withinGroup $withinInAnyOrder nullable" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
+            "$toContain $inOrder $butOnly $groupedEntries $withinGroup $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
 
         private fun containsInOrderOnlyGroupedInAnyOrderNullableValues(
             plant: Assert<Iterable<Double?>>,
-            a1: GroupWithNullableEntries<Double?>,
-            a2: GroupWithNullableEntries<Double?>,
-            aX: Array<out GroupWithNullableEntries<Double?>>
+            a1: Group<Double?>,
+            a2: Group<Double?>,
+            aX: Array<out Group<Double?>>
         ): Assert<Iterable<Double?>> {
             return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
         }
 
-        private fun nullableGroupFactory(groups: Array<out Double?>): GroupWithNullableEntries<Double?> {
+        private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> {
             return when (groups.size) {
-                0 -> object : GroupWithNullableEntries<Double?> { override fun toList() = listOf<Double>() }
-                1 -> NullableValue(groups[0])
-                else -> NullableValues(groups[0], *groups.drop(1).toTypedArray())
+                0 -> object : Group<Double?> { override fun toList() = listOf<Double>() }
+                1 -> Value(groups[0])
+                else -> Values(groups[0], *groups.drop(1).toTypedArray())
             }
         }
     }

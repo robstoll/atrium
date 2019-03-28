@@ -45,7 +45,7 @@ interface AssertionPlantWithCommonFields<out T> {
         val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {
-        val representation: () -> Any by lazy {
+        private val representation: () -> Any by lazy {
             { representationProvider() ?: nullRepresentation }
         }
 

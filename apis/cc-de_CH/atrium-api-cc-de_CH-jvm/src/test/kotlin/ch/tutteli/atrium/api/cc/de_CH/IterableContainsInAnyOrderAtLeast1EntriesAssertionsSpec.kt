@@ -39,13 +39,13 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
         }
 
         fun getContainsNullablePair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries nullable" to Companion::containsNullableEntries
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(a)
+                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(a)
             } else {
-                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(a, *aX)
+                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(a, *aX)
             }
         }
 
@@ -53,17 +53,22 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
         private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaelt
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
-        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
-            = plant.enthaelt(a, *aX)
+        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.enthaelt(a)
+            } else {
+                plant.enthaelt(a, *aX)
+            }
+        }
 
-        private val containsEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltNullableEintraege
+        private val containsEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaelt
         fun getContainsNullableShortcutPair() = containsEntriesFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltNullableEintrag(a)
+                plant.enthaelt(a)
             } else {
-                plant.enthaeltNullableEintraege(a, *aX)
+                plant.enthaelt(a, *aX)
             }
         }
     }

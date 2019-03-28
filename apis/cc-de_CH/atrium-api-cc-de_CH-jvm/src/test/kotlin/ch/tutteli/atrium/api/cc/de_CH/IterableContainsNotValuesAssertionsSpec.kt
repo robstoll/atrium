@@ -44,7 +44,7 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             }
         }
 
-        private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
+        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(
             plant: Assert<Iterable<Double?>>,
@@ -52,9 +52,9 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltNicht.nullableWert(a)
+                plant.enthaeltNicht.wert(a)
             } else {
-                plant.enthaeltNicht.nullableWerte(a, *aX)
+                plant.enthaeltNicht.werte(a, *aX)
             }
         }
 
@@ -72,7 +72,7 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             Assert<Iterable<Double?>>::enthaeltNicht
 
         private fun getContainsNotNullableShortcutPair() =
-            containsNotNullableShortcutFun.name + " nullable" to Companion::containsNotNullableShortcut
+            containsNotNullableShortcutFun.name to Companion::containsNotNullableShortcut
 
         private fun containsNotNullableShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>) =
             @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */) plant.enthaeltNicht(a, *aX)

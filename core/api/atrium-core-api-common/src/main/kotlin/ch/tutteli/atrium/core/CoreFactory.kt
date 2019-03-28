@@ -227,7 +227,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
+    fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
     /**
      * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]
@@ -322,6 +322,12 @@ interface CoreFactoryCommon {
      * Creates an [AssertionPairFormatter] which is intended for text output (e.g. for the console) and puts assertion
      * pairs on the same line.
      *
+     * As an example `assert(10).toBe(9)` results in the following error:
+     * ```
+     * assert: 10        (java.lang.Integer <934275857>)
+     * ◆ to be: 9        (java.lang.Integer <1364913072>)
+     * ```
+     *
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as
      *   [DescriptiveAssertion.description].
@@ -329,6 +335,29 @@ interface CoreFactoryCommon {
      * @return The newly created assertion formatter.
      */
     fun newTextSameLineAssertionPairFormatter(
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionPairFormatter
+
+    /**
+     * Creates an [AssertionPairFormatter] which is intended for text output (e.g. for the console) and puts assertion
+     * pairs on separate lines
+     *
+     * As an example `assert(10).toBe(9)` results in the following error:
+     * ```
+     * assert:
+     *   10        (java.lang.Integer <934275857>)
+     * ◆ to be:
+     *   9        (java.lang.Integer <1364913072>)
+     * ```
+     *
+     * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
+     * @param translator The translator which is used to translate [Translatable] such as
+     *   [DescriptiveAssertion.description].
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextNextLineAssertionPairFormatter(
         objectFormatter: ObjectFormatter,
         translator: Translator
     ): AssertionPairFormatter

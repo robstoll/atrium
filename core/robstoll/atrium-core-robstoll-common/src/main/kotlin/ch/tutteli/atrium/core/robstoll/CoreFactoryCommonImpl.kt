@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.robstoll.core
+package ch.tutteli.atrium.core.robstoll
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
@@ -62,7 +62,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
 
-    final override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
+    final override fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
         = FeatureAssertionChecker(subjectPlant)
 
     final override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
@@ -86,8 +86,11 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
         = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
-    final override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
+    final override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
         = TextSameLineAssertionPairFormatter(objectFormatter, translator)
+
+    final override fun newTextNextLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
+        = TextNextLineAssertionPairFormatter(objectFormatter, translator)
 
     final override fun newTextFallbackAssertionFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(

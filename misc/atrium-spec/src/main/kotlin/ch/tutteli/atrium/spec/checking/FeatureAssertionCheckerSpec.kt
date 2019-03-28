@@ -6,17 +6,18 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.spec.*
-import com.nhaarman.mockito_kotlin.argumentCaptor
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockitokotlin2.argumentCaptor
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 
 abstract class FeatureAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (subjectFactory: AssertionPlant<Int>) -> AssertionChecker,
+    testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

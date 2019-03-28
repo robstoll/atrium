@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.esGilt
 import ch.tutteli.atrium.spec.integration.AnyAssertionsSpec
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
@@ -16,6 +17,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::istSelbeInstanzWie.name,
     Assert<Int>::istNichtSelbeInstanzWie.name,
     "${AssertionPlantNullable<Int?>::ist.name}(null)" to Companion::toBeNull,
+    toBeNullableFun.name to toBeNullableFun,
+    "${toBeNullableCreatorFun.name} with creator" to toBeNullableCreatorFun,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -27,6 +30,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     }
 
     companion object {
+        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> = AssertionPlantNullable<Int?>::ist
+        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> = AssertionPlantNullable<Int?>::istNullWennNullGegebenSonst
 
         fun toBeNull(plant: AssertionPlantNullable<Int?>) {
             plant.ist(null)

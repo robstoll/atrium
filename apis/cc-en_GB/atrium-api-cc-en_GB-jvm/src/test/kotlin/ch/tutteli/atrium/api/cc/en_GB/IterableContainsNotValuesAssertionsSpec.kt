@@ -41,13 +41,13 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             }
         }
 
-        private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
+        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.containsNot.nullableValue(a)
+                plant.containsNot.value(a)
             } else {
-                plant.containsNot.nullableValues(a, *aX)
+                plant.containsNot.values(a, *aX)
             }
         }
 
