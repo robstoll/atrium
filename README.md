@@ -155,7 +155,7 @@ dependencies {
 As mentioned above, add `-js` or `-android` suffix if you want to use it on a different platform than JVM.
 
 <hr/>
-</details><br/>
+</details>
 
 <details>
 <summary>click to see how the setup for the fluent API for the JS platform looks like</summary>
@@ -182,7 +182,7 @@ We are using mocha
 
 
 <hr/>
-</details>
+</details><br/>
 
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
