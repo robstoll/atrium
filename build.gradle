@@ -261,7 +261,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
                         services.append("() }")
                     }
                 }
-                services.append("\n}")
+                services.append("\n}\n")
             }
         }
         compileKotlin2Js.dependsOn registerJsServices
