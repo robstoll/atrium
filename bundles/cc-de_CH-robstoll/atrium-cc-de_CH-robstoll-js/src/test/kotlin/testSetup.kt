@@ -2,8 +2,7 @@ private val currentSetupWorkaround = dep()
 private fun dep() {
     js(
         """
-        require('atrium-domain-robstoll-js');
-        require('atrium-core-robstoll-js')
+        require('atrium-cc-de_CH-robstoll-js');
         """
     )
 }

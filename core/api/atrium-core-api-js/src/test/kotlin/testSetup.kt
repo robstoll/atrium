@@ -1,6 +1,6 @@
 import ch.tutteli.atrium.core.polyfills.*
 
-private val currentWorkaroundToLoadDomainRobstollAndCoreRobstoll = dep()
+private val currentSetupWorkaround = dep()
 private fun dep() {
     js(
         """

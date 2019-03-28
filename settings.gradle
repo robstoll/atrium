@@ -33,6 +33,7 @@ include {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+            //TODO add cc-de_CH-robstoll-smoke-test with 1.0.0
             folder('cc-en_GB-robstoll') {
                 _ 'cc-en_GB-robstoll-smoke-test'
             }

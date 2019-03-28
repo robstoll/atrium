@@ -51,9 +51,7 @@ buildscript {
                         it.name != "${rootProject.name}-assertions" &&
                         it.name != "${rootProject.name}-core-api-deprecated" &&
                         it.name != "${rootProject.name}-core-robstoll-deprecated" &&
-                        it.name != "${rootProject.name}-domain-api-deprecated" &&
-                        it.name != "${rootProject.name}-translations-de_CH-deprecated" &&
-                        it.name != "${rootProject.name}-translations-en_UK-deprecated"
+                        it.name != "${rootProject.name}-domain-api-deprecated"
                 }
         ]
 
@@ -139,9 +137,16 @@ configure(commonProjects) {
 //        kotlinOptions.allWarningsAsErrors = true
 //    }
 }
-configure(jsProjects) {
+configure(jsProjects) { subProject ->
     compileKotlin2Js {
-        kotlinOptions.allWarningsAsErrors = true
+        kotlinOptions{
+            allWarningsAsErrors = true
+            if(subProject.name.startsWith("atrium-translations")) {
+                //necessary as the module name is then also called atrium-translations-js and can be shared by the other translation modules
+                outputFile = "$buildDir/classes/kotlin/main/atrium-translations-js.js"
+            }
+        }
+
     }
     //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
 //    compileTestKotlin2Js{
@@ -276,8 +281,11 @@ createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.rob
 createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
 createRegisterJsServicesTask('verbs-internal-js', 'ch.tutteli.atrium.verbs.internal') { true }
 
-def createJsTestTask(subprojectName){
-    configure(prefixedProject(subprojectName)) {
+List<Project> projectNamesToProject(String[] names) {
+    names.collect { projectName -> prefixedProject(projectName)}
+}
+def createJsTestTask(String... subprojectNames){
+    configure(projectNamesToProject(subprojectNames)) {
         apply plugin: 'com.moowork.node'
 
         compileTestKotlin2Js.configure {
@@ -320,8 +328,37 @@ def createJsTestTask(subprojectName){
     }
 }
 
-createJsTestTask('core-api-js')
-createJsTestTask('core-robstoll-lib-js')
+createJsTestTask(
+    'core-api-js',
+    'core-robstoll-lib-js',
+    'cc-de_CH-robstoll-js',
+    'cc-en_GB-robstoll-js',
+    'cc-infix-en_GB-robstoll-js',
+)
+
+def useJupiter(String... projectNames){
+    configure(projectNamesToProject(projectNames)){
+        dependencies {
+            testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+        }
+        junitPlatform.filters.engines { include 'junit-jupiter' }
+    }
+}
+useJupiter(
+    'core-api-jvm',
+    'cc-de_CH-robstoll-jvm',
+    'cc-en_GB-robstoll-jvm',
+    'cc-infix-en_GB-robstoll-jvm',
+)
+//TODO merge with above as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
+if(System.getenv('CI')) {
+    useJupiter(
+        'core-api-android',
+        'cc-de_CH-robstoll-android',
+        'cc-en_GB-robstoll-android',
+        'cc-infix-en_GB-robstoll-android',
+    )
+}
 
 /*
 
