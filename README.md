@@ -225,7 +225,7 @@ We will omit the `import` statement in the remaining examples for brevity.
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
 
 :information_source: _&lt;- this icon signifies additional information, worth reading IMO but if you are only after code examples,
-then you can skip now to the next section (otherwise click on the arrow to expand the section)_<br/> 
+then you can skip now to the next section (otherwise click on the arrow to expand the section)._<br/> 
 
 <details>
 <summary>:information_source: further assertion verbs...</summary>
@@ -580,10 +580,11 @@ If not, then use `AssertImpl.feature.extractor`. It is for instance used for [`L
 
 </details>
 
-:poop: &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. We try to provide you workaround_
+:poop: &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. 
+We try to provide a workaround whenever possible._
 
 <details>
-<summary>:poop: using `returnValueOf` results in an overload ambigouity</summary> 
+<summary>:poop: using <code>returnValueOf</code> results in an overload ambigouity</summary> 
 
 Unfortunately, due to a [bug in Kotlin](https://youtrack.jetbrains.com/issue/KT-17340)
 (please upvote it) you wont be able to use `returnValueOf` for a method which has overloads in certain situations. 
