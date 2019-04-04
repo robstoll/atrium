@@ -29,6 +29,9 @@ For instance, the [README of v0.7.0](https://github.com/robstoll/atrium/tree/v0.
 
 **Table of Content**
 - [Installation](#installation)
+  - [JVM](#jvm)
+  - [JS](#js)
+  - [Android](#android)
 - [Examples](#examples)
   - [Your First Assertion](#your-first-assertion)
   - [Define Single Assertions or Assertion Groups](#define-single-assertions-or-assertion-groups)
@@ -64,7 +67,7 @@ For instance, the [README of v0.7.0](https://github.com/robstoll/atrium/tree/v0.
 
 # Installation
 
-## 1. Set Up Dependency
+## JVM
 Atrium is linked to [jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
 but can also be retrieved directly from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium). 
 
@@ -83,13 +86,11 @@ dependencies {
 }
 ```
 We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll` in the above example 
-which provides a pure fluent API for the JVM platform. 
-You have to add `-js` or `-android` as suffix if you want to use it for another platform.  
-See also the example for the JS platform a bit further below (click to see...).
-
+which provides a pure fluent API (in en_GB) for the JVM platform. 
+You have to add `-android` as suffix if you want to use it for an Android project.  
 
 <details>
-<summary>click to see how the setup for the infix api JVM looks like</summary>
+<summary>click to see how the setup for the infix api looks like</summary>
 
 ```
 buildscript {
@@ -118,7 +119,7 @@ dependencies {
 }
 ```
 
-As mentioned above, add `-js` or `-android` suffix if you want to use it on a different platform than JVM.
+As mentioned above, add `-android` as suffix if you want to use it for an Android project.
 
 <hr/>
 </details>
@@ -153,13 +154,23 @@ dependencies {
 }
 ```
 
-As mentioned above, add `-js` or `-android` suffix if you want to use it on a different platform than JVM.
+As mentioned above, add `-android` as suffix if you want to use it for an Android project.
 
 <hr/>
 </details>
+<br/>
 
-<details>
-<summary>click to see how the setup for the fluent API for the JS platform looks like</summary>
+*maven*:  
+Because maven is a bit more verbose than gradle, the example is not listed here but 
+a [settings.xml](https://github.com/robstoll/atrium/tree/v0.8.0-beta/misc/maven/settings.xml) 
+is provided to set up the repository as well as an 
+[example pom.xml](https://github.com/robstoll/atrium/tree/v0.8.0-beta/misc/maven/example-pom.xml)
+which includes the necessary dependencies.
+
+That is all, you are all set. The next section shows how to use Atrium.
+
+
+## JS
 
 ```
 buildscript {
@@ -174,30 +185,44 @@ dependencies {
     testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll-js:$atrium_version")
 }
 ```
-An example of how you setup Atrium in combination with mocha is given in 
+
+We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll-js` in the above example 
+which provides a pure fluent API (in en_GB) for the JS platform.
+
+You need to setup an explicit dependency on `atrium-cc-en_GB-robstoll-js` in your test code in order that you can use Atrium.
+This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler.
+An example of how to setup Atrium in combination with the testing framework mocha is given in 
 [misc/examples/js/mocha](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha).
+It also includes an automated way of establishing the dependency to Atrium.
+
+Atrium itself is using mocha as well 
+(see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/v0.0.8-beta/build.gradle#L290))
+and has tests written in JS modules 
+(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/v0.8.0-beta/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/ch/tutteli/atrium/core/robstoll/lib/reporting/AdjustStackTest.kt))
+as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/v0.8.0-beta/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/src/test/kotlin/SmokeTest.kt))
+which are executed on the JS platform as well 
+(actually on all platforms -> JVM uses JUnit for this purpose, see 
+[build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/v0.0.8-beta/build.gradle#L342)).
 
 Further examples for other test frameworks can be found in the
 [kotlin-examples repo](https://github.com/JetBrains/kotlin-examples/tree/master/gradle/js-tests).
-Notice though, that they need adaptations: at least a task similar to 
+Notice though, that they do not include the automated setup of a dependency to a bundle of Atrium.
+Or in other words, you should at least create a gradle task similar to 
 [establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L85)
-or a testSetup.kt is required in addition.
-
-<hr/>
-</details><br/>
-
-*maven*:  
-Because maven is a bit more verbose than gradle, the example is not listed here but 
-a [settings.xml](https://github.com/robstoll/atrium/tree/v0.8.0-beta/misc/maven/settings.xml) 
-is provided to set up the repository as well as an 
-[example pom.xml](https://github.com/robstoll/atrium/tree/v0.8.0-beta/misc/maven/example-pom.xml)
-which includes the necessary dependencies.
+or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L80))
+file in your test sources.
 
 That is all, you are all set. The next section shows how to use Atrium.
 
+## Android
+
+The setup for using Atrium in an Android project is basically the same as for the [JVM setup](#jvm), you only need to
+suffix the dependency with `-android` in addition. 
+For instance `atrium-cc-en_GB-robstoll-android` instead of `atrium-cc-en_GB-robstoll`.
+
 # Examples
 We are using the API provided by the bundle module 
-[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-beta/bundles/atrium-cc-en_GB-robstoll/build.gradle)
+[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-beta/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm/build.gradle)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
 Have a look at 
