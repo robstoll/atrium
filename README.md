@@ -90,7 +90,7 @@ which provides a pure fluent API (in en_GB) for the JVM platform.
 You have to add `-android` as suffix if you want to use it for an Android project.  
 
 <details>
-<summary>click to see how the setup for the infix api looks like</summary>
+<summary>click to see how the setup for the infix API looks like</summary>
 
 ```
 buildscript {
@@ -211,6 +211,40 @@ Or in other words, you should at least create a gradle task similar to
 [establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L85)
 or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L80))
 file in your test sources.
+
+<details>
+<summary>click to see how the setup for the infix API looks like</summary>
+
+```
+buildscript {
+    ext { atrium_version='0.8.0-beta' }
+}
+repositories {
+    jcenter()
+    // either use jcenter or the repository on the next line
+    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+}
+dependencies {
+    testCompile("ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll-js:$atrium_version") { 
+        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB-js' 
+    }
+    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll-js:$atrium_version")
+}
+```
+
+We have to define an `exclude` due to a [missing feature in gradle](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
+(or you could call it a bug) so that maven dependencies defined with `<scope>runtime</scope>` are treated as compile nonetheless.
+If you are using gradle > 4.6, then you can put `enableFeaturePreview("IMPROVED_POM_SUPPORT")` in your settings.gradle
+and simplify the dependencies section to the following: 
+```
+dependencies {
+    testCompile "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll-js:$atrium_version" 
+}
+```
+
+<hr/>
+</details>
+<br/>
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
 
