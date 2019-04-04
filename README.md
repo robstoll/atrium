@@ -167,7 +167,7 @@ is provided to set up the repository as well as an
 [example pom.xml](https://github.com/robstoll/atrium/tree/v0.8.0-beta/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
-That is all, you are all set. The next section shows how to use Atrium.
+That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
 
 
 ## JS
@@ -212,7 +212,7 @@ Or in other words, you should at least create a gradle task similar to
 or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L80))
 file in your test sources.
 
-That is all, you are all set. The next section shows how to use Atrium.
+That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
 
 ## Android
 
