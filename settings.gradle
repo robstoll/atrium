@@ -70,6 +70,9 @@ include {
     misc {
         _ 'bc-test'
         _ 'spec'
+        folder('examples/js') {
+            project('mocha')
+        }
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
     }

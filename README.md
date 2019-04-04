@@ -84,11 +84,12 @@ dependencies {
 ```
 We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll` in the above example 
 which provides a pure fluent API for the JVM platform. 
-You have to add `-js` or `-android` as suffix if you want to use it for another platform  
+You have to add `-js` or `-android` as suffix if you want to use it for another platform.  
+See also the example for the JS platform a bit further below (click to see...).
 
 
 <details>
-<summary>click to see how the setup for the infix api looks like</summary>
+<summary>click to see how the setup for the infix api JVM looks like</summary>
 
 ```
 buildscript {
@@ -173,13 +174,14 @@ dependencies {
     testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll-js:$atrium_version")
 }
 ```
-Examples to setup various test frameworks is shown in the 
+An example of how you setup Atrium in combination with mocha is given in 
+[misc/examples/js/mocha](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha).
+
+Further examples for other test frameworks can be found in the
 [kotlin-examples repo](https://github.com/JetBrains/kotlin-examples/tree/master/gradle/js-tests).
-You can also have a look at the [build.gradle](https://github.com/robstoll/atrium/tree/v0.0.8-beta/build.gradle#L279)
-of Atrium which is optimised so that npm and node_modules are only downloaded once for all modules.
-We are using mocha
-
-
+Notice though, that they need adaptations: at least a task similar to 
+[establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L85)
+or a testSetup.kt is required in addition.
 
 <hr/>
 </details><br/>

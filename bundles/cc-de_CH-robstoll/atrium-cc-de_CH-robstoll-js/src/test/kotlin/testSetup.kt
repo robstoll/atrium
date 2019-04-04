@@ -1,8 +1,4 @@
-private val currentSetupWorkaround = dep()
-private fun dep() {
-    js(
-        """
-        require('atrium-cc-de_CH-robstoll-js');
-        """
-    )
-}
+import ch.tutteli.atrium.cc.de_CH.robstoll.dependOnAtrium
+
+@Suppress("unused")
+private val establishDependencyToAtrium = dependOnAtrium()
