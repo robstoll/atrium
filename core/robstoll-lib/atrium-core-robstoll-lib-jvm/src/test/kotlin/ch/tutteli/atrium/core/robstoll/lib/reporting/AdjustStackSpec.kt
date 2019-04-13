@@ -3,7 +3,6 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.ReportingAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster

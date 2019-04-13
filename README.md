@@ -32,6 +32,7 @@ For instance, the [README of v0.7.0](https://github.com/robstoll/atrium/tree/v0.
   - [JVM](#jvm)
   - [JS](#js)
   - [Android](#android)
+  - [Common](#common)
 - [Examples](#examples)
   - [Your First Assertion](#your-first-assertion)
   - [Define Single Assertions or Assertion Groups](#define-single-assertions-or-assertion-groups)
@@ -244,7 +245,6 @@ dependencies {
 
 <hr/>
 </details>
-<br/>
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
 
@@ -253,6 +253,15 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 The setup for using Atrium in an Android project is basically the same as for the [JVM setup](#jvm), you only need to
 suffix the dependency with `-android` in addition. 
 For instance `atrium-cc-en_GB-robstoll-android` instead of `atrium-cc-en_GB-robstoll`.
+
+## Common
+
+The setup for using Atrium in a common module of a multiplatform project is basically the same as for the
+[JVM setup](#jvm), you only need to suffix the dependency with `-common` in addition. 
+For instance `atrium-cc-en_GB-robstoll-common` instead of `atrium-cc-en_GB-robstoll`.
+
+Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setup for the specific platforms has to be done.
+
 
 # Examples
 We are using the API provided by the bundle module 
