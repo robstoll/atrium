@@ -88,8 +88,8 @@ task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
     doLast {
         def srcFile = file("$buildDir/classes/kotlin/test/${project.name}_test.js")
         String newContent = srcFile.getText('UTF-8')
-            .replace("\$module\$atrium_core_api_js,", "\$module\$atrium_core_api_js, \$module\$${atrium_api.replace('-', '_')},", )
-            .replace("require('atrium-core-api-js')", "require('atrium-core-api-js'), require('$atrium_api')")
+            .replace("(function (_, Kotlin,", "(function (_, Kotlin, \$module\$${atrium_api.replace('-', '_')},")
+            .replace("(module.exports, require('kotlin'),", "(module.exports, require('kotlin'), require('$atrium_api'),")
         srcFile.write(newContent, 'UTF-8')
     }
 }
