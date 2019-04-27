@@ -6,7 +6,7 @@ buildscript {
     def jsExampleProjects = subprojects.findAll { it.projectDir.parent.endsWith('examples/js') || it.projectDir.parent.endsWith('examples\\js')}
     ext {
         // main
-        kbox_version = '0.12.1'
+        kbox_version = '0.13.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.71'
         mockito_kotlin_version = '2.1.0'
