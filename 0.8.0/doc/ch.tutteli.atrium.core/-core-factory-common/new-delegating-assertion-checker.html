@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newDelegatingAssertionChecker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-delegating-assertion-checker.html">newDelegatingAssertionChecker</a><br/>
+<br/>
+<h1>newDelegatingAssertionChecker</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingAssertionChecker(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingAssertionChecker.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">newDelegatingAssertionChecker</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingAssertionChecker(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingAssertionChecker.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))))/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="new-delegating-assertion-checker.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/CoreFactory.kt#L240">(source)</a>
+<p>Creates an <a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a> which delegates the checking of <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s to the given <a href="new-delegating-assertion-checker.html#ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingAssertionChecker(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingAssertionChecker.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))))/subjectPlant">subjectPlant</a>
+by adding (see <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">AssertionPlant.addAssertion</a>) the assertions to the given <a href="new-delegating-assertion-checker.html#ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingAssertionChecker(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingAssertionChecker.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))))/subjectPlant">subjectPlant</a>.</p>
+<h3>Parameters</h3>
+<p><a name="subjectPlant"></a>
+<code>subjectPlant</code> - The assertion plant to which the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s will be <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">added</a>.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion checker.</p>
+</BODY>
+</HTML>

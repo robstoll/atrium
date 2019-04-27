@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterParameterObject.createChildWithNewPrefix - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AssertionFormatterParameterObject</a>&nbsp;/&nbsp;<a href="./create-child-with-new-prefix.html">createChildWithNewPrefix</a><br/>
+<br/>
+<h1>createChildWithNewPrefix</h1>
+<a name="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefix(kotlin.String)"></a>
+<code><span class="keyword">fun </span><span class="identifier">createChildWithNewPrefix</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefix(kotlin.String)/newPrefix">newPrefix</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">AssertionFormatterParameterObject</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AssertionFormatterParameterObject.kt#L41">(source)</a>
+<p>Creates an <a href="index.html">AssertionFormatterParameterObject</a> for kind of a child of the current parameter object using the given
+<a href="create-child-with-new-prefix.html#ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefix(kotlin.String)/newPrefix">newPrefix</a> (the child will typically be used to indent <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s one level more).</p>
+<p>Technically speaking it means that the child's <a href="#">indentLevel</a> is based on the current parameter object but increased
+by the current parameter object's <a href="prefix.html">prefix</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/length.html">length</a>.</p>
+<h3>Parameters</h3>
+<p><a name="newPrefix"></a>
+<code>newPrefix</code> - The new prefix to be used.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="index.html">AssertionFormatterParameterObject</a>.</p>
+</BODY>
+</HTML>

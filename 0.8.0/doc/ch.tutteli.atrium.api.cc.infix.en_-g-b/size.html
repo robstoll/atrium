@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>size - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.infix.en_GB</a>&nbsp;/&nbsp;<a href="./size.html">size</a><br/>
+<br/>
+<h1>size</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$size#ch.tutteli.atrium.creating.AssertionPlant((kotlin.collections.Collection((kotlin.Any))))"></a>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html"><span class="identifier">Collection</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">size</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/collectionAssertions.kt#L48">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for the <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">Assert.subject</a>'s property
+<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/size.html">size</a> so that further fluent calls are assertions about it.</p>
+<p>Wrap it into Kotlin's <a href="#">apply</a> if you want to make subsequent assertions on the current subject or use the overload
+which expects an assertionCreatorOrNull lambda where sub assertions are evaluated together (form an assertion group block).</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a>.</p>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$size(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.size.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.Int)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html"><span class="identifier">Collection</span></a><span class="symbol">&lt;</span><a href="size.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="size.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">size</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$size(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.size.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.Int)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="size.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/collectionAssertions.kt#L59">(source)</a>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">Assert.subject</a>'s property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/size.html">size</a>
+holds all assertions the given <a href="size.html#ch.tutteli.atrium.api.cc.infix.en_GB$size(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.size.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.Int)), kotlin.Unit)))/assertionCreator">assertionCreator</a> might create for it.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> if a created <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s (by calling <a href="size.html#ch.tutteli.atrium.api.cc.infix.en_GB$size(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.size.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.Int)), kotlin.Unit)))/assertionCreator">assertionCreator</a>)
+does not hold.</p>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the given <a href="size.html#ch.tutteli.atrium.api.cc.infix.en_GB$size(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.size.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.Int)), kotlin.Unit)))/assertionCreator">assertionCreator</a> did not create a single assertion.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

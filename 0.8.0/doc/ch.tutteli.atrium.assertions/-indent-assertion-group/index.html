@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IndentAssertionGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">IndentAssertionGroup</a><br/>
+<br/>
+<h1>IndentAssertionGroup</h1>
+<code><span class="keyword">class </span><s><span class="identifier">IndentAssertionGroup</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-empty-name-and-representation-assertion-group/index.html"><span class="identifier">EmptyNameAndRepresentationAssertionGroup</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/IndentAssertionGroup.kt#L13">(source)</a><br/>
+<strong>Deprecated:</strong> So far indentation was achieved by grouping (which is the solution to go). See AssertImpl.builder for different groups. Will be removed with 1.0.0<br/>
+<br/>
+<p>Represents an <a href="../-assertion-group/index.html">AssertionGroup</a> with a <a href="../-default-indent-assertion-group-type.html">DefaultIndentAssertionGroupType</a>, which means the <a href="../-empty-name-and-representation-assertion-group/assertions.html">assertions</a> shall be
+indented one extra level and <a href="../-empty-name-and-representation-assertion-group/description.html">description</a> and <a href="../-empty-name-and-representation-assertion-group/representation.html">representation</a> shall be neglected (not reported to the output).</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">IndentAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.IndentAssertionGroup$<init>(kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents an <a href="../-assertion-group/index.html">AssertionGroup</a> with a <a href="../-default-indent-assertion-group-type.html">DefaultIndentAssertionGroupType</a>, which means the <a href="../-empty-name-and-representation-assertion-group/assertions.html">assertions</a> shall
+be indented one extra level and <a href="../-empty-name-and-representation-assertion-group/description.html">description</a> and <a href="../-empty-name-and-representation-assertion-group/representation.html">representation</a> shall be neglected (not reported to the output).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/-e-m-p-t-y.html">Untranslatable.EMPTY</a> -- an empty string as <a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p><a href="../../ch.tutteli.atrium.reporting/-raw-string/-e-m-p-t-y.html">RawString.EMPTY</a> -- an empty string as <a href="../../ch.tutteli.atrium.reporting/-raw-string/index.html">RawString</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

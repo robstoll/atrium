@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Assertion - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">Assertion</a><br/>
+<br/>
+<h1>Assertion</h1>
+<code><span class="keyword">interface </span><span class="identifier">Assertion</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/Assertion.kt#L6">(source)</a>
+<p>The base interface of all assertions, providing the method <a href="holds.html">holds</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether the assertion holds or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assertion-group/index.html">AssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Assertion</span></a></code>
+<p>The base interface for <a href="./index.html">Assertion</a> groups, providing a default implementation for <a href="holds.html">Assertion.holds</a>
+which returns <code>true</code> if all its <a href="../-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-descriptive-assertion/index.html">DescriptiveAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Assertion</span></a></code>
+<p>The base interface for <a href="./index.html">Assertion</a>s which only consist of a <a href="../-descriptive-assertion/representation.html">representation</a> of an expected result
+with a complementary <a href="../-descriptive-assertion/description.html">description</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-explanatory-assertion/index.html">ExplanatoryAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Assertion</span></a></code>
+<p>Represents an <a href="./index.html">Assertion</a> which is typically used in an <a href="../-assertion-group/index.html">AssertionGroup</a> with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>
+and provides an <a href="../-explanatory-assertion/explanation.html">explanation</a> which is typically formatted by an <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a> in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

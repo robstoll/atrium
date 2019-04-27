@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnyTypeTransformation.FailureHandler - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.any.typetransformation</a>&nbsp;/&nbsp;<a href="../index.html">AnyTypeTransformation</a>&nbsp;/&nbsp;<a href="./index.html">FailureHandler</a><br/>
+<br/>
+<h1>FailureHandler</h1>
+<code><span class="keyword">interface </span><span class="identifier">FailureHandler</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/any/typetransformation/AnyTypeTransformation.kt#L54">(source)</a>
+<p>A handler which is responsible to create the <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of a failed type transformation.</p>
+<p>It is also responsible to decide how the lambda -- which could have created subsequent assertions for the
+transformed <a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> if the transformation of the <a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> to type <a href="index.html#T">T</a>
+did not fail -- should be used in reporting.</p>
+<h3>Parameters</h3>
+<p><a name="S"></a>
+<code>S</code> - The type of <a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a>.</p>
+<p><a name="T"></a>
+<code>T</code> - The target type to which <a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> should have been transformed to.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-and-add-assertion-to-plant.html">createAndAddAssertionToPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertionToPlant</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createAndAddAssertionToPlant(ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler.S, ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler.T)))/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-parameter-object/index.html"><span class="identifier">ParameterObject</span></a><span class="symbol">&lt;</span><a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Creates the failing assertion and adds it to the <a href="../-parameter-object/subject-plant.html">ParameterObject.subjectPlant</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-failing-assertion.html">createFailingAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createFailingAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createFailingAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createFailingAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Creates the failing <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> based on the given <a href="create-failing-assertion.html#ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createFailingAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/description">description</a> and <a href="create-failing-assertion.html#ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createFailingAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/representation">representation</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

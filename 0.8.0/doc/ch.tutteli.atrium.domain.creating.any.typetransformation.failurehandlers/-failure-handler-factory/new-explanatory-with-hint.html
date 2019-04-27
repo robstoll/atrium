@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FailureHandlerFactory.newExplanatoryWithHint - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers</a>&nbsp;/&nbsp;<a href="index.html">FailureHandlerFactory</a>&nbsp;/&nbsp;<a href="./new-explanatory-with-hint.html">newExplanatoryWithHint</a><br/>
+<br/>
+<h1>newExplanatoryWithHint</h1>
+<a name="ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory$newExplanatoryWithHint(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">newExplanatoryWithHint</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory$newExplanatoryWithHint(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/showHint">showHint</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory$newExplanatoryWithHint(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.any.typetransformation/-any-type-transformation/-failure-handler/index.html"><span class="identifier">FailureHandler</span></a><span class="symbol">&lt;</span><a href="new-explanatory-with-hint.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="new-explanatory-with-hint.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/any/typetransformation/failurehandlers/FailureHandlerFactory.kt#L41">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.domain.creating.any.typetransformation/-any-type-transformation/-failure-handler/index.html">AnyTypeTransformation.FailureHandler</a> which wraps subsequent assertions into an
+<a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> so that the user of Atrium can see in error reporting
+what one wanted to assert additionally -- moreover it includes a hint about the subject which shall only be shown
+if <a href="new-explanatory-with-hint.html#ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory$newExplanatoryWithHint(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/showHint">showHint</a> evaluates to <code>true</code> in which case the given <a href="new-explanatory-with-hint.html#ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory$newExplanatoryWithHint(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</a> should be used to create the hint.</p>
+<p>As an example, Atrium uses this failure handler internally to show the message of a thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> in case
+it is of a different type than the expected one.</p>
+<h3>Parameters</h3>
+<p><a name="showHint"></a>
+<code>showHint</code> - Indicates whether the failure hint shall be included or not</p>
+<p><a name="failureHintFactory"></a>
+<code>failureHintFactory</code> - Creates the failure hint.</p>
+</BODY>
+</HTML>

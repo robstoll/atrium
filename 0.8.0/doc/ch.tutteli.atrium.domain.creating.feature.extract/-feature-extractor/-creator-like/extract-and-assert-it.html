@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractor.CreatorLike.extractAndAssertIt - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.feature.extract</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractor</a>&nbsp;/&nbsp;<a href="index.html">CreatorLike</a>&nbsp;/&nbsp;<a href="./extract-and-assert-it.html">extractAndAssertIt</a><br/>
+<br/>
+<h1>extractAndAssertIt</h1>
+<a name="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">extractAndAssertIt</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="index.html#C"><span class="identifier">C</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/feature/extract/FeatureExtractor.kt#L129">(source)</a>
+<p>Extracts a feature with the help of the specified
+<a href="parameter-object.html">parameterObject</a>.<a href="../-parameter-object/feature-extraction.html">featureExtraction</a> if it
+<a href="parameter-object.html">parameterObject</a>.<a href="../-parameter-object/can-be-extracted.html">canBeExtracted</a> and uses the given <a href="extract-and-assert-it.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</a>
+to create feature assertions.</p>
+<p>In detail, it creates an <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of type <a href="../../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> and either uses the given
+<a href="extract-and-assert-it.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</a> to create assertions about the feature if
+<a href="parameter-object.html">parameterObject</a>.<a href="../-parameter-object/can-be-extracted.html">canBeExtracted</a> evaluates to <code>true</code> or
+<a href="extract-and-assert-it.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</a> is used to create explanatory assertions
+(in case <a href="parameter-object.html">parameterObject</a>.<a href="../-parameter-object/can-be-extracted.html">canBeExtracted</a> evaluates to <code>false</code>).</p>
+<p>Notice, if <a href="../../../ch.tutteli.atrium.creating/-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a> is thrown during the evaluation of
+<a href="parameter-object.html">parameterObject</a>.<a href="../-parameter-object/can-be-extracted.html">canBeExtracted</a>,
+then it is assumed reporting is taken place and it is already in the process of collecting assertions for
+explanation. In such a case <a href="extract-and-assert-it.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</a> is used to create assertions (not explanatory
+assertions within explanatory assertions).</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - A lambda which creates the <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s for the extracted feature.</p>
+<p><strong>Returns</strong><br/>
+The assertion representing the feature extraction.</p>
+</BODY>
+</HTML>

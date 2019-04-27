@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractor - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.feature.extract</a>&nbsp;/&nbsp;<a href="./index.html">FeatureExtractor</a><br/>
+<br/>
+<h1>FeatureExtractor</h1>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractor</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/feature/extract/FeatureExtractor.kt#L23">(source)</a>
+<p>Defines the contract for sophisticated <code>safe feature extractions</code> including assertion creation for the feature.</p>
+<p>It is similar to <a href="../../ch.tutteli.atrium.domain.creating/-feature-assertions/index.html">FeatureAssertions</a> but differs in the intended usage. <a href="../../ch.tutteli.atrium.domain.creating/-feature-assertions/index.html">FeatureAssertions</a> are intended to make
+assertions about a return value of a method call or a property, regardless if this call/access fails or not.
+The <a href="./index.html">FeatureExtractor</a> on the other hand should be used if it is already known, that the call/access fails depending
+on given arguments. For instance, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html">List.get</a> is a good example where it fails if the given index is out of bounds.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="identifier">TSubject</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-creator-like/index.html"><span class="identifier">CreatorLike</span></a><span class="symbol">&lt;</span><a href="-creator.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html"><span class="identifier">CollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Final step of the sophisticated <code>safe feature extraction</code> where one can define <a href="-creator-like/extract-and-assert-it.html">extractAndAssertIt</a>
+for the extracted feature or use <a href="-creator-like/extract.html">extract</a> to get a feature <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator-like/index.html">CreatorLike</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CreatorLike</span><span class="symbol">&lt;</span><span class="identifier">TSubject</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-creator-like/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator-like/index.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-collecting-assertion-plant/index.html"><span class="identifier">BaseCollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-creator-like/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator-like/index.html#A"><span class="identifier">A</span></a><span class="symbol">,</span>&nbsp;<a href="-creator-like/index.html#C"><span class="identifier">C</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Final step of the sophisticated <code>safe feature extraction</code> where one can define <a href="-creator-like/extract-and-assert-it.html">extractAndAssertIt</a>
+for the extracted feature or use <a href="-creator-like/extract.html">extract</a> to get the assertion plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator-nullable.html">CreatorNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CreatorNullable</span><span class="symbol">&lt;</span><span class="identifier">TSubject</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-creator-like/index.html"><span class="identifier">CreatorLike</span></a><span class="symbol">&lt;</span><a href="-creator-nullable.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="-creator-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-creator-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant-nullable.html"><span class="identifier">CollectingAssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-creator-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Final step of the sophisticated <code>safe feature extraction</code> where one can define <a href="-creator-like/extract-and-assert-it.html">extractAndAssertIt</a>
+for the extracted feature or use <a href="-creator-like/extract.html">extract</a> to get a feature <a href="../../ch.tutteli.atrium.creating/-assertion-plant-nullable.html">AssertionPlantNullable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-parameter-object/index.html">ParameterObject</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ParameterObject</span><span class="symbol">&lt;</span><span class="identifier">TSubject</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>A parameter object which contains all necessary information to extract a feature -- however, not to create
+assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-parameter-object-option/index.html">ParameterObjectOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ParameterObjectOption</span></code>
+<p>Step to define the <a href="-parameter-object/index.html">ParameterObject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-representation-option/index.html">RepresentationOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationOption</span></code>
+<p>Provides options to chose the representation of the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="builder.html">builder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">builder</span><span class="symbol">: </span><a href="-representation-option/index.html"><span class="identifier">RepresentationOption</span></a></code>
+<p>Entry point to use the feature extractor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

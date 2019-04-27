@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionBuilder.createDescriptive - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="index.html">AssertionBuilder</a>&nbsp;/&nbsp;<a href="./create-descriptive.html">createDescriptive</a><br/>
+<br/>
+<h1>createDescriptive</h1>
+<a name="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">createDescriptive</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/AssertionBuilder.kt#L99">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="create-descriptive.html#ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</a>, <a href="create-descriptive.html#ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/representation">representation</a> and <a href="create-descriptive.html#ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</a></p>
+<p>Shortcut for:</p>
+<pre><code>descriptive
+  .withTest(test)
+  .withDescriptionAndRepresentation(description, representation)
+  .build()
+</code></pre>
+<h3>Parameters</h3>
+<p><a name="description"></a>
+<code>description</code> - The description of the assertion, e.g. <code>to Be</code></p>
+<p><a name="representation"></a>
+<code>representation</code> - The representation of the expected outcome</p>
+<p><a name="test"></a>
+<code>test</code> - The test which checks whether the assertion holds</p>
+</BODY>
+</HTML>

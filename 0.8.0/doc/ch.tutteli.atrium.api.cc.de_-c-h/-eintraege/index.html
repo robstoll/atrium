@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Eintraege - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.cc.de_CH</a>&nbsp;/&nbsp;<a href="./index.html">Eintraege</a><br/>
+<br/>
+<h1>Eintraege</h1>
+<code><span class="keyword">class </span><span class="identifier">Eintraege</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.builders.utils/-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.builders.utils/-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.builders.utils/-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//apis/cc-de_CH/atrium-api-cc-de_CH-common/src/main/kotlin/ch/tutteli/atrium/api/cc/de_CH/parameterObjects.kt#L45">(source)</a>
+<p>Parameter object to express a <a href="../../ch.tutteli.atrium.domain.builders.utils/-group/index.html">Group</a> of identification lambdas.</p>
+<p>In case <code>null</code> is used for an identification lambda then it is expected that the corresponding entry
+is <code>null</code> as well.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreatorOrNull"></a>
+<code>assertionCreatorOrNull</code> - The identification lambda identifying the entry where an entry is considered
+to be identified if it holds all <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s the lambda might create or if it is <code>null</code> in case
+<a href="assertion-creator-or-null.html">assertionCreatorOrNull</a> is defined as <code>null</code>.</p>
+<p><a name="otherAssertionCreatorsOrNulls"></a>
+<code>otherAssertionCreatorsOrNulls</code> - A variable amount of additional identification lambdas or <code>null</code>s.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Eintraege</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH.Eintraege$<init>(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.Eintraege.T)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.Eintraege.T)), kotlin.Unit)))))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH.Eintraege$<init>(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.Eintraege.T)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.Eintraege.T)), kotlin.Unit)))))/otherAssertionCreatorsOrNulls">otherAssertionCreatorsOrNulls</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span></code>
+<p>Parameter object to express a <a href="../../ch.tutteli.atrium.domain.builders.utils/-group/index.html">Group</a> of identification lambdas.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-creator-or-null.html">assertionCreatorOrNull</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionCreatorOrNull</span><span class="symbol">: </span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>The identification lambda identifying the entry where an entry is considered
+to be identified if it holds all <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s the lambda might create or if it is <code>null</code> in case
+<a href="assertion-creator-or-null.html">assertionCreatorOrNull</a> is defined as <code>null</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="expected.html">expected</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">expected</span><span class="symbol">: </span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>The first argument in the argument list <code>T, vararg T</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="other-assertion-creators-or-nulls.html">otherAssertionCreatorsOrNulls</a></p>
+</td>
+<td>
+<code><span class="keyword">vararg</span> <span class="keyword">val </span><span class="identifier">otherAssertionCreatorsOrNulls</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span></code>
+<p>A variable amount of additional identification lambdas or <code>null</code>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="other-expected.html">otherExpected</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">otherExpected</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span></code>
+<p>The second argument in the argument list <code>T, vararg T</code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.utils/-var-arg-helper/map-arguments.html">mapArguments</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">mapArguments</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html"><span class="identifier">ArgumentMapperBuilder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.domain.builders.utils/-var-arg-helper/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html">ArgumentMapperBuilder</a> which allows to map <a href="../../ch.tutteli.atrium.domain.builders.utils/-var-arg-helper/expected.html">expected</a> and <a href="../../ch.tutteli.atrium.domain.builders.utils/-var-arg-helper/other-expected.html">otherExpected</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="to-list.html">toList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the members of the group as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

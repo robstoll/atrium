@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExactlyCheckerOption - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders</a>&nbsp;/&nbsp;<a href="./-exactly-checker-option.html">ExactlyCheckerOption</a><br/>
+<br/>
+<h1>ExactlyCheckerOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExactlyCheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="-exactly-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-exactly-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//apis/cc-de_CH/atrium-api-cc-de_CH-common/src/main/kotlin/ch/tutteli/atrium/api/cc/de_CH/creating/charsequence/contains/builders/ExactlyCheckerOption.kt#L12">(source)</a>
+<p>Represents the extension point for another option after a <code>contains exactly</code>-check within
+a sophisticated <code>contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The input type of the search.</p>
+<p><a name="S"></a>
+<code>S</code> - The search behaviour which should be applied for the input of the search.</p>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html">addAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains$addAssertion(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion.T, ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion.S)), ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Helper method to simplify adding assertions to the plant which itself is stored in
+<a href="../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker-option/contains-builder.html">CharSequenceContains.CheckerOption.containsBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DeprecationTestEngine - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.spec</a>&nbsp;/&nbsp;<a href="./index.html">DeprecationTestEngine</a><br/>
+<br/>
+<h1>DeprecationTestEngine</h1>
+<code><span class="keyword">class </span><span class="identifier">DeprecationTestEngine</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//misc/atrium-bc-test/src/main/kotlin/ch/tutteli/atrium/spec/DeprecationTestEngine.kt#L25">(source)</a>
+<p>Represents a <a href="#">TestEngine</a> (id 'spek-deprecation') which uses the <a href="#">SpekTestEngine</a> but allows to define tests
+which shall be converted to <a href="../-forgiving-test/index.html">ForgivingTest</a>s.</p>
+<p>Which tests shall be forgivable can be defined with the custom config property <code>forgive</code> and a regular expression
+matches desired <a href="#">UniqueId</a>s. For instance:</p>
+<p><code>forgive=.*\.Iterable\..*</code></p>
+<p>Turns all tests containing <code>.Iterable.</code> in their <a href="#">UniqueId</a> into a <a href="../-forgiving-test/index.html">ForgivingTest</a>.</p>
+<p>Moreover, the engine fails if no tests were discovered or if an error occurs during discovery.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DeprecationTestEngine</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Represents a <a href="#">TestEngine</a> (id 'spek-deprecation') which uses the <a href="#">SpekTestEngine</a> but allows to define tests
+which shall be converted to <a href="../-forgiving-test/index.html">ForgivingTest</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="discover.html">discover</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">discover</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.spec.DeprecationTestEngine$discover(, )/discoveryRequest">discoveryRequest</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.spec.DeprecationTestEngine$discover(, )/uniqueId">uniqueId</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="execute.html">execute</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">execute</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.spec.DeprecationTestEngine$execute()/request">request</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-id.html">getId</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getId</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

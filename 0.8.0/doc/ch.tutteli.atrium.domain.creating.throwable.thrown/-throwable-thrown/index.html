@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ThrowableThrown - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.throwable.thrown</a>&nbsp;/&nbsp;<a href="./index.html">ThrowableThrown</a><br/>
+<br/>
+<h1>ThrowableThrown</h1>
+<code><span class="keyword">interface </span><span class="identifier">ThrowableThrown</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/throwable/thrown/ThrowableThrown.kt#L24">(source)</a>
+<p>Defines the contract for sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> builders.
+as well as the minimum set of assertions an implementation of the domain of Atrium has to provide.</p>
+<p>The building process is typically started by the creation of a <a href="-builder/index.html">Builder</a>,
+would allow to define an <a href="-absent-throwable-message-provider/index.html">AbsentThrowableMessageProvider</a> as well as an <a href="../../ch.tutteli.atrium.domain.creating.any.typetransformation/-any-type-transformation/-failure-handler/index.html">AnyTypeTransformation.FailureHandler</a>
+(currently all <a href="../../ch.tutteli.atrium.domain.creating.throwable.thrown.creators/-throwable-thrown-assertions/index.html">ThrowableThrownAssertions</a> specify it implicitly) and
+is finalized by one of the <a href="../../ch.tutteli.atrium.domain.creating.throwable.thrown.creators/-throwable-thrown-assertions/index.html">ThrowableThrownAssertions</a> which usually use a <a href="-creator/index.html">Creator</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-absent-throwable-message-provider/index.html">AbsentThrowableMessageProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AbsentThrowableMessageProvider</span></code>
+<p>Provides a message which can be used in reporting to represent the case that no <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> at all was thrown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Builder</span></code>
+<p>The entry point of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> <code>thrown</code> contract.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator/index.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown assertion builder which creates
+the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> as such.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

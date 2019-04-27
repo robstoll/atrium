@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newMethodCallFormatter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-method-call-formatter.html">newMethodCallFormatter</a><br/>
+<br/>
+<h1>newMethodCallFormatter</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newMethodCallFormatter()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">newMethodCallFormatter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-method-call-formatter/index.html"><span class="identifier">MethodCallFormatter</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/CoreFactory.kt#L252">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.reporting/-method-call-formatter/index.html">MethodCallFormatter</a> which represents arguments of a method call by using their <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/to-string.html">Any.toString</a>
+representation with the exception of:</p>
+<ul><li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, is wrapped in quotes (<code>"</code>) and line breaks (CR or/and LF) are escaped so that the
+whole representation remains on one line.</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> is wrapped in apostrophes (<code>'</code>)</li>
+</ul>
+<p><strong>Return</strong><br/>
+The newly created method call formatter.</p>
+</BODY>
+</HTML>

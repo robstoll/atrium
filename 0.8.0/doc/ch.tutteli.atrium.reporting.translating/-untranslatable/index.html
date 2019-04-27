@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Untranslatable - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="./index.html">Untranslatable</a><br/>
+<br/>
+<h1>Untranslatable</h1>
+<code><span class="keyword">class </span><span class="identifier">Untranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-translatable/index.html"><span class="identifier">Translatable</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/Untranslatable.kt#L12">(source)</a>
+<p>Represents a <a href="../-translatable/index.html">Translatable</a> which is not translatable but has only a fixed <a href="name.html">name</a> which serves as <a href="get-default.html">getDefault</a>.</p>
+<p>Use this class to represent identifiers (method/property names etc.) and the like.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Untranslatable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Untranslatable$<init>(kotlin.CharSequence)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span></code>
+<p>Use this overload if the creation of the representation is cheap -- use the other overload with the
+lambda instead, if the creation of the representation is expensive.</p>
+<code><span class="identifier">Untranslatable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Untranslatable$<init>(kotlin.Function0((kotlin.String)))/representation">representation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Use this overload if the creation of the representation is expensive.
+If it is cheap, then you might want to use the other overload with <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> as parameter type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of this <a href="../-translatable/index.html">Translatable</a> -- the name together with its <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a> should
+identify a <a href="../-translatable/index.html">Translatable</a> (see <a href="../-translatable/id.html">id</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-translatable/id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The id of this <a href="../-translatable/index.html">Translatable</a> -- per default it is
+"<a href="../../ch.tutteli.atrium.core.polyfills/kotlin.reflect.-k-class/full-name.html">KClass.fullName</a> <a href="../-translatable/name.html">ID_SEPARATOR</a>" without the spaces.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-default.html">getDefault</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDefault</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the default representation of this <a href="../-translatable/index.html">Translatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-e-m-p-t-y.html">EMPTY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">EMPTY</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Untranslatable</span></a></code>
+<p>An empty string as <a href="./index.html">Untranslatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

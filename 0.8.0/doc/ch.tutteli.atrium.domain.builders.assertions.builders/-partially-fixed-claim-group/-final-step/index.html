@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PartiallyFixedClaimGroup.FinalStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">PartiallyFixedClaimGroup</a>&nbsp;/&nbsp;<a href="./index.html">FinalStep</a><br/>
+<br/>
+<h1>FinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.builders/-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/assertions/builders/partiallyFixedClaimGroup.kt#L49">(source)</a>
+<p>Final step which creates an <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is a logic AND operation composed by
+<a href="pre-transformation-holds.html">preTransformationHolds</a> and its <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="pre-transformation-holds.html">preTransformationHolds</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">preTransformationHolds</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>The previously defined state of the pre-transformation (if it holds or not).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders/-basic-assertion-group-final-step/assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders/-basic-assertion-group-final-step/description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders/-basic-assertion-group-final-step/group-type.html">groupType</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">groupType</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders/-basic-assertion-group-final-step/representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.PartiallyFixedClaimGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/groupType">groupType</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.PartiallyFixedClaimGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.PartiallyFixedClaimGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.PartiallyFixedClaimGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.PartiallyFixedClaimGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/holds">holds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">FinalStep</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

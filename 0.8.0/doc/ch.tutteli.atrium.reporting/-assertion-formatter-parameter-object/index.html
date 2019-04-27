@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterParameterObject - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">AssertionFormatterParameterObject</a><br/>
+<br/>
+<h1>AssertionFormatterParameterObject</h1>
+<code><span class="keyword">class </span><span class="identifier">AssertionFormatterParameterObject</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AssertionFormatterParameterObject.kt#L22">(source)</a>
+<p>A parameter object used for interactions between <a href="../-assertion-formatter-controller/index.html">AssertionFormatterController</a> and <a href="../-assertion-formatter/index.html">AssertionFormatter</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-filter.html">assertionFilter</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionFilter</span><span class="symbol">: </span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Can be used used to filter out <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which should not be formatted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="prefix.html">prefix</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">prefix</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The current prefix per assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="sb.html">sb</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">sb</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html"><span class="identifier">StringBuilder</span></a></code>
+<p>The <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html">StringBuilder</a> to which the formatted <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> will be appended.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="append-ln-and-indent.html">appendLnAndIndent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">appendLnAndIndent</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Appends a new line (system separator), spaces equal to the number of <a href="#">indentLevel</a> and the <a href="prefix.html">prefix</a> to <a href="sb.html">sb</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="append-ln-indent-and-prefix.html">appendLnIndentAndPrefix</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">appendLnIndentAndPrefix</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Appends a new line (system separator), spaces equal to the number of <a href="#">indentLevel</a> and the <a href="prefix.html">prefix</a> to <a href="sb.html">sb</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-child-with-new-prefix.html">createChildWithNewPrefix</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createChildWithNewPrefix</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefix(kotlin.String)/newPrefix">newPrefix</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AssertionFormatterParameterObject</span></a></code>
+<p>Creates an <a href="./index.html">AssertionFormatterParameterObject</a> for kind of a child of the current parameter object using the given
+<a href="create-child-with-new-prefix.html#ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefix(kotlin.String)/newPrefix">newPrefix</a> (the child will typically be used to indent <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s one level more).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-child-with-new-prefix-and-additional-indent.html">createChildWithNewPrefixAndAdditionalIndent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createChildWithNewPrefixAndAdditionalIndent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/newPrefix">newPrefix</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/additionalIndent">additionalIndent</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AssertionFormatterParameterObject</span></a></code>
+<p>Creates an <a href="./index.html">AssertionFormatterParameterObject</a> for kind of a child of the current parameter object using the given
+<a href="create-child-with-new-prefix-and-additional-indent.html#ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/newPrefix">newPrefix</a> and an <a href="create-child-with-new-prefix-and-additional-indent.html#ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/additionalIndent">additionalIndent</a> (the child will typically be used to indent <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s one level more).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-for-do-not-filter-assertion-group.html">createForDoNotFilterAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createForDoNotFilterAssertionGroup</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AssertionFormatterParameterObject</span></a></code>
+<p>Clones the current <a href="./index.html">AssertionFormatterParameterObject</a> and increases <a href="#">numberOfDoNotFilterGroups</a> by one because
+it is assumed that the resulting parameter object is used to format an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of
+type <a href="../../ch.tutteli.atrium.assertions/-do-not-filter-assertion-group-type.html">DoNotFilterAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="indent.html">indent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">indent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$indent(kotlin.Int)/numberOfSpaces">numberOfSpaces</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Appends spaces equal to <a href="indent.html#ch.tutteli.atrium.reporting.AssertionFormatterParameterObject$indent(kotlin.Int)/numberOfSpaces">numberOfSpaces</a> to <a href="sb.html">sb</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-not-in-do-not-filter-group.html">isNotInDoNotFilterGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isNotInDoNotFilterGroup</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates that the formatting process is currently not formatting the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s (or any nested assertion)
+of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of type <a href="../../ch.tutteli.atrium.assertions/-do-not-filter-assertion-group-type.html">DoNotFilterAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="new.html">new</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">new</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject.Companion$new(java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Boolean)))/sb">sb</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html"><span class="identifier">StringBuilder</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterParameterObject.Companion$new(java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Boolean)))/assertionFilter">assertionFilter</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AssertionFormatterParameterObject</span></a></code>
+<p>Creates a new <a href="./index.html">AssertionFormatterParameterObject</a>, one without a <a href="prefix.html">prefix</a> and with <a href="#">indentLevel</a> = 0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

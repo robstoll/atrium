@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Reporter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">Reporter</a><br/>
+<br/>
+<h1>Reporter</h1>
+<code><span class="keyword">interface </span><span class="identifier">Reporter</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/Reporter.kt#L9">(source)</a>
+<p>Represents a reporter which reports about <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="atrium-error-adjuster.html">atriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">atriumErrorAdjuster</span><span class="symbol">: </span><a href="../-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format.html">format</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/sb">sb</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html"><span class="identifier">StringBuilder</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Reports about the given <a href="format.html#ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/assertion">assertion</a>, using the given <a href="format.html#ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/sb">sb</a> where the actual
+implementation will decide whether the given <a href="format.html#ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/assertion">assertion</a> is noteworthy to be reported.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

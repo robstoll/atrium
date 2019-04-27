@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumError - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">AtriumError</a><br/>
+<br/>
+<h1>AtriumError</h1>
+<code><span class="keyword">expect</span> <span class="keyword">class </span><span class="identifier">AtriumError</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html"><span class="identifier">AssertionError</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AtriumError.kt#L14">(source)</a>
+<p>Indicates that an assertion made by Atrium failed.</p>
+<p>Its stack trace (<code>stackTrace</code> in JVM, <code>stack</code> in JS) might be filtered so that reporting does not include
+all stack frames. This depends on the chosen <a href="../-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> - so theoretically more than the stack trace
+could be adjusted or nothing at all.</p>
+<p>To create such an error you need to use the <a href="create.html">Companion.create</a> function.</p>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AtriumError.Companion$create(kotlin.String, ch.tutteli.atrium.reporting.AtriumErrorAdjuster)/message">message</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AtriumError.Companion$create(kotlin.String, ch.tutteli.atrium.reporting.AtriumErrorAdjuster)/atriumErrorAdjuster">atriumErrorAdjuster</span><span class="symbol">:</span>&nbsp;<a href="../-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AtriumError</span></a></code>
+<p>Creates an <a href="./index.html">AtriumError</a> and adjusts it with the given <a href="create.html#ch.tutteli.atrium.reporting.AtriumError.Companion$create(kotlin.String, ch.tutteli.atrium.reporting.AtriumErrorAdjuster)/atriumErrorAdjuster">atriumErrorAdjuster</a> before it is returned.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

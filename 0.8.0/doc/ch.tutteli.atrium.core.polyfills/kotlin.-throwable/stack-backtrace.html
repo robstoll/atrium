@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>stackBacktrace - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core.polyfills</a>&nbsp;/&nbsp;<a href="index.html">kotlin.Throwable</a>&nbsp;/&nbsp;<a href="./stack-backtrace.html">stackBacktrace</a><br/>
+<br/>
+<h1>stackBacktrace</h1>
+<a name="ch.tutteli.atrium.core.polyfills$stackBacktrace#kotlin.Throwable"></a>
+<code><span class="keyword">expect</span> <span class="keyword">val </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">.</span><span class="identifier">stackBacktrace</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/polyfills/throwableExtensions.kt#L12">(source)</a>
+<p>Returns the stack trace of the given <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>s representing the different lines.</p>
+<p>Notice that there is no specification defining how lines are represented (formatted) and whether they contain
+a line number and/or a column number. This is platform specific.</p>
+<p>Please open a feature request if you would like to rely on a specified representation:
+https://github.com/robstoll/atrium/issues/new?template=feature_request.md</p>
+</BODY>
+</HTML>

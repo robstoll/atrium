@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumErrorAdjusterCommon.adjust - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AtriumErrorAdjusterCommon</a>&nbsp;/&nbsp;<a href="./adjust.html">adjust</a><br/>
+<br/>
+<h1>adjust</h1>
+<a name="ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">adjust</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)/throwable">throwable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AtriumErrorAdjuster.kt#L25">(source)</a>
+<p>Adjusts the given <a href="adjust.html#ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)/throwable">throwable</a> -  typically this involves filtering the stack trace
+(<code>stackTrace</code> in JVM, <code>stack</code> in JS) in some way or another as well as the stack traces of a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/cause.html">Throwable.cause</a>
+and other stack traces (e.g. stack traces of suppressed throwable in JVM).</p>
+<p>Usually the given <a href="adjust.html#ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)/throwable">throwable</a> is an <a href="../-atrium-error/index.html">AtriumError</a> but an arbitrary Throwable can be passed</p>
+</BODY>
+</HTML>

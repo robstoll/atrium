@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterController - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">AssertionFormatterController</a><br/>
+<br/>
+<h1>AssertionFormatterController</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterController</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AssertionFormatterController.kt#L12">(source)</a>
+<p>Responsible to control the flow of reporting using <a href="register.html">register</a>ed <a href="../-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format.html">format</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Finds a suitable <a href="../-assertion-formatter/index.html">AssertionFormatter</a> -- which was previously <a href="register.html">register</a>ed -- for the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> and
+formats it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-explanatory-assertion-group.html">isExplanatoryAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isExplanatoryAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$isExplanatoryAssertionGroup(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Checks whether the given <a href="is-explanatory-assertion-group.html#ch.tutteli.atrium.reporting.AssertionFormatterController$isExplanatoryAssertionGroup(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> and if its <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a>
+is an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="register.html">register</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">register</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$register(ch.tutteli.atrium.reporting.AssertionFormatter)/assertionFormatter">assertionFormatter</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Registers the given <a href="register.html#ch.tutteli.atrium.reporting.AssertionFormatterController$register(ch.tutteli.atrium.reporting.AssertionFormatter)/assertionFormatter">assertionFormatter</a>, which means it will be considered when an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>
+shall be <a href="format.html">format</a>ted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="no-suitable-assertion-formatter-found.html">noSuitableAssertionFormatterFound</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">noSuitableAssertionFormatterFound</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController.Companion$noSuitableAssertionFormatterFound(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a></code>
+<p>Throws an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/UnsupportedOperationException.html">UnsupportedOperationException</a> stating that no suitable <a href="../-assertion-formatter/index.html">AssertionFormatter</a> was found for the
+given <a href="no-suitable-assertion-formatter-found.html#ch.tutteli.atrium.reporting.AssertionFormatterController.Companion$noSuitableAssertionFormatterFound(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

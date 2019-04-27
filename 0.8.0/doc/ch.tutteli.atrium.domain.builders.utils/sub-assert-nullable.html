@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>subAssertNullable - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.domain.builders.utils</a>&nbsp;/&nbsp;<a href="./sub-assert-nullable.html">subAssertNullable</a><br/>
+<br/>
+<h1>subAssertNullable</h1>
+<a name="ch.tutteli.atrium.domain.builders.utils$subAssertNullable(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.domain.builders.utils.subAssertNullable.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">subAssertNullable</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.utils$subAssertNullable(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.domain.builders.utils.subAssertNullable.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="sub-assert-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="sub-assert-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/subAssert.kt#L36">(source)</a>
+<p>Helper function to create an <a href="../ch.tutteli.atrium.creating/-assertion-plant-nullable.html">AssertionPlantNullable</a> lambda with receiver;
+helps to circumvent Kotlin type inference bugs involving lambdas.</p>
+<p>Following a few examples of bugs (you might want to vote if you encounter the same):</p>
+<ul><li>https://youtrack.jetbrains.com/issue/KT-24230</li>
+<li>https://youtrack.jetbrains.com/issue/KT-23883</li>
+<li>and probably more</li>
+</ul>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - Your assertion creator lambda.</p>
+<p><strong>Return</strong><br/>
+your passed lambda.</p>
+</BODY>
+</HTML>

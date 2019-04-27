@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAtriumFactory.newTextFallbackAssertionFormatter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">IAtriumFactory</a>&nbsp;/&nbsp;<a href="./new-text-fallback-assertion-formatter.html">newTextFallbackAssertionFormatter</a><br/>
+<br/>
+<h1>newTextFallbackAssertionFormatter</h1>
+<a name="ch.tutteli.atrium.IAtriumFactory$newTextFallbackAssertionFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">newTextFallbackAssertionFormatter</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTextFallbackAssertionFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/bulletPoints">bulletPoints</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTextFallbackAssertionFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/assertionFormatterController">assertionFormatterController</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTextFallbackAssertionFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/objectFormatter">objectFormatter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html"><span class="identifier">ObjectFormatter</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTextFallbackAssertionFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/atrium-core-api-deprecated/src/main/kotlin/ch/tutteli/atrium/IAtriumFactory.kt#L462">(source)</a><br/>
+<strong>Deprecated:</strong> Use AssertImpl.coreFactory instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which is intended for text output (e.g. for the console) and serves as
+fallback if no other formatter is able to format a given <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+<p>Typically this includes the formatting of the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-root-assertion-group-type.html">RootAssertionGroupType</a>.</p>
+<h3>Parameters</h3>
+<p><a name="bulletPoints"></a>
+<code>bulletPoints</code> - The bullet points used in reporting; will typically use the bullet point registered
+for <a href="../../ch.tutteli.atrium.assertions/-root-assertion-group-type.html">RootAssertionGroupType</a> as prefix for each <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> in <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+<p><a name="assertionFormatterController"></a>
+<code>assertionFormatterController</code> - The controller used to steer the flow of the reporting.</p>
+<p><a name="objectFormatter"></a>
+<code>objectFormatter</code> - The formatter which is used to format objects other than <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<p><a name="translator"></a>
+<code>translator</code> - The translator which is used to translate <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> such as <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion formatter.</p>
+</BODY>
+</HTML>

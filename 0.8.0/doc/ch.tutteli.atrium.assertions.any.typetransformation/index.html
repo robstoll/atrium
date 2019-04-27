@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.assertions.any.typetransformation - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.assertions.any.typetransformation</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.assertions.any.typetransformation</h2>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>, will all be removed with 1.0.0</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-any-type-transformation/index.html">AnyTypeTransformation</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">AnyTypeTransformation</span></s></code>
+<p>Defines the contract for sophisticated narrowing assertion builders.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-down-caster/index.html">DownCaster</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">DownCaster</span></s><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-down-caster/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Helps to make an assertion about the <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">BaseAssertionPlant.subject</a>, that it is of type <a href="-down-caster/index.html#T">T</a> and can be
+down-casted to type <a href="-down-caster/index.html#TSub">TSub</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-type-transformation-failure-handler/index.html">ExplanatoryTypeTransformationFailureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">ExplanatoryTypeTransformationFailureHandler</span></s><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-explanatory-type-transformation-failure-handler/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-any-type-transformation/-type-transformation-failure-handler/index.html"><span class="identifier">TypeTransformationFailureHandler</span></a><span class="symbol">&lt;</span><a href="-explanatory-type-transformation-failure-handler/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-explanatory-type-transformation-failure-handler/index.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-any-type-transformation/-type-transformation-failure-handler/index.html">AnyTypeTransformation.TypeTransformationFailureHandler</a> which wraps subsequent assertions into an
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-type-transformer/index.html">TypeTransformer</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">TypeTransformer</span></s><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>Deprecated, use AnyTypeTransformerAssertions.transformType; will be removed with 1.0.0</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

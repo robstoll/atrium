@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DeprecationTestEngine.<init> - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.spec</a>&nbsp;/&nbsp;<a href="index.html">DeprecationTestEngine</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="ch.tutteli.atrium.spec.DeprecationTestEngine$&lt;init&gt;()"></a>
+<code><span class="identifier">DeprecationTestEngine</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Represents a <a href="#">TestEngine</a> (id 'spek-deprecation') which uses the <a href="#">SpekTestEngine</a> but allows to define tests
+which shall be converted to <a href="../-forgiving-test/index.html">ForgivingTest</a>s.</p>
+<p>Which tests shall be forgivable can be defined with the custom config property <code>forgive</code> and a regular expression
+matches desired <a href="#">UniqueId</a>s. For instance:</p>
+<p><code>forgive=.*\.Iterable\..*</code></p>
+<p>Turns all tests containing <code>.Iterable.</code> in their <a href="#">UniqueId</a> into a <a href="../-forgiving-test/index.html">ForgivingTest</a>.</p>
+<p>Moreover, the engine fails if no tests were discovered or if an error occurs during discovery.</p>
+</BODY>
+</HTML>

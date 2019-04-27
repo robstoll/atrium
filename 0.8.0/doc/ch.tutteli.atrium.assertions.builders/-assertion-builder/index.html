@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">AssertionBuilder</a><br/>
+<br/>
+<h1>AssertionBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionBuilder</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/AssertionBuilder.kt#L23">(source)</a>
+<p>Represents a builder which creates <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="descriptive.html">descriptive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">descriptive</span><span class="symbol">: </span><a href="../-descriptive/-holds-option/index.html"><span class="identifier">HoldsOption</span></a></code>
+<p>Builder to create a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> -- use it to create a simple assertion consisting of a
+<a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a> (such as <code>is less than</code>) and a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/representation.html">DescriptiveAssertion.representation</a>
+(which most of time corresponds to the expected value).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="explanatory.html">explanatory</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">explanatory</span><span class="symbol">: </span><a href="../-explanatory/-explanation-option/index.html"><span class="identifier">ExplanationOption</span></a></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ExplanatoryAssertion</a> -- use it to explain something which is typically formatted by an
+<a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="explanatory-group.html">explanatoryGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">explanatoryGroup</span><span class="symbol">: </span><a href="../-explanatory-assertion-group-type-option/index.html"><span class="identifier">ExplanatoryAssertionGroupTypeOption</span></a></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> -- such a group is always shown in
+reporting (a <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> has to neglect whether the <a href="../../ch.tutteli.atrium.assertions/-assertion/holds.html">Assertion.holds</a> or not). Use it to provide explanations.
+It is inter alia used in <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> <code>contains entries</code> assertions to describe the identification lambda you used.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="feature.html">feature</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">feature</span><span class="symbol">: </span><a href="../-default-assertion-group-builder-options.html"><span class="identifier">DefaultAssertionGroupBuilderOptions</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html"><span class="identifier">FeatureAssertionGroupType</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> -- use it if you want to make an
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> about a feature of the subject.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="list.html">list</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">list</span><span class="symbol">: </span><a href="../-default-assertion-group-builder-options.html"><span class="identifier">DefaultAssertionGroupBuilderOptions</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-list-assertion-group-type.html"><span class="identifier">ListAssertionGroupType</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-list-assertion-group-type.html">ListAssertionGroupType</a> -- kind of the default type
+for <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s, if you do not know what to choose, this is probably the best fit for you.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="summary.html">summary</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">summary</span><span class="symbol">: </span><a href="../-assertion-group-description-and-empty-representation-option/index.html"><span class="identifier">AssertionGroupDescriptionAndEmptyRepresentationOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="../-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="../-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a> -- use it if it is essential that also
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which hold are shown to a user in error reporting. This kind is inter alia used for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>
+<code>contains.inAnyOrder.only</code> assertions where it quickly gets confusing if you do not see the assertions which
+hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-descriptive.html">createDescriptive</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">createDescriptive</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="create-descriptive.html#ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</a>, <a href="create-descriptive.html#ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/representation">representation</a> and <a href="create-descriptive.html#ch.tutteli.atrium.assertions.builders.AssertionBuilder$createDescriptive(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="custom-type.html">customType</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span> <span class="identifier">customType</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionBuilder$customType(ch.tutteli.atrium.assertions.builders.AssertionBuilder.customType.T)/groupType">groupType</span><span class="symbol">:</span>&nbsp;<a href="custom-type.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-default-assertion-group-builder-options.html"><span class="identifier">DefaultAssertionGroupBuilderOptions</span></a><span class="symbol">&lt;</span><a href="custom-type.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create a basic <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a custom <a href="../../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/fixed-claim-group.html">fixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">fixedClaimGroup</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/-fixed-claim-group/-group-type-option/index.html"><span class="identifier">GroupTypeOption</span></a></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is fixed (not determined based on its
+<a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../invisible-group.html">invisibleGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">invisibleGroup</span><span class="symbol">: </span><a href="../-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html"><span class="identifier">InvisibleAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="../-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a> -- use it only if you have several
+independent <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which should be evaluated together.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/partially-fixed-claim-group.html">partiallyFixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">partiallyFixedClaimGroup</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/-partially-fixed-claim-group/-group-type-option/index.html"><span class="identifier">GroupTypeOption</span></a></code>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is a logic AND operation composed by a fixed
+part and its <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../root.html">root</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">root</span><span class="symbol">: </span><a href="../-default-assertion-group-builder-options.html"><span class="identifier">DefaultAssertionGroupBuilderOptions</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-root-assertion-group-type.html"><span class="identifier">RootAssertionGroupType</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create the root <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> -- do not use it in assertion functions; this group should only be
+created by <a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

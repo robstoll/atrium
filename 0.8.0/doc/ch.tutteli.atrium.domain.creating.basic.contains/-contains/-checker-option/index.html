@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Contains.CheckerOption - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.basic.contains</a>&nbsp;/&nbsp;<a href="../index.html">Contains</a>&nbsp;/&nbsp;<a href="./index.html">CheckerOption</a><br/>
+<br/>
+<h1>CheckerOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">CheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour/index.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-checker/index.html"><span class="identifier">Checker</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-builder/index.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/basic/contains/Contains.kt#L41">(source)</a>
+<p>The step of choosing/defining <a href="../-checker/index.html">Checker</a>s.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="checkers.html">checkers</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">checkers</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="index.html#C"><span class="identifier">C</span></a><span class="symbol">&gt;</span></code>
+<p>Contains all <a href="../-checker/index.html">Checker</a>s which should be applied to the search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="contains-builder.html">containsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">containsBuilder</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code>
+<p>The previously chosen <a href="../-builder/index.html">Builder</a>, containing inter alia the <a href="../../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> to which the resulting
+<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be added.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html">CheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">Checker</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-builder.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html">Checker</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html">CheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">E</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker.html"><span class="identifier">Checker</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-builder.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker.html">Checker</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html">ContainsCheckerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">ContainsCheckerBuilder</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour/index.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-checker/index.html"><span class="identifier">Checker</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-builder/index.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html#C"><span class="identifier">C</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder.html#B"><span class="identifier">B</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the <em>deprecated</em> base class for builders representing a checking step in the process of building a sophisticated
+<code>contains</code> assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

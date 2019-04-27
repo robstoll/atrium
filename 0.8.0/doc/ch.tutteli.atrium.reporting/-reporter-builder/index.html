@@ -1,0 +1,169 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReporterBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">ReporterBuilder</a><br/>
+<br/>
+<h1>ReporterBuilder</h1>
+<code><span class="keyword">class </span><s><span class="identifier">ReporterBuilder</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/atrium-domain-api-deprecated/src/main/kotlin/ch/tutteli/atrium/reporting/ReporterBuilder.kt#L14">(source)</a><br/>
+<strong>Deprecated:</strong> Use the builder from package domain.builders.reporting; will be removed with 1.0.0<br/>
+<br/>
+<p>The <em>deprecated</em> builder to create a <a href="../-reporter/index.html">Reporter</a> consisting of several components.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-formatter-chosen-options/index.html">AssertionFormatterChosenOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">AssertionFormatterChosenOptions</span></s></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-controller-options/index.html">AssertionFormatterControllerOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">AssertionFormatterControllerOptions</span></s></code>
+<p>Provides options to create an <a href="../-assertion-formatter-controller/index.html">AssertionFormatterController</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-facade-options/index.html">AssertionFormatterFacadeOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">AssertionFormatterFacadeOptions</span></s></code>
+<p>Provides options to create an <a href="../-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-pair-formatter-options/index.html">AssertionPairFormatterOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">AssertionPairFormatterOptions</span></s></code>
+<p>Provides options to create an <a href="../-assertion-pair-formatter/index.html">AssertionPairFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-locale-order-decider-options/index.html">LocaleOrderDeciderOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">LocaleOrderDeciderOptions</span></s></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-object-formatter-options/index.html">ObjectFormatterOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">ObjectFormatterOptions</span></s></code>
+<p>Provides options to create an <a href="../-object-formatter/index.html">ObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-assertion-formatter-options/index.html">TextAssertionFormatterOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">TextAssertionFormatterOptions</span></s></code>
+<p>Provides options to register <a href="../-assertion-formatter/index.html">AssertionFormatter</a>s to the chosen <a href="../-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-translator-options/index.html">TranslatorOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">TranslatorOptions</span></s></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ReporterBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder$<init>(ch.tutteli.atrium.reporting.AssertionFormatterFacade)/assertionFormatterFacade">assertionFormatterFacade</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">)</span></code>
+<p>The <em>deprecated</em> builder to create a <a href="../-reporter/index.html">Reporter</a> consisting of several components.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build-custom-reporter.html">buildCustomReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">buildCustomReporter</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder$buildCustomReporter(kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.Reporter)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-reporter/index.html"><span class="identifier">Reporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter/index.html"><span class="identifier">Reporter</span></a></code>
+<p>Uses the given <a href="build-custom-reporter.html#ch.tutteli.atrium.reporting.ReporterBuilder$buildCustomReporter(kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.Reporter)))/factory">factory</a> to build a custom <a href="../-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="build-only-failure-reporter.html">buildOnlyFailureReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">buildOnlyFailureReporter</span></s><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter/index.html"><span class="identifier">Reporter</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory-common/new-only-failure-reporter.html">CoreFactory.newOnlyFailureReporter</a> as <a href="../-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-default-translation-supplier.html">withDefaultTranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">withDefaultTranslationSupplier</span></s><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-locale-order-decider-options/index.html"><span class="identifier">LocaleOrderDeciderOptions</span></a></code>
+<p>Uses <a href="#">CoreFactory.newPropertiesBasedTranslationSupplier</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-translation-supplier.html">withTranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">withTranslationSupplier</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslationSupplier(ch.tutteli.atrium.reporting.translating.TranslationSupplier)/translationSupplier">translationSupplier</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-locale-order-decider-options/index.html"><span class="identifier">LocaleOrderDeciderOptions</span></a></code>
+<p>Uses the given <a href="with-translation-supplier.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslationSupplier(ch.tutteli.atrium.reporting.translating.TranslationSupplier)/translationSupplier">translationSupplier</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-translator.html">withTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">withTranslator</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-object-formatter-options/index.html"><span class="identifier">ObjectFormatterOptions</span></a></code>
+<p>Uses the given <a href="with-translator.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> skipping the options for <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> and
+<a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a> assuming the given <a href="with-translator.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</a> is implemented differently -- use
+<a href="with-default-translation-supplier.html">withDefaultTranslationSupplier</a> or <a href="with-translation-supplier.html">withTranslationSupplier</a> in case the given <a href="with-translator.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</a> requires
+a <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> or a <a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="without-translations.html">withoutTranslations</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">withoutTranslations</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withoutTranslations(java.util.Locale)/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a>&nbsp;<span class="symbol">=</span>&nbsp;java.util.Locale.getDefault()<span class="symbol">)</span><span class="symbol">: </span><a href="-object-formatter-options/index.html"><span class="identifier">ObjectFormatterOptions</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">UsingDefaultTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where the given <a href="without-translations.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withoutTranslations(java.util.Locale)/primaryLocale">primaryLocale</a> is used to format arguments
+of <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

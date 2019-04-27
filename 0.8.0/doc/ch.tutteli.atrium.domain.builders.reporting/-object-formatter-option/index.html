@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ObjectFormatterOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">ObjectFormatterOption</a><br/>
+<br/>
+<h1>ObjectFormatterOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">ObjectFormatterOption</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/ObjectFormatterOption.kt#L11">(source)</a>
+<p>Provides options to create an <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="translator.html">translator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">translator</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-detailed-object-formatter.html">withDetailedObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDetailedObjectFormatter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-assertion-formatter-controller-option/index.html"><span class="identifier">AssertionFormatterControllerOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory-common/new-detailed-object-formatter.html">CoreFactory.newDetailedObjectFormatter</a> as <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-object-formatter.html">withObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withObjectFormatter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption$withObjectFormatter(kotlin.Function1((ch.tutteli.atrium.reporting.translating.Translator, ch.tutteli.atrium.reporting.ObjectFormatter)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html"><span class="identifier">ObjectFormatter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-assertion-formatter-controller-option/index.html"><span class="identifier">AssertionFormatterControllerOption</span></a></code>
+<p>Uses the given <a href="with-object-formatter.html#ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption$withObjectFormatter(kotlin.Function1((ch.tutteli.atrium.reporting.translating.Translator, ch.tutteli.atrium.reporting.ObjectFormatter)))/factory">factory</a> to build a custom <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption.Companion$create(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ObjectFormatterOption</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SummaryAssertionGroupType - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./-summary-assertion-group-type.html">SummaryAssertionGroupType</a><br/>
+<br/>
+<h1>SummaryAssertionGroupType</h1>
+<code><span class="keyword">interface </span><span class="identifier">SummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-do-not-filter-assertion-group-type.html"><span class="identifier">DoNotFilterAssertionGroupType</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/SummaryAssertionGroupType.kt#L18">(source)</a>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+all be reported in reporting (no filtering by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) since it represents a summary which itself
+will point out which assertions hold and which do not.</p>
+<p>This <a href="-assertion-group-type.html">AssertionGroupType</a> should only be used for cases where we need to present a result as a whole and where
+filtering out successful assertions would either be misleading or not complete.</p>
+<p>An <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> will typically use <a href="-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a> and <a href="-prefix-failing-summary-assertion.html">PrefixFailingSummaryAssertion</a>
+to prefix the <a href="-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-default-summary-assertion-group-type.html">DefaultSummaryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultSummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should not be
+filtered (by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) and for which an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> should state whether they hold or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

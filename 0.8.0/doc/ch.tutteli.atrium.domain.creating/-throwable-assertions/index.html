@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ThrowableAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating</a>&nbsp;/&nbsp;<a href="./index.html">ThrowableAssertions</a><br/>
+<br/>
+<h1>ThrowableAssertions</h1>
+<code><span class="keyword">interface </span><span class="identifier">ThrowableAssertions</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/ThrowableAssertions.kt#L20">(source)</a>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="thrown-builder.html">thrownBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">thrownBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ThrowableAssertions$thrownBuilder(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.Reporter)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ThrowableAssertions$thrownBuilder(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.Reporter)/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ThrowableAssertions$thrownBuilder(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.Reporter)/reporter">reporter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-reporter/index.html"><span class="identifier">Reporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-builder/index.html"><span class="identifier">Builder</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating/-throwable-assertions-builder/index.html">ThrowableAssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ThrowableAssertionsBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ThrowableAssertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="./index.html">ThrowableAssertions</a>.
+In detail, it implements <a href="./index.html">ThrowableAssertions</a> by delegating to <a href="../throwable-assertions.html">throwableAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

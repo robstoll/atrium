@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NotCheckerOptionImpl - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders</a>&nbsp;/&nbsp;<a href="./index.html">NotCheckerOptionImpl</a><br/>
+<br/>
+<h1>NotCheckerOptionImpl</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">NotCheckerOptionImpl</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders/-not-checker-option-base/index.html"><span class="identifier">NotCheckerOptionBase</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../-not-checker-option.html"><span class="identifier">NotCheckerOption</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//apis/atrium-api-cc-infix-en_UK/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_UK/creating/charsequence/contains/builders/NotCheckerOption.kt#L31">(source)</a><br/>
+<strong>Deprecated:</strong> Do not rely on this type; will be made internal with 1.0.0<br/>
+<br/>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The input type of the search.</p>
+<p><a name="S"></a>
+<code>S</code> - The search behaviour which should be applied for the input of the search.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">NotCheckerOptionImpl</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl$<init>(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Builder((ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl.T, ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl.S)))/containsBuilder">containsBuilder</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-builder.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders/-not-checker-option-base/checkers.html">checkers</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">checkers</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Contains all <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker/index.html">Checker</a>s which should be applied to the search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders/-not-checker-option-base/contains-builder.html">containsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">containsBuilder</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-builder.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders/-not-checker-option-base/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders/-not-checker-option-base/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/index.html">Builder</a>, containing inter alia the <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> to which the resulting
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be added.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html">addAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains$addAssertion(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion.T, ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion.S)), ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Helper method to simplify adding assertions to the plant which itself is stored in
+<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker-option/contains-builder.html">CharSequenceContains.CheckerOption.containsBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/ignoring.html">ignoring</a></p>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../-not-checker-option.html"><span class="identifier">NotCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/ignoring.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-not-search-behaviour.html"><span class="identifier">NotSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">ignoring</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$ignoring(ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.ignoring.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour)), ch.tutteli.atrium.api.cc.infix.en_UK.case)/case">case</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/case.html"><span class="identifier">case</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-not-checker-option.html"><span class="identifier">NotCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/ignoring.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour.html"><span class="identifier">IgnoringCaseSearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the decoration behaviour <code>ignore case</code> shall be applied to this sophisticated <code>contains not</code> assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html">CharSequenceContainsNotCheckerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">CharSequenceContainsNotCheckerBuilder</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NotCheckerOptionImpl</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-checker-builder.html"><span class="identifier">CharSequenceContainsCheckerBuilder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the <em>deprecated</em> builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

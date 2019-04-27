@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>invisibleGroup - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./invisible-group.html">invisibleGroup</a><br/>
+<br/>
+<h1>invisibleGroup</h1>
+<a name="ch.tutteli.atrium.assertions.builders$invisibleGroup#ch.tutteli.atrium.assertions.builders.AssertionBuilder"></a>
+<code><span class="keyword">val </span><a href="-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">invisibleGroup</span><span class="symbol">: </span><a href="-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html"><span class="identifier">InvisibleAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.8.0//core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/invisibleGroup.kt#L18">(source)</a>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a> -- use it only if you have several
+independent <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which should be evaluated together.</p>
+<p>Or in other words, it should still evaluate the remaining assertions if the first fails.
+Use <code>AssertImpl.builder.list</code> (<a href="-assertion-builder/list.html">AssertionBuilder.list</a>) or another builder which creates an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> if
+the assertions are not independent but belong together and can be grouped under a
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> (making the assertions kind of sub-assertions of the <a href="../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a>).
+It is very likely that you do not need this kind of <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> and another type does a better job.</p>
+<p><strong>Getter</strong><br/>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a> -- use it only if you have several
+independent <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which should be evaluated together.</p>
+<p>Or in other words, it should still evaluate the remaining assertions if the first fails.
+Use <code>AssertImpl.builder.list</code> (<a href="-assertion-builder/list.html">AssertionBuilder.list</a>) or another builder which creates an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> if
+the assertions are not independent but belong together and can be grouped under a
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> (making the assertions kind of sub-assertions of the <a href="../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a>).
+It is very likely that you do not need this kind of <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> and another type does a better job.</p>
+</p>
+</BODY>
+</HTML>

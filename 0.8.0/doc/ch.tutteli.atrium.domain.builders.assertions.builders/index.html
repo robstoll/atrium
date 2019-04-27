@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.builders.assertions.builders - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.builders.assertions.builders</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.builders.assertions.builders</h2>
+<p>Contains extension functions for the <a href="./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-descriptive-assertion-with-failure-hint/index.html">DescriptiveAssertionWithFailureHint</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionWithFailureHint</span></code>
+<p>Defines the contract to build a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> like assertion with an additional hint
+which might be shown if the <a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/test.html">Descriptive.DescriptionOption.test</a> fails.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fixed-claim-group/index.html">FixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FixedClaimGroup</span></code>
+<p>Defines the contract to build an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which has a fixed <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fixed-claim-like-group/index.html">FixedClaimLikeGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FixedClaimLikeGroup</span></code>
+<p>Defines the contract to build an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which has a fixed <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> or the like.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-partially-fixed-claim-group/index.html">PartiallyFixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">PartiallyFixedClaimGroup</span></code>
+<p>Defines the contract to build an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is a logic AND operation composed
+by a fixed part and its <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="fixed-claim-group.html">fixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">fixedClaimGroup</span><span class="symbol">: </span><a href="-fixed-claim-group/-group-type-option/index.html"><span class="identifier">GroupTypeOption</span></a></code>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is fixed (not determined based on its
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="partially-fixed-claim-group.html">partiallyFixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">partiallyFixedClaimGroup</span><span class="symbol">: </span><a href="-partially-fixed-claim-group/-group-type-option/index.html"><span class="identifier">GroupTypeOption</span></a></code>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is a logic AND operation composed by a fixed
+part and its <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-failure-hint.html">withFailureHint</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/index.html"><span class="identifier">DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-final-step/index.html"><span class="identifier">FinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withFailureHint</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders$withFailureHint(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-descriptive-assertion-with-failure-hint/-show-option/index.html"><span class="identifier">ShowOption</span></a></code>
+<p>Option to create a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> like assertion with an additional hint which might be shown if the
+<a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/test.html">Descriptive.DescriptionOption.test</a> fails.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
