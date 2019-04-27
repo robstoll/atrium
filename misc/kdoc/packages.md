@@ -7,15 +7,15 @@ The packages shown below contain classes etc.
 of all modules excluding the one of 
 _atrium-core-robstoll_, _atrium-core-robstoll-lib_, _atrium-domain-robstoll_ and _atrium-domain-robstoll-lib_.
 
-The following names do not include the platform specific suffix which is `-common`, `-jvm`, `-js` or `-android`. 
+The following names do not include the platform specific suffixes which are `-common`, `-jvm`, `-js` and `-android`. 
 
 Bundle modules:
 - **atrium-cc-de&#95;CH-robstoll** defines to have a dependency on 
   atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH, atrium-domain-robstoll and atrium-core-robstoll
 - **atrium-cc-en&#95;GB-robstoll**  defines to have a dependency on   
-  atrium-api-cc-en&#95;GB, atrium-translations-en&#95;UK, atrium-domain-robstoll and and atrium-core-robstoll
+  atrium-api-cc-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
 - **atrium-cc-infix-en&#95;GB-robstoll**  defines to have a dependency on  
-  atrium-api-cc-infix-en&#95;GB, atrium-translations-en&#95;UK, atrium-domain-robstoll and and atrium-core-robstoll
+  atrium-api-cc-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
   
 API modules:  
 - **atrium-api-cc-de&#95;CH** provides an assertion function API in German where the main 
@@ -49,7 +49,7 @@ Core modules:
 Translation modules:
 - **atrium-translations-de&#95;CH** provides translations in German for 
   [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
-- **atrium-translations-en&#95;UK** provides translations in English for 
+- **atrium-translations-en&#95;GB** provides translations in English for 
   [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
 
 Misc modules:

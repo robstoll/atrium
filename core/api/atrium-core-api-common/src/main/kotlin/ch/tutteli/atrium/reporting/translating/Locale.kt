@@ -1,26 +1,38 @@
 package ch.tutteli.atrium.reporting.translating
 
+/**
+ * Represents a platform independent representation of a locale consisting of a [language], a [script], a [country] and
+ * a [variant].
+ *
+ * @property language consists of at least one letter and only letters
+ * @property script can be null or needs to consist of at least one letter and only letters
+ * @property country can be null or needs to consist of at least one letter and only letters
+ * @property variant can be null or needs at least one character, cannot be blank though (use null instead)
+ */
 data class Locale(val language: String, val script: String?, val country: String?, val variant: String?) {
     constructor(language: String, country: String) : this(language, null, country, null)
     constructor(language: String) : this(language, null, null, null)
 
     init {
-        requireOnlyLetters(language, "language")
-        if (script != null) requireOnlyLetters(script, "script")
-        if (country != null) require(country.matches(Regex("[a-zA-Z]*"))) {
-            "country has to match [a-zA-Z]* was $country"
-        }
+        requireAtLeastOneAndOnlyLetters(language, "language")
+        if (script != null) requireAtLeastOneAndOnlyLetters(script, "script")
+        if (country != null) requireAtLeastOneAndOnlyLetters(country, "country")
         if (variant != null) require(variant.isNotBlank()) {
             "variant cannot be blank - use `null` if you do not want to specify it"
         }
     }
 
-    private fun requireOnlyLetters(field: String, name: String) {
+    private fun requireAtLeastOneAndOnlyLetters(field: String, name: String) {
         require(field.matches(Regex("[a-zA-Z]+"))) {
             "$name has to match [a-zA-Z]+ was $field"
         }
     }
 
+    /**
+     * Returns a string representation of Locale.
+     *
+     * Do not depend on the structure of the return value, it might change in the future without notice.
+     */
     override fun toString(): String {
         val sb = StringBuilder("Locale(").append(language)
         if (script != null) {
@@ -37,4 +49,9 @@ data class Locale(val language: String, val script: String?, val country: String
     }
 }
 
+/**
+ * Returns the default [Locale] which should be used if not defined otherwise.
+ *
+ * The actual implementation is platform specific.
+ */
 expect fun getDefaultLocale(): Locale

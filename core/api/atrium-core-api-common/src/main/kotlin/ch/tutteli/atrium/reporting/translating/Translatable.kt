@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.reporting.translating
 
+import ch.tutteli.atrium.core.polyfills.fullName
 import kotlin.reflect.KClass
 
 /**
@@ -21,9 +22,10 @@ interface Translatable {
     val name: String
 
     /**
-     * The id of this [Translatable] -- per default it is "[Class.name][D_SEPARATOR][name]"
+     * The id of this [Translatable] -- per default it is
+     * "[KClass.fullName][ch.tutteli.atrium.core.polyfills.fullName] [ID_SEPARATOR] [name]" without the spaces.
      */
-    val id: String get() = determineIdForTranslatable(this)
+    val id: String get() = this::class.fullName(this) + ID_SEPARATOR + name
 
     companion object {
         /**
@@ -32,4 +34,3 @@ interface Translatable {
         const val ID_SEPARATOR = "-"
     }
 }
-expect fun determineIdForTranslatable(translatable: Translatable): String

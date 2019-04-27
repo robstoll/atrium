@@ -56,7 +56,6 @@ class TranslatableWithArgs constructor(val translatable: Translatable, val argum
     }
 
     override val name get() = translatable.name
-    override val id get() = determineIdForTranslatable(this)
     override fun getDefault() = translatable.getDefault().format(arguments[0], *arguments.drop(1).toTypedArray())
 
     companion object {

@@ -1861,7 +1861,7 @@ I plan that Atrium is going to support certain features in the future. Following
 - Prepare the transition to an `Assert<T>` with an invariant `T` (see #56, the current solution with `Assert<out T>` will be deprecated with 1.0.0) 
 - Prepare the transition to `feature` instead of `property` and `returnValueOf` (see #40)
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
-- Json assertions
+- Json assertions (state your wishes in #45)
   
 ## 0.10.0  
 - see if I could further improve error reporting in the IDE with the help of opentest4j exceptions.

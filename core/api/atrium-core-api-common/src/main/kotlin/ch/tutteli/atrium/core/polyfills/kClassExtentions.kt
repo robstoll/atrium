@@ -21,8 +21,8 @@ expect val KClass<*>.fullName: String
  *
  * [obj] can be used to retrieve more information
  *
- * Similar to [KClass.qualifiedName] but returns `String` and not `String?` which means it also returns a name
- * for anonymous classes (in which case [KClass.qualifiedName] returns `null`).
+ * Similar to [KClass.qualifiedName] but returns also names for anonymous classes
+ * (in which case [KClass.qualifiedName] returns `null`).
  *
  * @param obj The object from which this [KClass] was created of.
  * @return The full name of this [KClass].

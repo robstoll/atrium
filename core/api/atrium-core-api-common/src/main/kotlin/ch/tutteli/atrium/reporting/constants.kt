@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 /**
- * Refers to the bug tracker of atrium.
+ * Refers to the bug tracker of Atrium.
  */
 const val BUG_REPORT_URL = "https://github.com/robstoll/atrium/issues/new"
 
