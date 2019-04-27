@@ -38,6 +38,7 @@ private fun <T> toBeWithErrorToleranceOfFloatOrDouble(
     }
 }
 
+@Suppress("DEPRECATION" /* TODO don't format number here, should be done via ObjectFormatter */)
 internal fun <T> createToBeWithErrorToleranceExplained(
     plant: AssertionPlant<T>,
     expected: T,
