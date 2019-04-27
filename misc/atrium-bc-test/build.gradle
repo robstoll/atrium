@@ -52,20 +52,20 @@ def bcTests = task("bcTests", group: 'Verification') {
     }
 }
 
-def createBcAndBbcTasksForApis(String version, String forgive, String... apis) {
+def createBcAndBbcTasksForApis(String oldVersion, String forgive, String... apis) {
 
-    def bc_version = task("bc-$version", group: 'Verification')
-    def bbc_version = task("bbc-$version", group: 'Verification')
+    def bc_version = task("bc-$oldVersion", group: 'Verification')
+    def bbc_version = task("bbc-$oldVersion", group: 'Verification')
 
     apis.each { apiName ->
-        createBcAndBbcTasks(apiName, version, forgive)
-        bc_version.dependsOn "bc-${apiName}-$version"
-        bbc_version.dependsOn "bbc-${apiName}-$version"
+        createBcAndBbcTasks(apiName, oldVersion, forgive)
+        bc_version.dependsOn "bc-${apiName}-$oldVersion"
+        bbc_version.dependsOn "bbc-${apiName}-$oldVersion"
         def bcBbcApi = project."bcBbc-$apiName"
-        bcBbcApi.dependsOn "bc-${apiName}-$version"
-        bcBbcApi.dependsOn "bbc-${apiName}-$version"
-        project."bc-$apiName".dependsOn "bc-${apiName}-$version"
-        project."bbc-$apiName".dependsOn "bbc-${apiName}-$version"
+        bcBbcApi.dependsOn "bc-${apiName}-$oldVersion"
+        bcBbcApi.dependsOn "bbc-${apiName}-$oldVersion"
+        project."bc-$apiName".dependsOn "bc-${apiName}-$oldVersion"
+        project."bbc-$apiName".dependsOn "bbc-${apiName}-$oldVersion"
     }
 }
 
@@ -101,22 +101,22 @@ Task createJacocoReportTask(String apiName, String name, Task runTask) {
     }
 }
 
-static String getNameUnderline(String apiName, String version) {
-    return "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+static String getNameUnderline(String apiName, String oldVersion) {
+    return "${apiName.replaceAll('-', '_')}_${oldVersion.replaceAll("\\.", '_')}"
 }
 
-File getSrcDirectory(String apiName, String version) {
-    return file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
+File getSrcDirectory(String apiName, String oldVersion) {
+    return file("${project.projectDir}/src/old/$oldVersion/atrium-api-$apiName")
 }
 
-def createBcAndBbcTasks(String apiName, String version, String forgive) {
-    def nameUnderline = getNameUnderline(apiName, version)
-    def name = "${apiName}-$version"
+def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
+    def nameUnderline = getNameUnderline(apiName, oldVersion)
+    def name = "${apiName}-$oldVersion"
     def srcName = "src_$nameUnderline"
     def confCommon = "conf_$nameUnderline"
     def testJar = "testJar_$nameUnderline"
     def testJarSources = "testJarSources_$nameUnderline"
-    def srcDirectory = getSrcDirectory(apiName, version)
+    def srcDirectory = getSrcDirectory(apiName, oldVersion)
 
     sourceSets {
         create(srcName) {
@@ -133,23 +133,29 @@ def createBcAndBbcTasks(String apiName, String version, String forgive) {
     }
 
     dependencies {
-        def groupId = version == '0.6.0' ? 'ch.tutteli' : 'ch.tutteli.atrium'
-        add(testJar, "$groupId:atrium-api-$apiName:$version:tests") {
+        def groupId = oldVersion == '0.6.0' ? 'ch.tutteli' : 'ch.tutteli.atrium'
+        add(testJar, "$groupId:atrium-api-$apiName:$oldVersion:tests") {
             exclude group: '*'
         }
-        add(testJarSources, "$groupId:atrium-api-$apiName:$version:testsources") {
+        add(testJarSources, "$groupId:atrium-api-$apiName:$oldVersion:testsources") {
             exclude group: '*'
         }
 
-        add(confCommon, "$groupId:atrium-spec:$version") {
+        add(confCommon, "$groupId:atrium-spec:$oldVersion") {
             exclude group: '*'
         }
-        if (version == '0.6.0') {
-            add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
+        if (oldVersion == '0.6.0') {
+            add(confCommon, prefixedProject("api-cc-en_UK")) { //required by atrium-spec
+                exclude  group: '*'
+            }
         } else {
-            add(confCommon, prefixedProject("api-cc-en_GB-jvm")) //required for atrium-spec
+            add(confCommon, prefixedProject("api-cc-en_GB-jvm")){  //required by atrium-spec
+                exclude  group: '*'
+            }
             if (!apiName.endsWith('cc-de_CH')) {
-                add(confCommon, prefixedProject("verbs-internal-jvm")) //required by the api
+                add(confCommon, prefixedProject("verbs-internal-jvm")){  //required by specs in the APIs
+                    exclude  group: '*'
+                }
             }
         }
         if (!apiName.endsWith('en_UK')) {
@@ -172,7 +178,7 @@ def createBcAndBbcTasks(String apiName, String version, String forgive) {
     }
 
     def bbcTask = task("bbc-$name", type: JavaExec, group: 'Verification') {
-        description = "Checks if specs from $apiName $version can be run against the current version."
+        description = "Checks if specs from $apiName $oldVersion can be run against the current version."
 
         inputs.files configurations[testJar]
         inputs.files configurations[confCommon]
@@ -200,7 +206,7 @@ def createBcAndBbcTasks(String apiName, String version, String forgive) {
     }
 
     def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
-        description = "Checks if specs from $apiName $version can be compiled and run against the current version."
+        description = "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
 
         inputs.files sourceSets[srcName].runtimeClasspath
 
@@ -237,12 +243,12 @@ def createBcAndBbcTasks(String apiName, String version, String forgive) {
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
-def createFixSrcTask(String apiName, String version, String file, Closure modifyContent) {
-    def nameUnderline070 = getNameUnderline(apiName, version)
-    def taskSuffix = "$apiName-$version"
+def createFixSrcTask(String apiName, String oldVersion, String file, Closure modifyContent) {
+    def nameUnderline070 = getNameUnderline(apiName, oldVersion)
+    def taskSuffix = "$apiName-$oldVersion"
     def fixSrc = task("fixSrc-$taskSuffix-$file") {
         doLast {
-            def srcFile = project.file("${getSrcDirectory(apiName, version)}/ch/tutteli/atrium/api/${apiName.replaceAll('-', '/')}/$file")
+            def srcFile = project.file("${getSrcDirectory(apiName, oldVersion)}/ch/tutteli/atrium/api/${apiName.replaceAll('-', '/')}/$file")
             String newContent = modifyContent(srcFile.getText('UTF-8'))
             srcFile.write(newContent, 'UTF-8')
         }
