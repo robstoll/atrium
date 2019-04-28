@@ -58,12 +58,12 @@ For instance, the [README of v0.7.0](https://github.com/robstoll/atrium/tree/v0.
 - [Internationalization](#internationalization-1)
 - [APIs](#apis)
 - [Java Interoperability](#java-interoperability)
-- [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
 - [FAQ](#faq)
 - [Kotlin Bugs](#kotlin-bugs)
 - [Roadmap](#roadmap)
+- [Contributors and contribute](#contributors-and-contribute)
 - [License](#license)
 
 # Installation
@@ -260,7 +260,7 @@ The setup for using Atrium in a common module of a multiplatform project is basi
 [JVM setup](#jvm), you only need to suffix the dependency with `-common` in addition. 
 For instance `atrium-cc-en_GB-robstoll-common` instead of `atrium-cc-en_GB-robstoll`.
 
-Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setup for the specific platforms has to be done.
+Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setup of a specific platform has to be done.
 
 
 # Examples
@@ -1755,20 +1755,6 @@ Thus, Atrium provides the following functions to ease dealing with Java Code at 
 - [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/v0.8.0-RC1/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
   turns a `Map` into a map with a nullable key and nullable value type. 
  
-# Contribute
-You are more than welcome to contribute:
-- star Atrium if you like it
-- [open a bug](https://github.com/robstoll/atrium/issues/new?template=bug_report.md) or [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
-- [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-  so that I better understand where Atrium needs to improve.
-- share your assertion functions with the rest of us by creating a pull request.
-- have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
-  if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
-
-Please have a look at 
-[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/v0.8.0-RC1/.github/CONTRIBUTING.md)
-for further suggestions and guidelines.
-
 # KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:
 [KDoc of atrium](https://docs.atriumlib.org/)
@@ -1864,7 +1850,7 @@ I plan that Atrium is going to support certain features in the future. Following
 - Json assertions (state your wishes in #45)
   
 ## 0.10.0  
-- see if I could further improve error reporting in the IDE with the help of opentest4j exceptions.
+- see if we can further improve error reporting in the IDE with the help of opentest4j exceptions.
 - Generating testing reports in html.
   - generate multiple reports in the same test run.
   - extension for Spek so that reporting includes the `describe`, `it` etc. 
@@ -1875,6 +1861,26 @@ I plan that Atrium is going to support certain features in the future. Following
 Are you missing something else? 
 [Feature Requests](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 are very welcome.
+
+# Contributors and contribute
+
+Our thanks go to [code contributors](https://github.com/robstoll/atrium/graphs/contributors) 
+as well as other contributors (see acknowledgements in the [release notes](https://github.com/robstoll/atrium/releases)).
+
+You are more than welcome to contribute as well:
+- star Atrium if you like it
+- [open a bug](https://github.com/robstoll/atrium/issues/new?template=bug_report.md) or [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
+- share your ideas via [issue](https://github.com/robstoll/atrium/issues/new) or [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+- [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+  so that I better understand where Atrium needs to improve.
+- write a blog post about Atrium (e.g. about a feature you like) or a tutorial (let us know we happily link to your page)
+- share your assertion functions with the rest of us by creating a pull request (no need for i18n support or the like, we can augment your pull request).
+- have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+  if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
+
+Please have a look at 
+[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/v0.8.0-RC1/.github/CONTRIBUTING.md)
+for further suggestions and guidelines.
 
 # License
 Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
