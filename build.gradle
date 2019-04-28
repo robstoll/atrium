@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.8.0-RC1'
+    rootProject.version = '0.8.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -21,7 +21,7 @@ buildscript {
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
         ghPages_version = rootProject.version
-        dokka_sourceMapping = 'tree/v0.8.0-RC1'
+        dokka_sourceMapping = 'tree/v0.8.0'
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
 

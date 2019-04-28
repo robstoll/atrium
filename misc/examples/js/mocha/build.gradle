@@ -2,7 +2,7 @@
 buildscript {
     ext {
         atrium_api='atrium-cc-en_GB-robstoll-js'
-        atrium_version='0.8.0-RC1'
+        atrium_version='0.8.0'
     }
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
