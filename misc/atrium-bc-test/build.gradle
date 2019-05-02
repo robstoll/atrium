@@ -333,6 +333,10 @@ createBcAndBbcTasksForApis('0.7.0',
     ')',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
+createBcAndBbcTasksForApis('0.8.0',
+    'forgive=^$',
+    'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
+)
 //@formatter:on
 
 def apis = ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB']
