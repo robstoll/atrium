@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.8.0'
+    rootProject.version = '0.9.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -21,7 +21,7 @@ buildscript {
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
         ghPages_version = rootProject.version
-        dokka_sourceMapping = 'tree/v0.8.0'
+        dokka_sourceMapping = 'tree/master'
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
 
@@ -399,9 +399,9 @@ Prepare next dev cycle
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
    b) search for `tree/vX.Y.Z` and replace it with `tree/master`
    c) search for `X.Y.Z/doc` and replace with `latest#/doc`
-4. update README
+3. update README
    a) place the warning about taking a sneak peek back into README
    b) update version in the warning to X.Y.Z and update the link as well
-3. commit & push changes
-
+4. commit & push changes
+5. establish backward compatibility tests for the previous version
 */
