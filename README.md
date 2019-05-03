@@ -1,10 +1,11 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/atrium/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/atrium/_latestVersion)
 [![Slack](https://img.shields.io/badge/Slack-atrium@kotlinlang-blue.svg)](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
-[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
-[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?tag=v0.8.0)](https://codecov.io/github/robstoll/atrium?tag=v0.8.0)
-[![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?tag=v0.8.0)](https://www.meterian.com/report/gh/robstoll/atrium?tag=v0.8.0)
-[![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?tag=v0.8.0)](https://www.meterian.com/report/gh/robstoll/atrium?tag=v0.8.0)
+[![Build Status Travis](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
+[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/j7o4odbtvpnb1th0/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/kbox/branch/master)
+[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master)
+[![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
+[![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
 
 # Atrium
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.

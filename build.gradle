@@ -371,10 +371,11 @@ Release & deploy a commit
 2. update master:
     a) point to the tag
         1) search for old version and replace with new (gradle, maven and section own assertion verb in README.md)
-        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
-        3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
-        4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
-        5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
+        2) search for branch/master and replace with branch/vX.Y.Z  (build status and coverage in README.md)
+        3) adjust branch=master manually, use tag=vX.Y.Z except for travis where you need to use branch=vX.Y.Z
+        4) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
+        5) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
+        6) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
     b) Update README -> Use own Assertion Verbs -> link to atriumVerbs if it changed
     c) commit & push (modified build.gradle, README.md and differences.md)
 3. update github pages:
@@ -397,8 +398,10 @@ Prepare next dev cycle
 1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
-   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
+   b) search for `branch=vX.Y.Z` and replace it with `branch=master`
+   c) search for `branch/vX.Y.Z` and replace it with `branch/master`
+   d) search for `tree/vX.Y.Z` and replace it with `tree/master`
+   e) search for `X.Y.Z/doc` and replace with `latest#/doc`
 3. update README
    a) place the warning about taking a sneak peek back into README
    b) update version in the warning to X.Y.Z and update the link as well
