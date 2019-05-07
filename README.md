@@ -7,7 +7,7 @@
 [![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
 [![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
 
-# Atrium
+# <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
 It is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization-1) (i18n). 
 The project was inspired by AssertJ at first (and was named AssertK) but it moved on and provides now more 
