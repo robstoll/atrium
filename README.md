@@ -283,8 +283,8 @@ expect(x).toBe(9)
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with the following message:
 ```text
-expect: 10        (java.lang.Integer <934275857>)
-◆ to be: 9        (java.lang.Integer <1364913072>)
+expect: 10        (kotlin.Int <934275857>)
+◆ to be: 9        (kotlin.Int <1364913072>)
 ```
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
@@ -303,7 +303,7 @@ then you can skip now to the next section (otherwise click on the arrow to expan
 
 Atrium provides two further assertion verbs next to `expect` out of the box: `assert` and `assertThat`
 which you can import with `import ch.tutteli.atrium.verbs.assert`, `import ch.tutteli.atrium.verbs.assertThat` respectively. 
-Yet, you can also define your [own assertion verbs](#use-own-assertion-verbs) if another is your favourite.
+Yet, you can also [define your own assertion verbs](#use-own-assertion-verbs) if another is your favourite.
 <hr/>
 </details> 
 
@@ -315,8 +315,8 @@ The next section shows how you can define multiple assertions for the same subje
  // two single assertions
  
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
-    // expect: 10        (java.lang.Integer <1841396611>)
-    // ◆ is less than: 5        (java.lang.Integer <1577592551>)
+    // expect: 10        (kotlin.Int <1841396611>)
+    // ◆ is less than: 5        (kotlin.Int <1577592551>)
 ```
 
 
@@ -342,9 +342,9 @@ expect(4 + 6) {
     isLessThan(5)
     isGreaterThan(10)
 }
-    // expect: 10        (java.lang.Integer <1841396611>)
-    // ◆ is less than: 5        (java.lang.Integer <1577592551>)
-    // ◆ is greater than: 10        (java.lang.Integer <1841396611>)
+    // expect: 10        (kotlin.Int <1841396611>)
+    // ◆ is less than: 5        (kotlin.Int <1577592551>)
+    // ◆ is greater than: 10        (kotlin.Int <1841396611>)
 ```
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
@@ -488,13 +488,8 @@ expect {
     message { startsWith("firstName") }
 }
     // expect the thrown exception: java.lang.IllegalArgumentException
-    // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
-    //   » Properties of the unexpected IllegalArgumentException
-    //     » message: "name is empty"        <1448061896>
-    //     » stacktrace: 
-    //       ⚬ TestKt$main$2.invoke(test.kt:23)
-    //       ⚬ TestKt$main$2.invoke(test.kt)
-    //       ⚬ TestKt.main(test.kt:24)
+    // ◆ ▶ message: "name is empty"        <1793436274>
+    //     ◾ starts with: "firstName"        <572868060>
 ```
 Notice `message` in the 
 [assertion group block](#define-single-assertions-or-assertion-groups) 
@@ -612,7 +607,7 @@ expect(person) {
     }
     returnValueOf(subject::nickname, false)
       .toBe("Robert aka. Stoll")  // fails
-      startsWith("llotS")         // not evaluated anymore
+      .startsWith("llotS")         // not evaluated anymore
 }
     // expect: Person(firstName=Robert, lastName=Stoll)        (Person <168907708>)
     // ◆ ▶ fullName(): "Robert Stoll"        <820537534>
@@ -734,7 +729,7 @@ The following sub sections show both use cases by examples.
 expect(listOf(1, 2, 2, 4)).contains(2, 3)        
 
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1448525331>) 
-    // ◆ contains, in any order: 3        (java.lang.Integer <1108924067>)
+    // ◆ contains, in any order: 3        (kotlin.Int <1108924067>)
     //   ⚬ ▶ number of occurrences: 0
     //       ◾ is at least: 1
 ```
@@ -766,12 +761,12 @@ expect(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLes
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1144068272>) 
     // ◆ contains, in any order:   
     //   ⚬ an entry which:   
-    //       » is less than: 0        (java.lang.Integer <1985836631>) 
+    //       » is less than: 0        (kotlin.Int <1985836631>) 
     //     ⚬ ▶ number of occurrences: 0 
     //         ◾ is at least: 1 
     //   ⚬ an entry which:    
-    //       » is greater than: 2        (java.lang.Integer <1948471365>)
-    //       » is less than: 4        (java.lang.Integer <1636506029>) 
+    //       » is greater than: 2        (kotlin.Int <1948471365>)
+    //       » is less than: 4        (kotlin.Int <1636506029>) 
     //     ⚬ ▶ number of occurrences: 0
     //         ◾ is at least: 1
 ```
@@ -808,17 +803,17 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { is
  
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <817978763>)
     // ◆ contains only, in order:     
-    //   ✔ ▶ entry 0: 1        (java.lang.Integer <1578009262>)
+    //   ✔ ▶ entry 0: 1        (kotlin.Int <1578009262>)
     //       ◾ an entry which:    
-    //         ⚬ is less than: 3        (java.lang.Integer <1108924067>)
-    //   ✘ ▶ entry 1: 2        (java.lang.Integer <1948471365>)
+    //         ⚬ is less than: 3        (kotlin.Int <1108924067>)
+    //   ✘ ▶ entry 1: 2        (kotlin.Int <1948471365>)
     //       ◾ an entry which:    
-    //         ⚬ is less than: 2        (java.lang.Integer <1948471365>)
+    //         ⚬ is less than: 2        (kotlin.Int <1948471365>)
     //   ✘ ▶ size: 4
     //       ◾ to be: 2
     //         ❗❗ additional entries detected:    
-    //            ⚬ entry 2: 2        (java.lang.Integer <1948471365>)
-    //            ⚬ entry 3: 4        (java.lang.Integer <1636506029>) 
+    //            ⚬ entry 2: 2        (kotlin.Int <1948471365>)
+    //            ⚬ entry 3: 4        (kotlin.Int <1636506029>) 
 ```  
 
 Since we have chosen the `only` option, Atrium shows us a summary where we see three things:
@@ -853,16 +848,16 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1362728240>)
     // ◆ contains only, in order:   
-    //   ✔ ▶ entry 0: 1        (java.lang.Integer <1578009262>)
-    //       ◾ to be: 1        (java.lang.Integer <1578009262>)
-    //   ✔ ▶ entry 1: 2        (java.lang.Integer <1948471365>)
-    //       ◾ to be: 2        (java.lang.Integer <1948471365>)
-    //   ✔ ▶ entry 2: 2        (java.lang.Integer <1948471365>)
-    //       ◾ to be: 2        (java.lang.Integer <1948471365>)
-    //   ✘ ▶ entry 3: 4        (java.lang.Integer <1636506029>)
-    //       ◾ to be: 3        (java.lang.Integer <1108924067>)
+    //   ✔ ▶ entry 0: 1        (kotlin.Int <1578009262>)
+    //       ◾ to be: 1        (kotlin.Int <1578009262>)
+    //   ✔ ▶ entry 1: 2        (kotlin.Int <1948471365>)
+    //       ◾ to be: 2        (kotlin.Int <1948471365>)
+    //   ✔ ▶ entry 2: 2        (kotlin.Int <1948471365>)
+    //       ◾ to be: 2        (kotlin.Int <1948471365>)
+    //   ✘ ▶ entry 3: 4        (kotlin.Int <1636506029>)
+    //       ◾ to be: 3        (kotlin.Int <1108924067>)
     //   ✘ ▶ entry 4: ❗❗ hasNext() returned false
-    //       ◾ to be: 4        (java.lang.Integer <1636506029>)
+    //       ◾ to be: 4        (kotlin.Int <1636506029>)
     //   ✘ ▶ size: 4
     //       ◾ to be: 5
 
@@ -871,7 +866,7 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1092572064>)
     // ◆ contains, in any order:   
     //   ⚬ an entry which:   
-    //       » is less than: 3        (java.lang.Integer <1108924067>)
+    //       » is less than: 3        (kotlin.Int <1108924067>)
     //     ⚬ ▶ number of occurrences: 3
     //         ◾ is at most: 2
 
@@ -880,24 +875,24 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
             
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <922511709>)
     // ◆ contains only, in any order:    
-    //   ✔ an entry which is: 1        (java.lang.Integer <1578009262>) 
-    //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>) 
-    //   ✘ an entry which is: 3        (java.lang.Integer <1108924067>)  
-    //   ✔ an entry which is: 4        (java.lang.Integer <1636506029>) 
+    //   ✔ an entry which is: 1        (kotlin.Int <1578009262>) 
+    //   ✔ an entry which is: 2        (kotlin.Int <1948471365>) 
+    //   ✘ an entry which is: 3        (kotlin.Int <1108924067>)  
+    //   ✔ an entry which is: 4        (kotlin.Int <1636506029>) 
     //   ✔ ▶ size: 4  
     //       ◾ to be: 4
     //   ❗❗ following entries were mismatched:    
-    //      ⚬ 2        (java.lang.Integer <1948471365>)
+    //      ⚬ 2        (kotlin.Int <1948471365>)
     
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 
     // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <331994761>)
     // ◆ contains only, in any order:   
-    //   ✔ an entry which is: 4        (java.lang.Integer <1636506029>)
-    //   ✘ an entry which is: 3        (java.lang.Integer <1108924067>)
-    //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>)
-    //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>)
-    //   ✔ an entry which is: 1        (java.lang.Integer <1578009262>)
+    //   ✔ an entry which is: 4        (kotlin.Int <1636506029>)
+    //   ✘ an entry which is: 3        (kotlin.Int <1108924067>)
+    //   ✔ an entry which is: 2        (kotlin.Int <1948471365>)
+    //   ✔ an entry which is: 2        (kotlin.Int <1948471365>)
+    //   ✔ an entry which is: 1        (kotlin.Int <1578009262>)
     //   ✘ ▶ size: 4
     //       ◾ to be: 5
 ```     
@@ -1037,7 +1032,7 @@ This is the responsibility of your test runner.
 However, Atrium let you define multiple assertions within one test and reports them all if you want.
 In this sense it can be used for data driven testing.
 This is especially helpful in case your test runner does not support data driven testing (or other mechanisms like hierarchical or dynamic tests).
-As an example, Atrium can help you writing data driven tests in a common module of a multi-platform-project.
+As an example, Atrium can help you writing data driven tests in a common module of a multiplatform-project.
 
 The trick is to wrap your assertions into an [assertion group block](#define-single-assertions-or-assertion-groups)
 and create [Method Assertions](#method-assertions). Following an example:
@@ -1108,9 +1103,9 @@ for more examples.
 The following subsections shall give you a quick overview how Atrium differ from other assertion libraries. 
 
 - [Ready to Help](#ready-to-help)
-  - [Fluent API with Code Documentation](#1--fluent-api-with-code-documentation)
-  - [Additional Information in Failure Reporting](#2--additional-information-in-failure-reporting)
-  - [Prevents you from Pitfalls](#3--prevents-you-from-pitfalls)
+  - [Fluent API with Code Documentation](#1-fluent-api-with-code-documentation)
+  - [Additional Information in Failure Reporting](#2-additional-information-in-failure-reporting)
+  - [Prevents you from Pitfalls](#3-prevents-you-from-pitfalls)
 - [Flexibility](#flexibility)
 - [Internationalization](#internationalization)
 
@@ -1144,14 +1139,14 @@ Atrium points out which `values` were found, makes an implicit assertion about t
 ```text
 expect: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
 ◆ contains only, in order: 
-  ✔ ▶ entry 0: 1        (java.lang.Integer <6519275>)
-      ◾ to be: 1        (java.lang.Integer <6519275>)
-  ✘ ▶ entry 1: 2        (java.lang.Integer <692331943>)
-      ◾ to be: 3        (java.lang.Integer <692331943>)
+  ✔ ▶ entry 0: 1        (kotlin.Int <6519275>)
+      ◾ to be: 1        (kotlin.Int <6519275>)
+  ✘ ▶ entry 1: 2        (kotlin.Int <692331943>)
+      ◾ to be: 3        (kotlin.Int <692331943>)
   ✘ ▶ size: 3
       ◾ to be: 2
         ❗❗ additional entries detected: 
-           ⚬ entry 2: 3        (java.lang.Integer <1741979653>)
+           ⚬ entry 2: 3        (kotlin.Int <1741979653>)
 ```    
 
 Let us have a look at another example.
@@ -1263,8 +1258,8 @@ and its usage:
 
 ```kotlin
 expect(12).isMultipleOf(5)
-    // expect: 12        (java.lang.Integer <934275857>)
-    // ◆ is multiple of: 5        (java.lang.Integer <1364913072>)
+    // expect: 12        (kotlin.Int <934275857>)
+    // ◆ is multiple of: 5        (kotlin.Int <1364913072>)
 ```
 
 Let us see how we actually defined `isMultipleOf`. 
@@ -1318,7 +1313,7 @@ Its usage looks then as follows:
 
 ```kotlin
 expect(13).isEven()
-    // expect: 13        (java.lang.Integer <1841396611>)
+    // expect: 13        (kotlin.Int <1841396611>)
     // ◆ is: an even number
 ```
 
@@ -1565,14 +1560,14 @@ expect(x).toBe(9)
 Would then look as follows:
 ```text
 expect: 
-  10        (java.lang.Integer <934275857>)
+  10        (kotlin.Int <934275857>)
 ◆ to be: 
-  9        (java.lang.Integer <1364913072>)
+  9        (kotlin.Int <1364913072>)
 ```
 instead of:
 ```
-expect: 10        (java.lang.Integer <934275857>)
-◆ to be: 9        (java.lang.Integer <1364913072>)
+expect: 10        (kotlin.Int <934275857>)
+◆ to be: 9        (kotlin.Int <1364913072>)
 ```
 
 You prefer another reporting style but Atrium does not yet support it? 
@@ -1845,10 +1840,10 @@ And some features which would be handy
 I plan that Atrium is going to support certain features in the future. Following a rough plan (no guarantees).
 
 ## 0.9.0
-- Prepare the transition to an `Assert<T>` with an invariant `T` (see #56, the current solution with `Assert<out T>` will be deprecated with 1.0.0) 
-- Prepare the transition to `feature` instead of `property` and `returnValueOf` (see #40)
+- Prepare the transition to an `Assert<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated with 1.0.0) 
+- Prepare the transition to `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
-- Json assertions (state your wishes in #45)
+- Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
   
 ## 0.10.0  
 - see if we can further improve error reporting in the IDE with the help of opentest4j exceptions.
