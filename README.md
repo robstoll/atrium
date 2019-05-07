@@ -9,7 +9,7 @@
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
-It is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization-1) (i18n). 
+It is designed to support multiple [APIs](#apis), different error reporting styles and [Internationalization](#internationalization-1) (i18n). 
 The project was inspired by AssertJ at first (and was named AssertK) but it moved on and provides now more 
 flexibility, features and hints to its users (so to you :wink:).
 
