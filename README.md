@@ -1107,6 +1107,7 @@ The following subsections shall give you a quick overview how Atrium differ from
   - [Additional Information in Failure Reporting](#2-additional-information-in-failure-reporting)
   - [Prevents you from Pitfalls](#3-prevents-you-from-pitfalls)
 - [Flexibility](#flexibility)
+- [Migration of Deprecated Functionality](#migration-of-deprecated-functionality)
 - [Internationalization](#internationalization)
 
 ## Ready to Help
@@ -1219,7 +1220,14 @@ You prefer pure fluent and do not even want to see infix style in your code,
 then use `atrium-cc-en_GB-robstoll` which provides a pure fluent style API. 
 
 You are free to choose what fits best without introducing ambiguity etc.
-You could even mix up different APIs if needed (but not without losing conciseness I guess -- but hey, it is your decision :wink:). 
+You could even mix up different API-Styles if needed (but not without losing conciseness I guess -- but hey, it is your decision :wink:). 
+
+## Migration of Deprecated Functionality
+Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
+Until 1.0.0 this is only true for the API level, we reserve the right to break things on the domain and core level until then.
+Moreover, we follow the principle that a user of Atrium has enough time to migrate its code to new functionality before a next major version.
+We provide this in form of `@Deprecated` annotations with a corresponding `ReplaceWith` as well as migration guides.
+This way we hope that we provide a pleasant way to stay up-to-date without the need to migrate everything from one day to the other.
 
 ## Internationalization
 The last difference is not yet fully-blown implemented but the design of Atrium has everything needed to go down the planed [Roadmap](#roadmap).
