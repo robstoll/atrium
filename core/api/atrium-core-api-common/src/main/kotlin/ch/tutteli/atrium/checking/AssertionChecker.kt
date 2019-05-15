@@ -11,7 +11,7 @@ interface AssertionChecker {
     /**
      * Checks given [assertions] and reports if one of them fails (does not hold).
      *
-     * @param assertionVerb The assertion verb which will be used in error reporting.
+     * @param assertionVerb The assertion verb which will be used in reporting.
      * @param representationProvider Provides the representation of the subject for which the [assertions]
      *   have been created.
      * @param assertions The [assertions] which are checked.

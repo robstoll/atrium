@@ -14,7 +14,6 @@ import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
-import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 

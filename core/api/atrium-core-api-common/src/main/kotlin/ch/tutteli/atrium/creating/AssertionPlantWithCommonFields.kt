@@ -23,7 +23,7 @@ interface AssertionPlantWithCommonFields<out T> {
      *
      * @param T The type of the [AssertionPlant.subject].
      *
-     * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
+     * @property assertionVerb The assertion verb which will be used inter alia in reporting.
      * @property assertionChecker The checker which will be used to check [Assertion]s.
      * @property subjectProvider Provides the [AssertionPlant.subject] for which this plant will
      *   create/check [Assertion]s.
@@ -31,7 +31,7 @@ interface AssertionPlantWithCommonFields<out T> {
      *   cannot provide a representation, provides `null` respectively.
      *
      * @constructor
-     * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting.
      * @param subjectProvider Provides the [AssertionPlant.subject] for which this plant will create/check [Assertion]s.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      * @property nullRepresentation The representation used in reporting in case [representationProvider]

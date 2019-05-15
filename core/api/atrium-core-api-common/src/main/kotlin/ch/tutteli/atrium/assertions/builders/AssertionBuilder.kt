@@ -36,7 +36,7 @@ interface AssertionBuilder {
 
     /**
      * Builder to create an [AssertionGroup] with a [SummaryAssertionGroupType] -- use it if it is essential that also
-     * [Assertion]s which hold are shown to a user in error reporting. This kind is inter alia used for [Iterable]
+     * [Assertion]s which hold are shown to a user in reporting. This kind is inter alia used for [Iterable]
      * `contains.inAnyOrder.only` assertions where it quickly gets confusing if you do not see the assertions which
      * hold.
      *

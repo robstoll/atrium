@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * Represents a plant for [Assertion]s and offers the possibility to check whether [allAssertionsHold] which have been
  * [added][addAssertion] to this plant (since the last check).
  *
- * In contrast to [ReportingAssertionPlant], this plant does not offer error reporting capabilities but merely checks
+ * In contrast to [ReportingAssertionPlant], this plant does not offer reporting capabilities but merely indicates
  * whether the added [Assertion]s hold.
  *
  * @param T The type of the [subject] of this [AssertionPlant].

@@ -21,14 +21,14 @@ interface FailureHandlerFactory {
 
     /**
      * Creates a [AnyTypeTransformation.FailureHandler] which wraps subsequent assertions into an
-     * [AssertionGroup] with an [ExplanatoryAssertionGroupType] so that the user of Atrium can see in error reporting
+     * [AssertionGroup] with an [ExplanatoryAssertionGroupType] so that the user of Atrium can see in reporting
      * what one wanted to assert additionally.
      */
     fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T>
 
     /**
      * Creates a [AnyTypeTransformation.FailureHandler] which wraps subsequent assertions into an
-     * [AssertionGroup] with an [ExplanatoryAssertionGroupType] so that the user of Atrium can see in error reporting
+     * [AssertionGroup] with an [ExplanatoryAssertionGroupType] so that the user of Atrium can see in reporting
      * what one wanted to assert additionally -- moreover it includes a hint about the subject which shall only be shown
      * if [showHint] evaluates to `true` in which case the given [failureHintFactory] should be used to create the hint.
      *
