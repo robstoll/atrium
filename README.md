@@ -2,7 +2,7 @@
 [![Slack](https://img.shields.io/badge/Slack-atrium@kotlinlang-blue.svg)](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
 [![Build Status Travis](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
-[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/j7o4odbtvpnb1th0/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/kbox/branch/master)
+[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/j7o4odbtvpnb1th0/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/atrium/branch/master)
 [![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master)
 [![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
 [![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
