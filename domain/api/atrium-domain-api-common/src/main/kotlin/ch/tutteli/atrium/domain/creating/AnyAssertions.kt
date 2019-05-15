@@ -2,8 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.*
 import kotlin.reflect.KClass
 
 /**
@@ -19,7 +18,7 @@ val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface AnyAssertions {
-    fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T): Assertion
+    fun <T : Any> toBe(plant: SubjectProvider<T>, expected: T): Assertion
     fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T): Assertion
     fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T): Assertion
     fun <T : Any> isNotSame(plant: AssertionPlant<T>, expected: T): Assertion

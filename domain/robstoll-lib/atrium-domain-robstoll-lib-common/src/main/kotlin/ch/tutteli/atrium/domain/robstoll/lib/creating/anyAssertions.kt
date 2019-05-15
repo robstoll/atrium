@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators._downCast
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers.ExplanatoryFailureHandler
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import kotlin.reflect.KClass
 
-fun <T : Any> _toBe(plant: AssertionPlant<T>, expected: T)
+fun <T : Any> _toBe(plant: SubjectProvider<T>, expected: T)
     = AssertImpl.builder.createDescriptive(TO_BE, expected) { plant.subject == expected }
 
 fun <T : Any> _notToBe(plant: AssertionPlant<T>, expected: T)

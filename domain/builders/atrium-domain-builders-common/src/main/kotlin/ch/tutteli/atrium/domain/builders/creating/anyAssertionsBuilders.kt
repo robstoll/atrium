@@ -14,6 +14,7 @@ import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.
 import ch.tutteli.atrium.domain.creating.anyAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.SubjectProvider
 import kotlin.reflect.KClass
 
 /**
@@ -22,7 +23,7 @@ import kotlin.reflect.KClass
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object AnyAssertionsBuilder : AnyAssertions {
-    override inline fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
+    override inline fun <T : Any> toBe(plant: SubjectProvider<T>, expected: T)
         = anyAssertions.toBe(plant, expected)
 
     override inline fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T)

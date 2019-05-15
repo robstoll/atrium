@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [subject] of this [AssertionPlant].
  */
 @AssertMarker
-interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>> {
+interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>, SubjectProvider<T> {
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this plant.

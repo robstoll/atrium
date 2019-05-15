@@ -50,6 +50,31 @@ expect interface CoreFactory : CoreFactoryCommon
 interface CoreFactoryCommon {
 
     /**
+     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
+     *
+     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
+     * uses [subjectProvider] as [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and also as
+     * [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
+     * (the provider is most likely called more than once).
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
+     * @param subjectProvider Used as [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and
+     *   also as [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newReportingAssertionContainer(
+        assertionVerb: Translatable,
+        subjectProvider: () -> T,
+        reporter: Reporter
+    ): ReportingAssertionContainer<T> = newReportingAssertionContainer(
+        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
+    )
+
+    /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
@@ -73,6 +98,41 @@ interface CoreFactoryCommon {
     ): ReportingAssertionPlant<T> = newReportingPlant(
         assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
     )
+
+    /**
+     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
+     *
+     * It uses the given [assertionChecker] for assertion checking, uses [subjectProvider] as
+     * [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and also as
+     * [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * (the provider is most likely called more than once).
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
+     * @param subjectProvider Used as [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and
+     *   also as [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     * @param assertionChecker The checker which will be used to check [Assertion]s.
+     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionChecker]).
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T> newReportingAssertionContainer(
+        assertionVerb: Translatable,
+        subjectProvider: () -> T,
+        assertionChecker: AssertionChecker
+    ): ReportingAssertionContainer<T> {
+        val evalOnceSubjectProvider = subjectProvider.evalOnce()
+        return newReportingAssertionContainer(
+            AssertionContainerWithCommonFields.CommonFields(
+                assertionVerb,
+                evalOnceSubjectProvider,
+                evalOnceSubjectProvider,
+                assertionChecker,
+                RawString.NULL
+            )
+        )
+    }
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -110,6 +170,20 @@ interface CoreFactoryCommon {
     }
 
     /**
+     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
+     *
+     * It uses the [AssertionContainerWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
+     * assertion checking
+     *
+     * @param commonFields The commonFields for the new assertion plant.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T> newReportingAssertionContainer(
+        commonFields: AssertionContainerWithCommonFields.CommonFields<T>
+    ): ReportingAssertionContainer<T>
+
+    /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
@@ -119,7 +193,9 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(
+        commonFields: AssertionPlantWithCommonFields.CommonFields<T>
+    ): ReportingAssertionPlant<T>
 
 
     /**
@@ -165,6 +241,18 @@ interface CoreFactoryCommon {
      */
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
 
+
+    /**
+     * Creates a [CheckingAssertionContainer] which provides a method to check whether
+     * [allAssertionsHold][CheckingAssertionContainer.allAssertionsHold].
+     *
+     * @param subjectProvider The provider which provides the subject for which this container will
+     *   store and check [Assertion]s.
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newCheckingAssertionContainer(subjectProvider: () -> T): CheckingAssertionContainer<T>
+
     /**
      * Creates a [CheckingAssertionPlant] which provides a method to check whether
      * [allAssertionsHold][CheckingAssertionPlant.allAssertionsHold].
@@ -175,6 +263,22 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
+
+    /**
+     * Creates a [CollectingAssertionContainer] which is intended to be used as receiver object in lambdas so that it
+     * can collect [Assertion]s created inside the lambda.
+     *
+     * Notice, that the container might not provide a [CollectingAssertionContainer.subject] in which case it
+     * throws a [PlantHasNoSubjectException] if subject is accessed.
+     * Use [newCheckingAssertionContainer] instead if you want to know whether the assertions hold.
+     *
+     * @param subjectProvider The function which will either provide the subject for this container or throw an
+     *   [PlantHasNoSubjectException] in case it cannot provide it.
+     *   A [CollectingAssertionContainer] should evaluate the [subjectProvider] only once.
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newCollectingAssertionContainer(subjectProvider: () -> T): CollectingAssertionContainer<T>
 
     /**
      * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to
@@ -192,6 +296,7 @@ interface CoreFactoryCommon {
      */
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
 
+
     /**
      * Creates a [CollectingAssertionPlantNullable] which is intended to be used as receiver object in lambdas to
      * collect created [Assertion]s inside the lambda.
@@ -206,6 +311,7 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
+
 
     /**
      * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.Reporter
 import kotlin.jvm.JvmMultifileClass
@@ -21,6 +22,15 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> Assert<T>.toBe(expected: T)
+    = addAssertion(AssertImpl.any.toBe(this, expected))
+
+/**
+ * Expects that the [subject of the assertion][Expect.subject] is (equal to) [expected].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T: Any> Expect<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**

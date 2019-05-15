@@ -6,11 +6,7 @@ import ch.tutteli.atrium.core.CoreFactoryCommon
 import ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
-import ch.tutteli.atrium.core.robstoll.lib.creating.CheckingAssertionPlantImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantNullableImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantNullableImpl
+import ch.tutteli.atrium.core.robstoll.lib.creating.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedLocaleOrderDecider
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
@@ -44,14 +40,23 @@ import kotlin.reflect.KClass
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
+    final override fun <T> newReportingAssertionContainer(commonFields: AssertionContainerWithCommonFields.CommonFields<T>): ReportingAssertionContainer<T>
+        = ReportingAssertionContainerImpl(commonFields)
+
     final override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = ReportingAssertionPlantImpl(commonFields)
 
     final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
+    final override fun <T> newCheckingAssertionContainer(subjectProvider: () -> T): CheckingAssertionContainer<T>
+        = CheckingAssertionContainerImpl(subjectProvider)
+
     final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
         = CheckingAssertionPlantImpl(subjectProvider)
+
+    final override fun <T> newCollectingAssertionContainer(subjectProvider: () -> T): CollectingAssertionContainer<T>
+        = CollectingAssertionContainerImpl(subjectProvider)
 
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)

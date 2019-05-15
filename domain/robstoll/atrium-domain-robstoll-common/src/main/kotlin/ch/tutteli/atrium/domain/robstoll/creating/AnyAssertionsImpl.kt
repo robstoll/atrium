@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
@@ -11,7 +12,7 @@ import kotlin.reflect.KClass
  */
 class AnyAssertionsImpl : AnyAssertions {
 
-    override fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
+    override fun <T : Any> toBe(plant: SubjectProvider<T>, expected: T)
         = _toBe(plant, expected)
 
     override fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T)

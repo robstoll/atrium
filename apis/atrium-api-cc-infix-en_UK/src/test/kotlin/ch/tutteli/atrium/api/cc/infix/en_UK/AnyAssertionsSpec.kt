@@ -4,10 +4,10 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.spec.integration.AnyAssertionsSpec
+import ch.tutteli.atrium.spec.integration.AnyAssertionsDeprecatedSpec
 import kotlin.reflect.KFunction2
 
-class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
+class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsDeprecatedSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),
@@ -21,7 +21,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
-    class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
+    class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsDeprecatedSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun: Assert<T>.(T) -> Assert<T> = { this toBe it }
         override val notToBeFun: Assert<T>.(T) -> Assert<T> = { this notToBe it }
         override val isSameFun: Assert<T>.(T) -> Assert<T> = { this isSame it }
