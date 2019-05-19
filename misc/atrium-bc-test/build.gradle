@@ -1,7 +1,7 @@
 //Enable if you need to check the task tree, gr task taskTree --no-repeat
-plugins {
-    id "com.dorongold.task-tree" version "1.3"
-}
+//plugins {
+//    id "com.dorongold.task-tree" version "1.3.1"
+//}
 
 description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
 
@@ -71,12 +71,8 @@ def createBcAndBbcTasksForApis(String oldVersion, String forgive, String... apis
 
 Task createJacocoReportTask(String apiName, String name, Task runTask) {
     project.task("jacoco-$name", type: JacocoReport) {
-        sourceDirectories = sourceSets.main.allJava.sourceDirectories
-        classDirectories = files(sourceSets.main.output.classesDirs)
+        sourceSets sourceSets.main
         executionData runTask
-
-        sourceDirectories = project.sourceSets.main.allJava.sourceDirectories
-        classDirectories = project.sourceSets.main.output.classesDirs
 
         def projects = apiName.contains('en_UK') || apiName.contains('en_GB') ?
             jacocoMulti.sourceProjects :
@@ -87,8 +83,7 @@ Task createJacocoReportTask(String apiName, String name, Task runTask) {
                 prefixedProject('translations-de_CH-deprecated')
 
         projects.each {
-            sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-            classDirectories += it.sourceSets.main.output.classesDirs
+            sourceSets it.sourceSets.main
         }
 
         reports {

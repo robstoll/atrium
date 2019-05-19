@@ -42,7 +42,7 @@ dokka {
         println "====================="
     }
     linkMapping {
-        dir = rootProject.projectDir.absolutePath
+        dir = './'
         url = "$github_url/${dokka_sourceMapping}/"
         suffix = '#L'
     }

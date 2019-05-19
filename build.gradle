@@ -117,14 +117,6 @@ configureAndroidProjects()
 
 configure(subprojects - multiplatformProjects - jsExamples) {
     apply plugin: 'kotlin'
-
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
-    compileTestKotlin{
-        kotlinOptions.allWarningsAsErrors = true
-    }
-
     dependencies {
         compile kotlinStdlib()
     }
@@ -132,18 +124,14 @@ configure(subprojects - multiplatformProjects - jsExamples) {
 }
 
 configure(commonProjects) {
-    compileKotlinCommon {
-        kotlinOptions.allWarningsAsErrors = true
-    }
     //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
-//    compileTestKotlinCommon{
-//        kotlinOptions.allWarningsAsErrors = true
-//    }
+    compileTestKotlinCommon{
+        kotlinOptions.allWarningsAsErrors = false
+    }
 }
 configure(jsProjects) { subProject ->
     compileKotlin2Js {
         kotlinOptions{
-            allWarningsAsErrors = true
             if(subProject.name.startsWith("atrium-translations")) {
                 //necessary as the module name is then also called atrium-translations-js and can be shared by the other translation modules
                 outputFile = "$buildDir/classes/kotlin/main/atrium-translations-js.js"
@@ -152,9 +140,9 @@ configure(jsProjects) { subProject ->
 
     }
     //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
-//    compileTestKotlin2Js{
-//        kotlinOptions.allWarningsAsErrors = true
-//    }
+    compileTestKotlin2Js{
+        kotlinOptions.allWarningsAsErrors = false
+    }
 }
 
 configure(subprojects - commonProjects - jsProjects - jsExamples) {
@@ -181,6 +169,7 @@ configure(subprojects - bundleSmokeTests - exampleProjects) { subproject ->
 
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
+    spek.version = '1.1.5'
 
     compileKotlin {
         kotlinOptions.allWarningsAsErrors = true
@@ -202,9 +191,8 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
 
             jacocoReport {
                 if (project.hasProperty('jacoco_additional')) {
-                    project.jacoco_additional.each {
-                        sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-                        classDirectories += it.sourceSets.main.output.classesDirs
+                    project.jacoco_additional.each { otherProject ->
+                        sourceSets otherProject.sourceSets.main
                     }
                 }
                 reports {
