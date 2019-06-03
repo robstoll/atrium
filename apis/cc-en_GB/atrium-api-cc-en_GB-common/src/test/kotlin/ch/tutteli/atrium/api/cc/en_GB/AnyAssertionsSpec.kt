@@ -2,10 +2,11 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
+
 //import kotlin.reflect.KFunction2
 //import kotlin.reflect.KProperty1
 
-class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
+class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),
@@ -18,8 +19,9 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
 //    "${toBeNullableCreatorFun.name} with creator" to toBeNullableCreatorFun,
 //    getAndImmediatePair(),
 //    getAndLazyPair()
+
 ) {
-    class AnyAssertionsSpecFunFactory<T : Any> : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
+    class AnyAssertionsSpecFunFactory<T: Any> : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun = Expect<T>::toBe
 //        override val notToBeFun = Assert<T>::notToBe
 //        override val isSameFun = Assert<T>::isSameAs

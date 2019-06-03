@@ -115,9 +115,9 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
 
     sourceSets {
         create(srcName) {
-            java.srcDirs = [] // we don't have java sources
             kotlin.srcDirs = [srcDirectory]
             resources.srcDirs = [srcDirectory]
+            java.srcDirs = [] // we don't have java sources
         }
     }
 
@@ -200,6 +200,11 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         }
     }
 
+    project."compileSrc_${nameUnderline}Kotlin" {
+        kotlinOptions.suppressWarnings = true
+        dependsOn unzip
+    }
+
     def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
         description = "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
 
@@ -231,11 +236,6 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
     bbcTests.dependsOn bbcTask
     bcTests.dependsOn jacocoBcReport
     bcTests.dependsOn bcTask
-    project."compileSrc_${nameUnderline}Kotlin" {
-        kotlinOptions.suppressWarnings = true
-    }
-    
-    project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
 def createFixSrcTask(String apiName, String oldVersion, String file, Closure modifyContent) {
@@ -352,4 +352,3 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { S
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
     return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')
 }
-

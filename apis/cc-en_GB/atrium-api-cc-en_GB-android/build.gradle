@@ -4,11 +4,21 @@ description = 'An assertion function API in en_GB with a focus on code completio
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 dependencies {
-    compile prefixedProject('domain-builders-jvm')
+    compile prefixedProject('domain-builders-android')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
-    testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testCompile prefixedProject('verbs-internal-jvm')
+    testRuntimeOnly prefixedProject('domain-robstoll-android')
+    testRuntimeOnly prefixedProject('core-robstoll-android')
+    testCompile prefixedProject('verbs-internal-android')
+}
+
+//TODO remove once all specs are migrated to spek2
+junitPlatform {
+    filters {
+        engines {
+            include 'spek2'
+            include 'spek'
+        }
+    }
 }
 
 srcAndResourcesFromJvmProject(project)

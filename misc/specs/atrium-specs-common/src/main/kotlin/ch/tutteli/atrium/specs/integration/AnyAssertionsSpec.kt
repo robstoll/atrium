@@ -1,26 +1,33 @@
-package ch.tutteli.atrium.spec.integration
+package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.messageContains
 //import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
 //import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.creating.Expect
 //import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
+//import ch.tutteli.atrium.spec.prefixedDescribe
 //import ch.tutteli.atrium.spec.setUp
-import ch.tutteli.atrium.spec.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
+import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.reporting.reporter
+import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.specs.SubjectLessAssertionSpec
+import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.expectLambda
+import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 //import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-//import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.include
 
 abstract class AnyAssertionsSpec(
     verbs: AssertionVerbFactory,
     funInt: AnyAssertionsSpecFunFactory<Int>,
+//    funNullableInt: AnyAssertionsSpecFunFactory<Int?>,
     funDataClass: AnyAssertionsSpecFunFactory<DataClass>,
     toBe: String,
 //    notToBe: String,
@@ -34,10 +41,14 @@ abstract class AnyAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    //TODO extend SubjectLess with nullable
-    include(object : NewSubjectLessAssertionSpec<Int>(describePrefix,
-        toBe to liftToExpect { funInt.toBeFun(this, 1) }
-    ){})
+    include(object : SubjectLessAssertionSpec<Int>(describePrefix,
+        toBe to expectLambda { funInt.toBeFun(this, 1) }
+    ) {})
+
+    //TODO add nullable case
+//    include(object : SubjectLessAssertionSpec<Int?>(describePrefix,
+//        toBe to expectLambda { funNullableInt.toBeFun(this, 1) }
+//    ) {})
 //
 //    include(object : SubjectLessAssertionSpec<Int>(describePrefix,
 //
@@ -55,11 +66,11 @@ abstract class AnyAssertionsSpec(
 //        checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
 //    ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
-        = prefixedDescribe(describePrefix, description, body)
+//    fun prefixedDescribe(description: String, body: Suite.() -> Unit)
+//        = prefixedDescribe(describePrefix, description, body)
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assert: (Int) -> Expect<Int> = verbs::checkImmediately
@@ -70,7 +81,8 @@ abstract class AnyAssertionsSpec(
 //    val (and, andProperty) = andPair
 //    val (andLazy, andLazyGroup) = andLazyPair
 
-    describeFun(toBe) {//, notToBe, isSame, isNotSame) {
+    describeFun(toBe) {
+        //, notToBe, isSame, isNotSame) {
 
         context("primitive") {
             val toBeFun: Expect<Int>.(Int) -> Expect<Int> = funInt.toBeFun
@@ -79,7 +91,7 @@ abstract class AnyAssertionsSpec(
 //            val isNotSameFun: Expect<Int>.(Int) -> Expect<Int> = funInt.isNotSameFun
 
             context("one equals the other") {
-                test("$toBe does not throw") {
+                it("$toBe does not throw") {
                     assert(1).toBeFun(1)
                 }
 //                test("$isSame does not throw") {
@@ -97,7 +109,7 @@ abstract class AnyAssertionsSpec(
 //                }
             }
             context("one does not equal the other") {
-                test("$toBe throws AssertionError") {
+                it("$toBe throws AssertionError") {
                     expect {
                         assert(1).toBeFun(2)
                     }.toThrow<AssertionError> { messageContains(TO_BE.getDefault()) }
@@ -123,7 +135,7 @@ abstract class AnyAssertionsSpec(
 //            val isSameFun: Expect<DataClass>.(DataClass) -> Expect<DataClass> = funDataClass.isSameFun
 //            val isNotSameFun: Expect<DataClass>.(DataClass) -> Expect<DataClass> = funDataClass.isNotSameFun
             context("same") {
-                test("$toBe does not throw") {
+                it("$toBe does not throw") {
                     fluent.toBeFun(test)
                 }
 //                test("$notToBe throws AssertionError") {
@@ -142,7 +154,7 @@ abstract class AnyAssertionsSpec(
             }
             context("not same but one equals the other") {
                 val other = DataClass(true)
-                test("$toBe does not throw") {
+                it("$toBe does not throw") {
                     fluent.toBeFun(other)
                 }
 //                test("$notToBe throws AssertionError") {
@@ -161,10 +173,10 @@ abstract class AnyAssertionsSpec(
             }
             context("one does not equal the other") {
                 val other = DataClass(false)
-                test("$toBe does not throw") {
+                it("$toBe does not throw") {
                     expect {
                         fluent.toBeFun(other)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
 //                test("$notToBe throws AssertionError") {
 //                    fluent.notToBeFun(other)
@@ -304,7 +316,7 @@ abstract class AnyAssertionsSpec(
 //    }
 
 }) {
-    interface AnyAssertionsSpecFunFactory<T : Any> {
+    interface AnyAssertionsSpecFunFactory<T> {
         val toBeFun: Expect<T>.(T) -> Expect<T>
 //        val notToBeFun: Expect<T>.(T) -> Expect<T>
 //        val isSameFun: Expect<T>.(T) -> Expect<T>

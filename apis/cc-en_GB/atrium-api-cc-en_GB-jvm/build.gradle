@@ -26,3 +26,13 @@ compileTestKotlin.dependsOn(
     prefixedProject('domain-robstoll-jvm').compileKotlin,
     prefixedProject('domain-robstoll-jvm').processResources
 )
+
+//TODO remove once all specs are migrated to spek2
+junitPlatform {
+    filters {
+        engines {
+            include 'spek2'
+            include 'spek'
+        }
+    }
+}

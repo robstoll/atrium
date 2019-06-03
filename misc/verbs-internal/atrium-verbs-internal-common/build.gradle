@@ -3,6 +3,7 @@ description = 'Specifies the internally used assertion verbs as common module'
 dependencies {
     compile prefixedProject('core-api-common')
     compile prefixedProject('domain-builders-common')
+    compile prefixedProject('specs-common')
 
     testCompile prefixedProject('domain-robstoll-common')
     testCompile prefixedProject('core-robstoll-common')
