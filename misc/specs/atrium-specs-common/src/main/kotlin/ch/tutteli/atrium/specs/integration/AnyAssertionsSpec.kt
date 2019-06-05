@@ -14,10 +14,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.specs.SubjectLessAssertionSpec
-import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.expectLambda
-import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.Spek
@@ -59,12 +56,12 @@ abstract class AnyAssertionsSpec(
 //        andLazyPair.first to mapToCreateAssertion { andLazyPair.second }
 //    ) {})
 //
-//    include(object : CheckingAssertionSpec<Int>(verbs, describePrefix,
-////        checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0),
+    include(object : CheckingAssertionSpec<Int>(verbs, describePrefix,
+        checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0)
 //        checkingTriple(notToBe, { funInt.notToBeFun(this, 1) }, 0, 1),
 //        checkingTriple(isSame, { funInt.isSameFun(this, 1) }, 1, 0),
 //        checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
-//    ) {})
+    ) {})
 
 //    fun prefixedDescribe(description: String, body: Suite.() -> Unit)
 //        = prefixedDescribe(describePrefix, description, body)
