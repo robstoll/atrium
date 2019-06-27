@@ -13,7 +13,7 @@ fun GroupBody.describeFunTemplate(
     funNamePrefix: String = "`",
     funNameSuffix: String = "`",
     body: Suite.() -> Unit
-) = prefixedDescribe(describePrefix, " fun ",
+) = prefixedDescribeTemplate(describePrefix, " fun ",
     giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body)
 
 fun GroupBody.describePropertyTemplate(
@@ -22,7 +22,7 @@ fun GroupBody.describePropertyTemplate(
     propertyNamePrefix: String = "`",
     propertyNameSuffix: String = "`",
     body: Suite.() -> Unit
-) = prefixedDescribe(
+) = prefixedDescribeTemplate(
     describePrefix,
     " property ",
     giveWrappedNames(propertyNames, propertyNamePrefix, propertyNameSuffix),
@@ -35,10 +35,10 @@ private fun giveWrappedNames(names: Array<out String>, prefix: String, postfix: 
     }
 }
 
-fun GroupBody.prefixedDescribe(prefix: String, description: String, body: Suite.() -> Unit) =
-    prefixedDescribe(prefix, "", description, body)
+fun GroupBody.prefixedDescribeTemplate(prefix: String, description: String, body: Suite.() -> Unit) =
+    prefixedDescribeTemplate(prefix, "", description, body)
 
-fun GroupBody.prefixedDescribe(prefix: String, suffix: String, description: String, body: Suite.() -> Unit) =
+fun GroupBody.prefixedDescribeTemplate(prefix: String, suffix: String, description: String, body: Suite.() -> Unit) =
     describe("${prefix}describe$suffix $description", body = body)
 
 fun Root.include(spek: Spek) = spek.root(this)

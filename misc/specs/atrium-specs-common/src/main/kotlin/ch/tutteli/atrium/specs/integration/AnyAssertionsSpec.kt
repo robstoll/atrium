@@ -37,8 +37,8 @@ abstract class AnyAssertionsSpec(
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
-//    andPair: Pair<String, Expect<Int>.() -> Expect<Int>>,
-//    andLazyPair: Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>>,
+    andPair: Fun0<Int>,
+    andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -47,7 +47,9 @@ abstract class AnyAssertionsSpec(
         toBeInt.forSubjectLess(1),
         notToBeInt.forSubjectLess(1),
         isSameInt.forSubjectLess(1),
-        isNotSameInt.forSubjectLess(1)
+        isNotSameInt.forSubjectLess(1),
+        andPair.forSubjectLess(),
+        andLazyPair.forSubjectLess { toBe(1) }
     ) {})
 
     include(object : SubjectLessAssertionSpec<Int?>(
@@ -58,12 +60,7 @@ abstract class AnyAssertionsSpec(
         isNotSameNullableInt.forSubjectLess(1),
         toBeNull.forSubjectLess()
     ) {})
-//
-//    include(object : SubjectLessAssertionSpec<Int>(describePrefix,
-//        andPair.first to mapToCreateAssertion { andPair.second },
-//        andLazyPair.first to mapToCreateAssertion { andLazyPair.second }
-//    ) {})
-//
+
     include(object : CheckingAssertionSpec<Int>(
         verbs, describePrefix,
         toBeInt.forChecking(1, 1, 0),
@@ -81,8 +78,8 @@ abstract class AnyAssertionsSpec(
         toBeNull.forChecking(null, 1)
     ) {})
 
-//    fun prefixedDescribe(description: String, body: Suite.() -> Unit)
-//        = prefixedDescribe(describePrefix, description, body)
+    fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
+        prefixedDescribeTemplate(describePrefix, description, body)
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -291,11 +288,43 @@ abstract class AnyAssertionsSpec(
         )
 
         val subject = DataClass(true)
-        checkDataClass("class", verbs.check(subject), toBeDataClass, notToBeDataClass, isSameDataClass, isNotSameDataClass, subject)
-        checkDataClass("nullable class", verbs.check(subject as DataClass?), toBeNullableDataClass, notToBeNullableDataClass, isSameNullableDataClass, isNotSameNullableDataClass, subject)
+        checkDataClass(
+            "class",
+            verbs.check(subject),
+            toBeDataClass,
+            notToBeDataClass,
+            isSameDataClass,
+            isNotSameDataClass,
+            subject
+        )
+        checkDataClass(
+            "nullable class",
+            verbs.check(subject as DataClass?),
+            toBeNullableDataClass,
+            notToBeNullableDataClass,
+            isSameNullableDataClass,
+            isNotSameNullableDataClass,
+            subject
+        )
 
-        checkNull("null as Int?", toBeNullableInt,notToBeNullableInt, isSameNullableInt, isNotSameNullableInt, 2, "Int (kotlin.Int)")
-        checkNull("null as DataClass?", toBeNullableDataClass, notToBeNullableDataClass, isSameNullableDataClass, isNotSameNullableDataClass, subject, "DataClass")
+        checkNull(
+            "null as Int?",
+            toBeNullableInt,
+            notToBeNullableInt,
+            isSameNullableInt,
+            isNotSameNullableInt,
+            2,
+            "Int (kotlin.Int)"
+        )
+        checkNull(
+            "null as DataClass?",
+            toBeNullableDataClass,
+            notToBeNullableDataClass,
+            isSameNullableDataClass,
+            isNotSameNullableDataClass,
+            subject,
+            "DataClass"
+        )
     }
 
     describeFun(toBeNull.name) {
@@ -408,19 +437,19 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-//
-//    prefixedDescribe("property `$and` immediate") {
-//        it("returns the same plant") {
-//            val plant = assert(1)
-//            verbs.check(plant.andProperty()).toBe(plant)
-//        }
-//    }
-//    prefixedDescribe("`$andLazy` group") {
-//        it("returns the same plant") {
-//            val plant = expectSubject
-//            verbs.check(plant.andLazyGroup { }).toBe(plant)
-//        }
-//    }
+
+    prefixedDescribe("property `${andPair.name}` immediate") {
+        it("returns the same plant") {
+            val plant = verbs.check(1)
+            verbs.check(plant.(andPair.lambda)()).toBe(plant)
+        }
+    }
+    prefixedDescribe("`${andLazyPair.name}` group") {
+        it("returns the same plant") {
+            val plant = verbs.check(1)
+            verbs.check(plant.(andLazyPair.lambda){ }).toBe(plant)
+        }
+    }
 
 }) {
     data class DataClass(val isWhatever: Boolean)

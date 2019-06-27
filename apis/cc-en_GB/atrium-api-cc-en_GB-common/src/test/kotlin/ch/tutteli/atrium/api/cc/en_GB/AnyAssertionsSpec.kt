@@ -2,9 +2,8 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
-
-//import kotlin.reflect.KFunction2
-//import kotlin.reflect.KProperty1
+import kotlin.reflect.KFunction2
+import kotlin.reflect.KProperty1
 
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
@@ -26,19 +25,19 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     "${Expect<DataClass?>::isNotSameAs.name} nullable" to Expect<DataClass?>::isNotSameAs,
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
-    Expect<Int?>::toBeNullIfNullGivenElse.name to Expect<Int?>::toBeNullIfNullGivenElse
-//    getAndImmediatePair(),
-//    getAndLazyPair()
+    Expect<Int?>::toBeNullIfNullGivenElse.name to Expect<Int?>::toBeNullIfNullGivenElse,
+    getAndImmediatePair(),
+    getAndLazyPair()
 ) {
 
     companion object {
         private fun toBeNull(plant: Expect<Int?>) = plant.toBe(null)
-//
-//        private val andImmediate: KProperty1<Assert<Int>, Assert<Int>> = Assert<Int>::and
-//        fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>> = andImmediate.name to Assert<Int>::and
-//
-//        private val andLazyName: KFunction2<Assert<Int>, Assert<Int>.() -> Unit, Assert<Int>> = Assert<Int>::and
-//        fun getAndLazyPair(): Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>> =
-//            andLazyName.name to Assert<Int>::and
+
+        private val andImmediate: KProperty1<Expect<Int>, Expect<Int>> = Expect<Int>::and
+        fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> = andImmediate.name to Expect<Int>::and
+
+        private val andLazyName: KFunction2<Expect<Int>, Expect<Int>.() -> Unit, Expect<Int>> = Expect<Int>::and
+        fun getAndLazyPair(): Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>> =
+            andLazyName.name to Expect<Int>::and
     }
 }
