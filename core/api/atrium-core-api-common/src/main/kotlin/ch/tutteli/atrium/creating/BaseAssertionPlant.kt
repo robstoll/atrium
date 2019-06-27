@@ -12,7 +12,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * @param T The type of the [subject] of this [BaseAssertionPlant].
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API and as self type.
  */
-interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
+interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>: AssertionHolder {
 
     /**
      * The subject for which this plant will create [Assertion]s.
@@ -34,5 +34,5 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionPlant]).
      */
-    fun addAssertion(assertion: Assertion): A
+    override fun addAssertion(assertion: Assertion): A
 }

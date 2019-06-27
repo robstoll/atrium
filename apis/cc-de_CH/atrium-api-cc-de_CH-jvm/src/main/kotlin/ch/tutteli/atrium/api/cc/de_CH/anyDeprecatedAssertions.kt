@@ -15,11 +15,11 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  */
 @Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `ist(null)` without adding enough to be a legit alternative.", ReplaceWith("ist(null)"))
 fun <T : Any?> AssertionPlantNullable<T>.istNull() {
-    addAssertion(AssertImpl.any.isNull(this))
+    addAssertion(AssertImpl.any.toBeNull(this))
 }
 
 @Deprecated("Use the extension function, will be removed with 1.0.0", ReplaceWith("plant.ist(null)"))
 @Suppress("UNUSED_PARAMETER")
 fun <T : Any?> ist(plant: AssertionPlantNullable<T>, void: Void?) {
-    plant.addAssertion(AssertImpl.any.isNull(plant))
+    plant.addAssertion(AssertImpl.any.toBeNull(plant))
 }

@@ -68,7 +68,7 @@ fun <T : Any> Assert<T>.isNotSame(expected: T)
  */
 @Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `toBe(null)` without adding enough to be a legit alternative.", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toBe(null)"))
 fun <T : Any?> AssertionPlantNullable<T>.isNull() {
-    addAssertion(AssertImpl.any.isNull(this))
+    addAssertion(AssertImpl.any.toBeNull(this))
 }
 
 /**

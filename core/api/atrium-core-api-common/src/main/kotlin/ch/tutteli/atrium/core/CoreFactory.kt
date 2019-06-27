@@ -336,6 +336,19 @@ interface CoreFactoryCommon {
     fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
     /**
+     * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given
+     * [originalAssertionHolder] by adding (see [AssertionHolder.addAssertion]) the assertions to the given
+     * [originalAssertionHolder].
+     *
+     * @param originalAssertionHolder The assertion container to which the [Assertion]s will
+     *   be [added][AssertionPlant.addAssertion].
+     *
+     * @return The newly created assertion checker.
+     */
+    fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+
+
+    /**
      * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]
      * by adding (see [AssertionPlant.addAssertion]) the assertions to the given [subjectPlant].
      *
@@ -343,7 +356,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
+    fun <T> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
 
     /**

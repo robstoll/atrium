@@ -70,8 +70,11 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
         = FeatureAssertionChecker(subjectPlant)
 
+    override fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+        = DelegatingAssertionChecker(originalAssertionHolder)
+
     final override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
-        = DelegatingAssertionChecker(subjectPlant)
+        = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
 
     final override fun newMethodCallFormatter(): MethodCallFormatter
         = TextMethodCallFormatter

@@ -9,6 +9,6 @@ import ch.tutteli.atrium.reporting.Reporter
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */
 object AssertionVerbFactory : ch.tutteli.atrium.specs.verbs.AssertionVerbFactory {
-    override fun <T> checkImmediately(subject: T) = assert(subject)
+    override fun <T> check(subject: T) = assert(subject)
     override fun checkException(act: () -> Unit) = expect(act)
 }

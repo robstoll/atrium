@@ -8,35 +8,28 @@ import ch.tutteli.atrium.creating.Expect
 
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
-    AnyAssertionsSpecFunFactory(),
-    AnyAssertionsSpecFunFactory(),
-    Expect<Int>::toBe.name
-//    Assert<Int>::notToBe.name,
+    Expect<Int>::toBe,
+    Expect<DataClass>::toBe,
+    Expect<Int?>::toBe,
+    Expect<DataClass?>::toBe,
+    Expect<Int>::toBe.name,
+    "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
+    "${Expect<Int?>::toBe.name} nullable" to Expect<Int?>::toBe
+//    Assert<Int>::notToBe.name
 //    Assert<Int>::isSameAs.name,
 //    Assert<Int>::isNotSameAs.name,
-//    "${AssertionPlantNullable<Int?>::toBe.name}(null)" to Companion::toBeNull,
-//    toBeNullableFun.name to toBeNullableFun,
 //    "${toBeNullableCreatorFun.name} with creator" to toBeNullableCreatorFun,
 //    getAndImmediatePair(),
 //    getAndLazyPair()
 
 ) {
-    class AnyAssertionsSpecFunFactory<T: Any> : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
-        override val toBeFun = Expect<T>::toBe
-//        override val notToBeFun = Assert<T>::notToBe
-//        override val isSameFun = Assert<T>::isSameAs
-//        override val isNotSameFun = Assert<T>::isNotSameAs
-    }
 
     companion object {
-//        private val toBeNullableFun: KFunction2<AssertionPlantNullable<Int?>, Int?, Unit> =
-//            AssertionPlantNullable<Int?>::toBe
+        private fun toBeNull(plant: Expect<Int?>) = plant.toBe(null)
+
 //        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> =
 //            AssertionPlantNullable<Int?>::toBeNullIfNullGivenElse
 //
-//        private fun toBeNull(plant: AssertionPlantNullable<Int?>) {
-//            plant.toBe(null)
-//        }
 //
 //        private val andImmediate: KProperty1<Assert<Int>, Assert<Int>> = Assert<Int>::and
 //        fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>> = andImmediate.name to Assert<Int>::and

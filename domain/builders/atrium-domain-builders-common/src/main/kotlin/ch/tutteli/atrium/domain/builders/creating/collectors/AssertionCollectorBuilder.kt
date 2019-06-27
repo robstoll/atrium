@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
+import ch.tutteli.atrium.creating.CollectingAssertionContainer
 import ch.tutteli.atrium.domain.creating.collectors.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -16,6 +17,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object AssertionCollectorBuilder: AssertionCollector {
+
+    override inline fun <T> collect(
+        noinline subjectProvider: () -> T,
+        noinline assertionCreator:  CollectingAssertionContainer<T>.() -> Unit
+    ): AssertionGroup = assertionCollector.collect(subjectProvider, assertionCreator)
+
 
     override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         noinline subjectProvider: () -> T,

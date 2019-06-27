@@ -15,6 +15,26 @@ interface AssertionCollectorForExplanation {
 
     /**
      * Collects the [Assertion] created by [assertionCreator] and uses the given [maybeSubject] as
+     * [CollectingAssertionContainer.subject] if it is [MaybeSubject.Present].
+     *
+     * In case [maybeSubject] is [MaybeSubject.Absent] and [assertionCreator] is accessed, then a
+     * [PlantHasNoSubjectException] is thrown.
+     *
+     * @param assertionCreator The function which should at least create one assertion.
+     * @param maybeSubject The subject which will be used for the [CollectingAssertionPlant].
+     *
+     * @return A list with the collected assertion or an [AssertionGroup] with an [ExplanatoryAssertionGroupType]
+     *   containing a warning if [maybeSubject] is [MaybeSubject.Absent] and an assertion function tries to access it.
+     * @throws IllegalStateException Might throw it in case not a single [Assertion] was collected
+     *   (e.g. ThrowingAssertionCollectorForExplanation does).
+     */
+    fun <T> collect(
+        maybeSubject: MaybeSubject<T>,
+        assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
+    ): List<Assertion>
+
+    /**
+     * Collects the [Assertion] created by [assertionCreator] and uses the given [maybeSubject] as
      * [CollectingAssertionPlant.subject] if it is [MaybeSubject.Present].
      *
      * In case [maybeSubject] is [MaybeSubject.Absent] and [assertionCreator] is accessed, then a
@@ -26,7 +46,7 @@ interface AssertionCollectorForExplanation {
      * @param maybeSubject The subject which will be used for the [CollectingAssertionPlant].
      *
      * @return A list with the collected assertion or an [AssertionGroup] with an [ExplanatoryAssertionGroupType]
-     *   containing a warning if [maybeSubject] is `null` and an assertion function tries to access it.
+     *   containing a warning if [maybeSubject] is [MaybeSubject.Absent] and an assertion function tries to access it.
      * @throws IllegalArgumentException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */

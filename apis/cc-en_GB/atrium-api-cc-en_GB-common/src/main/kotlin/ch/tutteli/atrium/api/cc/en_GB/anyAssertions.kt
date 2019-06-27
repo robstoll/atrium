@@ -8,7 +8,9 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
+import kotlin.js.JsName
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
@@ -25,13 +27,13 @@ fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
- * Expects that the [subject of the assertion][Expect.subject] is (equal to) [expected].
+ * Expects that the subject of the assertion is (equal to) [expected].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T: Any> Expect<T>.toBe(expected: T)
-    = addAssertion(AssertImpl.any.toBe(this, expected))
+    = addAssertion(ExpectImpl.any.toBe(this, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
@@ -79,6 +81,17 @@ fun <T : Any> Assert<T>.isNotSameAs(expected: T)
 inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
     addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
 }
+
+/**
+ * Makes the assertion that the subject of the assertion is (equal to) [expected].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("toBeNullable")
+@JsName("toBeNullable")
+inline fun <reified T : Any> Expect<T?>.toBe(expected: T?) : Expect<T?>
+    = addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]

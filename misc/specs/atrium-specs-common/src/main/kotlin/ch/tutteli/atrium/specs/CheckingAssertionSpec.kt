@@ -22,13 +22,13 @@ abstract class CheckingAssertionSpec<T>(
                 it("assertion which holds -- does not throw, returns `true`") {
                     val checkingPlant = AssertImpl.coreFactory.newCheckingAssertionContainer { holdingSubject }
                     checkingPlant.createAssertion()
-                    verbs.checkImmediately(checkingPlant.allAssertionsHold()).toBe(true)
+                    verbs.check(checkingPlant.allAssertionsHold()).toBe(true)
                 }
 
                 it("assertion which does not hold -- does not throw, returns `false`") {
                     val checkingPlant = AssertImpl.coreFactory.newCheckingAssertionContainer { failingSubject }
                     checkingPlant.createAssertion()
-                    verbs.checkImmediately(checkingPlant.allAssertionsHold()).toBe(false)
+                    verbs.check(checkingPlant.allAssertionsHold()).toBe(false)
                 }
             }
         }

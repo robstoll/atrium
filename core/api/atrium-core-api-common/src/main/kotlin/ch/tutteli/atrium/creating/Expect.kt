@@ -6,6 +6,13 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
+ * DSL Marker for [Expect].
+ */
+@DslMarker
+annotation class ExpectMarker
+
+
+/**
  * Represents the extension point of [Assertion] functions and sophisticated builders for subjects of type [T].
  *
  * It is also the base type of all assertion container types (like [ReportingAssertionContainer],
@@ -13,8 +20,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [subject] of the assertion.
  */
-@AssertMarker
-interface Expect<T> : SubjectProvider<T> {
+@ExpectMarker
+interface Expect<T> : SubjectProvider<T>, AssertionHolder {
 
     /**
      * The provider which provides [subject].
@@ -42,7 +49,7 @@ interface Expect<T> : SubjectProvider<T> {
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */
-    fun addAssertion(assertion: Assertion): Expect<T>
+    override fun addAssertion(assertion: Assertion): Expect<T>
 
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]

@@ -18,11 +18,27 @@ val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface AnyAssertions {
-    fun <T : Any> toBe(plant: SubjectProvider<T>, expected: T): Assertion
+
+    fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+
+    fun <T : Any?> toBeNull(plant: SubjectProvider<T>): Assertion
+
+    fun <T : Any> notToBeNull(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        assertionCreator: Expect<T>.() -> Unit
+    ): Assertion
+
+    fun <T : Any> toBeNullable(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        expectedOrNull: T?
+    ): Assertion
+
+
     fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T): Assertion
     fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T): Assertion
     fun <T : Any> isNotSame(plant: AssertionPlant<T>, expected: T): Assertion
-    fun <T : Any?> isNull(plant: AssertionPlantNullable<T>): Assertion
 
     fun <T : Any> isNullable(
         plant: AssertionPlantNullable<T?>,
@@ -47,6 +63,5 @@ interface AnyAssertions {
         type: KClass<T>,
         assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?
     ): Assertion
-
 }
 

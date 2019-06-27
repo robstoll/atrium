@@ -15,7 +15,7 @@ abstract class SubjectLessAssertionSpec<T>(
     vararg assertionCreator: Pair<String, Expect<T>.() -> Unit>
 ) : Spek({
 
-    describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reported without failure") {
+    describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reportBuilder without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
                 val assertions = coreFactory.newCollectingAssertionContainer<T> { throw PlantHasNoSubjectException() }

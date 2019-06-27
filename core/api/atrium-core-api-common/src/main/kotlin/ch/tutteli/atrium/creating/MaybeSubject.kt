@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating
 
 /**
- * Represents a [BaseAssertionPlant.subject] which might be [Present] or [Absent].
+ * Represents a subject of an assertion which might be [Present] or [Absent].
  *
  * It provides a method [get] where one can get the underlying subject (if [Present]).
  **/
@@ -13,7 +13,7 @@ sealed class MaybeSubject<out T> {
     abstract fun get(): T
 
     /**
-     * Represents an absent [BaseAssertionPlant.subject].
+     * Represents an absent subject.
      */
     object Absent: MaybeSubject<Nothing>(){
         /**
@@ -24,7 +24,7 @@ sealed class MaybeSubject<out T> {
     }
 
     /**
-     * Represents a present [BaseAssertionPlant.subject].
+     * Represents a present subject.
      *
      * @property subject The underlying subject.
      */

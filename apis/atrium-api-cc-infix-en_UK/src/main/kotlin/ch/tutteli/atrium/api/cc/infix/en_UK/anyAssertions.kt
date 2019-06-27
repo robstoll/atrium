@@ -68,7 +68,7 @@ infix fun <T : Any> Assert<T>.isNotSame(expected: T)
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.toBe(null)"))
 infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
-    addAssertion(AssertImpl.any.isNull(this))
+    addAssertion(AssertImpl.any.toBeNull(this))
 }
 
 /**

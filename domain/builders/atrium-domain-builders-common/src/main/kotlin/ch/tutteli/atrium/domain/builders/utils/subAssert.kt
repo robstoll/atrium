@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.builders.utils
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.Expect
 
 /**
  * Helper function to create an  [Assert&lt;T&gt;][AssertionPlant] lambda with receiver;
@@ -35,3 +36,6 @@ inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <T> subAssertNullable(noinline assertionCreator: AssertionPlantNullable<T>.() -> Unit) =
     assertionCreator
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <T> subExpect(noinline assertionCreator: Expect<T>.() -> Unit) = assertionCreator

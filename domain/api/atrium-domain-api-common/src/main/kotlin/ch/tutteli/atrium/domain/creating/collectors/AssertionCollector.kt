@@ -18,9 +18,45 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
 
 /**
- * Responsible to collect assertions made in a sub-[AssertionPlant].
+ * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
 interface AssertionCollector {
+
+    /**
+     * Uses the [Expect.subjectProvider] and delegates to the other overload.
+     */
+    fun <T> collect(
+        assertionContainer: Expect<T>,
+        assertionCreator: CollectingAssertionContainer<T>.() -> Unit
+    ) = collect(assertionContainer.subjectProvider, assertionCreator)
+
+    /**
+     * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any
+     * other action which results in an assertion container being created and
+     * you do not require this resulting container.
+     *
+     * Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
+     * assertion container.
+     *
+     * This function can be useful in several cases. For instance:
+     * - You are writing an assertion about a feature often enough so that it deserves an own assertion function
+     *   (see e.g. [MapAssertions.hasSize])
+     * - You want the collected assertion to be part of an [AssertionGroup]
+     *
+     * @param subjectProvider Provides the subject which is used as [CollectingAssertionContainer.subject].
+     *   for the given [assertionCreator].
+     * @param assertionCreator A lambda which defines the assertions for the feature.
+     *
+     * @return The collected assertions as an [AssertionGroup] with an [InvisibleAssertionGroupType].
+     *
+     * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
+     *   assertion.
+     */
+    fun <T> collect(
+        subjectProvider: () -> T,
+        assertionCreator:  CollectingAssertionContainer<T>.() -> Unit
+    ): AssertionGroup
+
 
     /**
      * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any
@@ -48,7 +84,7 @@ interface AssertionCollector {
     fun <T : Any> collect(
         plant: AssertionPlant<T>,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
-    ): AssertionGroup = collect(plant.subjectProvider, assertionCreator)
+    ): AssertionGroup = collectForSubject(plant.subjectProvider, assertionCreator)
 
     /**
      * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any
@@ -72,7 +108,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
-    fun <T : Any> collect(
+    fun <T : Any> collectForSubject(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
     ): AssertionGroup = collect(subjectProvider, coreFactory::newCollectingPlant, assertionCreator)

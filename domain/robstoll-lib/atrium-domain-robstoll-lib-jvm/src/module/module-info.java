@@ -10,6 +10,7 @@ module ch.tutteli.atrium.domain.robstoll.lib {
     exports ch.tutteli.atrium.domain.robstoll.lib.creating;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers;
+    exports ch.tutteli.atrium.domain.robstoll.lib.creating.changers;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.builders;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.creators;
