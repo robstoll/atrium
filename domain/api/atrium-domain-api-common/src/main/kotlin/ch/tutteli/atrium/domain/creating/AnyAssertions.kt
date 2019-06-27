@@ -20,8 +20,11 @@ val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
 interface AnyAssertions {
 
     fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+    fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+    fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+    fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion
 
-    fun <T : Any?> toBeNull(plant: SubjectProvider<T>): Assertion
+    fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>): Assertion
 
     fun <T : Any> notToBeNull(
         assertionContainer: Expect<T?>,
@@ -41,9 +44,7 @@ interface AnyAssertions {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 
-    fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T): Assertion
-    fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T): Assertion
-    fun <T : Any> isNotSame(plant: AssertionPlant<T>, expected: T): Assertion
+
 
     fun <T : Any> isNullable(
         plant: AssertionPlantNullable<T?>,

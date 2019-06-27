@@ -48,6 +48,16 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
+ * Expects that the subject of the assertion is not (equal to) [expected].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T> Expect<T>.notToBe(expected: T)
+    = addAssertion(ExpectImpl.any.notToBe(this, expected))
+
+
+/**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
@@ -60,6 +70,15 @@ fun <T : Any> Assert<T>.isSameAs(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
+ * Expects that the subject of the assertion is the same instance as [expected].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T> Expect<T>.isSameAs(expected: T)
+    = addAssertion(ExpectImpl.any.isSame(this, expected))
+
+/**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
@@ -70,6 +89,14 @@ fun <T : Any> Assert<T>.isSameAs(expected: T)
  */
 fun <T : Any> Assert<T>.isNotSameAs(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
+/**
+ * Expect that the subject of the assertion is not the same instance as [expected].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T> Expect<T>.isNotSameAs(expected: T)
+    = addAssertion(ExpectImpl.any.isNotSame(this, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expected].

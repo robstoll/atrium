@@ -8,16 +8,25 @@ import ch.tutteli.atrium.creating.Expect
 
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
-    Expect<Int>::toBe,
-    Expect<DataClass>::toBe,
-    Expect<Int>::toBe.name,
-    "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
+    Expect<Int>::toBe.name to Expect<Int>::toBe,
+    Expect<DataClass>::toBe.name to Expect<DataClass>::toBe,
     "${Expect<Int?>::toBe.name} nullable" to Expect<Int?>::toBe,
-    Expect<DataClass?>::toBe,
+    "${Expect<DataClass?>::toBe.name} nullable" to Expect<DataClass?>::toBe,
+    Expect<Int>::notToBe.name to Expect<Int>::notToBe,
+    Expect<DataClass>::notToBe.name to Expect<DataClass>::notToBe,
+    "${Expect<Int?>::notToBe.name} nullable" to Expect<Int?>::notToBe,
+    "${Expect<DataClass?>::notToBe.name} nullable" to Expect<DataClass?>::notToBe,
+    Expect<Int>::isSameAs.name to Expect<Int>::isSameAs,
+    Expect<DataClass>::isSameAs.name to Expect<DataClass>::isSameAs,
+    "${Expect<Int?>::isSameAs.name} nullable" to Expect<Int?>::isSameAs,
+    "${Expect<DataClass?>::isSameAs.name} nullable" to Expect<DataClass?>::isSameAs,
+    Expect<Int>::isNotSameAs.name to Expect<Int>::isNotSameAs,
+    Expect<DataClass>::isNotSameAs.name to Expect<DataClass>::isNotSameAs,
+    "${Expect<Int?>::isNotSameAs.name} nullable" to Expect<Int?>::isNotSameAs,
+    "${Expect<DataClass?>::isNotSameAs.name} nullable" to Expect<DataClass?>::isNotSameAs,
+
+    "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     Expect<Int?>::toBeNullIfNullGivenElse.name to Expect<Int?>::toBeNullIfNullGivenElse
-//    Assert<Int>::notToBe.name
-//    Assert<Int>::isSameAs.name,
-//    Assert<Int>::isNotSameAs.name,
 //    getAndImmediatePair(),
 //    getAndLazyPair()
 ) {

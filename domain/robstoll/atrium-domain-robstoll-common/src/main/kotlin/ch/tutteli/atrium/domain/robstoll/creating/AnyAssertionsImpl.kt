@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
@@ -15,7 +14,11 @@ import kotlin.reflect.KClass
 class AnyAssertionsImpl : AnyAssertions {
 
     override fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T) = _toBe(subjectProvider, expected)
-    override fun <T : Any?> toBeNull(plant: SubjectProvider<T>) = _toBeNull(plant)
+    override fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T) = _notToBe(subjectProvider, expected)
+    override fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T) = _isSame(subjectProvider, expected)
+    override fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T) = _isNotSame(subjectProvider, expected)
+
+    override fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>) = _toBeNull(subjectProvider)
 
     override fun <T : Any> notToBeNull(
         assertionContainer: Expect<T?>,
@@ -35,11 +38,6 @@ class AnyAssertionsImpl : AnyAssertions {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ) = _toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
-    override fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T) = _notToBe(plant, expected)
-
-    override fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T) = _isSame(plant, expected)
-
-    override fun <T : Any> isNotSame(plant: AssertionPlant<T>, expected: T) = _isNotSame(plant, expected)
 
     override fun <T : Any> isNullable(
         plant: AssertionPlantNullable<T?>,

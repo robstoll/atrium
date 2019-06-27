@@ -19,6 +19,16 @@ import kotlin.reflect.KClass
 fun <T : Any> _toBe(plant: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(TO_BE, expected) { plant.subject == expected }
 
+fun <T> _notToBe(subjectProvider: SubjectProvider<T>, expected: T) =
+    ExpectImpl.builder.createDescriptive(NOT_TO_BE, expected) { subjectProvider.subject != expected }
+
+fun <T> _isSame(subjectProvider: SubjectProvider<T>, expected: T) =
+    ExpectImpl.builder.createDescriptive(IS_SAME, expected) { subjectProvider.subject === expected }
+
+fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
+    ExpectImpl.builder.createDescriptive(IS_NOT_SAME, expected) { subjectProvider.subject !== expected }
+
+
 fun <T : Any?> _toBeNull(plant: SubjectProvider<T>) =
     ExpectImpl.builder.createDescriptive(TO_BE, RawString.NULL) { plant.subject == null }
 
@@ -53,16 +63,6 @@ fun <T : Any> _toBeNullIfNullGivenElse(
     if (assertionCreatorOrNull == null) ExpectImpl.any.toBeNull(assertionContainer)
     else ExpectImpl.any.notToBeNull(assertionContainer, type, assertionCreatorOrNull)
 
-
-
-fun <T : Any> _notToBe(plant: AssertionPlant<T>, expected: T) =
-    AssertImpl.builder.createDescriptive(NOT_TO_BE, expected) { plant.subject != expected }
-
-fun <T : Any> _isSame(plant: AssertionPlant<T>, expected: T) =
-    AssertImpl.builder.createDescriptive(IS_SAME, expected) { plant.subject === expected }
-
-fun <T : Any> _isNotSame(plant: AssertionPlant<T>, expected: T) =
-    AssertImpl.builder.createDescriptive(IS_NOT_SAME, expected) { plant.subject !== expected }
 
 fun <T : Any> _isNullable(
     plant: AssertionPlantNullable<T?>,
