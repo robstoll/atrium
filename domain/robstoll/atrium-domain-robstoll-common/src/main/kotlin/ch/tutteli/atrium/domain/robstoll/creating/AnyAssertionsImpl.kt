@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
@@ -28,6 +29,11 @@ class AnyAssertionsImpl : AnyAssertions {
         expectedOrNull: T?
     ) = _toBeNullable(assertionContainer, type, expectedOrNull)
 
+    override fun <T : Any> toBeNullIfNullGivenElse(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+    ) = _toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
     override fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T) = _notToBe(plant, expected)
 

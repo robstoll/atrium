@@ -45,6 +45,14 @@ fun <T : Any> _toBeNullable(
     else -> ExpectImpl.any.notToBeNull(assertionContainer, type) { toBe(expectedOrNull) }
 }
 
+fun <T : Any> _toBeNullIfNullGivenElse(
+    assertionContainer: Expect<T?>,
+    type: KClass<T>,
+    assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+): Assertion =
+    if (assertionCreatorOrNull == null) ExpectImpl.any.toBeNull(assertionContainer)
+    else ExpectImpl.any.notToBeNull(assertionContainer, type, assertionCreatorOrNull)
+
 
 
 fun <T : Any> _notToBe(plant: AssertionPlant<T>, expected: T) =

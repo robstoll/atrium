@@ -10,26 +10,20 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
     Expect<Int>::toBe,
     Expect<DataClass>::toBe,
-    Expect<Int?>::toBe,
-    Expect<DataClass?>::toBe,
     Expect<Int>::toBe.name,
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
-    "${Expect<Int?>::toBe.name} nullable" to Expect<Int?>::toBe
+    "${Expect<Int?>::toBe.name} nullable" to Expect<Int?>::toBe,
+    Expect<DataClass?>::toBe,
+    Expect<Int?>::toBeNullIfNullGivenElse.name to Expect<Int?>::toBeNullIfNullGivenElse
 //    Assert<Int>::notToBe.name
 //    Assert<Int>::isSameAs.name,
 //    Assert<Int>::isNotSameAs.name,
-//    "${toBeNullableCreatorFun.name} with creator" to toBeNullableCreatorFun,
 //    getAndImmediatePair(),
 //    getAndLazyPair()
-
 ) {
 
     companion object {
         private fun toBeNull(plant: Expect<Int?>) = plant.toBe(null)
-
-//        private val toBeNullableCreatorFun: KFunction2<AssertionPlantNullable<Int?>, (Assert<Int>.() -> Unit)?, Unit> =
-//            AssertionPlantNullable<Int?>::toBeNullIfNullGivenElse
-//
 //
 //        private val andImmediate: KProperty1<Assert<Int>, Assert<Int>> = Assert<Int>::and
 //        fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>> = andImmediate.name to Assert<Int>::and

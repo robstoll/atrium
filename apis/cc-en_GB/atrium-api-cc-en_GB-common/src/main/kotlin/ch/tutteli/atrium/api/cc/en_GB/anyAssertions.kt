@@ -111,6 +111,22 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(
 }
 
 /**
+ * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
+ * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
+ *
+ * It is a shortcut for
+ * ```kotlin
+ * if (assertionCreatorOrNull == null) toBe(null)
+ * else notToBeNull(assertionCreatorOrNull)
+ * ```
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?) =
+    addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+
+/**
  * Can be used to separate assertions when using the fluent API.
  *
  * For instance `assert(1).isLessThan(2).and.isGreaterThan(0)` creates

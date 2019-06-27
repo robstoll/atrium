@@ -38,6 +38,11 @@ object AnyAssertionsBuilder : AnyAssertions {
         expectedOrNull: T?
     ) = anyAssertions.toBeNullable(assertionContainer, type, expectedOrNull)
 
+    override inline fun <T : Any> toBeNullIfNullGivenElse(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+    ) = anyAssertions.toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
     override inline fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T)
         = anyAssertions.notToBe(plant, expected)

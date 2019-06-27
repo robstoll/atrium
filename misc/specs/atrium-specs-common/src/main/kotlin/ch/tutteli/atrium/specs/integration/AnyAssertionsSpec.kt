@@ -5,8 +5,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.subAssert
-import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -15,17 +13,15 @@ import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-
 abstract class AnyAssertionsSpec(
     verbs: AssertionVerbFactory,
     toBeInt: Expect<Int>.(Int) -> Expect<Int>,
     toBeDataClass: Expect<DataClass>.(DataClass) -> Expect<DataClass>,
-    toBeNullableInt: Expect<Int?>.(Int?) -> Expect<Int?>,
-    toBeNullableDataClass: Expect<DataClass?>.(DataClass?) -> Expect<DataClass?>,
     toBe: String,
     toBeNull: Fun0<Int?>,
-    toBeNullable: Fun1<Int?, Int?>,
+    toBeNullableInt: Fun1<Int?, Int?>,
+    toBeNullableDataClass: Expect<DataClass?>.(DataClass?) -> Expect<DataClass?>,
+    toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
 //    isSame: String,
 //    isNotSame: String,
 //    toBeNullPair: Pair<String, Expect<Int?>.() -> Unit>,
@@ -41,7 +37,8 @@ abstract class AnyAssertionsSpec(
     ) {})
 
     include(object : SubjectLessAssertionSpec<Int?>("$describePrefix[nullable] ",
-        toBe to expectLambda { toBeNullableInt(this, 1) }
+        toBeNullableInt.name to expectLambda { toBeNullableInt(this, 1) },
+        toBeNull.name to expectLambda { toBeNull(this) }
     ) {})
 //
 //    include(object : SubjectLessAssertionSpec<Int>(describePrefix,
@@ -61,7 +58,8 @@ abstract class AnyAssertionsSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Int?>(verbs, "$describePrefix[nullable] ",
-        checkingTriple(toBe, { toBeNullableInt(this, 1) }, 1, null)
+        checkingTriple(toBe, { toBeNullableInt(this, 1) }, 1, null),
+        checkingTriple(toBeNull.name, { toBeNull(this) }, null, 1)
 //        checkingTriple(notToBe, { toBeInt.notToBeFun(this, 1) }, 0, 1),
 //        checkingTriple(isSame, { toBeInt.isSameFun(this, 1) }, 1, 0),
 //        checkingTriple(isNotSame, { toBeInt.isNotSameFun(this, 1) }, 0, 1)
@@ -74,16 +72,14 @@ abstract class AnyAssertionsSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-//    val verbs.check: (Int?) -> Expect<Int?> = verbs::check
-//    val (toBeNull, toBeNullFun) = toBeNullPair
-//    val (toBeNullable, toBeNullableFun) = toBeNullablePair
-//    val (toBeNullIfNullElse, toBeNullIfNullElseFun) = toBeNullIfNullElsePair
-//    val (and, andProperty) = andPair
-//    val (andLazy, andLazyGroup) = andLazyPair
 
-    fun <T: Int?> Suite.checkInt(description: String, expectSubject: Expect<T>, toBeFun: Expect<T>.(Int) -> Expect<T>) {
+    fun <T : Int?> Suite.checkInt(
+        description: String,
+        expectSubject: Expect<T>,
+        toBeFun: Expect<T>.(Int) -> Expect<T>
+    ) {
         context(description) {
-//            val isSameFun: Expect<Int>.(Int) -> Expect<Int> = toBeInt.isSameFun
+            //            val isSameFun: Expect<Int>.(Int) -> Expect<Int> = toBeInt.isSameFun
 //            val isNotSameFun: Expect<Int>.(Int) -> Expect<Int> = toBeInt.isNotSameFun
 
             context("one equals the other") {
@@ -125,9 +121,14 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    fun <T: DataClass?> Suite.checkDataClass(description: String, expectSubject: Expect<T>, toBeFun: Expect<T>.(DataClass) -> Expect<T>, test: DataClass) {
+    fun <T : DataClass?> Suite.checkDataClass(
+        description: String,
+        expectSubject: Expect<T>,
+        toBeFun: Expect<T>.(DataClass) -> Expect<T>,
+        test: DataClass
+    ) {
         context(description) {
-//            val notToBeFun: Expect<DataClass>.(DataClass) -> Expect<DataClass> = funDataClass.notToBeFun
+            //            val notToBeFun: Expect<DataClass>.(DataClass) -> Expect<DataClass> = funDataClass.notToBeFun
 //            val isSameFun: Expect<DataClass>.(DataClass) -> Expect<DataClass> = funDataClass.isSameFun
 //            val isNotSameFun: Expect<DataClass>.(DataClass) -> Expect<DataClass> = funDataClass.isNotSameFun
             context("same") {
@@ -189,8 +190,8 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    fun <T: Any> Suite.checkNull(description: String, toBeFun: Expect<T?>.(T?) -> Expect<T?>, value: T, type: String) {
-        context(description){
+    fun <T : Any> Suite.checkNull(description: String, toBeFun: Expect<T?>.(T?) -> Expect<T?>, value: T, type: String) {
+        context(description) {
             context("one equals the other") {
                 it("$toBe does not throw") {
                     verbs.check(null as T?).toBeFun(null)
@@ -216,7 +217,7 @@ abstract class AnyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         messageContains(
                             TO_BE.getDefault(),
-                            DescriptionTypeTransformationAssertion.IS_A.getDefault()+": $type"
+                            DescriptionTypeTransformationAssertion.IS_A.getDefault() + ": $type"
                         )
                     }
                 }
@@ -238,13 +239,13 @@ abstract class AnyAssertionsSpec(
     describeFun(toBe) {
         //, notToBe, isSame, isNotSame) {
         checkInt("primitive", verbs.check(1), toBeInt)
-        checkInt("nullable primitive", verbs.check(1 as Int?), toBeNullableInt)
+        checkInt("nullable primitive", verbs.check(1 as Int?), toBeNullableInt.lambda)
 
         val subject = DataClass(true)
         checkDataClass("class", verbs.check(subject), toBeDataClass, subject)
         checkDataClass("nullable class", verbs.check(subject as DataClass?), toBeNullableDataClass, subject)
 
-        checkNull("null as Int?", toBeNullableInt, 2, "Int (kotlin.Int)")
+        checkNull("null as Int?", toBeNullableInt.lambda, 2, "Int (kotlin.Int)")
         checkNull("null as DataClass?", toBeNullableDataClass, subject, "DataClass")
     }
 
@@ -280,8 +281,8 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(toBeNullable.name) {
-        val toBeNullableFun = toBeNullable.lambda
+    describeFun(toBeNullableInt.name) {
+        val toBeNullableFun = toBeNullableInt.lambda
 
         context("subject is null") {
             val subject: Int? = null
@@ -302,15 +303,15 @@ abstract class AnyAssertionsSpec(
             it("does not throw if expected is subject") {
                 verbs.check(subject).toBeNullableFun(subject)
             }
-            it("throws an AssertionError if null is passed"){
-                expect{
+            it("throws an AssertionError if null is passed") {
+                expect {
                     verbs.check(subject).toBeNullableFun(null)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: null")
                 }
             }
-            it("throws an AssertionError if expected does not equal subject"){
-                expect{
+            it("throws an AssertionError if expected does not equal subject") {
+                expect {
                     verbs.check(subject).toBeNullableFun(2)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: 2")
@@ -318,45 +319,45 @@ abstract class AnyAssertionsSpec(
             }
         }
     }
-//
-//    describeFun(toBeNullIfNullElse) {
-//
-//        context("subject is null") {
-//            val subject: Int? = null
-//            it("does not throw if null is passed") {
-//                verbs.check(subject).toBeNullIfNullElseFun(null)
+
+    describeFun(toBeNullIfNullGivenElse.name) {
+        val toBeNullIfNullElseFun = toBeNullIfNullGivenElse.lambda
+        context("subject is null") {
+            val subject: Int? = null
+            it("does not throw if null is passed") {
+                verbs.check(subject).toBeNullIfNullElseFun(null)
+            }
+            it("throws an AssertionError if not null is passed") {
+                expect {
+                    verbs.check(subject).toBeNullIfNullElseFun { toBe(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(": null", "${TO_BE.getDefault()}: 1")
+                }
+            }
+        }
+
+        context("subject is not null") {
+            val subject: Int? = 1
+//            it("does not throw if sub assertion holds") {
+//                verbs.check(subject).toBeNullIfNullElseFun { isLessThan(2) }
 //            }
-//            it("throws an AssertionError if not null is passed") {
-//                expect {
-//                    verbs.check(subject).toBeNullIfNullElseFun { toBe(1) }
-//                }.toThrow<AssertionError> {
-//                    messageContains(": null", "${TO_BE.getDefault()}: 1")
-//                }
-//            }
-//        }
-//
-//        context("subject is not null") {
-//            val subject: Int? = 1
-////            it("does not throw if sub assertion holds") {
-////                verbs.check(subject).toBeNullIfNullElseFun { isLessThan(2) }
-////            }
-////            it("throws an AssertionError if sub assertion does not hold"){
-////                expect{
-////                    verbs.check(subject).toBeNullIfNullElseFun{ isGreaterThan(1) }
-////                }.toThrow<AssertionError> {
-////                    messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
-////                }
-////            }
-//            it("throws an AssertionError if null is passed"){
+//            it("throws an AssertionError if sub assertion does not hold"){
 //                expect{
-//                    verbs.check(subject).toBeNullIfNullElseFun(null)
+//                    verbs.check(subject).toBeNullIfNullElseFun{ isGreaterThan(1) }
 //                }.toThrow<AssertionError> {
-//                    messageContains(": 1", "${TO_BE.getDefault()}: null")
+//                    messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
 //                }
 //            }
-//
-//        }
-//    }
+            it("throws an AssertionError if null is passed") {
+                expect {
+                    verbs.check(subject).toBeNullIfNullElseFun(null)
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${TO_BE.getDefault()}: null")
+                }
+            }
+
+        }
+    }
 
 //
 //    prefixedDescribe("property `$and` immediate") {

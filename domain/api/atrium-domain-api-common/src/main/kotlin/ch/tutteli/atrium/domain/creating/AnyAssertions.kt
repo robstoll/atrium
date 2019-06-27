@@ -35,6 +35,11 @@ interface AnyAssertions {
         expectedOrNull: T?
     ): Assertion
 
+    fun <T : Any> toBeNullIfNullGivenElse(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+    ): Assertion
 
     fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T): Assertion
     fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T): Assertion
