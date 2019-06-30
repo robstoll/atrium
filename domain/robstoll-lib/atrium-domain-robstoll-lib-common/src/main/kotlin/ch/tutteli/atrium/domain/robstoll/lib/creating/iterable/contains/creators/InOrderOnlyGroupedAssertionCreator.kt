@@ -25,7 +25,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
         searchCriteria: List<List<SC>>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val assertion = AssertImpl.collector.collectForSubject({ plant.subject.toList() }) {
+            val assertion = AssertImpl.collector.collect({ plant.subject.toList() }) {
                 var index = 0
                 searchCriteria.forEach { group ->
                     val currentIndex = index

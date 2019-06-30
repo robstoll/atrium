@@ -112,7 +112,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     iterableAsList: List<E?>,
     itr: Iterator<E?>
 ): AssertionGroup {
-    return AssertImpl.collector.collectForSubject({ iterableAsList }) {
+    return AssertImpl.collector.collect({ iterableAsList }) {
         property(Collection<*>::size) {
             toBe(expectedSize)
             if (iterableAsList.size > expectedSize) {

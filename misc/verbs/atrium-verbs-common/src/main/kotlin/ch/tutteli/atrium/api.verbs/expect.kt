@@ -26,7 +26,7 @@ fun <T> expect(subject: T)
  * Creates an [ReportingAssertionContainer] for the given [subject] and
  * [ReportingAssertionContainer.addAssertionsCreatedBy] the
  * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reportBuilder as a whole.
+ * the configured [Reporter]) reported as a whole.
  *
  * @return The newly created assertion container.
  *

@@ -87,7 +87,7 @@ interface AssertionCollector {
     fun <T : Any> collect(
         plant: AssertionPlant<T>,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
-    ): AssertionGroup = collectForSubject(plant.subjectProvider, assertionCreator)
+    ): AssertionGroup = collect(plant.subjectProvider, assertionCreator)
 
     /**
      * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any
@@ -111,7 +111,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
-    fun <T : Any> collectForSubject(
+    fun <T : Any> collect(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
     ): AssertionGroup = collect(subjectProvider, coreFactory::newCollectingPlant, assertionCreator)
