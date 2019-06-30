@@ -10,22 +10,22 @@ class SubjectChangerImpl : SubjectChanger {
 
     override fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,
-        subjectProvider: () -> R
-    ): Expect<R> = _changeSubjectUnreported(originalAssertionContainer, subjectProvider)
+        transformation: (T) -> R
+    ): Expect<R> = _changeSubjectUnreported(originalAssertionContainer, transformation)
 
     override fun <T, R> reported(
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representation: Any,
         canBeTransformed: (T) -> Boolean,
-        subjectProvider: () -> R,
+        transformation: (T) -> R,
         subAssertions: (Expect<R>.() -> Unit)?
     ): Expect<R> = _changeSubject(
         originalAssertionContainer,
         description,
         representation,
         canBeTransformed,
-        subjectProvider,
+        transformation,
         subAssertions
     )
 }

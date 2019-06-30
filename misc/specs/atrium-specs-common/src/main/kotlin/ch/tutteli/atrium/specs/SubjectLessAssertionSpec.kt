@@ -2,9 +2,9 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.spekframework.spek2.Spek
@@ -18,7 +18,7 @@ abstract class SubjectLessAssertionSpec<T>(
     describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reportBuilder without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
-                val assertions = coreFactory.newCollectingAssertionContainer<T> { throw PlantHasNoSubjectException() }
+                val assertions = coreFactory.newCollectingAssertionContainer<T>(None)
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
                 val plant = coreFactory.newReportingPlant(

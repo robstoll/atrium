@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 class FinalStepImpl<T, R>(
     override val checkOption: SubjectChangerBuilder.CheckOption<T>,
     override val canBeTransformed: (T) -> Boolean,
-    override val subjectProvider: () -> R,
+    override val transformation: (T) -> R,
     override val subAssertions: (Expect<R>.() -> Unit)?
 ) : SubjectChangerBuilder.FinalStep<T, R> {
 
@@ -16,7 +16,7 @@ class FinalStepImpl<T, R>(
         checkOption.description,
         checkOption.representation,
         canBeTransformed,
-        subjectProvider,
+        transformation,
         subAssertions
     )
 }

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionContainer
@@ -14,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionCollectorForExplanation {
 
     override fun <T> collect(
-        maybeSubject: MaybeSubject<T>,
+        maybeSubject: Option<T>,
         assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
     ): List<Assertion> = _collectAndThrowIfNothingCollected(false, maybeSubject, assertionCreator)
 
@@ -30,7 +31,7 @@ class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionColl
 class ThrowingAssertionCollectorForExplanationImpl : ThrowingAssertionCollectorForExplanation {
 
     override fun <T> collect(
-        maybeSubject: MaybeSubject<T>,
+        maybeSubject: Option<T>,
         assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
     ): List<Assertion> =_collectAndThrowIfNothingCollected(true, maybeSubject, assertionCreator)
 

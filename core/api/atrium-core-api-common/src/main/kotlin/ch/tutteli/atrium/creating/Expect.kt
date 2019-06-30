@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -24,9 +27,10 @@ annotation class ExpectMarker
 interface Expect<T> : SubjectProvider<T>, AssertionHolder {
 
     /**
-     * The provider which provides [subject].
+     * Either [Some] wrapping the subject of the current assertion or
+     * [None] in case a previous subject change was not successful.
      */
-    val subjectProvider: () -> T
+    val maybeSubject: Option<T>
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this container.
@@ -64,6 +68,6 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */
-    fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): Expect<T> =
-        addAssertion(assertionBuilder.createDescriptive(description, expected, test))
+    fun createAndAddAssertion(description: Translatable, expected: Any, test: (T) -> Boolean): Expect<T> =
+        addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
 }

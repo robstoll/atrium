@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -20,13 +21,13 @@ abstract class CheckingAssertionSpec<T>(
             val (holdingSubject, failingSubject) = holdingAndFailingSubject
             describe("fun `$name`") {
                 it("assertion which holds -- does not throw, returns `true`") {
-                    val checkingPlant = AssertImpl.coreFactory.newCheckingAssertionContainer { holdingSubject }
+                    val checkingPlant = AssertImpl.coreFactory.newCheckingAssertionContainer(Some(holdingSubject))
                     checkingPlant.createAssertion()
                     verbs.check(checkingPlant.allAssertionsHold()).toBe(true)
                 }
 
                 it("assertion which does not hold -- does not throw, returns `false`") {
-                    val checkingPlant = AssertImpl.coreFactory.newCheckingAssertionContainer { failingSubject }
+                    val checkingPlant = AssertImpl.coreFactory.newCheckingAssertionContainer(Some(failingSubject))
                     checkingPlant.createAssertion()
                     verbs.check(checkingPlant.allAssertionsHold()).toBe(false)
                 }
@@ -35,5 +36,5 @@ abstract class CheckingAssertionSpec<T>(
     }
 })
 
-fun <T> checkingTriple(name: String, assertionCreator: Expect<T>.() -> Unit, holdingSubject: T, failingSubject: T)
-    = Triple(name, assertionCreator, holdingSubject to failingSubject)
+fun <T> checkingTriple(name: String, assertionCreator: Expect<T>.() -> Unit, holdingSubject: T, failingSubject: T) =
+    Triple(name, assertionCreator, holdingSubject to failingSubject)

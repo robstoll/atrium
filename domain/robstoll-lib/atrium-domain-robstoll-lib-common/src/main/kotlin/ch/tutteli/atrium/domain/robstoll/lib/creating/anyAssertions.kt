@@ -16,8 +16,8 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import kotlin.reflect.KClass
 
-fun <T : Any> _toBe(plant: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(TO_BE, expected) { plant.subject == expected }
+fun <T : Any> _toBe(assertionContainer: Expect<T>, expected: T) =
+    ExpectImpl.builder.createDescriptive(assertionContainer, TO_BE, expected) { it == expected }
 
 fun <T> _notToBe(subjectProvider: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(NOT_TO_BE, expected) { subjectProvider.subject != expected }
@@ -40,8 +40,8 @@ fun <T : Any> _notToBeNull(
     ExpectImpl.changeSubject.reportBuilder(this)
         .withDescriptionAndRepresentation(DescriptionTypeTransformationAssertion.IS_A, type)
         .withCheck { type.isInstance(it) }
+        .withTransformation { type.cast(it) }
         //TODO #88 I think it would make more sense if the subject is a parameter here as well
-        .withSubjectProvider { type.cast(this.subject) }
         .withSubAssertions(assertionCreator)
         .build()
 }
@@ -63,6 +63,9 @@ fun <T : Any> _toBeNullIfNullGivenElse(
     if (assertionCreatorOrNull == null) ExpectImpl.any.toBeNull(assertionContainer)
     else ExpectImpl.any.notToBeNull(assertionContainer, type, assertionCreatorOrNull)
 
+
+fun <T : Any> _toBe(plant: AssertionPlant<T>, expected: T) =
+    ExpectImpl.builder.createDescriptive(TO_BE, expected) { plant.subject == expected }
 
 fun <T : Any> _isNullable(
     plant: AssertionPlantNullable<T?>,

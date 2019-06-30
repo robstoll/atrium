@@ -1,8 +1,11 @@
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 
 /**
  * A base class for [Assert]ion container which are based on a mutable list, it provides [getCopyOfAssertions] to get
@@ -10,10 +13,11 @@ import ch.tutteli.atrium.creating.Expect
  * and thus not intended for multi-thread usage.
  */
 abstract class MutableListBasedAssertionContainer<T>(
-    override val subjectProvider: () -> T
+    override val maybeSubject: Option<T>
 ) : Expect<T> {
 
-    final override val subject : T by lazy { subjectProvider() }
+    //TODO #88 deprecate
+    final override val subject: T by lazy { maybeSubject.getOrElse { throw PlantHasNoSubjectException() } }
 
     /**
      * All made assertions so far. They can be cleared calling [clearAssertions].

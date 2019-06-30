@@ -20,8 +20,9 @@ import kotlin.reflect.KClass
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object AnyAssertionsBuilder : AnyAssertions {
-    override inline fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T)
-        = anyAssertions.toBe(subjectProvider, expected)
+
+    override inline fun <T : Any> toBe(assertionContainer: Expect<T>, expected: T): Assertion
+        = anyAssertions.toBe(assertionContainer, expected)
 
     override inline fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T)
         = anyAssertions.notToBe(subjectProvider, expected)
@@ -54,6 +55,8 @@ object AnyAssertionsBuilder : AnyAssertions {
         noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ) = anyAssertions.toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
+    override inline fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
+        = anyAssertions.toBe(plant, expected)
 
     override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?)
         = anyAssertions.isNullable(plant, type, expectedOrNull)

@@ -18,10 +18,10 @@ val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
 interface SubjectChanger {
 
     /**
-     * Changes to the subject the given [subjectProvider] provides without showing it in reporting and returns a new
-     * [Expect] for it.
+     * Changes to a new subject according to the given [transformation] without showing it
+     * in reporting and returns a new [Expect] for the new subject.
      *
-     * Explained a bit more in depth: it creates a new [Expect] based on the given [subjectProvider]
+     * Explained a bit more in depth: it creates a new [Expect] incorporating the given [transformation]
      * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer] -
      * the change as such will not be reflected in reporting.
      *
@@ -34,23 +34,23 @@ interface SubjectChanger {
      *
      * @param originalAssertionContainer the assertion container with the current subject (before the change) --
      *   if you use `ExpectImpl.changeSubject.unreported(...)` within an assertion function (an extension function of
-     *   [Expect]) then this is usually `this` (so the instance of [Expect]).
-     * @param subjectProvider Provides the subject.
+     *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
+     * @param transformation Provides the subject.
      *
      * @return the newly created [Expect].
      */
     fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,
-        subjectProvider: () -> R
+        transformation: (T) -> R
     ): Expect<R>
 
 
     /**
-     * Changes to the subject the given [subjectProvider] provides but only if the current subject [canBeTransformed]
-     * to the new subject -- the change as such is reflected in reporting by the given
+     * Changes to a new subject according to the given [transformation] but only if the current subject
+     * [canBeTransformed] to the new subject -- the change as such is reflected in reporting by the given
      * [description] and [representation].
      *
-     * Explained a bit more in depth: it creates a new [Expect] based on the given [subjectProvider]
+     * Explained a bit more in depth: it creates a new [Expect] incorporating the given [transformation]
      * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer].
      *
      * This method is useful if you want to change the subject whereas the change as such is assertion like as well, so
@@ -59,12 +59,12 @@ interface SubjectChanger {
      * instead of failing.
      *
      * @param originalAssertionContainer the assertion container with the current subject (before the change) --
-     *   if you use `ExpectImpl.changeSubject.unreported(...)` within an assertion function (an extension function of
-     *   [Expect]) then this is usually `this` (so the instance of [Expect]).
+     *   if you use `ExpectImpl.changeSubject.reported(...)` within an assertion function (an extension function of
+     *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param description Describes the kind of subject change (e.g. in case of a type change `is a`).
      * @param representation Representation of the change (e.g. in case of a type transformation the KClass).
      * @param canBeTransformed Indicates whether it is safe to transform to the new subject.
-     * @param subjectProvider Provides the subject.
+     * @param transformation Provides the subject.
      * @param subAssertions Optionally, subsequent assertions for the new subject. This is especially useful if the
      *   change fails since we can then already show to the user what we wanted to assert.
      *
@@ -75,7 +75,7 @@ interface SubjectChanger {
         description: Translatable,
         representation: Any,
         canBeTransformed: (T) -> Boolean,
-        subjectProvider: () -> R,
+        transformation: (T) -> R,
         subAssertions: (Expect<R>.() -> Unit)?
     ): Expect<R>
 }

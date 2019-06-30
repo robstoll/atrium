@@ -53,14 +53,12 @@ interface CoreFactoryCommon {
      * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
-     * uses [subjectProvider] as [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and also as
+     * uses [maybeSubject] as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
      * [AssertionContainerWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
-     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
-     * @param subjectProvider Used as [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and
+     * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
      *   also as [AssertionContainerWithCommonFields.CommonFields.representationProvider].
      * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *
@@ -68,10 +66,10 @@ interface CoreFactoryCommon {
      */
     fun <T> newReportingAssertionContainer(
         assertionVerb: Translatable,
-        subjectProvider: () -> T,
+        maybeSubject: Option<T>,
         reporter: Reporter
     ): ReportingAssertionContainer<T> = newReportingAssertionContainer(
-        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
+        assertionVerb, maybeSubject, newThrowingAssertionChecker(reporter)
     )
 
     /**
@@ -102,15 +100,13 @@ interface CoreFactoryCommon {
     /**
      * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
      *
-     * It uses the given [assertionChecker] for assertion checking, uses [subjectProvider] as
-     * [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and also as
+     * It uses the given [assertionChecker] for assertion checking, uses [maybeSubject] as
+     * [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
      * [AssertionContainerWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
-     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
-     * @param subjectProvider Used as [AssertionContainerWithCommonFields.CommonFields.subjectProvider] and
+     * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
      *   also as [AssertionContainerWithCommonFields.CommonFields.representationProvider].
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      *   (see [AssertionContainerWithCommonFields.CommonFields.assertionChecker]).
@@ -119,15 +115,14 @@ interface CoreFactoryCommon {
      */
     fun <T> newReportingAssertionContainer(
         assertionVerb: Translatable,
-        subjectProvider: () -> T,
+        maybeSubject: Option<T>,
         assertionChecker: AssertionChecker
     ): ReportingAssertionContainer<T> {
-        val evalOnceSubjectProvider = subjectProvider.evalOnce()
         return newReportingAssertionContainer(
             AssertionContainerWithCommonFields.CommonFields(
                 assertionVerb,
-                evalOnceSubjectProvider,
-                evalOnceSubjectProvider,
+                maybeSubject,
+                { maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) } },
                 assertionChecker,
                 RawString.NULL
             )
@@ -246,12 +241,13 @@ interface CoreFactoryCommon {
      * Creates a [CheckingAssertionContainer] which provides a method to check whether
      * [allAssertionsHold][CheckingAssertionContainer.allAssertionsHold].
      *
-     * @param subjectProvider The provider which provides the subject for which this container will
-     *   store and check [Assertion]s.
+     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+     *   [None] in case a previous subject change was not successful. The [CheckingAssertionContainer]
+     *   will check [Assertion]s for the current subject.
      *
      * @return The newly created assertion container.
      */
-    fun <T> newCheckingAssertionContainer(subjectProvider: () -> T): CheckingAssertionContainer<T>
+    fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
 
     /**
      * Creates a [CheckingAssertionPlant] which provides a method to check whether
@@ -268,17 +264,14 @@ interface CoreFactoryCommon {
      * Creates a [CollectingAssertionContainer] which is intended to be used as receiver object in lambdas so that it
      * can collect [Assertion]s created inside the lambda.
      *
-     * Notice, that the container might not provide a [CollectingAssertionContainer.subject] in which case it
-     * throws a [PlantHasNoSubjectException] if subject is accessed.
      * Use [newCheckingAssertionContainer] instead if you want to know whether the assertions hold.
      *
-     * @param subjectProvider The function which will either provide the subject for this container or throw an
-     *   [PlantHasNoSubjectException] in case it cannot provide it.
-     *   A [CollectingAssertionContainer] should evaluate the [subjectProvider] only once.
+     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+     *   [None] in case a previous subject change was not successful.
      *
      * @return The newly created assertion container.
      */
-    fun <T> newCollectingAssertionContainer(subjectProvider: () -> T): CollectingAssertionContainer<T>
+    fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
 
     /**
      * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to

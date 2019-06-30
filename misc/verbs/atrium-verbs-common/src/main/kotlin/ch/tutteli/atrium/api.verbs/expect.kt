@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -19,7 +20,7 @@ import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
  * @see CoreFactory.newReportingAssertionContainer
  */
 fun <T> expect(subject: T)
-    = AssertImpl.coreFactory.newReportingAssertionContainer(EXPECT, { subject }, reporter)
+    = AssertImpl.coreFactory.newReportingAssertionContainer(EXPECT, Some(subject), reporter)
 
 /**
  * Creates an [ReportingAssertionContainer] for the given [subject] and

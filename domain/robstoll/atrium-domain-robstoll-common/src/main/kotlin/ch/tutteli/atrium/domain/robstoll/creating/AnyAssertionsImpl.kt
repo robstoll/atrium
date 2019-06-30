@@ -13,7 +13,9 @@ import kotlin.reflect.KClass
  */
 class AnyAssertionsImpl : AnyAssertions {
 
-    override fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T) = _toBe(subjectProvider, expected)
+    override fun <T : Any> toBe(assertionContainer: Expect<T>, expected: T) = _toBe(assertionContainer, expected)
+
+    override fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T) = _toBe(plant, expected)
     override fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T) = _notToBe(subjectProvider, expected)
     override fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T) = _isSame(subjectProvider, expected)
     override fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T) = _isNotSame(subjectProvider, expected)

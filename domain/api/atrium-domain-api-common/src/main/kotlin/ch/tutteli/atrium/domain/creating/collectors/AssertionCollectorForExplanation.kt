@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.creating.collectors
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
@@ -29,7 +30,7 @@ interface AssertionCollectorForExplanation {
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
     fun <T> collect(
-        maybeSubject: MaybeSubject<T>,
+        maybeSubject: Option<T>,
         assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
     ): List<Assertion>
 

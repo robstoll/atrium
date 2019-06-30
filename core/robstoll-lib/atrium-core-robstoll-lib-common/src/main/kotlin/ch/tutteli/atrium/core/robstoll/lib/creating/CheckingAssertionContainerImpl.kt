@@ -1,11 +1,12 @@
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.CheckingAssertionContainer
 import ch.tutteli.atrium.creating.Expect
 
 class CheckingAssertionContainerImpl<T>(
-    subjectProvider: () -> T
-) : MutableListBasedAssertionContainer<T>(subjectProvider), CheckingAssertionContainer<T> {
+    maybeSubject: Option<T>
+) : MutableListBasedAssertionContainer<T>(maybeSubject), CheckingAssertionContainer<T> {
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CheckingAssertionContainer<T> {
         this.assertionCreator()

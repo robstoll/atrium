@@ -4,6 +4,7 @@ package ch.tutteli.atrium.domain.builders.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
@@ -19,9 +20,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 object AssertionCollectorBuilder: AssertionCollector {
 
     override inline fun <T> collect(
-        noinline subjectProvider: () -> T,
+        maybeSubject: Option<T>,
         noinline assertionCreator:  CollectingAssertionContainer<T>.() -> Unit
-    ): AssertionGroup = assertionCollector.collect(subjectProvider, assertionCreator)
+    ): AssertionGroup = assertionCollector.collect(maybeSubject, assertionCreator)
 
 
     override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
