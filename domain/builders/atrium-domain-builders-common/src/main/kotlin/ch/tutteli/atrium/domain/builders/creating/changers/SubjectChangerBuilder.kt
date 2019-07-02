@@ -4,6 +4,9 @@ package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.DescriptionOptionImpl
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
@@ -17,6 +20,19 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object SubjectChangerBuilder : SubjectChanger {
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override inline fun <T, R: Any> unreported(
+        originalPlant: BaseAssertionPlant<T, *>,
+        noinline transformation: (T) -> R
+    ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override inline fun <T, R> unreportedNullable(
+        originalPlant: BaseAssertionPlant<T, *>,
+        noinline transformation: (T) -> R
+    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
+
 
     override inline fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,

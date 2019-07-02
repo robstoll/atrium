@@ -31,13 +31,13 @@ fun <E : Any> _iterableAll(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
-        val list = plant.subject.toList()
+        val list = plant.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
         val hasElementAssertion = createHasElementAssertion(list)
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(assertionCreator, list))
 
-        val mismatches = createMismatchAssertions(plant, assertionCreator)
+        val mismatches = createMismatchAssertions(list, assertionCreator)
         assertions.add(AssertImpl.builder.explanatoryGroup
             .withWarningType
             .withAssertion(AssertImpl.builder.list
@@ -63,11 +63,11 @@ fun <E : Any> _iterableAll(
 
 }
 
-private fun <E : Any, T : Iterable<E?>> createMismatchAssertions(
-    plant: AssertionPlant<T>,
+private fun <E : Any> createMismatchAssertions(
+    list: List<E?>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
 ): List<Assertion> {
-    return plant.subject
+    return list
         .asSequence()
         .mapWithIndex()
         .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }

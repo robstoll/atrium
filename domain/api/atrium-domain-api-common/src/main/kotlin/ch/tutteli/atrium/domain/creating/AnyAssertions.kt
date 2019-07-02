@@ -19,9 +19,7 @@ val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
  */
 interface AnyAssertions {
 
-    fun <T : Any> toBe(assertionContainer: Expect<T>, expected: T): Assertion
-
-    fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T): Assertion
+    fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion

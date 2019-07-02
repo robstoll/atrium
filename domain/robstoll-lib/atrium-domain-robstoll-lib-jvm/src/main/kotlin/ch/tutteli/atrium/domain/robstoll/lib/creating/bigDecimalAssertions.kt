@@ -9,13 +9,13 @@ import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
 import java.math.BigDecimal
 
 fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = AssertImpl.builder.createDescriptive(IS_NUMERICALLY_EQUAL_TO, expected) { isNumericallyEqualTo(plant, expected) }
+    = AssertImpl.builder.createDescriptive(plant, IS_NUMERICALLY_EQUAL_TO, expected) { isNumericallyEqualTo(it, expected) }
 
-private fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = plant.subject.compareTo(expected) == 0
+private fun <T : BigDecimal> isNumericallyEqualTo(subject: T, expected: T)
+     = subject.compareTo(expected) == 0
 
 fun <T : BigDecimal> _isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = AssertImpl.builder.createDescriptive(IS_NOT_NUMERICALLY_EQUAL_TO, expected) { !isNumericallyEqualTo(plant, expected) }
+    = AssertImpl.builder.createDescriptive(plant, IS_NOT_NUMERICALLY_EQUAL_TO, expected) { !isNumericallyEqualTo(it, expected) }
 
 fun <T : BigDecimal> _isEqualIncludingScale(
     plant: AssertionPlant<T>,
@@ -23,7 +23,7 @@ fun <T : BigDecimal> _isEqualIncludingScale(
     nameOfIsNumericallyEqualTo: String
 ): Assertion
     = AssertImpl.builder.descriptive
-        .withTest{ plant.subject == expected }
+        .withTest(plant) { it == expected }
         .withFailureHint {
             AssertImpl.builder.explanatoryGroup
                 .withDefaultType
@@ -33,11 +33,12 @@ fun <T : BigDecimal> _isEqualIncludingScale(
                 )
                 .build()
         }
-        .showOnlyIf { isNumericallyEqualTo(plant, expected) }
+        .showOnlyIf(plant) { isNumericallyEqualTo(it, expected) }
         .withDescriptionAndRepresentation(IS_EQUAL_INCLUDING_SCALE, expected)
         .build()
 
 fun <T : BigDecimal> _isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T)
     // unfortunately we cannot give a hint about isNotNumericallyEqualTo, because <<10 is not 10.0>> holds
-    // so we do not get to the point where we can detect that it might not be the intention of the user
-    = AssertImpl.builder.createDescriptive(IS_NOT_EQUAL_INCLUDING_SCALE, expected) { plant.subject != expected }
+    // so we do not get to the point where we can detect that using this function instead of isNotNumericallyEqualTo
+    // might not be the intention of the user
+    = AssertImpl.builder.createDescriptive(plant, IS_NOT_EQUAL_INCLUDING_SCALE, expected) { it != expected }

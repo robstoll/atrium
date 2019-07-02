@@ -3,10 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.cast
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators._downCast
@@ -16,21 +13,21 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import kotlin.reflect.KClass
 
-fun <T : Any> _toBe(assertionContainer: Expect<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(assertionContainer, TO_BE, expected) { it == expected }
+fun <T> _toBe(subjectProvider: SubjectProvider<T>, expected: T) =
+    ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, expected) { it == expected }
 
 fun <T> _notToBe(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(NOT_TO_BE, expected) { subjectProvider.subject != expected }
+    ExpectImpl.builder.createDescriptive(subjectProvider, NOT_TO_BE, expected) { it != expected }
 
 fun <T> _isSame(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(IS_SAME, expected) { subjectProvider.subject === expected }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_SAME, expected) { it === expected }
 
 fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(IS_NOT_SAME, expected) { subjectProvider.subject !== expected }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_SAME, expected) { it !== expected }
 
 
-fun <T : Any?> _toBeNull(plant: SubjectProvider<T>) =
-    ExpectImpl.builder.createDescriptive(TO_BE, RawString.NULL) { plant.subject == null }
+fun <T : Any?> _toBeNull(subjectProvider: SubjectProvider<T>) =
+    ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, RawString.NULL) { it == null }
 
 fun <T : Any> _notToBeNull(
     assertionContainer: Expect<T?>,
@@ -41,7 +38,6 @@ fun <T : Any> _notToBeNull(
         .withDescriptionAndRepresentation(DescriptionTypeTransformationAssertion.IS_A, type)
         .withCheck { type.isInstance(it) }
         .withTransformation { type.cast(it) }
-        //TODO #88 I think it would make more sense if the subject is a parameter here as well
         .withSubAssertions(assertionCreator)
         .build()
 }
@@ -63,9 +59,6 @@ fun <T : Any> _toBeNullIfNullGivenElse(
     if (assertionCreatorOrNull == null) ExpectImpl.any.toBeNull(assertionContainer)
     else ExpectImpl.any.notToBeNull(assertionContainer, type, assertionCreatorOrNull)
 
-
-fun <T : Any> _toBe(plant: AssertionPlant<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(TO_BE, expected) { plant.subject == expected }
 
 fun <T : Any> _isNullable(
     plant: AssertionPlantNullable<T?>,

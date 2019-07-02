@@ -79,6 +79,7 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
     }
 
     private fun safeToExtract(): Boolean {
+        //TODO remove try-catch with 1.0.0, should no longer be necessary
         return try {
             parameterObject.canBeExtracted()
         } catch (e: PlantHasNoSubjectException) {

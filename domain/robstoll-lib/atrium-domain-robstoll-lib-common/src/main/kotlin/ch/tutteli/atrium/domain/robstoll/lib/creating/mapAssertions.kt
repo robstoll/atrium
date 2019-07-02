@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -26,13 +27,11 @@ fun <K, V : Any> _containsKeyWithValueAssertion(
     plant: AssertionPlant<Map<out K, V?>>,
     keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
 ): Assertion = containsNullable(plant, keyValues.map{ it }) { assertionCreator ->
-    val subjectIsNull = try {
-        this.subject == null
-    } catch (t: PlantHasNoSubjectException) {
-        true
-    }
+    // we can pretend that the subject is null if maybeSubject is None as we have to be in an explaining like context in such a case
+    val subjectIsNull = this.maybeSubject.fold({true}) { it == null }
     if (assertionCreator != null && !subjectIsNull) {
-        AssertImpl.changeSubject(this) { this.subject as V }.assertionCreator()
+        @Suppress("DEPRECATION" /* TODO switch to Expect */)
+        ExpectImpl.changeSubject.unreported(this) { it as V }.assertionCreator()
     } else if (subjectIsNull && assertionCreator == null){
         addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider))
     } else {
@@ -80,10 +79,10 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
 
 
 fun <K> _containsKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_KEY, key) { plant.subject.containsKey(key) }
+    = AssertImpl.builder.createDescriptive(plant, DescriptionMapAssertion.CONTAINS_KEY, key) { it.containsKey(key) }
 
 fun <K> _containsNotKey(plant: AssertionPlant<Map<out K, *>>, key: K): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_NOT_KEY, key) { plant.subject.containsKey(key).not()  }
+    = AssertImpl.builder.createDescriptive(plant, DescriptionMapAssertion.CONTAINS_NOT_KEY, key) { it.containsKey(key).not()  }
 
 
 fun <K, V : Any> _getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V>
@@ -122,9 +121,13 @@ private fun <K, V> createGetParameterObject(
     plant,
     extractionNotSuccessful = DescriptionMapAssertion.KEY_DOES_NOT_EXIST,
     warningCannotEvaluate = DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
-    canBeExtracted = { plant.subject.containsKey(key) },
+    //TODO #88 change FeatureExtractor the two following lambdas should expect the subject as argument
+    canBeExtracted = {
+        @Suppress("DEPRECATION")
+        plant.subject.containsKey(key)
+    },
     featureExtraction = {
-        @Suppress("UNCHECKED_CAST" /* that's fine will only be called if the key exists */)
+        @Suppress("UNCHECKED_CAST" /* that's fine will only be called if the key exists */, "DEPRECATION" )
         plant.subject[key] as V
     }
 )
@@ -134,10 +137,10 @@ fun _hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion = AssertImp
 }
 
 fun _isEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY)) { plant.subject.isEmpty() }
+    = AssertImpl.builder.createDescriptive(plant, DescriptionBasic.IS, RawString.create(EMPTY)) { it.isEmpty() }
 
 fun _isNotEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { plant.subject.isNotEmpty() }
+    = AssertImpl.builder.createDescriptive(plant, DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
 fun <K> _keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy

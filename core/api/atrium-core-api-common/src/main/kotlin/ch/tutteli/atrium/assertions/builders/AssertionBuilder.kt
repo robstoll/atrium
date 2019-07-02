@@ -2,10 +2,10 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
-import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -104,13 +104,24 @@ interface AssertionBuilder {
      * @param test The test which checks whether the assertion holds
      */
     fun createDescriptive(description: Translatable, representation: Any?, test: () -> Boolean): DescriptiveAssertion =
-        descriptive.withTest(test).withDescriptionAndRepresentation(description, representation).build()
+        descriptive
+            .withTest(test)
+            .withDescriptionAndRepresentation(description, representation)
+            .build()
 
     /**
      * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
-     * [Expect.maybeSubject] of the given [expect].
+     * [SubjectProvider.maybeSubject] of the given [subjectProvider].
      *
-     * @param expect The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the given [test].
+     * Shortcut for:
+     * ```
+     * descriptive
+     *   .withTest(subjectProvider, test)
+     *   .withDescriptionAndRepresentation(description, representation)
+     *   .build()
+     * ```
+     *
+     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the given [test].
      * @param description The description of the assertion, e.g. `to Be`.
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
@@ -120,12 +131,13 @@ interface AssertionBuilder {
      *   [Expect.maybeSubject] is [None].
      */
     fun <T> createDescriptive(
-        expect: Expect<T>,
+        subjectProvider: SubjectProvider<T>,
         description: Translatable,
         representation: Any?,
         test: (T) -> Boolean
-    ): DescriptiveAssertion = descriptive
-        .withTest { test(expect.maybeSubject.getOrElse { throw PlantHasNoSubjectException() }) }
-        .withDescriptionAndRepresentation(description, representation)
-        .build()
+    ): DescriptiveAssertion =
+        descriptive
+            .withTest(subjectProvider, test)
+            .withDescriptionAndRepresentation(description, representation)
+            .build()
 }

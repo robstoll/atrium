@@ -17,57 +17,58 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float): Assertion
-    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance) { (plant.subject - expected).absoluteValue }
+    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance) { (it - expected).absoluteValue }
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Double>, expected: Double, tolerance: Double): Assertion
-    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance) { (plant.subject - expected).absoluteValue }
+    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance) { (it - expected).absoluteValue }
 
 private fun <T> toBeWithErrorToleranceOfFloatOrDouble(
     plant: AssertionPlant<T>,
     expected: T,
     tolerance: T,
-    absDiff: () -> T
+    absDiff: (T) -> T
 ): Assertion where T : Comparable<T>, T : Number {
-    return toBeWithErrorTolerance(expected, tolerance, absDiff) {
+    return toBeWithErrorTolerance(plant, expected, tolerance, absDiff) { subject ->
         listOf(
             AssertImpl.builder.explanatory
-                .withDescription(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, plant.subject::class.fullName)
+                .withDescription(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, subject::class.fullName)
                 .build(),
-            createToBeWithErrorToleranceExplained(plant, expected, absDiff, tolerance)
+            createToBeWithErrorToleranceExplained(subject, expected, absDiff, tolerance)
         )
     }
 }
 
 @Suppress("DEPRECATION" /* TODO don't format number here, should be done via ObjectFormatter */)
 internal fun <T> createToBeWithErrorToleranceExplained(
-    plant: AssertionPlant<T>,
+    subject: T,
     expected: T,
-    absDiff: () -> T,
+    absDiff: (T) -> T,
     tolerance: T
 ): ExplanatoryAssertion where T : Comparable<T>, T : Number = AssertImpl.builder.explanatory
     .withDescription(
         TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED,
-        formatFloatingPointNumber(plant.subject),
+        formatFloatingPointNumber(subject),
         formatFloatingPointNumber(expected),
-        formatFloatingPointNumber(absDiff()),
+        formatFloatingPointNumber(absDiff(subject)),
         formatFloatingPointNumber(tolerance)
     )
     .build()
 
 internal fun <T : Comparable<T>> toBeWithErrorTolerance(
+    plant: AssertionPlant<T>,
     expected: T,
     tolerance: T,
-    absDiff: () -> T,
-    explanatoryAssertionCreator: () -> List<Assertion>
+    absDiff: (T) -> T,
+    explanatoryAssertionCreator: (T) -> List<Assertion>
 ): Assertion = AssertImpl.builder.descriptive
-    .withTest { absDiff() <= tolerance }
-    .withFailureHint {
+    .withTest(plant) { absDiff(it) <= tolerance }
+    .withFailureHint(plant) { subject ->
         //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
         //we do not want to see the failure nor the exact check in the 'an entry which...' part
         //same problematic applies to feature assertions within an identification lambda
         AssertImpl.builder.explanatoryGroup
             .withDefaultType
-            .withAssertions(explanatoryAssertionCreator())
+            .withAssertions(explanatoryAssertionCreator(subject))
             .build()
     }
     .showForAnyFailure

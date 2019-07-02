@@ -26,6 +26,7 @@ class ReportingAssertionPlantImpl<out T : Any>(
     override val self = this
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T> {
+        @Suppress("DEPRECATION")
         val assertions = coreFactory.newCollectingPlant { subject }
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()

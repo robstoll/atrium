@@ -140,7 +140,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     }
 }
 
-internal fun <E> createHasElementAssertion(iterable: Iterable<E>): AssertionGroup {
+internal fun createHasElementAssertion(iterable: Iterable<*>): AssertionGroup {
     val hasElement = iterable.iterator().hasNext()
     return AssertImpl.builder.feature
         .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))

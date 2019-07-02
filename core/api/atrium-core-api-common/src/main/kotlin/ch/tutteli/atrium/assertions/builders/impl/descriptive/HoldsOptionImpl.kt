@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.assertions.builders.impl.descriptive
 
 import ch.tutteli.atrium.assertions.builders.Descriptive
+import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.SubjectProvider
 
 internal object HoldsOptionImpl : Descriptive.HoldsOption {
 
@@ -14,4 +17,12 @@ internal object HoldsOptionImpl : Descriptive.HoldsOption {
 
     override fun withTest(test: () -> Boolean): Descriptive.DescriptionOption<Descriptive.FinalStep>
         = Descriptive.DescriptionOption.create(test, Descriptive.FinalStep.Companion::create)
+
+    override fun <T> withTest(
+        subjectProvider: SubjectProvider<T>,
+        test: (T) -> Boolean
+    ): Descriptive.DescriptionOption<Descriptive.FinalStep> = withTest {
+        val subject = subjectProvider.maybeSubject.getOrElse { throw PlantHasNoSubjectException() }
+        test(subject)
+    }
 }

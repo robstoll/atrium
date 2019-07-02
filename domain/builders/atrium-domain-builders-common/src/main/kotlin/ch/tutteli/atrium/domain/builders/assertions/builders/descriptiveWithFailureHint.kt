@@ -5,6 +5,9 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilderFinalStep
 import ch.tutteli.atrium.assertions.builders.Descriptive
+import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.ShowOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -19,14 +22,29 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
     = DescriptiveAssertionWithFailureHint.ShowOption.create(test, failureHintFactory)
 
 /**
+ * Option to create a [DescriptiveAssertion] like assertion based on the subject of the assertion
+ * with an additional hint which might be shown if the [Descriptive.DescriptionOption.test] fails.
+ *
+ * You can use the overload which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
+ * on the subject of the assertion.
+ */
+fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
+    subjectProvider: SubjectProvider<T>,
+    failureHintFactory: (T) -> Assertion
+): DescriptiveAssertionWithFailureHint.ShowOption = withFailureHint {
+    //TODO #88 is not safer than using subject within the above overload
+    failureHintFactory(subjectProvider.maybeSubject.getOrElse { throw PlantHasNoSubjectException() })
+}
+
+/**
  * Defines the contract to build a [DescriptiveAssertion] like assertion with an additional hint
  * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  */
-interface DescriptiveAssertionWithFailureHint{
+interface DescriptiveAssertionWithFailureHint {
     /**
      * Option step which allows to specify in which situations the failure hint should be shown.
      */
-    interface ShowOption{
+    interface ShowOption {
         /**
          * Defines that the failure hint shall be shown in any case.
          */
@@ -36,6 +54,21 @@ interface DescriptiveAssertionWithFailureHint{
          * Defines that the failure hint shall only be shown if the given [predicate] holds.
          */
         fun showOnlyIf(predicate: () -> Boolean): Descriptive.DescriptionOption<FinalStep>
+
+        /**
+         * Defines that the failure hint shall only be shown if the given [predicate] holds where the predicate is based
+         * on the subject of the assertion.
+         *
+         * You can use the other overload without [subjectProvider] in case the predicate is not based on the subject
+         * of the assertion
+         */
+        fun <T> showOnlyIf(
+            subjectProvider: SubjectProvider<T>,
+            predicate: (T) -> Boolean
+        ): Descriptive.DescriptionOption<FinalStep> = showOnlyIf {
+            //TODO #88 is not safer than using subject within the above overload
+            predicate(subjectProvider.maybeSubject.getOrElse { throw PlantHasNoSubjectException() })
+        }
 
         companion object {
             fun create(

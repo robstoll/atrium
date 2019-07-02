@@ -159,7 +159,7 @@ object DetailedObjectFormatterSpec : Spek({
         ).forEach { (typeName, value) ->
             on(typeName) {
                 val result = testee.format(value)
-                it("returns ${AssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
+                it("returns subject's toString() $typeNameAndHash") {
                     assert(result).toBe(value.toString() + INDENT
                         + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
                 }
@@ -168,10 +168,10 @@ object DetailedObjectFormatterSpec : Spek({
 
         on("an anonymous class"){
             val anonymous = object : Any() {
-                override fun toString(): String = "anonym type"
+                override fun toString(): String = "anonymous type"
             }
             val result = testee.format(anonymous)
-            it("returns ${AssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
+            it("returns subject's toString() $typeNameAndHash") {
                 assert(result).toBe(anonymous.toString() + INDENT
                     + "(${anonymous::class.java.name} <${System.identityHashCode(anonymous)}>)")
             }

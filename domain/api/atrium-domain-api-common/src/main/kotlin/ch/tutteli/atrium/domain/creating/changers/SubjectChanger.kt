@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -16,6 +19,22 @@ val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.
  */
 interface SubjectChanger {
+
+    @Deprecated(
+        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
+    )
+    fun <T, R: Any> unreported(
+        originalPlant: BaseAssertionPlant<T, *>,
+        transformation: (T) -> R
+    ): Assert<R>
+
+    @Deprecated(
+        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
+    )
+    fun <T, R> unreportedNullable(
+        originalPlant: BaseAssertionPlant<T, *>,
+        transformation: (T) -> R
+    ): AssertionPlantNullable<R>
 
     /**
      * Changes to a new subject according to the given [transformation] without showing it

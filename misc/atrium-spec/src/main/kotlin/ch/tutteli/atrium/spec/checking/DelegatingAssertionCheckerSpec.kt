@@ -66,8 +66,8 @@ abstract class DelegatingAssertionCheckerSpec(
                     val captor = argumentCaptor<Assertion>()
                     verify(subjectFactory).addAssertion(captor.capture())
                     assert(captor.firstValue).isA<AssertionGroup> {
-                        property(subject::type).isA<InvisibleAssertionGroupType> {}
-                        property(subject::assertions) {
+                        property(AssertionGroup::type).isA<InvisibleAssertionGroupType> {}
+                        property(AssertionGroup::assertions) {
                             contains.inAnyOrder.only.values(assertions.first(), *assertions.drop(1).toTypedArray())
                         }
                     }

@@ -42,20 +42,20 @@ abstract class FeatureAssertionCheckerSpec(
             verify(subjectFactory).addAssertion(captor.capture())
             check("its type is  ${FeatureAssertionGroupType::class.simpleName}") {
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
-                    property(subject::type).isA<FeatureAssertionGroupType> {}
+                    property(AssertionGroup::type).isA<FeatureAssertionGroupType> {}
                 }
             }
 
             check("its ${AssertionGroup::representation.name} corresponds to the passed assertionVerb") {
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
-                    property(subject::description).toBe(assertionVerb)
+                    property(AssertionGroup::description).toBe(assertionVerb)
                 }
             }
 
             check("its ${AssertionGroup::representation.name} corresponds to the ${LazyRepresentation::class.simpleName} of the passed subject") {
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
-                    property(subject::representation).isA<LazyRepresentation>{
-                        returnValueOf(subject::eval).toBe(valueUnderTest)
+                    property(AssertionGroup::representation).isA<LazyRepresentation>{
+                        returnValueOf(LazyRepresentation::eval).toBe(valueUnderTest)
                     }
                 }
             }
@@ -63,7 +63,7 @@ abstract class FeatureAssertionCheckerSpec(
             check("copies the assertion") {
                 assertions.clear()
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
-                    property(subject::assertions).hasSize(1).and.isNotSameAs(assertions)
+                    property(AssertionGroup::assertions).hasSize(1).and.isNotSameAs(assertions)
                 }
             }
         }

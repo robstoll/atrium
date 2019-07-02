@@ -110,8 +110,13 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
             }
             test("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
-                }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE.getDefault()) }
+                    fluentEmpty.containsEntriesFun({
+                        @Suppress("DEPRECATION")
+                        returnValueOf(subject::dec).toBe(1.0)
+                    })
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE.getDefault())
+                }
             }
         }
 

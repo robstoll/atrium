@@ -17,7 +17,7 @@ class AdjustStackTest {
         expect {
             assertNoOp(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(subject::stackBacktrace).contains(
+            property(AssertionError::stackBacktrace).contains(
                 { contains("mocha") },
                 { contains("atrium-core-api-js.js") }
             )
@@ -29,7 +29,7 @@ class AdjustStackTest {
         expect {
             assertRemoveRunner(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(subject::stackBacktrace)
+            property(AssertionError::stackBacktrace)
                 .containsNot.entry { contains("mocha") }
                 .contains { contains("atrium-core-api-js.js") }
         }
@@ -50,7 +50,7 @@ class AdjustStackTest {
         expect {
             assertRemoveAtrium(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(subject::stackBacktrace)
+            property(AssertionError::stackBacktrace)
                 .contains { contains("mocha") }
                 .containsNot.entry { contains("atrium-core-api-js.js") }
         }

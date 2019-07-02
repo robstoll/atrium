@@ -131,7 +131,7 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { property(subject::i).notToBeNull {} }
+                    verbs.checkLazily(A()) { property(A::i).notToBeNull {} }
                 }.toThrow<AssertionError> {
                     messageContains(
                         A::class.simpleName!!,
@@ -144,7 +144,7 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { property(subject::i).notToBeNullLessFun(1) }
+                    verbs.checkLazily(A()) { property(A::i).notToBeNullLessFun(1) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         A::class.simpleName!!,
