@@ -42,7 +42,7 @@ abstract class AnyAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<Int>(
+    include(object : SubjectLessSpec<Int>(
         describePrefix,
         toBeInt.forSubjectLess(1),
         notToBeInt.forSubjectLess(1),
@@ -52,7 +52,7 @@ abstract class AnyAssertionsSpec(
         andLazyPair.forSubjectLess { toBe(1) }
     ) {})
 
-    include(object : SubjectLessAssertionSpec<Int?>(
+    include(object : SubjectLessSpec<Int?>(
         "$describePrefix[nullable] ",
         toBeNullableInt.forSubjectLess(1),
         notToBeNullableInt.forSubjectLess(1),

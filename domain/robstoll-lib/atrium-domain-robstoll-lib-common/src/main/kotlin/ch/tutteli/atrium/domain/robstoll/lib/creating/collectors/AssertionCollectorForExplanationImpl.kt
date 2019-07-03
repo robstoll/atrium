@@ -55,4 +55,20 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
             })
         }
     }
+
+    /**
+     * Calls recursively [AssertionGroup.assertions] on every assertion group contained in [assertions].
+     */
+    private tailrec fun expandAssertionGroups(assertions: List<Assertion>) {
+        if (assertions.isEmpty()) return
+
+        expandAssertionGroups(
+            assertions
+                .asSequence()
+                .filterIsInstance<AssertionGroup>()
+                .flatMap { it.assertions.asSequence() }
+                .toList()
+        )
+    }
+
 }

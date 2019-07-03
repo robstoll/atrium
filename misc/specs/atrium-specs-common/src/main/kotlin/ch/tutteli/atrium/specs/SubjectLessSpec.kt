@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.specs
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.None
@@ -10,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class SubjectLessAssertionSpec<T>(
+abstract class SubjectLessSpec<T>(
     groupPrefix: String,
     vararg assertionCreator: Pair<String, Expect<T>.() -> Unit>
 ) : Spek({
@@ -21,6 +22,9 @@ abstract class SubjectLessAssertionSpec<T>(
                 val assertions = coreFactory.newCollectingAssertionContainer<T>(None)
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
+
+                expandAssertionGroups(assertions)
+
                 val plant = coreFactory.newReportingPlant(
                     Untranslatable("custom assertion verb"), { 1.0 },
                     coreFactory.newOnlyFailureReporter(
@@ -33,10 +37,28 @@ abstract class SubjectLessAssertionSpec<T>(
                     .withAssertions(assertions)
                     .build()
                 plant.addAssertion(explanatoryGroup)
+
             }
         }
     }
-})
+}){
+    companion object {
+        /**
+         * Calls recursively [AssertionGroup.assertions] on every assertion group contained in [assertions].
+         */
+        private tailrec fun expandAssertionGroups(assertions: List<Assertion>) {
+            if (assertions.isEmpty()) return
+
+            expandAssertionGroups(
+                assertions
+                    .asSequence()
+                    .filterIsInstance<AssertionGroup>()
+                    .flatMap { it.assertions.asSequence() }
+                    .toList()
+            )
+        }
+    }
+}
 
 /**
  * Helper function to map an arbitrary `Expect<T>.(...) -> Unit` function to a parameter-less one.
