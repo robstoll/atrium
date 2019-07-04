@@ -33,7 +33,11 @@ fun <T : BigDecimal> _isEqualIncludingScale(
                 )
                 .build()
         }
-        .showOnlyIf(plant) { isNumericallyEqualTo(it, expected) }
+        .showOnlyIfBasedOnSubject(plant) {
+            ifDefined {
+                isNumericallyEqualTo(it, expected)
+            } ifAbsent { false }
+        }
         .withDescriptionAndRepresentation(IS_EQUAL_INCLUDING_SCALE, expected)
         .build()
 

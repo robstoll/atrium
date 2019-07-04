@@ -75,7 +75,7 @@ interface AssertionBuilder {
 
     /**
      * Builder to create an [ExplanatoryAssertion] -- use it to explain something which is typically formatted by an
-     * [ObjectFormatter].
+     * [ObjectFormatter] -- has to be a child of an [ExplanatoryGroup] (see [explanatoryGroup]).
      *
      * For instance, it is used to explain additional entries in an [Iterable] `contains entries` assertion.
      * It is typically used in an [explanatoryGroup].

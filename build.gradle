@@ -39,7 +39,8 @@ buildscript {
                         // (clashes with "${project.name}-translations-en_GB-jvm"
                         it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
-                        it.name != "${rootProject.name}-spec"
+                        it.name != "${rootProject.name}-spec" &&
+                        !it.name.startsWith("${rootProject.name}-specs")
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects - jsExampleProjects).findAll {
@@ -50,6 +51,7 @@ buildscript {
                         it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
+                        !it.name.startsWith("${rootProject.name}-specs") &&
                         it.name != "${rootProject.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${rootProject.name}-assertions" &&

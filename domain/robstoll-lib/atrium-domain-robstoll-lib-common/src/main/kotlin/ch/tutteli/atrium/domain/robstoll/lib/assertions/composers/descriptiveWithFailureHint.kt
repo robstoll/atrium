@@ -13,10 +13,11 @@ fun _createDescriptiveWithFailureHint(
     showHint: () -> Boolean,
     failureHintFactory: () -> Assertion
 ): Assertion {
+    //TODO remove try catch, should no longer be necessary
     val holds = try {
         test()
     } catch (e: PlantHasNoSubjectException) {
-        true //TODO that's a hack, do we have a better solution?
+        true
     }
     return if (holds || !showHint()) {
         AssertImpl.builder.createDescriptive(description, representation){ holds }

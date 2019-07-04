@@ -71,23 +71,32 @@ interface ExplanatoryGroup {
 }
 
 /**
- * Creates the [AssertionGroup] with the previously specified [AssertionsOption.groupType] using the given
- * [translatable] to create an [ExplanatoryAssertion] which is used as single
- * [Assertion] in [AssertionGroup.assertions].
+ * Defines that an [ExplanatoryAssertion] will be used as single [Assertion] in [AssertionGroup.assertions] where
+ * the given [translatable] is used as [ExplanatoryAssertion.explanation].
  *
  * See [AssertionsOption.withAssertion] for details.
  */
 @Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */ )
 fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
     translatable: Translatable
-): ExplanatoryAssertionGroupFinalStep
-    = withAssertion(assertionBuilder.explanatory.withDescription(translatable).build())
+): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withDescription(translatable).build() }
+
 
 /**
- * Creates the [AssertionGroup] with the previously specified [AssertionsOption.groupType] using the given
- * [translatable] -- which is used in an [TranslatableWithArgs] together with the given arguments ([arg] and
- * optionally [otherArgs]) -- to create an [ExplanatoryAssertion] which is used as single
- * [Assertion] in [AssertionGroup.assertions].
+ * Defines that an [ExplanatoryAssertion] will be used as single [Assertion] in [AssertionGroup.assertions] where
+ * the given [representation] is used as [ExplanatoryAssertion.explanation].
+ *
+ * See [AssertionsOption.withAssertion] for details.
+ */
+@Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */ )
+fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
+    representation: Any?
+): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withDescription(representation).build() }
+
+/**
+ * Defines that an [ExplanatoryAssertion] will be used as single [Assertion] in [AssertionGroup.assertions] where
+ * the given [translatable] -- which is used in an [TranslatableWithArgs] together with the given arguments ([arg] and
+ * optionally [otherArgs]) -- is used  as [ExplanatoryAssertion.explanation].
  *
  * See [AssertionsOption.withAssertion] for details.
  */
@@ -96,9 +105,18 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
     translatable: Translatable,
     arg: Any,
     vararg otherArgs: Any
-): ExplanatoryAssertionGroupFinalStep
-    = withAssertion(assertionBuilder.explanatory.withDescription(translatable, arg, *otherArgs).build())
+): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withDescription(translatable, arg, *otherArgs).build() }
 
+/**
+ * Defines that an [ExplanatoryAssertion] will be used as single [Assertion] in [AssertionGroup.assertions] where
+ * one can configure the [ExplanatoryAssertion] via the given [explanationStep].
+ *
+ * See [AssertionsOption.withAssertion] for details.
+ */
+@Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */ )
+inline fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
+    explanationStep: (Explanatory.ExplanationOption) -> Assertion
+): ExplanatoryAssertionGroupFinalStep = withAssertion(explanationStep(assertionBuilder.explanatory))
 
 
 /**
