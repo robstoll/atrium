@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_GB
+package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect

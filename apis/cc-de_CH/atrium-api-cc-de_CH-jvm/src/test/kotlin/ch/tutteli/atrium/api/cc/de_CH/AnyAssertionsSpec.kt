@@ -3,11 +3,10 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.spec.integration.AnyAssertionsDeprecatedSpec
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
-class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsDeprecatedSpec(
+class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),
@@ -21,7 +20,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsDeprec
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
-    class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsDeprecatedSpec.AnyAssertionsSpecFunFactory<T> {
+    class AnyAssertionsSpecFunFactory<T : Any> : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun = Assert<T>::ist
         override val notToBeFun = Assert<T>::istNicht
         override val isSameFun = Assert<T>::istSelbeInstanzWie

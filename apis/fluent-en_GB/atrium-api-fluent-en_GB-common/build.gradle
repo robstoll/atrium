@@ -1,0 +1,9 @@
+description = 'A fluent assertion function API in en_GB with a focus on code completion as common module.'
+
+dependencies {
+    compile prefixedProject('domain-builders-common')
+
+    testRuntimeOnly prefixedProject('domain-robstoll-common')
+    testRuntimeOnly prefixedProject('core-robstoll-common')
+    testImplementation prefixedProject('verbs-internal-common')
+}

@@ -18,7 +18,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-abstract class AnyAssertionsDeprecatedSpec(
+abstract class AnyAssertionsSpec(
     verbs: AssertionVerbFactory,
     funInt: AnyAssertionsSpecFunFactory<Int>,
     funDataClass: AnyAssertionsSpecFunFactory<DataClass>,

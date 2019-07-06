@@ -45,8 +45,8 @@ include {
 
     folder('apis', 'api-') {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
     }
 
     domain('domain-') {
@@ -83,9 +83,10 @@ include {
         _ 'cc-en_UK-robstoll'
         _ 'cc-infix-en_UK-robstoll'
     }
-    apis {
-        _ 'api-cc-en_UK'
-        _ 'api-cc-infix-en_UK'
+    folder('apis', 'api-') {
+        _ 'cc-en_UK'
+        _ 'cc-infix-en_UK'
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
     }
     domain('domain-') {
         _ 'api-deprecated'

@@ -1,4 +1,4 @@
-description = 'An assertion function API in en_GB with a focus on code completion for Android.' +
+description = 'A fluent assertion function API in en_GB with a focus on code completion for Android.' +
         'It provides a fluent API in en_GB which is designed to ease the usage of code completion or ' +
         'in other words, the developer should be able to: ' +
         'start creating an assertion + code completion + . + code completion + . + and so on.'
@@ -9,6 +9,15 @@ dependencies {
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
     testCompile prefixedProject('verbs-internal-android')
+}
+
+//TODO remove once all specs are migrated to spek2 and apply spek plugin with version 2.1.x
+junitPlatform {
+    filters {
+        engines {
+            include 'spek2'
+        }
+    }
 }
 
 srcAndResourcesFromJvmProject(project)

@@ -1,9 +1,12 @@
 module ch.tutteli.atrium.domain.robstoll.lib {
-    requires        ch.tutteli.atrium.api.cc.en_GB;
+    requires        ch.tutteli.atrium.api.fluent.en_GB;
     requires        ch.tutteli.atrium.domain.builders;
     requires static ch.tutteli.atrium.translations.en_GB;
     requires        ch.tutteli.kbox;
     requires        kotlin.stdlib;
+
+    //TODO remove with 1.0.0
+    requires        ch.tutteli.atrium.api.cc.en_GB;
 
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions;
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions.composers;
