@@ -2,12 +2,9 @@ description = 'Represents a convenience module which merely bundles dependencies
 
 dependencies {
     compile prefixedProject('verbs-common')
-    compile prefixedProject('api-cc-en_GB-common')
+    compile prefixedProject('api-fluent-en_GB-common')
     compile prefixedProject('domain-builders-common')
     compile prefixedProject('translations-en_GB-common')
     runtimeOnly prefixedProject('domain-robstoll-common')
     runtimeOnly prefixedProject('core-robstoll-common')
-
-    // here to ease migration; so that ReplaceWith of @Deprecated work
-    compile prefixedProject('api-fluent-en_GB-common')
 }
