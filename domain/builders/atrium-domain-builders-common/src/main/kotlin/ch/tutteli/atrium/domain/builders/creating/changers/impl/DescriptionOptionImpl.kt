@@ -12,6 +12,9 @@ class DescriptionOptionImpl<T>(
     override fun withDescriptionAndRepresentation(
         description: Translatable,
         representation: Any?
-    ): SubjectChangerBuilder.CheckOption<T> =
-        CheckOptionImpl(originalAssertionContainer, description, representation ?: RawString.NULL)
+    ): SubjectChangerBuilder.CheckOption<T> = SubjectChangerBuilder.CheckOption.create(
+        originalAssertionContainer,
+        description,
+        representation ?: RawString.NULL
+    )
 }

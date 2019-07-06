@@ -10,6 +10,6 @@ class CheckOptionImpl<T>(
     override val representation: Any
 ) : SubjectChangerBuilder.CheckOption<T> {
 
-    override fun withCheck(canBeTransformed: (T) -> Boolean): SubjectChangerBuilder.SubjectProviderOption<T> =
-        SubjectProviderOptionImpl(this, canBeTransformed)
+    override fun withCheck(canBeTransformed: (T) -> Boolean): SubjectChangerBuilder.TransformationOption<T> =
+        SubjectChangerBuilder.TransformationOption.create(this, canBeTransformed)
 }

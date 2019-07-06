@@ -10,8 +10,8 @@ class SubAssertionOptionImpl<T, R>(
 ) : SubjectChangerBuilder.SubAssertionOption<T, R> {
 
     override fun withoutSubAssertions(): SubjectChangerBuilder.FinalStep<T, R> =
-        FinalStepImpl(checkOption, canBeTransformed, transformation, null)
+        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation, null)
 
     override fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): SubjectChangerBuilder.FinalStep<T, R> =
-        FinalStepImpl(checkOption, canBeTransformed, transformation, assertionCreator)
+        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation, assertionCreator)
 }

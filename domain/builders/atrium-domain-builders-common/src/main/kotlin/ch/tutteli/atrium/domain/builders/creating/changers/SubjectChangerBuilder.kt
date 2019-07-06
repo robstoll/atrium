@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.DescriptionOptionImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -22,7 +22,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 object SubjectChangerBuilder : SubjectChanger {
 
     @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    override inline fun <T, R: Any> unreported(
+    override inline fun <T, R : Any> unreported(
         originalPlant: BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R
     ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
@@ -63,7 +63,7 @@ object SubjectChangerBuilder : SubjectChanger {
      * This is basically a guide towards [reported], hence in a more verbose manner but also more readable in many cases.
      */
     fun <T> reportBuilder(originalAssertionContainer: Expect<T>): DescriptionOption<T> =
-        DescriptionOptionImpl(originalAssertionContainer)
+        DescriptionOption.create(originalAssertionContainer)
 
 
     /**
@@ -83,6 +83,12 @@ object SubjectChangerBuilder : SubjectChanger {
          * chosen options).
          */
         fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): CheckOption<T>
+
+        companion object {
+            fun <T> create(
+                originalAssertionContainer: Expect<T>
+            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer)
+        }
     }
 
     /**
@@ -108,13 +114,21 @@ object SubjectChangerBuilder : SubjectChanger {
         /**
          * Defines when the current subject can be transformed to the new one.
          */
-        fun withCheck(canBeTransformed: (T) -> Boolean): SubjectProviderOption<T>
+        fun withCheck(canBeTransformed: (T) -> Boolean): TransformationOption<T>
+
+        companion object {
+            fun <T> create(
+                originalAssertionContainer: Expect<T>,
+                description: Translatable,
+                representation: Any
+            ): CheckOption<T> = CheckOptionImpl(originalAssertionContainer, description, representation)
+        }
     }
 
     /**
-     * Option step to define the new subject
+     * Option step to define the transformation which yields the new subject.
      */
-    interface SubjectProviderOption<T> {
+    interface TransformationOption<T> {
         /**
          * The so far chosen options up to but not inclusive the [CheckOption] step.
          */
@@ -130,6 +144,13 @@ object SubjectChangerBuilder : SubjectChanger {
          * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
         fun <R> withTransformation(transformation: (T) -> R): SubAssertionOption<T, R>
+
+        companion object {
+            fun <T> create(
+                checkOption: CheckOption<T>,
+                canBeTransformed: (T) -> Boolean
+            ): TransformationOption<T> = TransformationOptionImpl(checkOption, canBeTransformed)
+        }
     }
 
     /**
@@ -176,6 +197,14 @@ object SubjectChangerBuilder : SubjectChanger {
          * ```
          */
         fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): FinalStep<T, R>
+
+        companion object {
+            fun <T, R> create(
+                checkOption: CheckOption<T>,
+                canBeTransformed: (T) -> Boolean,
+                transformation: (T) -> R
+            ): SubAssertionOption<T, R> = SubAssertionOptionImpl(checkOption, canBeTransformed, transformation)
+        }
     }
 
     interface FinalStep<T, R> {
@@ -207,5 +236,14 @@ object SubjectChangerBuilder : SubjectChanger {
          * @return the newly created [Expect].
          */
         fun build(): Expect<R>
+
+        companion object {
+            fun <T, R> create(
+                checkOption: CheckOption<T>,
+                canBeTransformed: (T) -> Boolean,
+                transformation: (T) -> R,
+                subAssertions: (Expect<R>.() -> Unit)?
+            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, subAssertions)
+        }
     }
 }

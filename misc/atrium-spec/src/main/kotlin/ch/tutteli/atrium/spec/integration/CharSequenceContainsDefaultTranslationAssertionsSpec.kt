@@ -14,6 +14,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+//TODO remove with 1.0.0
 @Deprecated("will be removed with 1.0.0")
 abstract class CharSequenceContainsDefaultTranslationAssertionsSpec(
     verbs: AssertionVerbFactory,

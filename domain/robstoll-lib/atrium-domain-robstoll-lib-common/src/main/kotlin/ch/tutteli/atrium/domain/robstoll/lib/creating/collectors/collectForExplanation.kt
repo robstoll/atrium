@@ -17,6 +17,7 @@ fun <T> _collectAndThrowIfNothingCollected(
     maybeSubject: Option<T>,
     assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
 ): List<Assertion> {
+    //TODO remove try-catch with 1.0.0 should no longer be needed once PlantHasNoSubjectException is removed
     return try {
         val collectedAssertions = collectAssertions(maybeSubject, assertionCreator)
 
