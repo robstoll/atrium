@@ -2,4 +2,6 @@ description = 'Contains base classes for sophisticated assertion builders which 
 
 dependencies {
     compile prefixedProject('domain-api-js')
+
+    testCompile prefixedProject('verbs-internal-js')
 }

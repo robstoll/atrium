@@ -160,7 +160,7 @@ interface FeatureExtractor {
         val subjectPlant: BaseAssertionPlant<TSubject, *>,
         val extractionNotSuccessful: Translatable,
         val warningCannotEvaluate: Translatable,
-        val canBeExtracted: () -> Boolean,
-        val featureExtraction: () -> T
+        val canBeExtracted: (TSubject) -> Boolean,
+        val featureExtraction: (TSubject) -> T
     )
 }

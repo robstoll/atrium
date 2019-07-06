@@ -25,7 +25,9 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
         searchCriteria: List<List<SC>>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val assertion = AssertImpl.collector.collectForSubject({ plant.subject.toList() }) {
+            val subject = plant.maybeSubject.fold({emptyList<E>()}){ it.toList() }
+            val assertion = AssertImpl.collector.collect({ subject }) {
+
                 var index = 0
                 searchCriteria.forEach { group ->
                     val currentIndex = index
@@ -33,7 +35,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
                     if (group.size == 1) {
                         createSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
                     } else {
-                        createSublistAssertion(currentIndex, untilIndex, group)
+                        createSublistAssertion(currentIndex, untilIndex, group, subject)
                     }
                     index = untilIndex
                 }
@@ -51,7 +53,8 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
     private fun CollectingAssertionPlant<List<E>>.createSublistAssertion(
         currentIndex: Int,
         untilIndex: Int,
-        groupOfSearchCriteria: List<SC>
+        groupOfSearchCriteria: List<SC>,
+        subject: List<E>
     ) {
         val subListProvider = {
             val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
@@ -61,7 +64,6 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
         val representationProvider = { subject.ifWithinBound(currentIndex, subListProvider, sizeExceededProvider) }
         val featureName = TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
         AssertImpl.feature.property(this, subListProvider, representationProvider, featureName) {
-            subject
             createSublistAssertion(groupOfSearchCriteria)
         }
     }

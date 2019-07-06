@@ -2,9 +2,9 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.MaybeSubject
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
@@ -13,14 +13,18 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 fun <T, R> _changeSubjectUnreported(
     originalAssertionContainer: Expect<T>,
-    subjectProvider: () -> R
+    transformation: (T) -> R
 ): Expect<R> {
     val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalAssertionContainer)
-    return ExpectImpl.coreFactory.newReportingAssertionContainer(assertionVerb, subjectProvider, assertionChecker)
+    return ExpectImpl.coreFactory.newReportingAssertionContainer(
+        assertionVerb,
+        originalAssertionContainer.maybeSubject.map(transformation),
+        assertionChecker
+    )
 }
 
 private fun <T> createDelegatingAssertionCheckerAndVerb(originalAssertionContainer: Expect<T>): Pair<AssertionChecker, Untranslatable> {
-    //TODO wrap subjectProvider with error handling. Could be interesting to see the exception in the context of the assertion
+    //TODO wrap transformation with error handling. Could be interesting to see the exception in the context of the assertion
     val assertionChecker = ExpectImpl.coreFactory.newDelegatingAssertionChecker(originalAssertionContainer)
     return assertionChecker to Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
 }
@@ -30,21 +34,19 @@ fun <T, R> _changeSubject(
     description: Translatable,
     representation: Any,
     canBeTransformed: (T) -> Boolean,
-    subjectProvider: () -> R,
+    transformation: (T) -> R,
     subAssertions: (Expect<R>.() -> Unit)?
 ): Expect<R> {
-    //TODO #88 I think it would make things easier if we do it more in a functional way. Maybe not only hide subject but use something like Option<T> instead, then we can finally get rid of this hack (and use map instead)
-    //TODO #88 if we use Option then it would probably makes sense to use flatMap instead of map and combine canBeTransformed and subjectProvider
-    val shallTransform = try {
-        canBeTransformed(originalAssertionContainer.subject)
-    } catch (e: PlantHasNoSubjectException) {
-        true
+
+    // we can transform if maybeSubject is None as we have to be in an explaining like context in such a case.
+    val shallTransform = originalAssertionContainer.maybeSubject.fold(trueProvider) {
+        canBeTransformed(it)
     }
 
     val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalAssertionContainer)
     val assertionContainer = ExpectImpl.coreFactory.newReportingAssertionContainer(
         assertionVerb,
-        if (shallTransform) subjectProvider else { { throw PlantHasNoSubjectException() } },
+        if (shallTransform) originalAssertionContainer.maybeSubject.map(transformation) else None,
         assertionChecker
     )
 
@@ -63,7 +65,7 @@ fun <T, R> _changeSubject(
             val explanatoryAssertions = ExpectImpl.collector
                 .forExplanation
                 .throwIfNoAssertionIsCollected
-                .collect(MaybeSubject.Absent, subAssertions)
+                .collect(None, subAssertions)
             AssertImpl.builder.invisibleGroup
                 .withAssertions(
                     descriptiveAssertion,

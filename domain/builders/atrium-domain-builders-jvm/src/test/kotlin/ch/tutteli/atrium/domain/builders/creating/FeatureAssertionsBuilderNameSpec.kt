@@ -54,6 +54,7 @@ class FeatureAssertionsBuilderNameSpec : ch.tutteli.atrium.spec.integration.Feat
     propertyLazyWithNestedLazy
 ) {
 
+    @Suppress("DEPRECATION" /* TODO #40 creating feature assertions will change anyway, thus not fixing the usages of `subject` */)
     companion object {
         val propertyImmediate: F = { property(this, { subject.description }, Untranslatable("description")).contains("hello") }
         val propertyLazy: F = { property(this, { subject.description }, Untranslatable("description")) { contains("hello") } }

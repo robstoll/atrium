@@ -70,7 +70,7 @@ abstract class VerbSpec(
             expect {
                 assertionVerb(1).isLessOrEquals(10).and.isLessOrEquals(0).and.isGreaterOrEquals(2)
             }.toThrow<AssertionError> {
-                assert(subject.message).notToBeNull {
+                message {
                     contains(": 1")
                     contains("${IS_LESS_OR_EQUALS.getDefault()}: 0")
                     containsNot("${IS_GREATER_OR_EQUALS.getDefault()}: 2")

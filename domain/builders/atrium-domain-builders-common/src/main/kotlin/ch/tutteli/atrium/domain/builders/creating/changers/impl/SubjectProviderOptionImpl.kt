@@ -7,6 +7,6 @@ class SubjectProviderOptionImpl<T>(
     override val canBeTransformed: (T) -> Boolean
 ) : SubjectChangerBuilder.SubjectProviderOption<T> {
 
-    override fun <R> withSubjectProvider(subjectProvider: () -> R): SubjectChangerBuilder.SubAssertionOption<T, R> =
-        SubAssertionOptionImpl(checkOption, canBeTransformed, subjectProvider)
+    override fun <R> withTransformation(transformation: (T) -> R): SubjectChangerBuilder.SubAssertionOption<T, R> =
+        SubAssertionOptionImpl(checkOption, canBeTransformed, transformation)
 }

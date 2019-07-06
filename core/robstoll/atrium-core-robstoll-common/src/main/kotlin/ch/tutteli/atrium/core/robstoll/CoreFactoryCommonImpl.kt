@@ -3,6 +3,7 @@ package ch.tutteli.atrium.core.robstoll
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactoryCommon
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
@@ -49,20 +50,23 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
-    final override fun <T> newCheckingAssertionContainer(subjectProvider: () -> T): CheckingAssertionContainer<T>
-        = CheckingAssertionContainerImpl(subjectProvider)
+
+    final override fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
+        = CheckingAssertionContainerImpl(maybeSubject)
 
     final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
         = CheckingAssertionPlantImpl(subjectProvider)
 
-    final override fun <T> newCollectingAssertionContainer(subjectProvider: () -> T): CollectingAssertionContainer<T>
-        = CollectingAssertionContainerImpl(subjectProvider)
+
+    final override fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
+        = CollectingAssertionContainerImpl(maybeSubject)
 
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
 
     final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
         = CollectingAssertionPlantNullableImpl(subjectProvider)
+
 
     final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)

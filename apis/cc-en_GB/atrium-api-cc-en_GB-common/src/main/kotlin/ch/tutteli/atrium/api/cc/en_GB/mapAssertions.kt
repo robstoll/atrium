@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.kbox.glue
 import kotlin.js.JsName
 
@@ -178,8 +179,9 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
+@Suppress("DEPRECATION")
 fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
-    = AssertImpl.changeSubject(this) { subject.entries }
+    = ExpectImpl.changeSubject.unreported(this) { it.entries }
 
 /**
  * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given

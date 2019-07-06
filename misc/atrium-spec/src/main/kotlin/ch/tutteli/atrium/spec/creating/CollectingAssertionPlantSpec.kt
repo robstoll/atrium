@@ -22,7 +22,7 @@ abstract class CollectingAssertionPlantSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
         = prefixedDescribe(describePrefix, description, body)
 
-    val testee = testeeFactory({ 1 })
+    val testee = testeeFactory { 1 }
 
     prefixedDescribe("fun ${testee::getAssertions.name}") {
 
@@ -47,6 +47,7 @@ abstract class CollectingAssertionPlantSpec(
         }
     }
 
+    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     prefixedDescribe("accessing ${testee::subject.name}") {
         context("subject was provided") {
             it("does not throw an exception when accessing subject") {

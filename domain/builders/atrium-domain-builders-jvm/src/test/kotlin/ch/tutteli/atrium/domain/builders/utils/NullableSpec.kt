@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.domain.builders.utils.*
 import ch.tutteli.atrium.domani.builders.utils.Test
+import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.verbs.internal.expect
@@ -97,10 +97,10 @@ object NullableSpec : Spek({
                 toBe("hello")
             }
         }
-        it("throws if the value was actually null"){
+        it("throws if the value was actually null") {
             expect {
                 assert(nullableKeyMap(testee.numbersWithString)).getExisting(1).toBe("a")
-            }.toThrow<AssertionError> {  }
+            }.toThrow<AssertionError> { messageContains("get(1): null", "to be: \"a\"") }
         }
         it("can pass `null` as key") {
             assert(nullableKeyMap(testee.numbersWithString)[null]).toBe("tada")
@@ -108,6 +108,7 @@ object NullableSpec : Spek({
 
         it("can be combined with ${nullableFun.name}") {
             assert(nullable(nullableKeyMap(testee.numbersWithString))).notToBeNull {
+                @Suppress("DEPRECATION" /* TODO #40 should be done differently */)
                 val k: KFunction1<Int?, String?> = subject::get
                 returnValueOf(k, 0).toBe(null)
             }
@@ -124,6 +125,7 @@ object NullableSpec : Spek({
         }
         it("can be combined with ${nullableFun.name}") {
             assert(nullable(nullableValueMap(testee.numbersWithString))).notToBeNull {
+                @Suppress("DEPRECATION" /* TODO #40 should be done differently */)
                 returnValueOf(subject::get, 0).toBe(null)
             }
         }
@@ -131,9 +133,7 @@ object NullableSpec : Spek({
 
     describeFun(nullableKeyValueMapFun.name) {
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
-            assert(nullableKeyValueMap(testee.numbersWithString)){
-
-            }
+            assert(nullableKeyValueMap(testee.numbersWithString)){}
             assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
             expect {
                 assert(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe("hello")
@@ -146,6 +146,7 @@ object NullableSpec : Spek({
 
         it("can be combined with ${nullableFun.name}") {
             assert(nullable(nullableKeyValueMap(testee.numbersWithString))).notToBeNull {
+                @Suppress("DEPRECATION" /* TODO #40 should be done differently */)
                 val k: KFunction1<Int?, String?> = subject::get
                 returnValueOf(k, 0).toBe(null)
             }

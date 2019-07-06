@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.DescriptionOptionImpl
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.FinalStepImpl
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.HoldsOptionImpl
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -32,6 +32,16 @@ interface Descriptive {
          * Uses the given [test] as [DescriptiveAssertion.holds].
          */
         fun withTest(test: () -> Boolean): DescriptionOption<FinalStep>
+
+        /**
+         * Uses the given [test] as [DescriptiveAssertion.holds] based on the subject provided by [subjectProvider].
+         *
+         * Notice, this function might change its signature with 1.0.0 to something like
+         * ```
+         * fun <T> withTest(expect: Expect, test: (T) -> Boolean): DescriptionOption<FinalStep>
+         * ```
+         */
+        fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): DescriptionOption<FinalStep>
 
         companion object {
             /**

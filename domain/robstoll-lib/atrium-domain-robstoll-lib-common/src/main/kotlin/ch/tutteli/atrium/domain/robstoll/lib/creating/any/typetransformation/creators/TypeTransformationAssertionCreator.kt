@@ -11,16 +11,20 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
         transform: (S) -> T,
         failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ) {
+        //TODO #89 Base TypeTransformationAssertionCreator on SubjectChanger (or do not use it at all)
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
-        //TODO not subject less
-        val subject = subjectPlant.subject
-        if (subject != null && canBeTransformed(subject)) {
-            val plant = AssertImpl.changeSubject(subjectPlant) { transform(subject) }
-            plant.addAssertion(AssertImpl.builder.descriptive
-                .holding
-                .withDescriptionAndRepresentation(description, representation)
-                .build())
-            plant.addAssertionsCreatedBy(assertionCreator)
+        if (subjectPlant.maybeSubject.isDefined()) {
+            @Suppress("DEPRECATION") val subject = subjectPlant.subject
+            if (subject != null && canBeTransformed(subject)) {
+                @Suppress("DEPRECATION") val plant = AssertImpl.changeSubject(subjectPlant) { transform(subject) }
+                plant.addAssertion(AssertImpl.builder.descriptive
+                    .holding
+                    .withDescriptionAndRepresentation(description, representation)
+                    .build())
+                plant.addAssertionsCreatedBy(assertionCreator)
+            } else {
+                failureHandler.createAndAddAssertionToPlant(parameterObject)
+            }
         } else {
             failureHandler.createAndAddAssertionToPlant(parameterObject)
         }

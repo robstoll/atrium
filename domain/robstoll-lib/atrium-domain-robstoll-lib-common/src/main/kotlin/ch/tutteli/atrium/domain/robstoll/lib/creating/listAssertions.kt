@@ -48,6 +48,6 @@ private fun <T> createGetParameterObject(
     plant,
     extractionNotSuccessful = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS,
     warningCannotEvaluate = DescriptionListAssertion.CANNOT_EVALUATE_INDEX_OUT_OF_BOUNDS,
-    canBeExtracted = { index < plant.subject.size },
-    featureExtraction = { plant.subject[index] }
+    canBeExtracted = { index < it.size },
+    featureExtraction = { it[index] }
 )

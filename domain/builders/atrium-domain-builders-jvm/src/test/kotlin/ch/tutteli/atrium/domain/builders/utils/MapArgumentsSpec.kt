@@ -53,10 +53,14 @@ object MapArgumentsSpec : Spek({
             val (first, others) = test(null, "b", "c")
             assert(first).toBe(null)
             assert(others[0]).notToBeNull {
-                subject(assert("banana"))
+                maybeSubject.map { assertionCreator ->
+                    assert("banana").assertionCreator()
+                }
             }
             assert(others[1]).notToBeNull {
-                subject(assert("caramel"))
+                maybeSubject.map { assertionCreator ->
+                    assert("caramel").assertionCreator()
+                }
             }
         }
 

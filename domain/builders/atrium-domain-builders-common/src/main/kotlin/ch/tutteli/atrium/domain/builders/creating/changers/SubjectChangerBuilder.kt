@@ -4,6 +4,9 @@ package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.DescriptionOptionImpl
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
@@ -18,24 +21,37 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 object SubjectChangerBuilder : SubjectChanger {
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override inline fun <T, R: Any> unreported(
+        originalPlant: BaseAssertionPlant<T, *>,
+        noinline transformation: (T) -> R
+    ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override inline fun <T, R> unreportedNullable(
+        originalPlant: BaseAssertionPlant<T, *>,
+        noinline transformation: (T) -> R
+    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
+
+
     override inline fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,
-        noinline subjectProvider: () -> R
-    ): Expect<R> = subjectChanger.unreported(originalAssertionContainer, subjectProvider)
+        noinline transformation: (T) -> R
+    ): Expect<R> = subjectChanger.unreported(originalAssertionContainer, transformation)
 
     override inline fun <T, R> reported(
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representation: Any,
         noinline canBeTransformed: (T) -> Boolean,
-        noinline subjectProvider: () -> R,
+        noinline transformation: (T) -> R,
         noinline subAssertions: (Expect<R>.() -> Unit)?
     ): Expect<R> = subjectChanger.reported(
         originalAssertionContainer,
         description,
         representation,
         canBeTransformed,
-        subjectProvider,
+        transformation,
         subAssertions
     )
 
@@ -111,9 +127,9 @@ object SubjectChangerBuilder : SubjectChanger {
         val canBeTransformed: (T) -> Boolean
 
         /**
-         * Defines the new subject.
+         * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
-        fun <R> withSubjectProvider(subjectProvider: () -> R): SubAssertionOption<T, R>
+        fun <R> withTransformation(transformation: (T) -> R): SubAssertionOption<T, R>
     }
 
     /**
@@ -135,7 +151,7 @@ object SubjectChangerBuilder : SubjectChanger {
         /**
          * The previously specified new subject.
          */
-        val subjectProvider: () -> R
+        val transformation: (T) -> R
 
         /**
          * Perform the change without providing subsequent assertions for the new subject.
@@ -177,7 +193,7 @@ object SubjectChangerBuilder : SubjectChanger {
         /**
          * The previously specified new subject.
          */
-        val subjectProvider: () -> R
+        val transformation: (T) -> R
 
         /**
          * Optionally, sub assertions for the new subject.

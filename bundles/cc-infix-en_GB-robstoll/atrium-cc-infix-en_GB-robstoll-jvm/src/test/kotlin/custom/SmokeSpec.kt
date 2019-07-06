@@ -5,7 +5,9 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
+import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.verbs.expect
 import org.jetbrains.spek.api.Spek
 
@@ -26,15 +28,14 @@ object SmokeSpec : Spek({
 @Suppress("ClassName")
 object even
 
-infix fun Assert<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) = createAndAddAssertion(
-    ch.tutteli.atrium.translations.DescriptionBasic.IS,
-    ch.tutteli.atrium.reporting.RawString.create("an even number")
-) { subject % 2 == 0 }
+@Suppress("DEPRECATION")
+infix fun Assert<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
+    createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
 
 infix fun Assert<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 
 fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion =
-    AssertImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { plant.subject % base == 0 }
+    AssertImpl.builder.createDescriptive(plant, DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")

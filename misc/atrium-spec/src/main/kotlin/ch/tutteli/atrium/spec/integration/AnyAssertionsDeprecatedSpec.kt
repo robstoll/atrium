@@ -194,7 +194,7 @@ abstract class AnyAssertionsDeprecatedSpec(
             }
             setUp("throws an AssertionError") {
                 context("exception message") {
-                    it("contains the '${testee::subject.name}'") {
+                    it("contains the subject") {
                         expectFun.toThrow<AssertionError> { messageContains(subject.toString()) }
                     }
                     it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message - which should be '${TO_BE.getDefault()}'") {

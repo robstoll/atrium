@@ -1,16 +1,14 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsObjectsAssertionCreator
-import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.collectIterableAssertionsForExplanationWithFirst
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHasElementAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
@@ -47,11 +45,11 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
     }
 
     override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
-        = plant.subject.filter { it == searchCriterion }.size
+        = plant.maybeSubject.fold({-1}) { subject -> subject.filter { it == searchCriterion }.size }
 
     override fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion> {
         return if (searchBehaviour is NotSearchBehaviour) {
-            listOf(featureAssertion, createHasElementAssertion(plant.subject))
+            listOf(featureAssertion, createHasElementAssertion(plant.maybeSubject.getOrElse { emptyList<SC>() }))
         } else {
             listOf(featureAssertion)
         }

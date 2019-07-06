@@ -1,6 +1,6 @@
 module ch.tutteli.atrium.domain.robstoll.lib {
-    requires        ch.tutteli.atrium.domain.builders;
     requires        ch.tutteli.atrium.api.cc.en_GB;
+    requires        ch.tutteli.atrium.domain.builders;
     requires static ch.tutteli.atrium.translations.en_GB;
     requires        ch.tutteli.kbox;
     requires        kotlin.stdlib;

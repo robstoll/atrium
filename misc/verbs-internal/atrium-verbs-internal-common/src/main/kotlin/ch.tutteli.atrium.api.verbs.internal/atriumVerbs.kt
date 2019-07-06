@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.verbs.internal
 
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
@@ -8,15 +9,14 @@ import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
-fun <T> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, { subject }, reporter)
+fun <T> assert(subject: T) =
+    AssertImpl.coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, Some(subject), reporter)
 
-fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit)
-    = assert(subject).addAssertionsCreatedBy(assertionCreator)
+fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit) =
+    assert(subject).addAssertionsCreatedBy(assertionCreator)
 
 //TODO uses an AssertionPlant internally which is wrong
-fun expect(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
+fun expect(act: () -> Unit) = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
 
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),
@@ -47,7 +47,8 @@ class NoAdjustingReporterFactory : ReporterFactory {
             .withOnlyFailureReporter()
             .build()
     }
+
     companion object {
-        const val ID =  "default-no-adjusting"
+        const val ID = "default-no-adjusting"
     }
 }

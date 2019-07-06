@@ -8,20 +8,20 @@ import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertio
 internal class ShowOptionImpl(
     private val test: () -> Boolean,
     private val failureHintFactory: () -> Assertion
-): DescriptiveAssertionWithFailureHint.ShowOption {
+) : DescriptiveAssertionWithFailureHint.ShowOption {
 
-   override val showForAnyFailure get(): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep>
+    override val showForAnyFailure : Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep>
         = createDescriptiveLikeAssertionDescriptionOption(trueProvider)
 
     override fun showOnlyIf(
         predicate: () -> Boolean
-    ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep>
-        = createDescriptiveLikeAssertionDescriptionOption(predicate)
+    ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
+        createDescriptiveLikeAssertionDescriptionOption(predicate)
 
     private fun createDescriptiveLikeAssertionDescriptionOption(
         predicate: () -> Boolean
-    ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep>
-        = Descriptive.DescriptionOption.create(
+    ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
+        Descriptive.DescriptionOption.create(
             test,
             { t, d, r -> DescriptiveAssertionWithFailureHint.FinalStep.create(t, predicate, failureHintFactory, d, r) }
         )

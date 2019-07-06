@@ -7,6 +7,12 @@ abstract class MutableListBasedAssertionPlant<out T : Any?, out A : BaseAssertio
     override val subjectProvider: () -> T
 ) : BaseAssertionPlant<T, A> {
 
+    /**
+     * The subject of an [Assertion].
+     */
+    @Deprecated(
+        "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter."
+    )
     final override val subject : T by lazy { subjectProvider() }
 
     /**
