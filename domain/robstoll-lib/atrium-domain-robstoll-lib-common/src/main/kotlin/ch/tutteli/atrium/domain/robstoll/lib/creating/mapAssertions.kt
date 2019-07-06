@@ -121,14 +121,20 @@ private fun <K, V> createGetParameterObject(
     plant,
     extractionNotSuccessful = DescriptionMapAssertion.KEY_DOES_NOT_EXIST,
     warningCannotEvaluate = DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
-    //TODO #88 change FeatureExtractor the two following lambdas should expect the subject as argument
-    canBeExtracted = {
-        @Suppress("DEPRECATION")
-        plant.subject.containsKey(key)
-    },
+    canBeExtracted = { it.containsKey(key) },
     featureExtraction = {
-        @Suppress("UNCHECKED_CAST" /* that's fine will only be called if the key exists */, "DEPRECATION" )
-        plant.subject[key] as V
+        @Suppress("UNCHECKED_CAST"
+            /*
+            UNCHECKED_CAST is OK as this function will only be called if the key exists, so the value should be V
+            One note though, if one deals with a Map returned by Java code and forgot that the Map actually contains
+            `null` as values as well, then we ignore it here (due to the UNCHECKED_CAST). However, usually this
+            should not matter as the assertion about the value will cover it. In the worst case, a null-check included
+            by the Kotlin compiler will throw -> in such a case it might be hard for the user to grasp what is going on.
+            In this sense it might be better if we catch that already here and report accordingly. Yet, in the end we
+            end up introducing null-checks everywhere only because of Java => keep it like this for now.
+            */
+        )
+        it[key] as V
     }
 )
 

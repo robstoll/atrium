@@ -3,7 +3,6 @@ package ch.tutteli.atrium.domain.creating.feature.extract.creators
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
-import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -22,8 +21,9 @@ interface FeatureExtractorCreatorFactory {
      * Creates a [FeatureExtractor.Creator] based on the given [featureRepresentation] and [parameterObject]
      *
      * @param featureRepresentation used as [AssertionGroup.description].
-     * @param parameterObject Parameter object which contains inter alia the [ParameterObject.canBeExtracted] and
-     *   [ParameterObject.featureExtraction] functions.
+     * @param parameterObject Parameter object which contains inter alia the
+     *   [FeatureExtractor.ParameterObject.canBeExtracted] and [FeatureExtractor.ParameterObject.featureExtraction]
+     *   functions.
      *
      * @return The newly created feature extractor creator.
      */
@@ -36,8 +36,9 @@ interface FeatureExtractorCreatorFactory {
      * Creates a [FeatureExtractor.CreatorNullable] based on the given [featureRepresentation] and [parameterObject]
      *
      * @param featureRepresentation used as [AssertionGroup.description].
-     * @param parameterObject Parameter object which contains inter alia the [ParameterObject.canBeExtracted] and
-     *   [ParameterObject.featureExtraction] functions.
+     * @param parameterObject Parameter object which contains inter alia the
+     *   [FeatureExtractor.ParameterObject.canBeExtracted] and [FeatureExtractor.ParameterObject.featureExtraction]
+     *   functions.
      *
      * @return The newly created feature extractor creator.
      */

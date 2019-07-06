@@ -48,12 +48,6 @@ private fun <T> createGetParameterObject(
     plant,
     extractionNotSuccessful = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS,
     warningCannotEvaluate = DescriptionListAssertion.CANNOT_EVALUATE_INDEX_OUT_OF_BOUNDS,
-    canBeExtracted = {
-        @Suppress("DEPRECATION" /* TODO #88 subject should be passed as parameter */)
-        index < plant.subject.size
-    },
-    featureExtraction = {
-        @Suppress("DEPRECATION" /* TODO #88 subject should be passed as parameter */)
-        plant.subject[index]
-    }
+    canBeExtracted = { index < it.size },
+    featureExtraction = { it[index] }
 )

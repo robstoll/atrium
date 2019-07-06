@@ -16,7 +16,10 @@ abstract class MutableListBasedAssertionContainer<T>(
     override val maybeSubject: Option<T>
 ) : Expect<T> {
 
-    //TODO #88 deprecate
+    @Deprecated(
+        "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter. See KDoc for migration hints",
+        ReplaceWith("it")
+    )
     final override val subject: T by lazy { maybeSubject.getOrElse { throw PlantHasNoSubjectException() } }
 
     /**

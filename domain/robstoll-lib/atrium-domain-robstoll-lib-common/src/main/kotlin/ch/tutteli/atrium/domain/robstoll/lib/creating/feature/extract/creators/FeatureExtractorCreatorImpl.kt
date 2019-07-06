@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.feature.extract.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.evalOnce
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
@@ -14,7 +14,6 @@ import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
-
 abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>(
     override val featureRepresentation: Translatable,
     override val parameterObject: FeatureExtractor.ParameterObject<TSubject, T>,
@@ -23,10 +22,11 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
 ) : FeatureExtractor.CreatorLike<TSubject, T, A, C> {
 
     override fun extract(): A {
+
         val isSafeToExtract = safeToExtract()
-        val featureExtractionOnce = parameterObject.featureExtraction.evalOnce()
-        return if(isSafeToExtract){
-             plantCreator(AssertionPlantWithCommonFields.CommonFields(
+        return if(isSafeToExtract) {
+            val featureExtractionOnce = featureExtractionOnce()
+            plantCreator(AssertionPlantWithCommonFields.CommonFields(
                  featureRepresentation,
                  featureExtractionOnce,
                  featureExtractionOnce,
@@ -57,9 +57,19 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
         }
     }
 
+    private fun featureExtractionOnce(): () -> T {
+        return {
+            val subject by lazy {
+                @Suppress("DEPRECATION")
+                parameterObject.featureExtraction(parameterObject.subjectPlant.subject)
+            }
+            subject
+        }
+    }
+
     override fun extractAndAssertIt(assertionCreator: C.() -> Unit): Assertion {
         val isSafeToExtract = safeToExtract()
-        val featureExtractionOnce = parameterObject.featureExtraction.evalOnce()
+        val featureExtractionOnce = featureExtractionOnce()
         return AssertImpl.builder.partiallyFixedClaimGroup
             .withFeatureType
             .withClaim(isSafeToExtract)
@@ -78,14 +88,8 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
             .build()
     }
 
-    private fun safeToExtract(): Boolean {
-        //TODO remove try-catch with 1.0.0, should no longer be necessary
-        return try {
-            parameterObject.canBeExtracted()
-        } catch (e: PlantHasNoSubjectException) {
-            true //TODO that's kind of a hack, do we have a better solution?
-        }
-    }
+    private fun safeToExtract(): Boolean  =
+        parameterObject.subjectPlant.maybeSubject.fold(falseProvider, parameterObject.canBeExtracted)
 }
 
 class FeatureExtractorCreatorImpl<TSubject: Any, T: Any>(
