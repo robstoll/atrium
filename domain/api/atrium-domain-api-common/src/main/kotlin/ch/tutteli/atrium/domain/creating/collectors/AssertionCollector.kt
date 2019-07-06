@@ -111,6 +111,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
+    @Suppress("DEPRECATION")
     fun <T : Any> collect(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
@@ -170,6 +171,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlantNullable] respectively.
      */
+    @Suppress("DEPRECATION")
     fun <T> collectNullable(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlantNullable<T>.() -> Unit
@@ -241,6 +243,7 @@ interface AssertionCollector {
      *   to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the [CollectingAssertionPlant].
      */
+    @Suppress("DEPRECATION")
     fun <T : Any> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
@@ -288,6 +291,7 @@ interface AssertionCollector {
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the
      *   [CollectingAssertionPlantNullable].
      */
+    @Suppress("DEPRECATION")
     fun <T> collectNullableOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,

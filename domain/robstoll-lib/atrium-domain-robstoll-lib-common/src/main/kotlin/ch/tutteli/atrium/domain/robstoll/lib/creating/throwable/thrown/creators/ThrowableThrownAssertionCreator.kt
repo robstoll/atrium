@@ -57,6 +57,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun createReportingPlantForThrowable(
         throwableThrownBuilder: ThrowableThrown.Builder,
         throwable: Throwable?

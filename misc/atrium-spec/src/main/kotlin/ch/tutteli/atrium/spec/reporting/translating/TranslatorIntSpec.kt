@@ -109,6 +109,7 @@ abstract class TranslatorIntSpec(
     }
 
     val reporterDeCh = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
+    @Suppress("DEPRECATION")
     fun <T : Any> assertWithDeCh(subject: T)
         = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporterDeCh)
 
@@ -208,12 +209,12 @@ abstract class TranslatorIntSpec(
     mapOf(
         "Hant" to listOf("TW", "HK", "MO"),
         "Hans" to listOf("CN", "SG")
-    ).forEach { script, countries ->
+    ).forEach { (script, countries) ->
         val zhWithScript = "zh_$script"
         countries.forEach { country ->
             val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
-            val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
+            @Suppress("DEPRECATION") val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {

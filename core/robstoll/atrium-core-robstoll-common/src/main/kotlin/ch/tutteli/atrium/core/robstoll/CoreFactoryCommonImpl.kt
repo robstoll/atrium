@@ -21,39 +21,25 @@ import kotlin.reflect.KClass
 
 /**
  * Robstoll's `abstract factory` for atrium-core.
- *
- * It provides factory methods to create:
- * - [AssertionPlant]
- * - [AssertionPlantNullable]
- * - [CheckingAssertionPlant]
- * - [CollectingAssertionPlant]
- * - [AssertionChecker]
- * - [MethodCallFormatter]
- * - [Translator]
- * - [CoroutineBasedLocaleOrderDecider]
- * - [ObjectFormatter]
- * - [AssertionFormatterFacade]
- * - [AssertionFormatterController]
- * - [AssertionFormatter]
- * - [AssertionPairFormatter]
- * - [Reporter]
- * - [AtriumErrorAdjuster]
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
     final override fun <T> newReportingAssertionContainer(commonFields: AssertionContainerWithCommonFields.CommonFields<T>): ReportingAssertionContainer<T>
         = ReportingAssertionContainerImpl(commonFields)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = ReportingAssertionPlantImpl(commonFields)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
-
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
         = CheckingAssertionContainerImpl(maybeSubject)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
         = CheckingAssertionPlantImpl(subjectProvider)
 
@@ -61,9 +47,11 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
         = CollectingAssertionContainerImpl(maybeSubject)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
         = CollectingAssertionPlantNullableImpl(subjectProvider)
 

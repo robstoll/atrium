@@ -170,6 +170,7 @@ class AdjustStackSpec : Spek({
     }
 })
 
+@Suppress("DEPRECATION")
 private fun <T : Any> createAssert(subject: T, adjuster: AtriumErrorAdjuster) =
     AssertImpl.coreFactory.newReportingPlant(
         AssertionVerb.ASSERT, { subject },

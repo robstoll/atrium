@@ -17,9 +17,11 @@ abstract class SubjectLessAssertionSpec<T : Any>(
     group("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reported without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             test("fun `$name`") {
+                @Suppress("DEPRECATION")
                 val assertions = coreFactory.newCollectingPlant<T> { throw PlantHasNoSubjectException() }
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
+                @Suppress("DEPRECATION")
                 val plant = coreFactory.newReportingPlant(
                     AssertionVerb.ASSERT, { 1.0 },
                     coreFactory.newOnlyFailureReporter(

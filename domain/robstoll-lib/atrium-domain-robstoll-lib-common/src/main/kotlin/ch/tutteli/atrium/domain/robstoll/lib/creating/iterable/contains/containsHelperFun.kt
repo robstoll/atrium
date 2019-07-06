@@ -38,7 +38,11 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(
     return if (first != null) {
         collectIterableAssertionsForExplanation(assertionCreator, MaybeSubject.Present(first))
     } else {
-        collectIterableAssertionsForExplanation(CANNOT_EVALUATE_SUBJECT_ONLY_NULL, assertionCreator, MaybeSubject.Absent)
+        collectIterableAssertionsForExplanation(
+            CANNOT_EVALUATE_SUBJECT_ONLY_NULL,
+            assertionCreator,
+            MaybeSubject.Absent
+        )
     }
 }
 
@@ -69,17 +73,18 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
         .build()
 }
 
-@Suppress(
-    "USELESS_CAST"
-    //TODO remove if https://youtrack.jetbrains.com/issue/KT-24917 is fixed
-)
+@Suppress("DEPRECATION")
 internal fun <E : Any> allCreatedAssertionsHold(
     subject: E?,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
 ): Boolean = when (subject) {
     null -> assertionCreator == null
     else -> assertionCreator != null &&
-        coreFactory.newCheckingPlant { subject as E }
+        coreFactory.newCheckingPlant {
+            //TODO remove if https://youtrack.jetbrains.com/issue/KT-24917 is fixed
+            @Suppress("USELESS_CAST")
+            subject as E
+        }
             .addAssertionsCreatedBy(assertionCreator)
             .allAssertionsHold()
 }
@@ -97,7 +102,7 @@ internal fun <E, SC> createEntryAssertionTemplate(
             val entry = list[index]
             Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
         }, {
-            Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
+            Pair(false, RawString.create(SIZE_EXCEEDED))
         })
         val description = TranslatableWithArgs(entryWithIndex, index)
         AssertImpl.builder.feature

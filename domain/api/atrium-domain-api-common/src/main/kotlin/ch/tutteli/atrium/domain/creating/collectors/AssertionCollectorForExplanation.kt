@@ -51,6 +51,7 @@ interface AssertionCollectorForExplanation {
      * @throws IllegalArgumentException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
+    @Suppress("DEPRECATION")
     fun <T : Any> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -74,6 +75,7 @@ interface AssertionCollectorForExplanation {
      * @throws IllegalArgumentException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
+    @Suppress("DEPRECATION")
     fun <T> collectNullable(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
