@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.assertions.Assertion

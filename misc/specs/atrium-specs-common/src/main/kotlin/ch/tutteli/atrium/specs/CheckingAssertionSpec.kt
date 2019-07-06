@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs
 
-import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
 import ch.tutteli.atrium.creating.Expect

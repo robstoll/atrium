@@ -7,4 +7,7 @@ dependencies {
     compile prefixedProject('translations-en_GB-android')
     runtimeOnly prefixedProject('domain-robstoll-android')
     runtimeOnly prefixedProject('core-robstoll-android')
+
+    // here to ease migration; so that ReplaceWith of @Deprecated work
+    compile prefixedProject('api-fluent-en_GB-android')
 }

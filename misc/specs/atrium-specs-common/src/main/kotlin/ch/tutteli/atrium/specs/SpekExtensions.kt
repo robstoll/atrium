@@ -16,19 +16,6 @@ fun GroupBody.describeFunTemplate(
 ) = prefixedDescribeTemplate(describePrefix, " fun ",
     giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body)
 
-fun GroupBody.describePropertyTemplate(
-    describePrefix: String,
-    propertyNames: Array<out String>,
-    propertyNamePrefix: String = "`",
-    propertyNameSuffix: String = "`",
-    body: Suite.() -> Unit
-) = prefixedDescribeTemplate(
-    describePrefix,
-    " property ",
-    giveWrappedNames(propertyNames, propertyNamePrefix, propertyNameSuffix),
-    body
-)
-
 private fun giveWrappedNames(names: Array<out String>, prefix: String, postfix: String): String {
     return names.joinToString(", ", " and ") { it, sb ->
         sb.append(prefix).append(it).append(postfix)

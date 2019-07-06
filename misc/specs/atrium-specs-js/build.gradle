@@ -8,9 +8,13 @@ dependencies {
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
+    compileOnly prefixedProject('api-fluent-en_GB-js') // for us
+    runtimeOnly prefixedProject('api-fluent-en_GB-js') // for depending modules
+
+    //TODO #26 remove as soon as we have ported all assertion functions to Expect
     compileOnly prefixedProject('api-cc-en_GB-js') // for us
     runtimeOnly prefixedProject('api-cc-en_GB-js') // for depending modules
-
+    
     implementation prefixedProject('translations-en_GB-js')
 }
 

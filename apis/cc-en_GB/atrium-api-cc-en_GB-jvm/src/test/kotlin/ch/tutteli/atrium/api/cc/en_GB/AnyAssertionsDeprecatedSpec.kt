@@ -6,7 +6,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
-class AnyAssertionsDeprecatedSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsDeprecatedSpec(
+class AnyAssertionsDeprecatedSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),
@@ -20,7 +20,7 @@ class AnyAssertionsDeprecatedSpec : ch.tutteli.atrium.spec.integration.AnyAssert
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
-    class AnyAssertionsSpecFunFactory<T : Any> : ch.tutteli.atrium.spec.integration.AnyAssertionsDeprecatedSpec.AnyAssertionsSpecFunFactory<T> {
+    class AnyAssertionsSpecFunFactory<T : Any> : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun = Assert<T>::toBe
         override val notToBeFun = Assert<T>::notToBe
         override val isSameFun = Assert<T>::isSameAs

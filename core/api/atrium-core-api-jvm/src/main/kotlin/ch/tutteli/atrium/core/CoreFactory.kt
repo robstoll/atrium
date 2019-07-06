@@ -60,6 +60,14 @@ actual interface CoreFactory : CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith(
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any?> newReportingPlantNullable(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
@@ -89,6 +97,14 @@ actual interface CoreFactory : CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith(
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any?> newReportingPlantNullable(
         assertionVerb: Translatable,
         subjectProvider: () -> T,

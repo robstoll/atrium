@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -25,8 +26,8 @@ abstract class SubjectLessSpec<T>(
 
                 expandAssertionGroups(assertions)
 
-                val plant = coreFactory.newReportingPlant(
-                    Untranslatable("custom assertion verb"), { 1.0 },
+                val plant = coreFactory.newReportingAssertionContainer(
+                    Untranslatable("custom assertion verb"), Some(1.0),
                     coreFactory.newOnlyFailureReporter(
                         coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController()),
                         coreFactory.newNoOpAtriumErrorAdjuster()

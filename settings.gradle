@@ -1,7 +1,7 @@
 rootProject.name = 'atrium'
 
 buildscript {
-    gradle.ext.tutteli_plugins_version = '0.26.1'
+    gradle.ext.tutteli_plugins_version = '0.27.3'
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -26,10 +26,8 @@ include {
     }
 
     bundles {
-
-
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB-robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
@@ -45,7 +43,7 @@ include {
 
     folder('apis', 'api-') {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
     }
 
@@ -82,10 +80,12 @@ include {
     bundles {
         _ 'cc-en_UK-robstoll'
         _ 'cc-infix-en_UK-robstoll'
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB-robstoll')
     }
-    apis {
-        _ 'api-cc-en_UK'
-        _ 'api-cc-infix-en_UK'
+    folder('apis', 'api-') {
+        _ 'cc-en_UK'
+        _ 'cc-infix-en_UK'
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
     }
     domain('domain-') {
         _ 'api-deprecated'

@@ -37,6 +37,7 @@ abstract class FeatureAssertionsBoundedReferenceWhenCollectingPlantSpec(
 ) : Spek({
 
     action("$describePrefix feature assertion should throw a ${PleaseUseReplacementException::class.simpleName}") {
+        @Suppress("DEPRECATION")
         val plant = coreFactory.newCollectingPlant { TestData("hello robert", 1) }
         mapOf(
             "`property` immediate" to propertyImmediate,

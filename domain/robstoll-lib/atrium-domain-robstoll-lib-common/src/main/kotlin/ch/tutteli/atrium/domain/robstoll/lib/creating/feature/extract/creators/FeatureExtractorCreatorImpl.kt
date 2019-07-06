@@ -92,6 +92,7 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
         parameterObject.subjectPlant.maybeSubject.fold(falseProvider, parameterObject.canBeExtracted)
 }
 
+@Suppress("DEPRECATION")
 class FeatureExtractorCreatorImpl<TSubject: Any, T: Any>(
     featureRepresentation: Translatable,
     parameterObject: FeatureExtractor.ParameterObject<TSubject, T>
@@ -103,6 +104,7 @@ class FeatureExtractorCreatorImpl<TSubject: Any, T: Any>(
         AssertImpl.coreFactory::newCollectingPlant
     )
 
+@Suppress("DEPRECATION")
 class FeatureExtractorCreatorNullableImpl<TSubject: Any, T>(
     featureRepresentation: Translatable,
     parameterObject: FeatureExtractor.ParameterObject<TSubject, T>
