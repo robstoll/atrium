@@ -18,6 +18,7 @@ fun <T> _collect(
     check(collectedAssertions.isNotEmpty()) {
         "There was not any assertion created. Did you forget to add it to the assertion container?"
     }
+    //TODO no need for a group if it is a single one
     return AssertImpl.builder.invisibleGroup.withAssertions(collectedAssertions).build()
 }
 

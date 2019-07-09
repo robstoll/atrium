@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.creating.Expect
@@ -8,23 +10,75 @@ typealias Fun<T> = Pair<String, T>
 
 inline val Fun<out Any?>.name get(): String = this.first
 inline val <T> Fun<T>.lambda get(): T = this.second
+inline fun <T> Fun<T>.adjustName(f: (String) -> String): Fun<T> = f(name) to lambda
 
-typealias Fun0<T> = Pair<String, Expect<T>.() -> Expect<T>>
-typealias Fun1<T, A1> = Pair<String, Expect<T>.(A1) -> Expect<T>>
+typealias Feature0<T, R> = Fun<Expect<T>.() -> Expect<R>>
+typealias Feature1<T, A1, R> = Fun<Expect<T>.(A1) -> Expect<R>>
+typealias Feature2<T, A1, A2, R> = Fun<Expect<T>.(A1, A2) -> Expect<R>>
 
-operator fun <T> Fun0<T>.invoke(expect: Expect<T>): Expect<T> = this.second(expect)
-operator fun <T, A1> Fun1<T, A1>.invoke(expect: Expect<T>, a: A1): Expect<T> = this.second(expect, a)
+typealias Fun0<T> = Feature0<T, T>
+typealias Fun1<T, A1> = Feature1<T, A1, T>
+typealias Fun2<T, A1, A2> = Feature2<T, A1, A2, T>
 
-fun <T> Fun0<T>.forSubjectLess(): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLess(this) }
-fun <T, A1> Fun1<T, A1>.forSubjectLess(a: A1): Pair<String, Expect<T>.() -> Unit> =
-    this.name to expectLambda { this@forSubjectLess(this, a) }
+inline operator fun <T, R> Feature0<T, R>.invoke(expect: Expect<T>): Expect<R> = this.second(expect)
+inline operator fun <T, A1, R> Feature1<T, A1, R>.invoke(expect: Expect<T>, a1: A1): Expect<R> = this.second(expect, a1)
+inline operator fun <T, A1, A2, R> Feature2<T, A1, A2, R>.invoke(expect: Expect<T>, a1: A1, a2: A2): Expect<R> =
+    this.second(expect, a1, a2)
 
-fun <T> Fun0<T>.forChecking(holdingSubject: T, failingSubject: T): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this) }, holdingSubject, failingSubject)
+inline fun <T, R> Feature0<T, R>.forSubjectLess(): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLess(this) }
 
-fun <T, A1> Fun1<T, A1>.forChecking(
-    a: A1,
+inline fun <T, A1, R> Feature1<T, A1, R>.forSubjectLess(a1: A1): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLess(this, a1) }
+
+inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLess(a1: A1, a2: A2): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLess(this, a1, a2) }
+
+
+fun <T> Triple<String, Expect<T>.() -> Unit, Pair<T, T>>.adjustName(f: (String) -> String): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> = Triple(f(first), second, third)
+
+inline fun <T, R> Feature0<T, R>.forChecking(
+    holdingSubject: T,
+    failingSubject: T,
+    crossinline subAssert: Expect<R>.() -> Unit
+): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
+    checkingTriple(this.name, { this@forChecking(this).subAssert() }, holdingSubject, failingSubject)
+
+inline fun <T, A1, R> Feature1<T, A1, R>.forChecking(
+    a1: A1,
+    holdingSubject: T,
+    failingSubject: T,
+    crossinline subAssert: Expect<R>.() -> Unit
+): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
+    checkingTriple(this.name, { this@forChecking(this, a1).subAssert() }, holdingSubject, failingSubject)
+
+inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forChecking(
+    a1: A1,
+    a2: A2,
+    holdingSubject: T,
+    failingSubject: T,
+    crossinline subAssert: Expect<R>.() -> Unit
+): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
+    checkingTriple(this.name, { this@forChecking(this, a1, a2).subAssert() }, holdingSubject, failingSubject)
+
+
+inline fun <T> Fun0<T>.forChecking(
     holdingSubject: T,
     failingSubject: T
 ): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this, a) }, holdingSubject, failingSubject)
+    checkingTriple(this.name, { this@forChecking(this) }, holdingSubject, failingSubject)
+
+inline fun <T, A1> Fun1<T, A1>.forChecking(
+    a1: A1,
+    holdingSubject: T,
+    failingSubject: T
+): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
+    checkingTriple(this.name, { this@forChecking(this, a1) }, holdingSubject, failingSubject)
+
+inline fun <T, A1, A2> Fun2<T, A1, A2>.forChecking(
+    a1: A1,
+    a2: A2,
+    holdingSubject: T,
+    failingSubject: T
+): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
+    checkingTriple(this.name, { this@forChecking(this, a1, a2) }, holdingSubject, failingSubject)

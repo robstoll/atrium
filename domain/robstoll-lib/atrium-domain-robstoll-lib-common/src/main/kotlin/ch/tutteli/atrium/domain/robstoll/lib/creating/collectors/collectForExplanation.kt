@@ -30,7 +30,7 @@ fun <T> _collectAndThrowIfNothingCollected(
         listOf(
             AssertImpl.builder.explanatoryGroup
                 .withWarningType
-                .withExplanatoryAssertion(Untranslatable("Could not evaluate sub-assertions, subject was accessed too early, please report a bug at $BUG_REPORT_URL"))
+                .withExplanatoryAssertion(Untranslatable("Could not evaluate sub-assertions, subject was accessed too early, please report a bug at $BUG_REPORT_URL including stacktrace if possible."))
                 .build()
         )
     }

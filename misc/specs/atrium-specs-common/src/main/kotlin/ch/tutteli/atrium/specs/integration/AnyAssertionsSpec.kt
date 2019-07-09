@@ -274,8 +274,7 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(toBeInt.name) {
-        //, notToBe, isSame, isNotSame) {
+    describeFun(toBeInt.name, notToBeInt.name, isSameInt.name, isNotSameInt.name) {
         checkInt("primitive", verbs.check(1), toBeInt, notToBeInt, isSameInt, isNotSameInt)
         checkInt(
             "nullable primitive",

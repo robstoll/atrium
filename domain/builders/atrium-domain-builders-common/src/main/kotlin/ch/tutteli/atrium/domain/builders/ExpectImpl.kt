@@ -6,9 +6,12 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder
+import ch.tutteli.atrium.domain.builders.creating.ListAssertionsBuilder
+import ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.AnyAssertions
+import ch.tutteli.atrium.domain.creating.ListAssertions
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 
@@ -30,6 +33,10 @@ object ExpectImpl {
      * Returns [SubjectChangerBuilder] - helping you to change the subject of the assertion.
      * In detail, its an `inline` property which returns [SubjectChangerBuilder]
      * which inter alia delegates to the implementation of [SubjectChanger].
+     *
+     * In case you want to extract a feature (e.g. get the first element of a `List`) instead of changing the subject
+     * into another representation (e.g. down-cast `Person` to `Student`) then you should use
+     * [feature.extractor][NewFeatureAssertionsBuilder.extractor] instead.
      */
     inline val changeSubject get() = SubjectChangerBuilder
 
@@ -45,7 +52,7 @@ object ExpectImpl {
      * In detail, its an `inline` property which returns [ch.tutteli.atrium.core.coreFactory]
      * which in turn delegates to the implementation via [loadSingleService].
      */
-     inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
+    inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
 
 
     //--- assertions ---------------------------------------------------------------------------
@@ -54,21 +61,30 @@ object ExpectImpl {
      * Returns [AnyAssertionsBuilder]
      * which inter alia delegates to the implementation of [AnyAssertions].
      */
-     inline val any get() = AnyAssertionsBuilder
+    inline val any get() = AnyAssertionsBuilder
 
 //    override inline val charSequence get() = CharSequenceAssertionsBuilder
 //
 //    override inline val collection get() = CollectionAssertionsBuilder
 //
 //    override inline val comparable get() = ComparableAssertionsBuilder
-//
-//    override inline val feature get() = FeatureAssertionsBuilder
+
+    /**
+     * Returns [NewFeatureAssertionsBuilder]
+     * which inter alia delegates to the implementation of [FeatureAssertions].
+     */
+    inline val feature get() = NewFeatureAssertionsBuilder
 //
 //    override inline val floatingPoint get() = FloatingPointAssertionsBuilder
 //
 //    override inline val iterable get() = IterableAssertionsBuilder
 //
-//    override inline val list get() = ListAssertionsBuilder
+    /**
+     * Returns [ListAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ListAssertions].
+     */
+    val list get() = ListAssertionsBuilder
+
 //
 //    override inline val map get() = MapAssertionsBuilder
 //
@@ -77,10 +93,9 @@ object ExpectImpl {
 //    override inline val throwable get() = ThrowableAssertionsBuilder
 }
 
-interface ExpectImplCommon {
+//interface ExpectImplCommon {
 
-    //--- assertions ---------------------------------------------------------------------------
-
+//--- assertions ---------------------------------------------------------------------------
 
 
 //    /**
@@ -101,10 +116,7 @@ interface ExpectImplCommon {
 //     */
 //    val comparable: ComparableAssertionsBuilder
 //
-//    /**
-//     * Returns [FeatureAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [FeatureAssertions].
-//     */
+
 //    val feature: FeatureAssertionsBuilder
 //
 //    /**
@@ -119,11 +131,7 @@ interface ExpectImplCommon {
 //     */
 //    val iterable: IterableAssertionsBuilder
 //
-//    /**
-//     * Returns [ListAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [ListAssertions].
-//     */
-//    val list: ListAssertionsBuilder
+
 //
 //    /**
 //     * Returns [MapAssertionsBuilder]
@@ -142,4 +150,4 @@ interface ExpectImplCommon {
 //     * which inter alia delegates to the implementation of [ThrowableAssertions].
 //     */
 //    val throwable: ThrowableAssertionsBuilder
-}
+//}

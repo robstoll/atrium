@@ -19,7 +19,7 @@ import kotlin.jvm.JvmName
  */
 object FeatureAssertionsBuilder : FeatureAssertions {
 
-    inline val extractor: FeatureExtractor.RepresentationOption get() = FeatureExtractor.builder
+    inline val extractor: FeatureExtractor.DescriptionOption get() = FeatureExtractor.builder
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>)
         = property(plant, { @Suppress("DEPRECATION") property.invoke(plant.subject) }, Untranslatable(property.name))

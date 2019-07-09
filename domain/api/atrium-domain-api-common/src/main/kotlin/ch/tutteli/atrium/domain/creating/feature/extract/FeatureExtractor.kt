@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.creating.feature.extract.creators.featureExtractorCreatorFactory
-import ch.tutteli.atrium.domain.creating.feature.extract.impl.RepresentationOptionImpl
+import ch.tutteli.atrium.domain.creating.feature.extract.impl.DescriptionOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -26,40 +26,40 @@ interface FeatureExtractor {
         /**
          * Entry point to use the feature extractor.
          */
-        val builder: RepresentationOption = RepresentationOptionImpl()
+        val builder: DescriptionOption = DescriptionOptionImpl()
     }
 
     /**
-     * Provides options to chose the representation of the feature.
+     * Option step which allows to specify the description which will be used to describe the feature.
      */
-    interface RepresentationOption {
+    interface DescriptionOption {
         /**
-         * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a representation
+         * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a description
          * of a method call with the given [methodName] and the given [arguments].
          */
         fun methodCall(methodName: String, vararg arguments: Any?): ParameterObjectOption
             = feature(coreFactory.newMethodCallFormatter().format(methodName, arguments))
 
         /**
-         * Uses the given [featureRepresentation] as representation.
+         * Uses the given [featureRepresentation] as description.
          */
         fun feature(featureRepresentation: () -> String): ParameterObjectOption
             = withDescription(Untranslatable(featureRepresentation))
 
         /**
-         * Uses the given [translatable] as representation of the feature.
+         * Uses the given [translatable] as description of the feature.
          */
         fun withDescription(translatable: Translatable): ParameterObjectOption
     }
 
     /**
-     * Step to define the [ParameterObject].
+     * Option step to define the [ParameterObject].
      */
     interface ParameterObjectOption {
         /**
-         * The previously chosen feature representation.
+         * The previously chosen feature description.
          */
-        val featureRepresentation: Translatable
+        val featureDescription: Translatable
 
         /**
          * Uses the given [parameterObject] where a non-nullable feature is extracted by
@@ -68,7 +68,7 @@ interface FeatureExtractor {
         fun <TSubject : Any, T : Any> withParameterObject(
             parameterObject: ParameterObject<TSubject, T>
         ): Creator<TSubject, T>
-            = featureExtractorCreatorFactory.create(featureRepresentation, parameterObject)
+            = featureExtractorCreatorFactory.create(featureDescription, parameterObject)
 
         /**
          * Uses the given [parameterObject] where a nullable feature is extracted by
@@ -77,7 +77,7 @@ interface FeatureExtractor {
         fun <TSubject : Any, T : Any?> withParameterObjectNullable(
             parameterObject: ParameterObject<TSubject, T>
         ): CreatorNullable<TSubject, T>
-            = featureExtractorCreatorFactory.createNullable(featureRepresentation, parameterObject)
+            = featureExtractorCreatorFactory.createNullable(featureDescription, parameterObject)
     }
 
     /**

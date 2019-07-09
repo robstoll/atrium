@@ -15,17 +15,29 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface AssertionCollectorForExplanation {
 
     /**
-     * Collects the [Assertion] created by [assertionCreator] and uses the given [maybeSubject] as
-     * [CollectingAssertionContainer.subject] if it is [MaybeSubject.Present].
+     * Collects the [Assertion]s created by [assertionCreator] based on the given [assertionContainer]-
      *
-     * In case [maybeSubject] is [MaybeSubject.Absent] and [assertionCreator] is accessed, then a
-     * [PlantHasNoSubjectException] is thrown.
+     * @param assertionContainer Its [Expect.maybeSubject] will be used for [CollectingAssertionContainer.maybeSubject].
+     * @param assertionCreator The function which should at least create one assertion (depending on the implementation
+     *   an IllegalStateException will be thrown if none was created)
      *
-     * @param assertionCreator The function which should at least create one assertion.
-     * @param maybeSubject The subject which will be used for the [CollectingAssertionPlant].
+     * @return A list with the collected assertion.
+     * @throws IllegalStateException Might throw it in case not a single [Assertion] was collected
+     *   (e.g. ThrowingAssertionCollectorForExplanation does).
+     */
+    fun <T> collect(
+        assertionContainer: Expect<T>,
+        assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
+    ): List<Assertion> = collect(assertionContainer.maybeSubject, assertionCreator)
+
+    /**
+     * Collects the [Assertion]s created by [assertionCreator] based on the given [maybeSubject]-
      *
-     * @return A list with the collected assertion or an [AssertionGroup] with an [ExplanatoryAssertionGroupType]
-     *   containing a warning if [maybeSubject] is [MaybeSubject.Absent] and an assertion function tries to access it.
+     * @param maybeSubject Will be used for [CollectingAssertionContainer.maybeSubject].
+     * @param assertionCreator The function which should at least create one assertion (depending on the implementation
+     *   an IllegalStateException will be thrown if none was created)
+     *
+     * @return A list with the collected assertion.
      * @throws IllegalStateException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */

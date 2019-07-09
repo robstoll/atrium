@@ -73,9 +73,9 @@ interface SubjectChanger {
      * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer].
      *
      * This method is useful if you want to change the subject whereas the change as such is assertion like as well, so
-     * that it should be reported as well. For instance, say you want to change the subject of type [Collection] to the
-     * [Collection.first] element. Since the collection could also be empty it makes sense to report this assertion
-     * instead of failing.
+     * that it should be reported as well. For instance, say you want to change the subject of type `Int?` to `Int`.
+     * Since the subject could also be `null` it makes sense to report this assertion instead of failing
+     * with an exception.
      *
      * @param originalAssertionContainer the assertion container with the current subject (before the change) --
      *   if you use `ExpectImpl.changeSubject.reported(...)` within an assertion function (an extension function of
@@ -85,7 +85,8 @@ interface SubjectChanger {
      * @param canBeTransformed Indicates whether it is safe to transform to the new subject.
      * @param transformation Provides the subject.
      * @param subAssertions Optionally, subsequent assertions for the new subject. This is especially useful if the
-     *   change fails since we can then already show to the user what we wanted to assert.
+     *   change fails since we can then already show to you (in error reporting) what you wanted to assert about
+     *   the new subject (which gives you more context to the error).
      *
      * @return the newly created [Expect].
      */

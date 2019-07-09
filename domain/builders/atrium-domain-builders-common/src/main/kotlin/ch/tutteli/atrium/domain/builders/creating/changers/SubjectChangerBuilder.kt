@@ -5,10 +5,11 @@ package ch.tutteli.atrium.domain.builders.creating.changers
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.*
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -87,8 +88,7 @@ object SubjectChangerBuilder : SubjectChanger {
         companion object {
             fun <T> create(
                 originalAssertionContainer: Expect<T>
-            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer)
-        }
+            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer) }
     }
 
     /**
@@ -154,8 +154,8 @@ object SubjectChangerBuilder : SubjectChanger {
     }
 
     /**
-     *  Option step which allows to specify whether sub assertions are immediately provided which will be which should be consulted to see whether the subject change is
-     *  feasible or not.
+     *  Option step which allows to specify sub assertions for the new subject and are applied as an
+     *  [AssertionGroup].
      */
     interface SubAssertionOption<T, R> {
         /**
@@ -189,7 +189,7 @@ object SubjectChangerBuilder : SubjectChanger {
          * ```
          * expect(null as Int?).notToBeNull { isLessThan(1) }
          * ```
-         * Will result in an error reporting along the line of
+         * Will result in an error where the reporting will be along the line of
          * ```
          * expect: null
          * - is less than: 1

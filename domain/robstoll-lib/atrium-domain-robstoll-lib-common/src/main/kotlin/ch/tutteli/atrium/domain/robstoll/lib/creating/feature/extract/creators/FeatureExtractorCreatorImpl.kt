@@ -10,9 +10,8 @@ import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>(
     override val featureRepresentation: Translatable,
@@ -36,7 +35,7 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
         } else {
             val representationProvider = { RawString.create(parameterObject.extractionNotSuccessful) }
             val plant = plantCreator(AssertionPlantWithCommonFields.CommonFields(
-                Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG),
+                SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
                 { throw PlantHasNoSubjectException() },
                 representationProvider,
                 coreFactory.newDelegatingAssertionChecker(parameterObject.subjectPlant),
