@@ -36,7 +36,7 @@ fun <T, R> _changeSubject(
     representation: Any,
     canBeTransformed: (T) -> Boolean,
     transformation: (T) -> R,
-    subAssertions: (Expect<R>.() -> Unit)?
+    assertionCreator: (Expect<R>.() -> Unit)?
 ): Expect<R> {
 
     // we can transform if maybeSubject is None as we have to be in an explaining like context in such a case.
@@ -56,17 +56,17 @@ fun <T, R> _changeSubject(
 
     if (shallTransform) {
         assertionContainer.addAssertion(descriptiveAssertion)
-        if (subAssertions != null) {
-            subAssertions(assertionContainer)
+        if (assertionCreator != null) {
+            assertionContainer.addAssertionsCreatedBy(assertionCreator)
         }
     } else {
-        val assertion = if (subAssertions != null) {
+        val assertion = if (assertionCreator != null) {
             AssertImpl.builder.invisibleGroup
                 .withAssertions(
                     descriptiveAssertion,
                     AssertImpl.builder.explanatoryGroup
                         .withDefaultType
-                        .collectAssertions(None, subAssertions)
+                        .collectAssertions(None, assertionCreator)
                         .build()
                 )
                 .build()

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.creating.AssertionPlant

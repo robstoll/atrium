@@ -6,4 +6,7 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 dependencies {
     compile "ch.tutteli.kbox:kbox-common:$kbox_version", excludeKotlin
     compile prefixedProject('core-api-common')
+
+    // it is up to the consumer of atrium-core-robstoll-lib which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-common')
 }

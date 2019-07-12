@@ -7,4 +7,6 @@ dependencies {
     compile prefixedProject('domain-builders-js')
 
     testCompile prefixedProject('verbs-internal-js')
+    //TODO #26 remove as soon as we have ported all assertion functions to Expect
+    testCompile prefixedProject('api-cc-en_GB-js')
 }

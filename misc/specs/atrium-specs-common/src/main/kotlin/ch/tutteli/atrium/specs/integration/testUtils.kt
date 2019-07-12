@@ -35,7 +35,8 @@ inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLess(a1: A1, a2: A2):
     this.name to expectLambda { this@forSubjectLess(this, a1, a2) }
 
 
-fun <T> Triple<String, Expect<T>.() -> Unit, Pair<T, T>>.adjustName(f: (String) -> String): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> = Triple(f(first), second, third)
+fun <T> Triple<String, Expect<T>.() -> Unit, Pair<T, T>>.adjustName(f: (String) -> String): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
+    Triple(f(first), second, third)
 
 inline fun <T, R> Feature0<T, R>.forChecking(
     holdingSubject: T,
@@ -48,18 +49,24 @@ inline fun <T, A1, R> Feature1<T, A1, R>.forChecking(
     a1: A1,
     holdingSubject: T,
     failingSubject: T,
-    crossinline subAssert: Expect<R>.() -> Unit
+    noinline subAssert: (Expect<R>.() -> Unit)? = null
 ): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this, a1).subAssert() }, holdingSubject, failingSubject)
+    checkingTriple(this.name, {
+        val assertionContainer = this@forChecking(this, a1)
+        if (subAssert != null) assertionContainer.subAssert()
+    }, holdingSubject, failingSubject)
 
 inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forChecking(
     a1: A1,
     a2: A2,
     holdingSubject: T,
     failingSubject: T,
-    crossinline subAssert: Expect<R>.() -> Unit
+    noinline subAssert: (Expect<R>.() -> Unit)?
 ): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this, a1, a2).subAssert() }, holdingSubject, failingSubject)
+    checkingTriple(this.name, {
+        val assertionContainer = this@forChecking(this, a1, a2)
+        if (subAssert != null) assertionContainer.subAssert()
+    }, holdingSubject, failingSubject)
 
 
 inline fun <T> Fun0<T>.forChecking(

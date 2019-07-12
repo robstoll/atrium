@@ -33,15 +33,8 @@ object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T)
         = anyAssertions.isNotSame(subjectProvider, expected)
 
-
     override inline fun <T> toBeNull(subjectProvider: SubjectProvider<T>)
         = anyAssertions.toBeNull(subjectProvider)
-
-    override inline fun <T : Any> notToBeNull(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        noinline assertionCreator: Expect<T>.() -> Unit
-    ) = anyAssertions.notToBeNull(assertionContainer, type, assertionCreator)
 
     override inline fun <T : Any> toBeNullable(
         assertionContainer: Expect<T?>,
@@ -54,6 +47,16 @@ object AnyAssertionsBuilder : AnyAssertions {
         type: KClass<T>,
         noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ) = anyAssertions.toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
+
+    override inline fun <TSub : Any> isA(assertionContainer: Expect<out Any?>, subType: KClass<TSub>)
+        = anyAssertions.isA(assertionContainer, subType)
+
+    override inline fun <TSub : Any> isA(
+        assertionContainer: Expect<out Any?>,
+        subType: KClass<TSub>,
+        noinline assertionCreator: Expect<TSub>.() -> Unit
+    ) = anyAssertions.isA(assertionContainer, subType, assertionCreator)
+
 
     override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?)
         = anyAssertions.isNullable(plant, type, expectedOrNull)

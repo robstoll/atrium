@@ -5,28 +5,25 @@ import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransform
 
 class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformation.Creator<S, T> {
 
+    @Suppress("DEPRECATION")
     override fun create(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
         transform: (S) -> T,
         failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ) {
-        //TODO #89 Base TypeTransformationAssertionCreator on SubjectChanger (or do not use it at all)
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
-        if (subjectPlant.maybeSubject.isDefined()) {
-            @Suppress("DEPRECATION") val subject = subjectPlant.subject
-            if (subject != null && canBeTransformed(subject)) {
-                @Suppress("DEPRECATION") val plant = AssertImpl.changeSubject(subjectPlant) { transform(subject) }
+        subjectPlant.maybeSubject
+            .filter { it != null && canBeTransformed(it)  }
+            .fold({
+                failureHandler.createAndAddAssertionToPlant(parameterObject)
+            }){
+                @Suppress("DEPRECATION") val plant = AssertImpl.changeSubject(subjectPlant) { transform(it as S) }
                 plant.addAssertion(AssertImpl.builder.descriptive
                     .holding
                     .withDescriptionAndRepresentation(description, representation)
                     .build())
                 plant.addAssertionsCreatedBy(assertionCreator)
-            } else {
-                failureHandler.createAndAddAssertionToPlant(parameterObject)
             }
-        } else {
-            failureHandler.createAndAddAssertionToPlant(parameterObject)
-        }
     }
 }

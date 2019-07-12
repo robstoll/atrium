@@ -1,15 +1,17 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 
-class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> (
+class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>(
     private val throwIfNoAssertionIsCollected: Boolean,
     private val collectingPlantFactory: (() -> T) -> C
 ) {
@@ -55,20 +57,4 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
             })
         }
     }
-
-    /**
-     * Calls recursively [AssertionGroup.assertions] on every assertion group contained in [assertions].
-     */
-    private tailrec fun expandAssertionGroups(assertions: List<Assertion>) {
-        if (assertions.isEmpty()) return
-
-        expandAssertionGroups(
-            assertions
-                .asSequence()
-                .filterIsInstance<AssertionGroup>()
-                .flatMap { it.assertions.asSequence() }
-                .toList()
-        )
-    }
-
 }

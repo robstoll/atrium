@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
@@ -8,7 +9,7 @@ import kotlin.reflect.KClass
 /**
  * Robstoll's implementation of [AnyAssertions].
  */
-class AnyAssertionsImpl : AnyAssertions {
+class AnyAssertionsImpl : AnyAssertions, AnyAssertionsDeprecatedImpl() {
 
     override fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T) = _toBe(subjectProvider, expected)
     override fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T) = _notToBe(subjectProvider, expected)
@@ -16,12 +17,6 @@ class AnyAssertionsImpl : AnyAssertions {
     override fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T) = _isNotSame(subjectProvider, expected)
 
     override fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>) = _toBeNull(subjectProvider)
-
-    override fun <T : Any> notToBeNull(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        assertionCreator: Expect<T>.() -> Unit
-    ) = _notToBeNull(assertionContainer, type, assertionCreator)
 
     override fun <T : Any> toBeNullable(
         assertionContainer: Expect<T?>,
@@ -35,28 +30,12 @@ class AnyAssertionsImpl : AnyAssertions {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ) = _toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
+    override fun <TSub : Any> isA(assertionContainer: Expect<out Any?>, subType: KClass<TSub>)
+        = _isA(assertionContainer, subType, null)
 
-    override fun <T : Any> isNullable(
-        plant: AssertionPlantNullable<T?>,
-        type: KClass<T>,
-        expectedOrNull: T?
-    ) = _isNullable(plant, type, expectedOrNull)
-
-    override fun <T : Any> isNotNull(
-        plant: AssertionPlantNullable<T?>,
-        type: KClass<T>,
-        assertionCreator: AssertionPlant<T>.() -> Unit
-    ) = _isNotNull(plant, type, assertionCreator)
-
-    override fun <T : Any> isNotNullBut(
-        plant: AssertionPlantNullable<T?>,
-        type: KClass<T>,
-        expected: T
-    ) = _isNotNullBut(plant, type, expected)
-
-    override fun <T : Any> isNullIfNullGivenElse(
-        plant: AssertionPlantNullable<T?>,
-        type: KClass<T>,
-        assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?
-    ) = _isNullIfNullGivenElse(plant, type, assertionCreatorOrNull)
+    override fun <TSub : Any> isA(
+        assertionContainer: Expect<out Any?>,
+        subType: KClass<TSub>,
+        assertionCreator: Expect<TSub>.() -> Unit
+    ) = _isA(assertionContainer, subType, assertionCreator)
 }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -152,6 +154,7 @@ abstract class VerbSpec(
                 expect {
                     assertionVerb(null).notToBeNull {}
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                         Integer::class.java.name

@@ -1,18 +1,19 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.api.cc.en_GB.messageContains
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
-import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -37,6 +38,20 @@ abstract class AnyAssertionsSpec(
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
+
+    isAFeature: Feature0<Int?, Int>,
+    isA: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
+
+    isAIntFun: Feature1<String, Expect<Int>.() -> Unit, Int>,
+    isAStringFun: Feature1<String, Expect<String>.() -> Unit, String>,
+    isACharSequenceFun: Feature1<String, Expect<CharSequence>.() -> Unit, CharSequence>,
+    isASubTypeFun: Feature1<SuperType, Expect<SubType>.() -> Unit, SubType>,
+    isAIntLessThan: Feature1<Number, Int, Int>,
+
+    notToBeNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
+    notToBeNullLessThanFun: Expect<Int?>.(Int) -> Expect<Int>,
+    notToBeNullGreaterAndLessThanFun: Expect<Int?>.(Int, Int) -> Expect<Int>,
+
     andPair: Fun0<Int>,
     andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
@@ -58,7 +73,10 @@ abstract class AnyAssertionsSpec(
         notToBeNullableInt.forSubjectLess(1),
         isSameNullableInt.forSubjectLess(1),
         isNotSameNullableInt.forSubjectLess(1),
-        toBeNull.forSubjectLess()
+        toBeNull.forSubjectLess(),
+        isAFeature.forSubjectLess(),
+        isA.forSubjectLess { toBe(1) },
+        notToBeNull.forSubjectLess { toBe(1) }
     ) {})
 
     include(object : CheckingAssertionSpec<Int>(
@@ -75,7 +93,10 @@ abstract class AnyAssertionsSpec(
         notToBeNullableInt.forChecking(1, null, 1),
         isSameNullableInt.forChecking(1, 1, null),
         isNotSameNullableInt.forChecking(1, null, 1),
-        toBeNull.forChecking(null, 1)
+        toBeNull.forChecking(null, 1),
+        isAFeature.forChecking(2, null) { toBe(2) },
+        isA.forChecking({ toBe(2) }, 2, null),
+        notToBeNull.forChecking({ toBe(2) }, 2, null)
     ) {})
 
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
@@ -255,7 +276,7 @@ abstract class AnyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         messageContains(
                             TO_BE.getDefault(),
-                            DescriptionTypeTransformationAssertion.IS_A.getDefault() + ": $type"
+                            DescriptionAnyAssertion.IS_A.getDefault() + ": $type"
                         )
                     }
                 }
@@ -414,16 +435,16 @@ abstract class AnyAssertionsSpec(
 
         context("subject is not null") {
             val subject: Int? = 1
-//            it("does not throw if sub assertion holds") {
-//                verbs.check(subject).toBeNullIfNullElseFun { isLessThan(2) }
-//            }
-//            it("throws an AssertionError if sub assertion does not hold"){
-//                expect{
-//                    verbs.check(subject).toBeNullIfNullElseFun{ isGreaterThan(1) }
-//                }.toThrow<AssertionError> {
-//                    messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
-//                }
-//            }
+            it("does not throw if sub assertion holds") {
+                verbs.check(subject).toBeNullIfNullElseFun { asAssert().isLessThan(2) }
+            }
+            it("throws an AssertionError if sub assertion does not hold") {
+                expect {
+                    verbs.check(subject).toBeNullIfNullElseFun { asAssert().isGreaterThan(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
+                }
+            }
             it("throws an AssertionError if null is passed") {
                 expect {
                     verbs.check(subject).toBeNullIfNullElseFun(null)
@@ -432,6 +453,226 @@ abstract class AnyAssertionsSpec(
                 }
             }
 
+        }
+    }
+
+
+    describeFun(notToBeNull.name) {
+
+        val notToBeNullFun = notToBeNull.lambda
+
+        context("subject is null") {
+            it("throws an AssertionError") {
+                expect {
+                    val i: Int? = null
+                    verbs.check(i).notToBeNullFun { toBe(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
+                }
+            }
+
+            context("it still allows to define assertion on the subject even if it is null") {
+                it("throws an AssertionError and contains the additional assertion as explanation") {
+                    expect {
+                        val i: Int? = null
+                        verbs.check(i).notToBeNullLessThanFun(2)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            IS_A.getDefault() + ": Int (kotlin.Int)",
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+                        )
+                    }
+                }
+            }
+        }
+
+        context("subject is not null") {
+
+            it("does not throw") {
+                val i: Int? = 1
+                verbs.check(i).notToBeNullFun {}
+            }
+
+            context("it allows to define an assertion for the subject") {
+                it("does not throw if the assertion holds") {
+                    val i: Int? = 1
+                    verbs.check(i).notToBeNullLessThanFun(2)
+                }
+
+                it("throws an AssertionError if the assertion does not hold") {
+                    expect {
+                        val i: Int? = 1
+                        verbs.check(i).notToBeNullLessThanFun(0)
+                    }.toThrow<AssertionError> {}
+                }
+            }
+            context("it allows to define multiple assertions for the subject") {
+                it("does not throw if the assertions hold") {
+                    val i: Int? = 1
+                    verbs.check(i).notToBeNullGreaterAndLessThanFun(0, 2)
+                }
+
+                it("throws an AssertionError if one assertion does not hold") {
+                    expect {
+                        val i: Int? = 1
+                        verbs.check(i).notToBeNullGreaterAndLessThanFun(2, 5)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(DescriptionComparableAssertion.IS_GREATER_THAN.getDefault())
+                            containsNot(DescriptionComparableAssertion.IS_LESS_THAN.getDefault())
+                        }
+                    }
+                }
+
+                it("throws an AssertionError if both assertions do not hold and contains both messages") {
+                    expect {
+                        val i: Int? = 1
+                        verbs.check(i).notToBeNullGreaterAndLessThanFun(2, 0)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            DescriptionComparableAssertion.IS_GREATER_THAN.getDefault(),
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+                        )
+                    }
+                }
+            }
+        }
+
+        context("in a feature assertion and subject is null") {
+            it("throws an AssertionError") {
+                class A(val i: Int? = null)
+                expect {
+                    verbs.check(A()).asAssert().property(A::i).asExpect().notToBeNullFun { toBe(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        A::class.simpleName!!,
+                        IS_A.getDefault() + ": Int (kotlin.Int)",
+                        TO_BE.getDefault() + ": 1"
+                    )
+                }
+            }
+
+            it("throws an AssertionError which contains subsequent assertions") {
+                class A(val i: Int? = null)
+                expect {
+                    verbs.check(A()).asAssert().property(A::i).asExpect().notToBeNullLessThanFun(1)
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        A::class.simpleName!!,
+                        IS_A.getDefault() + ": Int (kotlin.Int)",
+                        DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+
+                    )
+                }
+            }
+        }
+    }
+
+
+    describeFun(isA.name) {
+
+        context("subject is not in type hierarchy") {
+            it("throws an AssertionError") {
+                expect {
+                    verbs.check("hello").(isAIntFun.lambda) { toBe(1) }
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        IS_A.getDefault() + ": Int (kotlin.Int)",
+                        TO_BE.getDefault() + ": 1"
+                    )
+                }
+            }
+        }
+
+        val isAIntLessThanFun = isAIntLessThan.lambda
+
+        context("subject is the same type") {
+            it("does not throw an AssertionError") {
+                verbs.check("hello").(isAStringFun.lambda) {}
+            }
+
+            context("it allows to perform an assertion specific for the subtype...") {
+
+                it("... which holds -- does not throw") {
+                    verbs.check(1 as Number).isAIntLessThanFun(2)
+                }
+
+                val expectedLessThan = 2
+                val actualValue: Number = 5
+                it("... which fails -- throws an AssertionError") {
+                    expect {
+                        verbs.check(actualValue).isAIntLessThanFun(expectedLessThan)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            actualValue,
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
+                            expectedLessThan
+                        )
+                    }
+                }
+            }
+        }
+
+        context("subject is a subtype") {
+
+            it("does not throw an AssertionError if the subject is a subtype") {
+                verbs.check("hello").(isACharSequenceFun.lambda) { asAssert().isNotEmpty() }
+            }
+
+            context("it allows to perform an assertion specific for the subtype...") {
+
+                it("... which holds -- does not throw") {
+                    verbs.check(1 as Number).isAIntLessThanFun(2)
+                }
+
+                val expectedLessThan = 2
+                val actualValue: Number = 5
+                it("... which fails -- throws an AssertionError") {
+                    expect {
+                        verbs.check(actualValue).isAIntLessThanFun(expectedLessThan)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            actualValue,
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
+                            expectedLessThan
+                        )
+                    }
+                }
+            }
+        }
+
+        context("subject is a supertype") {
+            it("throws an AssertionError") {
+                expect {
+                    verbs.check(SuperType()).(isASubTypeFun.lambda) { isSameAs(SubType()) }
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        SuperType::class.fullName,
+                        IS_A.getDefault(),
+                        SubType::class.fullName,
+                        DescriptionAnyAssertion.IS_SAME.getDefault()
+                    )
+                }
+            }
+        }
+
+        context("empty assertionCreator lambda") {
+            //TODO #96, should throw an AssertionError
+//            it("is the expected type, throws nonetheless"){
+//                expect {
+//                    verbs.check("hello").(isACharSequenceFun.lambda) {}
+//                }.toThrow<IllegalStateException> {
+//                    messageContains("There was not any assertion created.")
+//                }
+//            }
+            it("is not the expected type, contains the error as well") {
+                //TODO #96, should throw an AssertionError instead
+                expect {
+                    verbs.check("hello").(isAIntFun.lambda) {}
+                }.toThrow<IllegalStateException> {
+                    messageContains("There was not any assertion created.")
+                }
+            }
         }
     }
 
@@ -451,4 +692,6 @@ abstract class AnyAssertionsSpec(
 
 }) {
     data class DataClass(val isWhatever: Boolean)
+    open class SuperType
+    class SubType : SuperType()
 }

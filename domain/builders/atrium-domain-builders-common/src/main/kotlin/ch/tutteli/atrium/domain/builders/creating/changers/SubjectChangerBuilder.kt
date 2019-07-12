@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
@@ -13,6 +14,8 @@ import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import kotlin.reflect.KClass
 
 
 /**
@@ -75,6 +78,17 @@ object SubjectChangerBuilder : SubjectChanger {
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
         val originalAssertionContainer: Expect<T>
+
+        /**
+         * Uses [DescriptionAnyAssertion.IS_A] as description of the change,
+         * the given [subType] as representation and tries to perform a down-cast of [originalAssertionContainer]'s
+         * [Expect.maybeSubject] to the given type [TSub]
+         */
+        //TODO once kotlin supports to have type parameters as upper bounds of another type parameter we should restrict TSub : T
+        fun <TSub: Any> downCastTo(subType: KClass<TSub>): SubAssertionOption<T, TSub>
+            = withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
+            .withCheck { subType.isInstance(it) }
+            .withTransformation { subType.cast(it) }
 
         /**
          * Uses the given [description] and [representation] to represent the change.
@@ -173,6 +187,13 @@ object SubjectChangerBuilder : SubjectChanger {
          * The previously specified new subject.
          */
         val transformation: (T) -> R
+
+        /**
+         * In case [assertionCreator] is `null` it delegates to [withoutSubAssertions] otherwise to [withSubAssertions].
+         */
+        fun maybeWithSubAssertions(assertionCreator: (Expect<R>.() -> Unit)?): FinalStep<T, R> =
+            if (assertionCreator != null) withSubAssertions(assertionCreator)
+            else withoutSubAssertions()
 
         /**
          * Perform the change without providing subsequent assertions for the new subject.

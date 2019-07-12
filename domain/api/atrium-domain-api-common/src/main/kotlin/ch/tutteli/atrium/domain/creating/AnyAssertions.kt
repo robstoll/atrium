@@ -26,12 +26,6 @@ interface AnyAssertions {
 
     fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>): Assertion
 
-    fun <T : Any> notToBeNull(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        assertionCreator: Expect<T>.() -> Unit
-    ): Assertion
-
     fun <T : Any> toBeNullable(
         assertionContainer: Expect<T?>,
         type: KClass<T>,
@@ -44,7 +38,27 @@ interface AnyAssertions {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 
+    /**
+     * Convenience method for nullable-types which delegates to [isA].
+     */
+    fun <T : Any> notToBeNull(assertionContainer: Expect<T?>, subType: KClass<T>) = isA(assertionContainer, subType)
 
+    /**
+     * Convenience method for nullable-types which delegates to [isA].
+     */
+    fun <T : Any> notToBeNull(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        assertionCreator: Expect<T>.() -> Unit
+    ) = isA(assertionContainer, type, assertionCreator)
+
+
+    fun <TSub : Any> isA(assertionContainer: Expect<out Any?>, subType: KClass<TSub>): Expect<TSub>
+    fun <TSub : Any> isA(
+        assertionContainer: Expect<out Any?>,
+        subType: KClass<TSub>,
+        assertionCreator: Expect<TSub>.() -> Unit
+    ): Expect<TSub>
 
     fun <T : Any> isNullable(
         plant: AssertionPlantNullable<T?>,
