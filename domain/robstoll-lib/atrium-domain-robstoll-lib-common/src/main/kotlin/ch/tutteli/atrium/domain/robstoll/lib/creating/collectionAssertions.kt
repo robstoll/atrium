@@ -15,10 +15,10 @@ fun _hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion
     = AssertImpl.collection.size(plant){ toBe(size) }
 
 fun _isEmpty(plant: AssertionPlant<Collection<*>>): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY)) { plant.subject.isEmpty() }
+    = AssertImpl.builder.createDescriptive(plant, DescriptionBasic.IS, RawString.create(EMPTY)) { it.isEmpty() }
 
 fun _isNotEmpty(plant: AssertionPlant<Collection<*>>): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { plant.subject.isNotEmpty() }
+    = AssertImpl.builder.createDescriptive(plant, DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
 fun _size(plant: AssertionPlant<Collection<*>>, assertionCreator: Assert<Int>.() -> Unit)
     = AssertImpl.collector.collect(plant){ property(Collection<*>::size, assertionCreator) }

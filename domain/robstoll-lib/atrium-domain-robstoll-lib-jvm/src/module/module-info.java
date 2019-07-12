@@ -1,15 +1,19 @@
 module ch.tutteli.atrium.domain.robstoll.lib {
+    requires        ch.tutteli.atrium.api.fluent.en_GB;
     requires        ch.tutteli.atrium.domain.builders;
-    requires        ch.tutteli.atrium.api.cc.en_GB;
     requires static ch.tutteli.atrium.translations.en_GB;
     requires        ch.tutteli.kbox;
     requires        kotlin.stdlib;
+
+    //TODO remove with 1.0.0
+    requires        ch.tutteli.atrium.api.cc.en_GB;
 
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions;
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions.composers;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers;
+    exports ch.tutteli.atrium.domain.robstoll.lib.creating.changers;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.builders;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.creators;

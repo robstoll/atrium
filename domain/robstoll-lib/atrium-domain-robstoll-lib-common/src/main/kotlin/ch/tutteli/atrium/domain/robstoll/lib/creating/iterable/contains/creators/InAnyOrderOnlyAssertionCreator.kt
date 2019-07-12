@@ -36,7 +36,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val list = plant.subject.toMutableList()
+            val list = plant.maybeSubject.fold({ mutableListOf<E?>() }){ it.toMutableList() }
             val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
 

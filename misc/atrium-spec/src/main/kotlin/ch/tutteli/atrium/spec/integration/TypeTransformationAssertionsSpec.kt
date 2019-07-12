@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -50,6 +52,7 @@ abstract class TypeTransformationAssertionsSpec(
                     val i: Int? = null
                     assert(i).notToBeNullFun {}
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                         Integer::class.java.name
@@ -63,6 +66,7 @@ abstract class TypeTransformationAssertionsSpec(
                         val i: Int? = null
                         assert(i).notToBeNullLessFun(2)
                     }.toThrow<AssertionError> {
+                        @Suppress("DEPRECATION")
                         messageContains(
                             DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                             Integer::class.java.name,
@@ -131,8 +135,9 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { property(subject::i).notToBeNull {} }
+                    verbs.checkLazily(A()) { property(A::i).notToBeNull {} }
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         A::class.simpleName!!,
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
@@ -144,8 +149,9 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { property(subject::i).notToBeNullLessFun(1) }
+                    verbs.checkLazily(A()) { property(A::i).notToBeNullLessFun(1) }
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         A::class.simpleName!!,
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
@@ -166,6 +172,7 @@ abstract class TypeTransformationAssertionsSpec(
                 expect {
                     assert("hello").isAIntFun {}
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                         Integer::class.java.name
@@ -224,7 +231,12 @@ abstract class TypeTransformationAssertionsSpec(
                 expect {
                     verbs.checkImmediately(SuperType()).isASubTypeFun {}
                 }.toThrow<AssertionError> {
-                    messageContains(SuperType::class.java.name, DescriptionTypeTransformationAssertion.IS_A.getDefault(), SubType::class.java.name)
+                    @Suppress("DEPRECATION")
+                    messageContains(
+                        SuperType::class.java.name,
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        SubType::class.java.name
+                    )
                 }
             }
         }
@@ -239,6 +251,7 @@ abstract class TypeTransformationAssertionsSpec(
                     val i: Int? = null
                     assert(i).notToBeNullButFun(1)
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                         Integer::class.java.name,

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
@@ -18,6 +20,7 @@ import kotlin.reflect.KClass
  * @param T The type of [BaseAssertionPlant.subject].
  * @param TSub The type to which [BaseAssertionPlant.subject] can be down-casted, hence needs to be a subtype of [T].
  */
+@Deprecated("Use _changeSubject instead; will be removed with 1.0.0")
 class DownCastAssertionCreator<T : Any, TSub : T> {
     private val creator = TypeTransformationAssertionCreator<T, TSub>()
 

@@ -1,7 +1,7 @@
 //Enable if you need to check the task tree, gr task taskTree --no-repeat
-plugins {
-    id "com.dorongold.task-tree" version "1.3"
-}
+//plugins {
+//    id "com.dorongold.task-tree" version "1.3.1"
+//}
 
 description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
 
@@ -71,12 +71,8 @@ def createBcAndBbcTasksForApis(String oldVersion, String forgive, String... apis
 
 Task createJacocoReportTask(String apiName, String name, Task runTask) {
     project.task("jacoco-$name", type: JacocoReport) {
-        sourceDirectories = sourceSets.main.allJava.sourceDirectories
-        classDirectories = files(sourceSets.main.output.classesDirs)
+        sourceSets sourceSets.main
         executionData runTask
-
-        sourceDirectories = project.sourceSets.main.allJava.sourceDirectories
-        classDirectories = project.sourceSets.main.output.classesDirs
 
         def projects = apiName.contains('en_UK') || apiName.contains('en_GB') ?
             jacocoMulti.sourceProjects :
@@ -87,8 +83,7 @@ Task createJacocoReportTask(String apiName, String name, Task runTask) {
                 prefixedProject('translations-de_CH-deprecated')
 
         projects.each {
-            sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-            classDirectories += it.sourceSets.main.output.classesDirs
+            sourceSets it.sourceSets.main
         }
 
         reports {
@@ -120,9 +115,9 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
 
     sourceSets {
         create(srcName) {
-            java.srcDirs = [] // we don't have java sources
             kotlin.srcDirs = [srcDirectory]
             resources.srcDirs = [srcDirectory]
+            java.srcDirs = [] // we don't have java sources
         }
     }
 
@@ -205,6 +200,11 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         }
     }
 
+    project."compileSrc_${nameUnderline}Kotlin" {
+        kotlinOptions.suppressWarnings = true
+        dependsOn unzip
+    }
+
     def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
         description = "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
 
@@ -236,11 +236,6 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
     bbcTests.dependsOn bbcTask
     bcTests.dependsOn jacocoBcReport
     bcTests.dependsOn bcTask
-    project."compileSrc_${nameUnderline}Kotlin" {
-        kotlinOptions.suppressWarnings = true
-    }
-    
-    project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
 def createFixSrcTask(String apiName, String oldVersion, String file, Closure modifyContent) {
@@ -357,4 +352,3 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { S
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
     return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')
 }
-

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
@@ -52,6 +54,7 @@ class FeatureAssertionsBuilderNameRepresentationSpec : ch.tutteli.atrium.spec.in
     representationProvider()
 ) {
 
+    @Suppress("DEPRECATION" /* TODO #40 creating feature assertions will change anyway, thus not fixing the usages of `subject` */)
     companion object {
         val representationProvider =  { "own representation" }
         val propertyImmediate: F = { property(this, { subject.description }, representationProvider, Untranslatable("description")).contains("hello") }

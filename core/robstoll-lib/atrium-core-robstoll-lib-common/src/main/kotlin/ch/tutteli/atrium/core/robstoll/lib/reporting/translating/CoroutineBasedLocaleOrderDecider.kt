@@ -1,4 +1,4 @@
-@file:Suppress("EXPERIMENTAL_FEATURE_WARNING")
+@file:Suppress("EXPERIMENTAL_FEATURE_WARNING", "DEPRECATION")
 
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 

@@ -9,12 +9,15 @@ import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
+@Suppress("DEPRECATION")
 fun <T : Any> assert(subject: T)
     = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
+@Suppress("DEPRECATION")
 fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
     = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, { subject }, reporter, assertionCreator)
 
+@Suppress("DEPRECATION")
 fun <T : Any?> assert(subject: T)
     = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
 

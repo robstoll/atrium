@@ -25,7 +25,7 @@ class AdjustStackSpec : Spek({
             expect {
                 assertNoOp(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stackBacktrace).contains(
+                property(AssertionError::stackBacktrace).contains(
                     { startsWith("org.jetbrains.spek") },
                     { startsWith("org.junit") },
                     { startsWith("ch.tutteli.atrium") }
@@ -59,7 +59,7 @@ class AdjustStackSpec : Spek({
                 expect {
                     createAssert(1, adjuster).toBe(2)
                 }.toThrow<AssertionError> {
-                    property(subject::stackBacktrace)
+                    property(AssertionError::stackBacktrace)
                         .containsNot.entries(containsNotFirst, *containsNotRest)
                         .contains(containsFirst, *containsRest)
                 }
@@ -90,7 +90,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
                 assert(throwable.suppressed).asIterable().all{
-                    property(subject::stackBacktrace)
+                    property(Throwable::stackBacktrace)
                         .containsNot.entries(containsNotFirst, *containsNotRest)
                         .contains(containsFirst, *containsRest)
                 }
@@ -104,8 +104,8 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
                 assert(throwable.suppressed).asIterable().all{
-                    property(subject::cause).notToBeNull {
-                        property(subject::stackBacktrace)
+                    property(Throwable::cause).notToBeNull {
+                        property(Throwable::stackBacktrace)
                             .containsNot.entries(containsNotFirst, *containsNotRest)
                             .contains(containsFirst, *containsRest)
                     }
@@ -145,7 +145,7 @@ class AdjustStackSpec : Spek({
                 expect {
                     createAssert(1, adjuster).toBe(2)
                 }.toThrow<AssertionError> {
-                    property(subject::stackBacktrace).isEmpty()
+                    property(AssertionError::stackBacktrace).isEmpty()
                 }
             }
 
@@ -163,13 +163,14 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
                 assert(throwable.suppressed).asIterable().all{
-                    property(subject::stackBacktrace).isEmpty()
+                    property(Throwable::stackBacktrace).isEmpty()
                 }
             }
         }
     }
 })
 
+@Suppress("DEPRECATION")
 private fun <T : Any> createAssert(subject: T, adjuster: AtriumErrorAdjuster) =
     AssertImpl.coreFactory.newReportingPlant(
         AssertionVerb.ASSERT, { subject },

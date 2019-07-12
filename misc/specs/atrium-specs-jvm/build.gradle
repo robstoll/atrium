@@ -1,0 +1,32 @@
+description = 'Provides specifications of Atrium (for the JVM platform) which can be reused by ' +
+    'APIs and domain/core-implementations of Atrium, to verify that they fulfill the specification.'
+
+dependencies {
+    implementation prefixedProject('domain-api-jvm')
+    implementation prefixedProject('core-api-jvm')
+    implementation prefixedProject('domain-builders-jvm')
+
+    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
+    // automatically in their compile classpath. Thus:
+    compileOnly prefixedProject('api-fluent-en_GB-jvm') // for us
+    runtimeOnly prefixedProject('api-fluent-en_GB-jvm') // for depending modules
+
+    //TODO #26 remove as soon as we have ported all assertion functions to Expect
+    compileOnly prefixedProject('api-cc-en_GB-jvm') // for us
+    runtimeOnly prefixedProject('api-cc-en_GB-jvm') // for depending modules
+
+    implementation prefixedProject('translations-en_GB-jvm')
+
+    implementation "ch.tutteli.kbox:kbox:$kbox_version", excludeKotlin
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
+}
+
+dependencies {
+    //spek2 requires stdlib-jdk8 and kotlin-reflect
+    runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    compile "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
+    runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
+}

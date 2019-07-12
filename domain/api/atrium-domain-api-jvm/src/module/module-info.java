@@ -8,6 +8,7 @@ module ch.tutteli.atrium.domain.api {
     exports ch.tutteli.atrium.domain.creating.any.typetransformation.creators;
     exports ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers;
     exports ch.tutteli.atrium.domain.creating.basic.contains;
+    exports ch.tutteli.atrium.domain.creating.changers;
     exports ch.tutteli.atrium.domain.creating.charsequence.contains;
     exports ch.tutteli.atrium.domain.creating.charsequence.contains.checkers;
     exports ch.tutteli.atrium.domain.creating.charsequence.contains.creators;

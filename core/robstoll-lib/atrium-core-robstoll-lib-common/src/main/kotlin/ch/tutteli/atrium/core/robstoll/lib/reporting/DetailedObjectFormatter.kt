@@ -1,12 +1,14 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.KClass
 
 expect class DetailedObjectFormatter(translator: Translator) : ObjectFormatter
@@ -44,7 +46,7 @@ abstract class DetailedObjectFormatterCommon(
      */
     override fun format(value: Any?): String = when (value) {
         null -> RawString.NULL.string
-        is LazyRepresentation -> format(value.eval())
+        is LazyRepresentation -> format(safeEval(value))
         is Char -> "'$value'"
         is Boolean -> value.toString()
         is String -> format(value)
@@ -55,6 +57,12 @@ abstract class DetailedObjectFormatterCommon(
         is Enum<*> -> format(value)
         is Throwable -> format(value)
         else -> value.toString() + classNameAndIdentity(value)
+    }
+
+    private fun safeEval(lazyRepresentation: LazyRepresentation) = try {
+        lazyRepresentation.eval()
+    } catch (e: PlantHasNoSubjectException) {
+        RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED)
     }
 
     private fun format(string: String) = "\"$string\"" + identityHash(INDENT, string)

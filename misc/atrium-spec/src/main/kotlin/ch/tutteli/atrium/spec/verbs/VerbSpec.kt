@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -21,12 +23,15 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
+@Suppress("DEPRECATION")
 private fun <T : Any> assert(subject: T): AssertionPlant<T>
     = coreFactory.newReportingPlant(ASSERT, { subject }, AtriumReporterSupplier.REPORTER)
 
+@Suppress("DEPRECATION")
 private fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
     = coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, { subject }, AtriumReporterSupplier.REPORTER, assertionCreator)
 
+@Suppress("DEPRECATION")
 private fun <T : Any?> assert(subject: T)
     = coreFactory.newReportingPlantNullable(ASSERT, { subject }, AtriumReporterSupplier.REPORTER)
 
@@ -70,7 +75,7 @@ abstract class VerbSpec(
             expect {
                 assertionVerb(1).isLessOrEquals(10).and.isLessOrEquals(0).and.isGreaterOrEquals(2)
             }.toThrow<AssertionError> {
-                assert(subject.message).notToBeNull {
+                message {
                     contains(": 1")
                     contains("${IS_LESS_OR_EQUALS.getDefault()}: 0")
                     containsNot("${IS_GREATER_OR_EQUALS.getDefault()}: 2")
@@ -149,6 +154,7 @@ abstract class VerbSpec(
                 expect {
                     assertionVerb(null).notToBeNull {}
                 }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
                     messageContains(
                         DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                         Integer::class.java.name
@@ -162,15 +168,15 @@ abstract class VerbSpec(
         inCaseOf("an IllegalArgumentException occurs") {
             val (_, assertionVerb) = plantExpect
             it("does not throw an exception expecting an IllegalArgumentException") {
-                assertionVerb({
+                assertionVerb {
                     throw IllegalArgumentException()
-                }).toThrow<IllegalArgumentException>{}
+                }.toThrow<IllegalArgumentException>{}
             }
             it("throws an AssertionError when expecting an UnsupportedOperationException") {
                 expect {
-                    assertionVerb({
+                    assertionVerb {
                         throw IllegalArgumentException()
-                    }).toThrow<UnsupportedOperationException>{}
+                    }.toThrow<UnsupportedOperationException>{}
                 }.toThrow<AssertionError> {
                     messageContains(
                         DescriptionThrowableAssertion.IS_A.getDefault(),

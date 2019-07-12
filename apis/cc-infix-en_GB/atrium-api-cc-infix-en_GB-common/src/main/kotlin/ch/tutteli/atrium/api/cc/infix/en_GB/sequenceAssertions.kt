@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 
 /**
  * Turns `Assert<Sequence<E>>` into `Assert<Iterable<E>>`.
@@ -12,5 +12,6 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
+@Suppress("DEPRECATION")
 fun <E> Assert<Sequence<E>>.asIterable(): Assert<Iterable<E>>
-    = AssertImpl.changeSubject(this) { subject.asIterable() }
+    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }

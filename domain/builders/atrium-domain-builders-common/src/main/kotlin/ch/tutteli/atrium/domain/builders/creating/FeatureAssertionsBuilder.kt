@@ -1,4 +1,4 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION")
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -17,12 +17,14 @@ import kotlin.jvm.JvmName
  * In detail, it implements [FeatureAssertions] by delegating to [featureAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Switch from `Assert` to `Expect` and use then ExpectImpl.feature, NewFeatureAssertionsBuilder respectively; will be removed with 1.0.0")
 object FeatureAssertionsBuilder : FeatureAssertions {
 
-    inline val extractor: FeatureExtractor.RepresentationOption get() = FeatureExtractor.builder
+    @Suppress("DEPRECATION")
+    inline val extractor: FeatureExtractor.DescriptionOption get() = FeatureExtractor.builder
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>)
-        = property(plant, { property.invoke(plant.subject) }, Untranslatable(property.name))
+        = property(plant, { @Suppress("DEPRECATION") property.invoke(plant.subject) }, Untranslatable(property.name))
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>)
         = property(plant, property, Untranslatable(property.name))
@@ -35,7 +37,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit)
-        = property(plant, { property.invoke(plant.subject) },  Untranslatable(property.name), assertionCreator)
+        = property(plant, { @Suppress("DEPRECATION") property.invoke(plant.subject) },  Untranslatable(property.name), assertionCreator)
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit)
         = property(plant, property,  Untranslatable(property.name), assertionCreator)
@@ -49,7 +51,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>): AssertionPlantNullable<TProperty> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l = { property.invoke(plant.subject) }
+        val l = { @Suppress("DEPRECATION")  property.invoke(plant.subject) }
         return property(plant, l, Untranslatable(property.name))
     }
 
@@ -66,7 +68,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     //Arg0
     @JvmName("safeReturnValueOf0")
     inline fun <T : Any, R : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction1<T, R>): AssertionPlant<R>
-        = returnValueOf0(plant, { method(plant.subject) }, method.name)
+        = returnValueOf0(plant, { @Suppress("DEPRECATION") method(plant.subject) }, method.name)
 
     inline fun <T : Any, R : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<R>): AssertionPlant<R>
         = returnValueOf0(plant, method, method.name)
@@ -80,7 +82,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     @JvmName("safeReturnValueOf0")
     inline fun <T : Any, R : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction1<T, R>, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
-        = returnValueOf0(plant, { method(plant.subject) }, method.name, assertionCreator)
+        = returnValueOf0(plant, { @Suppress("DEPRECATION") method(plant.subject) }, method.name, assertionCreator)
 
     inline fun <T : Any, R : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<R>, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
         = returnValueOf0(plant, method, method.name, assertionCreator)
@@ -95,7 +97,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     @JvmName("safeReturnValueOf0")
     inline fun <T : Any, R : Any?> returnValueOf0(plant: AssertionPlant<T>, method: KFunction1<T, R>): AssertionPlantNullable<R> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l = { method(plant.subject) }
+        val l = { @Suppress("DEPRECATION") method(plant.subject) }
         return returnValueOf0(plant, l, l, method.name)
     }
 
@@ -112,7 +114,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     //Arg1
     @JvmName("safeReturnValueOf1")
     inline fun <T : Any, T1, R : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction2<T, T1, R>, arg1: T1): AssertionPlant<R>
-        = returnValueOf1(plant, {a1 -> method(plant.subject, a1) }, arg1, method.name)
+        = returnValueOf1(plant, {a1 -> @Suppress("DEPRECATION") method(plant.subject, a1) }, arg1, method.name)
 
     inline fun <T : Any, T1, R : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction1<T1, R>, arg1: T1): AssertionPlant<R>
         = returnValueOf1(plant, method, arg1, method.name)
@@ -126,7 +128,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     @JvmName("safeReturnValueOf1")
     inline fun <T : Any, T1, R : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction2<T, T1, R>, arg1: T1, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
-        = returnValueOf1(plant, {a1 -> method(plant.subject, a1) }, arg1, method.name, assertionCreator)
+        = returnValueOf1(plant, {a1 -> @Suppress("DEPRECATION") method(plant.subject, a1) }, arg1, method.name, assertionCreator)
 
     inline fun <T : Any, T1, R : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction1<T1, R>, arg1: T1, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
         = returnValueOf1(plant, method, arg1, method.name, assertionCreator)
@@ -141,7 +143,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     @JvmName("safeReturnValueOf1")
     inline fun <T : Any, T1, R : Any?> returnValueOf1(plant: AssertionPlant<T>, method: KFunction2<T, T1, R>, arg1: T1): AssertionPlantNullable<R> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l: (T1) -> R = {a1 -> method(plant.subject, a1) }
+        val l: (T1) -> R = {a1 -> @Suppress("DEPRECATION") method(plant.subject, a1) }
         return returnValueOf1(plant, l, arg1, method.name)
     }
 
@@ -158,7 +160,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     //Arg2
     @JvmName("safeReturnValueOf2")
     inline fun <T : Any, T1, T2, R : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction3<T, T1, T2, R>, arg1: T1, arg2: T2): AssertionPlant<R>
-        = returnValueOf2(plant, {a1, a2 -> method(plant.subject, a1, a2) }, arg1, arg2, method.name)
+        = returnValueOf2(plant, {a1, a2 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2) }, arg1, arg2, method.name)
 
     inline fun <T : Any, T1, T2, R : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlant<R>
         = returnValueOf2(plant, method, arg1, arg2, method.name)
@@ -172,7 +174,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     @JvmName("safeReturnValueOf2")
     inline fun <T : Any, T1, T2, R : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction3<T, T1, T2, R>, arg1: T1, arg2: T2, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
-        = returnValueOf2(plant, {a1, a2 -> method(plant.subject, a1, a2) }, arg1, arg2, method.name, assertionCreator)
+        = returnValueOf2(plant, {a1, a2 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2) }, arg1, arg2, method.name, assertionCreator)
 
     inline fun <T : Any, T1, T2, R : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
         = returnValueOf2(plant, method, arg1, arg2, method.name, assertionCreator)
@@ -187,7 +189,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     @JvmName("safeReturnValueOf2")
     inline fun <T : Any, T1, T2, R : Any?> returnValueOf2(plant: AssertionPlant<T>, method: KFunction3<T, T1, T2, R>, arg1: T1, arg2: T2): AssertionPlantNullable<R> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l : (T1, T2) -> R = {a1, a2 -> method(plant.subject, a1, a2) }
+        val l : (T1, T2) -> R = {a1, a2 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2) }
         return returnValueOf2(plant, l, arg1, arg2, method.name)
     }
 
@@ -204,7 +206,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     //Arg3
     @JvmName("safeReturnValueOf3")
     inline fun <T : Any, T1, T2, T3, R : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction4<T, T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<R>
-        = returnValueOf3(plant, {a1, a2, a3 -> method(plant.subject, a1, a2, a3) }, arg1, arg2, arg3, method.name)
+        = returnValueOf3(plant, {a1, a2, a3 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3) }, arg1, arg2, arg3, method.name)
 
     inline fun <T : Any, T1, T2, T3, R : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<R>
         = returnValueOf3(plant, method, arg1, arg2, arg3, method.name)
@@ -218,7 +220,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     @JvmName("safeReturnValueOf3")
     inline fun <T : Any, T1, T2, T3, R : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction4<T, T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
-        = returnValueOf3(plant, {a1, a2, a3 -> method(plant.subject, a1, a2, a3) }, arg1, arg2, arg3, method.name, assertionCreator)
+        = returnValueOf3(plant, {a1, a2, a3 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3) }, arg1, arg2, arg3, method.name, assertionCreator)
 
     inline fun <T : Any, T1, T2, T3, R : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
         = returnValueOf3(plant, method, arg1, arg2, arg3, method.name, assertionCreator)
@@ -233,7 +235,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     @JvmName("safeReturnValueOf3")
     inline fun <T : Any, T1, T2, T3, R : Any?> returnValueOf3(plant: AssertionPlant<T>, method: KFunction4<T, T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<R> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l : (T1, T2, T3) -> R = {a1, a2, a3 -> method(plant.subject, a1, a2, a3) }
+        val l : (T1, T2, T3) -> R = {a1, a2, a3 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3) }
         return returnValueOf3(plant, l, arg1, arg2, arg3, method.name)
     }
 
@@ -250,7 +252,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     //Arg4
     @JvmName("safeReturnValueOf4")
     inline fun <T : Any, T1, T2, T3, T4, R : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction5<T, T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<R>
-        = returnValueOf4(plant, {a1, a2, a3, a4 -> method(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4, method.name)
+        = returnValueOf4(plant, {a1, a2, a3, a4 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4, method.name)
 
     inline fun <T : Any, T1, T2, T3, T4, R : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<R>
         = returnValueOf4(plant, method, arg1, arg2, arg3, arg4, method.name)
@@ -264,7 +266,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     @JvmName("safeReturnValueOf4")
     inline fun <T : Any, T1, T2, T3, T4, R : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction5<T, T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
-        = returnValueOf4(plant, {a1, a2, a3, a4 -> method(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4, method.name, assertionCreator)
+        = returnValueOf4(plant, {a1, a2, a3, a4 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4, method.name, assertionCreator)
 
     inline fun <T : Any, T1, T2, T3, T4, R : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
         = returnValueOf4(plant, method, arg1, arg2, arg3, arg4, method.name, assertionCreator)
@@ -279,7 +281,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     @JvmName("safeReturnValueOf4")
     inline fun <T : Any, T1, T2, T3, T4, R : Any?> returnValueOf4(plant: AssertionPlant<T>, method: KFunction5<T, T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<R> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l : (T1, T2, T3, T4) -> R = {a1, a2, a3, a4 -> method(plant.subject, a1, a2, a3, a4) }
+        val l : (T1, T2, T3, T4) -> R = {a1, a2, a3, a4 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3, a4) }
         return returnValueOf4(plant, l, arg1, arg2, arg3, arg4, method.name)
     }
 
@@ -296,7 +298,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     //Arg5
     @JvmName("safeReturnValueOf5")
     inline fun <T : Any, T1, T2, T3, T4, T5, R : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction6<T, T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<R>
-        = returnValueOf5(plant, {a1, a2, a3, a4, a5 -> method(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5, method.name)
+        = returnValueOf5(plant, {a1, a2, a3, a4, a5 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5, method.name)
 
     inline fun <T : Any, T1, T2, T3, T4, T5, R : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<R>
         = returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, method.name)
@@ -310,7 +312,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
     @JvmName("safeReturnValueOf5")
     inline fun <T : Any, T1, T2, T3, T4, T5, R : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction6<T, T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
-        = returnValueOf5(plant, {a1, a2, a3, a4, a5 -> method(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5, method.name, assertionCreator)
+        = returnValueOf5(plant, {a1, a2, a3, a4, a5 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5, method.name, assertionCreator)
 
     inline fun <T : Any, T1, T2, T3, T4, T5, R : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, noinline assertionCreator: AssertionPlant<R>.() -> Unit): AssertionPlant<R>
         = returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, method.name, assertionCreator)
@@ -325,7 +327,7 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     @JvmName("safeReturnValueOf5")
     inline fun <T : Any, T1, T2, T3, T4, T5, R : Any?> returnValueOf5(plant: AssertionPlant<T>, method: KFunction6<T, T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<R> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l: (T1, T2, T3, T4, T5) -> R = {a1, a2, a3, a4, a5 -> method(plant.subject, a1, a2, a3, a4, a5) }
+        val l: (T1, T2, T3, T4, T5) -> R = {a1, a2, a3, a4, a5 -> @Suppress("DEPRECATION") method(plant.subject, a1, a2, a3, a4, a5) }
         return returnValueOf5(plant, l, arg1, arg2, arg3, arg4, arg5, method.name)
     }
 

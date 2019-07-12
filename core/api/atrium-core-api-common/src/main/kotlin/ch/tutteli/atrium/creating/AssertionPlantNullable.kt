@@ -9,4 +9,4 @@ package ch.tutteli.atrium.creating
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
-interface AssertionPlantNullable<out T : Any?> : BaseAssertionPlant<T, AssertionPlantNullable<T>>
+interface AssertionPlantNullable<out T : Any?> : BaseAssertionPlant<T, AssertionPlantNullable<T>>, SubjectProvider<T>

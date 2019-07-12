@@ -34,7 +34,8 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E>, SC>(
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val assertion = AssertImpl.collector.collect({ plant.subject.toList() }) {
+            val subject = plant.maybeSubject.fold({ emptyList<E>()}){ it.toList() }
+            val assertion = AssertImpl.collector.collect({ subject }) {
                 var index = 0
                 searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
                     createSingleEntryAssertion(currentIndex, searchCriterion, DescriptionIterableAssertion.ENTRY_WITH_INDEX)

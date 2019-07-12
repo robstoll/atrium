@@ -11,9 +11,11 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 
+@Suppress("DEPRECATION")
 internal fun <T : Any> esGilt(subject: T) =
     AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
+@Suppress("DEPRECATION")
 internal fun <T : Any> esGilt(subject: T, assertionCreator: Assert<T>.() -> Unit) =
     AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(
         AssertionVerb.ASSERT,
@@ -22,6 +24,7 @@ internal fun <T : Any> esGilt(subject: T, assertionCreator: Assert<T>.() -> Unit
         assertionCreator
     )
 
+@Suppress("DEPRECATION")
 internal fun <T : Any?> esGilt(subject: T) =
     AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
 

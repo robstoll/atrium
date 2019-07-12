@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -12,6 +14,7 @@ import kotlin.reflect.KClass
 /**
  * Robstoll's implementation of [AnyTypeTransformationAssertions].
  */
+@Deprecated("use _isA or _changeSubject; will be removed with 1.0.0")
 class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
 
     @Suppress("OverridingDeprecatedMember")

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.core.newReportingPlantNullable
@@ -10,7 +12,8 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.cre
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.*
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_NOT_THROWN_1
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_NOT_THROWN_2
 import kotlin.reflect.KClass
 
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
@@ -57,6 +60,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun createReportingPlantForThrowable(
         throwableThrownBuilder: ThrowableThrown.Builder,
         throwable: Throwable?

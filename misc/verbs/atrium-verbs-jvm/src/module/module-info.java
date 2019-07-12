@@ -4,5 +4,6 @@ module ch.tutteli.atrium.verbs {
 
     uses ch.tutteli.atrium.reporting.ReporterFactory;
 
+    exports ch.tutteli.atrium.api.verbs;
     exports ch.tutteli.atrium.verbs;
 }

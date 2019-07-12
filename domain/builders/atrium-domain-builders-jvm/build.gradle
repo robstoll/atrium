@@ -3,6 +3,9 @@ description = 'Contains base classes for sophisticated assertion builders which 
 dependencies {
     compile prefixedProject('domain-api-jvm')
 
+    // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-jvm')
+
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('api-cc-en_GB-jvm')
@@ -16,3 +19,13 @@ compileTestKotlin.dependsOn(
     prefixedProject('domain-robstoll-jvm').compileKotlin,
     prefixedProject('domain-robstoll-jvm').processResources
 )
+
+//TODO remove once all specs are migrated to spek2
+junitPlatform {
+    filters {
+        engines {
+            include 'spek2'
+            include 'spek'
+        }
+    }
+}

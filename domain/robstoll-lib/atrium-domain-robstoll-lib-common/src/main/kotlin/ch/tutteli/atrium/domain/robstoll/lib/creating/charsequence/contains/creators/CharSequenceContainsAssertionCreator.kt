@@ -41,8 +41,9 @@ class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC: Any, S : 
 
     override fun getAssertionGroupType() = DefaultListAssertionGroupType
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
-        = searcher.search(plant.subject, searchCriterion)
+    override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int =
+        // if the maybeSubject is None it means we are in an explanation like context in which it does not matter if it is found or not.
+        plant.maybeSubject.fold({ -1 }) { searcher.search(it, searchCriterion) }
 
     override fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion) = listOf(featureAssertion)
 }

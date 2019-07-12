@@ -109,7 +109,7 @@ abstract class ReportingAssertionPlantSpec(
                         it("contains the ${plant.commonFields::assertionVerb.name}'") {
                             expectFun().toThrow<AssertionError> { messageContains(assertionVerb.getDefault()) }
                         }
-                        it("contains the '${plant::subject.name}'") {
+                        it("contains the subject") {
                             expectFun().toThrow<AssertionError> {
                                 messageContains(subject)
                             }

@@ -8,7 +8,7 @@ buildscript {
         // main
         kbox_version = '0.13.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
-        kotlin_version = '1.2.71'
+        kotlin_version = '1.3.31'
         mockito_kotlin_version = '2.1.0'
         mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
@@ -17,6 +17,7 @@ buildscript {
         junit_platform_version = '1.2.0'
         jupiter_version = '5.3.1'
         spek_version = '1.1.5'
+        spek2_version = '2.1.0-alpha.0.10+3ef9a70'
 
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
@@ -38,7 +39,8 @@ buildscript {
                         // (clashes with "${project.name}-translations-en_GB-jvm"
                         it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
-                        it.name != "${rootProject.name}-spec"
+                        it.name != "${rootProject.name}-spec" &&
+                        !it.name.startsWith("${rootProject.name}-specs")
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects - jsExampleProjects).findAll {
@@ -49,6 +51,7 @@ buildscript {
                         it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
+                        !it.name.startsWith("${rootProject.name}-specs") &&
                         it.name != "${rootProject.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${rootProject.name}-assertions" &&
@@ -79,11 +82,11 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$gradle.ext.tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version"
         classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
@@ -101,7 +104,24 @@ repositories {
 subprojects {
     repositories {
         mavenCentral()
-        maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
+        maven {
+            url 'https://dl.bintray.com/spekframework/spek'
+            content {
+                includeGroupByRegex 'org\\.spekframework(\\..*)?'
+            }
+        }
+        maven {
+            url  "https://dl.bintray.com/spekframework/spek-dev"
+            content {
+                includeGroupByRegex 'org\\.spekframework(\\..*)?'
+            }
+        }
+        maven {
+            url "https://dl.bintray.com/robstoll/tutteli-jars"
+            content {
+                includeGroupByRegex 'ch\\.tutteli(\\..*)?'
+            }
+        }
     }
 }
 
@@ -117,14 +137,6 @@ configureAndroidProjects()
 
 configure(subprojects - multiplatformProjects - jsExamples) {
     apply plugin: 'kotlin'
-
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
-    compileTestKotlin{
-        kotlinOptions.allWarningsAsErrors = true
-    }
-
     dependencies {
         compile kotlinStdlib()
     }
@@ -132,34 +144,37 @@ configure(subprojects - multiplatformProjects - jsExamples) {
 }
 
 configure(commonProjects) {
-    compileKotlinCommon {
-        kotlinOptions.allWarningsAsErrors = true
-    }
     //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
-//    compileTestKotlinCommon{
-//        kotlinOptions.allWarningsAsErrors = true
-//    }
+    compileKotlinCommon {
+        kotlinOptions.languageVersion = '1.2'
+    }
+    compileTestKotlinCommon {
+        kotlinOptions.allWarningsAsErrors = false
+    }
 }
 configure(jsProjects) { subProject ->
     compileKotlin2Js {
-        kotlinOptions{
-            allWarningsAsErrors = true
-            if(subProject.name.startsWith("atrium-translations")) {
-                //necessary as the module name is then also called atrium-translations-js and can be shared by the other translation modules
+        kotlinOptions {
+            if (subProject.name.startsWith("atrium-translations")) {
+                //necessary as the module name is then also called atrium-translations-js and can be shared (the name) by the other translation modules
                 outputFile = "$buildDir/classes/kotlin/main/atrium-translations-js.js"
             }
+            languageVersion = '1.2'
         }
-
     }
+
     //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
-//    compileTestKotlin2Js{
-//        kotlinOptions.allWarningsAsErrors = true
-//    }
+    compileTestKotlin2Js{
+        kotlinOptions.allWarningsAsErrors = false
+    }
 }
 
 configure(subprojects - commonProjects - jsProjects - jsExamples) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
+    compileKotlin {
+        kotlinOptions.languageVersion = '1.2'
+    }
 }
 
 def apiProjects = subprojects.findAll { it.name.startsWith("${rootProject.name}-api") && it.name.endsWith("-jvm") }
@@ -168,7 +183,6 @@ configure(apiProjects) { apiProject ->
     createTestSourcesJarTask(apiProject)
 }
 
-// has to be after the above two blocks which define `it.ext.publish_artifacts`
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
 def exampleProjects = jsExamples
 configure(subprojects - bundleSmokeTests - exampleProjects) { subproject ->
@@ -181,13 +195,7 @@ configure(subprojects - bundleSmokeTests - exampleProjects) { subproject ->
 
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
-
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
-    compileTestKotlin{
-        kotlinOptions.allWarningsAsErrors = true
-    }
+    spek.version = '1.1.5'
 
     dependencies {
         testCompile mockito(), excludeKotlin
@@ -202,9 +210,8 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
 
             jacocoReport {
                 if (project.hasProperty('jacoco_additional')) {
-                    project.jacoco_additional.each {
-                        sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-                        classDirectories += it.sourceSets.main.output.classesDirs
+                    project.jacoco_additional.each { otherProject ->
+                        sourceSets otherProject.sourceSets.main
                     }
                 }
                 reports {
@@ -222,8 +229,8 @@ configure(bundleSmokeTests) {
     def bundle = project(":$bundleUnderTest-jvm")
     description = "Represents a JDK9 smoke test for $bundleUnderTest"
 
-    sourceCompatibility = '9'
-    targetCompatibility = '9'
+    sourceCompatibility = JavaVersion.current()
+    targetCompatibility = JavaVersion.current()
 
     ext.jacoco_additional = [bundle]
 
@@ -242,7 +249,7 @@ configure(bundleSmokeTests) {
 import java.util.function.Function
 
 def createRegisterJsServicesTask(String projectName, String packageName, Function<String, Boolean> filter) {
-    def project = prefixedProject(projectName)
+    Project project  = prefixedProject(projectName)
     configure(project) {
         def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
             def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
@@ -254,6 +261,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
 
             doLast {
                 services.write("""\
+                @file:Suppress("DEPRECATION")
                 package $packageName
     
                 import ch.tutteli.atrium.core.polyfills.registerService
@@ -261,14 +269,18 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
                 @Suppress("unused" /* here in order that the code is executed when module is loaded */)
                 private val register = run {
             """.stripIndent())
+                def sortedMap = new TreeMap<String, String>()
                 servicesDir.traverse {
                     if (it.isFile() && filter.apply(it.name)) {
-                        services.append("\n    registerService<")
-                        services.append(it.name)
-                        services.append("> { ")
-                        services.append(it.withReader { it.readLine() })
-                        services.append("() }")
+                        sortedMap.put(it.name, it.withReader { it.readLine() })
                     }
+                }
+                sortedMap.each { entry ->
+                    services.append("\n    registerService<")
+                    services.append(entry.key)
+                    services.append("> { ")
+                    services.append(entry.value)
+                    services.append("() }")
                 }
                 services.append("\n}\n")
             }

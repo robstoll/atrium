@@ -4,6 +4,7 @@ dependencies {
     compile prefixedProject('core-api-js')
     compile prefixedProject('domain-builders-js')
     compile prefixedProject('translations-en_GB-js')
+    compile prefixedProject('specs-js')
 
     testCompile prefixedProject('domain-robstoll-js')
     testCompile prefixedProject('core-robstoll-js')

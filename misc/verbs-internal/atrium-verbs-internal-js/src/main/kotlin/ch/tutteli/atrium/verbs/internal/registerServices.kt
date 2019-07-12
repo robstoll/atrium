@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.verbs.internal
 
 import ch.tutteli.atrium.core.polyfills.registerService

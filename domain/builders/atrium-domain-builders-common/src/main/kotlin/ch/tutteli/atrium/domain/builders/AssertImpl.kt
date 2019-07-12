@@ -3,19 +3,17 @@ package ch.tutteli.atrium.domain.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
+import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
@@ -41,6 +39,7 @@ object AssertImpl : AssertImplCommon {
 
     override inline val comparable get() = ComparableAssertionsBuilder
 
+    @Suppress("DEPRECATION")
     override inline val feature get() = FeatureAssertionsBuilder
 
     override inline val floatingPoint get() = FloatingPointAssertionsBuilder
@@ -89,13 +88,30 @@ interface AssertImplCommon {
      * Notice, if you do not require the resulting [AssertionPlant] but merely want to make feature assertions so that
      * you can use them as part of a bigger assertion, then use [collector] instead.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use ExpectImpl.changeSubject.unreported; will be removed with 1.0.0 - moreover we advice you to switch to Expect and no longer use Assert",
+        ReplaceWith(
+            "ExpectImpl.changeSubject.unreported(originalPlant, subjectProvider)",
+            "import ch.tutteli.atrium.domain.builders.ExpectImpl"
+        )
+    )
     fun <T, R : Any> changeSubject(
         originalPlant: BaseAssertionPlant<T, *>,
         subjectProvider: () -> R
-    ): AssertionPlant<R> {
-        val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalPlant)
-        return AssertImpl.coreFactory.newReportingPlant(assertionVerb, subjectProvider, assertionChecker)
-    }
+    ): AssertionPlant<R> = subjectChanger.unreported(originalPlant) { subjectProvider() }
+
+    @Deprecated(
+        "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
+        ReplaceWith(
+            "ExpectImpl.changeSubject.unreported(originalAssertionCreator, transformation)",
+            "import ch.tutteli.atrium.domain.builders.ExpectImpl"
+        )
+    )
+    fun <T, R : Any> changeSubject(
+        originalAssertionCreator: Expect<T>,
+        transformation: (T) -> R
+    ): Expect<R> =  subjectChanger.unreported(originalAssertionCreator, transformation)
 
     /**
      * Creates a new [AssertionPlantNullable] based on the given [subjectProvider] whereas the [AssertionPlant]
@@ -108,19 +124,31 @@ interface AssertImplCommon {
      * Notice, if you do not require the resulting [AssertionPlantNullable] but merely want to make feature
      * assertions so that you can use them as part of a bigger assertion, then use [collector] instead.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use ExpectImpl.changeSubject.unreported; will be removed with 1.0.0 - moreover we advice you to switch to Expect and no longer use Assert",
+        ReplaceWith(
+            "ExpectImpl.changeSubject.unreported(originalPlant, subjectProvider)",
+            "import ch.tutteli.atrium.domain.builders.ExpectImpl"
+        )
+    )
     fun <T, R> changeToNullableSubject(
         originalPlant: BaseAssertionPlant<T, *>,
         subjectProvider: () -> R
-    ): AssertionPlantNullable<R> {
-        val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalPlant)
-        return AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, subjectProvider, assertionChecker)
-    }
+    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant) { subjectProvider() }
 
-    private fun <T> createDelegatingAssertionCheckerAndVerb(originalPlant: BaseAssertionPlant<T, *>): Pair<AssertionChecker, Untranslatable> {
-        val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(originalPlant)
-        return assertionChecker to Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
-    }
-
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
+        ReplaceWith(
+            "ExpectImpl.changeSubject.unreported(originalAssertionCreator, transformation)",
+            "import ch.tutteli.atrium.domain.builders.ExpectImpl"
+        )
+    )
+    fun <T, R : Any> changeToNullableSubject(
+        originalAssertionCreator: Expect<T>,
+        transformation: (T) -> R
+    ): Expect<R> = changeSubject(originalAssertionCreator, transformation)
 
     //--- assertions ---------------------------------------------------------------------------
 
@@ -152,6 +180,7 @@ interface AssertImplCommon {
      * Returns [FeatureAssertionsBuilder]
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */
+    @Suppress("DEPRECATION")
     val feature: FeatureAssertionsBuilder
 
     /**

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.creating.AssertionPlant

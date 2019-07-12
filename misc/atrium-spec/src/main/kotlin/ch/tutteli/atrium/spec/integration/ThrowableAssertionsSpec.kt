@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -152,6 +154,7 @@ abstract class ThrowableAssertionsSpec(
             expect {
                 assert(throwable).message()
             }.toThrow<AssertionError> {
+                @Suppress("DEPRECATION")
                 messageContains(
                     DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                     String::class.java.name
@@ -179,6 +182,7 @@ abstract class ThrowableAssertionsSpec(
             expect {
                 assert(throwable).messageContains()
             }.toThrow<AssertionError> {
+                @Suppress("DEPRECATION")
                 messageContains(
                     DescriptionTypeTransformationAssertion.IS_A.getDefault(),
                     String::class.java.name

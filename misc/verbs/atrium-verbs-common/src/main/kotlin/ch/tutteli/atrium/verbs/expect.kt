@@ -20,18 +20,20 @@ import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
  *
  * @see CoreFactory.newReportingPlant
  */
+@Suppress("DEPRECATION")
 fun <T : Any> expect(subject: T)
     = AssertImpl.coreFactory.newReportingPlant(EXPECT, { subject }, reporter)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
  * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reported as a whole.
+ * the configured [Reporter]) reportBuilder as a whole.
  *
  * @return The newly created plant.
  *
  * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
+@Suppress("DEPRECATION")
 fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
     = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(EXPECT, { subject }, reporter, assertionCreator)
 
@@ -42,6 +44,7 @@ fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
  *
  * @see CoreFactory.newReportingPlantNullable
  */
+@Suppress("DEPRECATION")
 fun <T : Any?> expect(subject: T)
     = AssertImpl.coreFactory.newReportingPlantNullable(EXPECT, { subject }, reporter)
 

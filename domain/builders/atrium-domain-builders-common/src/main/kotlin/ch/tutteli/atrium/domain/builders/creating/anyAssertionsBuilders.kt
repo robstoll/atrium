@@ -2,18 +2,14 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.creating.AnyAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.anyTypeTransformationAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.failureHandlerFactory
+import ch.tutteli.atrium.domain.creating.any.typetransformation.*
+import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.*
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.*
 import ch.tutteli.atrium.domain.creating.anyAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import kotlin.reflect.KClass
 
 /**
@@ -22,20 +18,43 @@ import kotlin.reflect.KClass
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object AnyAssertionsBuilder : AnyAssertions {
-    override inline fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
-        = anyAssertions.toBe(plant, expected)
 
-    override inline fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T)
-        = anyAssertions.notToBe(plant, expected)
+    override inline fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+        = anyAssertions.toBe(subjectProvider, expected)
 
-    override inline fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T)
-        = anyAssertions.isSame(plant, expected)
+    override inline fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T)
+        = anyAssertions.notToBe(subjectProvider, expected)
 
-    override inline fun <T : Any> isNotSame(plant: AssertionPlant<T>, expected: T)
-        = anyAssertions.isNotSame(plant, expected)
+    override inline fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T)
+        = anyAssertions.isSame(subjectProvider, expected)
 
-    override inline fun <T> isNull(plant: AssertionPlantNullable<T>)
-        = anyAssertions.isNull(plant)
+    override inline fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T)
+        = anyAssertions.isNotSame(subjectProvider, expected)
+
+    override inline fun <T> toBeNull(subjectProvider: SubjectProvider<T>)
+        = anyAssertions.toBeNull(subjectProvider)
+
+    override inline fun <T : Any> toBeNullable(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        expectedOrNull: T?
+    ) = anyAssertions.toBeNullable(assertionContainer, type, expectedOrNull)
+
+    override inline fun <T : Any> toBeNullIfNullGivenElse(
+        assertionContainer: Expect<T?>,
+        type: KClass<T>,
+        noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+    ) = anyAssertions.toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
+
+    override inline fun <TSub : Any> isA(assertionContainer: Expect<out Any?>, subType: KClass<TSub>)
+        = anyAssertions.isA(assertionContainer, subType)
+
+    override inline fun <TSub : Any> isA(
+        assertionContainer: Expect<out Any?>,
+        subType: KClass<TSub>,
+        noinline assertionCreator: Expect<TSub>.() -> Unit
+    ) = anyAssertions.isA(assertionContainer, subType, assertionCreator)
+
 
     override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?)
         = anyAssertions.isNullable(plant, type, expectedOrNull)
@@ -54,6 +73,8 @@ object AnyAssertionsBuilder : AnyAssertions {
      * Returns [AnyTypeTransformationAssertionsBuilder]
      * which inter alia delegates to the implementation of [AnyTypeTransformationAssertions].
      */
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from `Assert` to `Expect` use `ExpectImpl.changeSubject` or `ExpectImpl.feature.extract` instead; will be removed with 1.0.0")
     inline val typeTransformation get() = AnyTypeTransformationAssertionsBuilder
 }
 
@@ -62,9 +83,11 @@ object AnyAssertionsBuilder : AnyAssertions {
  * In detail, it implements [AnyTypeTransformationAssertions] by delegating to [anyTypeTransformationAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Suppress("DEPRECATION")
+@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 1.0.0")
 object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION", "DeprecatedCallableAddReplaceWith")
     override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
         = anyTypeTransformationAssertions.isNotNull(plant, type, assertionCreator)
 
@@ -89,6 +112,8 @@ object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
  * In detail, it implements [FailureHandlerFactory] by delegating to [failureHandlerFactory]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Suppress("DEPRECATION")
+@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 1.0.0")
 object AnyTypeTransformationFailureHandlerFactoryBuilder : FailureHandlerFactory {
 
     override inline fun <S : Any, T : Any> newExplanatory()

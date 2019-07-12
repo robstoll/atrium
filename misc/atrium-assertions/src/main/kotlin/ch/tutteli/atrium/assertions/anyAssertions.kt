@@ -40,11 +40,11 @@ fun <T : Any> _isSame(plant: AssertionPlant<T>, expected: T): Assertion
 fun <T : Any> _isNotSame(plant: AssertionPlant<T>, expected: T): Assertion
     = AssertImpl.any.isNotSame(plant, expected)
 
-@Deprecated("Use AssertImpl.any.isNull; will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.any.toBeNull; will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.any.isNull(plant)",
+        "AssertImpl.any.toBeNull(plant)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any?> _isNull(plant: AssertionPlantNullable<T>): Assertion
-    = AssertImpl.any.isNull(plant)
+    = AssertImpl.any.toBeNull(plant)

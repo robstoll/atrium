@@ -12,6 +12,9 @@ module ch.tutteli.atrium.domain.robstoll {
     provides ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
         with ch.tutteli.atrium.domain.robstoll.creating.any.typetransformation.failurehandlers.FailureHandlerFactoryImpl;
 
+    provides ch.tutteli.atrium.domain.creating.changers.SubjectChanger
+        with ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl;
+
     provides ch.tutteli.atrium.domain.creating.AnyAssertions
         with ch.tutteli.atrium.domain.robstoll.creating.AnyAssertionsImpl;
 

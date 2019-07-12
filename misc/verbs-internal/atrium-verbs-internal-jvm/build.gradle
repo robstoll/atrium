@@ -4,6 +4,7 @@ dependencies {
     compile prefixedProject('core-api-jvm')
     compile prefixedProject('domain-builders-jvm')
     compile prefixedProject('spec')
+    compile prefixedProject('specs-jvm')
 
     testCompile prefixedProject('domain-robstoll-jvm')
     testCompile prefixedProject('core-robstoll-jvm')

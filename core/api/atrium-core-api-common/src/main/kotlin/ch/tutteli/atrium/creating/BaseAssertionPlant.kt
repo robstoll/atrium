@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 
 /**
  * Represents a plant for [Assertion]s and offers methods to [addAssertion]s to this plant.
@@ -12,17 +15,22 @@ import ch.tutteli.atrium.assertions.Assertion
  * @param T The type of the [subject] of this [BaseAssertionPlant].
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API and as self type.
  */
-interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
-
-    /**
-     * The subject for which this plant will create [Assertion]s.
-     */
-    val subject: T
+interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>: SubjectProvider<T>, AssertionHolder {
 
     /**
      * The provider which provides [subject].
      */
     val subjectProvider: () -> T
+
+    override val maybeSubject: Option<T>
+        get() {
+            return try {
+                @Suppress("DEPRECATION")
+                Some(subject)
+            } catch (e: PlantHasNoSubjectException) {
+                None
+            }
+        }
 
     /**
      * Adds the given [assertion] to this plant.
@@ -34,5 +42,5 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionPlant]).
      */
-    fun addAssertion(assertion: Assertion): A
+    override fun addAssertion(assertion: Assertion): A
 }

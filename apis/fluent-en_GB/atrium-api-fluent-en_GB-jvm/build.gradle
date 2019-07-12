@@ -1,0 +1,40 @@
+description = 'A fluent assertion function API in en_GB with a focus on code completion for the JVM platform.' +
+        'It provides a fluent API in en_GB which is designed to ease the usage of code completion or ' +
+        'in other words, the developer should be able to: ' +
+        'start creating an assertion + code completion + . + code completion + . + and so on.'
+
+ext.jacoco_additional = [
+    prefixedProject('translations-en_GB-jvm'),
+    prefixedProject('domain-robstoll-jvm'),
+    prefixedProject('domain-robstoll-lib-jvm'),
+    prefixedProject('core-robstoll-jvm'),
+    prefixedProject('core-robstoll-lib-jvm'),
+]
+
+dependencies {
+    compile prefixedProject('domain-builders-jvm')
+
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
+    testCompile prefixedProject('verbs-internal-jvm')
+    //TODO #26 remove as soon as we have ported all assertion functions to Expect
+    testCompile prefixedProject('api-cc-en_GB-jvm')
+}
+
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileTestKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').compileKotlin,
+    prefixedProject('core-robstoll-jvm').processResources,
+    prefixedProject('domain-robstoll-jvm').compileKotlin,
+    prefixedProject('domain-robstoll-jvm').processResources
+)
+
+//TODO remove once all specs are migrated to spek2 and apply spek plugin with version 2.1.x
+junitPlatform {
+    filters {
+        engines {
+            include 'spek2'
+        }
+    }
+}

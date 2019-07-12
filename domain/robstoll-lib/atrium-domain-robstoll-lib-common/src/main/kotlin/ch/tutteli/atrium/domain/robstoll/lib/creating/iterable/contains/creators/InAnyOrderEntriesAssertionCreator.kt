@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -42,8 +43,9 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
 
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
-        val hasElementAssertion = createHasElementAssertion(plant.subject)
-        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
+        val iterable = plant.maybeSubject.getOrElse { emptyList<E?>() }
+        val hasElementAssertion = createHasElementAssertion(iterable)
+        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(iterable.iterator(), searchCriterion)
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertions)

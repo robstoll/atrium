@@ -31,10 +31,9 @@ expect interface CoreFactory : CoreFactoryCommon
  * The minimum contract of the 'abstract factory' of atrium-core for any platform.
  *
  * It provides factory methods to create:
- * - [AssertionPlant]
- * - [AssertionPlantNullable]
- * - [CheckingAssertionPlant]
- * - [CollectingAssertionPlant]
+ * - [ReportingAssertionContainer]
+ * - [CheckingAssertionContainer]
+ * - [CollectingAssertionContainer]
  * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
@@ -48,6 +47,29 @@ expect interface CoreFactory : CoreFactoryCommon
  * - [AtriumErrorAdjuster]
  */
 interface CoreFactoryCommon {
+
+    /**
+     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
+     *
+     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
+     * uses [maybeSubject] as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
+     * [AssertionContainerWithCommonFields.CommonFields.representation].
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
+     * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
+     *   also as [AssertionContainerWithCommonFields.CommonFields.representation].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newReportingAssertionContainer(
+        assertionVerb: Translatable,
+        maybeSubject: Option<T>,
+        reporter: Reporter
+    ): ReportingAssertionContainer<T> = newReportingAssertionContainer(
+        assertionVerb, maybeSubject, newThrowingAssertionChecker(reporter)
+    )
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -66,6 +88,14 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith(
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any> newReportingPlant(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
@@ -73,6 +103,38 @@ interface CoreFactoryCommon {
     ): ReportingAssertionPlant<T> = newReportingPlant(
         assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
     )
+
+    /**
+     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
+     *
+     * It uses the given [assertionChecker] for assertion checking, uses [maybeSubject] as
+     * [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
+     * [AssertionContainerWithCommonFields.CommonFields.representation].
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
+     * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
+     *   also as [AssertionContainerWithCommonFields.CommonFields.representation].
+     * @param assertionChecker The checker which will be used to check [Assertion]s.
+     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionChecker]).
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T> newReportingAssertionContainer(
+        assertionVerb: Translatable,
+        maybeSubject: Option<T>,
+        assertionChecker: AssertionChecker
+    ): ReportingAssertionContainer<T> {
+        return newReportingAssertionContainer(
+            AssertionContainerWithCommonFields.CommonFields(
+                assertionVerb,
+                maybeSubject,
+                LazyRepresentation { maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) } },
+                assertionChecker,
+                RawString.NULL
+            )
+        )
+    }
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -92,6 +154,14 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith(
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any> newReportingPlant(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
@@ -110,6 +180,20 @@ interface CoreFactoryCommon {
     }
 
     /**
+     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
+     *
+     * It uses the [AssertionContainerWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
+     * assertion checking
+     *
+     * @param commonFields The commonFields for the new assertion plant.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T> newReportingAssertionContainer(
+        commonFields: AssertionContainerWithCommonFields.CommonFields<T>
+    ): ReportingAssertionContainer<T>
+
+    /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
@@ -119,7 +203,13 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith("this.newReportingAssertionContainer(commonFields)")
+    )
+    fun <T : Any> newReportingPlant(
+        commonFields: AssertionPlantWithCommonFields.CommonFields<T>
+    ): ReportingAssertionPlant<T>
 
 
     /**
@@ -145,6 +235,14 @@ interface CoreFactoryCommon {
      * @throws AssertionError The newly created [AssertionPlant] might throw an [AssertionError] in case a
      *   created [Assertion] does not hold.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith(
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter).addAssertionsCreatedBy(assertionCreator)",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
@@ -163,7 +261,24 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith("this.newReportingAssertionContainer(commonFields)")
+    )
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
+
+
+    /**
+     * Creates a [CheckingAssertionContainer] which provides a method to check whether
+     * [allAssertionsHold][CheckingAssertionContainer.allAssertionsHold].
+     *
+     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+     *   [None] in case a previous subject change was not successful. The [CheckingAssertionContainer]
+     *   will check [Assertion]s for the current subject.
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
 
     /**
      * Creates a [CheckingAssertionPlant] which provides a method to check whether
@@ -174,7 +289,27 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newCheckingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCheckingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
+
+    /**
+     * Creates a [CollectingAssertionContainer] which is intended to be used as receiver object in lambdas so that it
+     * can collect [Assertion]s created inside the lambda.
+     *
+     * Use [newCheckingAssertionContainer] instead if you want to know whether the assertions hold.
+     *
+     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+     *   [None] in case a previous subject change was not successful.
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
 
     /**
      * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to
@@ -190,7 +325,15 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
+
 
     /**
      * Creates a [CollectingAssertionPlantNullable] which is intended to be used as receiver object in lambdas to
@@ -205,7 +348,15 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
+
 
     /**
      * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails
@@ -220,14 +371,27 @@ interface CoreFactoryCommon {
     /**
      * Creates an [AssertionChecker] which creates an [AssertionGroup] of [type][AssertionGroup.type]
      * [FeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
-     * [subjectPlant] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
+     * [originalAssertionHolder] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
      *
-     * @param subjectPlant The assertion plant to which the created [AssertionGroup] of [type][AssertionGroup.type]
+     * @param originalAssertionHolder The assertion plant to which the created [AssertionGroup] of [type][AssertionGroup.type]
      *   [FeatureAssertionGroupType] will be [added][AssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */
-    fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
+    fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+
+    /**
+     * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given
+     * [originalAssertionHolder] by adding (see [AssertionHolder.addAssertion]) the assertions to the given
+     * [originalAssertionHolder].
+     *
+     * @param originalAssertionHolder The assertion container to which the [Assertion]s will
+     *   be [added][AssertionPlant.addAssertion].
+     *
+     * @return The newly created assertion checker.
+     */
+    fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+
 
     /**
      * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]
@@ -237,7 +401,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
+    fun <T> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
 
     /**
@@ -555,6 +719,14 @@ interface CoreFactoryCommon {
  *
  * @return The newly created assertion plant.
  */
+@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+    ReplaceWith(
+        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
+        "ch.tutteli.atrium.core.Some"
+    )
+)
 fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     assertionVerb: Translatable,
     subjectProvider: () -> T,
@@ -582,6 +754,14 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
  *
  * @return The newly created assertion plant.
  */
+@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+    ReplaceWith(
+        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
+        "ch.tutteli.atrium.core.Some"
+    )
+)
 fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     assertionVerb: Translatable,
     subjectProvider: () -> T,

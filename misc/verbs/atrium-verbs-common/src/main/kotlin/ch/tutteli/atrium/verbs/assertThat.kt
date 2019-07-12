@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -26,7 +28,7 @@ fun <T : Any> assertThat(subject: T)
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
  * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reported as a whole.
+ * the configured [Reporter]) reportBuilder as a whole.
  *
  * @return The newly created plant.
  *

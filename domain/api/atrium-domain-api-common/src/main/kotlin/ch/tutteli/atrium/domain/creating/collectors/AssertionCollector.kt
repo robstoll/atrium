@@ -4,6 +4,9 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
@@ -18,9 +21,45 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
 
 /**
- * Responsible to collect assertions made in a sub-[AssertionPlant].
+ * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
 interface AssertionCollector {
+
+    /**
+     * Uses the [Expect.maybeSubject] and delegates to the other overload.
+     */
+    fun <T> collect(
+        assertionContainer: Expect<T>,
+        assertionCreator: CollectingAssertionContainer<T>.() -> Unit
+    ): AssertionGroup = collect(assertionContainer.maybeSubject, assertionCreator)
+
+    /**
+     * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
+     * other action which results in an assertion container being created and
+     * you do not require this resulting container.
+     *
+     * Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
+     * assertion container.
+     *
+     * This function can be useful in several cases. For instance:
+     * - You are writing an assertion about a feature often enough so that it deserves an own assertion function
+     *   (see e.g. [MapAssertions.hasSize])
+     * - You want the collected assertion to be part of an [AssertionGroup]
+     *
+     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+     *   [None] in case a previous subject change was not successful - used as subject for the given [assertionCreator].
+     * @param assertionCreator A lambda which defines the assertions for the feature.
+     *
+     * @return The collected assertions as an [AssertionGroup] with an [InvisibleAssertionGroupType].
+     *
+     * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
+     *   assertion.
+     */
+    fun <T> collect(
+        maybeSubject: Option<T>,
+        assertionCreator:  CollectingAssertionContainer<T>.() -> Unit
+    ): AssertionGroup
+
 
     /**
      * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any
@@ -72,6 +111,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
+    @Suppress("DEPRECATION")
     fun <T : Any> collect(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
@@ -131,6 +171,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlantNullable] respectively.
      */
+    @Suppress("DEPRECATION")
     fun <T> collectNullable(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlantNullable<T>.() -> Unit
@@ -202,6 +243,7 @@ interface AssertionCollector {
      *   to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the [CollectingAssertionPlant].
      */
+    @Suppress("DEPRECATION")
     fun <T : Any> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
@@ -249,6 +291,7 @@ interface AssertionCollector {
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the
      *   [CollectingAssertionPlantNullable].
      */
+    @Suppress("DEPRECATION")
     fun <T> collectNullableOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,

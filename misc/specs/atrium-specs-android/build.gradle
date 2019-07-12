@@ -1,0 +1,32 @@
+description = 'Provides specifications of Atrium (for the Android platform) which can be reused by ' +
+    'APIs and domain/core-implementations of Atrium, to verify that they fulfill the specification.'
+
+dependencies {
+    implementation prefixedProject('domain-api-android')
+    implementation prefixedProject('core-api-android')
+    implementation prefixedProject('domain-builders-android')
+
+    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
+    // automatically in their compile classpath. Thus:
+    compileOnly prefixedProject('api-fluent-en_GB-android') // for us
+    runtimeOnly prefixedProject('api-fluent-en_GB-android') // for depending modules
+
+    //TODO #26 remove as soon as we have ported all assertion functions to Expect
+    compileOnly prefixedProject('api-cc-en_GB-android') // for us
+    runtimeOnly prefixedProject('api-cc-en_GB-android') // for depending modules
+
+    implementation prefixedProject('translations-en_GB-android')
+}
+
+dependencies {
+    compile "ch.tutteli.kbox:kbox-android:$kbox_version"
+    
+    //spek2 requires stdlib-jdk8 and kotlin-reflect
+    runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    compile "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
+    runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
+}
+
+srcAndResourcesFromJvmProject(project)

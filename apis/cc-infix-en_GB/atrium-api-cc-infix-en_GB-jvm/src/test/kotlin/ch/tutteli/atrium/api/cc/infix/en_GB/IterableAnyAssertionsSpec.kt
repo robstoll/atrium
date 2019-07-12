@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -91,13 +91,15 @@ class IterableAnyAssertionsSpec : Spek({
         private fun getContainsSequencePair()
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
 
+        @Suppress("DEPRECATION")
         private fun containsInAnyOrderEntriesSequence(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
-            = AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable() contains a
+            = ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable() contains a
 
         fun getContainsNullableSequencePair()
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
 
+        @Suppress("DEPRECATION")
         private fun containsNullableEntriesSequence(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable() contains a
+            =  ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable() contains a
     }
 }

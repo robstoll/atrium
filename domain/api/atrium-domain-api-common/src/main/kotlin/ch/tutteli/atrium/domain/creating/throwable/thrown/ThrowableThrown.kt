@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.domain.creating.any.typetransformation.*
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.*
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.reporting.RawString

@@ -2,6 +2,10 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -56,7 +60,10 @@ interface AssertionBuilder {
      *
      * Notice, return type will change to [ExplanatoryGroup.GroupTypeOption] with 1.0.0.
      */
-    @Suppress("DEPRECATION" /** TODO change to ExplanatoryGroup.GroupTypeOption with 1.0.0 */)
+    @Suppress(
+        "DEPRECATION"
+        /** TODO change to ExplanatoryGroup.GroupTypeOption with 1.0.0 */
+    )
     val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
 
     /**
@@ -68,7 +75,7 @@ interface AssertionBuilder {
 
     /**
      * Builder to create an [ExplanatoryAssertion] -- use it to explain something which is typically formatted by an
-     * [ObjectFormatter].
+     * [ObjectFormatter] -- has to be a child of an [ExplanatoryGroup] (see [explanatoryGroup]).
      *
      * For instance, it is used to explain additional entries in an [Iterable] `contains entries` assertion.
      * It is typically used in an [explanatoryGroup].
@@ -96,6 +103,41 @@ interface AssertionBuilder {
      * @param representation The representation of the expected outcome
      * @param test The test which checks whether the assertion holds
      */
-    fun createDescriptive(description: Translatable, representation: Any?, test: () -> Boolean)
-        = descriptive.withTest(test).withDescriptionAndRepresentation(description, representation).build()
+    fun createDescriptive(description: Translatable, representation: Any?, test: () -> Boolean): DescriptiveAssertion =
+        descriptive
+            .withTest(test)
+            .withDescriptionAndRepresentation(description, representation)
+            .build()
+
+    /**
+     * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
+     * [SubjectProvider.maybeSubject] of the given [subjectProvider].
+     *
+     * Shortcut for:
+     * ```
+     * descriptive
+     *   .withTest(subjectProvider, test)
+     *   .withDescriptionAndRepresentation(description, representation)
+     *   .build()
+     * ```
+     *
+     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the given [test].
+     * @param description The description of the assertion, e.g. `to Be`.
+     * @param representation The representation of the expected outcome.
+     * @param test The test which checks whether the assertion holds.
+     *
+     * @throws PlantHasNoSubjectException in case [test] is called in a context where it is not safe to call it.
+     *   For instance, if [test] is called within an explanatory assertion where it is possible that
+     *   [Expect.maybeSubject] is [None].
+     */
+    fun <T> createDescriptive(
+        subjectProvider: SubjectProvider<T>,
+        description: Translatable,
+        representation: Any?,
+        test: (T) -> Boolean
+    ): DescriptiveAssertion =
+        descriptive
+            .withTest(subjectProvider, test)
+            .withDescriptionAndRepresentation(description, representation)
+            .build()
 }

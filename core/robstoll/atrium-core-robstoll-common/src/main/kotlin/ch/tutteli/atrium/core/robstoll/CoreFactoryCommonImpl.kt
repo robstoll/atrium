@@ -3,14 +3,11 @@ package ch.tutteli.atrium.core.robstoll
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactoryCommon
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
-import ch.tutteli.atrium.core.robstoll.lib.creating.CheckingAssertionPlantImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantNullableImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantImpl
-import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantNullableImpl
+import ch.tutteli.atrium.core.robstoll.lib.creating.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedLocaleOrderDecider
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
@@ -24,49 +21,52 @@ import kotlin.reflect.KClass
 
 /**
  * Robstoll's `abstract factory` for atrium-core.
- *
- * It provides factory methods to create:
- * - [AssertionPlant]
- * - [AssertionPlantNullable]
- * - [CheckingAssertionPlant]
- * - [CollectingAssertionPlant]
- * - [AssertionChecker]
- * - [MethodCallFormatter]
- * - [Translator]
- * - [CoroutineBasedLocaleOrderDecider]
- * - [ObjectFormatter]
- * - [AssertionFormatterFacade]
- * - [AssertionFormatterController]
- * - [AssertionFormatter]
- * - [AssertionPairFormatter]
- * - [Reporter]
- * - [AtriumErrorAdjuster]
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
+    final override fun <T> newReportingAssertionContainer(commonFields: AssertionContainerWithCommonFields.CommonFields<T>): ReportingAssertionContainer<T>
+        = ReportingAssertionContainerImpl(commonFields)
+
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = ReportingAssertionPlantImpl(commonFields)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
+    @Suppress("OverridingDeprecatedMember")
+    final override fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
+        = CheckingAssertionContainerImpl(maybeSubject)
+
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
         = CheckingAssertionPlantImpl(subjectProvider)
 
+
+    final override fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
+        = CollectingAssertionContainerImpl(maybeSubject)
+
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
 
+    @Suppress("OverridingDeprecatedMember")
     final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
         = CollectingAssertionPlantNullableImpl(subjectProvider)
+
 
     final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
 
-    final override fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
-        = FeatureAssertionChecker(subjectPlant)
+    final override fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+        = FeatureAssertionChecker(originalAssertionHolder)
+
+    override fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+        = DelegatingAssertionChecker(originalAssertionHolder)
 
     final override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
-        = DelegatingAssertionChecker(subjectPlant)
+        = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
 
     final override fun newMethodCallFormatter(): MethodCallFormatter
         = TextMethodCallFormatter

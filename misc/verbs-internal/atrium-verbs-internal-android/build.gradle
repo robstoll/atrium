@@ -4,6 +4,7 @@ dependencies {
     compile prefixedProject('core-api-android')
     compile prefixedProject('domain-builders-android')
     compile prefixedProject('spec')
+    compile prefixedProject('specs-android')
 
     testCompile prefixedProject('domain-robstoll-android')
     testCompile prefixedProject('core-robstoll-android')
