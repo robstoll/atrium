@@ -33,7 +33,7 @@ fun <T> assert(subject: T)
  * @see CoreFactory.newReportingAssertionContainer
  */
 fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit)
-    = expect(subject).addAssertionsCreatedBy(assertionCreator)
+    = assert(subject).addAssertionsCreatedBy(assertionCreator)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].
