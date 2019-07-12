@@ -1,4 +1,4 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION")
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -17,8 +17,10 @@ import kotlin.jvm.JvmName
  * In detail, it implements [FeatureAssertions] by delegating to [featureAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Switch from `Assert` to `Expect` and use then ExpectImpl.feature, NewFeatureAssertionsBuilder respectively; will be removed with 1.0.0")
 object FeatureAssertionsBuilder : FeatureAssertions {
 
+    @Suppress("DEPRECATION")
     inline val extractor: FeatureExtractor.DescriptionOption get() = FeatureExtractor.builder
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>)

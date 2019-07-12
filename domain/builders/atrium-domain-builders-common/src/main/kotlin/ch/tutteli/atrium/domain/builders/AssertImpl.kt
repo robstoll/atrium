@@ -39,6 +39,7 @@ object AssertImpl : AssertImplCommon {
 
     override inline val comparable get() = ComparableAssertionsBuilder
 
+    @Suppress("DEPRECATION")
     override inline val feature get() = FeatureAssertionsBuilder
 
     override inline val floatingPoint get() = FloatingPointAssertionsBuilder
@@ -179,6 +180,7 @@ interface AssertImplCommon {
      * Returns [FeatureAssertionsBuilder]
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */
+    @Suppress("DEPRECATION")
     val feature: FeatureAssertionsBuilder
 
     /**

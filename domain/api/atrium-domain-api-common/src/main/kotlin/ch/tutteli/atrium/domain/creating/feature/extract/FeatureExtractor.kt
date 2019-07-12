@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.feature.extract
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -20,6 +22,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * The [FeatureExtractor] on the other hand should be used if it is already known, that the call/access fails depending
  * on given arguments. For instance, [List.get] is a good example where it fails if the given index is out of bounds.
  */
+@Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
 interface FeatureExtractor {
 
     companion object {
@@ -32,6 +35,7 @@ interface FeatureExtractor {
     /**
      * Option step which allows to specify the description which will be used to describe the feature.
      */
+    @Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
     interface DescriptionOption {
         /**
          * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a description
@@ -55,6 +59,7 @@ interface FeatureExtractor {
     /**
      * Option step to define the [ParameterObject].
      */
+    @Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
     interface ParameterObjectOption {
         /**
          * The previously chosen feature description.
@@ -84,6 +89,7 @@ interface FeatureExtractor {
      * Final step of the sophisticated `safe feature extraction` where one can define [extractAndAssertIt]
      * for the extracted feature or use [extract] to get the assertion plant.
      */
+    @Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
     interface CreatorLike<TSubject, T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> {
         /**
          * The previously chosen feature representation.
@@ -133,6 +139,7 @@ interface FeatureExtractor {
      * Final step of the sophisticated `safe feature extraction` where one can define [extractAndAssertIt]
      * for the extracted feature or use [extract] to get a feature [AssertionPlant].
      */
+    @Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
     interface Creator<TSubject, T : Any> :
         CreatorLike<TSubject, T, AssertionPlant<T>, CollectingAssertionPlant<T>>
 
@@ -140,6 +147,7 @@ interface FeatureExtractor {
      * Final step of the sophisticated `safe feature extraction` where one can define [extractAndAssertIt]
      * for the extracted feature or use [extract] to get a feature [AssertionPlantNullable].
      */
+    @Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
     interface CreatorNullable<TSubject, T> :
         CreatorLike<TSubject, T, AssertionPlantNullable<T>, CollectingAssertionPlantNullable<T>>
 
@@ -156,6 +164,7 @@ interface FeatureExtractor {
      *   counter part to [Map.get])
      * @param featureExtraction The feature extraction as such (e.g. [Map.get], [List.get] etc.)
      */
+    @Deprecated("Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0")
     data class ParameterObject<TSubject, T>(
         val subjectPlant: BaseAssertionPlant<TSubject, *>,
         val extractionNotSuccessful: Translatable,

@@ -1,5 +1,7 @@
 @file:JvmMultifileClass
 @file:JvmName("ListAssertionsKt")
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -45,6 +47,7 @@ fun <T> _getNullable(
 
 private fun extractorForGetCall(index: Int) = AssertImpl.feature.extractor.methodCall("get", index)
 
+@Suppress("DEPRECATION")
 private fun <T> createGetParameterObject(
     plant: AssertionPlant<List<T>>,
     index: Int
