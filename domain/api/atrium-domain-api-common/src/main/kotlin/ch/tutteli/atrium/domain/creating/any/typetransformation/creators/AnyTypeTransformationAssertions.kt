@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -13,6 +15,7 @@ import kotlin.reflect.KClass
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Switch from `Assert` to `Expect` and use anyAssertions or subjectChanger instead; will be removed with 1.0.0")
 val anyTypeTransformationAssertions by lazy { loadSingleService(AnyTypeTransformationAssertions::class) }
 
 
@@ -20,6 +23,7 @@ val anyTypeTransformationAssertions by lazy { loadSingleService(AnyTypeTransform
  * Defines the minimum set of assertion functions representing a type transformation,
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated("Switch from `Assert` to `Expect` and use AnyAssertions instead; will be removed with 1.0.0")
 interface AnyTypeTransformationAssertions {
 
 

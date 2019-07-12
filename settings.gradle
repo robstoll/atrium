@@ -32,11 +32,17 @@ include {
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
             //TODO add cc-de_CH-robstoll-smoke-test with 1.0.0
-            folder('cc-en_GB-robstoll') {
-                _ 'cc-en_GB-robstoll-smoke-test'
-            }
+
             folder('cc-infix-en_GB-robstoll') {
                 _ 'cc-infix-en_GB-robstoll-smoke-test'
+            }
+            folder('fluent-en_GB') {
+                _ 'fluent-en_GB-smoke-test'
+            }
+
+            //TODO remove with 1.0.0
+            folder('cc-en_GB-robstoll') {
+                _ 'cc-en_GB-robstoll-smoke-test'
             }
         }
     }

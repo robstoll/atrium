@@ -32,5 +32,6 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.isA(assertionCreator)"))
 inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
+    @Suppress("DEPRECATION")
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }

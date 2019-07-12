@@ -1,0 +1,24 @@
+package ch.tutteli.atrium.domain.robstoll.creating.changers
+
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.FeatureExtractor
+import ch.tutteli.atrium.domain.robstoll.lib.creating.changers._extractFeature
+import ch.tutteli.atrium.reporting.translating.Translatable
+
+class FeatureExtractorImpl : FeatureExtractor {
+    override fun <T, R> extract(
+        originalAssertionContainer: Expect<T>,
+        description: Translatable,
+        representationForFailure: Any,
+        canBeExtracted: (T) -> Boolean,
+        featureExtraction: (T) -> R,
+        subAssertions: (Expect<R>.() -> Unit)?
+    ): Expect<R> = _extractFeature(
+        originalAssertionContainer,
+        description,
+        representationForFailure,
+        canBeExtracted,
+        featureExtraction,
+        subAssertions
+    )
+}

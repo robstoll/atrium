@@ -5,13 +5,17 @@ package ch.tutteli.atrium.domain.builders.creating.changers
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.*
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import kotlin.reflect.KClass
 
 
 /**
@@ -76,6 +80,17 @@ object SubjectChangerBuilder : SubjectChanger {
         val originalAssertionContainer: Expect<T>
 
         /**
+         * Uses [DescriptionAnyAssertion.IS_A] as description of the change,
+         * the given [subType] as representation and tries to perform a down-cast of [originalAssertionContainer]'s
+         * [Expect.maybeSubject] to the given type [TSub]
+         */
+        //TODO once kotlin supports to have type parameters as upper bounds of another type parameter we should restrict TSub : T
+        fun <TSub: Any> downCastTo(subType: KClass<TSub>): SubAssertionOption<T, TSub>
+            = withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
+            .withCheck { subType.isInstance(it) }
+            .withTransformation { subType.cast(it) }
+
+        /**
          * Uses the given [description] and [representation] to represent the change.
          * Unless [representation] is null in which case a representation for null is used.
          * Moreover, subsequent options in the building step allow to define rules when the change cannot be applied, in
@@ -87,8 +102,7 @@ object SubjectChangerBuilder : SubjectChanger {
         companion object {
             fun <T> create(
                 originalAssertionContainer: Expect<T>
-            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer)
-        }
+            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer) }
     }
 
     /**
@@ -154,8 +168,8 @@ object SubjectChangerBuilder : SubjectChanger {
     }
 
     /**
-     *  Option step which allows to specify whether sub assertions are immediately provided which will be which should be consulted to see whether the subject change is
-     *  feasible or not.
+     *  Option step which allows to specify sub assertions for the new subject and are applied as an
+     *  [AssertionGroup].
      */
     interface SubAssertionOption<T, R> {
         /**
@@ -175,6 +189,13 @@ object SubjectChangerBuilder : SubjectChanger {
         val transformation: (T) -> R
 
         /**
+         * In case [assertionCreator] is `null` it delegates to [withoutSubAssertions] otherwise to [withSubAssertions].
+         */
+        fun maybeWithSubAssertions(assertionCreator: (Expect<R>.() -> Unit)?): FinalStep<T, R> =
+            if (assertionCreator != null) withSubAssertions(assertionCreator)
+            else withoutSubAssertions()
+
+        /**
          * Perform the change without providing subsequent assertions for the new subject.
          *
          * We recommend using [withSubAssertions] whenever you have sub assertions as they will be reflected in
@@ -189,7 +210,7 @@ object SubjectChangerBuilder : SubjectChanger {
          * ```
          * expect(null as Int?).notToBeNull { isLessThan(1) }
          * ```
-         * Will result in an error reporting along the line of
+         * Will result in an error where the reporting will be along the line of
          * ```
          * expect: null
          * - is less than: 1

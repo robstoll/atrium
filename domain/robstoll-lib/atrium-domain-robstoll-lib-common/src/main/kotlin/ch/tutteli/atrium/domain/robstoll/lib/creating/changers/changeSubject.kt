@@ -7,7 +7,8 @@ import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -26,7 +27,7 @@ fun <T, R> _changeSubjectUnreported(
 private fun <T> createDelegatingAssertionCheckerAndVerb(originalAssertionContainer: Expect<T>): Pair<AssertionChecker, Untranslatable> {
     //TODO wrap transformation with error handling. Could be interesting to see the exception in the context of the assertion
     val assertionChecker = ExpectImpl.coreFactory.newDelegatingAssertionChecker(originalAssertionContainer)
-    return assertionChecker to Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
+    return assertionChecker to SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 }
 
 fun <T, R> _changeSubject(
@@ -35,13 +36,11 @@ fun <T, R> _changeSubject(
     representation: Any,
     canBeTransformed: (T) -> Boolean,
     transformation: (T) -> R,
-    subAssertions: (Expect<R>.() -> Unit)?
+    assertionCreator: (Expect<R>.() -> Unit)?
 ): Expect<R> {
 
     // we can transform if maybeSubject is None as we have to be in an explaining like context in such a case.
-    val shallTransform = originalAssertionContainer.maybeSubject.fold(trueProvider) {
-        canBeTransformed(it)
-    }
+    val shallTransform = originalAssertionContainer.maybeSubject.fold(trueProvider, canBeTransformed)
 
     val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalAssertionContainer)
     val assertionContainer = ExpectImpl.coreFactory.newReportingAssertionContainer(
@@ -57,21 +56,17 @@ fun <T, R> _changeSubject(
 
     if (shallTransform) {
         assertionContainer.addAssertion(descriptiveAssertion)
-        if (subAssertions != null) {
-            subAssertions(assertionContainer)
+        if (assertionCreator != null) {
+            assertionContainer.addAssertionsCreatedBy(assertionCreator)
         }
     } else {
-        val assertion = if (subAssertions != null) {
-            val explanatoryAssertions = ExpectImpl.collector
-                .forExplanation
-                .throwIfNoAssertionIsCollected
-                .collect(None, subAssertions)
+        val assertion = if (assertionCreator != null) {
             AssertImpl.builder.invisibleGroup
                 .withAssertions(
                     descriptiveAssertion,
                     AssertImpl.builder.explanatoryGroup
                         .withDefaultType
-                        .withAssertions(explanatoryAssertions)
+                        .collectAssertions(None, assertionCreator)
                         .build()
                 )
                 .build()

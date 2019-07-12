@@ -183,7 +183,6 @@ configure(apiProjects) { apiProject ->
     createTestSourcesJarTask(apiProject)
 }
 
-// has to be after the above two blocks which define `it.ext.publish_artifacts`
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
 def exampleProjects = jsExamples
 configure(subprojects - bundleSmokeTests - exampleProjects) { subproject ->
@@ -230,8 +229,8 @@ configure(bundleSmokeTests) {
     def bundle = project(":$bundleUnderTest-jvm")
     description = "Represents a JDK9 smoke test for $bundleUnderTest"
 
-    sourceCompatibility = '9'
-    targetCompatibility = '9'
+    sourceCompatibility = JavaVersion.current()
+    targetCompatibility = JavaVersion.current()
 
     ext.jacoco_additional = [bundle]
 
@@ -250,7 +249,7 @@ configure(bundleSmokeTests) {
 import java.util.function.Function
 
 def createRegisterJsServicesTask(String projectName, String packageName, Function<String, Boolean> filter) {
-    def project = prefixedProject(projectName)
+    Project project  = prefixedProject(projectName)
     configure(project) {
         def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
             def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
@@ -262,6 +261,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
 
             doLast {
                 services.write("""\
+                @file:Suppress("DEPRECATION")
                 package $packageName
     
                 import ch.tutteli.atrium.core.polyfills.registerService
@@ -269,14 +269,18 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
                 @Suppress("unused" /* here in order that the code is executed when module is loaded */)
                 private val register = run {
             """.stripIndent())
+                def sortedMap = new TreeMap<String, String>()
                 servicesDir.traverse {
                     if (it.isFile() && filter.apply(it.name)) {
-                        services.append("\n    registerService<")
-                        services.append(it.name)
-                        services.append("> { ")
-                        services.append(it.withReader { it.readLine() })
-                        services.append("() }")
+                        sortedMap.put(it.name, it.withReader { it.readLine() })
                     }
+                }
+                sortedMap.each { entry ->
+                    services.append("\n    registerService<")
+                    services.append(entry.key)
+                    services.append("> { ")
+                    services.append(entry.value)
+                    services.append("() }")
                 }
                 services.append("\n}\n")
             }

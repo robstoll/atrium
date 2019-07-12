@@ -1,5 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("AnyAssertionsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.checking.AssertionChecker
@@ -16,8 +17,7 @@ import kotlin.jvm.JvmName
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T: Any> Expect<T>.toBe(expected: T)
-    = addAssertion(ExpectImpl.any.toBe(this, expected))
+fun <T : Any> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -27,8 +27,8 @@ fun <T: Any> Expect<T>.toBe(expected: T)
  */
 @JvmName("toBeNullable")
 @JsName("toBeNullable")
-inline fun <reified T : Any> Expect<T?>.toBe(expected: T?) : Expect<T?>
-    = addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
+inline fun <reified T : Any> Expect<T?>.toBe(expected: T?): Expect<T?> =
+    addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
@@ -36,8 +36,7 @@ inline fun <reified T : Any> Expect<T?>.toBe(expected: T?) : Expect<T?>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.notToBe(expected: T)
-    = addAssertion(ExpectImpl.any.notToBe(this, expected))
+fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(this, expected))
 
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
@@ -45,8 +44,7 @@ fun <T> Expect<T>.notToBe(expected: T)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isSameAs(expected: T)
-    = addAssertion(ExpectImpl.any.isSame(this, expected))
+fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(this, expected))
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -54,8 +52,7 @@ fun <T> Expect<T>.isSameAs(expected: T)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isNotSameAs(expected: T)
-    = addAssertion(ExpectImpl.any.isNotSame(this, expected))
+fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSame(this, expected))
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
@@ -72,6 +69,95 @@ fun <T> Expect<T>.isNotSameAs(expected: T)
  */
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?) =
     addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+
+/**
+ * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
+ *
+ * It delegates to [isA] with [T] as type.
+ *
+ * @return An assertion container with the non-nullable type [T] (was `T?` before).
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Suppress(/* less magic */ "RemoveExplicitTypeArguments")
+inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> = isA<T>()
+
+/**
+ * Expects that the subject of the assertion is not null and
+ * that it holds all assertions the given [assertionCreator] creates.
+ *
+ * It delegates to [isA] with [T] as type.
+ *
+ * @return An assertion container with the non-nullable type [T] (was `T?` before)
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Suppress(/* less magic */ "RemoveExplicitTypeArguments")
+inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    isA<T>(assertionCreator)
+
+/**
+ * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
+ * and changes the subject to this type.
+ *
+ * Notice, that asserting a function type is [flawed](https://youtrack.jetbrains.com/issue/KT-27846).
+ * The actual types are ignored as function types erase to Function0,
+ * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
+ * function and has the same amount of arguments regardless if the types differ. For instance
+ * `assert({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * a `(String) -> Unit`.
+ *
+ * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
+ * For instance `isA<List<String>>` would only check if the subject is a `List` without checking if
+ * the element type is actually `String`. Or in other words
+ * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ *
+ * @return An assertion container with the new type [TSub].
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified TSub : Any> Expect<out Any?>.isA(): Expect<TSub> = ExpectImpl.any.isA(this, TSub::class)
+
+/**
+ * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
+ * that it holds all assertions the given [assertionCreator] creates.
+ *
+ * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
+ * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TSub].
+ * This has the side effect that a subsequent call has only assertion functions available which are suited for [TSub].
+ * Since [Expect] is invariant it especially means that an assertion function which was not written in a generic way
+ * will not be available. Fixing such a function is easy (in most cases),
+ * you need to transform it into a generic from. Following an example:
+ *
+ * ```
+ * interface Person
+ * class Student: Person
+ * fun Expect<Person>.foo()        = "dummy"  // limited only to Person, not recommended
+ * fun <T: Person> Expect<T>.bar() = "dummy"  // available to Person and all subtypes, the way to go
+ * fun Expect<Student>.baz()       = "dummy"  // specific only for Student, ok since closed class
+ *
+ * val p: Person = Student()
+ * expect(p)               // subject of type Person
+ *   .isA<Student> { ... } // subject now refined to Student
+ *   .baz()                // available via Student
+ *   .foo()                // not available to Student, only to Person, results in compilation error
+ *   .bar()                // available via T : Person
+ * ```
+ *
+ * Notice, that asserting a function type is [flawed](https://youtrack.jetbrains.com/issue/KT-27846).
+ * The actual types are ignored as function types erase to Function0,
+ * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
+ * function and has the same amount of arguments regardless if the types differ. For instance
+ * `assert({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * a `(String) -> Unit`.
+ *
+ * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
+ * For instance `isA<List<String>>` would only check if the subject is a `List` without checking if
+ * the element type is actually `String`. Or in other words
+ * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ *
+ * @return An assertion container with the new type [TSub].
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
+    ExpectImpl.any.isA(this, TSub::class, assertionCreator)
 
 /**
  * Can be used to separate single assertions.
@@ -95,5 +181,4 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit)
-    = addAssertionsCreatedBy(assertionCreator)
+infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)

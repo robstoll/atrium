@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.contains

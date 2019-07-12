@@ -53,12 +53,12 @@ interface CoreFactoryCommon {
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
      * uses [maybeSubject] as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
-     * [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     * [AssertionContainerWithCommonFields.CommonFields.representation].
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
      * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
-     *   also as [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     *   also as [AssertionContainerWithCommonFields.CommonFields.representation].
      * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion container.
@@ -89,6 +89,13 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Suppress("DEPRECATION")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith(
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     fun <T : Any> newReportingPlant(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
@@ -102,12 +109,12 @@ interface CoreFactoryCommon {
      *
      * It uses the given [assertionChecker] for assertion checking, uses [maybeSubject] as
      * [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
-     * [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     * [AssertionContainerWithCommonFields.CommonFields.representation].
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
      * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
-     *   also as [AssertionContainerWithCommonFields.CommonFields.representationProvider].
+     *   also as [AssertionContainerWithCommonFields.CommonFields.representation].
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      *   (see [AssertionContainerWithCommonFields.CommonFields.assertionChecker]).
      *
@@ -122,7 +129,7 @@ interface CoreFactoryCommon {
             AssertionContainerWithCommonFields.CommonFields(
                 assertionVerb,
                 maybeSubject,
-                { maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) } },
+                LazyRepresentation { maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) } },
                 assertionChecker,
                 RawString.NULL
             )
@@ -364,14 +371,14 @@ interface CoreFactoryCommon {
     /**
      * Creates an [AssertionChecker] which creates an [AssertionGroup] of [type][AssertionGroup.type]
      * [FeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
-     * [subjectPlant] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
+     * [originalAssertionHolder] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
      *
-     * @param subjectPlant The assertion plant to which the created [AssertionGroup] of [type][AssertionGroup.type]
+     * @param originalAssertionHolder The assertion plant to which the created [AssertionGroup] of [type][AssertionGroup.type]
      *   [FeatureAssertionGroupType] will be [added][AssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */
-    fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
+    fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
 
     /**
      * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given

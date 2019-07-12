@@ -7,6 +7,8 @@ sealed class Option<out T> {
 
     fun isDefined() = this is Some
 
+    inline fun filter(predicate: (T) -> Boolean): Option<T> = flatMap { if (predicate(it)) Some(it) else None }
+
     inline fun <R> map(f: (T) -> R): Option<R> = flatMap { Some(f(it)) }
 
     inline fun <R> flatMap(f: (T) -> Option<R>): Option<R> = fold({ None }, f)

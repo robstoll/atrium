@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.robstoll.lib.creating.changers._changeSubject
 import ch.tutteli.atrium.domain.robstoll.lib.creating.changers._changeSubjectUnreported
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -63,6 +63,6 @@ class SubjectChangerImpl : SubjectChanger {
 
     private fun createDelegatingAssertionCheckerAndVerb(originalPlant: AssertionHolder): Pair<AssertionChecker, Untranslatable> {
         val assertionChecker = coreFactory.newDelegatingAssertionChecker(originalPlant)
-        return assertionChecker to Untranslatable(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
+        return assertionChecker to SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
     }
 }

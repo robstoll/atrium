@@ -10,7 +10,6 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
-import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
 
 /**
  * Creates a [ReportingAssertionContainer] for the given [subject].
@@ -33,7 +32,7 @@ fun <T> assertThat(subject: T)
  * @see CoreFactory.newReportingAssertionContainer
  */
 fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit)
-    = expect(subject).addAssertionsCreatedBy(assertionCreator)
+    = assertThat(subject).addAssertionsCreatedBy(assertionCreator)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].
@@ -41,5 +40,5 @@ fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit)
  * @return The newly created [ThrowableThrown.Builder].
  */
 //TODO uses an AssertionPlant internally which is wrong
-fun assertThat(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+//fun assertThat(act: () -> Unit)
+//    = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)

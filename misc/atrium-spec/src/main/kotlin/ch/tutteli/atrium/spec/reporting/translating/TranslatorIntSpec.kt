@@ -214,7 +214,8 @@ abstract class TranslatorIntSpec(
         countries.forEach { country ->
             val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
-            @Suppress("DEPRECATION") val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
+            @Suppress("DEPRECATION")
+            val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {

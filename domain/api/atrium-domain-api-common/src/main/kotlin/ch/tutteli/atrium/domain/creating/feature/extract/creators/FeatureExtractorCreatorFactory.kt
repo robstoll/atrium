@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.feature.extract.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -15,6 +17,7 @@ val featureExtractorCreatorFactory by lazy { loadSingleService(FeatureExtractorC
 /**
  * Responsible to create a [FeatureExtractor.Creator].
  */
+@Deprecated("Switch from `Assert` to `Expect` and use ch.tutteli.atrium.domain.creating.changers.FeatureExtractor instead; will be removed with 1.0.0")
 interface FeatureExtractorCreatorFactory {
 
     /**

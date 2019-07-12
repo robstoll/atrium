@@ -1,17 +1,19 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.any.typetransformation
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated `type transformation` assertion builders.
  *
- * The assertion is created by a [AnyTypeTransformation.Creator] which itself uses a [FailureHandler] to
- * report a failing transformation.
+ * The assertion is created by a [AnyTypeTransformation.Creator] which itself uses a
+ * [AnyTypeTransformation.FailureHandler] to report a failing transformation.
  */
+@Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")
 interface AnyTypeTransformation {
 
     /**
@@ -21,6 +23,7 @@ interface AnyTypeTransformation {
      * @param S The type of [AssertionPlant.subject].
      * @param T The target type to which [AssertionPlant.subject] should have been transformed to.
      */
+    @Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")
     interface Creator<S : Any, T : Any> {
         /**
          * Creates the type transformation [Assertion] and ads it to the given [ParameterObject.subjectPlant] and
@@ -51,6 +54,7 @@ interface AnyTypeTransformation {
      * @param S The type of [AssertionPlant.subject].
      * @param T The target type to which [AssertionPlant.subject] should have been transformed to.
      */
+    @Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")
     interface FailureHandler<in S : Any, out T : Any> {
 
         /**
@@ -85,6 +89,7 @@ interface AnyTypeTransformation {
      * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][AssertionPlant.subject]
      *   could not be transformed to the desired type.
      */
+    @Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")
     data class ParameterObject<out S : Any, in T : Any>(
         val description: Translatable,
         val representation: Any,

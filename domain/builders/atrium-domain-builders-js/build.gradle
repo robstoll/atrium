@@ -3,5 +3,8 @@ description = 'Contains base classes for sophisticated assertion builders which 
 dependencies {
     compile prefixedProject('domain-api-js')
 
+    // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-js')
+
     testCompile prefixedProject('verbs-internal-js')
 }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.property
@@ -58,7 +60,7 @@ private fun <K, V : Any, M> containsNullable(
 
 private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
     pairs: List<Pair<K, M>>,
-    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.CreatorLike<Map<out K, V>, V, A, C>,
+    @Suppress("DEPRECATION") parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.CreatorLike<Map<out K, V>, V, A, C>,
     assertionCreator: C.(M) -> Unit
 ): Assertion =  LazyThreadUnsafeAssertionGroup {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
@@ -114,6 +116,7 @@ fun <K, V> _getExistingNullable(
 
 private fun <K> extractorForGetCall(key: K) = AssertImpl.feature.extractor.methodCall("get", key)
 
+@Suppress("DEPRECATION")
 private fun <K, V> createGetParameterObject(
     plant: AssertionPlant<Map<out K, V>>,
     key: K
@@ -155,4 +158,3 @@ fun <K> _keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionP
 fun <V> _values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
     = AssertImpl.collector.collect(plant) { property(Map<*, V>::values, assertionCreator) }
-

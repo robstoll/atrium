@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [CommonFields.maybeSubject].
  */
-interface AssertionContainerWithCommonFields<T>{
+interface AssertionContainerWithCommonFields<T> {
     /**
      * [CommonFields] of this assertion container.
      */
@@ -28,10 +28,10 @@ interface AssertionContainerWithCommonFields<T>{
      * @property maybeSubject Either [Some] wrapping the subject of the assertion or
      *   [None] in case a previous subject change could not be performed. The assertion container will
      *   store (check/report) [Assertion]s for the subject of the assertion.
-     * @property representationProvider Provides the representation which will be used to
+     * @property representation Provides the representation which will be used to
      *   represent the subject in reporting.
      * @property assertionChecker The checker which will be used to check [Assertion]s.
-     * @property nullRepresentation The representation used in reporting in case [representationProvider]
+     * @property nullRepresentation The representation used in reporting in case [representation]
      *   cannot provide a representation, provides `null` respectively.
      *
      * @constructor
@@ -39,22 +39,19 @@ interface AssertionContainerWithCommonFields<T>{
      * @param maybeSubject Either [Some] wrapping the subject of the assertion or
      *   [None] in case a previous subject change could not be performed. The assertion container will
      *   store (check/report) [Assertion]s for the subject of the assertion.
-     * @param representationProvider Provides the representation which will be used to
+     * @param representation Provides the representation which will be used to
      *   represent the subject in reporting.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     * @param nullRepresentation The representation used in reporting in case [representationProvider]
+     * @param nullRepresentation The representation used in reporting in case [representation]
      *   cannot provide a representation, provides `null` respectively.
      */
     class CommonFields<out T>(
         val assertionVerb: Translatable,
         val maybeSubject: Option<T>,
-        private val representationProvider: () -> Any?,
+        private val representation: Any?,
         private val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {
-        private val representation: () -> Any by lazy {
-            { representationProvider() ?: nullRepresentation }
-        }
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [AssertionChecker.check]).
@@ -64,7 +61,7 @@ interface AssertionContainerWithCommonFields<T>{
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
         fun check(assertions: List<Assertion>) {
-            assertionChecker.check(assertionVerb, representation, assertions)
+            assertionChecker.check(assertionVerb, { representation ?: nullRepresentation }, assertions)
         }
     }
 }

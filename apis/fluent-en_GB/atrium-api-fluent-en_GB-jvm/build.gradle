@@ -17,7 +17,10 @@ dependencies {
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal-jvm')
+    //TODO #26 remove as soon as we have ported all assertion functions to Expect
+    testCompile prefixedProject('api-cc-en_GB-jvm')
 }
+
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
 compileTestKotlin.dependsOn(

@@ -59,8 +59,8 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
 
-    final override fun <T> newFeatureAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
-        = FeatureAssertionChecker(subjectPlant)
+    final override fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+        = FeatureAssertionChecker(originalAssertionHolder)
 
     override fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
         = DelegatingAssertionChecker(originalAssertionHolder)
