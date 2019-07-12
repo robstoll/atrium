@@ -13,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion.IS_
 import kotlin.reflect.KClass
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Will be removed with 1.0.0")
+@Deprecated("Use _changeSubject instead; will be removed with 1.0.0")
 fun <T : Any> _isNotNull(
     plant: AssertionPlantNullable<T?>,
     type: KClass<T>,
@@ -22,6 +22,8 @@ fun <T : Any> _isNotNull(
     plant.addAssertion(AssertImpl.any.isNotNull(plant, type, assertionCreator))
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Use _changeSubject instead; will be removed with 1.0.0")
 fun <TSub : Any> _isA(
     plant: AssertionPlant<Any>,
     subType: KClass<TSub>,
@@ -30,6 +32,8 @@ fun <TSub : Any> _isA(
     _downCast(IS_A, subType, plant, assertionCreator, ExplanatoryFailureHandler())
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Use _changeSubject instead; will be removed with 1.0.0")
 fun <T : Any, TSub : T> _downCast(
     description: Translatable,
     subType: KClass<TSub>,
@@ -41,6 +45,8 @@ fun <T : Any, TSub : T> _downCast(
         .downCast(description, subType, subjectPlant, assertionCreator, failureHandler)
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Use _changeSubject instead; will be removed with 1.0.0")
 fun <S : Any, T : Any> _typeTransformation(
     parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
     canBeTransformed: (S) -> Boolean,

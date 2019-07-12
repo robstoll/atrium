@@ -2,16 +2,14 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.domain.creating.AnyAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.anyTypeTransformationAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.failureHandlerFactory
-import ch.tutteli.atrium.domain.creating.anyAssertions
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.domain.creating.AnyAssertions
+import ch.tutteli.atrium.domain.creating.any.typetransformation.*
+import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.*
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.*
+import ch.tutteli.atrium.domain.creating.anyAssertions
+import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 /**
@@ -75,6 +73,8 @@ object AnyAssertionsBuilder : AnyAssertions {
      * Returns [AnyTypeTransformationAssertionsBuilder]
      * which inter alia delegates to the implementation of [AnyTypeTransformationAssertions].
      */
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from `Assert` to `Expect` use `ExpectImpl.changeSubject` or `ExpectImpl.feature.extract` instead; will be removed with 1.0.0")
     inline val typeTransformation get() = AnyTypeTransformationAssertionsBuilder
 }
 
@@ -83,10 +83,11 @@ object AnyAssertionsBuilder : AnyAssertions {
  * In detail, it implements [AnyTypeTransformationAssertions] by delegating to [anyTypeTransformationAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-//TODO #89 get rid of this class, use SubjectChanger to do the same, maybe provide still a helper for downCast
+@Suppress("DEPRECATION")
+@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 1.0.0")
 object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION", "DeprecatedCallableAddReplaceWith")
     override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
         = anyTypeTransformationAssertions.isNotNull(plant, type, assertionCreator)
 
@@ -111,6 +112,8 @@ object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
  * In detail, it implements [FailureHandlerFactory] by delegating to [failureHandlerFactory]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Suppress("DEPRECATION")
+@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 1.0.0")
 object AnyTypeTransformationFailureHandlerFactoryBuilder : FailureHandlerFactory {
 
     override inline fun <S : Any, T : Any> newExplanatory()

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -9,6 +11,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fai
 /**
  * Robstoll's implementation of [FailureHandlerFactory].
  */
+@Deprecated("use _changeSubject or _extractFeature instead; will be removed with 1.0.0")
 class FailureHandlerFactoryImpl : FailureHandlerFactory {
 
     override fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T>

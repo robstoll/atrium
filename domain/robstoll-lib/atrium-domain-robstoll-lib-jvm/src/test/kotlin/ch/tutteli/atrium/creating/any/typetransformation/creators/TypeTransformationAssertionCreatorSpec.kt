@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.domain.creating.any.typetransformation.*
 import ch.tutteli.atrium.verbs.internal.expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -12,6 +12,7 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 
+//TODO rewrite and use Expect instead
 object TypeTransformationAssertionCreatorSpec : Spek({
 
     val either: Either<String, Int> =
@@ -39,20 +40,23 @@ object TypeTransformationAssertionCreatorSpec : Spek({
 
 
 fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.() -> Unit) {
-    val parameterObject = AnyTypeTransformation.ParameterObject(
+    @Suppress("DEPRECATION") val parameterObject = AnyTypeTransformation.ParameterObject(
         Untranslatable("is a"),
         RawString.create(Left::class.java.simpleName),
         this,
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isLeft was false")
     )
+    @Suppress("DEPRECATION")
     AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isLeft() }, { (it as Left).a },
         AssertImpl.any.typeTransformation.failureHandlers.newExplanatory()
     )
 }
 
+
 fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.() -> Unit) {
+    @Suppress("DEPRECATION")
     val parameterObject = AnyTypeTransformation.ParameterObject(
         Untranslatable("is a"),
         RawString.create(Right::class.java.simpleName),
@@ -60,6 +64,7 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isRight was false")
     )
+    @Suppress("DEPRECATION")
     AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isRight() }, { (it as Right).b },
         AssertImpl.any.typeTransformation.failureHandlers.newExplanatory()

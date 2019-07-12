@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,12 +13,15 @@ import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransform
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Suppress("DEPRECATION")
+@Deprecated("use subjectChanger instead; will be removed with 1.0.0")
 val failureHandlerFactory by lazy { loadSingleService(FailureHandlerFactory::class) }
 
 /**
  * Defines the minimum set of [AnyTypeTransformation.FailureHandler]s an implementation of the domain of Atrium
  * has to provide.
  */
+@Deprecated("use subjectChanger instead; will be removed with 1.0.0")
 interface FailureHandlerFactory {
 
     /**

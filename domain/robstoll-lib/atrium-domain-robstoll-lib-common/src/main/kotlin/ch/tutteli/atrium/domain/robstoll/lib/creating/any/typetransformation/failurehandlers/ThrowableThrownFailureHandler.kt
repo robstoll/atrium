@@ -22,6 +22,7 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
             //cannot/shouldn't be null since we checked it in showHint (or it needs to be checked on the outside)
             propertiesOfException(throwable!!, maxStackTrace = 7)
         }
+        @Suppress("DEPRECATION")
         return AssertImpl.any.typeTransformation.failureHandlers.newExplanatoryWithHint<Any, TExpected>(
             showHint = { throwable != null && !expectedType.isInstance(throwable) },
             failureHintFactory = propertiesOfOtherException

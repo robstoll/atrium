@@ -15,7 +15,7 @@ object SmokeSpec : Spek({
         assertThat(1).toBe(1)
     }
 
-    test("see if own assertion function without i18n can be used"){
+    test("see if own assertion function without i18n can be used") {
         assertThat(2).isEven()
     }
 
@@ -25,14 +25,13 @@ object SmokeSpec : Spek({
 })
 
 @Suppress("DEPRECATION")
-fun Expect<Int>.isEven()
-    = createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
+fun Expect<Int>.isEven() =
+    createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
 
-fun Expect<Int>.isMultipleOf(base: Int)
-    = addAssertion(_isMultipleOf(this, base))
+fun Expect<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 
-fun _isMultipleOf(assertionContainer: Expect<Int>, base: Int): Assertion
-    = AssertImpl.builder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
+fun _isMultipleOf(assertionContainer: Expect<Int>, base: Int): Assertion =
+    AssertImpl.builder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")

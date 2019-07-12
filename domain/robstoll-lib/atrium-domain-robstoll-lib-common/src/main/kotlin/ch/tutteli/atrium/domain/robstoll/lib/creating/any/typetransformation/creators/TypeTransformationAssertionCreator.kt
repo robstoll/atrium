@@ -1,8 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 
+@Deprecated("Use _changeSubject instead; will be removed with 1.0.0")
 class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformation.Creator<S, T> {
 
     @Suppress("DEPRECATION")
