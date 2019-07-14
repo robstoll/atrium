@@ -79,9 +79,13 @@ object ExpectImpl {
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */
     inline val feature get() = NewFeatureAssertionsBuilder
-//
-//    override inline val floatingPoint get() = FloatingPointAssertionsBuilder
-//
+
+    /**
+     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
+     * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
+     */
+    inline val floatingPoint get() = FloatingPointAssertionsBuilder
+
 //    override inline val iterable get() = IterableAssertionsBuilder
 
     /**
