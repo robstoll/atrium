@@ -5,13 +5,10 @@ import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder
-import ch.tutteli.atrium.domain.builders.creating.ListAssertionsBuilder
-import ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder
+import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
-import ch.tutteli.atrium.domain.creating.AnyAssertions
-import ch.tutteli.atrium.domain.creating.ListAssertions
+import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 
@@ -65,9 +62,17 @@ object ExpectImpl {
 
 //    override inline val charSequence get() = CharSequenceAssertionsBuilder
 //
-//    override inline val collection get() = CollectionAssertionsBuilder
-//
-//    override inline val comparable get() = ComparableAssertionsBuilder
+    /**
+     * Returns [CollectionAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CollectionAssertions].
+     */
+    inline val collection get() = CollectionAssertionsBuilder
+
+    /**
+     * Returns [ComparableAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ComparableAssertions].
+     */
+    inline val comparable get() = ComparableAssertionsBuilder
 
     /**
      * Returns [NewFeatureAssertionsBuilder]
@@ -78,7 +83,7 @@ object ExpectImpl {
 //    override inline val floatingPoint get() = FloatingPointAssertionsBuilder
 //
 //    override inline val iterable get() = IterableAssertionsBuilder
-//
+
     /**
      * Returns [ListAssertionsBuilder]
      * which inter alia delegates to the implementation of [ListAssertions].
@@ -103,42 +108,14 @@ object ExpectImpl {
 //     * which inter alia delegates to the implementation of [CharSequenceAssertions].
 //     */
 //    val charSequence: CharSequenceAssertionsBuilder
-//
-//    /**
-//     * Returns [CollectionAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [CollectionAssertions].
-//     */
-//    val collection: CollectionAssertionsBuilder
-//
-//    /**
-//     * Returns [ComparableAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [ComparableAssertions].
-//     */
-//    val comparable: ComparableAssertionsBuilder
-//
 
-//    val feature: FeatureAssertionsBuilder
-//
-//    /**
-//     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
-//     * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
-//     */
-//    val floatingPoint: FloatingPointAssertionsBuilder
 //
 //    /**
 //     * Returns [IterableAssertionsBuilder].
 //     * which inter alia delegates to the implementation of [IterableAssertions].
 //     */
 //    val iterable: IterableAssertionsBuilder
-//
 
-//
-//    /**
-//     * Returns [MapAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [MapAssertions].
-//     */
-//    val map: MapAssertionsBuilder
-//
 //    /**
 //     * Returns [PairAssertionsBuilder]
 //     * which inter alia delegates to the implementation of [PairAssertions].

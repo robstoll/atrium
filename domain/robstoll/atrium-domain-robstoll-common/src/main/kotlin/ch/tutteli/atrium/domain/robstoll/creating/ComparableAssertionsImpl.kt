@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isGreaterOrEquals
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isGreaterThan
@@ -10,17 +10,19 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isLessThan
 /**
  * Robstoll's implementation of [ComparableAssertions].
  */
-class ComparableAssertionsImpl: ComparableAssertions {
+class ComparableAssertionsImpl : ComparableAssertions {
 
-    override fun <T1 : Comparable<T2>, T2: Any?> isLessThan(plant: AssertionPlant<T1>, expected: T2)
-        = _isLessThan(plant, expected)
+    override fun <T1 : Comparable<T2>, T2 : Any?> isLessThan(subjectProvider: SubjectProvider<T1>, expected: T2) =
+        _isLessThan(subjectProvider, expected)
 
-    override fun <T1 : Comparable<T2>, T2: Any?> isLessOrEquals(plant: AssertionPlant<T1>, expected: T2)
-        = _isLessOrEquals(plant, expected)
+    override fun <T1 : Comparable<T2>, T2 : Any?> isLessOrEquals(subjectProvider: SubjectProvider<T1>, expected: T2) =
+        _isLessOrEquals(subjectProvider, expected)
 
-    override fun <T1 : Comparable<T2>, T2: Any?> isGreaterThan(plant: AssertionPlant<T1>, expected: T2)
-        = _isGreaterThan(plant, expected)
+    override fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThan(subjectProvider: SubjectProvider<T1>, expected: T2) =
+        _isGreaterThan(subjectProvider, expected)
 
-    override fun <T1 : Comparable<T2>, T2: Any?> isGreaterOrEquals(plant: AssertionPlant<T1>, expected: T2)
-        = _isGreaterOrEquals(plant, expected)
+    override fun <T1 : Comparable<T2>, T2 : Any?> isGreaterOrEquals(
+        subjectProvider: SubjectProvider<T1>,
+        expected: T2
+    ) = _isGreaterOrEquals(subjectProvider, expected)
 }

@@ -16,6 +16,7 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
+import kotlin.math.absoluteValue
 
 abstract class AnyAssertionsSpec(
     verbs: AssertionVerbFactory,
