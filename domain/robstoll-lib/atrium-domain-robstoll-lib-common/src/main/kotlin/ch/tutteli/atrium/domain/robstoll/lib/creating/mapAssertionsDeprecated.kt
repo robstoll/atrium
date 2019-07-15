@@ -1,6 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("MapAssertionsKt")
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
