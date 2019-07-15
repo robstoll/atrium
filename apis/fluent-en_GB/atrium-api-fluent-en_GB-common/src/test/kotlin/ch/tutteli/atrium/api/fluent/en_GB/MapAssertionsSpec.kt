@@ -179,5 +179,10 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         assert(nullableKeyMap).isNotEmpty()
         assert(readOnlyNullableKeyValueMap).isEmpty()
         assert(readOnlyNullableKeyValueMap).isNotEmpty()
+
+        assert(map).asEntries()
+        assert(subMap).asEntries()
+        assert(nullableKeyMap).asEntries()
+        assert(readOnlyNullableKeyValueMap).asEntries()
     }
 }

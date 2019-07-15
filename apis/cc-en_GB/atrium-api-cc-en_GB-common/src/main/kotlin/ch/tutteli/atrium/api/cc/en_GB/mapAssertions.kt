@@ -180,7 +180,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Suppress("DEPRECATION")
-fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
+fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = ExpectImpl.changeSubject.unreported(this) { it.entries }
 
 /**
@@ -192,5 +192,5 @@ fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-fun <K, V> Assert<Map<K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
+fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
     = asEntries().addAssertionsCreatedBy(assertionCreator)
