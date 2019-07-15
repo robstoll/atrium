@@ -17,7 +17,7 @@ buildscript {
         junit_platform_version = '1.2.0'
         jupiter_version = '5.3.1'
         spek_version = '1.1.5'
-        spek2_version = '2.1.0-alpha.0.10+3ef9a70'
+        spek2_version = '2.1.0-alpha.0.18+85a26f6'
 
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
