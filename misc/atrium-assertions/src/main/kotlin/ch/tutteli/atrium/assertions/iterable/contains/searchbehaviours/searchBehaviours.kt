@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
     )
 )
 fun <E, T : Iterable<E>> _containsInAnyOrder(containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>)
-    = IterableContainsBuilder(containsBuilder.plant, IterableContainsInAnyOrderSearchBehaviour())
+    = IterableContainsBuilder(containsBuilder.subjectProvider, IterableContainsInAnyOrderSearchBehaviour())
 
 @Deprecated("Use AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
@@ -19,7 +19,7 @@ fun <E, T : Iterable<E>> _containsInAnyOrder(containsBuilder: IterableContainsBu
     )
 )
 fun <E, T : Iterable<E>> _containsInAnyOrderOnly(containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>)
-    = IterableContainsBuilder(containsBuilder.plant, IterableContainsInAnyOrderOnlySearchBehaviour())
+    = IterableContainsBuilder(containsBuilder.subjectProvider, IterableContainsInAnyOrderOnlySearchBehaviour())
 
 @Deprecated("Use AssertImpl.iterable.contains.searchBehaviours.inOrder; will be removed with 1.0.0",
     ReplaceWith(
@@ -28,7 +28,7 @@ fun <E, T : Iterable<E>> _containsInAnyOrderOnly(containsBuilder: IterableContai
     )
 )
 fun <E, T : Iterable<E>> _containsInOrder(containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>)
-    = IterableContainsBuilder(containsBuilder.plant, IterableContainsInOrderSearchBehaviour())
+    = IterableContainsBuilder(containsBuilder.subjectProvider, IterableContainsInOrderSearchBehaviour())
 
 @Deprecated("Use AssertImpl.iterable.contains.searchBehaviours.inOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
@@ -37,4 +37,4 @@ fun <E, T : Iterable<E>> _containsInOrder(containsBuilder: IterableContainsBuild
     )
 )
 fun <E, T : Iterable<E>> _containsInOrderOnly(containsBuilder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>)
-    = IterableContainsBuilder(containsBuilder.plant, IterableContainsInOrderOnlySearchBehaviour())
+    = IterableContainsBuilder(containsBuilder.subjectProvider, IterableContainsInOrderOnlySearchBehaviour())

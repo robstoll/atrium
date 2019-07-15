@@ -7,29 +7,29 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders
 fun <E, T : Iterable<E>> _containsInAnyOrder(
     builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>
 ): IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>
-    = IterableContainsBuilder(builder.plant, InAnyOrderSearchBehaviourImpl())
+    = IterableContainsBuilder(builder.subjectProvider, InAnyOrderSearchBehaviourImpl())
 
 fun <E, T : Iterable<E>> _containsInAnyOrderOnly(
     builder: IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>
 ): IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>
-    = IterableContainsBuilder(builder.plant, InAnyOrderOnlySearchBehaviourImpl())
+    = IterableContainsBuilder(builder.subjectProvider, InAnyOrderOnlySearchBehaviourImpl())
 
 fun <E, T : Iterable<E>> _containsInOrder(
     builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>
 ): IterableContains.Builder<E, T, InOrderSearchBehaviour>
-    = IterableContainsBuilder(builder.plant, InOrderSearchBehaviourImpl())
+    = IterableContainsBuilder(builder.subjectProvider, InOrderSearchBehaviourImpl())
 
 fun <E, T : Iterable<E>> _containsInOrderOnly(
     builder: IterableContains.Builder<E, T, InOrderSearchBehaviour>
 ): IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
-    = IterableContainsBuilder(builder.plant, InOrderOnlySearchBehaviourImpl())
+    = IterableContainsBuilder(builder.subjectProvider, InOrderOnlySearchBehaviourImpl())
 
 fun <E, T : Iterable<E>> _containsInOrderOnlyGrouped(
     builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
 ): IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
-    = IterableContainsBuilder(builder.plant, InOrderOnlyGroupedSearchBehaviourImpl())
+    = IterableContainsBuilder(builder.subjectProvider, InOrderOnlyGroupedSearchBehaviourImpl())
 
 fun <E, T : Iterable<E>> _containsInOrderOnlyGroupedWithing(
     builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
 ): IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
-    = IterableContainsBuilder(builder.plant, InOrderOnlyGroupedWithinSearchBehaviourImpl())
+    = IterableContainsBuilder(builder.subjectProvider, InOrderOnlyGroupedWithinSearchBehaviourImpl())

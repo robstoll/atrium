@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
@@ -34,9 +35,9 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     private val searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
+    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val list = plant.maybeSubject.fold({ mutableListOf<E?>() }){ it.toMutableList() }
+            val list = subjectProvider.maybeSubject.fold({ mutableListOf<E?>() }){ it.toMutableList() }
             val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
 

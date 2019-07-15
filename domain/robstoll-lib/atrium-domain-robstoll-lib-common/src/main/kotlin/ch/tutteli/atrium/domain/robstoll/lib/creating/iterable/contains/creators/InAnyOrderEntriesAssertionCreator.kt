@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.MaybeSubject
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -42,8 +43,8 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
 ) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
 
-    override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
-        val iterable = plant.maybeSubject.getOrElse { emptyList<E?>() }
+    override fun searchAndCreateAssertion(subjectProvider: SubjectProvider<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+        val iterable = subjectProvider.maybeSubject.getOrElse { emptyList<E?>() }
         val hasElementAssertion = createHasElementAssertion(iterable)
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(iterable.iterator(), searchCriterion)
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup

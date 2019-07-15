@@ -2,9 +2,11 @@
 @file:JvmName("IterableContainsInAnyOrderOnlyCreatorsKt")
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import kotlin.jvm.JvmMultifileClass
@@ -34,7 +36,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, values.toList()))
+    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, values.toList()))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] must contain only one
@@ -73,4 +75,14 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrder
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.toList()))
+
+/**
+ * Helper method to simplify adding assertions to the plant which itself is stored in
+ * [CharSequenceContains.CheckerOption.containsBuilder].
+ *
+ * @return The plant to support a fluent API.
+ */
+internal fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.Builder<E, T, S>.addAssertion(
+    assertion: Assertion
+): AssertionPlant<T> = (subjectProvider as  AssertionPlant<T>).addAssertion(assertion)

@@ -60,8 +60,12 @@ object ExpectImpl {
      */
     inline val any get() = AnyAssertionsBuilder
 
-//    override inline val charSequence get() = CharSequenceAssertionsBuilder
-//
+    /**
+     * Returns [CharSequenceAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CharSequenceAssertions].
+     */
+    inline val charSequence get() = CharSequenceAssertionsBuilder
+
     /**
      * Returns [CollectionAssertionsBuilder]
      * which inter alia delegates to the implementation of [CollectionAssertions].
@@ -86,7 +90,11 @@ object ExpectImpl {
      */
     inline val floatingPoint get() = FloatingPointAssertionsBuilder
 
-//    override inline val iterable get() = IterableAssertionsBuilder
+    /**
+     * Returns [IterableAssertionsBuilder].
+     * which inter alia delegates to the implementation of [IterableAssertions].
+     */
+    inline val iterable get() = IterableAssertionsBuilder
 
     /**
      * Returns [ListAssertionsBuilder]
@@ -99,39 +107,16 @@ object ExpectImpl {
      * which inter alia delegates to the implementation of [MapAssertions].
      */
     inline val map get() = MapAssertionsBuilder
-//
-//    override inline val pair get() = PairAssertionsBuilder
-//
-//    override inline val throwable get() = ThrowableAssertionsBuilder
-}
-
-//interface ExpectImplCommon {
-
-//--- assertions ---------------------------------------------------------------------------
-
-
-//    /**
-//     * Returns [CharSequenceAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [CharSequenceAssertions].
-//     */
-//    val charSequence: CharSequenceAssertionsBuilder
-
-//
-//    /**
-//     * Returns [IterableAssertionsBuilder].
-//     * which inter alia delegates to the implementation of [IterableAssertions].
-//     */
-//    val iterable: IterableAssertionsBuilder
 
 //    /**
 //     * Returns [PairAssertionsBuilder]
 //     * which inter alia delegates to the implementation of [PairAssertions].
 //     */
-//    val pair: PairAssertionsBuilder
-//
+//    override inline val pair get() = PairAssertionsBuilder
+
 //    /**
 //     * Returns [ThrowableAssertionsBuilder]
 //     * which inter alia delegates to the implementation of [ThrowableAssertions].
 //     */
-//    val throwable: ThrowableAssertionsBuilder
-//}
+//    override inline val throwable get() = ThrowableAssertionsBuilder
+}

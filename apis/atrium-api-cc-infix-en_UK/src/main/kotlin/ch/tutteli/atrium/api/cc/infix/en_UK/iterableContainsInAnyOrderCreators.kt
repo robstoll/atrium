@@ -1,12 +1,13 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
@@ -156,3 +157,13 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder the entries"))
 fun <E : Any, T : Iterable<E?>> nullableEntries(checkerBuilder: IterableContainsCheckerBuilder<E?, T, InAnyOrderSearchBehaviour>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = checkerBuilder the entries
+
+/**
+ * Helper method to simplify adding assertions to the plant which itself is stored in
+ * [CharSequenceContains.CheckerOption.containsBuilder].
+ *
+ * @return The plant to support a fluent API.
+ */
+private fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
+    assertion: Assertion
+): AssertionPlant<T> = (containsBuilder.subjectProvider as  AssertionPlant<T>).addAssertion(assertion)

@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.isGreaterThan
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.CheckingAssertionSpec
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -36,7 +35,7 @@ abstract class ListFeatureAssertionsSpec(
 
     include(object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
         getFeature.forChecking(0, listOf(2), listOf()) { toBe(2) }.adjustName { "$it feature" },
-        get.forChecking(0, { asAssert().isGreaterThan(1) }, listOf(2, 1), listOf(1, 2))
+        get.forChecking(0, { isGreaterThan(1) }, listOf(2, 1), listOf(1, 2))
     ) {})
     include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
         getNullableFeature.forChecking(0, listOf(null), listOf()) { toBe(null) }.adjustName { "$it feature" },

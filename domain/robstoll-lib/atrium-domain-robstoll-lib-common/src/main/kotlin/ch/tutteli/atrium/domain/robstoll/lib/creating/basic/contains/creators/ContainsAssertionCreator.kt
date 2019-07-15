@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -26,9 +27,9 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
-        val assertions = searchCriteria.map { it ->
-            LazyThreadUnsafeAssertionGroup { searchAndCreateAssertion(plant, it, this::featureFactory) }
+    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
+        val assertions = searchCriteria.map {
+            LazyThreadUnsafeAssertionGroup { searchAndCreateAssertion(subjectProvider, it, this::featureFactory) }
         }
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
         return AssertImpl.builder.list
@@ -38,12 +39,12 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
     }
 
     /**
-     * Searches for something fulfilling the given [searchCriterion] in the given [plant]'s
+     * Searches for something fulfilling the given [searchCriterion] in the given [subjectProvider]'s
      * [subject][AssertionPlant.subject] and should pass on the number of occurrences to the given
      * [featureFactory] which creates feature assertions based on the [checkers], which in turn can be used to create
      * a resulting [AssertionGroup] representing the assertion for a search criteria as a whole.
      *
-     * @param plant The plant for which the assertion is created.
+     * @param subjectProvider Provides the subject of the assertion for which the assertion is created.
      * @param searchCriterion A search criterion.
      * @param featureFactory The feature factory which should be called, passing the number of occurrences (matching
      *   the given [searchCriterion]) including a translation for `number of occurrences`.
@@ -51,7 +52,7 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
      * @return The newly created [AssertionGroup].
      */
     protected abstract fun searchAndCreateAssertion(
-        plant: AssertionPlant<T>,
+        subjectProvider: SubjectProvider<T>,
         searchCriterion: SC,
         featureFactory: (numberOfOccurrences: Int, description: Translatable) -> AssertionGroup
     ): AssertionGroup

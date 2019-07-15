@@ -1,6 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
@@ -33,7 +33,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>
-): AssertionPlant<T> = plant.addAssertion(
+): AssertionPlant<T> = addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
@@ -64,7 +64,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroup
     firstGroup: Group<(Assert<E>.() -> Unit)?>,
     secondGroup: Group<(Assert<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Assert<E>.() -> Unit)?>
-): AssertionPlant<T> = plant.addAssertion(
+): AssertionPlant<T> = addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)

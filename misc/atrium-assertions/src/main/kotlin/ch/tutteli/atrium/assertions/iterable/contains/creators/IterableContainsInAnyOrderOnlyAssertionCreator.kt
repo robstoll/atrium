@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
@@ -39,9 +40,9 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
     fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: SC, otherSearchCriteria: Array<out SC>): AssertionGroup
         = createAssertionGroup(plant, listOf(searchCriterion, *otherSearchCriteria))
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
+    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val list = plant.subject.toMutableList()
+            val list = subjectProvider.subject.toMutableList()
             val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
 

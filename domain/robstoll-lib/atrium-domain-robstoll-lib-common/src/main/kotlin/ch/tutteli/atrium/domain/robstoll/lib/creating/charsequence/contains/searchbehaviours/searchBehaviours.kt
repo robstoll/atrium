@@ -9,6 +9,6 @@ fun <T : CharSequence> _containsIgnoringCase(
     containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
 ): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = CharSequenceContainsBuilder(
-        containsBuilder.plant,
+        containsBuilder.subjectProvider,
         IgnoringCaseSearchBehaviourImpl(containsBuilder.searchBehaviour)
     )

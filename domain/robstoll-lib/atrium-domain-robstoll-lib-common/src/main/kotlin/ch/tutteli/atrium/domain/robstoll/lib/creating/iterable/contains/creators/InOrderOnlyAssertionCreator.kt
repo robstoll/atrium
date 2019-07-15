@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
@@ -32,9 +33,9 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E>, SC>(
     InOrderOnlyMatcher<E, SC>
 {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
+    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val subject = plant.maybeSubject.fold({ emptyList<E>()}){ it.toList() }
+            val subject = subjectProvider.maybeSubject.fold({ emptyList<E>()}){ it.toList() }
             val assertion = AssertImpl.collector.collect({ subject }) {
                 var index = 0
                 searchCriteria.forEachIndexed { currentIndex, searchCriterion ->

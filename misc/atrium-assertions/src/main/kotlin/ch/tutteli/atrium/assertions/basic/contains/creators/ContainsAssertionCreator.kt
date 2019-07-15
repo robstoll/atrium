@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
@@ -27,12 +28,12 @@ abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<S>): AssertionGroup {
-        val assertions = searchCriteria.map { createForSearchCriterion(plant, it) }
+    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<S>): AssertionGroup {
+        val assertions = searchCriteria.map { createForSearchCriterion(subjectProvider, it) }
         return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }
-    fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>)
-        = createAssertionGroup(plant, listOf(searchCriterion, *otherSearchCriteria))
+    fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriterion: S, otherSearchCriteria: Array<out S>)
+        = createAssertionGroup(subjectProvider, listOf(searchCriterion, *otherSearchCriteria))
 
     /**
      * Creates an [AssertionGroup] representing the sophisticated `contains` assertion as a whole based on the given
@@ -44,19 +45,19 @@ abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain
      */
     protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
 
-    private fun createForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: S): AssertionGroup {
+    private fun createForSearchCriterion(subjectProvider: SubjectProvider<T>, searchCriterion: S): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            searchAndCreateAssertion(plant, searchCriterion, this::featureFactory)
+            searchAndCreateAssertion(subjectProvider, searchCriterion, this::featureFactory)
         }
     }
 
     /**
-     * Searches for something fulfilling the given [searchCriterion] in the given [plant]'s
+     * Searches for something fulfilling the given [searchCriterion] in the given [subjectProvider]'s
      * [subject][AssertionPlant.subject] and should pass on the number of occurrences to the given
      * [featureFactory] which creates feature assertions based on the [checkers], which in turn can be used to create
      * a resulting [AssertionGroup] representing the assertion for a search criteria as a whole.
      *
-     * @param plant The plant for which the assertion is created.
+     * @param subjectProvider The plant for which the assertion is created.
      * @param searchCriterion A search criterion.
      * @param featureFactory The feature factory which should be called, passing the number of occurrences (matching
      *   the given [searchCriterion]) including a translation for `number of occurrences`.
@@ -64,7 +65,7 @@ abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain
      * @return The newly created [AssertionGroup].
      */
     protected abstract fun searchAndCreateAssertion(
-        plant: AssertionPlant<T>,
+        subjectProvider: SubjectProvider<T>,
         searchCriterion: S,
         featureFactory: (numberOfOccurrences: Int, description: Translatable) -> AssertionGroup
     ): AssertionGroup

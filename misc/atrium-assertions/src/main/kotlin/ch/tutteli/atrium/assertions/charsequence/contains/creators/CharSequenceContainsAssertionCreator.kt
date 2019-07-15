@@ -4,6 +4,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.creators
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
@@ -36,6 +37,6 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, S : CharSequenceCon
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: Any): Int
-        = searcher.search(plant.subject, searchCriterion)
+    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: Any): Int
+        = searcher.search(subjectProvider.subject, searchCriterion)
 }

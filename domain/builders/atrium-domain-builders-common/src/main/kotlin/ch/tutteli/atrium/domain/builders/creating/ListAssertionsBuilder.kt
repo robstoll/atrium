@@ -28,6 +28,8 @@ object ListAssertionsBuilder : ListAssertions {
     ) = listAssertions.get(assertionContainer, index, assertionCreator)
 
 
+    // everything below is deprecated functionality and will be removed with 1.0.0
+
     override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T> =
         listAssertions.get(plant, index)
 

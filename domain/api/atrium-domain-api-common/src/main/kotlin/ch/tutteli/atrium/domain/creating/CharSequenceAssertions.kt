@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
@@ -20,14 +20,14 @@ val charSequenceAssertions by lazy { loadSingleService(CharSequenceAssertions::c
  * which an implementation of the domain of Atrium has to provide.
  */
 interface CharSequenceAssertions {
-    fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-    fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NotSearchBehaviour>
+    fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
+    fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>): CharSequenceContains.Builder<T, NotSearchBehaviour>
 
-    fun startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
-    fun startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
-    fun endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
-    fun endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
-    fun isEmpty(plant: AssertionPlant<CharSequence>): Assertion
-    fun isNotEmpty(plant: AssertionPlant<CharSequence>): Assertion
-    fun isNotBlank(plant: AssertionPlant<CharSequence>): Assertion
+    fun startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion
+    fun startsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion
+    fun endsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion
+    fun endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion
+    fun isEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion
+    fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion
+    fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion
 }

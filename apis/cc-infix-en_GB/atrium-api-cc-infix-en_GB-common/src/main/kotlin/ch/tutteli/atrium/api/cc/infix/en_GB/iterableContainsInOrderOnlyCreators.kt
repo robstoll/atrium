@@ -34,7 +34,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, values.toList()))
+    = addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, values.toList()))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
@@ -67,4 +67,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, entries.toList()))

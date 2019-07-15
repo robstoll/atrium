@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
@@ -16,7 +15,6 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
-import kotlin.math.absoluteValue
 
 abstract class AnyAssertionsSpec(
     verbs: AssertionVerbFactory,
@@ -437,11 +435,11 @@ abstract class AnyAssertionsSpec(
         context("subject is not null") {
             val subject: Int? = 1
             it("does not throw if sub assertion holds") {
-                verbs.check(subject).toBeNullIfNullElseFun { asAssert().isLessThan(2) }
+                verbs.check(subject).toBeNullIfNullElseFun { isLessThan(2) }
             }
             it("throws an AssertionError if sub assertion does not hold") {
                 expect {
-                    verbs.check(subject).toBeNullIfNullElseFun { asAssert().isGreaterThan(1) }
+                    verbs.check(subject).toBeNullIfNullElseFun { isGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
                 }
@@ -617,7 +615,7 @@ abstract class AnyAssertionsSpec(
         context("subject is a subtype") {
 
             it("does not throw an AssertionError if the subject is a subtype") {
-                verbs.check("hello").(isACharSequenceFun.lambda) { asAssert().isNotEmpty() }
+                verbs.check("hello").(isACharSequenceFun.lambda) { isNotEmpty() }
             }
 
             context("it allows to perform an assertion specific for the subtype...") {

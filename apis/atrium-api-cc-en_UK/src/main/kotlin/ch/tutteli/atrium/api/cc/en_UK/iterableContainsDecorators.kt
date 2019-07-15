@@ -18,7 +18,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inA
 
 @Deprecated("Use the extension fun `inAnyOrder` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.inAnyOrder"))
 fun <E, T : Iterable<E>> getInAnyOrder(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>): IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>
-    = IterableContainsBuilder(builder.plant, builder.inAnyOrder.searchBehaviour)
+    = IterableContainsBuilder(builder.subjectProvider, builder.inAnyOrder.searchBehaviour)
 
 
 /**
@@ -34,7 +34,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
 
 @Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>): IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>
-    = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)
+    = IterableContainsBuilder(builder.subjectProvider, builder.only.searchBehaviour)
 
 
 /**
@@ -49,7 +49,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inO
 
 @Deprecated("Use the extension fun `inOrder` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.inOrder"))
 fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>): IterableContainsBuilder<E, T, InOrderSearchBehaviour>
-    = IterableContainsBuilder(builder.plant, builder.inOrder.searchBehaviour)
+    = IterableContainsBuilder(builder.subjectProvider, builder.inOrder.searchBehaviour)
 
 
 /**
@@ -65,4 +65,4 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
 
 @Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, InOrderSearchBehaviour>): IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>
-    = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)
+    = IterableContainsBuilder(builder.subjectProvider, builder.only.searchBehaviour)

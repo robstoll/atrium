@@ -84,5 +84,5 @@ private fun <T : CharSequence, SC : Any, S : CharSequenceContains.SearchBehaviou
         checkerOption.checkers,
         groupDescription
     )
-    return creator.createAssertionGroup(checkerOption.containsBuilder.plant, expected)
+    return creator.createAssertionGroup(checkerOption.containsBuilder.subjectProvider, expected)
 }

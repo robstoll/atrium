@@ -94,3 +94,5 @@ inline fun <T, A1, A2> Fun2<T, A1, A2>.forChecking(
 
 //TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
 fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
+
+expect val lineSeperator: String

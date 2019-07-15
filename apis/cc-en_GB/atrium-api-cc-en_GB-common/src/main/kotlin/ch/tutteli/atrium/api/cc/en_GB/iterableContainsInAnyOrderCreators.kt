@@ -2,12 +2,14 @@
 @file:JvmName("IterableContainsInAnyOrderCreatorsKt")
 package ch.tutteli.atrium.api.cc.en_GB
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.addAssertion
+
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
@@ -86,3 +88,13 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
+
+/**
+ * Helper method to simplify adding assertions to the plant which itself is stored in
+ * [CharSequenceContains.CheckerOption.containsBuilder].
+ *
+ * @return The plant to support a fluent API.
+ */
+private fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
+    assertion: Assertion
+): AssertionPlant<T> = (containsBuilder.subjectProvider as  AssertionPlant<T>).addAssertion(assertion)

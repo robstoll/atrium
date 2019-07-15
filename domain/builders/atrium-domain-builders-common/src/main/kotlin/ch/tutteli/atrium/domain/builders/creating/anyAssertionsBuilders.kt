@@ -56,6 +56,8 @@ object AnyAssertionsBuilder : AnyAssertions {
     ) = anyAssertions.isA(assertionContainer, subType, assertionCreator)
 
 
+    // everything below is deprecated functionality and will be removed with 1.0.0
+
     override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?)
         = anyAssertions.isNullable(plant, type, expectedOrNull)
 

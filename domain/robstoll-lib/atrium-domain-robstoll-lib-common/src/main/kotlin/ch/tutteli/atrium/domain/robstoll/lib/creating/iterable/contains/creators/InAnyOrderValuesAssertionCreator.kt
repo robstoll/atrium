@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -44,12 +45,12 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
         }
     }
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
-        = plant.maybeSubject.fold({-1}) { subject -> subject.filter { it == searchCriterion }.size }
+    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int
+        = subjectProvider.maybeSubject.fold({-1}) { subject -> subject.filter { it == searchCriterion }.size }
 
-    override fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion> {
+    override fun decorateAssertion(subjectProvider: SubjectProvider<T>, featureAssertion: Assertion): List<Assertion> {
         return if (searchBehaviour is NotSearchBehaviour) {
-            listOf(featureAssertion, createHasElementAssertion(plant.maybeSubject.getOrElse { emptyList<SC>() }))
+            listOf(featureAssertion, createHasElementAssertion(subjectProvider.maybeSubject.getOrElse { emptyList<SC>() }))
         } else {
             listOf(featureAssertion)
         }

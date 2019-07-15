@@ -1,10 +1,10 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -272,3 +272,12 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
     = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, patterns.toList()))
+
+/**
+ * Helper method to simplify adding assertions to the plant which itself is stored in
+ * [CharSequenceContains.CheckerOption.containsBuilder].
+ *
+ * @return The plant to support a fluent API.
+ */
+private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerOption<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
+    = (containsBuilder.subjectProvider as AssertionPlant<T>).addAssertion(assertion)
