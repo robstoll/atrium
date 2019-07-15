@@ -12,32 +12,28 @@ import org.spekframework.spek2.style.specification.describe
 
 abstract class ComparableAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isLessThanPair: Fun1<Int, Int>,
-    isLessOrEqualsPair: Fun1<Int, Int>,
-    isGreaterThanPair: Fun1<Int, Int>,
-    isGreaterOrEqualsPair: Fun1<Int, Int>,
+    isLessThan: Fun1<Int, Int>,
+    isLessOrEquals: Fun1<Int, Int>,
+    isGreaterThan: Fun1<Int, Int>,
+    isGreaterOrEquals: Fun1<Int, Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Int>(describePrefix,
-        isLessThanPair.forSubjectLess(1),
-        isLessOrEqualsPair.forSubjectLess(1),
-        isGreaterThanPair.forSubjectLess(1),
-        isGreaterOrEqualsPair.forSubjectLess(1)
+        isLessThan.forSubjectLess(1),
+        isLessOrEquals.forSubjectLess(1),
+        isGreaterThan.forSubjectLess(1),
+        isGreaterOrEquals.forSubjectLess(1)
     ) {})
 
     include(object : CheckingAssertionSpec<Int>(verbs, describePrefix,
-        isLessThanPair.forChecking(1, 0, 1),
-        isLessOrEqualsPair.forChecking(1, 1, 2),
-        isGreaterThanPair.forChecking(1, 2, 1),
-        isGreaterOrEqualsPair.forChecking(1,  1, 0)
+        isLessThan.forChecking(1, 0, 1),
+        isLessOrEquals.forChecking(1, 1, 2),
+        isGreaterThan.forChecking(1, 2, 1),
+        isGreaterOrEquals.forChecking(1,  1, 0)
     ) {})
 
     val expect = verbs::checkException
-    val (isLessThan, isLessThanFun) = isLessThanPair
-    val (isLessOrEquals, isLessOrEqualsFun) = isLessOrEqualsPair
-    val (isGreaterThan, isGreaterThanFun) = isGreaterThanPair
-    val (isGreaterOrEquals, isGreaterOrEqualsFun) = isGreaterOrEqualsPair
 
     val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
     val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_OR_EQUALS.getDefault()
@@ -46,7 +42,9 @@ abstract class ComparableAssertionsSpec(
 
     val fluent = verbs.check(10)
     describe("$describePrefix context subject is 10") {
-        context("$isLessThan ...") {
+        context("${isLessThan.name} ...") {
+            val isLessThanFun = isLessThan.lambda
+
             it("... 11 does not throw") {
                 fluent.isLessThanFun(11)
             }
@@ -62,7 +60,9 @@ abstract class ComparableAssertionsSpec(
             }
         }
 
-        describe("$isLessOrEquals ...") {
+        describe("${isLessOrEquals.name} ...") {
+            val isLessOrEqualsFun = isLessOrEquals.lambda
+
             it("... 11 does not throw") {
                 fluent.isLessOrEqualsFun(11)
             }
@@ -76,7 +76,9 @@ abstract class ComparableAssertionsSpec(
             }
         }
 
-        describe("$isGreaterThan ...") {
+        describe("${isGreaterThan.name} ...") {
+            val isGreaterThanFun = isGreaterThan.lambda
+
             it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_THAN} and `: 11`") {
                 expect {
                     fluent.isGreaterThanFun(11)
@@ -92,7 +94,9 @@ abstract class ComparableAssertionsSpec(
             }
         }
 
-        describe("$isGreaterOrEquals ...") {
+        describe("${isGreaterOrEquals.name} ...") {
+            val isGreaterOrEqualsFun = isGreaterOrEquals.lambda
+
             it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_OR_EQUALS} and `: 11`") {
                 expect {
                     fluent.isGreaterOrEqualsFun(11)
