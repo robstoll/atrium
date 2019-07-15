@@ -12,15 +12,15 @@ ext.jacoco_additional = [
 ]
 
 dependencies {
-    compile prefixedProject('domain-api-deprecated')
-    compile prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-deprecated')
+    api prefixedProject('domain-builders-jvm')
 
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testCompile(prefixedProject('spec')) {
+    testImplementation(prefixedProject('spec')) {
         exclude module: "${rootProject.name}-translations-en_GB-jvm"
     }
-    testCompile prefixedProject('translations-de_CH-jvm')
+    testImplementation prefixedProject('translations-de_CH-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124

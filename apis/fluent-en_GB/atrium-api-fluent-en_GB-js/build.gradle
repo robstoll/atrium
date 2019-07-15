@@ -4,9 +4,9 @@ description = 'An assertion function API in en_GB with a focus on code completio
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 dependencies {
-    compile prefixedProject('domain-builders-js')
+    api prefixedProject('domain-builders-js')
 
-    testCompile prefixedProject('verbs-internal-js')
+    testImplementation prefixedProject('verbs-internal-js')
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testCompile prefixedProject('api-cc-en_GB-js')
+    testImplementation prefixedProject('api-cc-en_GB-js')
 }

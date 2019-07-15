@@ -4,26 +4,26 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
         'If you are a consumer of Atrium, then you should depend on atrium-domain-robstoll instead.'
 
 dependencies {
-    compile prefixedProject('domain-builders-android')
+    api prefixedProject('domain-builders-android')
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
     compileOnly prefixedProject('api-fluent-en_GB-android') // for us
     runtimeOnly prefixedProject('api-fluent-en_GB-android') // for depending modules
-    testCompile prefixedProject('api-fluent-en_GB-android') // for us in tests
+    testImplementation prefixedProject('api-fluent-en_GB-android') // for us in tests
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
-    compile kbox(), excludeKotlin
+    implementation kbox(), excludeKotlin
 
     //TODO remove with 1.0.0
     compileOnly prefixedProject('api-cc-en_GB-android') // for us
     runtimeOnly prefixedProject('api-cc-en_GB-android') // for depending modules
-    testCompile prefixedProject('api-cc-en_GB-android') // for us in tests
+    testImplementation prefixedProject('api-cc-en_GB-android') // for us in tests
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testCompile prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('verbs-internal-android')
 }
 
 srcAndResourcesFromJvmProject(project)

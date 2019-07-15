@@ -1,6 +1,6 @@
 description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium as common module.'
 
 dependencies {
-    compile prefixedProject('core-api-common')
-    compile prefixedProject('core-robstoll-lib-common')
+    api prefixedProject('core-api-common')
+    implementation prefixedProject('core-robstoll-lib-common')
 }

@@ -2,11 +2,11 @@ description = 'An API in en_GB with a focus on code completion and infix functio
         'It provides a fluent API in en_GB which is designed to ease the usage of code completion.'
 
 dependencies {
-    compile prefixedProject('domain-builders-android')
+    api prefixedProject('domain-builders-android')
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testCompile prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('verbs-internal-android')
 }
 
 srcAndResourcesFromJvmProject(project)

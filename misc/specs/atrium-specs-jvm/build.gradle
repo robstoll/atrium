@@ -2,9 +2,9 @@ description = 'Provides specifications of Atrium (for the JVM platform) which ca
     'APIs and domain/core-implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    implementation prefixedProject('domain-api-jvm')
-    implementation prefixedProject('core-api-jvm')
-    implementation prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-jvm')
+    api prefixedProject('core-api-jvm')
+    api prefixedProject('domain-builders-jvm')
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
@@ -27,6 +27,6 @@ dependencies {
     runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    compile "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
+    implementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
     runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
 }

@@ -1,7 +1,7 @@
 description = 'Contains translations for Atrium in en_GB for the JVM platform.'
 
 dependencies {
-    compile prefixedProject('core-api-jvm')
+    api prefixedProject('core-api-jvm')
 }
 
 srcAndResourcesFromJvmProject(project)

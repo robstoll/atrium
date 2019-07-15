@@ -1,6 +1,6 @@
 description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium for the JVM platform.'
 
 dependencies {
-    compile prefixedProject('core-api-jvm')
-    compile prefixedProject('core-robstoll-lib-jvm')
+    api prefixedProject('core-api-jvm')
+    implementation prefixedProject('core-robstoll-lib-jvm')
 }
