@@ -94,8 +94,11 @@ object ExpectImpl {
      */
     val list get() = ListAssertionsBuilder
 
-//
-//    override inline val map get() = MapAssertionsBuilder
+    /**
+     * Returns [MapAssertionsBuilder]
+     * which inter alia delegates to the implementation of [MapAssertions].
+     */
+    inline val map get() = MapAssertionsBuilder
 //
 //    override inline val pair get() = PairAssertionsBuilder
 //

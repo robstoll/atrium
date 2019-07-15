@@ -1,14 +1,14 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.creating.mapAssertions
+import kotlin.reflect.KClass
 
 /**
  * Delegates inter alia to the implementation of [MapAssertions].
@@ -23,23 +23,45 @@ object MapAssertionsBuilder : MapAssertions {
      */
     inline val entry get() : MapEntryAssertionsBuilder = MapEntryAssertionsBuilder
 
-    override inline fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
-        = mapAssertions.contains(plant, keyValuePairs)
+    override inline fun <K, V : Any, T : Map<out K, V?>> contains(
+        assertionContainer: Expect<T>,
+        valueType: KClass<V>,
+        keyValuePairs: List<Pair<K, V?>>
+    ) = mapAssertions.contains(assertionContainer, valueType, keyValuePairs)
+
+    override inline fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
+        assertionContainer: Expect<T>,
+        valueType: KClass<V>,
+        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
+    ) = mapAssertions.containsKeyWithValueAssertions(assertionContainer, valueType, keyValues)
+
+
+    override inline fun <K> containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K) =
+        mapAssertions.containsKey(subjectProvider, key)
+
+    override inline fun <K> containsNotKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K) =
+        mapAssertions.containsNotKey(subjectProvider, key)
+
+
+    override inline fun isEmpty(subjectProvider: SubjectProvider<Map<*, *>>) =
+        mapAssertions.isEmpty(subjectProvider)
+
+    override inline fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>) =
+        mapAssertions.isNotEmpty(subjectProvider)
+
+
+    override inline fun <K, V> contains(
+        plant: AssertionPlant<Map<out K, V>>,
+        keyValuePairs: List<Pair<K, V>>
+    ) = mapAssertions.contains(plant, keyValuePairs)
 
     override inline fun <K, V : Any> containsKeyWithValueAssertions(
         plant: AssertionPlant<Map<out K, V?>>,
         keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
     ) = mapAssertions.containsKeyWithValueAssertions(plant, keyValues)
 
-    override inline fun <K> containsKey(plant: AssertionPlant<Map<out K, *>>, key: K)
-        = mapAssertions.containsKey(plant, key)
-
-    override inline fun <K> containsNotKey(plant: AssertionPlant<Map<out K, *>>, key: K)
-        = mapAssertions.containsNotKey(plant, key)
-
-
-    override inline fun <K, V : Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K)
-        = mapAssertions.getExisting(plant, key)
+    override inline fun <K, V : Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K) =
+        mapAssertions.getExisting(plant, key)
 
     override inline fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<out K, V>>,
@@ -47,24 +69,17 @@ object MapAssertionsBuilder : MapAssertions {
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ) = mapAssertions.getExisting(plant, key, assertionCreator)
 
-    override inline fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K)
-        = mapAssertions.getExistingNullable(plant, key)
+    override inline fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K) =
+        mapAssertions.getExistingNullable(plant, key)
 
     override inline fun <K, V> getExistingNullable(
         plant: AssertionPlant<Map<out K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
-    )= mapAssertions.getExistingNullable(plant, key, assertionCreator)
+    ) = mapAssertions.getExistingNullable(plant, key, assertionCreator)
 
 
-    override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int)
-        = mapAssertions.hasSize(plant, size)
-
-    override inline fun isEmpty(plant: AssertionPlant<Map<*, *>>)
-        = mapAssertions.isEmpty(plant)
-
-    override inline fun isNotEmpty(plant: AssertionPlant<Map<*, *>>)
-        = mapAssertions.isNotEmpty(plant)
+    override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int) = mapAssertions.hasSize(plant, size)
 
     override inline fun <K> keys(
         plant: AssertionPlant<Map<out K, *>>,
