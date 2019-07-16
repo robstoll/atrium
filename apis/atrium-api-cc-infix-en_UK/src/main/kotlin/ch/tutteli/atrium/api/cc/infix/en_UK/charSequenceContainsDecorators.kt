@@ -24,7 +24,7 @@ infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour
 
 @Deprecated("Use the extension fun `ignoring` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder ignoring case"))
 fun <T : CharSequence> ignoring(builder: CharSequenceContainsBuilder<T, NoOpSearchBehaviour>, @Suppress("UNUSED_PARAMETER") case: case): CharSequenceContainsBuilder<T, IgnoringCaseSearchBehaviour>
-    = CharSequenceContainsBuilder(builder.plant, (builder ignoring case).searchBehaviour)
+    = CharSequenceContainsBuilder(builder.subjectProvider, (builder ignoring case).searchBehaviour)
 
 
 /**

@@ -29,7 +29,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>
-): AssertionPlant<T> = plant.addAssertion(
+): AssertionPlant<T> = addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
@@ -53,13 +53,14 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 @JvmName("inBeliebigerReihenfolgeEintraege")
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inBeliebigerReihenfolge(
     firstGroup: Group<(Assert<E>.() -> Unit)?>,
     secondGroup: Group<(Assert<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Assert<E>.() -> Unit)?>
-): AssertionPlant<T> = plant.addAssertion(
-    AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
+): AssertionPlant<T> = addAssertion(
+    AssertImpl.iterable.contains.entriesInOrderOnlyGroupedWithAssert(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
     )

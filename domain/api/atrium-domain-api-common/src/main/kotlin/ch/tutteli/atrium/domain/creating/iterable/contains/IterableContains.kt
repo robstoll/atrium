@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.creating.iterable.contains
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -20,8 +21,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface IterableContains {
 
     /**
-     * The entry point of the [Iterable] `contains` contract, containing the [plant] to which the sophisticated `contain` assertion
-     * should be added as well as the chosen [searchBehaviour].
+     * The entry point of the contract, containing the [subjectProvider] -- i.e. the subject of the assertion
+     * for which the sophisticated `contain` assertion should be created -- as well as the chosen [searchBehaviour].
      *
      * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
      * immutability).
@@ -56,13 +57,3 @@ interface IterableContains {
      */
     interface Checker : Contains.Checker
 }
-
-/**
- * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerOption.containsBuilder].
- *
- * @return The plant to support a fluent API.
- */
-fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
-    assertion: Assertion
-): AssertionPlant<T> = containsBuilder.plant.addAssertion(assertion)

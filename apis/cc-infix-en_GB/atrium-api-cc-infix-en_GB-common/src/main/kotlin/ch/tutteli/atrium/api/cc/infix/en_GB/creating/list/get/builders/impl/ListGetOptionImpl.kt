@@ -9,6 +9,7 @@ internal class ListGetOptionImpl<E : Any, T: List<E>>(
     override val index: Int
 ) : ListGetOption<E, T> {
 
+    @Suppress("DEPRECATION")
     override infix fun assertIt(assertionCreator: Assert<E>.() -> Unit): Assert<T>
         = plant.addAssertion(AssertImpl.list.get(plant, index, assertionCreator))
 }

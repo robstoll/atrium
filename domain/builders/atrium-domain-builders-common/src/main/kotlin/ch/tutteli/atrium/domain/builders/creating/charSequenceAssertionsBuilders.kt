@@ -2,7 +2,7 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
 import ch.tutteli.atrium.domain.creating.charSequenceAssertions
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -21,32 +21,32 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
-    override inline fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
-        = charSequenceAssertions.containsBuilder(plant)
+    override inline fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>)
+        = charSequenceAssertions.containsBuilder(subjectProvider)
 
-    override inline fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>)
-        = charSequenceAssertions.containsNotBuilder(plant)
+    override inline fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>)
+        = charSequenceAssertions.containsNotBuilder(subjectProvider)
 
-    override inline fun startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.startsWith(plant, expected)
+    override inline fun startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = charSequenceAssertions.startsWith(subjectProvider, expected)
 
-    override inline fun startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.startsNotWith(plant, expected)
+    override inline fun startsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = charSequenceAssertions.startsNotWith(subjectProvider, expected)
 
-    override inline fun endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.endsWith(plant, expected)
+    override inline fun endsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = charSequenceAssertions.endsWith(subjectProvider, expected)
 
-    override inline fun endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.endsNotWith(plant, expected)
+    override inline fun endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = charSequenceAssertions.endsNotWith(subjectProvider, expected)
 
-    override inline fun isEmpty(plant: AssertionPlant<CharSequence>)
-        = charSequenceAssertions.isEmpty(plant)
+    override inline fun isEmpty(subjectProvider: SubjectProvider<CharSequence>)
+        = charSequenceAssertions.isEmpty(subjectProvider)
 
-    override inline fun isNotEmpty(plant: AssertionPlant<CharSequence>)
-        = charSequenceAssertions.isNotEmpty(plant)
+    override inline fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>)
+        = charSequenceAssertions.isNotEmpty(subjectProvider)
 
-    override inline fun isNotBlank(plant: AssertionPlant<CharSequence>)
-        = charSequenceAssertions.isNotBlank(plant)
+    override inline fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>)
+        = charSequenceAssertions.isNotBlank(subjectProvider)
 
     /**
      * Returns [CharSequenceContainsAssertionsBuilder]

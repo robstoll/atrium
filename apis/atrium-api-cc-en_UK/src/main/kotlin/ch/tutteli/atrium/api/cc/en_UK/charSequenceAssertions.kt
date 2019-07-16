@@ -12,8 +12,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour as DeprecatedNoOpSearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define

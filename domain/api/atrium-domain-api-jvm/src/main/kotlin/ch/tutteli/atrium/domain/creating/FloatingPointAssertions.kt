@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import java.math.BigDecimal
 
 /**
@@ -9,5 +10,5 @@ import java.math.BigDecimal
  * [BigDecimal]), which an implementation of the domain of Atrium has to provide.
  */
 actual interface FloatingPointAssertions: FloatingPointAssertionsCommon {
-    fun <T : BigDecimal> toBeWithErrorTolerance(plant: AssertionPlant<T>, expected: T, tolerance: T): Assertion
+    fun <T : BigDecimal> toBeWithErrorTolerance(subjectProvider: SubjectProvider<T>, expected: T, tolerance: T): Assertion
 }

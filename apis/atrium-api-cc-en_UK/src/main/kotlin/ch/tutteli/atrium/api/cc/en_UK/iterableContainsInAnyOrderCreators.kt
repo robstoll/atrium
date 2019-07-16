@@ -1,13 +1,15 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertionForAssert
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
@@ -125,7 +127,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreator glue otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderWithAssert(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `entries` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.entries(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E>> entries(
@@ -218,7 +220,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreator glue otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderWithAssert(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `entries` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.entries(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> nullableEntries(
@@ -227,3 +229,13 @@ fun <E : Any, T : Iterable<E?>> nullableEntries(
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
     = checkerBuilder.entries(assertionCreator, *otherAssertionCreators)
+
+/**
+ * Helper method to simplify adding assertions to the plant which itself is stored in
+ * [CharSequenceContains.CheckerOption.containsBuilder].
+ *
+ * @return The plant to support a fluent API.
+ */
+private fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
+    assertion: Assertion
+): AssertionPlant<T> = addAssertionForAssert(assertion)

@@ -56,15 +56,22 @@ object AnyAssertionsBuilder : AnyAssertions {
     ) = anyAssertions.isA(assertionContainer, subType, assertionCreator)
 
 
+    // everything below is deprecated functionality and will be removed with 1.0.0
+
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?)
         = anyAssertions.isNullable(plant, type, expectedOrNull)
 
+
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
         = anyAssertions.isNotNull(plant, type, assertionCreator)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <T : Any> isNotNullBut(plant: AssertionPlantNullable<T?>, type: KClass<T>, expected: T)
         = anyAssertions.isNotNullBut(plant, type, expected)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <T : Any> isNullIfNullGivenElse(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreatorOrNull: (AssertionPlant<T>.() -> Unit)?)
         = anyAssertions.isNullIfNullGivenElse(plant, type, assertionCreatorOrNull)
 

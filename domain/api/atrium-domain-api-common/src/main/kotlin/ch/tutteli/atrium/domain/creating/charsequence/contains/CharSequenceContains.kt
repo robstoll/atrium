@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.creating.charsequence.contains
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.CharSequenceContainsAssertions
@@ -20,8 +19,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface CharSequenceContains {
 
     /**
-     * The entry point of the [CharSequence] `contains` contract, containing the [plant] to which the sophisticated `contain` assertion
-     * should be added as well as the chosen [searchBehaviour].
+     * The entry point of the contract, containing the [subjectProvider] -- i.e. the subject of the assertion
+     * for which the sophisticated `contain` assertion should be created -- as well as the chosen [searchBehaviour].
      *
      * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
      * immutability).
@@ -44,7 +43,7 @@ interface CharSequenceContains {
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
      * as such.
      *
-     * @param T The type of the [AssertionPlant.subject].
+     * @param T The type of the suject of the assertion.
      * @param SC The type of the search criteria.
      */
     interface Creator<in T : CharSequence, in SC> : Contains.Creator<T, SC>
@@ -80,11 +79,3 @@ interface CharSequenceContains {
     }
 }
 
-/**
- * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerOption.containsBuilder].
- *
- * @return The plant to support a fluent API.
- */
-fun <T : CharSequence, S : SearchBehaviour> CheckerOption<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
-    = containsBuilder.plant.addAssertion(assertion)

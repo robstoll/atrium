@@ -4,10 +4,10 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
@@ -32,13 +32,13 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
     checkers: List<C>
 ) : ContainsAssertionCreator<T, SC, C>(searchBehaviour, checkers) {
 
-    final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: SC, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
-        val count = search(plant, searchCriterion)
+    final override fun searchAndCreateAssertion(subjectProvider: SubjectProvider<T>, searchCriterion: SC, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+        val count = search(subjectProvider, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
         return  AssertImpl.builder.customType(getAssertionGroupType())
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-            .withAssertions(decorateAssertion(plant, featureAssertion))
+            .withAssertions(decorateAssertion(subjectProvider, featureAssertion))
             .build()
     }
 
@@ -64,19 +64,19 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
 
 
     /**
-     * Searches for something matching the given [searchCriterion] in the given [plant]'s
-     * [subject][AssertionPlant.subject] and returns the number of occurrences.
+     * Searches for something matching the given [searchCriterion] in the subject the given [subjectProvider]
+     * provides and returns the number of occurrences.
      *
-     * @param plant The plant or rather its [subject][AssertionPlant.subject] in which we shall look for something
+     * @param subjectProvider The provider of the subject of the assertion in which we shall look for something
      *   matching the given [searchCriterion].
      * @param searchCriterion The search criterion used to determine whether something matches or not.
      *
-     * @return The number of times the [searchCriterion] matched in the [plant]'s [subject][AssertionPlant.subject].
+     * @return The number of times the [searchCriterion] matched in the subject of the assertion.
      */
-    protected abstract fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
+    protected abstract fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int
 
     /**
      * Either return the given [featureAssertion] as [List] or add further assertions.
      */
-    abstract fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion>
+    abstract fun decorateAssertion(subjectProvider: SubjectProvider<T>, featureAssertion: Assertion): List<Assertion>
 }

@@ -13,6 +13,8 @@ import ch.tutteli.atrium.assertions.Assertion
  */
 interface CheckingAssertionContainer<T> : Expect<T> {
 
+    override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CheckingAssertionContainer<T>
+
     /**
      * Checks whether the newly [added][addAssertion] [Assertion]s hold.
      *

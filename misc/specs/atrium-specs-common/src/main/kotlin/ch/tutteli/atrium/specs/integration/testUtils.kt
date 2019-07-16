@@ -2,6 +2,7 @@
 
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.checkingTriple
 import ch.tutteli.atrium.specs.expectLambda
@@ -89,3 +90,12 @@ inline fun <T, A1, A2> Fun2<T, A1, A2>.forChecking(
     failingSubject: T
 ): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
     checkingTriple(this.name, { this@forChecking(this, a1, a2) }, holdingSubject, failingSubject)
+
+
+//TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
+fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
+
+expect val lineSeperator: String
+
+
+fun <T> notImplemented(): T = throw NotImplementedError()

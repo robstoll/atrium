@@ -1,0 +1,339 @@
+package ch.tutteli.atrium.specs.integration
+
+import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.contains
+import ch.tutteli.atrium.api.fluent.en_GB.exactly
+import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
+import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
+import ch.tutteli.atrium.api.fluent.en_GB.regex
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.value
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.ErrorMessages
+import org.spekframework.spek2.style.specification.Suite
+
+abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
+    verbs: AssertionVerbFactory,
+    containsInOrderOnlyEntriesPair: Pair<String, Expect<Iterable<Double>>.(Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>) -> Expect<Iterable<Double>>>,
+    containsInOrderOnlyNullableEntriesPair: Pair<String, Expect<Iterable<Double?>>.((Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>) -> Expect<Iterable<Double?>>>,
+    rootBulletPoint: String,
+    successfulBulletPoint: String,
+    failingBulletPoint: String,
+    warningBulletPoint: String,
+    listBulletPoint: String,
+    explanatoryBulletPoint: String,
+    featureArrow: String,
+    featureBulletPoint: String,
+    describePrefix: String = "[Atrium] "
+) : IterableContainsEntriesSpecBase(verbs, {
+
+    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+        containsInOrderOnlyEntriesPair.first to expectLambda { containsInOrderOnlyEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }
+    ) {})
+    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
+        "${containsInOrderOnlyNullableEntriesPair.first} for nullable" to expectLambda { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
+    ) {})
+
+    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
+        checkingTriple(containsInOrderOnlyEntriesPair.first, { containsInOrderOnlyEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5).asIterable(), listOf())
+    ) {})
+    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
+        checkingTriple("${containsInOrderOnlyNullableEntriesPair.first} for nullable", { containsInOrderOnlyNullableEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5 as Double?).asIterable(), listOf())
+    ) {})
+
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
+
+    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
+    val expect = verbs::checkException
+
+    val (containsInOrderOnlyNullableEntries, containsInOrderOnlyNullableEntriesArr) = containsInOrderOnlyNullableEntriesPair
+    fun Expect<Iterable<Double?>>.containsInOrderOnlyNullableEntriesFun(t: (Expect<Double>.() -> Unit)?, vararg tX: (Expect<Double>.() -> Unit)?)
+        = containsInOrderOnlyNullableEntriesArr(t, tX)
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
+    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
+    val indentFeatureArrow = " ".repeat(featureArrow.length)
+    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
+
+    val explanatoryPointWithIndent = "$indentFeatureArrow$indentFeatureBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+
+    val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
+    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
+    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
+
+    fun entry(index: Int)
+        = String.format(entryWithIndex, index)
+
+    fun Expect<String>.entrySuccess(index: Int, actual: Any, expected: String): Expect<String> {
+        return this.contains.exactly(1).regex(
+            "\\Q$successfulBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
+                "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected")
+    }
+
+    fun Expect<String>.entryFailing(index: Int, actual: Any, expected: String): Expect<String> {
+        return this.contains.exactly(1).regex(
+            "\\Q$failingBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
+                "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected")
+    }
+
+    nonNullableCases(describePrefix,
+        containsInOrderOnlyEntriesPair,
+        containsInOrderOnlyNullableEntriesPair
+    ) { containsEntriesFunArr ->
+
+        fun Expect<Iterable<Double>>.containsEntriesFun(t: Expect<Double>.() -> Unit, vararg tX: Expect<Double>.() -> Unit)
+            = containsEntriesFunArr(t, tX)
+
+        context("empty collection") {
+            val fluentEmpty = assert(setOf())
+            it("$isLessThanFun(1.0) throws AssertionError") {
+                expect {
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
+                }.toThrow<AssertionError> {
+                    message {
+                        contains("$rootBulletPoint$containsInOrderOnly:")
+                        asExpect().entryFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
+                        containsNot(additionalEntries)
+                        asExpect().containsSize(0, 1)
+                    }
+                }
+            }
+            it("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
+                expect {
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                }.toThrow<AssertionError> {
+                    message {
+                        contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                        asExpect().entryFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
+                        asExpect().entryFailing(1, sizeExceeded, "$isGreaterThanDescr: 4.0")
+                        containsNot(additionalEntries)
+                        asExpect().containsSize(0, 2)
+                    }
+                }
+            }
+            it("$returnValueOfFun(...) states warning that subject is not set") {
+                expect {
+                    fluentEmpty.containsEntriesFun({
+                        @Suppress("DEPRECATION")
+                        asAssert().returnValueOf(subject::dec).toBe(1.0)
+                    })
+                }.toThrow<AssertionError> {
+                    messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault())
+                }
+            }
+        }
+
+        val fluent = assert(oneToFour)
+        context("iterable $oneToFour") {
+
+            context("happy case") {
+                it("1.0, 2.0, 3.0, 4.0, 4.0") {
+                    fluent.containsEntriesFun(
+                        { toBe(1.0) },
+                        { toBe(2.0) },
+                        { toBe(3.0) },
+                        { toBe(4.0) },
+                        { toBe(4.0) })
+                }
+                it("$isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0)") {
+                    fluent.containsEntriesFun(
+                        { isLessThan(5.0) },
+                        { isLessThan(5.0) },
+                        { isLessThan(5.0) },
+                        { isLessThan(5.0) },
+                        { isLessThan(5.0) })
+                }
+            }
+
+            context("error cases ... throws AssertionError") {
+
+                it("$isLessThanFun(5.0), 1.0, 2.0, $isGreaterThanFun(2.0), 4.0 -- wrong order") {
+                    expect {
+                        fluent.containsEntriesFun(
+                            { isLessThan(5.0) },
+                            { toBe(1.0) },
+                            { toBe(2.0) },
+                            { isGreaterThan(2.0) },
+                            { toBe(4.0) })
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            asExpect().entrySuccess(0, 1.0, "$isLessThanDescr: 5.0")
+                            asExpect().entryFailing(1, 2.0, "$toBeDescr: 1.0")
+                            asExpect().entryFailing(2, 3.0, "$toBeDescr: 2.0")
+                            asExpect().entrySuccess(3, 4.0, "$isGreaterThanDescr: 2.0")
+                            asExpect().entrySuccess(4, 4.0, "$toBeDescr: 4.0")
+                            asExpect().containsSize(5, 5)
+                        }
+                    }
+                }
+
+                it("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
+                    expect {
+                        fluent.containsEntriesFun({ toBe(1.0) }, { toBe(2.0) }, { toBe(3.0) }, { toBe(4.0) })
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            asExpect().entrySuccess(0, 1.0, "$toBeDescr: 1.0")
+                            asExpect().entrySuccess(1, 2.0, "$toBeDescr: 2.0")
+                            asExpect().entrySuccess(2, 3.0, "$toBeDescr: 3.0")
+                            asExpect().entrySuccess(3, 4.0, "$toBeDescr: 4.0")
+                            contains(
+                                "$warningBulletPoint$additionalEntries:",
+                                "$listBulletPoint${entry(4)}: 4.0"
+                            )
+                            asExpect().containsSize(5, 4)
+                        }
+                    }
+                }
+
+                it("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
+                    expect {
+                        fluent.containsEntriesFun({ toBe(1.0) }, { toBe(4.0) })
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            asExpect().entrySuccess(0, 1.0, "$toBeDescr: 1.0")
+                            asExpect().entryFailing(1, 2.0, "$toBeDescr: 4.0")
+                            contains(
+                                "$warningBulletPoint$additionalEntries:",
+                                "$listBulletPoint${entry(2)}: 3.0",
+                                "$listBulletPoint${entry(3)}: 4.0",
+                                "$listBulletPoint${entry(4)}: 4.0"
+                            )
+                            asExpect().containsSize(5, 2)
+                        }
+                    }
+                }
+                it("1.0, 3.0, $isGreaterThanFun(4.0) -- $isGreaterThanFun(4.0) is wrong and 4.0 and 4.0 are missing") {
+                    expect {
+                        fluent.containsEntriesFun({ toBe(1.0) }, { toBe(3.0) }, { isGreaterThan(4.0) })
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            asExpect().entrySuccess(0, 1.0, "$toBeDescr: 1.0")
+                            asExpect().entryFailing(1, 2.0, "$toBeDescr: 3.0")
+                            asExpect().entryFailing(2, 3.0, "$isGreaterThanDescr: 4.0")
+                            contains(
+                                "$warningBulletPoint$additionalEntries:",
+                                "$listBulletPoint${entry(3)}: 4.0",
+                                "$listBulletPoint${entry(4)}: 4.0"
+                            )
+                            asExpect().containsSize(5, 3)
+                        }
+                    }
+                }
+                it("1.0, 2.0, 3.0, 4.0, 4.0, 5.0 -- 5.0 too much") {
+                    expect {
+                        fluent.containsEntriesFun(
+                            { toBe(1.0) },
+                            { toBe(2.0) },
+                            { toBe(3.0) },
+                            { toBe(4.0) },
+                            { toBe(4.0) },
+                            { toBe(5.0) })
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            asExpect().entrySuccess(0, 1.0, "$toBeDescr: 1.0")
+                            asExpect().entrySuccess(1, 2.0, "$toBeDescr: 2.0")
+                            asExpect().entrySuccess(2, 3.0, "$toBeDescr: 3.0")
+                            asExpect().entrySuccess(3, 4.0, "$toBeDescr: 4.0")
+                            asExpect().entrySuccess(4, 4.0, "$toBeDescr: 4.0")
+                            asExpect().entryFailing(5, sizeExceeded, "$toBeDescr: 5.0")
+                            asExpect().containsSize(5, 6)
+                        }
+                    }
+                }
+            }
+        }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("throws an ${IllegalStateException::class.simpleName}") {
+                expect {
+                    fluent.containsEntriesFun({})
+                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
+            }
+        }
+    }
+
+    nullableCases(describePrefix) {
+
+        describeFun("$containsInOrderOnlyNullableEntries for nullable") {
+
+            val list = listOf(null, 1.0, null, 3.0).asIterable()
+            val fluent = verbs.check(list)
+            context("iterable $list") {
+
+                context("happy case") {
+                    it("null, 1.0, null, 3.0") {
+                        fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) })
+                    }
+                    it("null, $isLessThanFun(5.0), null, $isLessThanFun(5.0)") {
+                        fluent.containsInOrderOnlyNullableEntriesFun(
+                            null,
+                            { isLessThan(5.0) },
+                            null,
+                            { isLessThan(5.0) }
+                        )
+                    }
+                }
+
+                context("error cases (throws AssertionError)") {
+
+                    it("null, null, $isLessThanFun(5.0), $isGreaterThanFun(2.0) -- wrong order") {
+                        expect {
+                            fluent.containsInOrderOnlyNullableEntriesFun(
+                                null,
+                                null,
+                                { isLessThan(5.0) },
+                                { isGreaterThan(2.0) }
+                            )
+                        }.toThrow<AssertionError> {
+                            message {
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                                asExpect().entrySuccess(0, "null", "$isDescr: null")
+                                asExpect().entryFailing(1, 1.0, "$isDescr: null")
+                                asExpect().entryFailing(2, "null", "$isLessThanDescr: 5.0")
+                                asExpect().entrySuccess(3, 3.0, "$isGreaterThanDescr: 2.0")
+                                asExpect().containsSize(4, 4)
+                            }
+                        }
+                    }
+
+                    it("null, 1.0, null, 3.0, null -- null too much") {
+                        expect {
+                            fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) }, null)
+                        }.toThrow<AssertionError> {
+                            message {
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                                asExpect().entrySuccess(0, "null", "$isDescr: null")
+                                asExpect().entrySuccess(1, 1.0, "$toBeDescr: 1.0")
+                                asExpect().entrySuccess(2, "null", "$isDescr: null")
+                                asExpect().entrySuccess(3, 3.0, "$toBeDescr: 3.0")
+                                asExpect().entryFailing(4, sizeExceeded, "$isDescr: null")
+                                asExpect().containsSize(4, 5)
+                            }
+                        }
+                    }
+                }
+            }
+
+            context("search for entry where the lambda does not specify any assertion") {
+                it("throws an ${IllegalStateException::class.simpleName}") {
+                    expect {
+                        fluent.containsInOrderOnlyNullableEntriesFun({})
+                    }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
+                }
+            }
+        }
+    }
+})
+

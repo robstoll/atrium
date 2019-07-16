@@ -77,6 +77,7 @@ infix fun <T : Any> Assert<T>.isNotSameAs(expected: T)
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
     addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
 }
@@ -96,6 +97,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
     addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 }

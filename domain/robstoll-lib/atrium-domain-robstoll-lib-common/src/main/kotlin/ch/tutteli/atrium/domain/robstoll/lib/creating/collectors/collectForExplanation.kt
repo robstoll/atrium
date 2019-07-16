@@ -8,10 +8,9 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.CollectingAssertionContainer
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.ErrorMessages
 
 fun <T> _collectAndThrowIfNothingCollected(
     throwIfNoAssertionIsCollected: Boolean,
@@ -38,7 +37,7 @@ fun <T> _collectAndThrowIfNothingCollected(
         listOf(
             AssertImpl.builder.explanatoryGroup
                 .withWarningType
-                .withExplanatoryAssertion(Untranslatable("Could not evaluate sub-assertions, subject was accessed too early, please report a bug at $BUG_REPORT_URL including stacktrace if possible."))
+                .withExplanatoryAssertion(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY)
                 .build()
         )
     }

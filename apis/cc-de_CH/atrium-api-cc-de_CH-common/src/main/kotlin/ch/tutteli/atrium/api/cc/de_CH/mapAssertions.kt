@@ -21,6 +21,7 @@ import kotlin.js.JsName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, entry glue otherEntries))
 
@@ -38,6 +39,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg otherE
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 fun <K, V : Any, T: Map<out K, V?>> Assert<T>.enthaelt(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
@@ -70,6 +72,7 @@ fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
+@Suppress("DEPRECATION")
 @JsName("getExistierend")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
@@ -83,6 +86,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
@@ -94,6 +98,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCrea
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
+@Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNullable<V>
     = AssertImpl.map.getExistingNullable(this, key)
 

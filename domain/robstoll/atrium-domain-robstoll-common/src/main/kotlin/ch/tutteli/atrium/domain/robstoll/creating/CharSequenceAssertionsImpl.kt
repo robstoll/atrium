@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._containsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating._containsNotBuilder
@@ -17,31 +17,31 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._startsWith
  */
 class CharSequenceAssertionsImpl: CharSequenceAssertions {
 
-    override fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
-        = _containsBuilder(plant)
+    override fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>)
+        = _containsBuilder(subjectProvider)
 
-    override fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>)
-        = _containsNotBuilder(plant)
+    override fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>)
+        = _containsNotBuilder(subjectProvider)
 
 
-    override fun startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = _startsWith(plant, expected)
+    override fun startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = _startsWith(subjectProvider, expected)
 
-    override fun startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = _startsNotWith(plant, expected)
+    override fun startsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = _startsNotWith(subjectProvider, expected)
 
-    override fun endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = _endsWith(plant, expected)
+    override fun endsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = _endsWith(subjectProvider, expected)
 
-    override fun endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
-        = _endsNotWith(plant, expected)
+    override fun endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
+        = _endsNotWith(subjectProvider, expected)
 
-    override fun isEmpty(plant: AssertionPlant<CharSequence>)
-        = _isEmpty(plant)
+    override fun isEmpty(subjectProvider: SubjectProvider<CharSequence>)
+        = _isEmpty(subjectProvider)
 
-    override fun isNotEmpty(plant: AssertionPlant<CharSequence>)
-        = _isNotEmpty(plant)
+    override fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>)
+        = _isNotEmpty(subjectProvider)
 
-    override fun isNotBlank(plant: AssertionPlant<CharSequence>)
-        = _isNotBlank(plant)
+    override fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>)
+        = _isNotBlank(subjectProvider)
 }

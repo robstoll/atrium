@@ -1,6 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInAnyOrderOnlyCreatorsKt")
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert

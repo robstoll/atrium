@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and
@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return The newly created [Expect] for the element at position [index].
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
-fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = AssertImpl.list.get(this, index)
+fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = ExpectImpl.list.get(this, index)
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and that
@@ -21,4 +21,4 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = AssertImpl.list.get(
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 fun <E : Any, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    addAssertion(AssertImpl.list.get(this, index, assertionCreator))
+    addAssertion(ExpectImpl.list.get(this, index, assertionCreator))

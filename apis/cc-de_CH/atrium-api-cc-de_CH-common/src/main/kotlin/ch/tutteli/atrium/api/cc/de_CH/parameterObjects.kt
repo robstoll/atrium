@@ -1,6 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("ParameterObjectsKt")
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 
 package ch.tutteli.atrium.api.cc.de_CH
 

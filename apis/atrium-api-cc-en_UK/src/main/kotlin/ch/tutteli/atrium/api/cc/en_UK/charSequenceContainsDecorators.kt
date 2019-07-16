@@ -27,7 +27,7 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
 @Deprecated("Use the extension fun `ignoringCase` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.ignoringCase"))
 fun <T : CharSequence> getIgnoringCase(builder: DeprecatedBuilder<T, NoOpSearchBehaviour>)
     : DeprecatedBuilder<T, IgnoringCaseSearchBehaviour>
-    = DeprecatedBuilder(builder.plant, builder.ignoringCase.searchBehaviour)
+    = DeprecatedBuilder(builder.subjectProvider, builder.ignoringCase.searchBehaviour)
 
 
 /**

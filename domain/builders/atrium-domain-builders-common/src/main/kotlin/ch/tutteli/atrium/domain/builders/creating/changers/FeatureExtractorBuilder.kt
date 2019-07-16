@@ -251,7 +251,7 @@ interface FeatureExtractorBuilder {
         val subAssertions: (Expect<R>.() -> Unit)?
 
         /**
-         * Finishes the `reported subject change`-process by building a new [Expect] taking the previously chosen
+         * Finishes the `feature extraction`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
          * @return the newly created [Expect].

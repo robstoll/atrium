@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCre
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -43,8 +44,8 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
             .build()
     }
 
-    final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
-        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
+    final override fun searchAndCreateAssertion(subjectProvider: SubjectProvider<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(subjectProvider.subject.iterator(), searchCriterion)
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertions)

@@ -13,7 +13,6 @@ import ch.tutteli.atrium.creating.Expect
  */
 val listAssertions by lazy { loadSingleService(ListAssertions::class) }
 
-
 /**
  * Defines the minimum set of assertion functions and builders applicable to [List],
  * which an implementation of the domain of Atrium has to provide.
@@ -32,14 +31,18 @@ interface ListAssertions {
     ): Assertion
 
 
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T>
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <T : Any> get(
         plant: AssertionPlant<List<T>>,
         index: Int,
         assertionCreator: AssertionPlant<T>.() -> Unit
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use `get` instead; will be removed with 1.0.0")
     fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int): AssertionPlantNullable<T>
+    @Deprecated("Switch from Assert to Expect and use `get` instead; will be removed with 1.0.0")
     fun <T> getNullable(
         plant: AssertionPlant<List<T>>,
         index: Int,

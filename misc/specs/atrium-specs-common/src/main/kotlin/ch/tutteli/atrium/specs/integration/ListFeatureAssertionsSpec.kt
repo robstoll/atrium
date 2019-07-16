@@ -1,15 +1,17 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionListAssertion
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.CheckingAssertionSpec
+import ch.tutteli.atrium.specs.SubjectLessSpec
+import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.include
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -22,25 +24,23 @@ abstract class ListFeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    //@formatter:off
     include(object : SubjectLessSpec<List<Int>>(describePrefix,
         getFeature.forSubjectLess(1).adjustName { "$it feature" },
-        get.forSubjectLess(1){ toBe(1) }
-    ){})
+        get.forSubjectLess(1) { toBe(1) }
+    ) {})
     include(object : SubjectLessSpec<List<Int?>>("$describePrefix[nullable Element] ",
         getNullableFeature.forSubjectLess(1).adjustName { "$it feature" },
-        getNullable.forSubjectLess(1){ toBe(null) }
+        getNullable.forSubjectLess(1) { toBe(null) }
     ) {})
 
     include(object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
         getFeature.forChecking(0, listOf(2), listOf()) { toBe(2) }.adjustName { "$it feature" },
-        get.forChecking(0, { asAssert().isGreaterThan(1) }, listOf(2, 1), listOf(1, 2))
-    ){})
-    include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
-        getNullableFeature.forChecking(0, listOf(null), listOf()){ toBe(null) }.adjustName { "$it feature" },
-        getNullable.forChecking(0, { toBe(1) },listOf(1, null), listOf(2, 1))
+        get.forChecking(0, { isGreaterThan(1) }, listOf(2, 1), listOf(1, 2))
     ) {})
-    //@formatter:on
+    include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
+        getNullableFeature.forChecking(0, listOf(null), listOf()) { toBe(null) }.adjustName { "$it feature" },
+        getNullable.forChecking(0, { toBe(1) }, listOf(1, null), listOf(2, 1))
+    ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)

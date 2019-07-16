@@ -5,13 +5,10 @@ import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder
-import ch.tutteli.atrium.domain.builders.creating.ListAssertionsBuilder
-import ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder
+import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
-import ch.tutteli.atrium.domain.creating.AnyAssertions
-import ch.tutteli.atrium.domain.creating.ListAssertions
+import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 
@@ -63,91 +60,63 @@ object ExpectImpl {
      */
     inline val any get() = AnyAssertionsBuilder
 
-//    override inline val charSequence get() = CharSequenceAssertionsBuilder
-//
-//    override inline val collection get() = CollectionAssertionsBuilder
-//
-//    override inline val comparable get() = ComparableAssertionsBuilder
+    /**
+     * Returns [CharSequenceAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CharSequenceAssertions].
+     */
+    inline val charSequence get() = CharSequenceAssertionsBuilder
+
+    /**
+     * Returns [CollectionAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CollectionAssertions].
+     */
+    inline val collection get() = CollectionAssertionsBuilder
+
+    /**
+     * Returns [ComparableAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ComparableAssertions].
+     */
+    inline val comparable get() = ComparableAssertionsBuilder
 
     /**
      * Returns [NewFeatureAssertionsBuilder]
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */
     inline val feature get() = NewFeatureAssertionsBuilder
-//
-//    override inline val floatingPoint get() = FloatingPointAssertionsBuilder
-//
-//    override inline val iterable get() = IterableAssertionsBuilder
-//
+
+    /**
+     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
+     * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
+     */
+    inline val floatingPoint get() = FloatingPointAssertionsBuilder
+
+    /**
+     * Returns [IterableAssertionsBuilder].
+     * which inter alia delegates to the implementation of [IterableAssertions].
+     */
+    inline val iterable get() = IterableAssertionsBuilder
+
     /**
      * Returns [ListAssertionsBuilder]
      * which inter alia delegates to the implementation of [ListAssertions].
      */
     val list get() = ListAssertionsBuilder
 
-//
-//    override inline val map get() = MapAssertionsBuilder
-//
-//    override inline val pair get() = PairAssertionsBuilder
-//
-//    override inline val throwable get() = ThrowableAssertionsBuilder
-}
+    /**
+     * Returns [MapAssertionsBuilder]
+     * which inter alia delegates to the implementation of [MapAssertions].
+     */
+    inline val map get() = MapAssertionsBuilder
 
-//interface ExpectImplCommon {
-
-//--- assertions ---------------------------------------------------------------------------
-
-
-//    /**
-//     * Returns [CharSequenceAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [CharSequenceAssertions].
-//     */
-//    val charSequence: CharSequenceAssertionsBuilder
-//
-//    /**
-//     * Returns [CollectionAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [CollectionAssertions].
-//     */
-//    val collection: CollectionAssertionsBuilder
-//
-//    /**
-//     * Returns [ComparableAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [ComparableAssertions].
-//     */
-//    val comparable: ComparableAssertionsBuilder
-//
-
-//    val feature: FeatureAssertionsBuilder
-//
-//    /**
-//     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
-//     * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
-//     */
-//    val floatingPoint: FloatingPointAssertionsBuilder
-//
-//    /**
-//     * Returns [IterableAssertionsBuilder].
-//     * which inter alia delegates to the implementation of [IterableAssertions].
-//     */
-//    val iterable: IterableAssertionsBuilder
-//
-
-//
-//    /**
-//     * Returns [MapAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [MapAssertions].
-//     */
-//    val map: MapAssertionsBuilder
-//
 //    /**
 //     * Returns [PairAssertionsBuilder]
 //     * which inter alia delegates to the implementation of [PairAssertions].
 //     */
-//    val pair: PairAssertionsBuilder
-//
+//    override inline val pair get() = PairAssertionsBuilder
+
 //    /**
 //     * Returns [ThrowableAssertionsBuilder]
 //     * which inter alia delegates to the implementation of [ThrowableAssertions].
 //     */
-//    val throwable: ThrowableAssertionsBuilder
-//}
+//    override inline val throwable get() = ThrowableAssertionsBuilder
+}

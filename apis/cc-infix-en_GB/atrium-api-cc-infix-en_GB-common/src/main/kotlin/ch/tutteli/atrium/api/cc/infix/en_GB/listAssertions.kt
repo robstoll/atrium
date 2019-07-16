@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
+@Suppress("DEPRECATION")
 infix fun <E: Any, T: List<E>> Assert<T>.get(index: Int)
     = AssertImpl.list.get(this, index)
 
@@ -32,6 +33,7 @@ infix fun <E : Any, T: List<E>> Assert<T>.get(index: Index): ListGetOption<E, T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
+@Suppress("DEPRECATION")
 infix fun <E, T: List<E>> Assert<T>.get(index: Int)
     = AssertImpl.list.getNullable(this, index)
 

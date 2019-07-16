@@ -25,7 +25,7 @@ import kotlin.jvm.JvmName
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, Group<E>>
-): AssertionPlant<T> = plant.addAssertion(
+): AssertionPlant<T> = addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)
@@ -45,11 +45,12 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Assert<E>.() -> Unit)?, Group<(Assert<E>.() -> Unit)?>>
-): AssertionPlant<T> = plant.addAssertion(
-    AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
+): AssertionPlant<T> = addAssertion(
+    AssertImpl.iterable.contains.entriesInOrderOnlyGroupedWithAssert(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)
     )

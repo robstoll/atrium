@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAsser
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -32,6 +33,6 @@ class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: S): Int
-        = plant.subject.filter({ it == searchCriterion }).size
+    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: S): Int
+        = subjectProvider.subject.filter { it == searchCriterion }.size
 }

@@ -10,4 +10,4 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
     )
 )
 fun <T : CharSequence> _containsIgnoringCase(containsBuilder: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>)
-    = CharSequenceContainsBuilder(containsBuilder.plant, CharSequenceContainsIgnoringCaseSearchBehaviour(containsBuilder.searchBehaviour))
+    = CharSequenceContainsBuilder(containsBuilder.subjectProvider, CharSequenceContainsIgnoringCaseSearchBehaviour(containsBuilder.searchBehaviour))
