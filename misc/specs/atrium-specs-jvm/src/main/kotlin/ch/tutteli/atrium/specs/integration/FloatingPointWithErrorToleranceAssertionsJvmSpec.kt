@@ -32,6 +32,4 @@ abstract class FloatingPointWithErrorToleranceAssertionsJvmSpec(
             listOf(BigDecimal.TEN, BigDecimal("10"), BigDecimal("10.000"), BigDecimal("10.001"), BigDecimal("10.0000000000000000001")),
             listOf(BigDecimal("10.001000000001"), BigDecimal("9.99899999")))
     ))
-
-
 })
