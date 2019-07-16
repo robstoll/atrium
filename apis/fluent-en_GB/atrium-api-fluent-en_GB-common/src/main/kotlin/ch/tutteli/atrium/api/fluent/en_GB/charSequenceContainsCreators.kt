@@ -1,13 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.kbox.glue
+import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
 /**
@@ -23,7 +22,7 @@ import kotlin.jvm.JvmName
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
@@ -51,7 +50,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -73,7 +72,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
@@ -102,7 +101,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -125,7 +124,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
@@ -150,7 +149,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -176,7 +175,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Expect<T>
@@ -200,7 +199,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
@@ -228,17 +227,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Expect<T>
     = atLeast(1).regex(pattern, *otherPatterns)
-
-/**
- * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerOption.containsBuilder].
- *
- * @return The plant to support a fluent API.
- */
-private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerOption<T, S>.addAssertion(assertion: Assertion): Expect<T>
-    = (containsBuilder.subjectProvider as Expect<T>).addAssertion(assertion)

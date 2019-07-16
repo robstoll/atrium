@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertionForAssert
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -85,7 +86,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
@@ -95,4 +96,4 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  */
 internal fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.Builder<E, T, S>.addAssertion(
     assertion: Assertion
-): AssertionPlant<T> = (subjectProvider as  AssertionPlant<T>).addAssertion(assertion)
+): AssertionPlant<T> = addAssertionForAssert(assertion)

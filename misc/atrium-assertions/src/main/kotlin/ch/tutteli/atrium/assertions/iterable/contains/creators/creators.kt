@@ -25,9 +25,9 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, expected, otherExpected, ::IterableContainsInAnyOrderObjectsAssertionCreator)
 
-@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrder; will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrderWithAssert; will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.iterable.contains.entriesInAnyOrder(checker, assertionCreator, *otherAssertionCreators)",
+        "AssertImpl.iterable.contains.entriesInAnyOrderWithAssert(checker, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
@@ -67,9 +67,9 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInAnyOrderOnlyObjectsAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrderOnly; will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert; will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.iterable.contains.entriesInAnyOrderOnly(builder, assertionCreator, *otherAssertionCreators)",
+        "AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(builder, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
@@ -113,9 +113,9 @@ fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInOrderOnlyObjectsAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.entriesInOrderOnly; will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.entriesInOrderOnlyWithAssert; will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.iterable.contains.entriesInOrderOnly(builder, assertionCreator, *otherAssertionCreators)",
+        "AssertImpl.iterable.contains.entriesInOrderOnlyWithAssert(builder, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )

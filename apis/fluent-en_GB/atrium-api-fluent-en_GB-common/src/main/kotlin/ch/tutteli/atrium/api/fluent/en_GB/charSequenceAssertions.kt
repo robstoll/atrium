@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -28,7 +27,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
     get() = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains [expected]'s [toString] representation
+ * Expects that the subject of the assertion contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
@@ -57,7 +56,7 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
     = contains.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain [expected]'s [toString] representation
+ * Expects that the subject of the assertion does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
@@ -73,7 +72,7 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a sequence which matches the given regular expression
+ * Expects that the subject of the assertion contains a sequence which matches the given regular expression
  * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
@@ -92,14 +91,14 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatterns: String): Expect<T>
     = contains.atLeast(1).regex(pattern, *otherPatterns)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] starts with [expected].
+ * Expects that the subject of the assertion starts with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -108,7 +107,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.startsWith(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not start with [expected].
+ * Expects that the subject of the assertion does not start with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -118,7 +117,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] ends with [expected].
+ * Expects that the subject of the assertion ends with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -127,7 +126,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.endsWith(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not end with [expected].
+ * Expects that the subject of the assertion does not end with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -137,7 +136,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
+ * Expects that the subject of the assertion [CharSequence].[kotlin.text.isEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -146,7 +145,7 @@ fun <T : CharSequence> Expect<T>.isEmpty()
     = addAssertion(ExpectImpl.charSequence.isEmpty(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
+ * Expects that the subject of the assertion [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -155,7 +154,7 @@ fun <T : CharSequence> Expect<T>.isNotEmpty()
     = addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isNotBlank].
+ * Expects that the subject of the assertion [CharSequence].[kotlin.text.isNotBlank].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

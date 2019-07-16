@@ -49,7 +49,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Assert<E>.() -> Unit)?, Group<(Assert<E>.() -> Unit)?>>
 ): AssertionPlant<T> = addAssertion(
-    AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
+    AssertImpl.iterable.contains.entriesInOrderOnlyGroupedWithAssert(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)
     )

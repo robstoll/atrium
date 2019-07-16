@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.creating.charsequence.contains
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.CharSequenceContainsAssertions

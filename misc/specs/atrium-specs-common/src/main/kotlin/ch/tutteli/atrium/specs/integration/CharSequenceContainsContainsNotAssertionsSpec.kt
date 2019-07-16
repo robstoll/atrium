@@ -11,8 +11,8 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsContainsNotAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, Expect<CharSequence>.(String, Array<out String>) -> Expect<CharSequence>>,
-    containsNotPair: Pair<String, Expect<CharSequence>.(String, Array<out String>) -> Expect<CharSequence>>,
+    containsPair: Fun2<CharSequence, String, Array<out String>>,
+    containsNotPair: Fun2<CharSequence, String, Array<out String>>,
     rootBulletPoint: String,
     listBulletPoint: String,
     featureArrow: String,

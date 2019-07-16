@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertionForAssert
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
@@ -75,7 +76,7 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrder
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(this, entries.toList()))
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
@@ -85,4 +86,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrder
  */
 internal fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.Builder<E, T, S>.addAssertion(
     assertion: Assertion
-): AssertionPlant<T> = (subjectProvider as  AssertionPlant<T>).addAssertion(assertion)
+): AssertionPlant<T> = addAssertionForAssert(assertion)

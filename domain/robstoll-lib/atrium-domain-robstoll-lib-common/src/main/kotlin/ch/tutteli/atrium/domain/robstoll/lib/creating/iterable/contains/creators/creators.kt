@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -18,7 +18,7 @@ fun <E, T : Iterable<E>> _containsValuesInAnyOrder(
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
     checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
-    assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    assertionCreators: List<(Expect<E>.() -> Unit)?>
 ): Assertion
     = createAssertionGroup(checkerOption, assertionCreators, ::InAnyOrderEntriesAssertionCreator)
 
@@ -33,7 +33,7 @@ fun <E, T : Iterable<E>> _containsValuesInAnyOrderOnly(
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrderOnly(
     builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
-    assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    assertionCreators: List<(Expect<E>.() -> Unit)?>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
     return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InAnyOrderOnlyEntriesAssertionCreator)
@@ -50,7 +50,7 @@ fun <E, T : Iterable<E>> _containsValuesInOrderOnly(
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnly(
     builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
-    assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    assertionCreators: List<(Expect<E>.() -> Unit)?>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
     return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InOrderOnlyEntriesAssertionCreator)
@@ -66,7 +66,7 @@ fun <E, T : Iterable<E>> _containsValuesInOrderOnlyGrouped(
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnlyGrouped(
     builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
-    groups: List<List<(AssertionPlant<E>.() -> Unit)?>>
+    groups: List<List<(Expect<E>.() -> Unit)?>>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
     return createAssertionGroupWithoutChecker(checkerBuilder, groups, ::InOrderOnlyGroupedEntriesAssertionCreator)

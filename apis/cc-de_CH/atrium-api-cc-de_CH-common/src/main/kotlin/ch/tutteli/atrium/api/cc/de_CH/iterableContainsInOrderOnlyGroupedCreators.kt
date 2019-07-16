@@ -59,7 +59,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroup
     secondGroup: Group<(Assert<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Assert<E>.() -> Unit)?>
 ): AssertionPlant<T> = addAssertion(
-    AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
+    AssertImpl.iterable.contains.entriesInOrderOnlyGroupedWithAssert(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
     )

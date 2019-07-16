@@ -3,9 +3,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -20,7 +19,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  * Represents the base class for `in any order only` assertion creators and provides a corresponding template to fulfill
  * its responsibility.
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
@@ -48,14 +47,14 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
-            assertions.add(AssertImpl.builder.feature
-                .withDescriptionAndRepresentation(Untranslatable(list::size.name), RawString.create(actualSize.toString()))
+            assertions.add(ExpectImpl.builder.feature
+                .withDescriptionAndRepresentation(Untranslatable("size"), RawString.create(actualSize.toString()))
                 .withAssertions(featureAssertions)
                 .build()
             )
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = AssertImpl.builder.summary
+            val summary = ExpectImpl.builder.summary
                 .withDescription(description)
                 .withAssertions(assertions)
                 .build()
@@ -65,7 +64,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                AssertImpl.builder.invisibleGroup
+                ExpectImpl.builder.invisibleGroup
                     .withAssertions(
                         summary,
                         createExplanatoryGroupForMismatchesEtc(list, warningDescription)
@@ -90,7 +89,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: SC, list: MutableList<E?>): Pair<Boolean, Assertion>
 
     private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion>
-        = mutableListOf(AssertImpl.builder.descriptive
+        = mutableListOf(ExpectImpl.builder.descriptive
             .withTest { actualSize == allSearchCriteria.size }
             .withDescriptionAndRepresentation(
                 DescriptionAnyAssertion.TO_BE,
@@ -100,12 +99,12 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
         )
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
-        val assertions = list.map { AssertImpl.builder.explanatory.withDescription(it).build() }
-        val additionalEntries = AssertImpl.builder.list
+        val assertions = list.map { ExpectImpl.builder.explanatory.withDescription(it).build() }
+        val additionalEntries = ExpectImpl.builder.list
             .withDescriptionAndEmptyRepresentation(warning)
             .withAssertions(assertions)
             .build()
-        return AssertImpl.builder.explanatoryGroup
+        return ExpectImpl.builder.explanatoryGroup
             .withWarningType
             .withAssertion(additionalEntries)
             .build()

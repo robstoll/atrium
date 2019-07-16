@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
+import ch.tutteli.atrium.specs.integration.notImplemented
 import kotlin.reflect.KFunction3
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
@@ -50,16 +51,14 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         }
     }
 
-    private fun <T> magic(): T = throw NotImplementedError()
-
     @Suppress("unused")
     private fun ambiguityTest() {
-        val map: Map<Number, CharSequence> = magic()
-        val subMap: LinkedHashMap<out Number, String> = magic()
-        val nullableKeyMap: Map<Number?, CharSequence> = magic()
-        val nullableValueMap: Map<Number, CharSequence?> = magic()
-        val nullableKeyValueMap: Map<Number?, CharSequence?> = magic()
-        val readOnlyNullableKeyValueMap: Map<out Number?, CharSequence?> = magic()
+        val map: Map<Number, CharSequence> = notImplemented()
+        val subMap: LinkedHashMap<out Number, String> = notImplemented()
+        val nullableKeyMap: Map<Number?, CharSequence> = notImplemented()
+        val nullableValueMap: Map<Number, CharSequence?> = notImplemented()
+        val nullableKeyValueMap: Map<Number?, CharSequence?> = notImplemented()
+        val readOnlyNullableKeyValueMap: Map<out Number?, CharSequence?> = notImplemented()
 
         assert(map).contains(1 to "a")
         assert(map).contains(1 to "a", 2 to "b")

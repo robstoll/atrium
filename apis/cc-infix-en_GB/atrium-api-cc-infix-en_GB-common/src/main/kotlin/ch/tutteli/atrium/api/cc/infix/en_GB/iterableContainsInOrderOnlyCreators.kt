@@ -67,4 +67,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInOrderOnlyWithAssert(this, entries.toList()))

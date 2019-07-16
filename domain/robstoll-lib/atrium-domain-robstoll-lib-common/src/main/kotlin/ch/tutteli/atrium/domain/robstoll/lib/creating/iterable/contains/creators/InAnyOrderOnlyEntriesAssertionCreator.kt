@@ -2,11 +2,11 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreatedAssertionsHold
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createEntryAssertion
-import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertions
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertionGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * to appear in the [Iterable] but in any order -- an entry is identified by holding a group of assertions
  * created by an assertion creator lambda.
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected
  *   entries have to appear in the [Iterable] but in any order -- an entry is identified by holding a group
@@ -24,15 +24,15 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 class InAnyOrderOnlyEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderOnlySearchBehaviour
-) : InAnyOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
+) : InAnyOrderOnlyAssertionCreator<E, T, (Expect<E>.() -> Unit)?>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: (AssertionPlant<E>.() -> Unit)?, list: MutableList<E?>): Pair<Boolean, Assertion> {
-        val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: (Expect<E>.() -> Unit)?, list: MutableList<E?>): Pair<Boolean, Assertion> {
+        val explanatoryAssertions = createExplanatoryAssertionGroup(searchCriterion, list)
         val found = removeMatch(list, searchCriterion)
         return found to createEntryAssertion(explanatoryAssertions, found)
     }
 
-    private fun removeMatch(list: MutableList<E?>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean {
+    private fun removeMatch(list: MutableList<E?>, assertionCreator: (Expect<E>.() -> Unit)?): Boolean {
         val itr = list.iterator()
         while (itr.hasNext()) {
             if (allCreatedAssertionsHold(itr.next(), assertionCreator)) {

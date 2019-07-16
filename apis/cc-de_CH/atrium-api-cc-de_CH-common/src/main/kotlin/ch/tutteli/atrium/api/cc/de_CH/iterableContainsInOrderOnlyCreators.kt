@@ -74,4 +74,4 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
+    = addAssertion(AssertImpl.iterable.contains.entriesInOrderOnlyWithAssert(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))

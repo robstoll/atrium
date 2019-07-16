@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertionForAssert
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -79,7 +80,7 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderWithAssert(this, entries.toList()))
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
@@ -89,4 +90,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
  */
 private fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
     assertion: Assertion
-): AssertionPlant<T> = (containsBuilder.subjectProvider as  AssertionPlant<T>).addAssertion(assertion)
+): AssertionPlant<T> = addAssertionForAssert(assertion)

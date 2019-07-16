@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -16,7 +15,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
  * in any order and is identified by expected objects (equality comparison).
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
  * @param SC The type of the elements of the iterable, used as search criteria.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries

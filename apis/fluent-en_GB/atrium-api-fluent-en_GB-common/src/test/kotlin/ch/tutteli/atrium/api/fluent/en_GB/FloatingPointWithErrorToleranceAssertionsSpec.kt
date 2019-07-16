@@ -9,8 +9,8 @@ class FloatingPointWithErrorToleranceAssertionsSpec :
         AssertionVerbFactory,
         toBeWithErrorToleranceFloatPair(),
         toBeWithErrorToleranceDoublePair()
-
     ) {
+
     companion object {
 
         private val toBeWithErrorToleranceFloatFun: KFunction3<Expect<Float>, Float, Float, Expect<Float>> =

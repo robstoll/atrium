@@ -3,8 +3,12 @@ package ch.tutteli.atrium.domain.creating.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 
 /**
  * The access point to an implementation of [IterableContainsAssertions].
@@ -27,7 +31,7 @@ interface IterableContainsAssertions {
 
     fun <E : Any, T : Iterable<E?>> entriesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
-        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>
     ): Assertion
 
 
@@ -38,7 +42,7 @@ interface IterableContainsAssertions {
 
     fun <E : Any, T : Iterable<E?>> entriesInAnyOrderOnly(
         builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
-        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>
     ): Assertion
 
 
@@ -49,7 +53,7 @@ interface IterableContainsAssertions {
 
     fun <E : Any, T : Iterable<E?>> entriesInOrderOnly(
         builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
-        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>
     ): Assertion
 
 
@@ -59,6 +63,27 @@ interface IterableContainsAssertions {
     ): Assertion
 
     fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyGrouped(
+        builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
+        groups: List<List<(Expect<E>.() -> Unit)?>>
+    ): Assertion
+
+
+    fun <E : Any, T : Iterable<E?>> entriesInAnyOrderWithAssert(
+        checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    ): Assertion
+
+    fun <E : Any, T : Iterable<E?>> entriesInAnyOrderOnlyWithAssert(
+        builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    ): Assertion
+
+    fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyWithAssert(
+        builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    ): Assertion
+
+    fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyGroupedWithAssert(
         builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<(AssertionPlant<E>.() -> Unit)?>>
     ): Assertion

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertionForAssert
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -124,7 +125,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreator glue otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `entries` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.entries(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E>> entries(
@@ -214,7 +215,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreator glue otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `entries` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.entries(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> nullableEntries(
@@ -232,4 +233,4 @@ fun <E : Any, T : Iterable<E?>> nullableEntries(
  */
 internal fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.Builder<E, T, S>.addAssertion(
     assertion: Assertion
-): AssertionPlant<T> = (subjectProvider as  AssertionPlant<T>).addAssertion(assertion)
+): AssertionPlant<T> = addAssertionForAssert(assertion)

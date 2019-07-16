@@ -22,7 +22,7 @@ interface Contains {
      * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
      * immutability).
      */
-    interface Builder<out T : Any, out S : Contains.SearchBehaviour> {
+    interface Builder<out T : Any, out S : SearchBehaviour> {
         /**
          * The [SubjectProvider] from which this building process started and to which the resulting [Assertion]
          * should be added.
@@ -38,7 +38,7 @@ interface Contains {
     /**
      * The step of choosing/defining [Checker]s.
      */
-    interface CheckerOption<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>> {
+    interface CheckerOption<out T : Any, out S : SearchBehaviour, out C : Checker, out B : Builder<T, S>> {
         /**
          * The previously chosen [Builder], containing inter alia the [SubjectProvider] to which the resulting
          * [Assertion] shall be added.
