@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import java.math.BigDecimal
 
 /**
@@ -18,8 +18,8 @@ val bigDecimalAssertions by lazy { loadSingleService(BigDecimalAssertions::class
  * which an implementation of the domain of Atrium has to provide.
  */
 interface BigDecimalAssertions {
-    fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T): Assertion
-    fun <T : BigDecimal> isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T): Assertion
-    fun <T : BigDecimal> isEqualIncludingScale(plant: AssertionPlant<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion
-    fun <T : BigDecimal> isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T): Assertion
+    fun <T : BigDecimal> isNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+    fun <T : BigDecimal> isNotNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+    fun <T : BigDecimal> isEqualIncludingScale(subjectProvider: SubjectProvider<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion
+    fun <T : BigDecimal> isNotEqualIncludingScale(subjectProvider: SubjectProvider<T>, expected: T): Assertion
 }
