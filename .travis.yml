@@ -1,3 +1,5 @@
+dist: trusty
+
 language: java
 jdk:
   # junit5 requires java 8
