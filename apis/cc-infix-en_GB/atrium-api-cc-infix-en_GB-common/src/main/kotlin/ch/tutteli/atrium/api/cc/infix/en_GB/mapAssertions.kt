@@ -29,6 +29,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 infix fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePairs.toList()))
 
@@ -57,6 +58,7 @@ infix fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValue: KeyValue<
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 infix fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList().map { it.toPair() }))
 
@@ -86,6 +88,7 @@ infix fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
+@Suppress("DEPRECATION")
 @JsName("getExisting")
 infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
@@ -105,6 +108,7 @@ infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: Key<K>): MapG
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
+@Suppress("DEPRECATION")
 infix fun <K, V, T: Map<out K, V>> Assert<T>.getExisting(key: K)
     = AssertImpl.map.getExistingNullable(this, key)
 

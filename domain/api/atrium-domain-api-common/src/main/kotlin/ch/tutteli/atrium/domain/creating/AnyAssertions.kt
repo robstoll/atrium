@@ -60,24 +60,29 @@ interface AnyAssertions {
         assertionCreator: Expect<TSub>.() -> Unit
     ): Expect<TSub>
 
+
+    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")
     fun <T : Any> isNullable(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
         expectedOrNull: T?
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use notTobeNull; will be removed with 1.0.0")
     fun <T : Any> isNotNull(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
         assertionCreator: AssertionPlant<T>.() -> Unit
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use toBe; will be removed with 1.0.0")
     fun <T : Any> isNotNullBut(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
         expected: T
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use toBeNullIfNullGivenElse; will be removed with 1.0.0")
     fun <T : Any> isNullIfNullGivenElse(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,

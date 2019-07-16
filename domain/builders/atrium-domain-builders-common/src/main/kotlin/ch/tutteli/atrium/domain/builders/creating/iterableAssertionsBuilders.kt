@@ -41,6 +41,7 @@ object IterableAssertionsBuilder : IterableAssertions {
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <E : Any> all(
         plant: AssertionPlant<Iterable<E?>>,
         noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?
@@ -103,22 +104,26 @@ object IterableContainsAssertionsBuilder : IterableContainsAssertions {
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <E : Any, T : Iterable<E?>> entriesInAnyOrderWithAssert(
         checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ) = iterableContainsAssertions.entriesInAnyOrderWithAssert(checkerOption, assertionCreators)
 
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <E : Any, T : Iterable<E?>> entriesInAnyOrderOnlyWithAssert(
         builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ) = iterableContainsAssertions.entriesInAnyOrderOnlyWithAssert(builder, assertionCreators)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyWithAssert(
         builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ) = iterableContainsAssertions.entriesInOrderOnlyWithAssert(builder, assertionCreators)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyGroupedWithAssert(
         builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<(AssertionPlant<E>.() -> Unit)?>>

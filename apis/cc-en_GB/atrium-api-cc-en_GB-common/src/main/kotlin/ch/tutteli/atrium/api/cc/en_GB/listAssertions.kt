@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
+@Suppress("DEPRECATION")
 fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
     = AssertImpl.list.get(this, index)
 
@@ -25,6 +26,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.() -> Unit)
     = addAssertion(AssertImpl.list.get(this, index, assertionCreator))
 
@@ -35,5 +37,6 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
+@Suppress("DEPRECATION")
 fun <E, T: List<E>> Assert<T>.get(index: Int): AssertionPlantNullable<E>
     = AssertImpl.list.getNullable(this, index)

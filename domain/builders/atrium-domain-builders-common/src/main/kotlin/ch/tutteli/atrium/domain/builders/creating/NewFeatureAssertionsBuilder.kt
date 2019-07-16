@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 
 
-//TODO write KDoc
+//TODO #40 write KDoc
 /**
  * Will be renamed to FeatureAssertionsBuilder with 1.0.0
  */
@@ -23,5 +23,4 @@ object NewFeatureAssertionsBuilder {
      */
     inline fun <T> extractor(originalAssertionContainer: Expect<T>) =
         FeatureExtractorBuilder.builder(originalAssertionContainer)
-
 }

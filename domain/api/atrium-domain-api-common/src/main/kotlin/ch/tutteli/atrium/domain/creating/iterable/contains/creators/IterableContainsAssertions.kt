@@ -68,21 +68,25 @@ interface IterableContainsAssertions {
     ): Assertion
 
 
+    @Deprecated("Switch from Assert to Expect and use entriesInAnyOrderWithAssert; will be removed with 1.0.0")
     fun <E : Any, T : Iterable<E?>> entriesInAnyOrderWithAssert(
         checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use entriesInAnyOrderOnlyWithAssert; will be removed with 1.0.0")
     fun <E : Any, T : Iterable<E?>> entriesInAnyOrderOnlyWithAssert(
         builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use entriesInOrderOnlyWithAssert; will be removed with 1.0.0")
     fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyWithAssert(
         builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
+    @Deprecated("Switch from Assert to Expect and use entriesInOrderOnlyGroupedWithAssert; will be removed with 1.0.0")
     fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyGroupedWithAssert(
         builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<(AssertionPlant<E>.() -> Unit)?>>
