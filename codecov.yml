@@ -1,10 +1,12 @@
 ignore:
     - "domain/builders/**/AssertImpl.kt"
+    - "domain/builders/**/ExpectImpl.kt"
     - "domain/builders/**/creating/**Builder.kt"
     - "domain/builders/**/creating/*Builders.kt"
 
     # TODO remove with 1.0.0
     - "misc/atrium-assertions/**/*"
+    - "misc/specs/**/*"
     - "apis/**/assertions/**/*"
     - "domain/api/**/assertions/**/*"
     - "domain/atrium-domain-api-deprecated/**/*"

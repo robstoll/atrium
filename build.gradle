@@ -20,7 +20,11 @@ buildscript {
         spek2_version = '2.1.0-alpha.0.18+85a26f6'
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
+        docProjects = subprojects.findAll { 
+            !it.name.contains("robstoll") && 
+                it.name != "${rootProject.name}-spec" &&
+                !it.name.startsWith("${rootProject.name}-specs")
+        }
         ghPages_version = rootProject.version
         dokka_sourceMapping = 'tree/master'
         srcKotlin = 'src/main/kotlin'
