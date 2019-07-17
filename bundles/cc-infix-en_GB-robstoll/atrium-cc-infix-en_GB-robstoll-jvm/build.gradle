@@ -3,8 +3,8 @@ description = 'Represents a convenience module which merely bundles dependencies
 dependencies {
     api prefixedProject('verbs-jvm')
     api prefixedProject('api-cc-infix-en_GB-jvm')
-    api prefixedProject('domain-builders-jvm')
-    implementation prefixedProject('translations-en_GB-jvm')
+    api prefixedProject('translations-en_GB-jvm')
+
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 }

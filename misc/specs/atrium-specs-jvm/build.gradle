@@ -5,8 +5,10 @@ dependencies {
     api prefixedProject('domain-api-jvm')
     api prefixedProject('core-api-jvm')
     api prefixedProject('domain-builders-jvm')
+    // exclude this dependency when depending on specs-jvm in case you want to use another translation
+    api prefixedProject('translations-en_GB-jvm')
 
-    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
+    // we need fluent-en_GB for compilation and for runtime but we do not want that depending modules have fluent-en_GB
     // automatically in their compile classpath. Thus:
     compileOnly prefixedProject('api-fluent-en_GB-jvm') // for us
     runtimeOnly prefixedProject('api-fluent-en_GB-jvm') // for depending modules
@@ -15,11 +17,6 @@ dependencies {
     compileOnly prefixedProject('api-cc-en_GB-jvm') // for us
     runtimeOnly prefixedProject('api-cc-en_GB-jvm') // for depending modules
 
-    implementation prefixedProject('translations-en_GB-jvm')
-
-    implementation "ch.tutteli.kbox:kbox:$kbox_version", excludeKotlin
-    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
-    testRuntimeOnly prefixedProject('core-robstoll-jvm')
 }
 
 dependencies {

@@ -6,8 +6,6 @@ description = 'A fluent assertion function API in en_GB with a focus on code com
 dependencies {
     api prefixedProject('domain-builders-android')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-android')
-    testRuntimeOnly prefixedProject('core-robstoll-android')
     testImplementation prefixedProject('verbs-internal-android')
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
     testImplementation prefixedProject('api-cc-en_GB-android')

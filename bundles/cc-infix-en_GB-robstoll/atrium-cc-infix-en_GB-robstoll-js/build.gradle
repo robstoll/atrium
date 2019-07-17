@@ -3,8 +3,8 @@ description = 'Represents a convenience module which merely bundles dependencies
 dependencies {
     api prefixedProject('verbs-js')
     api prefixedProject('api-cc-infix-en_GB-js')
-    api prefixedProject('domain-builders-js')
-    implementation prefixedProject('translations-en_GB-js')
+    api prefixedProject('translations-en_GB-js')
+
     //TODO should be runtimeOnly but due to https://youtrack.jetbrains.com/issue/KT-27797 it cannot be
     implementation prefixedProject('domain-robstoll-js')
     implementation prefixedProject('core-robstoll-js')

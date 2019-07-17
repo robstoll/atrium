@@ -6,8 +6,8 @@ dependencies {
     api prefixedProject('spec')
     api prefixedProject('specs-android')
 
-    testImplementation prefixedProject('domain-robstoll-android')
-    testImplementation prefixedProject('core-robstoll-android')
+    runtimeOnly prefixedProject('domain-robstoll-android')
+    runtimeOnly prefixedProject('core-robstoll-android')
 }
 
 srcAndResourcesFromJvmProject(project)

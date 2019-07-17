@@ -4,7 +4,8 @@ description = 'Represents a deprecated convenience module which merely bundles d
 dependencies {
     api prefixedProject('verbs-jvm')
     api prefixedProject('api-cc-infix-en_GB-jvm')
-    implementation prefixedProject('translations-en_GB-jvm')
+    api prefixedProject('translations-en_GB-jvm')
+
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
@@ -12,6 +13,6 @@ dependencies {
     api prefixedProject('api-cc-infix-en_UK')
     implementation prefixedProject('assertions')
     api prefixedProject('core-api-deprecated')
-    implementation prefixedProject('core-robstoll-deprecated')
-    implementation prefixedProject('translations-en_UK-deprecated')
+    api prefixedProject('core-robstoll-deprecated')
+    api prefixedProject('translations-en_UK-deprecated')
 }

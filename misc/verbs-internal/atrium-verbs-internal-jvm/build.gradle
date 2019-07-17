@@ -6,6 +6,6 @@ dependencies {
     api prefixedProject('spec')
     api prefixedProject('specs-jvm')
 
-    testImplementation prefixedProject('domain-robstoll-jvm')
-    testImplementation prefixedProject('core-robstoll-jvm')
+    runtimeOnly prefixedProject('domain-robstoll-jvm')
+    runtimeOnly prefixedProject('core-robstoll-jvm')
 }

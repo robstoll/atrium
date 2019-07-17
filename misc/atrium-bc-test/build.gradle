@@ -1,4 +1,4 @@
- //Enable if you need to check the task tree, gr task taskTree --no-repeat
+// Enable if you need to check the task tree, gr task taskTree --no-repeat
 //plugins {
 //    id "com.dorongold.task-tree" version "1.3.1"
 //}
