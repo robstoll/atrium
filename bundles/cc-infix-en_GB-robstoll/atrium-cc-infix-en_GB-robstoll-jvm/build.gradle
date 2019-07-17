@@ -1,10 +1,10 @@
 description = 'Represents a convenience module which merely bundles dependencies for the JVM platform.'
 
 dependencies {
-    compile prefixedProject('verbs-jvm')
-    compile prefixedProject('api-cc-infix-en_GB-jvm')
-    compile prefixedProject('domain-builders-jvm')
-    compile prefixedProject('translations-en_GB-jvm')
+    api prefixedProject('verbs-jvm')
+    api prefixedProject('api-cc-infix-en_GB-jvm')
+    api prefixedProject('translations-en_GB-jvm')
+
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 }

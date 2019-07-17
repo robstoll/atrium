@@ -4,15 +4,15 @@ description = 'An assertion function API in de_CH with a focus on code completio
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 dependencies {
-    compile prefixedProject('domain-api-deprecated')
-    compile prefixedProject('domain-builders-android')
+    api prefixedProject('domain-api-deprecated')
+    api prefixedProject('domain-builders-android')
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testCompile(prefixedProject('spec')) {
+    testImplementation(prefixedProject('spec')) {
         exclude module: "${rootProject.name}-translations-en_GB-android"
     }
-    testCompile prefixedProject('translations-de_CH-android')
+    testImplementation prefixedProject('translations-de_CH-android')
 }
 
 srcAndResourcesFromJvmProject(project)

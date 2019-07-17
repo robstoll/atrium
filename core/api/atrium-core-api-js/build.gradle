@@ -1,8 +1,8 @@
 description = 'API of the core of Atrium for the JS platform.'
 
 dependencies {
-    compile "ch.tutteli.kbox:kbox-js:$kbox_version", excludeKotlin
+    api "ch.tutteli.kbox:kbox-js:$kbox_version", excludeKotlin
 
-    testCompile prefixedProject('cc-infix-en_GB-robstoll-js')
-    testCompile prefixedProject('verbs-internal-js')
+    testImplementation prefixedProject('cc-infix-en_GB-robstoll-js')
+    testImplementation prefixedProject('verbs-internal-js')
 }

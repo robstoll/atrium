@@ -1,7 +1,7 @@
 description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs as common module'
 
 dependencies {
-    compile prefixedProject('domain-api-common')
+    api prefixedProject('domain-api-common')
 
     // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-common')

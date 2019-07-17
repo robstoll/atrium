@@ -22,12 +22,12 @@ repositories {
     // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
     
-    testCompile "org.jetbrains.kotlin:kotlin-test-js"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
     //delete this and the following line and uncomment the next line (Atrium uses a project dependency, you won't)
-    testCompile prefixedProject('cc-en_GB-robstoll-js')
-    //testCompile("ch.tutteli.atrium:$atrium_api:$atrium_version")
+    testImplementation prefixedProject('cc-en_GB-robstoll-js')
+    //testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
 }
 
 // we only configure compileTestKotlin2Js and not compileKotlin2Js as well

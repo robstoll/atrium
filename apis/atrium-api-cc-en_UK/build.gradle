@@ -3,10 +3,10 @@ description = 'Deprecated, use atrium-api-cc-en_GB-jvm instead.'
 ext.jacoco_additional = [prefixedProject('translations-en_GB-jvm')]
 
 dependencies {
-    compile prefixedProject('domain-api-deprecated')
-    compile prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-deprecated')
+    api prefixedProject('domain-builders-jvm')
 
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testCompile prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('verbs-internal-jvm')
 }

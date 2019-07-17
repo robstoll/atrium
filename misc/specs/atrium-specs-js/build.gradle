@@ -2,23 +2,18 @@ description = 'Provides specifications of Atrium (for the JS platforms) which ca
     'APIs and domain/core-implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    implementation prefixedProject('domain-api-js')
-    implementation prefixedProject('core-api-js')
-    implementation prefixedProject('domain-builders-js')
+    api prefixedProject('domain-api-js')
+    api prefixedProject('core-api-js')
+    api prefixedProject('domain-builders-js')
+    // exclude this dependency when depending on specs-js in case you want to use another translation
+    api prefixedProject('translations-en_GB-js')
 
-    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
-    // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-fluent-en_GB-js') // for us
-    runtimeOnly prefixedProject('api-fluent-en_GB-js') // for depending modules
+    implementation prefixedProject('api-fluent-en_GB-js')
 
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    compileOnly prefixedProject('api-cc-en_GB-js') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-js') // for depending modules
-    
-    implementation prefixedProject('translations-en_GB-js')
+    implementation prefixedProject('api-cc-en_GB-js')
 }
 
 dependencies {
-    compile "ch.tutteli.kbox:kbox-js:$kbox_version"
     //TODO use spek2 js artifact as soon as the following is released: https://github.com/spekframework/spek/issues/706
 }

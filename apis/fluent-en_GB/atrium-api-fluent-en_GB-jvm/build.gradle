@@ -12,13 +12,11 @@ ext.jacoco_additional = [
 ]
 
 dependencies {
-    compile prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-builders-jvm')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
-    testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testCompile prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('verbs-internal-jvm')
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testCompile prefixedProject('api-cc-en_GB-jvm')
+    testImplementation prefixedProject('api-cc-en_GB-jvm')
 }
 
 

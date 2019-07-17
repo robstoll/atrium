@@ -1,11 +1,11 @@
 description = 'Specifies the internally used assertion verbs'
 
 dependencies {
-    compile prefixedProject('core-api-jvm')
-    compile prefixedProject('domain-builders-jvm')
-    compile prefixedProject('spec')
-    compile prefixedProject('specs-jvm')
+    api prefixedProject('core-api-jvm')
+    api prefixedProject('domain-builders-jvm')
+    api prefixedProject('spec')
+    api prefixedProject('specs-jvm')
 
-    testCompile prefixedProject('domain-robstoll-jvm')
-    testCompile prefixedProject('core-robstoll-jvm')
+    runtimeOnly prefixedProject('domain-robstoll-jvm')
+    runtimeOnly prefixedProject('core-robstoll-jvm')
 }

@@ -1,11 +1,10 @@
 description = 'Specifies the internally used assertion verbs for the JS platform'
 
 dependencies {
-    compile prefixedProject('core-api-js')
-    compile prefixedProject('domain-builders-js')
-    compile prefixedProject('translations-en_GB-js')
-    compile prefixedProject('specs-js')
+    api prefixedProject('core-api-js')
+    api prefixedProject('domain-builders-js')
+    api prefixedProject('specs-js')
 
-    testCompile prefixedProject('domain-robstoll-js')
-    testCompile prefixedProject('core-robstoll-js')
+    runtimeOnly prefixedProject('domain-robstoll-js')
+    runtimeOnly prefixedProject('core-robstoll-js')
 }

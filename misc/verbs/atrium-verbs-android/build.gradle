@@ -1,10 +1,10 @@
 description = 'Assertion verbs for Atrium for Android.'
 
 dependencies {
-    compile prefixedProject('domain-builders-android')
-    compile prefixedProject('core-api-android')
+    api prefixedProject('domain-builders-android')
+    api prefixedProject('core-api-android')
 
-    testCompile prefixedProject('spec')
+    testImplementation prefixedProject('spec')
     testRuntime prefixedProject('domain-robstoll-android')
     testRuntime prefixedProject('core-robstoll-android')
 }

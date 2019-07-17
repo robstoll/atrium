@@ -2,16 +2,12 @@ description = 'Provides specifications of Atrium -- an assertion framework for K
         ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    compile prefixedProject('domain-api-jvm')
-    compile prefixedProject('core-api-jvm')
-    compile prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-jvm')
+    api prefixedProject('core-api-jvm')
+    api prefixedProject('domain-builders-jvm')
 
-    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
-    // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-cc-en_GB-jvm') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-jvm') // for depending modules
-
-    compile prefixedProject('translations-en_GB-jvm')
+    implementation prefixedProject('api-cc-en_GB-jvm')
+    implementation prefixedProject('translations-en_GB-jvm')
 }
 
 // spek is required (not the platform) because we are specifying abstract Specs here
@@ -20,6 +16,6 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
-    compile mockito(), excludeKotlin
+    api "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
+    api mockito(), excludeKotlin
 }
