@@ -1,7 +1,7 @@
 description = 'API of the domain of Atrium for the JS platform.'
 
 dependencies {
-    compile prefixedProject('core-api-js')
+    api prefixedProject('core-api-js')
 
     // it is up to the consumer of atrium-domain-api which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-js')

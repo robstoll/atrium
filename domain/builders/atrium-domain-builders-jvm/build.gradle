@@ -1,15 +1,15 @@
 description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs for the JVM platform.'
 
 dependencies {
-    compile prefixedProject('domain-api-jvm')
+    api prefixedProject('domain-api-jvm')
 
     // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
 
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testCompile prefixedProject('api-cc-en_GB-jvm')
-    testCompile prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('api-cc-en_GB-jvm')
+    testImplementation prefixedProject('verbs-internal-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124

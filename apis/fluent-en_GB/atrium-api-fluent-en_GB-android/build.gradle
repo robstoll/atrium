@@ -4,13 +4,13 @@ description = 'A fluent assertion function API in en_GB with a focus on code com
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 dependencies {
-    compile prefixedProject('domain-builders-android')
+    api prefixedProject('domain-builders-android')
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testCompile prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('verbs-internal-android')
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testCompile prefixedProject('api-cc-en_GB-android')
+    testImplementation prefixedProject('api-cc-en_GB-android')
 }
 
 //TODO remove once all specs are migrated to spek2 and apply spek plugin with version 2.1.x

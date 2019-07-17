@@ -2,16 +2,16 @@ description = 'Represents a deprecated convenience module which merely bundles d
     'Use atrium-cc-infix-en_GB-robstoll once you have migrated all deprecated entities, this module will be removed with 1.0.0'
 
 dependencies {
-    compile prefixedProject('verbs-jvm')
-    compile prefixedProject('api-cc-infix-en_GB-jvm')
-    compile prefixedProject('translations-en_GB-jvm')
+    api prefixedProject('verbs-jvm')
+    api prefixedProject('api-cc-infix-en_GB-jvm')
+    implementation prefixedProject('translations-en_GB-jvm')
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
     //TODO remove with 1.0.0
-    compile prefixedProject('api-cc-infix-en_UK')
-    compile prefixedProject('assertions')
-    compile prefixedProject('core-api-deprecated')
-    compile prefixedProject('core-robstoll-deprecated')
-    compile prefixedProject('translations-en_UK-deprecated')
+    api prefixedProject('api-cc-infix-en_UK')
+    implementation prefixedProject('assertions')
+    api prefixedProject('core-api-deprecated')
+    implementation prefixedProject('core-robstoll-deprecated')
+    implementation prefixedProject('translations-en_UK-deprecated')
 }

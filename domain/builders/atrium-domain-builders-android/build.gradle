@@ -1,15 +1,15 @@
 description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs for Android.'
 
 dependencies {
-    compile prefixedProject('domain-api-android')
+    api prefixedProject('domain-api-android')
 
     // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testCompile prefixedProject('api-cc-en_GB-android')
-    testCompile prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('api-cc-en_GB-android')
+    testImplementation prefixedProject('verbs-internal-android')
 }
 
 srcAndResourcesFromJvmProject(project)

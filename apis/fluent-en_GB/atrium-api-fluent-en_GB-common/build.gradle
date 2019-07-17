@@ -1,12 +1,12 @@
 description = 'A fluent assertion function API in en_GB with a focus on code completion as common module.'
 
 dependencies {
-    compile prefixedProject('domain-builders-common')
+    api prefixedProject('domain-builders-common')
 
     testRuntimeOnly prefixedProject('domain-robstoll-common')
     testRuntimeOnly prefixedProject('core-robstoll-common')
     testImplementation prefixedProject('verbs-internal-common')
 
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testCompile prefixedProject('api-cc-en_GB-common') 
+    testImplementation prefixedProject('api-cc-en_GB-common')
 }

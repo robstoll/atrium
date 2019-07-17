@@ -1,11 +1,11 @@
 description = 'Represents a convenience module which merely bundles dependencies for the JS platform.'
 
 dependencies {
-    compile prefixedProject('verbs-js')
-    compile prefixedProject('api-cc-de_CH-js')
-    compile prefixedProject('domain-builders-js')
-    compile prefixedProject('translations-de_CH-js')
+    api prefixedProject('verbs-js')
+    api prefixedProject('api-cc-de_CH-js')
+    api prefixedProject('domain-builders-js')
+    implementation prefixedProject('translations-de_CH-js')
     //TODO should be runtimeOnly but due to https://youtrack.jetbrains.com/issue/KT-27797 it cannot be
-    compile prefixedProject('domain-robstoll-js')
-    compile prefixedProject('core-robstoll-js')
+    implementation prefixedProject('domain-robstoll-js')
+    implementation prefixedProject('core-robstoll-js')
 }

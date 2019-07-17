@@ -4,11 +4,11 @@ description = 'An assertion function API in en_GB with a focus on code completio
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 dependencies {
-    compile prefixedProject('domain-builders-android')
+    api prefixedProject('domain-builders-android')
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testCompile prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('verbs-internal-android')
 }
 
 srcAndResourcesFromJvmProject(project)
