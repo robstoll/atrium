@@ -8,14 +8,10 @@ dependencies {
     // exclude this dependency when depending on specs-js in case you want to use another translation
     api prefixedProject('translations-en_GB-js')
 
-    // we need fluent-en_GB for compilation and for runtime but we do not want that depending modules have fluent-en_GB
-    // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-fluent-en_GB-js') // for us
-    runtimeOnly prefixedProject('api-fluent-en_GB-js') // for depending modules
+    implementation prefixedProject('api-fluent-en_GB-js')
 
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    compileOnly prefixedProject('api-cc-en_GB-js') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-js') // for depending modules
+    implementation prefixedProject('api-cc-en_GB-js')
 }
 
 dependencies {

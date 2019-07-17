@@ -11,24 +11,17 @@ ext.jacoco_additional = [
 dependencies {
     api prefixedProject('domain-builders-jvm')
 
-    // we need api-fluent-en_GB for compilation and for runtime but we do not want that depending modules have it
-    // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-fluent-en_GB-jvm') // for us
-    runtimeOnly prefixedProject('api-fluent-en_GB-jvm') // for depending modules
-    testImplementation prefixedProject('api-fluent-en_GB-jvm') // for us in tests
+    implementation prefixedProject('api-fluent-en_GB-jvm')
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
-    implementation kbox(), excludeKotlin
 
     //TODO remove with 1.0.0
-    compileOnly prefixedProject('api-cc-en_GB-jvm') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-jvm') // for depending modules
-    testImplementation prefixedProject('api-cc-en_GB-jvm') // for us in tests
+    implementation prefixedProject('api-cc-en_GB-jvm')
 
+    testImplementation prefixedProject('verbs-internal-jvm')
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testImplementation prefixedProject('verbs-internal-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124

@@ -6,24 +6,26 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 dependencies {
     api prefixedProject('domain-builders-android')
 
-    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
-    // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-fluent-en_GB-android') // for us
-    runtimeOnly prefixedProject('api-fluent-en_GB-android') // for depending modules
-    testImplementation prefixedProject('api-fluent-en_GB-android') // for us in tests
+    implementation prefixedProject('api-fluent-en_GB-android')
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
-    implementation kbox(), excludeKotlin
 
     //TODO remove with 1.0.0
-    compileOnly prefixedProject('api-cc-en_GB-android') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-android') // for depending modules
-    testImplementation prefixedProject('api-cc-en_GB-android') // for us in tests
+    implementation prefixedProject('api-cc-en_GB-android')
 
+    testImplementation prefixedProject('verbs-internal-android')
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testImplementation prefixedProject('verbs-internal-android')
 }
 
 srcAndResourcesFromJvmProject(project)
+
+//TODO remove once all specs are migrated to spek2 and apply spek plugin with version 2.1.x
+junitPlatform {
+    filters {
+        engines {
+            include 'spek2'
+        }
+    }
+}

@@ -6,18 +6,13 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 dependencies {
     api prefixedProject('domain-builders-common')
 
-    // we need api-fluent-en_GB for compilation and for runtime but we do not want that depending modules have it
-    // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-fluent-en_GB-common') // for us
-    runtimeOnly prefixedProject('api-fluent-en_GB-common') // for depending modules
-    testImplementation prefixedProject('api-fluent-en_GB-common') // for us in tests
+    implementation prefixedProject('api-fluent-en_GB-common')
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-common')
-    implementation "ch.tutteli.kbox:kbox-common:$kbox_version", excludeKotlin
 
     //TODO remove with 1.0.0
-    compileOnly prefixedProject('api-cc-en_GB-common') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-common') // for depending modules
-    testImplementation prefixedProject('api-cc-en_GB-common') // for us in tests
+    implementation prefixedProject('api-cc-en_GB-common')
+
+    testImplementation prefixedProject('verbs-internal-android')
 }
