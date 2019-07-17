@@ -3,13 +3,14 @@ description = 'Represents a deprecated convenience module which merely bundles d
 
 dependencies {
     api prefixedProject('verbs-jvm')
-    api prefixedProject('api-cc-en_GB-jvm')
+    api prefixedProject('api-fluent-en_GB-jvm')
     api prefixedProject('translations-en_GB-jvm')
 
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
     //TODO remove with 1.0.0
+    api prefixedProject('api-cc-en_GB-jvm')
     api prefixedProject('api-cc-en_UK')
     implementation prefixedProject('assertions')
     api prefixedProject('core-api-deprecated')
