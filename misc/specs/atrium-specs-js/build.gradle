@@ -19,6 +19,5 @@ dependencies {
 }
 
 dependencies {
-    implementation "ch.tutteli.kbox:kbox-js:$kbox_version"
     //TODO use spek2 js artifact as soon as the following is released: https://github.com/spekframework/spek/issues/706
 }

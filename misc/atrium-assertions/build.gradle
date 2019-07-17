@@ -3,7 +3,9 @@ description = 'A deprecated module, you should not longer rely on it; will be re
 dependencies {
     api prefixedProject('domain-api-jvm')
     api prefixedProject('domain-api-deprecated')
+    api prefixedProject('domain-builders-jvm')
     compileOnly prefixedProject('domain-robstoll-jvm')
+    implementation prefixedProject('domain-robstoll-lib-jvm')
     api prefixedProject('core-api-jvm')
     // it is up to the consumer of atrium-assertions which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')

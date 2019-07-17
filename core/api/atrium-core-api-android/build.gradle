@@ -1,8 +1,8 @@
 description = 'API of the core of Atrium for Android.'
 
 dependencies {
-    implementation kbox(), excludeKotlin
-    implementation kotlinReflect()
+    api kbox(), excludeKotlin
+    api kotlinReflect()
 
     testImplementation prefixedProject('cc-infix-en_GB-robstoll-android')
     testImplementation prefixedProject('verbs-internal-android')

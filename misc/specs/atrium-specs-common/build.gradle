@@ -19,6 +19,5 @@ dependencies {
 }
 
 dependencies {
-    implementation "org.spekframework.spek2:spek-dsl-metadata:$spek2_version"
-    implementation "ch.tutteli.kbox:kbox-common:$kbox_version"
+    api "org.spekframework.spek2:spek-dsl-metadata:$spek2_version"
 }

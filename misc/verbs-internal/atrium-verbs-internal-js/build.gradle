@@ -3,8 +3,7 @@ description = 'Specifies the internally used assertion verbs for the JS platform
 dependencies {
     api prefixedProject('core-api-js')
     api prefixedProject('domain-builders-js')
-    implementation prefixedProject('translations-en_GB-js')
-    implementation prefixedProject('specs-js')
+    api prefixedProject('specs-js')
 
     testImplementation prefixedProject('domain-robstoll-js')
     testImplementation prefixedProject('core-robstoll-js')

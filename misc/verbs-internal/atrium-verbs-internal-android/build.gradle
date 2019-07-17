@@ -3,8 +3,8 @@ description = 'Specifies the internally used assertion verbs for Android.'
 dependencies {
     api prefixedProject('core-api-android')
     api prefixedProject('domain-builders-android')
-    implementation prefixedProject('spec')
-    implementation prefixedProject('specs-android')
+    api prefixedProject('spec')
+    api prefixedProject('specs-android')
 
     testImplementation prefixedProject('domain-robstoll-android')
     testImplementation prefixedProject('core-robstoll-android')

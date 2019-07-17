@@ -20,6 +20,6 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
-    implementation mockito(), excludeKotlin
+    api "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
+    api mockito(), excludeKotlin
 }
