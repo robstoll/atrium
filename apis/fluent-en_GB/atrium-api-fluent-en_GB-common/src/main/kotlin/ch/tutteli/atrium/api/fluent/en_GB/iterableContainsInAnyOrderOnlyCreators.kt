@@ -2,15 +2,12 @@
 @file:JvmName("IterableContainsInAnyOrderOnlyCreatorsKt")
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertionForAssert
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
