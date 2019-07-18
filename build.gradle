@@ -93,7 +93,7 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version"
-        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.3.1'
     }
 }
 
