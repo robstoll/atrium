@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * The transformation as such is not reflected in reporting.
  * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
- * @return The newly created [AssertionPlant] for the transformed subject.
+ * @return The newly created [Expect] for the transformed subject.
  */
 @Suppress("DEPRECATION")
 fun <E> Expect<Sequence<E>>.asIterable(): Expect<Iterable<E>>

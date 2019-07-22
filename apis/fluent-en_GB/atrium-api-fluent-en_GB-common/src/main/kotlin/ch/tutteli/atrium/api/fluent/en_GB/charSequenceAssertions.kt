@@ -27,7 +27,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
     get() = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
 
 /**
- * Expects that the subject of the assertion contains [expected]'s [toString] representation
+ * Expects that the subject of the assertion (a [CharSequence]) contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
@@ -47,7 +47,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  * instead of:
  *   `contains('a', 'a')`
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -56,7 +56,7 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
     = contains.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion does not contain [expected]'s [toString] representation
+ * Expects that the subject of the assertion (a [CharSequence]) does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
@@ -64,7 +64,7 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected: Any)
@@ -72,7 +72,7 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
 
 
 /**
- * Expects that the subject of the assertion contains a sequence which matches the given regular expression
+ * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given regular expression
  * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
@@ -91,43 +91,43 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatterns: String): Expect<T>
     = contains.atLeast(1).regex(pattern, *otherPatterns)
 
 /**
- * Expects that the subject of the assertion starts with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.startsWith(this, expected))
 
 /**
- * Expects that the subject of the assertion starts with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: Char)
     = startsWith(expected.toString())
 
 /**
- * Expects that the subject of the assertion does not start with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.startsNotWith(this, expected))
 
 /**
- * Expects that the subject of the assertion does not start with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char)
@@ -135,36 +135,36 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char)
 
 
 /**
- * Expects that the subject of the assertion ends with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.endsWith(this, expected))
 
 /**
- * Expects that the subject of the assertion ends with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: Char)
     = endsWith(expected.toString())
 
 /**
- * Expects that the subject of the assertion does not end with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.endsNotWith(this, expected))
 
 /**
- * Expects that the subject of the assertion does not end with [expected].
+ * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char)
@@ -172,27 +172,27 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char)
 
 
 /**
- * Expects that the subject of the assertion [CharSequence].[kotlin.text.isEmpty].
+ * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.isEmpty()
     = addAssertion(ExpectImpl.charSequence.isEmpty(this))
 
 /**
- * Expects that the subject of the assertion [CharSequence].[kotlin.text.isNotEmpty].
+ * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.isNotEmpty()
     = addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
 
 /**
- * Expects that the subject of the assertion [CharSequence].[kotlin.text.isNotBlank].
+ * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.isNotBlank()

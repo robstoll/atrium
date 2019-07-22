@@ -5,7 +5,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.kbox.glue
 
 /**
- * Expects that the subject of the assertion contains a key as defined by [keyValuePair]'s [Pair.first]
+ * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
  * are created for the [otherPairs].
  *
@@ -13,7 +13,7 @@ import ch.tutteli.kbox.glue
  * defined as `'a' to 1` and one of the [otherPairs] is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
@@ -22,7 +22,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
 ) = addAssertion(ExpectImpl.map.contains(this, V::class, keyValuePair glue otherPairs))
 
 /**
- * Expects that the subject of the assertion contains a key as defined by [keyValue]'s [KeyValue.key]
+ * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
@@ -32,7 +32,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
  * , then both match, even though they match the same entry.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
@@ -43,34 +43,34 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
 )
 
 /**
- * Expects that the subject of the assertion contains the given [key].
+ * Expects that the subject of the assertion (a [Map]) contains the given [key].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T: Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImpl.map.containsKey(this, key))
 
 /**
- * Expects that the subject of the assertion does not contain the given [key].
+ * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T: Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(ExpectImpl.map.containsNotKey(this, key))
 
 
 /**
- * Expects that the subject of the assertion is an empty [Map].
+ * Expects that the subject of the assertion (a [Map]) is an empty [Map].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Map<*, *>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.map.isEmpty(this))
 
 /**
- * Expects that the subject of the assertion is not an empty [Map].
+ * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEmpty(this))

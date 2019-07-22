@@ -179,6 +179,6 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)

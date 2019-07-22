@@ -14,7 +14,7 @@ import ch.tutteli.kbox.glue
 /**
  * Parameter object to express a [Group] with a single identification lambda.
  *
-In case `null` is used for the identification lambda then it is expected that the corresponding entry
+ * In case `null` is used for the identification lambda then it is expected that the corresponding entry
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered

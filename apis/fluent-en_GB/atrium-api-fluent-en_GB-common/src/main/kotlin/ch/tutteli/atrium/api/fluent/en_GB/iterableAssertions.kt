@@ -32,7 +32,7 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearch
 
 
 /**c
- * Expects that the subject of the assertion contains the
+ * Expects that the subject of the assertion (an [Iterable]) contains the
  * [expected] value and the [otherExpected] values (if given).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)`
@@ -46,14 +46,14 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearch
  * instead of:
  *   `contains('a', 'a')`
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T: Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E): Expect<T>
     = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion contains an entry holding the
+ * Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -63,14 +63,14 @@ fun <E, T: Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E)
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
     = contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion contains an entry holding the
+ * Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreatorsOrNulls].
@@ -83,26 +83,26 @@ fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?): Expect<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
- * Expects that the subject of the assertion contains only
+ * Expects that the subject of the assertion (an [Iterable]) contains only
  * the [expected] value and the [otherExpected] values (if given) in the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.values(expected, *otherExpected)`
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpected: E): Expect<T>
     = contains.inOrder.only.values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion contains only an entry holding
+ * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -112,14 +112,14 @@ fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpe
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
     = contains.inOrder.only.entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion contains only an entry holding
+ * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null`
  * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
@@ -132,7 +132,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?): Expect<T>
@@ -140,12 +140,12 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
 
 
 /**
- * Expects that the subject of the assertion does not contain the [expected] value
+ * Expects that the subject of the assertion (an [Iterable]) does not contain the [expected] value
  * and neither one of the [otherExpected] values (if given).
  *
  *  It is a shortcut for `containsNot.values(expected, *otherExpected)`
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E)
@@ -153,13 +153,13 @@ fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected
 
 
 /**
- * Expects that the subject of the assertion contains an entry holding
+ * Expects that the subject of the assertion (an [Iterable]) contains an entry holding
  * the assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)`
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
@@ -167,13 +167,13 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
 
 
 /**
- * Expects that the subject of the assertion does not contain a single entry
+ * Expects that the subject of the assertion (an [Iterable]) does not contain a single entry
  * which holds all assertions created by [assertionCreatorOrNull] or does not contain a single entry which is `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
  *  It is a shortcut for `containsNot.entry(assertionCreatorOrNull)`
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?)
@@ -181,11 +181,11 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
 
 
 /**
- * Expects that the subject of the assertion has at least one element and
+ * Expects that the subject of the assertion (an [Iterable]) has at least one element and
  * that every element holds all assertions created by the [assertionCreatorOrNull] or that all elements are `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?)

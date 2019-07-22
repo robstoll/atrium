@@ -9,7 +9,7 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
- * Expects that the subject of the assertion is equal to [expected] with an error [tolerance]
+ * Expects that the subject of the assertion (a [Float]) is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *
  * In detail, It compares the absolute difference between the subject and [expected];
@@ -18,14 +18,14 @@ import kotlin.jvm.JvmName
  *
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
     addAssertion(ExpectImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))
 
 /**
- * Expects that the subject of the assertion is equal to [expected] with an error [tolerance]
+ * Expects that the subject of the assertion  (a [Double]) is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *
  * In detail, It compares the absolute difference between the subject and [expected];
@@ -34,7 +34,7 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
  *
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double) =

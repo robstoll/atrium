@@ -6,7 +6,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 /**
  * Expects that the subject of the assertion is less than [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
@@ -15,7 +15,7 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
 /**
  * Expects that the subject of the assertion is less than or equals [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Expect<T>.isLessOrEquals(expected: T) =
@@ -24,7 +24,7 @@ fun <T : Comparable<T>> Expect<T>.isLessOrEquals(expected: T) =
 /**
  * Expects that the subject of the assertion is greater than [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
@@ -33,7 +33,7 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
 /**
  * Expects that the subject of the assertion is greater than or equals [expected].
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Expect<T>.isGreaterOrEquals(expected: T) =
