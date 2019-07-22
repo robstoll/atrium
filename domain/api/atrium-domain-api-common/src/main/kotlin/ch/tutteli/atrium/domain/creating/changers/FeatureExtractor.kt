@@ -38,6 +38,9 @@ interface FeatureExtractor {
      *   This is especially useful if the extraction cannot be carried out, because this way we can then already
      *   show to you (in error reporting) what you wanted to assert about the feature (which gives you more context to
      *   the error).
+     * @param representationInsteadOfFeature Per default the feature as such is used to represent itself. However,
+     *   if you want a different representation, then use this parameter where passing `null` still means use the
+     *   feature.
      *
      * @return the newly created [Expect].
      */
@@ -47,6 +50,7 @@ interface FeatureExtractor {
         representationForFailure: Any,
         canBeExtracted: (T) -> Boolean,
         featureExtraction: (T) -> R,
-        subAssertions: (Expect<R>.() -> Unit)?
+        subAssertions: (Expect<R>.() -> Unit)?,
+        representationInsteadOfFeature: Any? = null
     ): Expect<R>
 }

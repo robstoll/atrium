@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**

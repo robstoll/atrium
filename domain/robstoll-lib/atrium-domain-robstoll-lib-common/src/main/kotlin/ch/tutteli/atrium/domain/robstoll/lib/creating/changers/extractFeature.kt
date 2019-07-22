@@ -16,10 +16,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 fun <T, R> _extractFeature(
     originalAssertionContainer: Expect<T>,
     description: Translatable,
-    representationForFailure: Any?,
+    representationForFailure: Any,
     canBeExtracted: (T) -> Boolean,
     featureExtraction: (T) -> R,
-    subAssertions: (Expect<R>.() -> Unit)?
+    subAssertions: (Expect<R>.() -> Unit)?,
+    representationInsteadOfFeature: Any?
 ): Expect<R> {
     return originalAssertionContainer.maybeSubject
         .filter(canBeExtracted)
@@ -56,7 +57,7 @@ fun <T, R> _extractFeature(
                 AssertionContainerWithCommonFields.CommonFields(
                     description,
                     Some(feature),
-                    feature,
+                    representationInsteadOfFeature ?: feature,
                     coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )
