@@ -10,12 +10,15 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Suppress("DEPRECATION")
+@Deprecated("Switch from `Assert` to `Expect` and use newFeatureAssertions; will be removed with 1.0.0")
 val featureAssertions by lazy { loadSingleService(FeatureAssertions::class) }
 
 /**
  * Defines the minimum set of assertion functions -- used to create feature assertions --
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated("Switch from `Assert` to `Expect` and use then ExpectImpl.feature, NewFeatureAssertionsBuilder respectively; will be removed with 1.0.0")
 interface FeatureAssertions {
 
     fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlant<TProperty>

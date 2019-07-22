@@ -1,8 +1,10 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.FeatureAssertions
+import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -15,10 +17,12 @@ val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
- * It is similar to [FeatureAssertions] but differs in the intended usage. [FeatureAssertions] are intended to make
- * assertions about a return value of a method call or a property, regardless if this call/access fails or not.
- * The feature extractor on the other hand should be used if it is already known, that the call/access fails depending
- * on given arguments. For instance, [List.get] is a good example where it fails if the given index is out of bounds.
+ * It is similar to [NewFeatureAssertions] but differs in the intended usage.
+ * [NewFeatureAssertions] are intended to make assertions about a return value of a method call or a property,
+ * assuming that the call as such always succeeds (no exception is thrown).
+ * The [FeatureExtractor] on the other hand should be used if it is already known,
+ * that the call/access fails depending on given arguments.
+ * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
  */
 interface FeatureExtractor {
 
