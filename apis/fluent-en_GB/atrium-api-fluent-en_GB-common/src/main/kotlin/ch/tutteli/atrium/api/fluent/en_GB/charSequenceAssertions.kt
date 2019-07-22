@@ -107,6 +107,15 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.startsWith(this, expected))
 
 /**
+ * Expects that the subject of the assertion starts with [expected].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Expect<T>.startsWith(expected: Char)
+    = startsWith(expected.toString())
+
+/**
  * Expects that the subject of the assertion does not start with [expected].
  *
  * @return This plant to support a fluent API.
@@ -114,6 +123,15 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence)
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.startsNotWith(this, expected))
+
+/**
+ * Expects that the subject of the assertion does not start with [expected].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char)
+    = startsNotWith(expected.toString())
 
 
 /**
@@ -126,6 +144,15 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.endsWith(this, expected))
 
 /**
+ * Expects that the subject of the assertion ends with [expected].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Expect<T>.endsWith(expected: Char)
+    = endsWith(expected.toString())
+
+/**
  * Expects that the subject of the assertion does not end with [expected].
  *
  * @return This plant to support a fluent API.
@@ -133,6 +160,15 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence)
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence)
     = addAssertion(ExpectImpl.charSequence.endsNotWith(this, expected))
+
+/**
+ * Expects that the subject of the assertion does not end with [expected].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char)
+    = endsNotWith(expected.toString())
 
 
 /**
