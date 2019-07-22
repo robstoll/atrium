@@ -54,7 +54,7 @@ class FeatureAssertionsBuilderNameRepresentationSpec : ch.tutteli.atrium.spec.in
     representationProvider()
 ) {
 
-    @Suppress("DEPRECATION" /* TODO #40 creating feature assertions will change anyway, thus not fixing the usages of `subject` */)
+    @Suppress("DEPRECATION" /* feature mechanism shown here is obsolete and will be removed with 1.0.0 */)
     companion object {
         val representationProvider =  { "own representation" }
         val propertyImmediate: F = { property(this, { subject.description }, representationProvider, Untranslatable("description")).contains("hello") }
@@ -89,7 +89,6 @@ class FeatureAssertionsBuilderNameRepresentationSpec : ch.tutteli.atrium.spec.in
         val return3ValueNullableHolds: F = { val l: (String, Int, Boolean) -> Int? = {a1, a2, a3 -> subject.returnNullable3(a1, a2, a3) }; returnValueOf3(this, l, "a", 1, true, representationProvider, "returnNullable3").notToBeNull {} }
         val return4ValueNullableHolds: F = { val l: (String, Int, Boolean, Double) -> Int? = {a1, a2, a3, a4 -> subject.returnNullable4(a1, a2, a3, a4) }; returnValueOf4(this, l, "a", 1, true, 1.2, representationProvider, "returnNullable4").notToBeNull {} }
         val return5ValueNullableHolds: F = { val l: (String, Int, Boolean, Double, Char) -> Int? = {a1, a2, a3, a4, a5 -> subject.returnNullable5(a1, a2, a3, a4, a5) }; returnValueOf5(this, l, "a", 1, true, 1.2, 'b', representationProvider, "returnNullable5").notToBeNull {} }
-
 
         val propertyLazyWithNestedImmediate: F = {
             property(this, { subject.description }, representationProvider, Untranslatable("description")) {

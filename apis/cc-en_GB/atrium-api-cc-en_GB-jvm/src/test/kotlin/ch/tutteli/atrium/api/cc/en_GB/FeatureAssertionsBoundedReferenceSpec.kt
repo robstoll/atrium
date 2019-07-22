@@ -43,7 +43,7 @@ class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.spec.integration
     propertyLazyWithNestedLazy
 ) {
 
-    @Suppress("DEPRECATION" /* TODO #40 creating feature assertions will change anyway, thus not fixing the usages of `subject` */)
+    @Suppress("DEPRECATION" /* feature mechanism shown here is obsolete and will be removed with 1.0.0 */)
     companion object {
         val propertyImmediate: F = { property(subject::description).contains("hello") }
         val propertyLazy: F = { property(subject::description) { contains("hello") } }

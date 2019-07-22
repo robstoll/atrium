@@ -6,6 +6,9 @@ description = 'An assertion function API in en_GB with a focus on code completio
 dependencies {
     api prefixedProject('domain-builders-js')
 
+    // it is up to the consumer of atrium-api-fluent-en_GB-api which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-js')
+
     testImplementation prefixedProject('verbs-internal-js')
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
     testImplementation prefixedProject('api-cc-en_GB-js')

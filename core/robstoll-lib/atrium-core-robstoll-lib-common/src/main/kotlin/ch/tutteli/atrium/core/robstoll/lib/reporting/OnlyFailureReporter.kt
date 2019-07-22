@@ -2,8 +2,8 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
-import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.AtriumError
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 
 /**

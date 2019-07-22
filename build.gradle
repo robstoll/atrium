@@ -44,7 +44,8 @@ buildscript {
                         it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec" &&
-                        !it.name.startsWith("${rootProject.name}-specs")
+                        !it.name.startsWith("${rootProject.name}-specs") &&
+                        !it.path.contains('examples')
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects - jsExampleProjects).findAll {
@@ -57,6 +58,7 @@ buildscript {
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
                         it.name != "${rootProject.name}-bc-test" &&
+                        !it.path.contains('examples') &&
                         //TODO remove with 1.0.0
                         it.name != "${rootProject.name}-assertions" &&
                         it.name != "${rootProject.name}-core-api-deprecated" &&

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor.*
-import ch.tutteli.atrium.domain.creating.FeatureAssertions
+import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -14,10 +14,12 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
- * It is similar to [FeatureAssertions] but differs in the intended usage. [FeatureAssertions] are intended to make
- * assertions about a return value of a method call or a property, regardless if this call/access fails or not.
- * The [FeatureExtractorBuilder] on the other hand should be used if it is already known, that the call/access fails depending
- * on given arguments. For instance, [List.get] is a good example where it fails if the given index is out of bounds.
+ * It is similar to [NewFeatureAssertions] but differs in the intended usage.
+ * [NewFeatureAssertions] are intended to make assertions about a return value of a method call or a property,
+ * assuming that the call as such always succeeds (no exception is thrown).
+ * The [FeatureExtractorBuilder] on the other hand should be used if it is already known,
+ * that the call/access fails depending on given arguments.
+ * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
  */
 interface FeatureExtractorBuilder {
 

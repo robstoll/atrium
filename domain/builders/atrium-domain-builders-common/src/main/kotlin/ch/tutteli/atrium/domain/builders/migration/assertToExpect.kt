@@ -24,9 +24,22 @@ fun <T : Any> Expect<T>.asAssert(): Assert<T> =
  *
  * Try to switch entirely to [Expect] as [Assert] along with this function will be removed with 1.0.0
  */
-fun <T : Any?, A: BaseAssertionPlant<T, *>> A.asExpect(): Expect<T> =
+fun <T : Any?, A : BaseAssertionPlant<T, *>> A.asExpect(): Expect<T> =
     coreFactory.newReportingAssertionContainer(
         SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
         this.maybeSubject,
         coreFactory.newDelegatingAssertionChecker(this)
     )
+
+/**
+ * Turns [Assert] or [AssertionPlantNullable] into an [Expect] so that you can use new functionality
+ * which is not available on [Assert]/[AssertionPlantNullable].
+ *
+ * Try to switch entirely to [Expect] as [Assert] along with this function will be removed with 1.0.0
+ *
+ * @returns The deprecated plant.
+ */
+fun <T : Any, A : BaseAssertionPlant<T, *>> A.asExpect(assertionCreator: Expect<T>.() -> Unit): A {
+    asExpect().addAssertionsCreatedBy(assertionCreator)
+    return this
+}

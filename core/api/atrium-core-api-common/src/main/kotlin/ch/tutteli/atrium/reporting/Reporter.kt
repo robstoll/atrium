@@ -8,6 +8,9 @@ import ch.tutteli.atrium.core.CoreFactory
  */
 interface Reporter {
 
+    /**
+     * The [AtriumErrorAdjuster] which shall be used to modify stack traces in reporting.
+     */
     val atriumErrorAdjuster: AtriumErrorAdjuster
 
     /**

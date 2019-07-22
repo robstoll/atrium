@@ -79,7 +79,7 @@ fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEm
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `property(subject::entries)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
  */
@@ -91,7 +91,7 @@ fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>>
  * [assertionCreator] might create hold.
  *
  * The transformation as such is not reflected in reporting.
- * Use `property(subject::entries)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
  */

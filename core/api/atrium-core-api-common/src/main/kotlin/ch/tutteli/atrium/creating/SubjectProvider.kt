@@ -26,39 +26,80 @@ interface SubjectProvider<out T> {
      * }
      * ```
      *
-     * For this reason we refactored our design and now pass subject as arguments in places where you need it and where it is safe to use it.
-     * Following a non-exhaustive list explaining how you need to migrate to use the new design:
+     * For this reason we refactored our design and now pass subject as arguments in places where you need it and
+     * where it is safe to use it.
      *
-     * ```
-     * fun Assert<Int>.isEven() = createAndAddAssertion(IS, RawString.create("even")) { subject % 2 == 0 }  // old
-     * fun Expect<Int>.isEven() = createAndAddAssertion(IS, RawString.create("even")) { it % 2 == 0 }       // new
-     * ```
-     * notice the switch from `Assert` to `Expect`
+     * It's best if you switch entirely from [Assert] to [Expect] and from `AssertImpl` to `ExpectImpl`.
+     * Have a look at the migration guide given in [https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration](https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration)
+     * for a fast way to migrate everything.
      *
-     * ```
-     * AssertImpl.builder.createDescriptive(TO_BE, expected) { subject == expected }   // old
-     * AssertImpl.builder.createDescriptive(this, TO_BE, expected) { it == expected }  // new
-     * ```
+     * In case you want to migrate part by part then the following, non-exhaustive list, tries to explain
+     * how you need to migrate to use the new design:
      *
-     * ```
-     * AssertImpl.builder.descriptive.withTest { subject == expected }   // old
-     * AssertImpl.builder.descriptive.withTest(this) { it == expected }  // new - `this` refers to Assert or Expect
-     * ```
+     * 1.
+     *      ```
+     *      fun Assert<Int>.isEven() = createAndAddAssertion(IS, RawString.create("even")) { subject % 2 == 0 }  // old
+     *      fun Expect<Int>.isEven() = createAndAddAssertion(IS, RawString.create("even")) { it % 2 == 0 }       // new
+     *      ```
+     *      notice the switch from `Assert` to `Expect`
      *
-     * ```
-     * AssertImpl.builder.descriptive.withTest(...).withFailureHint { ...  subject ... }   // old
-     * AssertImpl.builder.descriptive.withTest(...).withFailureHint(this) { ... it ... }  // new - `this` refers to Assert or Expect
-     * ```
+     * 2.
+     *      ```
+     *      AssertImpl.builder.createDescriptive(TO_BE, expected) { subject == expected }   // old
+     *      AssertImpl.builder.createDescriptive(this, TO_BE, expected) { it == expected }  // new
+     *      ```
      *
-     * AssertImpl.builder.descriptive.withTest(...).withFailureHint(...).showOnlyIf { ... subject ... }   // old
-     * AssertImpl.builder.descriptive.withTest(...).withFailureHint(...).showOnlyIf(this) { ... it ... }  // new - `this` refers to Assert or Expect
-     * ```
+     * 3.
+     *      ```
+     *      AssertImpl.builder.descriptive.withTest { subject == expected }   // old
+     *      AssertImpl.builder.descriptive.withTest(this) { it == expected }  // new - `this` refers to Assert or Expect
+     *      ```
      *
-     * ```
-     * AssertImpl.changeSubject(this) { subject.asIterable() }        // old
-     * ExpectImpl.changeSubject.unreported(this) { it.asIterable() }  // new
-     * ```
-     *  notice the switch from `AssertImpl` to `ExpectImpl`
+     * 4.
+     *      ```
+     *      AssertImpl.builder.descriptive.withTest(...).withFailureHint { ...  subject ... }   // old
+     *      AssertImpl.builder.descriptive.withTest(...).withFailureHint(this) { ... it ... }  // new - `this` refers to Assert or Expect
+     *      ```
+     *
+     * 5.
+     *      ```
+     *      AssertImpl.builder.descriptive.withTest(...).withFailureHint(...).showOnlyIf { ... subject ... }   // old
+     *      AssertImpl.builder.descriptive.withTest(...).withFailureHint(...).showOnlyIf(this) { ... it ... }  // new - `this` refers to Assert or Expect
+     *      ```
+     *
+     * 6.
+     *      ```
+     *      AssertImpl.changeSubject(this) { subject.asIterable() }        // old
+     *      ExpectImpl.changeSubject.unreported(this) { it.asIterable() }  // new
+     *      ```
+     *      notice the switch from `AssertImpl` to `ExpectImpl`
+     *
+     * 7. Feature assertions
+     *      Those are not straight forward and require that you migrate to Expect first or that you use `asExpect`
+     *      ```
+     *      import ch.tutteli.atrium.verbs.expect
+     *      expect(person) {
+     *        property(subject::firstName).startsWith("hello")
+     *        returnValueOf(subject::myFun, "arg1").toBe(42)
+     *      } and {
+     *        property(subject::lastName).toBe("world")
+     *      }
+     *
+     *      // using asExpect
+     *
+     *      expect(person).asExpect { // everything within the brackets is in the Expect world
+     *        feature { f(it::firstName) }.startsWith("hello")
+     *        feature { f(it::myFun, "arg1") }.toBe(42)
+     *      }    // back to the Assert world
+     *      .and {
+     *        asExpect() // switch to Expect world, all subsequent calls in Expect world
+     *          .feature{ f(subject::lastName) }
+     *          .toBe("world")
+     *      }
+     *      ```
+     *      Have a look at the migration guides if you want to switch entirely to Expect as there is a fast
+     *      search & replace strategy.
+     *
      *
      *
      */

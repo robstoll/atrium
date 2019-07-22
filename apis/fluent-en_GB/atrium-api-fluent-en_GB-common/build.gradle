@@ -3,8 +3,10 @@ description = 'A fluent assertion function API in en_GB with a focus on code com
 dependencies {
     api prefixedProject('domain-builders-common')
 
+    // it is up to the consumer of atrium-api-fluent-en_GB-api which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-common')
+    
     testImplementation prefixedProject('verbs-internal-common')
-
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
     testImplementation prefixedProject('api-cc-en_GB-common')
 }

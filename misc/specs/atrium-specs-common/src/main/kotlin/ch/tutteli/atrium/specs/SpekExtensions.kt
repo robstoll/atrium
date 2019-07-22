@@ -29,3 +29,22 @@ fun GroupBody.prefixedDescribeTemplate(prefix: String, suffix: String, descripti
     describe("${prefix}describe$suffix $description", body = body)
 
 fun Root.include(spek: Spek) = spek.root(this)
+
+fun <T> Suite.checkGenericNarrowingAssertion(
+    description: String,
+    act: (T.() -> Unit) -> Unit,
+    lazy: (T.() -> Unit),
+    vararg otherMethods: Pair<String, (T.() -> Unit)>)
+    = checkGenericNarrowingAssertion(description, act, "lazy" to lazy, *otherMethods)
+
+fun <T> Suite.checkGenericNarrowingAssertion(
+    description: String, act: (T.() -> Unit) -> Unit, vararg methods: Pair<String, (T.() -> Unit)>
+) {
+    context(description) {
+        mapOf(*methods).forEach { (checkMethod, assertion) ->
+            it("in case of $checkMethod evaluation") {
+                act(assertion)
+            }
+        }
+    }
+}

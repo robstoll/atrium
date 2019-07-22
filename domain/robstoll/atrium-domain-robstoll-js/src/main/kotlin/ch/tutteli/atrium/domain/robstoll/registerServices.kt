@@ -17,6 +17,7 @@ private val register = run {
     registerService<ch.tutteli.atrium.domain.creating.ListAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ListAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.MapAssertions> { ch.tutteli.atrium.domain.robstoll.creating.MapAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.MapEntryAssertions> { ch.tutteli.atrium.domain.robstoll.creating.MapEntryAssertionsImpl() }
+    registerService<ch.tutteli.atrium.domain.creating.NewFeatureAssertions> { ch.tutteli.atrium.domain.robstoll.creating.NewFeatureAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.PairAssertions> { ch.tutteli.atrium.domain.robstoll.creating.PairAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.ThrowableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ThrowableAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions> { ch.tutteli.atrium.domain.robstoll.creating.any.typetransformation.creators.AnyTypeTransformationAssertionsImpl() }
