@@ -7,12 +7,12 @@ dependencies {
     api prefixedProject('domain-builders-jvm')
     // exclude this dependency when depending on specs-jvm in case you want to use another translation
     api prefixedProject('translations-en_GB-jvm')
+    api spekExtensions()
 
     implementation prefixedProject('api-fluent-en_GB-jvm')
 
     //TODO #26 remove as soon as we have ported all assertion functions to Expect
     implementation prefixedProject('api-cc-en_GB-jvm')
-
 }
 
 dependencies {
