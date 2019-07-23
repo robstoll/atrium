@@ -8,9 +8,7 @@ import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-/**
- * Robstoll's implementation of [FeatureAssertions].
- */
+
 class FeatureAssertionsImpl : FeatureAssertions {
 
     override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlant<TProperty>

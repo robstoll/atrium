@@ -4,26 +4,28 @@ import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
-import ch.tutteli.atrium.specs.integration.notImplemented
+import ch.tutteli.atrium.specs.fun0
+import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction3
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     AssertionVerbFactory,
     containsFun.name to Companion::contains,
-    containsNullableFun.name to Expect<Map<out String?, Int?>>::contains,
+    fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>(Expect<Map<out String?, Int?>>::contains),
     "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyValue,
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsNullable,
-    Expect<Map<out String, *>>::containsKey.name to Expect<Map<out String, *>>::containsKey,
-    Expect<Map<out String?, *>>::containsKey.name to Expect<Map<out String?, *>>::containsKey,
-    Expect<Map<out String, *>>::containsKey.name to Expect<Map<out String, *>>::containsNotKey,
-    Expect<Map<out String?, *>>::containsKey.name to Expect<Map<out String?, *>>::containsNotKey,
-    Expect<Map<*, *>>::isEmpty.name to Expect<Map<*, *>>::isEmpty,
-    Expect<Map<*, *>>::isNotEmpty.name to Expect<Map<*, *>>::isNotEmpty
+    fun1(Expect<Map<out String, *>>::containsKey),
+    fun1(Expect<Map<out String?, *>>::containsKey),
+    fun1(Expect<Map<out String, *>>::containsNotKey),
+    fun1(Expect<Map<out String?, *>>::containsNotKey),
+    fun0(Expect<Map<*, *>>::isEmpty),
+    fun0(Expect<Map<*, *>>::isNotEmpty)
 ) {
     companion object {
         //@formatter:off
         private val containsFun : KFunction3<Expect<Map<out String, Int>>, Pair<String, Int>, Array<out Pair<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
-        private val containsNullableFun : KFunction3<Expect<Map<out String?, Int?>>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>, Expect<Map<out String?, Int?>>> = Expect<Map<out String?, Int?>>::contains
         private val containsKeyWithValueAssertionsFun : KFunction3<Expect<Map<out String, Int>>, KeyValue<String, Int>, Array<out KeyValue<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
         private val containsKeyWithNullableValueAssertionsFun : KFunction3<Expect<Map<out String?, Int?>>, KeyValue<String?, Int>, Array<out KeyValue<String?, Int>>, Expect<Map<out String?, Int?>>> = Expect<Map<out String?, Int?>>::contains
         //@formatter:on

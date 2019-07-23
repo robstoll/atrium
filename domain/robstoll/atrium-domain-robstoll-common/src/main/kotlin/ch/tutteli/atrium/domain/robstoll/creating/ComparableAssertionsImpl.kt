@@ -7,9 +7,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isGreaterThan
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isLessOrEquals
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isLessThan
 
-/**
- * Robstoll's implementation of [ComparableAssertions].
- */
+
 class ComparableAssertionsImpl : ComparableAssertions {
 
     override fun <T1 : Comparable<T2>, T2 : Any?> isLessThan(subjectProvider: SubjectProvider<T1>, expected: T2) =

@@ -4,9 +4,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.FloatingPointAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._toBeWithErrorTolerance
 
-/**
- * Robstoll's implementation of [FloatingPointAssertions].
- */
+
 class FloatingPointAssertionsImpl : FloatingPointAssertions {
 
     override fun toBeWithErrorTolerance(

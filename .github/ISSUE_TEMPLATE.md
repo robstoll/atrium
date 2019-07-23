@@ -3,8 +3,8 @@ Please choose the appropriate template and fill in all sections
 # Bug Report
 
 *Affected Version*:
-*API* (cc or cc-infix):
-*Platform* (JVM, JS, Android): 
+*API* (fluent-en_GB, cc or cc-infix):
+*Platform* (jvm, jdk8, js, android): 
 
 ## How to reproduce the problem  
 Consider the following code snippet
@@ -23,7 +23,7 @@ A clear and concise description of what you expected to happen.
 
 # Feature Request
 
-*Platform* (JVM, JS and/or Android): 
+*Platform* (jvm, jdk8, js, android): 
 
 ## Code related feature
 ```

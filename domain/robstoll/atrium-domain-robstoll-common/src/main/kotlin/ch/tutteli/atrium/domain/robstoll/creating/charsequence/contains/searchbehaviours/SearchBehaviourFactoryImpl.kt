@@ -6,9 +6,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchbehaviours._containsIgnoringCase
 
-/**
- * Robstoll's implementation of [SearchBehaviourFactory].
- */
+
 class SearchBehaviourFactoryImpl : SearchBehaviourFactory {
 
     override fun <T : CharSequence> ignoringCase(

@@ -39,13 +39,12 @@ class KClassFullNameTest {
                 Double::class to "Double",
                 type<Char>() to "BoxedChar",
                 type<Boolean>() to "Boolean",
-                //TODO should be different, fix if https://youtrack.jetbrains.com/issue/KT-27828 is fixed
-                type<Byte>() to "<unknown> (js: Number)", // "Byte",
-                type<Short>() to "<unknown> (js: Number)", // "Short",
-                type<Int>() to "<unknown> (js: Number)", // "Int",
+                type<Byte>() to "Byte",
+                type<Short>() to "Short",
+                type<Int>() to "Int",
                 type<Long>() to "Long",
-                type<Float>() to "<unknown> (js: Number)", // "Float",
-                type<Double>() to "<unknown> (js: Number)" // "Double"
+                type<Float>() to "Float",
+                type<Double>() to "Double"
             ).forEach(fullNameIsExpected())
         }
     }
@@ -89,9 +88,9 @@ class KClassFullNameTest {
         val f2: (Int, String) -> Int = { _, _ -> 1 }
         assert("dummy subject, see sub assertions") {
             listOf(
-                type<() -> Unit>() to "<unknown> (js: Function)",
-                type<(Int) -> Unit>() to "<unknown> (js: Function)",
-                type<(Int, String) -> Unit>() to "<unknown> (js: Function)",
+                type<() -> Unit>() to "Function0",
+                type<(Int) -> Unit>() to "Function1",
+                type<(Int, String) -> Unit>() to "Function2",
                 f0::class to "Function0",
                 f1::class to "Function1",
                 f2::class to "Function2"

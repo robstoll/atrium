@@ -37,7 +37,7 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      *
      * @param assertionCreator The receiver function which might create and add assertions to this container.
      *
-     * @return This container to support a fluent API.
+     * @return This assertion container to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the concrete implementation.
      */
@@ -48,7 +48,7 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      *
      * @param assertion The assertion which will be added to this container.
      *
-     * @return This container to support a fluent API.
+     * @return This assertion container to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
@@ -63,11 +63,11 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
-     * @return This container to support a fluent API.
+     * @return This assertion container to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */
-    fun createAndAddAssertion(description: Translatable, expected: Any, test: (T) -> Boolean): Expect<T> =
+    fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
 }

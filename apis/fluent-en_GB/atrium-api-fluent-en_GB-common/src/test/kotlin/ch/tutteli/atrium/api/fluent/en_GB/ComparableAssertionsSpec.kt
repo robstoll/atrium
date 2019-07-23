@@ -2,11 +2,12 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.fun1
 
 object ComparableAssertionsSpec : ch.tutteli.atrium.specs.integration.ComparableAssertionsSpec(
     AssertionVerbFactory,
-    Expect<Int>::isLessThan.name to Expect<Int>::isLessThan,
-    Expect<Int>::isLessOrEquals.name to Expect<Int>::isLessOrEquals,
-    Expect<Int>::isGreaterThan.name to Expect<Int>::isGreaterThan,
-    Expect<Int>::isGreaterOrEquals.name to Expect<Int>::isGreaterOrEquals
+    fun1(Expect<Int>::isLessThan),
+    fun1(Expect<Int>::isLessOrEquals),
+    fun1(Expect<Int>::isGreaterThan),
+    fun1(Expect<Int>::isGreaterOrEquals)
 )

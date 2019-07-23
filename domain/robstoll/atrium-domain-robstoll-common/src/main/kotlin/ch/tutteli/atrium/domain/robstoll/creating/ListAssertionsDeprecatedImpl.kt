@@ -6,9 +6,7 @@ import ch.tutteli.atrium.domain.creating.ListAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._get
 import ch.tutteli.atrium.domain.robstoll.lib.creating._getNullable
 
-/**
- * Robstoll's implementation of [ListAssertions].
- */
+
 abstract class ListAssertionsDeprecatedImpl : ListAssertions {
 
     override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T> = _get(plant, index)

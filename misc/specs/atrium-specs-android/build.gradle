@@ -7,6 +7,7 @@ dependencies {
     api prefixedProject('domain-builders-android')
     // exclude this dependency when depending on specs-android in case you want to use another translation
     api prefixedProject('translations-en_GB-android')
+    api spekExtensions()
 
     implementation prefixedProject('api-fluent-en_GB-android')
 

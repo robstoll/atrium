@@ -7,9 +7,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators._toBe
 import kotlin.reflect.KClass
 
-/**
- * Robstoll's implementation of [ThrowableThrownAssertions].
- */
+
 class ThrowableThrownAssertionsImpl : ThrowableThrownAssertions {
 
     override fun <TExpected : Throwable> toBe(

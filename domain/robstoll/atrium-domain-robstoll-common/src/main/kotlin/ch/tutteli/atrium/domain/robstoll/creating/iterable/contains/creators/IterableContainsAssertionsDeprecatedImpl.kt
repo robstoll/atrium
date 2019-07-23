@@ -10,9 +10,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.*
 
-/**
- * Robstoll's implementation of [IterableContainsAssertions].
- */
+
 abstract class IterableContainsAssertionsDeprecatedImpl : IterableContainsAssertions {
 
     override fun <E : Any, T : Iterable<E?>> entriesInAnyOrderWithAssert(

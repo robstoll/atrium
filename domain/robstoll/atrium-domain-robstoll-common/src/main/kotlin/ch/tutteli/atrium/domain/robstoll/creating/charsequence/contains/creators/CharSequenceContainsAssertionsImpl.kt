@@ -8,9 +8,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.creators.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-/**
- * Robstoll's implementation of [CharSequenceContainsAssertions].
- */
+
 class CharSequenceContainsAssertionsImpl: CharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(

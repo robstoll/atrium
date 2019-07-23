@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.specs.fun1
 
 class IterableNoneAssertionsSpec : Spek({
 
@@ -13,8 +14,8 @@ class IterableNoneAssertionsSpec : Spek({
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
         AssertionVerbFactory,
-        Expect<Iterable<Double>>::none.name to Expect<Iterable<Double>>::none,
-        Expect<Iterable<Double?>>::none.name to Expect<Iterable<Double?>>::none,
+        fun1(Expect<Iterable<Double>>::none),
+        fun1(Expect<Iterable<Double?>>::none),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Predicate] "
     )

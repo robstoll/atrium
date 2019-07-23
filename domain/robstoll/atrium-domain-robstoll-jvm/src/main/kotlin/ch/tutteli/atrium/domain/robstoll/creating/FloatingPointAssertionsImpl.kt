@@ -5,9 +5,7 @@ import ch.tutteli.atrium.domain.creating.FloatingPointAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._toBeWithErrorTolerance
 import java.math.BigDecimal
 
-/**
- * Robstoll's implementation of [FloatingPointAssertions].
- */
+
 class FloatingPointAssertionsImpl : FloatingPointAssertions {
 
     override fun toBeWithErrorTolerance(

@@ -1,6 +1,5 @@
 module ch.tutteli.atrium.api.fluent.en_GB {
     requires ch.tutteli.atrium.domain.builders;
-    requires ch.tutteli.kbox;
     requires kotlin.stdlib;
 
 

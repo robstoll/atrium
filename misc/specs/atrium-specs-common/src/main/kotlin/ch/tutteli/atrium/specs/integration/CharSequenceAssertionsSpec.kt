@@ -4,15 +4,11 @@ import ch.tutteli.atrium.api.cc.en_GB.endsWith
 import ch.tutteli.atrium.api.cc.en_GB.message
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
-import ch.tutteli.atrium.specs.CheckingAssertionSpec
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
 import org.spekframework.spek2.style.specification.Suite
-
 
 abstract class CharSequenceAssertionsSpec(
     verbs: AssertionVerbFactory,

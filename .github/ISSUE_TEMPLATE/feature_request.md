@@ -4,7 +4,7 @@ about: Suggest an idea for this project
 
 ---
 
-*Platform* (JVM, JS and/or Android): 
+*Platform* (jvm, jdk8, js, android): 
 
 ## Code related feature
 ```
