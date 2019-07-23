@@ -6,5 +6,5 @@ import java.util.*
 
 //TODO #47 remove annotation
 @Suppress("UNUSED_PARAMETER")
-fun <T> _isPresent(assertionContainer: Expect<Optional<T>>): Assertion =
-    TODO("#47 create a feature assertion for Optional<T>::isPresent and assert it to be true")
+fun <T> _isEmpty(assertionContainer: Expect<Optional<T>>): Assertion =
+    TODO("#47 create a feature assertion for Optional<T>::isEmpty and assert it to be true")
