@@ -8,7 +8,7 @@ about: Suggest an idea for this project
 
 ## Code related feature
 ```
-assert(listOf(1, 2)).myDesiredFeature(...)
+expect(listOf(1, 2)).myDesiredFeature(...)
 ```
 
 ## Non-Code related feature

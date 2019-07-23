@@ -11,7 +11,7 @@ about: Create a report to help us improve
 ## How to reproduce the problem  
 Consider the following code snippet
 ```kotlin
-assert("this dummy text").wasReplaced.withYourCode()
+expect("this dummy text").wasReplaced.withYourCode()
 ```
 
 ## Describe the bug

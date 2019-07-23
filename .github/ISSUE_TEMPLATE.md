@@ -9,7 +9,7 @@ Please choose the appropriate template and fill in all sections
 ## How to reproduce the problem  
 Consider the following code snippet
 ```kotlin
-assert("this dummy text").wasReplaced.withYourCode()
+expect("this dummy text").wasReplaced.withYourCode()
 ```
 
 ## Describe the bug
@@ -27,7 +27,7 @@ A clear and concise description of what you expected to happen.
 
 ## Code related feature
 ```
-assert(listOf(1, 2)).myDesiredFeature(...)
+expect(listOf(1, 2)).myDesiredFeature(...)
 ```
 
 ## Non-Code related feature
