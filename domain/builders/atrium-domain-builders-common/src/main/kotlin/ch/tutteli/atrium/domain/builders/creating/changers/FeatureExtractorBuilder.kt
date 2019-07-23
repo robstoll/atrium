@@ -193,7 +193,7 @@ interface FeatureExtractorBuilder {
         /**
          * In case [assertionCreator] is `null` it is [withoutSubAssertions] otherwise [withSubAssertions].
          */
-        fun maybeWithSubAssertions(assertionCreator: (Expect<R>.() -> Unit)?): FinalStep<T, R> =
+        fun maybeWithSubAssertions(assertionCreator: (Expect<R>.() -> Unit)?): RepresentationOption<T, R> =
             if (assertionCreator != null) withSubAssertions(assertionCreator)
             else withoutSubAssertions()
 
@@ -203,7 +203,7 @@ interface FeatureExtractorBuilder {
          * We recommend using [withSubAssertions] whenever you have sub assertions as they will be reflected in
          * reporting in case the feature extraction cannot be carried out.
          */
-        fun withoutSubAssertions(): FinalStep<T, R>
+        fun withoutSubAssertions(): RepresentationOption<T, R>
 
         /**
          * Defines sub assertions for the new subject (after the feature extraction).
@@ -219,7 +219,7 @@ interface FeatureExtractorBuilder {
          *   >> transformation to type Int failed
          * ```
          */
-        fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): FinalStep<T, R>
+        fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): RepresentationOption<T, R>
 
         companion object {
             fun <T, R> create(
@@ -227,6 +227,57 @@ interface FeatureExtractorBuilder {
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R
             ): SubAssertionOption<T, R> = SubAssertionOptionImpl(checkOption, canBeTransformed, transformation)
+        }
+    }
+
+    /**
+     *  Option step which allows to specify a custom representation instead of the feature as such.
+     */
+    interface RepresentationOption<T, R>{
+        /**
+         * The so far chosen options up to the [CheckOption] step.
+         */
+        val checkOption: CheckOption<T>
+
+        /**
+         * The previously specified lambda which indicates whether we can extract the feature or not.
+         */
+        val canBeExtracted: (T) -> Boolean
+
+        /**
+         * The previously specified feature extraction lambda.
+         */
+        val featureExtraction: (T) -> R
+
+        /**
+         * The previously specified assertionCreator lambda or `null` in case no sub-assertions shall be applied
+         * immediately.
+         */
+        val subAssertions: (Expect<R>.() -> Unit)?
+
+        /**
+         * Uses the given [representation] to represent the feature instead of using the feature itself.
+         *
+         * Use [build] if you do not want to provide a custom represetation.
+         */
+        fun withRepresentationInsteadOfFeature(representation: Any): FinalStep<T, R>
+
+        /**
+         * Skips the option of defining a custom representation (uses the feature as such) and
+         * finishes the `feature extraction`-process by building a new [Expect] taking the previously chosen
+         * options into account.
+         *
+         * @return The newly created [Expect].
+         */
+        fun build(): Expect<R>
+
+        companion object {
+            fun <T, R> create(
+                checkOption: CheckOption<T>,
+                canBeTransformed: (T) -> Boolean,
+                transformation: (T) -> R,
+                subAssertions: (Expect<R>.() -> Unit)?
+            ): RepresentationOption<T, R> = RepresentationOptionImpl(checkOption, canBeTransformed, transformation, subAssertions)
         }
     }
 
@@ -248,15 +299,22 @@ interface FeatureExtractorBuilder {
         val featureExtraction: (T) -> R
 
         /**
-         * Optionally, sub assertions for the new subject.
+         * The previously specified assertionCreator lambda or `null` in case no sub-assertions shall be applied
+         * immediately.
          */
         val subAssertions: (Expect<R>.() -> Unit)?
+
+        /**
+         * The previously specified representation which shall be used instead of the future as such -- `null` means
+         * use the feature as such.
+         */
+        val representationInsteadOfFeature: Any?
 
         /**
          * Finishes the `feature extraction`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
-         * @return the newly created [Expect].
+         * @return The newly created [Expect].
          */
         fun build(): Expect<R>
 
@@ -265,8 +323,9 @@ interface FeatureExtractorBuilder {
                 checkOption: CheckOption<T>,
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R,
-                subAssertions: (Expect<R>.() -> Unit)?
-            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, subAssertions)
+                subAssertions: (Expect<R>.() -> Unit)?,
+                representationInsteadOfFeature: Any?
+            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, subAssertions, representationInsteadOfFeature)
         }
     }
 }

@@ -29,7 +29,6 @@ import kotlin.reflect.*
  */
 object NewFeatureAssertionsBuilder : NewFeatureAssertions {
 
-
     /**
      *  Start a feature extraction with the help of the [FeatureExtractorBuilder].
      *

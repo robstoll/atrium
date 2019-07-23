@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface NoOpSearchBehaviour : IterableContains.SearchBehaviour {
     /**
      * Returns the given [description].
-     * @return the given [description].
+     * @return The given [description].
      */
     override fun decorateDescription(description: Translatable) = description
 }

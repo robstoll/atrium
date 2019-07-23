@@ -254,7 +254,7 @@ object SubjectChangerBuilder : SubjectChanger {
          * Finishes the `reported subject change`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
-         * @return the newly created [Expect].
+         * @return The newly created [Expect].
          */
         fun build(): Expect<R>
 

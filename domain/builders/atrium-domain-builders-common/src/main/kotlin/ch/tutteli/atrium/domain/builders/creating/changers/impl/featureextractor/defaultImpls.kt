@@ -46,18 +46,41 @@ class SubAssertionOptionImpl<T, R>(
     override val featureExtraction: (T) -> R
 ) : FeatureExtractorBuilder.SubAssertionOption<T, R> {
 
-    override fun withoutSubAssertions(): FeatureExtractorBuilder.FinalStep<T, R> =
-        FeatureExtractorBuilder.FinalStep.create(checkOption, canBeExtracted, featureExtraction, null)
+    override fun withoutSubAssertions(): FeatureExtractorBuilder.RepresentationOption<T, R> =
+        FeatureExtractorBuilder.RepresentationOption.create(checkOption, canBeExtracted, featureExtraction, null)
 
-    override fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): FeatureExtractorBuilder.FinalStep<T, R> =
-        FeatureExtractorBuilder.FinalStep.create(checkOption, canBeExtracted, featureExtraction, assertionCreator)
+    override fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): FeatureExtractorBuilder.RepresentationOption<T, R> =
+        FeatureExtractorBuilder.RepresentationOption.create(checkOption, canBeExtracted, featureExtraction, assertionCreator)
+}
+
+class RepresentationOptionImpl<T, R>(
+    override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
+    override val canBeExtracted: (T) -> Boolean,
+    override val featureExtraction: (T) -> R,
+    override val subAssertions: (Expect<R>.() -> Unit)?
+) : FeatureExtractorBuilder.RepresentationOption<T, R> {
+
+    override fun withRepresentationInsteadOfFeature(representation: Any): FeatureExtractorBuilder.FinalStep<T, R> =
+        createFinalStep(representation)
+
+    override fun build(): Expect<R> = createFinalStep(null).build()
+
+    private fun createFinalStep(representation: Any?) =
+        FeatureExtractorBuilder.FinalStep.create(
+            checkOption,
+            canBeExtracted,
+            featureExtraction,
+            subAssertions,
+            representation
+        )
 }
 
 class FinalStepImpl<T, R>(
     override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
     override val canBeExtracted: (T) -> Boolean,
     override val featureExtraction: (T) -> R,
-    override val subAssertions: (Expect<R>.() -> Unit)?
+    override val subAssertions: (Expect<R>.() -> Unit)?,
+    override val representationInsteadOfFeature: Any?
 ) : FeatureExtractorBuilder.FinalStep<T, R> {
 
     override fun build(): Expect<R> = featureExtractor.extract(
@@ -66,8 +89,8 @@ class FinalStepImpl<T, R>(
         checkOption.representationForFailure,
         canBeExtracted,
         featureExtraction,
-        subAssertions
+        subAssertions,
+        representationInsteadOfFeature
     )
 }
-
 
