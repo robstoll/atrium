@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
-import ch.tutteli.atrium.specs.integration.notImplemented
+import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction3
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(

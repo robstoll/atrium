@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
-import ch.tutteli.atrium.specs.integration.notImplemented
+import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction4
 import kotlin.reflect.KProperty
 

@@ -4,6 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.format
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root

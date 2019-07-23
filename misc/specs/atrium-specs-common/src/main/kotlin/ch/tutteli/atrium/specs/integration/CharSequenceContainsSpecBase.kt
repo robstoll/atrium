@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.specs.format
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root

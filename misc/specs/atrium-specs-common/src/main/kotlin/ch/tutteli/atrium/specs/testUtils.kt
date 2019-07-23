@@ -1,12 +1,12 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package ch.tutteli.atrium.specs.integration
+package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.checkingTriple
-import ch.tutteli.atrium.specs.expectLambda
-import kotlin.reflect.*
+import kotlin.reflect.KFunction1
+import kotlin.reflect.KFunction2
+import kotlin.reflect.KFunction3
 
 typealias Fun<T> = Pair<String, T>
 
@@ -98,8 +98,10 @@ fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): St
 
 expect val lineSeperator: String
 
-fun <T> fun0(f: KFunction1<Expect<T>, Expect<T>>): Fun0<T> = f.name to f
-fun <T, A1> fun1(f: KFunction2<Expect<T>, A1, Expect<T>>): Fun1<T, A1> = f.name to f
-fun <T, A1, A2> fun2(f: KFunction3<Expect<T>, A1, A2, Expect<T>>): Fun2<T, A1, A2> = f.name to f
+fun <T> fun0(f: KFunction1<Expect<T>, Expect<T>>, suffix: String = ""): Fun0<T> = f.name + suffix to f
+fun <T, A1> fun1(f: KFunction2<Expect<T>, A1, Expect<T>>, suffix: String = ""): Fun1<T, A1> = f.name + suffix to f
+
+fun <T, A1, A2> fun2(f: KFunction3<Expect<T>, A1, A2, Expect<T>>, suffix: String = ""): Fun2<T, A1, A2> =
+    f.name + suffix to f
 
 fun <T> notImplemented(): T = throw NotImplementedError()
