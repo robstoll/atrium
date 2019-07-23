@@ -28,6 +28,7 @@ include {
     bundles {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
         kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
+        _ 'fluent-en_GB-jdk8'
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
@@ -38,6 +39,9 @@ include {
             }
             folder('fluent-en_GB') {
                 _ 'fluent-en_GB-smoke-test'
+            }
+            folder('atrium-fluent-en_GB-jdk8') {
+                _ 'fluent-en_GB-jdk8-smoke-test'
             }
 
             //TODO remove with 1.0.0
