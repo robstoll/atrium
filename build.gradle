@@ -9,10 +9,10 @@ buildscript {
         kbox_version = '0.13.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.3.31'
-        mockito_kotlin_version = '2.1.0'
-        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         // test
+        mockito_kotlin_version = '2.1.0'
+        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
         jacoco_tool_version = '0.8.2'
         junit_platform_version = '1.2.0'
         jupiter_version = '5.5.1'

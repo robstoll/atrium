@@ -47,9 +47,14 @@ include {
         }
     }
 
-    folder('apis', 'api-') {
+    apis('api-') {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
         kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
+        folder('fluent-en_GB', 'fluent-en_GB-') {
+            extensions {
+                _ 'jdk8'
+            }
+        }
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
     }
 
