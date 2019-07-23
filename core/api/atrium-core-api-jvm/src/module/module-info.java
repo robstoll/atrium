@@ -1,6 +1,6 @@
 module ch.tutteli.atrium.core.api {
-    requires ch.tutteli.kbox;
-    requires kotlin.stdlib;
+    requires transitive ch.tutteli.kbox;
+    requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.assertions;
     exports ch.tutteli.atrium.assertions.builders;
