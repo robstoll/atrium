@@ -152,11 +152,11 @@ configure(subprojects - multiplatformProjects - jsExamples) {
 }
 
 configure(commonProjects) {
-    //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
     compileKotlinCommon {
         kotlinOptions.languageVersion = '1.2'
     }
     compileTestKotlinCommon {
+        //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
         kotlinOptions.allWarningsAsErrors = false
     }
 }
@@ -171,8 +171,8 @@ configure(jsProjects) { subProject ->
         }
     }
 
-    //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
     compileTestKotlin2Js{
+        //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
         kotlinOptions.allWarningsAsErrors = false
     }
 }

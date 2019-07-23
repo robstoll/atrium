@@ -3,21 +3,17 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
+import ch.tutteli.atrium.specs.feature1
+import ch.tutteli.atrium.specs.fun2
 
 class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
     AssertionVerbFactory,
-    getFeature.name to getFeature,
-    getFun.name to getFun,
-    getNullableFeatureFun.name to getNullableFeatureFun,
+    feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
+    fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Expect<List<Int>>::get),
+    feature1(Expect<List<Int?>>::get),
     "get for nullable not implement in this API" to Companion::getNullable
 ) {
     companion object {
-        val getFeature: KFunction2<Expect<List<Int>>, Int, Expect<Int>> = Expect<List<Int>>::get
-        val getNullableFeatureFun: KFunction2<Expect<List<Int?>>, Int, Expect<Int?>> = Expect<List<Int?>>::get
-        val getFun: KFunction3<Expect<List<Int>>, Int, Expect<Int>.() -> Unit, Expect<List<Int>>> =
-            Expect<List<Int>>::get
 
         fun getNullable(
             plant: Expect<List<Int?>>,

@@ -10,7 +10,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(

@@ -2,30 +2,31 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.fun1
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
-    Expect<Int>::toBe.name to Expect<Int>::toBe,
-    Expect<DataClass>::toBe.name to Expect<DataClass>::toBe,
-    "${Expect<Int?>::toBe.name} nullable" to Expect<Int?>::toBe,
-    "${Expect<DataClass?>::toBe.name} nullable" to Expect<DataClass?>::toBe,
-    Expect<Int>::notToBe.name to Expect<Int>::notToBe,
-    Expect<DataClass>::notToBe.name to Expect<DataClass>::notToBe,
-    "${Expect<Int?>::notToBe.name} nullable" to Expect<Int?>::notToBe,
-    "${Expect<DataClass?>::notToBe.name} nullable" to Expect<DataClass?>::notToBe,
-    Expect<Int>::isSameAs.name to Expect<Int>::isSameAs,
-    Expect<DataClass>::isSameAs.name to Expect<DataClass>::isSameAs,
-    "${Expect<Int?>::isSameAs.name} nullable" to Expect<Int?>::isSameAs,
-    "${Expect<DataClass?>::isSameAs.name} nullable" to Expect<DataClass?>::isSameAs,
-    Expect<Int>::isNotSameAs.name to Expect<Int>::isNotSameAs,
-    Expect<DataClass>::isNotSameAs.name to Expect<DataClass>::isNotSameAs,
-    "${Expect<Int?>::isNotSameAs.name} nullable" to Expect<Int?>::isNotSameAs,
-    "${Expect<DataClass?>::isNotSameAs.name} nullable" to Expect<DataClass?>::isNotSameAs,
+    fun1(Expect<Int>::toBe),
+    fun1(Expect<DataClass>::toBe),
+    fun1(Expect<Int?>::toBe, suffix=" nullable"),
+    fun1(Expect<DataClass?>::toBe, suffix=" nullable"),
+    fun1(Expect<Int>::notToBe),
+    fun1(Expect<DataClass>::notToBe),
+    fun1(Expect<Int?>::notToBe, suffix=" nullable"),
+    fun1(Expect<DataClass?>::notToBe, suffix=" nullable"),
+    fun1(Expect<Int>::isSameAs),
+    fun1(Expect<DataClass>::isSameAs),
+    fun1(Expect<Int?>::isSameAs, suffix=" nullable"),
+    fun1(Expect<DataClass?>::isSameAs, suffix=" nullable"),
+    fun1(Expect<Int>::isNotSameAs),
+    fun1(Expect<DataClass>::isNotSameAs),
+    fun1(Expect<Int?>::isNotSameAs, suffix=" nullable"),
+    fun1(Expect<DataClass?>::isNotSameAs, suffix=" nullable"),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
-    Expect<Int?>::toBeNullIfNullGivenElse.name to Expect<Int?>::toBeNullIfNullGivenElse,
+    fun1(Expect<Int?>::toBeNullIfNullGivenElse),
     "isA" to Companion::isAFeature,
     "isA" to Companion::isAStringToInt,
     "isA" to Companion::isAStringToInt,

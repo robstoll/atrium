@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.specs.fun1
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
@@ -16,8 +17,8 @@ class IterableAnyAssertionsSpec : Spek({
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         AssertionVerbFactory,
-        Expect<Iterable<Double>>::any.name to Expect<Iterable<Double>>::any,
-        Expect<Iterable<Double?>>::any.name to Expect<Iterable<Double?>>::any,
+        fun1(Expect<Iterable<Double>>::any),
+        fun1(Expect<Iterable<Double?>>::any),
         "◆ ",
         "[Atrium][Predicate] "
     )
