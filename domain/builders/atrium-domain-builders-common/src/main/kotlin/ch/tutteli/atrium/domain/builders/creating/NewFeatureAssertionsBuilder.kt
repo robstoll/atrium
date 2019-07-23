@@ -46,13 +46,13 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
 
 
     //@formatter:off
-    fun <T, TProperty> property(assertionContainer: Expect<T>, property: KProperty1<T, TProperty>): Expect<TProperty> =
+    fun <T, TProperty> property(assertionContainer: Expect<T>, property: KProperty1<in T, TProperty>): Expect<TProperty> =
         extractProperty(assertionContainer, property).withoutSubAssertions()
 
-    fun <T, TProperty> property(assertionContainer: Expect<T>, property: KProperty1<T, TProperty>, assertionCreator: Expect<TProperty>.() -> Unit): Assertion =
+    fun <T, TProperty> property(assertionContainer: Expect<T>, property: KProperty1<in T, TProperty>, assertionCreator: Expect<TProperty>.() -> Unit): Assertion =
         extractProperty(assertionContainer, property).withAssertions(assertionCreator)
 
-    private inline fun <T, TProperty> extractProperty(assertionContainer: Expect<T>, property: KProperty1<T, TProperty>): FeatureCall<T, TProperty> =
+    private inline fun <T, TProperty> extractProperty(assertionContainer: Expect<T>, property: KProperty1<in T, TProperty>): FeatureCall<T, TProperty> =
         FeatureCall(assertionContainer, property.name, property::get)
 
 

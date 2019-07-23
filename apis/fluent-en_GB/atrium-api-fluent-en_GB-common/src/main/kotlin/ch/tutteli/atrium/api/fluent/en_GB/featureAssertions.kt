@@ -14,7 +14,7 @@ import kotlin.reflect.*
  *
  * @return An [Expect] for the given [property].
  */
-fun <T, R> Expect<T>.feature(property: KProperty1<T, R>): Expect<R> =
+fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): Expect<R> =
     ExpectImpl.feature.property(this, property)
 
 /**
@@ -27,7 +27,7 @@ fun <T, R> Expect<T>.feature(property: KProperty1<T, R>): Expect<R> =
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  */
 fun <T, R> Expect<T>.feature(
-    property: KProperty1<T, R>,
+    property: KProperty1<in T, R>,
     assertionCreator: Expect<R>.() -> Unit
 ): Expect<T> = addAssertion(ExpectImpl.feature.property(this, property, assertionCreator))
 
