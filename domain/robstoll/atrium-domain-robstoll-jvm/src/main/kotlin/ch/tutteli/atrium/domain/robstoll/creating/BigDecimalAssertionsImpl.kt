@@ -8,9 +8,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotNumericallyEqualTo
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNumericallyEqualTo
 import java.math.BigDecimal
 
-/**
- * Robstoll's implementation of [BigDecimalAssertions].
- */
+
 class BigDecimalAssertionsImpl : BigDecimalAssertions {
 
     override fun <T : BigDecimal> isNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T) =

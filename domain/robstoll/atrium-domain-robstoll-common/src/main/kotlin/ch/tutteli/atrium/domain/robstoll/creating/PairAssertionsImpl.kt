@@ -11,9 +11,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._nullableFirst
 import ch.tutteli.atrium.domain.robstoll.lib.creating._nullableSecond
 import ch.tutteli.atrium.domain.robstoll.lib.creating._second
 
-/**
- * Robstoll's implementation of [PairAssertions].
- */
+
 class PairAssertionsImpl : PairAssertions {
 
     override fun <K : Any> first(

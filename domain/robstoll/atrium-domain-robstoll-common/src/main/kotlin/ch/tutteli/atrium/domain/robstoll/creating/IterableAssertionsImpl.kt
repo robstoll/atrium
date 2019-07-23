@@ -8,9 +8,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._containsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating._containsNotBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating._iterableAll
 
-/**
- * Robstoll's implementation of [IterableAssertions].
- */
+
 class IterableAssertionsImpl : IterableAssertions, IterableAssertionsDeprecatedImpl() {
 
     override fun <E, T : Iterable<E>> containsBuilder(subjectProvider: SubjectProvider<T>) =

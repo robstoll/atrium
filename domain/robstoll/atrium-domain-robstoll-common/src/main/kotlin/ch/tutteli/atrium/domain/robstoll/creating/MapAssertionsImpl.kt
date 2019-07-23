@@ -6,9 +6,7 @@ import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
 
-/**
- * Robstoll's implementation of [MapAssertions].
- */
+
 class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
 
     override fun <K, V : Any, T : Map<out K, V?>> contains(

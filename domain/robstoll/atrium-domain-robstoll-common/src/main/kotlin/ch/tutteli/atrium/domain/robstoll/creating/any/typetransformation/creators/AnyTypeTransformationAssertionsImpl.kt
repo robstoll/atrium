@@ -11,9 +11,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.cre
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-/**
- * Robstoll's implementation of [AnyTypeTransformationAssertions].
- */
+
 @Deprecated("use _isA or _changeSubject; will be removed with 1.0.0")
 class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
 

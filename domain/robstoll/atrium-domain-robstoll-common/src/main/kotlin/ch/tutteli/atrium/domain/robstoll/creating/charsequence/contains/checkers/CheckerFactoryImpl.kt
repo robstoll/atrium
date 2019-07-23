@@ -7,9 +7,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.chec
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.ExactlyChecker
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.NotChecker
 
-/**
- * Robstoll's implementation of [CheckerFactory].
- */
+
 class CheckerFactoryImpl : CheckerFactory {
 
     override fun newAtLeastChecker(

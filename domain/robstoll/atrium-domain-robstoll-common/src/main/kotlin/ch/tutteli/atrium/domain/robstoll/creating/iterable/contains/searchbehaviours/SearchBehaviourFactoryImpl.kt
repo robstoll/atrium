@@ -4,9 +4,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.*
 
-/**
- * Robstoll's implementation of [SearchBehaviourFactory].
- */
+
 class SearchBehaviourFactoryImpl : SearchBehaviourFactory {
 
     override fun <E, T : Iterable<E>> inAnyOrder(

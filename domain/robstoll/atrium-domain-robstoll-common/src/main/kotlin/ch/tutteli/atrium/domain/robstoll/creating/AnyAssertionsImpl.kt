@@ -6,9 +6,7 @@ import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
 
-/**
- * Robstoll's implementation of [AnyAssertions].
- */
+
 class AnyAssertionsImpl : AnyAssertions, AnyAssertionsDeprecatedImpl() {
 
     override fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T) = _toBe(subjectProvider, expected)

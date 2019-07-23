@@ -5,9 +5,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
-/**
- * Robstoll's implementation of [MapEntryAssertions].
- */
+
 class MapEntryAssertionsImpl : MapEntryAssertions {
     override fun <K : Any, V : Any> isKeyValue(
         plant: AssertionPlant<Map.Entry<K, V>>,

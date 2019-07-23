@@ -9,9 +9,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isEmpty
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
 import ch.tutteli.atrium.domain.robstoll.lib.creating._size
 
-/**
- * Robstoll's implementation of [CollectionAssertions].
- */
+
 class CollectionAssertionsImpl : CollectionAssertions {
 
     override fun isEmpty(subjectProvider: SubjectProvider<Collection<*>>) = _isEmpty(subjectProvider)

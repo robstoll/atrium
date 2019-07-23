@@ -12,9 +12,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
 import ch.tutteli.atrium.domain.robstoll.lib.creating._startsNotWith
 import ch.tutteli.atrium.domain.robstoll.lib.creating._startsWith
 
-/**
- * Robstoll's implementation of [CharSequenceAssertions].
- */
+
 class CharSequenceAssertionsImpl: CharSequenceAssertions {
 
     override fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>)
