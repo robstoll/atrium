@@ -9,10 +9,10 @@ buildscript {
         kbox_version = '0.13.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.3.31'
-        mockito_kotlin_version = '2.1.0'
-        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         // test
+        mockito_kotlin_version = '2.1.0'
+        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
         jacoco_tool_version = '0.8.2'
         junit_platform_version = '1.2.0'
         jupiter_version = '5.5.1'
@@ -232,8 +232,11 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
-    def bundle = project(":$bundleUnderTest-jvm")
-    description = "Represents a JDK9 smoke test for $bundleUnderTest"
+    Project bundle = bundleUnderTest.endsWith("-jdk8")
+        ? project(":$bundleUnderTest")
+        : project(":$bundleUnderTest-jvm")
+
+    description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
 
     sourceCompatibility = JavaVersion.current()
     targetCompatibility = JavaVersion.current()
