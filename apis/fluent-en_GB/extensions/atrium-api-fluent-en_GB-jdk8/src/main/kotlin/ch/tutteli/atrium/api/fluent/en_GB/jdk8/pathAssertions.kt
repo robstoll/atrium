@@ -8,6 +8,9 @@ import java.nio.file.Path
 /**
  * Expects that the subject of the assertion (a [Path]) exists.
  *
+ * Shortcut for more or less something like `feature(Files::exists, arrayOf()) { toBe(true) }`
+ * depends on the underlying implementation though.
+ *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
