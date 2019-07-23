@@ -7,6 +7,7 @@ dependencies {
     api prefixedProject('domain-builders-android')
 
     implementation prefixedProject('api-fluent-en_GB-android')
+    implementation niok()
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
