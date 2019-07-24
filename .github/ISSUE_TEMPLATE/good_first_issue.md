@@ -1,5 +1,5 @@
 ---
-name: 1⃣ Good First Issue (for maintainers)
+name: ⭐ Good First Issue (for maintainers)
 about: Create a good first issue
 
 ---
