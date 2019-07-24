@@ -22,14 +22,7 @@ interface ListAssertions {
     fun <E, T : List<E>> get(
         assertionContainer: Expect<T>,
         index: Int
-    ): Expect<E>
-
-    fun <E, T : List<E>> get(
-        assertionContainer: Expect<T>,
-        index: Int,
-        assertionCreator: Expect<E>.() -> Unit
-    ): Assertion
-
+    ): ExtractedFeatureOption<T, E>
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T>

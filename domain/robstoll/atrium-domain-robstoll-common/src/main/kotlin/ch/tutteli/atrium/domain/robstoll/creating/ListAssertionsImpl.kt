@@ -11,10 +11,4 @@ class ListAssertionsImpl : ListAssertions, ListAssertionsDeprecatedImpl() {
         assertionContainer: Expect<T>,
         index: Int
     ) = _get(assertionContainer, index)
-
-    override fun <E, T : List<E>> get(
-        assertionContainer: Expect<T>,
-        index: Int,
-        assertionCreator: Expect<E>.() -> Unit
-    ) = _get(assertionContainer, index, assertionCreator)
 }

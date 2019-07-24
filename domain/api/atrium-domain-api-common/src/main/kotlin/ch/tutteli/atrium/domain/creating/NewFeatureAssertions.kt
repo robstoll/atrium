@@ -1,8 +1,5 @@
 package ch.tutteli.atrium.domain.creating
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
@@ -29,21 +26,12 @@ val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class
 interface NewFeatureAssertions {
 
     /**
-     * Extracts a feature from [assertionContainer] based on the given [MetaFeature] and creates a new [Expect] for it
-     * which eventually creates an [AssertionGroup] with a [FeatureAssertionGroupType]
-     * and adds it to [assertionContainer].
+     * Extracts a feature from [assertionContainer] based on the given [MetaFeature] and creates a
+     * [ExtractedFeatureOption] based on it.
+     *
+     * @return The newly created [ExtractedFeatureOption].
      */
-    fun <T, R> genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeature<R>): Expect<R>
-
-    /**
-     * Extracts a feature from [assertionContainer] based on the given [MetaFeature], collects the assertions which
-     * the given [assertionCreator] creates and returns the corresponding assertion..
-     */
-    fun <T, R> genericFeature(
-        assertionContainer: Expect<T>,
-        metaFeature: MetaFeature<R>,
-        assertionCreator: Expect<R>.() -> Unit
-    ): Assertion
+    fun <T, R> genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeature<R>): ExtractedFeatureOption<T, R>
 }
 
 /**

@@ -19,6 +19,6 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
             plant: Expect<List<Int?>>,
             index: Int,
             assertionCreator: Expect<Int?>.() -> Unit
-        ): Expect<List<Int?>> = plant.addAssertion(ExpectImpl.list.get(plant, index, assertionCreator))
+        ): Expect<List<Int?>> = ExpectImpl.list.get(plant, index).addToInitial(assertionCreator)
     }
 }
