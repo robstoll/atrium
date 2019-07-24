@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.Expect
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
+import kotlin.reflect.KProperty1
 
 typealias Fun<T> = Pair<String, T>
 
@@ -99,6 +100,7 @@ fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): St
 expect val lineSeperator: String
 
 //@formatter:off
+inline fun <T, R> property(f: KProperty1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
 inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
 inline fun <T, A1, R> feature1(f: KFunction2<Expect<T>, A1, Expect<R>>, suffix: String = ""): Feature1<T, A1, R> = f.name + suffix to f
 inline fun <T, A1, A2, R> feature2(f: KFunction3<Expect<T>, A1, A2, Expect<R>>, suffix: String = ""): Feature2<T, A1, A2, R> = f.name + suffix to f

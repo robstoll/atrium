@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.CollectionAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._hasSize
@@ -15,6 +16,8 @@ class CollectionAssertionsImpl : CollectionAssertions {
     override fun isEmpty(subjectProvider: SubjectProvider<Collection<*>>) = _isEmpty(subjectProvider)
 
     override fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>) = _isNotEmpty(subjectProvider)
+
+    override fun <T : Collection<*>> size(assertionContainer: Expect<T>) = _size(assertionContainer)
 
 
     override fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int) = _hasSize(plant, size)

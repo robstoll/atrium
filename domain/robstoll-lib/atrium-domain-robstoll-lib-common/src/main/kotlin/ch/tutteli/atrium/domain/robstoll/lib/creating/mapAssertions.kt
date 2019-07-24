@@ -32,7 +32,7 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
     valueType: KClass<V>,
     keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
 ): Assertion {
-    //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
+    //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via Expect
     val methodCallFormatter = ExpectImpl.coreFactory.newMethodCallFormatter()
 
     val assertion = ExpectImpl.collector.collect(assertionContainer) {
