@@ -20,13 +20,13 @@ abstract class CollectionFeatureAssertionsSpec(
 
     //@formatter:off
     include(object : SubjectLessSpec<Collection<String>>(describePrefix,
-        sizeFeature.forSubjectLess().adjustName { "val $it" },
-        size.forSubjectLess { isGreaterThan(2) }.adjustName { "fun $it" }
+        sizeFeature.forSubjectLess().adjustName { "$it feature" },
+        size.forSubjectLess { isGreaterThan(2) }
     ){})
 
     include(object : CheckingAssertionSpec<Collection<String>>(verbs, describePrefix,
-        sizeFeature.forChecking(listOf("a") as Collection<String>, listOf("a", "B")) { toBe(1) }.adjustName { "val $it" },
-        size.forChecking({ isLessThan(2) }, listOf("a") as Collection<String>, listOf("a", "B")).adjustName { "fun $it" }
+        sizeFeature.forChecking(listOf("a") as Collection<String>, listOf("a", "B")) { toBe(1) }.adjustName { "$it feature" },
+        size.forChecking({ isLessThan(2) }, listOf("a") as Collection<String>, listOf("a", "B"))
     ) {})
     //@formatter:on
 

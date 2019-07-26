@@ -95,5 +95,5 @@ fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>>
  *
  * @return The newly created [Expect] for the transformed subject.
  */
-fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit): Expect<Set<Map.Entry<K, V>>> =
-    asEntries().addAssertionsCreatedBy(assertionCreator)
+fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit): Expect<T> =
+    apply { asEntries().addAssertionsCreatedBy(assertionCreator) }
