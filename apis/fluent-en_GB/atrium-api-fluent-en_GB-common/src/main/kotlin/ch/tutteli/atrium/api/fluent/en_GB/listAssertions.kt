@@ -10,15 +10,15 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return The newly created [Expect] for the element at position [index].
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
-fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = ExpectImpl.list.get(this, index)
+fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = ExpectImpl.list.get(this, index).getExpectOfFeature()
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and that
- * the element at that position holds all assertions the given [assertionCreator] might create for it.
- * if so, returns an [Expect] for the element at that position.
+ * the element at that position holds all assertions the given [assertionCreator] creates for it.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <E : Any, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    addAssertion(ExpectImpl.list.get(this, index, assertionCreator))
+    ExpectImpl.list.get(this, index).addToInitial(assertionCreator)

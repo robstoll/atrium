@@ -15,7 +15,7 @@ import kotlin.reflect.*
  * @return An [Expect] for the given [property].
  */
 fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): Expect<R> =
-    ExpectImpl.feature.property(this, property)
+    ExpectImpl.feature.property(this, property).getExpectOfFeature()
 
 /**
  * Extracts the [property] out of the current subject of the assertion,
@@ -29,7 +29,7 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): Expect<R> =
 fun <T, R> Expect<T>.feature(
     property: KProperty1<in T, R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.property(this, property, assertionCreator))
+): Expect<T> = ExpectImpl.feature.property(this, property).addToInitial(assertionCreator)
 
 
 /**
@@ -40,7 +40,7 @@ fun <T, R> Expect<T>.feature(
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
  */
 fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): Expect<R> =
-    ExpectImpl.feature.f0(this, f)
+    ExpectImpl.feature.f0(this, f).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] on the current subject of the assertion,
@@ -51,8 +51,10 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): Expect<R> =
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  */
-fun <T, R> Expect<T>.feature(f: KFunction1<T, R>, assertionCreator: Expect<R>.() -> Unit): Expect<T> =
-    addAssertion(ExpectImpl.feature.f0(this, f, assertionCreator))
+fun <T, R> Expect<T>.feature(
+    f: KFunction1<T, R>,
+    assertionCreator: Expect<R>.() -> Unit
+): Expect<T> = ExpectImpl.feature.f0(this, f).addToInitial(assertionCreator)
 
 
 /**
@@ -66,7 +68,7 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>, assertionCreator: Expect<R>.()
 fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1
-): Expect<R> = ExpectImpl.feature.f1(this, f, a1)
+): Expect<R> = ExpectImpl.feature.f1(this, f, a1).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1]
@@ -82,7 +84,7 @@ fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.f1(this, f, a1, assertionCreator))
+): Expect<T> = ExpectImpl.feature.f1(this, f, a1).addToInitial(assertionCreator)
 
 
 /**
@@ -96,7 +98,7 @@ fun <T, A1, R> Expect<T>.feature(
 fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2
-): Expect<R> = ExpectImpl.feature.f2(this, f, a1, a2)
+): Expect<R> = ExpectImpl.feature.f2(this, f, a1, a2).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2]
@@ -112,7 +114,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.f2(this, f, a1, a2, assertionCreator))
+): Expect<T> = ExpectImpl.feature.f2(this, f, a1, a2).addToInitial(assertionCreator)
 
 
 /**
@@ -126,7 +128,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
 fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3
-): Expect<R> = ExpectImpl.feature.f3(this, f, a1, a2, a3)
+): Expect<R> = ExpectImpl.feature.f3(this, f, a1, a2, a3).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3]
@@ -142,7 +144,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.f3(this, f, a1, a2, a3, assertionCreator))
+): Expect<T> = ExpectImpl.feature.f3(this, f, a1, a2, a3).addToInitial(assertionCreator)
 
 
 /**
@@ -156,7 +158,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4
-): Expect<R> = ExpectImpl.feature.f4(this, f, a1, a2, a3, a4)
+): Expect<R> = ExpectImpl.feature.f4(this, f, a1, a2, a3, a4).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4]
@@ -172,7 +174,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.f4(this, f, a1, a2, a3, a4, assertionCreator))
+): Expect<T> = ExpectImpl.feature.f4(this, f, a1, a2, a3, a4).addToInitial(assertionCreator)
 
 
 /**
@@ -186,7 +188,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
-): Expect<R> = ExpectImpl.feature.f5(this, f, a1, a2, a3, a4, a5)
+): Expect<R> = ExpectImpl.feature.f5(this, f, a1, a2, a3, a4, a5).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4], [a5]
@@ -202,7 +204,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.f5(this, f, a1, a2, a3, a4, a5, assertionCreator))
+): Expect<T> = ExpectImpl.feature.f5(this, f, a1, a2, a3, a4, a5).addToInitial(assertionCreator)
 
 
 /**
@@ -214,7 +216,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * @return An [Expect] for the extracted feature.
  */
 fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): Expect<R> =
-    ExpectImpl.feature.manualFeature(this, description, provider)
+    ExpectImpl.feature.manualFeature(this, description, provider).getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion
@@ -230,7 +232,7 @@ fun <T, R> Expect<T>.feature(
     description: String,
     provider: T.() -> R,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(ExpectImpl.feature.manualFeature(this, description, provider, assertionCreator))
+): Expect<T> = ExpectImpl.feature.manualFeature(this, description, provider).addToInitial(assertionCreator)
 
 
 /**
@@ -242,7 +244,7 @@ fun <T, R> Expect<T>.feature(
  * @return An [Expect] for the extracted feature.
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): Expect<R> =
-    ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }
+    internalFeature(provider).getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion,
@@ -257,6 +259,7 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
 fun <T, R> Expect<T>.feature(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = addAssertion(
-    ExpectImpl.feature.genericSubjectBasedFeature(this, { MetaFeatureOption(this).provider(it) }, assertionCreator)
-)
+): Expect<T> = internalFeature(provider).addToInitial(assertionCreator)
+
+private fun <R, T> Expect<T>.internalFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
+    ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }

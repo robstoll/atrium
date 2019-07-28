@@ -125,6 +125,11 @@ abstract class ListFeatureAssertionsSpec(
                     messageContains("get(4): $indexOutOfBounds", "$toBeDescr: null")
                 }
             }
+            it("throws if no assertion is made") {
+                expect {
+                    fluentNullable.getFun(1) { }
+                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
+            }
         }
     }
 })

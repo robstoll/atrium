@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.domain.creating
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -29,21 +27,15 @@ val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class
 interface NewFeatureAssertions {
 
     /**
-     * Extracts a feature from [assertionContainer] based on the given [MetaFeature] and creates a new [Expect] for it
-     * which eventually creates an [AssertionGroup] with a [FeatureAssertionGroupType]
-     * and adds it to [assertionContainer].
-     */
-    fun <T, R> genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeature<R>): Expect<R>
-
-    /**
-     * Extracts a feature from [assertionContainer] based on the given [MetaFeature], collects the assertions which
-     * the given [assertionCreator] creates and returns the corresponding assertion..
+     * Extracts a feature from [assertionContainer] based on the given [MetaFeature] and creates a
+     * [ExtractedFeaturePostStep] based on it.
+     *
+     * @return The newly created [ExtractedFeaturePostStep].
      */
     fun <T, R> genericFeature(
         assertionContainer: Expect<T>,
-        metaFeature: MetaFeature<R>,
-        assertionCreator: Expect<R>.() -> Unit
-    ): Assertion
+        metaFeature: MetaFeature<R>
+    ): ExtractedFeaturePostStep<T, R>
 }
 
 /**
@@ -60,5 +52,5 @@ data class MetaFeature<T>(val description: Translatable, val representation: Any
     constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
         this(Untranslatable(description), representation, maybeSubject)
 
-    constructor(description: String, subject: T): this(description, subject, Some(subject))
+    constructor(description: String, subject: T) : this(description, subject, Some(subject))
 }

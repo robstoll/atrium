@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.CollectionAssertions
 import ch.tutteli.atrium.domain.creating.collectionAssertions
@@ -22,10 +23,16 @@ object CollectionAssertionsBuilder : CollectionAssertions {
     override inline fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>) =
         collectionAssertions.isNotEmpty(subjectProvider)
 
+    override inline fun <T : Collection<*>> size(assertionContainer: Expect<T>) =
+        collectionAssertions.size(assertionContainer)
 
+    // everything below is deprecated functionality and will be removed with 1.0.0
+
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int) =
         collectionAssertions.hasSize(plant, size)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun size(plant: AssertionPlant<Collection<*>>, noinline assertionCreator: Assert<Int>.() -> Unit) =
         collectionAssertions.size(plant, assertionCreator)
 }

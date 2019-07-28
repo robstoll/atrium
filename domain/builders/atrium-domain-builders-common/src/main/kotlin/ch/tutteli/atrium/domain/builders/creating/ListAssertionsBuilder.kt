@@ -21,13 +21,6 @@ object ListAssertionsBuilder : ListAssertions {
         index: Int
     ) = listAssertions.get(assertionContainer, index)
 
-    override inline fun <E, T : List<E>> get(
-        assertionContainer: Expect<T>,
-        index: Int,
-        noinline assertionCreator: Expect<E>.() -> Unit
-    ) = listAssertions.get(assertionContainer, index, assertionCreator)
-
-
     // everything below is deprecated functionality and will be removed with 1.0.0
 
     @Suppress("DEPRECATION", "OverridingDeprecatedMember")

@@ -14,6 +14,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.collection.hasSize(this, size))
 
@@ -56,5 +57,6 @@ val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 infix fun <E, T: Collection<E>> Assert<T>.size (assertionCreator: Assert<Int>.() -> Unit): Assert<T>
     = addAssertion(AssertImpl.collection.size(this, assertionCreator))

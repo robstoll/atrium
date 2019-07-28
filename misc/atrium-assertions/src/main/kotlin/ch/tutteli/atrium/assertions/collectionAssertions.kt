@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
+@Suppress("DEPRECATION")
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
     = AssertImpl.collection.hasSize(plant, size)
 

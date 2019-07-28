@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextracto
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.changers.featureExtractor
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -9,8 +10,10 @@ class DescriptionOptionImpl<T>(
     override val originalAssertionContainer: Expect<T>
 ) : FeatureExtractorBuilder.DescriptionOption<T> {
 
-    override fun withDescription(translatable: Translatable): FeatureExtractorBuilder.RepresentationInCaseOfFailureOption<T>
-        = FeatureExtractorBuilder.RepresentationInCaseOfFailureOption.create(originalAssertionContainer, translatable)
+    override fun withDescription(
+        translatable: Translatable
+    ): FeatureExtractorBuilder.RepresentationInCaseOfFailureOption<T> =
+        FeatureExtractorBuilder.RepresentationInCaseOfFailureOption.create(originalAssertionContainer, translatable)
 }
 
 internal class RepresentationInCaseOfFailureOptionImpl<T>(
@@ -36,38 +39,52 @@ class FeatureExtractionOptionImpl<T>(
     override val canBeExtracted: (T) -> Boolean
 ) : FeatureExtractorBuilder.FeatureExtractionOption<T> {
 
-    override fun <R> withFeatureExtraction(extraction: (T) -> R): FeatureExtractorBuilder.SubAssertionOption<T, R> =
-        FeatureExtractorBuilder.SubAssertionOption.create(checkOption, canBeExtracted, extraction)
+    override fun <R> withFeatureExtraction(extraction: (T) -> R): FeatureExtractorBuilder.RepresentationOption<T, R> =
+        FeatureExtractorBuilder.RepresentationOption.create(checkOption, canBeExtracted, extraction)
 }
 
-class SubAssertionOptionImpl<T, R>(
+class RepresentationOptionImpl<T, R>(
     override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
     override val canBeExtracted: (T) -> Boolean,
     override val featureExtraction: (T) -> R
-) : FeatureExtractorBuilder.SubAssertionOption<T, R> {
+) : FeatureExtractorBuilder.RepresentationOption<T, R> {
 
-    override fun withoutSubAssertions(): FeatureExtractorBuilder.FinalStep<T, R> =
-        FeatureExtractorBuilder.FinalStep.create(checkOption, canBeExtracted, featureExtraction, null)
+    override fun withRepresentationInsteadOfFeature(representation: Any): FeatureExtractorBuilder.FinalStep<T, R> =
+        createFinalStep(representation)
 
-    override fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): FeatureExtractorBuilder.FinalStep<T, R> =
-        FeatureExtractorBuilder.FinalStep.create(checkOption, canBeExtracted, featureExtraction, assertionCreator)
+    override fun build(): ExtractedFeaturePostStep<T, R> = createFinalStep(null).build()
+
+    private fun createFinalStep(representation: Any?) =
+        FeatureExtractorBuilder.FinalStep.create(
+            checkOption,
+            canBeExtracted,
+            featureExtraction,
+            representation
+        )
 }
 
 class FinalStepImpl<T, R>(
     override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
     override val canBeExtracted: (T) -> Boolean,
     override val featureExtraction: (T) -> R,
-    override val subAssertions: (Expect<R>.() -> Unit)?
+    override val representationInsteadOfFeature: Any?
 ) : FeatureExtractorBuilder.FinalStep<T, R> {
 
-    override fun build(): Expect<R> = featureExtractor.extract(
-        checkOption.originalAssertionContainer,
-        checkOption.description,
-        checkOption.representationForFailure,
-        canBeExtracted,
-        featureExtraction,
-        subAssertions
-    )
-}
+    override fun build(): ExtractedFeaturePostStep<T, R> =
+        ExtractedFeaturePostStep(checkOption.originalAssertionContainer,
+            extract = { extractIt(this, null) },
+            extractAndApply = { assertionCreator -> extractIt(this, assertionCreator) }
+        )
 
+    private fun extractIt(expect: Expect<T>, subAssertions: (Expect<R>.() -> Unit)?) =
+        featureExtractor.extract(
+            expect,
+            checkOption.description,
+            checkOption.representationForFailure,
+            canBeExtracted,
+            featureExtraction,
+            subAssertions,
+            representationInsteadOfFeature
+        )
+}
 

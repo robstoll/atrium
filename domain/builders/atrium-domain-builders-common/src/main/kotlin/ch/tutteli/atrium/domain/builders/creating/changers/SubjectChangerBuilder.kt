@@ -3,14 +3,17 @@
 package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.CheckOptionImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.DescriptionOptionImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.TransformationOptionImpl
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -85,10 +88,10 @@ object SubjectChangerBuilder : SubjectChanger {
          * [Expect.maybeSubject] to the given type [TSub]
          */
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter we should restrict TSub : T
-        fun <TSub: Any> downCastTo(subType: KClass<TSub>): SubAssertionOption<T, TSub>
-            = withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
-            .withCheck { subType.isInstance(it) }
-            .withTransformation { subType.cast(it) }
+        fun <TSub : Any> downCastTo(subType: KClass<TSub>): FinalStep<T, TSub> =
+            withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
+                .withCheck { subType.isInstance(it) }
+                .withTransformation { subType.cast(it) }
 
         /**
          * Uses the given [description] and [representation] to represent the change.
@@ -102,7 +105,8 @@ object SubjectChangerBuilder : SubjectChanger {
         companion object {
             fun <T> create(
                 originalAssertionContainer: Expect<T>
-            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer) }
+            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer)
+        }
     }
 
     /**
@@ -157,74 +161,13 @@ object SubjectChangerBuilder : SubjectChanger {
         /**
          * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
-        fun <R> withTransformation(transformation: (T) -> R): SubAssertionOption<T, R>
+        fun <R> withTransformation(transformation: (T) -> R): FinalStep<T, R>
 
         companion object {
             fun <T> create(
                 checkOption: CheckOption<T>,
                 canBeTransformed: (T) -> Boolean
             ): TransformationOption<T> = TransformationOptionImpl(checkOption, canBeTransformed)
-        }
-    }
-
-    /**
-     *  Option step which allows to specify sub assertions for the new subject and are applied as an
-     *  [AssertionGroup].
-     */
-    interface SubAssertionOption<T, R> {
-        /**
-         * The so far chosen options up to the [CheckOption] step.
-         */
-        val checkOption: CheckOption<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can transform the current subject
-         * to the new one or not.
-         */
-        val canBeTransformed: (T) -> Boolean
-
-        /**
-         * The previously specified new subject.
-         */
-        val transformation: (T) -> R
-
-        /**
-         * In case [assertionCreator] is `null` it delegates to [withoutSubAssertions] otherwise to [withSubAssertions].
-         */
-        fun maybeWithSubAssertions(assertionCreator: (Expect<R>.() -> Unit)?): FinalStep<T, R> =
-            if (assertionCreator != null) withSubAssertions(assertionCreator)
-            else withoutSubAssertions()
-
-        /**
-         * Perform the change without providing subsequent assertions for the new subject.
-         *
-         * We recommend using [withSubAssertions] whenever you have sub assertions as they will be reflected in
-         * reporting in case the subject change cannot be carried out.
-         */
-        fun withoutSubAssertions(): FinalStep<T, R>
-
-        /**
-         * Defines sub assertions for the new subject (after the change).
-         *
-         * In contrast to [withoutSubAssertions] we try to reflect the sub assertions in reporting. For instance
-         * ```
-         * expect(null as Int?).notToBeNull { isLessThan(1) }
-         * ```
-         * Will result in an error where the reporting will be along the line of
-         * ```
-         * expect: null
-         * - is less than: 1
-         *   >> transformation to type Int failed
-         * ```
-         */
-        fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): FinalStep<T, R>
-
-        companion object {
-            fun <T, R> create(
-                checkOption: CheckOption<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R
-            ): SubAssertionOption<T, R> = SubAssertionOptionImpl(checkOption, canBeTransformed, transformation)
         }
     }
 
@@ -246,25 +189,19 @@ object SubjectChangerBuilder : SubjectChanger {
         val transformation: (T) -> R
 
         /**
-         * Optionally, sub assertions for the new subject.
-         */
-        val subAssertions: (Expect<R>.() -> Unit)?
-
-        /**
          * Finishes the `reported subject change`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
-         * @return the newly created [Expect].
+         * @return The newly created [Expect].
          */
-        fun build(): Expect<R>
+        fun build(): ChangedSubjectPostStep<T, R>
 
         companion object {
             fun <T, R> create(
                 checkOption: CheckOption<T>,
                 canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R,
-                subAssertions: (Expect<R>.() -> Unit)?
-            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, subAssertions)
+                transformation: (T) -> R
+            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation)
         }
     }
 }

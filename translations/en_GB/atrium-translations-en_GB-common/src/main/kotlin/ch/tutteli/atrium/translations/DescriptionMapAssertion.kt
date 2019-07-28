@@ -13,4 +13,5 @@ enum class DescriptionMapAssertion(override val value: String) : StringBasedTran
     CONTAINS_NOT_KEY("does not contain key"),
     ENTRY_WITH_KEY("entry %s"),
     KEY_DOES_NOT_EXIST("❗❗ key does not exist"),
+    SIZE("size"),
 }

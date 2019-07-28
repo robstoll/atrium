@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -35,36 +36,28 @@ class TransformationOptionImpl<T>(
     override val canBeTransformed: (T) -> Boolean
 ) : SubjectChangerBuilder.TransformationOption<T> {
 
-    override fun <R> withTransformation(transformation: (T) -> R): SubjectChangerBuilder.SubAssertionOption<T, R> =
-        SubjectChangerBuilder.SubAssertionOption.create(checkOption, canBeTransformed, transformation)
-}
-
-class SubAssertionOptionImpl<T, R>(
-    override val checkOption: SubjectChangerBuilder.CheckOption<T>,
-    override val canBeTransformed: (T) -> Boolean,
-    override val transformation: (T) -> R
-) : SubjectChangerBuilder.SubAssertionOption<T, R> {
-
-    override fun withoutSubAssertions(): SubjectChangerBuilder.FinalStep<T, R> =
-        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation, null)
-
-    override fun withSubAssertions(assertionCreator: Expect<R>.() -> Unit): SubjectChangerBuilder.FinalStep<T, R> =
-        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation, assertionCreator)
+    override fun <R> withTransformation(transformation: (T) -> R): SubjectChangerBuilder.FinalStep<T, R> =
+        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation)
 }
 
 class FinalStepImpl<T, R>(
     override val checkOption: SubjectChangerBuilder.CheckOption<T>,
     override val canBeTransformed: (T) -> Boolean,
-    override val transformation: (T) -> R,
-    override val subAssertions: (Expect<R>.() -> Unit)?
+    override val transformation: (T) -> R
 ) : SubjectChangerBuilder.FinalStep<T, R> {
 
-    override fun build(): Expect<R> = subjectChanger.reported(
-        checkOption.originalAssertionContainer,
-        checkOption.description,
-        checkOption.representation,
-        canBeTransformed,
-        transformation,
-        subAssertions
+    override fun build(): ChangedSubjectPostStep<T, R> = ChangedSubjectPostStep(checkOption.originalAssertionContainer,
+        transform = { transformIt(this, null) },
+        transformAndApply = { assertionCreator -> transformIt(this, assertionCreator) }
     )
+
+    private fun transformIt(expect: Expect<T>, subAssertions: (Expect<R>.() -> Unit)?) =
+        subjectChanger.reported(
+            expect,
+            checkOption.description,
+            checkOption.representation,
+            canBeTransformed,
+            transformation,
+            subAssertions
+        )
 }
