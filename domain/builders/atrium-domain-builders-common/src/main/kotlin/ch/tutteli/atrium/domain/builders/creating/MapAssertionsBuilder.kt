@@ -58,19 +58,6 @@ object MapAssertionsBuilder : MapAssertions {
     override inline fun <T : Map<*, *>> size(assertionContainer: Expect<T>) = mapAssertions.size(assertionContainer)
 
 
-    override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int) = mapAssertions.hasSize(plant, size)
-
-    override inline fun <K> keys(
-        plant: AssertionPlant<Map<out K, *>>,
-        noinline assertionCreator: AssertionPlant<Set<K>>.() -> Unit
-    ): Assertion = mapAssertions.keys(plant, assertionCreator)
-
-    override inline fun <V> values(
-        plant: AssertionPlant<Map<*, V>>,
-        noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
-    ): Assertion = mapAssertions.values(plant, assertionCreator)
-
-
     @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <K, V> contains(
         plant: AssertionPlant<Map<out K, V>>,
@@ -104,4 +91,18 @@ object MapAssertionsBuilder : MapAssertions {
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
     ) = mapAssertions.getExistingNullable(plant, key, assertionCreator)
+
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int) = mapAssertions.hasSize(plant, size)
+
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    override inline fun <K> keys(
+        plant: AssertionPlant<Map<out K, *>>,
+        noinline assertionCreator: AssertionPlant<Set<K>>.() -> Unit
+    ): Assertion = mapAssertions.keys(plant, assertionCreator)
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    override inline fun <V> values(
+        plant: AssertionPlant<Map<*, V>>,
+        noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
+    ): Assertion = mapAssertions.values(plant, assertionCreator)
 }

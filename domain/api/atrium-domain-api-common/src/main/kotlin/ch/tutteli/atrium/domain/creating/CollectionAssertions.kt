@@ -25,6 +25,9 @@ interface CollectionAssertions {
 
     fun <T : Collection<*>> size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int>
 
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion
+
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun size(plant: AssertionPlant<Collection<*>>, assertionCreator: Assert<Int>.() -> Unit): Assertion
 }

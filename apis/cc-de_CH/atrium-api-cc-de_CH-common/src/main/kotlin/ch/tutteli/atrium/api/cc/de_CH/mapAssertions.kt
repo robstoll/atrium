@@ -109,6 +109,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNul
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 fun <T : Map<*, *>> Assert<T>.hatDieGroesse(size: Int)
     = addAssertion(AssertImpl.map.hasSize(this, size))
 
@@ -149,6 +150,7 @@ val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out 
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
+@Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
@@ -171,6 +173,7 @@ val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
+@Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 

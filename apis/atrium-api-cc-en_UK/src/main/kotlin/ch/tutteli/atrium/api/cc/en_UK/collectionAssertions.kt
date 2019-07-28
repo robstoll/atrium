@@ -10,6 +10,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.hasSize(size)"))
 fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.collection.hasSize(this, size))

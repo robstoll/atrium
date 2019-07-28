@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
+@Suppress("DEPRECATION")
 fun _hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion =
     ExpectImpl.collection.size(plant) { toBe(size) }
 

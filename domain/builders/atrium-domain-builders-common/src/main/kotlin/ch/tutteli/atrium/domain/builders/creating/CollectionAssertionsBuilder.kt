@@ -27,9 +27,11 @@ object CollectionAssertionsBuilder : CollectionAssertions {
         = collectionAssertions.size(assertionContainer)
 
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int) =
         collectionAssertions.hasSize(plant, size)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun size(plant: AssertionPlant<Collection<*>>, noinline assertionCreator: Assert<Int>.() -> Unit) =
         collectionAssertions.size(plant, assertionCreator)
 }

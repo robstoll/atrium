@@ -40,13 +40,6 @@ interface MapAssertions {
 
     fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int>
 
-
-    fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
-
-    fun <K> keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
-    fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
-
-
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
@@ -59,4 +52,10 @@ interface MapAssertions {
     fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlantNullable<V>
     @Deprecated("Switch from Assert to Expect and use getExisting instead; will be removed with 1.0.0")
     fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    fun <K> keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
 }
