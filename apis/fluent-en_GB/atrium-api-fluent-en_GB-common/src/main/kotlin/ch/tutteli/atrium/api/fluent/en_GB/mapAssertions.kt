@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.kbox.glue
@@ -48,7 +49,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, T: Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImpl.map.containsKey(this, key))
+fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImpl.map.containsKey(this, key))
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -56,7 +57,7 @@ fun <K, T: Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImp
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, T: Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(ExpectImpl.map.containsNotKey(this, key))
+fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(ExpectImpl.map.containsNotKey(this, key))
 
 
 /**
@@ -75,6 +76,72 @@ fun <T : Map<*, *>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.map.isEmpty(th
  */
 fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEmpty(this))
 
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains the given [key],
+ * creates an [Expect] for the corresponding value and returns the newly created assertion container,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the feature.
+ * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
+    ExpectImpl.map.getExisting(this, key).getExpectOfFeature()
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
+ * the corresponding value holds all assertions the given [assertionCreator] creates for it.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
+ *   does not hold.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
+ */
+fun <K, V: Any, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit) =
+    ExpectImpl.map.getExisting(this, key).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [Map.keys] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the feature.
+ */
+val <K, T : Map<out K, *>> Expect<T>.keys get() : Expect<Set<K>> = keys(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [Map.keys] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
+    keys(this).addToInitial(assertionCreator)
+
+private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.property(e, Map<out K, *>::keys)
+
+/**
+ * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the feature.
+ */
+val <V, T : Map<*, V>> Expect<T>.values get() : Expect<Collection<V>> = values().getExpectOfFeature()
+
+/**
+ * Expects that the property [Map.keys] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
+ */
+fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
+    values().addToInitial(assertionCreator)
+
+private fun <K, V, T : Map<out K, V>> Expect<T>.values() = ExpectImpl.feature.property(this, Map<out K, V>::values)
+
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
  *
@@ -83,7 +150,7 @@ fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEm
  *
  * @return The newly created [Expect] for the transformed subject.
  */
-fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
+fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
     ExpectImpl.changeSubject.unreported(this) { it.entries }
 
 /**
@@ -95,5 +162,5 @@ fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>>
  *
  * @return The newly created [Expect] for the transformed subject.
  */
-fun <K, V, T: Map<out K, V>> Expect<T>.asEntries(assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit): Expect<T> =
+fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit): Expect<T> =
     apply { asEntries().addAssertionsCreatedBy(assertionCreator) }

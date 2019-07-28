@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.domain.creating.ExtractedFeatureOption
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.creating.mapAssertions
@@ -46,8 +47,15 @@ object MapAssertionsBuilder : MapAssertions {
     override inline fun isEmpty(subjectProvider: SubjectProvider<Map<*, *>>) =
         mapAssertions.isEmpty(subjectProvider)
 
+    override inline fun <K, V, T : Map<out K, V>> getExisting(
+        assertionContainer: Expect<T>,
+        key: K
+    ): ExtractedFeatureOption<T, V> = mapAssertions.getExisting(assertionContainer, key)
+
     override inline fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>) =
         mapAssertions.isNotEmpty(subjectProvider)
+
+    override inline fun <T : Map<*, *>> size(assertionContainer: Expect<T>) = mapAssertions.size(assertionContainer)
 
 
     override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int) = mapAssertions.hasSize(plant, size)
@@ -61,7 +69,6 @@ object MapAssertionsBuilder : MapAssertions {
         plant: AssertionPlant<Map<*, V>>,
         noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
     ): Assertion = mapAssertions.values(plant, assertionCreator)
-
 
 
     @Suppress("DEPRECATION", "OverridingDeprecatedMember")
@@ -97,7 +104,4 @@ object MapAssertionsBuilder : MapAssertions {
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
     ) = mapAssertions.getExistingNullable(plant, key, assertionCreator)
-
-
-
 }

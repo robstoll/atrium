@@ -15,13 +15,13 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapAsEntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    asEntriesFunName: String,
     asEntriesFeature: Feature0<Map<String, Int>, Set<Map.Entry<String, Int>>>,
     asEntries: Fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<Map<String, Int>>("$describePrefix[$asEntriesFunName] ",
+    include(object : SubjectLessSpec<Map<String, Int>>(
+        describePrefix,
         asEntriesFeature.forSubjectLess().adjustName { "$it feature" },
         asEntries.forSubjectLess { contains("a" to 1) }
     ) {})
@@ -30,7 +30,7 @@ abstract class MapAsEntriesAssertionsSpec(
     val failingSubject: Map<String, Int> = mapOf("b" to 2, "d" to 4, "f" to 6, "h" to 8)
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(
-        verbs, "$describePrefix[$asEntriesFunName] ",
+        verbs, describePrefix,
         asEntriesFeature.forChecking(holdingSubject, failingSubject) { contains { asAssert().isKeyValue("g", 7) } },
         asEntries.forChecking({ contains { asAssert().isKeyValue("g", 7) } }, holdingSubject, failingSubject)
     ) {})

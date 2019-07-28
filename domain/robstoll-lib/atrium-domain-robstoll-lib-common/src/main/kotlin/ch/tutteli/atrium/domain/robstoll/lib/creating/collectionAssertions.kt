@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.creating.ExtractedFeatureOption
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 
 fun _isEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion =
@@ -17,4 +18,4 @@ fun _isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
 fun <T : Collection<*>> _size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int> =
-    ExpectImpl.feature.property(assertionContainer, Collection<*>::size)
+    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionCollectionAssertion.SIZE) { size }

@@ -14,10 +14,11 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = ExpectImpl.list.get(
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and that
- * the element at that position holds all assertions the given [assertionCreator] might create for it.
+ * the element at that position holds all assertions the given [assertionCreator] creates for it.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <E : Any, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.list.get(this, index).addToInitial(assertionCreator)

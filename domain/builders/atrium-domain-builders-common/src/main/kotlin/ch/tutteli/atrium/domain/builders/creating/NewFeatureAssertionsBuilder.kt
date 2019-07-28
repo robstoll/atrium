@@ -2,7 +2,6 @@
 
 package ch.tutteli.atrium.domain.builders.creating
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
@@ -17,6 +16,8 @@ import ch.tutteli.atrium.domain.creating.newFeatureAssertions
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.*
 
@@ -74,6 +75,13 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
         provider: T.() -> R
     ): ExtractedFeatureOption<T, R> = extractFeature(assertionContainer, name, provider)
 
+    fun <T, R> manualFeature(
+        assertionContainer: Expect<T>,
+        name: Translatable,
+        provider: T.() -> R
+    ): ExtractedFeatureOption<T, R> =
+        genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
+
     fun <T, R> genericSubjectBasedFeature(
         assertionContainer: Expect<T>,
         provider: (T) -> MetaFeature<R>
@@ -98,11 +106,18 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
         assertionContainer: Expect<T>,
         name: String,
         provider: (T) -> R
-    ): ExtractedFeatureOption<T, R> = genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
+    ): ExtractedFeatureOption<T, R> =
+        genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
 
     private fun <T, R> createMetaFeature(
         assertionContainer: Expect<T>,
         name: String,
+        provider: (T) -> R
+    ): MetaFeature<R> = createMetaFeature(assertionContainer, Untranslatable(name), provider)
+
+    private fun <T, R> createMetaFeature(
+        assertionContainer: Expect<T>,
+        name: Translatable,
         provider: (T) -> R
     ): MetaFeature<R> {
         return assertionContainer.maybeSubject.fold({

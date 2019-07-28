@@ -36,6 +36,10 @@ interface MapAssertions {
     fun isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
 
+    fun <K, V, T: Map<out K, V>> getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeatureOption<T, V>
+
+    fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int>
+
 
     fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
 

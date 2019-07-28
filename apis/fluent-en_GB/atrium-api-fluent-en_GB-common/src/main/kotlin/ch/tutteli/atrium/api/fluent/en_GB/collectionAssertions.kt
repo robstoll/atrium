@@ -39,7 +39,7 @@ val <T : Collection<*>> Expect<T>.size get(): Expect<Int> = ExpectImpl.collectio
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
- * holds all assertions the given [assertionCreator] might create for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
