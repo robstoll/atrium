@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 
 /**
  * The access point to an implementation of [CollectionAssertions].
@@ -23,7 +24,7 @@ interface CollectionAssertions {
     fun isEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion
 
-    fun <T : Collection<*>> size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int>
+    fun <T : Collection<*>> size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion

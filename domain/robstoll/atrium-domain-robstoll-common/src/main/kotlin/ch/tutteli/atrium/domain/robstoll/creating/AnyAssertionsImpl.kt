@@ -28,12 +28,6 @@ class AnyAssertionsImpl : AnyAssertions, AnyAssertionsDeprecatedImpl() {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ) = _toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
-    override fun <TSub : Any> isA(assertionContainer: Expect<out Any?>, subType: KClass<TSub>)
-        = _isA(assertionContainer, subType, null)
-
-    override fun <TSub : Any> isA(
-        assertionContainer: Expect<out Any?>,
-        subType: KClass<TSub>,
-        assertionCreator: Expect<TSub>.() -> Unit
-    ) = _isA(assertionContainer, subType, assertionCreator)
+    override fun <TSub : Any> isA(assertionContainer: Expect<*>, subType: KClass<TSub>) =
+        _isA(assertionContainer, subType)
 }

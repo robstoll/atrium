@@ -113,7 +113,8 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * @return An assertion container with the new type [TSub].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TSub : Any> Expect<out Any?>.isA(): Expect<TSub> = ExpectImpl.any.isA(this, TSub::class)
+inline fun <reified TSub : Any> Expect<out Any?>.isA(): Expect<TSub> =
+    ExpectImpl.any.isA(this, TSub::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -157,7 +158,7 @@ inline fun <reified TSub : Any> Expect<out Any?>.isA(): Expect<TSub> = ExpectImp
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    ExpectImpl.any.isA(this, TSub::class, assertionCreator)
+    ExpectImpl.any.isA(this, TSub::class).addToInitial(assertionCreator)
 
 /**
  * Can be used to separate single assertions.

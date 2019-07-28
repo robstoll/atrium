@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -27,11 +28,14 @@ interface NewFeatureAssertions {
 
     /**
      * Extracts a feature from [assertionContainer] based on the given [MetaFeature] and creates a
-     * [ExtractedFeatureOption] based on it.
+     * [ExtractedFeaturePostStep] based on it.
      *
-     * @return The newly created [ExtractedFeatureOption].
+     * @return The newly created [ExtractedFeaturePostStep].
      */
-    fun <T, R> genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeature<R>): ExtractedFeatureOption<T, R>
+    fun <T, R> genericFeature(
+        assertionContainer: Expect<T>,
+        metaFeature: MetaFeature<R>
+    ): ExtractedFeaturePostStep<T, R>
 }
 
 /**
@@ -48,5 +52,5 @@ data class MetaFeature<T>(val description: Translatable, val representation: Any
     constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
         this(Untranslatable(description), representation, maybeSubject)
 
-    constructor(description: String, subject: T): this(description, subject, Some(subject))
+    constructor(description: String, subject: T) : this(description, subject, Some(subject))
 }

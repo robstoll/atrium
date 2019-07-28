@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.builders.utils.subExpect
-import ch.tutteli.atrium.domain.creating.ExtractedFeatureOption
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
@@ -44,10 +44,10 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
                 .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
                 .withCheck { it.containsKey(key) }
                 .withFeatureExtraction { it[key] }
-                .withSubAssertions {
+                .build()
+                .addToInitial {
                     addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, valueType, assertionCreatorOrNull))
                 }
-                .build()
         }
     }
     return ExpectImpl.builder.list
@@ -69,19 +69,8 @@ fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
-fun <K, V, T: Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeatureOption<T, V> {
-    return ExtractedFeatureOption(assertionContainer, {
-        extractGet(this, key).withoutSubAssertions().build()
-    }){
-        extractGet(this, key).withSubAssertions(it).build()
-    }
-}
-
-private fun <K, T : Map<out K, V>, V> extractGet(
-    assertionContainer: Expect<T>,
-    key: K
-): FeatureExtractorBuilder.SubAssertionOption<T, V> {
-    return ExpectImpl.feature.extractor(assertionContainer)
+fun <K, V, T: Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
+    ExpectImpl.feature.extractor(assertionContainer)
         .methodCall("get", key)
         .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
         .withCheck { it.containsKey(key) }
@@ -100,7 +89,7 @@ private fun <K, T : Map<out K, V>, V> extractGet(
             )
             it[key] as V
         }
-}
+        .build()
 
-fun <T : Map<*, *>> _size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int> =
+fun <T : Map<*, *>> _size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, SIZE) { size }

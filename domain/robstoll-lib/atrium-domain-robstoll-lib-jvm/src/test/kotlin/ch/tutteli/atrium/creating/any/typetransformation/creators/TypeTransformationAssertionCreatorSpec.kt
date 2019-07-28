@@ -45,8 +45,8 @@ fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) {
         .withDescriptionAndRepresentation(Untranslatable("is a"), RawString.create(Left::class.java.simpleName))
         .withCheck { it.isLeft() }
         .withTransformation { (it as Left).a }
-        .withSubAssertions(assertionCreator)
         .build()
+        .addToInitial(assertionCreator)
 }
 
 fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) {
@@ -54,8 +54,8 @@ fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) 
         .withDescriptionAndRepresentation(Untranslatable("is a"), RawString.create(Right::class.java.simpleName))
         .withCheck { it.isRight() }
         .withTransformation { (it as Right).b }
-        .withSubAssertions(assertionCreator)
         .build()
+        .addToInitial(assertionCreator)
 }
 
 /** copied and simplified from

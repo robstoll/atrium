@@ -23,9 +23,10 @@ object CollectionAssertionsBuilder : CollectionAssertions {
     override inline fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>) =
         collectionAssertions.isNotEmpty(subjectProvider)
 
-    override inline fun <T: Collection<*>> size(assertionContainer: Expect<T>)
-        = collectionAssertions.size(assertionContainer)
+    override inline fun <T : Collection<*>> size(assertionContainer: Expect<T>) =
+        collectionAssertions.size(assertionContainer)
 
+    // everything below is deprecated functionality and will be removed with 1.0.0
 
     @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int) =

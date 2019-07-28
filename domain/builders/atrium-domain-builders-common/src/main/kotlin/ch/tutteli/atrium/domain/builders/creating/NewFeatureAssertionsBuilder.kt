@@ -9,9 +9,9 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
-import ch.tutteli.atrium.domain.creating.ExtractedFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.newFeatureAssertions
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.RawString
@@ -47,25 +47,25 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
 
 
     //@formatter:off
-   fun <T, TProperty> property(assertionContainer: Expect<T>, property: KProperty1<in T, TProperty>): ExtractedFeatureOption<T, TProperty> =
+   fun <T, TProperty> property(assertionContainer: Expect<T>, property: KProperty1<in T, TProperty>): ExtractedFeaturePostStep<T, TProperty> =
         extractFeature(assertionContainer, property.name, property::get)
 
-    fun <T, R> f0(assertionContainer: Expect<T>, f: KFunction1<T, R>): ExtractedFeatureOption<T, R> =
+    fun <T, R> f0(assertionContainer: Expect<T>, f: KFunction1<T, R>): ExtractedFeaturePostStep<T, R> =
         extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf())(), f::invoke)
 
-    fun <T, A1, R> f1(assertionContainer: Expect<T>, f: KFunction2<T, A1, R>, a1: A1): ExtractedFeatureOption<T, R> =
+    fun <T, A1, R> f1(assertionContainer: Expect<T>, f: KFunction2<T, A1, R>, a1: A1): ExtractedFeaturePostStep<T, R> =
         extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf<Any?>(a1))()) { f(it, a1) }
 
-    fun <T, A1, A2, R> f2(assertionContainer: Expect<T>, f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): ExtractedFeatureOption<T, R> =
+    fun <T, A1, A2, R> f2(assertionContainer: Expect<T>, f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): ExtractedFeaturePostStep<T, R> =
         extractFeature(assertionContainer ,coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2))()) { f(it, a1, a2) }
 
-    fun <T, A1, A2, A3, R> f3(assertionContainer: Expect<T>, f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): ExtractedFeatureOption<T, R> =
+    fun <T, A1, A2, A3, R> f3(assertionContainer: Expect<T>, f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): ExtractedFeaturePostStep<T, R> =
         extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3))()) { f(it, a1, a2, a3) }
 
-    fun <T, A1, A2, A3, A4, R> f4(assertionContainer: Expect<T>, f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): ExtractedFeatureOption<T, R> =
+    fun <T, A1, A2, A3, A4, R> f4(assertionContainer: Expect<T>, f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): ExtractedFeaturePostStep<T, R> =
         extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3, a4))()) { f(it, a1, a2, a3, a4) }
 
-    fun <T, A1, A2, A3, A4, A5, R> f5(assertionContainer: Expect<T>, f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): ExtractedFeatureOption<T, R> =
+    fun <T, A1, A2, A3, A4, A5, R> f5(assertionContainer: Expect<T>, f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): ExtractedFeaturePostStep<T, R> =
         extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3, a4, a5))()) { f(it, a1, a2, a3, a4, a5) }
     //@formatter:on
 
@@ -73,19 +73,19 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
         assertionContainer: Expect<T>,
         name: String,
         provider: T.() -> R
-    ): ExtractedFeatureOption<T, R> = extractFeature(assertionContainer, name, provider)
+    ): ExtractedFeaturePostStep<T, R> = extractFeature(assertionContainer, name, provider)
 
     fun <T, R> manualFeature(
         assertionContainer: Expect<T>,
         name: Translatable,
         provider: T.() -> R
-    ): ExtractedFeatureOption<T, R> =
+    ): ExtractedFeaturePostStep<T, R> =
         genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
 
     fun <T, R> genericSubjectBasedFeature(
         assertionContainer: Expect<T>,
         provider: (T) -> MetaFeature<R>
-    ): ExtractedFeatureOption<T, R> = ExpectImpl.feature.genericFeature(
+    ): ExtractedFeaturePostStep<T, R> = ExpectImpl.feature.genericFeature(
         assertionContainer,
         assertionContainer.maybeSubject.fold(this::createFeatureSubjectNotDefined) { provider(it) }
     )
@@ -100,13 +100,13 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
     override inline fun <T, R> genericFeature(
         assertionContainer: Expect<T>,
         metaFeature: MetaFeature<R>
-    ): ExtractedFeatureOption<T, R> = newFeatureAssertions.genericFeature(assertionContainer, metaFeature)
+    ): ExtractedFeaturePostStep<T, R> = newFeatureAssertions.genericFeature(assertionContainer, metaFeature)
 
     private fun <T, R> extractFeature(
         assertionContainer: Expect<T>,
         name: String,
         provider: (T) -> R
-    ): ExtractedFeatureOption<T, R> =
+    ): ExtractedFeaturePostStep<T, R> =
         genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
 
     private fun <T, R> createMetaFeature(

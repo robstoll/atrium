@@ -2,8 +2,8 @@ package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.creating.ExtractedFeatureOption
 import ch.tutteli.atrium.domain.creating.MapAssertions
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
 
@@ -34,7 +34,7 @@ class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
     override fun <K, V, T : Map<out K, V>> getExisting(
         assertionContainer: Expect<T>,
         key: K
-    ): ExtractedFeatureOption<T, V> = _getExisting(assertionContainer, key)
+    ): ExtractedFeaturePostStep<T, V> = _getExisting(assertionContainer, key)
 
     override fun <T : Map<*, *>> size(assertionContainer: Expect<T>) = _size(assertionContainer)
 }

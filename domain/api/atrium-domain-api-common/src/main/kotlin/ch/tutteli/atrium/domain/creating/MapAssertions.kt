@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
 
 /**
@@ -18,7 +19,7 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
-    fun <K, V: Any, T : Map<out K, V?>> contains(
+    fun <K, V : Any, T : Map<out K, V?>> contains(
         assertionContainer: Expect<T>,
         valueType: KClass<V>,
         keyValuePairs: List<Pair<K, V?>>
@@ -36,26 +37,48 @@ interface MapAssertions {
     fun isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
 
-    fun <K, V, T: Map<out K, V>> getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeatureOption<T, V>
+    fun <K, V, T : Map<out K, V>> getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V>
 
-    fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeatureOption<T, Int>
+    fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
-    fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<out K, V?>>, keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>): Assertion
+    fun <K, V : Any> containsKeyWithValueAssertions(
+        plant: AssertionPlant<Map<out K, V?>>,
+        keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
+    ): Assertion
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
-    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V>
+    fun <K, V : Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V>
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
-    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
+    fun <K, V : Any> getExisting(
+        plant: AssertionPlant<Map<out K, V>>,
+        key: K,
+        assertionCreator: AssertionPlant<V>.() -> Unit
+    ): Assertion
+
     @Deprecated("Switch from Assert to Expect and use getExisting instead; will be removed with 1.0.0")
     fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlantNullable<V>
+
     @Deprecated("Switch from Assert to Expect and use getExisting instead; will be removed with 1.0.0")
-    fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
+    fun <K, V> getExistingNullable(
+        plant: AssertionPlant<Map<out K, V>>,
+        key: K,
+        assertionCreator: AssertionPlantNullable<V>.() -> Unit
+    ): Assertion
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K> keys(plant: AssertionPlant<Map<out K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
-    fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
+    fun <V> values(
+        plant: AssertionPlant<Map<*, V>>,
+        assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
+    ): Assertion
 }
