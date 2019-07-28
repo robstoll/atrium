@@ -63,7 +63,8 @@ interface AssertionCollectorForExplanation {
      * @throws IllegalArgumentException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
-    @Suppress("DEPRECATION")
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T : Any> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -87,7 +88,8 @@ interface AssertionCollectorForExplanation {
      * @throws IllegalArgumentException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
-    @Suppress("DEPRECATION")
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T> collectNullable(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -117,6 +119,8 @@ interface AssertionCollectorForExplanation {
      * @throws IllegalArgumentException Might throw it in case not a single [Assertion] was collected
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,

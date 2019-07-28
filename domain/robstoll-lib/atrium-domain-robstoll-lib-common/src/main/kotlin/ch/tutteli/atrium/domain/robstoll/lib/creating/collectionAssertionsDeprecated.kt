@@ -11,5 +11,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 fun _hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion =
     ExpectImpl.collection.size(plant) { toBe(size) }
 
+@Suppress("DEPRECATION")
 fun _size(plant: AssertionPlant<Collection<*>>, assertionCreator: Assert<Int>.() -> Unit) =
     ExpectImpl.collector.collect(plant) { property(Collection<*>::size, assertionCreator) }

@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -44,17 +45,20 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
             .withDefaultType
             .withAssertions(explanatoryAssertions)
             .build()
-        subjectPlant.addAssertion(AssertImpl.builder.invisibleGroup
-            .withAssertions(
-                failingAssertion,
-                explanatoryGroup
-            )
-            .build()
+        subjectPlant.addAssertion(
+            AssertImpl.builder.invisibleGroup
+                .withAssertions(
+                    failingAssertion,
+                    explanatoryGroup
+                )
+                .build()
         )
     }
 
-    private fun collectAssertions(warningDownCastFailed: Translatable, assertionCreator: AssertionPlant<TSub>.() -> Unit)
-        = AssertImpl.collector
+    private fun collectAssertions(
+        warningDownCastFailed: Translatable,
+        assertionCreator: AssertionPlant<TSub>.() -> Unit
+    ) = AssertImpl.collector
         .forExplanation
         .doNotThrowIfNoAssertionIsCollected
         .collect(warningDownCastFailed, MaybeSubject.Absent, assertionCreator)

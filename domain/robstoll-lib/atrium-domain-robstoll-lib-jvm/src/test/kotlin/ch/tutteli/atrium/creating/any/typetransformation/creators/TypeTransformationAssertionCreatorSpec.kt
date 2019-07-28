@@ -40,23 +40,21 @@ object TypeTransformationAssertionCreatorSpec : Spek({
     }
 })
 
-fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) {
+fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
     ExpectImpl.changeSubject.reportBuilder(this)
         .withDescriptionAndRepresentation(Untranslatable("is a"), RawString.create(Left::class.java.simpleName))
         .withCheck { it.isLeft() }
         .withTransformation { (it as Left).a }
         .build()
         .addToInitial(assertionCreator)
-}
 
-fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) {
+fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
     ExpectImpl.changeSubject.reportBuilder(this)
         .withDescriptionAndRepresentation(Untranslatable("is a"), RawString.create(Right::class.java.simpleName))
         .withCheck { it.isRight() }
         .withTransformation { (it as Right).b }
         .build()
         .addToInitial(assertionCreator)
-}
 
 /** copied and simplified from
  *  https://github.com/arrow-kt/arrow/blob/master/arrow-core/src/main/kotlin/arrow/core/Either.kt

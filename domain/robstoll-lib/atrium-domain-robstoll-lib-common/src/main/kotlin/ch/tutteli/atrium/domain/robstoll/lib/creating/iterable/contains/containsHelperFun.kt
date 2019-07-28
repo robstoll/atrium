@@ -92,6 +92,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     iterableAsList: List<E?>,
     itr: Iterator<E?>
 ): AssertionGroup {
+    @Suppress("DEPRECATION")
     return ExpectImpl.collector.collect({ iterableAsList }) {
         property(Collection<*>::size) {
             toBe(expectedSize)

@@ -15,8 +15,10 @@ fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>
     assertionCreator: C.() -> Unit
 ): AssertionGroup {
     return if (safeToCollect) {
+        @Suppress("DEPRECATION")
         AssertImpl.collector.collect(subjectProvider, collectingPlantFactory, assertionCreator)
     } else {
+        @Suppress("DEPRECATION")
         val explanatoryAssertions = AssertImpl
             .collector
             .forExplanation

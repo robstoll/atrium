@@ -25,12 +25,15 @@ object AssertionCollectorBuilder: AssertionCollector {
     ): AssertionGroup = assertionCollector.collect(maybeSubject, assertionCreator)
 
 
+
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         noinline subjectProvider: () -> T,
         noinline collectingPlantFactory: (() -> T) -> C,
         noinline assertionCreator: C.() -> Unit
     ): AssertionGroup = assertionCollector.collect(subjectProvider, collectingPlantFactory, assertionCreator)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
