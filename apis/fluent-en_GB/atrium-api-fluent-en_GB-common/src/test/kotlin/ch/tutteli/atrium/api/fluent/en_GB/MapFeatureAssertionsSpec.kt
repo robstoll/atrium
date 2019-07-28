@@ -3,10 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.specs.feature1
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.property
+import ch.tutteli.atrium.specs.*
 
 class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureAssertionsSpec(
     AssertionVerbFactory,
@@ -23,5 +20,22 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
 
         fun getExistingNullable(expect: Expect<Map<String?, Int?>>, key: String?, assertionCreator: Expect<Int?>.() -> Unit): Expect<Map<String?, Int?>>
             = ExpectImpl.map.getExisting(expect, key).addToInitial(assertionCreator)
+
+        @Suppress("unused", "UNUSED_VALUE")
+        private fun ambiguityTest() {
+            var a1: Expect<Map<String, Int>> = notImplemented()
+            var a2: Expect<Map<out String, Int>> = notImplemented()
+            var a3: Expect<out Map<String, Int>> = notImplemented()
+            var a4: Expect<out Map<out String, Int>> = notImplemented()
+
+            a1.getExisting("a")
+            a1 = a1.getExisting("a") { }
+            a2.getExisting("a")
+            a2 = a2.getExisting("a") { }
+            a3.getExisting("a")
+            a3 = a3.getExisting("a") { }
+            a4.getExisting("a")
+            a4 = a4.getExisting("a") { }
+        }
     }
 }
