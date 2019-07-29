@@ -11,6 +11,17 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @return The newly created [Expect] for the transformed subject.
  */
-@Suppress("DEPRECATION")
-fun <E> Expect<Sequence<E>>.asIterable(): Expect<Iterable<E>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
+    ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+
+/**
+ * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * the subject as [Iterable].
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `feature(Sequence::asIterable, assertionCreator)` if you want to show the transformation in reporting.
+ *
+ * @return This assertion container to support a fluent API.
+ */
+fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
+    apply { asIterable().addAssertionsCreatedBy(assertionCreator) }

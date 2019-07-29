@@ -21,15 +21,15 @@ abstract class ArrayAsIterableAssertionsSpec(
     arrFloat: Expect<FloatArray>.() -> Expect<Iterable<Float>>,
     arrDouble: Expect<DoubleArray>.() -> Expect<Iterable<Double>>,
     arrBoolean: Expect<BooleanArray>.() -> Expect<Iterable<Boolean>>,
-    arrWithCreator: Expect<Array<Int>>.(Expect<Iterable<Int>>.() -> Unit) -> Expect<Iterable<Int>>,
-    arrByteWithCreator: Expect<ByteArray>.(Expect<Iterable<Byte>>.() -> Unit) -> Expect<Iterable<Byte>>,
-    arrCharWithCreator: Expect<CharArray>.(Expect<Iterable<Char>>.() -> Unit) -> Expect<Iterable<Char>>,
-    arrShortWithCreator: Expect<ShortArray>.(Expect<Iterable<Short>>.() -> Unit) -> Expect<Iterable<Short>>,
-    arrIntWithCreator: Expect<IntArray>.(Expect<Iterable<Int>>.() -> Unit) -> Expect<Iterable<Int>>,
-    arrLongWithCreator: Expect<LongArray>.(Expect<Iterable<Long>>.() -> Unit) -> Expect<Iterable<Long>>,
-    arrFloatWithCreator: Expect<FloatArray>.(Expect<Iterable<Float>>.() -> Unit) -> Expect<Iterable<Float>>,
-    arrDoubleWithCreator: Expect<DoubleArray>.(Expect<Iterable<Double>>.() -> Unit) -> Expect<Iterable<Double>>,
-    arrBooleanWithCreator: Expect<BooleanArray>.(Expect<Iterable<Boolean>>.() -> Unit) -> Expect<Iterable<Boolean>>,
+    arrWithCreator: Expect<Array<Int>>.(Expect<Iterable<Int>>.() -> Unit) -> Expect<Array<Int>>,
+    arrByteWithCreator: Expect<ByteArray>.(Expect<Iterable<Byte>>.() -> Unit) -> Expect<ByteArray>,
+    arrCharWithCreator: Expect<CharArray>.(Expect<Iterable<Char>>.() -> Unit) -> Expect<CharArray>,
+    arrShortWithCreator: Expect<ShortArray>.(Expect<Iterable<Short>>.() -> Unit) -> Expect<ShortArray>,
+    arrIntWithCreator: Expect<IntArray>.(Expect<Iterable<Int>>.() -> Unit) -> Expect<IntArray>,
+    arrLongWithCreator: Expect<LongArray>.(Expect<Iterable<Long>>.() -> Unit) -> Expect<LongArray>,
+    arrFloatWithCreator: Expect<FloatArray>.(Expect<Iterable<Float>>.() -> Unit) -> Expect<FloatArray>,
+    arrDoubleWithCreator: Expect<DoubleArray>.(Expect<Iterable<Double>>.() -> Unit) -> Expect<DoubleArray>,
+    arrBooleanWithCreator: Expect<BooleanArray>.(Expect<Iterable<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -115,7 +115,7 @@ abstract class ArrayAsIterableAssertionsSpec(
 
 
     describe("$asIterableFunName arr") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(arrayOf(1, 2)).arr().asAssert().containsExactly(1, 2)
         }
         it("transformation can be applied and a sub-assertion made") {
@@ -124,7 +124,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     }
 
     describe("$asIterableFunName arrByte") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(bytes(1.toByte(), 2.toByte())).arrByte().asAssert().containsExactly(1.toByte(), 2.toByte())
         }
         it("transformation can be applied and a sub assertion made") {
@@ -132,7 +132,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrChar") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(chars(1.toChar(), 2.toChar())).arrChar().asAssert().containsExactly(1.toChar(), 2.toChar())
         }
         it("transformation can be applied and a sub assertion made") {
@@ -140,7 +140,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrShort") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(shorts(1, 2)).arrShort().asAssert().containsExactly(1.toShort(), 2.toShort())
         }
         it("transformation can be applied and a sub assertion made") {
@@ -148,7 +148,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrInt") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(ints(1, 2)).arrInt().asAssert().containsExactly(1, 2)
         }
         it("transformation can be applied and a sub assertion made") {
@@ -156,7 +156,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrLong") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(longs(1, 2)).arrLong().asAssert().containsExactly(1L, 2L)
         }
         it("transformation can be applied and a sub assertion made") {
@@ -164,7 +164,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrFloat") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(floats(1f, 2f)).arrFloat().asAssert().containsExactly(1f, 2f)
         }
         it("transformation can be applied and a sub assertion made") {
@@ -172,7 +172,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrDouble") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(doubles(1.0, 2.0)).arrDouble().asAssert().containsExactly(1.0, 2.0)
         }
         it("transformation can be applied and a sub assertion made") {
@@ -180,7 +180,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
     describe("$asIterableFunName arrBoolean") {
-        it("transformation can be applied and an subsequent assertion made") {
+        it("transformation can be applied and a subsequent assertion made") {
             verbs.check(booleans(true, false)).arrBoolean().asAssert().containsExactly(true, false)
         }
         it("transformation can be applied and a sub assertion made") {

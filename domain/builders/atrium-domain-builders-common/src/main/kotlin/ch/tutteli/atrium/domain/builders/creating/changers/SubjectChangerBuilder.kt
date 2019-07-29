@@ -28,20 +28,7 @@ import kotlin.reflect.KClass
  */
 object SubjectChangerBuilder : SubjectChanger {
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    override inline fun <T, R : Any> unreported(
-        originalPlant: BaseAssertionPlant<T, *>,
-        noinline transformation: (T) -> R
-    ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    override inline fun <T, R> unreportedNullable(
-        originalPlant: BaseAssertionPlant<T, *>,
-        noinline transformation: (T) -> R
-    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
-
-
-    override inline fun <T, R> unreported(
+     override inline fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,
         noinline transformation: (T) -> R
     ): Expect<R> = subjectChanger.unreported(originalAssertionContainer, transformation)
@@ -71,6 +58,19 @@ object SubjectChangerBuilder : SubjectChanger {
      */
     fun <T> reportBuilder(originalAssertionContainer: Expect<T>): DescriptionOption<T> =
         DescriptionOption.create(originalAssertionContainer)
+
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override inline fun <T, R : Any> unreported(
+        originalPlant: BaseAssertionPlant<T, *>,
+        noinline transformation: (T) -> R
+    ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override inline fun <T, R> unreportedNullable(
+        originalPlant: BaseAssertionPlant<T, *>,
+        noinline transformation: (T) -> R
+    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
 
 
     /**
