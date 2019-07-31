@@ -1,12 +1,15 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.creating.mapEntryAssertions
+import kotlin.reflect.KClass
 
 /**
  * Delegates inter alia to the implementation of [MapEntryAssertions].
@@ -14,6 +17,28 @@ import ch.tutteli.atrium.domain.creating.mapEntryAssertions
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object MapEntryAssertionsBuilder : MapEntryAssertions {
+    override inline fun <K : Any, V : Any, T : Map.Entry<K, V>> isKeyValue(
+        assertionContainer: Expect<T>,
+        key: K,
+        value: V
+    ) = mapEntryAssertions.isKeyValue(assertionContainer, key, value)
+
+    override inline fun <K : Any, V : Any, T : Map.Entry<K?, V?>> isKeyValue(
+        assertionContainer: Expect<T>,
+        key: K?,
+        value: V?,
+        keyType: KClass<K>,
+        valueType: KClass<V>
+    ) = mapEntryAssertions.isKeyValue(assertionContainer, key, value, keyType, valueType)
+
+    override inline fun <K, T : Map.Entry<K, *>> key(assertionContainer: Expect<T>) =
+        mapEntryAssertions.key(assertionContainer)
+
+    override inline fun <V, T : Map.Entry<*, V>> value(assertionContainer: Expect<T>) =
+        mapEntryAssertions.value(assertionContainer)
+
+
+
     override inline fun <K : Any, V : Any> isKeyValue(
         plant: AssertionPlant<Map.Entry<K, V>>,
         key: K,
