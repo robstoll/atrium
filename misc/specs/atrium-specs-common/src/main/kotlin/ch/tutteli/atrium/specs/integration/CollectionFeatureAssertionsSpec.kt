@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.messageContains
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.toBe

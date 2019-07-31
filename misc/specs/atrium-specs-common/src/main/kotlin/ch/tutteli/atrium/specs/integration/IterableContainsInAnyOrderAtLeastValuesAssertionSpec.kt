@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect

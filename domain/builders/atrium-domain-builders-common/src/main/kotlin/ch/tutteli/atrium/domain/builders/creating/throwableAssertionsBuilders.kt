@@ -1,8 +1,11 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.ThrowableAssertions
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.throwableThrownAssertions
@@ -11,7 +14,6 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.absentThrowa
 import ch.tutteli.atrium.domain.creating.throwableAssertions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import kotlin.reflect.KClass
 
 /**
@@ -41,6 +43,15 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
  */
 object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
+    override inline fun <TExpected : Throwable> isA(
+        throwableThrownBuilder: ThrowableThrown.Builder,
+        expectedType: KClass<TExpected>
+    ) = throwableThrownAssertions.isA(throwableThrownBuilder, expectedType)
+
+    override inline fun notThrown(
+        throwableThrownBuilder: ThrowableThrown.Builder
+    ): ChangedSubjectPostStep<Throwable?, Nothing?> = throwableThrownAssertions.notThrown(throwableThrownBuilder)
+
     override inline fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
@@ -64,6 +75,6 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
  */
 object AbsentThrowableMessageProviderFactoryBuilder : AbsentThrowableMessageProviderFactory {
 
-    override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
-        = absentThrowableMessageProviderFactory.translatableBased(translatable)
+    override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider =
+        absentThrowableMessageProviderFactory.translatableBased(translatable)
 }

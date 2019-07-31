@@ -12,9 +12,9 @@ fun <T> _collect(
     maybeSubject: Option<T>,
     assertionCreator: CollectingAssertionContainer<T>.() -> Unit
 ): AssertionGroup {
-    val collectingPlant = AssertImpl.coreFactory.newCollectingAssertionContainer(maybeSubject)
-    assertionCreator(collectingPlant)
-    val collectedAssertions = collectingPlant.getAssertions()
+    val collectingAssertionContainer = AssertImpl.coreFactory.newCollectingAssertionContainer(maybeSubject)
+    assertionCreator(collectingAssertionContainer)
+    val collectedAssertions = collectingAssertionContainer.getAssertions()
     check(collectedAssertions.isNotEmpty()) {
         "There was not any assertion created. Did you forget to add it to the assertion container?"
     }

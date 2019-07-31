@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.values
+import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
+import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.*
@@ -60,6 +57,7 @@ abstract class IterableAnyAssertionsSpec(
                     )
                 }
             }
+            //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
                     fluentEmpty.containsEntriesFun {

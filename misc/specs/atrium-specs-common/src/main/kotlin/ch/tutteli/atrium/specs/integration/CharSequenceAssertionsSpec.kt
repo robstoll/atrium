@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.endsWith
-import ch.tutteli.atrium.api.cc.en_GB.message
-import ch.tutteli.atrium.api.cc.en_GB.messageContains
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.endsWith
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionBasic

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.creating.changers
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -20,14 +21,20 @@ val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
  */
 interface SubjectChanger {
 
+    /**
+     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
+     */
     @Deprecated(
         "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
     )
-    fun <T, R: Any> unreported(
+    fun <T, R : Any> unreported(
         originalPlant: BaseAssertionPlant<T, *>,
         transformation: (T) -> R
     ): Assert<R>
 
+    /**
+     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
+     */
     @Deprecated(
         "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
     )
@@ -96,6 +103,30 @@ interface SubjectChanger {
         representation: Any,
         canBeTransformed: (T) -> Boolean,
         transformation: (T) -> R,
+        failureHandler: FailureHandler<T, R>,
         subAssertions: (Expect<R>.() -> Unit)?
     ): Expect<R>
+
+    /**
+     * Represents a handler which is responsible to create the assertion resulting from a failed subject change.
+     *
+     * A handler should augment the failing assertion with explanatory assertions in case the user supplied an
+     * assertionCreator lambda. Yet, a failure handler might also add additional information -- e.g. regarding the
+     * current subject.
+     */
+    interface FailureHandler<T, R> {
+        /**
+         * Creates the failing assertion most likely based on the given [descriptiveAssertion] -- which in turn
+         * is based on the previously specified description, representation etc. -- and should incorporate
+         * the assertions [assertionCreator] would have created for the new subject as explanatory assertions.
+         *
+         * @return A failing assertion.
+         * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
+         */
+        fun createAssertion(
+            originalAssertionContainer: Expect<T>,
+            descriptiveAssertion: Assertion,
+            assertionCreator: (Expect<R>.() -> Unit)?
+        ): Assertion
+    }
 }

@@ -28,25 +28,41 @@ abstract class PostFinalStep<T, R>(
      */
     fun getExpectOfFeature(): Expect<R> = action(assertionContainer)
 
+
     /**
      * Collects the assertions the given [assertionCreator] might create for the new [Expect] of the feature
      * and returns them as a single [Assertion]
      *
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
-     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion
+     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
      */
     fun collect(assertionCreator: Expect<R>.() -> Unit): Assertion = assertionCollector.collect(assertionContainer) {
         actionAndApply(this, assertionCreator)
     }
 
+
     /**
-     * Creates a new [Expect] for the feature, adds all assertions the given [assertionCreator] might create it
+     * Creates a new [Expect] for the feature, adds all assertions the given [assertionCreator] creates for it
+     * and returns the new [Expect].
+     * @returns An assertion consisting of all assertions the given [assertionCreator] might create
+     *   for the new [Expect] of the feature.
+     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
+     */
+    fun addToFeature(assertionCreator: Expect<R>.() -> Unit): Expect<R> {
+        return actionAndApply(assertionContainer) {
+            // collect also checks that the user specified at least one assertion in the assertionCreator lambda
+            addAssertion(assertionCollector.collect(this, assertionCreator))
+        }
+    }
+
+    /**
+     * Creates a new [Expect] for the feature, adds all assertions the given [assertionCreator] creates for it
      * and returns the initial [Expect].
      *
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
-     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion
+     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
      */
     fun addToInitial(assertionCreator: Expect<R>.() -> Unit): Expect<T> {
         // collect also checks that the user specified at least one assertion in the assertionCreator lambda

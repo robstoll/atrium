@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.api.cc.en_GB.value
+import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
+import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.value
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
@@ -76,7 +78,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0"
                         )
                         containsNot(additionalEntries)
-                        asExpect().containsSize(0, 1)
+                       containsSize(0, 1)
                     }
                 }
             }
@@ -91,10 +93,12 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0"
                         )
                         containsNot(additionalEntries)
-                        asExpect().containsSize(0, 2)
+                       containsSize(0, 2)
                     }
                 }
             }
+
+            //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
                     fluentEmpty.containsEntriesFun({
@@ -173,7 +177,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}4.0"
                                 )
-                                asExpect().containsSize(5, 4)
+                               containsSize(5, 4)
                             }
                         }
                     }
@@ -192,7 +196,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                                asExpect().containsSize(5, 2)
+                               containsSize(5, 2)
                             }
                         }
                     }
@@ -219,7 +223,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
-                                asExpect().containsSize(5, 5)
+                               containsSize(5, 5)
                             }
                         }
                     }
@@ -244,7 +248,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                                asExpect().containsSize(5, 3)
+                               containsSize(5, 3)
                             }
                         }
                     }
@@ -271,7 +275,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                 )
                                 contains.exactly(2)
                                     .value("$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0")
-                                asExpect().containsSize(5, 6)
+                               containsSize(5, 6)
                                 containsNot(additionalEntries, mismatches, mismatchesAdditionalEntries)
                             }
                         }
@@ -325,7 +329,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}null"
                                 )
-                                asExpect().containsSize(4, 3)
+                               containsSize(4, 3)
                             }
                         }
                     }
@@ -350,7 +354,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}3.0"
                                 )
-                                asExpect().containsSize(4, 4)
+                               containsSize(4, 4)
                             }
                         }
                     }

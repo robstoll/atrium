@@ -114,9 +114,9 @@ object ExpectImpl {
 //     */
 //    override inline val pair get() = PairAssertionsBuilder
 
-//    /**
-//     * Returns [ThrowableAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [ThrowableAssertions].
-//     */
-//    override inline val throwable get() = ThrowableAssertionsBuilder
+    /**
+     * Returns [ThrowableAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ThrowableAssertions].
+     */
+    inline val throwable get() = ThrowableAssertionsBuilder
 }

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -36,14 +37,30 @@ class TransformationOptionImpl<T>(
     override val canBeTransformed: (T) -> Boolean
 ) : SubjectChangerBuilder.TransformationOption<T> {
 
-    override fun <R> withTransformation(transformation: (T) -> R): SubjectChangerBuilder.FinalStep<T, R> =
-        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation)
+    override fun <R> withTransformation(transformation: (T) -> R): SubjectChangerBuilder.FailureHandlerOption<T, R> =
+        SubjectChangerBuilder.FailureHandlerOption.create(checkOption, canBeTransformed, transformation)
+}
+
+class FailureHandlerOptionImpl<T, R>(
+    override val checkOption: SubjectChangerBuilder.CheckOption<T>,
+    override val canBeTransformed: (T) -> Boolean,
+    override val transformation: (T) -> R
+) : SubjectChangerBuilder.FailureHandlerOption<T, R> {
+
+    override fun withFailureHandler(
+        failureHandler: SubjectChanger.FailureHandler<T, R>
+    ): SubjectChangerBuilder.FinalStep<T, R> =
+        SubjectChangerBuilder.FinalStep.create(checkOption, canBeTransformed, transformation, failureHandler)
+
+    override fun withDefaultFailureHandler(): SubjectChangerBuilder.FinalStep<T, R> =
+        withFailureHandler(DefaultFailureHandlerImpl())
 }
 
 class FinalStepImpl<T, R>(
     override val checkOption: SubjectChangerBuilder.CheckOption<T>,
     override val canBeTransformed: (T) -> Boolean,
-    override val transformation: (T) -> R
+    override val transformation: (T) -> R,
+    override val failureHandler: SubjectChanger.FailureHandler<T, R>
 ) : SubjectChangerBuilder.FinalStep<T, R> {
 
     override fun build(): ChangedSubjectPostStep<T, R> = ChangedSubjectPostStep(checkOption.originalAssertionContainer,
@@ -58,6 +75,7 @@ class FinalStepImpl<T, R>(
             checkOption.representation,
             canBeTransformed,
             transformation,
+            failureHandler,
             subAssertions
         )
 }

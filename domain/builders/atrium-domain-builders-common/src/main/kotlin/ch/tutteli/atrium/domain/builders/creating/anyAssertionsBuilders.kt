@@ -49,7 +49,7 @@ object AnyAssertionsBuilder : AnyAssertions {
         noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ) = anyAssertions.toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
 
-    override inline fun <TSub : Any> isA(assertionContainer: Expect<*>, subType: KClass<TSub>) =
+    override inline fun <T, TSub : Any> isA(assertionContainer: Expect<T>, subType: KClass<TSub>) =
         anyAssertions.isA(assertionContainer, subType)
 
 

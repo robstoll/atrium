@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.isGreaterOrEquals
 import ch.tutteli.atrium.api.cc.en_GB.isKeyValue
 import ch.tutteli.atrium.api.cc.en_GB.key
 import ch.tutteli.atrium.api.cc.en_GB.value
@@ -42,7 +41,7 @@ abstract class MapAsEntriesAssertionsSpec(
         it("transformation can be applied and an assertion made") {
             verbs.check(mapOf("a" to 1, "b" to 2)).(asEntriesFeature.lambda)().contains.inAnyOrder.only.entries(
                 { asAssert().isKeyValue("b", 2) },
-                { asAssert().key { asExpect().startsWith("a") }.asExpect().and.asAssert().value.isGreaterOrEquals(1) }
+                { asAssert().key { asExpect().startsWith("a") }.asExpect().and.asAssert().value.asExpect().isGreaterOrEquals(1) }
             )
         }
     }
@@ -54,7 +53,7 @@ abstract class MapAsEntriesAssertionsSpec(
                     { asAssert().isKeyValue("b", 2) },
                     {
                         asAssert().key { asExpect().startsWith("a") }
-                        asAssert().value.isGreaterOrEquals(1)
+                        asAssert().value.asExpect().isGreaterOrEquals(1)
                     }
                 )
             }

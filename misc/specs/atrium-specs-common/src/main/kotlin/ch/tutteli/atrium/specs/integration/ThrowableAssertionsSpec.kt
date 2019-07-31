@@ -1,50 +1,45 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 
-package ch.tutteli.atrium.spec.integration
+package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.spec.*
+import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
-import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
-import java.io.IOException
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
 abstract class ThrowableAssertionsSpec(
     verbs: AssertionVerbFactory,
     toThrowTriple: Triple<String,
         ThrowableThrown.Builder.() -> Unit,
-        ThrowableThrown.Builder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit
+        ThrowableThrown.Builder.(assertionCreator: Expect<IllegalArgumentException>.() -> Unit) -> Unit
         >,
-    notToThrowPair: Pair<String, ThrowableThrown.Builder.()->Unit>,
-    messagePair: Pair<String, Assert<Throwable>.(assertionCreator: Assert<String>.() -> Unit) -> Unit>,
-    messageWithContainsFun: Assert<Throwable>.(String) -> Unit,
-    messageContainsPair: Pair<String, Assert<Throwable>.(Any, Array<out Any>) -> Unit>,
+    notToThrowPair: Pair<String, ThrowableThrown.Builder.() -> Expect<Nothing?>>,
+    messagePair: Fun1<Throwable, Expect<String>.() -> Unit>,
+    messageWithContainsFun: Fun1<Throwable, Any>,
+    messageContainsPair: Fun2<Throwable, Any, Array<out Any>>,
     listBulletPoint: String,
     explanationBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
-
-    fun describeProperty(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeProperty(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val assert: (IllegalArgumentException) -> Assert<IllegalArgumentException> = verbs::checkImmediately
+    val assert: (Throwable) -> Expect<Throwable> = verbs::check
 
     val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple
     val (notToThrow, notThrowFun) = notToThrowPair
     val (message, messageFun) = messagePair
     val (messageContains, messageContainsFun) = messageContainsPair
 
-    fun SpecBody.checkToThrow(
+    fun Suite.checkToThrow(
         description: String,
         act: (ThrowableThrown.Builder.() -> Unit) -> Unit,
         lazy: (ThrowableThrown.Builder.() -> Unit),
@@ -52,29 +47,26 @@ abstract class ThrowableAssertionsSpec(
     ) {
         checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
     }
-    fun SpecBody.expectThrowsAndMessageContainsRegex(
-        toThrowFun: ThrowableThrown.Builder.() -> Unit,
-        act: () -> Unit,
-        pattern: String, vararg otherPatterns: String
-    ){
-        expect {
-            expect { act() }.toThrowFun()
-        }.toThrow<AssertionError> {
-            message { containsRegex(pattern, *otherPatterns) }
-        }
-    }
-    fun SpecBody.expectThrowsAssertionErrorAndMessageContainsRegex(
+
+    fun Suite.expectThrowsAssertionErrorAndMessageContainsRegex(
         toThrowFun: ThrowableThrown.Builder.() -> Unit,
         throwable: Throwable,
         pattern: String, vararg otherPatterns: String
-    ) = expectThrowsAndMessageContainsRegex(toThrowFun, {throw throwable}, pattern, *otherPatterns)
+    ) {
+        expect {
+            expect { ({throw throwable})() }.toThrowFun()
+        }.toThrow<AssertionError> {
+            message {
+                containsRegex(pattern, *otherPatterns)
+            }
+        }
+    }
 
-    val isADescr = DescriptionThrowableAssertion.IS_A.getDefault()
+    val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
     val messageDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE.getDefault()
     val stackTraceDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
     val causeDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault()
-    val supressedDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_SUPPRESSED.getDefault()
-    val separator = System.getProperty("line.separator")!!
+    val separator = lineSeperator
 
     val errMessage = "oho... error occurred"
 
@@ -86,12 +78,17 @@ abstract class ThrowableAssertionsSpec(
 
     describeFun(toThrow) {
         checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
-            expectThrowsAndMessageContainsRegex(doToThrow,
-                { /* no exception occurs */ },
-                DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
-                "$isADescr: ${IllegalArgumentException::class.simpleName}"
-            )
-        }, { toThrowFunLazy {} }, { toThrowFun() })
+            expect {
+                expect { ({ /* no exception occurs */ })() }.doToThrow()
+            }.toThrow<AssertionError> {
+                message {
+                    contains.exactly(1).regex(
+                        DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                        "$isADescr: ${IllegalArgumentException::class.simpleName}"
+                    )
+                }
+            }
+        }, { toThrowFunLazy { toBe(IllegalArgumentException("what")) } }, { toThrowFun() })
 
 
         checkToThrow("it allows to define assertions for the Throwable if the correct exception is thrown", { toThrowWithCheck ->
@@ -102,14 +99,13 @@ abstract class ThrowableAssertionsSpec(
 
         context("wrong exception"){
 
-
             checkToThrow("it throws an AssertionError and shows message and stacktrace as extra hint", { doToThrow ->
                 expectThrowsAssertionErrorAndMessageContainsRegex(doToThrow,
                     UnsupportedOperationException(errMessage),
                     "$isADescr:.+" + IllegalArgumentException::class.fullName,
                     UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace(errMessage)
                 )
-            }, { toThrowFunLazy {} }, { toThrowFun() })
+            }, { toThrowFunLazy { message { toBe("hello") } } }, { toThrowFun() })
 
             context("with a cause") {
 
@@ -119,60 +115,57 @@ abstract class ThrowableAssertionsSpec(
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
                         "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(errMessage)
                     )
-                }, { toThrowFunLazy {} }, { toThrowFun() })
+                }, { toThrowFunLazy { message { toBe("hello") } } }, { toThrowFun() })
 
                 checkToThrow("with nested cause, shows both causes as extra hint", { doToThrow ->
                     expectThrowsAssertionErrorAndMessageContainsRegex(doToThrow,
-                        UnsupportedOperationException("not supported", IOException("io", IllegalStateException(errMessage))),
+                        UnsupportedOperationException("not supported", RuntimeException("io", IllegalStateException(errMessage))),
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IOException::class.fullName}" + messageAndStackTrace("io"),
+                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" + messageAndStackTrace("io"),
                             "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(errMessage)
                     )
-                }, { toThrowFunLazy {} }, { toThrowFun() })
+                }, { toThrowFunLazy { message { toBe("hello") } } }, { toThrowFun() })
             }
+        }
 
-            context("with suppressed") {
-
-                checkToThrow("shows all suppressed as extra hint", { doToThrow ->
-                    val ex = UnsupportedOperationException("not supported")
-                    ex.addSuppressed(IllegalStateException("not good"))
-                    ex.addSuppressed(IllegalArgumentException(errMessage))
-                    expectThrowsAssertionErrorAndMessageContainsRegex(doToThrow,
-                        ex,
-                        UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace("not good"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" + messageAndStackTrace(errMessage)
-                    )
-                }, { toThrowFunLazy {} }, { toThrowFun() })
-            }
+        it("throws if no assertion is made") {
+            expect {
+                expect{ }.toThrowFunLazy{}
+            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
         }
     }
 
-    describeProperty(message) {
+    describeFun(message) {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
             val throwable = IllegalArgumentException()
             expect {
                 assert(throwable).message()
             }.toThrow<AssertionError> {
-                @Suppress("DEPRECATION")
                 messageContains(
-                    DescriptionTypeTransformationAssertion.IS_A.getDefault(),
-                    String::class.java.name
+                    DescriptionAnyAssertion.IS_A.getDefault(),
+                    String::class.fullName
                 )
             }
-        }, { messageFun {} })
+        }, { messageFun { toBe("hello")} })
 
         context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
             val throwable = IllegalArgumentException("oh no")
             checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageWithCheck ->
                 expect {
                     assert(throwable).messageWithCheck()
-                }.toThrow<AssertionError>{}
-            }, { messageWithContainsFun("hello") })
+                }.toThrow<AssertionError>()
+            }, { (messageWithContainsFun.lambda)("hello") })
 
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
                 assert(throwable).messageWithCheck()
-            }, { messageWithContainsFun("oh") })
+            }, { (messageWithContainsFun.lambda)("oh") })
+        }
+
+        it("throws if no assertion is made") {
+            expect {
+                val throwable = IllegalArgumentException()
+                assert(throwable).messageFun {  }
+            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
         }
     }
 
@@ -184,8 +177,8 @@ abstract class ThrowableAssertionsSpec(
             }.toThrow<AssertionError> {
                 @Suppress("DEPRECATION")
                 messageContains(
-                    DescriptionTypeTransformationAssertion.IS_A.getDefault(),
-                    String::class.java.name
+                    DescriptionAnyAssertion.IS_A.getDefault(),
+                    String::class.fullName
                 )
             }
         }, { messageContainsFun(1, arrayOf(2.3, 'z', "hello")) })
@@ -195,7 +188,7 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageContains ->
                 expect {
                     assert(throwable).messageContains()
-                }.toThrow<AssertionError>{}
+                }.toThrow<AssertionError>()
             }, { messageContainsFun("nada", arrayOf()) })
 
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
@@ -206,8 +199,8 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>("it throws an IllegalArgumentException if an object is passed", { messageContains ->
                 expect {
                     assert(throwable).messageContains()
-                }.toThrow<IllegalArgumentException>{}
-            }, { messageContainsFun(Object(), arrayOf()) })
+                }.toThrow<IllegalArgumentException>()
+            }, { messageContainsFun(Pair(1,2), arrayOf()) })
         }
 
     }
@@ -222,7 +215,7 @@ abstract class ThrowableAssertionsSpec(
             val notThrown : ThrowableThrown.Builder.() -> Unit = { notThrowFun() }
 
             it("throws an AssertionError and shows message and stackTrace") {
-                expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
+                this@context.expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
                     UnsupportedOperationException(errMessage),
                     UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace(errMessage),
                     "..."
@@ -231,48 +224,32 @@ abstract class ThrowableAssertionsSpec(
 
             context("with a cause") {
                 it("shows cause as extra hint") {
-                    expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
+                    @Suppress("LABEL_NAME_CLASH")
+                    this@context.expectThrowsAssertionErrorAndMessageContainsRegex(
+                        notThrown,
                         UnsupportedOperationException("not supported", IllegalStateException(errMessage)),
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(errMessage)
+                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(
+                            errMessage
+                        )
                     )
                 }
 
-                test("with nested cause, shows both causes as extra hint") {
-                    expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
+                it("with nested cause, shows both causes as extra hint") {
+                    @Suppress("LABEL_NAME_CLASH")
+                    this@context.expectThrowsAssertionErrorAndMessageContainsRegex(
+                        notThrown,
                         UnsupportedOperationException(
                             "not supported",
-                            IOException("io", IllegalStateException(errMessage))
+                            RuntimeException("io", IllegalStateException(errMessage))
                         ),
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IOException::class.fullName}" + messageAndStackTrace("io"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(errMessage)
-                    )
-                }
-            }
-
-            context("with suppressed") {
-
-                it("shows all suppressed as extra hint") {
-                    val ex = UnsupportedOperationException("not supported")
-                    ex.addSuppressed(IllegalStateException("not good"))
-                    ex.addSuppressed(IllegalArgumentException(errMessage))
-                    expectThrowsAssertionErrorAndMessageContainsRegex(
-                        notThrown,
-                        ex,
-                        UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace("not good"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" + messageAndStackTrace(errMessage)
-                    )
-                }
-                test("with nested cause, shows both causes as extra hint") {
-                    val ex = UnsupportedOperationException("not supported")
-                    ex.addSuppressed(IOException("io", IllegalStateException(errMessage)))
-                    expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
-                        ex,
-                        UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" + messageAndStackTrace("io"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(errMessage)
+                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" + messageAndStackTrace(
+                            "io"
+                        ),
+                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" + messageAndStackTrace(
+                            errMessage
+                        )
                     )
                 }
             }

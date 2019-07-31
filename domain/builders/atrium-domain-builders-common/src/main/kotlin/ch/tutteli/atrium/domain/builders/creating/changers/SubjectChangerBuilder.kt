@@ -9,10 +9,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.CheckOptionImpl
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.DescriptionOptionImpl
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.TransformationOptionImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
@@ -26,52 +23,36 @@ import kotlin.reflect.KClass
  * In detail, it delegates to [subjectChanger]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-object SubjectChangerBuilder : SubjectChanger {
+object SubjectChangerBuilder {
 
-     override inline fun <T, R> unreported(
+    inline fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,
         noinline transformation: (T) -> R
     ): Expect<R> = subjectChanger.unreported(originalAssertionContainer, transformation)
-
-    override inline fun <T, R> reported(
-        originalAssertionContainer: Expect<T>,
-        description: Translatable,
-        representation: Any,
-        noinline canBeTransformed: (T) -> Boolean,
-        noinline transformation: (T) -> R,
-        noinline subAssertions: (Expect<R>.() -> Unit)?
-    ): Expect<R> = subjectChanger.reported(
-        originalAssertionContainer,
-        description,
-        representation,
-        canBeTransformed,
-        transformation,
-        subAssertions
-    )
 
     /**
      * Entry point of the building process to not only change the subject but also report the change in reporting.
      *
      * Typically the change is documented by adding a [DescriptiveAssertion] to the new resulting [Expect].
      *
-     * This is basically a guide towards [reported], hence in a more verbose manner but also more readable in many cases.
+     * This is basically a guide towards [SubjectChanger.reported],
+     * hence in a more verbose manner but also more readable in many cases.
      */
     fun <T> reportBuilder(originalAssertionContainer: Expect<T>): DescriptionOption<T> =
         DescriptionOption.create(originalAssertionContainer)
 
 
     @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    override inline fun <T, R : Any> unreported(
+    inline fun <T, R : Any> unreported(
         originalPlant: BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R
     ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
 
     @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    override inline fun <T, R> unreportedNullable(
+    inline fun <T, R> unreportedNullable(
         originalPlant: BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R
     ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
-
 
     /**
      * Option step which allows to specify the description and representation of the change.
@@ -88,7 +69,7 @@ object SubjectChangerBuilder : SubjectChanger {
          * [Expect.maybeSubject] to the given type [TSub]
          */
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter we should restrict TSub : T
-        fun <TSub : Any> downCastTo(subType: KClass<TSub>): FinalStep<T, TSub> =
+        fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerOption<T, TSub> =
             withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
                 .withCheck { subType.isInstance(it) }
                 .withTransformation { subType.cast(it) }
@@ -161,13 +142,61 @@ object SubjectChangerBuilder : SubjectChanger {
         /**
          * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
-        fun <R> withTransformation(transformation: (T) -> R): FinalStep<T, R>
+        fun <R> withTransformation(transformation: (T) -> R): FailureHandlerOption<T, R>
 
         companion object {
             fun <T> create(
                 checkOption: CheckOption<T>,
                 canBeTransformed: (T) -> Boolean
             ): TransformationOption<T> = TransformationOptionImpl(checkOption, canBeTransformed)
+        }
+    }
+
+    /**
+     * Option step which allows to specify a custom [SubjectChanger.FailureHandler].
+     */
+    interface FailureHandlerOption<T, R> {
+        /**
+         * The so far chosen options up to the [CheckOption] step.
+         */
+        val checkOption: CheckOption<T>
+
+        /**
+         * The previously specified lambda which indicates whether we can transform the current subject
+         * to the new one or not.
+         */
+        val canBeTransformed: (T) -> Boolean
+
+        /**
+         * The previously specified new subject.
+         */
+        val transformation: (T) -> R
+
+        /**
+         * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
+         * to create the failing assertion in case the subject change fails.
+         */
+        fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<T, R>): FinalStep<T, R>
+
+        /**
+         * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
+         * [CheckOption.description] and [CheckOption.representation] and includes the assertions
+         * a given assertionCreator lambda would create.
+         */
+        fun withDefaultFailureHandler(): FinalStep<T, R>
+
+        /**
+         * Skips this step by using [withDefaultFailureHandler] and calls [FinalStep.build].
+         * @return
+         */
+        fun build(): ChangedSubjectPostStep<T, R> = withDefaultFailureHandler().build()
+
+        companion object {
+            fun <T, R> create(
+                checkOption: CheckOption<T>,
+                canBeTransformed: (T) -> Boolean,
+                transformation: (T) -> R
+            ): FailureHandlerOption<T, R> = FailureHandlerOptionImpl(checkOption, canBeTransformed, transformation)
         }
     }
 
@@ -189,10 +218,15 @@ object SubjectChangerBuilder : SubjectChanger {
         val transformation: (T) -> R
 
         /**
+         * The previously specified [SubjectChanger.FailureHandler].
+         */
+        val failureHandler: SubjectChanger.FailureHandler<T, R>
+
+        /**
          * Finishes the `reported subject change`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
-         * @return The newly created [Expect].
+         * @return A [ChangedSubjectPostStep] which allows to define what should happen with the new [Expect].
          */
         fun build(): ChangedSubjectPostStep<T, R>
 
@@ -200,8 +234,9 @@ object SubjectChangerBuilder : SubjectChanger {
             fun <T, R> create(
                 checkOption: CheckOption<T>,
                 canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R
-            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation)
+                transformation: (T) -> R,
+                failureHandler: SubjectChanger.FailureHandler<T, R>
+            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, failureHandler)
         }
     }
 }
