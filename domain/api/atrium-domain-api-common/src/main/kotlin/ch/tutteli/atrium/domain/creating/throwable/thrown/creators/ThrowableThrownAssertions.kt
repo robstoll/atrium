@@ -29,11 +29,14 @@ interface ThrowableThrownAssertions {
         throwableThrownBuilder: ThrowableThrown.Builder
     ): ChangedSubjectPostStep<Throwable?, Nothing?>
 
+
+    @Deprecated("Switch from Assert to Expect and use isA instead; will be removed with 1.0.0")
     fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit
     )
 
+    @Deprecated("Switch from Assert to Expect and use notThrown instead; will be removed with 1.0.0")
     fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
 }
