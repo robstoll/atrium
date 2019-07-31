@@ -19,14 +19,27 @@ abstract class ThrowableAssertionsSpec(
         ThrowableThrown.Builder.() -> Unit,
         ThrowableThrown.Builder.(assertionCreator: Expect<IllegalArgumentException>.() -> Unit) -> Unit
         >,
-    notToThrowPair: Pair<String, ThrowableThrown.Builder.() -> Expect<Nothing?>>,
-    messagePair: Fun1<Throwable, Expect<String>.() -> Unit>,
-    messageWithContainsFun: Fun1<Throwable, Any>,
-    messageContainsPair: Fun2<Throwable, Any, Array<out Any>>,
+    notToThrow: Pair<String, ThrowableThrown.Builder.() -> Expect<Nothing?>>,
+    messageFeature: Feature0<Throwable, String>,
+    message: Fun1<Throwable, Expect<String>.() -> Unit>,
+    messageContains: Fun2<Throwable, Any, Array<out Any>>,
     listBulletPoint: String,
     explanationBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    include(object : SubjectLessSpec<Throwable>("$describePrefix[nullable Key] ",
+        messageFeature.forSubjectLess(),
+        message.forSubjectLess { toBe("hello") },
+        messageContains.forSubjectLess("hello", arrayOf())
+    ) {})
+
+    include(object : CheckingAssertionSpec<Throwable>(
+        verbs, describePrefix,
+        messageFeature.forChecking(RuntimeException("hello"), RuntimeException("goodbye")){ toBe("hello")},
+        message.forChecking({ toBe("hello")}, RuntimeException("hello"), RuntimeException("goodbye")),
+        messageContains.forChecking("he", arrayOf("lo", "world"), RuntimeException("hello world"), RuntimeException("hello and goodbye"))
+    ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -35,9 +48,6 @@ abstract class ThrowableAssertionsSpec(
     val assert: (Throwable) -> Expect<Throwable> = verbs::check
 
     val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple
-    val (notToThrow, notThrowFun) = notToThrowPair
-    val (message, messageFun) = messagePair
-    val (messageContains, messageContainsFun) = messageContainsPair
 
     fun Suite.checkToThrow(
         description: String,
@@ -73,8 +83,6 @@ abstract class ThrowableAssertionsSpec(
     fun messageAndStackTrace(message: String) = "\\s+\\Q$explanationBulletPoint\\E$messageDescr: \"$message\".*$separator" +
         "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
         "\\s+\\Q$listBulletPoint\\E${ThrowableAssertionsSpec::class.fullName}"
-
-
 
     describeFun(toThrow) {
         checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
@@ -135,84 +143,15 @@ abstract class ThrowableAssertionsSpec(
         }
     }
 
-    describeFun(message) {
-        checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
-            val throwable = IllegalArgumentException()
-            expect {
-                assert(throwable).message()
-            }.toThrow<AssertionError> {
-                messageContains(
-                    DescriptionAnyAssertion.IS_A.getDefault(),
-                    String::class.fullName
-                )
-            }
-        }, { messageFun { toBe("hello")} })
-
-        context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
-            val throwable = IllegalArgumentException("oh no")
-            checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageWithCheck ->
-                expect {
-                    assert(throwable).messageWithCheck()
-                }.toThrow<AssertionError>()
-            }, { (messageWithContainsFun.lambda)("hello") })
-
-            checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
-                assert(throwable).messageWithCheck()
-            }, { (messageWithContainsFun.lambda)("oh") })
-        }
-
-        it("throws if no assertion is made") {
-            expect {
-                val throwable = IllegalArgumentException()
-                assert(throwable).messageFun {  }
-            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-        }
-    }
-
-    describeFun(messageContains) {
-        checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { messageContains ->
-            val throwable = IllegalArgumentException()
-            expect {
-                assert(throwable).messageContains()
-            }.toThrow<AssertionError> {
-                @Suppress("DEPRECATION")
-                messageContains(
-                    DescriptionAnyAssertion.IS_A.getDefault(),
-                    String::class.fullName
-                )
-            }
-        }, { messageContainsFun(1, arrayOf(2.3, 'z', "hello")) })
-
-        context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
-            val throwable = IllegalArgumentException("1 2.3 z hello")
-            checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageContains ->
-                expect {
-                    assert(throwable).messageContains()
-                }.toThrow<AssertionError>()
-            }, { messageContainsFun("nada", arrayOf()) })
-
-            checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
-                assert(throwable).messageWithCheck()
-            }, { messageContainsFun(1, arrayOf(2.3, 'z', "hello")) })
-
-
-            checkNarrowingAssertion<Throwable>("it throws an IllegalArgumentException if an object is passed", { messageContains ->
-                expect {
-                    assert(throwable).messageContains()
-                }.toThrow<IllegalArgumentException>()
-            }, { messageContainsFun(Pair(1,2), arrayOf()) })
-        }
-
-    }
-
-    describeFun(notToThrow) {
+    describeFun(notToThrow.name) {
+        val notToThrowFun = notToThrow.lambda
         context("no exception occurs") {
             it("does not throw"){
-                expect{}.notThrowFun()
+                expect{}.notToThrowFun()
             }
         }
         context("exception is thrown") {
-            val notThrown : ThrowableThrown.Builder.() -> Unit = { notThrowFun() }
+            val notThrown : ThrowableThrown.Builder.() -> Unit = { notToThrowFun() }
 
             it("throws an AssertionError and shows message and stackTrace") {
                 this@context.expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
@@ -255,4 +194,103 @@ abstract class ThrowableAssertionsSpec(
             }
         }
     }
+
+    describeFun("${messageFeature.name} feature") {
+        val messageFun = messageFeature.lambda
+        checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
+            val throwable = IllegalArgumentException()
+            expect {
+                assert(throwable).message()
+            }.toThrow<AssertionError> {
+                messageContains(
+                    DescriptionAnyAssertion.IS_A.getDefault(),
+                    String::class.fullName
+                )
+            }
+        }, { messageFun().toBe("hello") })
+
+        context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
+            val throwable = IllegalArgumentException("oh no")
+            checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageWithCheck ->
+                expect {
+                    assert(throwable).messageWithCheck()
+                }.toThrow<AssertionError>()
+            }, {  messageFun().contains("hello") })
+
+            checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
+                assert(throwable).messageWithCheck()
+            }, { messageFun().contains("oh") })
+        }
+    }
+
+    describeFun(message.name) {
+        val messageFun = message.lambda
+        checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
+            val throwable = IllegalArgumentException()
+            expect {
+                assert(throwable).message()
+            }.toThrow<AssertionError> {
+                messageContains(
+                    DescriptionAnyAssertion.IS_A.getDefault(),
+                    String::class.fullName
+                )
+            }
+        }, { messageFun { toBe("hello")} })
+
+        context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
+            val throwable = IllegalArgumentException("oh no")
+            checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageWithCheck ->
+                expect {
+                    assert(throwable).messageWithCheck()
+                }.toThrow<AssertionError>()
+            }, { messageFun { contains("hello") } })
+
+            checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
+                assert(throwable).messageWithCheck()
+            }, { messageFun { contains("oh") } })
+        }
+
+        it("throws if no assertion is made") {
+            expect {
+                val throwable = IllegalArgumentException()
+                assert(throwable).messageFun {  }
+            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
+        }
+    }
+
+    describeFun(messageContains.name) {
+
+        checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { messageContainsFun ->
+            val throwable = IllegalArgumentException()
+            expect {
+                assert(throwable).messageContainsFun()
+            }.toThrow<AssertionError> {
+                messageContains(DescriptionAnyAssertion.IS_A.getDefault(), String::class.fullName)
+            }
+        }, { (messageContains.lambda)(1, arrayOf(2.3, 'z', "hello")) })
+
+
+        context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
+            val throwable = IllegalArgumentException("1 2.3 z hello")
+            checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageContains ->
+                expect {
+                    assert(throwable).messageContains()
+                }.toThrow<AssertionError>()
+            }, { (messageContains.lambda)("nada", arrayOf()) })
+
+            checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
+                assert(throwable).messageWithCheck()
+            }, { (messageContains.lambda)(1, arrayOf(2.3, 'z', "hello")) })
+
+
+            checkNarrowingAssertion<Throwable>("it throws an IllegalArgumentException if an object is passed", { messageContains ->
+                expect {
+                    assert(throwable).messageContains()
+                }.toThrow<IllegalArgumentException>()
+            }, { (messageContains.lambda)(Pair(1,2), arrayOf()) })
+        }
+
+    }
+
+
 })

@@ -5,13 +5,14 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.property
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
     getToThrowTriple(),
     getNotThrownPair(),
+    property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
-    "message { contains(...) }" to Companion::messageWithContainsFun,
     fun2(Expect<Throwable>::messageContains),
     "⚬ ", "» "
 ) {
@@ -31,9 +32,5 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
 
         private fun getNotThrownPair()
             = ThrowableThrown.Builder::notToThrow.name to ThrowableThrown.Builder::notToThrow
-
-
-        private fun messageWithContainsFun(plant: Expect<Throwable>, expected: Any)
-            = plant.message { contains(expected) }
     }
 }
