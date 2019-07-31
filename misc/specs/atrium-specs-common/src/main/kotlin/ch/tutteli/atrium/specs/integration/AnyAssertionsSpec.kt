@@ -568,7 +568,47 @@ abstract class AnyAssertionsSpec(
     }
 
 
-    //TODO write spec for isAFeature
+    describeFun("${isAFeature.name} feature"){
+        val isAFun = isAFeature.lambda
+
+        context("subject is not in type hierarchy") {
+            it("throws an AssertionError") {
+                expect {
+                    verbs.check(null as Int?).isAFun().toBe(1)
+                }.toThrow<AssertionError> {
+                    message{
+                        contains(IS_A.getDefault() + ": Int (kotlin.Int)")
+                        containsNot(TO_BE.getDefault() + ": 1")
+                    }
+                }
+            }
+        }
+
+        context("subject is the same type") {
+            it("does not throw an AssertionError") {
+                verbs.check(1 as Int?).isAFun()
+            }
+            context("it allows to perform an assertion specific for the subtype...") {
+
+                it("... which holds -- does not throw") {
+                    verbs.check(1 as Int?).isAFun().isLessThan(2)
+                }
+                it("... which fails -- throws an AssertionError") {
+                    val expectedLessThan = 2
+                    val actualValue: Number = 5
+                    expect {
+                        verbs.check(actualValue as Int?).isAFun().isLessThan(expectedLessThan)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            actualValue,
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
+                            expectedLessThan
+                        )
+                    }
+                }
+            }
+        }
+    }
 
     describeFun(isA.name) {
 
