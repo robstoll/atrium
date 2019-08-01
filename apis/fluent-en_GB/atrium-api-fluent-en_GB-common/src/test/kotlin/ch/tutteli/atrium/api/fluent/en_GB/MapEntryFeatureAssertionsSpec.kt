@@ -16,13 +16,13 @@ class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEnt
     property(Expect<Map.Entry<String?, Int?>>::value)
 ){
 
-
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest(){
         var m1 : Expect<Map.Entry<CharSequence, Number>> = notImplemented()
         var m2 : Expect<Map.Entry<CharSequence?, Number>> = notImplemented()
         var m3 : Expect<Map.Entry<CharSequence, Number?>> = notImplemented()
         var m4 : Expect<Map.Entry<CharSequence?, Number?>> = notImplemented()
+        var m5 : Expect<out Map.Entry<CharSequence?, Number?>> = notImplemented()
 
         m1 = m1.isKeyValue("a", 1)
         m1 = m1.isKeyValue("a" as CharSequence, 1 as Number)
@@ -35,5 +35,22 @@ class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEnt
 
         m4 = m4.isKeyValue("a", 1)
         m4 = m4.isKeyValue("a" as CharSequence, 1 as Number)
+
+        m5 = m5.isKeyValue("a", 1)
+        m5 = m5.isKeyValue("a" as CharSequence, 1 as Number)
+
+        m1.key
+        m2.key
+        m3.key
+        m4.key
+        m5.key
+        m1 = m1.key {  }
+
+        m1.value
+        m2.value
+        m3.value
+        m4.value
+        m5.value
+        m1 = m1.value {  }
     }
 }

@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe

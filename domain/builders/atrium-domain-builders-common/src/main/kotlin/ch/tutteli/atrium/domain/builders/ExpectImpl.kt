@@ -108,11 +108,11 @@ object ExpectImpl {
      */
     inline val map get() = MapAssertionsBuilder
 
-//    /**
-//     * Returns [PairAssertionsBuilder]
-//     * which inter alia delegates to the implementation of [PairAssertions].
-//     */
-//    override inline val pair get() = PairAssertionsBuilder
+    /**
+     * Returns [PairAssertionsBuilder]
+     * which inter alia delegates to the implementation of [PairAssertions].
+     */
+    inline val pair get() = PairAssertionsBuilder
 
     /**
      * Returns [ThrowableAssertionsBuilder]
