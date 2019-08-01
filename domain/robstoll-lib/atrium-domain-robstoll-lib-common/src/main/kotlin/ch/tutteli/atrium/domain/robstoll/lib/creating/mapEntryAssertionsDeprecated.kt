@@ -8,8 +8,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
-
-
 fun <K : Any, V : Any> _keyValue(
     plant: AssertionPlant<Map.Entry<K, V>>,
     key: K,

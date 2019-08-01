@@ -17,6 +17,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Suppress("DEPRECATION")
 fun <K : Any, V : Any> Assert<Map.Entry<K, V>>.istKeyValue(key: K, value: V): Assert<Map.Entry<K, V>>
     = addAssertion(AssertImpl.map.entry.isKeyValue(this, key, value))
 
@@ -51,6 +52,7 @@ val <K> Assert<Map.Entry<K, *>>.key get() : AssertionPlantNullable<K> = property
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 fun <K : Any, V> Assert<Map.Entry<K, V>>.key(assertionCreator: Assert<K>.() -> Unit)
     = addAssertion(AssertImpl.map.entry.key(this, assertionCreator))
 
@@ -85,5 +87,6 @@ val <V> Assert<Map.Entry<*, V>>.value get() : AssertionPlantNullable<V> = proper
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 fun <K, V: Any> Assert<Map.Entry<K, V>>.value(assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.entry.value(this, assertionCreator))
