@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders.impl.fixedClaimGroup
+package ch.tutteli.atrium.assertions.builders.impl.fixedClaimGroup
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.FixedClaimGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal class FinalStepImpl(

@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders.impl.partiallyFixedClaimGroup
+package ch.tutteli.atrium.assertions.builders.impl.partiallyFixedClaimGroup
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.domain.builders.assertions.builders.PartiallyFixedClaimGroup
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimLikeAssertionGroupHoldsOptionImpl
+import ch.tutteli.atrium.assertions.builders.PartiallyFixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.impl.FixedClaimLikeAssertionGroupHoldsOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal class HoldsOptionImpl<T : AssertionGroupType>(

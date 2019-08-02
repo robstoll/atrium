@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders.impl.partiallyFixedClaimGroup
+package ch.tutteli.atrium.assertions.builders.impl.partiallyFixedClaimGroup
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.Translatable

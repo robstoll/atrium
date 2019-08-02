@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint
+package ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.trueProvider
-import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHint
+import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint
 
 internal class ShowOptionImpl(
     private val test: () -> Boolean,

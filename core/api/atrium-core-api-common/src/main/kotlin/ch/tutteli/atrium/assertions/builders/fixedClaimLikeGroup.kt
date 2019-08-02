@@ -1,8 +1,6 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders
+package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndRepresentationOption
-import ch.tutteli.atrium.assertions.builders.AssertionsOption
 
 /**
  * Defines the contract to build an [AssertionGroup] which has a fixed [AssertionGroup.holds] or the like.
@@ -20,13 +18,13 @@ interface FixedClaimLikeGroup {
         /**
          * Uses [ListAssertionGroupType] as [AssertionGroup.type].
          */
-        val withFeatureType: FixedClaimLikeGroup.HoldsOption<FeatureAssertionGroupType, R>
+        val withFeatureType: HoldsOption<FeatureAssertionGroupType, R>
             get() = withType(DefaultFeatureAssertionGroupType)
 
         /**
          * Uses [ListAssertionGroupType] as [AssertionGroup.type].
          */
-        val withListType: FixedClaimLikeGroup.HoldsOption<ListAssertionGroupType, R>
+        val withListType: HoldsOption<ListAssertionGroupType, R>
             get() = withType(DefaultListAssertionGroupType)
 
         /**
@@ -34,7 +32,7 @@ interface FixedClaimLikeGroup {
          *
          * @param groupType The [AssertionGroup.type].
          */
-        fun <T : AssertionGroupType> withType(groupType: T): FixedClaimLikeGroup.HoldsOption<T, R>
+        fun <T : AssertionGroupType> withType(groupType: T): HoldsOption<T, R>
     }
 
     /**

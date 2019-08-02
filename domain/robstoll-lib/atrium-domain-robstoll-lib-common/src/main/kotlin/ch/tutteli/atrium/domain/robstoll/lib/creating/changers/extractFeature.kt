@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE

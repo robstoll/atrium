@@ -1,7 +1,6 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders
+package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl

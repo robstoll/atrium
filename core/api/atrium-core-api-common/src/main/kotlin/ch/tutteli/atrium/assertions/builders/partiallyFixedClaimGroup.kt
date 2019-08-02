@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders
+package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.builders.BasicAssertionGroupFinalStep
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.partiallyFixedClaimGroup.FinalStepImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.partiallyFixedClaimGroup.GroupTypeOptionImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.partiallyFixedClaimGroup.HoldsOptionImpl
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroupType
+import ch.tutteli.atrium.assertions.builders.impl.partiallyFixedClaimGroup.FinalStepImpl
+import ch.tutteli.atrium.assertions.builders.impl.partiallyFixedClaimGroup.GroupTypeOptionImpl
+import ch.tutteli.atrium.assertions.builders.impl.partiallyFixedClaimGroup.HoldsOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -29,16 +29,22 @@ val AssertionBuilder.partiallyFixedClaimGroup: PartiallyFixedClaimGroup.GroupTyp
  * all but be fixed.
  */
 interface PartiallyFixedClaimGroup {
+    /**
+     * Option step which allows to specify the [AssertionGroup.type].
+     */
     interface GroupTypeOption : FixedClaimLikeGroup.GroupTypeOption<FinalStep> {
         companion object {
-            fun create(): PartiallyFixedClaimGroup.GroupTypeOption = GroupTypeOptionImpl
+            fun create(): GroupTypeOption = GroupTypeOptionImpl
         }
     }
 
-    interface HoldsOption<T : AssertionGroupType> : FixedClaimLikeGroup.HoldsOption<T, FinalStep>{
+    /**
+     * Option step which allows to specify the [AssertionGroup.holds] or another fixed part involved
+     * in calculating [AssertionGroup.holds].
+     */
+    interface HoldsOption<T : AssertionGroupType> : FixedClaimLikeGroup.HoldsOption<T, FinalStep> {
         companion object {
-            fun <T: AssertionGroupType> create(groupType: T): HoldsOption<T>
-                = HoldsOptionImpl(groupType)
+            fun <T : AssertionGroupType> create(groupType: T): HoldsOption<T> = HoldsOptionImpl(groupType)
         }
     }
 
@@ -46,7 +52,7 @@ interface PartiallyFixedClaimGroup {
      * Final step which creates an [AssertionGroup] whose [AssertionGroup.holds] is a logic AND operation composed by
      * [preTransformationHolds] and its [AssertionGroup.assertions].
      */
-    interface FinalStep: BasicAssertionGroupFinalStep {
+    interface FinalStep : BasicAssertionGroupFinalStep {
         /**
          * The previously defined state of the pre-transformation (if it holds or not).
          */

@@ -8,8 +8,8 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.domain.builders.assertions.builders.partiallyFixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
