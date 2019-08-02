@@ -16,6 +16,7 @@ import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_NOT_THROW
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_NOT_THROWN_2
 import kotlin.reflect.KClass
 
+@Deprecated("Switch from Assert to Expect and use throwable.thrown.isA instead; will be removed with 1.0.0")
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider
 ) : ThrowableThrown.Creator<TExpected> {

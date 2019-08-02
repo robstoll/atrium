@@ -13,6 +13,7 @@ class ReportingAssertionContainerImpl<T>(
 ) : MutableListBasedAssertionContainer<T>(commonFields.maybeSubject),
     ReportingAssertionContainer<T> {
 
+
     override fun addAssertion(assertion: Assertion): Expect<T> {
         super.addAssertion(assertion)
         checkAssertions()

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
@@ -181,7 +181,7 @@ abstract class AnyAssertionsSpec(
                 it("${notToBe.name} throws AssertionError") {
                     expect {
                         expectSubject.notToBeFun(test)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
                 it("${isSame.name} does not throw") {
                     expectSubject.isSameFun(test)
@@ -189,7 +189,7 @@ abstract class AnyAssertionsSpec(
                 it("${isNotSame.name} throws AssertionError") {
                     expect {
                         expectSubject.isNotSameFun(test)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
             }
             context("not same but one equals the other") {
@@ -200,12 +200,12 @@ abstract class AnyAssertionsSpec(
                 it("${notToBe.name} throws AssertionError") {
                     expect {
                         expectSubject.notToBeFun(other)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
                 it("${isSame.name} throws AssertionError") {
                     expect {
                         expectSubject.isSameFun(other)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(other)
@@ -216,7 +216,7 @@ abstract class AnyAssertionsSpec(
                 it("${toBe.name} does not throw") {
                     expect {
                         expectSubject.toBeFun(other)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
                 it("${notToBe.name} throws AssertionError") {
                     expectSubject.notToBeFun(other)
@@ -224,7 +224,7 @@ abstract class AnyAssertionsSpec(
                 it("${isSame.name} throws AssertionError") {
                     expect {
                         expectSubject.isSameFun(other)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(other)
@@ -489,7 +489,7 @@ abstract class AnyAssertionsSpec(
 
             it("does not throw") {
                 val i: Int? = 1
-                verbs.check(i).notToBeNullFun {}
+                verbs.check(i).notToBeNullFun { toBe(1) }
             }
 
             context("it allows to define an assertion for the subject") {
@@ -502,7 +502,7 @@ abstract class AnyAssertionsSpec(
                     expect {
                         val i: Int? = 1
                         verbs.check(i).notToBeNullLessThanFun(0)
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
             }
             context("it allows to define multiple assertions for the subject") {
@@ -541,7 +541,7 @@ abstract class AnyAssertionsSpec(
             it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.check(A()).asAssert().property(A::i).asExpect().notToBeNullFun { toBe(1) }
+                    verbs.check(A()).feature(A::i).notToBeNullFun { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         A::class.simpleName!!,
@@ -554,7 +554,7 @@ abstract class AnyAssertionsSpec(
             it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.check(A()).asAssert().property(A::i).asExpect().notToBeNullLessThanFun(1)
+                    verbs.check(A()).feature(A::i).notToBeNullLessThanFun(1)
                 }.toThrow<AssertionError> {
                     messageContains(
                         A::class.simpleName!!,
@@ -567,6 +567,48 @@ abstract class AnyAssertionsSpec(
         }
     }
 
+
+    describeFun("${isAFeature.name} feature"){
+        val isAFun = isAFeature.lambda
+
+        context("subject is not in type hierarchy") {
+            it("throws an AssertionError") {
+                expect {
+                    verbs.check(null as Int?).isAFun().toBe(1)
+                }.toThrow<AssertionError> {
+                    message{
+                        contains(IS_A.getDefault() + ": Int (kotlin.Int)")
+                        containsNot(TO_BE.getDefault() + ": 1")
+                    }
+                }
+            }
+        }
+
+        context("subject is the same type") {
+            it("does not throw an AssertionError") {
+                verbs.check(1 as Int?).isAFun()
+            }
+            context("it allows to perform an assertion specific for the subtype...") {
+
+                it("... which holds -- does not throw") {
+                    verbs.check(1 as Int?).isAFun().isLessThan(2)
+                }
+                it("... which fails -- throws an AssertionError") {
+                    val expectedLessThan = 2
+                    val actualValue: Number = 5
+                    expect {
+                        verbs.check(actualValue as Int?).isAFun().isLessThan(expectedLessThan)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            actualValue,
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
+                            expectedLessThan
+                        )
+                    }
+                }
+            }
+        }
+    }
 
     describeFun(isA.name) {
 
@@ -587,7 +629,7 @@ abstract class AnyAssertionsSpec(
 
         context("subject is the same type") {
             it("does not throw an AssertionError") {
-                verbs.check("hello").(isAStringFun.lambda) {}
+                verbs.check("hello").(isAStringFun.lambda) { toBe("hello") }
             }
 
             context("it allows to perform an assertion specific for the subtype...") {
@@ -657,13 +699,13 @@ abstract class AnyAssertionsSpec(
 
         context("empty assertionCreator lambda") {
             //TODO #96, should throw an AssertionError
-//            it("is the expected type, throws nonetheless"){
-//                expect {
-//                    verbs.check("hello").(isACharSequenceFun.lambda) {}
-//                }.toThrow<IllegalStateException> {
-//                    messageContains("There was not any assertion created.")
-//                }
-//            }
+            it("is the expected type, throws nonetheless"){
+                expect {
+                    verbs.check("hello").(isACharSequenceFun.lambda) {}
+                }.toThrow<IllegalStateException> {
+                    messageContains("There was not any assertion created.")
+                }
+            }
             it("is not the expected type, contains the error as well") {
                 //TODO #96, should throw an AssertionError instead
                 expect {

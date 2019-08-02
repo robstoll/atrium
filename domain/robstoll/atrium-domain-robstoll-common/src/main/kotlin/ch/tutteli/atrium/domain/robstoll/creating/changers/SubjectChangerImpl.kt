@@ -25,6 +25,7 @@ class SubjectChangerImpl : SubjectChanger {
         representation: Any,
         canBeTransformed: (T) -> Boolean,
         transformation: (T) -> R,
+        failureHandler: SubjectChanger.FailureHandler<T, R>,
         subAssertions: (Expect<R>.() -> Unit)?
     ): Expect<R> = _changeSubject(
         originalAssertionContainer,
@@ -32,6 +33,7 @@ class SubjectChangerImpl : SubjectChanger {
         representation,
         canBeTransformed,
         transformation,
+        failureHandler,
         subAssertions
     )
 

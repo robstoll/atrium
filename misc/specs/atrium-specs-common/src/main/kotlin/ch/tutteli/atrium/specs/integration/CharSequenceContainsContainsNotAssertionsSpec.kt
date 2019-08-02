@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
@@ -178,7 +178,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 it("$containsFunName 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.check(person).addAssertionsCreatedBy {
-                            asAssert().property(Person::name).asExpect().containsFun("treboR", "llotS")
+                            feature(Person::name).containsFun("treboR", "llotS")
                         }
                     }.toThrow<AssertionError> {
                         message { contains.exactly(1).value(nameWithArrow) }
@@ -187,7 +187,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 it("$containsNot 'Robert' and 'Stoll' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.check(person).addAssertionsCreatedBy {
-                            asAssert().property(Person::name).asExpect().containsNotFun("Robert", "Stoll")
+                            feature(Person::name).containsNotFun("Robert", "Stoll")
                         }
                     }.toThrow<AssertionError> {
                         message { contains.exactly(1).value(nameWithArrow) }

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.specs
 
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.kbox.joinToString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.GroupBody
@@ -13,8 +14,10 @@ fun GroupBody.describeFunTemplate(
     funNamePrefix: String = "`",
     funNameSuffix: String = "`",
     body: Suite.() -> Unit
-) = prefixedDescribeTemplate(describePrefix, " fun ",
-    giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body)
+) = prefixedDescribeTemplate(
+    describePrefix, " fun ",
+    giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body
+)
 
 private fun giveWrappedNames(names: Array<out String>, prefix: String, postfix: String): String {
     return names.joinToString(", ", " and ") { it, sb ->
@@ -30,12 +33,21 @@ fun GroupBody.prefixedDescribeTemplate(prefix: String, suffix: String, descripti
 
 fun Root.include(spek: Spek) = spek.root(this)
 
+fun <T : Any> Suite.checkNarrowingAssertion(
+    description: String,
+    act: (Expect<T>.() -> Unit) -> Unit,
+    lazy: (Expect<T>.() -> Unit),
+    vararg otherMethods: Pair<String, (Expect<T>.() -> Unit)>
+) {
+    checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
+}
+
 fun <T> Suite.checkGenericNarrowingAssertion(
     description: String,
     act: (T.() -> Unit) -> Unit,
     lazy: (T.() -> Unit),
-    vararg otherMethods: Pair<String, (T.() -> Unit)>)
-    = checkGenericNarrowingAssertion(description, act, "lazy" to lazy, *otherMethods)
+    vararg otherMethods: Pair<String, (T.() -> Unit)>
+) = checkGenericNarrowingAssertion(description, act, "lazy" to lazy, *otherMethods)
 
 fun <T> Suite.checkGenericNarrowingAssertion(
     description: String, act: (T.() -> Unit) -> Unit, vararg methods: Pair<String, (T.() -> Unit)>

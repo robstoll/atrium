@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers
+package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 

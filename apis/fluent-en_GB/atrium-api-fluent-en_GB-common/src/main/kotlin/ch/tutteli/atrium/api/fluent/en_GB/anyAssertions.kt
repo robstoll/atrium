@@ -158,7 +158,7 @@ inline fun <reified TSub : Any> Expect<out Any?>.isA(): Expect<TSub> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    ExpectImpl.any.isA(this, TSub::class).addToInitial(assertionCreator)
+    ExpectImpl.any.isA(this, TSub::class).addToFeature(assertionCreator)
 
 /**
  * Can be used to separate single assertions.

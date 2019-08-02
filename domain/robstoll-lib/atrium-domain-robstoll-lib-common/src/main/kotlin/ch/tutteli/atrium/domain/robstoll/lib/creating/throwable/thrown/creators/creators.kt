@@ -1,19 +1,87 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.ReportingAssertionContainer
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.providers._translatableBased
-import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_A
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED
 import kotlin.reflect.KClass
 
-fun <TExpected : Throwable> _toBe(throwableThrownBuilder: ThrowableThrown.Builder, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-    val provider = _translatableBased(NO_EXCEPTION_OCCURRED)
-    ThrowableThrownAssertionCreator<TExpected>(provider)
-        .executeActAndCreateAssertion(throwableThrownBuilder, IS_A, expectedType, assertionCreator)
+fun <TExpected : Throwable> _isThrown(
+    throwableThrownBuilder: ThrowableThrown.Builder,
+    expectedType: KClass<TExpected>
+): ChangedSubjectPostStep<Throwable?, TExpected> {
+    val assertionContainer = createReportingAssertionContainerForThrowable(throwableThrownBuilder)
+    return ExpectImpl.changeSubject.reportBuilder(assertionContainer)
+        .downCastTo(expectedType)
+        .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 7))
+        .build()
 }
 
-fun _nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder){
+private fun createReportingAssertionContainerForThrowable(
+    throwableThrownBuilder: ThrowableThrown.Builder
+): ReportingAssertionContainer<Throwable?> {
+    val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
+    return ExpectImpl.coreFactory.newReportingAssertionContainer(
+        AssertionContainerWithCommonFields.CommonFields(
+            throwableThrownBuilder.assertionVerb,
+            Some(throwable),
+            throwable,
+            ExpectImpl.coreFactory.newThrowingAssertionChecker(throwableThrownBuilder.reporter),
+            RawString.create(NO_EXCEPTION_OCCURRED)
+        )
+    )
+}
+
+
+private fun catchThrowableAndAdjust(throwableThrownBuilder: ThrowableThrown.Builder): Throwable? {
+    return try {
+        throwableThrownBuilder.act()
+        null
+    } catch (throwable: Throwable) {
+        throwableThrownBuilder.reporter.atriumErrorAdjuster.adjust(throwable)
+        throwable
+    }
+}
+
+fun <TExpected : Throwable> _toBe(
+    throwableThrownBuilder: ThrowableThrown.Builder,
+    expectedType: KClass<TExpected>,
+    assertionCreator: AssertionPlant<TExpected>.() -> Unit
+) {
     val provider = _translatableBased(NO_EXCEPTION_OCCURRED)
+    @Suppress("DEPRECATION")
+    ThrowableThrownAssertionCreator<TExpected>(provider)
+        .executeActAndCreateAssertion(
+            throwableThrownBuilder,
+            DescriptionThrowableAssertion.IS_A,
+            expectedType,
+            assertionCreator
+        )
+}
+
+fun _notThrown(throwableThrownBuilder: ThrowableThrown.Builder): ChangedSubjectPostStep<Throwable?, Nothing?> {
+    val assertionContainer = createReportingAssertionContainerForThrowable(throwableThrownBuilder)
+    return ExpectImpl.changeSubject.reportBuilder(assertionContainer)
+        .withDescriptionAndRepresentation(
+            DescriptionThrowableAssertion.IS_NOT_THROWN_1,
+            RawString.create(DescriptionThrowableAssertion.IS_NOT_THROWN_2)
+        )
+        .withCheck { it == null }
+        .withTransformation { it as Nothing? }
+        .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 15))
+        .build()
+}
+
+
+fun _nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder) {
+    val provider = _translatableBased(NO_EXCEPTION_OCCURRED)
+    @Suppress("DEPRECATION")
     ThrowableThrownAssertionCreator<Throwable>(provider).executeActAssertNothingThrown(throwableThrownBuilder)
 }

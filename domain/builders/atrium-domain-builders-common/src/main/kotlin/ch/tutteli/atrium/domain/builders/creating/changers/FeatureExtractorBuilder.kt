@@ -242,7 +242,7 @@ interface FeatureExtractorBuilder {
          * Finishes the `feature extraction`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
-         * @return The newly created [Expect].
+         * @return An [ExtractedFeaturePostStep] which allows to define what should happen with the new [Expect].
          */
         fun build(): ExtractedFeaturePostStep<T, R>
 

@@ -221,7 +221,7 @@ abstract class ThrowableAssertionsSpec(
         context("exception is thrown") {
             val notThrown : ThrowableThrown.Builder.() -> Unit = { notThrowFun() }
 
-            it("throws an AssertionError and shows message and stackTrace"){
+            it("throws an AssertionError and shows message and stackTrace") {
                 expectThrowsAssertionErrorAndMessageContainsRegex(notThrown,
                     UnsupportedOperationException(errMessage),
                     UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace(errMessage),

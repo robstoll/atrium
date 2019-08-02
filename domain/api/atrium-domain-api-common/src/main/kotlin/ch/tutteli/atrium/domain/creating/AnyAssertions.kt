@@ -2,7 +2,10 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import kotlin.reflect.KClass
 
@@ -42,9 +45,10 @@ interface AnyAssertions {
     /**
      * Convenience method for nullable-types which delegates to [isA].
      */
-    fun <T : Any> notToBeNull(assertionContainer: Expect<T?>, subType: KClass<T>) = isA(assertionContainer, subType)
+    fun <T : Any> notToBeNull(assertionContainer: Expect<T?>, subType: KClass<T>) =
+        isA(assertionContainer, subType)
 
-    fun <TSub : Any> isA(assertionContainer: Expect<*>, subType: KClass<TSub>): ChangedSubjectPostStep<TSub, TSub>
+    fun <T, TSub : Any> isA(assertionContainer: Expect<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
 
 
     @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")

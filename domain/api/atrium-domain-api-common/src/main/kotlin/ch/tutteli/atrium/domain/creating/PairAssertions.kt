@@ -4,6 +4,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 
 /**
  * The access point to an implementation of [PairAssertions].
@@ -18,6 +20,9 @@ val pairAssertions by lazy { loadSingleService(PairAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface PairAssertions {
+    fun <K, T : Pair<K, *>> first(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, K>
+    fun <V, T : Pair<*, V>> second(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, V>
+
     fun <K: Any> first(plant: AssertionPlant<Pair<K, *>>, assertionCreator: AssertionPlant<K>.() -> Unit): Assertion
     fun <V: Any> second(plant: AssertionPlant<Pair<*, V>>, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
     fun <K> nullableFirst(plant: AssertionPlant<Pair<K, *>>, assertionCreator: AssertionPlantNullable<K>.() -> Unit): Assertion

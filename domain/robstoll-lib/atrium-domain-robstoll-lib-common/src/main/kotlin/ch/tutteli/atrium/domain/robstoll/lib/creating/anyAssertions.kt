@@ -54,18 +54,11 @@ private fun <T : Any> notToBeNull(
     assertionCreator: Expect<T>.() -> Unit
 ) = ExpectImpl.any.notToBeNull(assertionContainer, type).collect(assertionCreator)
 
-@Suppress(
-    "UNCHECKED_CAST" /*
-        Has to be an unchecked_cast because we cannot already know that assertionContainer is a TSub.
-        However, it is fine as we can provide an Expect<TSub> even for the case the down-cast fails.
-        And we specified Expect<*> and not Expect<T> in order that we only have one type parameter in the API so
-        that writing isA<Int> is possible.
-    */
-)
-fun <TSub : Any> _isA(
-    assertionContainer: Expect<*>,
+
+fun <T, TSub : Any> _isA(
+    assertionContainer: Expect<T>,
     subType: KClass<TSub>
-): ChangedSubjectPostStep<TSub, TSub> =
-    ExpectImpl.changeSubject.reportBuilder(assertionContainer as Expect<TSub>)
+): ChangedSubjectPostStep<T, TSub> =
+    ExpectImpl.changeSubject.reportBuilder(assertionContainer)
         .downCastTo(subType)
         .build()

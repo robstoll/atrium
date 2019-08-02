@@ -12,5 +12,6 @@ import kotlin.reflect.KClass
     )
 )
 fun <TExpected : Throwable> _toThrow(throwableThrownBuilder: ThrowableThrownBuilder, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
+    @Suppress("DEPRECATION")
     AssertImpl.throwable.thrown.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 }

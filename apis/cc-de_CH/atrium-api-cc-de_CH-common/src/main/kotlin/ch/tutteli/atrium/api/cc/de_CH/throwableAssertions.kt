@@ -22,6 +22,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
+    @Suppress("DEPRECATION")
     AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
 
@@ -34,6 +35,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(noinlin
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun ThrowableThrown.Builder.wirftNichts() {
+    @Suppress("DEPRECATION")
     AssertImpl.throwable.thrown.nothingThrown(this)
 }
 

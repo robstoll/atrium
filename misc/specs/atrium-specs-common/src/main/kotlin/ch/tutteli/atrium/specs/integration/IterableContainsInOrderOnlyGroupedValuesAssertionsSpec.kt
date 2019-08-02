@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.regex
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -34,18 +30,35 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun nullableGroup(vararg assertionCreators: Double?) = nullableGroupFactory(assertionCreators)
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsInOrderOnlyGroupedValuesPair.first to expectLambda { containsInOrderOnlyGroupedValuesPair.second(this, context(2.5), context(4.1), arrayOf()) }
+        containsInOrderOnlyGroupedValuesPair.first to expectLambda {
+            containsInOrderOnlyGroupedValuesPair.second(this, context(2.5), context(4.1), arrayOf())
+        }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-    "${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable" to expectLambda { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(4.1), arrayOf()) }
+        "${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable" to expectLambda {
+            containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(4.1), arrayOf())
+        }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsInOrderOnlyGroupedValuesPair.first, { containsInOrderOnlyGroupedValuesPair.second(this, context(2.5), context(1.2, 2.2), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
+    include(object : CheckingAssertionSpec<Iterable<Double>>(
+        verbs, describePrefix,
+        checkingTriple(containsInOrderOnlyGroupedValuesPair.first, {
+            containsInOrderOnlyGroupedValuesPair.second(
+                this,
+                context(2.5),
+                context(1.2, 2.2), arrayOf()
+            )
+        }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
     ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-    checkingTriple("${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable", { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(1.2, 2.2), arrayOf()) },
-        listOf(2.5 as Double?, 2.2, 1.2).asIterable(), listOf(2.2 as Double?, 1.2, 2.5))
+    include(object : CheckingAssertionSpec<Iterable<Double?>>(
+        verbs, describePrefix,
+        checkingTriple("${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable", {
+            containsInOrderOnlyGroupedNullableValuesPair.second(
+                this,
+                nullableGroup(2.5),
+                nullableGroup(1.2, 2.2), arrayOf()
+            )
+        }, listOf(2.5 as Double?, 2.2, 1.2).asIterable(), listOf(2.2 as Double?, 1.2, 2.5))
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -57,8 +70,11 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val (containsInOrderOnlyGroupedValues, containsInOrderOnlyGroupedValuesFunArr) = containsInOrderOnlyGroupedValuesPair
 
     val (containsInOrderOnlyGroupedNullableValues, containsInOrderOnlyGroupedNullableValuesFunArr) = containsInOrderOnlyGroupedNullableValuesPair
-    fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedNullableValuesFun(t1: Group<Double?>, t2: Group<Double?>, vararg tX: Group<Double?>)
-        = containsInOrderOnlyGroupedNullableValuesFunArr(t1,t2, tX)
+    fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedNullableValuesFun(
+        t1: Group<Double?>,
+        t2: Group<Double?>,
+        vararg tX: Group<Double?>
+    ) = containsInOrderOnlyGroupedNullableValuesFunArr(t1, t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
@@ -71,61 +87,58 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
     val toBeAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
-    fun index(index: Int)
-        = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
+    fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
-    fun entryWithIndex(index: Int)
-        = String.format(entryWithIndex, index)
+    fun entryWithIndex(index: Int) = String.format(entryWithIndex, index)
 
-    fun index(fromIndex: Int, toIndex: Int)
-        = String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
+    fun index(fromIndex: Int, toIndex: Int) =
+        String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
 
-    fun entry(prefix: String, bulletPoint: String, expected: Array<out Double?>)
-        = expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anEntryWhichIs: $it\\E" }
+    fun entry(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
+        expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anEntryWhichIs: $it\\E" }
 
-    fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int)
-        = "$prefix\\Q$bulletPoint\\E${featureArrow}size: $actual[^:]+: $expected"
+    fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
+        "$prefix\\Q$bulletPoint\\E${featureArrow}size: $actual[^:]+: $expected"
 
 
     val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
-    fun failAfterFail(vararg expected: Double?)
-        = entry(afterFail, failingBulletPoint, expected)
+    fun failAfterFail(vararg expected: Double?) = entry(afterFail, failingBulletPoint, expected)
 
-    fun successAfterFail(vararg expected: Double?)
-        = entry(afterFail, successfulBulletPoint, expected)
+    fun successAfterFail(vararg expected: Double?) = entry(afterFail, successfulBulletPoint, expected)
 
-    fun failSizeAfterFail(actual: Int, expected: Int)
-        = size(afterFail, failingBulletPoint, actual, expected)
+    fun failSizeAfterFail(actual: Int, expected: Int) = size(afterFail, failingBulletPoint, actual, expected)
 
-    fun successSizeAfterFail(size: Int)
-        = size(afterFail, successfulBulletPoint, size, size)
+    fun successSizeAfterFail(size: Int) = size(afterFail, successfulBulletPoint, size, size)
 
-    fun <T> warning(msg: String, values: Array<out T>, act: (T) -> String)
-         = "$afterFail\\Q$warningBulletPoint$msg\\E: $separator" +
+    fun <T> warning(msg: String, values: Array<out T>, act: (T) -> String) =
+        "$afterFail\\Q$warningBulletPoint$msg\\E: $separator" +
             values.joinToString(".*$separator") { "$afterFail$indentWarningBulletPoint$listBulletPoint${act(it)}" }
 
-    fun mismatchesAfterFail(vararg mismatched: Double)
-        = warning(mismatches, mismatched.toTypedArray()){ "$it" }
+    fun mismatchesAfterFail(vararg mismatched: Double) = warning(mismatches, mismatched.toTypedArray()) { "$it" }
 
-    fun additional(vararg entryWithValue: Pair<Int, Double>)
-        = warning(additionalEntries, entryWithValue) { "${entryWithIndex(it.first)}: ${it.second}" }
+    fun additional(vararg entryWithValue: Pair<Int, Double>) =
+        warning(additionalEntries, entryWithValue) { "${entryWithIndex(it.first)}: ${it.second}" }
 
 
     val afterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
-    fun successAfterSuccess(vararg expected: Double?)
-        = entry(afterSuccess, successfulBulletPoint, expected)
+    fun successAfterSuccess(vararg expected: Double?) = entry(afterSuccess, successfulBulletPoint, expected)
 
-    fun successSizeAfterSuccess(size: Int)
-        = size(afterSuccess, successfulBulletPoint, size, size)
+    fun successSizeAfterSuccess(size: Int) = size(afterSuccess, successfulBulletPoint, size, size)
 
 
     fun Expect<String>.indexSuccess(index: Int, expected: Double): Expect<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(index)}: $expected\\E.*$separator" +
-                "$toBeAfterSuccess: $expected")
+                "$toBeAfterSuccess: $expected"
+        )
     }
 
-    fun Expect<String>.indexSuccess(fromIndex: Int, toIndex: Int, actual: List<Double?>, vararg expected: String): Expect<CharSequence> {
+    fun Expect<String>.indexSuccess(
+        fromIndex: Int,
+        toIndex: Int,
+        actual: List<Double?>,
+        vararg expected: String
+    ): Expect<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
@@ -137,10 +150,16 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun Expect<String>.indexFail(index: Int, actual: Any, expected: Double): Expect<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
-                "$toBeAfterFailing: $expected")
+                "$toBeAfterFailing: $expected"
+        )
     }
 
-    fun Expect<String>.indexFail(fromIndex: Int, toIndex: Int, actual: List<Double?>, vararg expected: String): Expect<CharSequence> {
+    fun Expect<String>.indexFail(
+        fromIndex: Int,
+        toIndex: Int,
+        actual: List<Double?>,
+        vararg expected: String
+    ): Expect<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
@@ -152,15 +171,27 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
     describe("$describePrefix describe non-nullable cases") {
         mapOf<String, Expect<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Any>(
-            containsInOrderOnlyGroupedValues to { g1, g2, gX -> containsInOrderOnlyGroupedValuesFunArr(this, g1, g2, gX) },
+            containsInOrderOnlyGroupedValues to { g1, g2, gX ->
+                containsInOrderOnlyGroupedValuesFunArr(
+                    this,
+                    g1,
+                    g2,
+                    gX
+                )
+            },
             "$containsInOrderOnlyGroupedNullableValues for nullable" to { g1, g2, gX ->
                 @Suppress("UNCHECKED_CAST")
-                containsInOrderOnlyGroupedNullableValuesFunArr(this as Expect<Iterable<Double?>>, groupToNullableGroup(g1), groupToNullableGroup(g2), gX.map { groupToNullableGroup(it)}.toTypedArray())
+                containsInOrderOnlyGroupedNullableValuesFunArr(
+                    this as Expect<Iterable<Double?>>,
+                    groupToNullableGroup(g1),
+                    groupToNullableGroup(g2),
+                    gX.map { groupToNullableGroup(it) }.toTypedArray()
+                )
             }
         ).forEach { (describe, containsFunArr) ->
 
-            fun Expect<Iterable<Double>>.containsFun(t1: Group<Double>, t2: Group<Double>, vararg tX: Group<Double>)
-                = containsFunArr(t1, t2, tX)
+            fun Expect<Iterable<Double>>.containsFun(t1: Group<Double>, t2: Group<Double>, vararg tX: Group<Double>) =
+                containsFunArr(t1, t2, tX)
 
             describeFun(describe) {
                 val fluent = assert(oneToFour)
@@ -195,10 +226,10 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                asExpect().indexFail(0, sizeExceeded, 1.0)
-                                asExpect().indexFail(1, sizeExceeded, 1.2)
+                                indexFail(0, sizeExceeded, 1.0)
+                                indexFail(1, sizeExceeded, 1.2)
                                 containsNot(additionalEntries)
-                                asExpect().containsSize(0, 2)
+                                containsSize(0, 2)
                             }
                         }
                     }
@@ -229,13 +260,15 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                    asExpect().indexFail(0, 1, listOf(1.0, 2.0),
+                                    indexFail(
+                                        0, 1, listOf(1.0, 2.0),
                                         failAfterFail(4.0),
                                         successAfterFail(1.0),
                                         successSizeAfterFail(2),
                                         mismatchesAfterFail(2.0)
                                     )
-                                    asExpect().indexFail(2, 4, listOf(3.0, 4.0, 4.0),
+                                    indexFail(
+                                        2, 4, listOf(3.0, 4.0, 4.0),
                                         failAfterFail(2.0),
                                         successAfterFail(3.0),
                                         successAfterFail(4.0),
@@ -253,8 +286,9 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                    asExpect().indexSuccess(0, 1.0)
-                                    asExpect().indexSuccess(1, 3, listOf(2.0, 3.0, 4.0),
+                                    indexSuccess(0, 1.0)
+                                    indexSuccess(
+                                        1, 3, listOf(2.0, 3.0, 4.0),
                                         successAfterSuccess(4.0, 2.0, 3.0),
                                         successSizeAfterSuccess(3)
                                     )
@@ -270,8 +304,8 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                    asExpect().indexSuccess(0, 1.0)
-                                    asExpect().indexFail(1, 2.0, 4.0)
+                                    indexSuccess(0, 1.0)
+                                    indexFail(1, 2.0, 4.0)
                                     containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 2))
                                     containsRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
                                 }
@@ -283,13 +317,14 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                    asExpect().indexFail(0, 1, listOf(1.0, 2.0),
+                                    indexFail(
+                                        0, 1, listOf(1.0, 2.0),
                                         successAfterFail(1.0),
                                         failAfterFail(3.0),
                                         successSizeAfterFail(2),
                                         mismatchesAfterFail(2.0)
                                     )
-                                    asExpect().indexFail(2, 3.0, 5.0)
+                                    indexFail(2, 3.0, 5.0)
                                     containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 3))
                                     containsRegex(additional(3 to 4.0, 4 to 4.0))
                                 }
@@ -301,11 +336,13 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                    asExpect().indexSuccess(0, 3, listOf(1.0, 2.0, 3.0, 4.0),
+                                    indexSuccess(
+                                        0, 3, listOf(1.0, 2.0, 3.0, 4.0),
                                         successAfterSuccess(4.0, 1.0, 3.0, 2.0),
                                         successSizeAfterSuccess(4)
                                     )
-                                    asExpect().indexFail(4, 5, listOf(4.0),
+                                    indexFail(
+                                        4, 5, listOf(4.0),
                                         failAfterFail(5.0),
                                         successAfterFail(4.0),
                                         failSizeAfterFail(1, 2)
@@ -320,9 +357,9 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         }
     }
 
-    nullableCases(describePrefix){
+    nullableCases(describePrefix) {
 
-        describeFun("$containsInOrderOnlyGroupedNullableValues for nullable"){
+        describeFun("$containsInOrderOnlyGroupedNullableValues for nullable") {
             val list = listOf(null, 1.0, null, 3.0).asIterable()
             val fluent = verbs.check(list)
 
@@ -349,16 +386,19 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                         expect {
                             fluent.containsInOrderOnlyGroupedNullableValuesFun(
                                 nullableGroup(null, null),
-                                nullableGroup(3.0, 1.0))
+                                nullableGroup(3.0, 1.0)
+                            )
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                asExpect().indexFail(0, 1, listOf(null, 1.0),
+                                indexFail(
+                                    0, 1, listOf(null, 1.0),
                                     successAfterFail(null),
                                     failAfterFail(null),
                                     successSizeAfterFail(2)
                                 )
-                                asExpect().indexFail(2, 3, listOf(null, 3.0),
+                                indexFail(
+                                    2, 3, listOf(null, 3.0),
                                     successAfterFail(3.0),
                                     failAfterFail(1.0),
                                     successSizeAfterFail(2)
@@ -377,18 +417,20 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                                asExpect().indexSuccess(0, 1, listOf(null, 1.0),
+                                indexSuccess(
+                                    0, 1, listOf(null, 1.0),
                                     successAfterSuccess(null),
                                     successAfterSuccess(1.0),
                                     successSizeAfterSuccess(2)
                                 )
-                                asExpect().indexFail(2, 4, listOf(null, 3.0),
+                                indexFail(
+                                    2, 4, listOf(null, 3.0),
                                     successAfterFail(3.0),
                                     successAfterFail(null),
                                     failAfterFail(null),
                                     failSizeAfterFail(2, 3)
                                 )
-                                asExpect().containsSize(4, 5)
+                                containsSize(4, 5)
                             }
                         }
                     }

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
@@ -88,9 +88,9 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
-                        asExpect().entryFailing(0, sizeExceeded, 1.0)
+                       entryFailing(0, sizeExceeded, 1.0)
                         containsNot(additionalEntries)
-                        asExpect().containsSize(0, 1)
+                       containsSize(0, 1)
                     }
                 }
             }
@@ -100,10 +100,10 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
-                        asExpect().entryFailing(0, sizeExceeded, 1.0)
-                        asExpect().entryFailing(1, sizeExceeded, 4.0)
+                       entryFailing(0, sizeExceeded, 1.0)
+                       entryFailing(1, sizeExceeded, 4.0)
                         containsNot(additionalEntries)
-                        asExpect().containsSize(0, 2)
+                       containsSize(0, 2)
                     }
                 }
             }
@@ -126,12 +126,12 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            asExpect().entryFailing(0, 1.0, 4.0)
-                            asExpect().entryFailing(1, 2.0, 1.0)
-                            asExpect().entryFailing(2, 3.0, 2.0)
-                            asExpect().entryFailing(3, 4.0, 3.0)
-                            asExpect().entrySuccess(4, 4.0)
-                            asExpect().containsSize(5, 5)
+                           entryFailing(0, 1.0, 4.0)
+                           entryFailing(1, 2.0, 1.0)
+                           entryFailing(2, 3.0, 2.0)
+                           entryFailing(3, 4.0, 3.0)
+                           entrySuccess(4, 4.0)
+                           containsSize(5, 5)
                         }
                     }
                 }
@@ -142,15 +142,15 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            asExpect().entrySuccess(0, 1.0)
-                            asExpect().entrySuccess(1, 2.0)
-                            asExpect().entrySuccess(2, 3.0)
-                            asExpect().entrySuccess(3, 4.0)
+                           entrySuccess(0, 1.0)
+                           entrySuccess(1, 2.0)
+                           entrySuccess(2, 3.0)
+                           entrySuccess(3, 4.0)
                             contains(
                                 "$warningBulletPoint$additionalEntries:",
                                 "$listBulletPoint${entry(4)}: 4.0"
                             )
-                            asExpect().containsSize(5, 4)
+                           containsSize(5, 4)
                         }
                     }
                 }
@@ -161,15 +161,15 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            asExpect().entrySuccess(0, 1.0)
-                            asExpect().entryFailing(1, 2.0, 4.0)
+                           entrySuccess(0, 1.0)
+                           entryFailing(1, 2.0, 4.0)
                             contains(
                                 "$warningBulletPoint$additionalEntries:",
                                 "$listBulletPoint${entry(2)}: 3.0",
                                 "$listBulletPoint${entry(3)}: 4.0",
                                 "$listBulletPoint${entry(4)}: 4.0"
                             )
-                            asExpect().containsSize(5, 2)
+                           containsSize(5, 2)
                         }
                     }
                 }
@@ -179,15 +179,15 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            asExpect().entrySuccess(0, 1.0)
-                            asExpect().entryFailing(1, 2.0, 3.0)
-                            asExpect().entryFailing(2, 3.0, 5.0)
+                           entrySuccess(0, 1.0)
+                           entryFailing(1, 2.0, 3.0)
+                           entryFailing(2, 3.0, 5.0)
                             contains(
                                 "$warningBulletPoint$additionalEntries:",
                                 "$listBulletPoint${entry(3)}: 4.0",
                                 "$listBulletPoint${entry(4)}: 4.0"
                             )
-                            asExpect().containsSize(5, 3)
+                           containsSize(5, 3)
                         }
                     }
                 }
@@ -197,13 +197,13 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            asExpect().entrySuccess(0, 1.0)
-                            asExpect().entrySuccess(1, 2.0)
-                            asExpect().entrySuccess(2, 3.0)
-                            asExpect().entrySuccess(3, 4.0)
-                            asExpect().entrySuccess(4, 4.0)
-                            asExpect().entryFailing(5, sizeExceeded, 5.0)
-                            asExpect().containsSize(5, 6)
+                           entrySuccess(0, 1.0)
+                           entrySuccess(1, 2.0)
+                           entrySuccess(2, 3.0)
+                           entrySuccess(3, 4.0)
+                           entrySuccess(4, 4.0)
+                           entryFailing(5, sizeExceeded, 5.0)
+                           containsSize(5, 6)
                         }
                     }
                 }
@@ -231,14 +231,14 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                asExpect().entrySuccess(0, RawString.NULL.string)
-                                asExpect().entrySuccess(1, 1.0)
-                                asExpect().entryFailing(2, RawString.NULL.string, 3.0)
+                               entrySuccess(0, RawString.NULL.string)
+                               entrySuccess(1, 1.0)
+                               entryFailing(2, RawString.NULL.string, 3.0)
                                 contains(
                                     "$warningBulletPoint$additionalEntries:",
                                     "$listBulletPoint${entry(3)}: 3.0"
                                 )
-                                asExpect().containsSize(4, 3)
+                               containsSize(4, 3)
                             }
                         }
                     }

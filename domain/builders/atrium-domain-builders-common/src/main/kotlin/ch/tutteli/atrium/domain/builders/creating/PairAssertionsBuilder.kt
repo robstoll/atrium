@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.creating.MapEntryAssertions
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.PairAssertions
 import ch.tutteli.atrium.domain.creating.pairAssertions
 
@@ -15,6 +15,12 @@ import ch.tutteli.atrium.domain.creating.pairAssertions
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object PairAssertionsBuilder : PairAssertions {
+
+    override inline fun <K, T : Pair<K, *>> first(assertionContainer: Expect<T>) =
+        pairAssertions.first(assertionContainer)
+
+    override inline fun <V, T : Pair<*, V>> second(assertionContainer: Expect<T>) =
+        pairAssertions.second(assertionContainer)
 
     override inline fun <K : Any> first(
         plant: AssertionPlant<Pair<K, *>>,
