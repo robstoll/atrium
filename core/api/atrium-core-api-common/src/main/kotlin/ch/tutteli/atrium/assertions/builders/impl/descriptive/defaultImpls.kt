@@ -1,8 +1,12 @@
 package ch.tutteli.atrium.assertions.builders.impl.descriptive
 
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.Translatable
+
 
 internal object HoldsOptionImpl : Descriptive.HoldsOption {
 
@@ -23,4 +27,25 @@ internal object HoldsOptionImpl : Descriptive.HoldsOption {
     ): Descriptive.DescriptionOption<Descriptive.FinalStep> = withTest {
         subjectProvider.maybeSubject.fold(trueProvider, test)
     }
+}
+
+
+internal class DescriptionOptionImpl<R>(
+    override val test: () -> Boolean,
+    private val factory: (() -> Boolean, Translatable, Any) -> R
+) : Descriptive.DescriptionOption<R> {
+
+    override fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R =
+        factory(test, description, representation ?: RawString.NULL)
+}
+
+
+internal class FinalStepImpl(
+    override val test: () -> Boolean,
+    override val description: Translatable,
+    override val representation: Any
+) : Descriptive.FinalStep {
+
+    @Suppress("DEPRECATION")
+    override fun build(): DescriptiveAssertion = BasicDescriptiveAssertion(description, representation, test)
 }
