@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -36,7 +37,7 @@ fun <T, R> _changeSubject(
     canBeTransformed: (T) -> Boolean,
     transformation: (T) -> R,
     failureHandler: SubjectChanger.FailureHandler<T, R>,
-    assertionCreator: (Expect<R>.() -> Unit)?
+    maybeAssertionCreator: Option<Expect<R>.() -> Unit>
 ): Expect<R> {
 
     // we can transform if maybeSubject is None as we have to be in an explaining like context in such a case.
@@ -56,12 +57,12 @@ fun <T, R> _changeSubject(
 
     if (shallTransform) {
         assertionContainer.addAssertion(descriptiveAssertion)
-        if (assertionCreator != null) {
+        maybeAssertionCreator.fold({ /*nothing to do */ }) { assertionCreator ->
             assertionContainer.addAssertionsCreatedBy(assertionCreator)
         }
     } else {
         val assertion = failureHandler.createAssertion(
-            originalAssertionContainer, descriptiveAssertion, assertionCreator
+            originalAssertionContainer, descriptiveAssertion, maybeAssertionCreator
         )
         assertionContainer.addAssertion(assertion)
     }

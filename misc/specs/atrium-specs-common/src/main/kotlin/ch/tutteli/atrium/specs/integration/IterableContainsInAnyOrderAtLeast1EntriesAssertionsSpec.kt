@@ -5,40 +5,60 @@ import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInAnyOrderEntriesPair: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
-    containsInAnyOrderNullableEntriesPair: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
+    containsInAnyOrderEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
+    containsInAnyOrderNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsInAnyOrderEntriesPair.first to expectLambda { containsInAnyOrderEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsInAnyOrderEntries.forSubjectLess({ toBe(2.5) }, arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${containsInAnyOrderNullableEntriesPair.first} for nullable" to expectLambda { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        containsInAnyOrderNullableEntries.forSubjectLess(null, arrayOf())
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, listOf(1.2, 2.0),
+        *containsInAnyOrderEntries.forAssertionCreatorSpec(
+            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+        )
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable] ", listOf(1.2, 2.0),
+        *containsInAnyOrderNullableEntries.forAssertionCreatorSpec(
+            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+        )
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (containsInAnyOrderNullableEntries, containsInAnyOrderNullableEntriesFunArr) = containsInAnyOrderNullableEntriesPair
-    fun Expect<Iterable<Double?>>.containsInAnyOrderNullableEntriesFun(t: (Expect<Double>.() -> Unit)?, vararg tX: (Expect<Double>.() -> Unit)?)
-        = containsInAnyOrderNullableEntriesFunArr(t, tX)
+    fun Expect<Iterable<Double?>>.containsInAnyOrderNullableEntriesFun(
+        t: (Expect<Double>.() -> Unit)?,
+        vararg tX: (Expect<Double>.() -> Unit)?
+    ) = containsInAnyOrderNullableEntries(this, t, tX)
 
     nonNullableCases(
         describePrefix,
-        containsInAnyOrderEntriesPair,
-        containsInAnyOrderNullableEntriesPair
+        containsInAnyOrderEntries,
+        containsInAnyOrderNullableEntries
     ) { containsEntriesFunArr ->
 
-        fun Expect<Iterable<Double>>.containsEntriesFun(t: Expect<Double>.() -> Unit, vararg tX: Expect<Double>.() -> Unit)
-            = containsEntriesFunArr(t, tX)
+        fun Expect<Iterable<Double>>.containsEntriesFun(
+            t: Expect<Double>.() -> Unit,
+            vararg tX: Expect<Double>.() -> Unit
+        ) = containsEntriesFunArr(t, tX)
 
         context("empty collection") {
             val fluentEmpty = assert(setOf())
@@ -121,19 +141,11 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             }
 
         }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalStateException::class.simpleName}") {
-                expect {
-                    fluent.containsEntriesFun({})
-                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
-            }
-        }
     }
 
     nullableCases(describePrefix) {
 
-        describeFun("$containsInAnyOrderNullableEntries for nullable") {
+        describeFun("${containsInAnyOrderNullableEntries.name} for nullable") {
 
             val list = listOf(null, 1.0, null, 3.0).asIterable()
             val fluent = verbs.check(list)
@@ -206,14 +218,6 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                             "$atLeast: 1"
                         )
                     }
-                }
-            }
-
-            context("search for entry where the lambda does not specify any assertion") {
-                it("throws an ${IllegalStateException::class.simpleName}") {
-                    expect {
-                        fluent.containsInAnyOrderNullableEntriesFun({})
-                    }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
                 }
             }
         }

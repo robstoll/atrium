@@ -10,7 +10,7 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInOrderOnlyGroupedEntriesPair: Pair<String, Expect<Iterable<Double?>>.(Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>) -> Expect<Iterable<Double?>>>,
+    containsInOrderOnlyGroupedEntriesPair: Fun3<Iterable<Double?>, Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>>,
     groupFactory: (Array<out (Expect<Double>.() -> Unit)?>) -> Group<(Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
@@ -26,14 +26,26 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun context(vararg assertionCreators: (Expect<Double>.() -> Unit)?) = groupFactory(assertionCreators)
 
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        containsInOrderOnlyGroupedEntriesPair.first to expectLambda {
-            containsInOrderOnlyGroupedEntriesPair.second(
-                this,
-                context({ toBe(2.5) }),
-                context({ toBe(4.1) }),
-                arrayOf()
-            )
-        }
+        containsInOrderOnlyGroupedEntriesPair.forSubjectLess(
+            context({ toBe(2.5) }),
+            context({ toBe(4.1) }),
+            arrayOf()
+        )
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, describePrefix, listOf(1.2, 2.0, 3.0),
+        assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntriesPair.name + " [first empty]", "$toBeDescr: 1.2",
+            { containsInOrderOnlyGroupedEntriesPair(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
+            { containsInOrderOnlyGroupedEntriesPair(this, Entry { }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) }
+        ),
+        assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntriesPair.name + " [second empty]", "$toBeDescr: 2.0",
+            { containsInOrderOnlyGroupedEntriesPair(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
+            { containsInOrderOnlyGroupedEntriesPair(this, Entry { toBe(1.2) }, Entry { }, arrayOf( Entry { toBe(3.0) })) }
+        ),
+        assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntriesPair.name + " [third empty]", "$toBeDescr: 3.0",
+            { containsInOrderOnlyGroupedEntriesPair(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { })) },
+            { containsInOrderOnlyGroupedEntriesPair(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry {  })) }
+        )
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =

@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -12,8 +9,8 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableNoneAssertionsSpec(
     verbs: AssertionVerbFactory,
-    nonePair: Pair<String, Expect<Iterable<Double>>.(Expect<Double>.() -> Unit) -> Expect<Iterable<Double>>>,
-    noneNullablePair: Pair<String, Expect<Iterable<Double?>>.((Expect<Double>.() -> Unit)?) -> Expect<Iterable<Double?>>>,
+    nonePair: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
+    noneNullablePair: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -25,10 +22,19 @@ abstract class IterableNoneAssertionsSpec(
 ) : IterablePredicateSpecBase(verbs, {
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        nonePair.first to expectLambda { nonePair.second(this) { toBe(2.3) } }
+        nonePair.forSubjectLess { toBe(2.3) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${noneNullablePair.first} for nullable" to expectLambda { noneNullablePair.second(this) { toBe(2.3) } }
+        noneNullablePair.forSubjectLess { toBe(2.3) }
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, oneToSeven,
+        nonePair.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        noneNullablePair.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -47,17 +53,19 @@ abstract class IterableNoneAssertionsSpec(
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
 
+    //@formatter:off
     val featureSuccess = "$indentBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
     val featureFailing = "$indentBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
     val isAfterFailing = "$indentBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     val afterExplanatory = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
+    //@formatter:on
 
     nonNullableCases(
         describePrefix,
         nonePair,
         noneNullablePair
-    ){ containsNotFun ->
+    ) { containsNotFun ->
 
         val fluent = verbs.check(oneToSeven)
 
@@ -78,10 +86,10 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 3$separator"+
-                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureFailing$numberOfOccurrences: 3$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
@@ -99,7 +107,7 @@ abstract class IterableNoneAssertionsSpec(
                     verbs.check(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
                 }
             }
-            context("iterable $oneToSevenNullable"){
+            context("iterable $oneToSevenNullable") {
                 it("null throws AssertionError") {
                     expect {
                         verbs.check(oneToSevenNullable).containsNotNullableFun(null)
@@ -107,10 +115,10 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
-                                    "$featureFailing$numberOfOccurrences: 2$separator"+
-                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureFailing$numberOfOccurrences: 2$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
@@ -125,10 +133,10 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 1$separator"+
-                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureFailing$numberOfOccurrences: 1$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )

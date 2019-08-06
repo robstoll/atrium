@@ -3,7 +3,6 @@ package ch.tutteli.atrium.domain.creating.collectors
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
@@ -12,39 +11,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Responsible to collect assertions made in a sub-[AssertionPlant] and intended for explanation.
  */
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead; will be removed with 1.0.0")
 interface AssertionCollectorForExplanation {
-
-    /**
-     * Collects the [Assertion]s created by [assertionCreator] based on the given [assertionContainer]-
-     *
-     * @param assertionContainer Its [Expect.maybeSubject] will be used for [CollectingAssertionContainer.maybeSubject].
-     * @param assertionCreator The function which should at least create one assertion (depending on the implementation
-     *   an IllegalStateException will be thrown if none was created)
-     *
-     * @return A list with the collected assertion.
-     * @throws IllegalStateException Might throw it in case not a single [Assertion] was collected
-     *   (e.g. ThrowingAssertionCollectorForExplanation does).
-     */
-    fun <T> collect(
-        assertionContainer: Expect<T>,
-        assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
-    ): List<Assertion> = collect(assertionContainer.maybeSubject, assertionCreator)
-
-    /**
-     * Collects the [Assertion]s created by [assertionCreator] based on the given [maybeSubject]-
-     *
-     * @param maybeSubject Will be used for [CollectingAssertionContainer.maybeSubject].
-     * @param assertionCreator The function which should at least create one assertion (depending on the implementation
-     *   an IllegalStateException will be thrown if none was created)
-     *
-     * @return A list with the collected assertion.
-     * @throws IllegalStateException Might throw it in case not a single [Assertion] was collected
-     *   (e.g. ThrowingAssertionCollectorForExplanation does).
-     */
-    fun <T> collect(
-        maybeSubject: Option<T>,
-        assertionCreator: (CollectingAssertionContainer<T>.() -> Unit)?
-    ): List<Assertion>
 
     /**
      * Collects the [Assertion] created by [assertionCreator] and uses the given [maybeSubject] as
@@ -135,6 +103,8 @@ interface AssertionCollectorForExplanation {
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
+@Suppress("DEPRECATION")
 val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorForExplanation by lazy {
     loadSingleService(NonThrowingAssertionCollectorForExplanation::class)
 }
@@ -143,6 +113,8 @@ val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorFo
  * Represents an assertion collector meant for explanation which does *not* throw in case not a single [Assertion]
  * was collected.
  */
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
+@Suppress("DEPRECATION")
 interface NonThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation
 
 
@@ -151,6 +123,8 @@ interface NonThrowingAssertionCollectorForExplanation : AssertionCollectorForExp
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
+@Suppress("DEPRECATION")
 val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExplanation by lazy {
     loadSingleService(ThrowingAssertionCollectorForExplanation::class)
 }
@@ -158,5 +132,7 @@ val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExpla
 /**
  * Represents an assertion collector meant for explanation which throws in case not a single [Assertion] was collected.
  */
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
+@Suppress("DEPRECATION")
 interface ThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation
 

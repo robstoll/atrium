@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger
 
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -64,11 +67,11 @@ class FinalStepImpl<T, R>(
 ) : SubjectChangerBuilder.FinalStep<T, R> {
 
     override fun build(): ChangedSubjectPostStep<T, R> = ChangedSubjectPostStep(checkOption.originalAssertionContainer,
-        transform = { transformIt(this, null) },
-        transformAndApply = { assertionCreator -> transformIt(this, assertionCreator) }
+        transform = { transformIt(this, None) },
+        transformAndApply = { assertionCreator -> transformIt(this, Some(assertionCreator)) }
     )
 
-    private fun transformIt(expect: Expect<T>, subAssertions: (Expect<R>.() -> Unit)?) =
+    private fun transformIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
         subjectChanger.reported(
             expect,
             checkOption.description,

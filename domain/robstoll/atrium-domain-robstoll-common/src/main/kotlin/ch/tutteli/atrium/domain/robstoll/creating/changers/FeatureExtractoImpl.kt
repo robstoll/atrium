@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating.changers
 
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.FeatureExtractor
 import ch.tutteli.atrium.domain.robstoll.lib.creating.changers._extractFeature
@@ -13,7 +14,7 @@ class FeatureExtractorImpl : FeatureExtractor {
         representationForFailure: Any,
         canBeExtracted: (T) -> Boolean,
         featureExtraction: (T) -> R,
-        subAssertions: (Expect<R>.() -> Unit)?,
+        maybeSubAssertions: Option<Expect<R>.() -> Unit>,
         representationInsteadOfFeature: Any?
     ): Expect<R> = _extractFeature(
         originalAssertionContainer,
@@ -21,7 +22,7 @@ class FeatureExtractorImpl : FeatureExtractor {
         representationForFailure,
         canBeExtracted,
         featureExtraction,
-        subAssertions,
+        maybeSubAssertions,
         representationInsteadOfFeature
     )
 }

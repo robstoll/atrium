@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.get
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.fluent.en_GB.get
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -239,12 +239,15 @@ abstract class FeatureAssertionsSpec(
         ).forEach { (description, lambda) ->
 
             context(description) {
-                //TODO #96 should thrown an AssertionError
                 it("throws an IllegalStateException") {
                     expect {
                         verbs.check(TestData("hello robert", 1)).lambda()
-                    }.toThrow<IllegalStateException> {
-                        messageContains("There was not any assertion created.")
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
+                            ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
+                            ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
+                        )
                     }
                 }
             }

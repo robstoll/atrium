@@ -30,6 +30,15 @@ abstract class IterableAllAssertionsSpec(
         "${allNullablePair.first} for nullable" to expectLambda { allNullablePair.second(this, null) }
     ) {})
 
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, oneToSeven,
+        allPair.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        allNullablePair.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
+    ) {})
+
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
@@ -93,14 +102,6 @@ abstract class IterableAllAssertionsSpec(
                 it("does not throw an exception") {
                     fluent.allFun { isGreaterThan(0.5); isLessThan(7.5) }
                 }
-            }
-        }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalStateException::class.simpleName}") {
-                expect {
-                    fluent.allFun {}
-                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
             }
         }
     }

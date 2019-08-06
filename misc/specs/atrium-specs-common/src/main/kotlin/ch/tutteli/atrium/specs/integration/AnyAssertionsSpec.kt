@@ -1,18 +1,16 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -76,6 +74,16 @@ abstract class AnyAssertionsSpec(
         isAFeature.forSubjectLess(),
         isA.forSubjectLess { toBe(1) },
         notToBeNull.forSubjectLess { toBe(1) }
+    ) {})
+
+    include(object : AssertionCreatorSpec<Int>(
+        verbs, describePrefix, 1,
+        andLazyPair.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
+    ) {})
+    include(object : AssertionCreatorSpec<Int?>(
+        verbs, "$describePrefix[nullable Element] ", 1,
+        toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
+        assertionCreatorSpecTriple(isA.name, "$toBeDescr: 1", { apply{isA.invoke(this) { toBe(1) } }}, { apply{isA.invoke(this) {} }} )
     ) {})
 
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
@@ -678,20 +686,30 @@ abstract class AnyAssertionsSpec(
         }
 
         context("empty assertionCreator lambda") {
-            //TODO #96, should throw an AssertionError
             it("is the expected type, throws nonetheless"){
                 expect {
                     verbs.check("hello").(isACharSequenceFun.lambda) {}
-                }.toThrow<IllegalStateException> {
-                    messageContains("There was not any assertion created.")
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
+                            ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
+                            ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
+                        )
+                        containsNot( "${DescriptionAnyAssertion.IS_A.getDefault()}: CharSequence")
+                    }
                 }
             }
             it("is not the expected type, contains the error as well") {
-                //TODO #96, should throw an AssertionError instead
                 expect {
                     verbs.check("hello").(isAIntFun.lambda) {}
-                }.toThrow<IllegalStateException> {
-                    messageContains("There was not any assertion created.")
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
+                        ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
+                        ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault(),
+                        "${DescriptionAnyAssertion.IS_A.getDefault()}: Int"
+                    )
                 }
             }
         }
@@ -707,7 +725,7 @@ abstract class AnyAssertionsSpec(
     prefixedDescribe("`${andLazyPair.name}` group") {
         it("returns the same plant") {
             val plant = verbs.check(1)
-            verbs.check(plant.(andLazyPair.lambda){ }).toBe(plant)
+            verbs.check(plant.(andLazyPair.lambda){ toBe(1) }).toBe(plant)
         }
     }
 

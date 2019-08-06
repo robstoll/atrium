@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.creating.CollectingAssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -37,7 +37,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, in T : Iterable<E>, SC>(
         }
     }
 
-    protected abstract fun CollectingAssertionContainer<List<E>>.createAssertionsAndReturnIndex(
+    protected abstract fun Expect<List<E>>.createAssertionsAndReturnIndex(
         searchCriteria: List<SC>
     ): Int
 }

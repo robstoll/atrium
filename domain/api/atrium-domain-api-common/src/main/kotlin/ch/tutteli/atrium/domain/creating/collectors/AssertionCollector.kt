@@ -32,8 +32,8 @@ interface AssertionCollector {
      */
     fun <T> collect(
         assertionContainer: Expect<T>,
-        assertionCreator: CollectingAssertionContainer<T>.() -> Unit
-    ): AssertionGroup = collect(assertionContainer.maybeSubject, assertionCreator)
+        assertionCreator: Expect<T>.() -> Unit
+    ): Assertion = collect(assertionContainer.maybeSubject, assertionCreator)
 
     /**
      * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
@@ -42,8 +42,6 @@ interface AssertionCollector {
      *
      * Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
      * assertion container.
-     *
-     * This function is especially helpful in case you want the collected assertion to be part of an [AssertionGroup].
      *
      * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
      *   [None] in case a previous subject change was not successful - used as subject for the given [assertionCreator].
@@ -54,11 +52,22 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
      */
-    fun <T> collect(
-        maybeSubject: Option<T>,
-        assertionCreator:  CollectingAssertionContainer<T>.() -> Unit
-    ): AssertionGroup
+    fun <T> collect(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): Assertion
 
+
+    /**
+     * Use this function if you want to collect [Assertion]s and use it as part of an [AssertionGroup].
+     *
+     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+     *   [None] in case a previous subject change was not successful - used as subject for the given [assertionCreator].
+     * @param assertionCreator A lambda which defines the assertions for the feature.
+     *
+     * @return The collected assertions as an [AssertionGroup] with an [InvisibleAssertionGroupType].
+     *
+     * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
+     *   assertion.
+     */
+    fun <T> collectForComposition(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): List<Assertion>
 
     /**
      * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any

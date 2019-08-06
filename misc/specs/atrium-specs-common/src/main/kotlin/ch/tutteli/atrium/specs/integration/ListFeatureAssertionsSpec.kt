@@ -19,6 +19,8 @@ abstract class ListFeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    val list = listOf(1, 2, 3, 4)
+
     include(object : SubjectLessSpec<List<Int>>(describePrefix,
         getFeature.forSubjectLess(1).adjustName { "$it feature" },
         get.forSubjectLess(1) { toBe(1) }
@@ -28,11 +30,20 @@ abstract class ListFeatureAssertionsSpec(
         getNullable.forSubjectLess(1) { toBe(null) }
     ) {})
 
+    include(object : AssertionCreatorSpec<List<Int>>(
+        verbs, describePrefix, list,
+        get.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
+    ) {})
+    include(object : AssertionCreatorSpec<List<Int?>>(
+        verbs, "$describePrefix[nullable Element] ", list,
+        getNullable.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
+    ) {})
+
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val list = listOf(1, 2, 3, 4)
+
     val fluent = verbs.check(list)
     val listNullable = listOf(1, null, 3, 4)
     val fluentNullable = verbs.check(listNullable)
@@ -67,11 +78,6 @@ abstract class ListFeatureAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains("get(4): $indexOutOfBounds", "$toBeDescr: 3")
                 }
-            }
-            it("throws if no assertion is made") {
-                expect {
-                    fluent.getFun(1) { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }
     }
@@ -112,11 +118,6 @@ abstract class ListFeatureAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains("get(4): $indexOutOfBounds", "$toBeDescr: null")
                 }
-            }
-            it("throws if no assertion is made") {
-                expect {
-                    fluentNullable.getFun(1) { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }
     }

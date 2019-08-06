@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -13,29 +14,38 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     creatorNullable: (String?, Int?) -> TNullable,
     keyName: String,
     valueName: String,
-    keyValPair: Feature0<T, String>,
-    keyFunPair: Fun1<T, Expect<String>.() -> Unit>,
-    valueValPair: Feature0<T, Int>,
-    valueFunPair: Fun1<T, Expect<Int>.() -> Unit>,
-    nullableKeyValPair: Feature0<TNullable, String?>,
-    nullableValueValPair: Feature0<TNullable, Int?>,
+    keyFeature: Feature0<T, String>,
+    key: Fun1<T, Expect<String>.() -> Unit>,
+    valueFeature: Feature0<T, Int>,
+    value: Fun1<T, Expect<Int>.() -> Unit>,
+    nullableKeyFeature: Feature0<TNullable, String?>,
+    nullableValueFeature: Feature0<TNullable, Int?>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    val mapEntry = creator("hello", 1)
+    val nullMapEntry = creatorNullable(null, null)
+    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
 
     //@formatter:off
     include(object : SubjectLessSpec<T>(describePrefix,
-        "val ${keyValPair.first}" to expectLambda { keyValPair.second(this).startsWith("a") },
-        "fun ${keyFunPair.first}" to expectLambda { keyFunPair.second(this) { endsWith("a") } },
-        "val ${valueValPair.first}" to expectLambda { valueValPair.second(this).isGreaterThan(1) } ,
-        "fun ${valueFunPair.first}" to expectLambda { valueFunPair.second(this) { isGreaterThan(2) } }
+        "val ${keyFeature.first}" to expectLambda { keyFeature.second(this).startsWith("a") },
+        "fun ${key.first}" to expectLambda { key.second(this) { endsWith("a") } },
+        "val ${valueFeature.first}" to expectLambda { valueFeature.second(this).isGreaterThan(1) } ,
+        "fun ${value.first}" to expectLambda { value.second(this) { isGreaterThan(2) } }
     ){})
     include(object : SubjectLessSpec<TNullable>("$describePrefix[nullable] ",
-        "val ${nullableKeyValPair.first}" to expectLambda { nullableKeyValPair.second(this).toBe(null) },
-        "val ${nullableValueValPair.first}" to expectLambda { nullableValueValPair.second(this).toBe(null) },
-        "fun ${nullableKeyValPair.first}" to expectLambda { nullableKeyValPair.second(this).toBe(null) },
-        "val ${nullableValueValPair.first}" to expectLambda { nullableValueValPair.second(this).notToBeNull { isGreaterThan(1) } }
+        "val ${nullableKeyFeature.first}" to expectLambda { nullableKeyFeature.second(this).toBe(null) },
+        "val ${nullableValueFeature.first}" to expectLambda { nullableValueFeature.second(this).toBe(null) },
+        "fun ${nullableKeyFeature.first}" to expectLambda { nullableKeyFeature.second(this).toBe(null) },
+        "val ${nullableValueFeature.first}" to expectLambda { nullableValueFeature.second(this).notToBeNull { isGreaterThan(1) } }
     ){})
+
+    include(object : AssertionCreatorSpec<T>(
+        verbs, describePrefix, mapEntry,
+        key.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") },
+        value.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
+    ) {})
     //@formatter:on
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -43,23 +53,16 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
 
     val assert: (T) -> Expect<T> = verbs::check
     val expect = verbs::checkException
-    val mapEntry = creator("hello", 1)
+
     val nullableMapEntry = creatorNullable("hello", 1)
-    val nullMapEntry = creatorNullable(null, null)
+
     val fluent = assert(mapEntry)
     val nullableFluent = verbs.check(nullableMapEntry)
     val nullFluent = verbs.check(nullMapEntry)
 
+    describeFun("val ${keyFeature.name}") {
+        val keyVal = keyFeature.lambda
 
-    val (keyValName, keyVal) = keyValPair
-    val (keyFunName, keyFun) = keyFunPair
-    val (valueValName, valueVal) = valueValPair
-    val (valueFunName, valueFun) = valueFunPair
-
-    val (nullableKeyValName, nullableKeyVal) = nullableKeyValPair
-    val (nullableValueValName, nullableValueVal) = nullableValueValPair
-
-    describeFun("val $keyValName") {
         context("$mapEntry") {
             it("startsWith(h) holds") {
                 fluent.keyVal().startsWith("h")
@@ -74,7 +77,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("fun $keyFunName") {
+    describeFun("fun ${key.name}") {
+        val keyFun = key.lambda
+
         context("$mapEntry") {
             it("startsWith(h) holds") {
                 fluent.keyFun { startsWith("h") }
@@ -87,15 +92,12 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
                 }
             }
         }
-        it("throws if no assertion is made") {
-            expect {
-                fluent.keyFun { }
-            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-        }
     }
 
 
-    describeFun("val $valueValName") {
+    describeFun("val ${valueFeature.name}") {
+        val valueVal = valueFeature.lambda
+
         context("$mapEntry") {
             it("isGreaterThan(0) holds") {
                 fluent.valueVal().isGreaterThan(0)
@@ -110,7 +112,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("fun $valueFunName") {
+    describeFun("fun ${value.name}") {
+        val valueFun = value.lambda
+
         context("$mapEntry") {
             it("isGreaterThan(0) holds") {
                 fluent.valueFun { isGreaterThan(0) }
@@ -122,15 +126,12 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
                     messageContains("$valueName: 1")
                 }
             }
-            it("throws if no assertion is made") {
-                expect {
-                    fluent.valueFun { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-            }
         }
     }
 
-    describeFun("val $nullableKeyValName for nullable") {
+    describeFun("val ${nullableKeyFeature.name} for nullable") {
+        val nullableKeyVal = nullableKeyFeature.lambda
+
         context("$nullableMapEntry") {
             it("toBe(hello)") {
                 nullableFluent.nullableKeyVal().toBe("hello")
@@ -157,7 +158,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("val $nullableValueValName for nullable") {
+    describeFun("val ${nullableValueFeature.name} for nullable") {
+        val nullableValueVal = nullableValueFeature.lambda
+
         context("$nullableMapEntry") {
             it("isGreaterThan(0) holds") {
                 nullableFluent.nullableValueVal().notToBeNull { isGreaterThan(0) }

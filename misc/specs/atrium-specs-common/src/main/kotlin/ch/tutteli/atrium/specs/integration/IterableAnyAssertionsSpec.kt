@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableAnyAssertionsSpec(
@@ -17,11 +18,22 @@ abstract class IterableAnyAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterablePredicateSpecBase(verbs, {
 
+    val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
+
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         anyPair.first to expectLambda { anyPair.second(this) { toBe(2.5) } }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
         "${anyNullablePair.first} for nullable" to expectLambda { anyNullablePair.second(this, null) }
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, oneToSeven,
+        anyPair.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        anyNullablePair.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
@@ -84,14 +96,6 @@ abstract class IterableAnyAssertionsSpec(
                 it("does not throw an exception") {
                     fluent.containsEntriesFun { isGreaterThan(1.0); isLessThan(2.1) }
                 }
-            }
-        }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalStateException::class.simpleName}") {
-                expect {
-                    fluent.containsEntriesFun {}
-                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
             }
         }
     }

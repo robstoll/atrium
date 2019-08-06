@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor
 
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
@@ -72,11 +75,11 @@ class FinalStepImpl<T, R>(
 
     override fun build(): ExtractedFeaturePostStep<T, R> =
         ExtractedFeaturePostStep(checkOption.originalAssertionContainer,
-            extract = { extractIt(this, null) },
-            extractAndApply = { assertionCreator -> extractIt(this, assertionCreator) }
+            extract = { extractIt(this, None) },
+            extractAndApply = { assertionCreator -> extractIt(this, Some(assertionCreator)) }
         )
 
-    private fun extractIt(expect: Expect<T>, subAssertions: (Expect<R>.() -> Unit)?) =
+    private fun extractIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
         featureExtractor.extract(
             expect,
             checkOption.description,

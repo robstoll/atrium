@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -28,16 +29,16 @@ fun <E, T : Iterable<E>> _containsNotBuilder(subjectProvider: SubjectProvider<T>
 
 fun <E : Any, T: Iterable<E?>> _iterableAll(
     assertionContainer: Expect<T>,
-    assertionCreator: (Expect<E>.() -> Unit)?
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
         val list = assertionContainer.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
         val hasElementAssertion = createHasElementAssertion(list)
 
         val assertions = ArrayList<Assertion>(2)
-        assertions.add(createExplanatoryAssertionGroup(assertionCreator, list))
+        assertions.add(createExplanatoryAssertionGroup(assertionCreatorOrNull, list))
 
-        val mismatches = createMismatchAssertions(list, assertionCreator)
+        val mismatches = createMismatchAssertions(list, assertionCreatorOrNull)
         assertions.add(
             ExpectImpl.builder.explanatoryGroup
                 .withWarningType
@@ -73,9 +74,7 @@ private fun <E : Any> createMismatchAssertions(
         .mapWithIndex()
         .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
         .map { (index, element) ->
-            ExpectImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element) {
-                allCreatedAssertionsHold(element, assertionCreator)
-            }
+            ExpectImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element, falseProvider)
         }
         .toList()
 }

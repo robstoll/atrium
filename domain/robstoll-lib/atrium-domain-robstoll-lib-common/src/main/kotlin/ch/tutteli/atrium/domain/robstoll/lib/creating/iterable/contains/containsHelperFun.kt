@@ -4,10 +4,10 @@ import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
@@ -19,21 +19,21 @@ import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
 internal fun <E : Any> createExplanatoryAssertionGroup(
-    assertionCreator: (Expect<E>.() -> Unit)?,
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     list: List<E?>
-): AssertionGroup = createExplanatoryAssertionGroup(assertionCreator) {
+): AssertionGroup = createExplanatoryAssertionGroup(assertionCreatorOrNull) {
     list.asSequence().filterNotNull().map { Some(it) }.firstOrNull() ?: None
 }
 
 internal inline fun <E : Any> createExplanatoryAssertionGroup(
-    noinline assertionCreator: (Expect<E>.() -> Unit)?,
+    noinline assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     firstOrNull: () -> Option<E>
 ): AssertionGroup {
     return ExpectImpl.builder.explanatoryGroup
         .withDefaultType
         .let {
-            if (assertionCreator != null) {
-                it.collectAssertions(firstOrNull(), assertionCreator)
+            if (assertionCreatorOrNull != null) {
+                it.collectAssertions(firstOrNull(), assertionCreatorOrNull)
             } else {
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not, thus trueProvider
