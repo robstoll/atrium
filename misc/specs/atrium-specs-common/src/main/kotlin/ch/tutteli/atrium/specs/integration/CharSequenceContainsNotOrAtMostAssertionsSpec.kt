@@ -22,11 +22,6 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
         containsNotOrAtMostIgnoringCaseTriple.first to expectLambda { containsNotOrAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<CharSequence>(verbs, describePrefix,
-        checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, "not in there" as CharSequence, "2.3,2.3,2.3"),
-        checkingTriple(containsNotOrAtMostIgnoringCaseTriple.first, { containsNotOrAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "not in there" as CharSequence, "2.3,2.3,2.3")
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

@@ -22,11 +22,6 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
         containsExactlyIgnoringCaseTriple.first to expectLambda { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<CharSequence>(verbs, describePrefix,
-        checkingTriple(containsExactlyTriple.first, { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) }, "2.3 / 2.3" as CharSequence, "2.3"),
-        checkingTriple(containsExactlyIgnoringCaseTriple.first, { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "2.3 / 2.3" as CharSequence, "2.3")
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

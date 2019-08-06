@@ -36,18 +36,6 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(
-        verbs, describePrefix,
-        checkingTriple(containsInOrderOnlyGroupedEntriesPair.first, {
-            containsInOrderOnlyGroupedEntriesPair.second(
-                this,
-                context({ toBe(2.5) }),
-                context({ toBe(1.2) }, { toBe(2.2) }),
-                arrayOf()
-            )
-        }, listOf(2.5 as Double?, 2.2, 1.2).asIterable(), listOf(2.2 as Double?, 1.2, 2.5))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

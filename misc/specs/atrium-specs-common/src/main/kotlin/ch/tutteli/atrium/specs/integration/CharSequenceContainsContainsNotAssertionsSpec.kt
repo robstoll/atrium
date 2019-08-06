@@ -24,11 +24,6 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
         containsNotPair.first to expectLambda { containsNotPair.second(this, "hello", arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<CharSequence>(verbs, describePrefix,
-        checkingTriple(containsPair.first, { containsPair.second(this, "hello", arrayOf()) }, "hello robert" as CharSequence, "by robert"),
-        checkingTriple(containsNotPair.first, { containsNotPair.second(this, "hello", arrayOf()) }, "by robert" as CharSequence, "hello robert")
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

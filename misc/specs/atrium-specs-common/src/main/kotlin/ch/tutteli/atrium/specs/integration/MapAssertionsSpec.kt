@@ -62,37 +62,6 @@ abstract class MapAssertionsSpec(
         containsNotNullableKey.forSubjectLess(null).unchecked1()
     ) {})
 
-    include(object : CheckingAssertionSpec<Map<out String, Int>>(verbs, describePrefix,
-        contains.forChecking("a" to 1, arrayOf("b" to 2), mapOf("a" to 1, "b" to 2), mapOf("a" to 1, "b" to 3)),
-        containsKeyWithValueAssertions.forChecking(
-            keyValue("a") { isLessThan(2) }, arrayOf(keyValue("b") { isGreaterOrEquals(2) }),
-            mapOf("a" to 1, "b" to 2), mapOf("a" to 2, "b" to 3)
-        ),
-        containsKey.forChecking("a", mapOf("a" to 1), mapOf("b" to 1)).unchecked2(),
-        containsNotKey.forChecking("b", mapOf("a" to 1), mapOf("b" to 1)).unchecked2(),
-        isEmpty.forChecking(mapOf<String, Int>(), mapOf("a" to 1, "b" to 2)).unchecked2(),
-        isNotEmpty.forChecking(mapOf("b" to 2), mapOf<String, Int>()).unchecked2()
-    ) {})
-    include(object : CheckingAssertionSpec<Map<out String?, Int?>>(
-        verbs, "$describePrefix[nullable Key] ",
-        containsNullable.forChecking(
-            null to 1, arrayOf("a" to null),
-            mapOf("a" to null, null to 1), mapOf("b" to 1, null to 1)
-        ),
-        containsKeyWithNullableValueAssertions.forChecking(
-            keyNullableValue(null) { isLessThan(2) }, arrayOf(keyNullableValue("a", null)),
-            mapOf("a" to null, null to 1), mapOf("a" to null, "b" to 1, null to 3)
-        ).unchecked2(),
-        containsNullableKey.forChecking(
-            null,
-            mapOf("a" to 1, null to 1), mapOf<String?, Int?>("b" to 1)
-        ).unchecked2(),
-        containsNotNullableKey.forChecking(
-            null,
-            mapOf<String?, Int?>("a" to 1, "b" to 1), mapOf<String?, Int?>(null to 1)
-        ).unchecked2()
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

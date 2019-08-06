@@ -30,15 +30,6 @@ abstract class ListFeatureAssertionsSpec(
         getNullable.forSubjectLess(1) { toBe(null) }
     ) {})
 
-    include(object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
-        getFeature.forChecking(0, listOf(2), listOf()) { toBe(2) }.adjustName { "$it feature" },
-        get.forChecking(0, { isGreaterThan(1) }, listOf(2, 1), listOf(1, 2))
-    ) {})
-    include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
-        getNullableFeature.forChecking(0, listOf(null), listOf()) { toBe(null) }.adjustName { "$it feature" },
-        getNullable.forChecking(0, { toBe(1) }, listOf(1, null), listOf(2, 1))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

@@ -1,10 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -18,17 +14,10 @@ abstract class CollectionFeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    //@formatter:off
     include(object : SubjectLessSpec<Collection<String>>(describePrefix,
         sizeFeature.forSubjectLess().adjustName { "$it feature" },
         size.forSubjectLess { isGreaterThan(2) }
-    ){})
-
-    include(object : CheckingAssertionSpec<Collection<String>>(verbs, describePrefix,
-        sizeFeature.forChecking(listOf("a") as Collection<String>, listOf("a", "B")) { toBe(1) }.adjustName { "$it feature" },
-        size.forChecking({ isLessThan(2) }, listOf("a") as Collection<String>, listOf("a", "B"))
     ) {})
-    //@formatter:on
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)

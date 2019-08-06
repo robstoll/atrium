@@ -58,10 +58,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
     assertionCreator: (Expect<E>.() -> Unit)?
 ): Boolean = when (subject) {
     null -> assertionCreator == null
-    else -> assertionCreator != null &&
-        coreFactory.newCheckingAssertionContainer(Some(subject))
-            .addAssertionsCreatedBy(assertionCreator)
-            .allAssertionsHold()
+    else -> assertionCreator != null && ExpectImpl.collector.collect(Some(subject), assertionCreator).holds()
 }
 
 internal fun <E, SC> createEntryAssertionTemplate(

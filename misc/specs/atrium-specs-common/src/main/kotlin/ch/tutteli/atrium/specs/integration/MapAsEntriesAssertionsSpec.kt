@@ -25,15 +25,6 @@ abstract class MapAsEntriesAssertionsSpec(
         asEntries.forSubjectLess { contains("a" to 1) }
     ) {})
 
-    val holdingSubject: Map<String, Int> = mapOf("a" to 1, "c" to 3, "e" to 5, "g" to 7)
-    val failingSubject: Map<String, Int> = mapOf("b" to 2, "d" to 4, "f" to 6, "h" to 8)
-
-    include(object : CheckingAssertionSpec<Map<String, Int>>(
-        verbs, describePrefix,
-        asEntriesFeature.forChecking(holdingSubject, failingSubject) { contains { asAssert().isKeyValue("g", 7) } },
-        asEntries.forChecking({ contains { asAssert().isKeyValue("g", 7) } }, holdingSubject, failingSubject)
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

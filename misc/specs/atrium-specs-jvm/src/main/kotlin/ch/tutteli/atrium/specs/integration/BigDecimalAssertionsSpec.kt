@@ -32,14 +32,6 @@ abstract class BigDecimalAssertionsSpec(
         isNotEqualIncludingScalePair.forSubjectLess(BigDecimal.TEN)
     ) {})
 
-    include(object : CheckingAssertionSpec<BigDecimal>(
-        verbs, "$describePrefix[BigDecimal] ",
-        isNumericallyEqualToPair.forChecking(BigDecimal.TEN, BigDecimal("10.000"), BigDecimal("10.00001")),
-        isNotNumericallyEqualToPair.forChecking(BigDecimal.TEN, BigDecimal("10.00001"), BigDecimal("10.000")),
-        isEqualIncludingScalePair.forChecking(BigDecimal.TEN, BigDecimal("10"), BigDecimal("10.0")),
-        isNotEqualIncludingScalePair.forChecking(BigDecimal.TEN, BigDecimal("10.0"), BigDecimal("10"))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

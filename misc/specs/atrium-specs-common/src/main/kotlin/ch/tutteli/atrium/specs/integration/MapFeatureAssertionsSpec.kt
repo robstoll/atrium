@@ -37,26 +37,6 @@ abstract class MapFeatureAssertionsSpec(
         getExistingNullable.forSubjectLess("a") { toBe(null) }
     ) {})
 
-    include(
-        object : CheckingAssertionSpec<Map<String, Int>>(
-            verbs, describePrefix,
-            keysFeature.forChecking(mapOf("a" to 1), mapOf("a" to 1, "b" to 2)) { containsExactly("a") },
-            keys.forChecking({ contains("a").and.hasSize(1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
-            valuesFeature.forChecking(mapOf("a" to 1), mapOf("a" to 1, "b" to 2)) { containsExactly(1) },
-            values.forChecking({ contains(1).hasSize(1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
-            getExistingFeature.forChecking("a", mapOf("a" to 2), mapOf("a" to 1, "b" to 2)) { isGreaterThan(1) },
-            getExisting.forChecking("a", { isGreaterThan(1) }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2))
-        ) {})
-    include(object : CheckingAssertionSpec<Map<String?, Int?>>(
-        verbs, "$describePrefix[nullable Key] ",
-        getExistingNullableFeature.forChecking(
-            "a",
-            mapOf("a" to 1, null to 2),
-            mapOf("a" to null, null to 3)
-        ) { toBe(1) },
-        getExistingNullable.forChecking("a", { toBe(1) }, mapOf("a" to 1, null to 2), mapOf("a" to null, null to 3))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

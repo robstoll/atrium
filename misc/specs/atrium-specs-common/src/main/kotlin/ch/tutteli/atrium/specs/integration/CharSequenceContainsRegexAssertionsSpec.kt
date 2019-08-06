@@ -30,14 +30,6 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
         containsAtMostIgnoringCaseTriple.first to expectLambda { containsAtMostIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<CharSequence>(verbs, describePrefix,
-        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) }, "a, b" as CharSequence, "a"),
-        checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }, "A, B" as CharSequence, "a"),
-        checkingTriple(containsShortcutTriple.first, { containsShortcutTriple.third(this, "a|b", arrayOf()) }, "a, b" as CharSequence, "c"),
-        checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, "a|b", arrayOf()) }, "a" as CharSequence, "a,ba"),
-        checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }, "A" as CharSequence, "bbb")
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

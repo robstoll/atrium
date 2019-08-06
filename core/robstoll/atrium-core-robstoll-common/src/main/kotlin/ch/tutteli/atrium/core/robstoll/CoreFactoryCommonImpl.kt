@@ -35,9 +35,6 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
-    @Suppress("OverridingDeprecatedMember")
-    final override fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
-        = CheckingAssertionContainerImpl(maybeSubject)
 
     @Suppress("OverridingDeprecatedMember")
     final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>

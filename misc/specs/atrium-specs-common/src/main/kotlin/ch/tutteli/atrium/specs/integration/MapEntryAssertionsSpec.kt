@@ -25,14 +25,6 @@ abstract class MapEntryAssertionsSpec(
         isKeyValueNullable.forSubjectLess("key", 1)
     ) {})
 
-    include(object : CheckingAssertionSpec<Map.Entry<String, Int>>(verbs, describePrefix,
-        isKeyValue.forChecking("a", 1, mapEntry("a", 1), mapEntry("b", 1))
-    ) {})
-
-    include(object : CheckingAssertionSpec<Map.Entry<String?, Int?>>(verbs, "$describePrefix[nullable] ",
-        isKeyValueNullable.forChecking("a", 1, mapEntry("a", 1), mapEntry("b", 1))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

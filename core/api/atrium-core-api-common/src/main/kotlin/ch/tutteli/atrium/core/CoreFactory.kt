@@ -32,7 +32,6 @@ expect interface CoreFactory : CoreFactoryCommon
  *
  * It provides factory methods to create:
  * - [ReportingAssertionContainer]
- * - [CheckingAssertionContainer]
  * - [CollectingAssertionContainer]
  * - [AssertionChecker]
  * - [MethodCallFormatter]
@@ -267,19 +266,6 @@ interface CoreFactoryCommon {
     )
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
 
-
-    /**
-     * Creates a [CheckingAssertionContainer] which provides a method to check whether
-     * [allAssertionsHold][CheckingAssertionContainer.allAssertionsHold].
-     *
-     * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
-     *   [None] in case a previous subject change was not successful. The [CheckingAssertionContainer]
-     *   will check [Assertion]s for the current subject.
-     *
-     * @return The newly created assertion container.
-     */
-    fun <T> newCheckingAssertionContainer(maybeSubject: Option<T>): CheckingAssertionContainer<T>
-
     /**
      * Creates a [CheckingAssertionPlant] which provides a method to check whether
      * [allAssertionsHold][CheckingAssertionPlant.allAssertionsHold].
@@ -290,9 +276,9 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCheckingAssertionContainer instead",
+        "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
         ReplaceWith(
-            "this.newCheckingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -301,8 +287,6 @@ interface CoreFactoryCommon {
     /**
      * Creates a [CollectingAssertionContainer] which is intended to be used as receiver object in lambdas so that it
      * can collect [Assertion]s created inside the lambda.
-     *
-     * Use [newCheckingAssertionContainer] instead if you want to know whether the assertions hold.
      *
      * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
      *   [None] in case a previous subject change was not successful.

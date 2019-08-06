@@ -119,20 +119,10 @@ abstract class FeatureAssertionsSpec(
         "fun with 5 arguments and notToBeNull" to f5NullableHolds
     )
 
-    val holdingTestData = TestData("hello robert", 1)
-    val failingTestData = TestData("bye robert", null)
-
     include(object: SubjectLessSpec<TestData>(describePrefix,
         *(functions.map { (description, lambda, _) -> description to expectLambda(lambda) }).toTypedArray(),
         *(nullableFailingFunctions.map { (description, lambda, _) -> description to expectLambda(lambda) }).toTypedArray(),
         *(nullableHoldsFunctions.map { (description, lambda) -> description to expectLambda(lambda) }).toTypedArray()
-    ) {})
-
-    include(object : CheckingAssertionSpec<TestData>(verbs, describePrefix,
-        *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
-        *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
-        *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
-        checkingTriple("propertyLazy with nested immediate", itsLazyWithNestedImmediate, holdingTestData, TestData("bye robert", 1))
     ) {})
     //@formatter:on
 

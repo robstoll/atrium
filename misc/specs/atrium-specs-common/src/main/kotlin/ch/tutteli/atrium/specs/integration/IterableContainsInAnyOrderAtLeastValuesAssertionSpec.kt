@@ -24,11 +24,6 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
         containsAtLeastButAtMostTriple.first to expectLambda { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, listOf(2.3, 2.3).asIterable(), listOf()),
-        checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, listOf(2.3).asIterable(), listOf())
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

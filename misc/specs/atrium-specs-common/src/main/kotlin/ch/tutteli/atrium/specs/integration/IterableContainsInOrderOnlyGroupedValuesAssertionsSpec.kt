@@ -40,27 +40,6 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(
-        verbs, describePrefix,
-        checkingTriple(containsInOrderOnlyGroupedValuesPair.first, {
-            containsInOrderOnlyGroupedValuesPair.second(
-                this,
-                context(2.5),
-                context(1.2, 2.2), arrayOf()
-            )
-        }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
-    ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(
-        verbs, describePrefix,
-        checkingTriple("${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable", {
-            containsInOrderOnlyGroupedNullableValuesPair.second(
-                this,
-                nullableGroup(2.5),
-                nullableGroup(1.2, 2.2), arrayOf()
-            )
-        }, listOf(2.5 as Double?, 2.2, 1.2).asIterable(), listOf(2.2 as Double?, 1.2, 2.5))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

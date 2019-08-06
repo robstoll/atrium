@@ -34,13 +34,6 @@ abstract class ThrowableAssertionsSpec(
         messageContains.forSubjectLess("hello", arrayOf())
     ) {})
 
-    include(object : CheckingAssertionSpec<Throwable>(
-        verbs, describePrefix,
-        messageFeature.forChecking(RuntimeException("hello"), RuntimeException("goodbye")){ toBe("hello")},
-        message.forChecking({ toBe("hello")}, RuntimeException("hello"), RuntimeException("goodbye")),
-        messageContains.forChecking("he", arrayOf("lo", "world"), RuntimeException("hello world"), RuntimeException("hello and goodbye"))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

@@ -16,9 +16,6 @@ abstract class FloatingPointWithErrorToleranceAssertionsJvmSpec(
     include(object : SubjectLessSpec<BigDecimal>("$describePrefix[Float] ",
         toBeWithErrorToleranceBigDecimalPair.forSubjectLess(BigDecimal.TEN, BigDecimal("0.00001"))) {})
 
-    include(object : CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[Float] ",
-        toBeWithErrorToleranceBigDecimalPair.forChecking(BigDecimal.TEN, BigDecimal("0.00001"), BigDecimal("9.99999999"), BigDecimal("9.999"))) {})
-
     fun <T : Number> Root.describeFun(pair: Fun2<T, T, T>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>)
         = checkFloatingPoint(verbs, describePrefix, pair, withFailureNotice, absDiff, testData)
 

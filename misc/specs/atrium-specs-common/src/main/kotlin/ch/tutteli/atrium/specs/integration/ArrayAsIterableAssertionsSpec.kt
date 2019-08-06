@@ -79,39 +79,6 @@ abstract class ArrayAsIterableAssertionsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
-    include(object : CheckingAssertionSpec<Array<Int>>(verbs, "$describePrefix[arr] ",
-        checkingTriple(asIterableFunName, { arr(this).contains(5) }, arrayOf(1, 3, 5, 6), arrayOf(1, 2, 3)),
-        checkingTriple(asIterableWithCreator, { arrWithCreator(this) { contains(5) }}, arrayOf(1, 3, 5, 6), arrayOf(1, 2, 3))
-    ) {})
-    include(object : CheckingAssertionSpec<ByteArray>(verbs, "$describePrefix[arrByte] ",
-        checkingTriple(asIterableFunName, { arrByte(this).contains(5.toByte()) }, bytes(1.toByte(), 5.toByte()), bytes()),
-        checkingTriple(asIterableWithCreator, { arrByteWithCreator(this) { contains(5.toByte()) }}, bytes(1.toByte(), 5.toByte()), bytes())
-    ) {})
-    include(object : CheckingAssertionSpec<CharArray>(verbs, "$describePrefix[arrChar] ",
-        checkingTriple(asIterableFunName, { arrChar(this).contains(5.toChar()) }, chars(1.toChar(), 5.toChar()), chars()),
-        checkingTriple(asIterableWithCreator, { arrCharWithCreator(this) { contains(5.toChar()) }}, chars(1.toChar(), 5.toChar()), chars())
-    ) {})
-    include(object : CheckingAssertionSpec<ShortArray>(verbs, "$describePrefix[arrShort] ",
-        checkingTriple(asIterableFunName, { arrShort(this).contains(5.toShort()) }, shorts(1.toShort(), 5.toShort()), shorts()),
-        checkingTriple(asIterableWithCreator, { arrShortWithCreator(this) { contains(5.toShort()) }}, shorts(1.toShort(), 5.toShort()), shorts())
-    ) {})
-    include(object : CheckingAssertionSpec<IntArray>(verbs, "$describePrefix[arrInt] ",
-        checkingTriple(asIterableFunName, { arrInt(this).contains(5) }, ints(1, 5), ints()),
-        checkingTriple(asIterableWithCreator, { arrIntWithCreator(this) { contains(5) }}, ints(1, 5), ints())
-    ) {})
-    include(object : CheckingAssertionSpec<LongArray>(verbs, "$describePrefix[arrLong] ",
-        checkingTriple(asIterableFunName, { arrLong(this).contains(5) }, longs(1, 5), longs()),
-        checkingTriple(asIterableWithCreator, { arrLongWithCreator(this) { contains(5) }}, longs(1, 5), longs())
-    ) {})
-    include(object : CheckingAssertionSpec<FloatArray>(verbs, "$describePrefix[arrFloat] ",
-        checkingTriple(asIterableFunName, { arrFloat(this).contains(5f) }, floats(1f, 5f), floats()),
-        checkingTriple(asIterableWithCreator, { arrFloatWithCreator(this) { contains(5f) }}, floats(1f, 5f), floats())
-    ) {})
-    include(object : CheckingAssertionSpec<DoubleArray>(verbs, "$describePrefix[arrDouble] ",
-        checkingTriple(asIterableFunName, { arrDouble(this).contains(5.0) }, doubles(1.0, 5.0), doubles()),
-        checkingTriple(asIterableWithCreator, { arrDoubleWithCreator(this) { contains(5.0) }}, doubles(1.0, 5.0), doubles())
-    ) {})
-
 
     describe("$asIterableFunName arr") {
         it("transformation can be applied and a subsequent assertion made") {

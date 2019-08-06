@@ -6,8 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * Represents a container for [Assertion] which is intended to serve as receiver object for lambdas which create
  * [Assertion]s, in which this assertion container collects the assertions created this ways.
  *
- * This container does not offer reporting capabilities in contrast to [ReportingAssertionContainer] and
- * in contrast to [CheckingAssertionContainer] it does not offer checking capabilities either.
+ * This container does not offer reporting capabilities in contrast to [ReportingAssertionContainer].
  * It merely offers a method to [getAssertions] (the collected ones).
  *
  * @param T The type of the [subject] of this assertion container.
