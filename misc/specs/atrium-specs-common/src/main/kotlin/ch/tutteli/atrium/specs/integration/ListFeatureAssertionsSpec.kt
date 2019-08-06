@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -39,7 +37,6 @@ abstract class ListFeatureAssertionsSpec(
     val listNullable = listOf(1, null, 3, 4)
     val fluentNullable = verbs.check(listNullable)
 
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val indexOutOfBounds = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS.getDefault()
 
     describeFun("${getFeature.name} feature") {

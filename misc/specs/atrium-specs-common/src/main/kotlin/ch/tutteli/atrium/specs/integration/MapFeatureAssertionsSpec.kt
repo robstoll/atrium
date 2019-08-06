@@ -1,12 +1,9 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -47,7 +44,6 @@ abstract class MapFeatureAssertionsSpec(
     val mapNullable = mapOf("a" to 1, "b" to null, null to 3)
     val fluentNullable = verbs.check(mapNullable)
 
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
 
     describeFun("${keysFeature.name} feature") {

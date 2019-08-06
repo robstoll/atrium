@@ -4,6 +4,8 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
@@ -37,11 +39,6 @@ inline fun <T, A1, R> Feature1<T, A1, R>.forSubjectLess(a1: A1): Pair<String, Ex
 inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLess(a1: A1, a2: A2): Pair<String, Expect<T>.() -> Unit> =
     this.name to expectLambda { this@forSubjectLess(this, a1, a2) }
 
-//TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
-fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
-
-expect val lineSeperator: String
-
 //@formatter:off
 inline fun <T, R> property(f: KProperty1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
 inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
@@ -54,3 +51,12 @@ inline fun <T, A1, A2> fun2(f: KFunction3<Expect<T>, A1, A2, Expect<T>>, suffix:
 //@formatter:on
 
 fun <T> notImplemented(): T = throw NotImplementedError()
+
+//TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
+fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
+
+val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+val isDescr = DescriptionBasic.IS.getDefault()
+val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+
+expect val lineSeperator: String

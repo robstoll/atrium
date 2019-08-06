@@ -4,10 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -33,9 +31,6 @@ abstract class MapEntryAssertionsSpec(
     val fluent = verbs.check(mapEntry)
     val mapEntryNullable = mapEntry("a" as String?, 1 as Int?)
     val fluentNullable = verbs.check(mapEntryNullable)
-
-
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
 
     describeFun(isKeyValue.name) {
         val isKeyValueFun = isKeyValue.lambda

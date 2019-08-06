@@ -4,7 +4,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -71,13 +73,9 @@ abstract class MapAssertionsSpec(
     val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
     val nullableFluent = verbs.check(nullableMap)
 
-
-    val isDescr = DescriptionBasic.IS.getDefault()
-    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
     val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
     val containsNotKeyDescr = DescriptionMapAssertion.CONTAINS_NOT_KEY.getDefault()
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
     val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
 
