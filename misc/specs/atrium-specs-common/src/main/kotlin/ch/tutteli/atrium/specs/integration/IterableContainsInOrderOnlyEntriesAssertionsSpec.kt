@@ -32,13 +32,6 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
         "${containsInOrderOnlyNullableEntriesPair.first} for nullable" to expectLambda { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsInOrderOnlyEntriesPair.first, { containsInOrderOnlyEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5).asIterable(), listOf())
-    ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-        checkingTriple("${containsInOrderOnlyNullableEntriesPair.first} for nullable", { containsInOrderOnlyNullableEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5 as Double?).asIterable(), listOf())
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

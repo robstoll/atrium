@@ -30,13 +30,6 @@ abstract class IterableContainsNotValuesAssertionsSpec(
         "${containsNotNullableValuesPair.first} for nullable" to expectLambda { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsNotValuesPair.first, { containsNotValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
-    ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-        checkingTriple("${containsNotNullableValuesPair.first} for nullable", { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1 as Double?).asIterable(), listOf(2.1, 2.3))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

@@ -22,12 +22,6 @@ abstract class CollectionAssertionsSpec(
         isNotEmpty.forSubjectLess()
     ) {})
 
-    include(object : CheckingAssertionSpec<Collection<Int>>(
-        verbs, describePrefix,
-        isEmpty.forChecking(listOf(), listOf(1, 2)),
-        isNotEmpty.forChecking(listOf(2), listOf())
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

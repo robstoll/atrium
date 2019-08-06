@@ -25,13 +25,6 @@ abstract class PathAssertionsSpec(
         exists.forSubjectLess()
     ) {})
 
-    val nonExistingPath = Paths.get("nonExistingFile")
-
-    include(object : CheckingAssertionSpec<Path>(
-        verbs, "$describePrefix[Path] ",
-        exists.forChecking(Paths.get("./"), nonExistingPath)
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
@@ -42,7 +35,7 @@ abstract class PathAssertionsSpec(
         context("non existing") {
             it("throws AssertionError") {
                 expect {
-                    verbs.check(nonExistingPath).existsFun()
+                    verbs.check(Paths.get("nonExistingFile")).existsFun()
                 }.toThrow<AssertionError> {
                     messageContains(
                         "exists: false",

@@ -23,13 +23,6 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         "${containsInAnyOrderNullableValuesPair.first} for nullable" to expectLambda { containsInAnyOrderNullableValuesPair.second(this, null, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsInAnyOrderValuesPair.first, { containsInAnyOrderValuesPair.second(this, 1.2, arrayOf()) }, listOf(1.2).asIterable(), listOf())
-    ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-        checkingTriple("${containsInAnyOrderNullableValuesPair.first} for nullable", { containsInAnyOrderNullableValuesPair.second(this, 1.2, arrayOf()) }, listOf(1.2 as Double?).asIterable(), listOf())
-    ) {})
-
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 

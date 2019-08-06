@@ -4,7 +4,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -62,37 +64,6 @@ abstract class MapAssertionsSpec(
         containsNotNullableKey.forSubjectLess(null).unchecked1()
     ) {})
 
-    include(object : CheckingAssertionSpec<Map<out String, Int>>(verbs, describePrefix,
-        contains.forChecking("a" to 1, arrayOf("b" to 2), mapOf("a" to 1, "b" to 2), mapOf("a" to 1, "b" to 3)),
-        containsKeyWithValueAssertions.forChecking(
-            keyValue("a") { isLessThan(2) }, arrayOf(keyValue("b") { isGreaterOrEquals(2) }),
-            mapOf("a" to 1, "b" to 2), mapOf("a" to 2, "b" to 3)
-        ),
-        containsKey.forChecking("a", mapOf("a" to 1), mapOf("b" to 1)).unchecked2(),
-        containsNotKey.forChecking("b", mapOf("a" to 1), mapOf("b" to 1)).unchecked2(),
-        isEmpty.forChecking(mapOf<String, Int>(), mapOf("a" to 1, "b" to 2)).unchecked2(),
-        isNotEmpty.forChecking(mapOf("b" to 2), mapOf<String, Int>()).unchecked2()
-    ) {})
-    include(object : CheckingAssertionSpec<Map<out String?, Int?>>(
-        verbs, "$describePrefix[nullable Key] ",
-        containsNullable.forChecking(
-            null to 1, arrayOf("a" to null),
-            mapOf("a" to null, null to 1), mapOf("b" to 1, null to 1)
-        ),
-        containsKeyWithNullableValueAssertions.forChecking(
-            keyNullableValue(null) { isLessThan(2) }, arrayOf(keyNullableValue("a", null)),
-            mapOf("a" to null, null to 1), mapOf("a" to null, "b" to 1, null to 3)
-        ).unchecked2(),
-        containsNullableKey.forChecking(
-            null,
-            mapOf("a" to 1, null to 1), mapOf<String?, Int?>("b" to 1)
-        ).unchecked2(),
-        containsNotNullableKey.forChecking(
-            null,
-            mapOf<String?, Int?>("a" to 1, "b" to 1), mapOf<String?, Int?>(null to 1)
-        ).unchecked2()
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
@@ -102,13 +73,9 @@ abstract class MapAssertionsSpec(
     val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
     val nullableFluent = verbs.check(nullableMap)
 
-
-    val isDescr = DescriptionBasic.IS.getDefault()
-    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
     val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
     val containsNotKeyDescr = DescriptionMapAssertion.CONTAINS_NOT_KEY.getDefault()
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
     val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
 

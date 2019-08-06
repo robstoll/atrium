@@ -4,6 +4,8 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
@@ -37,68 +39,6 @@ inline fun <T, A1, R> Feature1<T, A1, R>.forSubjectLess(a1: A1): Pair<String, Ex
 inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLess(a1: A1, a2: A2): Pair<String, Expect<T>.() -> Unit> =
     this.name to expectLambda { this@forSubjectLess(this, a1, a2) }
 
-
-fun <T> Triple<String, Expect<T>.() -> Unit, Pair<T, T>>.adjustName(f: (String) -> String): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    Triple(f(first), second, third)
-
-inline fun <T, R> Feature0<T, R>.forChecking(
-    holdingSubject: T,
-    failingSubject: T,
-    crossinline subAssert: Expect<R>.() -> Unit
-): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this).subAssert() }, holdingSubject, failingSubject)
-
-inline fun <T, A1, R> Feature1<T, A1, R>.forChecking(
-    a1: A1,
-    holdingSubject: T,
-    failingSubject: T,
-    noinline subAssert: (Expect<R>.() -> Unit)? = null
-): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, {
-        val assertionContainer = this@forChecking(this, a1)
-        if (subAssert != null) assertionContainer.subAssert()
-    }, holdingSubject, failingSubject)
-
-inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forChecking(
-    a1: A1,
-    a2: A2,
-    holdingSubject: T,
-    failingSubject: T,
-    noinline subAssert: (Expect<R>.() -> Unit)?
-): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, {
-        val assertionContainer = this@forChecking(this, a1, a2)
-        if (subAssert != null) assertionContainer.subAssert()
-    }, holdingSubject, failingSubject)
-
-
-inline fun <T> Fun0<T>.forChecking(
-    holdingSubject: T,
-    failingSubject: T
-): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this) }, holdingSubject, failingSubject)
-
-inline fun <T, A1> Fun1<T, A1>.forChecking(
-    a1: A1,
-    holdingSubject: T,
-    failingSubject: T
-): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this, a1) }, holdingSubject, failingSubject)
-
-inline fun <T, A1, A2> Fun2<T, A1, A2>.forChecking(
-    a1: A1,
-    a2: A2,
-    holdingSubject: T,
-    failingSubject: T
-): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-    checkingTriple(this.name, { this@forChecking(this, a1, a2) }, holdingSubject, failingSubject)
-
-
-//TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
-fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
-
-expect val lineSeperator: String
-
 //@formatter:off
 inline fun <T, R> property(f: KProperty1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
 inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
@@ -111,3 +51,12 @@ inline fun <T, A1, A2> fun2(f: KFunction3<Expect<T>, A1, A2, Expect<T>>, suffix:
 //@formatter:on
 
 fun <T> notImplemented(): T = throw NotImplementedError()
+
+//TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
+fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
+
+val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+val isDescr = DescriptionBasic.IS.getDefault()
+val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+
+expect val lineSeperator: String

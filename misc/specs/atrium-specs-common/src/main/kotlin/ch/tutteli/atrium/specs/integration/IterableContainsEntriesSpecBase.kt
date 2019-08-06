@@ -8,8 +8,6 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.dsl.Root
@@ -37,8 +35,6 @@ abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec
         val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH.getDefault()
         val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
         val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
-        val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
-        val isDescr = DescriptionBasic.IS.getDefault()
 
         fun Root.nonNullableCases(
             describePrefix: String,

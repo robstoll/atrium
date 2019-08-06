@@ -26,11 +26,6 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     include(object : SubjectLessSpec<Double>("$describePrefix[Double] ",
         toBeWithErrorToleranceDouble.forSubjectLess(1.0, 0.01)) {})
 
-    include(object : CheckingAssertionSpec<Float>(verbs, "$describePrefix[Float] ",
-        toBeWithErrorToleranceFloat.forChecking(1.0f, 0.01f, 0.99f, 0.98f)) {})
-    include(object : CheckingAssertionSpec<Double>(verbs, "$describePrefix[Double] ",
-        toBeWithErrorToleranceDouble.forChecking(1.0, 0.5, 1.5, 1.6)) {})
-
     fun <T : Number> Root.describeFun(pair: Fun2<T, T, T>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>)
         = checkFloatingPoint(verbs, describePrefix, pair, withFailureNotice, absDiff, testData)
 

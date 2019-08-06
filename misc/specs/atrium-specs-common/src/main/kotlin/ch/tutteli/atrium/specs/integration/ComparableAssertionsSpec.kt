@@ -25,13 +25,6 @@ abstract class ComparableAssertionsSpec(
         isGreaterOrEquals.forSubjectLess(1)
     ) {})
 
-    include(object : CheckingAssertionSpec<Int>(verbs, describePrefix,
-        isLessThan.forChecking(1, 0, 1),
-        isLessOrEquals.forChecking(1, 1, 2),
-        isGreaterThan.forChecking(1, 2, 1),
-        isGreaterOrEquals.forChecking(1,  1, 0)
-    ) {})
-
     val expect = verbs::checkException
 
     val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()

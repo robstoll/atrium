@@ -4,10 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -25,14 +23,6 @@ abstract class MapEntryAssertionsSpec(
         isKeyValueNullable.forSubjectLess("key", 1)
     ) {})
 
-    include(object : CheckingAssertionSpec<Map.Entry<String, Int>>(verbs, describePrefix,
-        isKeyValue.forChecking("a", 1, mapEntry("a", 1), mapEntry("b", 1))
-    ) {})
-
-    include(object : CheckingAssertionSpec<Map.Entry<String?, Int?>>(verbs, "$describePrefix[nullable] ",
-        isKeyValueNullable.forChecking("a", 1, mapEntry("a", 1), mapEntry("b", 1))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
@@ -41,9 +31,6 @@ abstract class MapEntryAssertionsSpec(
     val fluent = verbs.check(mapEntry)
     val mapEntryNullable = mapEntry("a" as String?, 1 as Int?)
     val fluentNullable = verbs.check(mapEntryNullable)
-
-
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
 
     describeFun(isKeyValue.name) {
         val isKeyValueFun = isKeyValue.lambda

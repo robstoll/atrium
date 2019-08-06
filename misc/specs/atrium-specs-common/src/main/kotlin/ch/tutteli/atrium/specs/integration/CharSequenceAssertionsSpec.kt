@@ -41,21 +41,6 @@ abstract class CharSequenceAssertionsSpec(
         endsNotWithCharPair.forSubjectLess('\u0000')
     ) {})
 
-    include(object : CheckingAssertionSpec<CharSequence>(
-        verbs, describePrefix,
-        isEmptyPair.forChecking("", "not empty"),
-        isNotEmptyPair.forChecking("not empty", ""),
-        isNotBlankPair.forChecking("not blank", ""),
-        startsWithPair.forChecking("a", "abc", "xyz"),
-        startsWithCharPair.forChecking('a', "a", "x"),
-        startsNotWithPair.forChecking("a", "xyz", "abc"),
-        startsNotWithCharPair.forChecking('a', "x", "a"),
-        endsWithPair.forChecking("c", "abc", "xyz"),
-        endsWithCharPair.forChecking('c', "c", "z"),
-        endsNotWithPair.forChecking("c", "xyz", "abc"),
-        endsNotWithCharPair.forChecking('c', "z", "c")
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 

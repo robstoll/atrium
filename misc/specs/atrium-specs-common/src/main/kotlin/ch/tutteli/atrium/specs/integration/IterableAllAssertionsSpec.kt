@@ -30,13 +30,6 @@ abstract class IterableAllAssertionsSpec(
         "${allNullablePair.first} for nullable" to expectLambda { allNullablePair.second(this, null) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(allPair.first, { allPair.second(this) { isGreaterThan(2.5) } }, listOf(2.6, 3.0, 4.0).asIterable(), listOf(1.0, 2.5, 3.0))
-    ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-        checkingTriple("${allNullablePair.first} for nullable", { allNullablePair.second(this) { isGreaterThan(2.5) } }, listOf(2.6 as Double?, 3.0, 4.0).asIterable(), listOf(1.0, 2.5, 3.0))
-    ) {})
-
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 

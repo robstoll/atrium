@@ -78,26 +78,6 @@ abstract class AnyAssertionsSpec(
         notToBeNull.forSubjectLess { toBe(1) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Int>(
-        verbs, describePrefix,
-        toBeInt.forChecking(1, 1, 0),
-        notToBeInt.forChecking(1, 0, 1),
-        isSameInt.forChecking(1, 1, 0),
-        isNotSameInt.forChecking(1, 0, 1)
-    ) {})
-
-    include(object : CheckingAssertionSpec<Int?>(
-        verbs, "$describePrefix[nullable] ",
-        toBeNullableInt.forChecking(1, 1, null),
-        notToBeNullableInt.forChecking(1, null, 1),
-        isSameNullableInt.forChecking(1, 1, null),
-        isNotSameNullableInt.forChecking(1, null, 1),
-        toBeNull.forChecking(null, 1),
-        isAFeature.forChecking(2, null) { toBe(2) },
-        isA.forChecking({ toBe(2) }, 2, null),
-        notToBeNull.forChecking({ toBe(2) }, 2, null)
-    ) {})
-
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
         prefixedDescribeTemplate(describePrefix, description, body)
 

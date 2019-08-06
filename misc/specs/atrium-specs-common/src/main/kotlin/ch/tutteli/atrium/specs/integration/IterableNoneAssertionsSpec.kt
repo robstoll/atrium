@@ -31,13 +31,6 @@ abstract class IterableNoneAssertionsSpec(
         "${noneNullablePair.first} for nullable" to expectLambda { noneNullablePair.second(this) { toBe(2.3) } }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(nonePair.first, { nonePair.second(this) { toBe(2.3) } }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
-    ) {})
-    include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-        checkingTriple("${noneNullablePair.first} for nullable", { noneNullablePair.second(this) { toBe(2.3) } }, listOf(2.1 as Double?).asIterable(), listOf(2.1, 2.3))
-    ) {})
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
