@@ -33,6 +33,8 @@ interface FeatureExtractorBuilder {
 
     /**
      * Option step which allows to specify the description which will be used to describe the feature.
+     *
+     * @param T the type of the current subject.
      */
     interface DescriptionOption<T> {
         /**
@@ -68,6 +70,8 @@ interface FeatureExtractorBuilder {
     /**
      * Option step which allows to to define the representation which shall be used in case
      * the extraction cannot be performed.
+     *
+     * @param T the type of the current subject.
      */
     interface RepresentationInCaseOfFailureOption<T> {
         /**
@@ -113,6 +117,8 @@ interface FeatureExtractorBuilder {
     /**
      *  Option step which allows to specify checks which should be consulted to see whether the feature extraction is
      *  feasible or not.
+     *
+     * @param T the type of the current subject.
      */
     interface CheckOption<T> {
         /**
@@ -147,6 +153,8 @@ interface FeatureExtractorBuilder {
 
     /**
      * Option step to define the feature extraction as such.
+     *
+     * @param T the type of the current subject.
      */
     interface FeatureExtractionOption<T> {
         /**
@@ -175,7 +183,10 @@ interface FeatureExtractorBuilder {
 
 
     /**
-     *  Option step which allows to specify a custom representation instead of the feature as such.
+     * Option step which allows to specify a custom representation instead of the feature as such.
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the feature, aka the new subject.
      */
     interface RepresentationOption<T, R>{
         /**
@@ -218,6 +229,13 @@ interface FeatureExtractorBuilder {
         }
     }
 
+    /**
+     * Final step in the extract-feature-process, creates a [ExtractedFeaturePostStep]
+     * based on the previously specified options.
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the feature, aka the new subject.
+     */
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [CheckOption] step.

@@ -1,16 +1,14 @@
 package ch.tutteli.atrium.api.verbs.internal
 
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 fun <T> assert(subject: T) =
-    ExpectImpl.coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, Some(subject), reporter)
+    ExpectImpl.assertionVerbBuilder(subject).withVerb(AssertionVerb.ASSERT).withDefaultReporter().build()
 
 fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit) =
     assert(subject).addAssertionsCreatedBy(assertionCreator)
@@ -35,7 +33,7 @@ class NoAdjustingReporterFactory : ReporterFactory {
     override val id = ID
 
     override fun create(): Reporter {
-        return reporterBuilder
+        return ExpectImpl.reporterBuilder
             .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -19,8 +18,8 @@ import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> expect(subject: T)
-    = ExpectImpl.coreFactory.newReportingAssertionContainer(EXPECT, Some(subject), reporter)
+fun <T> expect(subject: T) =
+    ExpectImpl.assertionVerbBuilder(subject).withVerb(EXPECT).withDefaultReporter().build()
 
 /**
  * Creates an [ReportingAssertionContainer] for the given [subject] and
@@ -32,8 +31,8 @@ fun <T> expect(subject: T)
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit)
-    = expect(subject).addAssertionsCreatedBy(assertionCreator)
+fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit) =
+    expect(subject).addAssertionsCreatedBy(assertionCreator)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which catches a potentially thrown [Throwable]

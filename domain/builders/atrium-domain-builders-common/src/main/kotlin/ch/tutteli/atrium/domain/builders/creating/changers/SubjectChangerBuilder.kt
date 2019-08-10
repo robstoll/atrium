@@ -58,6 +58,8 @@ object SubjectChangerBuilder {
 
     /**
      * Option step which allows to specify the description and representation of the change.
+     *
+     * @param T the type of the current subject.
      */
     interface DescriptionOption<T> {
         /**
@@ -82,8 +84,8 @@ object SubjectChangerBuilder {
          *
          * See the other overload for further information.
          */
-        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckOption<T>
-            = withDescriptionAndRepresentation(Untranslatable(description), representation)
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckOption<T> =
+            withDescriptionAndRepresentation(Untranslatable(description), representation)
 
         /**
          * Uses the given [description] and [representation] to represent the change.
@@ -104,8 +106,10 @@ object SubjectChangerBuilder {
     }
 
     /**
-     *  Option step which allows to specify checks which should be consulted to see whether the subject change is
-     *  feasible or not.
+     * Option step which allows to specify checks which should be consulted to see whether the subject change is
+     * feasible or not.
+     *
+     * @param T the type of the current subject.
      */
     interface CheckOption<T> {
         /**
@@ -139,6 +143,8 @@ object SubjectChangerBuilder {
 
     /**
      * Option step to define the transformation which yields the new subject.
+     *
+     * @param T the type of the current subject.
      */
     interface TransformationOption<T> {
         /**
@@ -167,6 +173,9 @@ object SubjectChangerBuilder {
 
     /**
      * Option step which allows to specify a custom [SubjectChanger.FailureHandler].
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the new subject.
      */
     interface FailureHandlerOption<T, R> {
         /**
@@ -213,6 +222,13 @@ object SubjectChangerBuilder {
         }
     }
 
+    /**
+     * Final step in the change-subject-process, creates a [ChangedSubjectPostStep]
+     * ased on the previously specified options.
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the new subject.
+     */
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [CheckOption] step.
