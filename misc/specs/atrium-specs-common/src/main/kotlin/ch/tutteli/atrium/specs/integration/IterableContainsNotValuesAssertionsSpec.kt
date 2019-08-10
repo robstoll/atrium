@@ -12,8 +12,8 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsNotValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsNotValuesPair: Pair<String, Expect<Iterable<Double>>.(Double, Array<out Double>) -> Expect<Iterable<Double>>>,
-    containsNotNullableValuesPair: Pair<String, Expect<Iterable<Double?>>.(Double?, Array<out Double?>) -> Expect<Iterable<Double?>>>,
+    containsNotValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
+    containsNotNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -24,10 +24,10 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 ) : IterableContainsEntriesSpecBase(verbs, {
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsNotValuesPair.first to expectLambda { containsNotValuesPair.second(this, 2.3, arrayOf()) }
+        containsNotValues.forSubjectLess(2.3, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${containsNotNullableValuesPair.first} for nullable" to expectLambda { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }
+        containsNotNullableValues.forSubjectLess(2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -35,9 +35,8 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 
     val expect = verbs::checkException
 
-    val (containsNotNullable, containsNotNullableFunArr) = containsNotNullableValuesPair
     fun Expect<Iterable<Double?>>.containsNotNullableFun(a: Double?, vararg aX: Double?) =
-        containsNotNullableFunArr(a, aX)
+        containsNotNullableValues(this, a, aX)
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
@@ -57,8 +56,8 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 
     nonNullableCases(
         describePrefix,
-        containsNotValuesPair,
-        containsNotNullableValuesPair
+        containsNotValues,
+        containsNotNullableValues
     ) {containsNotFunArr ->
 
         fun Expect<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double)
@@ -165,7 +164,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun("$containsNotNullable for nullable") {
+        describeFun("${containsNotNullableValues.name} for nullable") {
             context("iterable $oneToSeven") {
                 it("null does not throw") {
                     verbs.check(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)

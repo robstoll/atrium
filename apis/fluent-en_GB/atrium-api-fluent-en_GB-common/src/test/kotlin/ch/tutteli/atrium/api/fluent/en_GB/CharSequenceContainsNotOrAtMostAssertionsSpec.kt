@@ -13,20 +13,16 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.specs.in
 
     companion object : CharSequenceContainsSpecBase() {
 
-        private fun getNotOrAtMostTriple() = Triple(
-            "$contains.$notOrAtMost",
-            { what: String, times: String -> "$contains $what $notOrAtMost $times" },
-            Companion::containsNotOrAtMost
-        )
+        private fun getNotOrAtMostTriple() =
+            { what: String, times: String -> "$contains $what $notOrAtMost $times" } to
+                ("$contains.$notOrAtMost" to Companion::containsNotOrAtMost)
 
         private fun containsNotOrAtMost(plant: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.notOrAtMost(atMost).values(a, *aX)
 
-        private fun getNotOrAtMostIgnoringCaseTriple() = Triple(
-            "$contains.$ignoringCase.$notOrAtMost",
-            { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" },
-            Companion::containsNotOrAtMostIgnoringCase
-        )
+        private fun getNotOrAtMostIgnoringCaseTriple() =
+            { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" } to
+                ("$contains.$ignoringCase.$notOrAtMost" to Companion::containsNotOrAtMostIgnoringCase)
 
         private fun containsNotOrAtMostIgnoringCase(plant: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.ignoringCase.notOrAtMost(atMost).values(a, *aX)

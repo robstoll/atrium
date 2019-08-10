@@ -3,12 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.value
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.utils.subExpect
@@ -29,10 +23,12 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         containsInAnyOrderOnlyEntries.forSubjectLess({ toBe(2.5) }, arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
         containsInAnyOrderOnlyNullableEntries.forSubjectLess(null, arrayOf())
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double>>(
@@ -53,23 +49,30 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    fun Expect<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(t: (Expect<Double>.() -> Unit)?, vararg tX: (Expect<Double>.() -> Unit)?)
-        = containsInAnyOrderOnlyNullableEntries(this, t, tX)
+    fun Expect<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(
+        t: (Expect<Double>.() -> Unit)?,
+        vararg tX: (Expect<Double>.() -> Unit)?
+    ) = containsInAnyOrderOnlyNullableEntries(this, t, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
+    //@formatter:off
     val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    //@formatter:on
 
-    nonNullableCases(describePrefix,
+    nonNullableCases(
+        describePrefix,
         containsInAnyOrderOnlyEntries,
         containsInAnyOrderOnlyNullableEntries
     ) { containsEntriesFunArr ->
-        fun Expect<Iterable<Double>>.containsEntriesFun(t: Expect<Double>.() -> Unit, vararg tX: Expect<Double>.() -> Unit)
-            = containsEntriesFunArr(t, tX)
+        fun Expect<Iterable<Double>>.containsEntriesFun(
+            t: Expect<Double>.() -> Unit,
+            vararg tX: Expect<Double>.() -> Unit
+        ) = containsEntriesFunArr(t, tX)
 
         context("empty collection") {
             val fluentEmpty = assert(setOf())
@@ -83,7 +86,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0"
                         )
                         containsNot(additionalEntries)
-                       containsSize(0, 1)
+                        containsSize(0, 1)
                     }
                 }
             }
@@ -98,7 +101,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0"
                         )
                         containsNot(additionalEntries)
-                       containsSize(0, 2)
+                        containsSize(0, 2)
                     }
                 }
             }
@@ -326,7 +329,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}null"
                                 )
-                               containsSize(4, 3)
+                                containsSize(4, 3)
                             }
                         }
                     }
@@ -351,7 +354,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}3.0"
                                 )
-                               containsSize(4, 4)
+                                containsSize(4, 4)
                             }
                         }
                     }

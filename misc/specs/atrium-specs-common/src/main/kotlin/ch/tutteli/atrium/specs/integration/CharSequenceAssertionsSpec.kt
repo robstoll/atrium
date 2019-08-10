@@ -12,33 +12,33 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isEmptyPair: Fun0<CharSequence>,
-    isNotEmptyPair: Fun0<CharSequence>,
-    isNotBlankPair: Fun0<CharSequence>,
-    startsWithPair: Fun1<CharSequence, CharSequence>,
-    startsWithCharPair: Fun1<CharSequence, Char>,
-    startsNotWithPair: Fun1<CharSequence, CharSequence>,
-    startsNotWithCharPair: Fun1<CharSequence, Char>,
-    endsWithPair: Fun1<CharSequence, CharSequence>,
-    endsWithCharPair: Fun1<CharSequence, Char>,
-    endsNotWithPair: Fun1<CharSequence, CharSequence>,
-    endsNotWithCharPair: Fun1<CharSequence, Char>,
+    isEmpty: Fun0<CharSequence>,
+    isNotEmpty: Fun0<CharSequence>,
+    isNotBlank: Fun0<CharSequence>,
+    startsWith: Fun1<CharSequence, CharSequence>,
+    startsWithChar: Fun1<CharSequence, Char>,
+    startsNotWith: Fun1<CharSequence, CharSequence>,
+    startsNotWithChar: Fun1<CharSequence, Char>,
+    endsWith: Fun1<CharSequence, CharSequence>,
+    endsWithChar: Fun1<CharSequence, Char>,
+    endsNotWith: Fun1<CharSequence, CharSequence>,
+    endsNotWithChar: Fun1<CharSequence, Char>,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        isEmptyPair.forSubjectLess(),
-        isNotEmptyPair.forSubjectLess(),
-        isNotBlankPair.forSubjectLess(),
-        startsWithPair.forSubjectLess(""),
-        startsWithCharPair.forSubjectLess('\u0000'),
-        startsNotWithPair.forSubjectLess(""),
-        startsNotWithCharPair.forSubjectLess('\u0000'),
-        endsWithPair.forSubjectLess(""),
-        endsWithCharPair.forSubjectLess('\u0000'),
-        endsNotWithPair.forSubjectLess(""),
-        endsNotWithCharPair.forSubjectLess('\u0000')
+        isEmpty.forSubjectLess(),
+        isNotEmpty.forSubjectLess(),
+        isNotBlank.forSubjectLess(),
+        startsWith.forSubjectLess(""),
+        startsWithChar.forSubjectLess('\u0000'),
+        startsNotWith.forSubjectLess(""),
+        startsNotWithChar.forSubjectLess('\u0000'),
+        endsWith.forSubjectLess(""),
+        endsWithChar.forSubjectLess('\u0000'),
+        endsNotWith.forSubjectLess(""),
+        endsNotWithChar.forSubjectLess('\u0000')
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -46,18 +46,6 @@ abstract class CharSequenceAssertionsSpec(
 
     val expect = verbs::checkException
     val fluent = verbs.check(text as CharSequence)
-
-    val (isEmpty, isEmptyFun) = isEmptyPair
-    val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
-    val (isNotBlank, isNotBlankFun) = isNotBlankPair
-    val (startsWith, startsWithFun) = startsWithPair
-    val (startsWithChar, startsWithCharFun) = startsWithCharPair
-    val (startsNotWith, startsNotWithFun) = startsNotWithPair
-    val (startsNotWithChar, startsNotWithCharFun) = startsNotWithCharPair
-    val (endsWith, endsWithFun) = endsWithPair
-    val (endsWithChar, endsWithCharFun) = endsWithCharPair
-    val (endsNotWith, endsNotWithFun) = endsNotWithPair
-    val (endsNotWithChar, endsNotWithCharFun) = endsNotWithCharPair
 
     val isNot = DescriptionBasic.IS_NOT.getDefault()
     val itIs = DescriptionBasic.IS.getDefault()
@@ -70,13 +58,16 @@ abstract class CharSequenceAssertionsSpec(
     val notBlankStringBuilder: CharSequence = StringBuilder("not blank string")
 
 
-    describeFun(isEmpty, isNotEmpty) {
+    describeFun(isEmpty.name, isNotEmpty.name) {
+        val isEmptyFun = isEmpty.lambda
+        val isNotEmptyFun = isNotEmpty.lambda
+
         context("string is empty") {
-            it("$isEmpty does not throw") {
+            it("${isEmpty.name} does not throw") {
                 verbs.check(emptyString).isEmptyFun()
                 verbs.check(emptyStringBuilder).isEmptyFun()
             }
-            it("$isNotEmpty throws an AssertionError") {
+            it("${isNotEmpty.name} throws an AssertionError") {
                 expect {
                     verbs.check(emptyString).isNotEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$isNot: empty") } }
@@ -87,7 +78,7 @@ abstract class CharSequenceAssertionsSpec(
         }
         context("string is not empty") {
 
-            it("$isEmpty throws an AssertionError") {
+            it("${isEmpty.name} throws an AssertionError") {
                 expect {
                     verbs.check(blankString).isEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
@@ -95,16 +86,18 @@ abstract class CharSequenceAssertionsSpec(
                     verbs.check(blankStringBuilder).isEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
             }
-            it("$isNotEmpty does not throw") {
+            it("${isNotEmpty.name} does not throw") {
                 verbs.check(blankString).isNotEmptyFun()
                 verbs.check(blankStringBuilder).isNotEmptyFun()
             }
         }
     }
 
-    describeFun(isNotBlank) {
+    describeFun(isNotBlank.name) {
+        val isNotBlankFun = isNotBlank.lambda
+
         context("string is blank") {
-            it("$isNotBlank throws an AssertionError") {
+            it("throws an AssertionError") {
 
                 expect {
                     verbs.check(blankString).isNotBlankFun()
@@ -115,72 +108,81 @@ abstract class CharSequenceAssertionsSpec(
             }
         }
         context("string is not blank") {
-            it("$isNotBlank does not throw") {
+            it("does not throw") {
                 verbs.check(notBlankString).isNotBlankFun()
                 verbs.check(notBlankStringBuilder).isNotBlankFun()
             }
         }
     }
 
-    describeFun(startsWith, startsNotWith) {
+    describeFun(startsWith.name, startsNotWith.name) {
+        val startsWithFun = startsWith.lambda
+        val startsNotWithFun = startsNotWith.lambda
+
         context("text '$text'") {
-            it("$startsWith 'Hello' does not throw") {
+            it("${startsWith.name} 'Hello' does not throw") {
                 fluent.startsWithFun("Hello")
             }
-            it("$startsNotWith 'Hello' throws an AssertionError") {
+            it("${startsNotWith.name} 'Hello' throws an AssertionError") {
                 expect {
                     fluent.startsNotWithFun("Hello")
                 }.toThrow<AssertionError> { messageContains(STARTS_NOT_WITH.getDefault()) }
             }
 
-            it("$startsWith 'Robert' throws an AssertionError") {
+            it("${startsWith.name} 'Robert' throws an AssertionError") {
                 expect {
                     fluent.startsWithFun("goodbye")
                 }.toThrow<AssertionError> { messageContains(STARTS_WITH.getDefault()) }
             }
-            it("$startsNotWith 'Robert' does not throw") {
+            it("${startsNotWith.name} 'Robert' does not throw") {
                 fluent.startsNotWithFun("goodbye")
             }
         }
     }
 
-    describeFun(startsWithChar, startsNotWithChar) {
+    describeFun(startsWithChar.name, startsNotWithChar.name) {
+        val startsWithCharFun = startsWithChar.lambda
+        val startsNotWithCharFun = startsNotWithChar.lambda
+
         context("text '$text'") {
-            it("$startsWithChar 'H' does not throw") {
+            it("${startsWithChar.name} 'H' does not throw") {
                 fluent.startsWithCharFun('H')
             }
-            it("$startsNotWithChar 'H' throws an AssertionError") {
+            it("${startsNotWithChar.name} 'H' throws an AssertionError") {
                 expect {
                     fluent.startsNotWithCharFun('H')
                 }.toThrow<AssertionError> { messageContains(STARTS_NOT_WITH.getDefault()) }
             }
 
-            it("$startsWithChar 't' throws an AssertionError") {
+            it("${startsWithChar.name} 't' throws an AssertionError") {
                 expect {
                     fluent.startsWithCharFun('t')
                 }.toThrow<AssertionError> { messageContains(STARTS_WITH.getDefault()) }
             }
-            it("$startsNotWithChar 't' does not throw") {
+            it("${startsNotWithChar.name} 't' does not throw") {
                 fluent.startsNotWithCharFun('t')
             }
         }
     }
 
-    describeFun(endsWith, endsNotWith) {
+    describeFun(endsWith.name, endsNotWith.name) {
+        val endsWithFun = endsWith.lambda
+        val endsNotWithFun = endsNotWith.lambda
+
         context("text '$text'") {
-            it("$endsWith 'Hello' throws an AssertionError") {
+            it("${endsWith.name} 'Hello' throws an AssertionError") {
                 expect {
                     fluent.endsWithFun("Hello")
                 }.toThrow<AssertionError> { messageContains(ENDS_WITH.getDefault()) }
             }
-            it("$endsNotWith 'Hello' does not throw") {
+            it("${endsNotWith.name} 'Hello' does not throw") {
                 fluent.endsNotWithFun("Hello")
             }
 
-            it("$endsWith 'Robert' does not throw") {
+            it("${endsWith.name} 'Robert' does not throw") {
                 fluent.endsWithFun("Robert")
             }
-            it("$endsNotWith 'Robert' throws an AssertionError") {
+            it("${endsNotWith.name} 'Robert' throws an AssertionError") {
                 expect {
                     fluent.endsNotWithFun("Robert")
                 }.toThrow<AssertionError> { messageContains(ENDS_NOT_WITH.getDefault()) }
@@ -188,21 +190,24 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    describeFun(endsWithChar, endsNotWithChar) {
+    describeFun(endsWithChar.name, endsNotWithChar.name) {
+        val endsWithCharFun = endsWithChar.lambda
+        val endsNotWithCharFun = endsNotWithChar.lambda
+
         context("text '$text'") {
-            it("$endsWithChar 'H' throws an AssertionError") {
+            it("${endsWithChar.name} 'H' throws an AssertionError") {
                 expect {
                     fluent.endsWithCharFun('H')
                 }.toThrow<AssertionError> { messageContains(ENDS_WITH.getDefault()) }
             }
-            it("$endsNotWithChar 'H' does not throw") {
+            it("${endsNotWithChar.name} 'H' does not throw") {
                 fluent.endsNotWithCharFun('H')
             }
 
-            it("$endsWithChar 't' does not throw") {
+            it("${endsWithChar.name} 't' does not throw") {
                 fluent.endsWithCharFun('t')
             }
-            it("$endsNotWithChar 't' throws an AssertionError") {
+            it("${endsNotWithChar.name} 't' throws an AssertionError") {
                 expect {
                     fluent.endsNotWithCharFun('t')
                 }.toThrow<AssertionError> { messageContains(ENDS_NOT_WITH.getDefault()) }

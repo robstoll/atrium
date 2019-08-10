@@ -13,20 +13,17 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.specs.integr
 
     companion object : CharSequenceContainsSpecBase() {
 
-        private fun getExactlyTriple() = Triple(
-            "$contains.$exactly",
-            { what: String, times: String -> "$contains $what $exactly $times" },
-            Companion::containsExactly
-        )
+        private fun getExactlyTriple() =
+            { what: String, times: String -> "$contains $what $exactly $times" } to
+                ("$contains.$exactly" to Companion::containsExactly)
 
         private fun containsExactly(plant: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
             = plant.contains.exactly(exactly).values(a, *aX)
 
-        private fun getExactlyIgnoringCaseTriple() = Triple(
-            "$contains.$ignoringCase.$exactly",
-            { what: String, times: String -> "$contains $ignoringCase $what $exactly $times" },
-            Companion::containsExactlyIgnoringCase
-        )
+        private fun getExactlyIgnoringCaseTriple() =
+            { what: String, times: String -> "$contains $ignoringCase $what $exactly $times" } to
+                ("$contains.$ignoringCase.$exactly" to Companion::containsExactlyIgnoringCase)
+
 
         private fun containsExactlyIgnoringCase(plant: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
             = plant.contains.ignoringCase.exactly(exactly).values(a, *aX)

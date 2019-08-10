@@ -12,11 +12,9 @@ class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec : ch.tutteli.atr
 
     companion object : IterableContainsSpecBase() {
 
-        private fun getNotOrAtMostTriple() = Triple(
-            "$contains.$notOrAtMost",
-            { what: String, times: String -> "$contains $what $notOrAtMost $times" },
-            Companion::containsNotOrAtMost
-        )
+        private fun getNotOrAtMostTriple() =
+            { what: String, times: String -> "$contains $what $notOrAtMost $times" } to
+                ("$contains.$notOrAtMost" to Companion::containsNotOrAtMost)
 
         private fun containsNotOrAtMost(plant: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
             = plant.contains.inAnyOrder.notOrAtMost(atMost).values(a, *aX)

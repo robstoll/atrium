@@ -13,11 +13,9 @@ class IterableContainsInAnyOrderAtMostValuesAssertionsSpec : ch.tutteli.atrium.s
 
     companion object : IterableContainsSpecBase() {
 
-        private fun getAtMostTriple() = Triple(
-            "$contains.$inAnyOrder.$atMost",
-            { what: String, times: String -> "$contains $what $atMost $times" },
-            Companion::containsAtMost
-        )
+        private fun getAtMostTriple() =
+            { what: String, times: String -> "$contains $what $atMost $times" } to
+                ("$contains.$inAnyOrder.$atMost" to Companion::containsAtMost)
 
         private fun containsAtMost(plant: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
             = plant.contains.inAnyOrder.atMost(atMost).values(a, *aX)

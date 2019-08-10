@@ -7,12 +7,12 @@ import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 
 abstract class MapEntryFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
-    keyValPair: Feature0<Map.Entry<String, Int>, String>,
-    keyFunPair: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
-    valueValPair: Feature0<Map.Entry<String, Int>, Int>,
-    valueFunPair: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
-    nullableKeyValPair: Feature0<Map.Entry<String?, Int?>, String?>,
-    nullableValueValPair: Feature0<Map.Entry<String?, Int?>, Int?>,
+    keyFeature: Feature0<Map.Entry<String, Int>, String>,
+    key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
+    valueFeature: Feature0<Map.Entry<String, Int>, Int>,
+    value: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
+    nullableKeyFeature: Feature0<Map.Entry<String?, Int?>, String?>,
+    nullableValueFeature: Feature0<Map.Entry<String?, Int?>, Int?>,
     describePrefix: String = "[Atrium] "
 ) : KeyValueLikeFeatureAssertionsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
     verbs,
@@ -20,11 +20,11 @@ abstract class MapEntryFeatureAssertionsSpec(
     ::mapEntry,
     "key",
     "value",
-    keyValPair,
-    keyFunPair,
-    valueValPair,
-    valueFunPair,
-    nullableKeyValPair,
-    nullableValueValPair,
+    keyFeature,
+    key,
+    valueFeature,
+    value,
+    nullableKeyFeature,
+    nullableValueFeature,
     describePrefix
 )

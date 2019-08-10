@@ -27,26 +27,23 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     val nullMapEntry = creatorNullable(null, null)
     val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
 
-    //@formatter:off
     include(object : SubjectLessSpec<T>(describePrefix,
-        "val ${keyFeature.first}" to expectLambda { keyFeature.second(this).startsWith("a") },
-        "fun ${key.first}" to expectLambda { key.second(this) { endsWith("a") } },
-        "val ${valueFeature.first}" to expectLambda { valueFeature.second(this).isGreaterThan(1) } ,
-        "fun ${value.first}" to expectLambda { value.second(this) { isGreaterThan(2) } }
-    ){})
-    include(object : SubjectLessSpec<TNullable>("$describePrefix[nullable] ",
-        "val ${nullableKeyFeature.first}" to expectLambda { nullableKeyFeature.second(this).toBe(null) },
-        "val ${nullableValueFeature.first}" to expectLambda { nullableValueFeature.second(this).toBe(null) },
-        "fun ${nullableKeyFeature.first}" to expectLambda { nullableKeyFeature.second(this).toBe(null) },
-        "val ${nullableValueFeature.first}" to expectLambda { nullableValueFeature.second(this).notToBeNull { isGreaterThan(1) } }
-    ){})
+        keyFeature.forSubjectLess().adjustName { "$it feature" },
+        key.forSubjectLess { endsWith("a") },
+        valueFeature.forSubjectLess().adjustName { "$it feature" },
+        value.forSubjectLess { isGreaterThan(2) }
+    ) {})
+    include(object : SubjectLessSpec<TNullable>(
+        "$describePrefix[nullable] ",
+        nullableKeyFeature.forSubjectLess().adjustName { "$it feature" },
+        nullableValueFeature.forSubjectLess().adjustName { "$it feature" }
+    ) {})
 
     include(object : AssertionCreatorSpec<T>(
         verbs, describePrefix, mapEntry,
         key.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") },
         value.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
-    //@formatter:on
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)

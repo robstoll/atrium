@@ -26,6 +26,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         describePrefix,
         containsInAnyOrderNullableEntries.forSubjectLess(null, arrayOf())
     ) {})
+
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         verbs, describePrefix, listOf(1.2, 2.0),
         *containsInAnyOrderEntries.forAssertionCreatorSpec(

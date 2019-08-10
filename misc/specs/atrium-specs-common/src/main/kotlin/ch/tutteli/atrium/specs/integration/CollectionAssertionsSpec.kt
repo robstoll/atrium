@@ -47,7 +47,7 @@ abstract class CollectionAssertionsSpec(
 
     describeFun(isNotEmpty.name) {
         val isNotEmptyFun = isNotEmpty.lambda
-        
+
         it("does not throw if a collection is not empty") {
             verbs.check(listOf(1) as Collection<Int>).isNotEmptyFun()
         }

@@ -22,11 +22,13 @@ typealias Feature0<T, R> = Fun<Expect<T>.() -> Expect<R>>
 typealias Feature1<T, A1, R> = Fun<Expect<T>.(A1) -> Expect<R>>
 typealias Feature2<T, A1, A2, R> = Fun<Expect<T>.(A1, A2) -> Expect<R>>
 typealias Feature3<T, A1, A2, A3, R> = Fun<Expect<T>.(A1, A2, A3) -> Expect<R>>
+typealias Feature4<T, A1, A2, A3, A4, R> = Fun<Expect<T>.(A1, A2, A3, A4) -> Expect<R>>
 
 typealias Fun0<T> = Feature0<T, T>
 typealias Fun1<T, A1> = Feature1<T, A1, T>
 typealias Fun2<T, A1, A2> = Feature2<T, A1, A2, T>
 typealias Fun3<T, A1, A2, A3> = Feature3<T, A1, A2, A3, T>
+typealias Fun4<T, A1, A2, A3, A4> = Feature4<T, A1, A2, A3, A4, T>
 
 inline operator fun <T, R> Feature0<T, R>.invoke(expect: Expect<T>): Expect<R> = this.second(expect)
 inline operator fun <T, A1, R> Feature1<T, A1, R>.invoke(expect: Expect<T>, a1: A1): Expect<R> = this.second(expect, a1)
@@ -34,12 +36,13 @@ inline operator fun <T, A1, A2, R> Feature2<T, A1, A2, R>.invoke(expect: Expect<
     this.second(expect, a1, a2)
 
 inline operator fun <T, A1, A2, A3, R> Feature3<T, A1, A2, A3, R>.invoke(
-    expect: Expect<T>,
-    a1: A1,
-    a2: A2,
-    a3: A3
-): Expect<R> =
-    this.second(expect, a1, a2, a3)
+    expect: Expect<T>, a1: A1, a2: A2, a3: A3
+): Expect<R> = this.second(expect, a1, a2, a3)
+
+inline operator fun <T, A1, A2, A3, A4, R> Feature4<T, A1, A2, A3, A4, R>.invoke(
+    expect: Expect<T>, a1: A1, a2: A2, a3: A3, a4: A4
+): Expect<R> = this.second(expect, a1, a2, a3, a4)
+
 
 inline fun <T, R> Feature0<T, R>.forSubjectLess(): Pair<String, Expect<T>.() -> Unit> =
     this.name to expectLambda { this@forSubjectLess(this) }
@@ -53,6 +56,11 @@ inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLess(a1: A1, a2: A2):
 inline fun <T, A1, A2, A3, R> Feature3<T, A1, A2, A3, R>.forSubjectLess(
     a1: A1, a2: A2, a3: A3
 ): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLess(this, a1, a2, a3) }
+
+inline fun <T, A1, A2, A3, A4, R> Feature4<T, A1, A2, A3, A4, R>.forSubjectLess(
+    a1: A1, a2: A2, a3: A3, a4: A4
+): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLess(this, a1, a2, a3, a4) }
+
 
 inline fun <T, R> Fun1<T, Expect<R>.() -> Unit>.forAssertionCreatorSpec(
     containsNot: String,

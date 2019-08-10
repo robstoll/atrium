@@ -26,30 +26,29 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    //@formatter:off
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         containsInOrderOnlyEntries.forSubjectLess({ toBe(2.5) }, arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>("$describePrefix[nullable] ",
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        "$describePrefix[nullable] ",
         containsInOrderOnlyNullableEntries.forSubjectLess(null, arrayOf())
     ) {})
 
-     include(object : AssertionCreatorSpec<Iterable<Double>>(
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
         verbs, describePrefix, listOf(1.2, 2.0),
-         *containsInOrderOnlyEntries.forAssertionCreatorSpec(
-             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-             { toBe(1.2) }, arrayOf(subExpect{ toBe(2.0) })
-         )
+        *containsInOrderOnlyEntries.forAssertionCreatorSpec(
+            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+        )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         verbs, "$describePrefix[nullable] ", listOf(1.2, 2.0) as Iterable<Double?>,
         *containsInOrderOnlyNullableEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(subExpect{ toBe(2.0) })
+            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
         )
     ) {})
-    //@formatter:on
-
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -72,11 +71,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     val explanatoryPointWithIndent =
         "$indentFeatureArrow$indentFeatureBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
+    //@formatter:off
     val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
-    val anEntryAfterSuccess =
-        "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
-    val anEntryAfterFailing =
-        "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
+    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
+    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
+    //@formatter:on
 
     fun entry(index: Int) = String.format(entryWithIndex, index)
 

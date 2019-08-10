@@ -1,17 +1,17 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asExpect
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.Fun2
+import ch.tutteli.atrium.specs.SubjectLessSpec
+import ch.tutteli.atrium.specs.forSubjectLess
+import ch.tutteli.atrium.specs.include
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 
 abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInAnyOrderOnlyValuesPair: Pair<String, Expect<Iterable<Double>>.(Double, Array<out Double>) -> Expect<Iterable<Double>>>,
-    containsInAnyOrderOnlyNullableValuesPair: Pair<String, Expect<Iterable<Double?>>.(Double?, Array<out Double?>) -> Expect<Iterable<Double?>>>,
+    containsInAnyOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
+    containsInAnyOrderOnlyNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -20,25 +20,28 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsInAnyOrderOnlyValuesPair.first to expectLambda { containsInAnyOrderOnlyValuesPair.second(this, 2.5, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsInAnyOrderOnlyValues.forSubjectLess(2.5, arrayOf())
 
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${containsInAnyOrderOnlyNullableValuesPair.first} for nullable" to expectLambda { containsInAnyOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        containsInAnyOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf())
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (containsInOrderNullableValues, containsInOrderNullableValuesFunArr) = containsInAnyOrderOnlyNullableValuesPair
-    fun Expect<Iterable<Double?>>.containsInOrderNullableValuesFun(t: Double?, vararg tX: Double?)
-        = containsInOrderNullableValuesFunArr(t, tX)
+    val (containsInOrderNullableValues, containsInOrderNullableValuesFunArr) = containsInAnyOrderOnlyNullableValues
+    fun Expect<Iterable<Double?>>.containsInOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
+        containsInOrderNullableValuesFunArr(t, tX)
 
-    nonNullableCases(describePrefix,
-        containsInAnyOrderOnlyValuesPair,
-        containsInAnyOrderOnlyNullableValuesPair
-    ){ containsValuesFunArr ->
+    nonNullableCases(
+        describePrefix,
+        containsInAnyOrderOnlyValues,
+        containsInAnyOrderOnlyNullableValues
+    ) { containsValuesFunArr ->
 
         fun Expect<Iterable<Double>>.containsFun(t: Double, vararg tX: Double) =
             containsValuesFunArr(t, tX.toTypedArray())
@@ -55,7 +58,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             "$failingBulletPoint$anEntryWhichIs: 1.0"
                         )
                         containsNot(additionalEntries)
-                       containsSize(0, 1)
+                        containsSize(0, 1)
                     }
                 }
             }
@@ -70,7 +73,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             "$failingBulletPoint$anEntryWhichIs: 4.0"
                         )
                         containsNot(additionalEntries)
-                       containsSize(0, 2)
+                        containsSize(0, 2)
                     }
                 }
             }
@@ -111,7 +114,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 4)
+                                containsSize(5, 4)
                             }
                         }
                     }
@@ -130,7 +133,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 2)
+                                containsSize(5, 2)
                             }
                         }
                     }
@@ -151,7 +154,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 5)
+                                containsSize(5, 5)
                             }
                         }
                     }
@@ -172,7 +175,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                     "${listBulletPoint}2.0"
                                 )
                                 contains.exactly(2).value("${listBulletPoint}4.0")
-                               containsSize(5, 3)
+                                containsSize(5, 3)
                             }
                         }
                     }
@@ -192,7 +195,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                     "$failingBulletPoint$anEntryWhichIs: 5.0"
                                 )
                                 contains.exactly(2).value("$successfulBulletPoint$anEntryWhichIs: 4.0")
-                               containsSize(5, 6)
+                                containsSize(5, 6)
                                 containsNot(additionalEntries, mismatches, mismatchesAdditionalEntries)
                             }
                         }
@@ -239,7 +242,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}null"
                                 )
-                               containsSize(4, 3)
+                                containsSize(4, 3)
                             }
                         }
                     }

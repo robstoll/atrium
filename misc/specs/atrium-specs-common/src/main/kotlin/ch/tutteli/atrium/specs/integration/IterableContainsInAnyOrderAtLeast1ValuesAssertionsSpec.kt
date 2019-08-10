@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -10,30 +8,31 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInAnyOrderValuesPair: Fun2<Iterable<Double>, Double, Array<out Double>>,
-    containsInAnyOrderNullableValuesPair: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
+    containsInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
+    containsInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsInAnyOrderValuesPair.first to expectLambda { containsInAnyOrderValuesPair.second(this, 1.2, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsInAnyOrderValues.forSubjectLess(1.2, arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${containsInAnyOrderNullableValuesPair.first} for nullable" to expectLambda { containsInAnyOrderNullableValuesPair.second(this, null, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        containsInAnyOrderNullableValues.forSubjectLess(null, arrayOf())
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (containsInAnyOrderNullableValues, containsInAnyOrderNullableValuesFunArr) = containsInAnyOrderNullableValuesPair
-    fun Expect<Iterable<Double?>>.containsInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?)
-        = containsInAnyOrderNullableValuesFunArr(t, tX)
+    fun Expect<Iterable<Double?>>.containsInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
+        containsInAnyOrderNullableValues(this, t, tX)
 
     nonNullableCases(
         describePrefix,
-        containsInAnyOrderValuesPair,
-        containsInAnyOrderNullableValuesPair
+        containsInAnyOrderValues,
+        containsInAnyOrderNullableValues
     ) { containsValuesFunArr ->
         fun Expect<Iterable<Double>>.containsFun(t: Double, vararg tX: Double) =
             containsValuesFunArr(t, tX.toTypedArray())
@@ -118,9 +117,9 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         }
     }
 
-    nullableCases(describePrefix){
+    nullableCases(describePrefix) {
 
-        describeFun("$containsInAnyOrderNullableValues for nullable") {
+        describeFun("${containsInAnyOrderNullableValues.name} for nullable") {
 
             val list = listOf(null, 1.0, null, 3.0).asIterable()
             val fluent = verbs.check(list)
