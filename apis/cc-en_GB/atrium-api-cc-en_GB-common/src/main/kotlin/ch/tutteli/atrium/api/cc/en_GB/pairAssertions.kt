@@ -38,6 +38,7 @@ val <K> Assert<Pair<K, *>>.first get() : AssertionPlantNullable<K> = property(Pa
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit)
     = addAssertion(AssertImpl.pair.first(this, assertionCreator))
 
@@ -73,5 +74,6 @@ val <V> Assert<Pair<*, V>>.second get() : AssertionPlantNullable<V> = property(P
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Suppress("DEPRECATION")
 fun <K, V: Any> Assert<Pair<K, V>>.second(assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.pair.second(this, assertionCreator))
