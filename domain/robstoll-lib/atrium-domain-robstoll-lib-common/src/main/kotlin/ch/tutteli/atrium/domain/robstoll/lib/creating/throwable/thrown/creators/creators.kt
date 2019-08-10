@@ -39,7 +39,6 @@ private fun createReportingAssertionContainerForThrowable(
     )
 }
 
-
 private fun catchThrowableAndAdjust(throwableThrownBuilder: ThrowableThrown.Builder): Throwable? {
     return try {
         throwableThrownBuilder.act()
@@ -50,21 +49,6 @@ private fun catchThrowableAndAdjust(throwableThrownBuilder: ThrowableThrown.Buil
     }
 }
 
-fun <TExpected : Throwable> _toBe(
-    throwableThrownBuilder: ThrowableThrown.Builder,
-    expectedType: KClass<TExpected>,
-    assertionCreator: AssertionPlant<TExpected>.() -> Unit
-) {
-    val provider = _translatableBased(NO_EXCEPTION_OCCURRED)
-    @Suppress("DEPRECATION")
-    ThrowableThrownAssertionCreator<TExpected>(provider)
-        .executeActAndCreateAssertion(
-            throwableThrownBuilder,
-            DescriptionThrowableAssertion.IS_A,
-            expectedType,
-            assertionCreator
-        )
-}
 
 fun _notThrown(throwableThrownBuilder: ThrowableThrown.Builder): ChangedSubjectPostStep<Throwable?, Nothing?> {
     val assertionContainer = createReportingAssertionContainerForThrowable(throwableThrownBuilder)
@@ -77,11 +61,4 @@ fun _notThrown(throwableThrownBuilder: ThrowableThrown.Builder): ChangedSubjectP
         .withTransformation { it as Nothing? }
         .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 15))
         .build()
-}
-
-
-fun _nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder) {
-    val provider = _translatableBased(NO_EXCEPTION_OCCURRED)
-    @Suppress("DEPRECATION")
-    ThrowableThrownAssertionCreator<Throwable>(provider).executeActAssertNothingThrown(throwableThrownBuilder)
 }
