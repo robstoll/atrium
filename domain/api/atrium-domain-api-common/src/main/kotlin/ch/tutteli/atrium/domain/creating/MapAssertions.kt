@@ -41,6 +41,7 @@ interface MapAssertions {
 
     fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
 

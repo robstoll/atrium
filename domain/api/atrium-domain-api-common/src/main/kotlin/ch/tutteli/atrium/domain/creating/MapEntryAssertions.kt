@@ -33,6 +33,7 @@ interface MapEntryAssertions {
     fun <K, T : Map.Entry<K, *>> key(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, K>
     fun <V, T : Map.Entry<*, V>> value(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, V>
 
+
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K : Any, V : Any> isKeyValue(plant: AssertionPlant<Map.Entry<K, V>>, key: K, value: V): Assertion
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

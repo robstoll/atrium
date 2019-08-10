@@ -9,7 +9,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.verbs.internal.expect
 import org.spekframework.spek2.Spek
@@ -42,7 +41,7 @@ object TypeTransformationAssertionCreatorSpec : Spek({
 
 fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
     ExpectImpl.changeSubject.reportBuilder(this)
-        .withDescriptionAndRepresentation(Untranslatable("is a"), RawString.create(Left::class.java.simpleName))
+        .withDescriptionAndRepresentation("is a", RawString.create(Left::class.java.simpleName))
         .withCheck { it.isLeft() }
         .withTransformation { (it as Left).a }
         .build()
@@ -50,7 +49,7 @@ fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
 
 fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
     ExpectImpl.changeSubject.reportBuilder(this)
-        .withDescriptionAndRepresentation(Untranslatable("is a"), RawString.create(Right::class.java.simpleName))
+        .withDescriptionAndRepresentation("is a", RawString.create(Right::class.java.simpleName))
         .withCheck { it.isRight() }
         .withTransformation { (it as Right).b }
         .build()

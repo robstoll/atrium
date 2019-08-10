@@ -33,6 +33,8 @@ interface FeatureExtractorBuilder {
 
     /**
      * Option step which allows to specify the description which will be used to describe the feature.
+     *
+     * @param T the type of the current subject.
      */
     interface DescriptionOption<T> {
         /**
@@ -45,13 +47,13 @@ interface FeatureExtractorBuilder {
          * of a method call with the given [methodName] and the given [arguments].
          */
         fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureOption<T> =
-            feature(coreFactory.newMethodCallFormatter().format(methodName, arguments))
+            withDescription(coreFactory.newMethodCallFormatter().formatCall(methodName, arguments))
 
         /**
-         * Uses the given [featureRepresentation] as description.
+         * Uses the given [description], wraps it into an [Untranslatable] and uses it as description of the feature.
          */
-        fun feature(featureRepresentation: () -> String): RepresentationInCaseOfFailureOption<T> =
-            withDescription(Untranslatable(featureRepresentation))
+        fun withDescription(description: String): RepresentationInCaseOfFailureOption<T> =
+            withDescription(Untranslatable(description))
 
         /**
          * Uses the given [translatable] as description of the feature.
@@ -68,6 +70,8 @@ interface FeatureExtractorBuilder {
     /**
      * Option step which allows to to define the representation which shall be used in case
      * the extraction cannot be performed.
+     *
+     * @param T the type of the current subject.
      */
     interface RepresentationInCaseOfFailureOption<T> {
         /**
@@ -87,14 +91,17 @@ interface FeatureExtractorBuilder {
             withRepresentationForFailure(RawString.create(translatable))
 
         /**
-         * Uses the given [representationProvider] to get the representation
-         * which will be used in case the extraction cannot be performed.
+         * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
+         * to get the representation which will be used in case the extraction cannot be performed.
          */
         fun withRepresentationForFailure(representationProvider: () -> Any?): CheckOption<T> =
             withRepresentationForFailure(LazyRepresentation(representationProvider))
 
         /**
          * Uses the given [representation] in case the extraction cannot be performed.
+         *
+         * Notice, if you want to use text (e.g. a [String]), then wrap it into a [RawString] via [RawString.create]
+         * and pass the [RawString] instead.
          */
         fun withRepresentationForFailure(representation: Any): CheckOption<T>
 
@@ -110,6 +117,8 @@ interface FeatureExtractorBuilder {
     /**
      *  Option step which allows to specify checks which should be consulted to see whether the feature extraction is
      *  feasible or not.
+     *
+     * @param T the type of the current subject.
      */
     interface CheckOption<T> {
         /**
@@ -144,6 +153,8 @@ interface FeatureExtractorBuilder {
 
     /**
      * Option step to define the feature extraction as such.
+     *
+     * @param T the type of the current subject.
      */
     interface FeatureExtractionOption<T> {
         /**
@@ -172,7 +183,10 @@ interface FeatureExtractorBuilder {
 
 
     /**
-     *  Option step which allows to specify a custom representation instead of the feature as such.
+     * Option step which allows to specify a custom representation instead of the feature as such.
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the feature, aka the new subject.
      */
     interface RepresentationOption<T, R>{
         /**
@@ -215,6 +229,13 @@ interface FeatureExtractorBuilder {
         }
     }
 
+    /**
+     * Final step in the extract-feature-process, creates a [ExtractedFeaturePostStep]
+     * based on the previously specified options.
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the feature, aka the new subject.
+     */
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [CheckOption] step.

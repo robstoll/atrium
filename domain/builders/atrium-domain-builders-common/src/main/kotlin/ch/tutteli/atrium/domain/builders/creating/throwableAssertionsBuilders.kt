@@ -9,7 +9,6 @@ import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.throwableThrownAssertions
-import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory
 import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.absentThrowableMessageProviderFactory
 import ch.tutteli.atrium.domain.creating.throwableAssertions
 import ch.tutteli.atrium.reporting.Reporter
@@ -66,17 +65,21 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
     /**
      * Returns [AbsentThrowableMessageProviderFactoryBuilder]
-     * which inter alia delegates to the implementation of [AbsentThrowableMessageProviderFactory].
+     * which inter alia delegates to the implementation of [ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory].
      */
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Will be removed with 1.0.0")
     inline val providers get() = AbsentThrowableMessageProviderFactoryBuilder
 }
 
 /**
- * Delegates inter alia to the implementation of [AbsentThrowableMessageProviderFactory].
- * In detail, it implements [AbsentThrowableMessageProviderFactory] by delegating to [absentThrowableMessageProviderFactory]
+ * Delegates inter alia to the implementation of [ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory].
+ * In detail, it implements [ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory] by delegating to [absentThrowableMessageProviderFactory]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-object AbsentThrowableMessageProviderFactoryBuilder : AbsentThrowableMessageProviderFactory {
+@Suppress("DEPRECATION")
+@Deprecated("Will be removed with 1.0.0")
+object AbsentThrowableMessageProviderFactoryBuilder : ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory {
 
     override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider =
         absentThrowableMessageProviderFactory.translatableBased(translatable)

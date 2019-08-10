@@ -22,21 +22,25 @@ object PairAssertionsBuilder : PairAssertions {
     override inline fun <V, T : Pair<*, V>> second(assertionContainer: Expect<T>) =
         pairAssertions.second(assertionContainer)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <K : Any> first(
         plant: AssertionPlant<Pair<K, *>>,
         noinline assertionCreator: AssertionPlant<K>.() -> Unit
     ): Assertion = pairAssertions.first(plant, assertionCreator)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <V : Any> second(
         plant: AssertionPlant<Pair<*, V>>,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ): Assertion = pairAssertions.second(plant, assertionCreator)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <K> nullableFirst(
         plant: AssertionPlant<Pair<K, *>>,
         noinline assertionCreator: AssertionPlantNullable<K>.() -> Unit
     ): Assertion = pairAssertions.nullableFirst(plant, assertionCreator)
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
     override inline fun <V> nullableSecond(
         plant: AssertionPlant<Pair<*, V>>,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit

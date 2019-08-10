@@ -2,15 +2,14 @@ package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
-import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
-import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
 
 /**
  * Creates a [ReportingAssertionContainer] for the given [subject].
@@ -19,8 +18,8 @@ import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> assert(subject: T)
-    = ExpectImpl.coreFactory.newReportingAssertionContainer(EXPECT, Some(subject), reporter)
+fun <T> assert(subject: T) =
+    ExpectImpl.assertionVerbBuilder(subject).withVerb(ASSERT).withDefaultReporter().build()
 
 /**
  * Creates an [ReportingAssertionContainer] for the given [subject] and
@@ -32,8 +31,8 @@ fun <T> assert(subject: T)
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit)
-    = assert(subject).addAssertionsCreatedBy(assertionCreator)
+fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit) =
+    assert(subject).addAssertionsCreatedBy(assertionCreator)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which catches a potentially thrown [Throwable]
@@ -41,4 +40,4 @@ fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit)
  *
  * @return The newly created [ThrowableThrown.Builder].
  */
-fun assert(act: () -> Unit) = ExpectImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+fun assert(act: () -> Unit) = ExpectImpl.throwable.thrownBuilder(ASSERT_THROWN, act, reporter)

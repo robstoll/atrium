@@ -12,11 +12,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("use ExpectImpl.builder.descriptive.withFailureHint instead; will be removed with 1.0.0")
+@Suppress("DEPRECATION")
 val assertionComposer by lazy { loadSingleService(AssertionComposer::class) }
 
 /**
  * Responsible to compose [Assertion]s based on the [AssertionBuilder].
  */
+@Deprecated("use ExpectImpl.builder.descriptive.withFailureHint instead; will be removed with 1.0.0")
 interface AssertionComposer {
     /**
      * Shall create kind of a [DescriptiveAssertion] if [test] holds or an [AssertionGroup] which includes additionally

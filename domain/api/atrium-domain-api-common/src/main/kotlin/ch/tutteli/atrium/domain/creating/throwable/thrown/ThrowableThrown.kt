@@ -34,6 +34,7 @@ interface ThrowableThrown {
     /**
      * Provides a message which can be used in reporting to represent the case that no [Throwable] at all was thrown.
      */
+    @Deprecated("Will be removed with 1.0.0")
     interface AbsentThrowableMessageProvider {
         /**
          * The message can be used in reporting to represent the case that no [Throwable] was thrown at all.
@@ -47,6 +48,7 @@ interface ThrowableThrown {
      *
      * @param TExpected The type of the [Throwable] which is expected to be thrown.
      */
+    @Deprecated("Will be removed with 1.0.0")
     interface Creator<TExpected : Throwable> {
 
         /**

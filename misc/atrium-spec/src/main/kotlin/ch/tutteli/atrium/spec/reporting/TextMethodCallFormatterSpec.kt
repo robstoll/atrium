@@ -21,11 +21,11 @@ abstract class TextMethodCallFormatterSpec(
 
     val testee = testeeFactory()
 
-    describeFun(testee::format.name) {
+    describeFun(testee::formatCall.name) {
 
         context("a method call without arguments") {
             it("returns the name of the method with parentheses") {
-                val result = testee.format("withoutArg", arrayOf())()
+                val result = testee. formatCall("withoutArg", arrayOf())
                 verbs.checkImmediately(result).toBe("withoutArg()")
             }
         }
@@ -34,28 +34,28 @@ abstract class TextMethodCallFormatterSpec(
 
             context("one argument of type Int") {
                 it("returns the name of the method with its argument in parentheses") {
-                    val result = testee.format("withArg1", arrayOf(1))()
+                    val result = testee. formatCall("withArg1", arrayOf(1))
                     verbs.checkImmediately(result).toBe("withArg1(1)")
                 }
             }
 
             context("two arguments of type Int and Float") {
                 it("returns the name of the method, followed by the first and second argument in parentheses and separated by a comma") {
-                    val result = testee.format("withArg2", arrayOf(1, 1.2))()
+                    val result = testee. formatCall("withArg2", arrayOf(1, 1.2))
                     verbs.checkImmediately(result).toBe("withArg2(1, 1.2)")
                 }
             }
 
             context("an argument of type Char") {
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
-                    val result = testee.format("withArg1", arrayOf('a'))()
+                    val result = testee. formatCall("withArg1", arrayOf('a'))
                     verbs.checkImmediately(result).toBe("withArg1('a')")
                 }
             }
 
             context("`null`") {
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
-                    val result = testee.format("withArg1", arrayOf<Int?>(null))()
+                    val result = testee. formatCall("withArg1", arrayOf<Int?>(null))
                     verbs.checkImmediately(result).toBe("withArg1(null)")
                 }
             }
@@ -64,7 +64,7 @@ abstract class TextMethodCallFormatterSpec(
 
                 context("without line breaks") {
                     it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in quotes") {
-                        val result = testee.format("withArg1", arrayOf("a"))()
+                        val result = testee. formatCall("withArg1", arrayOf("a"))
                         verbs.checkImmediately(result).toBe("withArg1(\"a\")")
                     }
                 }
@@ -76,14 +76,14 @@ abstract class TextMethodCallFormatterSpec(
 
                     context("with $escapedChar as line break") {
                         it("returns the argument on one line and $escapedChar is escaped with $doubleEscapedChar") {
-                            val result = testee.format("withArg1", arrayOf("a${char}b"))()
+                            val result = testee. formatCall("withArg1", arrayOf("a${char}b"))
                             verbs.checkImmediately(result).toBe("withArg1(\"a${escapedChar}b\")")
                         }
                     }
 
                     context("with multiple $escapedChar as line break") {
                         it("returns the argument on one line and $escapedChar is escaped with $doubleEscapedChar") {
-                            val result = testee.format("withArg1", arrayOf("a${char}b${char}c${char}d"))()
+                            val result = testee. formatCall("withArg1", arrayOf("a${char}b${char}c${char}d"))
                             verbs.checkImmediately(result).toBe("withArg1(\"a${escapedChar}b${escapedChar}c${escapedChar}d\")")
                         }
                     }

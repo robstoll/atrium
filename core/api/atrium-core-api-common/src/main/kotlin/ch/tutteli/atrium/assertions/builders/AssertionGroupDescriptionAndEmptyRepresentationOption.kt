@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.impl.AssertionGroupDescriptionAndEmptyRepresentationOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.RawString
 
 /**
@@ -16,6 +17,12 @@ interface AssertionGroupDescriptionAndEmptyRepresentationOption<out T: Assertion
      */
     val groupType: T
 
+
+    /**
+     * Wraps the given [description] into an [Untranslatable] and uses it as [AssertionGroup.description] and
+     * uses [RawString.EMPTY] as [AssertionGroup.representation].
+     */
+    fun withDescription(description: String): R = withDescription(Untranslatable(description))
 
     /**
      * Uses the given [description] as [AssertionGroup.description] and

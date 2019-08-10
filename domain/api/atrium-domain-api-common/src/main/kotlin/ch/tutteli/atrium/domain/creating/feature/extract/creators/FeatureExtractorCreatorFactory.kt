@@ -12,6 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Switch from `Assert` to `Expect` and use ch.tutteli.atrium.domain.creating.changers.featureExtractor instead; will be removed with 1.0.0")
 val featureExtractorCreatorFactory by lazy { loadSingleService(FeatureExtractorCreatorFactory::class) }
 
 /**

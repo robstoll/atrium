@@ -13,7 +13,9 @@ import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import kotlin.reflect.KClass
 
@@ -56,6 +58,8 @@ object SubjectChangerBuilder {
 
     /**
      * Option step which allows to specify the description and representation of the change.
+     *
+     * @param T the type of the current subject.
      */
     interface DescriptionOption<T> {
         /**
@@ -75,11 +79,22 @@ object SubjectChangerBuilder {
                 .withTransformation { subType.cast(it) }
 
         /**
+         * Uses the given [description] and [representation] to represent the change by delegating to the other overload
+         * which expects a [Translatable] instead of a [String].
+         *
+         * See the other overload for further information.
+         */
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckOption<T> =
+            withDescriptionAndRepresentation(Untranslatable(description), representation)
+
+        /**
          * Uses the given [description] and [representation] to represent the change.
-         * Unless [representation] is null in which case a representation for null is used.
          * Moreover, subsequent options in the building step allow to define rules when the change cannot be applied, in
          * such a case an alternative description and representation might be used (depending on the implementation and
          * chosen options).
+         *
+         * Notice, if you want to use text (e.g. a [String]) as [representation],
+         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
         fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): CheckOption<T>
 
@@ -91,8 +106,10 @@ object SubjectChangerBuilder {
     }
 
     /**
-     *  Option step which allows to specify checks which should be consulted to see whether the subject change is
-     *  feasible or not.
+     * Option step which allows to specify checks which should be consulted to see whether the subject change is
+     * feasible or not.
+     *
+     * @param T the type of the current subject.
      */
     interface CheckOption<T> {
         /**
@@ -126,6 +143,8 @@ object SubjectChangerBuilder {
 
     /**
      * Option step to define the transformation which yields the new subject.
+     *
+     * @param T the type of the current subject.
      */
     interface TransformationOption<T> {
         /**
@@ -154,6 +173,9 @@ object SubjectChangerBuilder {
 
     /**
      * Option step which allows to specify a custom [SubjectChanger.FailureHandler].
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the new subject.
      */
     interface FailureHandlerOption<T, R> {
         /**
@@ -200,6 +222,13 @@ object SubjectChangerBuilder {
         }
     }
 
+    /**
+     * Final step in the change-subject-process, creates a [ChangedSubjectPostStep]
+     * ased on the previously specified options.
+     *
+     * @param T the type of the current subject.
+     * @param R the type of the new subject.
+     */
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [CheckOption] step.

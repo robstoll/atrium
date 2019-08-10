@@ -51,22 +51,22 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
         extractFeature(assertionContainer, property.name, property::get)
 
     fun <T, R> f0(assertionContainer: Expect<T>, f: KFunction1<T, R>): ExtractedFeaturePostStep<T, R> =
-        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf())(), f::invoke)
+        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf()), f::invoke)
 
     fun <T, A1, R> f1(assertionContainer: Expect<T>, f: KFunction2<T, A1, R>, a1: A1): ExtractedFeaturePostStep<T, R> =
-        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf<Any?>(a1))()) { f(it, a1) }
+        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf<Any?>(a1))) { f(it, a1) }
 
     fun <T, A1, A2, R> f2(assertionContainer: Expect<T>, f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): ExtractedFeaturePostStep<T, R> =
-        extractFeature(assertionContainer ,coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2))()) { f(it, a1, a2) }
+        extractFeature(assertionContainer ,coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2))) { f(it, a1, a2) }
 
     fun <T, A1, A2, A3, R> f3(assertionContainer: Expect<T>, f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): ExtractedFeaturePostStep<T, R> =
-        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3))()) { f(it, a1, a2, a3) }
+        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3))) { f(it, a1, a2, a3) }
 
     fun <T, A1, A2, A3, A4, R> f4(assertionContainer: Expect<T>, f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): ExtractedFeaturePostStep<T, R> =
-        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3, a4))()) { f(it, a1, a2, a3, a4) }
+        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3, a4))) { f(it, a1, a2, a3, a4) }
 
     fun <T, A1, A2, A3, A4, A5, R> f5(assertionContainer: Expect<T>, f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): ExtractedFeaturePostStep<T, R> =
-        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3, a4, a5))()) { f(it, a1, a2, a3, a4, a5) }
+        extractFeature(assertionContainer, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3, a4, a5))) { f(it, a1, a2, a3, a4, a5) }
     //@formatter:on
 
     fun <T, R> manualFeature(
@@ -208,21 +208,21 @@ object MetaFeatureBuilder {
 
     //@formatter:off
     fun <R> f0(assertionContainer: Expect<*>, f: KFunction0<R>) =
-        MetaFeature(coreFactory.newMethodCallFormatter().format(f.name, arrayOf())(), f.invoke())
+        MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf()), f.invoke())
 
     fun <A1, R> f1(assertionContainer: Expect<*>, f: KFunction1<A1, R>, a1: A1) =
-        MetaFeature(coreFactory.newMethodCallFormatter().format(f.name, arrayOf<Any?>(a1)).invoke(), f.invoke(a1))
+        MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf<Any?>(a1)), f.invoke(a1))
 
     fun <A1, A2, R> f2(assertionContainer: Expect<*>, f: KFunction2<A1, A2, R>, a1: A1, a2: A2) =
-        MetaFeature(coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2)).invoke(), f.invoke(a1, a2))
+        MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2)), f.invoke(a1, a2))
 
     fun <A1, A2, A3, R> f3(assertionContainer: Expect<*>, f: KFunction3<A1, A2, A3, R>, a1: A1, a2: A2, a3: A3) =
-        MetaFeature(coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3)).invoke(), f.invoke(a1, a2, a3))
+        MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3)), f.invoke(a1, a2, a3))
 
     fun <A1, A2, A3, A4, R> f4(assertionContainer: Expect<*>, f: KFunction4<A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4) =
-        MetaFeature(coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3, a4)).invoke(), f.invoke(a1, a2, a3, a4))
+        MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3, a4)), f.invoke(a1, a2, a3, a4))
 
     fun <A1, A2, A3, A4, A5, R> f5(assertionContainer: Expect<*>, f: KFunction5<A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) =
-        MetaFeature(coreFactory.newMethodCallFormatter().format(f.name, arrayOf(a1, a2, a3, a4, a5)).invoke(), f.invoke(a1, a2, a3, a4, a5))
+        MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3, a4, a5)), f.invoke(a1, a2, a3, a4, a5))
     //@formatter:on
 }

@@ -112,7 +112,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             })
         }
         return AssertImpl.builder.feature
-            .withDescriptionAndRepresentation(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()))
+            .withDescriptionAndRepresentation(additionalEntries::size.name, RawString.create(actualSize.toString()))
             .withAssertions(featureAssertions)
             .build()
     }

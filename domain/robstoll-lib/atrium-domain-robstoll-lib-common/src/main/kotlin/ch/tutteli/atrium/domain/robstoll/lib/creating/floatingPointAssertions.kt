@@ -31,7 +31,7 @@ private fun <T> toBeWithErrorToleranceOfFloatOrDouble(
     return toBeWithErrorTolerance(subjectProvider, expected, tolerance, absDiff) { subject ->
         listOf(
             ExpectImpl.builder.explanatory
-                .withDescription(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, subject::class.fullName)
+                .withExplanation(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, subject::class.fullName)
                 .build(),
             createToBeWithErrorToleranceExplained(subject, expected, absDiff, tolerance)
         )
@@ -45,7 +45,7 @@ internal fun <T> createToBeWithErrorToleranceExplained(
     absDiff: (T) -> T,
     tolerance: T
 ): ExplanatoryAssertion where T : Comparable<T>, T : Number = ExpectImpl.builder.explanatory
-    .withDescription(
+    .withExplanation(
         TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED,
         formatFloatingPointNumber(subject),
         formatFloatingPointNumber(expected),

@@ -8,6 +8,7 @@ import ch.tutteli.atrium.assertions.builders.impl.descriptive.HoldsOptionImpl
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Defines the contract to build a [DescriptiveAssertion].
@@ -61,9 +62,23 @@ interface Descriptive {
         val test: () -> Boolean
 
         /**
+         * Wraps the given [description] into an [Untranslatable] and uses it as [DescriptiveAssertion.description]
+         * next to [representation] which is used as [DescriptiveAssertion.representation] unless
+         * [representation] is null in which case a representation for null is used (e.g. [RawString.NULL]).
+         *
+         * Notice, if you want to use text (e.g. a [String]) as representation,
+         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         */
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): R
+            = withDescriptionAndRepresentation(Untranslatable(description), representation)
+
+        /**
          * Uses the given [description] as [DescriptiveAssertion.description] and [representation]
          * as [DescriptiveAssertion.representation] unless [representation] is null in which case a representation for
          * null is used (e.g. [RawString.NULL]).
+         *
+         * Notice, if you want to use text (e.g. a [String]) as representation,
+         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
         fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R
 

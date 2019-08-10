@@ -13,7 +13,19 @@ interface MethodCallFormatter {
      *
      * @return An lambda containing the logic to build the representation.
      */
+    @Deprecated("use the overload which returns a string right away, wrap it into a lamba on your own if you need this functionality")
     fun format(methodName: String, arguments: Array<out Any?>): () -> String
+
+    /**
+     * Returns a representation of a method call to a method named [methodName] with the given [arguments].
+     *
+     * @param methodName The name of the method for which a call with the given [arguments] should be formatted.
+     * @param arguments The arguments of the method call.
+     *
+     * @return An lambda containing the logic to build the representation.
+     */
+    fun formatCall(methodName: String, arguments: Array<out Any?>): String
+
 
     /**
      * Formats the given [argument].

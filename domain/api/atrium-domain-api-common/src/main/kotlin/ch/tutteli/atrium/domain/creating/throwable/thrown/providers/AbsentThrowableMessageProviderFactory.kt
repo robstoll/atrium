@@ -9,6 +9,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Suppress("DEPRECATION")
+@Deprecated("Will be removed with 1.0.0")
 val absentThrowableMessageProviderFactory by lazy { loadSingleService(AbsentThrowableMessageProviderFactory::class) }
 
 
@@ -16,7 +18,9 @@ val absentThrowableMessageProviderFactory by lazy { loadSingleService(AbsentThro
  * Defines the minimum set of [ThrowableThrown.AbsentThrowableMessageProvider]s,
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated("Will be removed with 1.0.0")
 interface AbsentThrowableMessageProviderFactory {
 
+    @Suppress("DEPRECATION")
     fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
 }

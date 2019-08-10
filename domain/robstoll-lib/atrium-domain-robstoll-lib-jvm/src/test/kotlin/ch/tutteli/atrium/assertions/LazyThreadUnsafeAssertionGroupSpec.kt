@@ -2,10 +2,9 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.verbs.internal.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -17,13 +16,13 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
         var callingCount = 0
         val assertion = AssertImpl.builder.descriptive
             .failing
-            .withDescriptionAndRepresentation(Untranslatable("b"), 3)
+            .withDescriptionAndRepresentation("b", 3)
             .build()
 
         val testee = LazyThreadUnsafeAssertionGroup {
             ++callingCount
             AssertImpl.builder.feature
-                .withDescriptionAndRepresentation(Untranslatable("a"), 2)
+                .withDescriptionAndRepresentation("a", 2)
                 .withAssertion(assertion)
                 .build()
         }
