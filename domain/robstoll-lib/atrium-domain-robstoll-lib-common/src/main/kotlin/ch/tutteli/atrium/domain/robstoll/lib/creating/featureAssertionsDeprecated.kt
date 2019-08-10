@@ -139,7 +139,7 @@ private fun <T : Any, R : Any?> AssertionPlant<T>.createPlantForMethodNullable(n
 
 private fun <T : Any, R : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(name: String, representationProvider: () -> Any?, subjectProvider: () -> R, arguments: Array<out Any?>)
     = AssertionPlantWithCommonFields.CommonFields(
-        Untranslatable(coreFactory.newMethodCallFormatter().format(name, arguments)),
+        Untranslatable(coreFactory.newMethodCallFormatter().formatCall(name, arguments)),
         subjectProvider,
         representationProvider,
         coreFactory.newFeatureAssertionChecker(this),

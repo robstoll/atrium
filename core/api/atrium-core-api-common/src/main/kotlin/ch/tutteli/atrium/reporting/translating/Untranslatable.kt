@@ -5,22 +5,18 @@ package ch.tutteli.atrium.reporting.translating
  *
  * Use this class to represent identifiers (method/property names etc.) and the like.
  *
- * @constructor Use this overload if the creation of the representation is expensive.
- *   If it is cheap, then you might want to use the other overload with [CharSequence] as parameter type.
- * @param representation A lambda which will create the representation of this [Translatable].
+ * @param representation A representation which is not intended to be translated.
  */
-class Untranslatable(representation: () -> String) : Translatable {
+class Untranslatable(representation: String) : Translatable {
 
-    /**
-     * Use this overload if the creation of the representation is cheap -- use the other overload with the
-     * lambda instead, if the creation of the representation is expensive.
-     *
-     * @param representation The representation of this [Translatable].
-     */
+    @Suppress("DEPRECATION")
+    @Deprecated("use the overload which expects String; will be removed with 1.0.0")
     constructor(representation: CharSequence) : this({ representation.toString() })
 
-    //TODO should this be a lazy val? currently we calculate it immediately
-    override val name: String = representation()
+    @Deprecated("use the overload which expects String; will be removed with 1.0.0")
+    constructor(representation: () -> String) : this(representation())
+
+    override val name: String = representation
     override fun getDefault() = name
 
     companion object {

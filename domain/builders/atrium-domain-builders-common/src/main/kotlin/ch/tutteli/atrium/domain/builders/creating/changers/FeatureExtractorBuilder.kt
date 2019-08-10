@@ -45,13 +45,13 @@ interface FeatureExtractorBuilder {
          * of a method call with the given [methodName] and the given [arguments].
          */
         fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureOption<T> =
-            feature(coreFactory.newMethodCallFormatter().format(methodName, arguments))
+            withDescription(coreFactory.newMethodCallFormatter().formatCall(methodName, arguments))
 
         /**
-         * Uses the given [featureRepresentation] as description.
+         * Uses the given [description], wraps it into an [Untranslatable] and uses it as description of the feature.
          */
-        fun feature(featureRepresentation: () -> String): RepresentationInCaseOfFailureOption<T> =
-            withDescription(Untranslatable(featureRepresentation))
+        fun withDescription(description: String): RepresentationInCaseOfFailureOption<T> =
+            withDescription(Untranslatable(description))
 
         /**
          * Uses the given [translatable] as description of the feature.

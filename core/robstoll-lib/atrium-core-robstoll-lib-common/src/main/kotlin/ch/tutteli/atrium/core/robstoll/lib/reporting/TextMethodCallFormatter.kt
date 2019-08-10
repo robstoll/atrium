@@ -12,11 +12,11 @@ import ch.tutteli.atrium.reporting.RawString
  * - [Char] is wrapped in apostrophes (`'`)
  */
 object TextMethodCallFormatter : MethodCallFormatter {
+    override fun formatCall(methodName: String, arguments: Array<out Any?>): String =
+        arguments.joinToString(", ", prefix = "$methodName(", postfix = ")") { formatArgument(it) }
 
     override fun format(methodName: String, arguments: Array<out Any?>): () -> String = {
-        arguments.joinToString(", ", prefix = "$methodName(", postfix = ")") {
-            formatArgument(it)
-        }
+        formatCall(methodName, arguments)
     }
 
     override fun formatArgument(argument: Any?): String = when (argument) {
