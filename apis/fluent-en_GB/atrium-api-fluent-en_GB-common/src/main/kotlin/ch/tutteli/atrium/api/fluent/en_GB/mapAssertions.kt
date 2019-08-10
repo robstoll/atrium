@@ -95,7 +95,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K, V: Any, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit) =
     ExpectImpl.map.getExisting(this, key).addToInitial(assertionCreator)
@@ -114,7 +113,6 @@ val <K, T : Map<out K, *>> Expect<T>.keys get() : Expect<Set<K>> = keys(this).ge
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     keys(this).addToInitial(assertionCreator)
@@ -135,7 +133,6 @@ val <V, T : Map<*, V>> Expect<T>.values get() : Expect<Collection<V>> = values()
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     values().addToInitial(assertionCreator)

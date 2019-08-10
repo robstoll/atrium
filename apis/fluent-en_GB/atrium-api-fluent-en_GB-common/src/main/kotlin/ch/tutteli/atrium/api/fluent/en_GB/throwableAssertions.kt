@@ -79,7 +79,6 @@ val <T : Throwable> Expect<T>.message get(): Expect<String> =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     feature(Throwable::message) { notToBeNull(assertionCreator) }

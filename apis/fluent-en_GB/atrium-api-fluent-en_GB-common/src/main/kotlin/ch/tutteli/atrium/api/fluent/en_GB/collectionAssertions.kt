@@ -43,7 +43,6 @@ val <T : Collection<*>> Expect<T>.size get(): Expect<Int> = ExpectImpl.collectio
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.collection.size(this).addToInitial(assertionCreator)

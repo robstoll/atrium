@@ -53,7 +53,6 @@ val <K, T: Map.Entry<K, *>> Expect<T>.key get() : Expect<K> =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K : Any, V, T: Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     ExpectImpl.map.entry.key(this).addToInitial(assertionCreator)
@@ -73,7 +72,6 @@ val <V, T: Map.Entry<*, V>> Expect<T>.value get() : Expect<V> =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K, V : Any, T: Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     ExpectImpl.map.entry.value(this).addToInitial(assertionCreator)

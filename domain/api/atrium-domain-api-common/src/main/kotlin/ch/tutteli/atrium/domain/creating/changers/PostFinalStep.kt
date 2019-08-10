@@ -35,7 +35,6 @@ abstract class PostFinalStep<T, R>(
      *
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
-     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
      */
     fun collect(assertionCreator: Expect<R>.() -> Unit): Assertion = assertionCollector.collect(assertionContainer) {
         actionAndApply(this, assertionCreator)
@@ -47,7 +46,6 @@ abstract class PostFinalStep<T, R>(
      * and returns the new [Expect].
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
-     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
      */
     fun addToFeature(assertionCreator: Expect<R>.() -> Unit): Expect<R> {
         return actionAndApply(assertionContainer) {
@@ -62,7 +60,6 @@ abstract class PostFinalStep<T, R>(
      *
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
-     * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
      */
     fun addToInitial(assertionCreator: Expect<R>.() -> Unit): Expect<T> {
         // collect also checks that the user specified at least one assertion in the assertionCreator lambda
