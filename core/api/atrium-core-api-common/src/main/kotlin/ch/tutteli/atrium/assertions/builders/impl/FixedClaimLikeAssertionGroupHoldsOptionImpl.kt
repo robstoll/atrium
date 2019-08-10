@@ -1,10 +1,10 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders.impl
+package ch.tutteli.atrium.assertions.builders.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndRepresentationOption
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
-import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimLikeGroup
+import ch.tutteli.atrium.assertions.builders.FixedClaimLikeGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal abstract class FixedClaimLikeAssertionGroupHoldsOptionImpl<T : AssertionGroupType, R>(

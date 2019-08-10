@@ -3,24 +3,17 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.value
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInAnyOrderOnlyEntriesPair: Pair<String, Expect<Iterable<Double>>.(Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>) -> Expect<Iterable<Double>>>,
-    containsInAnyOrderOnlyNullableEntriesPair: Pair<String, Expect<Iterable<Double?>>.((Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>) -> Expect<Iterable<Double?>>>,
+    containsInAnyOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
+    containsInAnyOrderOnlyNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -30,34 +23,56 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsInAnyOrderOnlyEntriesPair.first to expectLambda { containsInAnyOrderOnlyEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsInAnyOrderOnlyEntries.forSubjectLess({ toBe(2.5) }, arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${containsInAnyOrderOnlyNullableEntriesPair.first} for nullable" to expectLambda { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        containsInAnyOrderOnlyNullableEntries.forSubjectLess(null, arrayOf())
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, listOf(1.2, 2.0),
+        *containsInAnyOrderOnlyEntries.forAssertionCreatorSpec(
+            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+        )
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable] ", listOf(1.2, 2.0),
+        *containsInAnyOrderOnlyNullableEntries.forAssertionCreatorSpec(
+            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+        )
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (containsInAnyOrderOnlyNullableEntries, containsInAnyOrderOnlyNullableEntriesArr) = containsInAnyOrderOnlyNullableEntriesPair
-    fun Expect<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(t: (Expect<Double>.() -> Unit)?, vararg tX: (Expect<Double>.() -> Unit)?)
-        = containsInAnyOrderOnlyNullableEntriesArr(t, tX)
+    fun Expect<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(
+        t: (Expect<Double>.() -> Unit)?,
+        vararg tX: (Expect<Double>.() -> Unit)?
+    ) = containsInAnyOrderOnlyNullableEntries(this, t, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
+    //@formatter:off
     val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    //@formatter:on
 
-    nonNullableCases(describePrefix,
-        containsInAnyOrderOnlyEntriesPair,
-        containsInAnyOrderOnlyNullableEntriesPair
+    nonNullableCases(
+        describePrefix,
+        containsInAnyOrderOnlyEntries,
+        containsInAnyOrderOnlyNullableEntries
     ) { containsEntriesFunArr ->
-        fun Expect<Iterable<Double>>.containsEntriesFun(t: Expect<Double>.() -> Unit, vararg tX: Expect<Double>.() -> Unit)
-            = containsEntriesFunArr(t, tX)
+        fun Expect<Iterable<Double>>.containsEntriesFun(
+            t: Expect<Double>.() -> Unit,
+            vararg tX: Expect<Double>.() -> Unit
+        ) = containsEntriesFunArr(t, tX)
 
         context("empty collection") {
             val fluentEmpty = assert(setOf())
@@ -71,7 +86,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0"
                         )
                         containsNot(additionalEntries)
-                       containsSize(0, 1)
+                        containsSize(0, 1)
                     }
                 }
             }
@@ -86,7 +101,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0"
                         )
                         containsNot(additionalEntries)
-                       containsSize(0, 2)
+                        containsSize(0, 2)
                     }
                 }
             }
@@ -170,7 +185,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 4)
+                                containsSize(5, 4)
                             }
                         }
                     }
@@ -189,7 +204,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 2)
+                                containsSize(5, 2)
                             }
                         }
                     }
@@ -216,7 +231,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 5)
+                                containsSize(5, 5)
                             }
                         }
                     }
@@ -241,7 +256,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                               containsSize(5, 3)
+                                containsSize(5, 3)
                             }
                         }
                     }
@@ -268,7 +283,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                 )
                                 contains.exactly(2)
                                     .value("$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0")
-                               containsSize(5, 6)
+                                containsSize(5, 6)
                                 containsNot(additionalEntries, mismatches, mismatchesAdditionalEntries)
                             }
                         }
@@ -276,19 +291,11 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                 }
             }
         }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalStateException::class.simpleName}") {
-                expect {
-                    fluent.containsEntriesFun({})
-                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
-            }
-        }
     }
 
     nullableCases(describePrefix) {
 
-        describeFun("$containsInAnyOrderOnlyNullableEntries for nullable") {
+        describeFun("${containsInAnyOrderOnlyNullableEntries.name} for nullable") {
             val list = listOf(null, 1.0, null, 3.0).asIterable()
             val fluent = verbs.check(list)
 
@@ -322,7 +329,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$additionalEntries:",
                                     "${listBulletPoint}null"
                                 )
-                               containsSize(4, 3)
+                                containsSize(4, 3)
                             }
                         }
                     }
@@ -347,18 +354,10 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}3.0"
                                 )
-                               containsSize(4, 4)
+                                containsSize(4, 4)
                             }
                         }
                     }
-                }
-            }
-
-            context("search for entry where the lambda does not specify any assertion") {
-                it("throws an ${IllegalStateException::class.simpleName}") {
-                    expect {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun({})
-                    }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
                 }
             }
         }

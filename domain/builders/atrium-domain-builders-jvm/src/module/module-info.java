@@ -5,7 +5,6 @@ module ch.tutteli.atrium.domain.builders {
     requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.domain.builders;
-    exports ch.tutteli.atrium.domain.builders.assertions.builders;
     exports ch.tutteli.atrium.domain.builders.creating;
     exports ch.tutteli.atrium.domain.builders.creating.basic.contains;
     exports ch.tutteli.atrium.domain.builders.creating.changers;

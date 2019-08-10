@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion

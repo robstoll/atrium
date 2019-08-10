@@ -19,6 +19,11 @@ abstract class CollectionFeatureAssertionsSpec(
         size.forSubjectLess { isGreaterThan(2) }
     ) {})
 
+    include(object : AssertionCreatorSpec<Collection<String>>(
+        verbs, describePrefix, listOf("hello"),
+        size.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
+    ) {})
+
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
@@ -55,11 +60,6 @@ abstract class CollectionFeatureAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains("size: 2")
                 }
-            }
-            it("throws if no assertion is made") {
-                expect {
-                    fluent.sizeFun { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }
     }

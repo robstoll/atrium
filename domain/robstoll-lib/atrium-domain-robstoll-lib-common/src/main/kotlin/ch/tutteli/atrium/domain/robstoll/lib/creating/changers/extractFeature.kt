@@ -1,13 +1,10 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
@@ -19,7 +16,7 @@ fun <T, R> _extractFeature(
     representationForFailure: Any,
     canBeExtracted: (T) -> Boolean,
     featureExtraction: (T) -> R,
-    subAssertions: (Expect<R>.() -> Unit)?,
+    maybeSubAssertions: Option<Expect<R>.() -> Unit>,
     representationInsteadOfFeature: Any?
 ): Expect<R> {
     return originalAssertionContainer.maybeSubject
@@ -35,19 +32,19 @@ fun <T, R> _extractFeature(
                 )
             )
             assertionContainer.addAssertion(
-                if (subAssertions != null) {
+                maybeSubAssertions.fold({
+                    ExpectImpl.builder.createDescriptive(description, representationForFailure, falseProvider)
+                }) { assertionCreator ->
                     ExpectImpl.builder.fixedClaimGroup
                         .withFeatureType
                         .failing
                         .withDescriptionAndRepresentation(description, representationForFailure)
                         .withAssertion(
                             ExpectImpl.builder.explanatoryGroup.withDefaultType
-                                .collectAssertions(assertionContainer, subAssertions)
+                                .collectAssertions(assertionContainer, assertionCreator)
                                 .build()
                         )
                         .build()
-                } else {
-                    ExpectImpl.builder.createDescriptive(description, representationForFailure, falseProvider)
                 }
             )
             assertionContainer
@@ -62,7 +59,9 @@ fun <T, R> _extractFeature(
                     RawString.NULL
                 )
             )
-            if (subAssertions != null) assertionContainer.subAssertions()
+            maybeSubAssertions.fold({ /* nothing to do */ }) { assertionCreator ->
+                assertionContainer.addAssertionsCreatedBy(assertionCreator)
+            }
             assertionContainer
         }
 }

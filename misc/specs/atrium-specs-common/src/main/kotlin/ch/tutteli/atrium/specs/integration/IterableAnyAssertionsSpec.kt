@@ -7,32 +7,42 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableAnyAssertionsSpec(
     verbs: AssertionVerbFactory,
-    anyPair: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
-    anyNullablePair: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
+    any: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
+    anyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterablePredicateSpecBase(verbs, {
 
+    val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
+
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        anyPair.first to expectLambda { anyPair.second(this) { toBe(2.5) } }
+        any.forSubjectLess { toBe(2.5) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${anyNullablePair.first} for nullable" to expectLambda { anyNullablePair.second(this, null) }
+        anyNullable.forSubjectLess(null)
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, oneToSeven,
+        any.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        anyNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (anyOfNullable, anyOfNullableFun) = anyNullablePair
-
     nonNullableCases(
         describePrefix,
-        anyPair,
-        anyNullablePair
+        any,
+        anyNullable
     ) { containsEntriesFun ->
 
         context("empty collection") {
@@ -86,36 +96,29 @@ abstract class IterableAnyAssertionsSpec(
                 }
             }
         }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalStateException::class.simpleName}") {
-                expect {
-                    fluent.containsEntriesFun {}
-                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
-            }
-        }
     }
 
     nullableCases(describePrefix) {
 
-        describeFun("$anyOfNullable for nullable") {
+        describeFun("${anyNullable.name} for nullable") {
+            val anyNullableFun = anyNullable.lambda
 
             val list = listOf(null, 1.0, null, 3.0).asIterable()
             val fluent = verbs.check(list)
             context("iterable $list") {
                 context("happy cases (do not throw)") {
                     it("$toBeFun(1.0)") {
-                        fluent.anyOfNullableFun { toBe(1.0) }
+                        fluent.anyNullableFun { toBe(1.0) }
                     }
                     it("null") {
-                        fluent.anyOfNullableFun(null)
+                        fluent.anyNullableFun(null)
                     }
                 }
 
                 context("failing cases") {
                     it("$toBeFun(2.0)") {
                         expect {
-                            fluent.anyOfNullableFun { toBe(2.0) }
+                            fluent.anyNullableFun { toBe(2.0) }
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -134,7 +137,7 @@ abstract class IterableAnyAssertionsSpec(
             context("iterable $oneToSeven") {
                 it("null, throws an AssertionError") {
                     expect {
-                        verbs.check(oneToSeven as Iterable<Double?>).anyOfNullableFun(null)
+                        verbs.check(oneToSeven as Iterable<Double?>).anyNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(

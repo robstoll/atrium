@@ -1,12 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.isKeyValue
-import ch.tutteli.atrium.api.cc.en_GB.key
-import ch.tutteli.atrium.api.cc.en_GB.value
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import org.spekframework.spek2.Spek
@@ -31,8 +26,8 @@ abstract class MapAsEntriesAssertionsSpec(
     describeFun(asEntriesFeature.name + " feature") {
         it("transformation can be applied and an assertion made") {
             verbs.check(mapOf("a" to 1, "b" to 2)).(asEntriesFeature.lambda)().contains.inAnyOrder.only.entries(
-                { asAssert().isKeyValue("b", 2) },
-                { asAssert().key { asExpect().startsWith("a") }.asExpect().and.asAssert().value.asExpect().isGreaterOrEquals(1) }
+                { isKeyValue("b", 2) },
+                { key { startsWith("a") }.and.value.isGreaterOrEquals(1) }
             )
         }
     }
@@ -41,10 +36,10 @@ abstract class MapAsEntriesAssertionsSpec(
         it("transformation can be applied and an assertion made") {
             verbs.check(mapOf("a" to 1, "b" to 2)).(asEntries.lambda){
                 contains.inAnyOrder.only.entries(
-                    { asAssert().isKeyValue("b", 2) },
+                    { isKeyValue("b", 2) },
                     {
-                        asAssert().key { asExpect().startsWith("a") }
-                        asAssert().value.asExpect().isGreaterOrEquals(1)
+                        key { startsWith("a") }
+                        value.isGreaterOrEquals(1)
                     }
                 )
             }

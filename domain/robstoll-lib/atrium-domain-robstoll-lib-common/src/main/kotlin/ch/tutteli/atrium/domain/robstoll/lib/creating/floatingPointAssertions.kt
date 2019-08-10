@@ -9,7 +9,7 @@ import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.withFailureHintBasedOnDefinedSubject
+import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion.*
 import kotlin.jvm.JvmMultifileClass

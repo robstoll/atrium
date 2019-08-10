@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.creating.CollectingAssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.migration.asAssert
@@ -19,7 +18,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 
-    final override fun CollectingAssertionContainer<List<E>>.createAssertionsAndReturnIndex(
+    final override fun Expect<List<E>>.createAssertionsAndReturnIndex(
         searchCriteria: List<List<SC>>
     ): Int {
         var index = 0
@@ -36,7 +35,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
         return index
     }
 
-    private fun CollectingAssertionContainer<List<E>>.createSublistAssertion(
+    private fun Expect<List<E>>.createSublistAssertion(
         currentIndex: Int,
         untilIndex: Int,
         groupOfSearchCriteria: List<SC>,

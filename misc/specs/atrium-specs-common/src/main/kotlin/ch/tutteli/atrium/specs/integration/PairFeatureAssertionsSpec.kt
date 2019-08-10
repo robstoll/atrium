@@ -7,12 +7,12 @@ import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 
 abstract class PairFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
-    firstValPair: Feature0<Pair<String, Int>, String>,
-    firstFunPair: Fun1<Pair<String, Int>, Expect<String>.() -> Unit>,
-    secondValPair: Feature0<Pair<String, Int>, Int>,
-    secondFunPair: Fun1<Pair<String, Int>, Expect<Int>.() -> Unit>,
-    nullableFirstValPair: Feature0<Pair<String?, Int?>, String?>,
-    nullableSecondValPair: Feature0<Pair<String?, Int?>, Int?>,
+    firstFeature: Feature0<Pair<String, Int>, String>,
+    first: Fun1<Pair<String, Int>, Expect<String>.() -> Unit>,
+    secondFeature: Feature0<Pair<String, Int>, Int>,
+    second: Fun1<Pair<String, Int>, Expect<Int>.() -> Unit>,
+    nullableFirstFeature: Feature0<Pair<String?, Int?>, String?>,
+    nullableSecondFeature: Feature0<Pair<String?, Int?>, Int?>,
     describePrefix: String = "[Atrium] "
 ) : KeyValueLikeFeatureAssertionsSpec<Pair<String, Int>, Pair<String?, Int?>>(
     verbs,
@@ -20,11 +20,11 @@ abstract class PairFeatureAssertionsSpec(
     ::Pair,
     "first",
     "second",
-    firstValPair,
-    firstFunPair,
-    secondValPair,
-    secondFunPair,
-    nullableFirstValPair,
-    nullableSecondValPair,
+    firstFeature,
+    first,
+    secondFeature,
+    second,
+    nullableFirstFeature,
+    nullableSecondFeature,
     describePrefix
 )

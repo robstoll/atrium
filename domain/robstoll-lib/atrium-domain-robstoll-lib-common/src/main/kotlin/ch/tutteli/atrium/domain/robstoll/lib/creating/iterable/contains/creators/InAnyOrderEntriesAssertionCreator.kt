@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
@@ -53,10 +54,11 @@ class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
             createExplanatoryAssertionsAndMatchingCount(iterable.iterator(), searchCriterion)
 
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        val assertions = mutableListOf(explanatoryGroup, featureAssertion)
+        val assertions = mutableListOf<Assertion>(explanatoryGroup, featureAssertion)
 
         val groupType = if (searchBehaviour is NotSearchBehaviour) {
             assertions.add(hasElementAssertion)
+            addEmptyAssertionCreatorLambdaIfNecessary(assertions, searchCriterion, count)
             DefaultSummaryAssertionGroupType
         } else {
             DefaultListAssertionGroupType
@@ -68,15 +70,19 @@ class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
             .build()
     }
 
-    private fun createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E?>, assertionCreator: (Expect<E>.() -> Unit)?): Pair<AssertionGroup, Int> {
-        val (firstNonNullOrNull, sequence) = if (itr.hasNext() && assertionCreator != null) {
+    private fun createExplanatoryAssertionsAndMatchingCount(
+        itr: Iterator<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    ): Pair<AssertionGroup, Int> {
+        val (firstNonNullOrNull, sequence) = if (itr.hasNext() && assertionCreatorOrNull != null) {
             // we search the first non-null element in order that feature assertions which are based on the subject can be showed properly in the explanation
             getFirstNonNullAndSequence(itr, sequenceOf())
         } else {
             null to itr.asSequence()
         }
-        val group = createExplanatoryAssertionGroup(assertionCreator) { firstNonNullOrNull?.let { Some(it) } ?: None }
-        val count = sequence.count { allCreatedAssertionsHold(it, assertionCreator) }
+        val group =
+            createExplanatoryAssertionGroup(assertionCreatorOrNull) { firstNonNullOrNull?.let { Some(it) } ?: None }
+        val count = sequence.count { allCreatedAssertionsHold(it, assertionCreatorOrNull) }
         return group to count
     }
 
@@ -90,6 +96,27 @@ class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
             }
         } else {
             null to sequence
+        }
+    }
+
+
+    private fun addEmptyAssertionCreatorLambdaIfNecessary(
+        assertions: MutableList<Assertion>,
+        searchCriterion: (Expect<E>.() -> Unit)?,
+        count: Int
+    ) {
+        if (searchCriterion != null && count == 0) {
+            val container = ExpectImpl.coreFactory.newCollectingAssertionContainer<E>(None)
+            // not using addAssertionsCreatedBy on purpose so that we don't get a failing assertion as well
+            container.searchCriterion()
+            val collectedAssertions = container.getAssertions()
+            if (collectedAssertions.isEmpty()) {
+                assertions.addAll(
+                    ExpectImpl.coreFactory.newCollectingAssertionContainer<E>(None)
+                        .addAssertionsCreatedBy(searchCriterion)
+                        .getAssertions()
+                )
+            }
         }
     }
 }

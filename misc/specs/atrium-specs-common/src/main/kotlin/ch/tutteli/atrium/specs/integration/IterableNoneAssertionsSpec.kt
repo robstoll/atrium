@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -12,8 +9,8 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableNoneAssertionsSpec(
     verbs: AssertionVerbFactory,
-    nonePair: Pair<String, Expect<Iterable<Double>>.(Expect<Double>.() -> Unit) -> Expect<Iterable<Double>>>,
-    noneNullablePair: Pair<String, Expect<Iterable<Double?>>.((Expect<Double>.() -> Unit)?) -> Expect<Iterable<Double?>>>,
+    none: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
+    noneNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -25,18 +22,25 @@ abstract class IterableNoneAssertionsSpec(
 ) : IterablePredicateSpecBase(verbs, {
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        nonePair.first to expectLambda { nonePair.second(this) { toBe(2.3) } }
+        none.forSubjectLess { toBe(2.3) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${noneNullablePair.first} for nullable" to expectLambda { noneNullablePair.second(this) { toBe(2.3) } }
+        noneNullable.forSubjectLess { toBe(2.3) }
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, oneToSeven,
+        none.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        noneNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-
-    val (containsNotNullable, containsNotNullableFun) = noneNullablePair
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
@@ -47,17 +51,19 @@ abstract class IterableNoneAssertionsSpec(
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
 
+    //@formatter:off
     val featureSuccess = "$indentBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
     val featureFailing = "$indentBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
     val isAfterFailing = "$indentBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     val afterExplanatory = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
+    //@formatter:on
 
     nonNullableCases(
         describePrefix,
-        nonePair,
-        noneNullablePair
-    ){ containsNotFun ->
+        none,
+        noneNullable
+    ) { noneFun ->
 
         val fluent = verbs.check(oneToSeven)
 
@@ -65,7 +71,7 @@ abstract class IterableNoneAssertionsSpec(
             context("happy case") {
                 listOf(1.1, 2.2, 3.3).forEach {
                     it("$toBeDescr($it) does not throw") {
-                        fluent.containsNotFun { toBe(1.1) }
+                        fluent.noneFun { toBe(1.1) }
                     }
                 }
             }
@@ -73,15 +79,15 @@ abstract class IterableNoneAssertionsSpec(
             context("failing cases; search string at different positions") {
                 it("$toBeDescr(4.0) throws AssertionError") {
                     expect {
-                        fluent.containsNotFun { toBe(4.0) }
+                        fluent.noneFun { toBe(4.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 3$separator"+
-                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureFailing$numberOfOccurrences: 3$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
@@ -93,24 +99,26 @@ abstract class IterableNoneAssertionsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun("$containsNotNullable for nullable") {
+        describeFun("${noneNullable.name} for nullable") {
+            val noneFun = noneNullable.lambda
+
             context("iterable $oneToSeven") {
                 it("null does not throw") {
-                    verbs.check(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
+                    verbs.check(oneToSeven as Iterable<Double?>).noneFun(null)
                 }
             }
-            context("iterable $oneToSevenNullable"){
+            context("iterable $oneToSevenNullable") {
                 it("null throws AssertionError") {
                     expect {
-                        verbs.check(oneToSevenNullable).containsNotNullableFun(null)
+                        verbs.check(oneToSevenNullable).noneFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
-                                    "$featureFailing$numberOfOccurrences: 2$separator"+
-                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureFailing$numberOfOccurrences: 2$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
@@ -120,15 +128,15 @@ abstract class IterableNoneAssertionsSpec(
 
                 it("1.0 throws AssertionError") {
                     expect {
-                        verbs.check(oneToSevenNullable).containsNotNullableFun { toBe(1.0) }
+                        verbs.check(oneToSevenNullable).noneFun { toBe(1.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 1$separator"+
-                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureFailing$numberOfOccurrences: 1$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )

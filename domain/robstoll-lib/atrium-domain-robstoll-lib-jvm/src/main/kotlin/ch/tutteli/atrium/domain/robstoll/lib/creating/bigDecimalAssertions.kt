@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.withFailureHint
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.withFailureHint
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
 import java.math.BigDecimal
 
@@ -32,7 +32,7 @@ fun <T : BigDecimal> _isEqualIncludingScale(
     .withFailureHint {
         ExpectImpl.builder.explanatoryGroup
             .withDefaultType
-            .withExplanatoryAssertions(
+            .withExplanatoryAssertion(
                 FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL,
                 nameOfIsNumericallyEqualTo
             )

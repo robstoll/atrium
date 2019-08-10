@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
@@ -23,10 +24,10 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
     override fun createAssertion(
         originalAssertionContainer: Expect<T>,
         descriptiveAssertion: Assertion,
-        assertionCreator: (Expect<R>.() -> Unit)?
+        maybeAssertionCreator: Option<Expect<R>.() -> Unit>
     ): Assertion {
         val assertions = mutableListOf(descriptiveAssertion)
-        if (assertionCreator != null) {
+        maybeAssertionCreator.fold({ /* nothing to do */ }) { assertionCreator ->
             assertions.add(
                 AssertImpl.builder.explanatoryGroup
                     .withDefaultType
@@ -35,7 +36,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             )
         }
         originalAssertionContainer.maybeSubject.fold(
-            { /** nothing to do */ },
+            { /* nothing to do */ },
             {
                 if (it != null) assertions.add(propertiesOfThrowable(it, maxStackTrace))
             }

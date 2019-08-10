@@ -1,17 +1,13 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders
+package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilderFinalStep
-import ch.tutteli.atrium.assertions.builders.Descriptive
-import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint.*
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.*
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint which might be shown if the
@@ -44,7 +40,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
     return withFailureHintBasedOnSubject(subjectProvider) {
         ifDefined(failureHintFactory)
             .ifAbsent {
-                ExpectImpl.builder.explanatoryGroup
+                assertionBuilder.explanatoryGroup
                     .withWarningType
                     .withExplanatoryAssertion(RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
                     .build()

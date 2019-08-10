@@ -10,7 +10,7 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInOrderOnlyGroupedEntriesPair: Pair<String, Expect<Iterable<Double?>>.(Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>) -> Expect<Iterable<Double?>>>,
+    containsInOrderOnlyGroupedEntries: Fun3<Iterable<Double?>, Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>>,
     groupFactory: (Array<out (Expect<Double>.() -> Unit)?>) -> Group<(Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
@@ -25,28 +25,42 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
     fun context(vararg assertionCreators: (Expect<Double>.() -> Unit)?) = groupFactory(assertionCreators)
 
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        containsInOrderOnlyGroupedEntriesPair.first to expectLambda {
-            containsInOrderOnlyGroupedEntriesPair.second(
-                this,
-                context({ toBe(2.5) }),
-                context({ toBe(4.1) }),
-                arrayOf()
-            )
-        }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        containsInOrderOnlyGroupedEntries.forSubjectLess(
+            context({ toBe(2.5) }),
+            context({ toBe(4.1) }),
+            arrayOf()
+        )
     ) {})
+    //@formatter:off
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, describePrefix, listOf(1.2, 2.0, 3.0),
+        assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [first empty]", "$toBeDescr: 1.2",
+            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
+            { containsInOrderOnlyGroupedEntries(this, Entry { }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) }
+        ),
+        assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [second empty]", "$toBeDescr: 2.0",
+            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
+            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { }, arrayOf( Entry { toBe(3.0) })) }
+        ),
+        assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [third empty]", "$toBeDescr: 3.0",
+            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { })) },
+            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry {  })) }
+        )
+    ) {})
+    //@formatter:on
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
 
-    val (containsInOrderOnlyGroupedEntries, containsInOrderOnlyGroupedEntriesFunArr) = containsInOrderOnlyGroupedEntriesPair
     fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedEntriesFun(
         t1: Group<(Expect<Double>.() -> Unit)?>,
         t2: Group<(Expect<Double>.() -> Unit)?>,
         vararg tX: Group<(Expect<Double>.() -> Unit)?>
-    ) = containsInOrderOnlyGroupedEntriesFunArr(t1, t2, tX)
+    ) = containsInOrderOnlyGroupedEntries(this, t1, t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
@@ -147,7 +161,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
 
 
-    describeFun(containsInOrderOnlyGroupedEntries) {
+    describeFun(containsInOrderOnlyGroupedEntries.name) {
         context("$describePrefix describe non-nullable cases") {
 
             val fluent = verbs.check(oneToFour as Iterable<Double?>)

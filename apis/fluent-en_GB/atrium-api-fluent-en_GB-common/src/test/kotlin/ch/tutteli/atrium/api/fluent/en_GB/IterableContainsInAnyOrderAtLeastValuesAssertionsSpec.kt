@@ -15,11 +15,9 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.
 
     companion object : IterableContainsSpecBase() {
 
-        internal fun getAtLeastTriple() = Triple(
-            "$contains.$inAnyOrder.$atLeast",
-            { what: String, times: String -> "$contains $what in any order $atLeast $times" },
-            Companion::containsAtLeast
-        )
+        internal fun getAtLeastTriple() =
+            { what: String, times: String -> "$contains $what in any order $atLeast $times" } to
+                ("$contains.$inAnyOrder.$atLeast" to Companion::containsAtLeast)
 
         private fun containsAtLeast(plant: Expect<Iterable<Double>>, atLeast: Int, a: Double, aX: Array<out Double>): Expect<Iterable<Double>> {
             return if (aX.isEmpty()) {
@@ -29,11 +27,9 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.
             }
         }
 
-        private fun getAtLeastButAtMostTriple() = Triple(
-            "$contains.$atLeast.$butAtMost",
-            { what: String, timesAtLeast: String, timesAtMost: String -> "$contains $what $atLeast $timesAtLeast $butAtMost $timesAtMost" },
-            Companion::containsAtLeastButAtMost
-        )
+        private fun getAtLeastButAtMostTriple() =
+            { what: String, timesAtLeast: String, timesAtMost: String -> "$contains $what $atLeast $timesAtLeast $butAtMost $timesAtMost" } to
+                ("$contains.$atLeast.$butAtMost" to Companion::containsAtLeastButAtMost)
 
         private fun containsAtLeastButAtMost(plant: Expect<Iterable<Double>>, atLeast: Int, butAtMost: Int, a: Double, aX: Array<out Double>)
             = plant.contains.inAnyOrder.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)

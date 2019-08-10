@@ -37,10 +37,6 @@ abstract class MapAssertionsSpec(
     fun <K, V, T> T.unchecked1(): Pair<String, Expect<Map<out K, V>>.() -> Unit> =
         this as Pair<String, Expect<Map<out K, V>>.() -> Unit>
 
-    @Suppress("UNCHECKED_CAST")
-    fun <T, R> R.unchecked2(): Triple<String, Expect<T>.() -> Unit, Pair<T, T>> =
-        this as Triple<String, Expect<T>.() -> Unit, Pair<T, T>>
-
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
         contains.forSubjectLess("key" to 1, arrayOf()),
@@ -63,6 +59,22 @@ abstract class MapAssertionsSpec(
         containsNullableKey.forSubjectLess(null).unchecked1(),
         containsNotNullableKey.forSubjectLess(null).unchecked1()
     ) {})
+
+    include(object : AssertionCreatorSpec<Map<out String, Int>>(
+        verbs, describePrefix, mapOf("a" to 1),
+        assertionCreatorSpecTriple(containsKeyWithValueAssertions.name, "$toBeDescr: 1",
+            { containsKeyWithValueAssertions(this, keyValue("a"){ toBe(1) }, arrayOf()) },
+            { containsKeyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
+        )
+    ) {})
+    include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
+        verbs, "$describePrefix[nullable] ", mapOf("a" to 1),
+        assertionCreatorSpecTriple(containsKeyWithNullableValueAssertions.name, "$toBeDescr: 1",
+            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a"){ toBe(1) }, arrayOf()) },
+            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
+        )
+    ) {})
+
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)

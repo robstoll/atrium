@@ -12,8 +12,8 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableAllAssertionsSpec(
     verbs: AssertionVerbFactory,
-    allPair: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
-    allNullablePair: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
+    all: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
+    allNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     warningBulletPoint: String,
     listBulletPoint: String,
@@ -24,18 +24,25 @@ abstract class IterableAllAssertionsSpec(
 ) : IterablePredicateSpecBase(verbs, {
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        allPair.first to expectLambda { allPair.second(this) { toBe(2.5) } }
+        all.first to expectLambda { all.second(this) { toBe(2.5) } }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${allNullablePair.first} for nullable" to expectLambda { allNullablePair.second(this, null) }
+        "${allNullable.first} for nullable" to expectLambda { allNullable.second(this, null) }
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterable<Double>>(
+        verbs, describePrefix, oneToSeven,
+        all.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
+    ) {})
+    include(object : AssertionCreatorSpec<Iterable<Double?>>(
+        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        allNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
     ) {})
 
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (allOfNullable, allOfNullableFun) = allNullablePair
-
-    val all = DescriptionIterableAssertion.ALL.getDefault()
+    val allDescr = DescriptionIterableAssertion.ALL.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
@@ -49,8 +56,8 @@ abstract class IterableAllAssertionsSpec(
 
     nonNullableCases(
         describePrefix,
-        allPair,
-        allNullablePair
+        all,
+        allNullable
     ) { allFun ->
 
         context("empty collection") {
@@ -76,7 +83,7 @@ abstract class IterableAllAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
-                                "$rootBulletPoint$all: $separator",
+                                "$rootBulletPoint$allDescr: $separator",
                                 "$explanatoryPointWithIndent$isGreaterThanDescr: 2.5",
                                 "$explanatoryPointWithIndent$isLessThanDescr: 7.0",
                                 "$warningBulletPoint$mismatches:",
@@ -95,24 +102,17 @@ abstract class IterableAllAssertionsSpec(
                 }
             }
         }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalStateException::class.simpleName}") {
-                expect {
-                    fluent.allFun {}
-                }.toThrow<IllegalStateException> { messageContains("not any assertion created") }
-            }
-        }
     }
 
     nullableCases(describePrefix) {
 
-        describeFun("$allOfNullable for nullable") {
+        describeFun("${allNullable.name} for nullable") {
+            val allNullableFun = allNullable.lambda
 
             val listOfNulls = listOf(null, null) as Iterable<Double?>
             context("iterable $listOfNulls") {
                 it("all are `null` (does not throw)") {
-                    verbs.check(listOfNulls).allOfNullableFun(null)
+                    verbs.check(listOfNulls).allNullableFun(null)
                 }
             }
 
@@ -120,11 +120,11 @@ abstract class IterableAllAssertionsSpec(
             context("iterable $list") {
                 it("$isGreaterThanDescr(0.5)") {
                     expect {
-                        verbs.check(list).allOfNullableFun { isGreaterThan(0.5) }
+                        verbs.check(list).allNullableFun { isGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
-                                "$rootBulletPoint$all: $separator",
+                                "$rootBulletPoint$allDescr: $separator",
                                 "$explanatoryPointWithIndent$isGreaterThanDescr: 0.5",
                                 "$warningBulletPoint$mismatches:",
                                 "${index(0)}: null",

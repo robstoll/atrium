@@ -21,14 +21,23 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<Float>("$describePrefix[Float] ",
-        toBeWithErrorToleranceFloat.forSubjectLess(1.0f, 0.01f)) {})
-    include(object : SubjectLessSpec<Double>("$describePrefix[Double] ",
-        toBeWithErrorToleranceDouble.forSubjectLess(1.0, 0.01)) {})
+    include(object : SubjectLessSpec<Float>(
+        "$describePrefix[Float] ",
+        toBeWithErrorToleranceFloat.forSubjectLess(1.0f, 0.01f)
+    ) {})
+    include(object : SubjectLessSpec<Double>(
+        "$describePrefix[Double] ",
+        toBeWithErrorToleranceDouble.forSubjectLess(1.0, 0.01)
+    ) {})
 
-    fun <T : Number> Root.describeFun(pair: Fun2<T, T, T>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>)
-        = checkFloatingPoint(verbs, describePrefix, pair, withFailureNotice, absDiff, testData)
+    fun <T : Number> Root.describeFun(
+        pair: Fun2<T, T, T>,
+        withFailureNotice: Boolean,
+        absDiff: (T, T) -> T,
+        testData: List<TestData<T>>
+    ) = checkFloatingPoint(verbs, describePrefix, pair, withFailureNotice, absDiff, testData)
 
+    //@formatter:off
     describeFun(toBeWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
         TestData(0.001f, 0.001f, listOf(0.002f, 0.0f, -0.0f, 0.00001f), listOf(0.0021f, -0.0000001f)),
         TestData(9.999f, 0.001f, listOf(9.998f, 9.9989f, 9.9988f), listOf(1.1f, 1.001f, 1.001f, 9.997f, /* due to precision */ 10.0f)),
@@ -42,12 +51,20 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
         //should give out scientific notation
         TestData(0.000_000_01, 0.000_000_002, listOf(0.000_000_011, 0.000_000_012, 0.000_000_009, 0.000_000_008), listOf(0.000_000_013, 0.000_000_007))
     ))
+    //@formatter:on
 
-}){
+}) {
     data class TestData<out T : Number>(val subject: T, val tolerance: T, val holding: List<T>, val failing: List<T>)
 }
 
-fun <T : Number> Root.checkFloatingPoint(verbs: AssertionVerbFactory, describePrefix: String, pair: Fun2<T, T, T>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<FloatingPointWithErrorToleranceAssertionsSpec.TestData<T>>) {
+fun <T : Number> Root.checkFloatingPoint(
+    verbs: AssertionVerbFactory,
+    describePrefix: String,
+    pair: Fun2<T, T, T>,
+    withFailureNotice: Boolean,
+    absDiff: (T, T) -> T,
+    testData: List<FloatingPointWithErrorToleranceAssertionsSpec.TestData<T>>
+) {
     val (name, toBeWithErrorTolerance) = pair
     val expect = verbs::checkException
 
@@ -64,8 +81,12 @@ fun <T : Number> Root.checkFloatingPoint(verbs: AssertionVerbFactory, describePr
                     }
                 }
 
-                val toBeInclErrorTolerance = String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
-                val failureNotice = String.format(DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(), subject::class.fullName)
+                val toBeInclErrorTolerance =
+                    String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
+                val failureNotice = String.format(
+                    DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(),
+                    subject::class.fullName
+                )
                 failing.forEach { num ->
                     it("... compare to $num throws AssertionError") {
                         expect {
@@ -78,10 +99,13 @@ fun <T : Number> Root.checkFloatingPoint(verbs: AssertionVerbFactory, describePr
                                     formatFloatingPointNumber(subject),
                                     formatFloatingPointNumber(num),
                                     formatFloatingPointNumber(absDiff(subject, num)),
-                                    formatFloatingPointNumber(tolerance))
-                                contains(subject,
+                                    formatFloatingPointNumber(tolerance)
+                                )
+                                contains(
+                                    subject,
                                     "$toBeInclErrorTolerance: $num",
-                                    exactCheck)
+                                    exactCheck
+                                )
                                 if (withFailureNotice) {
                                     contains(failureNotice)
                                 } else {

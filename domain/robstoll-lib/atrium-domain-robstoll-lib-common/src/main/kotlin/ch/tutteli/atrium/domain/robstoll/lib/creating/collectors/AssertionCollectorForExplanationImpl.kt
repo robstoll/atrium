@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 
+@Deprecated("Switch from Assert to Expect and use _collectForComposition instead; will be removed with 1.0.0")
 class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>(
     private val throwIfNoAssertionIsCollected: Boolean,
     private val collectingPlantFactory: (() -> T) -> C

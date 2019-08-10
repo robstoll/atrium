@@ -12,11 +12,9 @@ class IterableContainsInAnyOrderExactlyValuesAssertionsSpec : ch.tutteli.atrium.
 
     companion object : IterableContainsSpecBase() {
 
-        private fun getExactlyTriple() = Triple(
-            "$contains.$inAnyOrder.$exactly",
-            { what: String, times: String -> "$contains $what $exactly $times" },
-            Companion::containsExactly
-        )
+        private fun getExactlyTriple() =
+            { what: String, times: String -> "$contains $what $exactly $times" } to
+                ("$contains.$inAnyOrder.$exactly" to Companion::containsExactly)
 
         private fun containsExactly(plant: Expect<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>): Expect<Iterable<Double>> {
             return if (aX.isEmpty()) {

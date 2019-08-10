@@ -11,23 +11,30 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class CharSequenceContainsRegexAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsRegex: String,
-    containsAtLeastTriple: Triple<String, (String, String) -> String, Expect<CharSequence>.(Int, String, Array<out String>) -> Expect<CharSequence>>,
-    containsAtLeastIgnoringCaseTriple: Triple<String, (String, String) -> String, Expect<CharSequence>.(Int, String, Array<out String>) -> Expect<CharSequence>>,
-    //Usually the shortcut is tested individually on a level lower and not expected as we did it here (search for ShortcutSpec or similar)
-    containsShortcutTriple: Triple<String, (String, String) -> String, Expect<CharSequence>.(String, Array<out String>) -> Expect<CharSequence>>,
-    containsAtMostTriple: Triple<String, (String, String) -> String, Expect<CharSequence>.(Int, String, Array<out String>) -> Expect<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Expect<CharSequence>.(Int, String, Array<out String>) -> Expect<CharSequence>>,
+    containsAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
+    containsAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
+    //TODO usually the shortcut is tested individually on a level lower and not expected as we did it here (search for ShortcutSpec or similar)
+    containsShortcutPair: Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>>,
+    containsAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
+    containsAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
     rootBulletPoint: String,
     listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
+    val containsAtLeast = containsAtLeastPair.second
+    val containsAtLeastIgnoringCase = containsAtLeastIgnoringCasePair.second
+    val containsShortcut = containsShortcutPair.second
+    val containsAtMost = containsAtMostPair.second
+    val containsAtMostIgnoringCase = containsAtMostIgnoringCasePair.second
+
+
     include(object : SubjectLessSpec<CharSequence>(describePrefix,
-        containsAtLeastTriple.first to expectLambda { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) },
-        containsAtLeastIgnoringCaseTriple.first to expectLambda { containsAtLeastIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) },
-        containsShortcutTriple.first to expectLambda { containsShortcutTriple.third(this, "a|b", arrayOf()) },
-        containsAtMostTriple.first to expectLambda { containsAtMostTriple.third(this, 2, "a|b", arrayOf()) },
-        containsAtMostIgnoringCaseTriple.first to expectLambda { containsAtMostIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }
+        containsAtLeast.forSubjectLess(2, "a|b", arrayOf()) ,
+        containsAtLeastIgnoringCase.forSubjectLess(2, "a|b", arrayOf()),
+        containsShortcut.forSubjectLess("a|b", arrayOf()) ,
+        containsAtMost.forSubjectLess(2, "a|b", arrayOf()) ,
+        containsAtMostIgnoringCase.forSubjectLess( 2, "a|b", arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -40,26 +47,21 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     val roberto = "Roberto?"
     val fluent = verbs.check(text as CharSequence)
 
-    val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
     fun Expect<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtLeastFunArr(atLeast, a, aX)
+        = containsAtLeast(this, atLeast, a, aX)
 
-    val (containsAtLeastIgnoringCase, containsAtLeastIgnoringCaseTest, containsAtLeastIgnoringCaseFunArr) = containsAtLeastIgnoringCaseTriple
     fun Expect<CharSequence>.containsAtLeastIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtLeastIgnoringCaseFunArr(atLeast, a, aX)
+        = containsAtLeastIgnoringCase(this, atLeast, a, aX)
 
 
-    val (containsShortcut, containsShortcutTest, containsShortcutLeastFunArr) = containsShortcutTriple
     fun Expect<CharSequence>.containsShortcutFun(a: String, vararg aX: String)
-        = containsShortcutLeastFunArr(a, aX)
+        = containsShortcut(this, a, aX)
 
-    val (containsAtMost, containsAtMostTest, containsAtMostFunArr) = containsAtMostTriple
     fun Expect<CharSequence>.containsAtMostFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtMostFunArr(atLeast, a, aX)
+        = containsAtMost(this, atLeast, a, aX)
 
-    val (containsAtMostIgnoringCase, containsAtMostIgnoringCaseTest, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
     fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
+        = containsAtMostIgnoringCase(this, atLeast, a, aX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val regexWithIndent = "$indentBulletPoint$listBulletPoint$stringMatchingRegex"
@@ -122,16 +124,16 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
         }
 
         context("text $text") {
-            it("${containsAtLeastTest("'$hello'", "once")} does not throw") {
+            it("${containsAtLeastPair.first("'$hello'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello)
             }
-            it("${containsAtLeastTest("'$hello', '$hello' and '$hello'", "once")} does not throw") {
+            it("${containsAtLeastPair.first("'$hello', '$hello' and '$hello'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello, hello, hello)
             }
-            it("${containsAtLeastTest("'$hello' and '$roberto'", "once")} does not throw") {
+            it("${containsAtLeastPair.first("'$hello' and '$roberto'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello, roberto)
             }
-            it("${containsAtLeastTest("'${roberto.toLowerCase()}'", "once")} throws AssertionError") {
+            it("${containsAtLeastPair.first("'${roberto.toLowerCase()}'", "once")} throws AssertionError") {
                 expect {
                     fluent.containsAtLeastFun(1, roberto.toLowerCase())
                 }.toThrow<AssertionError> {
@@ -145,31 +147,31 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                     }
                 }
             }
-            it("${containsAtLeastIgnoringCaseTest("'${roberto.toLowerCase()}'", "once")} does not throw") {
+            it("${containsAtLeastIgnoringCasePair.first("'${roberto.toLowerCase()}'", "once")} does not throw") {
                 fluent.containsAtLeastIgnoringCaseFun(1, roberto.toLowerCase())
             }
 
-            it("${containsShortcutTest("'$hello'", "once")} does not throw") {
+            it("${containsShortcutPair.first("'$hello'", "once")} does not throw") {
                 fluent.containsShortcutFun(hello)
             }
-            it("${containsShortcutTest("'$hello', '$hello' and '$hello'", "once")} does not throw") {
+            it("${containsShortcutPair.first("'$hello', '$hello' and '$hello'", "once")} does not throw") {
                 fluent.containsShortcutFun(hello, hello, hello)
             }
-            it("${containsShortcutTest("'$hello' and '$roberto'", "once")} does not throw") {
+            it("${containsShortcutPair.first("'$hello' and '$roberto'", "once")} does not throw") {
                 fluent.containsShortcutFun(hello, roberto)
             }
 
-            it("${containsAtMostTest("'[a-z]'", "17 times")} does not throw") {
+            it("${containsAtMostPair.first("'[a-z]'", "17 times")} does not throw") {
                 fluent.containsAtMostFun(17, "[a-z]")
             }
-            it("${containsAtMostIgnoringCaseTest("'[a-z]'", "19 times")} does not throw") {
+            it("${containsAtMostIgnoringCasePair.first("'[a-z]'", "19 times")} does not throw") {
                 fluent.containsAtMostIgnoringCaseFun(19, "[a-z]")
             }
-            it("${containsAtMostIgnoringCaseTest("'[a-z]' and '[A-Z]'", "19 times")} does not throw") {
+            it("${containsAtMostIgnoringCasePair.first("'[a-z]' and '[A-Z]'", "19 times")} does not throw") {
                 fluent.containsAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
             }
 
-            it("${containsAtMostTest("'[a-z]'", "16 times")} throws AssertionError") {
+            it("${containsAtMostPair.first("'[a-z]'", "16 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostFun(16, "[a-z]")
                 }.toThrow<AssertionError> {
@@ -183,7 +185,7 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                     }
                 }
             }
-            it("${containsAtMostIgnoringCaseTest("'[a-z]'", "18 times")} throws AssertionError") {
+            it("${containsAtMostIgnoringCasePair.first("'[a-z]'", "18 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostIgnoringCaseFun(18, "[a-z]")
                 }.toThrow<AssertionError> {

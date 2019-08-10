@@ -18,7 +18,8 @@ abstract class ComparableAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<Int>(describePrefix,
+    include(object : SubjectLessSpec<Int>(
+        describePrefix,
         isLessThan.forSubjectLess(1),
         isLessOrEquals.forSubjectLess(1),
         isGreaterThan.forSubjectLess(1),

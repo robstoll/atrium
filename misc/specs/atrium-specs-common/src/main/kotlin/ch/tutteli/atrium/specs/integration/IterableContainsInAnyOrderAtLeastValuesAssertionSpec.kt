@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -10,8 +8,8 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     verbs: AssertionVerbFactory,
-    containsAtLeastTriple: Triple<String, (String, String) -> String, Expect<Iterable<Double>>.(Int, Double, Array<out Double>) -> Expect<Iterable<Double>>>,
-    containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, Expect<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> Expect<Iterable<Double>>>,
+    containsAtLeastPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
+    containsAtLeastButAtMostPair: Pair<(String, String, String) -> String, Fun4<Iterable<Double>, Int, Int, Double, Array<out Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     errorMsgAtLeastButAtMost: (Int, Int) -> String,
@@ -19,9 +17,13 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsAtLeastTriple.first to expectLambda { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) },
-        containsAtLeastButAtMostTriple.first to expectLambda { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }
+    val containsAtLeast = containsAtLeastPair.second
+    val containsAtLeastButAtMost = containsAtLeastButAtMostPair.second
+
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsAtLeast.forSubjectLess(1, 2.3, arrayOf()),
+        containsAtLeastButAtMost.forSubjectLess(1, 2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -31,18 +33,16 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
-    val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
-    fun Expect<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double)
-        = containsAtLeastFunArr(atLeast, a, aX.toTypedArray())
+    fun Expect<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double) =
+        containsAtLeast(this, atLeast, a, aX.toTypedArray())
 
-    val (containsAtLeastButAtMost, containsAtLeastButAtMostTest, containsAtLeastButAtMostFunArr) = containsAtLeastButAtMostTriple
-    fun Expect<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double)
-        = containsAtLeastButAtMostFunArr(atLeast, atMost, a, aX.toTypedArray())
+    fun Expect<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double) =
+        containsAtLeastButAtMost(this, atLeast, atMost, a, aX.toTypedArray())
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describeFun(containsAtLeast, containsAtLeastButAtMost) {
+    describeFun(containsAtLeast.name, containsAtLeastButAtMost.name) {
         context("throws an $illegalArgumentException") {
             it("for at least -1 -- only positive numbers") {
                 expect {
@@ -81,24 +81,24 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
         context("iterable $oneToSeven") {
 
             context("happy case with $containsAtLeast once") {
-                it("${containsAtLeastTest("1.0", "once")} does not throw") {
+                it("${containsAtLeastPair.first("1.0", "once")} does not throw") {
                     fluent.containsAtLeastFun(1, 1.0)
                 }
-                it("${containsAtLeastTest("1.0 and 2.0 and 3.0", "once")} does not throw") {
+                it("${containsAtLeastPair.first("1.0 and 2.0 and 3.0", "once")} does not throw") {
                     fluent.containsAtLeastFun(1, 1.0, 2.0, 3.0)
                 }
-                it("${containsAtLeastTest("3.0 and 1.0 and 2.0", "once")} does not throw") {
+                it("${containsAtLeastPair.first("3.0 and 1.0 and 2.0", "once")} does not throw") {
                     fluent.containsAtLeastFun(1, 3.0, 1.0, 2.0)
                 }
             }
 
             context("failing cases; search wrong number at different positions with $containsAtLeast once") {
-                it("${containsAtLeastTest("1.1", "once")} throws AssertionError") {
+                it("${containsAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.1)
                     }.toThrow<AssertionError> { messageContains("$atLeast: 1", "$anEntryWhichIs: 1.1") }
                 }
-                it("${containsAtLeastTest("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
+                it("${containsAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
@@ -108,7 +108,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         }
                     }
                 }
-                it("${containsAtLeastTest("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
+                it("${containsAtLeastPair.first("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
@@ -118,7 +118,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         }
                     }
                 }
-                it("${containsAtLeastTest("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
+                it("${containsAtLeastPair.first("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
                     }.toThrow<AssertionError> {
@@ -138,14 +138,19 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
             }
 
             context("multiple occurrences of the search string") {
-                it("${containsAtLeastTest("5.0", "once")} does not throw") {
+                it("${containsAtLeastPair.first("5.0", "once")} does not throw") {
                     fluent.containsAtLeastFun(1, 5.0)
                 }
-                it("${containsAtLeastTest("5.0", "twice")} does not throw") {
+                it("${containsAtLeastPair.first("5.0", "twice")} does not throw") {
                     fluent.containsAtLeastFun(2, 5.0)
                 }
 
-                it("${containsAtLeastTest("5.0", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)") {
+                it(
+                    "${containsAtLeastPair.first(
+                        "5.0",
+                        "3 times"
+                    )} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)"
+                ) {
                     expect {
                         fluent.containsAtLeastFun(3, 5.0)
                     }.toThrow<AssertionError> {
@@ -160,14 +165,19 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                     }
                 }
 
-                it("${containsAtLeastTest("5.0 and 4.0", "twice")} does not throw") {
+                it("${containsAtLeastPair.first("5.0 and 4.0", "twice")} does not throw") {
                     fluent.containsAtLeastFun(2, 5.0, 4.0)
                 }
-                it("${containsAtLeastTest("4.0", "3 times")} does not throw") {
+                it("${containsAtLeastPair.first("4.0", "3 times")} does not throw") {
                     fluent.containsAtLeastFun(3, 4.0)
                 }
 
-                it("${containsAtLeastTest("5.0 and 4.0", "3 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
+                it(
+                    "${containsAtLeastPair.first(
+                        "5.0 and 4.0",
+                        "3 times"
+                    )} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)"
+                ) {
                     expect {
                         fluent.containsAtLeastFun(3, 5.0, 4.0)
                     }.toThrow<AssertionError> {
@@ -185,10 +195,16 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
             }
 
             context("using $containsAtLeastButAtMost") {
-                it("${containsAtLeastButAtMostTest("5.0", "once", "twice")} does not throw") {
+                it("${containsAtLeastButAtMostPair.first("5.0", "once", "twice")} does not throw") {
                     fluent.containsAtLeastButAtMostFun(1, 2, 5.0)
                 }
-                it("${containsAtLeastButAtMostTest("5.0 and 4.0", "once", "twice")} throws AssertionError and message contains both, at most: 2 and how many times it actually contained 4.0 (3)") {
+                it(
+                    "${containsAtLeastButAtMostPair.first(
+                        "5.0 and 4.0",
+                        "once",
+                        "twice"
+                    )} throws AssertionError and message contains both, at most: 2 and how many times it actually contained 4.0 (3)"
+                ) {
                     expect {
                         fluent.containsAtLeastButAtMostFun(1, 2, 5.0, 4.0)
                     }.toThrow<AssertionError> {
@@ -203,12 +219,18 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         }
                     }
                 }
-                it("${containsAtLeastButAtMostTest("5.0 and 4.0", "twice", "3 times")} does not throw") {
+                it("${containsAtLeastButAtMostPair.first("5.0 and 4.0", "twice", "3 times")} does not throw") {
 
                     fluent.containsAtLeastButAtMostFun(2, 3, 5.0, 4.0)
                 }
 
-                it("${containsAtLeastButAtMostTest("5.0 and 4.0", "3 times", "4 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
+                it(
+                    "${containsAtLeastButAtMostPair.first(
+                        "5.0 and 4.0",
+                        "3 times",
+                        "4 times"
+                    )} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)"
+                ) {
                     expect {
                         fluent.containsAtLeastButAtMostFun(3, 4, 5.0, 4.0)
                     }.toThrow<AssertionError> {

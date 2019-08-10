@@ -10,6 +10,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
+import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -32,6 +33,11 @@ abstract class ThrowableAssertionsSpec(
         messageFeature.forSubjectLess(),
         message.forSubjectLess { toBe("hello") },
         messageContains.forSubjectLess("hello", arrayOf())
+    ) {})
+
+    include(object : AssertionCreatorSpec<Throwable>(
+        verbs, describePrefix, RuntimeException("hello"),
+        message.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -131,8 +137,18 @@ abstract class ThrowableAssertionsSpec(
 
         it("throws if no assertion is made") {
             expect {
-                expect{ }.toThrowFunLazy{}
-            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
+                expect{
+                    throw IllegalArgumentException("hello")
+                }.toThrowFunLazy { }
+            }.toThrow<AssertionError> {
+                message {
+                    contains(
+                        ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
+                        ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
+                        ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
+                    )
+                }
+            }
         }
     }
 
@@ -241,13 +257,6 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
                 assert(throwable).messageWithCheck()
             }, { messageFun { contains("oh") } })
-        }
-
-        it("throws if no assertion is made") {
-            expect {
-                val throwable = IllegalArgumentException()
-                assert(throwable).messageFun {  }
-            }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
         }
     }
 

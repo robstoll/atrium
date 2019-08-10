@@ -2,9 +2,11 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -79,6 +81,43 @@ abstract class ArrayAsIterableAssertionsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
+    val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
+    include(object : AssertionCreatorSpec<Array<Int>>(
+        verbs, "$describePrefix[arr] ", arrayOf(1),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrWithCreator.invoke(this) { contains(1) } }, { arrWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<ByteArray>(
+        verbs, "$describePrefix[arrByte] ", bytes(1),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrByteWithCreator.invoke(this) { contains(1) } }, { arrByteWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<CharArray>(
+        verbs, "$describePrefix[arrChar] ", chars('a'),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrCharWithCreator.invoke(this) { contains('a') } }, { arrCharWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<ShortArray>(
+        verbs, "$describePrefix[arrShort] ", shorts(1),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrShortWithCreator.invoke(this) { contains(1) } }, { arrShortWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<IntArray>(
+        verbs, "$describePrefix[arrInt] ", ints(1),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrIntWithCreator.invoke(this) { contains(1) } }, { arrIntWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<LongArray>(
+        verbs, "$describePrefix[arrLong] ", longs(1),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrLongWithCreator.invoke(this) { contains(1) } }, { arrLongWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<FloatArray>(
+        verbs, "$describePrefix[arrFloat] ", floats(1.0f),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrFloatWithCreator.invoke(this) { contains(1.0f) } }, { arrFloatWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<DoubleArray>(
+        verbs, "$describePrefix[arrDouble] ", doubles(1.0),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrDoubleWithCreator.invoke(this) { contains(1.0) } }, { arrDoubleWithCreator.invoke(this)  {} } )
+    ) {})
+    include(object : AssertionCreatorSpec<BooleanArray>(
+        verbs, "$describePrefix[arrBoolean] ", booleans(true),
+        assertionCreatorSpecTriple(asIterableFunName, anEntryWhich, { arrBooleanWithCreator.invoke(this) { contains(true) } }, { arrBooleanWithCreator.invoke(this)  {} } )
+    ) {})
 
     describe("$asIterableFunName arr") {
         it("transformation can be applied and a subsequent assertion made") {

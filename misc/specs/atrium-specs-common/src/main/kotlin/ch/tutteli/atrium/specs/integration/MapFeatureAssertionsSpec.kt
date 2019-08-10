@@ -21,6 +21,9 @@ abstract class MapFeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    val map = mapOf("a" to 1, "b" to 2)
+    val mapNullable = mapOf("a" to 1, "b" to null, null to 3)
+
     include(object : SubjectLessSpec<Map<String, Int>>(describePrefix,
         keysFeature.forSubjectLess().adjustName { "$it feature" },
         keys.forSubjectLess { isEmpty() },
@@ -34,14 +37,25 @@ abstract class MapFeatureAssertionsSpec(
         getExistingNullable.forSubjectLess("a") { toBe(null) }
     ) {})
 
+    include(object : AssertionCreatorSpec<Map<String, Int>>(
+        verbs, describePrefix, map,
+        keys.forAssertionCreatorSpec("$toBeDescr: a") { containsExactly({ toBe("a") }, { toBe("b") }) },
+        values.forAssertionCreatorSpec("$toBeDescr: 1") { containsExactly({ toBe(1) }, { toBe(2) }) },
+        getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(2) }
+    ) {})
+    include(object : AssertionCreatorSpec<Map<String?, Int?>>(
+        verbs, "$describePrefix[nullable Element] ", mapNullable,
+        getExistingNullable.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(null) }
+    ) {})
+
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
     val assert: (Map<String, Int>) -> Expect<Map<String, Int>> = verbs::check
     val expect = verbs::checkException
-    val map = mapOf("a" to 1, "b" to 2)
+
     val fluent = assert(map)
-    val mapNullable = mapOf("a" to 1, "b" to null, null to 3)
+
     val fluentNullable = verbs.check(mapNullable)
 
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
@@ -76,11 +90,6 @@ abstract class MapFeatureAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains("keys: [a, b]")
                 }
-            }
-            it("throws if no assertion is made") {
-                expect {
-                    fluent.keysFun { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }
     }
@@ -117,11 +126,6 @@ abstract class MapFeatureAssertionsSpec(
                     messageContains("values: [1, 2]")
                 }
             }
-            it("throws if no assertion is made") {
-                expect {
-                    fluent.valuesFun { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-            }
         }
     }
 
@@ -154,11 +158,6 @@ abstract class MapFeatureAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains("get(\"c\"): $keyDoesNotExist", "$toBeDescr: 3")
                 }
-            }
-            it("throws if no assertion is made") {
-                expect {
-                    fluent.getExistingFun("a") { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }
     }

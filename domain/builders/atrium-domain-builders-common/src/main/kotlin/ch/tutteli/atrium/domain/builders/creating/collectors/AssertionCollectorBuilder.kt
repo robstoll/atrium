@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
-import ch.tutteli.atrium.creating.CollectingAssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -17,13 +17,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * In detail, it implements [AssertionCollector] by delegating to [assertionCollector]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-object AssertionCollectorBuilder: AssertionCollector {
+object AssertionCollectorBuilder : AssertionCollector {
 
     override inline fun <T> collect(
         maybeSubject: Option<T>,
-        noinline assertionCreator:  CollectingAssertionContainer<T>.() -> Unit
-    ): AssertionGroup = assertionCollector.collect(maybeSubject, assertionCreator)
+        noinline assertionCreator: Expect<T>.() -> Unit
+    ): Assertion = assertionCollector.collect(maybeSubject, assertionCreator)
 
+    override inline fun <T> collectForComposition(
+        maybeSubject: Option<T>,
+        noinline assertionCreator: Expect<T>.() -> Unit
+    ) = assertionCollector.collectForComposition(maybeSubject, assertionCreator)
 
 
     @Suppress("DEPRECATION", "OverridingDeprecatedMember")
@@ -50,13 +54,17 @@ object AssertionCollectorBuilder: AssertionCollector {
      * It inter alia delegates to the implementation of [ThrowingAssertionCollectorForExplanation] and
      * [NonThrowingAssertionCollectorForExplanation].
      */
-   inline val forExplanation get() = ExplainingAssertionCollectorOption
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Switch from Assert to Expect and use ExpectImpl.collector.collectForComposition; will be removed with 1.0.0")
+    inline val forExplanation
+        get() = ExplainingAssertionCollectorOption
 }
 
 /**
  * Delegates inter alia to the implementation of [ThrowingAssertionCollectorForExplanation] and
  * [NonThrowingAssertionCollectorForExplanation].
  */
+@Deprecated("Switch from Assert to Expect and use ExpectImpl.collector.collectForComposition; will be removed with 1.0.0")
 object ExplainingAssertionCollectorOption {
 
     /**
@@ -65,7 +73,9 @@ object ExplainingAssertionCollectorOption {
      *
      * Use [doNotThrowIfNoAssertionIsCollected] if such use cases should be ignored (no exception should be thrown).
      */
-    inline val throwIfNoAssertionIsCollected get() = throwingAssertionCollectorForExplanation
+    @Suppress("DEPRECATION")
+    inline val throwIfNoAssertionIsCollected
+        get() = throwingAssertionCollectorForExplanation
 
     /**
      * Choosing this option will ignore use cases where not a single [Assertion] was collected.
@@ -73,5 +83,7 @@ object ExplainingAssertionCollectorOption {
      * Use [throwIfNoAssertionIsCollected] if you want that [AssertionCollector] throws an
      * [IllegalArgumentException] in such cases.
      */
-    inline val doNotThrowIfNoAssertionIsCollected get() = nonThrowingAssertionCollectorForExplanation
+    @Suppress("DEPRECATION")
+    inline val doNotThrowIfNoAssertionIsCollected
+        get() = nonThrowingAssertionCollectorForExplanation
 }

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -20,28 +21,6 @@ val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.
  */
 interface SubjectChanger {
-
-    /**
-     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
-     */
-    @Deprecated(
-        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
-    )
-    fun <T, R : Any> unreported(
-        originalPlant: BaseAssertionPlant<T, *>,
-        transformation: (T) -> R
-    ): Assert<R>
-
-    /**
-     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
-     */
-    @Deprecated(
-        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
-    )
-    fun <T, R> unreportedNullable(
-        originalPlant: BaseAssertionPlant<T, *>,
-        transformation: (T) -> R
-    ): AssertionPlantNullable<R>
 
     /**
      * Changes to a new subject according to the given [transformation] without showing it
@@ -91,7 +70,10 @@ interface SubjectChanger {
      * @param representation Representation of the change (e.g. in case of a type transformation the KClass).
      * @param canBeTransformed Indicates whether it is safe to transform to the new subject.
      * @param transformation Provides the subject.
-     * @param subAssertions Optionally, subsequent assertions for the new subject. This is especially useful if the
+     * @param failureHandler The [FailureHandler] which shall be used in case the subject cannot be transformed.
+     *   A failure has the chance to augment the failing assertion representing the failed transformation with further
+     *   information.
+     * @param maybeSubAssertions Optionally, subsequent assertions for the new subject. This is especially useful if the
      *   change fails since we can then already show to you (in error reporting) what you wanted to assert about
      *   the new subject (which gives you more context to the error).
      *
@@ -104,7 +86,7 @@ interface SubjectChanger {
         canBeTransformed: (T) -> Boolean,
         transformation: (T) -> R,
         failureHandler: FailureHandler<T, R>,
-        subAssertions: (Expect<R>.() -> Unit)?
+        maybeSubAssertions: Option<Expect<R>.() -> Unit>
     ): Expect<R>
 
     /**
@@ -118,15 +100,36 @@ interface SubjectChanger {
         /**
          * Creates the failing assertion most likely based on the given [descriptiveAssertion] -- which in turn
          * is based on the previously specified description, representation etc. -- and should incorporate
-         * the assertions [assertionCreator] would have created for the new subject as explanatory assertions.
+         * the assertions [maybeAssertionCreator] would have created for the new subject as explanatory assertions.
          *
          * @return A failing assertion.
-         * @throws IllegalStateException in case the given [assertionCreator] does not create a single assertion.
          */
         fun createAssertion(
             originalAssertionContainer: Expect<T>,
             descriptiveAssertion: Assertion,
-            assertionCreator: (Expect<R>.() -> Unit)?
+            maybeAssertionCreator: Option<Expect<R>.() -> Unit>
         ): Assertion
     }
+
+    /**
+     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
+     */
+    @Deprecated(
+        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
+    )
+    fun <T, R : Any> unreported(
+        originalPlant: BaseAssertionPlant<T, *>,
+        transformation: (T) -> R
+    ): Assert<R>
+
+    /**
+     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
+     */
+    @Deprecated(
+        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
+    )
+    fun <T, R> unreportedNullable(
+        originalPlant: BaseAssertionPlant<T, *>,
+        transformation: (T) -> R
+    ): AssertionPlantNullable<R>
 }

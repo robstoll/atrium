@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -11,14 +9,17 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsExactlyTriple: Triple<String, (String, String) -> String, Expect<Iterable<Double>>.(Int, Double, Array<out Double>) -> Expect<Iterable<Double>>>,
+    containsExactlyPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsExactlyTriple.first to expectLambda { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) }
+    val containsExactly = containsExactlyPair.second
+
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsExactly.forSubjectLess(2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -28,15 +29,14 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
-    val (containsExactly, containsExactlyTest, containsExactlyFunArr) = containsExactlyTriple
-    fun Expect<Iterable<Double>>.containsExactlyFun(atLeast: Int, a: Double, vararg aX: Double)
-        = containsExactlyFunArr(atLeast, a, aX.toTypedArray())
+    fun Expect<Iterable<Double>>.containsExactlyFun(atLeast: Int, a: Double, vararg aX: Double) =
+        containsExactly.invoke(this, atLeast, a, aX.toTypedArray())
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
     val exactly = EXACTLY.getDefault()
 
-    describeFun(containsExactly) {
+    describeFun(containsExactly.name) {
         context("throws an $illegalArgumentException") {
             it("for exactly -1 -- only positive numbers") {
                 expect {
@@ -53,25 +53,25 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
         context("iterable $oneToSeven") {
 
             context("happy case with $containsExactly once") {
-                it("${containsExactlyTest("1.0", "once")} does not throw") {
+                it("${containsExactlyPair.first("1.0", "once")} does not throw") {
                     fluent.containsExactlyFun(1, 1.0)
                 }
-                it("${containsExactlyTest("1.0 and 2.0 and 3.0", "once")} does not throw") {
+                it("${containsExactlyPair.first("1.0 and 2.0 and 3.0", "once")} does not throw") {
                     fluent.containsExactlyFun(1, 1.0, 2.0, 3.0)
                 }
-                it("${containsExactlyTest("3.0 and 1.0 and 2.0", "once")} does not throw") {
+                it("${containsExactlyPair.first("3.0 and 1.0 and 2.0", "once")} does not throw") {
                     fluent.containsExactlyFun(1, 3.0, 1.0, 2.0)
                 }
             }
 
             context("failing cases; search string at different positions with $containsExactly once") {
-                it("${containsExactlyTest("4.0", "once")} throws AssertionError") {
+                it("${containsExactlyPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 4.0)
                     }.toThrow<AssertionError> { messageContains("$exactly: 1", "$anEntryWhichIs: 4.0") }
                 }
 
-                it("${containsExactlyTest("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
+                it("${containsExactlyPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsExactlyFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
@@ -82,7 +82,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }
                 }
 
-                it("${containsExactlyTest("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
+                it("${containsExactlyPair.first("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsExactlyFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
@@ -93,7 +93,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }
                 }
 
-                it("${containsExactlyTest("1.0 and 2.3 and 3.1", "once")} throws AssertionError") {
+                it("${containsExactlyPair.first("1.0 and 2.3 and 3.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 1.0, 2.3, 3.1)
                     }.toThrow<AssertionError> {
@@ -114,16 +114,21 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
             }
 
             context("multiple occurrences of the search string") {
-                it("${containsExactlyTest("5.0", "once")} throws AssertionError") {
+                it("${containsExactlyPair.first("5.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 5.0)
                     }.toThrow<AssertionError> { messageContains(EXACTLY.getDefault()) }
                 }
-                it("${containsExactlyTest("5.0", "twice")} does not throw") {
+                it("${containsExactlyPair.first("5.0", "twice")} does not throw") {
                     fluent.containsExactlyFun(2, 5.0)
                 }
 
-                it("${containsExactlyTest("5.0", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)") {
+                it(
+                    "${containsExactlyPair.first(
+                        "5.0",
+                        "3 times"
+                    )} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)"
+                ) {
                     expect {
                         fluent.containsExactlyFun(3, 5.0)
                     }.toThrow<AssertionError> {
@@ -138,7 +143,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }
                 }
 
-                it("${containsExactlyTest("5.0 and 4.0", "twice")} throws AssertionError") {
+                it("${containsExactlyPair.first("5.0 and 4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(2, 5.0, 4.0)
                     }.toThrow<AssertionError> {
@@ -153,10 +158,15 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                         }
                     }
                 }
-                it("${containsExactlyTest("4.0", "3 times")} does not throw") {
+                it("${containsExactlyPair.first("4.0", "3 times")} does not throw") {
                     fluent.containsExactlyFun(3, 4.0)
                 }
-                it("${containsExactlyTest("5.0 and 4.0", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)") {
+                it(
+                    "${containsExactlyPair.first(
+                        "5.0 and 4.0",
+                        "3 times"
+                    )} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)"
+                ) {
                     expect {
                         fluent.containsExactlyFun(3, 5.0, 4.0)
                     }.toThrow<AssertionError> {

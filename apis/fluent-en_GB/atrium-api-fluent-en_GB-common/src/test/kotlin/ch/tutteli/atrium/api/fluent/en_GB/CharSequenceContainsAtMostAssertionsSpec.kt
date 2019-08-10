@@ -15,20 +15,16 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.specs.integra
 
     companion object : CharSequenceContainsSpecBase() {
 
-        private fun getAtMostTriple() = Triple(
-            "$contains.$atMost",
-            { what: String, times: String -> "$contains $what $atMost $times" },
-            Companion::containsAtMost
-        )
+        private fun getAtMostTriple() =
+            { what: String, times: String -> "$contains $what $atMost $times" } to
+                ("$contains.$atMost" to Companion::containsAtMost)
 
         private fun containsAtMost(plant: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.atMost(atMost).values(a, *aX)
 
-        private fun getAtMostIgnoringCaseTriple() = Triple(
-            "$contains.$ignoringCase.$atMost",
-            { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" },
-            Companion::containsAtMostIgnoringCase
-        )
+        private fun getAtMostIgnoringCaseTriple() =
+            { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" } to
+                ("$contains.$ignoringCase.$atMost" to Companion::containsAtMostIgnoringCase)
 
         private fun containsAtMostIgnoringCase(plant: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.ignoringCase.atMost(atMost).values(a, *aX)

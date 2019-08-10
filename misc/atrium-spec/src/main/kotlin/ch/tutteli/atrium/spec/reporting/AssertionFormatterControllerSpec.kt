@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject

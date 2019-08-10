@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.assertions.builders
+package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.creating.SubjectProvider
 

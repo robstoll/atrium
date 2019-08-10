@@ -33,12 +33,16 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
     override val maybeSubject: Option<T>
 
     /**
-     * Adds the assertions created by the [assertionCreator] lambda to this container.
+     * Adds the assertions created by the [assertionCreator] lambda to this container and
+     * adds a failing assertion to this container in case the [assertionCreator] did not create a single assertion.
      *
-     * @param assertionCreator The receiver function which might create and add assertions to this container.
+     * A failing assertion is added to the container since we assume that the user or assertion function writer
+     * did a mistake and forgot to add an assertion. This can happen if one only creates assertions without adding
+     * them to the container or if one simply let the lambda empty.
+     *
+     * @param assertionCreator The receiver function which should create and add assertions to this container.
      *
      * @return This assertion container to support a fluent API.
-     *
      * @throws AssertionError Might throw an [AssertionError] depending on the concrete implementation.
      */
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
@@ -64,7 +68,6 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      * @param test Indicates whether the assertion holds or fails.
      *
      * @return This assertion container to support a fluent API.
-     *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.creating.changers
 
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.newReportingPlantNullable
@@ -26,7 +27,7 @@ class SubjectChangerImpl : SubjectChanger {
         canBeTransformed: (T) -> Boolean,
         transformation: (T) -> R,
         failureHandler: SubjectChanger.FailureHandler<T, R>,
-        subAssertions: (Expect<R>.() -> Unit)?
+        maybeSubAssertions: Option<Expect<R>.() -> Unit>
     ): Expect<R> = _changeSubject(
         originalAssertionContainer,
         description,
@@ -34,7 +35,7 @@ class SubjectChangerImpl : SubjectChanger {
         canBeTransformed,
         transformation,
         failureHandler,
-        subAssertions
+        maybeSubAssertions
     )
 
     @Suppress("OverridingDeprecatedMember", "DEPRECATION")

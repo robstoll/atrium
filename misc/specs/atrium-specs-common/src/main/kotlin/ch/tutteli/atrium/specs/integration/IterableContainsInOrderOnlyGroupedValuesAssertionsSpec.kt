@@ -12,9 +12,9 @@ import org.spekframework.spek2.style.specification.describe
 
 abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsInOrderOnlyGroupedValuesPair: Pair<String, Expect<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Expect<Iterable<Double>>>,
+    containsInOrderOnlyGroupedValues: Fun3<Iterable<Double>, Group<Double>, Group<Double>, Array<out Group<Double>>>,
     groupFactory: (Array<out Double>) -> Group<Double>,
-    containsInOrderOnlyGroupedNullableValuesPair: Pair<String, Expect<Iterable<Double?>>.(Group<Double?>, Group<Double?>, Array<out Group<Double?>>) -> Expect<Iterable<Double?>>>,
+    containsInOrderOnlyGroupedNullableValues: Fun3<Iterable<Double?>, Group<Double?>, Group<Double?>, Array<out Group<Double?>>>,
     nullableGroupFactory: (Array<out Double?>) -> Group<Double?>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
@@ -29,15 +29,13 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun context(vararg doubles: Double) = groupFactory(doubles.toTypedArray())
     fun nullableGroup(vararg assertionCreators: Double?) = nullableGroupFactory(assertionCreators)
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        containsInOrderOnlyGroupedValuesPair.first to expectLambda {
-            containsInOrderOnlyGroupedValuesPair.second(this, context(2.5), context(4.1), arrayOf())
-        }
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
+        containsInOrderOnlyGroupedValues.forSubjectLess(context(2.5), context(4.1), arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable" to expectLambda {
-            containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(4.1), arrayOf())
-        }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        containsInOrderOnlyGroupedNullableValues.forSubjectLess(nullableGroup(2.5), nullableGroup(4.1), arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -46,14 +44,11 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
     val expect = verbs::checkException
 
-    val (containsInOrderOnlyGroupedValues, containsInOrderOnlyGroupedValuesFunArr) = containsInOrderOnlyGroupedValuesPair
-
-    val (containsInOrderOnlyGroupedNullableValues, containsInOrderOnlyGroupedNullableValuesFunArr) = containsInOrderOnlyGroupedNullableValuesPair
     fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedNullableValuesFun(
         t1: Group<Double?>,
         t2: Group<Double?>,
         vararg tX: Group<Double?>
-    ) = containsInOrderOnlyGroupedNullableValuesFunArr(t1, t2, tX)
+    ) = containsInOrderOnlyGroupedNullableValues(this, t1, t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
@@ -150,8 +145,8 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
     describe("$describePrefix describe non-nullable cases") {
         mapOf<String, Expect<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Any>(
-            containsInOrderOnlyGroupedValues to { g1, g2, gX ->
-                containsInOrderOnlyGroupedValuesFunArr(
+            containsInOrderOnlyGroupedValues.name to { g1, g2, gX ->
+                containsInOrderOnlyGroupedValues(
                     this,
                     g1,
                     g2,
@@ -160,7 +155,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
             },
             "$containsInOrderOnlyGroupedNullableValues for nullable" to { g1, g2, gX ->
                 @Suppress("UNCHECKED_CAST")
-                containsInOrderOnlyGroupedNullableValuesFunArr(
+                containsInOrderOnlyGroupedNullableValues(
                     this as Expect<Iterable<Double?>>,
                     groupToNullableGroup(g1),
                     groupToNullableGroup(g2),
