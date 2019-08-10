@@ -79,7 +79,7 @@ interface ExplanatoryGroup {
 @Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */ )
 fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
     translatable: Translatable
-): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withDescription(translatable).build() }
+): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withExplanation(translatable).build() }
 
 
 /**
@@ -91,7 +91,7 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
 @Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */ )
 fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
     representation: Any?
-): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withDescription(representation).build() }
+): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withExplanation(representation).build() }
 
 /**
  * Defines that an [ExplanatoryAssertion] will be used as single [Assertion] in [AssertionGroup.assertions] where
@@ -120,7 +120,7 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
     translatable: Translatable,
     arg: Any,
     vararg otherArgs: Any
-): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withDescription(translatable, arg, *otherArgs).build() }
+): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withExplanation(translatable, arg, *otherArgs).build() }
 
 
 /**

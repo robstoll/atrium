@@ -33,7 +33,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         it("puts the representation on the next line indented as the bullet point used for newParameterObject") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             val assertionGroup = AssertImpl.builder.root
-                .withDescriptionAndRepresentation(Untranslatable(name), subject)
+                .withDescriptionAndRepresentation(name, subject)
                 .withAssertions(listOf())
                 .build()
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
@@ -42,7 +42,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
             val assertionGroup = AssertImpl.builder.root
-                .withDescriptionAndEmptyRepresentation(Untranslatable(name))
+                .withDescriptionAndEmptyRepresentation(name)
                 .withAssertions(listOf())
                 .build()
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)

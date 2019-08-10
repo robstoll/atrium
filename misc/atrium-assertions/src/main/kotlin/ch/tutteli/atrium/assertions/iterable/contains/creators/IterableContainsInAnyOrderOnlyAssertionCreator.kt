@@ -54,7 +54,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
                 })
             }
             assertions.add(AssertImpl.builder.feature
-                .withDescriptionAndRepresentation(Untranslatable(list::size.name), RawString.create(actualSize.toString()))
+                .withDescriptionAndRepresentation(list::size.name, RawString.create(actualSize.toString()))
                 .withAssertions(featureAssertions)
                 .build()
             )
@@ -105,7 +105,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
         )
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
-        val assertions = list.map { AssertImpl.builder.explanatory.withDescription(it).build() }
+        val assertions = list.map { AssertImpl.builder.explanatory.withExplanation(it).build() }
         val additionalEntries = AssertImpl.builder.list
             .withDescriptionAndEmptyRepresentation(warning)
             .withAssertions(assertions)

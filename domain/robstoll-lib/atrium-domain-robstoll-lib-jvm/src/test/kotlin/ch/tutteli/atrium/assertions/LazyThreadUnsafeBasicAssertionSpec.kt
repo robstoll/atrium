@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeBasicAssertion
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -16,7 +15,7 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
         var callingCount = 0
         val testee = LazyThreadUnsafeBasicAssertion {
             ++callingCount
-            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(Untranslatable("a"), 2).build()
+            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation("a", 2).build()
         }
         test("does not evaluate anything") {
             assert(callingCount).toBe(0)

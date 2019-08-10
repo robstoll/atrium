@@ -87,14 +87,17 @@ interface FeatureExtractorBuilder {
             withRepresentationForFailure(RawString.create(translatable))
 
         /**
-         * Uses the given [representationProvider] to get the representation
-         * which will be used in case the extraction cannot be performed.
+         * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
+         * to get the representation which will be used in case the extraction cannot be performed.
          */
         fun withRepresentationForFailure(representationProvider: () -> Any?): CheckOption<T> =
             withRepresentationForFailure(LazyRepresentation(representationProvider))
 
         /**
          * Uses the given [representation] in case the extraction cannot be performed.
+         *
+         * Notice, if you want to use text (e.g. a [String]), then wrap it into a [RawString] via [RawString.create]
+         * and pass the [RawString] instead.
          */
         fun withRepresentationForFailure(representation: Any): CheckOption<T>
 

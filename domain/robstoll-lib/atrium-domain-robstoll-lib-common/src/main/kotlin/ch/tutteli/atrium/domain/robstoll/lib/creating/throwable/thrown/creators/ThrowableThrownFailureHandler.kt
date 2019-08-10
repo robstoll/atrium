@@ -57,11 +57,9 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
                 .withDefaultType
                 .withAssertions(
                     AssertImpl.builder.explanatory
-                        .withDescription(
-                            TranslatableWithArgs(
-                                DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
-                                throwable::class.simpleName ?: throwable::class.fullName
-                            )
+                        .withExplanation(
+                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
+                            throwable::class.simpleName ?: throwable::class.fullName
                         )
                         .build(),
                     createHints(throwable, maxStackTrace, secondStackFrameOfParent = null)
@@ -114,11 +112,11 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             val assertions = stackTrace.asSequence()
                 .take(maxStackTrace)
                 .map {
-                    AssertImpl.builder.explanatory.withDescription(RawString.create(it)).build()
+                    AssertImpl.builder.explanatory.withExplanation(RawString.create(it)).build()
                 }
                 .let {
                     if (stackTrace.size > maxStackTrace) {
-                        it.plus(AssertImpl.builder.explanatory.withDescription(RawString.create("...")).build())
+                        it.plus(AssertImpl.builder.explanatory.withExplanation(RawString.create("...")).build())
                     } else {
                         it
                     }

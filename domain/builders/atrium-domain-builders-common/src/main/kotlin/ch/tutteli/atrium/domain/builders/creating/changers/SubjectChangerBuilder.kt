@@ -13,7 +13,9 @@ import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import kotlin.reflect.KClass
 
@@ -75,11 +77,22 @@ object SubjectChangerBuilder {
                 .withTransformation { subType.cast(it) }
 
         /**
+         * Uses the given [description] and [representation] to represent the change by delegating to the other overload
+         * which expects a [Translatable] instead of a [String].
+         *
+         * See the other overload for further information.
+         */
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckOption<T>
+            = withDescriptionAndRepresentation(Untranslatable(description), representation)
+
+        /**
          * Uses the given [description] and [representation] to represent the change.
-         * Unless [representation] is null in which case a representation for null is used.
          * Moreover, subsequent options in the building step allow to define rules when the change cannot be applied, in
          * such a case an alternative description and representation might be used (depending on the implementation and
          * chosen options).
+         *
+         * Notice, if you want to use text (e.g. a [String]) as [representation],
+         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
         fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): CheckOption<T>
 

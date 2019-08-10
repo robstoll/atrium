@@ -99,7 +99,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
         )
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
-        val assertions = list.map { ExpectImpl.builder.explanatory.withDescription(it).build() }
+        val assertions = list.map { ExpectImpl.builder.explanatory.withExplanation(it).build() }
         val additionalEntries = ExpectImpl.builder.list
             .withDescriptionAndEmptyRepresentation(warning)
             .withAssertions(assertions)

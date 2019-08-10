@@ -7,8 +7,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Returns the [AssertionBuilder].
@@ -92,6 +94,29 @@ interface AssertionBuilder {
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test]
      *
+     * Notice, if you want to use text (e.g. a [String]) as representation,
+     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     *
+     * Shortcut for:
+     * ```
+     * descriptive
+     *   .withTest(test)
+     *   .withDescriptionAndRepresentation(description, representation)
+     *   .build()
+     * ```
+     * @param description The description of the assertion, e.g. `to Be`
+     * @param representation The representation of the expected outcome
+     * @param test The test which checks whether the assertion holds
+     */
+    fun createDescriptive(description: String, representation: Any?, test: () -> Boolean): DescriptiveAssertion =
+        createDescriptive(Untranslatable(description), representation, test)
+
+    /**
+     * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test]
+     *
+     * Notice, if you want to use text (e.g. a [String]) as representation,
+     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     *
      * Shortcut for:
      * ```
      * descriptive
@@ -112,6 +137,40 @@ interface AssertionBuilder {
     /**
      * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
      * [SubjectProvider.maybeSubject] of the given [subjectProvider].
+     *
+     * Notice, if you want to use text (e.g. a [String]) as representation,
+     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     *
+     * Shortcut for:
+     * ```
+     * descriptive
+     *   .withTest(subjectProvider, test)
+     *   .withDescriptionAndRepresentation(description, representation)
+     *   .build()
+     * ```
+     *
+     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the given [test].
+     * @param description The description of the assertion, e.g. `to Be`.
+     * @param representation The representation of the expected outcome.
+     * @param test The test which checks whether the assertion holds.
+     *
+     * @throws PlantHasNoSubjectException in case [test] is called in a context where it is not safe to call it.
+     *   For instance, if [test] is called within an explanatory assertion where it is possible that
+     *   [Expect.maybeSubject] is [None].
+     */
+    fun <T> createDescriptive(
+        subjectProvider: SubjectProvider<T>,
+        description: String,
+        representation: Any?,
+        test: (T) -> Boolean
+    ): DescriptiveAssertion = createDescriptive(subjectProvider, Untranslatable(description), representation, test)
+
+    /**
+     * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
+     * [SubjectProvider.maybeSubject] of the given [subjectProvider].
+     *
+     * Notice, if you want to use text (e.g. a [String]) as representation,
+     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
      *
      * Shortcut for:
      * ```

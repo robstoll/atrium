@@ -32,8 +32,8 @@ class CollectingAssertionContainerImpl<T>(
                     assertionBuilder.explanatoryGroup
                         .withDefaultType
                         .withAssertions(
-                            assertionBuilder.explanatory.withDescription(ErrorMessages.FORGOT_DO_DEFINE_ASSERTION).build(),
-                            assertionBuilder.explanatory.withDescription(ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED).build()
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_ASSERTION).build(),
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED).build()
                         )
                         .build()
                 }

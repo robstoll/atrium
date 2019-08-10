@@ -7,6 +7,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.kbox.glue
 
 /**
@@ -15,7 +16,7 @@ import ch.tutteli.kbox.glue
 interface Explanatory {
 
     /**
-     * Option step which allows to specify [ExplanatoryAssertion.explanation].
+     * Option step which allows to specify an [ExplanatoryAssertion.explanation].
      */
     interface ExplanationOption{
 
@@ -26,8 +27,14 @@ interface Explanatory {
          * It delegates to the overload which expects a single [Translatable]; see there for more details about
          * how the [Translatable] is used as [ExplanatoryAssertion.explanation].
          */
-        fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep
-            = withDescription(TranslatableWithArgs(translatable, arg glue otherArgs))
+        fun withExplanation(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep
+            = withExplanation(TranslatableWithArgs(translatable, arg glue otherArgs))
+
+        /**
+         * Uses the given [description] as explanation.
+         */
+        fun withExplanation(description: String): FinalStep
+            = withExplanation(Untranslatable(description))
 
         /**
          * Uses the given [translatable] as explanation.
@@ -35,16 +42,29 @@ interface Explanatory {
          * In detail, the given [translatable] is turned into a [RawString] so that an [ObjectFormatter] translates the
          * given [translatable] and treats the result as raw string.
          */
-        fun withDescription(translatable: Translatable): FinalStep
-            = withDescription(RawString.create(translatable))
+        fun withExplanation(translatable: Translatable): FinalStep
+            = withExplanation(RawString.create(translatable))
 
         /**
          * Uses the given [explanation] as [ExplanatoryAssertion.explanation].
          *
-         * In case you want to pass a [String] which should be treated as [RawString] in reporting, then please wrap it
-         * into a [RawString] (`RawString.create("Your text..")`.
+         * Notice, if you want to use a text (e.g. a [String]) as explanation,
+         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
-        fun withDescription(explanation: Any?) : FinalStep
+        fun withExplanation(explanation: Any?) : FinalStep
+
+
+        @Deprecated("use withExplanation instead; will be removed with 1.0.0", ReplaceWith("this.withExplanation(translatable, arg, *otherArgs)"))
+        fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep
+            = withExplanation(translatable, arg, *otherArgs)
+
+
+        @Deprecated("use withExplanation instead; will be removed with 1.0.0", ReplaceWith("this.withExplanation(translatable)"))
+        fun withDescription(translatable: Translatable): FinalStep = withExplanation(translatable)
+
+        @Deprecated("use withExplanation instead; will be removed with 1.0.0", ReplaceWith("this.withExplanation(explanation)"))
+        fun withDescription(explanation: Any?) : FinalStep = withExplanation(explanation)
+
 
         companion object {
             /**
