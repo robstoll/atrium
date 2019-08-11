@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
-import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
@@ -136,7 +136,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 expect {
                     fluentEmpty.containsEntriesFun({
                         @Suppress("DEPRECATION")
-                        asAssert().returnValueOf(subject::dec).toBe(1.0)
+                        asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     })
                 }.toThrow<AssertionError> {
                     messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault())

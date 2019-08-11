@@ -48,6 +48,8 @@ interface AnyAssertions {
     fun <T : Any> notToBeNull(assertionContainer: Expect<T?>, subType: KClass<T>) =
         isA(assertionContainer, subType)
 
+    //TODO restrict TSub with T once type parameter for upper bounds are supported:
+    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
     fun <T, TSub : Any> isA(assertionContainer: Expect<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
 
 

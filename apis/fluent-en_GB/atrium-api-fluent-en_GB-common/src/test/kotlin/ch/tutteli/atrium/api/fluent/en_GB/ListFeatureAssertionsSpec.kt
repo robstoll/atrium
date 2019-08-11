@@ -11,17 +11,10 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
     AssertionVerbFactory,
     feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
     fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Expect<List<Int>>::get),
-    feature1(Expect<List<Int?>>::get),
-    "get for nullable not implement in this API" to Companion::getNullable
+    feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get),
+    fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::get)
 ) {
     companion object {
-
-        fun getNullable(
-            plant: Expect<List<Int?>>,
-            index: Int,
-            assertionCreator: Expect<Int?>.() -> Unit
-        ): Expect<List<Int?>> = ExpectImpl.list.get(plant, index).addToInitial(assertionCreator)
-
         @Suppress("unused", "UNUSED_VALUE")
         private fun ambiguityTest() {
             var a1: Expect<List<Int>> = notImplemented()

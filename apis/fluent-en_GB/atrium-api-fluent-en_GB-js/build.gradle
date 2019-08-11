@@ -10,6 +10,4 @@ dependencies {
     compileOnly prefixedProject('translations-en_GB-js')
 
     testImplementation prefixedProject('verbs-internal-js')
-    //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testImplementation prefixedProject('api-cc-en_GB-js')
 }

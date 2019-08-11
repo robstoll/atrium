@@ -12,7 +12,9 @@ abstract class PairFeatureAssertionsSpec(
     secondFeature: Feature0<Pair<String, Int>, Int>,
     second: Fun1<Pair<String, Int>, Expect<Int>.() -> Unit>,
     nullableFirstFeature: Feature0<Pair<String?, Int?>, String?>,
+    nullableFirst: Fun1<Pair<String?, Int?>, Expect<String?>.() -> Unit>,
     nullableSecondFeature: Feature0<Pair<String?, Int?>, Int?>,
+    nullableSecond: Fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : KeyValueLikeFeatureAssertionsSpec<Pair<String, Int>, Pair<String?, Int?>>(
     verbs,
@@ -25,6 +27,8 @@ abstract class PairFeatureAssertionsSpec(
     secondFeature,
     second,
     nullableFirstFeature,
+    nullableFirst,
     nullableSecondFeature,
+    nullableSecond,
     describePrefix
 )

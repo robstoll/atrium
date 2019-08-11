@@ -19,7 +19,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     valueFeature: Feature0<T, Int>,
     value: Fun1<T, Expect<Int>.() -> Unit>,
     nullableKeyFeature: Feature0<TNullable, String?>,
+    nullableKey: Fun1<TNullable, Expect<String?>.() -> Unit>,
     nullableValueFeature: Feature0<TNullable, Int?>,
+    nullableValue: Fun1<TNullable, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -44,6 +46,11 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         key.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") },
         value.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
+    include(object : AssertionCreatorSpec<TNullable>(
+        verbs, describePrefix, nullMapEntry,
+        nullableKey.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) },
+        nullableValue.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) }
+    ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -57,7 +64,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     val nullableFluent = verbs.check(nullableMapEntry)
     val nullFluent = verbs.check(nullMapEntry)
 
-    describeFun("val ${keyFeature.name}") {
+    describeFun("${keyFeature.name} feature") {
         val keyVal = keyFeature.lambda
 
         context("$mapEntry") {
@@ -74,7 +81,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("fun ${key.name}") {
+    describeFun(key.name) {
         val keyFun = key.lambda
 
         context("$mapEntry") {
@@ -92,7 +99,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     }
 
 
-    describeFun("val ${valueFeature.name}") {
+    describeFun("${valueFeature.name} feature") {
         val valueVal = valueFeature.lambda
 
         context("$mapEntry") {
@@ -109,7 +116,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("fun ${value.name}") {
+    describeFun(value.name) {
         val valueFun = value.lambda
 
         context("$mapEntry") {
@@ -126,16 +133,16 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("val ${nullableKeyFeature.name} for nullable") {
-        val nullableKeyVal = nullableKeyFeature.lambda
+    describeFun("${nullableKeyFeature.name} nullable feature") {
+        val nullableKeyFun = nullableKeyFeature.lambda
 
         context("$nullableMapEntry") {
             it("toBe(hello)") {
-                nullableFluent.nullableKeyVal().toBe("hello")
+                nullableFluent.nullableKeyFun().toBe("hello")
             }
             it("toBe(null) fails") {
                 expect {
-                    nullableFluent.nullableKeyVal().toBe(null)
+                    nullableFluent.nullableKeyFun().toBe(null)
                 }.toThrow<AssertionError> {
                     messageContains("$keyName: \"hello\"")
                 }
@@ -143,11 +150,11 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
         context("$nullMapEntry") {
             it("toBe(null)") {
-                nullFluent.nullableKeyVal().toBe(null)
+                nullFluent.nullableKeyFun().toBe(null)
             }
             it("toBe(hello) fails") {
                 expect {
-                    nullFluent.nullableKeyVal().toBe("hello")
+                    nullFluent.nullableKeyFun().toBe("hello")
                 }.toThrow<AssertionError> {
                     messageContains("$keyName: null")
                 }
@@ -155,16 +162,46 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
     }
 
-    describeFun("val ${nullableValueFeature.name} for nullable") {
-        val nullableValueVal = nullableValueFeature.lambda
+    describeFun("${nullableKey.name} nullable") {
+        val nullableKeyFun = nullableKey.lambda
 
         context("$nullableMapEntry") {
-            it("isGreaterThan(0) holds") {
-                nullableFluent.nullableValueVal().notToBeNull { isGreaterThan(0) }
+            it("toBe(hello)") {
+                nullableFluent.nullableKeyFun { toBe("hello") }
             }
             it("toBe(null) fails") {
                 expect {
-                    nullableFluent.nullableValueVal().toBe(null)
+                    nullableFluent.nullableKeyFun { toBe(null) }
+                }.toThrow<AssertionError> {
+                    messageContains("$keyName: \"hello\"")
+                }
+            }
+        }
+        context("$nullMapEntry") {
+            it("toBe(null)") {
+                nullFluent.nullableKeyFun { toBe(null) }
+            }
+            it("toBe(hello) fails") {
+                expect {
+                    nullFluent.nullableKeyFun { toBe("hello") }
+                }.toThrow<AssertionError> {
+                    messageContains("$keyName: null")
+                }
+            }
+        }
+    }
+
+
+    describeFun("${nullableValueFeature.name} nullable feature") {
+        val nullableValueFun = nullableValueFeature.lambda
+
+        context("$nullableMapEntry") {
+            it("isGreaterThan(0) holds") {
+                nullableFluent.nullableValueFun().notToBeNull { isGreaterThan(0) }
+            }
+            it("toBe(null) fails") {
+                expect {
+                    nullableFluent.nullableValueFun().toBe(null)
                 }.toThrow<AssertionError> {
                     messageContains("$valueName: 1")
                 }
@@ -172,11 +209,40 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
         }
         context("$nullMapEntry") {
             it("toBe(null)") {
-                nullFluent.nullableValueVal().toBe(null)
+                nullFluent.nullableValueFun().toBe(null)
             }
             it("toBe(1) fails") {
                 expect {
-                    nullFluent.nullableValueVal().toBe(1)
+                    nullFluent.nullableValueFun().toBe(1)
+                }.toThrow<AssertionError> {
+                    messageContains("$valueName: null")
+                }
+            }
+        }
+    }
+
+    describeFun("${nullableValue.name} nullable") {
+        val nullableValueFun = nullableValue.lambda
+
+        context("$nullableMapEntry") {
+            it("isGreaterThan(0) holds") {
+                nullableFluent.nullableValueFun { notToBeNull { isGreaterThan(0) } }
+            }
+            it("toBe(null) fails") {
+                expect {
+                    nullableFluent.nullableValueFun { toBe(null) }
+                }.toThrow<AssertionError> {
+                    messageContains("$valueName: 1")
+                }
+            }
+        }
+        context("$nullMapEntry") {
+            it("toBe(null)") {
+                nullFluent.nullableValueFun { toBe(null) }
+            }
+            it("toBe(1) fails") {
+                expect {
+                    nullFluent.nullableValueFun { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains("$valueName: null")
                 }

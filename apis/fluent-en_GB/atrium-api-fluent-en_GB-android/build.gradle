@@ -10,8 +10,6 @@ dependencies {
     compileOnly prefixedProject('translations-en_GB-android')
     
     testImplementation prefixedProject('verbs-internal-android')
-    //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testImplementation prefixedProject('api-cc-en_GB-android')
 }
 
 //TODO remove once all specs are migrated to spek2 and apply spek plugin with version 2.1.x
