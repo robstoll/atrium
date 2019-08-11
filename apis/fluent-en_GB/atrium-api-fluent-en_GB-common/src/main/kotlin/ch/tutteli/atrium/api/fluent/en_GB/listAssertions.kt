@@ -19,5 +19,5 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> = ExpectImpl.list.get(
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
-fun <E : Any, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+fun <E, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.list.get(this, index).addToInitial(assertionCreator)

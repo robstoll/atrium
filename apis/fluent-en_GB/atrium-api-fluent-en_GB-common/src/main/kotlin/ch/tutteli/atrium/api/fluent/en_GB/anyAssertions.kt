@@ -113,7 +113,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * @return An assertion container with the new type [TSub].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TSub : Any> Expect<out Any?>.isA(): Expect<TSub> =
+inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
     ExpectImpl.any.isA(this, TSub::class).getExpectOfFeature()
 
 /**
