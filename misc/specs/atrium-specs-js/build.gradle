@@ -10,7 +10,7 @@ dependencies {
 
     implementation prefixedProject('api-fluent-en_GB-js')
 
-    //TODO #26 remove as soon as we have ported all assertion functions to Expect
+    //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-js')
 }
 

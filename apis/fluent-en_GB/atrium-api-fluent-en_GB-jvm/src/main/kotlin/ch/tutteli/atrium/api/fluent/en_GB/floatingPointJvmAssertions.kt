@@ -3,9 +3,7 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import java.math.BigDecimal
 

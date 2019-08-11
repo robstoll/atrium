@@ -7,6 +7,4 @@ dependencies {
     compileOnly prefixedProject('translations-en_GB-common')
     
     testImplementation prefixedProject('verbs-internal-common')
-    //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testImplementation prefixedProject('api-cc-en_GB-common')
 }

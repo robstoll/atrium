@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -33,7 +33,7 @@ abstract class SubjectLessSpec<T>(
                         coreFactory.newNoOpAtriumErrorAdjuster()
                     )
                 )
-                val explanatoryGroup = AssertImpl.builder.explanatoryGroup
+                val explanatoryGroup = ExpectImpl.builder.explanatoryGroup
                     .withDefaultType
                     .withAssertions(assertions)
                     .build()

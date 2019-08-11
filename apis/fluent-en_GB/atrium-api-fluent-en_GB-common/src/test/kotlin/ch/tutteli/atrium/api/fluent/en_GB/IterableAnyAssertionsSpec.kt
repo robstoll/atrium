@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.include
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
@@ -76,15 +76,13 @@ class IterableAnyAssertionsSpec : Spek({
         private fun getContainsSequencePair()
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
 
-        @Suppress("DEPRECATION")
         private fun containsInAnyOrderEntriesSequence(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit)
-            = AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().contains(a)
+            = ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable().contains(a)
 
         fun getContainsNullableSequencePair()
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
 
-        @Suppress("DEPRECATION")
         private fun containsNullableEntriesSequence(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?)
-            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().contains(a)
+            =  ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable().contains(a)
     }
 }

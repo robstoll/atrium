@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
-import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -43,13 +43,13 @@ abstract class IterableAnyAssertionsSpec(
         describePrefix,
         any,
         anyNullable
-    ) { containsEntriesFun ->
+    ) { anyFun ->
 
         context("empty collection") {
             val fluentEmpty = assert(setOf())
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun { isLessThan(1.0) }
+                    fluentEmpty.anyFun { isLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -63,9 +63,9 @@ abstract class IterableAnyAssertionsSpec(
             //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmpty.containsEntriesFun {
+                    fluentEmpty.anyFun {
                         @Suppress("DEPRECATION")
-                        asAssert().returnValueOf(subject::dec).toBe(1.0)
+                        asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     }
                 }.toThrow<AssertionError> { messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault()) }
             }
@@ -76,7 +76,7 @@ abstract class IterableAnyAssertionsSpec(
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.containsEntriesFun { isGreaterThan(1.0); isLessThan(2.0) }
+                        fluent.anyFun { isGreaterThan(1.0); isLessThan(2.0) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -92,7 +92,7 @@ abstract class IterableAnyAssertionsSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    fluent.containsEntriesFun { isGreaterThan(1.0); isLessThan(2.1) }
+                    fluent.anyFun { isGreaterThan(1.0); isLessThan(2.1) }
                 }
             }
         }

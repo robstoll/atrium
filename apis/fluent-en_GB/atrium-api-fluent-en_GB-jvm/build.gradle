@@ -19,8 +19,6 @@ dependencies {
     compileOnly prefixedProject('translations-en_GB-jvm')
 
     testImplementation prefixedProject('verbs-internal-jvm')
-    //TODO #26 remove as soon as we have ported all assertion functions to Expect
-    testImplementation prefixedProject('api-cc-en_GB-jvm')
 }
 
 
