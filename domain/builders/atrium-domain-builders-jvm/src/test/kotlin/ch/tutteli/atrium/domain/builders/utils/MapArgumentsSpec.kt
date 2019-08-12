@@ -1,206 +1,247 @@
 package ch.tutteli.atrium.domain.builders.utils
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.verbs.internal.assert as deprecatedAssert
+import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
-import ch.tutteli.atrium.verbs.internal.assert
-import ch.tutteli.atrium.verbs.internal.expect
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object MapArgumentsSpec : Spek({
 
-    context("T") {
-        test("without second step") {
-            fun test(i: String, vararg iX: String) = mapArguments(i, iX) { "$it." }
+    describe("mapArguments") {
 
-            assert(test("a", "b", "c"))
-                .first { toBe("a.") }
-                .second.asIterable().containsExactly("b.", "c.")
-        }
+        context("T") {
+            it("without second step") {
+                fun it(i: String, vararg iX: String) = mapArguments(i, iX) { "$it." }
 
-        test("with second step `to`") {
-            fun test(i: String, vararg iX: String) = mapArguments(i, iX).to { "$it." }
-
-            assert(test("a", "b", "c"))
-                .first { toBe("a.") }
-                .second.asIterable().containsExactly("b.", "c.")
-        }
-
-        test("toAssert") {
-            fun test(i: String, vararg iX: String) = mapArguments(i, iX).toAssert<String> { startsWith(it) }
-
-            val (first, others) = test("a", "b", "c")
-            assert("apple").first()
-            others[0](assert("banana"))
-            others[1](assert("caramel"))
-        }
-
-        test("toAssertNullable") {
-            fun test(i: String, vararg iX: String) =
-                mapArguments(i, iX).toAssertionPlantNullable<String?> { notToBeNull { startsWith(it) } }
-
-            val (first, others) = test("a", "b", "c")
-            assert("apple" as String?).first()
-            others[0](assert("banana" as String?))
-            others[1](assert("caramel" as String?))
-        }
-
-        test("toNullOr.toAssert") {
-            fun test(i: String?, vararg iX: String?) = mapArguments(i, iX).toNullOr().toAssert<String> {
-                startsWith(it)
+                assert(it("a", "b", "c"))
+                    .first { toBe("a.") }
+                    .second.asIterable().containsExactly("b.", "c.")
             }
 
-            val (first, others) = test(null, "b", "c")
-            assert(first).toBe(null)
-            assert(others[0]).notToBeNull {
-                maybeSubject.map { assertionCreator ->
-                    assert("banana").assertionCreator()
+            it("with second step `to`") {
+                fun it(i: String, vararg iX: String) = mapArguments(i, iX).to { "$it." }
+
+                assert(it("a", "b", "c"))
+                    .first { toBe("a.") }
+                    .second.asIterable().containsExactly("b.", "c.")
+            }
+
+            it("toExpect"){
+                fun it(i: String, vararg iX: String) =
+                    mapArguments(i, iX).toExpect<String> { startsWith(it) }
+
+                val (first, others) = it("a", "b", "c")
+                assert("apple").first()
+                others[0](assert("banana"))
+                others[1](assert("caramel"))
+            }
+
+            it("toAssert") {
+                @Suppress("DEPRECATION")
+                fun it(i: String, vararg iX: String) =
+                    mapArguments(i, iX).toAssert<String> { asExpect().startsWith(it) }
+
+                val (first, others) = it("a", "b", "c")
+                deprecatedAssert("apple").first()
+                others[0](deprecatedAssert("banana"))
+                others[1](deprecatedAssert("caramel"))
+            }
+
+            it("toAssertNullable") {
+                @Suppress("DEPRECATION")
+                fun it(i: String, vararg iX: String) =
+                    mapArguments(i, iX).toAssertionPlantNullable<String?> { asExpect().notToBeNull { startsWith(it) } }
+
+                val (first, others) = it("a", "b", "c")
+                deprecatedAssert("apple" as String?).first()
+                others[0](deprecatedAssert("banana" as String?))
+                others[1](deprecatedAssert("caramel" as String?))
+            }
+
+            context("toNullOr...") {
+
+                it("toExpect") {
+                    fun it(i: String?, vararg iX: String?) =
+                        mapArguments(i, iX).toNullOr().toExpect<String> { startsWith(it) }
+
+                    val (first, others) = it(null, "b", "c")
+                    assert(first).toBe(null)
+                    assert(others[0]).notToBeNull {
+                        maybeSubject.map { assertionCreator ->
+                            ExpectImpl.changeSubject.unreported(this) { "banana" }.assertionCreator()
+                        }
+                    }
+                    deprecatedAssert(others[1]).asExpect().notToBeNull {
+                        maybeSubject.map { assertionCreator ->
+                            ExpectImpl.changeSubject.unreported(this) { "caramel" }.assertionCreator()
+                        }
+                    }
+                }
+
+                it("toAssert") {
+                    @Suppress("DEPRECATION")
+                    fun it(i: String?, vararg iX: String?) =
+                        mapArguments(i, iX).toNullOr().toAssert<String> { asExpect().startsWith(it) }
+
+                    val (first, others) = it(null, "b", "c")
+                    deprecatedAssert(first).asExpect().toBe(null)
+                    deprecatedAssert(others[0]).asExpect().notToBeNull {
+                        maybeSubject.map { assertionCreator ->
+                            ExpectImpl.changeSubject.unreported(this) { "banana" }.asAssert().assertionCreator()
+                        }
+                    }
+                    deprecatedAssert(others[1]).asExpect().notToBeNull {
+                        maybeSubject.map { assertionCreator ->
+                            ExpectImpl.changeSubject.unreported(this) { "caramel" }.asAssert().assertionCreator()
+                        }
+                    }
+                }
+
+                it("on non-nullable arguments") {
+                    @Suppress("DEPRECATION")
+                    fun it(i: String, vararg iX: String): Nothing = mapArguments(i, iX).toNullOr()
+
+                    expect {
+                        it("a", "b", "c")
+                    }.toThrow<PleaseUseReplacementException>()
                 }
             }
-            assert(others[1]).notToBeNull {
-                maybeSubject.map { assertionCreator ->
-                    assert("caramel").assertionCreator()
-                }
+        }
+
+        context("Byte") {
+            it("without second step") {
+                fun it(i: Byte, vararg iX: Byte) = mapArguments(i, iX) { it + 1 }
+
+                assert(it(1, 2, 3, 4))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
+
+            it("with second step") {
+                fun it(i: Byte, vararg iX: Byte) = mapArguments(i, iX).to { it + 1 }
+
+                assert(it(1, 2, 3, 4))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
             }
         }
+        context("Char") {
+            it("without second step") {
+                fun it(i: Char, vararg iX: Char) = mapArguments(i, iX) { it + 1 }
 
-        test("toNullOr on non-nullable arguments") {
-            @Suppress("DEPRECATION")
-            fun test(i: String, vararg iX: String): Nothing = mapArguments(i, iX).toNullOr()
+                assert(it('a', 'b', 'c'))
+                    .first { toBe('b') }
+                    .second.asIterable().containsExactly('c', 'd')
+            }
+            it("with second step") {
+                fun it(i: Char, vararg iX: Char) = mapArguments(i, iX).to { it + 1 }
 
-            expect {
-                test("a", "b", "c")
-            }.toThrow<PleaseUseReplacementException> {  }
+                assert(it('a', 'b', 'c'))
+                    .first { toBe('b') }
+                    .second.asIterable().containsExactly('c', 'd')
+            }
         }
-    }
+        context("Short") {
+            it("without second step") {
+                fun it(i: Short, vararg iX: Short) = mapArguments(i, iX) { it + 1 }
 
-    context("Byte") {
-        test("without second step") {
-            fun test(i: Byte, vararg iX: Byte) = mapArguments(i, iX) { it + 1 }
+                assert(it(1, 2, 3, 4))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
+            it("with second step") {
+                fun it(i: Short, vararg iX: Short) = mapArguments(i, iX).to { it + 1 }
 
-            assert(test(1, 2, 3, 4))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
+                assert(it(1, 2, 3, 4))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
         }
+        context("Int") {
+            it("without second step") {
+                fun it(i: Int, vararg iX: Int) = mapArguments(i, iX) { it + 1 }
 
-        test("with second step") {
-            fun test(i: Byte, vararg iX: Byte) = mapArguments(i, iX).to { it + 1 }
+                assert(it(1, 2, 3, 4))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
+            it("with second step") {
+                fun it(i: Int, vararg iX: Int) = mapArguments(i, iX).to { it + 1 }
 
-            assert(test(1, 2, 3, 4))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
+                assert(it(1, 2, 3, 4))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
         }
-    }
-    context("Char") {
-        test("without second step") {
-            fun test(i: Char, vararg iX: Char) = mapArguments(i, iX) { it + 1 }
+        context("Long") {
+            it("without second step") {
+                fun it(i: Long, vararg iX: Long) = mapArguments(i, iX) { it + 1 }
 
-            assert(test('a', 'b', 'c'))
-                .first { toBe('b') }
-                .second.asIterable().containsExactly('c', 'd')
+                assert(it(1L, 2L, 3L, 4L))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
+            it("with second step") {
+                fun it(i: Long, vararg iX: Long) = mapArguments(i, iX).to { it + 1 }
+
+                assert(it(1L, 2L, 3L, 4L))
+                    .first { toBe(2) }
+                    .second.asIterable().containsExactly(3, 4, 5)
+            }
         }
-        test("with second step") {
-            fun test(i: Char, vararg iX: Char) = mapArguments(i, iX).to { it + 1 }
+        context("Float") {
+            it("without second step") {
+                fun it(i: Float, vararg iX: Float) = mapArguments(i, iX) { it + 1 }
 
-            assert(test('a', 'b', 'c'))
-                .first { toBe('b') }
-                .second.asIterable().containsExactly('c', 'd')
+                assert(it(1f, 2f, 3f, 4f))
+                    .first { toBe(2f) }
+                    .second.asIterable().containsExactly(3f, 4f, 5f)
+            }
+            it("with second step") {
+                fun it(i: Float, vararg iX: Float) = mapArguments(i, iX).to { it + 1 }
+
+                assert(it(1f, 2f, 3f, 4f))
+                    .first { toBe(2f) }
+                    .second.asIterable().containsExactly(3f, 4f, 5f)
+            }
         }
-    }
-    context("Short") {
-        test("without second step") {
-            fun test(i: Short, vararg iX: Short) = mapArguments(i, iX) { it + 1 }
+        context("Double") {
+            it("without second step") {
+                fun it(i: Double, vararg iX: Double) = mapArguments(i, iX) { it + 1 }
 
-            assert(test(1, 2, 3, 4))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
+                assert(it(1.0, 2.0, 3.0, 4.0))
+                    .first { toBe(2.0) }
+                    .second.asIterable().containsExactly(3.0, 4.0, 5.0)
+            }
+            it("with second step") {
+                fun it(i: Double, vararg iX: Double) = mapArguments(i, iX).to { it + 1 }
+
+                assert(it(1.0, 2.0, 3.0, 4.0))
+                    .first { toBe(2.0) }
+                    .second.asIterable().containsExactly(3.0, 4.0, 5.0)
+            }
         }
-        test("with second step") {
-            fun test(i: Short, vararg iX: Short) = mapArguments(i, iX).to { it + 1 }
+        context("Boolean") {
+            it("without second step") {
+                fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX) { !it }
 
-            assert(test(1, 2, 3, 4))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
-        }
-    }
-    context("Int") {
-        test("without second step") {
-            fun test(i: Int, vararg iX: Int) = mapArguments(i, iX) { it + 1 }
+                assert(it(true, false, true))
+                    .first { toBe(false) }
+                    .second.asIterable().containsExactly(true, false)
+            }
+            it("with second step") {
+                fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX).to { if (it) "a" else "b" }
 
-            assert(test(1, 2, 3, 4))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
-        }
-        test("with second step") {
-            fun test(i: Int, vararg iX: Int) = mapArguments(i, iX).to { it + 1 }
-
-            assert(test(1, 2, 3, 4))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
-        }
-    }
-    context("Long") {
-        test("without second step") {
-            fun test(i: Long, vararg iX: Long) = mapArguments(i, iX) { it + 1 }
-
-            assert(test(1L, 2L, 3L, 4L))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
-        }
-        test("with second step") {
-            fun test(i: Long, vararg iX: Long) = mapArguments(i, iX).to { it + 1 }
-
-            assert(test(1L, 2L, 3L, 4L))
-                .first { toBe(2) }
-                .second.asIterable().containsExactly(3, 4, 5)
-        }
-    }
-    context("Float") {
-        test("without second step") {
-            fun test(i: Float, vararg iX: Float) = mapArguments(i, iX) { it + 1 }
-
-            assert(test(1f, 2f, 3f, 4f))
-                .first { toBe(2f) }
-                .second.asIterable().containsExactly(3f, 4f, 5f)
-        }
-        test("with second step") {
-            fun test(i: Float, vararg iX: Float) = mapArguments(i, iX).to { it + 1 }
-
-            assert(test(1f, 2f, 3f, 4f))
-                .first { toBe(2f) }
-                .second.asIterable().containsExactly(3f, 4f, 5f)
-        }
-    }
-    context("Double") {
-        test("without second step") {
-            fun test(i: Double, vararg iX: Double) = mapArguments(i, iX) { it + 1 }
-
-            assert(test(1.0, 2.0, 3.0, 4.0))
-                .first { toBe(2.0) }
-                .second.asIterable().containsExactly(3.0, 4.0, 5.0)
-        }
-        test("with second step") {
-            fun test(i: Double, vararg iX: Double) = mapArguments(i, iX).to { it + 1 }
-
-            assert(test(1.0, 2.0, 3.0, 4.0))
-                .first { toBe(2.0) }
-                .second.asIterable().containsExactly(3.0, 4.0, 5.0)
-        }
-    }
-    context("Boolean") {
-        test("without second step") {
-            fun test(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX) { !it }
-
-            assert(test(true, false, true))
-                .first { toBe(false) }
-                .second.asIterable().containsExactly(true, false)
-        }
-        test("with second step") {
-            fun test(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX).to { if (it) "a" else "b" }
-
-            assert(test(true, false, false))
-                .first { toBe("a") }
-                .second.asIterable().containsExactly("b", "b")
+                assert(it(true, false, false))
+                    .first { toBe("a") }
+                    .second.asIterable().containsExactly("b", "b")
+            }
         }
     }
 })

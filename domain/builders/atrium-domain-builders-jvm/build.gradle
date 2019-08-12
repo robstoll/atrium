@@ -8,8 +8,11 @@ dependencies {
 
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testImplementation prefixedProject('api-cc-en_GB-jvm')
+    testImplementation prefixedProject('api-fluent-en_GB-jvm')
     testImplementation prefixedProject('verbs-internal-jvm')
+    
+    //TODO remove with 1.0.0, only used for FeatureAssertionBuilderName...Spec
+    testImplementation prefixedProject('api-cc-en_GB-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124

@@ -8,8 +8,11 @@ dependencies {
 
     testRuntimeOnly prefixedProject('domain-robstoll-android')
     testRuntimeOnly prefixedProject('core-robstoll-android')
-    testImplementation prefixedProject('api-cc-en_GB-android')
+    testImplementation prefixedProject('api-fluent-en_GB-android')
     testImplementation prefixedProject('verbs-internal-android')
+
+    //TODO remove with 1.0.0
+    testImplementation prefixedProject('api-cc-en_GB-android')
 }
 
 srcAndResourcesFromJvmProject(project)
