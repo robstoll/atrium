@@ -20,5 +20,5 @@ import java.math.BigDecimal
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun Expect<BigDecimal>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal)
+fun <T: BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal)
     = addAssertion(ExpectImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))
