@@ -6,7 +6,6 @@ import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.trueProvider
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 
@@ -68,7 +67,7 @@ internal class FinalStepImpl(
         //TODO remove try catch with 1.0.0, should no longer be necessary
         val holds = try {
             test()
-        } catch (e: PlantHasNoSubjectException) {
+        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
             // failure hint does not need to be shown if plant is absent
             false
         }

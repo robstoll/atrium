@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -54,9 +53,10 @@ constructor(
     override fun toString() = "$description: $representation (holds=${safeHoldsForToString()})"
 
     private fun safeHoldsForToString(): String =
+        //TODO remove try-catch with 1.0.0, should no longer be necessary
         try {
             holds().toString()
-        } catch (e: PlantHasNoSubjectException) {
+        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
             "PlantHasNoSubjectException"
         }
 }

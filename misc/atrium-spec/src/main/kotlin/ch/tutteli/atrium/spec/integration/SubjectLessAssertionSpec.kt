@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerb
 import org.jetbrains.spek.api.Spek
@@ -18,7 +17,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
         assertionCreator.forEach { (name, createAssertion) ->
             test("fun `$name`") {
                 @Suppress("DEPRECATION")
-                val assertions = coreFactory.newCollectingPlant<T> { throw PlantHasNoSubjectException() }
+                val assertions = coreFactory.newCollectingPlant<T> { throw ch.tutteli.atrium.creating.PlantHasNoSubjectException() }
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
                 @Suppress("DEPRECATION")

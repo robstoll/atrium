@@ -7,7 +7,6 @@ import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -44,7 +43,7 @@ fun <T> _collectForComposition(
         expandAssertionGroups(collectedAssertions)
 
         collectedAssertions
-    } catch (e: PlantHasNoSubjectException) {
+    } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
         listOf(
             AssertImpl.builder.explanatoryGroup
                 .withWarningType

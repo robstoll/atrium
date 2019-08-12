@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
@@ -59,11 +58,13 @@ abstract class DetailedObjectFormatterCommon(
         else -> value.toString() + classNameAndIdentity(value)
     }
 
-    private fun safeEval(lazyRepresentation: LazyRepresentation) = try {
-        lazyRepresentation.eval()
-    } catch (e: PlantHasNoSubjectException) {
-        RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED)
-    }
+    private fun safeEval(lazyRepresentation: LazyRepresentation) =
+        //TODO remove try-catch with 1.0.0 should no longer be necessary
+        try {
+            lazyRepresentation.eval()
+        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
+            RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED)
+        }
 
     private fun format(string: String) = "\"$string\"" + identityHash(INDENT, string)
     private fun format(charSequence: CharSequence) = "\"$charSequence\"" + classNameAndIdentity(charSequence)

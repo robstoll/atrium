@@ -4,7 +4,6 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -39,7 +38,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(warningCannotEval
     = AssertImpl.collector
         .forExplanation
         .throwIfNoAssertionIsCollected
-        .collect(warningCannotEvaluate, MaybeSubject(subject), assertionCreator)
+        .collect(warningCannotEvaluate, ch.tutteli.atrium.creating.MaybeSubject(subject), assertionCreator)
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
