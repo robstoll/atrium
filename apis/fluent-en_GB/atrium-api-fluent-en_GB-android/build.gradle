@@ -12,13 +12,4 @@ dependencies {
     testImplementation prefixedProject('verbs-internal-android')
 }
 
-//TODO remove once all specs are migrated to spek2 and apply spek plugin with version 2.1.x
-junitPlatform {
-    filters {
-        engines {
-            include 'spek2'
-        }
-    }
-}
-
 srcAndResourcesFromJvmProject(project)

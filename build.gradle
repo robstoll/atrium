@@ -228,6 +228,17 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
             }
         }
     }
+
+    //TODO remove once all specs are migrated to spek2
+    junitPlatform {
+        filters {
+            engines {
+                include 'spek2'
+                include 'spek'
+            }
+        }
+    }
+
 }
 
 apply from: 'gradle/scripts/gh-pages.gradle'
