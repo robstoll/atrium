@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.creating.charsequence.contains.searchers
 
-import ch.tutteli.atrium.api.cc.en_GB.contains
-import ch.tutteli.atrium.api.cc.en_GB.exactly
-import ch.tutteli.atrium.api.cc.en_GB.regex
-import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.api.fluent.en_GB.contains
+import ch.tutteli.atrium.api.fluent.en_GB.exactly
+import ch.tutteli.atrium.api.fluent.en_GB.regex
+import ch.tutteli.atrium.api.verbs.internal.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 

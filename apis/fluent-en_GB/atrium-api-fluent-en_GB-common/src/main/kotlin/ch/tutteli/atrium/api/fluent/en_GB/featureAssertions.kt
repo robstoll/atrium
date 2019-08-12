@@ -254,7 +254,7 @@ fun <T, R> Expect<T>.feature(
  * @return An [Expect] for the extracted feature.
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): Expect<R> =
-    internalFeature(provider).getExpectOfFeature()
+    extractFeature(provider).getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion,
@@ -272,7 +272,7 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
 fun <T, R> Expect<T>.feature(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = internalFeature(provider).addToInitial(assertionCreator)
+): Expect<T> = extractFeature(provider).addToInitial(assertionCreator)
 
-private fun <R, T> Expect<T>.internalFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
+private fun <R, T> Expect<T>.extractFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
     ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }
