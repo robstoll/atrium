@@ -27,16 +27,27 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T> newReportingAssertionContainer(commonFields: AssertionContainerWithCommonFields.CommonFields<T>): ReportingAssertionContainer<T>
         = ReportingAssertionContainerImpl(commonFields)
 
-    @Suppress("OverridingDeprecatedMember")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith("this.newReportingAssertionContainer(commonFields)")
+    )
     final override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = ReportingAssertionPlantImpl(commonFields)
 
-    @Suppress("OverridingDeprecatedMember")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        ReplaceWith("this.newReportingAssertionContainer(commonFields)")
+    )
     final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
-
-    @Suppress("OverridingDeprecatedMember")
+    @Deprecated(
+        "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
         = CheckingAssertionPlantImpl(subjectProvider)
 
@@ -44,11 +55,23 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
         = CollectingAssertionContainerImpl(maybeSubject)
 
-    @Suppress("OverridingDeprecatedMember")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
 
-    @Suppress("OverridingDeprecatedMember")
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
     final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
         = CollectingAssertionPlantNullableImpl(subjectProvider)
 

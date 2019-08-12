@@ -111,23 +111,13 @@ interface SubjectChanger {
         ): Assertion
     }
 
-    /**
-     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
-     */
-    @Deprecated(
-        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
-    )
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     fun <T, R : Any> unreported(
         originalPlant: BaseAssertionPlant<T, *>,
         transformation: (T) -> R
     ): Assert<R>
 
-    /**
-     * Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0
-     */
-    @Deprecated(
-        "Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
-    )
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     fun <T, R> unreportedNullable(
         originalPlant: BaseAssertionPlant<T, *>,
         transformation: (T) -> R

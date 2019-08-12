@@ -14,7 +14,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @Deprecated("will be removed with 1.0.0")
 class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionCollectorForExplanation {
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     override fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -27,7 +28,8 @@ class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionColl
 @Deprecated("will be removed with 1.0.0")
 class ThrowingAssertionCollectorForExplanationImpl : ThrowingAssertionCollectorForExplanation {
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     override fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,

@@ -28,11 +28,13 @@ object CollectionAssertionsBuilder : CollectionAssertions {
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int) =
         collectionAssertions.hasSize(plant, size)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun size(plant: AssertionPlant<Collection<*>>, noinline assertionCreator: Assert<Int>.() -> Unit) =
         collectionAssertions.size(plant, assertionCreator)
 }

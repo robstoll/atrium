@@ -30,14 +30,16 @@ object AssertionCollectorBuilder : AssertionCollector {
     ) = assertionCollector.collectForComposition(maybeSubject, assertionCreator)
 
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         noinline subjectProvider: () -> T,
         noinline collectingPlantFactory: (() -> T) -> C,
         noinline assertionCreator: C.() -> Unit
     ): AssertionGroup = assertionCollector.collect(subjectProvider, collectingPlantFactory, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,

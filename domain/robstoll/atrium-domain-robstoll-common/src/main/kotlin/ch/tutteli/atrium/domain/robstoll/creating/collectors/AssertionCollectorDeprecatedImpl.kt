@@ -1,5 +1,3 @@
-@file:Suppress("OverridingDeprecatedMember")
-
 package ch.tutteli.atrium.domain.robstoll.creating.collectors
 
 import ch.tutteli.atrium.assertions.AssertionGroup

@@ -23,11 +23,13 @@ object ListAssertionsBuilder : ListAssertions {
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T> =
         listAssertions.get(plant, index)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <T : Any> get(
         plant: AssertionPlant<List<T>>,
         index: Int,
@@ -35,11 +37,13 @@ object ListAssertionsBuilder : ListAssertions {
     ) = listAssertions.get(plant, index, assertionCreator)
 
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int): AssertionPlantNullable<T> =
         listAssertions.getNullable(plant, index)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <T> getNullable(
         plant: AssertionPlant<List<T>>,
         index: Int,

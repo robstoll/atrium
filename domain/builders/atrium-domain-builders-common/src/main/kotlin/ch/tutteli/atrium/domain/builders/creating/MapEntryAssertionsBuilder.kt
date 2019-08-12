@@ -39,32 +39,37 @@ object MapEntryAssertionsBuilder : MapEntryAssertions {
 
 
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K : Any, V : Any> isKeyValue(
         plant: AssertionPlant<Map.Entry<K, V>>,
         key: K,
         value: V
     ): Assertion = mapEntryAssertions.isKeyValue(plant, key, value)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K : Any> key(
         plant: AssertionPlant<Map.Entry<K, *>>,
         noinline assertionCreator: AssertionPlant<K>.() -> Unit
     ): Assertion = mapEntryAssertions.key(plant, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <V : Any> value(
         plant: AssertionPlant<Map.Entry<*, V>>,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ): Assertion = mapEntryAssertions.value(plant, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K> nullableKey(
         plant: AssertionPlant<Map.Entry<K, *>>,
         noinline assertionCreator: AssertionPlantNullable<K>.() -> Unit
     ): Assertion = mapEntryAssertions.nullableKey(plant, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <V> nullableValue(
         plant: AssertionPlant<Map.Entry<*, V>>,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
