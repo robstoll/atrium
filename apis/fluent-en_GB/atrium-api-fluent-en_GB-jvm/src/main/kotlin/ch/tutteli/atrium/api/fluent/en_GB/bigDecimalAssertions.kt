@@ -56,7 +56,7 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing
  * - `expect(BigDecimal("10")).isEqualIncludingScale(BigDecimal("10.0"))` does not hold.
  * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T)
@@ -74,7 +74,7 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T)
  * - `expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))` holds.
  * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T)
@@ -90,7 +90,7 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T)
  * - `expect(BigDecimal("10")).isEqualIncludingScale(BigDecimal("10.0"))` does not hold.
  * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T)
@@ -105,7 +105,7 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T)
  * - `expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))` holds.
  * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T)

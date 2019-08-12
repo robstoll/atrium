@@ -17,7 +17,7 @@ import java.math.BigDecimal
  *
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T: BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal)
