@@ -1,4 +1,4 @@
-import ch.tutteli.atrium.cc.en_GB.robstoll.dependOnAtrium
+import ch.tutteli.atrium.fluent.en_GB.dependOnAtrium
 
 @Suppress("unused")
 private val establishDependencyToAtrium = dependOnAtrium()

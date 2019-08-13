@@ -1,7 +1,7 @@
 // example project to show how to use Atrium in combination with mocha
 buildscript {
     ext {
-        atrium_api='atrium-cc-en_GB-robstoll-js'
+        atrium_api='atrium-fluent-en_GB-js'
         atrium_version='0.8.0'
     }
     repositories {
@@ -26,7 +26,7 @@ dependencies {
     
     testImplementation "org.jetbrains.kotlin:kotlin-test-js"
     //delete this and the following line and uncomment the next line (Atrium uses a project dependency, you won't)
-    testImplementation prefixedProject('cc-en_GB-robstoll-js')
+    testImplementation prefixedProject('fluent-en_GB-js')
     //testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
 }
 
@@ -80,7 +80,7 @@ task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, install
 //either you use this task or create a testSetup.kt in your src/test with the following content
 //
 // // adopt to the api you use
-// import ch.tutteli.atrium.cc.en_GB.robstoll.dependOnAtrium
+// import ch.tutteli.atrium.fluent.en_GB.dependOnAtrium
 //
 // @Suppress("unused")
 // private val establishDependencyToAtrium = dependOnAtrium()
