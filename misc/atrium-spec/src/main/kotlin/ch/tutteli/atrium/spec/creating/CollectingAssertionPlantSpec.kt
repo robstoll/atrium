@@ -12,6 +12,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
+//TODO remove with 1.0.0 - no need to migrate to Spek2
 abstract class CollectingAssertionPlantSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (() -> Int) -> CollectingAssertionPlant<Int>,

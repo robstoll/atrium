@@ -1,34 +1,29 @@
-package ch.tutteli.atrium.spec.creating
+package ch.tutteli.atrium.specs.creating
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.core.falseProvider
-import ch.tutteli.atrium.core.trueProvider
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
-import ch.tutteli.atrium.creating.ReportingAssertionPlant
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.setUp
+import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.verbs.AssertionVerb
+import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO remove with 1.0.0 - no need to migrate to Spek2
-abstract class ReportingAssertionPlantSpec(
+abstract class ReportingAssertionContainerSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (AssertionPlantWithCommonFields.CommonFields<Int>) -> ReportingAssertionPlant<Int>,
+    testeeFactory: (AssertionContainerWithCommonFields.CommonFields<Int>) -> ReportingAssertionContainer<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assertionVerb = AssertionVerb.VERB
@@ -36,14 +31,25 @@ abstract class ReportingAssertionPlantSpec(
     val description = TO_BE
     val expected = -12
 
-    val assertionChecker = (verbs.checkLazily(1, {}) as ReportingAssertionPlant<Int>).commonFields.assertionChecker
-    fun createTestee()
-        = testeeFactory(AssertionPlantWithCommonFields.CommonFields(assertionVerb, { 10 }, {10}, assertionChecker, RawString.NULL))
+    val assertionChecker = (verbs.check(1) as ReportingAssertionContainer<Int>).commonFields.assertionChecker
+    fun createTestee() = testeeFactory(
+        AssertionContainerWithCommonFields.CommonFields(
+            assertionVerb,
+            Some(subject),
+            subject,
+            assertionChecker,
+            RawString.NULL
+        )
+    )
 
-    val plant = createTestee()
+    val container = createTestee()
 
-    fun triple(funName: String, holdingFun: AssertionPlant<Int>.() -> AssertionPlant<Int>, failingFun: AssertionPlant<Int>.() -> AssertionPlant<Int>): Triple<String, AssertionPlant<Int>.() -> AssertionPlant<Int>, AssertionPlant<Int>.() -> AssertionPlant<Int>>
-        = Triple(funName, holdingFun, failingFun)
+    fun triple(
+        funName: String,
+        holdingFun: Expect<Int>.() -> Expect<Int>,
+        failingFun: Expect<Int>.() -> Expect<Int>
+    ): Triple<String, Expect<Int>.() -> Expect<Int>, Expect<Int>.() -> Expect<Int>> =
+        Triple(funName, holdingFun, failingFun)
 
     val basicAssertionWhichHolds = object : DescriptiveAssertion {
         override val description = description
@@ -56,34 +62,37 @@ abstract class ReportingAssertionPlantSpec(
         override fun holds() = false
     }
 
+    val trueProvider: (Int) -> Boolean = { true }
+    val falseProvider: (Int) -> Boolean = { false }
+
     listOf(
         triple(
-            plant::createAndAddAssertion.name,
+            container::createAndAddAssertion.name,
             { createAndAddAssertion(description, expected, trueProvider) },
             { createAndAddAssertion(description, expected, falseProvider) }
         ),
         triple(
-            plant::addAssertion.name,
+            container::addAssertion.name,
             { addAssertion(basicAssertionWhichHolds) },
             { addAssertion(basicAssertionWhichFails) }),
         triple(
-            "${plant::addAssertionsCreatedBy.name} using ${plant::createAndAddAssertion.name} inside",
+            "${container::addAssertionsCreatedBy.name} using ${container::createAndAddAssertion.name} inside",
             { addAssertionsCreatedBy { createAndAddAssertion(description, expected, trueProvider) } },
             { addAssertionsCreatedBy { createAndAddAssertion(description, expected, falseProvider) } }
         ),
         triple(
-            "${plant::addAssertionsCreatedBy.name} using ${plant::addAssertion.name} inside",
+            "${container::addAssertionsCreatedBy.name} using ${container::addAssertion.name} inside",
             { addAssertionsCreatedBy { addAssertion(basicAssertionWhichHolds) } },
             { addAssertionsCreatedBy { addAssertion(basicAssertionWhichFails) } }
         ),
         triple(
-            "${plant::addAssertionsCreatedBy.name} using ${plant::addAssertionsCreatedBy.name} inside",
+            "${container::addAssertionsCreatedBy.name} using ${container::addAssertionsCreatedBy.name} inside",
             { addAssertionsCreatedBy { addAssertionsCreatedBy { addAssertion(basicAssertionWhichHolds) } } },
             { addAssertionsCreatedBy { addAssertionsCreatedBy { addAssertion(basicAssertionWhichFails) } } }
         )
     ).forEach { (funName, holdingFun, failingFun) ->
         describeFun(funName) {
-            setUp("in case of an assertion which holds") {
+            context("in case of an assertion which holds") {
                 val testee = createTestee()
                 it("does not throw an Exception") {
                     testee.holdingFun()
@@ -92,12 +101,12 @@ abstract class ReportingAssertionPlantSpec(
                 it("throws an AssertionError when an additional assertion does not hold") {
                     expect {
                         testee.failingFun()
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
             }
 
-            setUp("in case of assertion which fails") {
-                setUp("throws an AssertionError") {
+            context("in case of assertion which fails") {
+                context("throws an AssertionError") {
                     fun expectFun(): ThrowableThrown.Builder {
                         val testee = createTestee()
                         return expect {
@@ -107,7 +116,7 @@ abstract class ReportingAssertionPlantSpec(
 
                     context("exception message") {
 
-                        it("contains the ${plant.commonFields::assertionVerb.name}'") {
+                        it("contains the ${container.commonFields::assertionVerb.name}'") {
                             expectFun().toThrow<AssertionError> { messageContains(assertionVerb.getDefault()) }
                         }
                         it("contains the subject") {
@@ -123,11 +132,11 @@ abstract class ReportingAssertionPlantSpec(
                         }
                     }
 
-                    on("adding a another assertion which holds") {
+                    context("adding a another assertion which holds") {
                         val testee = createTestee()
                         expect {
                             testee.failingFun()
-                        }.toThrow<AssertionError>{}
+                        }.toThrow<AssertionError> {}
 
                         it("does not re-throw due to the previous failing assertion") {
                             testee.holdingFun()
