@@ -12,6 +12,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslatorErrorCaseSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (locale: Locale, fallbackLocals: List<Locale>) -> Translator,

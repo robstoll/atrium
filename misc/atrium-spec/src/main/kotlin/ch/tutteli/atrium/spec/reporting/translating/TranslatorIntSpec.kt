@@ -19,6 +19,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.text.SimpleDateFormat
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 /**
  * If you use this Spec then your reporter needs to use a translator which uses the following translations
  * which should be in

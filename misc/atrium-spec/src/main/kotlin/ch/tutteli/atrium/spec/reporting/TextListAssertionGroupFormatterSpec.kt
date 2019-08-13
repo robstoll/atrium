@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TextListAssertionGroupFormatterSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,

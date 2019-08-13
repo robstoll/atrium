@@ -5,6 +5,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
+//TODO #116 migrate spek1 to spek2 - move to common module
 object TranslationSupplierBasedTranslatorSpec : Spek({
     include(AtriumsTranslationSupplierBasedTranslatorSpec)
     include(AtriumsTranslatorErrorCaseSpec)

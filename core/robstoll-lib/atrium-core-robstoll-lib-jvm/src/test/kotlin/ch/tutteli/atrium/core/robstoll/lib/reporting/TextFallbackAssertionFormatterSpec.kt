@@ -25,6 +25,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to common module
 class TextFallbackAssertionFormatterSpec : Spek({
 
     include(AtriumsTextFallbackAssertionFormatterSpec)

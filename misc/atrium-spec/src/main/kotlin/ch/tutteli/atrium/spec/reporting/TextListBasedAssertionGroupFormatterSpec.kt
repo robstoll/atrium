@@ -19,6 +19,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
     verbs: AssertionVerbFactory,
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,

@@ -18,6 +18,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class DelegatingAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,

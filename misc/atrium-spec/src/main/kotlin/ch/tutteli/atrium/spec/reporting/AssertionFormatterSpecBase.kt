@@ -10,6 +10,7 @@ import org.jetbrains.spek.api.dsl.Spec
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
     include(wrap(spec))
 

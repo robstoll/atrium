@@ -18,6 +18,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroupType>(
     verbs: AssertionVerbFactory,
     testeeFactory: (AssertionFormatterController) -> AssertionFormatter,

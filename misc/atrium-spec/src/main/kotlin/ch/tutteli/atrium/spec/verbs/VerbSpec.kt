@@ -53,6 +53,7 @@ private object AtriumReporterSupplier {
     }
 }
 
+//TODO remove with 1.0.0 -- no need to migrate to Spek2
 abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> AssertionPlant<Int>>,
     plantCheckLazily: Pair<String, (subject: Int, assertionCreator: AssertionPlant<Int>.() -> Unit) -> AssertionPlant<Int>>,

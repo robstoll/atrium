@@ -15,6 +15,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import kotlin.reflect.KClass
 
+//TODO remove with 1.0.0 - no need to migrate to spek2
 @Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
     verbs: AssertionVerbFactory,

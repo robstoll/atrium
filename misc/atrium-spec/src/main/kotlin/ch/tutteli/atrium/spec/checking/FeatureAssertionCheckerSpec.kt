@@ -15,6 +15,7 @@ import com.nhaarman.mockitokotlin2.verify
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class FeatureAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,

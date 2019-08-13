@@ -15,6 +15,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
+//TODO #116 migrate spek1 to spek2 - move to common module
 class AdjustStackSpec : Spek({
 
     describe("no-op adjuster") {
@@ -35,8 +36,8 @@ class AdjustStackSpec : Spek({
         }
     }
 
-    fun mapStartsWith(list: List<String>): Pair<Expect<String>.() -> Unit, Array<out Expect<String>.() -> Unit>>{
-        val asserts = list.map { c -> subExpect<String>{ startsWith(c) }}
+    fun mapStartsWith(list: List<String>): Pair<Expect<String>.() -> Unit, Array<out Expect<String>.() -> Unit>> {
+        val asserts = list.map { c -> subExpect<String> { startsWith(c) } }
         return asserts.first() to asserts.drop(1).toTypedArray()
     }
 
@@ -76,7 +77,10 @@ class AdjustStackSpec : Spek({
             }
 
             it("does not contain $containsNot in stackBacktrace of cause of cause, but $contains") {
-                val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world", IllegalStateException("and good night")))
+                val throwable = IllegalArgumentException(
+                    "hello",
+                    UnsupportedOperationException("world", IllegalStateException("and good night"))
+                )
                 adjuster.adjust(throwable)
                 assert(throwable.cause!!.cause!!.stackBacktrace)
                     .containsNot.entries(containsNotFirst, *containsNotRest)
@@ -90,7 +94,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                assert(throwable.suppressed).asIterable().all{
+                assert(throwable.suppressed).asIterable().all {
                     feature { f(it::stackBacktrace) }
                         .containsNot.entries(containsNotFirst, *containsNotRest)
                         .contains(containsFirst, *containsRest)
@@ -106,7 +110,7 @@ class AdjustStackSpec : Spek({
                 adjuster.adjust(throwable)
                 assert(throwable.suppressed).asIterable().all {
                     //TODO #31 replace with shortcut fun
-                    feature{ f(it::cause) }.notToBeNull {
+                    feature { f(it::cause) }.notToBeNull {
                         feature { f(it::stackBacktrace) }
                             .containsNot.entries(containsNotFirst, *containsNotRest)
                             .contains(containsFirst, *containsRest)
@@ -117,30 +121,34 @@ class AdjustStackSpec : Spek({
     }
 
     mapOf(
-        "combine remove runner adjuster and remove atrium adjuster" to ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-            ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-            ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-            listOf()
-        ),
-        "combine remove atrium adjuster and remove runner adjuster" to ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-            ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-            ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-            listOf()
-        ),
-        "combine noop ajdust, remove atrium adjuster and remove runner adjuster" to ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-            ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
-            ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-            listOf(ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster())
-        ),
-        "combine remove atrium adjuster, remove runner adjuster and noop adjuster several times" to ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-            ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-            ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-            listOf(
-                ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
+        "combine remove runner adjuster and remove atrium adjuster" to
+            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
                 ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-                ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster()
+                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                listOf()
+            ),
+        "combine remove atrium adjuster and remove runner adjuster" to
+            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
+                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                listOf()
+            ),
+        "combine noop ajdust, remove atrium adjuster and remove runner adjuster" to
+            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
+                ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
+                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                listOf(ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster())
+            ),
+        "combine remove atrium adjuster, remove runner adjuster and noop adjuster several times" to
+            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
+                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                listOf(
+                    ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
+                    ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                    ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster()
+                )
             )
-        )
     ).forEach { (description, adjuster) ->
         describe(description) {
             it("does neither contain atrium nor spek nor junit in stackBacktrace") {
@@ -164,7 +172,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                assert(throwable.suppressed).asIterable().all{
+                assert(throwable.suppressed).asIterable().all {
                     feature { f(it::stackBacktrace) }.isEmpty()
                 }
             }

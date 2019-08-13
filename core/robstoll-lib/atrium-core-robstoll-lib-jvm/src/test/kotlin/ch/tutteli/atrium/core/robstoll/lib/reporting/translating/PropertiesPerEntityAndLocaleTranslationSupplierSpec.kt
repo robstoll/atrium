@@ -4,6 +4,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
+//TODO #116 migrate spek1 to spek2 - move to common module
 object PropertiesPerEntityAndLocaleTranslationSupplierSpec : TranslatorIntSpec(
     AssertionVerbFactory,
     { primaryLocale, fallbackLocales ->
