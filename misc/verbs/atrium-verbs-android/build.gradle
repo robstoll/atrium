@@ -4,9 +4,12 @@ dependencies {
     api prefixedProject('domain-builders-android')
     api prefixedProject('core-api-android')
 
-    testImplementation prefixedProject('spec')
+    testImplementation prefixedProject('specs-android')
     testRuntime prefixedProject('domain-robstoll-android')
     testRuntime prefixedProject('core-robstoll-android')
+
+    //TODO remove with 1.0.0
+    testImplementation prefixedProject('spec')
 }
 
 srcAndResourcesFromJvmProject(project)
