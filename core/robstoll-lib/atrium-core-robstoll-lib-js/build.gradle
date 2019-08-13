@@ -9,12 +9,14 @@ dependencies {
 
     // it is up to the consumer of atrium-core-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-js')
-    
-    testImplementation prefixedProject('api-cc-en_GB-js')
+
+    testImplementation prefixedProject('api-fluent-en_GB-js')
+    testImplementation prefixedProject('domain-robstoll-js')
+    testImplementation prefixedProject('core-robstoll-js')
     testImplementation prefixedProject('verbs-internal-js')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-js')
-    testRuntimeOnly prefixedProject('core-robstoll-js')
+    //TODO remove once https://youtrack.jetbrains.com/issue/KT-33294 is fixed
+    testImplementation prefixedProject('api-cc-en_GB-js')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-27797

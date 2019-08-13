@@ -16,14 +16,17 @@ import java.math.BigDecimal
  * ```
  * However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use [isEqualIncludingScale].
  */
-@Deprecated("Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
-    "`expect(BigDecimal(\"10\").toBe(BigDecimal(\"10.0\"))`\n" +
-    "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
-    ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)"))
+@Deprecated(
+    "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
+        "`expect(BigDecimal(\"10\").toBe(BigDecimal(\"10.0\"))`\n" +
+        "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
+    ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
+)
 @Suppress("UNUSED_PARAMETER", "unused")
-fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing
-    = throw PleaseUseReplacementException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
-    "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`.")
+fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseReplacementException(
+    "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+        "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
+)
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -35,14 +38,17 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing
  * ```
  * However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use [isNotEqualIncludingScale].
  */
-@Deprecated("Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
-    "`expect(BigDecimal(\"10\").notToBe(BigDecimal(\"10.0\"))`\n" +
-    "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.",
-    ReplaceWith("isNotNumericallyEqualTo(expected) or isNotEqualIncludingScale(expected)"))
+@Deprecated(
+    "Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
+        "`expect(BigDecimal(\"10\").notToBe(BigDecimal(\"10.0\"))`\n" +
+        "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.",
+    ReplaceWith("isNotNumericallyEqualTo(expected) or isNotEqualIncludingScale(expected)")
+)
 @Suppress("UNUSED_PARAMETER", "unused")
-fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing
-    = throw PleaseUseReplacementException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
-    "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`.")
+fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseReplacementException(
+    "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+        "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`."
+)
 
 /**
  * Expects that the subject of the assertion is numerically equal to [expected].
@@ -59,8 +65,8 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T)
-    = addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
+fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
+    addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
  * Expects that the subject of the assertion is not numerically equal to [expected].
@@ -77,8 +83,8 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T)
-    = addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
+fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
+    addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
 
 /**
@@ -93,8 +99,8 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T)
-    = addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
+fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
+    addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
  * Expects that the subject of the assertion is not equal to [expected] including [BigDecimal.scale].
@@ -108,5 +114,5 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T)
-    = addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))
+fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T) =
+    addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

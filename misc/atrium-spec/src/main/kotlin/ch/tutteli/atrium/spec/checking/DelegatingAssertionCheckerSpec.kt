@@ -54,7 +54,7 @@ abstract class DelegatingAssertionCheckerSpec(
             "one assertion which holds" to listOf(assertionWhichHolds),
             "one assertion which fails and one which holds" to listOf(assertionWhichFails, assertionWhichHolds),
             "one assertion which holds and one which fails" to listOf(assertionWhichHolds, assertionWhichFails)
-        ).forEach { description, assertions ->
+        ).forEach { (description, assertions) ->
             context(description) {
                 it("adds the assertion(s) to the subject plant") {
                     //arrange

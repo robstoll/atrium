@@ -9,7 +9,7 @@ dependencies {
     // it is up to the consumer of atrium-core-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
 
-    testCompile prefixedProject('api-cc-en_GB-android')
+    testCompile prefixedProject('api-fluent-en_GB-android')
     testCompile prefixedProject('verbs-internal-android')
 
     testRuntimeOnly prefixedProject('core-robstoll-android')

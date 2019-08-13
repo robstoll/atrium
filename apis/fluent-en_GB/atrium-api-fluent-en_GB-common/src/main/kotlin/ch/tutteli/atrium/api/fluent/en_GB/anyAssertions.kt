@@ -27,8 +27,15 @@ fun <T : Any> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(thi
  */
 @JvmName("toBeNullable")
 @JsName("toBeNullable")
-inline fun <reified T : Any> Expect<T?>.toBe(expected: T?): Expect<T?> =
-    addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
+@Suppress(
+    //TODO remove ignoredDontPassSomething with 1.0.0
+    //  in case https://youtrack.jetbrains.com/issue/KT-33294 is fixed by then
+    "UNUSED_PARAMETER"
+)
+inline fun <reified T : Any> Expect<T?>.toBe(
+    expected: T?,
+    ignoredDontPassSomething: Nothing? = null
+): Expect<T?> = addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
@@ -67,8 +74,9 @@ fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSa
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?) =
-    addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
+    noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+) = addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
