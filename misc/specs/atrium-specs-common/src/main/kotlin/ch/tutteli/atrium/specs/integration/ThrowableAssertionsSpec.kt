@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages

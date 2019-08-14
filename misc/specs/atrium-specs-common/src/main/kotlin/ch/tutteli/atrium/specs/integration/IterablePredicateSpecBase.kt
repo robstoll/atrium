@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe

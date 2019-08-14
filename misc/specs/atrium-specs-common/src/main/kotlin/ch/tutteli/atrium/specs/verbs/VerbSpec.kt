@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.specs.toBeDescr
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion

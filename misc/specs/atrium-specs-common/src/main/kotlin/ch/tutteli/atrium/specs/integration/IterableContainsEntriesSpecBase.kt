@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.dsl.Root

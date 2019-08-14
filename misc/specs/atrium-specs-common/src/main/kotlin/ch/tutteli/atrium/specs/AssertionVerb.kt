@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.specs.verbs
+package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
