@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.creating
 
-import ch.tutteli.atrium.api.cc.en_GB.messageContains
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
@@ -101,7 +101,7 @@ abstract class ReportingAssertionContainerSpec(
                 it("throws an AssertionError when an additional assertion does not hold") {
                     expect {
                         testee.failingFun()
-                    }.toThrow<AssertionError> {}
+                    }.toThrow<AssertionError>()
                 }
             }
 
@@ -136,7 +136,7 @@ abstract class ReportingAssertionContainerSpec(
                         val testee = createTestee()
                         expect {
                             testee.failingFun()
-                        }.toThrow<AssertionError> {}
+                        }.toThrow<AssertionError>()
 
                         it("does not re-throw due to the previous failing assertion") {
                             testee.holdingFun()

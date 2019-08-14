@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.specs.*
@@ -103,12 +103,12 @@ abstract class BigDecimalAssertionsSpec(
             it("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
             it("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
 
             it("$toBe with Any overload does not throw") {
@@ -155,12 +155,12 @@ abstract class BigDecimalAssertionsSpec(
                 it("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.toBeFun(expected)
-                    }.toThrow<PleaseUseReplacementException> {}
+                    }.toThrow<PleaseUseReplacementException>()
                 }
                 it("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.notToBeFun(expected)
-                    }.toThrow<PleaseUseReplacementException> {}
+                    }.toThrow<PleaseUseReplacementException>()
                 }
 
                 it("$toBe with Any overload throws an AssertionError and does not contain the hint") {
@@ -199,12 +199,12 @@ abstract class BigDecimalAssertionsSpec(
             it("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
             it("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
 
             it("$toBe with Any overload throws an AssertionError and does not contain the hint") {

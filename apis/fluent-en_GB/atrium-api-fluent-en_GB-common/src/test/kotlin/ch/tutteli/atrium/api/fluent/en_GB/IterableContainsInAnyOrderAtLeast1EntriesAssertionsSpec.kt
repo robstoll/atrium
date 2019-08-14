@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
-import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.specs.include
+import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction3
 
 class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
@@ -27,10 +27,14 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
+        fun getContainsPair() =
+            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
 
-        private fun containsInAnyOrderEntries(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit, aX: Array<out Expect<Double>.() -> Unit>): Expect<Iterable<Double>> {
+        private fun containsInAnyOrderEntries(
+            plant: Expect<Iterable<Double>>,
+            a: Expect<Double>.() -> Unit,
+            aX: Array<out Expect<Double>.() -> Unit>
+        ): Expect<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.contains.inAnyOrder.atLeast(1).entry(a)
             } else {
@@ -38,10 +42,14 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             }
         }
 
-        fun getContainsNullablePair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
+        fun getContainsNullablePair() =
+            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
 
-        private fun containsNullableEntries(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?, aX: Array<out (Expect<Double>.() -> Unit)?>): Expect<Iterable<Double?>> {
+        private fun containsNullableEntries(
+            plant: Expect<Iterable<Double?>>,
+            a: (Expect<Double>.() -> Unit)?,
+            aX: Array<out (Expect<Double>.() -> Unit)?>
+        ): Expect<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant.contains.inAnyOrder.atLeast(1).entry(a)
             } else {
@@ -50,10 +58,16 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
         }
 
 
-        private val containsShortcutFun : KFunction3<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, Expect<Iterable<Double>>> = Expect<Iterable<Double>>::contains
+        private val containsShortcutFun: KFunction3<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::contains
+
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
-        private fun containsInAnyOrderEntriesShortcut(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit, aX: Array<out Expect<Double>.() -> Unit>): Expect<Iterable<Double>> {
+        private fun containsInAnyOrderEntriesShortcut(
+            plant: Expect<Iterable<Double>>,
+            a: Expect<Double>.() -> Unit,
+            aX: Array<out Expect<Double>.() -> Unit>
+        ): Expect<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.contains(a)
             } else {
@@ -61,10 +75,16 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             }
         }
 
-        private val containsEntriesFun: KFunction3<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>, Expect<Iterable<Double?>>> = Expect<Iterable<Double?>>::contains
+        private val containsEntriesFun: KFunction3<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>, Expect<Iterable<Double?>>> =
+            Expect<Iterable<Double?>>::contains
+
         fun getContainsNullableShortcutPair() = containsEntriesFun.name to Companion::containsNullableEntriesShortcut
 
-        private fun containsNullableEntriesShortcut(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?, aX: Array<out (Expect<Double>.() -> Unit)?>): Expect<Iterable<Double?>> {
+        private fun containsNullableEntriesShortcut(
+            plant: Expect<Iterable<Double?>>,
+            a: (Expect<Double>.() -> Unit)?,
+            aX: Array<out (Expect<Double>.() -> Unit)?>
+        ): Expect<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant.contains(a)
             } else {
