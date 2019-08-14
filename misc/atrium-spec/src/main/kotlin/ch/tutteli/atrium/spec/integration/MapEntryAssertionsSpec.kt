@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
@@ -13,17 +14,18 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class MapEntryAssertionsSpec(
     verbs: AssertionVerbFactory,
     isKeyValuePair: Pair<String, Assert<Map.Entry<String, Int>>.(String, Int) -> Assert<Map.Entry<String, Int>>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<Map.Entry<String, Int>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Map.Entry<String, Int>>(describePrefix,
         isKeyValuePair.first to mapToCreateAssertion { isKeyValuePair.second(this, "key", 1) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Map.Entry<String, Int>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Map.Entry<String, Int>>(verbs, describePrefix,
         checkingTriple(isKeyValuePair.first, { isKeyValuePair.second(this, "a", 1) }, mapEntry("a", 1), mapEntry("b", 1))
     ) {})
 

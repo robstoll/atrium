@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -10,6 +11,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsInOrderOnlyValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
@@ -24,12 +26,12 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyValuesPair.first to mapToCreateAssertion { containsInOrderOnlyValuesPair.second(this, 2.5, arrayOf()) },
         "${containsInOrderOnlyNullableValuesPair.first} for nullable" to mapToCreateAssertion { containsInOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsInOrderOnlyValuesPair.first, { containsInOrderOnlyValuesPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2).asIterable(), listOf(2.5, 2.2)),
         checkingTriple("${containsInOrderOnlyNullableValuesPair.first} for nullable", { containsInOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2).asIterable(), listOf(2.5, 2.2))
     ) {})

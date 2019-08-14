@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
@@ -7,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CheckingAssertionSpec<T : Any>(
     verbs: AssertionVerbFactory,
     groupPrefix: String,
@@ -36,5 +38,6 @@ abstract class CheckingAssertionSpec<T : Any>(
     }
 })
 
+@Deprecated("Switch from Assert to Expect and use checkingTriple from atrium-specs-common; will be removed with 1.0.0")
 fun <T : Any> checkingTriple(name: String, createAssertion: Assert<T>.() -> Unit, holdingSubject: T, failingSubject: T)
     = Triple(name, createAssertion, holdingSubject to failingSubject)

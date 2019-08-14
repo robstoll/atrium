@@ -16,6 +16,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class TypeTransformationAssertionsSpec(
     verbs: AssertionVerbFactory,
     notToBeNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
@@ -31,7 +32,7 @@ abstract class TypeTransformationAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : CheckingAssertionSpec<SuperType>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<SuperType>(verbs, describePrefix,
         checkingTriple(isA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
     ) {})
 

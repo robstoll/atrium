@@ -1,4 +1,4 @@
-
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
@@ -17,6 +17,7 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.absoluteValue
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     verbs: AssertionVerbFactory,
     toBeWithErrorToleranceFloatPair: Pair<String, Assert<Float>.(Float, Float) -> Assert<Float>>,
@@ -25,19 +26,19 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<Float>("$describePrefix[Float] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Float>("$describePrefix[Float] ",
         toBeWithErrorToleranceFloatPair.first to mapToCreateAssertion { toBeWithErrorToleranceFloatPair.second(this, 1.0f, 0.01f) }) {})
-    include(object : SubjectLessAssertionSpec<Double>("$describePrefix[Double] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Double>("$describePrefix[Double] ",
         toBeWithErrorToleranceDoublePair.first to mapToCreateAssertion { toBeWithErrorToleranceDoublePair.second(this, 1.0, 0.01) }) {})
-    include(object : SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
         toBeWithErrorToleranceBigDecimalPair.first to mapToCreateAssertion { toBeWithErrorToleranceBigDecimalPair.second(this, BigDecimal.TEN, BigDecimal("0.00001")) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Float>(verbs, "$describePrefix[Float] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Float>(verbs, "$describePrefix[Float] ",
         checkingTriple(toBeWithErrorToleranceFloatPair.first, { toBeWithErrorToleranceFloatPair.second(this, 1.0f, 0.01f) }, 0.99f, 0.98f)) {})
-    include(object : CheckingAssertionSpec<Double>(verbs, "$describePrefix[Double] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Double>(verbs, "$describePrefix[Double] ",
         checkingTriple(toBeWithErrorToleranceDoublePair.first, { toBeWithErrorToleranceDoublePair.second(this, 1.0, 0.5) }, 1.5, 1.6)) {})
-    include(object : CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[BigDecimal] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[BigDecimal] ",
         checkingTriple(toBeWithErrorToleranceBigDecimalPair.first, { toBeWithErrorToleranceBigDecimalPair.second(this, BigDecimal.TEN, BigDecimal("0.00001")) }, BigDecimal("9.99999999"), BigDecimal("9.999"))
     ) {})
 

@@ -1,5 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
-
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -15,6 +14,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import java.io.IOException
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class ThrowableAssertionsSpec(
     verbs: AssertionVerbFactory,
     toThrowTriple: Triple<String,

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
@@ -11,6 +12,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 import java.util.regex.PatternSyntaxException
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CharSequenceContainsRegexAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsRegex: String,
@@ -25,7 +27,7 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : SubjectLessAssertionSpec<CharSequence>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) },
         containsAtLeastIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) },
         containsShortcutTriple.first to mapToCreateAssertion { containsShortcutTriple.third(this, "a|b", arrayOf()) },
@@ -33,7 +35,7 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
         containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<String>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) }, "a, b", "a"),
         checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }, "A, B", "a"),
         checkingTriple(containsShortcutTriple.first, { containsShortcutTriple.third(this, "a|b", arrayOf()) }, "a, b", "c"),

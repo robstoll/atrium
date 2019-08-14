@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -9,6 +10,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsInOrderOnlyGroupedEntriesPair: Pair<String, Assert<Iterable<Double?>>.(Group<(Assert<Double>.() -> Unit)?>, Group<(Assert<Double>.() -> Unit)?>, Array<out Group<(Assert<Double>.() -> Unit)?>>) -> Assert<Iterable<Double?>>>,
@@ -26,11 +28,11 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
     fun group(vararg assertionCreators: (Assert<Double>.() -> Unit)?) = groupFactory(assertionCreators)
 
-    include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyGroupedEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyGroupedEntriesPair.second(this, group({ toBe(2.5) }), group({ toBe(4.1) }), arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsInOrderOnlyGroupedEntriesPair.first, { containsInOrderOnlyGroupedEntriesPair.second(this, group({ toBe(2.5) }), group({ toBe(1.2) }, { toBe(2.2) }), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
     ) {})
 

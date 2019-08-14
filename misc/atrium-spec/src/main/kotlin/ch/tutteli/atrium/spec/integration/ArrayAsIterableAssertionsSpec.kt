@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
@@ -7,6 +8,7 @@ import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class ArrayAsIterableAssertionsSpec(
     verbs: AssertionVerbFactory,
     asIterableFunName: String,
@@ -32,39 +34,39 @@ abstract class ArrayAsIterableAssertionsSpec(
 ) : IterablePredicateSpecBase(verbs, {
 
     val asIterableWithCreator = "$asIterableFunName with Creator"
-    include(object : SubjectLessAssertionSpec<Array<Int>>("$describePrefix[arr] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Array<Int>>("$describePrefix[arr] ",
         asIterableFunName to mapToCreateAssertion { arr(this) },
         asIterableWithCreator to mapToCreateAssertion { arrWithCreator(this) { contains(1) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<ByteArray>("$describePrefix[arrByte] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<ByteArray>("$describePrefix[arrByte] ",
         asIterableFunName to mapToCreateAssertion { arrByte(this) },
         asIterableWithCreator to mapToCreateAssertion { arrByteWithCreator(this) { contains(1) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<CharArray>("$describePrefix[arrChar] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<CharArray>("$describePrefix[arrChar] ",
         asIterableFunName to mapToCreateAssertion { arrChar(this) },
         asIterableWithCreator to mapToCreateAssertion { arrCharWithCreator(this) { contains('a') } }
     ) {})
-    include(object : SubjectLessAssertionSpec<ShortArray>("$describePrefix[arrShort] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<ShortArray>("$describePrefix[arrShort] ",
         asIterableFunName to mapToCreateAssertion { arrShort(this) },
         asIterableWithCreator to mapToCreateAssertion { arrShortWithCreator(this) { contains(1.toShort()) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<IntArray>("$describePrefix[arrInt] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<IntArray>("$describePrefix[arrInt] ",
         asIterableFunName to mapToCreateAssertion { arrInt(this) },
         asIterableWithCreator to mapToCreateAssertion { arrIntWithCreator(this) { contains(1) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<LongArray>("$describePrefix[arrLong] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<LongArray>("$describePrefix[arrLong] ",
         asIterableFunName to mapToCreateAssertion { arrLong(this) },
         asIterableWithCreator to mapToCreateAssertion { arrLongWithCreator(this) { contains(1L) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<FloatArray>("$describePrefix[arrFloat] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<FloatArray>("$describePrefix[arrFloat] ",
         asIterableFunName to mapToCreateAssertion { arrFloat(this) },
         asIterableWithCreator to mapToCreateAssertion { arrFloatWithCreator(this) { contains(1f) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<DoubleArray>("$describePrefix[arrDouble] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<DoubleArray>("$describePrefix[arrDouble] ",
         asIterableFunName to mapToCreateAssertion { arrDouble(this) },
         asIterableWithCreator to mapToCreateAssertion { arrDoubleWithCreator(this) { contains(1.0) } }
     ) {})
-    include(object : SubjectLessAssertionSpec<BooleanArray>("$describePrefix[arrBoolean] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<BooleanArray>("$describePrefix[arrBoolean] ",
         asIterableFunName to mapToCreateAssertion { arrBoolean(this) },
         asIterableWithCreator to mapToCreateAssertion { arrBooleanWithCreator(this) { contains(true) } }
     ) {})
@@ -78,35 +80,35 @@ abstract class ArrayAsIterableAssertionsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
-    include(object : CheckingAssertionSpec<Array<Int>>(verbs, "$describePrefix[arr] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Array<Int>>(verbs, "$describePrefix[arr] ",
         checkingTriple(asIterableFunName, { arr(this).contains(5) }, arrayOf(1, 3, 5, 6), arrayOf(1, 2, 3)),
         checkingTriple(asIterableWithCreator, { arrWithCreator(this) { contains(5) }}, arrayOf(1, 3, 5, 6), arrayOf(1, 2, 3))
     ) {})
-    include(object : CheckingAssertionSpec<ByteArray>(verbs, "$describePrefix[arrByte] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<ByteArray>(verbs, "$describePrefix[arrByte] ",
         checkingTriple(asIterableFunName, { arrByte(this).contains(5.toByte()) }, bytes(1.toByte(), 5.toByte()), bytes()),
         checkingTriple(asIterableWithCreator, { arrByteWithCreator(this) { contains(5.toByte()) }}, bytes(1.toByte(), 5.toByte()), bytes())
     ) {})
-    include(object : CheckingAssertionSpec<CharArray>(verbs, "$describePrefix[arrChar] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<CharArray>(verbs, "$describePrefix[arrChar] ",
         checkingTriple(asIterableFunName, { arrChar(this).contains(5.toChar()) }, chars(1.toChar(), 5.toChar()), chars()),
         checkingTriple(asIterableWithCreator, { arrCharWithCreator(this) { contains(5.toChar()) }}, chars(1.toChar(), 5.toChar()), chars())
     ) {})
-    include(object : CheckingAssertionSpec<ShortArray>(verbs, "$describePrefix[arrShort] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<ShortArray>(verbs, "$describePrefix[arrShort] ",
         checkingTriple(asIterableFunName, { arrShort(this).contains(5.toShort()) }, shorts(1.toShort(), 5.toShort()), shorts()),
         checkingTriple(asIterableWithCreator, { arrShortWithCreator(this) { contains(5.toShort()) }}, shorts(1.toShort(), 5.toShort()), shorts())
     ) {})
-    include(object : CheckingAssertionSpec<IntArray>(verbs, "$describePrefix[arrInt] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<IntArray>(verbs, "$describePrefix[arrInt] ",
         checkingTriple(asIterableFunName, { arrInt(this).contains(5) }, ints(1, 5), ints()),
         checkingTriple(asIterableWithCreator, { arrIntWithCreator(this) { contains(5) }}, ints(1, 5), ints())
     ) {})
-    include(object : CheckingAssertionSpec<LongArray>(verbs, "$describePrefix[arrLong] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<LongArray>(verbs, "$describePrefix[arrLong] ",
         checkingTriple(asIterableFunName, { arrLong(this).contains(5) }, longs(1, 5), longs()),
         checkingTriple(asIterableWithCreator, { arrLongWithCreator(this) { contains(5) }}, longs(1, 5), longs())
     ) {})
-    include(object : CheckingAssertionSpec<FloatArray>(verbs, "$describePrefix[arrFloat] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<FloatArray>(verbs, "$describePrefix[arrFloat] ",
         checkingTriple(asIterableFunName, { arrFloat(this).contains(5f) }, floats(1f, 5f), floats()),
         checkingTriple(asIterableWithCreator, { arrFloatWithCreator(this) { contains(5f) }}, floats(1f, 5f), floats())
     ) {})
-    include(object : CheckingAssertionSpec<DoubleArray>(verbs, "$describePrefix[arrDouble] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<DoubleArray>(verbs, "$describePrefix[arrDouble] ",
         checkingTriple(asIterableFunName, { arrDouble(this).contains(5.0) }, doubles(1.0, 5.0), doubles()),
         checkingTriple(asIterableWithCreator, { arrDoubleWithCreator(this) { contains(5.0) }}, doubles(1.0, 5.0), doubles())
     ) {})

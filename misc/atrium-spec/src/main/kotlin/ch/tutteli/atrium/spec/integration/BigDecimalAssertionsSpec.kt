@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -13,6 +14,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 import java.math.BigDecimal
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class BigDecimalAssertionsSpec(
     verbs: AssertionVerbFactory,
     toBePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
@@ -26,14 +28,14 @@ abstract class BigDecimalAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
         isNumericallyEqualToPair.first to mapToCreateAssertion { isNumericallyEqualToPair.second(this, BigDecimal.TEN) },
         isNotNumericallyEqualToPair.first to mapToCreateAssertion { isNotNumericallyEqualToPair.second(this, BigDecimal.TEN) },
         isEqualIncludingScalePair.first to mapToCreateAssertion { isEqualIncludingScalePair.second(this, BigDecimal.TEN) },
         isNotEqualIncludingScalePair.first to mapToCreateAssertion { isNotEqualIncludingScalePair.second(this, BigDecimal.TEN) }
     ) {})
 
-    include(object : CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[BigDecimal] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[BigDecimal] ",
         checkingTriple(isNumericallyEqualToPair.first, { isNumericallyEqualToPair.second(this, BigDecimal.TEN) }, BigDecimal("10.000"), BigDecimal("10.00001")),
         checkingTriple(isNotNumericallyEqualToPair.first, { isNotNumericallyEqualToPair.second(this, BigDecimal.TEN) }, BigDecimal("10.00001"), BigDecimal("10.000")),
         checkingTriple(isEqualIncludingScalePair.first, { isEqualIncludingScalePair.second(this, BigDecimal.TEN) }, BigDecimal("10"), BigDecimal("10.0")),

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -12,6 +13,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class MapFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
     keysValPair: Pair<String, Assert<Map<String, Int>>.() -> Assert<Set<String>>>,
@@ -26,7 +28,7 @@ abstract class MapFeatureAssertionsSpec(
 ) : Spek({
 
     //@formatter:off
-    include(object : SubjectLessAssertionSpec<Map<String, Int>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Map<String, Int>>(describePrefix,
         "val ${keysValPair.first}" to mapToCreateAssertion { keysValPair.second(this).isEmpty() },
         "fun ${keysFunPair.first}" to mapToCreateAssertion { keysFunPair.second(this) { isEmpty() } },
         "val ${valuesValPair.first}" to mapToCreateAssertion { valuesValPair.second(this).isEmpty() },
@@ -34,12 +36,12 @@ abstract class MapFeatureAssertionsSpec(
         "${getExistingPlantPair.first} returns plant" to mapToCreateAssertion { getExistingPlantPair.second(this, "a" ).isGreaterThan(1) },
         getExistingPair.first to mapToCreateAssertion { getExistingPair.second(this, "a" ){ isGreaterThan(1) } }
     ){})
-    include(object : SubjectLessAssertionSpec<Map<String, Int?>>("$describePrefix[nullable Key] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Map<String, Int?>>("$describePrefix[nullable Key] ",
         "${getExistingNullablePlantPair.first} returns plant" to mapToCreateAssertion { getExistingNullablePlantPair.second(this, "a" ).toBe(null) },
         getExistingNullablePair.first to mapToCreateAssertion { getExistingNullablePair.second(this, "a" ){ toBe(null) } }
     ) {})
 
-    include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
         checkingTriple("val ${keysValPair.first}", { keysValPair.second(this).containsExactly("a") }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple("fun ${keysFunPair.first}", { keysFunPair.second(this) { contains("a").and.hasSize(1) } }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple("val ${valuesValPair.first}", { valuesValPair.second(this).containsExactly(1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
@@ -47,7 +49,7 @@ abstract class MapFeatureAssertionsSpec(
         checkingTriple("${getExistingPlantPair.first} returns plant", { getExistingPlantPair.second(this, "a").isGreaterThan(1) }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2)),
         checkingTriple(getExistingPair.first, { getExistingPair.second(this, "a") { isGreaterThan(1) } }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2))
     ){})
-    include(object : CheckingAssertionSpec<Map<String, Int?>>(verbs, "$describePrefix[nullable Key] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Map<String, Int?>>(verbs, "$describePrefix[nullable Key] ",
         checkingTriple("${getExistingNullablePlantPair.first} plant", { getExistingNullablePlantPair.second(this, "a").toBe(1) }, mapOf("a" to 1), mapOf("a" to null, "b" to 2)),
         checkingTriple(getExistingNullablePair.first, { getExistingNullablePair.second(this, "a") { toBe(1) } }, mapOf("a" to 1), mapOf("a" to null, "b" to 2))
     ) {})

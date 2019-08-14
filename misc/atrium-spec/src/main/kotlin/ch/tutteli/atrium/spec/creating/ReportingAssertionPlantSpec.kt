@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -21,6 +22,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
 //TODO remove with 1.0.0 - no need to migrate to Spek2
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class ReportingAssertionPlantSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (AssertionPlantWithCommonFields.CommonFields<Int>) -> ReportingAssertionPlant<Int>,

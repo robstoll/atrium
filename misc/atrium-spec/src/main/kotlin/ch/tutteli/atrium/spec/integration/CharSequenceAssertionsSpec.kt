@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
@@ -22,6 +23,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CharSequenceAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsDefaultTranslationOfPair: Pair<String, Assert<CharSequence>.(Translatable, Array<out Translatable>) -> Assert<CharSequence>>,
@@ -38,7 +40,7 @@ abstract class CharSequenceAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : SubjectLessAssertionSpec<CharSequence>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) },
         containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
@@ -50,7 +52,7 @@ abstract class CharSequenceAssertionsSpec(
         endsNotWithPair.first to mapToCreateAssertion { endsNotWithPair.second(this, "") }
     ) {})
 
-    include(object : CheckingAssertionSpec<String>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsDefaultTranslationOfPair.first, { containsDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "a", "b"),
         checkingTriple(containsNotDefaultTranslationOfPair.first, { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "b", "a"),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, "", "not empty"),

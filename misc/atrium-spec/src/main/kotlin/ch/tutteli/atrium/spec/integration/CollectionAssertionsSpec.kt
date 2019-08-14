@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
@@ -14,6 +15,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CollectionAssertionsSpec(
     verbs: AssertionVerbFactory,
     hasSizePair: Pair<String, Assert<Collection<Int>>.(Int) -> Assert<Collection<Int>>>,
@@ -22,13 +24,13 @@ abstract class CollectionAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<Collection<Int>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Collection<Int>>(describePrefix,
         hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 2) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Collection<Int>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Collection<Int>>(verbs, describePrefix,
         checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, listOf(1) as Collection<Int>, listOf(1, 2)),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, listOf<Int>() as Collection<Int>, listOf(1, 2)),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2) as Collection<Int>, listOf())
