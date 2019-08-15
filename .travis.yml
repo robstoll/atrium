@@ -19,11 +19,11 @@ install: true
 script:
   - |
     if [ $MODE == current ]; then
-        ./gr -i build
+        ./gr build
     elif [ $MODE == bbc ]; then
-        ./gr -i bbcTests
+        ./gr bbcTests
     else
-        ./gr -i bcTests
+        ./gr bcTests
     fi
 
 after_success:
