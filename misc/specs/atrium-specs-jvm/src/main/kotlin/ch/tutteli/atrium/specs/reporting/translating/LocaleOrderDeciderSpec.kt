@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.spec.reporting.translating
+package ch.tutteli.atrium.specs.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_GB.containsExactly
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.prefixedDescribe
 import ch.tutteli.kbox.joinToString
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -23,7 +23,7 @@ abstract class LocaleOrderDeciderSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
         = prefixedDescribe(describePrefix, description, body)
 
-    val assert: (Iterable<Locale>) -> AssertionPlant<Iterable<Locale>> = verbs::checkImmediately
+    val assert: (Iterable<Locale>) -> Expect<Iterable<Locale>> = verbs::check
     val testee = testeeFactory()
 
     val variantA = "VariantA"

@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 
-//TODO #116 migrate spek1 to spek2 - move to common module
-object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
+//cannot be easily migrated to spek2 as it depends on JVM resources => need to find a solution first
+object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec(
     AssertionVerbFactory,
     { primaryLocale, fallbackLocales ->
         ExpectImpl.reporterBuilder

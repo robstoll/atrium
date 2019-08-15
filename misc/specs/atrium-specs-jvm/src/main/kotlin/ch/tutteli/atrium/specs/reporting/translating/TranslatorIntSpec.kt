@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.spec.reporting.translating
+package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.coreFactory
@@ -7,9 +7,9 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.prefixedDescribe
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
@@ -19,7 +19,6 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.text.SimpleDateFormat
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 /**
  * If you use this Spec then your reporter needs to use a translator which uses the following translations
  * which should be in
@@ -97,6 +96,7 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
+//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslatorIntSpec(
     verbs: AssertionVerbFactory,
     reporterFactory: (Locale, Array<out Locale>) -> Reporter,

@@ -1,15 +1,15 @@
-package ch.tutteli.atrium.spec.checking
+package ch.tutteli.atrium.specs.checking
 
-import ch.tutteli.atrium.api.cc.en_GB.message
-import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek

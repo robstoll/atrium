@@ -1,20 +1,20 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.isEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
@@ -51,7 +51,7 @@ abstract class OnlyFailureReporterSpec(
         val assertion = object : Assertion {
             override fun holds() = true
         }
-        val basicAssertion = AssertImpl.builder.descriptive.holding.withDescriptionAndRepresentation(TO_BE, 0).build()
+        val basicAssertion = ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(TO_BE, 0).build()
         val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val representation = 1
             override val description = AssertionVerb.VERB
@@ -64,7 +64,7 @@ abstract class OnlyFailureReporterSpec(
             override val representation = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
-        val assertionGroup = AssertImpl.builder.root
+        val assertionGroup = ExpectImpl.builder.root
             .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
             .withAssertions(listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
             .build()
@@ -78,7 +78,7 @@ abstract class OnlyFailureReporterSpec(
         ).forEach { (typeRepresentation, assertion) ->
             it("does not append anything if $typeRepresentation holds") {
                 testee.format(assertion, sb)
-                verbs.checkImmediately(sb).isEmpty()
+                verbs.check(sb).isEmpty()
             }
         }
 

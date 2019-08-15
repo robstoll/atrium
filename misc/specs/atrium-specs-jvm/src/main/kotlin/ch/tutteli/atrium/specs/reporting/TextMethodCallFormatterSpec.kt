@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.reporting.MethodCallFormatter
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -27,7 +27,7 @@ abstract class TextMethodCallFormatterSpec(
         context("a method call without arguments") {
             it("returns the name of the method with parentheses") {
                 val result = testee. formatCall("withoutArg", arrayOf())
-                verbs.checkImmediately(result).toBe("withoutArg()")
+                verbs.check(result).toBe("withoutArg()")
             }
         }
 
@@ -36,28 +36,28 @@ abstract class TextMethodCallFormatterSpec(
             context("one argument of type Int") {
                 it("returns the name of the method with its argument in parentheses") {
                     val result = testee. formatCall("withArg1", arrayOf(1))
-                    verbs.checkImmediately(result).toBe("withArg1(1)")
+                    verbs.check(result).toBe("withArg1(1)")
                 }
             }
 
             context("two arguments of type Int and Float") {
                 it("returns the name of the method, followed by the first and second argument in parentheses and separated by a comma") {
                     val result = testee. formatCall("withArg2", arrayOf(1, 1.2))
-                    verbs.checkImmediately(result).toBe("withArg2(1, 1.2)")
+                    verbs.check(result).toBe("withArg2(1, 1.2)")
                 }
             }
 
             context("an argument of type Char") {
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
                     val result = testee. formatCall("withArg1", arrayOf('a'))
-                    verbs.checkImmediately(result).toBe("withArg1('a')")
+                    verbs.check(result).toBe("withArg1('a')")
                 }
             }
 
             context("`null`") {
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
                     val result = testee. formatCall("withArg1", arrayOf<Int?>(null))
-                    verbs.checkImmediately(result).toBe("withArg1(null)")
+                    verbs.check(result).toBe("withArg1(null)")
                 }
             }
 
@@ -66,7 +66,7 @@ abstract class TextMethodCallFormatterSpec(
                 context("without line breaks") {
                     it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in quotes") {
                         val result = testee. formatCall("withArg1", arrayOf("a"))
-                        verbs.checkImmediately(result).toBe("withArg1(\"a\")")
+                        verbs.check(result).toBe("withArg1(\"a\")")
                     }
                 }
 
@@ -78,14 +78,14 @@ abstract class TextMethodCallFormatterSpec(
                     context("with $escapedChar as line break") {
                         it("returns the argument on one line and $escapedChar is escaped with $doubleEscapedChar") {
                             val result = testee. formatCall("withArg1", arrayOf("a${char}b"))
-                            verbs.checkImmediately(result).toBe("withArg1(\"a${escapedChar}b\")")
+                            verbs.check(result).toBe("withArg1(\"a${escapedChar}b\")")
                         }
                     }
 
                     context("with multiple $escapedChar as line break") {
                         it("returns the argument on one line and $escapedChar is escaped with $doubleEscapedChar") {
                             val result = testee. formatCall("withArg1", arrayOf("a${char}b${char}c${char}d"))
-                            verbs.checkImmediately(result).toBe("withArg1(\"a${escapedChar}b${escapedChar}c${escapedChar}d\")")
+                            verbs.check(result).toBe("withArg1(\"a${escapedChar}b${escapedChar}c${escapedChar}d\")")
                         }
                     }
                 }

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -19,11 +19,11 @@ class TextListAssertionGroupFormatterSpec : Spek({
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsTextListAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
+    object AtriumsTextListAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.TextListAssertionGroupFormatterSpec(
         AssertionVerbFactory,
         factoryWithBullet(), "[Atrium's TextList...Spec] ")
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<ListAssertionGroupType>(
+    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.specs.reporting.SingleAssertionGroupTypeFormatterSpec<ListAssertionGroupType>(
         AssertionVerbFactory,
         factoryWithBullet(),
         ListAssertionGroupType::class,
@@ -32,7 +32,7 @@ class TextListAssertionGroupFormatterSpec : Spek({
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
-    object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
+    object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.AssertionFormatterSpec(
         AssertionVerbFactory,
         factoryWithBullet(), "[Atrium's AssertionFormatterSpec] "
     )

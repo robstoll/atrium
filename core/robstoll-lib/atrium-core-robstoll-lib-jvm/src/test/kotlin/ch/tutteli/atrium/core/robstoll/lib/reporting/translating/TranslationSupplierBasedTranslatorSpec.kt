@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -11,11 +11,11 @@ object TranslationSupplierBasedTranslatorSpec : Spek({
     include(AtriumsTranslatorErrorCaseSpec)
 }) {
     object AtriumsTranslationSupplierBasedTranslatorSpec :
-        ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierBasedTranslatorSpec(
+        ch.tutteli.atrium.specs.reporting.translating.TranslationSupplierBasedTranslatorSpec(
             AssertionVerbFactory, ::TranslationSupplierBasedTranslator, "[Atrium's TranslatorSpec] "
         )
 
-    object AtriumsTranslatorErrorCaseSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorErrorCaseSpec(
+    object AtriumsTranslatorErrorCaseSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorErrorCaseSpec(
         AssertionVerbFactory,
         { primaryLocale, fallbackLocales ->
             TranslationSupplierBasedTranslator(

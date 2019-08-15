@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.ObjectFormatter

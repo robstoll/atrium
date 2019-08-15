@@ -4,7 +4,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DefaultIndentAssertionGroupType
 import ch.tutteli.atrium.assertions.IndentAssertionGroupType
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -22,10 +22,10 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsTextIndentAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.TextIndentAssertionGroupFormatterSpec(
+    object AtriumsTextIndentAssertionGroupFormatterSpec : ch.tutteli.atrium.specs.reporting.TextIndentAssertionGroupFormatterSpec(
         AssertionVerbFactory, ::TextIndentAssertionGroupFormatter, "[Atrium's IndentGroup...Spec] ")
 
-    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IndentAssertionGroupType>(
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.specs.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IndentAssertionGroupType>(
         AssertionVerbFactory,
         factory(),
         IndentAssertionGroupType::class,
@@ -33,7 +33,7 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
         object : IndentAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IndentAssertionGroupType>(
+    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.specs.reporting.SingleAssertionGroupTypeFormatterSpec<IndentAssertionGroupType>(
         AssertionVerbFactory,
         factoryWithBulletPoints(),
         IndentAssertionGroupType::class,
@@ -42,7 +42,7 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
-    object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
+    object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.AssertionFormatterSpec(
         AssertionVerbFactory,
         factoryWithBulletPoints(), "[Atrium's AssertionFormatterSpec] ")
 

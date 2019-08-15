@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.isEmpty
-import ch.tutteli.atrium.api.cc.en_GB.message
-import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -15,8 +15,8 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -34,13 +34,18 @@ abstract class AssertionFormatterSpec(
         = describeFun(describePrefix, funName, body = body)
 
     val controller = mock<AssertionFormatterController>()
-    val testee = testeeFactory(mapOf(), controller, ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(mapOf(), controller,
+        ToStringObjectFormatter, UsingDefaultTranslator())
 
     var sb = StringBuilder()
-    var parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
+    var parameterObject = AssertionFormatterParameterObject.new(sb,
+        alwaysTrueAssertionFilter
+    )
     afterEachTest {
         sb = StringBuilder()
-        parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
+        parameterObject = AssertionFormatterParameterObject.new(sb,
+            alwaysTrueAssertionFilter
+        )
     }
 
     describeFun(testee::format.name) {
@@ -53,7 +58,7 @@ abstract class AssertionFormatterSpec(
                     override val assertions: List<Assertion> = emptyList()
                 }, parameterObject)
             }.toThrow<UnsupportedOperationException> { message { toBe(AssertionFormatter.CALL_FORMAT_GROUP) } }
-            verbs.checkImmediately(sb).isEmpty()
+            verbs.check(sb).isEmpty()
         }
     }
 })

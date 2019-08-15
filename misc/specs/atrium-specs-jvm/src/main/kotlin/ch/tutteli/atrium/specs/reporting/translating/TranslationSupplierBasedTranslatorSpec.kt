@@ -1,10 +1,10 @@
-package ch.tutteli.atrium.spec.reporting.translating
+package ch.tutteli.atrium.specs.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.translating.*
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
@@ -50,7 +50,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
     fun SpecBody.checkUsesDefaultOfTranslatable(testee: Translator) {
         it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
             val result = testee.translate(translatableHello)
-            verbs.checkImmediately(result).toBe(translatableHello.value)
+            verbs.check(result).toBe(translatableHello.value)
         }
     }
 
@@ -59,14 +59,14 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         context("but for the wrong ${Translatable::class.simpleName}") {
             it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
                 val result = testee.translate(translatableTest)
-                verbs.checkImmediately(result).toBe(translatableTest.value)
+                verbs.check(result).toBe(translatableTest.value)
             }
         }
 
         context("for the desired ${Translatable::class.simpleName}") {
             it("uses the translation of Locale $locale") {
                 val result = testee.translate(translatableHello)
-                verbs.checkImmediately(result).toBe(translation)
+                verbs.check(result).toBe(translation)
             }
         }
     }

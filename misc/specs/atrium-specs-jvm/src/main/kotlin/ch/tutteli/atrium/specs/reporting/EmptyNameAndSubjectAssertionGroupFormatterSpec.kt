@@ -1,17 +1,17 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.contains
-import ch.tutteli.atrium.api.cc.en_GB.containsNot
+import ch.tutteli.atrium.api.fluent.en_GB.contains
+import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -49,13 +49,15 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
             ).forEach { typeRepresentation, type ->
                 context("formatting an ${AssertionGroup::class.simpleName} of type $typeRepresentation") {
                     it("does not include ${AssertionGroup::description.name} nor ${AssertionGroup::representation.name}") {
-                        val assertionGroup = AssertImpl.builder.customType(type)
+                        val assertionGroup = ExpectImpl.builder.customType(type)
                             .withDescriptionAndRepresentation(TestDescription.TEST_NAME, testSubject)
                             .withAssertions(listOf())
                             .build()
-                        val parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
+                        val parameterObject = AssertionFormatterParameterObject.new(sb,
+                            alwaysTrueAssertionFilter
+                        )
                         testee.formatGroup(assertionGroup, parameterObject, { _, _ -> sb.append(testString) })
-                        verbs.checkImmediately(sb.toString())
+                        verbs.check(sb.toString())
                             .containsNot(TestDescription.TEST_NAME.getDefault())
                             .containsNot(testSubject)
                             .contains(testString)

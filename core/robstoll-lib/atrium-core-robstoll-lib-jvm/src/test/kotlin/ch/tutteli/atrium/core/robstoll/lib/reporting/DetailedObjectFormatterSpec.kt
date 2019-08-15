@@ -8,9 +8,9 @@ import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.spec.reporting.ObjectFormatterSpec
+import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek

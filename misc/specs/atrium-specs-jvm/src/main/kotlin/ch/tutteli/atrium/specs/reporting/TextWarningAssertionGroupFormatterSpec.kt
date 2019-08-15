@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.spec.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import kotlin.reflect.KClass
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
@@ -18,6 +18,6 @@ abstract class TextWarningAssertionGroupFormatterSpec(
     testeeFactory,
     WarningAssertionGroupType::class,
     WarningAssertionGroupType,
-    { AssertImpl.builder.explanatoryGroup.withWarningType.withAssertions(it).build() },
+    { ExpectImpl.builder.explanatoryGroup.withWarningType.withAssertions(it).build() },
     describePrefix
 )

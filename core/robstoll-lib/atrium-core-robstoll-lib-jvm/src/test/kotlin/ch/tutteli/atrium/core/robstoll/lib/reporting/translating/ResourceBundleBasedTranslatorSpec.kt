@@ -1,20 +1,20 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
-//TODO #116 migrate spek1 to spek2 - move to common module
+//cannot be easily migrated to spek2 as it depends on JVM resources => need to find a solution first
 object ResourceBundleBasedTranslatorSpec : Spek({
     include(AtriumsTranslatorErrorCaseSpec)
     include(AtriumsTranslatorIntSpec)
 }) {
-    object AtriumsTranslatorErrorCaseSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorErrorCaseSpec(
+    object AtriumsTranslatorErrorCaseSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorErrorCaseSpec(
         AssertionVerbFactory, ::ResourceBundleBasedTranslator, "[Atrium's TranslatorErrorSpec] "
     )
 
-    object AtriumsTranslatorIntSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
+    object AtriumsTranslatorIntSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec(
         AssertionVerbFactory,
         { primaryLocale, fallbackLocales ->
             ExpectImpl.reporterBuilder

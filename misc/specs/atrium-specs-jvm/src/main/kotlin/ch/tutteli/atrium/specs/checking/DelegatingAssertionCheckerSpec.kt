@@ -1,15 +1,16 @@
-package ch.tutteli.atrium.spec.checking
+package ch.tutteli.atrium.specs.checking
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.describeFun
+import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -25,7 +26,7 @@ abstract class DelegatingAssertionCheckerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val assert: (Assertion) -> AssertionPlant<Assertion> = verbs::checkImmediately
+    val assert: (Assertion) -> Expect<Assertion> = verbs::check
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
@@ -67,8 +68,8 @@ abstract class DelegatingAssertionCheckerSpec(
                     val captor = argumentCaptor<Assertion>()
                     verify(subjectFactory).addAssertion(captor.capture())
                     assert(captor.firstValue).isA<AssertionGroup> {
-                        property(AssertionGroup::type).isA<InvisibleAssertionGroupType> {}
-                        property(AssertionGroup::assertions) {
+                        feature(AssertionGroup::type).isA<InvisibleAssertionGroupType>()
+                        feature(AssertionGroup::assertions) {
                             contains.inAnyOrder.only.values(assertions.first(), *assertions.drop(1).toTypedArray())
                         }
                     }

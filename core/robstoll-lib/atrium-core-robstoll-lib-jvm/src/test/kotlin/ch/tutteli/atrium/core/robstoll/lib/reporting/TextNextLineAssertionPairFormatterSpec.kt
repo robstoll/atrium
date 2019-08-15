@@ -7,9 +7,9 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.reporting.AssertionFormatterSpecBase
-import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
+import ch.tutteli.atrium.specs.describeFun
+import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
+import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it

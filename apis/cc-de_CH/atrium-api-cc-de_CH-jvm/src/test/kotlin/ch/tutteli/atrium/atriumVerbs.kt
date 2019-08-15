@@ -76,6 +76,7 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
 /**
  * You need to add atrium-spec to your dependencies in order to be able to reuse the VerbSpec.
  */
+@Suppress("DEPRECATION")
 internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
     "es gilt" to { subject -> esGilt(subject) },
     "es gilt" to { subject, assertionCreator -> esGilt(subject, assertionCreator) },

@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.coreFactory
@@ -16,13 +16,19 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
 
     afterEachTest {
         sb = StringBuilder()
-        parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
+        parameterObject = AssertionFormatterParameterObject.new(
+            sb,
+            alwaysTrueAssertionFilter
+        )
     }
 }) {
     companion object {
         val separator = System.getProperty("line.separator")!!
         var sb: StringBuilder = StringBuilder()
-        var parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
+        var parameterObject = AssertionFormatterParameterObject.new(
+            sb,
+            alwaysTrueAssertionFilter
+        )
         const val bulletPoint = "*"
         const val listBulletPoint = "--"
         val indentListBulletPoint = " ".repeat(listBulletPoint.length + 1)
@@ -40,17 +46,28 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
         fun createFacade() = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
 
         fun createFacade(testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
-            = createFacade(mapOf(), testeeFactory)
+            =
+            createFacade(mapOf(), testeeFactory)
 
         fun createFacade(bulletPoint: Pair<KClass<out BulletPointIdentifier>, String>, testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
-            = createFacade(mapOf(bulletPoint), testeeFactory)
+            = createFacade(
+            mapOf(bulletPoint),
+            testeeFactory
+        )
 
         fun createFacade(extendedBulletPoints: Map<KClass<out BulletPointIdentifier>, String>, testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade {
             val facade = createFacade()
-            facade.register { testeeFactory(extendedBulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { coreFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { coreFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { testeeFactory(extendedBulletPoints, it,
+                ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { coreFactory.newTextListAssertionGroupFormatter(
+                bulletPoints, it,
+                ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { coreFactory.newTextFeatureAssertionGroupFormatter(
+                bulletPoints, it,
+                ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { coreFactory.newTextFallbackAssertionFormatter(
+                bulletPoints, it,
+                ToStringObjectFormatter, UsingDefaultTranslator()) }
             return facade
         }
     }
