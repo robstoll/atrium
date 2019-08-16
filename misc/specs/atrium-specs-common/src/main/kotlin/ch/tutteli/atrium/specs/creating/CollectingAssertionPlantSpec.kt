@@ -10,6 +10,7 @@ import ch.tutteli.atrium.creating.CollectingAssertionContainer
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.Spek
+import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CollectingAssertionContainerSpec(
@@ -21,23 +22,23 @@ abstract class CollectingAssertionContainerSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
+    val assertion: Assertion = object : Assertion {
+        override fun holds() = true
+    }
+
     describeFun(CollectingAssertionContainer<Int>::getAssertions.name) {
-        val assertion: Assertion by memoized {
-            object : Assertion {
-                override fun holds() = true
-            }
-        }
-        val testee by memoized { testeeFactory(Some(1)) }
+
 
         context("no assertion has been added so far") {
             it("returns an empty list") {
-                verbs.check(testee.getAssertions()).toBe(listOf())
+                verbs.check(testeeFactory(Some(1)).getAssertions()).toBe(listOf())
             }
 
             context("an assertion is added") {
-                beforeEachTest {
-                    testee.addAssertion(assertion)
+                val testee by memoized(CachingMode.SCOPE) {
+                    testeeFactory(Some(1)).addAssertion(assertion)
                 }
+
                 it("returns the assertion") {
                     verbs.check(testee.getAssertions()).toBe(listOf(assertion))
                 }

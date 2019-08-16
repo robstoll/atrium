@@ -10,24 +10,20 @@ import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.AssertionVerbFactory
-import ch.tutteli.atrium.specs.describeFun
-import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.lifecycle.CachingMode
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class FeatureAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val assertions = ArrayList<Assertion>()
     assertions.add(object : Assertion {
@@ -35,40 +31,46 @@ abstract class FeatureAssertionCheckerSpec(
     })
     val assertionVerb = AssertionVerb.VERB
     val valueUnderTest = 1
-    val subjectFactory = mock<AssertionPlant<Int>>()
+    val subjectFactory = mockk<AssertionPlant<Int>>()
+    every { subjectFactory.addAssertion(any()) } returns subjectFactory
     val testee = testeeFactory(subjectFactory)
 
 
     describeFun(testee::check.name) {
         context("creates a ${AssertionGroup::class.simpleName} and passes it to its subjectFactory") {
 
-            testee.check(assertionVerb, { valueUnderTest }, assertions)
-            val captor = argumentCaptor<Assertion>()
-            verify(subjectFactory).addAssertion(captor.capture())
+            val captured by memoized(mode = CachingMode.SCOPE) {
+                testee.check(assertionVerb, { valueUnderTest }, assertions)
+                val slot = slot<Assertion>()
+                verify(exactly = 1) { subjectFactory.addAssertion(capture(slot)) }
+                confirmVerified(subjectFactory)
+                slot.captured
+            }
+
             it("its type is  ${FeatureAssertionGroupType::class.simpleName}") {
-                verbs.check(captor.firstValue).isA<AssertionGroup> {
-                    feature(AssertionGroup::type).isA<FeatureAssertionGroupType>()
+                verbs.check(captured).isA<AssertionGroup> {
+                    feature { f(it::type) }.isA<FeatureAssertionGroupType>()
                 }
             }
 
             it("its ${AssertionGroup::representation.name} corresponds to the passed assertionVerb") {
-                verbs.check(captor.firstValue).isA<AssertionGroup> {
-                    feature(AssertionGroup::description).toBe(assertionVerb)
+                verbs.check(captured).isA<AssertionGroup> {
+                    feature { f(it::description) }.toBe(assertionVerb)
                 }
             }
 
             it("its ${AssertionGroup::representation.name} corresponds to the ${LazyRepresentation::class.simpleName} of the passed subject") {
-                verbs.check(captor.firstValue).isA<AssertionGroup> {
-                    feature(AssertionGroup::representation).isA<LazyRepresentation> {
-                        feature(LazyRepresentation::eval).toBe(valueUnderTest)
+                verbs.check(captured).isA<AssertionGroup> {
+                    feature { f(it::representation) }.isA<LazyRepresentation> {
+                        feature { f(it::eval) }.toBe(valueUnderTest)
                     }
                 }
             }
 
             it("copies the assertion") {
                 assertions.clear()
-                verbs.check(captor.firstValue).isA<AssertionGroup> {
-                    feature(AssertionGroup::assertions).hasSize(1).and.isNotSameAs(assertions)
+                verbs.check(captured).isA<AssertionGroup> {
+                    feature { f(it::assertions) }.hasSize(1).and.isNotSameAs(assertions)
                 }
             }
         }

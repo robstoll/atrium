@@ -14,6 +14,11 @@ class CollectingAssertionContainerImpl<T>(
 
     override fun getAssertions(): List<Assertion> = getCopyOfAssertions()
 
+    override fun addAssertion(assertion: Assertion): CollectingAssertionContainer<T> {
+        super.addAssertion(assertion)
+        return this
+    }
+
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingAssertionContainer<T> {
         // in case we run into performance problems, the code below is certainly not ideal
         val allAssertions = mutableListOf<Assertion>()

@@ -10,6 +10,7 @@ dependencies {
     api spekExtensions()
 
     implementation prefixedProject('api-fluent-en_GB-android')
+    implementation "io.mockk:mockk-android:$mockk_version"
 
     //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-android')
