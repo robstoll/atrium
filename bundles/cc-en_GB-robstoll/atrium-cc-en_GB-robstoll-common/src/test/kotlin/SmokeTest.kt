@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert

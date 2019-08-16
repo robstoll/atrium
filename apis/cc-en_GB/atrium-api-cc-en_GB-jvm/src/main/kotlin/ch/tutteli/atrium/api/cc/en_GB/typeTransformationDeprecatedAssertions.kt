@@ -18,6 +18,9 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  */
 @Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `ist(expected)` without adding enough to be a legit alternative.", ReplaceWith("ist(expected)"))
 inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNullBut(expected: T) {
-    notToBeNull { toBe(expected) }
+    notToBeNull {
+        @Suppress("DEPRECATION")
+        toBe(expected)
+    }
 }
 

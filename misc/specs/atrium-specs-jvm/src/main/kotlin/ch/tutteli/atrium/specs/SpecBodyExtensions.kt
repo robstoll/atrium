@@ -1,3 +1,4 @@
+//TODO remove file as soon as all specs have been transformed to spek2
 package ch.tutteli.atrium.specs
 
 import ch.tutteli.kbox.joinToString
@@ -6,9 +7,6 @@ import org.jetbrains.spek.api.dsl.SpecBody
 //TODO #116 remove once there aren't any spek1 specs anymore
 fun SpecBody.describeFun(describePrefix: String, funNames: Array<out String>, funNamePrefix: String = "`", funNameSuffix: String = "`", body: SpecBody.() -> Unit)
     = prefixedDescribe(describePrefix, " fun ", giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body)
-
-fun SpecBody.describeProperty(describePrefix: String, propertyNames: Array<out String>, propertyNamePrefix: String = "`", propertyNameSuffix: String = "`", body: SpecBody.() -> Unit)
-    = prefixedDescribe(describePrefix, " property ", giveWrappedNames(propertyNames, propertyNamePrefix, propertyNameSuffix), body)
 
 private fun giveWrappedNames(names: Array<out String>, prefix: String, postfix: String): String {
     return names.joinToString(", ", " and ") { it, sb ->

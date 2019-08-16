@@ -1,5 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("AnyAssertionsKt")
+
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.checking.AssertionChecker
@@ -20,8 +21,16 @@ import kotlin.jvm.JvmName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.toBe(expected: T)
-    = addAssertion(AssertImpl.any.toBe(this, expected))
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toBe(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.toBe"
+    )
+)
+fun <T : Any> Assert<T>.toBe(expected: T) = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
@@ -32,8 +41,16 @@ fun <T : Any> Assert<T>.toBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.notToBe(expected: T)
-    = addAssertion(AssertImpl.any.notToBe(this, expected))
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().notToBe(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToBe"
+    )
+)
+fun <T : Any> Assert<T>.notToBe(expected: T) = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
@@ -44,8 +61,16 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.isSameAs(expected: T)
-    = addAssertion(AssertImpl.any.isSame(this, expected))
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isSameAs(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.isSameAs"
+    )
+)
+fun <T : Any> Assert<T>.isSameAs(expected: T) = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
@@ -56,8 +81,16 @@ fun <T : Any> Assert<T>.isSameAs(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.isNotSameAs(expected: T)
-    = addAssertion(AssertImpl.any.isNotSame(this, expected))
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNotSameAs(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.isNotSameAs"
+    )
+)
+fun <T : Any> Assert<T>.isNotSameAs(expected: T) = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
  * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expected].
@@ -67,6 +100,15 @@ fun <T : Any> Assert<T>.isNotSameAs(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toBe(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.toBe"
+    )
+)
 inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
     addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
 }
@@ -85,7 +127,18 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")
-inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toBeNullIfNullGivenElse(assertionCreatorOrNull).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse"
+    )
+)
+inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(
+    noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?
+) {
     addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 }
 
@@ -111,5 +164,14 @@ val <T : Any> AssertionPlant<T>.and: AssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
-    = addAssertionsCreatedBy(assertionCreator)
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().and(assertionCreator).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.and"
+    )
+)
+infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit) =
+    addAssertionsCreatedBy(assertionCreator)

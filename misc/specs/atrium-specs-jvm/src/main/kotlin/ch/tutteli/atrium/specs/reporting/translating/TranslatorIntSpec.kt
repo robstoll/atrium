@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -109,10 +109,10 @@ abstract class TranslatorIntSpec(
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val reporterDeCh = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
+    val reporterDeChFallbackFr = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
     @Suppress("DEPRECATION")
     fun <T : Any> assertWithDeCh(subject: T)
-        = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporterDeCh)
+        = coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, Some(subject), reporterDeChFallbackFr)
 
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
     val testTranslatable = TestTranslatable::class.simpleName
@@ -182,7 +182,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, falseProvider)
+                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1) { false }
                     }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
                 }
             }
@@ -190,7 +190,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
                 it("uses default translation but the primary Locale to format the date") {
                     verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1, falseProvider)
+                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1) { false }
                     }.toThrow<AssertionError> { messageContains("only Mittwoch") }
                 }
             }
@@ -200,7 +200,7 @@ abstract class TranslatorIntSpec(
                 it("uses the translation from 'fr' for $testTranslatable.${TestTranslatable.PLACEHOLDER} "
                     + "and the translation from 'ch' for $descriptionAnyAssertion.$toBe") {
                     verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, toBe), 1, falseProvider)
+                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, toBe), 1) { false }
                     }.toThrow<AssertionError> { messageContains("Caractère de remplacement ist") }
                 }
             }
@@ -216,7 +216,7 @@ abstract class TranslatorIntSpec(
             val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
             @Suppress("DEPRECATION")
-            val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
+            val assert = coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, Some(1), reporter)
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {
