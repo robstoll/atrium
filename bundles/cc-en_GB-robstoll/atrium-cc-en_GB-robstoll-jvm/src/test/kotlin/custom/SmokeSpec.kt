@@ -11,6 +11,8 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.verbs.assertThat
 import org.jetbrains.spek.api.Spek
 
+//TODO remove with 1.0.0 - no need to migrate to Spek2
+@Suppress("DEPRECATION")
 object SmokeSpec : Spek({
     test("see if `toBe` can be used") {
         assertThat(1).toBe(1)

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -50,7 +51,6 @@ fun <E : Any> _iterableAll(
     }
 }
 
-@Suppress("DEPRECATION")
 private fun <E : Any> createMismatchAssertions(
     list: List<E?>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
@@ -71,7 +71,6 @@ private fun <E : Any> createExplanatoryAssertionGroup(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     list: List<E?>
 ): AssertionGroup {
-    @Suppress("DEPRECATION")
     val explanatoryAssertions = createExplanatoryAssertions(assertionCreator, list)
     return AssertImpl.builder.explanatoryGroup
         .withDefaultType
