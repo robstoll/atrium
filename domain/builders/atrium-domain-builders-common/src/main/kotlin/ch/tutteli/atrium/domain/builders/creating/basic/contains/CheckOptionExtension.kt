@@ -31,14 +31,17 @@ fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.
     assertion: Assertion
 ): Expect<T> = addAssertion(subjectProvider, assertion)
 
+@Suppress("DEPRECATION")
 private fun <T : Any> addAssertion(
     subjectProvider: SubjectProvider<T>,
     assertion: Assertion
-): Expect<T> = when (subjectProvider) {
-    is Expect<T> -> subjectProvider.addAssertion(assertion)
-    is Assert<T> -> subjectProvider.asExpect().addAssertion(assertion)
-    else -> throw IllegalStateException("neither Expect nor Assert")
-}
+): Expect<T> =
+    //TODO simplify with 1.0.0
+    when (subjectProvider) {
+        is Expect<T> -> subjectProvider.addAssertion(assertion)
+        is Assert<T> -> subjectProvider.asExpect().addAssertion(assertion)
+        else -> throw IllegalStateException("neither Expect nor Assert")
+    }
 
 
 /**
@@ -62,11 +65,14 @@ fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.
     assertion: Assertion
 ): Assert<T> = addAssertionForAssert(subjectProvider, assertion)
 
+@Suppress("DEPRECATION")
 private fun <T : Any> addAssertionForAssert(
     subjectProvider: SubjectProvider<T>,
     assertion: Assertion
-): Assert<T> = when (subjectProvider) {
-    is Expect<T> -> subjectProvider.asAssert().addAssertion(assertion)
-    is Assert<T> -> subjectProvider.addAssertion(assertion)
-    else -> throw IllegalStateException("neither Expect nor Assert")
-}
+): Assert<T> =
+    //TODO simplify with 1.0.0
+    when (subjectProvider) {
+        is Expect<T> -> subjectProvider.asAssert().addAssertion(assertion)
+        is Assert<T> -> subjectProvider.addAssertion(assertion)
+        else -> throw IllegalStateException("neither Expect nor Assert")
+    }

@@ -93,11 +93,13 @@ object MapArgumentsSpec : Spek({
                     deprecatedAssert(first).asExpect().toBe(null)
                     deprecatedAssert(others[0]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
+                            @Suppress("DEPRECATION")
                             ExpectImpl.changeSubject.unreported(this) { "banana" }.asAssert().assertionCreator()
                         }
                     }
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
+                            @Suppress("DEPRECATION")
                             ExpectImpl.changeSubject.unreported(this) { "caramel" }.asAssert().assertionCreator()
                         }
                     }

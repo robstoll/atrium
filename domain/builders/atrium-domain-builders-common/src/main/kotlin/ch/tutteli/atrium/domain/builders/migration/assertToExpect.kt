@@ -10,7 +10,8 @@ import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATA
  *
  * Will be removed with 1.0.0
  */
-@Suppress("DEPRECATION")
+@Deprecated("Switch from Assert to Expect, this function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+@Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 fun <T : Any> Expect<T>.asAssert(): Assert<T> =
     coreFactory.newReportingPlant(
         SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
@@ -23,6 +24,8 @@ fun <T : Any> Expect<T>.asAssert(): Assert<T> =
  *
  * Will be removed with 1.0.0
  */
+@Deprecated("Switch from Assert to Expect, this function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+@Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 fun <T : Any> Expect<T>.asAssert(assertionCreator: Assert<T>.() -> Unit): Expect<T> {
     asAssert().addAssertionsCreatedBy(assertionCreator)
     return this
@@ -34,6 +37,9 @@ fun <T : Any> Expect<T>.asAssert(assertionCreator: Assert<T>.() -> Unit): Expect
  *
  * Try to switch entirely to [Expect] as [Assert] along with this function will be removed with 1.0.0
  */
+//TODO deprecate with 0.10.0
+//@Deprecated("Switch from Assert to Expect, this function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+@Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 fun <T : Any?, A : BaseAssertionPlant<T, *>> A.asExpect(): Expect<T> =
     coreFactory.newReportingAssertionContainer(
         SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
@@ -49,6 +55,9 @@ fun <T : Any?, A : BaseAssertionPlant<T, *>> A.asExpect(): Expect<T> =
  *
  * @returns The deprecated plant.
  */
+//TODO deprecate with 0.10.0
+//@Deprecated("Switch from Assert to Expect, this function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+@Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 fun <T : Any, A : BaseAssertionPlant<T, *>> A.asExpect(assertionCreator: Expect<T>.() -> Unit): A {
     asExpect().addAssertionsCreatedBy(assertionCreator)
     return this

@@ -27,8 +27,8 @@ abstract class IterableContainsEntriesSpecBase(
         isLessThanFun = expect::isLessThan.name
         isGreaterThanFun = expect::isGreaterThan.name
         toBeFun = fun1<Double, Double>(Expect<Double>::toBe).name
-        //TODO make simpler once https://youtrack.jetbrains.com/issue/KT-12963 is fixed
-        val f: (KFunction0<Int>) -> Assert<Int> = expect.asAssert()::returnValueOf
+        //TODO remove with 1.0.0
+        @Suppress("DEPRECATION") val f: (KFunction0<Int>) -> Assert<Int> = expect.asAssert()::returnValueOf
         returnValueOfFun = (f as KFunction<*>).name
     }
 

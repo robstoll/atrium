@@ -1,16 +1,12 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
-import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.kbox.ifWithinBound
 
 abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
     searchBehaviour: InOrderOnlyGroupedSearchBehaviour
@@ -41,19 +37,20 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
         groupOfSearchCriteria: List<SC>,
         subject: List<E>
     ) {
-        val subListProvider = {
-            val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
-            subject.subList(currentIndex, safeUntilIndex)
-        }.evalOnce()
-        val sizeExceededProvider = { RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED) }
-        val representationProvider = { subject.ifWithinBound(currentIndex, subListProvider, sizeExceededProvider) }
-        val featureName = TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
-        //TODO #40 use ExpectImpl once new feature mechanism is implemented
-        AssertImpl.feature.property(this.asAssert(), subListProvider, representationProvider, featureName) {
-            //TODO #40 remove asAssert() once we use ExpectImpl
-            asExpect().
-            createSublistAssertion(groupOfSearchCriteria)
-        }
+        ExpectImpl.feature.extractor(this)
+            .withDescription(
+                TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
+            )
+            .withRepresentationForFailure(RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
+            .withCheck { currentIndex <= it.size }
+            .withFeatureExtraction {
+                val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
+                subject.subList(currentIndex, safeUntilIndex)
+            }
+            .build()
+            .addToInitial {
+                createSublistAssertion(groupOfSearchCriteria)
+            }
     }
 
     protected abstract fun Expect<List<E>>.createSublistAssertion(groupOfSearchCriteria: List<SC>)
