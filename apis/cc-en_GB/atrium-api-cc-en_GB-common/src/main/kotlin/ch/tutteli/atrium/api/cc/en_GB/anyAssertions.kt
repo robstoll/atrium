@@ -24,9 +24,8 @@ import kotlin.jvm.JvmName
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().toBe(expected).asAssert()",
+        "this.asExpect().toBe(expected)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.toBe"
     )
 )
@@ -44,9 +43,8 @@ fun <T : Any> Assert<T>.toBe(expected: T) = addAssertion(AssertImpl.any.toBe(thi
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().notToBe(expected).asAssert()",
+        "this.asExpect().notToBe(expected)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.notToBe"
     )
 )
@@ -64,9 +62,8 @@ fun <T : Any> Assert<T>.notToBe(expected: T) = addAssertion(AssertImpl.any.notTo
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isSameAs(expected).asAssert()",
+        "this.asExpect().isSameAs(expected)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isSameAs"
     )
 )
@@ -84,9 +81,8 @@ fun <T : Any> Assert<T>.isSameAs(expected: T) = addAssertion(AssertImpl.any.isSa
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNotSameAs(expected).asAssert()",
+        "this.asExpect().isNotSameAs(expected)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNotSameAs"
     )
 )
@@ -103,9 +99,8 @@ fun <T : Any> Assert<T>.isNotSameAs(expected: T) = addAssertion(AssertImpl.any.i
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().toBe(expected).asAssert()",
+        "this.asExpect().toBe(expected)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.toBe"
     )
 )
@@ -130,9 +125,8 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().toBeNullIfNullGivenElse(assertionCreatorOrNull).asAssert()",
+        "this.asExpect().toBeNullIfNullGivenElse(assertionCreatorOrNull)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse"
     )
 )
@@ -167,9 +161,8 @@ val <T : Any> AssertionPlant<T>.and: AssertionPlant<T> get() = this
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().and(assertionCreator).asAssert()",
+        "this.asExpect().and(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.and"
     )
 )
