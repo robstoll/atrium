@@ -19,6 +19,16 @@ fun <T : Any> Expect<T>.asAssert(): Assert<T> =
     )
 
 /**
+ * Turns this [Expect] into an [Assert] so that you can use functions which have not yet been migrated to [Expect].
+ *
+ * Will be removed with 1.0.0
+ */
+fun <T : Any> Expect<T>.asAssert(assertionCreator: Assert<T>.() -> Unit): Expect<T> {
+    asAssert().addAssertionsCreatedBy(assertionCreator)
+    return this
+}
+
+/**
  * Turns [Assert] or [AssertionPlantNullable] into an [Expect] so that you can use new functionality
  * which is not available on [Assert]/[AssertionPlantNullable].
  *
