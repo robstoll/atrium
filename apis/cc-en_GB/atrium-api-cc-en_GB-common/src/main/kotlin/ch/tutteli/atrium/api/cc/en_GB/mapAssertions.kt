@@ -22,7 +22,6 @@ import kotlin.js.JsName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
@@ -40,7 +39,6 @@ fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
@@ -73,7 +71,6 @@ fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-@Suppress("DEPRECATION")
 @JsName("getExisting")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
@@ -87,7 +84,6 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-@Suppress("DEPRECATION")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
@@ -99,7 +95,6 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-@Suppress("DEPRECATION")
 fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlantNullable<V?>
     = AssertImpl.map.getExistingNullable(this, key)
 
@@ -109,7 +104,6 @@ fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.map.hasSize(this, size))
 
@@ -152,7 +146,6 @@ val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-@Suppress("DEPRECATION")
 fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
@@ -176,7 +169,6 @@ val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*,
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-@Suppress("DEPRECATION")
 fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
@@ -188,7 +180,6 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Suppress("DEPRECATION")
 fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = ExpectImpl.changeSubject.unreported(this) { it.entries }
 

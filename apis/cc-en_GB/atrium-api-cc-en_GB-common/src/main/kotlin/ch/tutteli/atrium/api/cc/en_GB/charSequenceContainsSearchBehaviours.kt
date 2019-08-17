@@ -14,6 +14,13 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.ignoringCase",
+        "ch.tutteli.atrium.api.fluent.en_GB.ignoringCase"
+    )
+)
 val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoringCase
     get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
@@ -23,6 +30,13 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.ignoringCase",
+        "ch.tutteli.atrium.api.fluent.en_GB.ignoringCase"
+    )
+)
 val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase
     get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder.ignoringCase)

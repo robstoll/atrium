@@ -19,8 +19,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
-    @Suppress("DEPRECATION")
-    AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
+        AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
 
 /**
@@ -32,8 +31,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun ThrowableThrown.Builder.notToThrow(){
-    @Suppress("DEPRECATION")
-    AssertImpl.throwable.thrown.nothingThrown(this)
+        AssertImpl.throwable.thrown.nothingThrown(this)
 }
 
 /**

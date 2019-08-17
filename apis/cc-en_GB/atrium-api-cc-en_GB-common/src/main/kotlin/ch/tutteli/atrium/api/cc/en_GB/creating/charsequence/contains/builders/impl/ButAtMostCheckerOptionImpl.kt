@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.cc.en_GB.atLeast

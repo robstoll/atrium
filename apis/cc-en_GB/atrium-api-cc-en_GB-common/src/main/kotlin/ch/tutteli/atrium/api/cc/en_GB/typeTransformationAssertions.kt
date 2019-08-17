@@ -20,7 +20,6 @@ import kotlin.jvm.JvmName
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
 }
@@ -48,6 +47,5 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline ass
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
-    @Suppress("DEPRECATION")
-    AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
+        AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }

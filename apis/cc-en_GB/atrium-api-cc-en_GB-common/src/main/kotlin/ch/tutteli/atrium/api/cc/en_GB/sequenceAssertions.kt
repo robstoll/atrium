@@ -13,6 +13,5 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Suppress("DEPRECATION")
 fun <E> Assert<Sequence<E>>.asIterable(): Assert<Iterable<E>>
     = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }

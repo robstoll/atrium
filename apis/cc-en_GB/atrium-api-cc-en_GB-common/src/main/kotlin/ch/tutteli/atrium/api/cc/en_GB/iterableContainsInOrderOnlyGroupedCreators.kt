@@ -59,7 +59,6 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 @JvmName("inAnyOrderNullableEntries")
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<(Assert<E>.() -> Unit)?>,

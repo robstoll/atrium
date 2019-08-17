@@ -85,7 +85,6 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?

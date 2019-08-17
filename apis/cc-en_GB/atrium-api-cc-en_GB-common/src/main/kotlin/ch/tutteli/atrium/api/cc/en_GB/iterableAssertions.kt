@@ -190,6 +190,5 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.none(assertionCreatorOrNull: (Assert<E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 fun <E : Any, T : Iterable<E?>> Assert<T>.all(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = addAssertion(AssertImpl.iterable.all(this, assertionCreatorOrNull))

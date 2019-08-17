@@ -96,7 +96,6 @@ fun <T : Any> Assert<T>.isNotSameAs(expected: T) = addAssertion(AssertImpl.any.i
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
@@ -122,7 +121,6 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(

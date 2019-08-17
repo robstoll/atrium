@@ -22,7 +22,6 @@ import kotlin.jvm.JvmName
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
 
@@ -43,7 +42,6 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -64,7 +62,6 @@ fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.()
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
 fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -86,7 +83,6 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
 fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> Unit): Assert<Iterable<Byte>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -108,7 +104,6 @@ fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> 
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("charArrAsIterable")
 fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -130,7 +125,6 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("charArrAsIterable")
 fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> Unit): Assert<Iterable<Char>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -152,7 +146,6 @@ fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> 
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
 fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -174,7 +167,6 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
 fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -> Unit): Assert<Iterable<Short>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -196,7 +188,6 @@ fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
 fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>> = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
 
@@ -217,7 +208,6 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>> = ExpectImpl.changeSubj
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
 fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Unit): Assert<Iterable<Int>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -239,7 +229,6 @@ fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Un
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
 fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -261,7 +250,6 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
 fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> Unit): Assert<Iterable<Long>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -283,7 +271,6 @@ fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> 
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
 fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -305,7 +292,6 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
 fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -> Unit): Assert<Iterable<Float>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -327,7 +313,6 @@ fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
 fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -349,7 +334,6 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
 fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.() -> Unit): Assert<Iterable<Double>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -371,7 +355,6 @@ fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.()
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
 fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>> =
     ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
@@ -393,7 +376,6 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>> =
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
 )
-@Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
 fun Assert<BooleanArray>.asIterable(assertionCreator: Assert<Iterable<Boolean>>.() -> Unit): Assert<Iterable<Boolean>> =
     asIterable().addAssertionsCreatedBy(assertionCreator)
