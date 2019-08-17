@@ -20,6 +20,15 @@ import kotlin.jvm.JvmName
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().notToBeNull().asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToBeNull"
+    )
+)
 inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
 }
@@ -46,6 +55,15 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline ass
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isA().asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.isA"
+    )
+)
 inline fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
         AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }
