@@ -39,7 +39,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
     ReplaceWith(
         "this.asExpect().get(index).assAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAsert",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.get"
     )
 )

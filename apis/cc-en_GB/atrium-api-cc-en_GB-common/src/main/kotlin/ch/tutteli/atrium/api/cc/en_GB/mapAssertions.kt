@@ -22,6 +22,14 @@ import kotlin.js.JsName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().contains(keyValuePair, *otherPairs)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.contains"
+    )
+)
 fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
@@ -39,6 +47,14 @@ fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().contains(keyValue, *otherKeyValues)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.contains"
+    )
+)
 fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
@@ -50,6 +66,14 @@ fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().containsKey(key)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.containsKey"
+    )
+)
 fun <K> Assert<Map<out K, *>>.containsKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
@@ -59,6 +83,14 @@ fun <K> Assert<Map<out K, *>>.containsKey(key: K)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().containsNotKey(key)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.containsNotKey"
+    )
+)
 fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
@@ -71,6 +103,14 @@ fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().getExisting(key)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.getExisting"
+    )
+)
 @JsName("getExisting")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
     = AssertImpl.map.getExisting(this, key)
@@ -84,6 +124,15 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().getExisting(key).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.getExisting"
+    )
+)
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
@@ -95,6 +144,14 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().getExisting(key)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.getExisting"
+    )
+)
 fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlantNullable<V?>
     = AssertImpl.map.getExistingNullable(this, key)
 
@@ -104,6 +161,14 @@ fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().hasSize(size)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.hasSize"
+    )
+)
 fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.map.hasSize(this, size))
 
@@ -113,6 +178,14 @@ fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isEmpty()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isEmpty"
+    )
+)
 fun <T : Map<*, *>> Assert<T>.isEmpty()
     = addAssertion(AssertImpl.map.isEmpty(this))
 
@@ -122,6 +195,14 @@ fun <T : Map<*, *>> Assert<T>.isEmpty()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNotEmpty()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty"
+    )
+)
 fun <T : Map<*, *>> Assert<T>.isNotEmpty()
     = addAssertion(AssertImpl.map.isNotEmpty(this))
 
@@ -135,6 +216,14 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().keys",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.keys"
+    )
+)
 val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys)
 
 /**
@@ -146,6 +235,15 @@ val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().values.asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
 fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
@@ -158,6 +256,14 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().values",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
 val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*, V>::values)
 
 /**
@@ -169,6 +275,15 @@ val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*,
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().values.asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
 fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
@@ -180,6 +295,14 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asEntries()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.asEntries"
+    )
+)
 fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = ExpectImpl.changeSubject.unreported(this) { it.entries }
 
@@ -192,5 +315,14 @@ fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asEntries().asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.asEntries"
+    )
+)
 fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
     = asEntries().addAssertionsCreatedBy(assertionCreator)
