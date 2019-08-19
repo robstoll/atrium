@@ -48,29 +48,6 @@ expect interface CoreFactory : CoreFactoryCommon
 interface CoreFactoryCommon {
 
     /**
-     * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
-     *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
-     * uses [maybeSubject] as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
-     * [AssertionContainerWithCommonFields.CommonFields.representation].
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
-     * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
-     *   also as [AssertionContainerWithCommonFields.CommonFields.representation].
-     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
-     *
-     * @return The newly created assertion container.
-     */
-    fun <T> newReportingAssertionContainer(
-        assertionVerb: Translatable,
-        maybeSubject: Option<T>,
-        reporter: Reporter
-    ): ReportingAssertionContainer<T> = newReportingAssertionContainer(
-        assertionVerb, maybeSubject, newThrowingAssertionChecker(reporter)
-    )
-
-    /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
@@ -101,6 +78,27 @@ interface CoreFactoryCommon {
         reporter: Reporter
     ): ReportingAssertionPlant<T> = newReportingPlant(
         assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
+    )
+
+    /**
+     * Creates a [ReportingAssertionContainer] which delegates checking and reporting [Assertion]s to the given
+     * [originalAssertionHolder].
+     *
+     * In Detail: it uses [SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE] as assertion verb and creates an
+     * delegating [AssertionChecker] via [newDelegatingAssertionChecker].
+     *
+     * @param maybeSubject Used as [ReportingAssertionContainer.maybeSubject] and
+     *   also as representation in reporting.
+     *
+     * @return The newly created assertion container.
+     */
+    fun <T> newDelegatingReportingAssertionContainer(
+        originalAssertionHolder: AssertionHolder,
+        maybeSubject: Option<T>
+    ): Expect<T> = newReportingAssertionContainer(
+        SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
+        maybeSubject,
+        newDelegatingAssertionChecker(originalAssertionHolder)
     )
 
     /**

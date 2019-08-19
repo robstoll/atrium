@@ -28,5 +28,9 @@ class FinalStepImpl<T>(
 ) : AssertionVerbBuilder.FinalStep<T> {
 
     override fun build(): Expect<T> =
-        ExpectImpl.coreFactory.newReportingAssertionContainer(assertionVerb, maybeSubject, reporter)
+        ExpectImpl.coreFactory.newReportingAssertionContainer(
+            assertionVerb,
+            maybeSubject,
+            ExpectImpl.coreFactory.newThrowingAssertionChecker(reporter)
+        )
 }
