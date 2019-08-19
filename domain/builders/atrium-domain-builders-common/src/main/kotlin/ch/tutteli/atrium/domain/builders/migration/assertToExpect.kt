@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.builders.migration
 
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 
 /**

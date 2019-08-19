@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
-import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.Expect
@@ -16,13 +16,15 @@ abstract class MutableListBasedAssertionContainer<T>(
 ) : Expect<T> {
 
     @Deprecated(
-        "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter. See KDoc for migration hints",
+        "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
         ReplaceWith("it")
     )
-    final override val subject: T by lazy { maybeSubject.getOrElse {
-        @Suppress("DEPRECATION")
-        throw ch.tutteli.atrium.creating.PlantHasNoSubjectException()
-    } }
+    final override val subject: T by lazy {
+        maybeSubject.getOrElse {
+            @Suppress("DEPRECATION")
+            throw ch.tutteli.atrium.creating.PlantHasNoSubjectException()
+        }
+    }
 
     /**
      * All made assertions so far. They can be cleared calling [clearAssertions].
@@ -43,5 +45,5 @@ abstract class MutableListBasedAssertionContainer<T>(
     /**
      * Clears the list of assertions
      */
-    protected fun clearAssertions() = assertions.clear()
+    protected fun clearAssertions(): Unit = assertions.clear()
 }

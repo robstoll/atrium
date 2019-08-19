@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -111,8 +110,11 @@ abstract class TranslatorIntSpec(
 
     val reporterDeChFallbackFr = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
     @Suppress("DEPRECATION")
-    fun <T : Any> assertWithDeCh(subject: T)
-        = coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, Some(subject), reporterDeChFallbackFr)
+    fun <T : Any> assertWithDeCh(subject: T) =
+        ExpectImpl.assertionVerbBuilder(subject)
+            .withVerb(AssertionVerb.ASSERT)
+            .withCustomReporter(reporterDeChFallbackFr)
+            .build()
 
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
     val testTranslatable = TestTranslatable::class.simpleName
@@ -215,8 +217,11 @@ abstract class TranslatorIntSpec(
         countries.forEach { country ->
             val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
-            @Suppress("DEPRECATION")
-            val assert = coreFactory.newReportingAssertionContainer(AssertionVerb.ASSERT, Some(1), reporter)
+
+            val assert = ExpectImpl.assertionVerbBuilder(1)
+                .withVerb(AssertionVerb.ASSERT)
+                .withCustomReporter(reporter)
+                .build()
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {

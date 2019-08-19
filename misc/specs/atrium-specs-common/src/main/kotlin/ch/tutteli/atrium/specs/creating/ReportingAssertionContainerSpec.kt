@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
@@ -18,7 +17,7 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class ReportingAssertionContainerSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (AssertionContainerWithCommonFields.CommonFields<Int>) -> ReportingAssertionContainer<Int>,
+    testeeFactory: (ReportingAssertionContainer.AssertionCheckerDecorator<Int>) -> ReportingAssertionContainer<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -31,9 +30,9 @@ abstract class ReportingAssertionContainerSpec(
     val description = TO_BE
     val expected = -12
 
-    val assertionChecker = (verbs.check(1) as ReportingAssertionContainer<Int>).commonFields.assertionChecker
+    val assertionChecker = (verbs.check(1) as ReportingAssertionContainer<Int>).assertionChecker
     fun createTestee() = testeeFactory(
-        AssertionContainerWithCommonFields.CommonFields(
+        ReportingAssertionContainer.AssertionCheckerDecorator.create(
             assertionVerb,
             Some(subject),
             subject,
@@ -116,7 +115,7 @@ abstract class ReportingAssertionContainerSpec(
 
                     context("exception message") {
 
-                        it("contains the ${container.commonFields::assertionVerb.name}'") {
+                        it("contains the assertion verb") {
                             expectFun().toThrow<AssertionError> { messageContains(assertionVerb.getDefault()) }
                         }
                         it("contains the subject") {

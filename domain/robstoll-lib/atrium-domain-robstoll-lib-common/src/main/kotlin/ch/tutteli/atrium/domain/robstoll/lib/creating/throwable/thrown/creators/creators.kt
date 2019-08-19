@@ -1,13 +1,10 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.providers._translatableBased
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED
@@ -29,7 +26,7 @@ private fun createReportingAssertionContainerForThrowable(
 ): ReportingAssertionContainer<Throwable?> {
     val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
     return ExpectImpl.coreFactory.newReportingAssertionContainer(
-        AssertionContainerWithCommonFields.CommonFields(
+        ReportingAssertionContainer.AssertionCheckerDecorator.create(
             throwableThrownBuilder.assertionVerb,
             Some(throwable),
             throwable,

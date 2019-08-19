@@ -27,12 +27,6 @@ annotation class ExpectMarker
 interface Expect<T> : SubjectProvider<T>, AssertionHolder {
 
     /**
-     * Either [Some] wrapping the subject of the current assertion or
-     * [None] in case a previous subject change was not successful.
-     */
-    override val maybeSubject: Option<T>
-
-    /**
      * Adds the assertions created by the [assertionCreator] lambda to this container and
      * adds a failing assertion to this container in case the [assertionCreator] did not create a single assertion.
      *

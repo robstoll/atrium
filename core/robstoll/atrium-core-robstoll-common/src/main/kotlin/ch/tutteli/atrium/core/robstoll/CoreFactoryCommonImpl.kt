@@ -24,24 +24,27 @@ import kotlin.reflect.KClass
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
-    final override fun <T> newReportingAssertionContainer(commonFields: AssertionContainerWithCommonFields.CommonFields<T>): ReportingAssertionContainer<T>
-        = ReportingAssertionContainerImpl(commonFields)
+    final override fun <T> newReportingAssertionContainer(
+        assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
+    ): ReportingAssertionContainer<T> = ReportingAssertionContainerImpl(assertionCheckerDecorator)
 
     @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
     )
-    final override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
-        = ReportingAssertionPlantImpl(commonFields)
+    final override fun <T : Any> newReportingPlant(
+        commonFields: AssertionPlantWithCommonFields.CommonFields<T>
+    ): ReportingAssertionPlant<T> = ReportingAssertionPlantImpl(commonFields)
 
     @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
     )
-    final override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
-        = ReportingAssertionPlantNullableImpl(commonFields)
+    final override fun <T : Any?> newReportingPlantNullable(
+        commonFields: AssertionPlantWithCommonFields.CommonFields<T>
+    ): ReportingAssertionPlantNullable<T> = ReportingAssertionPlantNullableImpl(commonFields)
 
     @Deprecated(
         "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
@@ -50,22 +53,14 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
             "ch.tutteli.atrium.core.Some"
         )
     )
-    final override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
-        = CheckingAssertionPlantImpl(subjectProvider)
+    final override fun <T : Any> newCheckingPlant(
+        subjectProvider: () -> T
+    ): CheckingAssertionPlant<T> = CheckingAssertionPlantImpl(subjectProvider)
 
 
-    final override fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
-        = CollectingAssertionContainerImpl(maybeSubject)
-
-    @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
-        ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
-            "ch.tutteli.atrium.core.Some"
-        )
-    )
-    final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
-        = CollectingAssertionPlantImpl(subjectProvider)
+    final override fun <T> newCollectingAssertionContainer(
+        maybeSubject: Option<T>
+    ): CollectingAssertionContainer<T> = CollectingAssertionContainerImpl(maybeSubject)
 
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
@@ -74,78 +69,116 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
             "ch.tutteli.atrium.core.Some"
         )
     )
-    final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
-        = CollectingAssertionPlantNullableImpl(subjectProvider)
+    final override fun <T : Any> newCollectingPlant(
+        subjectProvider: () -> T
+    ): CollectingAssertionPlant<T> = CollectingAssertionPlantImpl(subjectProvider)
+
+    @Deprecated(
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        ReplaceWith(
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "ch.tutteli.atrium.core.Some"
+        )
+    )
+    final override fun <T> newCollectingPlantNullable(
+        subjectProvider: () -> T
+    ): CollectingAssertionPlantNullable<T> = CollectingAssertionPlantNullableImpl(subjectProvider)
 
 
-    final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
-        = ThrowingAssertionChecker(reporter)
+    final override fun newThrowingAssertionChecker(
+        reporter: Reporter
+    ): AssertionChecker = ThrowingAssertionChecker(reporter)
 
-    final override fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
-        = FeatureAssertionChecker(originalAssertionHolder)
+    final override fun newFeatureAssertionChecker(
+        originalAssertionHolder: AssertionHolder
+    ): AssertionChecker = FeatureAssertionChecker(originalAssertionHolder)
 
-    override fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
-        = DelegatingAssertionChecker(originalAssertionHolder)
+    override fun newDelegatingAssertionChecker(
+        originalAssertionHolder: AssertionHolder
+    ): AssertionChecker = DelegatingAssertionChecker(originalAssertionHolder)
 
     @Suppress("DEPRECATION")
-    final override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
-        = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
+    final override fun <T : Any?> newDelegatingAssertionChecker(
+        subjectPlant: BaseAssertionPlant<T, *>
+    ): AssertionChecker = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
 
-    final override fun newMethodCallFormatter(): MethodCallFormatter
-        = TextMethodCallFormatter
+    final override fun newMethodCallFormatter(): MethodCallFormatter = TextMethodCallFormatter
 
-    final override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, fallbackLocales: List<Locale>): Translator
-        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
+    final override fun newTranslator(
+        translationSupplier: TranslationSupplier,
+        localeOrderDecider: LocaleOrderDecider,
+        primaryLocale: Locale,
+        fallbackLocales: List<Locale>
+    ): Translator = TranslationSupplierBasedTranslator(
+        translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales
+    )
 
-    final override fun newLocaleOrderDecider(): LocaleOrderDecider
-        = CoroutineBasedLocaleOrderDecider()
+    final override fun newLocaleOrderDecider(): LocaleOrderDecider = CoroutineBasedLocaleOrderDecider()
 
-    final override fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
-        = DetailedObjectFormatter(translator)
+    final override fun newDetailedObjectFormatter(
+        translator: Translator): ObjectFormatter = DetailedObjectFormatter(translator)
 
-    final override fun newAssertionFormatterController(): AssertionFormatterController
-        = AssertionFormatterControllerImpl()
+    final override fun newAssertionFormatterController(): AssertionFormatterController =
+        AssertionFormatterControllerImpl()
 
-    final override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
-        = AssertionFormatterControllerBasedFacade(assertionFormatterController)
+    final override fun newAssertionFormatterFacade(
+        assertionFormatterController: AssertionFormatterController
+    ): AssertionFormatterFacade = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
-    final override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
-        = TextSameLineAssertionPairFormatter(objectFormatter, translator)
+    final override fun newTextSameLineAssertionPairFormatter(
+        objectFormatter: ObjectFormatter, translator: Translator
+    ): AssertionPairFormatter = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
-    final override fun newTextNextLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
-        = TextNextLineAssertionPairFormatter(objectFormatter, translator)
+    final override fun newTextNextLineAssertionPairFormatter(
+        objectFormatter: ObjectFormatter, translator: Translator
+    ): AssertionPairFormatter = TextNextLineAssertionPairFormatter(objectFormatter, translator)
 
-    final override fun newTextFallbackAssertionFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = TextFallbackAssertionFormatter(
-            bulletPoints,
-            assertionFormatterController,
-            newTextSameLineAssertionPairFormatter(objectFormatter, translator),
-            objectFormatter
-        )
+    final override fun newTextFallbackAssertionFormatter(
+        bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter, translator: Translator
+    ): AssertionFormatter = TextFallbackAssertionFormatter(
+        bulletPoints,
+        assertionFormatterController,
+        newTextSameLineAssertionPairFormatter(objectFormatter, translator),
+        objectFormatter
+    )
 
-    final override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = TextFeatureAssertionGroupFormatter(
-            bulletPoints,
-            assertionFormatterController,
-            newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        )
+    final override fun newTextFeatureAssertionGroupFormatter(
+        bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter, translator: Translator
+    ): AssertionFormatter = TextFeatureAssertionGroupFormatter(
+        bulletPoints,
+        assertionFormatterController,
+        newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+    )
 
-    final override fun newTextListAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = TextListAssertionGroupFormatter(
-            bulletPoints,
-            assertionFormatterController,
-            newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        )
+    final override fun newTextListAssertionGroupFormatter(
+        bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter, translator: Translator
+    ): AssertionFormatter = TextListAssertionGroupFormatter(
+        bulletPoints,
+        assertionFormatterController,
+        newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+    )
 
-    final override fun newTextSummaryAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = TextSummaryAssertionGroupFormatter(
-            bulletPoints,
-            assertionFormatterController,
-            newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        )
+    final override fun newTextSummaryAssertionGroupFormatter(
+        bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionFormatter = TextSummaryAssertionGroupFormatter(
+        bulletPoints,
+        assertionFormatterController,
+        newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+    )
 
-    final override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
-        = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
+    final override fun newTextExplanatoryAssertionGroupFormatter(
+        bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController
+    ): AssertionFormatter = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
     final override fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
@@ -175,17 +208,17 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         }
     }
 
-    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade, atriumErrorAdjuster: AtriumErrorAdjuster): Reporter
-        = OnlyFailureReporter(assertionFormatterFacade, atriumErrorAdjuster)
+    final override fun newOnlyFailureReporter(
+        assertionFormatterFacade: AssertionFormatterFacade,
+        atriumErrorAdjuster: AtriumErrorAdjuster
+    ): Reporter = OnlyFailureReporter(assertionFormatterFacade, atriumErrorAdjuster)
 
-    final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
-        = NoOpAtriumErrorAdjuster
+    final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster = NoOpAtriumErrorAdjuster
 
-    final override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
-        = RemoveRunnerAtriumErrorAdjuster()
+    final override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster = RemoveRunnerAtriumErrorAdjuster()
 
-    final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
-        = RemoveAtriumFromAtriumErrorAdjuster()
+    final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster =
+        RemoveAtriumFromAtriumErrorAdjuster()
 
     final override fun newMultiAtriumErrorAdjuster(
         firstAdjuster: AtriumErrorAdjuster,

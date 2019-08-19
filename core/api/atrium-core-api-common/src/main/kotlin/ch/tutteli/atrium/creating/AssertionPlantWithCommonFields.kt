@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [AssertionPlant.subject].
  */
-@Deprecated("Switch from Assert to Expect, use AssertionContainerWithCommonFields instead; will be removed with 1.0.0")
+@Deprecated("Switch from Assert to Expect, use ReportingAssertionContainer.AssertionCheckerDecorator instead; will be removed with 1.0.0")
 interface AssertionPlantWithCommonFields<out T> {
 
     /**

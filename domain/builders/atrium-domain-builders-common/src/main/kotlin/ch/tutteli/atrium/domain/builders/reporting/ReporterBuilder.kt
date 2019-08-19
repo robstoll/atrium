@@ -9,14 +9,14 @@ import ch.tutteli.atrium.reporting.translating.*
  * -- the first step provides options to create a [Translator] or a [TranslationSupplier].
  */
 @Deprecated("use ExpectIml.reporterBuilder instead; will be removed with 1.0.0", ReplaceWith("ExpectImpl.reporterBuilder", "ch.tutteli.atrium.domain.builders.ExpectImpl"))
-val reporterBuilder : ReporterBuilder = ReporterBuilderImpl
+val reporterBuilder: ReporterBuilder = ReporterBuilderImpl
 
 
 /**
  * Provides options to create a [Translator] or [TranslationSupplier] -- the platform specific
  * interface might provide further options.
  */
-expect interface ReporterBuilder: ReporterBuilderCommon
+expect interface ReporterBuilder : ReporterBuilderCommon
 
 /**
  * Provides options to create a [Translator] or [TranslationSupplier] -- those options
@@ -33,8 +33,7 @@ interface ReporterBuilderCommon {
      *
      * Notice that [UsingDefaultTranslator] does not translate but uses what [Translatable.getDefault] returns.
      */
-    fun withoutTranslationsUseDefaultLocale(): ObjectFormatterOption
-        = withoutTranslations(getDefaultLocale())
+    fun withoutTranslationsUseDefaultLocale(): ObjectFormatterOption = withoutTranslations(getDefaultLocale())
 
     /**
      * Uses [UsingDefaultTranslator] as [Translator] where the given [primaryLocale] is used to format arguments

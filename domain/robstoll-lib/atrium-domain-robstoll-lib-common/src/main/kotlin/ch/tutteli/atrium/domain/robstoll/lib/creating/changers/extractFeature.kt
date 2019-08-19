@@ -2,8 +2,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.*
-import ch.tutteli.atrium.creating.AssertionContainerWithCommonFields
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.RawString
@@ -22,12 +22,12 @@ fun <T, R> _extractFeature(
     return originalAssertionContainer.maybeSubject
         .filter(canBeExtracted)
         .fold({
-            val assertionContainer = coreFactory.newReportingAssertionContainer<R>(
-                AssertionContainerWithCommonFields.CommonFields(
+            val assertionContainer = ExpectImpl.coreFactory.newReportingAssertionContainer<R>(
+                ReportingAssertionContainer.AssertionCheckerDecorator.create(
                     SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
                     None,
                     representationForFailure,
-                    coreFactory.newDelegatingAssertionChecker(originalAssertionContainer),
+                    ExpectImpl.coreFactory.newDelegatingAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )
             )
@@ -49,13 +49,13 @@ fun <T, R> _extractFeature(
             )
             assertionContainer
         }) { subject ->
-            val feature = featureExtraction(subject)
-            val assertionContainer = coreFactory.newReportingAssertionContainer(
-                AssertionContainerWithCommonFields.CommonFields(
+            val featureProvider = { featureExtraction(subject) }.evalOnce()
+            val assertionContainer = ExpectImpl.coreFactory.newReportingAssertionContainer(
+                ReportingAssertionContainer.AssertionCheckerDecorator.createLazy(
                     description,
-                    Some(feature),
-                    representationInsteadOfFeature ?: feature,
-                    coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
+                    { Some(featureProvider()) },
+                    { representationInsteadOfFeature ?: featureProvider() },
+                    ExpectImpl.coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )
             )

@@ -107,17 +107,15 @@ interface CoreFactoryCommon {
      * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
      *
      * It uses the given [assertionChecker] for assertion checking, uses [maybeSubject] as
-     * [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and also as
-     * [AssertionContainerWithCommonFields.CommonFields.representation].
+     * [ReportingAssertionContainer.maybeSubject] and also as representation in reporting.
      *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionVerb]).
-     * @param maybeSubject Used as [AssertionContainerWithCommonFields.CommonFields.maybeSubject] and
-     *   also as [AssertionContainerWithCommonFields.CommonFields.representation].
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting.
+     * @param maybeSubject Used as [ReportingAssertionContainer.maybeSubject] and
+     *   also as representation in reporting.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     *   (see [AssertionContainerWithCommonFields.CommonFields.assertionChecker]).
+     *   (see [ReportingAssertionContainer.AssertionCheckerDecorator.assertionChecker]).
      *
-     * @return The newly created assertion plant.
+     * @return The newly created assertion container.
      */
     fun <T> newReportingAssertionContainer(
         assertionVerb: Translatable,
@@ -125,10 +123,10 @@ interface CoreFactoryCommon {
         assertionChecker: AssertionChecker
     ): ReportingAssertionContainer<T> {
         return newReportingAssertionContainer(
-            AssertionContainerWithCommonFields.CommonFields(
+            ReportingAssertionContainer.AssertionCheckerDecorator.create(
                 assertionVerb,
                 maybeSubject,
-                LazyRepresentation { maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) } },
+                maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) },
                 assertionChecker,
                 RawString.NULL
             )
@@ -181,15 +179,15 @@ interface CoreFactoryCommon {
     /**
      * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
      *
-     * It uses the [AssertionContainerWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
-     * assertion checking
+     * It uses the given [assertionCheckerDecorator] for assertion checking.
      *
-     * @param commonFields The commonFields for the new assertion plant.
+     * @param assertionCheckerDecorator The [ReportingAssertionContainer.AssertionCheckerDecorator] which will
+     *   be used for assertion checking.
      *
-     * @return The newly created assertion plant.
+     * @return The newly created assertion container.
      */
     fun <T> newReportingAssertionContainer(
-        commonFields: AssertionContainerWithCommonFields.CommonFields<T>
+        assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
     ): ReportingAssertionContainer<T>
 
     /**
