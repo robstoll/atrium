@@ -18,7 +18,7 @@ import java.math.BigDecimal
  */
 @Deprecated(
     "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
-        "`expect(BigDecimal(\"10\").toBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).toBe(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
@@ -27,6 +27,28 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepla
     "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
         "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
 )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@JvmName("toBeNullable")
+@Deprecated(
+    "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
+        "`expect(BigDecimal(\"10\")).toBe(BigDecimal(\"10.0\"))`\n" +
+        "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
+    ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
+)
+fun Expect<out BigDecimal?>.toBe(expected: BigDecimal?): Nothing = throw PleaseUseReplacementException(
+    "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+        "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
+)
+
+@JvmName("toBeNullable")
+@Suppress(
+    //TODO remove ignoredDontPassSomething with 1.0.0
+    //  in case https://youtrack.jetbrains.com/issue/KT-33294 is fixed by then
+    "UNUSED_PARAMETER"
+)
+inline fun <reified T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
+    addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -40,7 +62,7 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepla
  */
 @Deprecated(
     "Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
-        "`expect(BigDecimal(\"10\").notToBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).notToBe(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.",
     ReplaceWith("isNotNumericallyEqualTo(expected) or isNotEqualIncludingScale(expected)")
 )
