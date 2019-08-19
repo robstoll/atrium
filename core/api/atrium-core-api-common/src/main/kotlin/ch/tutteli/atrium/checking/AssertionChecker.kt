@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**

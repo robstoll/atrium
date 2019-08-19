@@ -202,6 +202,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
@@ -260,6 +261,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
@@ -385,6 +387,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
+    @Suppress("DEPRECATION")
     fun <T> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
 

@@ -3,7 +3,6 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.evalOnce
-import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -11,6 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [AssertionPlant.subject].
  */
+@Deprecated("Switch from Assert to Expect, use AssertionContainerWithCommonFields instead; will be removed with 1.0.0")
 interface AssertionPlantWithCommonFields<out T> {
 
     /**

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.creating.collectors
 
 import ch.tutteli.atrium.assertions.AssertionGroup

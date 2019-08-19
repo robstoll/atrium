@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -15,7 +17,8 @@ import ch.tutteli.atrium.core.Some
  * @param T The type of the [subject] of this [BaseAssertionPlant].
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API and as self type.
  */
-interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>: SubjectProvider<T>, AssertionHolder {
+@Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> : SubjectProvider<T>, AssertionHolder {
 
     /**
      * The provider which provides [subject].
@@ -25,9 +28,8 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>: Su
     override val maybeSubject: Option<T>
         get() {
             return try {
-                @Suppress("DEPRECATION")
                 Some(subject)
-            } catch (@Suppress("DEPRECATION") e: PlantHasNoSubjectException) {
+            } catch (e: PlantHasNoSubjectException) {
                 None
             }
         }

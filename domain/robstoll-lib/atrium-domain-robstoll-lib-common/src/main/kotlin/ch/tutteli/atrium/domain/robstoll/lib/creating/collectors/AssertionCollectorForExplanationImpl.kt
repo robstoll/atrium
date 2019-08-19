@@ -1,9 +1,12 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.domain.robstoll.lib.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -17,13 +20,12 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
 
     fun collect(
         warningCannotEvaluate: Translatable,
-        @Suppress("DEPRECATION") subject: ch.tutteli.atrium.creating.MaybeSubject<T>,
+        subject: MaybeSubject<T>,
         assertionCreator: (C.() -> Unit)?
     ): List<Assertion> {
         return try {
             val collectedAssertions = collect(subject, assertionCreator)
 
-            //TODO change to check in v. 1.0.0
             require(!(throwIfNoAssertionIsCollected && collectedAssertions.isEmpty())) {
                 "There was not any assertion created. Specify at least one assertion"
             }
@@ -34,7 +36,7 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
             expandAssertionGroups(collectedAssertions)
 
             collectedAssertions
-        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
+        } catch (e: PlantHasNoSubjectException) {
             listOf(
                 AssertImpl.builder.explanatoryGroup
                     .withWarningType
@@ -44,7 +46,7 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
         }
     }
 
-    private fun collect(@Suppress("DEPRECATION") subject: ch.tutteli.atrium.creating.MaybeSubject<T>, assertionCreator: (C.() -> Unit)?): List<Assertion> {
+    private fun collect(@Suppress("DEPRECATION") subject: MaybeSubject<T>, assertionCreator: (C.() -> Unit)?): List<Assertion> {
         //TODO almost same as in _containsKeyWithNullableValueAssertions
         return if (assertionCreator != null) {
             val collectingAssertionPlant = collectingPlantFactory(subject::get)
@@ -52,8 +54,7 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
             collectingAssertionPlant.getAssertions()
         } else {
             listOf(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL) {
-                @Suppress("DEPRECATION")
-                subject is ch.tutteli.atrium.creating.MaybeSubject.Absent
+                subject is MaybeSubject.Absent
             })
         }
     }

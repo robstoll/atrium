@@ -5,12 +5,12 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFun
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -22,14 +22,14 @@ import org.jetbrains.spek.api.dsl.it
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class DelegatingAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,
+    testeeFactory: (AssertionHolder) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     val assert: (Assertion) -> Expect<Assertion> = verbs::check
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val assertions = ArrayList<Assertion>()
     assertions.add(object : Assertion {

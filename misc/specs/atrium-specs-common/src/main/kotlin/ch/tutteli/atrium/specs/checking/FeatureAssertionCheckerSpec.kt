@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.AssertionVerbFactory
@@ -18,7 +18,7 @@ import org.spekframework.spek2.style.specification.Suite
 
 abstract class FeatureAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,
+    testeeFactory: (AssertionHolder) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

@@ -1,4 +1,4 @@
-//@file:JvmName("IAssertionPlantExtensions")
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.creating
 

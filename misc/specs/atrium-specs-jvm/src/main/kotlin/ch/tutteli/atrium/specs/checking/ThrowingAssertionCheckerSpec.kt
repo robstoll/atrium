@@ -23,16 +23,17 @@ abstract class ThrowingAssertionCheckerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
+    //TODO #116 use mockk instead of mockito-kotlin
     val reporter = mock<Reporter> {
         on { format(any(), @Suppress("RemoveExplicitTypeArguments") any<StringBuilder>()) }.thenAnswer {
             (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
-        on{ atriumErrorAdjuster }.thenReturn(coreFactory.newNoOpAtriumErrorAdjuster())
+        on { atriumErrorAdjuster }.thenReturn(coreFactory.newNoOpAtriumErrorAdjuster())
     }
     val testee = testeeFactory(reporter)
     val assertionWhichHolds = object : Assertion {
@@ -55,7 +56,7 @@ abstract class ThrowingAssertionCheckerSpec(
             "middle assertion fails" to listOf(assertionWhichHolds, assertionWhichFails, assertionWhichHolds),
             "last assertion fails" to listOf(assertionWhichHolds, assertionWhichHolds, assertionWhichFails)
 
-        ).forEach { assertionFails, assertions ->
+        ).forEach { (assertionFails, assertions) ->
             it("throws an AssertionError with the message formatted by the reporter if the $assertionFails") {
                 verbs.checkException {
                     testee.check(assertionVerb, { 1 }, assertions)

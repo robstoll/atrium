@@ -217,9 +217,9 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion, did not pass it to the [BaseCollectingAssertionPlant] respectively.
      */
-    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
     @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
-    fun <T, A: BaseAssertionPlant<T, A>, C: BaseCollectingAssertionPlant<T, A, C>> collect(
+    fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         subjectProvider: () -> T,
         collectingPlantFactory: (() -> T) -> C,
         assertionCreator: C.() -> Unit
@@ -244,7 +244,7 @@ interface AssertionCollector {
     fun <T : Any> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
-        plant : AssertionPlant<T>,
+        plant: AssertionPlant<T>,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
     ): AssertionGroup = collectOrExplain(safeToCollect, warningCannotEvaluate, plant.subjectProvider, assertionCreator)
 
@@ -337,7 +337,7 @@ interface AssertionCollector {
      *   to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the [BaseCollectingAssertionPlant].
      */
-    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
     @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collectOrExplain(
         safeToCollect: Boolean,

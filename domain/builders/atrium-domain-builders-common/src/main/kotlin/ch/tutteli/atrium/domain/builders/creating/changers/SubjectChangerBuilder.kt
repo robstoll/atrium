@@ -7,7 +7,6 @@ import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -47,14 +46,14 @@ object SubjectChangerBuilder {
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     inline fun <T, R : Any> unreported(
-        originalPlant: BaseAssertionPlant<T, *>,
+        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R
     ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
 
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     inline fun <T, R> unreportedNullable(
-        originalPlant: BaseAssertionPlant<T, *>,
+        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R
     ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
 
@@ -74,7 +73,7 @@ object SubjectChangerBuilder {
          * the given [subType] as representation and tries to perform a down-cast of [originalAssertionContainer]'s
          * [Expect.maybeSubject] to the given type [TSub]
          */
-        //TODO once kotlin supports to have type parameters as upper bounds of another type parameter we should restrict TSub : T
+        //TODO once kotlin supports to have type parameters as upper bounds of another type parameter next to `: Any` we should restrict TSub : T & Any
         fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerOption<T, TSub> =
             withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
                 .withCheck { subType.isInstance(it) }

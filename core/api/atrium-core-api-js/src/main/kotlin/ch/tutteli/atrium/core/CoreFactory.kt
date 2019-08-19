@@ -2,8 +2,7 @@ package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
-import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable

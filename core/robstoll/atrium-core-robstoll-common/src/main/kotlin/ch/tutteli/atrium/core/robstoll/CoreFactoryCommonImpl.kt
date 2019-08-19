@@ -27,6 +27,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T> newReportingAssertionContainer(commonFields: AssertionContainerWithCommonFields.CommonFields<T>): ReportingAssertionContainer<T>
         = ReportingAssertionContainerImpl(commonFields)
 
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
@@ -34,6 +35,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = ReportingAssertionPlantImpl(commonFields)
 
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
@@ -85,6 +87,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     override fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
         = DelegatingAssertionChecker(originalAssertionHolder)
 
+    @Suppress("DEPRECATION")
     final override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
         = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
 

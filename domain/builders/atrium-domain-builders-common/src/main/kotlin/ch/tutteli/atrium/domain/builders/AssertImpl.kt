@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -124,7 +125,6 @@ interface AssertImplCommon {
      * Notice, if you do not require the resulting [AssertionPlantNullable] but merely want to make feature
      * assertions so that you can use them as part of a bigger assertion, then use [collector] instead.
      */
-    @Suppress("DEPRECATION")
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported; will be removed with 1.0.0 - moreover we advice you to switch to Expect and no longer use Assert",
         ReplaceWith(
@@ -137,7 +137,6 @@ interface AssertImplCommon {
         subjectProvider: () -> R
     ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant) { subjectProvider() }
 
-    @Suppress("DEPRECATION")
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
         ReplaceWith(

@@ -15,7 +15,6 @@ import org.jetbrains.spek.api.dsl.context
 import kotlin.reflect.KFunction1
 
 //TODO remove with 1.0.0
-@Suppress("DEPRECATION" /* TODO remove, should no longer hold at some point, as we should no longer run into such warnings */)
 fun SpecBody.absentSubjectTests(
     verbs: AssertionVerbFactory,
     testeeFun: Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>
@@ -25,7 +24,6 @@ fun SpecBody.absentSubjectTests(
     context("${IterableContainsEntriesSpecBase.returnValueOfFun}(...), absent subject and explanation required") {
         test("empty iterable, states that iterable was empty") {
             expect {
-                //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
                 assert(setOf()).testeeFun({
                     AssertImpl.feature.returnValueOf1(
                         this,
@@ -39,7 +37,6 @@ fun SpecBody.absentSubjectTests(
         test("only null, states that iterable only returned null") {
             expect {
                 assert(listOf(null, null)).testeeFun({
-                    //TODO get rid of val as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
                     val f: KFunction1<Double, Int> = subject::compareTo
                     returnValueOf(f, 2.0)
                 }, arrayOf())
@@ -49,7 +46,6 @@ fun SpecBody.absentSubjectTests(
         val list = listOf(null, 1.0, null, 3.0)
         test("$list, it outputs explanation (since we have a non-null entry)") {
             expect {
-                //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
                 assert(list).testeeFun({
                     AssertImpl.feature.returnValueOf1(
                         this,

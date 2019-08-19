@@ -6,8 +6,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.*
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -32,7 +30,7 @@ object AssertionCollectorBuilder : AssertionCollector {
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
-    override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
+    override inline fun <T, A : ch.tutteli.atrium.creating.BaseAssertionPlant<T, A>, C : ch.tutteli.atrium.creating.BaseCollectingAssertionPlant<T, A, C>> collect(
         noinline subjectProvider: () -> T,
         noinline collectingPlantFactory: (() -> T) -> C,
         noinline assertionCreator: C.() -> Unit
@@ -40,7 +38,7 @@ object AssertionCollectorBuilder : AssertionCollector {
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
-    override inline fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collectOrExplain(
+    override inline fun <T, A : ch.tutteli.atrium.creating.BaseAssertionPlant<T, A>, C : ch.tutteli.atrium.creating.BaseCollectingAssertionPlant<T, A, C>> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
         noinline subjectProvider: () -> T,
