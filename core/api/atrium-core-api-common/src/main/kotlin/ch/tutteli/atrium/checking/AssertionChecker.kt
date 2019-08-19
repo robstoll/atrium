@@ -12,15 +12,19 @@ interface AssertionChecker {
     /**
      * Checks given [assertions] and reports if one of them fails (does not hold).
      *
-     * Notice, this method will change signature with 1.0.0, representationProvider will change to `representation: Any`
-     *
      * @param assertionVerb The assertion verb which will be used in reporting.
-     * @param representationProvider Provides the representation of the subject for which the [assertions]
+     * @param representation The representation of the subject for which the [assertions]
      *   have been created.
-     * @param assertions The [assertions] which are checked.
+     * @param assertions The [assertions] which shall be checked.
      *
      * @throws AssertionError An implementation is allowed to throw [AssertionError] if an assertion fails.
      */
-    //TODO replace representationProvider with representation: Any => one can use LazyRepresentation
-    fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>)
+    fun check(assertionVerb: Translatable, representation: Any?, assertions: List<Assertion>)
+
+    @Deprecated(
+        "Use the overload which expects a representation instead of a representationProvider, use LazyRepresentation if needed; will be removed with 1.0.0",
+        ReplaceWith("check(assertionVerb, LazyRepresentation(representationProvider), assertions)")
+    )
+    fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) =
+        check(assertionVerb, LazyRepresentation(representationProvider), assertions)
 }

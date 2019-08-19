@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 class DelegatingAssertionChecker(private val originalAssertionHolder: AssertionHolder) : AssertionChecker {
 
-    override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
+    override fun check(assertionVerb: Translatable, representation: Any?, assertions: List<Assertion>) {
         originalAssertionHolder.addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
     }
 }

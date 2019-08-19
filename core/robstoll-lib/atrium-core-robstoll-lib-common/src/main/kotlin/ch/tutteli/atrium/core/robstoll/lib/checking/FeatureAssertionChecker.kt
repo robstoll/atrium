@@ -31,21 +31,19 @@ class FeatureAssertionChecker(private val originalAssertionHolder: AssertionHold
 
     /**
      * Creates an [AssertionGroup]s of [type][AssertionGroup] [FeatureAssertionGroupType] based on the
-     * given [assertionVerb], [representationProvider] and [assertions] and [adds][AssertionHolder.addAssertion] the
+     * given [assertionVerb], [representation] and [assertions] and [adds][AssertionHolder.addAssertion] the
      * assertion group to the [originalAssertionHolder] instead of checking it itself.
-     *
-     * Notice, this method will change signature with 1.0.0, representationProvider will change to `representation: Any`
      *
      * @param assertionVerb Is used as [AssertionGroup.description] -- as side notice,
      *   the parameter was not renamed to `featureName` due to potential issues with named parameters.
-     * @param representationProvider Provides the [AssertionGroup.representation]
+     * @param representation Is used as [AssertionGroup.representation].
      * @param assertions Is used as [AssertionGroup.assertions].
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
-    override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
+    override fun check(assertionVerb: Translatable, representation: Any?, assertions: List<Assertion>) {
         originalAssertionHolder.addAssertion(assertionBuilder.feature
-            .withDescriptionAndRepresentation(assertionVerb, representationProvider)
+            .withDescriptionAndRepresentation(assertionVerb, representation)
             .withAssertions(ArrayList(assertions))
             .build()
         )

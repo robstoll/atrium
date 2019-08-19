@@ -21,37 +21,39 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
      * Turns the given [description] into an [Untranslatable] and the given [representationProvider] into a
      * [LazyRepresentation] and uses them as [AssertionGroup.description], [AssertionGroup.representation] respectively.
      */
-    fun withDescriptionAndRepresentation(description: String, representationProvider: () -> Any?): R
-        = withDescriptionAndRepresentation(Untranslatable(description), representationProvider)
+    fun withDescriptionAndRepresentation(description: String, representationProvider: () -> Any?): R =
+        withDescriptionAndRepresentation(Untranslatable(description), representationProvider)
 
     /**
      * Uses the given [description] as [AssertionGroup.description] and [representationProvider] to create a
      * [LazyRepresentation] which is used as [AssertionGroup.representation].
      */
-    fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any?): R
-        = withDescriptionAndRepresentation(description, LazyRepresentation(representationProvider))
+    fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any?): R =
+        withDescriptionAndRepresentation(description, LazyRepresentation(representationProvider))
 
 
     /**
      * Wraps the given [description] into an [Untranslatable] and uses it as [AssertionGroup.description]
      * and uses [RawString.EMPTY] as [AssertionGroup.representation].
      */
-    fun withDescriptionAndEmptyRepresentation(description: String): R
-        = withDescriptionAndRepresentation(Untranslatable(description), RawString.EMPTY)
+    fun withDescriptionAndEmptyRepresentation(description: String): R =
+        withDescriptionAndRepresentation(Untranslatable(description), RawString.EMPTY)
 
     /**
-     * Uses the given [description] as [AssertionGroup.description] and [RawString.EMPTY] as [AssertionGroup.representation].
+     * Uses the given [description] as [AssertionGroup.description] and [RawString.EMPTY] as
+     * [AssertionGroup.representation].
      */
-    fun withDescriptionAndEmptyRepresentation(description: Translatable): R
-        = withDescriptionAndRepresentation(description, RawString.EMPTY)
+    fun withDescriptionAndEmptyRepresentation(description: Translatable): R =
+        withDescriptionAndRepresentation(description, RawString.EMPTY)
 
     /**
-     * Wraps the given [description] into an [Untranslatable] and delegates to the overload which expects [Translatable].
+     * Wraps the given [description] into an [Untranslatable] and delegates to the overload
+     * which expects [Translatable].
      *
      * See the corresponding overload for more information.
      */
-    fun withDescriptionAndRepresentation(description: String, representation: Any?): R
-        = withDescriptionAndRepresentation(Untranslatable(description), representation)
+    fun withDescriptionAndRepresentation(description: String, representation: Any?): R =
+        withDescriptionAndRepresentation(Untranslatable(description), representation)
 
     /**
      * Uses the given [description] as [AssertionGroup.description] and [representation]
@@ -72,10 +74,11 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
          * given assertion group [type] and another [factory] method which creates the next step in the
          * building process.
          */
-        fun <T: AssertionGroupType, R> create(
+        fun <T : AssertionGroupType, R> create(
             type: T,
             factory: (T, Translatable, Any) -> R
-        ): AssertionGroupDescriptionAndRepresentationOption<T, R> = AssertionGroupDescriptionAndRepresentationOptionImpl(type, factory)
+        ): AssertionGroupDescriptionAndRepresentationOption<T, R> =
+            AssertionGroupDescriptionAndRepresentationOptionImpl(type, factory)
     }
 }
 

@@ -61,7 +61,7 @@ interface AssertionContainerWithCommonFields<T> {
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
         fun check(assertions: List<Assertion>) {
-            assertionChecker.check(assertionVerb, { representation ?: nullRepresentation }, assertions)
+            assertionChecker.check(assertionVerb, representation ?: nullRepresentation, assertions)
         }
     }
 }

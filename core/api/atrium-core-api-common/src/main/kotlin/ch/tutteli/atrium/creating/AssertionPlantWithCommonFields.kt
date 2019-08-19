@@ -68,6 +68,7 @@ interface AssertionPlantWithCommonFields<out T> {
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
         fun check(assertions: List<Assertion>) {
+            @Suppress("DEPRECATION")
             assertionChecker.check(assertionVerb, representation, assertions)
         }
     }

@@ -36,11 +36,11 @@ abstract class FeatureAssertionCheckerSpec(
     val testee = testeeFactory(subjectFactory)
 
 
-    describeFun(testee::check.name) {
+    describeFun("check") {
         context("creates a ${AssertionGroup::class.simpleName} and passes it to its subjectFactory") {
 
             val captured by memoized(mode = CachingMode.SCOPE) {
-                testee.check(assertionVerb, { valueUnderTest }, assertions)
+                testee.check(assertionVerb, valueUnderTest, assertions)
                 val slot = slot<Assertion>()
                 verify(exactly = 1) { subjectFactory.addAssertion(capture(slot)) }
                 confirmVerified(subjectFactory)
@@ -59,11 +59,9 @@ abstract class FeatureAssertionCheckerSpec(
                 }
             }
 
-            it("its ${AssertionGroup::representation.name} corresponds to the ${LazyRepresentation::class.simpleName} of the passed subject") {
+            it("its ${AssertionGroup::representation.name} corresponds to the passed subject") {
                 verbs.check(captured).isA<AssertionGroup> {
-                    feature { f(it::representation) }.isA<LazyRepresentation> {
-                        feature { f(it::eval) }.toBe(valueUnderTest)
-                    }
+                    feature { f(it::representation) }.toBe(1)
                 }
             }
 

@@ -43,12 +43,9 @@ abstract class ThrowingAssertionCheckerSpec(
         override fun holds() = false
     }
 
-    describeFun(testee::check.name) {
+    describeFun("check") {
         it("does not throw an AssertionError if all assertions hold") {
-            testee.check(assertionVerb, { 1 }, listOf(
-                assertionWhichHolds,
-                assertionWhichHolds
-            ))
+            testee.check(assertionVerb, 1, listOf(assertionWhichHolds, assertionWhichHolds))
         }
 
         mapOf(
@@ -59,7 +56,7 @@ abstract class ThrowingAssertionCheckerSpec(
         ).forEach { (assertionFails, assertions) ->
             it("throws an AssertionError with the message formatted by the reporter if the $assertionFails") {
                 verbs.checkException {
-                    testee.check(assertionVerb, { 1 }, assertions)
+                    testee.check(assertionVerb, 1, assertions)
                 }.toThrow<AssertionError> {
                     message {
                         toBe(reporterResponse)
