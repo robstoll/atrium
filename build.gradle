@@ -3,7 +3,7 @@ buildscript {
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
-    def jsExampleProjects = subprojects.findAll { it.projectDir.parent.endsWith('examples/js') || it.projectDir.parent.endsWith('examples\\js')}
+    def jsSampleProjects = subprojects.findAll { it.projectDir.parent.endsWith('samples/js') || it.projectDir.parent.endsWith('samples\\js')}
     ext {
         // main
         kbox_version = '0.13.0'
@@ -36,7 +36,7 @@ buildscript {
         github_url = "https://github.com/robstoll/${rootProject.name}"
 
 
-        jsExamples = jsExampleProjects
+        jsSamples = jsSampleProjects
         //jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
@@ -53,7 +53,7 @@ buildscript {
                         !it.path.contains('examples')
                 },
             jacocoProjects:
-                (subprojects - deprecatedProjects - translationProjects - jsExampleProjects).findAll {
+                (subprojects - deprecatedProjects - translationProjects - jsSampleProjects).findAll {
                     !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
@@ -147,7 +147,7 @@ configureJsProjects()
 configureJvmProjects()
 configureAndroidProjects()
 
-configure(subprojects - multiplatformProjects - jsExamples) {
+configure(subprojects - multiplatformProjects - jsSamples) {
     apply plugin: 'kotlin'
     dependencies {
         implementation kotlinStdlib()
@@ -181,7 +181,7 @@ configure(jsProjects) { subProject ->
     }
 }
 
-configure(subprojects - commonProjects - jsProjects - jsExamples) {
+configure(subprojects - commonProjects - jsProjects - jsSamples) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
     compileKotlin {
@@ -196,8 +196,8 @@ configure(apiProjects) { apiProject ->
 }
 
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
-def exampleProjects = jsExamples
-configure(subprojects - bundleSmokeTests - exampleProjects) { subproject ->
+def sampleProjects = jsSamples
+configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {

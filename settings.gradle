@@ -84,12 +84,16 @@ include {
         _ 'bc-test'
         _ 'spec'
         kotlinJvmJsAndAndroidIfCi(delegate, 'specs')
-        folder('examples/js') {
-            project('mocha')
-        }
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
     }
+    
+    samples {
+        js {
+            project('mocha')
+        }
+    }
+    
 
     //TODO remove all below with 1.0.0
     bundles {
