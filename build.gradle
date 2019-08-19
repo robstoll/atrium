@@ -249,7 +249,7 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
 
 }
 
-apply from: 'gradle/scripts/gh-pages.gradle'
+apply from: 'misc/gradle/scripts/gh-pages.gradle'
 
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
@@ -351,7 +351,7 @@ def createJsTestTask(String... subprojectNames){
             into "${buildDir}/node_modules"
         }
 
-        def nodeModulesParentDir = file("$rootProject.projectDir/gradle/")
+        def nodeModulesParentDir = file("$rootProject.projectDir/misc/gradle/")
         node {
             download = true
             npmVersion = '6.4.1'
