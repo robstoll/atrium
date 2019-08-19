@@ -376,6 +376,8 @@ def createJsTestTask(String... subprojectNames){
 createJsTestTask(
     'core-api-js',
     'core-robstoll-lib-js',
+    'fluent-en_GB-js',
+    //TODO remove with 1.0.0
     'cc-de_CH-robstoll-js',
     'cc-en_GB-robstoll-js',
     'cc-infix-en_GB-robstoll-js',
