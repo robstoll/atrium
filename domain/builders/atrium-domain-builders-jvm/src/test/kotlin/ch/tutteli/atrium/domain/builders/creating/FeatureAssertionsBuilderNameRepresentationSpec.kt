@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -16,6 +16,7 @@ import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.retur
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 
+//TODO remove with 1.0.0 - no need to migrate to Spek2
 class FeatureAssertionsBuilderNameRepresentationSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,

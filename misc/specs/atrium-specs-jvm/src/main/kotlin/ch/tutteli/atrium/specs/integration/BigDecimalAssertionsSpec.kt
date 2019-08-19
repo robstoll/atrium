@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
 import org.spekframework.spek2.Spek
@@ -36,7 +36,6 @@ abstract class BigDecimalAssertionsSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val assert: (BigDecimal) -> Expect<BigDecimal> = verbs::check
     val (isNumericallyEqualTo, isNumericallyEqualToFun) = isNumericallyEqualToPair
     val (isNotNumericallyEqualTo, isNotNumericallyEqualToFun) = isNotNumericallyEqualToPair
     val (isEqualIncludingScale, isEqualIncludingScaleFun) = isEqualIncludingScalePair
@@ -51,14 +50,14 @@ abstract class BigDecimalAssertionsSpec(
             BigDecimal.ZERO to BigDecimal("0."),
             BigDecimal.ZERO to BigDecimal("0.00"),
             BigDecimal.ZERO to BigDecimal("00.0")
-        ).forEach { subject, expected ->
+        ).forEach { (subject, expected) ->
             context("subject $subject and expected $expected") {
                 it("`$isNumericallyEqualTo` does not throw") {
-                    assert(subject).isNumericallyEqualToFun(expected)
+                    verbs.check(subject).isNumericallyEqualToFun(expected)
                 }
                 it("`$isNotNumericallyEqualTo` throws AssertionError") {
                     expect {
-                        assert(subject).isNotNumericallyEqualToFun(expected)
+                        verbs.check(subject).isNotNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
                         messageContains(
                             subject,
@@ -72,11 +71,11 @@ abstract class BigDecimalAssertionsSpec(
         mapOf(
             BigDecimal.TEN to BigDecimal("10.00000001"),
             BigDecimal.ZERO to BigDecimal("0.0000001")
-        ).forEach { subject, expected ->
+        ).forEach { (subject, expected) ->
             context("subject $subject and expected $expected") {
                 it("`$isNumericallyEqualTo` throws AssertionError") {
                     expect {
-                        assert(subject).isNumericallyEqualToFun(expected)
+                        verbs.check(subject).isNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
                         messageContains(
                             subject,
@@ -85,13 +84,13 @@ abstract class BigDecimalAssertionsSpec(
                     }
                 }
                 it("`$isNotNumericallyEqualTo` does not throw") {
-                    assert(subject).isNotNumericallyEqualToFun(expected)
+                    verbs.check(subject).isNotNumericallyEqualToFun(expected)
                 }
             }
         }
     }
 
-    val assertTen = assert(BigDecimal.TEN)
+    val assertTen = verbs.check(BigDecimal.TEN)
     val assertTenAny = verbs.check(BigDecimal.TEN as Any)
     describeFun(toBe, isEqualIncludingScale, notToBe, isNotEqualIncludingScale) {
 
@@ -104,12 +103,12 @@ abstract class BigDecimalAssertionsSpec(
             it("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
             it("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
 
             it("$toBe with Any overload does not throw") {
@@ -156,12 +155,12 @@ abstract class BigDecimalAssertionsSpec(
                 it("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.toBeFun(expected)
-                    }.toThrow<PleaseUseReplacementException> {}
+                    }.toThrow<PleaseUseReplacementException>()
                 }
                 it("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.notToBeFun(expected)
-                    }.toThrow<PleaseUseReplacementException> {}
+                    }.toThrow<PleaseUseReplacementException>()
                 }
 
                 it("$toBe with Any overload throws an AssertionError and does not contain the hint") {
@@ -200,12 +199,12 @@ abstract class BigDecimalAssertionsSpec(
             it("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
             it("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<PleaseUseReplacementException> {}
+                }.toThrow<PleaseUseReplacementException>()
             }
 
             it("$toBe with Any overload throws an AssertionError and does not contain the hint") {

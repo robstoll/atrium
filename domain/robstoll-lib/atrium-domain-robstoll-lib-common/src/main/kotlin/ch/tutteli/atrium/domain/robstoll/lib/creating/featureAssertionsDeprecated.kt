@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.core.coreFactory
@@ -19,12 +20,9 @@ fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvi
     return _property(plant, provider, provider, name)
 }
 
-
-@Suppress("DEPRECATION")
 fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlant<TProperty>
     = coreFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider))
 
-@Suppress("DEPRECATION")
 fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlantNullable<TProperty>
     = coreFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider))
 
@@ -123,7 +121,7 @@ private fun <T : Any, R : Any> AssertionPlant<T>.createPlantForMethod(name: Stri
     val provider = subjectProvider.evalOnce()
     return createPlantForMethod(name, provider as () -> Any?, provider, *arguments)
 }
-@Suppress("DEPRECATION")
+
 private fun <T : Any, R : Any> AssertionPlant<T>.createPlantForMethod(name: String, representationProvider: () -> Any?, subjectProvider: () -> R, vararg arguments: Any?)
     = coreFactory.newReportingPlant(createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider, arguments))
 
@@ -133,7 +131,6 @@ private fun <T : Any, R : Any?> AssertionPlant<T>.createPlantForMethodNullable(n
     return createPlantForMethodNullable(name, provider as () -> Any?, provider, *arguments)
 }
 
-@Suppress("DEPRECATION")
 private fun <T : Any, R : Any?> AssertionPlant<T>.createPlantForMethodNullable(name: String, representationProvider: () -> Any?, subjectProvider: () -> R, vararg arguments: Any?)
     = coreFactory.newReportingPlantNullable(createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider, arguments))
 

@@ -1,9 +1,11 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class PairFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
     firstValPair: Pair<String, Assert<Pair<String, Int>>.() -> Assert<String>>,

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -18,6 +19,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class AnyAssertionsSpec(
     verbs: AssertionVerbFactory,
     funInt: AnyAssertionsSpecFunFactory<Int>,
@@ -36,7 +38,7 @@ abstract class AnyAssertionsSpec(
 
     //TODO extend SubjectLess with nullable
 
-    include(object : SubjectLessAssertionSpec<Int>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Int>(describePrefix,
         toBe to mapToCreateAssertion { funInt.toBeFun(this, 1) },
         notToBe to mapToCreateAssertion { funInt.notToBeFun(this, 1) },
         isSame to mapToCreateAssertion { funInt.isSameFun(this, 1) },
@@ -45,7 +47,7 @@ abstract class AnyAssertionsSpec(
         andLazyPair.first to mapToCreateAssertion { andLazyPair.second }
     ) {})
 
-    include(object : CheckingAssertionSpec<Int>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Int>(verbs, describePrefix,
         checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0),
         checkingTriple(notToBe, { funInt.notToBeFun(this, 1) }, 0, 1),
         checkingTriple(isSame, { funInt.isSameFun(this, 1) }, 1, 0),

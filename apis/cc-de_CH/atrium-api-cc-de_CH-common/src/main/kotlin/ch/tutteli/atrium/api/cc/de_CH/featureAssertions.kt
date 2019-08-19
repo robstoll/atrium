@@ -1,4 +1,5 @@
-package ch.tutteli.atrium.api.cc.de_CH
+
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup

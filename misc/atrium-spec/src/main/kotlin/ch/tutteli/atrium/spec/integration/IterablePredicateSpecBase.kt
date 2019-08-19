@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.creating.Assert
@@ -5,6 +6,7 @@ import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.dsl.Spec
 import org.jetbrains.spek.api.dsl.SpecBody
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterablePredicateSpecBase(verbs: AssertionVerbFactory, spec: Spec.() -> Unit) : IterableContainsEntriesSpecBase(verbs, spec) {
     companion object {
 

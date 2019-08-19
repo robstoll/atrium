@@ -38,7 +38,7 @@ class SubjectChangerImpl : SubjectChanger {
         maybeSubAssertions
     )
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Suppress("DEPRECATION")
     override fun <T, R : Any> unreported(
         originalPlant: BaseAssertionPlant<T, *>,
         transformation: (T) -> R
@@ -51,7 +51,7 @@ class SubjectChangerImpl : SubjectChanger {
         )
     }
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Suppress("DEPRECATION")
     override fun <T, R> unreportedNullable(
         originalPlant: BaseAssertionPlant<T, *>,
         transformation: (T) -> R

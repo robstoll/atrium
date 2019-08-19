@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 
 /**
  * A base class for [Assert]ion container which are based on a mutable list, it provides [getCopyOfAssertions] to get
@@ -20,7 +19,10 @@ abstract class MutableListBasedAssertionContainer<T>(
         "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter. See KDoc for migration hints",
         ReplaceWith("it")
     )
-    final override val subject: T by lazy { maybeSubject.getOrElse { throw PlantHasNoSubjectException() } }
+    final override val subject: T by lazy { maybeSubject.getOrElse {
+        @Suppress("DEPRECATION")
+        throw ch.tutteli.atrium.creating.PlantHasNoSubjectException()
+    } }
 
     /**
      * All made assertions so far. They can be cleared calling [clearAssertions].

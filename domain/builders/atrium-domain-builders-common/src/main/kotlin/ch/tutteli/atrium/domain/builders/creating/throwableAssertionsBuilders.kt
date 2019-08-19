@@ -52,14 +52,16 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
     ): ChangedSubjectPostStep<Throwable?, Nothing?> = throwableThrownAssertions.notThrown(throwableThrownBuilder)
 
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
         noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit
     ) = throwableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
         = throwableThrownAssertions.nothingThrown(throwableThrownBuilder)
 

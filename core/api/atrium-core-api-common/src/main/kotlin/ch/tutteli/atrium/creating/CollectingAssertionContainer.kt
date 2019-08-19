@@ -15,6 +15,8 @@ interface CollectingAssertionContainer<T> : Expect<T> {
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingAssertionContainer<T>
 
+    override fun addAssertion(assertion: Assertion): CollectingAssertionContainer<T>
+
     /**
      * Returns the [Assertion]s which have been [added][addAssertion] to this container.
      *

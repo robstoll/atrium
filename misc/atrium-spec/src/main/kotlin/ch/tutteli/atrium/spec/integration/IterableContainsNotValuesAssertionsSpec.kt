@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.containsNot
@@ -11,6 +12,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterableContainsNotValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsNotValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
@@ -24,12 +26,12 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsNotValuesPair.first to mapToCreateAssertion { containsNotValuesPair.second(this, 2.3, arrayOf()) },
         "${containsNotNullableValuesPair.first} for nullable" to mapToCreateAssertion { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsNotValuesPair.first, { containsNotValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3)),
         checkingTriple("${containsNotNullableValuesPair.first} for nullable", { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
     ) {})

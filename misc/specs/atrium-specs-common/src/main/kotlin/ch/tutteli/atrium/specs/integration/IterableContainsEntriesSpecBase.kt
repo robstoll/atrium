@@ -7,7 +7,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.name
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.dsl.Root
@@ -16,14 +18,17 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction0
 
-abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec: Root.() -> Unit) : IterableContainsSpecBase(spec) {
+abstract class IterableContainsEntriesSpecBase(
+    verbs: AssertionVerbFactory,
+    spec: Root.() -> Unit
+) : IterableContainsSpecBase(spec) {
     init {
-        val plant: Expect<Double> = verbs.check(1.0)
-        isLessThanFun = plant::isLessThan.name
-        isGreaterThanFun = plant::isGreaterThan.name
-        toBeFun = plant::toBe.name
-        //TODO make simpler once https://youtrack.jetbrains.com/issue/KT-12963 is fixed
-        val f: (KFunction0<Int>) -> Assert<Int> = plant.asAssert()::returnValueOf
+        val expect: Expect<Double> = verbs.check(1.0)
+        isLessThanFun = expect::isLessThan.name
+        isGreaterThanFun = expect::isGreaterThan.name
+        toBeFun = fun1<Double, Double>(Expect<Double>::toBe).name
+        //TODO remove with 1.0.0
+        @Suppress("DEPRECATION") val f: (KFunction0<Int>) -> Assert<Int> = expect.asAssert()::returnValueOf
         returnValueOfFun = (f as KFunction<*>).name
     }
 

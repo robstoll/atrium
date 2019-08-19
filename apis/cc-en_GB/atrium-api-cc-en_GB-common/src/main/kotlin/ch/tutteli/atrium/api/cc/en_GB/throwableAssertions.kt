@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -17,9 +18,17 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toThrow().asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.toThrow"
+    )
+)
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
-    @Suppress("DEPRECATION")
-    AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
+        AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
 
 /**
@@ -30,9 +39,16 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().notToThrow()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
+    )
+)
 fun ThrowableThrown.Builder.notToThrow(){
-    @Suppress("DEPRECATION")
-    AssertImpl.throwable.thrown.nothingThrown(this)
+        AssertImpl.throwable.thrown.nothingThrown(this)
 }
 
 /**
@@ -47,6 +63,15 @@ fun ThrowableThrown.Builder.notToThrow(){
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().message.asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
+    )
+)
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(Throwable::message).notToBeNull(assertionCreator)
 }
@@ -67,6 +92,15 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or does not contain [expected] or [otherExpected].
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().message.asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
+    )
+)
 fun <T : Throwable> Assert<T>.messageContains(expected: Any, vararg otherExpected: Any) {
     message { contains(expected, *otherExpected) }
 }

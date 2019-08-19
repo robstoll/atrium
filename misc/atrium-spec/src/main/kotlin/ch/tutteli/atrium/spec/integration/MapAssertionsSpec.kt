@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -11,6 +12,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
+
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class MapAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<Map<out String, Int>>.(Pair<String, Int>, Array<out Pair<String, Int>>) -> Assert<Map<out String, Int>>>,
@@ -33,7 +36,7 @@ abstract class MapAssertionsSpec(
     fun keyNullableValue(key: String?, assertionCreator: (Assert<Int>.() -> Unit)?): Pair<String?, (Assert<Int>.() -> Unit)?>
         = key to assertionCreator
 
-    include(object : SubjectLessAssertionSpec<Map<out String, Int>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Map<out String, Int>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, "key" to 1, arrayOf()) },
         containsKeyWithValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithValueAssertionsPair.second(this, keyValue("a") { toBe(1) }, arrayOf(keyValue("a") { isLessOrEquals(2) })) },
         containsKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
@@ -42,14 +45,14 @@ abstract class MapAssertionsSpec(
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
-    include(object : SubjectLessAssertionSpec<Map<out String?, Int?>>("$describePrefix[nullable Key] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Map<out String?, Int?>>("$describePrefix[nullable Key] ",
         containsNullablePair.first to mapToCreateAssertion{ containsNullablePair.second(this, null to 1, arrayOf("a" to null)) },
         containsKeyWithNullableValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithNullableValueAssertionsPair.second(this, keyNullableValue(null) { toBe(1) }, arrayOf(keyNullableValue("a", null))) },
         containsNullableKeyPair.first to mapToCreateAssertion{ containsNullableKeyPair.second(this, null) },
         containsNotNullableKeyPair.first to mapToCreateAssertion{ containsNotNullableKeyPair.second(this, null) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, "a" to 1, arrayOf("b" to 2)) }, mapOf("a" to 1, "b" to 2), mapOf("a" to 1, "b" to 3)),
         checkingTriple(containsKeyWithValueAssertionsPair.first,
             { containsKeyWithValueAssertionsPair.second(this, keyValue("a"){ isLessThan(2) }, arrayOf(keyValue("b") { isGreaterOrEquals(2) })) },
@@ -61,7 +64,7 @@ abstract class MapAssertionsSpec(
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, mapOf(), mapOf("a" to 1, "b" to 2)),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, mapOf("b" to 2), mapOf())
     ) {})
-    include(object : CheckingAssertionSpec<Map<String?, Int?>>(verbs, "$describePrefix[nullable Key] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Map<String?, Int?>>(verbs, "$describePrefix[nullable Key] ",
         checkingTriple(containsNullablePair.first,
             { containsNullablePair.second(this, null to 1, arrayOf("a" to null))},
             mapOf("a" to null, null to 1), mapOf("b" to 1, null to 1)

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
@@ -50,6 +51,14 @@ fun <T : BigDecimal> AssertionPlantNullable<T?>.notToBeNullBut(expected: T): Not
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNumericallyEqualTo(expected)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isNumericallyEqualTo"
+    )
+)
 fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
@@ -68,6 +77,14 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNotNumericallyEqualTo(expected)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isNotNumericallyEqualTo"
+    )
+)
 fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
@@ -84,6 +101,14 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isEqualIncludingScale(expected)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isEqualIncludingScale"
+    )
+)
 fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
@@ -99,5 +124,13 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNotEqualIncludingScale(expected)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale"
+    )
+)
 fun <T : BigDecimal> Assert<T>.isNotEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

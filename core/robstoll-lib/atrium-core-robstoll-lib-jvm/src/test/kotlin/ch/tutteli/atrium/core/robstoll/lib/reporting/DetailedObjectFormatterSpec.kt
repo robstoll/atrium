@@ -1,17 +1,16 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.verbs.internal.AssertionVerb
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatterCommon.Companion.INDENT
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.spec.reporting.ObjectFormatterSpec
+import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
+import ch.tutteli.atrium.verbs.internal.AssertionVerb
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
@@ -22,6 +21,7 @@ import org.jetbrains.spek.api.dsl.on
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to common module
 object DetailedObjectFormatterSpec : Spek({
     include(AtriumsObjectFormatterSpec)
 

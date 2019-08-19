@@ -9,7 +9,7 @@ dependencies {
     api prefixedProject('translations-en_GB-js')
 
     implementation prefixedProject('api-fluent-en_GB-js')
-
+    implementation "io.mockk:mockk-dsl-js:$mockk_version"
     //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-js')
 }

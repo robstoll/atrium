@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -8,6 +9,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class ComparableAssertionsSpec(
     verbs: AssertionVerbFactory,
     isLessThanPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
@@ -17,14 +19,14 @@ abstract class ComparableAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<Int>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Int>(describePrefix,
         isLessThanPair.first to mapToCreateAssertion { isLessThanPair.second(this, 1) },
         isLessOrEqualsPair.first to mapToCreateAssertion { isLessOrEqualsPair.second(this, 1) },
         isGreaterThanPair.first to mapToCreateAssertion { isGreaterThanPair.second(this, 1) },
         isGreaterOrEqualsPair.first to mapToCreateAssertion { isGreaterOrEqualsPair.second(this, 1) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Int>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Int>(verbs, describePrefix,
         checkingTriple(isLessThanPair.first, { isLessThanPair.second(this, 1) }, 0, 1),
         checkingTriple(isLessOrEqualsPair.first, { isLessOrEqualsPair.second(this, 1) }, 1, 2),
         checkingTriple(isGreaterThanPair.first, { isGreaterThanPair.second(this, 1) }, 2, 1),

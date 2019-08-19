@@ -12,14 +12,17 @@ buildscript {
         kotlin_version = '1.3.41'
 
         // test
-        mockito_kotlin_version = '2.1.0'
-        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
         jacoco_tool_version = '0.8.2'
         junit_platform_version = '1.2.0'
         jupiter_version = '5.5.1'
         spek_version = '1.1.5'
         spek2_version = '2.0.6'
         spekExtensions = { 'ch.tutteli.spek:tutteli-spek-extensions:0.4.1'}
+        mockk_version = '1.9.3'
+
+        //TODO remove with 1.0.0
+        mockito_kotlin_version = '2.1.0'
+        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         //gh-pages.gradle
         docProjects = subprojects.findAll {
@@ -112,6 +115,7 @@ repositories {
 subprojects {
     repositories {
         mavenCentral()
+        jcenter()
         maven {
             url 'https://dl.bintray.com/spekframework/spek'
             content {
@@ -205,6 +209,10 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
     spek.version = '1.1.5'
 
+    compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+
     dependencies {
         testImplementation mockito(), excludeKotlin
     }
@@ -228,6 +236,17 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
             }
         }
     }
+
+    //TODO remove once all specs are migrated to spek2
+    junitPlatform {
+        filters {
+            engines {
+                include 'spek2'
+                include 'spek'
+            }
+        }
+    }
+
 }
 
 apply from: 'gradle/scripts/gh-pages.gradle'

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.isGreaterThan
@@ -15,6 +16,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction0
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec: Spec.() -> Unit) : IterableContainsSpecBase(spec) {
     init {
         val plant: Assert<Double> = verbs.checkImmediately(1.0)

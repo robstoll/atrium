@@ -15,7 +15,6 @@ import kotlin.reflect.KClass
 @Deprecated("use _isA or _changeSubject; will be removed with 1.0.0")
 class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
 
-    @Suppress("OverridingDeprecatedMember")
     override fun <T : Any> isNotNull(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,

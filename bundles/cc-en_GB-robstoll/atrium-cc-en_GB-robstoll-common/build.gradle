@@ -8,6 +8,6 @@ dependencies {
     runtimeOnly prefixedProject('domain-robstoll-common')
     runtimeOnly prefixedProject('core-robstoll-common')
 
-    // here to ease migration; so that ReplaceWith of @Deprecated work
+    // here to ease migration; so that ReplaceWith of @Deprecated works
     api prefixedProject('api-fluent-en_GB-common')
 }

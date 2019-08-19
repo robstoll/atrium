@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -27,8 +29,16 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): AssertionPlant<T>
-    = values(expected)
+
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.value(expected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.value"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): AssertionPlant<T> =
+    values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -56,8 +66,18 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.values(this, expected glue otherExpected))
+
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.values(expected, *otherExpected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(
+    expected: Any,
+    vararg otherExpected: Any
+): AssertionPlant<T> = addAssertion(AssertImpl.charSequence.contains.values(this, expected glue otherExpected))
 
 
 /**
@@ -77,9 +97,16 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.value(expected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.value"
+    )
+)
 @JvmName("valueIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T>
-    = values(expected)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T> =
+    values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -107,9 +134,19 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.values(expected, *otherExpected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
 @JvmName("valuesIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
+    expected: Any,
+    vararg otherExpected: Any
+): AssertionPlant<T> =
+    addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
 
 
 /**
@@ -129,8 +166,15 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T>
-    = atLeast(1).value(expected)
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.value(expected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.value"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T> =
+    atLeast(1).value(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -155,8 +199,17 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = atLeast(1).values(expected, *otherExpected)
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.values(expected, *otherExpected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.values(
+    expected: Any,
+    vararg otherExpected: Any
+): AssertionPlant<T> = atLeast(1).values(expected, *otherExpected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -179,8 +232,17 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.regex(pattern, *otherPatterns)",
+        "ch.tutteli.atrium.api.fluent.en_GB.regex"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+    pattern: String,
+    vararg otherPatterns: String
+): AssertionPlant<T> = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -204,8 +266,18 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.regex(pattern, *otherPatterns)",
+        "ch.tutteli.atrium.api.fluent.en_GB.regex"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
+    pattern: String,
+    vararg otherPatterns: String
+): AssertionPlant<T> =
+    addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -231,8 +303,17 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = atLeast(1).regex(pattern, *otherPatterns)
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.regex(pattern, *otherPatterns)",
+        "ch.tutteli.atrium.api.fluent.en_GB.regex"
+    )
+)
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(
+    pattern: String,
+    vararg otherPatterns: String
+): AssertionPlant<T> = atLeast(1).regex(pattern, *otherPatterns)
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
@@ -240,5 +321,6 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  *
  * @return The plant to support a fluent API.
  */
-private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerOption<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
-    = addAssertionForAssert(assertion)
+private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerOption<T, S>.addAssertion(
+    assertion: Assertion
+): AssertionPlant<T> = addAssertionForAssert(assertion)

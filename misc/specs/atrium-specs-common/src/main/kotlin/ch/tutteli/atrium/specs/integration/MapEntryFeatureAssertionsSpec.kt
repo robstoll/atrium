@@ -3,8 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Feature0
 import ch.tutteli.atrium.specs.Fun1
-import ch.tutteli.atrium.specs.Fun2
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 
 abstract class MapEntryFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,

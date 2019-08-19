@@ -6,7 +6,6 @@ import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -76,7 +75,7 @@ class InAnyOrderEntriesDeprecatedAssertionCreator<out E : Any, in T : Iterable<E
             val count = sequence.count { allCreatedAssertionsHold(it, assertionCreator) }
             group to count
         } else {
-            val group = collectIterableAssertionsForExplanation(assertionCreator, MaybeSubject.Absent)
+            val group = collectIterableAssertionsForExplanation(assertionCreator, ch.tutteli.atrium.creating.MaybeSubject.Absent)
             group to 0
         }
     }

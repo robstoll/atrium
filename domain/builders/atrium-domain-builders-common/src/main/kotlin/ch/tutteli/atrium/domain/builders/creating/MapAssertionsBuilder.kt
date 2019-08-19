@@ -59,50 +59,59 @@ object MapAssertionsBuilder : MapAssertions {
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K, V> contains(
         plant: AssertionPlant<Map<out K, V>>,
         keyValuePairs: List<Pair<K, V>>
     ) = mapAssertions.contains(plant, keyValuePairs)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K, V : Any> containsKeyWithValueAssertions(
         plant: AssertionPlant<Map<out K, V?>>,
         keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
     ) = mapAssertions.containsKeyWithValueAssertions(plant, keyValues)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K, V : Any> getExisting(plant: AssertionPlant<Map<out K, V>>, key: K) =
         mapAssertions.getExisting(plant, key)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<out K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ) = mapAssertions.getExisting(plant, key, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K, V> getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K) =
         mapAssertions.getExistingNullable(plant, key)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K, V> getExistingNullable(
         plant: AssertionPlant<Map<out K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
     ) = mapAssertions.getExistingNullable(plant, key, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int) = mapAssertions.hasSize(plant, size)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K> keys(
         plant: AssertionPlant<Map<out K, *>>,
         noinline assertionCreator: AssertionPlant<Set<K>>.() -> Unit
     ): Assertion = mapAssertions.keys(plant, assertionCreator)
 
-    @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <V> values(
         plant: AssertionPlant<Map<*, V>>,
         noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -13,7 +14,14 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().hasSize(size)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.hasSize"
+    )
+)
 fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.collection.hasSize(this, size))
 
@@ -23,6 +31,14 @@ fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isEmpty()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isEmpty"
+    )
+)
 fun <T : Collection<*>> Assert<T>.isEmpty()
     = addAssertion(AssertImpl.collection.isEmpty(this))
 
@@ -32,6 +48,14 @@ fun <T : Collection<*>> Assert<T>.isEmpty()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNotEmpty()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty"
+    )
+)
 fun <T : Collection<*>> Assert<T>.isNotEmpty()
     = addAssertion(AssertImpl.collection.isNotEmpty(this))
 
@@ -44,6 +68,14 @@ fun <T : Collection<*>> Assert<T>.isNotEmpty()
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().size",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.size"
+    )
+)
 val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size)
 
 /**
@@ -55,6 +87,14 @@ val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-@Suppress("DEPRECATION")
-fun <E, T: Collection<E>> Assert<T>.size (assertionCreator: Assert<Int>.() -> Unit): Assert<T>
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().size.asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.size"
+    )
+)
+fun <E, T: Collection<E>> Assert<T>.size(assertionCreator: Assert<Int>.() -> Unit): Assert<T>
     = addAssertion(AssertImpl.collection.size(this, assertionCreator))

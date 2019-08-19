@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -12,6 +13,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class ListFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
     getPlantPair: Pair<String, Assert<List<Int>>.(Int) -> Assert<Int>>,
@@ -22,20 +24,20 @@ abstract class ListFeatureAssertionsSpec(
 ) : Spek({
 
     //@formatter:off
-    include(object : SubjectLessAssertionSpec<List<Int>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<List<Int>>(describePrefix,
         "${getPlantPair.first} returns plant" to mapToCreateAssertion { getPlantPair.second(this, 1 ).isGreaterThan(1) },
         getPair.first to mapToCreateAssertion { getPair.second(this, 1 ){ isGreaterThan(1) } }
     ){})
-    include(object : SubjectLessAssertionSpec<List<Int?>>("$describePrefix[nullable Element] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<List<Int?>>("$describePrefix[nullable Element] ",
         "${getNullablePlantPair.first} returns plant" to mapToCreateAssertion { getNullablePlantPair.second(this, 1 ).toBe(null) },
         getNullablePair.first to mapToCreateAssertion { getNullablePair.second(this, 1 ){ toBe(null) } }
     ) {})
 
-    include(object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
         checkingTriple("${getPlantPair.first} returns plant" , { getPlantPair.second(this, 0).isGreaterThan(1) }, listOf(2, 1), listOf(1, 2)),
         checkingTriple(getPair.first, { getPair.second(this, 0) { isGreaterThan(1) } }, listOf(2, 1), listOf(1, 2))
     ){})
-    include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
         checkingTriple("${getNullablePlantPair.first} returns plant", { getNullablePlantPair.second(this, 0).toBe(1) }, listOf(1, null), listOf(2, 1)),
         checkingTriple(getNullablePair.first, { getNullablePair.second(this, 0) { toBe(1) } }, listOf(1, null), listOf(2, 1))
     ) {})

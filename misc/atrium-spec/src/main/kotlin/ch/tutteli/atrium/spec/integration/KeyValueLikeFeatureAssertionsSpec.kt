@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -10,6 +11,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
     verbs: AssertionVerbFactory,
     creator: (String, Int) -> T,
@@ -27,13 +29,13 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
 
 
     //@formatter:off
-    include(object : SubjectLessAssertionSpec<T>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<T>(describePrefix,
         "val ${keyValPair.first}" to mapToCreateAssertion { keyValPair.second(this).startsWith("a") },
         "fun ${keyFunPair.first}" to mapToCreateAssertion { keyFunPair.second(this) { endsWith("a") } },
         "val ${valueValPair.first}" to mapToCreateAssertion { valueValPair.second(this).isGreaterThan(1) } ,
         "fun ${valueFunPair.first}" to mapToCreateAssertion { valueFunPair.second(this) { isGreaterThan(2) } }
     ){})
-    include(object : SubjectLessAssertionSpec<TNullable>("$describePrefix[nullable] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<TNullable>("$describePrefix[nullable] ",
         "val ${nullableKeyValPair.first}" to mapToCreateAssertion { nullableKeyValPair.second(this).toBe(null) },
         "val ${nullableValueValPair.first}" to mapToCreateAssertion { nullableValueValPair.second(this).toBe(null) }
         //TODO should also be possible, notToBeNull is not subjectLess
@@ -42,14 +44,14 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T: Any, TNullable: Any>(
     ){})
 
 
-    include(object : CheckingAssertionSpec<T>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<T>(verbs, describePrefix,
         checkingTriple("val ${keyValPair.first}", { keyValPair.second(this).startsWith("a") }, creator("a", 1), creator("ba", 2)),
         checkingTriple("fun ${keyFunPair.first}", { keyFunPair.second(this) { contains("a") } }, creator("ba", 1), creator("bc", 1)),
         checkingTriple("val ${valueValPair.first}", { valueValPair.second(this).toBe(1) }, creator("a", 1), creator("a", 2)),
         checkingTriple("fun ${valueFunPair.first}", { valueFunPair.second(this) { isGreaterThan(1) } }, creator("a", 2), creator("a", 1))
     ){})
 
-     include(object : CheckingAssertionSpec<TNullable>(verbs, "$describePrefix[nullable] ",
+     include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<TNullable>(verbs, "$describePrefix[nullable] ",
         checkingTriple("val ${nullableKeyValPair.first}", { nullableKeyValPair.second(this).toBe(null) }, creatorNullable(null, 1), creatorNullable("ba", 2)),
         checkingTriple("val ${nullableValueValPair.first}", { nullableValueValPair.second(this).notToBeNull { isGreaterThan(1) } }, creatorNullable("a", 2), creatorNullable("a", 1))
     ){})

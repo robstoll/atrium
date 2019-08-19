@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
-import ch.tutteli.atrium.verbs.internal.assert
-import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.test.Test
 
 class AdjustStackTest {
@@ -17,7 +17,7 @@ class AdjustStackTest {
         expect {
             assertNoOp(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(AssertionError::stackBacktrace).contains(
+            feature(AssertionError::stackBacktrace).contains(
                 { contains("mocha") },
                 { contains("atrium-core-api-js.js") }
             )
@@ -29,7 +29,7 @@ class AdjustStackTest {
         expect {
             assertRemoveRunner(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(AssertionError::stackBacktrace)
+            feature(AssertionError::stackBacktrace)
                 .containsNot.entry { contains("mocha") }
                 .contains { contains("atrium-core-api-js.js") }
         }
@@ -37,7 +37,7 @@ class AdjustStackTest {
 
     @Test
     fun removeRunner_containsAtriumButNotMochaInCause() {
-        val adjuster = AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
+        val adjuster = ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         assert(throwable.cause!!.stackBacktrace)
@@ -50,7 +50,7 @@ class AdjustStackTest {
         expect {
             assertRemoveAtrium(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(AssertionError::stackBacktrace)
+            feature(AssertionError::stackBacktrace)
                 .contains { contains("mocha") }
                 .containsNot.entry { contains("atrium-core-api-js.js") }
         }
@@ -58,7 +58,7 @@ class AdjustStackTest {
 
     @Test
     fun removeAtrium_containsMochaButNotAtriumInCause() {
-        val adjuster = AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
+        val adjuster = ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         assert(throwable.cause!!.stackBacktrace)
@@ -66,22 +66,21 @@ class AdjustStackTest {
             .containsNot.entry { contains("atrium-core-robstoll-lib-js") }
     }
 
-    private fun <T : Any> assertNoOp(subject: T) = createAssert(
-        subject, AssertImpl.coreFactory.newNoOpAtriumErrorAdjuster()
+    private fun <T : Any> assertNoOp(subject: T) = createExpect(
+        subject, ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster()
     )
 
-    private fun <T : Any> assertRemoveRunner(subject: T) = createAssert(
-        subject, AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
+    private fun <T : Any> assertRemoveRunner(subject: T) = createExpect(
+        subject, ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
     )
 
-    private fun <T : Any> assertRemoveAtrium(subject: T) = createAssert(
-        subject, AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
+    private fun <T : Any> assertRemoveAtrium(subject: T) = createExpect(
+        subject, ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
     )
 
-    @Suppress("DEPRECATION")
-    private fun <T : Any> createAssert(subject: T, adjuster: AtriumErrorAdjuster) =
-        AssertImpl.coreFactory.newReportingPlant(
-            AssertionVerb.ASSERT, { subject },
-            AssertImpl.coreFactory.newThrowingAssertionChecker(DelegatingReporter(reporter, adjuster))
-        )
+    private fun <T : Any> createExpect(subject: T, adjuster: AtriumErrorAdjuster) =
+        ExpectImpl.assertionVerbBuilder(subject)
+            .withVerb(AssertionVerb.ASSERT)
+            .withCustomReporter(DelegatingReporter(reporter, adjuster))
+            .build()
 }

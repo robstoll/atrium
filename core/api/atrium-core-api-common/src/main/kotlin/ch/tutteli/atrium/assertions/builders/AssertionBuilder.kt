@@ -3,8 +3,8 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
@@ -154,10 +154,11 @@ interface AssertionBuilder {
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
      *
-     * @throws PlantHasNoSubjectException in case [test] is called in a context where it is not safe to call it.
-     *   For instance, if [test] is called within an explanatory assertion where it is possible that
-     *   [Expect.maybeSubject] is [None].
+     * @throws ch.tutteli.atrium.creating.PlantHasNoSubjectException in case [test] is called in a context where it
+     *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
+     *   possible that [AssertionPlant.maybeSubject] is [None].
      */
+    //TODO remove @throws with 1.0.0
     fun <T> createDescriptive(
         subjectProvider: SubjectProvider<T>,
         description: String,
@@ -185,10 +186,11 @@ interface AssertionBuilder {
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
      *
-     * @throws PlantHasNoSubjectException in case [test] is called in a context where it is not safe to call it.
-     *   For instance, if [test] is called within an explanatory assertion where it is possible that
-     *   [Expect.maybeSubject] is [None].
+     * @throws ch.tutteli.atrium.creating.PlantHasNoSubjectException in case [test] is called in a context where it
+     *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
+     *   possible that [AssertionPlant.maybeSubject] is [None].
      */
+    //TODO remove @throws with 1.0.0
     fun <T> createDescriptive(
         subjectProvider: SubjectProvider<T>,
         description: Translatable,

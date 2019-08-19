@@ -92,7 +92,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
  * the corresponding value holds all assertions the given [assertionCreator] creates for it.
  *
- * @return This plant to support a fluent API.
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */

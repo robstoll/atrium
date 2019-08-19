@@ -1,14 +1,16 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerb
 import org.jetbrains.spek.api.Spek
 
+
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class SubjectLessAssertionSpec<T : Any>(
     groupPrefix: String,
     vararg assertionCreator: Pair<String, Assert<T>.() -> Unit>
@@ -18,7 +20,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
         assertionCreator.forEach { (name, createAssertion) ->
             test("fun `$name`") {
                 @Suppress("DEPRECATION")
-                val assertions = coreFactory.newCollectingPlant<T> { throw PlantHasNoSubjectException() }
+                val assertions = coreFactory.newCollectingPlant<T> { throw ch.tutteli.atrium.creating.PlantHasNoSubjectException() }
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
                 @Suppress("DEPRECATION")
@@ -42,4 +44,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
 /**
  * Helper function to map an arbitrary `Assert<T>.(...) -> Unit` function to a parameter-less one.
  */
+
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Switch from Assert to Expect and use expectLambda from atrium-specs-common; will be removed with 1.0.0")
 fun <T : Any> mapToCreateAssertion(createAssertion: Assert<T>.() -> Unit): Assert<T>.() -> Unit = createAssertion

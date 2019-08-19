@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 
-object TextMethodCallFormatterSpec :  ch.tutteli.atrium.spec.reporting.TextMethodCallFormatterSpec(
+//TODO #116 migrate spek1 to spek2 - move to common module
+object TextMethodCallFormatterSpec : ch.tutteli.atrium.specs.reporting.TextMethodCallFormatterSpec(
     AssertionVerbFactory, { TextMethodCallFormatter }
 )

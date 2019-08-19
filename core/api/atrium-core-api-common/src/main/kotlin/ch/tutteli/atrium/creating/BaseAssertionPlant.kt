@@ -27,7 +27,7 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>: Su
             return try {
                 @Suppress("DEPRECATION")
                 Some(subject)
-            } catch (e: PlantHasNoSubjectException) {
+            } catch (@Suppress("DEPRECATION") e: PlantHasNoSubjectException) {
                 None
             }
         }

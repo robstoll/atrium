@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -10,6 +11,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class BooleanAssertionsSpec(
     verbs: AssertionVerbFactory,
     toBeTruePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,
@@ -17,12 +19,12 @@ abstract class BooleanAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<Boolean>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Boolean>(describePrefix,
         toBeTruePair.first to mapToCreateAssertion { toBeTruePair.second(this) },
         toBeFalsePair.first to mapToCreateAssertion { toBeFalsePair.second(this) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Boolean>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Boolean>(verbs, describePrefix,
         checkingTriple(toBeTruePair.first, { toBeTruePair.second(this) }, true, false),
         checkingTriple(toBeFalsePair.first, { toBeFalsePair.second(this) }, false, true)
     ) {})

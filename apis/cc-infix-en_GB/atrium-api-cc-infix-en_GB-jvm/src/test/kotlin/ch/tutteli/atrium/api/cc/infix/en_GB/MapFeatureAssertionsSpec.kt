@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption
@@ -27,7 +28,6 @@ class MapFeatureAssertionsSpec : Spek({
         test("throws if no assertion is made for non-existing key") {
             expect {
                 assert(mapOf(null as String? to 1)) getExisting Key("a") assertIt {}
-            //TODO change to IllegalStateException in v1.0.0
             }.toThrow<IllegalArgumentException> { messageContains("There was not any assertion created") }
         }
     }

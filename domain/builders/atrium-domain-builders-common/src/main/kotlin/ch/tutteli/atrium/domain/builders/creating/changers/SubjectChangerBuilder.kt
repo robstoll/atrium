@@ -44,13 +44,15 @@ object SubjectChangerBuilder {
         DescriptionOption.create(originalAssertionContainer)
 
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     inline fun <T, R : Any> unreported(
         originalPlant: BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R
     ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     inline fun <T, R> unreportedNullable(
         originalPlant: BaseAssertionPlant<T, *>,
         noinline transformation: (T) -> R

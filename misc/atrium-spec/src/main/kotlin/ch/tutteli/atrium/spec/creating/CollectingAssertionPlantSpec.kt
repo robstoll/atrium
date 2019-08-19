@@ -1,10 +1,10 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -13,6 +13,8 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
+//TODO remove with 1.0.0 - no need to migrate to Spek2
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CollectingAssertionPlantSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (() -> Int) -> CollectingAssertionPlant<Int>,
@@ -55,14 +57,14 @@ abstract class CollectingAssertionPlantSpec(
             }
         }
 
-        context("provider throws an ${PlantHasNoSubjectException::class.simpleName}") {
-            val plantHasNoSubjectException = PlantHasNoSubjectException()
+        context("provider throws an ${ch.tutteli.atrium.creating.PlantHasNoSubjectException::class.simpleName}") {
+            val plantHasNoSubjectException = ch.tutteli.atrium.creating.PlantHasNoSubjectException()
             val testeeThrowing = testeeFactory { throw plantHasNoSubjectException }
 
             it("throws the exception when accessing subject") {
                 verbs.checkException {
                     testeeThrowing.subject
-                }.toThrow<PlantHasNoSubjectException> { toBe(plantHasNoSubjectException) }
+                }.toThrow<ch.tutteli.atrium.creating.PlantHasNoSubjectException> { toBe(plantHasNoSubjectException) }
             }
         }
     }

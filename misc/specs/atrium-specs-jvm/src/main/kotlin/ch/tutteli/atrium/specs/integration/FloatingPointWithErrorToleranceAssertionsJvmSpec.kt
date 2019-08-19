@@ -2,7 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceAssertionsSpec.TestData
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import java.math.BigDecimal

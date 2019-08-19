@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
@@ -13,6 +14,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import kotlin.reflect.KFunction1
 
+//TODO remove with 1.0.0
 @Suppress("DEPRECATION" /* TODO remove, should no longer hold at some point, as we should no longer run into such warnings */)
 fun SpecBody.absentSubjectTests(
     verbs: AssertionVerbFactory,

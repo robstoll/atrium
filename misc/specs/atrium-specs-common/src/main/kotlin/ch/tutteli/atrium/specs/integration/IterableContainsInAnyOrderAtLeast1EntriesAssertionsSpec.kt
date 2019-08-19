@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
-import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.verbs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
@@ -101,7 +101,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                 expect {
                     fluentEmpty.containsEntriesFun({
                         @Suppress("DEPRECATION")
-                        asAssert().returnValueOf(subject::dec).toBe(1.0)
+                        asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     })
                 }.toThrow<AssertionError> { messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault()) }
             }
@@ -165,7 +165,8 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                         fluent.containsInAnyOrderNullableEntriesFun({ toBe(3.0) }, null, { toBe(1.0) })
                     }
                     it("null, null, null") {
-                        //finds twice the same entry with null but that is fine since we do not search for unique entries in this case
+                        // finds twice the same entry with null but that is fine
+                        // since we do not search for unique entries in this case
                         fluent.containsInAnyOrderNullableEntriesFun(null, null, null)
                     }
                 }

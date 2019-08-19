@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains
 
-import ch.tutteli.atrium.api.cc.en_GB.property
-import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.feature
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
@@ -88,10 +88,9 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     expectedSize: Int,
     iterableAsList: List<E?>,
     itr: Iterator<E?>
-): AssertionGroup {
-    @Suppress("DEPRECATION")
-    return ExpectImpl.collector.collect({ iterableAsList }) {
-        property(Collection<*>::size) {
+): Assertion {
+    return ExpectImpl.collector.collect(Some(iterableAsList)) {
+        feature(Collection<*>::size) {
             toBe(expectedSize)
             if (iterableAsList.size > expectedSize) {
                 addAssertion(LazyThreadUnsafeAssertionGroup {

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -9,6 +10,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterableAnyAssertionsSpec(
     verbs: AssertionVerbFactory,
     anyPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit) -> Assert<Iterable<Double>>>,
@@ -17,12 +19,12 @@ abstract class IterableAnyAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterablePredicateSpecBase(verbs, {
 
-    include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         anyPair.first to mapToCreateAssertion { anyPair.second(this) { toBe(2.5) } },
         "${anyNullablePair.first} for nullable" to mapToCreateAssertion { anyNullablePair.second(this, null) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(anyPair.first, { anyPair.second(this) { toBe(2.5) } }, listOf(2.5).asIterable(), listOf()),
         checkingTriple("${anyNullablePair.first} for nullable", { anyNullablePair.second(this) { toBe(2.5) } }, listOf(2.5).asIterable(), listOf())
     ) {})

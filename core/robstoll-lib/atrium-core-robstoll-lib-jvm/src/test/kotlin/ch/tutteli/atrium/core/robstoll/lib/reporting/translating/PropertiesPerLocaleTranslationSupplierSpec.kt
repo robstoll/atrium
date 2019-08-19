@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 
-object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
+//cannot be easily migrated to specs-common/spek2 as it depends on JVM resources => need to find a solution first
+object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec(
     AssertionVerbFactory,
     { primaryLocale, fallbackLocales ->
         ExpectImpl.reporterBuilder

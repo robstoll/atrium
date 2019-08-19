@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -8,6 +9,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class MapAsEntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
     asEntriesFunName: String,
@@ -17,7 +19,7 @@ abstract class MapAsEntriesAssertionsSpec(
 ) : Spek({
 
     val asEntriesWithCreatorFun = "$asEntriesFunName with Creator"
-    include(object : SubjectLessAssertionSpec<Map<String, Int>>("$describePrefix[$asEntriesFunName] ",
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Map<String, Int>>("$describePrefix[$asEntriesFunName] ",
         asEntriesFunName to mapToCreateAssertion { asEntries(this) } ,
         asEntriesWithCreatorFun to mapToCreateAssertion { asEntriesWithCreator(this){ contains("a" to 1)} }
     ) {})
@@ -25,7 +27,7 @@ abstract class MapAsEntriesAssertionsSpec(
     val holdingSubject: Map<String, Int> = mapOf("a" to 1, "c" to 3, "e" to 5, "g" to 7)
     val failingSubject: Map<String, Int> = mapOf("b" to 2, "d" to 4, "f" to 6, "h" to 8)
 
-    include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[$asEntriesFunName] ",
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[$asEntriesFunName] ",
         checkingTriple(asEntriesFunName, { asEntries(this).contains { isKeyValue("g", 7) } }, holdingSubject, failingSubject),
         checkingTriple(asEntriesWithCreatorFun, { asEntriesWithCreator(this){ contains { isKeyValue("g", 7) } } }, holdingSubject, failingSubject)
     ) {})

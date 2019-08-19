@@ -213,6 +213,9 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
+ * @param provider Extracts the feature where the subject of the assertion is available via
+ *   implicit parameter `it`.
+ *
  * @return An [Expect] for the extracted feature.
  */
 fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): Expect<R> =
@@ -224,6 +227,9 @@ fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): Expect<R
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
+ *
+ * @param provider Extracts the feature where the subject of the assertion is available via
+ *   implicit parameter `it`.
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
@@ -241,10 +247,14 @@ fun <T, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
+ * @param provider Creates a [MetaFeature] where the subject of the assertion is available via
+ *   implicit parameter `it`. Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
+ *   e.g. `feature { f(it::size) }`
+ *
  * @return An [Expect] for the extracted feature.
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): Expect<R> =
-    internalFeature(provider).getExpectOfFeature()
+    extractFeature(provider).getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion,
@@ -253,13 +263,16 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
+ * @param provider You need to create a [MetaFeature] where the subject of the assertion is available via
+ *   implicit parameter `it`. Usually you use [MetaFeatureOption.f] to create a [MetaFeature], e.g. `f(it::size)`
+ *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  */
 fun <T, R> Expect<T>.feature(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = internalFeature(provider).addToInitial(assertionCreator)
+): Expect<T> = extractFeature(provider).addToInitial(assertionCreator)
 
-private fun <R, T> Expect<T>.internalFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
+private fun <R, T> Expect<T>.extractFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
     ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }

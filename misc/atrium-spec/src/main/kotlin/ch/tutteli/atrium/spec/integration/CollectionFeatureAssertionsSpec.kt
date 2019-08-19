@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -9,6 +10,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CollectionFeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
     sizeValPair: Pair<String, Assert<Collection<String>>.() -> Assert<Int>>,
@@ -17,12 +19,12 @@ abstract class CollectionFeatureAssertionsSpec(
 ) : Spek({
 
     //@formatter:off
-    include(object : SubjectLessAssertionSpec<Collection<String>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Collection<String>>(describePrefix,
         "val ${sizeValPair.first}" to mapToCreateAssertion { sizeValPair.second(this).toBe(1) },
         "fun ${sizeFunPair.first}" to mapToCreateAssertion { sizeFunPair.second(this) { isGreaterThan(2) } }
     ){})
 
-    include(object : CheckingAssertionSpec<Collection<String>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Collection<String>>(verbs, describePrefix,
         checkingTriple("val ${sizeValPair.first}", { sizeValPair.second(this).toBe(1) }, listOf("a") as Collection<String>, listOf("a", "B")),
         checkingTriple("fun ${sizeFunPair.first}", { sizeFunPair.second(this) { isLessThan(2) } }, listOf("a")as Collection<String>, listOf("a", "B"))
     ) {})

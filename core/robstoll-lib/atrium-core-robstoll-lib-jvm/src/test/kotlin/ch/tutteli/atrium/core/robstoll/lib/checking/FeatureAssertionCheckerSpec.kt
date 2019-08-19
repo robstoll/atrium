@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.core.robstoll.lib.checking
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 
-object FeatureAssertionCheckerSpec : ch.tutteli.atrium.spec.checking.FeatureAssertionCheckerSpec(
-    AssertionVerbFactory, ::FeatureAssertionChecker)
+//TODO #116 migrate spek1 to spek2 - move to common module
+object FeatureAssertionCheckerSpec : ch.tutteli.atrium.specs.checking.FeatureAssertionCheckerSpec(
+    AssertionVerbFactory, ::FeatureAssertionChecker
+)

@@ -49,7 +49,7 @@ interface AssertionContainerWithCommonFields<T> {
         val assertionVerb: Translatable,
         val maybeSubject: Option<T>,
         private val representation: Any?,
-        private val assertionChecker: AssertionChecker,
+        val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {
 

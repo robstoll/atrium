@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.assertions.composers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -16,7 +15,7 @@ fun _createDescriptiveWithFailureHint(
 ): Assertion {
     val holds = try {
         test()
-    } catch (e: PlantHasNoSubjectException) {
+    } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
         true
     }
     return if (holds || !showHint()) {

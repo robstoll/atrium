@@ -59,8 +59,8 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun ThrowableThrown.Builder.notToThrow(): Expect<Nothing?>
-    = ExpectImpl.throwable.thrown.notThrown(this).getExpectOfFeature()
+fun ThrowableThrown.Builder.notToThrow(): Expect<Nothing?> =
+    ExpectImpl.throwable.thrown.notThrown(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null,
@@ -69,8 +69,7 @@ fun ThrowableThrown.Builder.notToThrow(): Expect<Nothing?>
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-val <T : Throwable> Expect<T>.message get(): Expect<String> =
-    feature(Throwable::message).notToBeNull()
+val <T : Throwable> Expect<T>.message get(): Expect<String> = feature(Throwable::message).notToBeNull()
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and

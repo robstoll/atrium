@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -13,7 +14,14 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
-@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().get(index)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.get"
+    )
+)
 fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
     = AssertImpl.list.get(this, index)
 
@@ -26,7 +34,15 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().get(index).assAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.fluent.en_GB.get"
+    )
+)
 fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.() -> Unit)
     = addAssertion(AssertImpl.list.get(this, index, assertionCreator))
 
@@ -37,6 +53,13 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
-@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().get(index)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.get"
+    )
+)
 fun <E, T: List<E>> Assert<T>.get(index: Int): AssertionPlantNullable<E>
     = AssertImpl.list.getNullable(this, index)

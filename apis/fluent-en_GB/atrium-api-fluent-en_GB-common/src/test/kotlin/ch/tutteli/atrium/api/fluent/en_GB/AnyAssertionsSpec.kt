@@ -3,27 +3,32 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.name
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
-    fun1(Expect<Int>::toBe),
-    fun1(Expect<DataClass>::toBe),
-    fun1(Expect<Int?>::toBe, suffix=" nullable"),
-    fun1(Expect<DataClass?>::toBe, suffix=" nullable"),
+    fun1<Int, Int>(Expect<Int>::toBe),
+    fun1<DataClass, DataClass>(Expect<DataClass>::toBe),
+    fun2<Int?, Int?, Nothing?>(Expect<Int?>::toBe, suffix = " nullable").name to Companion::toBeNullableInt,
+    fun2<DataClass?, DataClass?, Nothing?>(
+        Expect<DataClass?>::toBe,
+        suffix = " nullable"
+    ).name to Companion::toBeNullableDataClass,
     fun1(Expect<Int>::notToBe),
     fun1(Expect<DataClass>::notToBe),
-    fun1(Expect<Int?>::notToBe, suffix=" nullable"),
-    fun1(Expect<DataClass?>::notToBe, suffix=" nullable"),
+    fun1(Expect<Int?>::notToBe, suffix = " nullable"),
+    fun1(Expect<DataClass?>::notToBe, suffix = " nullable"),
     fun1(Expect<Int>::isSameAs),
     fun1(Expect<DataClass>::isSameAs),
-    fun1(Expect<Int?>::isSameAs, suffix=" nullable"),
-    fun1(Expect<DataClass?>::isSameAs, suffix=" nullable"),
+    fun1(Expect<Int?>::isSameAs, suffix = " nullable"),
+    fun1(Expect<DataClass?>::isSameAs, suffix = " nullable"),
     fun1(Expect<Int>::isNotSameAs),
     fun1(Expect<DataClass>::isNotSameAs),
-    fun1(Expect<Int?>::isNotSameAs, suffix=" nullable"),
-    fun1(Expect<DataClass?>::isNotSameAs, suffix=" nullable"),
+    fun1(Expect<Int?>::isNotSameAs, suffix = " nullable"),
+    fun1(Expect<DataClass?>::isNotSameAs, suffix = " nullable"),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -43,6 +48,12 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 ) {
 
     companion object {
+        private fun toBeNullableInt(expect: Expect<Int?>, a: Int?): Expect<Int?> =
+            expect.toBe(a)
+
+        private fun toBeNullableDataClass(expect: Expect<DataClass?>, a: DataClass?): Expect<DataClass?> =
+            expect.toBe(a)
+
         private fun toBeNull(expect: Expect<Int?>) = expect.toBe(null)
 
         private fun isAFeature(expect: Expect<Int?>): Expect<Int> = expect.isA()

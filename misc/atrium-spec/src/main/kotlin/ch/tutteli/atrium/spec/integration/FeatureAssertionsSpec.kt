@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
@@ -27,6 +28,7 @@ data class TestData(val description: String, val nullableValue: Int?) {
 }
 typealias F = Assert<TestData>.() -> Unit
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class FeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
 
@@ -110,7 +112,7 @@ abstract class FeatureAssertionsSpec(
 
     val holdingTestData = TestData("hello robert", 1)
     val failingTestData = TestData("by robert", null)
-    include(object : CheckingAssertionSpec<TestData>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<TestData>(verbs, describePrefix,
         *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
         *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
         *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),

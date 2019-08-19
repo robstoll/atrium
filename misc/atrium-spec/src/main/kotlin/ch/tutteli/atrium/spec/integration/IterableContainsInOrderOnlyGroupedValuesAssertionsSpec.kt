@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -10,6 +11,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsInOrderOnlyGroupedValuesPair: Pair<String, Assert<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Assert<Iterable<Double>>>,
@@ -29,12 +31,12 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun group(vararg doubles: Double) = groupFactory(doubles.toTypedArray())
     fun nullableGroup(vararg assertionCreators: Double?) = nullableGroupFactory(assertionCreators)
 
-    include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
+    include(@Suppress("DEPRECATION") object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyGroupedValuesPair.first to mapToCreateAssertion { containsInOrderOnlyGroupedValuesPair.second(this, group(2.5), group(4.1), arrayOf()) },
         "${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable" to mapToCreateAssertion { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(4.1), arrayOf()) }
     ) {})
 
-    include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsInOrderOnlyGroupedValuesPair.first, { containsInOrderOnlyGroupedValuesPair.second(this, group(2.5), group(1.2, 2.2), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5)),
         checkingTriple("${containsInOrderOnlyGroupedNullableValuesPair.first} for nullable", { containsInOrderOnlyGroupedNullableValuesPair.second(this, nullableGroup(2.5), nullableGroup(1.2, 2.2), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
     ) {})

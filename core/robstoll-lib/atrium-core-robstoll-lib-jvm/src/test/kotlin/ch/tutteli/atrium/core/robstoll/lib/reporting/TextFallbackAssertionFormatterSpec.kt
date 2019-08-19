@@ -1,21 +1,22 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
-import ch.tutteli.atrium.spec.reporting.alwaysTrueAssertionFilter
+import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
+import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.jetbrains.spek.api.Spek
@@ -25,6 +26,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KClass
 
+//TODO #116 migrate spek1 to spek2 - move to common module
 class TextFallbackAssertionFormatterSpec : Spek({
 
     include(AtriumsTextFallbackAssertionFormatterSpec)
@@ -48,7 +50,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
     afterEachTest {
         sb = StringBuilder()
     }
-    val separator = System.getProperty("line.separator")!!
+    val separator = lineSeperator
 
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
@@ -70,12 +72,12 @@ class TextFallbackAssertionFormatterSpec : Spek({
         }
     }
 }) {
-    object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextFallbackAssertionFormatterSpec(
+    object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.TextFallbackAssertionFormatterSpec(
         AssertionVerbFactory,
         factory(), "[Atrium's TextFallback..Spec] "
     )
 
-    object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
+    object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.AssertionFormatterSpec(
         AssertionVerbFactory,
         factory(), "[Atrium's AssertionFormatterSpec] "
     )
