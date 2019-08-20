@@ -1,5 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
-
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -54,3 +53,13 @@ fun <T : Any?> assertThat(subject: T)
  */
 fun assertThat(act: () -> Unit)
     = AssertImpl.throwable.thrownBuilder(ASSERT_THAT_THROWN, act, reporter)
+
+@Deprecated(
+    "`assertThat` should not be nested, use `property` instead.",
+    ReplaceWith("AssertImpl.feature.property(this, { newSubject /* see also other overloads which do not require `name of the feature` or even better, switch from Assert to Expect and use `feature` */}, Untranslatable(\"name of the feature\"))",
+        "ch.tutteli.atrium.reporting.translating.Untranslatable",
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
+    )
+)
+fun <T: Any, R: Any> Assert<T>.assertThat(newSubject: R): Assert<R> =
+    AssertImpl.feature.property(this, { newSubject }, ASSERT_THAT)

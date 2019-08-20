@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.api.verbs
 
+import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
+import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.Expect
@@ -8,8 +10,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
-import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
-import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
 
 /**
  * Creates a [ReportingAssertionContainer] for the given [subject].
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> expect(subject: T) =
+fun <T> expect(subject: T): Expect<T> =
     ExpectImpl.assertionVerbBuilder(subject).withVerb(EXPECT).withDefaultReporter().build()
 
 /**
@@ -31,7 +31,7 @@ fun <T> expect(subject: T) =
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit) =
+fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     expect(subject).addAssertionsCreatedBy(assertionCreator)
 
 /**
@@ -41,3 +41,13 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit) =
  * @return The newly created [ThrowableThrown.Builder].
  */
 fun expect(act: () -> Unit) = ExpectImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+
+@Deprecated(
+    "`expect` should not be nested, use `feature` instead.",
+    ReplaceWith("feature(\"name of the feature\") { newSubject /* see also other overloads which do not require `name of the feature` and provide the subject as parameter, e.g. feature { f(it::yourFeature) } */}",
+        "ch.tutteli.atrium.api.fluent.de_CH.feature",
+        "ch.tutteli.atrium.api.fluent.en_GB.feature"
+    )
+)
+fun <T, R> Expect<T>.expect(newSubject: R): Expect<R> =
+    ExpectImpl.feature.manualFeature(this, EXPECT) { newSubject }.getExpectOfFeature()

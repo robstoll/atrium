@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -20,7 +21,6 @@ import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
  *
  * @see CoreFactory.newReportingPlant
  */
-@Suppress("DEPRECATION")
 fun <T : Any> expect(subject: T)
     = AssertImpl.coreFactory.newReportingPlant(EXPECT, { subject }, reporter)
 
@@ -33,7 +33,6 @@ fun <T : Any> expect(subject: T)
  *
  * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
-@Suppress("DEPRECATION")
 fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
     = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(EXPECT, { subject }, reporter, assertionCreator)
 
@@ -44,7 +43,6 @@ fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
  *
  * @see CoreFactory.newReportingPlantNullable
  */
-@Suppress("DEPRECATION")
 fun <T : Any?> expect(subject: T)
     = AssertImpl.coreFactory.newReportingPlantNullable(EXPECT, { subject }, reporter)
 
@@ -55,3 +53,13 @@ fun <T : Any?> expect(subject: T)
  */
 fun expect(act: () -> Unit)
     = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+
+@Deprecated(
+    "`expect` should not be nested, use `property` instead.",
+    ReplaceWith("AssertImpl.feature.property(this, { newSubject /* see also other overloads which do not require `name of the feature` or even better, switch from Assert to Expect and use `feature` */}, Untranslatable(\"name of the feature\"))",
+        "ch.tutteli.atrium.reporting.translating.Untranslatable",
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
+    )
+)
+fun <T: Any, R: Any> Assert<T>.expect(newSubject: R): Assert<R> =
+    AssertImpl.feature.property(this, { newSubject }, EXPECT)

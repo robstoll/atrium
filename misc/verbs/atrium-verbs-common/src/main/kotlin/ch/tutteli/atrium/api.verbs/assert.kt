@@ -8,8 +8,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
-import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
-import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
+import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT
+import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT_THROWN
 
 /**
  * Creates a [ReportingAssertionContainer] for the given [subject].
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> assert(subject: T) =
+fun <T> assert(subject: T): Expect<T> =
     ExpectImpl.assertionVerbBuilder(subject).withVerb(ASSERT).withDefaultReporter().build()
 
 /**
@@ -31,7 +31,7 @@ fun <T> assert(subject: T) =
  *
  * @see CoreFactory.newReportingAssertionContainer
  */
-fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit) =
+fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     assert(subject).addAssertionsCreatedBy(assertionCreator)
 
 /**
@@ -41,3 +41,13 @@ fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit) =
  * @return The newly created [ThrowableThrown.Builder].
  */
 fun assert(act: () -> Unit) = ExpectImpl.throwable.thrownBuilder(ASSERT_THROWN, act, reporter)
+
+@Deprecated(
+    "`assert` should not be nested, use `feature` instead.",
+    ReplaceWith("feature(\"name of the feature\") { newSubject /* see also other overloads which do not require `name of the feature` and provide the subject as parameter, e.g. feature { f(it::yourFeature) } */}",
+        "ch.tutteli.atrium.api.fluent.de_CH.feature",
+        "ch.tutteli.atrium.api.fluent.en_GB.feature"
+    )
+)
+fun <T, R> Expect<T>.assert(newSubject: R): Expect<R> =
+    ExpectImpl.feature.manualFeature(this, ASSERT) { newSubject }.getExpectOfFeature()
