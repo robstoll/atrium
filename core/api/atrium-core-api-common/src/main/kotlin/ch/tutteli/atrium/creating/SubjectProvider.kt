@@ -100,8 +100,19 @@ interface SubjectProvider<out T> {
      *      Have a look at the migration guides if you want to switch entirely to Expect as there is a fast
      *      search & replace strategy.
      *
+     * 8. nested `expect`, `assert `or `assertThat`
+     *    ```
+     *    //old
+     *    expect(1 to 2) {
+     *      expect(subject.second).toBe(2)
+     *    }
      *
-     *
+     *    //new
+     *    expect(1 to 2) {
+     *      feature { f(it::second) }.toBe(2)
+     *    }
+     *    ```
+     *    same same but different for `assert` and `assertThat`
      */
     @Deprecated(
         "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
