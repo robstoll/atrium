@@ -167,7 +167,7 @@ Atrium itself is using mocha as well
 (see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/master/build.gradle#L290))
 and has tests written in JS modules 
 (see [AdjustStackTest](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/ch/tutteli/atrium/core/robstoll/lib/reporting/AdjustStackTest.kt))
-as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/master/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/src/test/kotlin/SmokeTest.kt))
+as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/src/test/kotlin/SmokeTest.kt))
 which are executed on the JS platform as well 
 (actually on all platforms -> JVM uses JUnit for this purpose, see 
 [build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/master/build.gradle#L342)).
@@ -563,6 +563,7 @@ then it might be worth to [write an own assertion function](#write-own-assertion
 ### Within Assertion Functions
 
 In case you write an own assertion function, then we discourage to use the `MetaFeature`-provider-lambda 
+(as shown in [Property and Methods](#property-and-methods))
 but encourage to pass a [class references](https://kotlinlang.org/docs/reference/reflection.html#class-references)
 to `feature` instead.
 This has the benefit, that we can always show the feature name, also in case a previous feature extraction or subject
@@ -673,8 +674,8 @@ expect(x).isA<SubType2> {
     //     ◾ to be: false
 ```
 You can narrow a type with the `isA` function. 
-On one hand it checks that the `subject` of the current assertion (`x` in the above example) is actually the expected type 
-and on the other hand it turns the `subject` into this type. 
+On one hand it checks that the subject of the current assertion (`x` in the above example) is actually the expected type 
+and on the other hand it turns the subject into this type. 
 This way you can make specific assertions which are only possible for the corresponding type
 -- for instance, considering the above example, `number` is not available on `SuperType` but only on `SubType1`.
 
@@ -845,7 +846,7 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { is
 ```  
 
 Since we have chosen the `only` option, Atrium shows us a summary where we see three things:
-- Whether a specified identification lambda matched (signified by `✔` or `✘`) 
+- Whether a specified `assertionCreator`-lambda matched (signified by `✔` or `✘`) 
   the corresponding entry or not (e.g. `✘ ▶ entry 1:` was `2` and we expected, it `is less than 2`)
 - Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
 - and last but not least, mismatches or additional entries as further clue (`❗❗ additional entries detected`).
@@ -974,11 +975,11 @@ val bernstein = Person("Leonard", "Bernstein", 50, children=listOf(/*...*/))
 
 expect(mapOf("bernstein" to bernstein))
     .getExisting("bernstein") { 
-        property(subject::firstName).toBe("Leonard")
-        property(subject::age).toBe(60) 
+        feature { f(it::firstName) }.toBe("Leonard")
+        feature { f(it::age) }.toBe(60) 
     }
     .getExisting("einstein") { 
-        property(subject::firstName).toBe("Albert") 
+        feature { f(it::firstName) }.toBe("Albert") 
     }
     
     // expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])}        (java.util.Collections.SingletonMap <1389647288>)
@@ -1180,7 +1181,8 @@ Atrium is designed to help you whenever possible.
 I think this is the biggest difference to other assertion libraries and a very handy one indeed.
 
 ### 1. Fluent API with Code Documentation
-Atrium provides a fluent API where the design focus was put on the interoperability (of the API) with the code completion functionality of your IDE. 
+Atrium provides a fluent API where the design focus was put on the interoperability (of the API) 
+with the code completion functionality of your IDE. 
 Or in other words, you can always use code completion to get direct help from your IDE.
 This experience is improved by providing up-to-date [code documentation](#kdoc) (in form of KDoc) for all assertion functions, 
 so that you get the extra help needed.
@@ -1203,7 +1205,8 @@ For instance, for the following assertion (which fails)
 ```kotlin
 expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
 ```
-Atrium points out which `values` were found, makes an implicit assertion about the size and also states which entries were additionally contained in the list:
+Atrium points out which `values` were found, makes an implicit assertion about the size and 
+also states which entries were additionally contained in the list:
 
 ```text
 expect: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
@@ -1232,7 +1235,8 @@ expect: 9.99        (java.lang.Float <1287934450>)
     » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
 ```
 
-One last example. This time about making an assertion that a certain `Throwable` is thrown but the assertion fails because it was the wrong one. 
+One last example. This time about making an assertion that a certain `Throwable` is thrown but the assertion fails 
+because it was the wrong one. 
 Atrium comes with a very useful hint, it shows the actual exception. For instance, for:
 ```kotlin
 expect {
@@ -1243,12 +1247,18 @@ expect {
   }
 }.toThrow<IllegalStateException> { messageContains("no no no") }
 ```
-the error reporting look as follows:
+the error reporting looks as follows:
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
-◆ is a: IllegalStateException (java.lang.IllegalStateException)
+◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+  » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
+        » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+        » contains: 
+          ⚬ value: "no no no"        <781182788>
+            ⚬ ▶ number of occurrences: -1
+                ◾ is at least: 1
   » Properties of the unexpected IllegalArgumentException
-    » message: "no no no..."        <834133664>
+    » message: "no no no..."        <477902612>
     » stacktrace: 
       ⚬ TestKt$main$1.invoke(test.kt:12)
       ⚬ TestKt$main$1.invoke(test.kt)
@@ -1275,6 +1285,19 @@ expect: 10        (java.math.BigDecimal <1287934450>)
     » notice, if you used isNumericallyEqualTo then the assertion would have hold.
 ```
 
+another example are empty `assertionCreator`-lambdas. 
+Getting distracted by a working colleague and taking up the work at the wrong position might be familiar to you. 
+For instance:
+```kotlin
+expect(listOf(1)).get(0) {}
+
+    // expect: [1]        (java.util.Collections.SingletonList <1695611955>)
+    // ◆ ▶ get(0): 1
+    //       » at least one assertion defined: false
+    //           » You forgot to define assertions in the assertionCreator-lambda
+    //           » Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+```
+
 ## Flexibility
 Another design goal of Atrium was to give you the flexibility needed but still adhere to a concise design. 
 First and most importantly, Atrium does not enforce a certain style on your code base. 
@@ -1283,9 +1306,9 @@ it continues by providing the possibility to configure the [reporting style](#re
 goes on that you can chose from different [API styles](#apis) 
 and ends that you can replace almost all components by other implementations and hook into existing.
 
-So for instance, if you like to use an `infix` API, then use the bundle `atrium-cc-infix-en_GB-robstoll`. 
+So for instance, if you like to use an `infix` API, then use the bundle `atrium-infix-en_GB`. 
 You prefer pure fluent and do not even want to see infix style in your code, 
-then use `atrium-cc-en_GB-robstoll` which provides a pure fluent style API. 
+then use `atrium-fluent-en_GB` which provides a pure fluent style API. 
 
 You are free to choose what fits best without introducing ambiguity etc.
 You could even mix up different API-Styles if needed (but not without losing conciseness I guess -- but hey, it is your decision :wink:). 
@@ -1294,7 +1317,8 @@ You could even mix up different API-Styles if needed (but not without losing con
 Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
 Until 1.0.0 this is only true for the API level, we reserve the right to break things on the domain and core level until then.
 Moreover, we follow the principle that a user of Atrium has enough time to migrate its code to new functionality before a next major version.
-We provide this in form of `@Deprecated` annotations with a corresponding `ReplaceWith` as well as migration guides.
+We provide this in form of `@Deprecated` annotations with a corresponding `ReplaceWith` 
+as well as migration guides in the [Release Notes](https://github.com/robstoll/atrium/releases).
 This way we hope that we provide a pleasant way to stay up-to-date without the need to migrate everything from one day to the other.
 
 ## Internationalization
@@ -1315,8 +1339,8 @@ I should not go on here, the HTML-Report feature is not yet implemented, but you
 
 # Write own Assertion Functions
 
-Are you missing an assertion function for a specific type and the generic `feature` functions
-(see [Feature Assertions](#feature-assertions) are not good enough?
+Are you missing an assertion function for a specific type and the generic 
+[Feature Assertions](#feature-assertions) are not good enough?
 
 The following sub sections will show how you can write your own assertion functions. 
 A pull request of your new assertion function is very much appreciated.
@@ -1326,8 +1350,8 @@ A pull request of your new assertion function is very much appreciated.
 This is kind of the simplest way of defining assertion functions. Following an example:
 
 ```kotlin
-fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
-    Untranslatable("is multiple of"), base, { subject % base == 0 })
+fun Expect<Int>.isMultipleOf(base: Int) =
+    createAndAddAssertion("is multiple of", base) { it % base == 0 }
 ```
 and its usage:
 
@@ -1339,51 +1363,35 @@ expect(12).isMultipleOf(5)
 
 Let us see how we actually defined `isMultipleOf`. 
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
-    Hence we define `isMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Assert<Int>`.
+    Hence we define `isMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Expect<Int>`.
 
-2. *Use the method `createAndAddAssertion`* (which is provided by `Assert`) to create the assertion 
-    and add it to `Assert` (so that is also evaluated, creating alone is not enough). 
-    The method `createAndAddAssertion` returns the `Assert` making it easy for you to provide a fluent API as well.
+2. *Use the method `createAndAddAssertion`* (which is provided by `Expect`) to create the assertion 
+    and add it to `Expect` (so that is also evaluated, creating alone is not enough). 
+    The method `createAndAddAssertion` returns the `Expect` making it easy for you to provide a fluent API as well.
  
     The method [createAndAddAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html)
     expects:
-    - a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
-      as  description of your assertion.
+    - a either a `String` or a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
+      as description of your assertion.
     - the representation of the expected value.
-    - and the actual check as lambda where you typically use the `subject` of the assertion.
+    - and the actual check as lambda where you typically use the `it` which refers to the subject of the assertion.
      
-We used an `Untranslatable` in the above example as first argument because we are not bothered with internationalization at this point
-(have a look at [Internationalization](#internationalization-1)).
+We used a `String` as description in the above example because we are not bothered with internationalization at this point
+(have a look at [Internationalization](#internationalization-1) if you are).
 
 In most cases you probably use the expected value itself as its representation -- so you pass it as second argument.
 And finally you specify the test as such in the lambda passed as third argument.
 
-<details>
-<summary>:interrobang: do not access subject expect in the third argument.<br/></summary>
-
-if you do not access `subject` other than in the lambda passed as third argument, 
-then you have what I call a `subjectless reporting function`.
-This is a good property because it means your function can be used in [explanation groups](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/explanatory-group.html)
-without breaking reporting.
-For instance, `expect(listOf(1, 2, 5, 8,9)).all { isMultipleOf(2) }` would blow up in the middle of error reporting if we did not adhere to the `subjectless reporting` property.
-
-It is recommended to verify your assertion functions against two abstract specs which are contained in `atrium-spec`.
-I will provide more information if someone is interested, please open an issue or contact me on slack.
-<hr/>
-</details>
-<br/>
-
 But not all assertion functions require a value which is somehow compared against the subject 
--- some make an assertion about a property of the `subject` without comparing it against an expected value.
+-- some make an assertion about a characteristic of the subject without comparing it against an expected value.
 Consider the following assertion function:
 
 ```kotlin
-fun Assert<Int>.isEven() = createAndAddAssertion(
-    DescriptionBasic.IS, RawString.create("an even number"), { subject % 2 == 0 })
+fun Expect<Int>.isEven() = 
+    createAndAddAssertion("is", RawString.create("an even number")) { it % 2 == 0 }
 ```
 We are using a [RawString](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
-Also notice, that we are reusing a common description (`DescriptionBasic.IS`) as first argument.
 Its usage looks then as follows:
 
 ```kotlin
@@ -1400,8 +1408,8 @@ We will show both use cases here, starting off by composing functions.
 
 Say you want to build a `isBetween` assertion function for `java.util.Date`, you could write it as follows:
 ```kotlin
-fun Assert<Date>.isBetween(lowerBoundInlc: Date, upperBoundExclusive: Date) = 
-    isGreaterOrEquals(lowerBoundInlc).and.isLessThan(upperBoundExclusive)
+fun <T: Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+    isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
 ```
 Pretty simply isn't it. 
 Notice though, that this function fails fast, which means, the upper bound is not evaluated 
@@ -1409,13 +1417,31 @@ if the assertion about the lower bound already fails.
 You need to use an [assertion group block](#define-single-assertions-or-assertion-groups) 
 if you want that both are evaluated:
 ```kotlin
-fun Assert<Date>.isBetween(lowerBoundInclusive: Date, upperBoundExclusive: Date) = and {
-    isGreaterOrEquals(lowerBoundInclusive)
-    isLessThan(upperBoundExclusive)
-}
+fun <T: Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+    addAssertionsCreatedBy {
+        isGreaterOrEquals(lowerBoundInclusive)
+        isLessThan(upperBoundExclusive)
+    }
 ``` 
 Still simple enough.
-(As side notice, Atrium tends to use `addAssertionsCreatedBy` internally instead of `and` as `and` delegates to `addAssertionsCreatedBy`).   
+
+<details>
+<summary>:interrobang: Why is a type parameter used in the above examples?</summary>
+
+That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
+You should always do this unless your type is final (not `open`) and does not have type parameters itself. 
+This way the assertion function is also available for subtypes. This is because `Expect` is invariant.
+Following an example:
+```kotlin
+interface A { val foo get() = 1 }
+class B: A
+val Expect<A>.foo get() = feature(A::foo)
+
+expect(B()).foo // does not compile as foo is only available for `Expect<A>`
+```
+    
+</details>
+
 
 So lets move on to an example which is a bit more complicated. Assume the following data class `Person`
 
@@ -1431,13 +1457,14 @@ data class Person(
 
 Say you want to make an assertion about the number of children a person has:
 ```kotlin
-fun Assert<Person>.hasNumberOfChildren(number: Int) = 
-    apply { property(Person::children).hasSize(number) }
+fun Expect<Person>.hasNumberOfChildren(number: Int) = apply {
+    feature(Person::children) { hasSize(number) } 
+}
 ```
-Two things to notice here: 
-1. we make use of a [property assertion]((#property-assertions))
-2. We use `apply` so that subsequent assertions are still made on Person and not on `children` 
-   (you could also use `return this` instead of `apply`)
+Three things to notice here: 
+1. we make use of a [feature assertion with class reference](#within-assertion-functions)
+2. We use `apply` so that subsequent assertions are still made on `Person` and not on `children` 
+   (you could also use `addAssertionsCreatedBy` or a block and `return this` instead of `apply`)
  
 Its usage is then as follows:
 ```kotlin
@@ -1451,9 +1478,10 @@ expect(Person("Susanne", "Whitley", listOf()))
 ```
 Another example: assert the person has children which are all adults (assuming 18 is the age of majority).
 ```kotlin
-fun Assert<Person>.hasAdultChildren() = apply {
-    property(Person::children)
-        .all { property(Person::age).isGreaterOrEquals(18) }
+fun Expect<Person>.hasAdultChildren() = apply {
+    feature(Person::children) {
+      all { property(Person::age).isGreaterOrEquals(18) }
+    }
 }
 ```
 We also use `apply` here for the same reason as above.
@@ -1469,25 +1497,25 @@ expect: Person(firstName=Susanne, lastName=Whitley, children=[], age=30)        
 If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function
 (assuming the API of Person is stable enough).
 ```kotlin
-val Assert<Person>.children get(): Assert<Collection<Person>> = property(Person::children)
-fun Assert<Person>.children(assertionCreator: Assert<Collection<Person>>.() -> Unit): Assert<Person>
-    = apply { children.addAssertionsCreatedBy(assertionCreator) }
+val Expect<Person>.children get(): Expect<Collection<Person>> = feature(Person::children)
+fun Expect<Person>.children(assertionCreator: Expect<Collection<Person>>.() -> Unit): Expect<Person> =
+    apply { feature(Person::children, assertionCreator) }
 ```
 With this, we can write things like:
 ```kotlin
 expect(person)
-  .children { // using the fun -> sub-assertions don't fail fast
-    none { property(Person::firstName).startsWith("Ro") }
-    all { property(Person::lastName).toBe("Stoll") }
-  } // subject is still Person here
-  .apply {
-    children  // using the val -> subsequent assertions are about children and fail fast
-      .hasSize(2)
-      .any { property(Person::age).isGreaterThan(18) }
-  } // subject is still Person here
-  .children // using the val -> subsequent assertions are about children and fail fast
-      .hasSize(2)
-      .contains(...)
+    .children { // using the fun -> sub-assertions don't fail fast
+        none { feature { f(it::firstName) }.startsWith("Ro") }
+        all { feature { f(it::firstName) }.toBe("Stoll") }
+    } // subject is still Person here
+    .apply {
+        children  // using the val -> subsequent assertions are about children and fail fast
+            .hasSize(2)
+            .any { feature { f(it::age) }.isGreaterThan(18) }
+    } // subject is still Person here
+    .children // using the val -> subsequent assertions are about children and fail fast
+    .hasSize(2)
+    .contains(...)
 ```
 
 <hr/>
@@ -1499,14 +1527,16 @@ We want to assert that the pairs contain only the first name / last name pairs o
 However, `contains.inAnyOrder.values` expects `Pair`s.
 So we have to map from `Person` to `Pair` upfront.
 As we have a variable length argument list and want to pass it to a variable length argument list, this cannot be done with a simple `map` from Kotlin. 
-And it gets worse if we want to use `contains.inAnyOrder.entries` which expects at least one identification lambda (`Assert<T>.() -> Unit`)
+And it gets worse if we want to use `contains.inAnyOrder.entries` which expects at least one `assertionCreator`-lambda (`Expect<T>.() -> Unit`)
 because Kotlin cannot infer the types automatically.
 
 `mapArguments` to the rescue, you can write the assertion function as follows:
 ```kotlin
-fun Assert<List<Pair<String, String>>>.areNamesOf(
+import ch.tutteli.atrium.domain.builders.utils.mapArguments
+
+fun <T: List<Pair<String, String>>> Expect<T>.areNamesOf(
     person: Person, vararg otherPersons: Person
-): Assert<List<Pair<String, String>>> {
+): Expect<T> {
     val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
     return contains.inAnyOrder.only.values(pair, *otherPairs)
 }
@@ -1517,12 +1547,12 @@ expect(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
 ```
 
 Another fictional example, say we want to assert that the pairs have the same initials as the given persons and in the given order.
-Which means, this time we need to use identification lambdas. This can be written as follows:
+Which means, this time we need to use `assertionCreator`-lambdas. This can be written as follows:
 ```kotlin
-fun Assert<List<Pair<String, String>>>.sameInitialsAs(
+fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
     person: Person, vararg otherPersons: Person
-): Assert<List<Pair<String, String>>> {
-    val (first, others) = mapArguments(person, otherPersons).toAssert<Pair<String, String>> {
+): Expect<T> {
+    val (first, others) = mapArguments(person, otherPersons).toExpect<Pair<String, String>> {
         first.startsWith(it.firstName[0].toString())
         second.startsWith(it.lastName[0].toString())
     }
@@ -1537,26 +1567,29 @@ extension function for [ArgumentMapperBuilder](https://docs.atriumlib.org/latest
 ## Enhanced Reporting
 
 [Composing assertion functions](#compose-assertion-functions) give already quite a bit of power to an assertion function writer.
-Yet, sometimes we would like to create functions which have a better error reporting than the one we get when we compose assertion functions.
+Yet, sometimes we would like to create functions which have a better error reporting than the one we get 
+when we compose assertion functions.
 
-[`AssertImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html) 
+[`ExpectImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-expect-impl/index.html) 
 is the entry point in this case.
 Its a builder and thus lets you find the functions you need via code completion.
 
 Following a quick overview what it provides:
 - all assertion functions on the domain level (what you have seen in [Compose-assertion-functions](#compose-assertion-functions) 
-was the API level) so that you can reuse them (e.g. `AssertImpl.collection.hasSize(...)`).
-- `AssertImpl.builder` to create different kinds of assertions (see [AssertionBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information).
-- `AssertImpl.changeSubject` which allows to change the subject silently, 
-   meaning it does not show up in reporting (e.g. `Assert<Array<out T>>.asIterable()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/master/apis/cc-en_GB/atrium-api-cc-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/arrayAssertions.kt#L17))
-- `AssertImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions (see [mapAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/mapAssertions.kt#L41))
-- `AssertImpl.feature.extractor` for feature assertions which are not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt))   
+was the API level) so that you can reuse and compose them in other ways.
+- `ExpectImpl.builder` to create different kinds of assertions (see [AssertionBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information).
+- `ExpectImpl.changeSubject` which allows to change the subject either:
+   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asIterable()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/master/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/arrayAssertions.kt#L17))
+   - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `isA` uses it, see [anyAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/anyAssertions.kt#L62))
+- `ExpectImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions (see [mapAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/mapAssertions.kt#L41))
+- `ExpectImpl.feature.extractor` for feature assertions which are not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt))   
 
 You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
-Unfortunately I do not have the time to cover all cases, so let me know (e.g. via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-([Invite yourself](http://slack.kotlinlang.org/)) if you want to know more.
+Unfortunately I do not have the time to cover all cases, so let me know  if you want to know more
+-- either by opening an issue or via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+([Invite yourself](http://slack.kotlinlang.org/)).
 
 ## Own Sophisticated Assertion Builders
 
@@ -1573,7 +1606,7 @@ In the meantime I might help you via slack, please post your questions in the [a
 
 # Use own Assertion Verbs
 
-Atrium offers three assertion verbs out of the box: `assert`, `assertThat` and `expect`. 
+Atrium offers three assertion verbs out of the box: `expect`, `assert` and `assertThat`. 
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
@@ -1585,7 +1618,7 @@ In order to create an own assertion verb it is sufficient to:
     Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
     ```
     dependencies {
-        testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
+        testCompile("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
             exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
         }
     }
@@ -1671,7 +1704,7 @@ The difference lies in the first argument passed to `createAndAddAssertion`;
 we do no longer use an `Untranslatable` but a proper `Translatable`. 
 
 ```kotlin
-fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
+fun Expect<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
     DescriptionIntAssertions.IS_MULTIPLE_OF, base, { subject % base == 0 })
     
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
@@ -1683,9 +1716,9 @@ enum class DescriptionIntAssertions(override val value: String) : StringBasedTra
 Typically you would put `DescriptionIntAssertions` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-cc-en_GB-robstoll-common](https://github.com/robstoll/atrium/tree/master/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/build.gradle)
+[atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
 uses `atrium-translations-en_GB-common` whereas 
-[atrium-cc-de_CH-robstoll-common](https://github.com/robstoll/atrium/tree/master/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/build.gradle)
+[atrium-fluent-de_CH-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
 uses `atrium-translations-de_CH-common`.  
 
 <details>
@@ -1712,7 +1745,7 @@ However, Atrium is designed to support this use case -- if you need this feature
 Let us rewrite the `isEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
 as second example:
 ```kotlin
-fun Assert<Int>.isEven() = createAndAddAssertion(
+fun Expect<Int>.isEven() = createAndAddAssertion(
     DescriptionCommon.IS, RawString.create(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
@@ -1739,15 +1772,15 @@ We follow the convention that impl-functions are prefixed with `_`
 -- this way the chance that it shows up in code completion, e.g. when a developer starts to type `is`, is very low):
 ```kotlin
 fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion 
-    = AssertImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+    = ExpectImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
 Notice that the impl-function is not an extension function as before 
-because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
+because we do not want to pollute the API of `AssertionPlant<Int>` (of `Expect<Int>` respectively) with this function.
 In the above example we created a simple [DescriptiveAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
 (`createAndAddAssertion` does the same under the hood)
 with a test which defines whether the assertion holds as well as a description (`IS_MULTIPLE_OF`) and a representation (`base`).
 
-[`AssertImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
+[`ExpectImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-expect-impl/index.html)
 helps you in writing own assertion functions. 
 I suggest you use it as entry point (rather than memorizing different class names), 
 it guides you to existing assertion function implementations for different types 
@@ -1756,7 +1789,7 @@ which in turn helps you with creating assertions.
 
 In the API module we define the extension function and call the impl-function:
 ```kotlin
-fun Assert<Int>.isMultipleOf(base: Int)
+fun Expect<Int>.isMultipleOf(base: Int)
     = addAssertion(_isMultipleOf(this, base))
 ```
 We do no longer have to create the assertion as in the example of
@@ -1765,7 +1798,7 @@ Therefore we use the `addAssertion` method and call the impl-function which will
 
 You are ready to go, creating an API in a different language -- e.g. in German -- is now only a routine piece of work:
 ```kotlin
-fun Assert<Int>.istVielfachesVon(base: Int)
+fun Expect<Int>.istVielfachesVon(base: Int)
     = addAssertion(_isMultipleOf(this, base))
 ```
 
@@ -1773,9 +1806,9 @@ fun Assert<Int>.istVielfachesVon(base: Int)
 <summary>:interrobang: Atrium has more layers</summary>
 
 If you have a look at existing assertion functions and try to reach the impl-function from the API
-then you will see that they use `AssertImpl` and that a few more indirections were introduced into Atrium. 
+then you will see that they use `ExpectImpl` and that a few more indirections were introduced into Atrium. 
 An API call looks more or less as follows: <br/>
-`API -> AssertImpl -> ServiceLoader -> Service -> Implementation`
+`API -> ExpectImpl -> ServiceLoader -> Service -> Implementation`
 
 The reasons behind this are simple, you could exchange a `Service` with another service if you want.
 A service could also reuse parts of the `Implementation` 
@@ -1795,9 +1828,9 @@ and it is your choice which implementation you want to use.
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom in the maven world):
 
-- [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/build.gradle)
-- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/build.gradle)
-- [atrium-cc-infix-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/build.gradle)
+- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-cfluent-en_GB-common/build.gradle)
+- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+- [atrium-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
@@ -1848,14 +1881,14 @@ In case you do not have an account for kotlinlang.slack.com yet, then please [In
 
 ## Are there contains/any/none/all assertions for `Sequence`/`Array`?
 
-Atrium does not provide extension function applicable to `Assert<Sequence<E>>` (or `Array`) directly,
+Atrium does not provide extension function applicable to `Expect<Sequence<E>>` (or `Array`) directly,
 because they would basically duplicate the functions available for `Iterable<E>`.  
-However, Atrium provides `asIterable` so that you can turn `Assert<Sequence<E>>` 
+However, Atrium provides `asIterable` so that you can turn `Expect<Sequence<E>>` 
 into `Expect<Iterable<E>>`. An example:
 ```kotlin
 expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 ```
-Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Assert<Iterable<E>>`.
+Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<Iterable<E>>`.
 
 <details>
 <summary>:interrobang: why do I not see anything about the transformation in reporting?</summary>
