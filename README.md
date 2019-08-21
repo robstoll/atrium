@@ -35,12 +35,12 @@ For instance, the [README of v0.8.0](https://github.com/robstoll/atrium/tree/v0.
 - [Examples](#examples)
   - [Your First Assertion](#your-first-assertion)
   - [Define Single Assertions or Assertion Groups](#define-single-assertions-or-assertion-groups)
-  - [Nullable Types](#nullable-types)
   - [Expect an Exception](#expect-an-exception)
   - [Feature Assertions](#feature-assertions)
     - [Property and Method](#property-and-methods)
     - [Arbitrary Features](#arbitrary-features)
   - [Type Assertions](#type-assertions)
+  - [Nullable Types](#nullable-types)
   - [Collection Assertions](#collection-assertions)
     - [Shortcut Functions](#shortcut-functions)
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders)
@@ -310,109 +310,6 @@ expect(4 + 6) {
     // ...
 }
 ```
- 
-## Nullable Types
-Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
-```kotlin
-val slogan1 : String? = "postulating assertions made easy"
-expect(slogan1).toBe(null)
-    // expect: "postulating assertions made easy"        <22600334>
-    // ◆ to be: null
-    
-val slogan2 : String? = null    
-expect(slogan2).toBe("postulating assertions made easy")
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //   » to be: "postulating assertions made easy"        <461160828>
-```
-On one hand, you can use `toBe` and pass the same type (`String?` in the above example, so in other words either `null` or a `String`).
-On the other hand, you can use `notToBeNull` to turn the subject into its non-null version as in the following example:
-
-```kotlin
-expect(slogan2).notToBeNull().startsWith("atrium")
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-
-expect(slogan2).notToBeNull { startsWith("atrium") }    
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //   >> starts with: "atrium"        <222427158>    
-```
-There are two `notToBeNull` overloads: 
-- the first is parameterless and turns only the subject into the expected type; 
-  failing to do so cannot include additional information in error reporting though.
-- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
-  -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
-  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
-  showing some additional context in case of a failure.
-
-Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
-involving nullable types.
-In case you want to make only simple is-equals-assertions, then you can use `toBe`:
-```kotlin
-fun myFun(i: Int) = if (i > 0) i.toString() else null
-
-expect("calling myFun with ...") {
-    mapOf(
-        Int.MIN_VALUE to null,
-        -1 to null, 
-        0 to null, 
-        1 to "1", 
-        2 to "2", 
-        Int.MAX_VALUE to Int.MAX_VALUE.toString()
-    ).forEach { arg, result ->
-        returnValueOf(::myFun, arg).toBe(result)
-    }
-}
-
-    // expect: "calling myFun with ..."        <472654579>
-    // ◆ ▶ myFun(-2147483648): null
-    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)        
-    //       » to be: "min"        <1282788025>
-    // ◆ ▶ myFun(0): null
-    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //       » to be: "zero"        <519569038>
-    // ◆ ▶ myFun(2147483647): "2147483647"        <97730845>
-    //     ◾ to be: "max"        <611437735>
-```
-
-Yet, if you wish to make sub-assertions on the non-nullable type of the subject, then you can use
-`toBeNullIfNullGivenElse` which accepts an assertion creator or `null`.
-It is short for `if (assertionCreatorOrNull == null) toBe(null) else notToBeNull(assertionCreatorOrNull)`. 
-Following another fictional example which illustrates `toBeNullIfNullGivenElse` (we are reusing `myFun` from above):
-```kotlin
-expect("calling myFun with ...") {
-    mapOf(
-        Int.MIN_VALUE to subAssert<String> { contains("min") },
-        -1 to null,
-        0 to null,
-        1 to subAssert { toBe("1") },
-        2 to subAssert { endsWith("2") },
-        Int.MAX_VALUE to  subAssert { toBe("max") }
-    ).forEach { arg, assertionCreatorOrNull ->
-        returnValueOf(::myFun, arg).toBeNullIfNullGivenElse(assertionCreatorOrNull)
-    }
-}
-
-    // expect: "calling myFun with ..."        <1989972246>
-    // ◆ ▶ myFun(-2147483648): null
-    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //         ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to kotlin.String failed.
-    // Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions
-    // ◆ ▶ myFun(0): null
-    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //       » starts with: "zero"        <1543727556>
-    // ◆ ▶ myFun(2147483647): "2147483647"        <401424608>
-    //     ◾ to be: "max"        <1348949648>
-``` 
-
-<details>
-<summary>:information_source: dealing a lot with nullable types from Java...</summary>
-
-... in this case I recommend to have a look at the [Java Interoperability](#java-interoperability) section.
-
-</details>
  
 ## Expect an Exception
 ```kotlin
@@ -780,6 +677,110 @@ Also have a look at feature extraction
 
 </details>
 
+
+
+## Nullable Types
+Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
+```kotlin
+val slogan1 : String? = "postulating assertions made easy"
+expect(slogan1).toBe(null)
+    // expect: "postulating assertions made easy"        <22600334>
+    // ◆ to be: null
+    
+val slogan2 : String? = null    
+expect(slogan2).toBe("postulating assertions made easy")
+    // expect: null
+    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //   » to be: "postulating assertions made easy"        <461160828>
+```
+On one hand, you can use `toBe` and pass the same type (`String?` in the above example, so in other words either `null` or a `String`).
+On the other hand, you can use `notToBeNull` to turn the subject into its non-null version as in the following example:
+
+```kotlin
+expect(slogan2).notToBeNull().startsWith("atrium")
+    // expect: null
+    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+
+expect(slogan2).notToBeNull { startsWith("atrium") }    
+    // expect: null
+    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //   >> starts with: "atrium"        <222427158>    
+```
+There are two `notToBeNull` overloads: 
+- the first is parameterless and turns only the subject into the expected type; 
+  failing to do so cannot include additional information in error reporting though.
+- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
+  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
+  -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
+  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
+  showing some additional context in case of a failure.
+
+Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
+involving nullable types.
+In case you want to make only simple is-equals-assertions, then you can use `toBe`:
+```kotlin
+fun myFun(i: Int) = if (i > 0) i.toString() else null
+
+expect("calling myFun with ...") {
+    mapOf(
+        Int.MIN_VALUE to null,
+        -1 to null, 
+        0 to null, 
+        1 to "1", 
+        2 to "2", 
+        Int.MAX_VALUE to Int.MAX_VALUE.toString()
+    ).forEach { arg, result ->
+        returnValueOf(::myFun, arg).toBe(result)
+    }
+}
+
+    // expect: "calling myFun with ..."        <472654579>
+    // ◆ ▶ myFun(-2147483648): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)        
+    //       » to be: "min"        <1282788025>
+    // ◆ ▶ myFun(0): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //       » to be: "zero"        <519569038>
+    // ◆ ▶ myFun(2147483647): "2147483647"        <97730845>
+    //     ◾ to be: "max"        <611437735>
+```
+
+Yet, if you wish to make sub-assertions on the non-nullable type of the subject, then you can use
+`toBeNullIfNullGivenElse` which accepts an assertion creator or `null`.
+It is short for `if (assertionCreatorOrNull == null) toBe(null) else notToBeNull(assertionCreatorOrNull)`. 
+Following another fictional example which illustrates `toBeNullIfNullGivenElse` (we are reusing `myFun` from above):
+```kotlin
+expect("calling myFun with ...") {
+    mapOf(
+        Int.MIN_VALUE to subAssert<String> { contains("min") },
+        -1 to null,
+        0 to null,
+        1 to subAssert { toBe("1") },
+        2 to subAssert { endsWith("2") },
+        Int.MAX_VALUE to  subAssert { toBe("max") }
+    ).forEach { arg, assertionCreatorOrNull ->
+        returnValueOf(::myFun, arg).toBeNullIfNullGivenElse(assertionCreatorOrNull)
+    }
+}
+
+    // expect: "calling myFun with ..."        <1989972246>
+    // ◆ ▶ myFun(-2147483648): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //         ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to kotlin.String failed.
+    // Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions
+    // ◆ ▶ myFun(0): null
+    //     ◾ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //       » starts with: "zero"        <1543727556>
+    // ◆ ▶ myFun(2147483647): "2147483647"        <401424608>
+    //     ◾ to be: "max"        <1348949648>
+``` 
+
+<details>
+<summary>:information_source: dealing a lot with nullable types from Java...</summary>
+
+... in this case I recommend to have a look at the [Java Interoperability](#java-interoperability) section.
+
+</details>
 
 ## Collection Assertions
 
@@ -1863,11 +1864,11 @@ Likewise you can turn an `Assert<Array<E>>`, `Assert<DoubleArray>` etc. into an 
 <details>
 <summary>:interrobang: why do I not see anything about the transformation in reporting?</summary>
 
-`asIterable` uses `AssertImpl.changeSubject` internally which is intended for not showing up in reporting.
+`asIterable` uses `ExpectImpl.changeSubject.unreported` internally which is intended for not showing up in reporting.
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
 as follows:
 ```
-expect(sequenceOf(1, 2, 3)).returnValueOf(Sequence::asIterable).contains(2)
+expect(sequenceOf(1, 2, 3)).feature(Sequence::asIterable).contains(2)
 ```
 
 </details>
@@ -1875,13 +1876,15 @@ expect(sequenceOf(1, 2, 3)).returnValueOf(Sequence::asIterable).contains(2)
 ## Where do I find a list of all available functions?
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
-- [atrium-cc-de_CH-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
-- [atrium-cc-en_GB-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
-- [atrium-cc-infix-en_GB-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
+- [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+
+## Problems in confjuntion with `feature`
+
+See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
 
 # Kotlin Bugs
 The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
-Please upvote them (especially if you encouter them yourself):
+Please upvote them (especially if you encounter them yourself):
 - [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects
 - [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
 - [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
