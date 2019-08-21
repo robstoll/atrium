@@ -11,7 +11,6 @@ class WorstCase {
     @JsName("propFun")
     fun propAndFun(): Int = 1
 
-
     fun overloaded(): Int = 1
     fun overloaded(b: Boolean): Int = 1
 }

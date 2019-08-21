@@ -8,7 +8,7 @@
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
 It is designed to support multiple [APIs](#apis), different error reporting styles and [Internationalization](#internationalization-1) (i18n). 
-The project was inspired by AssertJ at first (and was named AssertK) but it moved on and provides now more 
+The project was inspired by AssertJ at first but moved on and provides now more 
 flexibility, features and hints to its users (so to you :wink:).
 
 Atrium is designed to be extensible as well as configurable 
@@ -37,8 +37,9 @@ For instance, the [README of v0.8.0](https://github.com/robstoll/atrium/tree/v0.
   - [Define Single Assertions or Assertion Groups](#define-single-assertions-or-assertion-groups)
   - [Nullable Types](#nullable-types)
   - [Expect an Exception](#expect-an-exception)
-  - [Property Assertions](#property-assertions)
-  - [Method Assertions](#method-assertions)
+  - [Feature Assertions](#feature-assertions)
+    - [Property and Method](#property-and-methods)
+    - [Arbitrary Features](#arbitrary-features)
   - [Type Assertions](#type-assertions)
   - [Collection Assertions](#collection-assertions)
     - [Shortcut Functions](#shortcut-functions)
@@ -82,12 +83,11 @@ repositories {
     // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
 }
 ```
-We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll` in the above example 
-which provides a pure fluent API (in en_GB) for the JVM platform. 
-You have to add `-android` as suffix if you want to use it for an Android project.  
+We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
+which provides a pure fluent API (in en_GB) for the JVM platform.   
 
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
@@ -102,25 +102,9 @@ repositories {
     // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testCompile("ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB' 
-    }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll:$atrium_version")
+    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
 }
 ```
-
-We have to define an `exclude` due to a [missing feature in gradle](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
-(or you could call it a bug) so that maven dependencies defined with `<scope>runtime</scope>` are treated as compile nonetheless.
-If you are using gradle > 4.6, then you can put `enableFeaturePreview("IMPROVED_POM_SUPPORT")` in your settings.gradle
-and simplify the dependencies section to the following: 
-```
-dependencies {
-    testCompile "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version" 
-}
-```
-
-As mentioned above, add `-android` as suffix if you want to use it for an Android project.
-
 <hr/>
 </details>
 
@@ -137,25 +121,9 @@ repositories {
     // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testCompile("ch.tutteli.atrium:atrium-cc-de_CH-robstoll:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB' 
-    }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll:$atrium_version")
+    testImplementation "ch.tutteli.atrium:atrium-fluent-de_CH:$atrium_version"
 }
 ```
-
-We have to define an `exclude` due to a [missing feature in gradle](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
-(or you could call it a bug) so that maven dependencies defined with `<scope>runtime</scope>` are treated as compile nonetheless.
-If you are using gradle > 4.6, then you can put `enableFeaturePreview("IMPROVED_POM_SUPPORT")` in your settings.gradle
-and simplify the dependencies section to the following: 
-```
-dependencies {
-    testCompile "ch.tutteli.atrium:atrium-cc-de_CH-robstoll:$atrium_version" 
-}
-```
-
-As mentioned above, add `-android` as suffix if you want to use it for an Android project.
-
 <hr/>
 </details>
 <br/>
@@ -182,34 +150,34 @@ repositories {
     // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll-js:$atrium_version")
+    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:$atrium_version")
 }
 ```
 
-We have defined a dependency to the bundle `atrium-cc-en_GB-robstoll-js` in the above example 
+We have defined a dependency to the bundle `atrium-fluent-en_GB-robstoll` in the above example 
 which provides a pure fluent API (in en_GB) for the JS platform.
 
-You need to setup an explicit dependency on `atrium-cc-en_GB-robstoll-js` in your test code in order that you can use Atrium.
-This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler.
+You need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
+This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compilerf or JS.
 An example of how to setup Atrium in combination with the testing framework mocha is given in 
-[misc/examples/js/mocha](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha).
+[samples/js/mocha](https://github.com/robstoll/atrium/tree/master/samples/js/mocha).
 It also includes an automated way of establishing the dependency to Atrium.
 
 Atrium itself is using mocha as well 
-(see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/v0.0.8-beta/build.gradle#L290))
+(see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/master/build.gradle#L290))
 and has tests written in JS modules 
 (see [AdjustStackTest](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/ch/tutteli/atrium/core/robstoll/lib/reporting/AdjustStackTest.kt))
 as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/master/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/src/test/kotlin/SmokeTest.kt))
 which are executed on the JS platform as well 
 (actually on all platforms -> JVM uses JUnit for this purpose, see 
-[build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/v0.0.8-beta/build.gradle#L342)).
+[build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/master/build.gradle#L342)).
 
 Further examples for other test frameworks can be found in the
 [kotlin-examples repo](https://github.com/JetBrains/kotlin-examples/blob/master/gradle/js-tests).
 Notice though, that they do not include the automated setup of a dependency to a bundle of Atrium.
 Or in other words, you should at least create a gradle task similar to 
-[establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L85)
-or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/v0.0.8-beta/misc/examples/js/mocha/build.gradle#L80))
+[establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L85)
+or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L80))
 file in your test sources.
 
 <details>
@@ -225,23 +193,9 @@ repositories {
     // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testCompile("ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll-js:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB-js' 
-    }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll-js:$atrium_version")
+    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"
 }
 ```
-
-We have to define an `exclude` due to a [missing feature in gradle](https://guides.gradle.org/migrating-from-maven/#bills_of_materials_boms)
-(or you could call it a bug) so that maven dependencies defined with `<scope>runtime</scope>` are treated as compile nonetheless.
-If you are using gradle > 4.6, then you can put `enableFeaturePreview("IMPROVED_POM_SUPPORT")` in your settings.gradle
-and simplify the dependencies section to the following: 
-```
-dependencies {
-    testCompile "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll-js:$atrium_version" 
-}
-```
-
 <hr/>
 </details>
 
@@ -251,20 +205,20 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 The setup for using Atrium in an Android project is basically the same as for the [JVM setup](#jvm), you only need to
 suffix the dependency with `-android` in addition. 
-For instance `atrium-cc-en_GB-robstoll-android` instead of `atrium-cc-en_GB-robstoll`.
+For instance `atrium-fluent-en_GB-android` instead of `atrium-fluent-en_GB`.
 
 ## Common
 
 The setup for using Atrium in a common module of a multiplatform project is basically the same as for the
 [JVM setup](#jvm), you only need to suffix the dependency with `-common` in addition. 
-For instance `atrium-cc-en_GB-robstoll-common` instead of `atrium-cc-en_GB-robstoll`.
+For instance `atrium-fluent-en_GB-common` instead of `atrium-fluent-en_GB`.
 
 Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setup of a specific platform has to be done.
 
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm/build.gradle)
+[atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
 Have a look at 
@@ -274,7 +228,7 @@ to see how the infix API looks like, how they differ respectively.
 ## Your First Assertion
 We start off with a simple example:
 ```kotlin
-import ch.tutteli.atrium.verbs.expect
+import ch.tutteli.atrium.api.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ``` 
@@ -300,7 +254,7 @@ then you can skip now to the next section (otherwise click on the arrow to expan
 <summary>:information_source: further assertion verbs...</summary>
 
 Atrium provides two further assertion verbs next to `expect` out of the box: `assert` and `assertThat`
-which you can import with `import ch.tutteli.atrium.verbs.assert`, `import ch.tutteli.atrium.verbs.assertThat` respectively. 
+which you can import with `import ch.tutteli.atrium.api.verbs.assert`, `import ch.tutteli.atrium.api.verbs.assertThat` respectively. 
 Yet, you can also [define your own assertion verbs](#use-own-assertion-verbs) if another is your favourite.
 <hr/>
 </details> 
@@ -310,16 +264,15 @@ The next section shows how you can define multiple assertions for the same subje
 ## Define Single Assertions or Assertion Groups
 
 ```kotlin
- // two single assertions
+// two single assertions
  
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
     // expect: 10        (kotlin.Int <1841396611>)
     // ◆ is less than: 5        (kotlin.Int <1577592551>)
 ```
 
-
-Using the fluent API allows you to write the `expect(...)` part only once but making several single assertions for the same 
-[subject](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-base-assertion-plant/subject.html).
+Atrium allows you to chain assertions or in other words
+you only need to write the `expect(...)` part once and can make several single assertions for the same subject.
 The expression which determines the subject of the assertion (`4 + 6` in the above example) is evaluated only once. 
 
 In this sense we could have written it also as follows (which is only the same because `4 + 6` does not have side effects).
@@ -353,23 +306,10 @@ expect(4 + 6).isLessThan(5).and.isGreaterThan(10)
 
 expect(4 + 6) { 
     // ... 
-} and { 
+} and { // if the previous block fails, then this one is not evaluated
     // ...
 }
 ```
-
-<details>
-<summary>:information_source: assertion group block techniqually speaking...</summary>
- 
-An assertion group block is actually nothing else than a [lambda with a receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
-of type `Assert` (code-ish speaking `Assert<T>.() -> Unit`).
-The only thing you need to know about `Assert` at the moment is, that `expect(4 + 6)` creates an `Assert<Int>` 
-and that all assertion functions are defined as [extension function](https://kotlinlang.org/docs/reference/extensions.html)
-of `Assert`.
-Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `Assert`.
-
-</details>
-
  
 ## Nullable Types
 Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
@@ -384,16 +324,28 @@ expect(slogan2).toBe("postulating assertions made easy")
     // expect: null
     // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
     //   » to be: "postulating assertions made easy"        <461160828>
-    
-expect(slogan1).notToBeNull { startsWith("atrium") }
-    // expect: "postulating assertions made easy"        <651100072>
-    // ◆ starts with: "atrium"        <222427158>    
 ```
 On one hand, you can use `toBe` and pass the same type (`String?` in the above example, so in other words either `null` or a `String`).
-On the other hand, you can use `notToBeNull` to turn the subject into its non-null version (`String` in the above example)
-and then define sub-assertions in the corresponding [assertion group block](#define-single-assertions-or-assertion-groups) 
--- `{ startsWith("atrium") }` in the above example.
+On the other hand, you can use `notToBeNull` to turn the subject into its non-null version as in the following example:
 
+```kotlin
+expect(slogan2).notToBeNull().startsWith("atrium")
+    // expect: null
+    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+
+expect(slogan2).notToBeNull { startsWith("atrium") }    
+    // expect: null
+    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+    //   >> starts with: "atrium"        <222427158>    
+```
+There are two `notToBeNull` overloads: 
+- the first is parameterless and turns only the subject into the expected type; 
+  failing to do so cannot include additional information in error reporting though.
+- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
+  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
+  -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
+  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
+  showing some additional context in case of a failure.
 
 Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
 involving nullable types.
@@ -467,7 +419,7 @@ expect("calling myFun with ...") {
 expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty")
-}.toThrow<IllegalStateException>{}
+}.toThrow<IllegalStateException>()
 
     // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
     // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
@@ -475,23 +427,35 @@ expect {
 You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
 (`IllegalStateException` in the example above). 
 
-Moreover, you can define one or more subsequent assertions in the same assertion statement with the help of an 
-[assertion group block](#define-single-assertions-or-assertion-groups). 
-The subsequent assertions are evaluated in case the expected `Throwable` is thrown and is of the same type as the expected one (or a subtype).
-For instance:
+As with all narrowing functions, there are two overloads:
+- the first is parameterless and turns only the subject into the expected type; 
+  failing to do so cannot include additional information in error reporting though.
+- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
+  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups). 
+  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
+  showing some additional context in case of a failure.
+
+Following an example using both overloads:
 ```kotlin
 expect {
-    throw IllegalArgumentException("name is empty")
+    throw IllegalArgumentException()
+}.toThrow<IllegalArgumentException>().message.startsWith("firstName")
+    // expect the thrown exception: java.lang.IllegalArgumentException
+    // ◆ ▶ message: null
+    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+
+expect {
+    throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException> {
     message { startsWith("firstName") }
 }
     // expect the thrown exception: java.lang.IllegalArgumentException
-    // ◆ ▶ message: "name is empty"        <1793436274>
-    //     ◾ starts with: "firstName"        <572868060>
+    // ◆ ▶ message: null
+    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+    //       » starts with: "firstName"        <184607701>
 ```
-Notice `message` in the 
-[assertion group block](#define-single-assertions-or-assertion-groups) 
-is a shortcut for `property(subject::message).notToBeNull { ... }`, which creates a property assertion (see next section) 
+
+Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, which creates a feature assertion (see next section) 
 about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
@@ -516,158 +480,130 @@ expect {
     //  	at TestKt.main(test.kt:24)
 ```
 Notice that stacks are filtered so that you only see what is of interest. 
-Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
+Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate 
+[AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
 Stack frames of Atrium and of test runners (Spek, Kotlintest and JUnit for JVM, mocha for JS) are excluded per default.
 [Create a Feature Request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 in case you use a different runner, we can add yours to the list as well. 
  
-## Property Assertions
+<a name="property-assertions"></a>
+<a name="method-assertions"></a>
+## Feature Assertions
+Many times you are only interested in certain features of the subject and want to make assertions about them. 
+
+There are different use cases for feature assertions. 
+We will start of with properties and method calls and go on with more complicated scenarios.
+
+### Property and Methods
 ```kotlin
-data class Person(val name: String, val isStudent: Boolean)
-val myPerson = Person("Robert", false) 
-
-expect(myPerson)
-    .property(Person::isStudent)
-    .toBe(true) // fails
-    .toBe(true) // not evaluated anymore
-  
-    // expect: Person(name=Robert, isStudent=false)        (Person <1841396611>)
-    // ◆ ▶ isStudent: false
-    //     ◾ to be: true
-```  
-You can make assertions about properties of the subject (`myPerson` in the above example) by using `property` and pass a reference of the property to it
-
-In the above example we created two assertions, both for the property `isStudent` of `myPerson`.
-A property assertion (more general a feature assertion) is indicated as follows in the output. It starts with a `▶` followed by the feature's name and its actual value.
-So the above output can be read as "I expect, Person's property `isStudent` (which is actually `false`) to be `true`. 
-The second `toBe(true)` is not evaluated as the first already fails.
-
-You can pass an [assertion group block](#define-single-assertions-or-assertion-groups) as second argument to `property`.
-This way assertions within the block get all evaluated 
-(see [single assertions vs assertion group blocks](#define-single-assertions-or-assertion-groups) for more information).
-Following an example:
-```kotlin
-expect(myPerson) {
-    property(subject::name) {
-        startsWith("Pe") // fails
-        endsWith("er")   // is evaluated nonetheless
-    }
-}   
-    // expect: Person(name=Robert, isStudent=false)        (Person <1841396611>)
-    // ◆ ▶ name: "Robert"        <1818544933>
-    //     ◾ starts with: "Pe"        <1793436274>
-    //     ◾ ends with: "er"        <572868060>
-```
-There is another difference we would like to point out in the two examples.
-If you use `property` within an [assertion group block](#define-single-assertions-or-assertion-groups) 
--- regardless if you pass an assertion group block to `property` or not --
-then you can use `subject` in combination with a [bounded reference](https://kotlinlang.org/docs/reference/reflection.html#bound-function-and-property-references-since-11)
-to pass a reference of a property (`subject::name` in the above example) to `property`.
-Outside of a block you have to pass a reference in another way, e.g. by passing a class bounded reference
-(`Person::isStudent` in the first example).
- 
- Atrium provides several shortcuts for commonly used properties so that you can use them instead of writing `property(...)` all the time.
-For instance, `message` for Throwable (see [Expect an Exception](#expect-an-exception)), `first` and `second` for `Pair` and others.
-Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) in case you miss a shortcut.
- 
-:interrobang: &lt;- _this icon signifies answers/input for advanced users, you might want to skip them if you are new to Atrium._<br/>
-
-<details>
-<summary>:interrobang: Wrap each property into an assertion function? </summary>
-
-You might be asking yourself whether it is better to [write an own assertion function](#write-own-assertion-functions) or use `property`. 
-
-The only drawback IMO of using an existing property is that a few more key strokes are required compared to 
-[writing an own assertion function](#write-own-assertion-functions) once and then reuse it (as I did with `message`).
-Yet, I do not recommend to write an own assertion function for every single property.
-I think it makes sense to add one if you use it a lot and (preferably) it is a stable API, because one quickly forgets to 
-rename the assertion function if the property as such is renamed (e.g., as part of an IDE refactoring). 
-As you can see, you would need to keep the property name and the name of the assertion function in sync to be meaningful 
-(otherwise one gets quickly confused or has to remember two names for the same thing). 
-
-</details>
-
-## Method Assertions
-```kotlin
-data class Person(val firstName: String, val lastName: String) {
+data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
     fun fullName() = "$firstName $lastName"
     fun nickname(includeLastName: Boolean) = when(includeLastName){
         false -> "Mr. $firstName"
         true -> "$firstName aka. $lastName"
     }
 }
-val person = Person("Robert", "Stoll")
+val myPerson = Person("Robert", "Stoll", false)
 
-expect(person) {
-    returnValueOf(subject::fullName) {
-        contains("treboR")        // fails
-        startsWith("llotS")       // is evaluated nonetheless
-    }
-    returnValueOf(subject::nickname, false)
-      .toBe("Robert aka. Stoll")  // fails
-      .startsWith("llotS")         // not evaluated anymore
-}
-    // expect: Person(firstName=Robert, lastName=Stoll)        (Person <168907708>)
-    // ◆ ▶ fullName(): "Robert Stoll"        <820537534>
-    //     ◾ contains: 
-    //       ⚬ value: "treboR"        <1724457619>
-    //         ⚬ ▶ number of occurrences: 0
-    //             ◾ is at least: 1
-    //     ◾ starts with: "llotS"        <858232531>
+expect(myPerson)
+    .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
+    .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
+        .startsWith("rob")                        // not evaluated anymore
+  
+    // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <1841396611>)
+    // ◆ ▶ isStudent: false
+    //     ◾ to be: true
+```  
+<sub>We are sorry that the syntax is not yet the nicest one. 
+We admit that one has to get used to it first and that is a pity. 
+Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way.</sub>
+
+`feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
+Creating a `MetaFeature` is done via the function `f` by passing in a 
+[bounded reference](https://kotlinlang.org/docs/reference/reflection.html#bound-function-and-property-references-since-11) 
+of the corresponding property or method (including arguments if required).
+`it` within the `MetaFeature`-provider-lambda refers to the subject of the assertion (`myPerson` in the above example).
+Have a look at [Ambiguity Problems](#ambiguity-problems) in case the compiler is not happy (it is most likely due to a Kotlin Bug).
+
+In the above example we created two assertions, one for the property `isStudent` of `myPerson` 
+and a second one for the return value of calling `fullName()` on `myPerson`.
+A feature assertion is indicated as follows in reporting. 
+It starts with a `▶` followed by the feature's name and its actual value.
+So the above output can be read as "I expect, Person's property `isStudent` (which is actually `false`) to be `true`. 
+The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups) 
+which have fail-fast semantic.
+
+Feature assertions follow the common pattern of having two overloads:
+- the first expects only the `MetaFeature`-provider-lambda. 
+  This overload narrows the subject to the feature, 
+  meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
+  
+- the second expects an `assertionCreator` lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
+  Moreover, the subject stays the same so that subsequent calls are still about the same subject.
+
+    ```kotlin
+    expect(myPerson) { // forms an assertion group block
+  
+        feature({ f(it::firstName) }) { // forms an assertion group block
+            startsWith("Pe")            // fails
+            endsWith("er")              // is evaluated nonetheless
+        }                               // fails as a whole
+  
+        feature { f(it::lastName) }.toBe("Dummy") // still evaluated, as it is in outer assertion group block
+    }   
+        // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <1841396611>)
+        // ◆ ▶ firstName: "Robert"        <1818544933>
+        //     ◾ starts with: "Pe"        <1793436274>
+        //     ◾ ends with: "er"        <572868060>
+        // ◆ ▶ lastName: "Stoll"        <1818544933>
+        //     ◾ to be: "Dummy"        <233436274>
+    ```
+
+<br/>
+
+Atrium provides several shortcuts for commonly used properties so that you can use them instead of writing `feature(...)` all the time.
+For instance, `message` for Throwable (see [Expect an Exception](#expect-an-exception)), `first` and `second` for `Pair` and others.
+Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) in case you miss a shortcut.
+
+:interrobang: &lt;- _this icon signifies answers/input for advanced users, you might want to skip them if you are new to Atrium._<br/>
+
+<details>
+<summary>:interrobang: Wrap each property into an assertion function? </summary>
+
+You might be asking yourself whether it is better to [write an own assertion function](#write-own-assertion-functions) or use `feature`. 
+
+The only drawback of using an existing property is that a few more key strokes are required compared to 
+[writing an own assertion function](#write-own-assertion-functions) once and then reuse it (as I did with `message`).
+Yet, I do not recommend to write an own assertion function for every single property.
+I think it makes sense to add one if you use it a lot and (preferably) it is a stable API. 
+Why not always? Because one quickly forgets to rename the assertion function 
+if the property as such is renamed (e.g., as part of an IDE refactoring). 
+As you can see, you would need to keep the property name and the name of the assertion function in sync to be meaningful 
+(otherwise one gets quickly confused or has to remember two names for the same thing). 
+
+Writing assertion functions for methods is a different story though, especially due to [overload bugs in Kotlin](#kotlin-bugs).
+Also, code completion is not yet as good as it should be when it comes to methods. 
+Last but not least, in case it is not always safe to call a method (e.g. `List.get` => IndexOutOfBound) then it makes
+sense to wrap it into an assertion function and use `ExpectImpl.feature.extractor` instead.
+
+</details>
+  
+Last but not least, let us have a look at an example where a method with arguments is used as feature:
+```kotlin
+
+expect(myPerson)
+    .feature { f(subject::nickname, false) } // subject narrowed to String
+        .toBe("Robert aka. Stoll")  // fails
+        .startsWith("llotS")         // not evaluated anymore
+
+    // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <168907708>)
     // ◆ ▶ nickname(false): "Mr. Robert"        <1325465767>
     //     ◾ to be: "Robert aka. Stoll"        <1021258849>
 ```
-You can make an assertion about a method of the subject (`person` in the above example) 
-or rather about the value which is returned when calling the method with some specified arguments. 
-Such feature assertions can be made with the help of the assertion function `returnValueOf`. 
-There are overloads to support methods with up to 5 parameters (notice, `fullName` has none and `nickname` has one parameter in the above example).
 
-Along the line of [Property Assertions](#property-assertions), you can optionally pass an 
-[assertion group block](#define-single-assertions-or-assertion-groups) to `returnvalueOf` (as for `subject::fullName` in the above example) 
-so that all assertions within the block are evaluated  
-(see [single assertions vs assertion group blocks](#define-single-assertions-or-assertion-groups) for more information).
-
-Atrium provides only a few shortcuts for commonly used methods so far: `List.get` and `Map.getExisting` 
-where both include some additional checking (index bound and existence of the key within the map)
-Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) in case you miss a shortcut. 
-
-<details>
-<summary>:interrobang: Write own feature assertion functions with additional checks.</summary>
-
-Atrium provides a feature extractor which allows to make feature assertions in a safe way in case they are only valid for certain input.
-In case it is always safe to extract the feature then you can just wrap `returnValueOf` (or `property`) into your custom function.
-For instance:
-```kotlin
-fun Assert<File>.exists() = returnValueOf(File::exists)
-```
-If not, then use `AssertImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
-
-</details>
-
-:poop: &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. 
-We try to provide a workaround whenever possible._
-
-<details>
-<summary>:poop: using <code>returnValueOf</code> results in an overload ambigouity</summary> 
-
-Unfortunately, due to a [bug in Kotlin](https://youtrack.jetbrains.com/issue/KT-17340)
-(please upvote it) you wont be able to use `returnValueOf` for a method which has overloads in certain situations. 
-As workaround you can use the domain function `returnValueOfX` where `X` needs to be replaced by the number of arguments expected.
-Hopefully you never encounter the bug but in case... following an example:
-```kotlin
-import ch.tutteli.atrium.domain.builders.AssertImpl
-expect(person) {
-    AssertImpl.feature.returnValueOf1(this, Person::nickname, arg1= false).toBe("Robert aka. Stoll")
-}
-```
-The output is the same as above. 
-
-In other cases type inference will not be good enough to infer `T` of `Assert<T>.() -> Unit` 
-([this bug](https://youtrack.jetbrains.com/issue/KT-24230)).
-You can use the helper function `subAssert` in such cases which is merely an identity function. 
-As an example, have a look at [FeatureAssertionsClassReferenceSpec](https://github.com/robstoll/atrium/tree/master/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
-
-</details> <br/>
+`f` supports methods with up to 5 arguments.
 
 <details>
 <summary>:interrobang: Why only overloads for up to 5 parameters</summary>
@@ -678,6 +614,139 @@ In case you have a function with 6 or more parameters and you do not want or can
 then I suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
 
 </details>
+
+
+Atrium provides shortcuts for commonly used methods - so far only: `List.get` and `Map.getExisting` 
+where both include some additional checking (index bound and existence of the key within the map)
+Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
+in case you miss a shortcut. 
+
+<details>
+<summary>:interrobang: Write own feature assertion functions with additional checks.</summary>
+
+Atrium provides a feature extractor which allows to make feature assertions in a safe way in case they are only valid for certain input.
+See `ExpectImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
+
+</details>
+
+### Arbitrary Features
+A feature does not necessarily have to be directly related to the subject as properties or method calls do.
+You can use the overload which expects a feature description in form of a `String` as first argument instead.
+Following an example:
+```kotlin
+data class Person(val firstName: String, val lastName: String)
+data class Family(val members: List<Person>)
+
+val myFamily = Family(listOf(Person("Robert", "Stoll")))
+
+expect(myFamily)
+    .feature("number of members", { members.size }) { toBe(1) }      // subject still Family afterwards
+    .feature("first person's lastName") { members.first().lastName } // subject narrowed to Person
+    .toBe("Robert")
+
+    // expect: Family(members=[Person(firstName=Robert, lastName=Stoll)])        (Family <1384560357>)
+    // ◆ ▶ first person's lastName: "Stoll"        <931268856>
+    //     ◾ to be: "Robert"        <86342242>
+```
+
+Also this version of `feature` provides two different kind of overloads:
+- the first expects a feature description and a feature-provider-lambda
+  This overload narrows the subject to the feature, 
+  meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
+  
+- the second expects an `assertionCreator` lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
+  Moreover, the subject stays the same so that subsequent calls are still about the same subject.
+
+As you can see, Atrium provides a generic way to postulate assertions about features. 
+Yet, if you use such feature assertion often or it gets more complicated, 
+then it might be worth to [write an own assertion function](#write-own-assertion-functions).
+
+### Within Assertion Functions
+
+In case you write an own assertion function, then we discourage to use the `MetaFeature`-provider-lambda 
+but encourage to pass a [class references](https://kotlinlang.org/docs/reference/reflection.html#class-references)
+to `feature` instead.
+This has the benefit, that we can always show the feature name, also in case a previous feature extraction or subject
+transformation failed.
+Following an example: 
+```kotlin
+fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBeDoneWrong(expected: F) =
+    feature({ f(it::first) }) { toBe(expected) }
+
+fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBe(expected: F) =
+    feature(Pair<F, *>::first) { toBe(expected) }
+
+expect(listOf(1 to "a", 2 to "b")).get(10) {
+    firstToBeDoneWrong(1)
+    firstToBe(1)
+}
+    // assert: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <61380653>)
+    // ◆ ▶ get(10): ❗❗ index out of bounds
+    //       » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
+    //             » to be: 1        (kotlin.Int <1786454499>)
+    //       » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
+    //             » to be: 1        (kotlin.Int <1786454499>)
+```
+
+Also this version of `feature` provides to kind of overloads, one without and and with `assertionCreator`-lambda.
+(see for instance [Arbitrary Features](#arbitrary-features) for more information).
+
+### Ambiguity Problems
+Unfortunately there are several Kotlin bugs when it comes to overloading, especially in conjunction with `KFunction`
+(see [Kotlin Bugs](#kotlin-bugs) and upvote in case you run into one).
+However, Atrium provides alternative functions next to `f` within the `MetaFeature`-provider-lambda to disambiguate the situation.
+Use `p` for properties and `f0` to `f5` for methods. 
+Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
+
+```kotlin
+class WorstCase {
+    val propAndFun: Int = 1
+    @JsName("propFun")
+    fun propAndFun(): Int = 1
+
+    fun overloaded(): Int = 1
+    fun overloaded(b: Boolean): Int = 1
+}
+
+expect(WorstCase()) {
+    feature { p<Int>(it::propAndFun) }
+    feature { f0<Int>(it::propAndFun) }
+    feature { f0<Int>(it::overloaded) }
+    feature { f1<Boolean, Int>(it::overloaded, true) }
+}
+```
+
+Notice, that you might run into the situation that Intellij is happy but the compiler is not.
+For instance, Intellij will suggest that you can remove the type parameters in the above example. 
+Yet, if you do so, then the compiler will fail, mentioning ambiguous overloads. 
+Most of the time this problem stems from the reason that the new type inference algorithm is used per default within Intellij 
+(see File | Settings | Build, Execution, Deployment | Compiler | Kotlin Compiler => Enable new type inference...)
+
+Next to using the alternative functions, you could also use the syntax for [arbitrary features](#arbitrary-features) 
+to circumvent the problem -- up to you.
+
+### Property does not exist
+
+In case you deal with Java code, then you might run into the problem that a property does not exist. 
+This is due to the fact that Kotlin only provides syntactic sugar to access a getter via property syntax. 
+In such a case, use the `get...` method instead. For instance:
+```java
+// java
+class A { 
+    public String getFoo() { return "bar"; } 
+}
+```
+```kotlin
+// kotlin
+val a = A()
+a.foo // syntactic sugar, accesses getFoo via property
+expect(a)
+    // feature{ f(it::foo) }    // would result in a compile error
+    .feature { f(it::getFoo) }  // works
+    .startsWith(...)
+``` 
 
 ## Type Assertions
 ```kotlin
@@ -1117,6 +1186,9 @@ Atrium provides a fluent API where the design focus was put on the interoperabil
 Or in other words, you can always use code completion to get direct help from your IDE.
 This experience is improved by providing up-to-date [code documentation](#kdoc) (in form of KDoc) for all assertion functions, 
 so that you get the extra help needed.
+
+:poop: &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. 
+We try to provide a workaround whenever possible._
 
 <details>
 <summary>:poop: There is no KDoc for toBe</summary>
