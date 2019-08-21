@@ -34,29 +34,29 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
         private fun getContainsNotPair() = containsNot to Companion::containsNotFun
 
         private fun containsNotFun(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.containsNot.value(a)
-            else plant.containsNot.values(a, *aX)
+            if (aX.isEmpty()) expect.containsNot.value(a)
+            else expect.containsNot.values(a, *aX)
 
         private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) plant.containsNot.value(a)
-            else plant.containsNot.values(a, *aX)
+            if (aX.isEmpty()) expect.containsNot.value(a)
+            else expect.containsNot.values(a, *aX)
 
         private val containsNotShortcutFun: KFunction3<Expect<Iterable<Double>>, Double, Array<out Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsNot
 
         private fun getContainsNotShortcutPair() = containsNotShortcutFun.name to Companion::containsNotShortcut
 
-        private fun containsNotShortcut(plant: Expect<Iterable<Double>>, a: Double, aX: Array<out Double>) =
-            plant.containsNot(a, *aX)
+        private fun containsNotShortcut(expect: Expect<Iterable<Double>>, a: Double, aX: Array<out Double>) =
+            expect.containsNot(a, *aX)
     }
 }

@@ -15,24 +15,24 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec :
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyEntries
 
         private fun containsInAnyOrderOnlyEntries(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.contains.inAnyOrder.only.entry(a)
-            else plant.contains.inAnyOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.contains.inAnyOrder.only.entry(a)
+            else expect.contains.inAnyOrder.only.entries(a, *aX)
 
 
         fun getContainsNullablePair() =
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntries
 
         private fun containsInAnyOrderOnlyNullableEntries(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) plant.contains.inAnyOrder.only.entry(a)
-            else plant.contains.inAnyOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.contains.inAnyOrder.only.entry(a)
+            else expect.contains.inAnyOrder.only.entries(a, *aX)
 
     }
 }

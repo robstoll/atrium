@@ -19,12 +19,12 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderValues
 
         private fun containsInOrderOnlyGroupedInAnyOrderValues(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a1: Group<Double>,
             a2: Group<Double>,
             aX: Array<out Group<Double>>
         ): Expect<Iterable<Double>> {
-            return plant.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+            return expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
         }
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
@@ -41,12 +41,12 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
 
         private fun containsInOrderOnlyGroupedInAnyOrderNullableValues(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a1: Group<Double?>,
             a2: Group<Double?>,
             aX: Array<out Group<Double?>>
         ): Expect<Iterable<Double?>> {
-            return plant.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+            return expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
         }
 
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =

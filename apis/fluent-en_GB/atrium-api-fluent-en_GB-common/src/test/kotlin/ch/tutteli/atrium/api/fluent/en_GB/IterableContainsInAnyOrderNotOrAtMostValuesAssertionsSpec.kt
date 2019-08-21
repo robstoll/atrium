@@ -18,11 +18,11 @@ class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec :
                 ("$contains.$notOrAtMost" to Companion::containsNotOrAtMost)
 
         private fun containsNotOrAtMost(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             atMost: Int,
             a: Double,
             aX: Array<out Double>
-        ) = plant.contains.inAnyOrder.notOrAtMost(atMost).values(a, *aX)
+        ) = expect.contains.inAnyOrder.notOrAtMost(atMost).values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

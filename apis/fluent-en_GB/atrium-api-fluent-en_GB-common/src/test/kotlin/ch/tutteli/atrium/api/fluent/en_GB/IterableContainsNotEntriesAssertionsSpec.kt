@@ -16,21 +16,21 @@ class IterableContainsNotEntriesAssertionsSpec :
         private fun getContainsNotPair() = containsNot to Companion::containsNotFun
 
         private fun containsNotFun(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.containsNot.entry(a)
-            else plant.containsNot.entries(a, *aX)
+            if (aX.isEmpty()) expect.containsNot.entry(a)
+            else expect.containsNot.entries(a, *aX)
 
         private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) plant.containsNot.entry(a)
-            else plant.containsNot.entries(a, *aX)
+            if (aX.isEmpty()) expect.containsNot.entry(a)
+            else expect.containsNot.entries(a, *aX)
     }
 }

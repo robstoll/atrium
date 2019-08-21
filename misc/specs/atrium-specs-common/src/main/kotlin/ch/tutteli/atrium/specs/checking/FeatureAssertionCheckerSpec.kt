@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionHolder
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -30,9 +30,9 @@ abstract class FeatureAssertionCheckerSpec(
     })
     val assertionVerb = AssertionVerb.VERB
     val valueUnderTest = 1
-    val subjectFactory = mockk<AssertionPlant<Int>>()
-    every { subjectFactory.addAssertion(any()) } returns subjectFactory
-    val testee = testeeFactory(subjectFactory)
+    val assertionContainer = mockk<Expect<Int>>()
+    every { assertionContainer.addAssertion(any()) } returns assertionContainer
+    val testee = testeeFactory(assertionContainer)
 
 
     describeFun("check") {
@@ -41,8 +41,8 @@ abstract class FeatureAssertionCheckerSpec(
             val captured by memoized(mode = CachingMode.SCOPE) {
                 testee.check(assertionVerb, valueUnderTest, assertions)
                 val slot = slot<Assertion>()
-                verify(exactly = 1) { subjectFactory.addAssertion(capture(slot)) }
-                confirmVerified(subjectFactory)
+                verify(exactly = 1) { assertionContainer.addAssertion(capture(slot)) }
+                confirmVerified(assertionContainer)
                 slot.captured
             }
 

@@ -199,7 +199,7 @@ abstract class FeatureAssertionsSpec(
         }, *functions.map { it.first to it.second }.toTypedArray(), *nullableHoldsFunctions)
     }
 
-    prefixedDescribe("assertion plant which checks immediately; use lazy property which has nested...") {
+    prefixedDescribe("assertion container which checks immediately; use lazy property which has nested...") {
         context("... immediate feature property") {
             it("it does not throw an exception if the assertion holds") {
                 verbs.check(TestData("hello robert", 1)).itsLazyWithNestedImmediate()

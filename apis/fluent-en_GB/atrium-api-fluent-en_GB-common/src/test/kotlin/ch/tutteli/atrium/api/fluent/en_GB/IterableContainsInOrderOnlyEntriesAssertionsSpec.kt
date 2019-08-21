@@ -32,23 +32,23 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
         fun getContainsPair() = "$contains.$inOrder.$only.$inOrderOnlyEntries" to Companion::containsInOrderOnly
 
         private fun containsInOrderOnly(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.contains.inOrder.only.entry(a)
-            else plant.contains.inOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.contains.inOrder.only.entry(a)
+            else expect.contains.inOrder.only.entries(a, *aX)
 
         fun getContainsNullablePair() =
             "$contains.$inOrder.$only.$inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
 
         private fun containsInOrderOnlyNullableEntriesPair(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) plant.contains.inOrder.only.entry(a)
-            else plant.contains.inOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.contains.inOrder.only.entry(a)
+            else expect.contains.inOrder.only.entries(a, *aX)
 
         private val containsShortcutFun: KFunction3<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsExactly

@@ -18,13 +18,13 @@ class IterableContainsInAnyOrderExactlyValuesAssertionsSpec :
                 ("$contains.$inAnyOrder.$exactly" to Companion::containsExactly)
 
         private fun containsExactly(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             exactly: Int,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.contains.inAnyOrder.exactly(exactly).value(a)
-            else plant.contains.inAnyOrder.exactly(exactly).values(a, *aX)
+            if (aX.isEmpty()) expect.contains.inAnyOrder.exactly(exactly).value(a)
+            else expect.contains.inAnyOrder.exactly(exactly).values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

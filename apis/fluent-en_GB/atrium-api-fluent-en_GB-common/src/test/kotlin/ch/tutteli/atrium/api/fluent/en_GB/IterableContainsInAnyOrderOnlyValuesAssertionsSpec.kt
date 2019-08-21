@@ -15,24 +15,24 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec :
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnlyValues
 
         private fun containsInAnyOrderOnlyValues(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.contains.inAnyOrder.only.value(a)
-            else plant.contains.inAnyOrder.only.values(a, *aX)
+            if (aX.isEmpty()) expect.contains.inAnyOrder.only.value(a)
+            else expect.contains.inAnyOrder.only.values(a, *aX)
 
 
         fun getContainsNullablePair() =
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnlyNullableValues
 
         private fun containsInAnyOrderOnlyNullableValues(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) plant.contains.inAnyOrder.only.value(a)
-            else plant.contains.inAnyOrder.only.values(a, *aX)
+            if (aX.isEmpty()) expect.contains.inAnyOrder.only.value(a)
+            else expect.contains.inAnyOrder.only.values(a, *aX)
 
     }
 }

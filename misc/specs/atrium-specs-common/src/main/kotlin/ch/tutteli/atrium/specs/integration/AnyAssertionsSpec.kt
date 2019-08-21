@@ -720,15 +720,15 @@ abstract class AnyAssertionsSpec(
 
 
     prefixedDescribe("property `${andPair.name}` immediate") {
-        it("returns the same plant") {
-            val plant = verbs.check(1)
-            verbs.check(plant.(andPair.lambda)()).toBe(plant)
+        it("returns the same container") {
+            val container = verbs.check(1)
+            verbs.check(container.(andPair.lambda)()).toBe(container)
         }
     }
     prefixedDescribe("`${andLazyPair.name}` group") {
-        it("returns the same plant") {
-            val plant = verbs.check(1)
-            verbs.check(plant.(andLazyPair.lambda){ toBe(1) }).toBe(plant)
+        it("returns the same container") {
+            val container = verbs.check(1)
+            verbs.check(container.(andLazyPair.lambda){ toBe(1) }).toBe(container)
         }
     }
 

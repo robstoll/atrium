@@ -16,14 +16,14 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.specs.integratio
             { what: String -> "$containsNot $what" } to
                 (containsNot to Companion::containsNotFun)
 
-        private fun containsNotFun(plant: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            plant.containsNot.values(a, *aX)
+        private fun containsNotFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.containsNot.values(a, *aX)
 
         private fun getContainsNotIgnoringCaseTriple() =
             { what: String -> "$containsNot $ignoringCase $what" } to
                 ("$containsNot.$ignoringCase" to Companion::containsNotIgnoringCase)
 
-        private fun containsNotIgnoringCase(plant: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            plant.containsNot.ignoringCase.values(a, *aX)
+        private fun containsNotIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.containsNot.ignoringCase.values(a, *aX)
     }
 }

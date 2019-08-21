@@ -17,13 +17,11 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec :
             "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderEntries
 
         private fun containsInOrderOnlyGroupedInAnyOrderEntries(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a1: Group<(Expect<Double>.() -> Unit)?>,
             a2: Group<(Expect<Double>.() -> Unit)?>,
             aX: Array<out Group<(Expect<Double>.() -> Unit)?>>
-        ): Expect<Iterable<Double?>> {
-            return plant.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
-        }
+        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out (Expect<Double>.() -> Unit)?>) =
             when (groups.size) {

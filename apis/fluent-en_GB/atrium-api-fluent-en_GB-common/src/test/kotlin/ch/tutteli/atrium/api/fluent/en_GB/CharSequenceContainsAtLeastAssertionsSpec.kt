@@ -23,13 +23,13 @@ class CharSequenceContainsAtLeastAssertionsSpec :
                 ("$contains.$atLeast" to Companion::containsAtLeast)
 
         private fun containsAtLeast(
-            plant: Expect<CharSequence>,
+            expect: Expect<CharSequence>,
             atLeast: Int,
             a: Any,
             aX: Array<out Any>
         ): Expect<CharSequence> =
-            if (aX.isEmpty()) plant.contains.atLeast(atLeast).value(a)
-            else plant.contains.atLeast(atLeast).values(a, *aX)
+            if (aX.isEmpty()) expect.contains.atLeast(atLeast).value(a)
+            else expect.contains.atLeast(atLeast).values(a, *aX)
 
         private fun getAtLeastIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $atLeast $times" } to
@@ -37,17 +37,17 @@ class CharSequenceContainsAtLeastAssertionsSpec :
 
 
         private fun containsAtLeastIgnoringCase(
-            plant: Expect<CharSequence>,
+            expect: Expect<CharSequence>,
             atLeast: Int,
             a: Any,
             aX: Array<out Any>
         ): Expect<CharSequence> =
             if (aX.isEmpty()) {
-                if (atLeast == 1) plant.contains.ignoringCase.value(a)
-                else plant.contains.ignoringCase.atLeast(atLeast).value(a)
+                if (atLeast == 1) expect.contains.ignoringCase.value(a)
+                else expect.contains.ignoringCase.atLeast(atLeast).value(a)
             } else {
-                if (atLeast == 1) plant.contains.ignoringCase.values(a, *aX)
-                else plant.contains.ignoringCase.atLeast(atLeast).values(a, *aX)
+                if (atLeast == 1) expect.contains.ignoringCase.values(a, *aX)
+                else expect.contains.ignoringCase.atLeast(atLeast).values(a, *aX)
             }
 
         private fun getAtLeastButAtMostTriple() =
@@ -55,24 +55,24 @@ class CharSequenceContainsAtLeastAssertionsSpec :
                 ("$contains.$atLeast.$butAtMost" to Companion::containsAtLeastButAtMost)
 
         private fun containsAtLeastButAtMost(
-            plant: Expect<CharSequence>,
+            expect: Expect<CharSequence>,
             atLeast: Int,
             butAtMost: Int,
             a: Any,
             aX: Array<out Any>
-        ) = plant.contains.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
+        ) = expect.contains.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getAtLeastBustAtMostIgnoringCaseTriple() =
             { what: String, timesAtLeast: String, timesAtMost: String -> "$contains $ignoringCase $what $atLeast $timesAtLeast $butAtMost $timesAtMost" } to
                 ("$contains.$ignoringCase.$atLeast.$butAtMost" to Companion::containsAtLeastButAtMostIgnoringCase)
 
         private fun containsAtLeastButAtMostIgnoringCase(
-            plant: Expect<CharSequence>,
+            expect: Expect<CharSequence>,
             atLeast: Int,
             butAtMost: Int,
             a: Any,
             aX: Array<out Any>
-        ) = plant.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
+        ) = expect.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

@@ -32,12 +32,12 @@ class IterableNoneAssertionsSpec : Spek({
 
         private fun getContainsNotPair() = containsNot to Companion::containsNotFun
 
-        private fun containsNotFun(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            plant.containsNot.entry(a)
+        private fun containsNotFun(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            expect.containsNot.entry(a)
 
         private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
-        private fun containsNotNullableFun(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
-            plant.containsNot.entry(a)
+        private fun containsNotNullableFun(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            expect.containsNot.entry(a)
     }
 }
