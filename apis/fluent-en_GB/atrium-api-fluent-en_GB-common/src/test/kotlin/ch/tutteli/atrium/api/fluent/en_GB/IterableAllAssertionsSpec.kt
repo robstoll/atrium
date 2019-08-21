@@ -10,4 +10,3 @@ class IterableAllAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAl
     fun1(Expect<Iterable<Double?>>::all),
     "◆ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ "
 )
-

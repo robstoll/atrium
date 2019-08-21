@@ -1,4 +1,5 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -14,7 +15,6 @@ import java.util.*
  */
 object OptionalAssertionsBuilder : OptionalAssertions {
 
-    override inline fun <T> isEmpty(assertionContainer: Expect<Optional<T>>)
-        = optionalAssertions.isEmpty(assertionContainer)
-
+    override inline fun <T> isEmpty(assertionContainer: Expect<Optional<T>>) =
+        optionalAssertions.isEmpty(assertionContainer)
 }
