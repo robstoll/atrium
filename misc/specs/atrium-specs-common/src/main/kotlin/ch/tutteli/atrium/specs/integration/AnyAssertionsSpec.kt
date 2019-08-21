@@ -6,7 +6,6 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -83,7 +82,11 @@ abstract class AnyAssertionsSpec(
     include(object : AssertionCreatorSpec<Int?>(
         verbs, "$describePrefix[nullable Element] ", 1,
         toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
-        assertionCreatorSpecTriple(isA.name, "$toBeDescr: 1", { apply{isA.invoke(this) { toBe(1) } }}, { apply{isA.invoke(this) {} }} )
+        assertionCreatorSpecTriple(
+            isA.name,
+            "$toBeDescr: 1",
+            { apply { isA.invoke(this) { toBe(1) } } },
+            { apply { isA.invoke(this) {} } })
     ) {})
 
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
@@ -556,7 +559,7 @@ abstract class AnyAssertionsSpec(
     }
 
 
-    describeFun("${isAFeature.name} feature"){
+    describeFun("${isAFeature.name} feature") {
         val isAFun = isAFeature.lambda
 
         context("subject is not in type hierarchy") {
@@ -564,7 +567,7 @@ abstract class AnyAssertionsSpec(
                 expect {
                     verbs.check(null as Int?).isAFun().toBe(1)
                 }.toThrow<AssertionError> {
-                    message{
+                    message {
                         contains(IS_A.getDefault() + ": Int (kotlin.Int)")
                         containsNot(TO_BE.getDefault() + ": 1")
                     }
@@ -686,7 +689,7 @@ abstract class AnyAssertionsSpec(
         }
 
         context("empty assertionCreator lambda") {
-            it("is the expected type, throws nonetheless"){
+            it("is the expected type, throws nonetheless") {
                 expect {
                     verbs.check("hello").(isACharSequenceFun.lambda) {}
                 }.toThrow<AssertionError> {
@@ -696,7 +699,7 @@ abstract class AnyAssertionsSpec(
                             ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
                             ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
                         )
-                        containsNot( "${DescriptionAnyAssertion.IS_A.getDefault()}: CharSequence")
+                        containsNot("${DescriptionAnyAssertion.IS_A.getDefault()}: CharSequence")
                     }
                 }
             }

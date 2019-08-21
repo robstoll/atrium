@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsAtMostAssertionsSpec(
@@ -16,11 +15,12 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
     listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
-    
+
     val containsAtMost = containsAtMostPair.second
     val containsAtMostIgnoringCase = containsAtMostIgnoringCasePair.second
-    
-    include(object : SubjectLessSpec<CharSequence>(describePrefix,
+
+    include(object : SubjectLessSpec<CharSequence>(
+        describePrefix,
         containsAtMost.forSubjectLess(2, 2.3, arrayOf()),
         containsAtMostIgnoringCase.forSubjectLess(2, 2.3, arrayOf())
     ) {})
@@ -32,11 +32,11 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
     val fluent = verbs.check(text as CharSequence)
     val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
 
-    fun Expect<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
-        = containsAtMost(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any) =
+        containsAtMost(this, atLeast, a, aX)
 
-    fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
-        = containsAtMostIgnoringCase(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
+        containsAtMostIgnoringCase(this, atLeast, a, aX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
@@ -113,7 +113,12 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                         }
                     }
                 }
-                it("${containsAtMostPair.first("'o', 'E', 'W', 'l'", "twice")} throws AssertionError mentioning 'l' and 'o'") {
+                it(
+                    "${containsAtMostPair.first(
+                        "'o', 'E', 'W', 'l'",
+                        "twice"
+                    )} throws AssertionError mentioning 'l' and 'o'"
+                ) {
                     expect {
                         fluentHelloWorld.containsAtMostIgnoringCaseFun(2, 'o', 'E', 'W', 'l')
                     }.toThrow<AssertionError> {
@@ -128,7 +133,12 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                         fluentHelloWorld.containsAtMostFun(2, 'x', 'y', 'z')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$valueWithIndent: 'x'", "$valueWithIndent: 'y'", "$valueWithIndent: 'z'")
+                            contains(
+                                "$atLeast: 1",
+                                "$valueWithIndent: 'x'",
+                                "$valueWithIndent: 'y'",
+                                "$valueWithIndent: 'z'"
+                            )
                             containsNot(atMost)
                         }
                     }
@@ -140,7 +150,10 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                 it("${containsAtMostPair.first("'o'", "twice")} does not throw") {
                     fluentHelloWorld.containsAtMostFun(2, 'o')
                 }
-                it("${containsAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'o' ignoring case (3)") {
+                it(
+                    "${containsAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError " +
+                        "and message contains both, how many times we expected (2) and how many times it actually contained 'o' ignoring case (3)"
+                ) {
                     expect {
                         fluentHelloWorld.containsAtMostIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError> {
@@ -158,7 +171,10 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                 it("${containsAtMostPair.first("'o'", "3 times")} does not throw") {
                     fluentHelloWorld.containsAtMostFun(3, 'o')
                 }
-                it("${containsAtMostPair.first("'o' and 'l'", "twice")} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)") {
+                it(
+                    "${containsAtMostPair.first("'o' and 'l'", "twice")} throws AssertionError " +
+                        "and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)"
+                ) {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError> {
@@ -192,7 +208,7 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
 
             val aaaa: CharSequence = "aaaa"
             val aaaaFluent = verbs.check(aaaa)
-            context("string \"$aaaa\""){
+            context("string \"$aaaa\"") {
                 it("${containsAtMostPair.first("'a'", "4 times")} does not throw") {
                     aaaaFluent.containsAtMostFun(4, 'a')
                 }

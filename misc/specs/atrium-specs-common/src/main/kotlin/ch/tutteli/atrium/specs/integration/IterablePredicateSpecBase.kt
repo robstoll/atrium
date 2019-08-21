@@ -6,7 +6,8 @@ import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
 
-abstract class IterablePredicateSpecBase(verbs: AssertionVerbFactory, spec: Root.() -> Unit) : IterableContainsEntriesSpecBase(verbs, spec) {
+abstract class IterablePredicateSpecBase(verbs: AssertionVerbFactory, spec: Root.() -> Unit) :
+    IterableContainsEntriesSpecBase(verbs, spec) {
     companion object {
 
         fun Root.nonNullableCases(

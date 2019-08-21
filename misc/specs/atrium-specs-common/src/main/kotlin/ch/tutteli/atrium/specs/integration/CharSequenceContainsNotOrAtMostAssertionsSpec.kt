@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_MOST
 import org.spekframework.spek2.style.specification.Suite
 
@@ -104,7 +103,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                         }
                     }
                 }
-                it("${containsNotOrAtMostPair.first("'l', 'H'", "once")} once throws AssertionError mentioning only 'l'") {
+                it("${containsNotOrAtMostPair.first("'l', 'H'", "once")} throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l', 'H')
                     }.toThrow<AssertionError> {
@@ -133,10 +132,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
 
             context("multiple occurrences of the search string") {
                 it(
-                    "${containsNotOrAtMostPair.first(
-                        "'o'",
-                        "once"
-                    )} throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)"
+                    "${containsNotOrAtMostPair.first("'o'", "once")} throws AssertionError and " +
+                        "message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)"
                 ) {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'o')
@@ -165,10 +162,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                     fluentHelloWorld.containsNotOrAtMostFun(3, 'o')
                 }
                 it(
-                    "${containsNotOrAtMostPair.first(
-                        "'o' and 'l'",
-                        "twice"
-                    )} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)"
+                    "${containsNotOrAtMostPair.first("'o' and 'l'", "twice")} throws AssertionError " +
+                        "and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)"
                 ) {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(2, 'o', 'l')

@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsRegexAssertionsSpec(
@@ -29,12 +28,13 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     val containsAtMostIgnoringCase = containsAtMostIgnoringCasePair.second
 
 
-    include(object : SubjectLessSpec<CharSequence>(describePrefix,
-        containsAtLeast.forSubjectLess(2, "a|b", arrayOf()) ,
+    include(object : SubjectLessSpec<CharSequence>(
+        describePrefix,
+        containsAtLeast.forSubjectLess(2, "a|b", arrayOf()),
         containsAtLeastIgnoringCase.forSubjectLess(2, "a|b", arrayOf()),
-        containsShortcut.forSubjectLess("a|b", arrayOf()) ,
-        containsAtMost.forSubjectLess(2, "a|b", arrayOf()) ,
-        containsAtMostIgnoringCase.forSubjectLess( 2, "a|b", arrayOf())
+        containsShortcut.forSubjectLess("a|b", arrayOf()),
+        containsAtMost.forSubjectLess(2, "a|b", arrayOf()),
+        containsAtMostIgnoringCase.forSubjectLess(2, "a|b", arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -47,21 +47,20 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     val roberto = "Roberto?"
     val fluent = verbs.check(text as CharSequence)
 
-    fun Expect<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtLeast(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String) =
+        containsAtLeast(this, atLeast, a, aX)
 
-    fun Expect<CharSequence>.containsAtLeastIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtLeastIgnoringCase(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsAtLeastIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
+        containsAtLeastIgnoringCase(this, atLeast, a, aX)
 
 
-    fun Expect<CharSequence>.containsShortcutFun(a: String, vararg aX: String)
-        = containsShortcut(this, a, aX)
+    fun Expect<CharSequence>.containsShortcutFun(a: String, vararg aX: String) = containsShortcut(this, a, aX)
 
-    fun Expect<CharSequence>.containsAtMostFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtMost(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsAtMostFun(atLeast: Int, a: String, vararg aX: String) =
+        containsAtMost(this, atLeast, a, aX)
 
-    fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
-        = containsAtMostIgnoringCase(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
+        containsAtMostIgnoringCase(this, atLeast, a, aX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val regexWithIndent = "$indentBulletPoint$listBulletPoint$stringMatchingRegex"
@@ -179,8 +178,8 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                         contains(
                             "$rootBulletPoint$containsDescr: $separator" +
                                 "$regexWithIndent: \"[a-z]\"",
-                                "$numberOfOccurrences: 17",
-                                "$atMost: 16"
+                            "$numberOfOccurrences: 17",
+                            "$atMost: 16"
                         )
                     }
                 }

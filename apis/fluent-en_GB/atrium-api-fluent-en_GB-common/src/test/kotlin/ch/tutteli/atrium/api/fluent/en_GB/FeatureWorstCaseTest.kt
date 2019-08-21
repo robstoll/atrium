@@ -17,7 +17,7 @@ class WorstCase {
 }
 
 
-@Suppress(/* requires new type inference */ "RemoveExplicitTypeArguments" )
+@Suppress(/* requires new type inference */ "RemoveExplicitTypeArguments")
 fun testOverloadAmbiguity() {
     assert(WorstCase()) {
         feature { p<Int>(it::propAndFun) }

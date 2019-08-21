@@ -7,7 +7,6 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFunTemplate

@@ -100,7 +100,8 @@ class FeatureAssertionsManualSpec : ch.tutteli.atrium.specs.integration.FeatureA
         val f2EmptyAssertionCreator: F = { feature("return2(\"a\", 1)", { return2("a", 1) }) {} }
         val f3EmptyAssertionCreator: F = { feature("return3(\"a\", 1, true)", { return3("a", 1, true) }) {} }
         val f4EmptyAssertionCreator: F = { feature("return4(\"a\", 1, true, 1.2)", { return4("a", 1, true, 1.2) }) {} }
-        val f5EmptyAssertionCreator: F = { feature("return5(\"a\", 1, true, 1.2, 'b')", { return5("a", 1, true, 1.2, 'b') }) {} }
+        val f5EmptyAssertionCreator: F =
+            { feature("return5(\"a\", 1, true, 1.2, 'b')", { return5("a", 1, true, 1.2, 'b') }) {} }
     }
 }
 

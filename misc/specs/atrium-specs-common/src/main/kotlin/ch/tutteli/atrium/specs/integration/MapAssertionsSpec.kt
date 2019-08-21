@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
@@ -63,14 +62,14 @@ abstract class MapAssertionsSpec(
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         verbs, describePrefix, mapOf("a" to 1),
         assertionCreatorSpecTriple(containsKeyWithValueAssertions.name, "$toBeDescr: 1",
-            { containsKeyWithValueAssertions(this, keyValue("a"){ toBe(1) }, arrayOf()) },
+            { containsKeyWithValueAssertions(this, keyValue("a") { toBe(1) }, arrayOf()) },
             { containsKeyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
         )
     ) {})
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
         verbs, "$describePrefix[nullable] ", mapOf("a" to 1),
         assertionCreatorSpecTriple(containsKeyWithNullableValueAssertions.name, "$toBeDescr: 1",
-            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a"){ toBe(1) }, arrayOf()) },
+            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { toBe(1) }, arrayOf()) },
             { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
         )
     ) {})
@@ -161,9 +160,8 @@ abstract class MapAssertionsSpec(
                         contains(
                             entry("b", 2),
                             "$toBeDescr: 3",
-                            entry("c", keyDoesNotExist)
-                            //TODO seems like notToBeNull is not subjectLess
-                            //"$toBeDescr: 4"
+                            entry("c", keyDoesNotExist),
+                            "$toBeDescr: 4"
                         )
                         containsNot(entry("a"))
                     }
@@ -270,9 +268,8 @@ abstract class MapAssertionsSpec(
                         contains(
                             entry("b", 2),
                             "$lessThanDescr: 2",
-                            entry("c", keyDoesNotExist)
-                            //TODO seems like notToBeNull is not subjectLess
-                            //"$lessThanDescr: 1"
+                            entry("c", keyDoesNotExist),
+                            "$lessThanDescr: 1"
                         )
                         containsNot(entry("a"))
                     }

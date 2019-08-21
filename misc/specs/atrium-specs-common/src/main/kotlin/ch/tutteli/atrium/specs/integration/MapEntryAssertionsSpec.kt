@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -16,10 +15,12 @@ abstract class MapEntryAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<Map.Entry<String, Int>>(describePrefix,
+    include(object : SubjectLessSpec<Map.Entry<String, Int>>(
+        describePrefix,
         isKeyValue.forSubjectLess("key", 1)
     ) {})
-    include(object : SubjectLessSpec<Map.Entry<String?, Int?>>("$describePrefix[nullable] ",
+    include(object : SubjectLessSpec<Map.Entry<String?, Int?>>(
+        "$describePrefix[nullable] ",
         isKeyValueNullable.forSubjectLess("key", 1)
     ) {})
 

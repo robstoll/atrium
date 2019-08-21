@@ -13,7 +13,10 @@ abstract class CharSequenceContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) 
         const val helloWorld = "Hello World, I am Oskar"
 
         val containsDescr = DescriptionCharSequenceAssertion.CONTAINS.getDefault()
-        val containsIgnoringCase = String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), DescriptionCharSequenceAssertion.CONTAINS.getDefault())
+        val containsIgnoringCase = String.format(
+            DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(),
+            DescriptionCharSequenceAssertion.CONTAINS.getDefault()
+        )
         val numberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.getDefault()
         val value = DescriptionCharSequenceAssertion.VALUE.getDefault()
         val stringMatchingRegex = DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX.getDefault()

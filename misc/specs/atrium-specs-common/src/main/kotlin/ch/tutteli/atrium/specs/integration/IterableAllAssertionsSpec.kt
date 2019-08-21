@@ -1,13 +1,8 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableAllAssertionsSpec(
@@ -51,8 +46,7 @@ abstract class IterableAllAssertionsSpec(
 
     val explanatoryPointWithIndent = "$indentBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
-    fun index(index: Int)
-        = listBulletPoint + String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
+    fun index(index: Int) = listBulletPoint + String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
     nonNullableCases(
         describePrefix,
@@ -67,8 +61,8 @@ abstract class IterableAllAssertionsSpec(
                     fluentEmpty.allFun { isLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "$rootBulletPoint$featureArrow$hasElement: false$separator"+
-                        "$indentBulletPoint$indentFeatureArrow$featureBulletPoint$isDescr: true"
+                        "$rootBulletPoint$featureArrow$hasElement: false$separator" +
+                            "$indentBulletPoint$indentFeatureArrow$featureBulletPoint$isDescr: true"
                     )
                 }
             }

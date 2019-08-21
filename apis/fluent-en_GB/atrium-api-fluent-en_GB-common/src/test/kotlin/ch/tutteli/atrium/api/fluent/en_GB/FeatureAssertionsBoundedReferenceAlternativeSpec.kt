@@ -1,56 +1,54 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.integration.TestData
 
 
 class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
-        AssertionVerbFactory,
-        propertyImmediate,
-        propertyLazy,
-        f0Immediate,
-        f1Immediate,
-        f2Immediate,
-        f3Immediate,
-        f4Immediate,
-        f5Immediate,
-        f0Lazy,
-        f1Lazy,
-        f2Lazy,
-        f3Lazy,
-        f4Lazy,
-        f5Lazy,
+    AssertionVerbFactory,
+    propertyImmediate,
+    propertyLazy,
+    f0Immediate,
+    f1Immediate,
+    f2Immediate,
+    f3Immediate,
+    f4Immediate,
+    f5Immediate,
+    f0Lazy,
+    f1Lazy,
+    f2Lazy,
+    f3Lazy,
+    f4Lazy,
+    f5Lazy,
 
-        propertyNullableDoesNotHold,
-        f0NullableDoesNotHold,
-        f1NullableDoesNotHold,
-        f2NullableDoesNotHold,
-        f3NullableDoesNotHold,
-        f4NullableDoesNotHold,
-        f5NullableDoesNotHold,
+    propertyNullableDoesNotHold,
+    f0NullableDoesNotHold,
+    f1NullableDoesNotHold,
+    f2NullableDoesNotHold,
+    f3NullableDoesNotHold,
+    f4NullableDoesNotHold,
+    f5NullableDoesNotHold,
 
-        propertyNullableHolds,
-        f0NullableHolds,
-        f1NullableHolds,
-        f2NullableHolds,
-        f3NullableHolds,
-        f4NullableHolds,
-        f5NullableHolds,
+    propertyNullableHolds,
+    f0NullableHolds,
+    f1NullableHolds,
+    f2NullableHolds,
+    f3NullableHolds,
+    f4NullableHolds,
+    f5NullableHolds,
 
-        propertyLazyWithNestedImmediate,
-        propertyLazyWithNestedLazy,
+    propertyLazyWithNestedImmediate,
+    propertyLazyWithNestedLazy,
 
-        propertyEmptyAssertionCreator,
-        f0EmptyAssertionCreator,
-        f1EmptyAssertionCreator,
-        f2EmptyAssertionCreator,
-        f3EmptyAssertionCreator,
-        f4EmptyAssertionCreator,
-        f5EmptyAssertionCreator,
+    propertyEmptyAssertionCreator,
+    f0EmptyAssertionCreator,
+    f1EmptyAssertionCreator,
+    f2EmptyAssertionCreator,
+    f3EmptyAssertionCreator,
+    f4EmptyAssertionCreator,
+    f5EmptyAssertionCreator,
 
-        isAbleToEvaluateDescription = false
-){
+    isAbleToEvaluateDescription = false
+) {
 
     companion object {
         //@formatter:off

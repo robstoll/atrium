@@ -135,4 +135,3 @@ val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExpla
 @Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 interface ThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation
-

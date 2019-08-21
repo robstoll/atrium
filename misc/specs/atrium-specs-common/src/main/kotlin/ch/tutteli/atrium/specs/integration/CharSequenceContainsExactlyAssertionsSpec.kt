@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
@@ -19,8 +18,9 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
 
     val containsExactly = containsExactlyPair.second
     val containsExactlyIgnoringCase = containsExactlyIgnoringCasePair.second
-    
-    include(object : SubjectLessSpec<CharSequence>(describePrefix,
+
+    include(object : SubjectLessSpec<CharSequence>(
+        describePrefix,
         containsExactly.forSubjectLess(2, 2.3, arrayOf()),
         containsExactlyIgnoringCase.forSubjectLess(2, 2.3, arrayOf())
     ) {})
@@ -32,11 +32,11 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     val fluent = verbs.check(text as CharSequence)
     val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
 
-    fun Expect<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any)
-        = containsExactly(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any) =
+        containsExactly(this, atLeast, a, aX)
 
-    fun Expect<CharSequence>.containsExactlyIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
-        = containsExactlyIgnoringCase(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsExactlyIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
+        containsExactlyIgnoringCase(this, atLeast, a, aX)
 
     val exactly = EXACTLY.getDefault()
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
@@ -155,7 +155,10 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }
                 }
 
-                it("${containsExactlyPair.first("'o'", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
+                it(
+                    "${containsExactlyPair.first("'o'", "3 times")} throws AssertionError and message contains both, " +
+                        "how many times we expected (3) and how many times it actually contained 'o' (2)"
+                ) {
                     expect {
                         fluentHelloWorld.containsExactlyFun(3, 'o')
                     }.toThrow<AssertionError> {
@@ -194,7 +197,12 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                 it("${containsExactlyPair.first("'l'", "3 times")} does not throw") {
                     fluentHelloWorld.containsExactlyFun(3, 'l')
                 }
-                it("${containsExactlyPair.first("'o' and 'l'", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
+                it(
+                    "${containsExactlyPair.first(
+                        "'o' and 'l'",
+                        "3 times"
+                    )} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)"
+                ) {
                     expect {
                         fluentHelloWorld.containsExactlyFun(3, 'o', 'l')
                     }.toThrow<AssertionError> {

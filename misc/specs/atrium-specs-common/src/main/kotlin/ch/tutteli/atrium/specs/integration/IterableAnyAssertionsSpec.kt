@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 
@@ -23,7 +22,8 @@ abstract class IterableAnyAssertionsSpec(
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         any.forSubjectLess { toBe(2.5) }
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
         anyNullable.forSubjectLess(null)
     ) {})
 

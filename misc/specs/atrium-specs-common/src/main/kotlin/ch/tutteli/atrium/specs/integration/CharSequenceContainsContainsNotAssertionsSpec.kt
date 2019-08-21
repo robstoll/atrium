@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import org.spekframework.spek2.style.specification.Suite
 
@@ -17,7 +16,8 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : SubjectLessSpec<CharSequence>(describePrefix,
+    include(object : SubjectLessSpec<CharSequence>(
+        describePrefix,
         contains.forSubjectLess("hello", arrayOf()),
         containsNot.forSubjectLess("hello", arrayOf())
     ) {})
@@ -28,11 +28,9 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     val expect = verbs::checkException
     val fluent = verbs.check(text as CharSequence)
 
-    fun Expect<CharSequence>.containsFun(t: String, vararg tX: String)
-        = contains.invoke(this, t, tX)
+    fun Expect<CharSequence>.containsFun(t: String, vararg tX: String) = contains.invoke(this, t, tX)
 
-    fun Expect<CharSequence>.containsNotFun(t: String, vararg tX: String)
-        = containsNot.invoke(this, t, tX)
+    fun Expect<CharSequence>.containsNotFun(t: String, vararg tX: String) = containsNot.invoke(this, t, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
@@ -87,7 +85,11 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                     expect {
                         fluent.containsFun("notInThere", "neitherInThere")
                     }.toThrow<AssertionError> {
-                        messageContains(containsDescr, "$valueWithIndent: \"notInThere\"", "$valueWithIndent: \"neitherInThere\"")
+                        messageContains(
+                            containsDescr,
+                            "$valueWithIndent: \"notInThere\"",
+                            "$valueWithIndent: \"neitherInThere\""
+                        )
                     }
                 }
                 it("${containsNot.name} 'notInThere' and 'neitherInThere' does not throw") {

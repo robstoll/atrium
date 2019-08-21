@@ -15,6 +15,8 @@ abstract class IterableContainsSpecBase {
     protected val contains = containsProp.name
     private val containsNotProp: KProperty<*> = Expect<Iterable<*>>::containsNot
     protected val containsNot = containsNotProp.name
+
+    //@formatter:off
     protected val atLeast = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::atLeast.name
     protected val butAtMost = AtLeastCheckerOption<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
     protected val exactly = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::exactly.name
@@ -31,10 +33,10 @@ abstract class IterableContainsSpecBase {
     protected val inOrderOnlyEntries = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::entries.name
     protected val grouped = IterableContains.Builder<*, *, InOrderOnlySearchBehaviour>::grouped.name
     protected val within = IterableContains.Builder<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
-    private val withinInAnyOrderFun : KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, Expect<Iterable<Int>>>
-        = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder
+    private val withinInAnyOrderFun: KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, Expect<Iterable<Int>>> =
+        IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder
     protected val withinInAnyOrder = withinInAnyOrderFun.name
-
+    //@formatter:on
 
     @Suppress("unused")
     private fun ambiguityTest() {
@@ -89,12 +91,12 @@ abstract class IterableContainsSpecBase {
         assert(subList).contains.inAnyOrder.atLeast(1).entry {}
         assert(subList).contains.inAnyOrder.atLeast(1).entry(null)
 
-        assert(list).contains.inAnyOrder.only.value( 1)
-        assert(list).contains.inAnyOrder.only.value( null)
+        assert(list).contains.inAnyOrder.only.value(1)
+        assert(list).contains.inAnyOrder.only.value(null)
         assert(list).contains.inAnyOrder.only.entry {}
         assert(list).contains.inAnyOrder.only.entry(null)
-        assert(subList).contains.inAnyOrder.only.value( 1)
-        assert(subList).contains.inAnyOrder.only.value( null)
+        assert(subList).contains.inAnyOrder.only.value(1)
+        assert(subList).contains.inAnyOrder.only.value(null)
         assert(subList).contains.inAnyOrder.only.entry {}
         assert(subList).contains.inAnyOrder.only.entry(null)
 

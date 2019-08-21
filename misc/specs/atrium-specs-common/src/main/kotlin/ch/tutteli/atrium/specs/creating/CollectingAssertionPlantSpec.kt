@@ -7,8 +7,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.CollectingAssertionContainer
-import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.describeFunTemplate
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.Suite

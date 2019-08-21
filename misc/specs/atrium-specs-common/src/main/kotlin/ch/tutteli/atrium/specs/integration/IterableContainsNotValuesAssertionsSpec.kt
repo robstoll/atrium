@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
@@ -23,10 +22,12 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         containsNotValues.forSubjectLess(2.3, arrayOf())
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
         containsNotNullableValues.forSubjectLess(2.3, arrayOf())
     ) {})
 
@@ -47,10 +48,12 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
 
+    //@formatter:off
     val featureSuccess = "$indentBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
     val featureFailing = "$indentBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
     val isAfterFailing = "$indentBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
+    //@formatter:on
 
     val anEntryWhichIsWithIndent = "$indentBulletPoint$listBulletPoint$anEntryWhichIs"
 
@@ -58,10 +61,10 @@ abstract class IterableContainsNotValuesAssertionsSpec(
         describePrefix,
         containsNotValues,
         containsNotNullableValues
-    ) {containsNotFunArr ->
+    ) { containsNotFunArr ->
 
-        fun Expect<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double)
-            = containsNotFunArr(a, aX.toTypedArray())
+        fun Expect<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double) =
+            containsNotFunArr(a, aX.toTypedArray())
 
         context("empty collection") {
             val fluent = verbs.check(setOf<Double>().asIterable())
@@ -74,10 +77,10 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         containsRegex(
                             "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                 "$anEntryWhichIsWithIndent: 4.0.*$separator" +
-                                    "$featureSuccess$numberOfOccurrences: 0$separator"+
-                                    "$isAfterSuccess: 0.*$separator"+
-                                    "$featureFailing$hasElement: false$separator" +
-                                    "$isAfterFailing: true"
+                                "$featureSuccess$numberOfOccurrences: 0$separator" +
+                                "$isAfterSuccess: 0.*$separator" +
+                                "$featureFailing$hasElement: false$separator" +
+                                "$isAfterFailing: true"
                         )
                     }
                 }
@@ -107,11 +110,11 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                     "$anEntryWhichIsWithIndent: 4.0.*$separator" +
-                                        "$featureFailing$numberOfOccurrences: 3$separator"+
-                                        "$isAfterFailing: 0.*$separator"+
-                                        "$featureSuccess$hasElement: true$separator" +
-                                        "$isAfterSuccess: true"
+                                    "$anEntryWhichIsWithIndent: 4.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 3$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -124,15 +127,15 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anEntryWhichIsWithIndent: 1.0.*$separator" +
-                                        "$featureFailing$numberOfOccurrences: 1$separator"+
-                                        "$isAfterFailing: 0.*$separator"+
-                                        "$featureSuccess$hasElement: true$separator" +
-                                        "$isAfterSuccess: true$separator"+
+                                    "$featureFailing$numberOfOccurrences: 1$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true$separator" +
                                     "$anEntryWhichIsWithIndent: 4.0.*$separator" +
-                                        "$featureFailing$numberOfOccurrences: 3$separator"+
-                                        "$isAfterFailing: 0.*$separator"+
-                                        "$featureSuccess$hasElement: true$separator" +
-                                        "$isAfterSuccess: true"
+                                    "$featureFailing$numberOfOccurrences: 3$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -145,15 +148,15 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anEntryWhichIsWithIndent: 4.0.*$separator" +
-                                        "$featureFailing$numberOfOccurrences: 3$separator" +
-                                        "$isAfterFailing: 0.*$separator" +
-                                        "$featureSuccess$hasElement: true$separator" +
-                                        "$isAfterSuccess: true$separator" +
+                                    "$featureFailing$numberOfOccurrences: 3$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true$separator" +
                                     "$anEntryWhichIsWithIndent: 1.0.*$separator" +
-                                        "$featureFailing$numberOfOccurrences: 1$separator" +
-                                        "$isAfterFailing: 0.*$separator" +
-                                        "$featureSuccess$hasElement: true$separator" +
-                                        "$isAfterSuccess: true"
+                                    "$featureFailing$numberOfOccurrences: 1$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -170,7 +173,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                     verbs.check(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
                 }
             }
-            context("iterable $oneToSevenNullable"){
+            context("iterable $oneToSevenNullable") {
                 it("null throws AssertionError") {
                     expect {
                         verbs.check(oneToSevenNullable).containsNotNullableFun(null)
@@ -178,7 +181,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                "$anEntryWhichIsWithIndent: null$separator" +
+                                    "$anEntryWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
@@ -195,7 +198,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                "$anEntryWhichIsWithIndent: null$separator" +
+                                    "$anEntryWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +

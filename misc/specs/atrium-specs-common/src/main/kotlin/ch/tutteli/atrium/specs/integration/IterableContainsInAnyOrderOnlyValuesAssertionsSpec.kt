@@ -2,11 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.Fun2
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.include
-import ch.tutteli.atrium.specs.AssertionVerbFactory
+import ch.tutteli.atrium.specs.*
 
 abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,

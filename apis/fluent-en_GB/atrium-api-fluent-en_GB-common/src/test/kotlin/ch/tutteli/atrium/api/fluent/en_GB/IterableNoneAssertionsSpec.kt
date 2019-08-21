@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
-import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.specs.include
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.include
+import org.spekframework.spek2.Spek
 
 class IterableNoneAssertionsSpec : Spek({
 
@@ -30,15 +30,14 @@ class IterableNoneAssertionsSpec : Spek({
 
     companion object : IterableContainsSpecBase() {
 
-        private fun getContainsNotPair()
-            = containsNot to Companion::containsNotFun
+        private fun getContainsNotPair() = containsNot to Companion::containsNotFun
 
-        private fun containsNotFun(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit)
-                = plant.containsNot.entry(a)
+        private fun containsNotFun(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            plant.containsNot.entry(a)
 
         private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
-        private fun containsNotNullableFun(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?)
-                = plant.containsNot.entry(a)
+        private fun containsNotNullableFun(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            plant.containsNot.entry(a)
     }
 }

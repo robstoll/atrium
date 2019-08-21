@@ -48,41 +48,46 @@ class IterableAnyAssertionsSpec : Spek({
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
+        fun getContainsPair() =
+            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
 
-        private fun containsInAnyOrderEntries(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit)
-            = plant.contains.inAnyOrder.atLeast(1).entry(a)
+        private fun containsInAnyOrderEntries(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            plant.contains.inAnyOrder.atLeast(1).entry(a)
 
-        fun getContainsNullablePair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
+        fun getContainsNullablePair() =
+            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
 
-        private fun containsNullableEntries(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?)
-            = plant.contains.inAnyOrder.atLeast(1).entry(a)
-        
-        private val containsShortcutFun : KFunction3<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, Expect<Iterable<Double>>> = Expect<Iterable<Double>>::contains
+        private fun containsNullableEntries(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            plant.contains.inAnyOrder.atLeast(1).entry(a)
+
+        private val containsShortcutFun: KFunction3<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::contains
+
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
-        private fun containsInAnyOrderEntriesShortcut(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit)
-            = plant.contains(a)
+        private fun containsInAnyOrderEntriesShortcut(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            plant.contains(a)
 
-        private val containsShortcutNullableFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> = Expect<Iterable<Double?>>::contains
-        fun getContainsNullableShortcutPair() = containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
+        private val containsShortcutNullableFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
+            Expect<Iterable<Double?>>::contains
 
-        private fun containsNullableEntriesShortcut(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?)
-            = plant.contains(a)
+        fun getContainsNullableShortcutPair() =
+            containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
+
+        private fun containsNullableEntriesShortcut(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            plant.contains(a)
 
 
-        private fun getContainsSequencePair()
-            = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
+        private fun getContainsSequencePair() =
+            "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
 
-        private fun containsInAnyOrderEntriesSequence(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit)
-            = ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable().contains(a)
+        private fun containsInAnyOrderEntriesSequence(plant: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable().contains(a)
 
-        fun getContainsNullableSequencePair()
-            = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
+        fun getContainsNullableSequencePair() =
+            "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
 
-        private fun containsNullableEntriesSequence(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?)
-            =  ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable().contains(a)
+        private fun containsNullableEntriesSequence(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            ExpectImpl.changeSubject.unreported(plant) { it.asSequence() }.asIterable().contains(a)
     }
 }

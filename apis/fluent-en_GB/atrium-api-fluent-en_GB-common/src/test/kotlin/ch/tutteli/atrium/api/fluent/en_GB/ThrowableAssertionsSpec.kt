@@ -19,18 +19,13 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
 
     companion object {
 
-        private fun getToThrowTriple(): Triple<String, ThrowableThrown.Builder.() -> Unit, ThrowableThrown.Builder.(assertionCreator: Expect<IllegalArgumentException>.() -> Unit) -> Unit>
-            = Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
+        private fun getToThrowTriple() = Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
+        private fun toThrowImmediate(builder: ThrowableThrown.Builder) = builder.toThrow<IllegalArgumentException>()
+        private fun toThrowLazy(
+            builder: ThrowableThrown.Builder,
+            assertionCreator: Expect<IllegalArgumentException>.() -> Unit
+        ) = builder.toThrow(assertionCreator)
 
-        private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
-            builder.toThrow<IllegalArgumentException>()
-        }
-
-        private fun toThrowLazy(builder: ThrowableThrown.Builder, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) {
-            builder.toThrow(assertionCreator)
-        }
-
-        private fun getNotThrownPair()
-            = ThrowableThrown.Builder::notToThrow.name to ThrowableThrown.Builder::notToThrow
+        private fun getNotThrownPair() = ThrowableThrown.Builder::notToThrow.name to ThrowableThrown.Builder::notToThrow
     }
 }
