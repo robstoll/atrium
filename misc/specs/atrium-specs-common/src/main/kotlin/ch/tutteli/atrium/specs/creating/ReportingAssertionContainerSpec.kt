@@ -66,7 +66,7 @@ abstract class ReportingAssertionContainerSpec(
 
     listOf(
         triple(
-            container::createAndAddAssertion.name,
+            "createAndAddAssertion",
             { createAndAddAssertion(description, expected, trueProvider) },
             { createAndAddAssertion(description, expected, falseProvider) }
         ),
@@ -75,7 +75,7 @@ abstract class ReportingAssertionContainerSpec(
             { addAssertion(basicAssertionWhichHolds) },
             { addAssertion(basicAssertionWhichFails) }),
         triple(
-            "${container::addAssertionsCreatedBy.name} using ${container::createAndAddAssertion.name} inside",
+            "${container::addAssertionsCreatedBy.name} using createAndAddAssertion inside",
             { addAssertionsCreatedBy { createAndAddAssertion(description, expected, trueProvider) } },
             { addAssertionsCreatedBy { createAndAddAssertion(description, expected, falseProvider) } }
         ),

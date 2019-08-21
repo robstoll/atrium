@@ -3,10 +3,8 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * DSL Marker for [Expect].
@@ -53,6 +51,7 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      */
     override fun addAssertion(assertion: Assertion): Expect<T>
 
+
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
      * and [adds][addAssertion] it to the container.
@@ -65,6 +64,22 @@ interface Expect<T> : SubjectProvider<T>, AssertionHolder {
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */
+    fun createAndAddAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
+        createAndAddAssertion(Untranslatable(description), expected, test)
+
+    /**
+     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
+     * and [adds][addAssertion] it to the container.
+     *
+     * @param description The description of the assertion in form of a [Translatable].
+     * @param expected The expected value, e.g., `5`
+     * @param test Indicates whether the assertion holds or fails.
+     *
+     * @return This assertion container to support a fluent API.
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
+     *   evaluated (see [ReportingAssertionContainer]).
+     */
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
+
 }
