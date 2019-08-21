@@ -3,6 +3,7 @@ module ch.tutteli.atrium.domain.robstoll.lib {
     requires        ch.tutteli.atrium.domain.builders;
     requires static ch.tutteli.atrium.translations.en_GB;
     requires        kotlin.stdlib;
+    requires        ch.tutteli.niok;
 
     //TODO remove with 1.0.0
     requires        ch.tutteli.atrium.api.cc.en_GB;
