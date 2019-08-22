@@ -1,7 +1,7 @@
 ---
 name: ⭐ Good First Issue (for maintainers)
 about: Create a good first issue
-labels: good-first-issue, help-wanted
+labels: good first issue, help wanted
 ---
 *Platform* (jvm, jdk8, js, android): 
 
