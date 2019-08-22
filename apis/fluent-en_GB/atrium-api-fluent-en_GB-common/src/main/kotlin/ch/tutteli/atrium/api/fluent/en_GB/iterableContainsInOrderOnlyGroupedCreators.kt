@@ -1,6 +1,7 @@
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
 @file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -52,7 +53,8 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * This function will be renamed on a JVM level to `inAnyOrderEntries` with v1.0.0
  *
  * @param firstGroup A group of identification lambdas which have to appear at first within the [Iterable].
- * @param secondGroup A group of identification lambdas which have to appear after the values of the [firstGroup] within the [Iterable].
+ * @param secondGroup A group of identification lambdas which have to appear after the values of the [firstGroup]
+ *   within the [Iterable].
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *

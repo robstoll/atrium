@@ -1,5 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInAnyOrderCreatorsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -22,8 +23,8 @@ import kotlin.jvm.JvmName
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T>
-    = values(expected)
+fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
+    values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
@@ -45,8 +46,10 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(expected: E, vararg otherExpected: E): Expect<T>
-    = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
+fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(
+    expected: E,
+    vararg otherExpected: E
+): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -62,8 +65,9 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
-    = entries(assertionCreatorOrNull)
+fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+): Expect<T> = entries(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -83,5 +87,9 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
 fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T>
-    = addAssertion(ExpectImpl.iterable.contains.entriesInAnyOrder(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
+): Expect<T> = addAssertion(
+    ExpectImpl.iterable.contains.entriesInAnyOrder(
+        this,
+        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
+    )
+)

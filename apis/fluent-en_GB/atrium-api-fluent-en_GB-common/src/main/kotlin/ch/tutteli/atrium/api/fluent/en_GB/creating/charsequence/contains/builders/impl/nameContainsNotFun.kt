@@ -4,7 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.creating.Expect
 import kotlin.reflect.KFunction3
 
-internal fun nameContainsNotValuesFun(): String {
-    val f: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> = Expect<CharSequence>::containsNot
-    return f.name
+internal object StaticName {
+    private val f: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
+        Expect<CharSequence>::containsNot
+    val nameContainsNotValuesFun = f.name
 }

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.ExactlyCheckerOption
+import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.ExactlyCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -24,6 +25,6 @@ internal class ExactlyCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAn
 ) : ExactlyCheckerOptionBase<E, T, S>(
     times,
     containsBuilder,
-    nameContainsNotValuesFun(),
+    nameContainsNotValuesFun,
     { "${containsBuilder::exactly.name}($it)" }
 ), ExactlyCheckerOption<E, T, S>

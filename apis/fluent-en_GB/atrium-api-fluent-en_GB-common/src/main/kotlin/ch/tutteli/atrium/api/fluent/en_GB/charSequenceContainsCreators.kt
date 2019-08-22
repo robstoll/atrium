@@ -26,8 +26,8 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T>
-    = values(expected)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
+    values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -55,8 +55,10 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): Expect<T>
-    = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(
+    expected: Any,
+    vararg otherExpected: Any
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
 
 
 /**
@@ -77,8 +79,9 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T>
-    = values(expected)
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
+    expected: Any
+): Expect<T> = values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -107,8 +110,10 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  *   [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): Expect<T>
-    = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
+    expected: Any,
+    vararg otherExpected: Any
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
 
 
 /**
@@ -128,8 +133,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T>
-    = atLeast(1).value(expected)
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
+    atLeast(1).value(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -154,8 +159,10 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): Expect<T>
-    = atLeast(1).values(expected, *otherExpected)
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.values(
+    expected: Any,
+    vararg otherExpected: Any
+): Expect<T> = atLeast(1).values(expected, *otherExpected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -178,8 +185,10 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Expect<T>
-    = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+    pattern: String,
+    vararg otherPatterns: String
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -203,8 +212,10 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Expect<T>
-    = addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
+    pattern: String,
+    vararg otherPatterns: String
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -230,5 +241,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Expect<T>
-    = atLeast(1).regex(pattern, *otherPatterns)
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(
+    pattern: String,
+    vararg otherPatterns: String
+): Expect<T> = atLeast(1).regex(pattern, *otherPatterns)

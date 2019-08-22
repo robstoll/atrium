@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.NotOrAtMostCheckerOption
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.api.fluent.en_GB.notOrAtMost
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.NotOrAtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -24,6 +25,6 @@ internal class NotOrAtMostCheckerOptionImpl<out T : CharSequence, out S : CharSe
 ) : NotOrAtMostCheckerOptionBase<T, S>(
     times,
     containsBuilder,
-    nameContainsNotValuesFun(),
+    nameContainsNotValuesFun,
     { "${containsBuilder::notOrAtMost.name}($it)" }
 ), NotOrAtMostCheckerOption<T, S>

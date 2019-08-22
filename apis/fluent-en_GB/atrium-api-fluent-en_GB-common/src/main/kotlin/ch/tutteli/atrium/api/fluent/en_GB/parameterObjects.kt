@@ -21,9 +21,9 @@ import ch.tutteli.kbox.glue
  *   to be identified if it holds all [Assertion]s the lambda might create.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
-class Entry<T: Any>(
+class Entry<T : Any>(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>, GroupWithNullableEntries<(Expect<T>.() -> Unit)?> {
+) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>, GroupWithNullableEntries<(Expect<T>.() -> Unit)?> {
     override fun toList(): List<(Expect<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
 }
 
@@ -55,6 +55,7 @@ class Entries<T : Any>(
  */
 data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?) {
     fun toPair(): Pair<K, (Expect<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
+
     override fun toString(): String =
         "KeyValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) "null" else "lambda"})"
 }
@@ -72,6 +73,6 @@ data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWit
 class Values<out T>(
     override val expected: T,
     override vararg val otherExpected: T
-) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T>  {
+) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T> {
     override fun toList() = listOf(expected, *otherExpected)
 }

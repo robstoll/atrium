@@ -1,5 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInOrderOnlyCreatorsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -22,8 +23,8 @@ import kotlin.jvm.JvmName
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T>
-    = values(expected)
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+    values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -36,8 +37,10 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavi
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): Expect<T>
-    = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(
+    expected: E,
+    vararg otherExpected: E
+): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
@@ -53,8 +56,9 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavi
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entry(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
-    = entries(assertionCreatorOrNull)
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entry(
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+): Expect<T> = entries(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
@@ -74,5 +78,9 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T>
-    = addAssertion(ExpectImpl.iterable.contains.entriesInOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
+): Expect<T> = addAssertion(
+    ExpectImpl.iterable.contains.entriesInOrderOnly(
+        this,
+        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
+    )
+)

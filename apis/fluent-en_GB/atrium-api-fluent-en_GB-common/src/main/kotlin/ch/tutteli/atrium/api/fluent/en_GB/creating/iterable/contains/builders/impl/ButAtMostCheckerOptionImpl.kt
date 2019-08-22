@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.atMost
 import ch.tutteli.atrium.api.fluent.en_GB.butAtMost
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.ButAtMostCheckerOption
+import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.ButAtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -30,7 +31,7 @@ internal class ButAtMostCheckerOptionImpl<out E, out T : Iterable<E>, out S : In
     times,
     atLeastBuilder,
     containsBuilder,
-    nameContainsNotValuesFun(),
+    nameContainsNotValuesFun,
     { l, u -> "${containsBuilder::atLeast.name}($l).${atLeastBuilder::butAtMost.name}($u)" },
     { "${containsBuilder::atMost.name}($it)" },
     { "${containsBuilder::atLeast.name}($it)" },

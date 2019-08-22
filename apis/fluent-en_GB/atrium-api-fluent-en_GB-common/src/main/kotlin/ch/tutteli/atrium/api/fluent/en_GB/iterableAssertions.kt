@@ -1,5 +1,6 @@
 @file:JvmMultifileClass
 @file:JvmName("IterableAssertionsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.NotCheckerOption
@@ -49,8 +50,8 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearch
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T: Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E): Expect<T>
-    = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
+fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E): Expect<T> =
+    contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
@@ -66,8 +67,8 @@ fun <E, T: Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
-    = contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
+fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
@@ -86,8 +87,10 @@ fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?): Expect<T>
-    = contains.inAnyOrder.atLeast(1).entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
+    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
+): Expect<T> = contains.inAnyOrder.atLeast(1).entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains only
@@ -98,8 +101,8 @@ fun <E: Any, T: Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpected: E): Expect<T>
-    = contains.inOrder.only.values(expected, *otherExpected)
+fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpected: E): Expect<T> =
+    contains.inOrder.only.values(expected, *otherExpected)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
@@ -115,8 +118,8 @@ fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpe
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
-    = contains.inOrder.only.entry(assertionCreatorOrNull)
+fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    contains.inOrder.only.entry(assertionCreatorOrNull)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
@@ -135,8 +138,10 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?): Expect<T>
-    = contains.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
+    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
+): Expect<T> = contains.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
 /**
@@ -148,8 +153,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E)
-    = containsNot.values(expected, *otherExpected)
+fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E) =
+    containsNot.values(expected, *otherExpected)
 
 
 /**
@@ -162,8 +167,8 @@ fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T>
-    = contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
+fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 
 /**
@@ -176,8 +181,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?)
-    = containsNot.entry(assertionCreatorOrNull)
+fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+    containsNot.entry(assertionCreatorOrNull)
 
 
 /**
@@ -188,5 +193,5 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?)
-    = addAssertion(ExpectImpl.iterable.all(this, assertionCreatorOrNull))
+fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+    addAssertion(ExpectImpl.iterable.all(this, assertionCreatorOrNull))

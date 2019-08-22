@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.i
 
 import ch.tutteli.atrium.api.fluent.en_GB.atLeast
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
+import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.AtLeastCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -24,6 +25,6 @@ internal class AtLeastCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAn
 ) : AtLeastCheckerOptionBase<E, T, S>(
     times,
     containsBuilder,
-    nameContainsNotValuesFun(),
+    nameContainsNotValuesFun,
     { "${containsBuilder::atLeast.name}($it)" }
 ), AtLeastCheckerOption<E, T, S>
