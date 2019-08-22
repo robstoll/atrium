@@ -10,9 +10,9 @@
     <dependencies>
         <dependency>
             <groupId>ch.tutteli.atrium</groupId>
-            <artifactId>atrium-cc-en_GB-robstoll</artifactId>
-            <!--<artifactId>atrium-cc-infix-en_GB-robstoll</artifactId>-->
-            <!--<artifactId>atrium-cc-de_CH-robstoll</artifactId>-->
+            <artifactId>atrium-fluent-en_GB</artifactId>
+            <!--<artifactId>atrium-infix-en_GB</artifactId>-->
+            <!--<artifactId>atrium-fluent-de_CH</artifactId>-->
             <version>${atrium.version}</version>
             <scope>test</scope>
 

@@ -263,14 +263,18 @@ Yet, you can also [define your own assertion verbs](#use-own-assertion-verbs) if
 The next section shows how you can define multiple assertions for the same subject.
 
 ## Define Single Assertions or Assertion Groups
+<ex1>
 
 ```kotlin
-// two single assertions
- 
+// two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
-    // expect: 10        (kotlin.Int <1841396611>)
-    // ◆ is less than: 5        (kotlin.Int <1577592551>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L9)</sub> ↓ <sub>Output</sub>
+```text
+expect: 10        (kotlin.Int <1234789>)
+◆ is less than: 5        (kotlin.Int <1234789>)
+```
+</ex1>
 
 Atrium allows you to chain assertions or in other words
 you only need to write the `expect(...)` part once and can make several single assertions for the same subject.
@@ -285,20 +289,24 @@ expect(4 + 6).isGreaterThan(10)
 Correspondingly, the first `expect` statement (which does not hold) throws an `AssertionError`. 
 In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all.
 
-If you want that both assertions are evaluated together, then use the assertion group syntax as follows: 
+If you want that both assertions are evaluated together, then use the assertion group syntax as follows:
+ 
+<ex2>
 
 ```kotlin
-// assertion group with two assertions
-
+// assertion group with two assertions, both evaluated
 expect(4 + 6) {
     isLessThan(5)
     isGreaterThan(10)
 }
-    // expect: 10        (kotlin.Int <1841396611>)
-    // ◆ is less than: 5        (kotlin.Int <1577592551>)
-    // ◆ is greater than: 10        (kotlin.Int <1841396611>)
 ```
-
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L14)</sub> ↓ <sub>Output</sub>
+```text
+expect: 10        (kotlin.Int <1234789>)
+◆ is less than: 5        (kotlin.Int <1234789>)
+◆ is greater than: 10        (kotlin.Int <1234789>)
+```
+</ex2>
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
 You can use `and` as filling element between single assertions and assertion group blocks:
@@ -313,15 +321,32 @@ expect(4 + 6) {
 ```
  
 ## Expect an Exception
+<ex3>
+
 ```kotlin
 expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
-
-    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
-    // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L22)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+  » Properties of the unexpected IllegalArgumentException
+    » message: "name is empty"        <1234789>
+    » stacktrace: 
+      ⚬ readme.examples.ReadmeSpec$1$3$1.invoke(ReadmeSpec.kt:25)
+      ⚬ readme.examples.ReadmeSpec$1$3$1.invoke(ReadmeSpec.kt:7)
+      ⚬ readme.examples.ReadmeSpec$1$3.invoke(ReadmeSpec.kt:54)
+      ⚬ readme.examples.ReadmeSpec$1$3.invoke(ReadmeSpec.kt:7)
+      ⚬ org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(Scopes.kt:94)
+      ⚬ org.spekframework.spek2.runtime.Executor$execute$$inlined$executeSafely$lambda$1$1.invokeSuspend(Executor.kt:52)
+      ⚬ kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+      ⚬ ...
+```
+</ex3>
+
 You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
 (`IllegalStateException` in the example above). 
 
@@ -333,50 +358,81 @@ As with all narrowing functions, there are two overloads:
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   showing some additional context in case of a failure.
 
-Following an example using both overloads:
+The following example uses the first overload
+
+<ex4>
+
 ```kotlin
 expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
-    // expect the thrown exception: java.lang.IllegalArgumentException
-    // ◆ ▶ message: null
-    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L29)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ ▶ message: null
+    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+```
+</ex4>
 
+And this one uses the second overload; notice the difference in reporting.
+
+<ex5>
+
+```kotlin
 expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException> {
     message { startsWith("firstName") }
 }
-    // expect the thrown exception: java.lang.IllegalArgumentException
-    // ◆ ▶ message: null
-    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-    //       » starts with: "firstName"        <184607701>
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L35)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ ▶ message: null
+    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+      » starts with: "firstName"        <1234789>
+```
+</ex5>
 
 Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, which creates a feature assertion (see next section) 
 about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
+
+<ex6>
+
 ```kotlin
 expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
-
-    //  expect the thrown exception: java.lang.IllegalArgumentException
-    //  ◆ is: not thrown at all
-    //    » Properties of the unexpected IllegalArgumentException
-    //      » message: "name is empty"        <401424608>
-    //      » stacktrace: 
-    //        ⚬ TestKt$main$2.invoke(test.kt:23)
-    //        ⚬ TestKt$main$2.invoke(test.kt)
-    //        ⚬ TestKt.main(test.kt:24)
-    //      » cause: java.lang.RuntimeException
-    //          » message: "a cause"        <1348949648>
-    //          » stacktrace: 
-    //            ⚬ TestKt$main$2.invoke(test.kt:23)
-    //  	at TestKt.main(test.kt:24)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L43)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ is: not thrown at all
+  » Properties of the unexpected IllegalArgumentException
+    » message: "name is empty"        <1234789>
+    » stacktrace: 
+      ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:46)
+      ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:7)
+      ⚬ readme.examples.ReadmeSpec$1$6.invoke(ReadmeSpec.kt:47)
+      ⚬ readme.examples.ReadmeSpec$1$6.invoke(ReadmeSpec.kt:7)
+      ⚬ org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(Scopes.kt:94)
+      ⚬ org.spekframework.spek2.runtime.Executor$execute$$inlined$executeSafely$lambda$1$1.invokeSuspend(Executor.kt:52)
+      ⚬ kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+      ⚬ kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:238)
+      ⚬ kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+      ⚬ kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+      ⚬ kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:742)
+    » cause: java.lang.RuntimeException
+        » message: "a cause"        <1234789>
+        » stacktrace: 
+          ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:46)
+```
+</ex6>
+
 Notice that stacks are filtered so that you only see what is of interest. 
 Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate 
 [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
@@ -1923,6 +1979,9 @@ See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#pro
 # Kotlin Bugs
 The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
 Please upvote them (especially if you encounter them yourself):
+- [deprecated functions are no longer struck out in 2019.2.x](https://youtrack.jetbrains.com/issue/IDEA-216982)
+- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
+- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 - [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects.
 - [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
 - [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
@@ -1944,9 +2003,7 @@ Please upvote them (especially if you encounter them yourself):
 - [Overload resolution generic upper bound bug](https://youtrack.jetbrains.com/issue/KT-30235)
 - [Overload ambiguity between val and fun](https://youtrack.jetbrains.com/issue/KT-32958)
 - [false positive: remove explicit type arguments](https://youtrack.jetbrains.com/issue/KT-32869)
-- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 - [Wrong JS generated in case of name clash](https://youtrack.jetbrains.com/issue/KT-33294)
-- [deprecated functions are no longer struck out in 2019.2.x](https://youtrack.jetbrains.com/issue/IDEA-216982)
 - [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
 - [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
 
