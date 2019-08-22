@@ -14,6 +14,22 @@ expect(
 expect(
 ```
 
+Following the things you need to do:
+
+
+*domain*
+- extend XyAssertions with a function `xy` (see XyAssertions as a guideline)
+- modify XyAssertionsBuilder, delegate to xyAssertions (see XyAssertionsBuilder as a guideline)
+- delegate implementation to robstoll-lib in XyAssertionsImpl (see XyAssertionsImpl as a guideline)
+
+
+*lib*
+- implement _xy in xyAssertions by using the `ExpectImpl.feature.extractor...`
+
+*api*
+- provide a val which returns Expect<T> (see xyAssertions.kt as a guideline)
+- provide a fun which expects an `assertionCreator`-lambda and returns Expect<Xy> (see xyAssertions.kt as a guideline)
+- extend or write a separate Spec named XyFeatureAssertionsSpec in specs-common (see for instance XyFeatureAssertionsSpec) and extend it in atrium-api-fluent-en_GB-common/src/test
 
 ## Non-Code related feature
 **Is your feature request related to a problem? Please describe.**
@@ -24,8 +40,6 @@ A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
 A clear and concise description of any alternative solutions or features you've considered.
-
-
 
 ## Your first contribution?
 - Write a comment `I'll work on this` if you would like to take this issue over. 
