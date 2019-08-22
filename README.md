@@ -1828,7 +1828,7 @@ Atrium is
 and it is your choice which implementation you want to use. 
 However, this is more intended for advanced user with special requirements.
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
-so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom in the maven world):
+so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-cfluent-en_GB-common/build.gradle)
 - [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
@@ -1844,11 +1844,11 @@ Atrium provides some helper functions in case you have to deal with Java Code wh
 [Platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
 are turned into a non-nullable version per default (if possible). 
 
-Yet, that might not be what you want, especially if you know that certain functions return potentially null 
+Yet, that might not be what you want, especially if you know that certain functions return potentially `null` 
 or in other words, the return type of those functions should be treated as nullable in Kotlin. 
 Therefore you want to turn the platform type into the nullable version. 
 
-You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with generics. 
+You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with type parameters. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
 - [`nullable`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
   turns a type into a nullable type.
@@ -1860,6 +1860,7 @@ Thus, Atrium provides the following functions to ease dealing with Java Code at 
   turns a `Map` into a map with a nullable value type.
 - [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
   turns a `Map` into a map with a nullable key and nullable value type. 
+    
  
 # KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:
@@ -1873,8 +1874,8 @@ So, let me know if you miss something by creating a [feature request](https://gi
 Some assertion functions which I miss myself will follow in the next version. 
 They are listed in the [Roadmap](#roadmap) below.
 
-Atrium does not support (yet):
-- JSON assertion functions
+Atrium does especially not support (yet):
+- specific JSON assertion functions (yet, everything is there as soon as you parse the JSON into a Map/Object)
 
 # FAQ
 You find frequently asked questions below.
@@ -1893,7 +1894,7 @@ expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<Iterable<E>>`.
 
 <details>
-<summary>:interrobang: why do I not see anything about the transformation in reporting?</summary>
+<summary>:interrobang: why do I not see anything aboutthe transformation in reporting?</summary>
 
 `asIterable` uses `ExpectImpl.changeSubject.unreported` internally which is intended for not showing up in reporting.
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
@@ -1909,14 +1910,19 @@ expect(sequenceOf(1, 2, 3)).feature(Sequence::asIterable).contains(2)
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
 
-## Problems in confjuntion with `feature`
+Deprecated APIS:
+- [atrium-api-cc-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
+- [atrium-api-cc-de_CH](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-d-e/index.html)
+- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
+
+## Problems in conjunction with `feature`
 
 See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
 
 # Kotlin Bugs
 The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
 Please upvote them (especially if you encounter them yourself):
-- [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects
+- [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects.
 - [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
 - [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
 - [Type inference KFunction overload bug 1](https://youtrack.jetbrains.com/issue/KT-17340)
@@ -1928,17 +1934,23 @@ Please upvote them (especially if you encounter them yourself):
 - [Type inference out type parameter bug](https://youtrack.jetbrains.com/issue/KT-18401)
 - [Type inference explicit type and overloads](https://youtrack.jetbrains.com/issue/KT-23791)
 - [Type inference Pair with receiver type](https://youtrack.jetbrains.com/issue/KT-29129)
+- [Type inference unable to infer primitive type](https://youtrack.jetbrains.com/issue/KT-33290)
 - [Overload resolution null bug](https://youtrack.jetbrains.com/issue/KT-6591) (reason why you need to specify what type `null` is in the infix API when using `assert(listOf(...)) contains null`)
 - [Extension resolution null as receiver bug](https://youtrack.jetbrains.com/issue/KT-30496) (reason why you need to define that `null to null` is a Pair in the infix API)
 - [Overload resolution nullable bug](https://youtrack.jetbrains.com/issue/KT-23768)
 - [Overload resolution primitive type bug](https://youtrack.jetbrains.com/issue/KT-24230)
 - [Overload resolution function type bug](https://youtrack.jetbrains.com/issue/KT-23883)
 - [Overload resolution generic upper bound bug](https://youtrack.jetbrains.com/issue/KT-30235)
-- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
-- [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
+- [Overload ambiguity between val and fun](https://youtrack.jetbrains.com/issue/KT-32958)
+- [false positive: remove explicit type arguments](https://youtrack.jetbrains.com/issue/KT-32869)
 - [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
+- [Wrong JS generated in case of name clash](https://youtrack.jetbrains.com/issue/KT-33294)
+- [deprecated functions are no longer struck out in 2019.2.x](https://youtrack.jetbrains.com/issue/IDEA-216982)
+- [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
+- [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
 
 And some features which would be handy
+- [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
 - [Method reference without `this`](https://youtrack.jetbrains.com/issue/KT-22920)
 - [Infix function call with type parameters](https://youtrack.jetbrains.com/issue/KT-21593)
 - [Extensibility for infix API](https://youtrack.jetbrains.com/issue/KT-27659)
@@ -1954,19 +1966,22 @@ I plan that Atrium is going to support certain features in the future. Following
 ## 0.9.0
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
 - introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
-- introduce jdk8 specific assertion functions.
+- optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
 
 ## 0.10.0
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
+- provide an easy way to create failure hints
+
+## 0.11.0
 - Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
   
-## 0.11.0  
+## 0.12.0  
 - see if we can further improve error reporting in the IDE with the help of opentest4j exceptions.
 - Generating testing reports in html.
-  - generate multiple reports in the same test run.
-  - extension for Spek so that reporting includes the `describe`, `it` etc. 
+  - generate multiple reports in the same test run. 
   
-## 0.12.0 (or 1.0.0)  
+## 0.13.0 (or 1.0.0)  
+- extension for Spek so that reporting includes the `describe`, `it` etc.
 - Inclusion of mockk's verify (so that it appears in the report as well).
     
 Are you missing something else? 
@@ -1995,3 +2010,7 @@ for further suggestions and guidelines.
 
 # License
 Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
+
+Atrium is using:
+- [KBox](https://github.com/robstoll/kbox) licensed under [Apache 2.0](http://opensource.org/licenses/Apache2.0)
+- [Niok](https://github.com/robstoll/niok) licensed under [Apache 2.0](http://opensource.org/licenses/Apache2.0)
