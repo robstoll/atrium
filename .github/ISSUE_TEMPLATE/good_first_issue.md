@@ -1,8 +1,12 @@
 ---
-name: ⭐ Good First Issue (for maintainers)
+name: "⭐ Good First Issue (for maintainers)"
 about: Create a good first issue
+title: ''
+labels: ''
+assignees: ''
 
 ---
+
 *Platform* (jvm, jdk8, js, android): 
 
 ## Code related feature
