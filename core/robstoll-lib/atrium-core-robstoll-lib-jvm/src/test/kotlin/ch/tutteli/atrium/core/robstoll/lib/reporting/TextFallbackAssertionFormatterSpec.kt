@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
@@ -63,9 +63,9 @@ class TextFallbackAssertionFormatterSpec : Spek({
                         )
                         .build()
                 }
-                assert(mapOf("1" to 2).entries)
+                expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).toBe("assert: subject$separator" +
+                expect(sb.toString()).toBe("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
                     "$squarePoint ${NOT_TO_BE.getDefault()}: bye")
             }

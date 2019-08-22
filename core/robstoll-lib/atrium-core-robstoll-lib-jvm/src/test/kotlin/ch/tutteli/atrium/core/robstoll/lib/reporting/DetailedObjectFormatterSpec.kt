@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatterCommon.Companion.INDENT
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
@@ -32,14 +32,14 @@ object DetailedObjectFormatterSpec : Spek({
         on("a ${Char::class.simpleName}") {
             val result = testee.format('a')
             it("returns the ${Char::class.simpleName} in apostrophes") {
-                assert(result).toBe("'a'")
+                expect(result).toBe("'a'")
             }
         }
 
         on("a ${Boolean::class.simpleName}") {
             it("returns the toString representation of the ${Boolean::class.simpleName}") {
-                assert(testee.format(true)).toBe("true")
-                assert(testee.format(false)).toBe("false")
+                expect(testee.format(true)).toBe("true")
+                expect(testee.format(false)).toBe("false")
             }
         }
 
@@ -47,17 +47,17 @@ object DetailedObjectFormatterSpec : Spek({
             it("returns two quotes including identity hash if empty ${String::class.simpleName}") {
                 val string = ""
                 val result = testee.format(string)
-                assert(result).toBe("\"\"" + INDENT + "<${System.identityHashCode(string)}>")
+                expect(result).toBe("\"\"" + INDENT + "<${System.identityHashCode(string)}>")
             }
             it("returns the ${String::class.simpleName} in quotes including identity hash") {
                 val string = "atrium"
                 val result = testee.format(string)
-                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
+                expect(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
             }
             it("returns line breaks (does not escape") {
                 val string = "atrium\nAn assertion framework for Kotlin"
                 val result = testee.format(string)
-                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
+                expect(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
             }
         }
 
@@ -67,13 +67,13 @@ object DetailedObjectFormatterSpec : Spek({
             it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.simpleName}") {
                 val value = StringBuilder("")
                 val result = testee.format(value)
-                assert(result).toBe("\"\"" + INDENT
+                expect(result).toBe("\"\"" + INDENT
                     + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
             }
             it("returns ${CharSequence::class.simpleName} in quotes $typeNameAndHash") {
                 val value = StringBuilder("atrium")
                 val result = testee.format(value)
-                assert(result).toBe("\"$value\"" + INDENT
+                expect(result).toBe("\"$value\"" + INDENT
                     + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
             }
         }
@@ -82,7 +82,7 @@ object DetailedObjectFormatterSpec : Spek({
         on("a ${StringBasedRawString::class.simpleName}") {
             val result = testee.format(RawString.create("hello"))
             it("returns the containing string") {
-                assert(result).toBe("hello")
+                expect(result).toBe("hello")
             }
         }
 
@@ -94,7 +94,7 @@ object DetailedObjectFormatterSpec : Spek({
             val testeeWithMockedTranslation = DetailedObjectFormatter(translator)
             val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.ASSERT))
             it("returns the translated string") {
-                assert(result).toBe(translation)
+                expect(result).toBe(translation)
             }
         }
 
@@ -102,14 +102,14 @@ object DetailedObjectFormatterSpec : Spek({
             val enum = AssertionVerb.ASSERT
             val result = testee.format(enum)
             it("returns its toString representation together with its Class.name but without System.identityHash") {
-                assert(result).toBe("ASSERT" + INDENT + "(${enum::class.java.name})")
+                expect(result).toBe("ASSERT" + INDENT + "(${enum::class.java.name})")
             }
         }
 
         on("a Throwable") {
             val result = testee.format(AssertionError("blablabla"))
             it("returns only its Class.name") {
-                assert(result).toBe(AssertionError::class.java.name)
+                expect(result).toBe(AssertionError::class.java.name)
             }
         }
 
@@ -117,7 +117,7 @@ object DetailedObjectFormatterSpec : Spek({
             val result = testee.format(DetailedObjectFormatterSpec::class.java)
             it("returns its simpleName and name in parenthesis") {
                 val clazz = DetailedObjectFormatterSpec::class.java
-                assert(result).toBe("${clazz.simpleName} (${clazz.name})")
+                expect(result).toBe("${clazz.simpleName} (${clazz.name})")
             }
         }
 
@@ -127,8 +127,8 @@ object DetailedObjectFormatterSpec : Spek({
                 val result = testee.format(DetailedObjectFormatterSpec::class)
                 it("returns the simpleName and qualified in parenthesis") {
                     val clazz = DetailedObjectFormatterSpec::class
-                    assert(result).toBe("${clazz.java.simpleName} (${clazz.java.name})")
-                    assert(result).toBe("${clazz.simpleName} (${clazz.qualifiedName})")
+                    expect(result).toBe("${clazz.java.simpleName} (${clazz.java.name})")
+                    expect(result).toBe("${clazz.simpleName} (${clazz.qualifiedName})")
                 }
             }
 
@@ -136,7 +136,7 @@ object DetailedObjectFormatterSpec : Spek({
                 val result = testee.format(Int::class)
                 it("returns the simpleName and qualified in parenthesis including java's simpleName") {
                     val clazz = Int::class
-                    assert(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.simpleName}")
+                    expect(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.simpleName}")
                 }
             }
 
@@ -144,7 +144,7 @@ object DetailedObjectFormatterSpec : Spek({
                 val result = testee.format(CharSequence::class)
                 it("returns the simpleName and qualified in parenthesis including java's simpleName and name") {
                     val clazz = CharSequence::class
-                    assert(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.simpleName} (${clazz.java.name})")
+                    expect(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.simpleName} (${clazz.java.name})")
                 }
             }
         }
@@ -160,7 +160,7 @@ object DetailedObjectFormatterSpec : Spek({
             on(typeName) {
                 val result = testee.format(value)
                 it("returns subject's toString() $typeNameAndHash") {
-                    assert(result).toBe(value.toString() + INDENT
+                    expect(result).toBe(value.toString() + INDENT
                         + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
                 }
             }
@@ -172,7 +172,7 @@ object DetailedObjectFormatterSpec : Spek({
             }
             val result = testee.format(anonymous)
             it("returns subject's toString() $typeNameAndHash") {
-                assert(result).toBe(anonymous.toString() + INDENT
+                expect(result).toBe(anonymous.toString() + INDENT
                     + "(${anonymous::class.java.name} <${System.identityHashCode(anonymous)}>)")
             }
         }

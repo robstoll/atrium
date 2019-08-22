@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
@@ -71,7 +70,7 @@ class AdjustStackSpec : Spek({
             it("does not contain $containsNot in stackBacktrace of cause, but $contains") {
                 val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 adjuster.adjust(throwable)
-                assert(throwable.cause!!.stackBacktrace)
+                expect(throwable.cause!!.stackBacktrace)
                     .containsNot.entries(containsNotFirst, *containsNotRest)
                     .contains(containsFirst, *containsRest)
             }
@@ -82,7 +81,7 @@ class AdjustStackSpec : Spek({
                     UnsupportedOperationException("world", IllegalStateException("and good night"))
                 )
                 adjuster.adjust(throwable)
-                assert(throwable.cause!!.cause!!.stackBacktrace)
+                expect(throwable.cause!!.cause!!.stackBacktrace)
                     .containsNot.entries(containsNotFirst, *containsNotRest)
                     .contains(containsFirst, *containsRest)
             }
@@ -94,7 +93,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                assert(throwable.suppressed).asIterable().all {
+                expect(throwable.suppressed).asIterable().all {
                     feature { f(it::stackBacktrace) }
                         .containsNot.entries(containsNotFirst, *containsNotRest)
                         .contains(containsFirst, *containsRest)
@@ -108,7 +107,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                assert(throwable.suppressed).asIterable().all {
+                expect(throwable.suppressed).asIterable().all {
                     //TODO #31 replace with shortcut fun
                     feature { f(it::cause) }.notToBeNull {
                         feature { f(it::stackBacktrace) }
@@ -162,7 +161,7 @@ class AdjustStackSpec : Spek({
             it("does neither contain atrium nor spek nor junit in stackBacktrace of cause") {
                 val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 adjuster.adjust(throwable)
-                assert(throwable.cause!!.stackBacktrace).isEmpty()
+                expect(throwable.cause!!.stackBacktrace).isEmpty()
             }
 
             it("does neither contain atrium nor spek nor junit in stackBacktrace of suppressed") {
@@ -172,7 +171,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                assert(throwable.suppressed).asIterable().all {
+                expect(throwable.suppressed).asIterable().all {
                     feature { f(it::stackBacktrace) }.isEmpty()
                 }
             }

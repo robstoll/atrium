@@ -1612,9 +1612,8 @@ But you can also define your own set of assertion verbs if they do not suite you
 In order to create an own assertion verb it is sufficient to:
  1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content.
- 3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
- 4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
- 5. exclude `atrium-verbs` from your dependencies. 
+ 3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
+ 4. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
     ```
     dependencies {
@@ -1624,9 +1623,8 @@ In order to create an own assertion verb it is sufficient to:
     }
     ```
 
-As you can see in [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt), 
-it is up to you if you use the same name for all assertion functions or not 
-(Atrium itself uses `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions).
+You could also choose to have different verbs for the three functions.
+For instance, you could use `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions.
 
 What are the benefits of creating own assertion verbs:
 - you can limit the set of available assertion verbs. <br/>

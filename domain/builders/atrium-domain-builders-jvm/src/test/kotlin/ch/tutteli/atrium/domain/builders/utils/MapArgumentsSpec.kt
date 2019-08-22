@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.assert
-import ch.tutteli.atrium.verbs.internal.assert as deprecatedAssert
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.verbs.internal.assert as deprecatedAssert
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.domain.builders.migration.asAssert
@@ -19,7 +18,7 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: String, vararg iX: String) = mapArguments(i, iX) { "$it." }
 
-                assert(it("a", "b", "c"))
+                expect(it("a", "b", "c"))
                     .first { toBe("a.") }
                     .second.asIterable().containsExactly("b.", "c.")
             }
@@ -27,7 +26,7 @@ object MapArgumentsSpec : Spek({
             it("with second step `to`") {
                 fun it(i: String, vararg iX: String) = mapArguments(i, iX).to { "$it." }
 
-                assert(it("a", "b", "c"))
+                expect(it("a", "b", "c"))
                     .first { toBe("a.") }
                     .second.asIterable().containsExactly("b.", "c.")
             }
@@ -37,9 +36,9 @@ object MapArgumentsSpec : Spek({
                     mapArguments(i, iX).toExpect<String> { startsWith(it) }
 
                 val (first, others) = it("a", "b", "c")
-                assert("apple").first()
-                others[0](assert("banana"))
-                others[1](assert("caramel"))
+                expect("apple").first()
+                others[0](expect("banana"))
+                others[1](expect("caramel"))
             }
 
             it("toAssert") {
@@ -71,8 +70,8 @@ object MapArgumentsSpec : Spek({
                         mapArguments(i, iX).toNullOr().toExpect<String> { startsWith(it) }
 
                     val (first, others) = it(null, "b", "c")
-                    assert(first).toBe(null)
-                    assert(others[0]).notToBeNull {
+                    expect(first).toBe(null)
+                    expect(others[0]).notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             ExpectImpl.changeSubject.unreported(this) { "banana" }.assertionCreator()
                         }
@@ -120,7 +119,7 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Byte, vararg iX: Byte) = mapArguments(i, iX) { it + 1 }
 
-                assert(it(1, 2, 3, 4))
+                expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
@@ -128,7 +127,7 @@ object MapArgumentsSpec : Spek({
             it("with second step") {
                 fun it(i: Byte, vararg iX: Byte) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it(1, 2, 3, 4))
+                expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
@@ -137,14 +136,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Char, vararg iX: Char) = mapArguments(i, iX) { it + 1 }
 
-                assert(it('a', 'b', 'c'))
+                expect(it('a', 'b', 'c'))
                     .first { toBe('b') }
                     .second.asIterable().containsExactly('c', 'd')
             }
             it("with second step") {
                 fun it(i: Char, vararg iX: Char) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it('a', 'b', 'c'))
+                expect(it('a', 'b', 'c'))
                     .first { toBe('b') }
                     .second.asIterable().containsExactly('c', 'd')
             }
@@ -153,14 +152,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Short, vararg iX: Short) = mapArguments(i, iX) { it + 1 }
 
-                assert(it(1, 2, 3, 4))
+                expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Short, vararg iX: Short) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it(1, 2, 3, 4))
+                expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
@@ -169,14 +168,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Int, vararg iX: Int) = mapArguments(i, iX) { it + 1 }
 
-                assert(it(1, 2, 3, 4))
+                expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Int, vararg iX: Int) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it(1, 2, 3, 4))
+                expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
@@ -185,14 +184,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Long, vararg iX: Long) = mapArguments(i, iX) { it + 1 }
 
-                assert(it(1L, 2L, 3L, 4L))
+                expect(it(1L, 2L, 3L, 4L))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Long, vararg iX: Long) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it(1L, 2L, 3L, 4L))
+                expect(it(1L, 2L, 3L, 4L))
                     .first { toBe(2) }
                     .second.asIterable().containsExactly(3, 4, 5)
             }
@@ -201,14 +200,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Float, vararg iX: Float) = mapArguments(i, iX) { it + 1 }
 
-                assert(it(1f, 2f, 3f, 4f))
+                expect(it(1f, 2f, 3f, 4f))
                     .first { toBe(2f) }
                     .second.asIterable().containsExactly(3f, 4f, 5f)
             }
             it("with second step") {
                 fun it(i: Float, vararg iX: Float) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it(1f, 2f, 3f, 4f))
+                expect(it(1f, 2f, 3f, 4f))
                     .first { toBe(2f) }
                     .second.asIterable().containsExactly(3f, 4f, 5f)
             }
@@ -217,14 +216,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX) { it + 1 }
 
-                assert(it(1.0, 2.0, 3.0, 4.0))
+                expect(it(1.0, 2.0, 3.0, 4.0))
                     .first { toBe(2.0) }
                     .second.asIterable().containsExactly(3.0, 4.0, 5.0)
             }
             it("with second step") {
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX).to { it + 1 }
 
-                assert(it(1.0, 2.0, 3.0, 4.0))
+                expect(it(1.0, 2.0, 3.0, 4.0))
                     .first { toBe(2.0) }
                     .second.asIterable().containsExactly(3.0, 4.0, 5.0)
             }
@@ -233,14 +232,14 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX) { !it }
 
-                assert(it(true, false, true))
+                expect(it(true, false, true))
                     .first { toBe(false) }
                     .second.asIterable().containsExactly(true, false)
             }
             it("with second step") {
                 fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX).to { if (it) "a" else "b" }
 
-                assert(it(true, false, false))
+                expect(it(true, false, false))
                     .first { toBe("a") }
                     .second.asIterable().containsExactly("b", "b")
             }

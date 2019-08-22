@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeBasicAssertion
 import org.jetbrains.spek.api.Spek
@@ -18,21 +18,21 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation("a", 2).build()
         }
         test("does not evaluate anything") {
-            assert(callingCount).toBe(0)
+            expect(callingCount).toBe(0)
         }
         test("adding it to a list does not evaluate anything") {
             listOf(testee)
-            assert(callingCount).toBe(0)
+            expect(callingCount).toBe(0)
         }
         on("invoking ${testee::holds.name}") {
             val resultHolds = testee.holds()
 
             it("evaluates it") {
-                assert(callingCount).toBe(1)
+                expect(callingCount).toBe(1)
             }
 
             it("returns holds() of the underlying ${DescriptiveAssertion::class.simpleName}") {
-                assert(resultHolds).toBe(false)
+                expect(resultHolds).toBe(false)
             }
         }
 
@@ -41,15 +41,15 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             val resultExpected = testee.representation
 
             it("evaluates it only once") {
-                assert(callingCount).toBe(1)
+                expect(callingCount).toBe(1)
             }
 
             it("returns ${DescriptiveAssertion::holds.name}() of the underlying ${DescriptiveAssertion::class.simpleName}") {
-                assert(resultHolds).toBe(false)
+                expect(resultHolds).toBe(false)
             }
 
             it("returns ${DescriptiveAssertion::representation.name} of the underlying ${DescriptiveAssertion::class.simpleName}") {
-                assert(resultExpected).toBe(2)
+                expect(resultExpected).toBe(2)
             }
         }
     }

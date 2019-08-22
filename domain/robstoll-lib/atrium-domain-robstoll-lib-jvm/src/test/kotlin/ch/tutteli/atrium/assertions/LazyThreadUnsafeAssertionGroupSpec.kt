@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -27,21 +27,21 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 .build()
         }
         test("does not evaluate anything") {
-            assert(callingCount).toBe(0)
+            expect(callingCount).toBe(0)
         }
         test("adding it to a list does not evaluate anything") {
             listOf(testee)
-            assert(callingCount).toBe(0)
+            expect(callingCount).toBe(0)
         }
         on("invoking ${testee::holds.name}") {
             val resultHolds = testee.holds()
 
             it("evaluates it") {
-                assert(callingCount).toBe(1)
+                expect(callingCount).toBe(1)
             }
 
             it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
-                assert(resultHolds).toBe(false)
+                expect(resultHolds).toBe(false)
             }
         }
 
@@ -50,15 +50,15 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             val resultAssertions = testee.assertions
 
             it("evaluates it only once") {
-                assert(callingCount).toBe(1)
+                expect(callingCount).toBe(1)
             }
 
             it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
-                assert(resultHolds).toBe(false)
+                expect(resultHolds).toBe(false)
             }
 
             it("returns the ${AssertionGroup::assertions.name} of the underlying ${AssertionGroup::class.simpleName}") {
-                assert(resultAssertions).containsExactly(assertion)
+                expect(resultAssertions).containsExactly(assertion)
             }
         }
     }

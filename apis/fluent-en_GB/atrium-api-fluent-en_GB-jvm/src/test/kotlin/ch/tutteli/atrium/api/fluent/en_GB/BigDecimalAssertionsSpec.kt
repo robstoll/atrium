@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.include
@@ -26,7 +26,7 @@ class BigDecimalAssertionsSpec : Spek({
 
     describe("fun toBe for BigDecimal? and subject is null") {
         it("chooses the correct overload if `null` is passed, does not throw") {
-            assert(null as BigDecimal?).toBe(null)
+            expect(null as BigDecimal?).toBe(null)
         }
     }
 })

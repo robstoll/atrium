@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.startsWith
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -23,11 +22,11 @@ object EitherSpec : Spek({
     describe("custom Either<String, Int> with Left \"hello\"") {
         val either: Either<String, Int> = Left("hello")
         it("isLeft does not throw") {
-            assert(either).isLeft { startsWith("h") }
+            expect(either).isLeft { startsWith("h") }
         }
         it("isRight throws AssertionError containing explanation") {
             expect {
-                assert(either).isRight { isLessThan(2) }
+                expect(either).isRight { isLessThan(2) }
             }.toThrow<AssertionError> {
                 messageContains(
                     "is a: ${Right::class.java.simpleName}",
@@ -41,7 +40,7 @@ object EitherSpec : Spek({
         val either: Either<String, Int> = Right(1)
         it("isLeft does not throw") {
             expect {
-                assert(either).isLeft { startsWith("h") }
+                expect(either).isLeft { startsWith("h") }
             }.toThrow<AssertionError> {
                 messageContains(
                     "is a: ${Left::class.java.simpleName}",
@@ -50,7 +49,7 @@ object EitherSpec : Spek({
             }
         }
         it("isRight throws AssertionError containing explanation") {
-            assert(either).isRight { isLessThan(2) }
+            expect(either).isRight { isLessThan(2) }
         }
     }
 })

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
-import ch.tutteli.atrium.api.verbs.internal.assert
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -44,73 +44,73 @@ abstract class IterableContainsSpecBase {
         val nullableList: List<Number?> = notImplemented()
         val subList: ArrayList<out Number> = notImplemented()
 
-        assert(list).contains(1)
-        assert(list).contains(1f)
-        assert(list).contains(1, 2)
-        assert(list).contains(1, 2f)
-        assert(list).contains {}
-        assert(list).contains({}, {})
-        assert(subList).contains(1)
-        assert(subList).contains(1f)
-        assert(subList).contains(1, 2)
-        assert(subList).contains(1, 2f)
-        assert(subList).contains {}
-        assert(subList).contains({}, {})
-        assert(nullableList).contains(1)
-        assert(nullableList).contains(1f)
-        assert(nullableList).contains(1, 2)
-        assert(nullableList).contains(1, 2f)
-        assert(nullableList).contains {}
-        assert(nullableList).contains(null)
-        assert(nullableList).contains({}, null)
-        assert(nullableList).contains({}, {})
-        assert(nullableList).contains(null, {})
+        expect(list).contains(1)
+        expect(list).contains(1f)
+        expect(list).contains(1, 2)
+        expect(list).contains(1, 2f)
+        expect(list).contains {}
+        expect(list).contains({}, {})
+        expect(subList).contains(1)
+        expect(subList).contains(1f)
+        expect(subList).contains(1, 2)
+        expect(subList).contains(1, 2f)
+        expect(subList).contains {}
+        expect(subList).contains({}, {})
+        expect(nullableList).contains(1)
+        expect(nullableList).contains(1f)
+        expect(nullableList).contains(1, 2)
+        expect(nullableList).contains(1, 2f)
+        expect(nullableList).contains {}
+        expect(nullableList).contains(null)
+        expect(nullableList).contains({}, null)
+        expect(nullableList).contains({}, {})
+        expect(nullableList).contains(null, {})
 
-        assert(list).containsExactly(1)
-        assert(list).containsExactly(1, 2f)
-        assert(list).containsExactly {}
-        assert(list).containsExactly({}, {})
-        assert(subList).containsExactly(1)
-        assert(subList).containsExactly(1, 2f)
-        assert(subList).containsExactly {}
-        assert(subList).containsExactly({}, {})
-        assert(nullableList).containsExactly(1)
-        assert(nullableList).containsExactly(1, 1)
-        assert(nullableList).containsExactly {}
-        assert(nullableList).containsExactly(null)
-        assert(nullableList).containsExactly({}, null)
-        assert(nullableList).containsExactly({}, {})
-        assert(nullableList).containsExactly(null, {})
+        expect(list).containsExactly(1)
+        expect(list).containsExactly(1, 2f)
+        expect(list).containsExactly {}
+        expect(list).containsExactly({}, {})
+        expect(subList).containsExactly(1)
+        expect(subList).containsExactly(1, 2f)
+        expect(subList).containsExactly {}
+        expect(subList).containsExactly({}, {})
+        expect(nullableList).containsExactly(1)
+        expect(nullableList).containsExactly(1, 1)
+        expect(nullableList).containsExactly {}
+        expect(nullableList).containsExactly(null)
+        expect(nullableList).containsExactly({}, null)
+        expect(nullableList).containsExactly({}, {})
+        expect(nullableList).containsExactly(null, {})
 
-        assert(list).contains.inAnyOrder.atLeast(1).value(1)
-        assert(list).contains.inAnyOrder.atLeast(1).value(null)
-        assert(list).contains.inAnyOrder.atLeast(1).entry {}
-        assert(list).contains.inAnyOrder.atLeast(1).entry(null)
-        assert(subList).contains.inAnyOrder.atLeast(1).value(1)
-        assert(subList).contains.inAnyOrder.atLeast(1).value(null)
-        assert(subList).contains.inAnyOrder.atLeast(1).entry {}
-        assert(subList).contains.inAnyOrder.atLeast(1).entry(null)
+        expect(list).contains.inAnyOrder.atLeast(1).value(1)
+        expect(list).contains.inAnyOrder.atLeast(1).value(null)
+        expect(list).contains.inAnyOrder.atLeast(1).entry {}
+        expect(list).contains.inAnyOrder.atLeast(1).entry(null)
+        expect(subList).contains.inAnyOrder.atLeast(1).value(1)
+        expect(subList).contains.inAnyOrder.atLeast(1).value(null)
+        expect(subList).contains.inAnyOrder.atLeast(1).entry {}
+        expect(subList).contains.inAnyOrder.atLeast(1).entry(null)
 
-        assert(list).contains.inAnyOrder.only.value(1)
-        assert(list).contains.inAnyOrder.only.value(null)
-        assert(list).contains.inAnyOrder.only.entry {}
-        assert(list).contains.inAnyOrder.only.entry(null)
-        assert(subList).contains.inAnyOrder.only.value(1)
-        assert(subList).contains.inAnyOrder.only.value(null)
-        assert(subList).contains.inAnyOrder.only.entry {}
-        assert(subList).contains.inAnyOrder.only.entry(null)
+        expect(list).contains.inAnyOrder.only.value(1)
+        expect(list).contains.inAnyOrder.only.value(null)
+        expect(list).contains.inAnyOrder.only.entry {}
+        expect(list).contains.inAnyOrder.only.entry(null)
+        expect(subList).contains.inAnyOrder.only.value(1)
+        expect(subList).contains.inAnyOrder.only.value(null)
+        expect(subList).contains.inAnyOrder.only.entry {}
+        expect(subList).contains.inAnyOrder.only.entry(null)
 
-        assert(list).contains.inOrder.only.value(1)
-        assert(list).contains.inOrder.only.value(null)
-        assert(list).contains.inOrder.only.entry {}
-        assert(list).contains.inOrder.only.entry(null)
-        assert(subList).contains.inOrder.only.value(1)
-        assert(subList).contains.inOrder.only.value(null)
-        assert(subList).contains.inOrder.only.entry {}
-        assert(subList).contains.inOrder.only.entry(null)
+        expect(list).contains.inOrder.only.value(1)
+        expect(list).contains.inOrder.only.value(null)
+        expect(list).contains.inOrder.only.entry {}
+        expect(list).contains.inOrder.only.entry(null)
+        expect(subList).contains.inOrder.only.value(1)
+        expect(subList).contains.inOrder.only.value(null)
+        expect(subList).contains.inOrder.only.entry {}
+        expect(subList).contains.inOrder.only.entry(null)
 
 
-        assert(list).contains.inOrder.only.grouped.within.inAnyOrder(
+        expect(list).contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
             Value(null),
             Values(1f),
@@ -119,7 +119,7 @@ abstract class IterableContainsSpecBase {
             Values(1, null),
             Values(null, null)
         )
-        assert(subList).contains.inOrder.only.grouped.within.inAnyOrder(
+        expect(subList).contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
             Value(null),
             Values(1f),
@@ -129,7 +129,7 @@ abstract class IterableContainsSpecBase {
             Values(null, null)
         )
 
-        assert(list).contains.inOrder.only.grouped.within.inAnyOrder(
+        expect(list).contains.inOrder.only.grouped.within.inAnyOrder(
             Entry {},
             Entry(null),
             Entries({}),
@@ -138,7 +138,7 @@ abstract class IterableContainsSpecBase {
             Entries({}, null),
             Entries(null, null)
         )
-        assert(subList).contains.inOrder.only.grouped.within.inAnyOrder(
+        expect(subList).contains.inOrder.only.grouped.within.inAnyOrder(
             Entry {},
             Entry(null),
             Entries({}),

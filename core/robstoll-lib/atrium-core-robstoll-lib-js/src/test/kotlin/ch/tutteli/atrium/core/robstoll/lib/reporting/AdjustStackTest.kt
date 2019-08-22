@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.assert
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -40,7 +39,7 @@ class AdjustStackTest {
         val adjuster = ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
-        assert(throwable.cause!!.stackBacktrace)
+        expect(throwable.cause!!.stackBacktrace)
             .containsNot.entry { contains("mocha") }
             .contains { contains("atrium-core-robstoll-lib-js") }
     }
@@ -61,7 +60,7 @@ class AdjustStackTest {
         val adjuster = ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
-        assert(throwable.cause!!.stackBacktrace)
+        expect(throwable.cause!!.stackBacktrace)
             .contains { contains("mocha") }
             .containsNot.entry { contains("atrium-core-robstoll-lib-js") }
     }

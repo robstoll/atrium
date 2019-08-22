@@ -7,11 +7,11 @@ import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
-fun <T> assert(subject: T) =
+fun <T> expect(subject: T) =
     ExpectImpl.assertionVerbBuilder(subject).withVerb(AssertionVerb.ASSERT).withDefaultReporter().build()
 
-fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit) =
-    assert(subject).addAssertionsCreatedBy(assertionCreator)
+fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit) =
+    expect(subject).addAssertionsCreatedBy(assertionCreator)
 
 fun expect(act: () -> Unit) = ExpectImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
 
