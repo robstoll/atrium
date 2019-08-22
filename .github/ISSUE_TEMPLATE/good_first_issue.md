@@ -16,20 +16,19 @@ expect(
 
 Following the things you need to do:
 
-
 *domain*
-- extend XyAssertions with a function `xy` (see XyAssertions as a guideline)
-- modify XyAssertionsBuilder, delegate to xyAssertions (see XyAssertionsBuilder as a guideline)
-- delegate implementation to robstoll-lib in XyAssertionsImpl (see XyAssertionsImpl as a guideline)
+- extend XyAssertions with a function `xy` (see YzAssertions as a guideline)
+- modify XyAssertionsBuilder, delegate to xyAssertions (see YzAssertionsBuilder as a guideline)
+- delegate implementation to robstoll-lib in XyAssertionsImpl (see YzAssertionsImpl as a guideline)
 
 
 *lib*
 - implement _xy in xyAssertions by using the `ExpectImpl.feature.extractor...`
 
 *api*
-- provide a val which returns Expect<T> (see xyAssertions.kt as a guideline)
-- provide a fun which expects an `assertionCreator`-lambda and returns Expect<Xy> (see xyAssertions.kt as a guideline)
-- extend or write a separate Spec named XyFeatureAssertionsSpec in specs-common (see for instance XyFeatureAssertionsSpec) and extend it in atrium-api-fluent-en_GB-common/src/test
+- provide a val which returns Expect<T> (see yzAssertions.kt as a guideline)
+- provide a fun which expects an `assertionCreator`-lambda and returns Expect<Xy> (see yzAssertions.kt as a guideline)
+- extend or write a separate Spec named XyFeatureAssertionsSpec in specs-common (see for instance YzFeatureAssertionsSpec) and extend it in atrium-api-fluent-en_GB-common/src/test
 
 ## Non-Code related feature
 **Is your feature request related to a problem? Please describe.**
