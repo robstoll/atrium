@@ -17,13 +17,13 @@ expect(
 Following the things you need to do:
 
 *domain*
-- extend XyAssertions with a function `xy` (see YzAssertions as a guideline)
+- extend XyAssertions with a function `foo` (see YzAssertions as a guideline)
 - modify XyAssertionsBuilder, delegate to xyAssertions (see YzAssertionsBuilder as a guideline)
 - delegate implementation to robstoll-lib in XyAssertionsImpl (see YzAssertionsImpl as a guideline)
 
 
 *lib*
-- implement _xy in xyAssertions by using the `ExpectImpl.feature.extractor...`
+- implement _foo in xyAssertions by using the `ExpectImpl.feature.extractor...`
 
 *api*
 - provide a val which returns Expect<T> (see yzAssertions.kt as a guideline)
