@@ -1610,7 +1610,7 @@ Atrium offers three assertion verbs out of the box: `expect`, `assert` and `asse
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content.
  3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
  4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
@@ -1624,13 +1624,13 @@ In order to create an own assertion verb it is sufficient to:
     }
     ```
 
-As you can see in [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt), 
+As you can see in [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt), 
 it is up to you if you use the same name for all assertion functions or not 
 (Atrium itself uses `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions).
 
 What are the benefits of creating own assertion verbs:
 - you can limit the set of available assertion verbs. <br/>
-  Say you want that everyone uses `expect` but not `assertThat`, removing `assertThat` is surely a better option than using a linter.
+  Say you want that everyone uses `expect` but not `assert` nor `assertThat`, removing them is surely a better option than using a linter.
 - you can encapsulate the reporting style. <br/>
   This is especially useful if you have multiple projects and want to have a consistent reporting style.  
   For instance, you could change from same-line to multi-line reporting or report not only failing but also successful assertions, change the output language etc.
@@ -1655,7 +1655,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/master/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+Have a look at [atriumVerbs.kt of atrium-api-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/apis/fluent-de_CH/atrium-api-fluent-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -1687,7 +1687,7 @@ It does not matter if you use your [own assertion verb](#use-own-assertion-verbs
 You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
 This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
 and by calling `registerService` on JS where the call has to be before your tests run.  
-An example for JVM is given in [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/master/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+An example for JVM is given in [atriumVerbs.kt of atrium-api-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/apis/fluent-de_CH/atrium-api-fluent-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
 An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
@@ -1701,11 +1701,11 @@ we show here how you need to write the `isMultipleOf` function, so that it suppo
 This way the report could be generated in another language.
 
 The difference lies in the first argument passed to `createAndAddAssertion`; 
-we do no longer use an `Untranslatable` but a proper `Translatable`. 
+we do no longer use a `String` but a proper `Translatable`. 
 
 ```kotlin
-fun Expect<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
-    DescriptionIntAssertions.IS_MULTIPLE_OF, base, { subject % base == 0 })
+fun Expect<Int>.isMultipleOf(base: Int) = 
+    createAndAddAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
     
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")
@@ -1728,7 +1728,7 @@ Next to providing translations via code you can also use a
 [TranslationSupplier](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
 based [Translator](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html)
 by configuring the [`ReporterBuilder`](#reporterbuilder) accordingly (e.g. use `withDefaultTranslationSupplier` instead of `withoutTranslations`). 
-Atrium supports a properties files based `TranslationSupplier` which is more or less what
+Atrium supports a properties files based `TranslationSupplier` for JVM (a supplier for JS will follow) which is more or less what
 [ResourceBundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
 provides out of the box. 
 Yet, a `Translator` uses a more enhanced fallback mechanism compared to a `ResourceBundle`. 
@@ -1745,8 +1745,8 @@ However, Atrium is designed to support this use case -- if you need this feature
 Let us rewrite the `isEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
 as second example:
 ```kotlin
-fun Expect<Int>.isEven() = createAndAddAssertion(
-    DescriptionCommon.IS, RawString.create(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
+fun Expect<Int>.isEven() = 
+    createAndAddAssertion(DescriptionBasic.IS, RawString.create(DescriptionIntAssertions.EVEN)) { it % 2 == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")
@@ -1754,6 +1754,7 @@ enum class DescriptionIntAssertions(override val value: String) : StringBasedTra
 ```
 Once again we have to wrap the text which we want to be able to exchange with another language into a `Translatable`. 
 Since we want that the translation as such is treated as a raw string in reporting, we wrap it into a `RawString` as we did before. 
+Notice also, that we are reusing a `Translatable` from `DescriptionBasic`.
 
 ## API in a different Language
 
@@ -1764,18 +1765,18 @@ Or in other words, provide our API in a different language (the same applies if 
 
 We split up the function in two parts: API and implementation 
 -- whereas the implementation creates the assertion and the API provides a function for the user (the API as such) and
-merely adds the assertion created by the implementation to the `AssertionPlant`.
+merely adds the assertion created by the implementation to the `Expect`.
  
 Typically you put the API function in one module (jar) and the implementation in another (so that the API can be exchanged).
 In the implementation module we define, what we will call hereafter an impl-function.
 We follow the convention that impl-functions are prefixed with `_` 
 -- this way the chance that it shows up in code completion, e.g. when a developer starts to type `is`, is very low):
 ```kotlin
-fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion 
-    = ExpectImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion 
+    = ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 ```
 Notice that the impl-function is not an extension function as before 
-because we do not want to pollute the API of `AssertionPlant<Int>` (of `Expect<Int>` respectively) with this function.
+because we do not want to pollute the API of `Expect<Int>` with this function.
 In the above example we created a simple [DescriptiveAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
 (`createAndAddAssertion` does the same under the hood)
 with a test which defines whether the assertion holds as well as a description (`IS_MULTIPLE_OF`) and a representation (`base`).
@@ -1817,14 +1818,15 @@ A service could also reuse parts of the `Implementation`
 </details>
 
 # APIs
-Atrium supports currently two API styles: pure fluent (`cc`) and infix (`cc-infix`) 
-where `cc` exists in English and German; `cc-infix` only in English.
-All have their design focus on interoperability with code completion (thus `cc`) functionality of your IDE 
+Atrium supports currently two API styles: pure `fluent` and `infix` 
+where `fluent` exists in English and German; `infix` only in English.
+All have their design focus on interoperability with code completion functionality of your IDE 
 -- so that you can let your IDE do some of the work.
 
 Atrium is 
 [built up by different modules](https://docs.atriumlib.org/latest#/doc/) 
 and it is your choice which implementation you want to use. 
+However, this is more intended for advanced user with special requirements.
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom in the maven world):
 
