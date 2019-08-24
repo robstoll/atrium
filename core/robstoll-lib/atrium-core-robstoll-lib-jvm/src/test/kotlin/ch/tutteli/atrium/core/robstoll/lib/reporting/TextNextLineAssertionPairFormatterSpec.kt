@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -17,8 +17,7 @@ import org.jetbrains.spek.api.dsl.it
 //TODO #116 migrate spek1 to spek2 - move to common module
 class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun("", funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) = describeFun("", funName, body = body)
 
     val testee = TextNextLineAssertionPairFormatter(
         ToStringObjectFormatter,
@@ -70,7 +69,8 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
-            testee.format(newParameterObject, Untranslatable(name),
+            testee.format(
+                newParameterObject, Untranslatable(name),
                 RawString.EMPTY
             )
             expect(sb.toString()).toBe("$name:")

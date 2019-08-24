@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.specs.fun1
@@ -16,7 +15,6 @@ class IterableAnyAssertionsSpec : Spek({
     include(SequenceSpec)
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
-        AssertionVerbFactory,
         fun1(Expect<Iterable<Double>>::any),
         fun1(Expect<Iterable<Double?>>::any),
         "◆ ",
@@ -24,7 +22,6 @@ class IterableAnyAssertionsSpec : Spek({
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
-        AssertionVerbFactory,
         getContainsPair(),
         getContainsNullablePair(),
         "◆ ",
@@ -32,7 +29,6 @@ class IterableAnyAssertionsSpec : Spek({
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
-        AssertionVerbFactory,
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "◆ ",
@@ -40,7 +36,6 @@ class IterableAnyAssertionsSpec : Spek({
     )
 
     object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
-        AssertionVerbFactory,
         getContainsSequencePair(),
         getContainsNullableSequencePair(),
         "◆ ",

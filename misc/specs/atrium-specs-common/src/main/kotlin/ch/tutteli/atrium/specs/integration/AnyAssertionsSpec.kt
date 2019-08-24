@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
@@ -14,7 +15,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class AnyAssertionsSpec(
-    verbs: AssertionVerbFactory,
     toBeInt: Fun1<Int, Int>,
     toBeDataClass: Fun1<DataClass, DataClass>,
     toBeNullableInt: Fun1<Int?, Int?>,
@@ -76,11 +76,11 @@ abstract class AnyAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Int>(
-        verbs, describePrefix, 1,
+        describePrefix, 1,
         andLazyPair.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
     include(object : AssertionCreatorSpec<Int?>(
-        verbs, "$describePrefix[nullable Element] ", 1,
+        "$describePrefix[nullable Element] ", 1,
         toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
         assertionCreatorSpecTriple(
             isA.name,
@@ -94,8 +94,6 @@ abstract class AnyAssertionsSpec(
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
-
-    val expect = verbs::checkException
 
     fun <T : Int?> Suite.checkInt(
         description: String,
@@ -238,7 +236,7 @@ abstract class AnyAssertionsSpec(
         val notToBeFun = notToBe.lambda
         val isSameFun = isSame.lambda
         val isNotSameFun = isNotSame.lambda
-        val expectSubject = verbs.check(null as T?)
+        val expectSubject = expect(null as T?)
 
         context(description) {
             context("one equals the other") {
@@ -262,7 +260,7 @@ abstract class AnyAssertionsSpec(
             context("one does not equal the other") {
                 it("${toBe.name} throws AssertionError") {
                     expect {
-                        verbs.check(null as T?).toBeFun(value)
+                        expect(null as T?).toBeFun(value)
                     }.toThrow<AssertionError> {
                         messageContains(
                             TO_BE.getDefault(),
@@ -286,10 +284,10 @@ abstract class AnyAssertionsSpec(
     }
 
     describeFun(toBeInt.name, notToBeInt.name, isSameInt.name, isNotSameInt.name) {
-        checkInt("primitive", verbs.check(1), toBeInt, notToBeInt, isSameInt, isNotSameInt)
+        checkInt("primitive", expect(1), toBeInt, notToBeInt, isSameInt, isNotSameInt)
         checkInt(
             "nullable primitive",
-            verbs.check(1 as Int?),
+            expect(1 as Int?),
             toBeNullableInt,
             notToBeNullableInt,
             isSameNullableInt,
@@ -299,7 +297,7 @@ abstract class AnyAssertionsSpec(
         val subject = DataClass(true)
         checkDataClass(
             "class",
-            verbs.check(subject),
+            expect(subject),
             toBeDataClass,
             notToBeDataClass,
             isSameDataClass,
@@ -308,7 +306,7 @@ abstract class AnyAssertionsSpec(
         )
         checkDataClass(
             "nullable class",
-            verbs.check(subject as DataClass?),
+            expect(subject as DataClass?),
             toBeNullableDataClass,
             notToBeNullableDataClass,
             isSameNullableDataClass,
@@ -342,15 +340,15 @@ abstract class AnyAssertionsSpec(
         context("subject is null") {
             val subject: Int? = null
             it("does not throw an Exception") {
-                verbs.check(subject).toBeNullFun()
+                expect(subject).toBeNullFun()
             }
         }
 
         context("subject is not null") {
             val subject: Int? = 1
-            val testee = verbs.check(1 as Int?)
+            val testee = expect(1 as Int?)
             val expectFun by memoized {
-                verbs.checkException {
+                expect {
                     testee.toBeNullFun()
                 }
             }
@@ -374,11 +372,11 @@ abstract class AnyAssertionsSpec(
         context("subject is null") {
             val subject: Int? = null
             it("does not throw if null is passed") {
-                verbs.check(subject).toBeNullableFun(null)
+                expect(subject).toBeNullableFun(null)
             }
             it("throws an AssertionError if not null is passed") {
                 expect {
-                    verbs.check(subject).toBeNullableFun(1)
+                    expect(subject).toBeNullableFun(1)
                 }.toThrow<AssertionError> {
                     messageContains(": null", "${TO_BE.getDefault()}: 1")
                 }
@@ -388,18 +386,18 @@ abstract class AnyAssertionsSpec(
         context("subject is not null") {
             val subject: Int? = 1
             it("does not throw if expected is subject") {
-                verbs.check(subject).toBeNullableFun(subject)
+                expect(subject).toBeNullableFun(subject)
             }
             it("throws an AssertionError if null is passed") {
                 expect {
-                    verbs.check(subject).toBeNullableFun(null)
+                    expect(subject).toBeNullableFun(null)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: null")
                 }
             }
             it("throws an AssertionError if expected does not equal subject") {
                 expect {
-                    verbs.check(subject).toBeNullableFun(2)
+                    expect(subject).toBeNullableFun(2)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: 2")
                 }
@@ -412,11 +410,11 @@ abstract class AnyAssertionsSpec(
         context("subject is null") {
             val subject: Int? = null
             it("does not throw if null is passed") {
-                verbs.check(subject).toBeNullIfNullElseFun(null)
+                expect(subject).toBeNullIfNullElseFun(null)
             }
             it("throws an AssertionError if not null is passed") {
                 expect {
-                    verbs.check(subject).toBeNullIfNullElseFun { toBe(1) }
+                    expect(subject).toBeNullIfNullElseFun { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains(": null", "${TO_BE.getDefault()}: 1")
                 }
@@ -426,18 +424,18 @@ abstract class AnyAssertionsSpec(
         context("subject is not null") {
             val subject: Int? = 1
             it("does not throw if sub assertion holds") {
-                verbs.check(subject).toBeNullIfNullElseFun { isLessThan(2) }
+                expect(subject).toBeNullIfNullElseFun { isLessThan(2) }
             }
             it("throws an AssertionError if sub assertion does not hold") {
                 expect {
-                    verbs.check(subject).toBeNullIfNullElseFun { isGreaterThan(1) }
+                    expect(subject).toBeNullIfNullElseFun { isGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
                 }
             }
             it("throws an AssertionError if null is passed") {
                 expect {
-                    verbs.check(subject).toBeNullIfNullElseFun(null)
+                    expect(subject).toBeNullIfNullElseFun(null)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: null")
                 }
@@ -455,7 +453,7 @@ abstract class AnyAssertionsSpec(
             it("throws an AssertionError") {
                 expect {
                     val i: Int? = null
-                    verbs.check(i).notToBeNullFun { toBe(1) }
+                    expect(i).notToBeNullFun { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
                 }
@@ -465,7 +463,7 @@ abstract class AnyAssertionsSpec(
                 it("throws an AssertionError and contains the additional assertion as explanation") {
                     expect {
                         val i: Int? = null
-                        verbs.check(i).notToBeNullLessThanFun(2)
+                        expect(i).notToBeNullLessThanFun(2)
                     }.toThrow<AssertionError> {
                         messageContains(
                             IS_A.getDefault() + ": Int (kotlin.Int)",
@@ -480,32 +478,32 @@ abstract class AnyAssertionsSpec(
 
             it("does not throw") {
                 val i: Int? = 1
-                verbs.check(i).notToBeNullFun { toBe(1) }
+                expect(i).notToBeNullFun { toBe(1) }
             }
 
             context("it allows to define an assertion for the subject") {
                 it("does not throw if the assertion holds") {
                     val i: Int? = 1
-                    verbs.check(i).notToBeNullLessThanFun(2)
+                    expect(i).notToBeNullLessThanFun(2)
                 }
 
                 it("throws an AssertionError if the assertion does not hold") {
                     expect {
                         val i: Int? = 1
-                        verbs.check(i).notToBeNullLessThanFun(0)
+                        expect(i).notToBeNullLessThanFun(0)
                     }.toThrow<AssertionError>()
                 }
             }
             context("it allows to define multiple assertions for the subject") {
                 it("does not throw if the assertions hold") {
                     val i: Int? = 1
-                    verbs.check(i).notToBeNullGreaterAndLessThanFun(0, 2)
+                    expect(i).notToBeNullGreaterAndLessThanFun(0, 2)
                 }
 
                 it("throws an AssertionError if one assertion does not hold") {
                     expect {
                         val i: Int? = 1
-                        verbs.check(i).notToBeNullGreaterAndLessThanFun(2, 5)
+                        expect(i).notToBeNullGreaterAndLessThanFun(2, 5)
                     }.toThrow<AssertionError> {
                         message {
                             contains(DescriptionComparableAssertion.IS_GREATER_THAN.getDefault())
@@ -517,7 +515,7 @@ abstract class AnyAssertionsSpec(
                 it("throws an AssertionError if both assertions do not hold and contains both messages") {
                     expect {
                         val i: Int? = 1
-                        verbs.check(i).notToBeNullGreaterAndLessThanFun(2, 0)
+                        expect(i).notToBeNullGreaterAndLessThanFun(2, 0)
                     }.toThrow<AssertionError> {
                         messageContains(
                             DescriptionComparableAssertion.IS_GREATER_THAN.getDefault(),
@@ -532,7 +530,7 @@ abstract class AnyAssertionsSpec(
             it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.check(A()).feature(A::i).notToBeNullFun { toBe(1) }
+                    expect(A()).feature(A::i).notToBeNullFun { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         A::class.simpleName!!,
@@ -545,7 +543,7 @@ abstract class AnyAssertionsSpec(
             it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.check(A()).feature(A::i).notToBeNullLessThanFun(1)
+                    expect(A()).feature(A::i).notToBeNullLessThanFun(1)
                 }.toThrow<AssertionError> {
                     messageContains(
                         A::class.simpleName!!,
@@ -565,7 +563,7 @@ abstract class AnyAssertionsSpec(
         context("subject is not in type hierarchy") {
             it("throws an AssertionError") {
                 expect {
-                    verbs.check(null as Int?).isAFun().toBe(1)
+                    expect(null as Int?).isAFun().toBe(1)
                 }.toThrow<AssertionError> {
                     message {
                         contains(IS_A.getDefault() + ": Int (kotlin.Int)")
@@ -577,18 +575,18 @@ abstract class AnyAssertionsSpec(
 
         context("subject is the same type") {
             it("does not throw an AssertionError") {
-                verbs.check(1 as Int?).isAFun()
+                expect(1 as Int?).isAFun()
             }
             context("it allows to perform an assertion specific for the subtype...") {
 
                 it("... which holds -- does not throw") {
-                    verbs.check(1 as Int?).isAFun().isLessThan(2)
+                    expect(1 as Int?).isAFun().isLessThan(2)
                 }
                 it("... which fails -- throws an AssertionError") {
                     val expectedLessThan = 2
                     val actualValue: Number = 5
                     expect {
-                        verbs.check(actualValue as Int?).isAFun().isLessThan(expectedLessThan)
+                        expect(actualValue as Int?).isAFun().isLessThan(expectedLessThan)
                     }.toThrow<AssertionError> {
                         messageContains(
                             actualValue,
@@ -606,7 +604,7 @@ abstract class AnyAssertionsSpec(
         context("subject is not in type hierarchy") {
             it("throws an AssertionError") {
                 expect {
-                    verbs.check("hello").(isAIntFun.lambda) { toBe(1) }
+                    expect("hello").(isAIntFun.lambda) { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         IS_A.getDefault() + ": Int (kotlin.Int)",
@@ -620,20 +618,20 @@ abstract class AnyAssertionsSpec(
 
         context("subject is the same type") {
             it("does not throw an AssertionError") {
-                verbs.check("hello").(isAStringFun.lambda) { toBe("hello") }
+                expect("hello").(isAStringFun.lambda) { toBe("hello") }
             }
 
             context("it allows to perform an assertion specific for the subtype...") {
 
                 it("... which holds -- does not throw") {
-                    verbs.check(1 as Number).isAIntLessThanFun(2)
+                    expect(1 as Number).isAIntLessThanFun(2)
                 }
 
                 val expectedLessThan = 2
                 val actualValue: Number = 5
                 it("... which fails -- throws an AssertionError") {
                     expect {
-                        verbs.check(actualValue).isAIntLessThanFun(expectedLessThan)
+                        expect(actualValue).isAIntLessThanFun(expectedLessThan)
                     }.toThrow<AssertionError> {
                         messageContains(
                             actualValue,
@@ -648,20 +646,20 @@ abstract class AnyAssertionsSpec(
         context("subject is a subtype") {
 
             it("does not throw an AssertionError if the subject is a subtype") {
-                verbs.check("hello").(isACharSequenceFun.lambda) { isNotEmpty() }
+                expect("hello").(isACharSequenceFun.lambda) { isNotEmpty() }
             }
 
             context("it allows to perform an assertion specific for the subtype...") {
 
                 it("... which holds -- does not throw") {
-                    verbs.check(1 as Number).isAIntLessThanFun(2)
+                    expect(1 as Number).isAIntLessThanFun(2)
                 }
 
                 val expectedLessThan = 2
                 val actualValue: Number = 5
                 it("... which fails -- throws an AssertionError") {
                     expect {
-                        verbs.check(actualValue).isAIntLessThanFun(expectedLessThan)
+                        expect(actualValue).isAIntLessThanFun(expectedLessThan)
                     }.toThrow<AssertionError> {
                         messageContains(
                             actualValue,
@@ -676,7 +674,7 @@ abstract class AnyAssertionsSpec(
         context("subject is a supertype") {
             it("throws an AssertionError") {
                 expect {
-                    verbs.check(SuperType()).(isASubTypeFun.lambda) { isSameAs(SubType()) }
+                    expect(SuperType()).(isASubTypeFun.lambda) { isSameAs(SubType()) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         SuperType::class.fullName,
@@ -691,7 +689,7 @@ abstract class AnyAssertionsSpec(
         context("empty assertionCreator lambda") {
             it("is the expected type, throws nonetheless") {
                 expect {
-                    verbs.check("hello").(isACharSequenceFun.lambda) {}
+                    expect("hello").(isACharSequenceFun.lambda) {}
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -705,7 +703,7 @@ abstract class AnyAssertionsSpec(
             }
             it("is not the expected type, contains the error as well") {
                 expect {
-                    verbs.check("hello").(isAIntFun.lambda) {}
+                    expect("hello").(isAIntFun.lambda) {}
                 }.toThrow<AssertionError> {
                     messageContains(
                         ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
@@ -721,14 +719,14 @@ abstract class AnyAssertionsSpec(
 
     prefixedDescribe("property `${andPair.name}` immediate") {
         it("returns the same container") {
-            val container = verbs.check(1)
-            verbs.check(container.(andPair.lambda)()).toBe(container)
+            val container = expect(1)
+            expect(container.(andPair.lambda)()).toBe(container)
         }
     }
     prefixedDescribe("`${andLazyPair.name}` group") {
         it("returns the same container") {
-            val container = verbs.check(1)
-            verbs.check(container.(andLazyPair.lambda){ toBe(1) }).toBe(container)
+            val container = expect(1)
+            expect(container.(andLazyPair.lambda){ toBe(1) }).toBe(container)
         }
     }
 

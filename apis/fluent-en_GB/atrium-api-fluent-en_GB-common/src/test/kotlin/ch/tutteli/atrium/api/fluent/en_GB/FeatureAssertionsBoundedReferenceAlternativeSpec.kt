@@ -1,10 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 
 
 class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
-    AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,
     f0Immediate,

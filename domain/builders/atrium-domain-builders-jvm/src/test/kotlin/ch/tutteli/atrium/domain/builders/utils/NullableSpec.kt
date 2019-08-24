@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.domani.builders.utils.Test
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.toBeDescr
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion

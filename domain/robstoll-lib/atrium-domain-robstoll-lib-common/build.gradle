@@ -14,5 +14,5 @@ dependencies {
     //TODO remove with 1.0.0
     implementation prefixedProject('api-cc-en_GB-common')
 
-    testImplementation prefixedProject('verbs-internal-common')
+    testImplementation prefixedProject('specs-common')
 }

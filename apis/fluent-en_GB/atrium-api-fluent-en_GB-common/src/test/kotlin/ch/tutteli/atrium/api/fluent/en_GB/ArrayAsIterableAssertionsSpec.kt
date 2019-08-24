@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
 object ArrayAsIterableAssertionsSpec : ch.tutteli.atrium.specs.integration.ArrayAsIterableAssertionsSpec(
-    AssertionVerbFactory,
     "asIterable",
     Expect<Array<Int>>::asIterable,
     Expect<ByteArray>::asIterable,

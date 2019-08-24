@@ -4,12 +4,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapEntryAssertionsSpec(
-    verbs: AssertionVerbFactory,
     isKeyValue: Fun2<Map.Entry<String, Int>, String, Int>,
     isKeyValueNullable: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
     describePrefix: String = "[Atrium] "
@@ -27,11 +27,10 @@ abstract class MapEntryAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
     val mapEntry = mapEntry("a", 1)
-    val fluent = verbs.check(mapEntry)
+    val fluent = expect(mapEntry)
     val mapEntryNullable = mapEntry("a" as String?, 1 as Int?)
-    val fluentNullable = verbs.check(mapEntryNullable)
+    val fluentNullable = expect(mapEntryNullable)
 
     describeFun(isKeyValue.name) {
         val isKeyValueFun = isKeyValue.lambda
@@ -92,7 +91,7 @@ abstract class MapEntryAssertionsSpec(
             }
         }
         val mapEntryNullable2 = mapEntry(null as String?, null as Int?)
-        val fluentNullable2 = verbs.check(mapEntryNullable2)
+        val fluentNullable2 = expect(mapEntryNullable2)
 
         context("map $mapEntryNullable2") {
             it("null to null does not throw") {

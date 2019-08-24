@@ -3,18 +3,17 @@ package ch.tutteli.atrium.specs.creating
 import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.CollectingAssertionContainer
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFunTemplate
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CollectingAssertionContainerSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (Option<Int>) -> CollectingAssertionContainer<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -31,7 +30,7 @@ abstract class CollectingAssertionContainerSpec(
 
         context("no assertion has been added so far") {
             it("returns an empty list") {
-                verbs.check(testeeFactory(Some(1)).getAssertions()).toBe(listOf())
+                expect(testeeFactory(Some(1)).getAssertions()).toBe(listOf())
             }
 
             context("an assertion is added") {
@@ -40,11 +39,11 @@ abstract class CollectingAssertionContainerSpec(
                 }
 
                 it("returns the assertion") {
-                    verbs.check(testee.getAssertions()).toBe(listOf(assertion))
+                    expect(testee.getAssertions()).toBe(listOf(assertion))
                 }
 
                 it("returns the assertion when calling ${testee::getAssertions.name} a second time") {
-                    verbs.check(testee.getAssertions()).toBe(listOf(assertion))
+                    expect(testee.getAssertions()).toBe(listOf(assertion))
                 }
             }
         }
@@ -54,7 +53,7 @@ abstract class CollectingAssertionContainerSpec(
         it("adds a failing assertion in case an empty assertionContainer lambda is passed") {
             val testee = testeeFactory(Some(1))
             testee.addAssertionsCreatedBy { }
-            verbs.check(testee.getAssertions()).containsExactly {
+            expect(testee.getAssertions()).containsExactly {
                 feature { f(it::holds) }.toBe(false)
             }
         }

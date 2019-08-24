@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
@@ -22,9 +22,6 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         containsInAnyOrderNullableValues.forSubjectLess(null, arrayOf())
     ) {})
 
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
-
     fun Expect<Iterable<Double?>>.containsInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
         containsInAnyOrderNullableValues(this, t, tX)
 
@@ -38,10 +35,9 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
 
 
         context("empty collection") {
-            val fluentEmptyString = assert(setOf())
             it("1.0 throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsFun(1.0)
+                    fluentEmpty.containsFun(1.0)
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -53,7 +49,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
             }
         }
 
-        val fluent = assert(oneToSeven)
+        val fluent = expect(oneToSeven)
         context("iterable '$oneToSeven'") {
 
             context("happy cases") {
@@ -121,7 +117,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         describeFun("${containsInAnyOrderNullableValues.name} for nullable") {
 
             val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = verbs.check(list)
+            val fluent = expect(list)
 
             context("iterable $list") {
                 listOf(

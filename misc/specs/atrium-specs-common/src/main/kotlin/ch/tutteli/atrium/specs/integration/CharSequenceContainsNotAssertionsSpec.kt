@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -9,7 +10,6 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsNotAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsNotPair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
     containsNotIgnoringCasePair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
     rootBulletPoint: String,
@@ -29,9 +29,8 @@ abstract class CharSequenceContainsNotAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
-    val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
+    val fluent = expect(text as CharSequence)
+    val fluentHelloWorld = expect(helloWorld as CharSequence)
 
     fun Expect<CharSequence>.containsNotFun(a: Any, vararg aX: Any) = containsNot(this, a, aX)
 

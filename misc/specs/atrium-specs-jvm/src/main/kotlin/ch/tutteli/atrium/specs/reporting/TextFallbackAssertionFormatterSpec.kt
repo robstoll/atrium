@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -11,7 +12,6 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
@@ -22,17 +22,17 @@ import kotlin.reflect.KClass
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TextFallbackAssertionFormatterSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory(
         bulletPoints, coreFactory.newAssertionFormatterController(),
-        ToStringObjectFormatter, UsingDefaultTranslator())
+        ToStringObjectFormatter, UsingDefaultTranslator()
+    )
 
     val unsupportedAssertion = object : Assertion {
         override fun holds() = false
@@ -59,10 +59,11 @@ abstract class TextFallbackAssertionFormatterSpec(
 
         context("unsupported ${Assertion::class.simpleName}") {
             it("writes whether the assertion holds including a message telling the type is unsupported") {
-                testee.formatNonGroup(unsupportedAssertion,
+                testee.formatNonGroup(
+                    unsupportedAssertion,
                     parameterObject
                 )
-                verbs.check(sb).addAssertionsCreatedBy {
+                expect(sb).addAssertionsCreatedBy {
                     contains("false")
                     contains("Unsupported type ${unsupportedAssertion::class.java.name}")
                 }
@@ -72,10 +73,11 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
                 val assertion =
                     ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
-                testee.formatNonGroup(assertion,
+                testee.formatNonGroup(
+                    assertion,
                     parameterObject
                 )
-                verbs.check(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
+                expect(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
         }
     }
@@ -83,29 +85,40 @@ abstract class TextFallbackAssertionFormatterSpec(
     describeFun(testee::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
-            facade.register { testeeFactory(
-                bulletPoints, it,
-                ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register {
+                testeeFactory(
+                    bulletPoints, it,
+                    ToStringObjectFormatter, UsingDefaultTranslator()
+                )
+            }
 
             context("only ${DescriptiveAssertion::class.simpleName}") {
                 it("uses the system line separator to separate the assertions") {
-                    facade.format(object : AssertionGroup {
-                        override val type = RootAssertionGroupType
-                        override val description = Untranslatable("group")
-                        override val representation = "subject of group"
-                        override val assertions = listOf(
-                            ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),
-                            ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(TO_BE, "d").build()
-                        )
-                    },
+                    facade.format(
+                        object : AssertionGroup {
+                            override val type = RootAssertionGroupType
+                            override val description = Untranslatable("group")
+                            override val representation = "subject of group"
+                            override val assertions = listOf(
+                                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                                    IS_SAME,
+                                    "b"
+                                ).build(),
+                                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                                    TO_BE,
+                                    "d"
+                                ).build()
+                            )
+                        },
                         sb,
                         alwaysTrueAssertionFilter
                     )
 
-                    verbs.check(sb).contains(
+                    expect(sb).contains(
                         "group: subject of group$separator" +
                             "$bulletPoint ${IS_SAME.getDefault()}: b$separator" +
-                            "$bulletPoint ${TO_BE.getDefault()}: d")
+                            "$bulletPoint ${TO_BE.getDefault()}: d"
+                    )
                 }
             }
 
@@ -113,28 +126,35 @@ abstract class TextFallbackAssertionFormatterSpec(
 
                 val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
                 it("uses the system line separator to separate the assertions") {
-                    facade.format(object : AssertionGroup {
-                        override val type = RootAssertionGroupType
-                        override val description = Untranslatable("outer group")
-                        override val representation = "subject of outer group"
-                        override val assertions = listOf(
-                            object : AssertionGroup {
-                                override val type = object : AssertionGroupType {}
-                                override val description = Untranslatable("inner group")
-                                override val representation = "subject of inner group"
-                                override val assertions = listOf(
-                                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),
-                                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(TO_BE, "d").build()
-                                )
-                            },
-                            unsupportedAssertion
-                        )
-                    },
+                    facade.format(
+                        object : AssertionGroup {
+                            override val type = RootAssertionGroupType
+                            override val description = Untranslatable("outer group")
+                            override val representation = "subject of outer group"
+                            override val assertions = listOf(
+                                object : AssertionGroup {
+                                    override val type = object : AssertionGroupType {}
+                                    override val description = Untranslatable("inner group")
+                                    override val representation = "subject of inner group"
+                                    override val assertions = listOf(
+                                        ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                                            IS_SAME,
+                                            "b"
+                                        ).build(),
+                                        ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                                            TO_BE,
+                                            "d"
+                                        ).build()
+                                    )
+                                },
+                                unsupportedAssertion
+                            )
+                        },
                         sb,
                         alwaysTrueAssertionFilter
                     )
 
-                    verbs.check(sb).contains(
+                    expect(sb).contains(
                         "outer group: subject of outer group$separator" +
                             "$bulletPoint inner group: subject of inner group$separator" +
                             "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$separator" +

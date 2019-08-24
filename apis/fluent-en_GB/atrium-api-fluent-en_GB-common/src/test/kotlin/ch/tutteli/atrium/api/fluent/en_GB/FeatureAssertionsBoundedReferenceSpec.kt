@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.TestData
 
 internal typealias F = Expect<TestData>.() -> Unit
 
 class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
-    AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,
     f0Immediate,

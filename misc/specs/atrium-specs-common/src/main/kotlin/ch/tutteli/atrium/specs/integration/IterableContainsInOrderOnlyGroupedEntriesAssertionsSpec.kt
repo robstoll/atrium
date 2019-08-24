@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
@@ -8,7 +9,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsInOrderOnlyGroupedEntries: Fun3<Iterable<Double?>, Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>>,
     groupFactory: (Array<out (Expect<Double>.() -> Unit)?>) -> Group<(Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
@@ -20,7 +20,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase(verbs, {
+) : IterableContainsEntriesSpecBase({
 
     fun context(vararg assertionCreators: (Expect<Double>.() -> Unit)?) = groupFactory(assertionCreators)
 
@@ -34,7 +34,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     ) {})
     //@formatter:off
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        verbs, describePrefix, listOf(1.2, 2.0, 3.0),
+        describePrefix, listOf(1.2, 2.0, 3.0),
         assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [first empty]", "$toBeDescr: 1.2",
             { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
             { containsInOrderOnlyGroupedEntries(this, Entry { }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) }
@@ -53,7 +53,6 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
 
     fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedEntriesFun(
         t1: Group<(Expect<Double>.() -> Unit)?>,
@@ -163,7 +162,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     describeFun(containsInOrderOnlyGroupedEntries.name) {
         context("$describePrefix describe non-nullable cases") {
 
-            val fluent = verbs.check(oneToFour as Iterable<Double?>)
+            val fluent = expect(oneToFour as Iterable<Double?>)
             context("throws an $illegalArgumentException") {
                 it("if an empty group is given as first parameter") {
                     expect {
@@ -197,7 +196,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
             }
 
             context("empty collection") {
-                val fluentEmpty = verbs.check(setOf<Double?>().asIterable())
+                val fluentEmpty = expect(setOf<Double?>().asIterable())
                 it("(1.0), (1.2) throws AssertionError") {
                     expect {
                         fluentEmpty.containsInOrderOnlyGroupedEntriesFun(context({ toBe(1.0) }), context({ toBe(1.2) }))
@@ -404,7 +403,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     nullableCases(describePrefix) {
         describeFun("$containsInOrderOnlyGroupedEntries for nullable") {
             val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = verbs.check(list)
+            val fluent = expect(list)
 
             context("iterable $list") {
 

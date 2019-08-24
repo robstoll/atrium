@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsExactlyPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     rootBulletPoint: String,
@@ -24,9 +24,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
-    val fluent = assert(oneToSeven)
+    val fluent = expect(oneToSeven)
 
     fun Expect<Iterable<Double>>.containsExactlyFun(atLeast: Int, a: Double, vararg aX: Double) =
         containsExactly.invoke(this, atLeast, a, aX.toTypedArray())

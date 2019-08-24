@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsExactlyAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsExactlyPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsExactlyIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,
@@ -28,9 +28,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
-    val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
+    val fluent = expect(text as CharSequence)
+    val fluentHelloWorld = expect(helloWorld as CharSequence)
 
     fun Expect<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any) =
         containsExactly(this, atLeast, a, aX)

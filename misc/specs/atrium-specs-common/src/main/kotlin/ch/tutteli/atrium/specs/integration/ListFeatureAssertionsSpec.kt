@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionListAssertion
@@ -10,7 +11,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class ListFeatureAssertionsSpec(
-    verbs: AssertionVerbFactory,
     getFeature: Feature1<List<Int>, Int, Int>,
     get: Fun2<List<Int>, Int, Expect<Int>.() -> Unit>,
     getNullableFeature: Feature1<List<Int?>, Int, Int?>,
@@ -30,22 +30,21 @@ abstract class ListFeatureAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<List<Int>>(
-        verbs, describePrefix, list,
+        describePrefix, list,
         get.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
     ) {})
     include(object : AssertionCreatorSpec<List<Int?>>(
-        verbs, "$describePrefix[nullable Element] ", list,
+        "$describePrefix[nullable Element] ", list,
         getNullable.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
 
-    val fluent = verbs.check(list)
+    val fluent = expect(list)
     val listNullable = listOf(1, null, 3, 4)
-    val fluentNullable = verbs.check(listNullable)
+    val fluentNullable = expect(listNullable)
 
     val indexOutOfBounds = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS.getDefault()
 

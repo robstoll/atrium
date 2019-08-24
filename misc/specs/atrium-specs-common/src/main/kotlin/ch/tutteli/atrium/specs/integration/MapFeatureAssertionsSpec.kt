@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
@@ -8,7 +9,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapFeatureAssertionsSpec(
-    verbs: AssertionVerbFactory,
     keysFeature: Feature0<Map<String, Int>, Set<String>>,
     keys: Fun1<Map<String, Int>, Expect<Set<String>>.() -> Unit>,
     valuesFeature: Feature0<Map<String, Int>, Collection<Int>>,
@@ -37,25 +37,21 @@ abstract class MapFeatureAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Map<String, Int>>(
-        verbs, describePrefix, map,
+        describePrefix, map,
         keys.forAssertionCreatorSpec("$toBeDescr: a") { containsExactly({ toBe("a") }, { toBe("b") }) },
         values.forAssertionCreatorSpec("$toBeDescr: 1") { containsExactly({ toBe(1) }, { toBe(2) }) },
         getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(2) }
     ) {})
     include(object : AssertionCreatorSpec<Map<String?, Int?>>(
-        verbs, "$describePrefix[nullable Element] ", mapNullable,
+        "$describePrefix[nullable Element] ", mapNullable,
         getExistingNullable.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(null) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val assert: (Map<String, Int>) -> Expect<Map<String, Int>> = verbs::check
-    val expect = verbs::checkException
-
-    val fluent = assert(map)
-
-    val fluentNullable = verbs.check(mapNullable)
+    val fluent = expect(map)
+    val fluentNullable = expect(mapNullable)
 
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
 

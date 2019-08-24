@@ -5,11 +5,18 @@ dependencies {
     api prefixedProject('domain-api-js')
     api prefixedProject('core-api-js')
     api prefixedProject('domain-builders-js')
-    // exclude this dependency when depending on specs-js in case you want to use another translation
+    // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-js')
+    api prefixedProject('verbs-internal-js')
+
+    // exclude these dependencies in case you want to use another implementation
+    // `api` and not `implementation` in order that a depending module can use dependOn_...
+    api prefixedProject('domain-robstoll-js')
+    api prefixedProject('core-robstoll-js')
 
     implementation prefixedProject('api-fluent-en_GB-js')
     implementation "io.mockk:mockk-dsl-js:$mockk_version"
+
     //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-js')
 }

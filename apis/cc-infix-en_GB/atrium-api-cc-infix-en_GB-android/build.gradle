@@ -4,8 +4,6 @@ description = 'An API in en_GB with a focus on code completion and infix functio
 dependencies {
     api prefixedProject('domain-builders-android')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-android')
-    testRuntimeOnly prefixedProject('core-robstoll-android')
     testImplementation prefixedProject('verbs-internal-android')
 }
 

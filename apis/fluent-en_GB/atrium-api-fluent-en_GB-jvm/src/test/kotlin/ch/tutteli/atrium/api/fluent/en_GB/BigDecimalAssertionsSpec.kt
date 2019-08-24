@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
@@ -11,7 +10,6 @@ import java.math.BigDecimal
 
 class BigDecimalAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.BigDecimalAssertionsSpec(
-        AssertionVerbFactory,
         @Suppress("DEPRECATION") fun1<BigDecimal, BigDecimal>(Expect<BigDecimal>::toBe),
         @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toBe),
         fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toBe),

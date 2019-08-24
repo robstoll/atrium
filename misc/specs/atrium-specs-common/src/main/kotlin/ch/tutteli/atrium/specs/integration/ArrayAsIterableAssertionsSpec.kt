@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -9,7 +10,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 abstract class ArrayAsIterableAssertionsSpec(
-    verbs: AssertionVerbFactory,
     asIterableFunName: String,
     arr: Expect<Array<Int>>.() -> Expect<Iterable<Int>>,
     arrByte: Expect<ByteArray>.() -> Expect<Iterable<Byte>>,
@@ -81,7 +81,7 @@ abstract class ArrayAsIterableAssertionsSpec(
 
     val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
     include(object : AssertionCreatorSpec<Array<Int>>(
-        verbs, "$describePrefix[arr] ", arrayOf(1),
+        "$describePrefix[arr] ", arrayOf(1),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -89,7 +89,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<ByteArray>(
-        verbs, "$describePrefix[arrByte] ", bytes(1),
+        "$describePrefix[arrByte] ", bytes(1),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -97,7 +97,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrByteWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<CharArray>(
-        verbs, "$describePrefix[arrChar] ", chars('a'),
+        "$describePrefix[arrChar] ", chars('a'),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -105,7 +105,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrCharWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<ShortArray>(
-        verbs, "$describePrefix[arrShort] ", shorts(1),
+        "$describePrefix[arrShort] ", shorts(1),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -113,7 +113,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrShortWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<IntArray>(
-        verbs, "$describePrefix[arrInt] ", ints(1),
+        "$describePrefix[arrInt] ", ints(1),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -121,7 +121,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrIntWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<LongArray>(
-        verbs, "$describePrefix[arrLong] ", longs(1),
+        "$describePrefix[arrLong] ", longs(1),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -129,7 +129,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrLongWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<FloatArray>(
-        verbs, "$describePrefix[arrFloat] ", floats(1.0f),
+        "$describePrefix[arrFloat] ", floats(1.0f),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -137,7 +137,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrFloatWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<DoubleArray>(
-        verbs, "$describePrefix[arrDouble] ", doubles(1.0),
+        "$describePrefix[arrDouble] ", doubles(1.0),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -145,7 +145,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             { arrDoubleWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<BooleanArray>(
-        verbs, "$describePrefix[arrBoolean] ", booleans(true),
+        "$describePrefix[arrBoolean] ", booleans(true),
         assertionCreatorSpecTriple(
             asIterableFunName,
             anEntryWhich,
@@ -155,75 +155,75 @@ abstract class ArrayAsIterableAssertionsSpec(
 
     describe("$asIterableFunName arr") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(arrayOf(1, 2)).arr().containsExactly(1, 2)
+            expect(arrayOf(1, 2)).arr().containsExactly(1, 2)
         }
         it("transformation can be applied and a sub-assertion made") {
-            verbs.check(arrayOf(1, 2)).arrWithCreator { containsExactly(1, 2) }
+            expect(arrayOf(1, 2)).arrWithCreator { containsExactly(1, 2) }
         }
     }
 
     describe("$asIterableFunName arrByte") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(bytes(1.toByte(), 2.toByte())).arrByte().containsExactly(1.toByte(), 2.toByte())
+            expect(bytes(1.toByte(), 2.toByte())).arrByte().containsExactly(1.toByte(), 2.toByte())
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(bytes(1.toByte(), 2.toByte())).arrByteWithCreator { containsExactly(1.toByte(), 2.toByte()) }
+            expect(bytes(1.toByte(), 2.toByte())).arrByteWithCreator { containsExactly(1.toByte(), 2.toByte()) }
         }
     }
     describe("$asIterableFunName arrChar") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(chars(1.toChar(), 2.toChar())).arrChar().containsExactly(1.toChar(), 2.toChar())
+            expect(chars(1.toChar(), 2.toChar())).arrChar().containsExactly(1.toChar(), 2.toChar())
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(chars(1.toChar(), 2.toChar())).arrCharWithCreator { containsExactly(1.toChar(), 2.toChar()) }
+            expect(chars(1.toChar(), 2.toChar())).arrCharWithCreator { containsExactly(1.toChar(), 2.toChar()) }
         }
     }
     describe("$asIterableFunName arrShort") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(shorts(1, 2)).arrShort().containsExactly(1.toShort(), 2.toShort())
+            expect(shorts(1, 2)).arrShort().containsExactly(1.toShort(), 2.toShort())
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(shorts(1, 2)).arrShortWithCreator { containsExactly(1.toShort(), 2.toShort()) }
+            expect(shorts(1, 2)).arrShortWithCreator { containsExactly(1.toShort(), 2.toShort()) }
         }
     }
     describe("$asIterableFunName arrInt") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(ints(1, 2)).arrInt().containsExactly(1, 2)
+            expect(ints(1, 2)).arrInt().containsExactly(1, 2)
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(ints(1, 2)).arrIntWithCreator { containsExactly(1, 2) }
+            expect(ints(1, 2)).arrIntWithCreator { containsExactly(1, 2) }
         }
     }
     describe("$asIterableFunName arrLong") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(longs(1, 2)).arrLong().containsExactly(1L, 2L)
+            expect(longs(1, 2)).arrLong().containsExactly(1L, 2L)
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(longs(1, 2)).arrLongWithCreator { containsExactly(1L, 2L) }
+            expect(longs(1, 2)).arrLongWithCreator { containsExactly(1L, 2L) }
         }
     }
     describe("$asIterableFunName arrFloat") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(floats(1f, 2f)).arrFloat().containsExactly(1f, 2f)
+            expect(floats(1f, 2f)).arrFloat().containsExactly(1f, 2f)
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(floats(1f, 2f)).arrFloatWithCreator { containsExactly(1f, 2f) }
+            expect(floats(1f, 2f)).arrFloatWithCreator { containsExactly(1f, 2f) }
         }
     }
     describe("$asIterableFunName arrDouble") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(doubles(1.0, 2.0)).arrDouble().containsExactly(1.0, 2.0)
+            expect(doubles(1.0, 2.0)).arrDouble().containsExactly(1.0, 2.0)
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(doubles(1.0, 2.0)).arrDoubleWithCreator { containsExactly(1.0, 2.0) }
+            expect(doubles(1.0, 2.0)).arrDoubleWithCreator { containsExactly(1.0, 2.0) }
         }
     }
     describe("$asIterableFunName arrBoolean") {
         it("transformation can be applied and a subsequent assertion made") {
-            verbs.check(booleans(true, false)).arrBoolean().containsExactly(true, false)
+            expect(booleans(true, false)).arrBoolean().containsExactly(true, false)
         }
         it("transformation can be applied and a sub assertion made") {
-            verbs.check(booleans(true, false)).arrBooleanWithCreator { containsExactly(true, false) }
+            expect(booleans(true, false)).arrBooleanWithCreator { containsExactly(true, false) }
         }
     }
 })

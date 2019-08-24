@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_MOST
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsNotOrAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotOrAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,
@@ -28,9 +28,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
-    val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
+    val fluent = expect(text as CharSequence)
+    val fluentHelloWorld = expect(helloWorld as CharSequence)
 
     fun Expect<CharSequence>.containsNotOrAtMostFun(atLeast: Int, a: Any, vararg aX: Any) =
         containsNotOrAtMost(this, atLeast, a, aX)

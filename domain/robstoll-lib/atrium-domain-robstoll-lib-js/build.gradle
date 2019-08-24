@@ -15,6 +15,4 @@ dependencies {
     implementation prefixedProject('api-cc-en_GB-js')
 
     testImplementation prefixedProject('verbs-internal-js')
-    testRuntimeOnly prefixedProject('domain-robstoll-js')
-    testRuntimeOnly prefixedProject('core-robstoll-js')
 }

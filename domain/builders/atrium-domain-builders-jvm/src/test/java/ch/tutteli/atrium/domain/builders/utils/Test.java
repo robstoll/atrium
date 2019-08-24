@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domani.builders.utils;
+package ch.tutteli.atrium.domain.builders.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

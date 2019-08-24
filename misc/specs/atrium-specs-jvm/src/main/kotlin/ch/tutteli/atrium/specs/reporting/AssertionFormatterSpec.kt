@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -15,7 +16,6 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
@@ -25,32 +25,35 @@ import kotlin.reflect.KClass
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class AssertionFormatterSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val controller = mock<AssertionFormatterController>()
-    val testee = testeeFactory(mapOf(), controller,
-        ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(
+        mapOf(), controller,
+        ToStringObjectFormatter, UsingDefaultTranslator()
+    )
 
     var sb = StringBuilder()
-    var parameterObject = AssertionFormatterParameterObject.new(sb,
+    var parameterObject = AssertionFormatterParameterObject.new(
+        sb,
         alwaysTrueAssertionFilter
     )
     afterEachTest {
         sb = StringBuilder()
-        parameterObject = AssertionFormatterParameterObject.new(sb,
+        parameterObject = AssertionFormatterParameterObject.new(
+            sb,
             alwaysTrueAssertionFilter
         )
     }
 
     describeFun(testee::format.name) {
         it("throws an UnsupportedOperationException if ${AssertionGroup::class.simpleName} is passed") {
-            verbs.checkException {
+            expect {
                 testee.format(object : AssertionGroup {
                     override val description = Untranslatable("test")
                     override val type = RootAssertionGroupType
@@ -58,7 +61,7 @@ abstract class AssertionFormatterSpec(
                     override val assertions: List<Assertion> = emptyList()
                 }, parameterObject)
             }.toThrow<UnsupportedOperationException> { message { toBe(AssertionFormatter.CALL_FORMAT_GROUP) } }
-            verbs.check(sb).isEmpty()
+            expect(sb).isEmpty()
         }
     }
 })

@@ -3,6 +3,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
@@ -14,7 +15,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class ThrowableAssertionsSpec(
-    verbs: AssertionVerbFactory,
     toThrowTriple: Triple<String,
         ThrowableThrown.Builder.() -> Expect<IllegalArgumentException>,
         ThrowableThrown.Builder.(assertionCreator: Expect<IllegalArgumentException>.() -> Unit) -> Expect<IllegalArgumentException>
@@ -36,15 +36,12 @@ abstract class ThrowableAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Throwable>(
-        verbs, describePrefix, RuntimeException("hello"),
+        describePrefix, RuntimeException("hello"),
         message.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
-
-    val expect = verbs::checkException
-    val assert: (Throwable) -> Expect<Throwable> = verbs::check
 
     val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple
 
@@ -217,9 +214,9 @@ abstract class ThrowableAssertionsSpec(
         checkNarrowingAssertion<Throwable>(
             "it throws an AssertionError if the ${Throwable::message.name} is null",
             { message ->
-                val throwable = IllegalArgumentException()
+                val throwable: Throwable = IllegalArgumentException()
                 expect {
-                    assert(throwable).message()
+                    expect(throwable).message()
                 }.toThrow<AssertionError> {
                     messageContains(
                         DescriptionAnyAssertion.IS_A.getDefault(),
@@ -231,12 +228,12 @@ abstract class ThrowableAssertionsSpec(
         )
 
         context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
-            val throwable = IllegalArgumentException("oh no")
+            val throwable: Throwable = IllegalArgumentException("oh no")
             checkNarrowingAssertion<Throwable>(
                 "it throws an AssertionError if the assertion does not hold",
                 { messageWithCheck ->
                     expect {
-                        assert(throwable).messageWithCheck()
+                        expect(throwable).messageWithCheck()
                     }.toThrow<AssertionError>()
                 },
                 { messageFun().contains("hello") }
@@ -244,7 +241,7 @@ abstract class ThrowableAssertionsSpec(
 
             checkNarrowingAssertion<Throwable>(
                 "it does not throw an exception if the assertion holds",
-                { messageWithCheck -> assert(throwable).messageWithCheck() }, { messageFun().contains("oh") }
+                { messageWithCheck -> expect(throwable).messageWithCheck() }, { messageFun().contains("oh") }
             )
         }
     }
@@ -254,9 +251,9 @@ abstract class ThrowableAssertionsSpec(
         checkNarrowingAssertion<Throwable>(
             "it throws an AssertionError if the ${Throwable::message.name} is null",
             { message ->
-                val throwable = IllegalArgumentException()
+                val throwable: Throwable = IllegalArgumentException()
                 expect {
-                    assert(throwable).message()
+                    expect(throwable).message()
                 }.toThrow<AssertionError> {
                     messageContains(
                         DescriptionAnyAssertion.IS_A.getDefault(),
@@ -268,12 +265,12 @@ abstract class ThrowableAssertionsSpec(
         )
 
         context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
-            val throwable = IllegalArgumentException("oh no")
+            val throwable: Throwable = IllegalArgumentException("oh no")
             checkNarrowingAssertion<Throwable>(
                 "it throws an AssertionError if the assertion does not hold",
                 { messageWithCheck ->
                     expect {
-                        assert(throwable).messageWithCheck()
+                        expect(throwable).messageWithCheck()
                     }.toThrow<AssertionError>()
                 },
                 { messageFun { contains("hello") } }
@@ -281,7 +278,7 @@ abstract class ThrowableAssertionsSpec(
 
             checkNarrowingAssertion<Throwable>(
                 "it does not throw an exception if the assertion holds",
-                { messageWithCheck -> assert(throwable).messageWithCheck() },
+                { messageWithCheck -> expect(throwable).messageWithCheck() },
                 { messageFun { contains("oh") } }
             )
         }
@@ -292,9 +289,9 @@ abstract class ThrowableAssertionsSpec(
         checkNarrowingAssertion<Throwable>(
             "it throws an AssertionError if the ${Throwable::message.name} is null",
             { messageContainsFun ->
-                val throwable = IllegalArgumentException()
+                val throwable: Throwable = IllegalArgumentException()
                 expect {
-                    assert(throwable).messageContainsFun()
+                    expect(throwable).messageContainsFun()
                 }.toThrow<AssertionError> {
                     messageContains(DescriptionAnyAssertion.IS_A.getDefault(), String::class.fullName)
                 }
@@ -303,12 +300,12 @@ abstract class ThrowableAssertionsSpec(
 
 
         context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
-            val throwable = IllegalArgumentException("1 2.3 z hello")
+            val throwable: Throwable = IllegalArgumentException("1 2.3 z hello")
             checkNarrowingAssertion<Throwable>(
                 "it throws an AssertionError if the assertion does not hold",
                 { messageContains ->
                     expect {
-                        assert(throwable).messageContains()
+                        expect(throwable).messageContains()
                     }.toThrow<AssertionError>()
                 },
                 { (messageContains.lambda)("nada", arrayOf()) }
@@ -317,7 +314,7 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>(
                 "it does not throw an exception if the assertion holds",
                 { messageWithCheck ->
-                    assert(throwable).messageWithCheck()
+                    expect(throwable).messageWithCheck()
                 },
                 { (messageContains.lambda)(1, arrayOf(2.3, 'z', "hello")) }
             )
@@ -327,7 +324,7 @@ abstract class ThrowableAssertionsSpec(
                 "it throws an IllegalArgumentException if an object is passed",
                 { messageContains ->
                     expect {
-                        assert(throwable).messageContains()
+                        expect(throwable).messageContains()
                     }.toThrow<IllegalArgumentException>()
                 },
                 { (messageContains.lambda)(Pair(1, 2), arrayOf()) }

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -8,7 +9,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
-    verbs: AssertionVerbFactory,
     creator: (String, Int) -> T,
     creatorNullable: (String?, Int?) -> TNullable,
     keyName: String,
@@ -41,12 +41,12 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     ) {})
 
     include(object : AssertionCreatorSpec<T>(
-        verbs, describePrefix, mapEntry,
+        describePrefix, mapEntry,
         key.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") },
         value.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
     include(object : AssertionCreatorSpec<TNullable>(
-        verbs, describePrefix, nullMapEntry,
+        describePrefix, nullMapEntry,
         nullableKey.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) },
         nullableValue.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) }
     ) {})
@@ -54,14 +54,11 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val assert: (T) -> Expect<T> = verbs::check
-    val expect = verbs::checkException
-
     val nullableMapEntry = creatorNullable("hello", 1)
 
-    val fluent = assert(mapEntry)
-    val nullableFluent = verbs.check(nullableMapEntry)
-    val nullFluent = verbs.check(nullMapEntry)
+    val fluent = expect(mapEntry)
+    val nullableFluent = expect(nullableMapEntry)
+    val nullFluent = expect(nullMapEntry)
 
     describeFun("${keyFeature.name} feature") {
         val keyVal = keyFeature.lambda

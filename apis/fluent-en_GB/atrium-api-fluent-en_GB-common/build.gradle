@@ -2,6 +2,6 @@ description = 'A fluent assertion function API in en_GB with a focus on code com
 
 dependencies {
     api prefixedProject('domain-builders-common')
-    
-    testImplementation prefixedProject('verbs-internal-common')
+
+    testImplementation prefixedProject('specs-common')
 }

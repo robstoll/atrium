@@ -1,13 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
 
-abstract class IterablePredicateSpecBase(verbs: AssertionVerbFactory, spec: Root.() -> Unit) :
-    IterableContainsEntriesSpecBase(verbs, spec) {
+abstract class IterablePredicateSpecBase(spec: Root.() -> Unit) :
+    IterableContainsEntriesSpecBase(spec) {
     companion object {
 
         fun Root.nonNullableCases(

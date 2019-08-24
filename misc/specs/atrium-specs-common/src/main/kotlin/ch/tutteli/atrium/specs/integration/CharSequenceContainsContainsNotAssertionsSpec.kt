@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsContainsNotAssertionsSpec(
-    verbs: AssertionVerbFactory,
     contains: Fun2<CharSequence, String, Array<out String>>,
     containsNot: Fun2<CharSequence, String, Array<out String>>,
     rootBulletPoint: String,
@@ -25,8 +25,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
+    val fluent = expect(text as CharSequence)
 
     fun Expect<CharSequence>.containsFun(t: String, vararg tX: String) = contains.invoke(this, t, tX)
 
@@ -38,7 +37,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
 
     describeFun(contains.name, containsNot.name) {
         context("empty string") {
-            val fluentEmptyString = verbs.check("" as CharSequence)
+            val fluentEmptyString = expect("" as CharSequence)
             it("${contains.name} 'Hello' throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun("Hello")
@@ -170,7 +169,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 val nameWithArrow = "${featureArrow}name"
                 it("${contains.name} 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
-                        verbs.check(person).addAssertionsCreatedBy {
+                        expect(person).addAssertionsCreatedBy {
                             feature(Person::name).containsFun("treboR", "llotS")
                         }
                     }.toThrow<AssertionError> {
@@ -179,7 +178,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 }
                 it("${containsNot.name} 'Robert' and 'Stoll' - error message contains '$nameWithArrow' exactly once") {
                     expect {
-                        verbs.check(person).addAssertionsCreatedBy {
+                        expect(person).addAssertionsCreatedBy {
                             feature(Person::name).containsNotFun("Robert", "Stoll")
                         }
                     }.toThrow<AssertionError> {

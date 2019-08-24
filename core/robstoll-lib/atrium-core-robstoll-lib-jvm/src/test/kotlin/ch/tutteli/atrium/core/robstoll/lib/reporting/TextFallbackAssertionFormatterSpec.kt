@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
@@ -19,6 +17,7 @@ import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
@@ -65,31 +64,33 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 }
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
-                expect(sb.toString()).toBe("assert: subject$separator" +
-                    "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
-                    "$squarePoint ${NOT_TO_BE.getDefault()}: bye")
+                expect(sb.toString()).toBe(
+                    "assert: subject$separator" +
+                        "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
+                        "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
+                )
             }
         }
     }
 }) {
-    object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.TextFallbackAssertionFormatterSpec(
-        AssertionVerbFactory,
-        factory(), "[Atrium's TextFallback..Spec] "
-    )
+    object AtriumsTextFallbackAssertionFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.TextFallbackAssertionFormatterSpec(
+            factory(), "[Atrium's TextFallback..Spec] "
+        )
 
     object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory,
         factory(), "[Atrium's AssertionFormatterSpec] "
     )
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
-            TextFallbackAssertionFormatter(
-                bulletPoints,
-                assertionFormatterController,
-                TextSameLineAssertionPairFormatter(objectFormatter, translator),
-                objectFormatter
-            )
-        }
+        internal fun factory() =
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+                TextFallbackAssertionFormatter(
+                    bulletPoints,
+                    assertionFormatterController,
+                    TextSameLineAssertionPairFormatter(objectFormatter, translator),
+                    objectFormatter
+                )
+            }
     }
 }

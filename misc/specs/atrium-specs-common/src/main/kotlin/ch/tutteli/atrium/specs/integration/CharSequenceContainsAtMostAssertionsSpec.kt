@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsAtMostAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,
@@ -28,9 +28,8 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
-    val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
+    val fluent = expect(text as CharSequence)
+    val fluentHelloWorld = expect(helloWorld as CharSequence)
 
     fun Expect<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any) =
         containsAtMost(this, atLeast, a, aX)
@@ -202,12 +201,12 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
         context("special cases") {
             context("string: \"\\0 hello\"") {
                 it("${containsAtMostPair.first("\"hello\" and '\\0'", "twice")} does not throw") {
-                    verbs.check(('\u0000' + " hello") as CharSequence).containsAtMostFun(2, "hello", 0.toChar())
+                    expect(('\u0000' + " hello") as CharSequence).containsAtMostFun(2, "hello", 0.toChar())
                 }
             }
 
             val aaaa: CharSequence = "aaaa"
-            val aaaaFluent = verbs.check(aaaa)
+            val aaaaFluent = expect(aaaa)
             context("string \"$aaaa\"") {
                 it("${containsAtMostPair.first("'a'", "4 times")} does not throw") {
                     aaaaFluent.containsAtMostFun(4, 'a')

@@ -11,12 +11,7 @@ dependencies {
     compileOnly prefixedProject('translations-en_GB-js')
 
     testImplementation prefixedProject('api-fluent-en_GB-js')
-    testImplementation prefixedProject('domain-robstoll-js')
-    testImplementation prefixedProject('core-robstoll-js')
-    testImplementation prefixedProject('verbs-internal-js')
-
-    //TODO remove once https://youtrack.jetbrains.com/issue/KT-33294 is fixed
-    testImplementation prefixedProject('api-cc-en_GB-js')
+    testImplementation prefixedProject('specs-js')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-27797

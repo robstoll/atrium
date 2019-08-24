@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 
 abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsInOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInOrderOnlyNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
@@ -28,9 +28,6 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
         describePrefix,
         containsInOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf())
     ) {})
-
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
 
     fun Expect<Iterable<Double?>>.containsInOrderOnlyNullableValuesFun(t: Double?, vararg tX: Double?) =
         containsInOrderOnlyNullableValues(this, t, tX)
@@ -72,7 +69,6 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
             containsValuesFunArr(t, tX.toTypedArray())
 
         context("empty collection") {
-            val fluentEmpty = assert(setOf())
             it("1.0 throws AssertionError") {
                 expect {
                     fluentEmpty.containsFun(1.0)
@@ -101,7 +97,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
         }
 
         context("iterable $oneToFour") {
-            val fluent = assert(oneToFour)
+            val fluent = expect(oneToFour)
 
             context("happy case") {
                 it("1.0, 2.0, 3.0, 4.0, 4.0") {
@@ -206,7 +202,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
         describeFun("${containsInOrderOnlyNullableValues.name} for nullable") {
             val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = verbs.check(list)
+            val fluent = expect(list)
 
             context("iterable $list") {
                 context("happy cases (do not throw)") {

@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableAllAssertionsSpec(
-    verbs: AssertionVerbFactory,
     all: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     allNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
@@ -16,7 +16,7 @@ abstract class IterableAllAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterablePredicateSpecBase(verbs, {
+) : IterablePredicateSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         all.first to expectLambda { all.second(this) { toBe(2.5) } }
@@ -26,16 +26,13 @@ abstract class IterableAllAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        verbs, describePrefix, oneToSeven,
+        describePrefix, oneToSeven,
         all.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven,
         allNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
     ) {})
-
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
 
     val allDescr = DescriptionIterableAssertion.ALL.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
@@ -55,7 +52,6 @@ abstract class IterableAllAssertionsSpec(
     ) { allFun ->
 
         context("empty collection") {
-            val fluentEmpty = assert(setOf())
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
                     fluentEmpty.allFun { isLessThan(1.0) }
@@ -68,7 +64,7 @@ abstract class IterableAllAssertionsSpec(
             }
         }
 
-        val fluent = assert(oneToSeven)
+        val fluent = expect(oneToSeven)
         context("iterable $oneToSeven") {
             context("all are $isGreaterThanFun(2.5) and $isLessThanFun(7.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
@@ -106,7 +102,7 @@ abstract class IterableAllAssertionsSpec(
             val listOfNulls = listOf(null, null) as Iterable<Double?>
             context("iterable $listOfNulls") {
                 it("all are `null` (does not throw)") {
-                    verbs.check(listOfNulls).allNullableFun(null)
+                    expect(listOfNulls).allNullableFun(null)
                 }
             }
 
@@ -114,7 +110,7 @@ abstract class IterableAllAssertionsSpec(
             context("iterable $list") {
                 it("$isGreaterThanDescr(0.5)") {
                     expect {
-                        verbs.check(list).allNullableFun { isGreaterThan(0.5) }
+                        expect(list).allNullableFun { isGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(

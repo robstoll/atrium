@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableNoneAssertionsSpec(
-    verbs: AssertionVerbFactory,
     none: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     noneNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
@@ -18,7 +18,7 @@ abstract class IterableNoneAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterablePredicateSpecBase(verbs, {
+) : IterablePredicateSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         none.forSubjectLess { toBe(2.3) }
@@ -28,18 +28,17 @@ abstract class IterableNoneAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        verbs, describePrefix, oneToSeven,
+        describePrefix, oneToSeven,
         none.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven,
         noneNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
@@ -64,7 +63,7 @@ abstract class IterableNoneAssertionsSpec(
         noneNullable
     ) { noneFun ->
 
-        val fluent = verbs.check(oneToSeven)
+        val fluent = expect(oneToSeven)
 
         context("iterable $oneToSeven") {
             context("happy case") {
@@ -103,13 +102,13 @@ abstract class IterableNoneAssertionsSpec(
 
             context("iterable $oneToSeven") {
                 it("null does not throw") {
-                    verbs.check(oneToSeven as Iterable<Double?>).noneFun(null)
+                    expect(oneToSeven as Iterable<Double?>).noneFun(null)
                 }
             }
             context("iterable $oneToSevenNullable") {
                 it("null throws AssertionError") {
                     expect {
-                        verbs.check(oneToSevenNullable).noneFun(null)
+                        expect(oneToSevenNullable).noneFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -127,7 +126,7 @@ abstract class IterableNoneAssertionsSpec(
 
                 it("1.0 throws AssertionError") {
                     expect {
-                        verbs.check(oneToSevenNullable).noneFun { toBe(1.0) }
+                        expect(oneToSevenNullable).noneFun { toBe(1.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

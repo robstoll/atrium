@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceContainsNotOrAtMostAssertionsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceContainsNotOrAtMostAssertionsSpec(
-        AssertionVerbFactory,
         getNotOrAtMostTriple(),
         getNotOrAtMostIgnoringCaseTriple(),
         getContainsNotPair(),

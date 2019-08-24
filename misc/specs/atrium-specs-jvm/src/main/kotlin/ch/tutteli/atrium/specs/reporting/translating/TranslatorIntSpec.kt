@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.prefixedDescribe
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -97,7 +97,6 @@ import java.text.SimpleDateFormat
  */
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslatorIntSpec(
-    verbs: AssertionVerbFactory,
     reporterFactory: (Locale, Array<out Locale>) -> Reporter,
     //TODO Remove as soon as http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
     withSpecialCases: Boolean = true,
@@ -131,7 +130,7 @@ abstract class TranslatorIntSpec(
 
             describe("translation for $descriptionAnyAssertion.$toBe is provided for 'de_CH'") {
                 test("a failing assertion contains 'ist' instead of 'to be' in the error message") {
-                    verbs.checkException {
+                    expect {
                         assertWithDeCh(1).toBe(2)
                     }.toThrow<AssertionError> { messageContains("ist: 2") }
                 }
@@ -140,7 +139,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'de'") {
                 val text = "ist nicht"
                 test("a failing assertion contains '$text' instead of 'not to be' in the error message") {
-                    verbs.checkException {
+                    expect {
                         assertWithDeCh(1).notToBe(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
@@ -149,7 +148,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $descriptionAnyAssertion.$isNotSame is provided 'fr'") {
                 val text = "n'est pas la même instance que"
                 test("a failing assertion contains '$text' instead of 'assert' in the error message") {
-                    verbs.checkException {
+                    expect {
                         assertWithDeCh(1).isNotSameAs(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
@@ -160,7 +159,7 @@ abstract class TranslatorIntSpec(
             describe("translation for ${AssertionVerb::class.simpleName}.${AssertionVerb.ASSERT} is provided for 'fr'") {
                 val text = "il applique que"
                 test("a failing assertion contains '$text' instead of 'assert' in the error message") {
-                    verbs.checkException {
+                    expect {
                         assertWithDeCh(1).toBe(2)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
@@ -171,7 +170,7 @@ abstract class TranslatorIntSpec(
 
             describe("translation for $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is provided for 'it'") {
                 it("throws an AssertionError which message contains the default of $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
-                    verbs.checkException {
+                    expect {
                         assertWithDeCh(1).isLessThan(1)
                     }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
@@ -183,26 +182,45 @@ abstract class TranslatorIntSpec(
             val firstOfFeb2017 = SimpleDateFormat("dd.MM.yyyy").parse("01.02.2017")
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
-                    verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1) { false }
+                    expect {
+                        assertWithDeCh(1).createAndAddAssertion(
+                            TranslatableWithArgs(
+                                TestTranslatable.DATE_KNOWN,
+                                firstOfFeb2017
+                            ), 1
+                        ) { false }
                     }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
                 }
             }
 
             describe("translation for $testTranslatable.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
                 it("uses default translation but the primary Locale to format the date") {
-                    verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1) { false }
+                    expect {
+                        assertWithDeCh(1).createAndAddAssertion(
+                            TranslatableWithArgs(
+                                TestTranslatable.DATE_UNKNOWN,
+                                firstOfFeb2017
+                            ), 1
+                        ) { false }
                     }.toThrow<AssertionError> { messageContains("only Mittwoch") }
                 }
             }
 
-            describe("translation for $testTranslatable.${TestTranslatable.PLACEHOLDER} "
-                + "with $descriptionAnyAssertion.$toBe as Placeholder") {
-                it("uses the translation from 'fr' for $testTranslatable.${TestTranslatable.PLACEHOLDER} "
-                    + "and the translation from 'ch' for $descriptionAnyAssertion.$toBe") {
-                    verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, toBe), 1) { false }
+            describe(
+                "translation for $testTranslatable.${TestTranslatable.PLACEHOLDER} "
+                    + "with $descriptionAnyAssertion.$toBe as Placeholder"
+            ) {
+                it(
+                    "uses the translation from 'fr' for $testTranslatable.${TestTranslatable.PLACEHOLDER} "
+                        + "and the translation from 'ch' for $descriptionAnyAssertion.$toBe"
+                ) {
+                    expect {
+                        assertWithDeCh(1).createAndAddAssertion(
+                            TranslatableWithArgs(
+                                TestTranslatable.PLACEHOLDER,
+                                toBe
+                            ), 1
+                        ) { false }
                     }.toThrow<AssertionError> { messageContains("Caractère de remplacement ist") }
                 }
             }
@@ -227,14 +245,14 @@ abstract class TranslatorIntSpec(
                 if (withSpecialCases) {
                     describe("translation for $descriptionAnyAssertion.$toBe is provided for 'zh_$country' and for ${zhWithScript}_$country") {
                         test("a failing assertion contains '$toBe ${zhWithScript}_$country' instead of 'to be' in the error message") {
-                            verbs.checkException {
+                            expect {
                                 assert.toBe(2)
                             }.toThrow<AssertionError> { messageContains("$toBe ${zhWithScript}_$country: 2") }
                         }
                     }
                     describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'zh_$country' and for $zhWithScript") {
                         test("a failing assertion contains '$notToBe $zhWithScript' instead of 'to be' in the error message") {
-                            verbs.checkException {
+                            expect {
                                 assert.notToBe(1)
                             }.toThrow<AssertionError> { messageContains("$notToBe $zhWithScript: 1") }
                         }
@@ -242,14 +260,14 @@ abstract class TranslatorIntSpec(
                 }
                 describe("translation for $descriptionAnyAssertion.$isNotSame is provided for 'zh_$country' and zh") {
                     test("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
-                        verbs.checkException {
+                        expect {
                             assert.isNotSameAs(1)
                         }.toThrow<AssertionError> { messageContains("$isNotSame zh_$country: 1") }
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isSame is not provided for 'zh_$country' but for zh") {
                     test("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
-                        verbs.checkException {
+                        expect {
                             assert.isSameAs(2)
                         }.toThrow<AssertionError> { messageContains("$isSame zh: 2") }
                     }

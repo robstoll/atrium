@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
@@ -10,12 +11,11 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsInAnyOrderEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     containsInAnyOrderNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase(verbs, {
+) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
@@ -27,22 +27,19 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        verbs, describePrefix, listOf(1.2, 2.0),
+        describePrefix, listOf(1.2, 2.0),
         *containsInAnyOrderEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
             { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        verbs, "$describePrefix[nullable] ", listOf(1.2, 2.0),
+        "$describePrefix[nullable] ", listOf(1.2, 2.0),
         *containsInAnyOrderNullableEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
             { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
         )
     ) {})
-
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
 
     fun Expect<Iterable<Double?>>.containsInAnyOrderNullableEntriesFun(
         t: (Expect<Double>.() -> Unit)?,
@@ -61,7 +58,6 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         ) = containsEntriesFunArr(t, tX)
 
         context("empty collection") {
-            val fluentEmpty = assert(setOf())
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
                     fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
@@ -106,7 +102,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             }
         }
 
-        val fluent = assert(oneToSeven)
+        val fluent = expect(oneToSeven)
         context("iterable $oneToSeven") {
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
@@ -148,7 +144,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         describeFun("${containsInAnyOrderNullableEntries.name} for nullable") {
 
             val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = verbs.check(list)
+            val fluent = expect(list)
             context("iterable $list") {
                 context("happy cases (do not throw)") {
                     it("$toBeFun(1.0)") {
@@ -209,7 +205,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             context("iterable $oneToSeven") {
                 it("null, throws an AssertionError") {
                     expect {
-                        verbs.check(oneToSeven as Iterable<Double?>).containsInAnyOrderNullableEntriesFun(null)
+                        expect(oneToSeven as Iterable<Double?>).containsInAnyOrderNullableEntriesFun(null)
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",

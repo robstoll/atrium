@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
-    verbs: AssertionVerbFactory,
     containsAtLeastPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     containsAtLeastButAtMostPair: Pair<(String, String, String) -> String, Fun4<Iterable<Double>, Int, Int, Double, Array<out Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
@@ -28,9 +28,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
-    val fluent = assert(oneToSeven)
+    val fluent = expect(oneToSeven)
 
     fun Expect<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double) =
         containsAtLeast(this, atLeast, a, aX.toTypedArray())

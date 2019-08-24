@@ -10,7 +10,6 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
@@ -67,14 +66,18 @@ object DetailedObjectFormatterSpec : Spek({
             it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.simpleName}") {
                 val value = StringBuilder("")
                 val result = testee.format(value)
-                expect(result).toBe("\"\"" + INDENT
-                    + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
+                expect(result).toBe(
+                    "\"\"" + INDENT
+                        + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)"
+                )
             }
             it("returns ${CharSequence::class.simpleName} in quotes $typeNameAndHash") {
                 val value = StringBuilder("atrium")
                 val result = testee.format(value)
-                expect(result).toBe("\"$value\"" + INDENT
-                    + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
+                expect(result).toBe(
+                    "\"$value\"" + INDENT
+                        + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)"
+                )
             }
         }
 
@@ -160,23 +163,27 @@ object DetailedObjectFormatterSpec : Spek({
             on(typeName) {
                 val result = testee.format(value)
                 it("returns subject's toString() $typeNameAndHash") {
-                    expect(result).toBe(value.toString() + INDENT
-                        + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
+                    expect(result).toBe(
+                        value.toString() + INDENT
+                            + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)"
+                    )
                 }
             }
         }
 
-        on("an anonymous class"){
+        on("an anonymous class") {
             val anonymous = object : Any() {
                 override fun toString(): String = "anonymous type"
             }
             val result = testee.format(anonymous)
             it("returns subject's toString() $typeNameAndHash") {
-                expect(result).toBe(anonymous.toString() + INDENT
-                    + "(${anonymous::class.java.name} <${System.identityHashCode(anonymous)}>)")
+                expect(result).toBe(
+                    anonymous.toString() + INDENT
+                        + "(${anonymous::class.java.name} <${System.identityHashCode(anonymous)}>)"
+                )
             }
         }
     }
 }) {
-    object AtriumsObjectFormatterSpec : ObjectFormatterSpec(AssertionVerbFactory, ::DetailedObjectFormatter)
+    object AtriumsObjectFormatterSpec : ObjectFormatterSpec(::DetailedObjectFormatter)
 }

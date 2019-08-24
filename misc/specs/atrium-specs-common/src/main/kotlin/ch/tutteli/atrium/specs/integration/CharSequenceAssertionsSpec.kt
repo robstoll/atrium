@@ -4,13 +4,13 @@ import ch.tutteli.atrium.api.fluent.en_GB.endsWith
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceAssertionsSpec(
-    verbs: AssertionVerbFactory,
     isEmpty: Fun0<CharSequence>,
     isNotEmpty: Fun0<CharSequence>,
     isNotBlank: Fun0<CharSequence>,
@@ -43,8 +43,7 @@ abstract class CharSequenceAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
+    val fluent = expect(text as CharSequence)
 
     val isNot = DescriptionBasic.IS_NOT.getDefault()
     val itIs = DescriptionBasic.IS.getDefault()
@@ -63,15 +62,15 @@ abstract class CharSequenceAssertionsSpec(
 
         context("string is empty") {
             it("${isEmpty.name} does not throw") {
-                verbs.check(emptyString).isEmptyFun()
-                verbs.check(emptyStringBuilder).isEmptyFun()
+                expect(emptyString).isEmptyFun()
+                expect(emptyStringBuilder).isEmptyFun()
             }
             it("${isNotEmpty.name} throws an AssertionError") {
                 expect {
-                    verbs.check(emptyString).isNotEmptyFun()
+                    expect(emptyString).isNotEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$isNot: empty") } }
                 expect {
-                    verbs.check(emptyStringBuilder).isNotEmptyFun()
+                    expect(emptyStringBuilder).isNotEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$isNot: empty") } }
             }
         }
@@ -79,15 +78,15 @@ abstract class CharSequenceAssertionsSpec(
 
             it("${isEmpty.name} throws an AssertionError") {
                 expect {
-                    verbs.check(blankString).isEmptyFun()
+                    expect(blankString).isEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
                 expect {
-                    verbs.check(blankStringBuilder).isEmptyFun()
+                    expect(blankStringBuilder).isEmptyFun()
                 }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
             }
             it("${isNotEmpty.name} does not throw") {
-                verbs.check(blankString).isNotEmptyFun()
-                verbs.check(blankStringBuilder).isNotEmptyFun()
+                expect(blankString).isNotEmptyFun()
+                expect(blankStringBuilder).isNotEmptyFun()
             }
         }
     }
@@ -99,17 +98,17 @@ abstract class CharSequenceAssertionsSpec(
             it("throws an AssertionError") {
 
                 expect {
-                    verbs.check(blankString).isNotBlankFun()
+                    expect(blankString).isNotBlankFun()
                 }.toThrow<AssertionError> { message { endsWith("$isNot: blank") } }
                 expect {
-                    verbs.check(blankStringBuilder).isNotBlankFun()
+                    expect(blankStringBuilder).isNotBlankFun()
                 }.toThrow<AssertionError> { message { endsWith("$isNot: blank") } }
             }
         }
         context("string is not blank") {
             it("does not throw") {
-                verbs.check(notBlankString).isNotBlankFun()
-                verbs.check(notBlankStringBuilder).isNotBlankFun()
+                expect(notBlankString).isNotBlankFun()
+                expect(notBlankStringBuilder).isNotBlankFun()
             }
         }
     }

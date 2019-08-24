@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.include
 import org.spekframework.spek2.Spek
@@ -13,7 +12,6 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
-        AssertionVerbFactory,
         getContainsPair(),
         getContainsNullablePair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
@@ -21,7 +19,6 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
-        AssertionVerbFactory,
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",

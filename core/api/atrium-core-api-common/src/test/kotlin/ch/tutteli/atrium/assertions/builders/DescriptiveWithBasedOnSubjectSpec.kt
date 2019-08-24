@@ -24,7 +24,7 @@ class DescriptiveWithBasedOnSubjectSpec : Spek({
         "withFailureHintBasedOnDefinedSubject" to addDescriptive { expect, builder ->
             builder.failing
                 .withFailureHintBasedOnDefinedSubject(expect) {
-                        ExpectImpl.builder.explanatory.withExplanation("asdf").build()
+                    ExpectImpl.builder.explanatory.withExplanation("asdf").build()
                 }
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()

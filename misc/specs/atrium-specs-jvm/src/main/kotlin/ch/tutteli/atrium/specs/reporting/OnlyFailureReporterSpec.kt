@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
@@ -13,7 +14,6 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import com.nhaarman.mockitokotlin2.any
@@ -27,7 +27,6 @@ import org.jetbrains.spek.api.dsl.it
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class OnlyFailureReporterSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (AssertionFormatterFacade, AtriumErrorAdjuster) -> Reporter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -78,7 +77,7 @@ abstract class OnlyFailureReporterSpec(
         ).forEach { (typeRepresentation, assertion) ->
             it("does not append anything if $typeRepresentation holds") {
                 testee.format(assertion, sb)
-                verbs.check(sb).isEmpty()
+                expect(sb).isEmpty()
             }
         }
 

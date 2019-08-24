@@ -17,12 +17,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
-private fun <T : Any> assert(subject: T): Expect<T> = ExpectImpl.assertionVerbBuilder(subject)
-    .withVerb(AssertionVerb.ASSERT)
-    .withCustomReporter(AtriumReporterSupplier.REPORTER)
-    .build()
-
-private fun expect(act: () -> Unit) =
+private fun assert(act: () -> Unit) =
     AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 private object AtriumReporterSupplier {
@@ -59,7 +54,7 @@ abstract class VerbSpec(
             assertionVerb(1).toBe(1)
         }
         it("throws an AssertionError as soon as one assertion fails") {
-            expect {
+            assert {
                 assertionVerb(1).isLessOrEquals(10).and.isLessOrEquals(0).and.isGreaterOrEquals(2)
             }.toThrow<AssertionError> {
                 message {
@@ -90,7 +85,7 @@ abstract class VerbSpec(
             }
             context("a subsequent assertion fails") {
                 it("throws an AssertionError") {
-                    expect {
+                    assert {
                         assertionVerb(1) { toBe(1) }.isLessThan(1)
                     }.toThrow<AssertionError> {
                         message {
@@ -103,7 +98,7 @@ abstract class VerbSpec(
 
             context("multiple assertions of a subsequent group of assertion fails") {
                 it("evaluates all assertions and then throws an AssertionError, reporting only failing") {
-                    expect {
+                    assert {
                         assertionVerb(1) { toBe(1) }.and { isLessThan(0); toBe(1); isGreaterThan(2) }
                     }.toThrow<AssertionError> {
                         message {
@@ -121,7 +116,7 @@ abstract class VerbSpec(
 
         context("one assertion fails") {
             it("evaluates all assertions and then throws an AssertionError") {
-                expect {
+                assert {
                     assertionVerb(1) {
                         isLessThan(0)
                         isGreaterThan(2)
@@ -144,7 +139,7 @@ abstract class VerbSpec(
                 assertionVerb(null).toBe(null)
             }
             it("throws an AssertionError when calling notToBeNull") {
-                expect {
+                assert {
                     assertionVerb(null).notToBeNull { toBe(1) }
                 }.toThrow<AssertionError> {
                     @Suppress("DEPRECATION")
@@ -169,7 +164,7 @@ abstract class VerbSpec(
                 }
             }
             it("throws an AssertionError when expecting an UnsupportedOperationException") {
-                expect {
+                assert {
                     assertionVerb {
                         throw IllegalArgumentException()
                     }.toThrow<UnsupportedOperationException> {}

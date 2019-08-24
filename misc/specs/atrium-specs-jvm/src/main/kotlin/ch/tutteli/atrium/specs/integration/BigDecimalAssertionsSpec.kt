@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.specs.*
@@ -11,7 +12,6 @@ import org.spekframework.spek2.style.specification.Suite
 import java.math.BigDecimal
 
 abstract class BigDecimalAssertionsSpec(
-    verbs: AssertionVerbFactory,
     toBeDontUse: Fun1<BigDecimal, BigDecimal>,
     toBeNullableDontUse: Fun1<BigDecimal?, BigDecimal?>,
     toBeNull: Fun1<BigDecimal?, Nothing?>,
@@ -41,8 +41,6 @@ abstract class BigDecimalAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-
     describeFun(isNumericallyEqualTo.name, isNotNumericallyEqualTo.name) {
         val isNumericallyEqualToFun = isNumericallyEqualTo.lambda
         val isNotNumericallyEqualToFun = isNotNumericallyEqualTo.lambda
@@ -56,11 +54,11 @@ abstract class BigDecimalAssertionsSpec(
         ).forEach { (subject, expected) ->
             context("subject $subject and expected $expected") {
                 it("`${isNumericallyEqualTo.name}` does not throw") {
-                    verbs.check(subject).isNumericallyEqualToFun(expected)
+                    expect(subject).isNumericallyEqualToFun(expected)
                 }
                 it("`${isNotNumericallyEqualTo.name}` throws AssertionError") {
                     expect {
-                        verbs.check(subject).isNotNumericallyEqualToFun(expected)
+                        expect(subject).isNotNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
                         messageContains(
                             subject,
@@ -78,7 +76,7 @@ abstract class BigDecimalAssertionsSpec(
             context("subject $subject and expected $expected") {
                 it("`${isNumericallyEqualTo.name}` throws AssertionError") {
                     expect {
-                        verbs.check(subject).isNumericallyEqualToFun(expected)
+                        expect(subject).isNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
                         messageContains(
                             subject,
@@ -87,15 +85,15 @@ abstract class BigDecimalAssertionsSpec(
                     }
                 }
                 it("`$isNotNumericallyEqualTo` does not throw") {
-                    verbs.check(subject).isNotNumericallyEqualToFun(expected)
+                    expect(subject).isNotNumericallyEqualToFun(expected)
                 }
             }
         }
     }
 
-    val assertTen = verbs.check(BigDecimal.TEN as BigDecimal)
-    val assertNullableTen: Expect<BigDecimal?> = verbs.check(BigDecimal.TEN)
-    val assertTenAny = verbs.check(BigDecimal.TEN as Any)
+    val assertTen = expect(BigDecimal.TEN as BigDecimal)
+    val assertNullableTen: Expect<BigDecimal?> = expect(BigDecimal.TEN)
+    val assertTenAny = expect(BigDecimal.TEN as Any)
     describeFun(
         toBeDontUse.name,
         "${toBeNullableDontUse.name} nullable",
@@ -263,7 +261,7 @@ abstract class BigDecimalAssertionsSpec(
     describeFun("${toBeNull.name} null") {
         val toBeFun = toBeNull.lambda
         it("does not throw if subject is null") {
-            verbs.check(null as BigDecimal?).toBeFun(null)
+            expect(null as BigDecimal?).toBeFun(null)
         }
     }
 })

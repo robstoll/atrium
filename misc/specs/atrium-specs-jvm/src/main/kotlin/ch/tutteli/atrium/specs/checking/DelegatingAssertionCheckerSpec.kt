@@ -1,15 +1,14 @@
 package ch.tutteli.atrium.specs.checking
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
@@ -21,12 +20,9 @@ import org.jetbrains.spek.api.dsl.it
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class DelegatingAssertionCheckerSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (AssertionHolder) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
-
-    val assert: (Assertion) -> Expect<Assertion> = verbs::check
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
         describeFun(describePrefix, funName, body = body)
@@ -67,7 +63,7 @@ abstract class DelegatingAssertionCheckerSpec(
                     //assert
                     val captor = argumentCaptor<Assertion>()
                     verify(subjectFactory).addAssertion(captor.capture())
-                    assert(captor.firstValue).isA<AssertionGroup> {
+                    expect(captor.firstValue).isA<AssertionGroup> {
                         feature(AssertionGroup::type).isA<InvisibleAssertionGroupType>()
                         feature(AssertionGroup::assertions) {
                             contains.inAnyOrder.only.values(assertions.first(), *assertions.drop(1).toTypedArray())

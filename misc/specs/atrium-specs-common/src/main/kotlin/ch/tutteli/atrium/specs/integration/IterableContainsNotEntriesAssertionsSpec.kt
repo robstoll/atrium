@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.specs.*
@@ -8,7 +9,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsNotEntriesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsNotEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     containsNotNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     rootBulletPoint: String,
@@ -19,7 +19,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase(verbs, {
+) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
@@ -31,7 +31,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        verbs, describePrefix, oneToSeven,
+        describePrefix, oneToSeven,
         *containsNotEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
@@ -39,7 +39,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        verbs, "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven,
         *containsNotNullableEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
@@ -50,7 +50,6 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
 
     fun Expect<Iterable<Double?>>.containsNotNullableFun(
         a: (Expect<Double>.() -> Unit)?,
@@ -86,7 +85,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         ) = containsNotFunArr(a, aX)
 
         context("empty collection") {
-            val fluent = verbs.check(setOf<Double>().asIterable())
+            val fluent = expect(setOf<Double>().asIterable())
 
             it("$toBeFun(4.0) throws AssertionError") {
                 expect {
@@ -108,7 +107,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         }
 
         context("iterable $oneToSeven") {
-            val fluent = verbs.check(oneToSeven)
+            val fluent = expect(oneToSeven)
 
             context("happy case") {
                 it("$isGreaterThanFun(1.0) and $isLessThanFun(2.0) does not throw") {
@@ -182,13 +181,13 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         describeFun("${containsNotNullableEntries.name} for nullable") {
             context("iterable $oneToSeven") {
                 it("null does not throw") {
-                    verbs.check(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
+                    expect(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
                 }
             }
             context("iterable $oneToSevenNullable") {
                 it("null throws AssertionError") {
                     expect {
-                        verbs.check(oneToSevenNullable).containsNotNullableFun(null)
+                        expect(oneToSevenNullable).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -206,7 +205,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
 
                 it("1.1, null throws AssertionError mentioning only null") {
                     expect {
-                        verbs.check(oneToSevenNullable).containsNotNullableFun({ toBe(1.1) }, null)
+                        expect(oneToSevenNullable).containsNotNullableFun({ toBe(1.1) }, null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

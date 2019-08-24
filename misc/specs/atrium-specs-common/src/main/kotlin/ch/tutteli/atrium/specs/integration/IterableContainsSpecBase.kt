@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.format
 import ch.tutteli.atrium.specs.lineSeperator
@@ -47,6 +48,7 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val atLeast = DescriptionIterableAssertion.AT_LEAST.getDefault()
         val atMost = DescriptionIterableAssertion.AT_MOST.getDefault()
 
+        val fluentEmpty = expect(setOf<Double>() as Iterable<Double>)
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeperator
 

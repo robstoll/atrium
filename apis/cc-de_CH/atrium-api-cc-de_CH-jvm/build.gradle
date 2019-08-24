@@ -15,8 +15,6 @@ dependencies {
     api prefixedProject('domain-api-deprecated')
     api prefixedProject('domain-builders-jvm')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
-    testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testImplementation(prefixedProject('spec')) {
         exclude module: "${rootProject.name}-translations-en_GB-jvm"
     }

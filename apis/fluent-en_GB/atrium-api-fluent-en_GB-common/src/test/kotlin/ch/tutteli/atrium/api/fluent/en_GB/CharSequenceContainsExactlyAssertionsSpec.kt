@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceContainsExactlyAssertionsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceContainsExactlyAssertionsSpec(
-        AssertionVerbFactory,
         getExactlyTriple(),
         getExactlyIgnoringCaseTriple(),
         getContainsNotPair(),

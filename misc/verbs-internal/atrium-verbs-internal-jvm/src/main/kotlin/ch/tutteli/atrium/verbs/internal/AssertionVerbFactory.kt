@@ -14,8 +14,8 @@ import ch.tutteli.atrium.reporting.Reporter
 object AssertionVerbFactory : ch.tutteli.atrium.spec.AssertionVerbFactory {
 
     override fun <T : Any> checkImmediately(subject: T) = assert(subject)
-    override fun <T : Any> checkLazily(subject: T, assertionCreator: Assert<T>.() -> Unit): AssertionPlant<T>
-        = assert(subject, assertionCreator)
+    override fun <T : Any> checkLazily(subject: T, assertionCreator: Assert<T>.() -> Unit): AssertionPlant<T> =
+        assert(subject, assertionCreator)
 
     override fun <T> checkNullable(subject: T) = assert(subject)
     override fun checkException(act: () -> Unit) = expect(act)

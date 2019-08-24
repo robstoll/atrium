@@ -36,38 +36,56 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
         val indentArrow = " ".repeat(arrow.length + 1)
         const val featureBulletPoint = "+++"
         val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length + 1)
-        val bulletPoints get() = mapOf(
-            RootAssertionGroupType::class to "$bulletPoint ",
-            ListAssertionGroupType::class to "$listBulletPoint ",
-            PrefixFeatureAssertionGroupHeader::class to "$arrow ",
-            FeatureAssertionGroupType::class to "$featureBulletPoint "
-        )
+        val bulletPoints
+            get() = mapOf(
+                RootAssertionGroupType::class to "$bulletPoint ",
+                ListAssertionGroupType::class to "$listBulletPoint ",
+                PrefixFeatureAssertionGroupHeader::class to "$arrow ",
+                FeatureAssertionGroupType::class to "$featureBulletPoint "
+            )
 
         fun createFacade() = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
 
-        fun createFacade(testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
-            =
+        fun createFacade(testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade =
             createFacade(mapOf(), testeeFactory)
 
-        fun createFacade(bulletPoint: Pair<KClass<out BulletPointIdentifier>, String>, testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
-            = createFacade(
+        fun createFacade(
+            bulletPoint: Pair<KClass<out BulletPointIdentifier>, String>,
+            testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter
+        ): AssertionFormatterFacade = createFacade(
             mapOf(bulletPoint),
             testeeFactory
         )
 
-        fun createFacade(extendedBulletPoints: Map<KClass<out BulletPointIdentifier>, String>, testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade {
+        fun createFacade(
+            extendedBulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
+            testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter
+        ): AssertionFormatterFacade {
             val facade = createFacade()
-            facade.register { testeeFactory(extendedBulletPoints, it,
-                ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { coreFactory.newTextListAssertionGroupFormatter(
-                bulletPoints, it,
-                ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { coreFactory.newTextFeatureAssertionGroupFormatter(
-                bulletPoints, it,
-                ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { coreFactory.newTextFallbackAssertionFormatter(
-                bulletPoints, it,
-                ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register {
+                testeeFactory(
+                    extendedBulletPoints, it,
+                    ToStringObjectFormatter, UsingDefaultTranslator()
+                )
+            }
+            facade.register {
+                coreFactory.newTextListAssertionGroupFormatter(
+                    bulletPoints, it,
+                    ToStringObjectFormatter, UsingDefaultTranslator()
+                )
+            }
+            facade.register {
+                coreFactory.newTextFeatureAssertionGroupFormatter(
+                    bulletPoints, it,
+                    ToStringObjectFormatter, UsingDefaultTranslator()
+                )
+            }
+            facade.register {
+                coreFactory.newTextFallbackAssertionFormatter(
+                    bulletPoints, it,
+                    ToStringObjectFormatter, UsingDefaultTranslator()
+                )
+            }
             return facade
         }
     }

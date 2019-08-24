@@ -1,10 +1,10 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DefaultIndentAssertionGroupType
 import ch.tutteli.atrium.assertions.IndentAssertionGroupType
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -22,32 +22,35 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsTextIndentAssertionGroupFormatterSpec : ch.tutteli.atrium.specs.reporting.TextIndentAssertionGroupFormatterSpec(
-        AssertionVerbFactory, ::TextIndentAssertionGroupFormatter, "[Atrium's IndentGroup...Spec] ")
+    object AtriumsTextIndentAssertionGroupFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.TextIndentAssertionGroupFormatterSpec(
+            ::TextIndentAssertionGroupFormatter, "[Atrium's IndentGroup...Spec] "
+        )
 
-    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.specs.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IndentAssertionGroupType>(
-        AssertionVerbFactory,
-        factory(),
-        IndentAssertionGroupType::class,
-        DefaultIndentAssertionGroupType,
-        object : IndentAssertionGroupType {},
-        "[Atrium's EmptyNameAndSubject...Spec] ")
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IndentAssertionGroupType>(
+            factory(),
+            IndentAssertionGroupType::class,
+            DefaultIndentAssertionGroupType,
+            object : IndentAssertionGroupType {},
+            "[Atrium's EmptyNameAndSubject...Spec] "
+        )
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.specs.reporting.SingleAssertionGroupTypeFormatterSpec<IndentAssertionGroupType>(
-        AssertionVerbFactory,
-        factoryWithBulletPoints(),
-        IndentAssertionGroupType::class,
-        DefaultIndentAssertionGroupType,
-        object : IndentAssertionGroupType {},
-        "[Atrium's SingleAssertionGroupType...Spec] "
-    )
+    object AtriumsSingleAssertionGroupTypeFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.SingleAssertionGroupTypeFormatterSpec<IndentAssertionGroupType>(
+            factoryWithBulletPoints(),
+            IndentAssertionGroupType::class,
+            DefaultIndentAssertionGroupType,
+            object : IndentAssertionGroupType {},
+            "[Atrium's SingleAssertionGroupType...Spec] "
+        )
 
     object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory,
-        factoryWithBulletPoints(), "[Atrium's AssertionFormatterSpec] ")
+        factoryWithBulletPoints(), "[Atrium's AssertionFormatterSpec] "
+    )
 
     companion object {
-        fun factory() = { assertionFormatterController: AssertionFormatterController ->
+        private fun factory() = { assertionFormatterController: AssertionFormatterController ->
             TextIndentAssertionGroupFormatter(
                 mapOf(
                     IndentAssertionGroupType::class to "**"
@@ -55,12 +58,13 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
             )
         }
 
-        fun factoryWithBulletPoints() = { _: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
-            TextIndentAssertionGroupFormatter(
-                mapOf(
-                    IndentAssertionGroupType::class to "**"
-                ), assertionFormatterController
-            )
-        }
+        private fun factoryWithBulletPoints() =
+            { _: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
+                TextIndentAssertionGroupFormatter(
+                    mapOf(
+                        IndentAssertionGroupType::class to "**"
+                    ), assertionFormatterController
+                )
+            }
     }
 }

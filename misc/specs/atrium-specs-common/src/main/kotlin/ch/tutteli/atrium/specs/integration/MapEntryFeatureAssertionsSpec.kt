@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.Feature0
 import ch.tutteli.atrium.specs.Fun1
 
 abstract class MapEntryFeatureAssertionsSpec(
-    verbs: AssertionVerbFactory,
     keyFeature: Feature0<Map.Entry<String, Int>, String>,
     key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
     valueFeature: Feature0<Map.Entry<String, Int>, Int>,
@@ -17,7 +15,6 @@ abstract class MapEntryFeatureAssertionsSpec(
     nullableValue: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : KeyValueLikeFeatureAssertionsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
-    verbs,
     ::mapEntry,
     ::mapEntry,
     "key",

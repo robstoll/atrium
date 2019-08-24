@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
 class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureAssertionsSpec(
-    AssertionVerbFactory,
     property<Map<String, Int>, Set<String>>(Expect<Map<String, Int>>::keys),
     fun1<Map<String, Int>, Expect<Set<String>>.() -> Unit>(Expect<Map<String, Int>>::keys),
     property<Map<String, Int>, Collection<Int>>(Expect<Map<String, Int>>::values),

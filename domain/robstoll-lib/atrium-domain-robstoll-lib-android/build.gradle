@@ -15,9 +15,7 @@ dependencies {
     //TODO remove with 1.0.0
     implementation prefixedProject('api-cc-en_GB-android')
 
-    testImplementation prefixedProject('verbs-internal-android')
-    testRuntimeOnly prefixedProject('domain-robstoll-android')
-    testRuntimeOnly prefixedProject('core-robstoll-android')
+    testImplementation prefixedProject('specs-android')
 }
 
 srcAndResourcesFromJvmProject(project)

@@ -15,7 +15,7 @@ ext.jacoco_additional = [
 dependencies {
     api prefixedProject('domain-builders-jvm')
 
-    testImplementation prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('specs-jvm')
 }
 
 

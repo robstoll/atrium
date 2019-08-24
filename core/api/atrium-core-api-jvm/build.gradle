@@ -5,5 +5,5 @@ dependencies {
     api kotlinReflect()
 
     testImplementation prefixedProject('cc-infix-en_GB-robstoll-jvm')
-    testImplementation prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('specs-jvm')
 }

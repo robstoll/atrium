@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
@@ -13,7 +14,6 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 import org.jetbrains.spek.api.Spek
@@ -23,13 +23,12 @@ import org.jetbrains.spek.api.dsl.it
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class AssertionFormatterControllerSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: () -> AssertionFormatterController,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory()
     val arrow = "  >>"
@@ -51,12 +50,24 @@ abstract class AssertionFormatterControllerSpec(
     val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
 
     testee.register(coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
-    testee.register(coreFactory.newTextListAssertionGroupFormatter(bulletPoints, testee,
-        ToStringObjectFormatter, UsingDefaultTranslator()))
-    testee.register(coreFactory.newTextSummaryAssertionGroupFormatter(bulletPoints, testee,
-        ToStringObjectFormatter, UsingDefaultTranslator()))
-    testee.register(coreFactory.newTextFallbackAssertionFormatter(bulletPoints, testee,
-        ToStringObjectFormatter, UsingDefaultTranslator()))
+    testee.register(
+        coreFactory.newTextListAssertionGroupFormatter(
+            bulletPoints, testee,
+            ToStringObjectFormatter, UsingDefaultTranslator()
+        )
+    )
+    testee.register(
+        coreFactory.newTextSummaryAssertionGroupFormatter(
+            bulletPoints, testee,
+            ToStringObjectFormatter, UsingDefaultTranslator()
+        )
+    )
+    testee.register(
+        coreFactory.newTextFallbackAssertionFormatter(
+            bulletPoints, testee,
+            ToStringObjectFormatter, UsingDefaultTranslator()
+        )
+    )
 
     val holdingAssertion = ExpectImpl.builder.descriptive
         .holding
@@ -74,12 +85,14 @@ abstract class AssertionFormatterControllerSpec(
 
         context("assertionFilter which always returns `false`") {
             var sb = StringBuilder()
-            var parameterObject = AssertionFormatterParameterObject.new(sb,
+            var parameterObject = AssertionFormatterParameterObject.new(
+                sb,
                 alwaysFalseAssertionFilter
             )
             afterEachTest {
                 sb = StringBuilder()
-                parameterObject = AssertionFormatterParameterObject.new(sb,
+                parameterObject = AssertionFormatterParameterObject.new(
+                    sb,
                     alwaysFalseAssertionFilter
                 )
             }
@@ -111,17 +124,26 @@ abstract class AssertionFormatterControllerSpec(
                 listOf(
                     Triple(
                         "$groupName with type object: ${ExplanatoryAssertionGroupType::class.simpleName}",
-                        factory(anonymousType, listOf(holdingAssertion)) to factory(anonymousType, listOf(failingAssertion)),
+                        factory(anonymousType, listOf(holdingAssertion)) to factory(
+                            anonymousType,
+                            listOf(failingAssertion)
+                        ),
                         arrow
                     ),
                     Triple(
                         "$groupName with type ${DefaultExplanatoryAssertionGroupType::class.simpleName}",
-                        factory(DefaultExplanatoryAssertionGroupType, listOf(holdingAssertion)) to factory(DefaultExplanatoryAssertionGroupType, listOf(failingAssertion)),
+                        factory(DefaultExplanatoryAssertionGroupType, listOf(holdingAssertion)) to factory(
+                            DefaultExplanatoryAssertionGroupType,
+                            listOf(failingAssertion)
+                        ),
                         arrow
                     ),
                     Triple(
                         "$groupName with type ${WarningAssertionGroupType::class.simpleName}",
-                        factory(WarningAssertionGroupType, listOf(holdingAssertion)) to factory(WarningAssertionGroupType, listOf(failingAssertion)),
+                        factory(WarningAssertionGroupType, listOf(holdingAssertion)) to factory(
+                            WarningAssertionGroupType,
+                            listOf(failingAssertion)
+                        ),
                         warning
                     )
                 ).forEach { (description, factories, prefix) ->
@@ -129,14 +151,18 @@ abstract class AssertionFormatterControllerSpec(
                     context(description) {
                         it("appends the assertions without group header, if the assertion group holds") {
                             testee.format(holdingGroup, parameterObject)
-                            verbs.check(sb.toString()).toBe(separator +
-                                "$prefix ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                            expect(sb.toString()).toBe(
+                                separator +
+                                    "$prefix ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                            )
                         }
 
                         it("appends the assertions without group header, if the assertion group does not hold") {
                             testee.format(failingGroup, parameterObject)
-                            verbs.check(sb.toString()).toBe(separator +
-                                "$prefix ${IS_LESS_OR_EQUALS.getDefault()}: 2")
+                            expect(sb.toString()).toBe(
+                                separator +
+                                    "$prefix ${IS_LESS_OR_EQUALS.getDefault()}: 2"
+                            )
                         }
                     }
                 }
@@ -144,7 +170,8 @@ abstract class AssertionFormatterControllerSpec(
         }
 
         context("assertionFilter which returns `false` except for the RootAssertionGroup") {
-            val onlyRootAssertionGroup: (Assertion) -> Boolean = { it is AssertionGroup && it.type == RootAssertionGroupType }
+            val onlyRootAssertionGroup: (Assertion) -> Boolean =
+                { it is AssertionGroup && it.type == RootAssertionGroupType }
             var sb = StringBuilder()
             var parameterObject = AssertionFormatterParameterObject.new(sb, onlyRootAssertionGroup)
             afterEachTest {
@@ -162,8 +189,10 @@ abstract class AssertionFormatterControllerSpec(
                         )
                         .build()
                     testee.format(rootGroup, parameterObject)
-                    verbs.check(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
-                        "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                    expect(sb.toString()).toBe(
+                        "${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
+                            "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                    )
                 }
             }
 
@@ -178,8 +207,10 @@ abstract class AssertionFormatterControllerSpec(
                         )
                         .build()
                     testee.format(rootGroup, parameterObject)
-                    verbs.check(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
-                        "$indentBulletPoint$warning ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                    expect(sb.toString()).toBe(
+                        "${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
+                            "$indentBulletPoint$warning ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                    )
                 }
             }
 
@@ -199,11 +230,13 @@ abstract class AssertionFormatterControllerSpec(
                         .withAssertion(explanatoryAssertionGroup)
                         .build()
                     testee.format(rootGroup, parameterObject)
-                    verbs.check(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
-                        "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
-                        "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
-                        "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$separator" +
-                        "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                    expect(sb.toString()).toBe(
+                        "${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
+                            "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$separator" +
+                            "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                    )
                 }
 
                 context("within another ${ExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
@@ -217,11 +250,13 @@ abstract class AssertionFormatterControllerSpec(
                             .withAssertions(failingAssertion, explanatoryAssertionGroup2, holdingAssertion)
                             .build()
                         testee.format(rootGroup2, parameterObject)
-                        verbs.check(sb.toString()).toBe("${IS_LESS_THAN.getDefault()}: 10$separator" +
-                            "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
-                            "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
-                            "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$separator" +
-                            "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                        expect(sb.toString()).toBe(
+                            "${IS_LESS_THAN.getDefault()}: 10$separator" +
+                                "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$separator" +
+                                "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                        )
                     }
                 }
             }
@@ -229,12 +264,14 @@ abstract class AssertionFormatterControllerSpec(
 
         context("assertionFilter which always returns `true`") {
             var sb = StringBuilder()
-            var parameterObject = AssertionFormatterParameterObject.new(sb,
+            var parameterObject = AssertionFormatterParameterObject.new(
+                sb,
                 alwaysTrueAssertionFilter
             )
             afterEachTest {
                 sb = StringBuilder()
-                parameterObject = AssertionFormatterParameterObject.new(sb,
+                parameterObject = AssertionFormatterParameterObject.new(
+                    sb,
                     alwaysTrueAssertionFilter
                 )
             }
@@ -253,10 +290,11 @@ abstract class AssertionFormatterControllerSpec(
                             .withAssertion(invisibleGroup)
                             .build()
                         testee.format(summaryGroup, parameterObject)
-                        verbs.check(sb.toString()).toBe(separator +
-                            "${AssertionVerb.ASSERT.getDefault()}: ${RawString.EMPTY}$separator" +
-                            "$successfulBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
-                            "$failingBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2"
+                        expect(sb.toString()).toBe(
+                            separator +
+                                "${AssertionVerb.ASSERT.getDefault()}: ${RawString.EMPTY}$separator" +
+                                "$successfulBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
+                                "$failingBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2"
                         )
                     }
                 }

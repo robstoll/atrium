@@ -3,7 +3,6 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DefaultFeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -19,34 +18,36 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsTextFeatureAssertionGroupFormatterSpec : ch.tutteli.atrium.specs.reporting.TextFeatureAssertionGroupFormatterSpec(
-        AssertionVerbFactory,
-        factory(), "[Atrium's TextFeature...Spec] ")
+    object AtriumsTextFeatureAssertionGroupFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.TextFeatureAssertionGroupFormatterSpec(
+            factory(), "[Atrium's TextFeature...Spec] "
+        )
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.specs.reporting.SingleAssertionGroupTypeFormatterSpec<FeatureAssertionGroupType>(
-        AssertionVerbFactory,
-        factory(),
-        FeatureAssertionGroupType::class,
-        object : FeatureAssertionGroupType {},
-        DefaultFeatureAssertionGroupType,
-        "[Atrium's SingleAssertionGroupType...Spec] "
-    )
+    object AtriumsSingleAssertionGroupTypeFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.SingleAssertionGroupTypeFormatterSpec<FeatureAssertionGroupType>(
+            factory(),
+            FeatureAssertionGroupType::class,
+            object : FeatureAssertionGroupType {},
+            DefaultFeatureAssertionGroupType,
+            "[Atrium's SingleAssertionGroupType...Spec] "
+        )
 
     object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.specs.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory,
-        factory(), "[Atrium's AssertionFormatterSpec] ")
+        factory(), "[Atrium's AssertionFormatterSpec] "
+    )
 
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
-            TextFeatureAssertionGroupFormatter(
-                bulletPoints,
-                controller,
-                TextSameLineAssertionPairFormatter(
-                    objectFormatter,
-                    translator
+        internal fun factory() =
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+                TextFeatureAssertionGroupFormatter(
+                    bulletPoints,
+                    controller,
+                    TextSameLineAssertionPairFormatter(
+                        objectFormatter,
+                        translator
+                    )
                 )
-            )
-        }
+            }
     }
 }

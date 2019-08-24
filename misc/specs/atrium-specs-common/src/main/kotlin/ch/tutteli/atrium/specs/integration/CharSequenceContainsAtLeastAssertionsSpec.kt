@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsAtLeastAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsAtLeastButAtMostPair: Pair<(String, String, String) -> String, Fun4<CharSequence, Int, Int, Any, Array<out Any>>>,
@@ -35,9 +35,8 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(text as CharSequence)
-    val fluentHelloWorld = verbs.check(helloWorld as CharSequence)
+    val fluent = expect(text as CharSequence)
+    val fluentHelloWorld = expect(helloWorld as CharSequence)
 
 
     fun Expect<CharSequence>.containsAtLeastFun(atLeast: Int, a: Any, vararg aX: Any) =
@@ -313,12 +312,12 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
         context("special cases") {
             context("string: \"\\0 hello\"") {
                 it("${containsAtLeastPair.first("\"hello\" and '\\0'", "once")} does not throw") {
-                    verbs.check(('\u0000' + " hello") as CharSequence).containsAtLeastFun(1, "hello", 0.toChar())
+                    expect(('\u0000' + " hello") as CharSequence).containsAtLeastFun(1, "hello", 0.toChar())
                 }
             }
 
             val aaaa: CharSequence = "aaaa"
-            val aaaaFluent = verbs.check(aaaa)
+            val aaaaFluent = expect(aaaa)
             context("string \"$aaaa\"") {
                 it("${containsAtLeastPair.first("'a'", "4 times")} does not throw") {
                     aaaaFluent.containsAtLeastFun(4, 'a')

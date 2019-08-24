@@ -3,7 +3,9 @@ buildscript {
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
-    def jsSampleProjects = subprojects.findAll { it.projectDir.parent.endsWith('samples/js') || it.projectDir.parent.endsWith('samples\\js')}
+    def jsSampleProjects = subprojects.findAll {
+        it.projectDir.parent.endsWith('samples/js') || it.projectDir.parent.endsWith('samples\\js')
+    }
     ext {
         // main
         kbox_version = '0.13.0'
@@ -17,7 +19,7 @@ buildscript {
         jupiter_version = '5.5.1'
         spek_version = '1.1.5'
         spek2_version = '2.0.6'
-        spekExtensions = { 'ch.tutteli.spek:tutteli-spek-extensions:0.4.1'}
+        spekExtensions = { 'ch.tutteli.spek:tutteli-spek-extensions:0.4.1' }
         mockk_version = '1.9.3'
 
         //TODO remove with 1.0.0
@@ -123,7 +125,7 @@ subprojects {
             }
         }
         maven {
-            url  "https://dl.bintray.com/spekframework/spek-dev"
+            url "https://dl.bintray.com/spekframework/spek-dev"
             content {
                 includeGroupByRegex 'org\\.spekframework(\\..*)?'
             }
@@ -175,7 +177,7 @@ configure(jsProjects) { subProject ->
         }
     }
 
-    compileTestKotlin2Js{
+    compileTestKotlin2Js {
         //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
         kotlinOptions.allWarningsAsErrors = false
     }
@@ -241,8 +243,12 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     junitPlatform {
         filters {
             engines {
-                include 'spek2'
-                include 'spek'
+                if (project.name != 'atrium-spec') {
+                    include 'spek2'
+                }
+                if (!project.name.startsWith('atrium-specs')) {
+                    include 'spek'
+                }
             }
         }
     }
@@ -279,7 +285,7 @@ configure(bundleSmokeTests) {
 import java.util.function.Function
 
 def createRegisterJsServicesTask(String projectName, String packageName, Function<String, Boolean> filter) {
-    Project project  = prefixedProject(projectName)
+    Project project = prefixedProject(projectName)
     configure(project) {
         def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
             def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
@@ -327,9 +333,10 @@ createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.bui
 createRegisterJsServicesTask('verbs-internal-js', 'ch.tutteli.atrium.verbs.internal') { true }
 
 List<Project> projectNamesToProject(String[] names) {
-    names.collect { projectName -> prefixedProject(projectName)}
+    names.collect { projectName -> prefixedProject(projectName) }
 }
-def createJsTestTask(String... subprojectNames){
+
+def createJsTestTask(String... subprojectNames) {
     configure(projectNamesToProject(subprojectNames)) {
         apply plugin: 'com.moowork.node'
 
@@ -383,14 +390,15 @@ createJsTestTask(
     'cc-infix-en_GB-robstoll-js',
 )
 
-def useJupiter(String... projectNames){
-    configure(projectNamesToProject(projectNames)){
+def useJupiter(String... projectNames) {
+    configure(projectNamesToProject(projectNames)) {
         dependencies {
             testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
         }
         junitPlatform.filters.engines { include 'junit-jupiter' }
     }
 }
+
 useJupiter(
     'core-api-jvm',
     'cc-de_CH-robstoll-jvm',
@@ -398,7 +406,7 @@ useJupiter(
     'cc-infix-en_GB-robstoll-jvm',
 )
 //TODO merge with above as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
-if(System.getenv('CI')) {
+if (System.getenv('CI')) {
     useJupiter(
         'core-api-android',
         'cc-de_CH-robstoll-android',

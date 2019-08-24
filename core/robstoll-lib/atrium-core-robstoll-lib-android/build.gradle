@@ -10,10 +10,7 @@ dependencies {
     compileOnly prefixedProject('translations-en_GB-android')
 
     testImplementation prefixedProject('api-fluent-en_GB-android')
-    testImplementation prefixedProject('verbs-internal-android')
-
-    testRuntimeOnly prefixedProject('core-robstoll-android')
-    testRuntimeOnly prefixedProject('domain-robstoll-android')
+    testImplementation prefixedProject('specs-android')
 }
 
 

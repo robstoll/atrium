@@ -6,12 +6,10 @@ dependencies {
     // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
 
-    testRuntimeOnly prefixedProject('domain-robstoll-android')
-    testRuntimeOnly prefixedProject('core-robstoll-android')
     testImplementation prefixedProject('api-fluent-en_GB-android')
-    testImplementation prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('specs-android')
 
-    //TODO remove with 1.0.0
+    //TODO remove with 1.0.0, only used for FeatureAssertionBuilderName...Spec
     testImplementation prefixedProject('api-cc-en_GB-android')
 }
 

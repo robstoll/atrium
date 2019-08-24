@@ -3,12 +3,12 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsRegexAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsRegex: String,
     containsAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
     containsAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
@@ -40,12 +40,11 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
 
     val text = "Hello my name is Robert"
     val hello = "[hH][ea]llo"
     val roberto = "Roberto?"
-    val fluent = verbs.check(text as CharSequence)
+    val fluent = expect(text as CharSequence)
 
     fun Expect<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String) =
         containsAtLeast(this, atLeast, a, aX)
@@ -69,55 +68,55 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
         context("throws an ${IllegalArgumentException::class.simpleName}") {
             it("if an erroneous pattern is passed to `$containsAtLeast` as first argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtLeastFun(1, "notA(validPattern")
+                    expect("a" as CharSequence).containsAtLeastFun(1, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
             it("if an erroneous pattern is passed to `$containsAtLeast` as second argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
+                    expect("a" as CharSequence).containsAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
             it("if an erroneous pattern is passed to `$containsAtLeastIgnoringCase` as first argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtLeastIgnoringCaseFun(1, "notA(validPattern")
+                    expect("a" as CharSequence).containsAtLeastIgnoringCaseFun(1, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
             it("if an erroneous pattern is passed to `$containsAtLeastIgnoringCase` as second argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtLeastIgnoringCaseFun(1, "h(a|e)llo", "notA(validPattern")
+                    expect("a" as CharSequence).containsAtLeastIgnoringCaseFun(1, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
 
             it("if an erroneous pattern is passed to `$containsShortcut` as first argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsShortcutFun("notA(validPattern")
+                    expect("a" as CharSequence).containsShortcutFun("notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
             it("if an erroneous pattern is passed to `$containsShortcut` as second argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsShortcutFun("h(a|e)llo", "notA(validPattern")
+                    expect("a" as CharSequence).containsShortcutFun("h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
 
             it("if an erroneous pattern is passed to `$containsAtMost` as first argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtMostFun(2, "notA(validPattern")
+                    expect("a" as CharSequence).containsAtMostFun(2, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
             it("if an erroneous pattern is passed to `$containsAtMost` as second argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtMostFun(2, "h(a|e)llo", "notA(validPattern")
+                    expect("a" as CharSequence).containsAtMostFun(2, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
 
             it("if an erroneous pattern is passed to `$containsAtMostIgnoringCase` as first argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtMostIgnoringCaseFun(2, "notA(validPattern")
+                    expect("a" as CharSequence).containsAtMostIgnoringCaseFun(2, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
             it("if an erroneous pattern is passed to `$containsAtMostIgnoringCase` as second argument") {
                 expect {
-                    verbs.check("a" as CharSequence).containsAtMostIgnoringCaseFun(2, "h(a|e)llo", "notA(validPattern")
+                    expect("a" as CharSequence).containsAtMostIgnoringCaseFun(2, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
         }

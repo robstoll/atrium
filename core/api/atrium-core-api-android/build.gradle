@@ -5,7 +5,7 @@ dependencies {
     api kotlinReflect()
 
     testImplementation prefixedProject('cc-infix-en_GB-robstoll-android')
-    testImplementation prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('specs-android')
 }
 
 srcAndResourcesFromJvmProject(project)

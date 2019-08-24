@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import java.math.BigDecimal
 import kotlin.reflect.KFunction3
 
 class FloatingPointWithErrorToleranceAssertionsJvmSpec :
     ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceAssertionsJvmSpec(
-        AssertionVerbFactory,
         toBeWithErrorToleranceBigDecimalPair()
     ) {
     companion object {

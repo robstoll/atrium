@@ -148,7 +148,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
                 exclude  group: '*'
             }
             if (!apiName.endsWith('cc-de_CH')) {
-                add(confCommon, prefixedProject("verbs-internal-jvm")){  //required by specs in the APIs
+                add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by spec in the APIs
                     exclude  group: '*'
                 }
             }

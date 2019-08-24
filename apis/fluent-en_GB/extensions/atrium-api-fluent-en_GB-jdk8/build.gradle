@@ -16,7 +16,7 @@ dependencies {
     api prefixedProject('domain-builders-jvm')
     api niok()
 
-    testImplementation prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('specs-jvm')
 }
 
 

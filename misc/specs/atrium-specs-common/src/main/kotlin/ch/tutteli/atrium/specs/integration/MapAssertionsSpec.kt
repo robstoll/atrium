@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
@@ -10,7 +11,6 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapAssertionsSpec(
-    verbs: AssertionVerbFactory,
     contains: Fun2<Map<out String, Int>, Pair<String, Int>, Array<out Pair<String, Int>>>,
     containsNullable: Fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>,
     containsKeyWithValueAssertions: Fun2<Map<out String, Int>, Pair<String, Expect<Int>.() -> Unit>, Array<out Pair<String, Expect<Int>.() -> Unit>>>,
@@ -60,14 +60,14 @@ abstract class MapAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
-        verbs, describePrefix, mapOf("a" to 1),
+        describePrefix, mapOf("a" to 1),
         assertionCreatorSpecTriple(containsKeyWithValueAssertions.name, "$toBeDescr: 1",
             { containsKeyWithValueAssertions(this, keyValue("a") { toBe(1) }, arrayOf()) },
             { containsKeyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
         )
     ) {})
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
-        verbs, "$describePrefix[nullable] ", mapOf("a" to 1),
+        "$describePrefix[nullable] ", mapOf("a" to 1),
         assertionCreatorSpecTriple(containsKeyWithNullableValueAssertions.name, "$toBeDescr: 1",
             { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { toBe(1) }, arrayOf()) },
             { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
@@ -78,11 +78,10 @@ abstract class MapAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
     val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
-    val fluent = verbs.check(map)
+    val fluent = expect(map)
     val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
-    val nullableFluent = verbs.check(nullableMap)
+    val nullableFluent = expect(nullableMap)
 
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
     val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
@@ -280,7 +279,7 @@ abstract class MapAssertionsSpec(
 
     describeFun(containsKey.name) {
         val containsKeyFun = containsKey.lambda
-        val fluent2 = verbs.check(map as Map<out String, *>)
+        val fluent2 = expect(map as Map<out String, *>)
 
         it("does not throw if the map contains the key") {
             fluent2.containsKeyFun("a")
@@ -301,20 +300,20 @@ abstract class MapAssertionsSpec(
         val containsNullableKeyFun = containsNullableKey.lambda
         it("does not throw if the map contains the key") {
             val map2: Map<out String?, *> = mapOf("a" to 1, null to 2)
-            verbs.check(map2).containsNullableKeyFun(null)
+            expect(map2).containsNullableKeyFun(null)
         }
 
         it("throws an AssertionError if the map does not contain the key") {
             expect {
                 val map2: Map<out String?, *> = mapOf("a" to 1, "b" to 2)
-                verbs.check(map2).containsNullableKeyFun(null)
+                expect(map2).containsNullableKeyFun(null)
             }.toThrow<AssertionError> { messageContains("$containsKeyDescr: null") }
         }
     }
 
     describeFun(containsNotKey.name) {
         val containsNotKeyFun = containsNotKey.lambda
-        val fluent2 = verbs.check(map as Map<out String, *>)
+        val fluent2 = expect(map as Map<out String, *>)
 
         it("does not throw if the map does not contain the key") {
             fluent2.containsNotKeyFun("c")
@@ -332,13 +331,13 @@ abstract class MapAssertionsSpec(
 
         it("does not throw if the map does not contain the key") {
             val map2: Map<out String?, *> = mapOf("a" to 1, "b" to 2)
-            verbs.check(map2).containsNotNullableKeyFun(null)
+            expect(map2).containsNotNullableKeyFun(null)
         }
 
         it("throws an AssertionError if the map contains the key") {
             expect {
                 val map2: Map<out String?, *> = mapOf("a" to 1, null to 2)
-                verbs.check(map2).containsNotNullableKeyFun(null)
+                expect(map2).containsNotNullableKeyFun(null)
             }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: null") }
         }
     }
@@ -349,12 +348,12 @@ abstract class MapAssertionsSpec(
 
         it("does not throw if a map is empty") {
             val map2: Map<*, *> = mapOf<String, Int>()
-            verbs.check(map2).isEmptyFun()
+            expect(map2).isEmptyFun()
         }
 
         it("throws an AssertionError if a map is not empty") {
             expect {
-                verbs.check(map as Map<*, *>).isEmptyFun()
+                expect(map as Map<*, *>).isEmptyFun()
             }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
         }
     }
@@ -363,13 +362,13 @@ abstract class MapAssertionsSpec(
         val isNotEmptyFun = isNotEmpty.lambda
 
         it("does not throw if a map is not empty") {
-            verbs.check(map as Map<*, *>).isNotEmptyFun()
+            expect(map as Map<*, *>).isNotEmptyFun()
         }
 
         it("throws an AssertionError if a map is empty") {
             expect {
                 val map2: Map<*, *> = mapOf<String, Int>()
-                verbs.check(map2).isNotEmptyFun()
+                expect(map2).isNotEmptyFun()
             }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
         }
     }

@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CollectionFeatureAssertionsSpec(
-    verbs: AssertionVerbFactory,
     sizeFeature: Feature0<Collection<String>, Int>,
     size: Fun1<Collection<String>, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
@@ -19,15 +19,14 @@ abstract class CollectionFeatureAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Collection<String>>(
-        verbs, describePrefix, listOf("hello"),
+        describePrefix, listOf("hello"),
         size.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
-    val fluent = verbs.check(listOf("a", "b") as Collection<String>)
+    val fluent = expect(listOf("a", "b") as Collection<String>)
 
     describeFun("val ${sizeFeature.name}") {
         val sizeVal = sizeFeature.lambda

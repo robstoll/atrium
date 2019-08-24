@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.get
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -28,7 +29,6 @@ data class TestData(val nonNullValue: String, val nullableValue: Int?) {
 typealias F = Expect<TestData>.() -> Unit
 
 abstract class FeatureAssertionsSpec(
-    verbs: AssertionVerbFactory,
 
     propertyImmediate: F,
     propertyLazy: F,
@@ -80,7 +80,6 @@ abstract class FeatureAssertionsSpec(
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
         prefixedDescribeTemplate(describePrefix, description, body)
 
-    val expect = verbs::checkException
 
     //@formatter:off
     val functions = arrayOf(
@@ -174,7 +173,7 @@ abstract class FeatureAssertionsSpec(
             "it throws an AssertionError if the assertion does not hold",
             { andWithCheck ->
 
-                verbs.check(TestData("what ever", 1)).andWithCheck()
+                expect(TestData("what ever", 1)).andWithCheck()
             },
             *functions, *nullableFailingFunctions
         )
@@ -184,7 +183,7 @@ abstract class FeatureAssertionsSpec(
             "it throws an AssertionError if the subject is not defined but shows everything in reporting",
             { andWithCheck ->
 
-                verbs.check(listOf(TestData("what ever", 1))).get(100) {
+                expect(listOf(TestData("what ever", 1))).get(100) {
                     andWithCheck()
                 }
 
@@ -194,7 +193,7 @@ abstract class FeatureAssertionsSpec(
 
         checkGenericNarrowingAssertion("it does not throw an exception if the assertion holds", { andWithCheck ->
 
-            verbs.check(TestData("hello robert", 1)).andWithCheck()
+            expect(TestData("hello robert", 1)).andWithCheck()
 
         }, *functions.map { it.first to it.second }.toTypedArray(), *nullableHoldsFunctions)
     }
@@ -202,11 +201,11 @@ abstract class FeatureAssertionsSpec(
     prefixedDescribe("assertion container which checks immediately; use lazy property which has nested...") {
         context("... immediate feature property") {
             it("it does not throw an exception if the assertion holds") {
-                verbs.check(TestData("hello robert", 1)).itsLazyWithNestedImmediate()
+                expect(TestData("hello robert", 1)).itsLazyWithNestedImmediate()
             }
             it("throws AssertionError if sub-assertion fails") {
                 expect {
-                    verbs.check(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
+                    expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
                 }.toThrow<AssertionError> {
                     messageContains("length: 37", "${DescriptionAnyAssertion.TO_BE.getDefault()}: 12")
                 }
@@ -214,11 +213,11 @@ abstract class FeatureAssertionsSpec(
         }
         context("... lazy feature property") {
             it("it does not throw an exception if the assertion holds") {
-                verbs.check(TestData("hello robert", 1)).itsLazyWithNestedLazy()
+                expect(TestData("hello robert", 1)).itsLazyWithNestedLazy()
             }
             it("throws AssertionError if sub-assertion fails") {
                 expect {
-                    verbs.check(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
+                    expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
                 }.toThrow<AssertionError> {
                     messageContains("length: 37", "${DescriptionAnyAssertion.TO_BE.getDefault()}: 12")
                 }
@@ -240,7 +239,7 @@ abstract class FeatureAssertionsSpec(
             context(description) {
                 it("throws an IllegalStateException") {
                     expect {
-                        verbs.check(TestData("hello robert", 1)).lambda()
+                        expect(TestData("hello robert", 1)).lambda()
                     }.toThrow<AssertionError> {
                         messageContains(
                             ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",

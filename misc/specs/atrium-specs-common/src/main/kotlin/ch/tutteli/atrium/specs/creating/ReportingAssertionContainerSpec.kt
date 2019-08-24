@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
@@ -9,14 +10,12 @@ import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class ReportingAssertionContainerSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (ReportingAssertionContainer.AssertionCheckerDecorator<Int>) -> ReportingAssertionContainer<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -24,13 +23,12 @@ abstract class ReportingAssertionContainerSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
     val assertionVerb = AssertionVerb.VERB
     val subject = 10
     val description = TO_BE
     val expected = -12
 
-    val assertionChecker = (verbs.check(1) as ReportingAssertionContainer<Int>).assertionChecker
+    val assertionChecker = (expect(1) as ReportingAssertionContainer<Int>).assertionChecker
     fun createTestee() = testeeFactory(
         ReportingAssertionContainer.AssertionCheckerDecorator.create(
             assertionVerb,

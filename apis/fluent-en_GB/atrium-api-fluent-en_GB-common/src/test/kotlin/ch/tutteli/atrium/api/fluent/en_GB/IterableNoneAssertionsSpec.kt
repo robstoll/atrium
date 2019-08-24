@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.include
@@ -13,7 +12,6 @@ class IterableNoneAssertionsSpec : Spek({
 
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
-        AssertionVerbFactory,
         fun1(Expect<Iterable<Double>>::none),
         fun1(Expect<Iterable<Double?>>::none),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
@@ -21,7 +19,6 @@ class IterableNoneAssertionsSpec : Spek({
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
-        AssertionVerbFactory,
         getContainsNotPair(),
         getContainsNotNullablePair(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",

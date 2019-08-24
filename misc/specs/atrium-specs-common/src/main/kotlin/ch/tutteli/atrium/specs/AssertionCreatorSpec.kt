@@ -4,14 +4,13 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-
 abstract class AssertionCreatorSpec<T>(
-    verbs: AssertionVerbFactory,
     groupPrefix: String,
     subject: T,
     vararg assertionCreator: Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>>
@@ -23,8 +22,8 @@ abstract class AssertionCreatorSpec<T>(
             val (createAssertionOk, createAssertionFail) = lambdas
             describe("fun `$name`") {
                 it("throws and only reports the lambda which was empty") {
-                    verbs.checkException {
-                        verbs.check(subject)
+                    expect {
+                        expect(subject)
                             .createAssertionOk()
                             .createAssertionFail()
                     }.toThrow<AssertionError> {

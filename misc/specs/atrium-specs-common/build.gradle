@@ -5,11 +5,16 @@ dependencies {
     api prefixedProject('domain-api-common')
     api prefixedProject('core-api-common')
     api prefixedProject('domain-builders-common')
-    // exclude this dependency when depending on specs-common in case you want to use another translation
+    // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-common')
+    api prefixedProject('verbs-internal-common')
+    api "io.mockk:mockk-common:$mockk_version"
 
     implementation prefixedProject('api-fluent-en_GB-common')
-    implementation "io.mockk:mockk-common:$mockk_version"
+
+    // exclude this dependency in case you want to use another implementation
+    runtimeOnly prefixedProject('domain-robstoll-common')
+    runtimeOnly prefixedProject('core-robstoll-common')
 
     //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-common')

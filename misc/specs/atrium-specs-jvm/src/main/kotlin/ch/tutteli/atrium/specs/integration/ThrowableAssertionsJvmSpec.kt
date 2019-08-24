@@ -6,20 +6,19 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsRegex
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.specs.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeperator
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
 
 abstract class ThrowableAssertionsJvmSpec(
-    verbs: AssertionVerbFactory,
     toThrowTriple: Triple<String,
         ThrowableThrown.Builder.() -> Unit,
         ThrowableThrown.Builder.(assertionCreator: Expect<IllegalArgumentException>.() -> Unit) -> Unit
@@ -32,8 +31,6 @@ abstract class ThrowableAssertionsJvmSpec(
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
-
-    val expect = verbs::checkException
 
     val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple
     val (notToThrow, notThrowFun) = notToThrowPair

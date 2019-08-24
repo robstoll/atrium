@@ -1,16 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsNot
-import ch.tutteli.atrium.api.fluent.en_GB.containsRegex
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsNotValuesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsNotValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsNotNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
@@ -20,7 +17,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase(verbs, {
+) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
@@ -34,7 +31,6 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val expect = verbs::checkException
 
     fun Expect<Iterable<Double?>>.containsNotNullableFun(a: Double?, vararg aX: Double?) =
         containsNotNullableValues(this, a, aX)
@@ -67,11 +63,10 @@ abstract class IterableContainsNotValuesAssertionsSpec(
             containsNotFunArr(a, aX.toTypedArray())
 
         context("empty collection") {
-            val fluent = verbs.check(setOf<Double>().asIterable())
 
             it("4.0 throws AssertionError") {
                 expect {
-                    fluent.containsNotFun(4.0)
+                    fluentEmpty.containsNotFun(4.0)
                 }.toThrow<AssertionError> {
                     message {
                         containsRegex(
@@ -88,7 +83,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
         }
 
         context("iterable $oneToSeven") {
-            val fluent = verbs.check(oneToSeven)
+            val fluent = expect(oneToSeven)
 
             context("happy case") {
                 it("1.1 does not throw") {
@@ -170,13 +165,13 @@ abstract class IterableContainsNotValuesAssertionsSpec(
         describeFun("${containsNotNullableValues.name} for nullable") {
             context("iterable $oneToSeven") {
                 it("null does not throw") {
-                    verbs.check(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
+                    expect(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
                 }
             }
             context("iterable $oneToSevenNullable") {
                 it("null throws AssertionError") {
                     expect {
-                        verbs.check(oneToSevenNullable).containsNotNullableFun(null)
+                        expect(oneToSevenNullable).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -193,7 +188,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 
                 it("1.1, null throws AssertionError mentioning only null") {
                     expect {
-                        verbs.check(oneToSevenNullable).containsNotNullableFun(1.1, null)
+                        expect(oneToSevenNullable).containsNotNullableFun(1.1, null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

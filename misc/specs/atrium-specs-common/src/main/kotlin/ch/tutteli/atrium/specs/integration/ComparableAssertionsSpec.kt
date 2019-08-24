@@ -1,15 +1,14 @@
 package ch.tutteli.atrium.specs.integration
 
-
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 abstract class ComparableAssertionsSpec(
-    verbs: AssertionVerbFactory,
     isLessThan: Fun1<Int, Int>,
     isLessOrEquals: Fun1<Int, Int>,
     isGreaterThan: Fun1<Int, Int>,
@@ -25,14 +24,13 @@ abstract class ComparableAssertionsSpec(
         isGreaterOrEquals.forSubjectLess(1)
     ) {})
 
-    val expect = verbs::checkException
 
     val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
     val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_OR_EQUALS.getDefault()
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
     val isGreaterOrEqualsDescr = DescriptionComparableAssertion.IS_GREATER_OR_EQUALS.getDefault()
 
-    val fluent = verbs.check(10)
+    val fluent = expect(10)
     describe("$describePrefix context subject is 10") {
         context("${isLessThan.name} ...") {
             val isLessThanFun = isLessThan.lambda

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
@@ -10,7 +11,6 @@ import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
 
 abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
-    verbs: AssertionVerbFactory,
     containsInOrderOnlyGroupedValues: Fun3<Iterable<Double>, Group<Double>, Group<Double>, Array<out Group<Double>>>,
     groupFactory: (Array<out Double>) -> Group<Double>,
     containsInOrderOnlyGroupedNullableValues: Fun3<Iterable<Double?>, Group<Double?>, Group<Double?>, Array<out Group<Double?>>>,
@@ -39,9 +39,6 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
-
-    val assert: (Iterable<Double>) -> Expect<Iterable<Double>> = verbs::check
-    val expect = verbs::checkException
 
     fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedNullableValuesFun(
         t1: Group<Double?>,
@@ -167,7 +164,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                 containsFunArr(t1, t2, tX)
 
             describeFun(describe) {
-                val fluent = assert(oneToFour)
+                val fluent = expect(oneToFour)
                 context("throws an $illegalArgumentException") {
                     it("if an empty group is given as first parameter") {
                         expect {
@@ -192,7 +189,6 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                 }
 
                 context("empty collection") {
-                    val fluentEmpty = assert(setOf())
                     it("(1.0), (1.2) throws AssertionError") {
                         expect {
                             fluentEmpty.containsFun(context(1.0), context(1.2))
@@ -334,7 +330,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
         describeFun("$containsInOrderOnlyGroupedNullableValues for nullable") {
             val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = verbs.check(list)
+            val fluent = expect(list)
 
             context("iterable $list") {
 

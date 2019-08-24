@@ -20,7 +20,8 @@ import org.spekframework.spek2.style.specification.describe
 object EitherSpec : Spek({
 
     describe("custom Either<String, Int> with Left \"hello\"") {
-        val either: Either<String, Int> = Left("hello")
+        val either: Either<String, Int> =
+            Left("hello")
         it("isLeft does not throw") {
             expect(either).isLeft { startsWith("h") }
         }
@@ -29,7 +30,7 @@ object EitherSpec : Spek({
                 expect(either).isRight { isLessThan(2) }
             }.toThrow<AssertionError> {
                 messageContains(
-                    "is a: ${Right::class.java.simpleName}",
+                    "is a: ${Right::class.simpleName}",
                     "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
                 )
             }
@@ -37,13 +38,14 @@ object EitherSpec : Spek({
     }
 
     describe("custom Either<String, Int> with Right 1") {
-        val either: Either<String, Int> = Right(1)
+        val either: Either<String, Int> =
+            Right(1)
         it("isLeft does not throw") {
             expect {
                 expect(either).isLeft { startsWith("h") }
             }.toThrow<AssertionError> {
                 messageContains(
-                    "is a: ${Left::class.java.simpleName}",
+                    "is a: ${Left::class.simpleName}",
                     "${DescriptionCharSequenceAssertion.STARTS_WITH.getDefault()}: \"h\""
                 )
             }
@@ -60,7 +62,7 @@ fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
 
 private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ChangedSubjectPostStep<Either<A, B>, A> {
     return ExpectImpl.changeSubject.reportBuilder(this)
-        .withDescriptionAndRepresentation("is a", RawString.create(Left::class.java.simpleName))
+        .withDescriptionAndRepresentation("is a", RawString.create("Left"))
         .withCheck { it.isLeft() }
         .withTransformation { (it as Left).a }
         .build()
@@ -72,7 +74,7 @@ fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) 
 
 private fun <A, B> Expect<Either<A, B>>.changeToRight(): ChangedSubjectPostStep<Either<A, B>, B> {
     return ExpectImpl.changeSubject.reportBuilder(this)
-        .withDescriptionAndRepresentation("is a", RawString.create(Right::class.java.simpleName))
+        .withDescriptionAndRepresentation("is a", RawString.create("Right"))
         .withCheck { it.isRight() }
         .withTransformation { (it as Right).b }
         .build()

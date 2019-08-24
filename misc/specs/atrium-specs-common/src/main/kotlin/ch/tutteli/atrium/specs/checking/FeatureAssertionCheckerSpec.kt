@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.checking
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
@@ -8,7 +9,6 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFunTemplate
 import io.mockk.*
 import org.spekframework.spek2.Spek
@@ -16,7 +16,6 @@ import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class FeatureAssertionCheckerSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (AssertionHolder) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -47,26 +46,26 @@ abstract class FeatureAssertionCheckerSpec(
             }
 
             it("its type is  ${FeatureAssertionGroupType::class.simpleName}") {
-                verbs.check(captured).isA<AssertionGroup> {
+                expect(captured).isA<AssertionGroup> {
                     feature { f(it::type) }.isA<FeatureAssertionGroupType>()
                 }
             }
 
             it("its ${AssertionGroup::representation.name} corresponds to the passed assertionVerb") {
-                verbs.check(captured).isA<AssertionGroup> {
+                expect(captured).isA<AssertionGroup> {
                     feature { f(it::description) }.toBe(assertionVerb)
                 }
             }
 
             it("its ${AssertionGroup::representation.name} corresponds to the passed subject") {
-                verbs.check(captured).isA<AssertionGroup> {
+                expect(captured).isA<AssertionGroup> {
                     feature { f(it::representation) }.toBe(1)
                 }
             }
 
             it("copies the assertion") {
                 assertions.clear()
-                verbs.check(captured).isA<AssertionGroup> {
+                expect(captured).isA<AssertionGroup> {
                     feature { f(it::assertions) }.hasSize(1).and.isNotSameAs(assertions)
                 }
             }

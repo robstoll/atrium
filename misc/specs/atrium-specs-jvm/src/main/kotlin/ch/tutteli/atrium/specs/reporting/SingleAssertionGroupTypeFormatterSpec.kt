@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
@@ -17,7 +18,6 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -26,7 +26,6 @@ import kotlin.reflect.KClass
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>(
-    verbs: AssertionVerbFactory,
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     supportedAssertionGroupTypeClass: KClass<T>,
     supportedAssertionGroupType: T,
@@ -34,11 +33,13 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
-    val testee = testeeFactory(mapOf(), coreFactory.newAssertionFormatterController(),
-        ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(
+        mapOf(), coreFactory.newAssertionFormatterController(),
+        ToStringObjectFormatter, UsingDefaultTranslator()
+    )
 
     val unsupportedAssertion = object : Assertion {
         override fun holds() = false
@@ -69,12 +70,14 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     }
 
     var sb = StringBuilder()
-    var parameterObject = AssertionFormatterParameterObject.new(sb,
+    var parameterObject = AssertionFormatterParameterObject.new(
+        sb,
         alwaysTrueAssertionFilter
     )
     afterEachTest {
         sb = StringBuilder()
-        parameterObject = AssertionFormatterParameterObject.new(sb,
+        parameterObject = AssertionFormatterParameterObject.new(
+            sb,
             alwaysTrueAssertionFilter
         )
     }
@@ -82,38 +85,38 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     describeFun(testee::canFormat.name) {
         it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroupWithAnonymousType)
-            verbs.check(result).toBe(true)
+            expect(result).toBe(true)
         }
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroupWithAnonymousType)
-            verbs.check(result).toBe(true)
+            expect(result).toBe(true)
         }
         it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroup)
-            verbs.check(result).toBe(true)
+            expect(result).toBe(true)
         }
         it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroup)
-            verbs.check(result).toBe(true)
+            expect(result).toBe(true)
         }
 
         it("returns false for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(unsupportedAssertionGroup)
-            verbs.check(result).toBe(false)
+            expect(result).toBe(false)
         }
 
         it("returns false for an object : ${Assertion::class.simpleName}") {
             val result = testee.canFormat(unsupportedAssertion)
-            verbs.check(result).toBe(false)
+            expect(result).toBe(false)
         }
     }
 
     describeFun(testee::formatNonGroup.name) {
         it("throws an UnsupportedOperationException") {
-            verbs.checkException {
+            expect {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
             }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.qualifiedName!!) }
-            verbs.check(sb).isEmpty()
+            expect(sb).isEmpty()
         }
     }
 
@@ -121,10 +124,10 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         val doNotFormatChildren: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit = { _, _ -> }
 
         it("throws an UnsupportedOperationException for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
-            verbs.checkException {
+            expect {
                 testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
             }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.qualifiedName!!) }
-            verbs.check(sb).isEmpty()
+            expect(sb).isEmpty()
         }
 
         it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {

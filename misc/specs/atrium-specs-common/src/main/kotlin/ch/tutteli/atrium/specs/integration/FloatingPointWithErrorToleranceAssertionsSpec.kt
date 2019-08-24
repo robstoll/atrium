@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.specs.*
@@ -14,7 +15,6 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.math.absoluteValue
 
 abstract class FloatingPointWithErrorToleranceAssertionsSpec(
-    verbs: AssertionVerbFactory,
     toBeWithErrorToleranceFloat: Fun2<Float, Float, Float>,
     toBeWithErrorToleranceDouble: Fun2<Double, Double, Double>,
     describePrefix: String = "[Atrium] "
@@ -34,7 +34,7 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
         withFailureNotice: Boolean,
         absDiff: (T, T) -> T,
         testData: List<TestData<T>>
-    ) = checkFloatingPoint(verbs, describePrefix, pair, withFailureNotice, absDiff, testData)
+    ) = checkFloatingPoint(describePrefix, pair, withFailureNotice, absDiff, testData)
 
     //@formatter:off
     describeFun(toBeWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
@@ -57,7 +57,6 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
 }
 
 fun <T : Number> Root.checkFloatingPoint(
-    verbs: AssertionVerbFactory,
     describePrefix: String,
     pair: Fun2<T, T, T>,
     withFailureNotice: Boolean,
@@ -65,18 +64,17 @@ fun <T : Number> Root.checkFloatingPoint(
     testData: List<FloatingPointWithErrorToleranceAssertionsSpec.TestData<T>>
 ) {
     val (name, toBeWithErrorTolerance) = pair
-    val expect = verbs::checkException
 
     describe("$describePrefix $name") {
         testData.forEach { (subject, tolerance, holding, failing) ->
             context("tolerance is $tolerance and subject is $subject ...") {
                 it("... compare to $subject does not throw") {
-                    verbs.check(subject).toBeWithErrorTolerance(subject, tolerance)
+                    expect(subject).toBeWithErrorTolerance(subject, tolerance)
                 }
 
                 holding.forEach { num ->
                     it("... compare to $num does not throw") {
-                        verbs.check(subject).toBeWithErrorTolerance(num, tolerance)
+                        expect(subject).toBeWithErrorTolerance(num, tolerance)
                     }
                 }
 
@@ -89,7 +87,7 @@ fun <T : Number> Root.checkFloatingPoint(
                 failing.forEach { num ->
                     it("... compare to $num throws AssertionError") {
                         expect {
-                            verbs.check(subject).toBeWithErrorTolerance(num, tolerance)
+                            expect(subject).toBeWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
                             message {
                                 @Suppress("DEPRECATION")

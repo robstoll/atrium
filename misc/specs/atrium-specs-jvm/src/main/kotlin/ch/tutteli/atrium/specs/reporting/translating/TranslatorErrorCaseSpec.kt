@@ -2,9 +2,9 @@ package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.specs.AssertionVerbFactory
 import ch.tutteli.atrium.specs.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,7 +14,6 @@ import org.jetbrains.spek.api.dsl.it
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslatorErrorCaseSpec(
-    verbs: AssertionVerbFactory,
     testeeFactory: (locale: Locale, fallbackLocals: List<Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -37,7 +36,7 @@ abstract class TranslatorErrorCaseSpec(
         ).forEach { locale ->
             context("primary Locale's language is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    verbs.checkException {
+                    expect {
                         testeeFactory(locale)
                     }.toThrow<IllegalArgumentException> {
                         messageContains(
@@ -50,7 +49,7 @@ abstract class TranslatorErrorCaseSpec(
 
             context("first fallback Locale is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    verbs.checkException {
+                    expect {
                         testeeFactory(localeGb, locale)
                     }.toThrow<IllegalArgumentException> {
                         messageContains(
@@ -63,7 +62,7 @@ abstract class TranslatorErrorCaseSpec(
 
             context("second fallback Locale is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    verbs.checkException {
+                    expect {
                         testeeFactory(localeGb, localeFr, locale)
                     }.toThrow<IllegalArgumentException> {
                         messageContains(
@@ -79,7 +78,7 @@ abstract class TranslatorErrorCaseSpec(
             val locale = Locale("zh", script, null, null)
             context("primary Locale's language is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    verbs.checkException {
+                    expect {
                         testeeFactory(locale)
                     }
                         .toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
@@ -87,7 +86,7 @@ abstract class TranslatorErrorCaseSpec(
             }
             context("first fallback Locale is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    verbs.checkException {
+                    expect {
                         testeeFactory(localeGb, locale)
                     }
                         .toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
@@ -96,7 +95,7 @@ abstract class TranslatorErrorCaseSpec(
 
             context("second fallback Locale is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    verbs.checkException {
+                    expect {
                         testeeFactory(localeGb, localeFr, locale)
                     }
                         .toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
