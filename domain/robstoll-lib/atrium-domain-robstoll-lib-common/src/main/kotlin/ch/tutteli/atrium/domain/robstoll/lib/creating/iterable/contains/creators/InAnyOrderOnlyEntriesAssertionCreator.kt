@@ -26,7 +26,10 @@ class InAnyOrderOnlyEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : InAnyOrderOnlyAssertionCreator<E, T, (Expect<E>.() -> Unit)?>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: (Expect<E>.() -> Unit)?, list: MutableList<E?>): Pair<Boolean, Assertion> {
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        searchCriterion: (Expect<E>.() -> Unit)?,
+        list: MutableList<E?>
+    ): Pair<Boolean, Assertion> {
         val explanatoryAssertions = createExplanatoryAssertionGroup(searchCriterion, list)
         val found = removeMatch(list, searchCriterion)
         return found to createEntryAssertion(explanatoryAssertions, found)

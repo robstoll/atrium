@@ -6,6 +6,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 class NotSearchBehaviourImpl : NotSearchBehaviour {
 
-    override fun decorateDescription(description: Translatable): Translatable
-        = DescriptionIterableAssertion.CONTAINS_NOT
+    override fun decorateDescription(description: Translatable): Translatable =
+        DescriptionIterableAssertion.CONTAINS_NOT
 }

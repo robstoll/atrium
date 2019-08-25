@@ -14,6 +14,6 @@ class NotSearchBehaviourImpl : NotSearchBehaviour {
      * Returns [DescriptionCharSequenceAssertion.CONTAINS_NOT].
      * @return [DescriptionCharSequenceAssertion.CONTAINS_NOT]
      */
-    override fun decorateDescription(description: Translatable)
-        = DescriptionCharSequenceAssertion.CONTAINS_NOT
+    override fun decorateDescription(description: Translatable): Translatable =
+        DescriptionCharSequenceAssertion.CONTAINS_NOT
 }

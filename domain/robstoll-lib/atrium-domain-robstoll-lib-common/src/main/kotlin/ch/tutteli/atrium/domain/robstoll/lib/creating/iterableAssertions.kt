@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -27,7 +27,7 @@ fun <E, T : Iterable<E>> _containsBuilder(subjectProvider: SubjectProvider<T>): 
 fun <E, T : Iterable<E>> _containsNotBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NotSearchBehaviour> =
     IterableContainsBuilder(subjectProvider, NotSearchBehaviourImpl())
 
-fun <E : Any, T: Iterable<E?>> _iterableAll(
+fun <E : Any, T : Iterable<E?>> _iterableAll(
     assertionContainer: Expect<T>,
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Assertion {

@@ -18,6 +18,6 @@ class AtLeastChecker(
     atLeastCall: (Int) -> String
 ) : Checker(times, nameContainsNotFun, atLeastCall) {
 
-    override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = createDescriptiveAssertion(DescriptionIterableAssertion.AT_LEAST) { foundNumberOfTimes >= times }
+    override fun createAssertion(foundNumberOfTimes: Int): Assertion =
+        createDescriptiveAssertion(DescriptionIterableAssertion.AT_LEAST) { foundNumberOfTimes >= times }
 }

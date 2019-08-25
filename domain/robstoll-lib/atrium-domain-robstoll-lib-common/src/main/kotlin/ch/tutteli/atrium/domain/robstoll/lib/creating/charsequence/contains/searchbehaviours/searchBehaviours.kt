@@ -7,8 +7,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.buil
 
 fun <T : CharSequence> _containsIgnoringCase(
     containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-    = CharSequenceContainsBuilder(
-        containsBuilder.subjectProvider,
-        IgnoringCaseSearchBehaviourImpl(containsBuilder.searchBehaviour)
-    )
+): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour> = CharSequenceContainsBuilder(
+    containsBuilder.subjectProvider,
+    IgnoringCaseSearchBehaviourImpl(containsBuilder.searchBehaviour)
+)

@@ -32,11 +32,15 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
     checkers: List<C>
 ) : ContainsAssertionCreator<T, SC, C>(searchBehaviour, checkers) {
 
-    final override fun searchAndCreateAssertion(subjectProvider: SubjectProvider<T>, searchCriterion: SC, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+    final override fun searchAndCreateAssertion(
+        subjectProvider: SubjectProvider<T>,
+        searchCriterion: SC,
+        featureFactory: (Int, Translatable) -> AssertionGroup
+    ): AssertionGroup {
         val count = search(subjectProvider, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
-        return  AssertImpl.builder.customType(getAssertionGroupType())
+        return AssertImpl.builder.customType(getAssertionGroupType())
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
             .withAssertions(decorateAssertion(subjectProvider, featureAssertion))
             .build()

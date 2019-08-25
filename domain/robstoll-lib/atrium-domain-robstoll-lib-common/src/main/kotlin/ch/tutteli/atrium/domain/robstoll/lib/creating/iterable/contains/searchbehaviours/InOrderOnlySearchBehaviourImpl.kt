@@ -6,6 +6,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 class InOrderOnlySearchBehaviourImpl : InOrderOnlySearchBehaviour {
-    override fun decorateDescription(description: Translatable): Translatable
-        = TranslatableWithArgs(DescriptionIterableAssertion.IN_ORDER_ONLY, description)
+    override fun decorateDescription(description: Translatable): Translatable =
+        TranslatableWithArgs(DescriptionIterableAssertion.IN_ORDER_ONLY, description)
 }

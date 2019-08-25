@@ -15,14 +15,13 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 fun <T : CharSequence> _containsValues(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<Any>
-): AssertionGroup
-    = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
+): AssertionGroup = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<Any>
-): AssertionGroup
-    = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
+): AssertionGroup =
+    checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
@@ -51,26 +50,22 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
 fun <T : CharSequence> _containsDefaultTranslationOf(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<Translatable>
-): AssertionGroup
-    = _containsValues(checkerOption, expected.map { it.getDefault() })
+): AssertionGroup = _containsValues(checkerOption, expected.map { it.getDefault() })
 
 fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<Translatable>
-): AssertionGroup
-    = _containsValuesIgnoringCase(checkerOption, expected.map { it.getDefault() })
+): AssertionGroup = _containsValuesIgnoringCase(checkerOption, expected.map { it.getDefault() })
 
 fun <T : CharSequence> _containsRegex(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<String>
-): AssertionGroup
-    = createAssertionGroup(checkerOption, RegexSearcher(), expected, STRING_MATCHING_REGEX)
+): AssertionGroup = createAssertionGroup(checkerOption, RegexSearcher(), expected, STRING_MATCHING_REGEX)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<String>
-): AssertionGroup
-    = createAssertionGroup(checkerOption, IgnoringCaseRegexSearcher(), expected, STRING_MATCHING_REGEX)
+): AssertionGroup = createAssertionGroup(checkerOption, IgnoringCaseRegexSearcher(), expected, STRING_MATCHING_REGEX)
 
 private fun <T : CharSequence, SC : Any, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,

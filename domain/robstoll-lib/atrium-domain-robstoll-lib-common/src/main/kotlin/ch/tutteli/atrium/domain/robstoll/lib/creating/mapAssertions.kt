@@ -8,7 +8,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
@@ -69,7 +68,7 @@ fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
-fun <K, V, T: Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
+fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
     ExpectImpl.feature.extractor(assertionContainer)
         .methodCall("get", key)
         .withRepresentationForFailure(KEY_DOES_NOT_EXIST)

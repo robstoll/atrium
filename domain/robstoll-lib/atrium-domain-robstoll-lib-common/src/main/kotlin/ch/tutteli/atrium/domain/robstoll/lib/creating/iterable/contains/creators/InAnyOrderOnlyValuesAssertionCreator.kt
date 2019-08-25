@@ -23,7 +23,10 @@ class InAnyOrderOnlyValuesAssertionCreator<E, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : InAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E?>): Pair<Boolean, Assertion> {
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        searchCriterion: E,
+        list: MutableList<E?>
+    ): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)
         return found to ExpectImpl.builder.createDescriptive(AN_ENTRY_WHICH_IS, searchCriterion) { found }
     }

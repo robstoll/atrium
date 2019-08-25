@@ -27,7 +27,10 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
+    final override fun createAssertionGroup(
+        subjectProvider: SubjectProvider<T>,
+        searchCriteria: List<SC>
+    ): AssertionGroup {
         val assertions = searchCriteria.map {
             LazyThreadUnsafeAssertionGroup { searchAndCreateAssertion(subjectProvider, it, this::featureFactory) }
         }

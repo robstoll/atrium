@@ -10,6 +10,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 class IgnoringCaseIndexSearcher : Searcher<IgnoringCaseSearchBehaviour> {
     private val searcher = IndexSearcher()
 
-    override fun search(searchIn: CharSequence, searchFor: Any): Int
-        = searcher.search(searchIn.toString().toUpperCase(), searchFor.toString().toUpperCase())
+    override fun search(searchIn: CharSequence, searchFor: Any): Int =
+        searcher.search(searchIn.toString().toUpperCase(), searchFor.toString().toUpperCase())
 }

@@ -75,7 +75,8 @@ class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
     ): Pair<AssertionGroup, Int> {
         val (firstNonNullOrNull, sequence) = if (itr.hasNext() && assertionCreatorOrNull != null) {
-            // we search the first non-null element in order that feature assertions which are based on the subject can be showed properly in the explanation
+            // we search the first non-null element in order that feature assertions
+            // which are based on the subject can be showed properly in the explanation
             getFirstNonNullAndSequence(itr, sequenceOf())
         } else {
             null to itr.asSequence()

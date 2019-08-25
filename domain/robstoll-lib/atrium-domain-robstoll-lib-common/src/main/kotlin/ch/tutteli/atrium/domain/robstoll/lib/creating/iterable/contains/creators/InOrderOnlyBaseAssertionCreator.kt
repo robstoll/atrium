@@ -37,7 +37,5 @@ abstract class InOrderOnlyBaseAssertionCreator<E, in T : Iterable<E>, SC>(
         }
     }
 
-    protected abstract fun Expect<List<E>>.createAssertionsAndReturnIndex(
-        searchCriteria: List<SC>
-    ): Int
+    protected abstract fun Expect<List<E>>.createAssertionsAndReturnIndex(searchCriteria: List<SC>): Int
 }

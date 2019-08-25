@@ -8,10 +8,10 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreat
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createEntryAssertion
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertionGroup
 
-class InOrderOnlyEntriesMatcher<E: Any> : InOrderOnlyMatcher<E?, (Expect<E>.() -> Unit)?> {
+class InOrderOnlyEntriesMatcher<E : Any> : InOrderOnlyMatcher<E?, (Expect<E>.() -> Unit)?> {
 
-    override fun matches(actual: E?, searchCriterion: (Expect<E>.() -> Unit)?): Boolean
-        = allCreatedAssertionsHold(actual, searchCriterion)
+    override fun matches(actual: E?, searchCriterion: (Expect<E>.() -> Unit)?): Boolean =
+        allCreatedAssertionsHold(actual, searchCriterion)
 
     override fun entryAssertionCreator(
         maybeSubject: Option<List<E?>>,

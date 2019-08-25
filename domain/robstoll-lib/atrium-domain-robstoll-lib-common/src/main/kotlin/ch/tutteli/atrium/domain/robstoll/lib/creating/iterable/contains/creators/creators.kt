@@ -13,14 +13,12 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders
 fun <E, T : Iterable<E>> _containsValuesInAnyOrder(
     checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
     expected: List<E>
-): Assertion
-    = createAssertionGroup(checkerOption, expected, ::InAnyOrderValuesAssertionCreator)
+): Assertion = createAssertionGroup(checkerOption, expected, ::InAnyOrderValuesAssertionCreator)
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
     checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
     assertionCreators: List<(Expect<E>.() -> Unit)?>
-): Assertion
-    = createAssertionGroup(checkerOption, assertionCreators, ::InAnyOrderEntriesAssertionCreator)
+): Assertion = createAssertionGroup(checkerOption, assertionCreators, ::InAnyOrderEntriesAssertionCreator)
 
 
 fun <E, T : Iterable<E>> _containsValuesInAnyOrderOnly(
@@ -36,7 +34,9 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrderOnly(
     assertionCreators: List<(Expect<E>.() -> Unit)?>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
-    return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InAnyOrderOnlyEntriesAssertionCreator)
+    return createAssertionGroupWithoutChecker(
+        checkerBuilder, assertionCreators, ::InAnyOrderOnlyEntriesAssertionCreator
+    )
 }
 
 

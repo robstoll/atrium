@@ -32,9 +32,9 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
     checkers
 ), IterableContains.Creator<T, SC> {
 
-    override val descriptionContains = DescriptionIterableAssertion.CONTAINS
-    override val descriptionNumberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
-    override val groupDescription = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
+    override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
+    override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
+    override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
 
     override fun getAssertionGroupType(): AssertionGroupType {
         return if (searchBehaviour is NotSearchBehaviour) {
@@ -44,12 +44,15 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
         }
     }
 
-    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int
-        = subjectProvider.maybeSubject.fold({-1}) { subject -> subject.filter { it == searchCriterion }.size }
+    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int =
+        subjectProvider.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
 
     override fun decorateAssertion(subjectProvider: SubjectProvider<T>, featureAssertion: Assertion): List<Assertion> {
         return if (searchBehaviour is NotSearchBehaviour) {
-            listOf(featureAssertion, createHasElementAssertion(subjectProvider.maybeSubject.getOrElse { emptyList<SC>() }))
+            listOf(
+                featureAssertion,
+                createHasElementAssertion(subjectProvider.maybeSubject.getOrElse { emptyList<SC>() })
+            )
         } else {
             listOf(featureAssertion)
         }

@@ -14,7 +14,6 @@ import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 
 class ThrowableThrownFailureHandler<T : Throwable?, R>(

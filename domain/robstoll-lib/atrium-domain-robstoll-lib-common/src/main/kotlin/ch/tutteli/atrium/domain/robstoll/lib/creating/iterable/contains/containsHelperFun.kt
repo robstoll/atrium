@@ -36,7 +36,8 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
                 it.collectAssertions(firstOrNull(), assertionCreatorOrNull)
             } else {
                 it.withAssertion(
-                    // it is for an explanatoryGroup where it does not matter if the assertion holds or not, thus trueProvider
+                    // it is for an explanatoryGroup where it does not matter if the assertion holds or not
+                    // thus it is OK to use trueProvider
                     ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider)
                 )
             }

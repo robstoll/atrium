@@ -34,9 +34,12 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     private val searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
+    final override fun createAssertionGroup(
+        subjectProvider: SubjectProvider<T>,
+        searchCriteria: List<SC>
+    ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val list = subjectProvider.maybeSubject.fold({ mutableListOf<E?>() }){ it.toMutableList() }
+            val list = subjectProvider.maybeSubject.fold({ mutableListOf<E?>() }) { it.toMutableList() }
             val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
 
@@ -47,10 +50,11 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
-            assertions.add(ExpectImpl.builder.feature
-                .withDescriptionAndRepresentation(Untranslatable("size"), RawString.create(actualSize.toString()))
-                .withAssertions(featureAssertions)
-                .build()
+            assertions.add(
+                ExpectImpl.builder.feature
+                    .withDescriptionAndRepresentation(Untranslatable("size"), RawString.create(actualSize.toString()))
+                    .withAssertions(featureAssertions)
+                    .build()
             )
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
@@ -76,7 +80,11 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
         }
     }
 
-    private fun createAssertionsForAllSearchCriteria(allSearchCriteria: List<SC>, list: MutableList<E?>, assertions: MutableList<Assertion>): Int {
+    private fun createAssertionsForAllSearchCriteria(
+        allSearchCriteria: List<SC>,
+        list: MutableList<E?>,
+        assertions: MutableList<Assertion>
+    ): Int {
         var mismatches = 0
         allSearchCriteria.forEach {
             val (found, assertion) = createAssertionForSearchCriterionAndRemoveMatchFromList(it, list)
@@ -86,10 +94,13 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
         return mismatches
     }
 
-    protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: SC, list: MutableList<E?>): Pair<Boolean, Assertion>
+    protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        searchCriterion: SC,
+        list: MutableList<E?>
+    ): Pair<Boolean, Assertion>
 
-    private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion>
-        = mutableListOf(ExpectImpl.builder.descriptive
+    private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion> =
+        mutableListOf(ExpectImpl.builder.descriptive
             .withTest { actualSize == allSearchCriteria.size }
             .withDescriptionAndRepresentation(
                 DescriptionAnyAssertion.TO_BE,
@@ -98,7 +109,10 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             .build()
         )
 
-    private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
+    private fun createExplanatoryGroupForMismatchesEtc(
+        list: MutableList<E?>,
+        warning: DescriptionIterableAssertion
+    ): AssertionGroup {
         val assertions = list.map { ExpectImpl.builder.explanatory.withExplanation(it).build() }
         val additionalEntries = ExpectImpl.builder.list
             .withDescriptionAndEmptyRepresentation(warning)
