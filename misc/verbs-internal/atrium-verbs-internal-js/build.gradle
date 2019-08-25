@@ -4,5 +4,8 @@ dependencies {
     api prefixedProject('core-api-js')
     api prefixedProject('domain-builders-js')
 
+    runtimeOnly prefixedProject('domain-robstoll-js')
+    runtimeOnly prefixedProject('core-robstoll-js')
+
     testImplementation prefixedProject('specs-js')
 }

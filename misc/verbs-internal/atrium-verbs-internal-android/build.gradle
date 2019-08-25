@@ -5,6 +5,9 @@ dependencies {
     api prefixedProject('domain-builders-android')
     api prefixedProject('spec')
 
+    runtimeOnly prefixedProject('domain-robstoll-android')
+    runtimeOnly prefixedProject('core-robstoll-android')
+
     testImplementation prefixedProject('specs-android')
 }
 

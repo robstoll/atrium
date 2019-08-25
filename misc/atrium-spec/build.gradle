@@ -6,6 +6,9 @@ dependencies {
     api prefixedProject('core-api-jvm')
     api prefixedProject('domain-builders-jvm')
 
+    runtimeOnly prefixedProject('domain-robstoll-jvm')
+    runtimeOnly prefixedProject('core-robstoll-jvm')
+
     implementation prefixedProject('api-cc-en_GB-jvm')
     implementation prefixedProject('translations-en_GB-jvm')
 }
