@@ -11,7 +11,7 @@ dependencies {
     api spekExtensions()
 
     implementation prefixedProject('api-fluent-en_GB-android')
-    implementation "io.mockk:mockk-android:$mockk_version"
+    implementation "io.mockk:mockk:$mockk_version"
 
     // exclude these dependencies in case you want to use another implementation
     runtimeOnly prefixedProject('domain-robstoll-android')
