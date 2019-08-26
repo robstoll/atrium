@@ -15,8 +15,8 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context

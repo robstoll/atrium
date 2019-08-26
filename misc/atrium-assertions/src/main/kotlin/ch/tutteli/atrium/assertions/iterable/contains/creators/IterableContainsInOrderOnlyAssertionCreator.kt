@@ -12,8 +12,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
@@ -87,7 +86,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
 
         val sizeAssertion = AssertImpl.builder.descriptive
             .withTest { actualSize == expectedSize }
-            .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, RawString.create(expectedSize.toString()))
+            .withDescriptionAndRepresentation(TO_BE, RawString.create(expectedSize.toString()))
             .build()
 
         val featureAssertions = mutableListOf<Assertion>()

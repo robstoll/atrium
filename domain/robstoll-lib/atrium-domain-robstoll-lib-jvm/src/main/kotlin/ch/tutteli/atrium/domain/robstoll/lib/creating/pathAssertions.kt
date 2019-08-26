@@ -4,8 +4,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
+import ch.tutteli.atrium.translations.DescriptionBasic.TO
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.EXIST
 import ch.tutteli.niok.exists
 import ch.tutteli.niok.notExists

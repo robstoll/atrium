@@ -8,7 +8,7 @@ import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -39,7 +39,7 @@ abstract class MapEntryAssertionsSpec(
 
     val (isKeyValue, isKeyValueFun) = isKeyValuePair
 
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+    val toBeDescr = TO_BE.getDefault()
 
     describeFun(isKeyValue) {
         context("map $mapEntry") {

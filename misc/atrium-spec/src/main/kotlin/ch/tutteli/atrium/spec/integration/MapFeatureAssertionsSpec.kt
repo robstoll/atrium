@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -74,7 +74,7 @@ abstract class MapFeatureAssertionsSpec(
     val (getExistingNullablePlant, getExistingNullablePlantFun) = getExistingNullablePlantPair
     val (getExistingNullable, getExistingNullableFun) = getExistingNullablePair
 
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+    val toBeDescr = TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
 
     describeFun("val $keysValName") {

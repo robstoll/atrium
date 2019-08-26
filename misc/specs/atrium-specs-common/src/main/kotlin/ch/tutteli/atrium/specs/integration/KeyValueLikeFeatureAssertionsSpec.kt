@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -26,7 +26,7 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
 
     val mapEntry = creator("hello", 1)
     val nullMapEntry = creatorNullable(null, null)
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+    val toBeDescr = TO_BE.getDefault()
 
     include(object : SubjectLessSpec<T>(describePrefix,
         keyFeature.forSubjectLess().adjustName { "$it feature" },

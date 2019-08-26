@@ -9,6 +9,8 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries
@@ -30,7 +30,7 @@ class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
         = template(createEntryFeatureAssertion(searchCriterion))
 
     private fun createEntryFeatureAssertion(searchCriterion: E): (Boolean) -> Assertion
-        = { found -> AssertImpl.builder.createDescriptive(DescriptionAnyAssertion.TO_BE, searchCriterion) { found } }
+        = { found -> AssertImpl.builder.createDescriptive(TO_BE, searchCriterion) { found } }
 
     override fun matches(actual: E?, searchCriterion: E): Boolean
         = actual == searchCriterion

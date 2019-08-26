@@ -4,7 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
+import ch.tutteli.atrium.translations.DescriptionBasic.TO
 import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.spek.extensions.TempFolder
 import org.spekframework.spek2.Spek
@@ -37,7 +38,7 @@ abstract class PathAssertionsSpec(
                     expect(Paths.get("nonExistingFile")).existsFun()
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "${DescriptionAnyAssertion.TO.getDefault()}: ${DescriptionPathAssertion.EXIST.getDefault()}"
+                        "${TO.getDefault()}: ${DescriptionPathAssertion.EXIST.getDefault()}"
                     )
                 }
             }
@@ -64,7 +65,7 @@ abstract class PathAssertionsSpec(
             }
         }
 
-        val expectedMessageIfExisting = "${DescriptionAnyAssertion.NOT_TO.getDefault()}: ${DescriptionPathAssertion.EXIST.getDefault()}"
+        val expectedMessageIfExisting = "${NOT_TO.getDefault()}: ${DescriptionPathAssertion.EXIST.getDefault()}"
 
         context("existing file") {
             it("throws an AssertionError") {

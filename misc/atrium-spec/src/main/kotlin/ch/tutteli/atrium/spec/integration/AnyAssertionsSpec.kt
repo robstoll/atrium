@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
@@ -11,7 +12,10 @@ import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.setUp
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -54,11 +58,9 @@ abstract class AnyAssertionsSpec(
         checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
-        = prefixedDescribe(describePrefix, description, body)
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) = prefixedDescribe(describePrefix, description, body)
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assert: (Int) -> Assert<Int> = verbs::checkImmediately
@@ -127,7 +129,7 @@ abstract class AnyAssertionsSpec(
                 test("$notToBe throws AssertionError") {
                     expect {
                         fluent.notToBeFun(test)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
                 test("$isSame does not throw") {
                     fluent.isSameFun(test)
@@ -135,7 +137,7 @@ abstract class AnyAssertionsSpec(
                 test("$isNotSame throws AssertionError") {
                     expect {
                         fluent.isNotSameFun(test)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
             }
             context("not same but one equals the other") {
@@ -146,12 +148,12 @@ abstract class AnyAssertionsSpec(
                 test("$notToBe throws AssertionError") {
                     expect {
                         fluent.notToBeFun(other)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
                 test("$isSame throws AssertionError") {
                     expect {
                         fluent.isSameFun(other)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
                 test("$isNotSame does not throw") {
                     fluent.isNotSameFun(other)
@@ -162,7 +164,7 @@ abstract class AnyAssertionsSpec(
                 test("$toBe does not throw") {
                     expect {
                         fluent.toBeFun(other)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
                 test("$notToBe throws AssertionError") {
                     fluent.notToBeFun(other)
@@ -170,7 +172,7 @@ abstract class AnyAssertionsSpec(
                 test("$isSame throws AssertionError") {
                     expect {
                         fluent.isSameFun(other)
-                    }.toThrow<AssertionError>{}
+                    }.toThrow<AssertionError> {}
                 }
                 test("$isNotSame does not throw") {
                     fluent.isNotSameFun(other)
@@ -231,15 +233,15 @@ abstract class AnyAssertionsSpec(
             it("does not throw if expected is subject") {
                 verbs.checkNullable(subject).toBeNullableFun(subject)
             }
-            it("throws an AssertionError if null is passed"){
-                expect{
+            it("throws an AssertionError if null is passed") {
+                expect {
                     verbs.checkNullable(subject).toBeNullableFun(null)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: null")
                 }
             }
-            it("throws an AssertionError if expected does not equal subject"){
-                expect{
+            it("throws an AssertionError if expected does not equal subject") {
+                expect {
                     verbs.checkNullable(subject).toBeNullableFun(2)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: 2")
@@ -269,15 +271,15 @@ abstract class AnyAssertionsSpec(
             it("does not throw if sub assertion holds") {
                 verbs.checkNullable(subject).toBeNullIfNullElseFun { isLessThan(2) }
             }
-            it("throws an AssertionError if sub assertion does not hold"){
-                expect{
-                    verbs.checkNullable(subject).toBeNullIfNullElseFun{ isGreaterThan(1) }
+            it("throws an AssertionError if sub assertion does not hold") {
+                expect {
+                    verbs.checkNullable(subject).toBeNullIfNullElseFun { isGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
                 }
             }
-            it("throws an AssertionError if null is passed"){
-                expect{
+            it("throws an AssertionError if null is passed") {
+                expect {
                     verbs.checkNullable(subject).toBeNullIfNullElseFun(null)
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${TO_BE.getDefault()}: null")
