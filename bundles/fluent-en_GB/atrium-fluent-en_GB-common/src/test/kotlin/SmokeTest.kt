@@ -10,8 +10,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionBasic.IS
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.test.Test
 
 class SmokeTest {
@@ -42,7 +42,7 @@ class SmokeTest {
             messageContains(
                 "${AssertionVerb.ASSERT.getDefault()}: 1",
                 "${AssertionVerb.ASSERT.getDefault()}: 2",
-                "${DescriptionAnyAssertion.TO_BE.getDefault()}: 1"
+                "${TO_BE.getDefault()}: 1"
             )
         }
     }
@@ -58,7 +58,7 @@ class SmokeTest {
             messageContains(
                 "${AssertionVerb.ASSERT_THAT.getDefault()}: 1",
                 "${AssertionVerb.ASSERT_THAT.getDefault()}: 2",
-                "${DescriptionAnyAssertion.TO_BE.getDefault()}: 1"
+                "${TO_BE.getDefault()}: 1"
             )
         }
     }
@@ -74,7 +74,7 @@ class SmokeTest {
             messageContains(
                 "${AssertionVerb.EXPECT.getDefault()}: 1",
                 "${AssertionVerb.EXPECT.getDefault()}: 2",
-                "${DescriptionAnyAssertion.TO_BE.getDefault()}: 1"
+                "${TO_BE.getDefault()}: 1"
             )
         }
     }
@@ -82,7 +82,7 @@ class SmokeTest {
 
 
 @Suppress("DEPRECATION")
-fun Expect<Int>.isEven() = createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
+fun Expect<Int>.isEven() = createAndAddAssertion(IS, RawString.create("an even number")) { subject % 2 == 0 }
 
 fun Expect<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 

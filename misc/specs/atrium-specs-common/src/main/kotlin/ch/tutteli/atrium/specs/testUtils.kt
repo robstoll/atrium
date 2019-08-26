@@ -5,7 +5,6 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
@@ -123,7 +122,7 @@ fun <T> notImplemented(): T = throw NotImplementedError()
 //TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
 fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
 
-val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+val toBeDescr = DescriptionBasic.TO_BE.getDefault()
 val isDescr = DescriptionBasic.IS.getDefault()
 val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
 

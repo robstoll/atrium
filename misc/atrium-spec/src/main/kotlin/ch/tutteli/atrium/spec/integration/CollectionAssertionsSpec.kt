@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
@@ -6,8 +7,7 @@ import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -36,8 +36,7 @@ abstract class CollectionAssertionsSpec(
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2) as Collection<Int>, listOf())
     ) {})
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) = describeFun(describePrefix, funName, body = body)
 
     val assert: (List<Int>) -> Assert<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -47,8 +46,8 @@ abstract class CollectionAssertionsSpec(
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
 
-    val isDescr = DescriptionBasic.IS.getDefault()
-    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+    val isDescr = IS.getDefault()
+    val isNotDescr = IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
 
     describeFun(hasSize) {
@@ -60,14 +59,14 @@ abstract class CollectionAssertionsSpec(
                 expect {
                     fluent.hasSizeFun(1)
                 }.toThrow<AssertionError> {
-                    messageContains("size: 2", DescriptionAnyAssertion.TO_BE.getDefault() + ": 1")
+                    messageContains("size: 2", TO_BE.getDefault() + ": 1")
                 }
             }
             test("expect 3 throws an AssertionError") {
                 expect {
                     fluent.hasSizeFun(3)
                 }.toThrow<AssertionError> {
-                    messageContains("size: 2", DescriptionAnyAssertion.TO_BE.getDefault() + ": 3")
+                    messageContains("size: 2", TO_BE.getDefault() + ": 3")
                 }
             }
         }

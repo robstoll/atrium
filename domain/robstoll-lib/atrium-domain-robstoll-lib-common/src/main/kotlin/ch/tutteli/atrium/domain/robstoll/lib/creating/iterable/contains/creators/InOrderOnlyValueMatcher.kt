@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 
 class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
 
@@ -13,6 +13,6 @@ class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
         maybeSubject: Option<List<E>>,
         searchCriterion: E
     ): (() -> Boolean) -> Assertion = { found ->
-        ExpectImpl.builder.createDescriptive(DescriptionAnyAssertion.TO_BE, searchCriterion, found)
+        ExpectImpl.builder.createDescriptive(TO_BE, searchCriterion, found)
     }
 }
