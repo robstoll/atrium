@@ -35,12 +35,12 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE = n'est pas
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
- * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = %tD était %<tA
- * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-PLACEHOLDER = Caractère de remplacement %s
+ * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_KNOWN = %tD était %<tA
+ * ch.tutteli.atrium.spec.reporting.translating.TranslatioIntSpec.TestTranslatable-PLACEHOLDER = Caractère de remplacement %s
  *
  * the Locale it:
- * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = solo %tA!!
- * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_UNKNOWN = solo %tA!!
+ * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_KNOWN = solo %tA!!
+ * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_UNKNOWN = solo %tA!!
  *
  * the Locale zh_Hant_TW:
  * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hant_TW
