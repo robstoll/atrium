@@ -13,5 +13,6 @@ import java.nio.file.Path
 
 fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, TO, RawString.create(EXIST)) { it.exists }
-fun <T : Path> _existsNot(subjectProvider: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, NOT_TO, RawString.create(EXIST)) { it.notExists }
+
+fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, NOT_TO, RawString.create(EXIST)) { it.notExists }
