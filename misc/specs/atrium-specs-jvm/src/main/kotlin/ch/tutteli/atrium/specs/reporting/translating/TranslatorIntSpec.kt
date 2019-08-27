@@ -165,9 +165,6 @@ abstract class TranslatorIntSpec(
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
-        }
-
-        context("properties file for $descriptionNumberAssertion is not provided for 'de_CH' nor one of its parents") {
 
             describe("translation for $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is provided for 'it'") {
                 it("throws an AssertionError which message contains the default of $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
