@@ -16,7 +16,7 @@ buildscript {
 
         // test
         jacoco_tool_version = '0.8.2'
-        junit_platform_version = '1.2.0'
+        junit_platform_version = '1.5.1'
         jupiter_version = '5.5.1'
         spek_version = '1.1.5'
         spek2_version = '2.0.6'
@@ -242,20 +242,17 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
         }
     }
 
-    //TODO remove once all specs are migrated to spek2
-    junitPlatform {
-        filters {
-            engines {
-                if (project.name != 'atrium-spec') {
-                    include 'spek2'
-                }
-                if (!project.name.startsWith('atrium-specs')) {
-                    include 'spek'
-                }
+    test {
+        //TODO remove once all specs are migrated to spek2
+        options {
+            if (project.name != 'atrium-spec') {
+                includeEngines 'spek2'
+            }
+            if (!project.name.startsWith('atrium-specs')) {
+                includeEngines 'spek'
             }
         }
     }
-
 }
 
 apply from: 'gradle/scripts/gh-pages.gradle'
@@ -401,7 +398,11 @@ def useJupiter(String... projectNames) {
         dependencies {
             testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
         }
-        junitPlatform.filters.engines { include 'junit-jupiter' }
+        test {
+            options {
+                includeEngines 'junit-jupiter'
+            }
+        }
     }
 }
 
