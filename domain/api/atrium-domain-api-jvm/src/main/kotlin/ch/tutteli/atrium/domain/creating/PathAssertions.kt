@@ -17,5 +17,6 @@ val pathAssertions by lazy { loadSingleService(PathAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface PathAssertions {
-    fun <T: Path> exists(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> exists(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> existsNot(assertionContainer: Expect<T>): Assertion
 }

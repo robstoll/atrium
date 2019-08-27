@@ -14,7 +14,9 @@ import java.nio.file.Path
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object PathAssertionsBuilder : PathAssertions {
+    override inline fun <T : Path> exists(assertionContainer: Expect<T>) =
+        pathAssertions.exists(assertionContainer)
 
-    override inline fun <T : Path> exists(assertionContainer: Expect<T>) = pathAssertions.exists(assertionContainer)
-
+    override inline fun <T : Path> existsNot(assertionContainer: Expect<T>) =
+        pathAssertions.existsNot(assertionContainer)
 }

@@ -89,4 +89,7 @@ module ch.tutteli.atrium.domain.robstoll {
 
     provides ch.tutteli.atrium.domain.creating.ThrowableAssertions
         with ch.tutteli.atrium.domain.robstoll.creating.ThrowableAssertionsImpl;
+
+    provides ch.tutteli.atrium.domain.creating.PathAssertions
+        with ch.tutteli.atrium.domain.robstoll.creating.PathAssertionsImpl;
 }
