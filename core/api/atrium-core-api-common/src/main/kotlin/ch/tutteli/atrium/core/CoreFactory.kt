@@ -68,7 +68,7 @@ interface CoreFactoryCommon {
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -153,7 +153,7 @@ interface CoreFactoryCommon {
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -235,7 +235,7 @@ interface CoreFactoryCommon {
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter).addAssertionsCreatedBy(assertionCreator)",
+            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter).addAssertionsCreatedBy(assertionCreator)",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -276,7 +276,7 @@ interface CoreFactoryCommon {
     @Deprecated(
         "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
         ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -310,7 +310,7 @@ interface CoreFactoryCommon {
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
         ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -333,7 +333,7 @@ interface CoreFactoryCommon {
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
         ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -706,7 +706,7 @@ interface CoreFactoryCommon {
 @Deprecated(
     "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
     ReplaceWith(
-        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
+        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
         "ch.tutteli.atrium.core.Some"
     )
 )
@@ -741,7 +741,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
 @Deprecated(
     "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
     ReplaceWith(
-        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
+        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
         "ch.tutteli.atrium.core.Some"
     )
 )
