@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.reporting.translating.*
-import ch.tutteli.atrium.core.polyfills.format
 
 /**
- * Represents a [Translator] which uses a [TranslationSupplier] to retrieve translations and [CoroutineBasedLocaleOrderDecider]
- * to determine in which order it should try to find translations for a given [Translatable].
+ * Represents a [Translator] which uses a given [TranslationSupplier] to retrieve translations and
+ * a given [LocaleOrderDecider] to determine in which order it should try to find translations
+ * for a given [Translatable].
  *
  * @property translationSupplier The [TranslationSupplier] which provides available translations.
  * @property localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
@@ -30,9 +30,9 @@ class TranslationSupplierBasedTranslator(
     fallbackLocales: List<Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
-    override fun translateWithoutArgs(translatable: Translatable)
-        = localeOrderDecider.determineOrder(primaryLocale, fallbackLocales)
-        .map { translationSupplier.get(translatable, it) }
-        .firstOrNull { it != null }
-        ?: translatable.getDefault()
+    override fun translateWithoutArgs(translatable: Translatable): String =
+        localeOrderDecider.determineOrder(primaryLocale, fallbackLocales)
+            .map { translationSupplier.get(translatable, it) }
+            .firstOrNull { it != null }
+            ?: translatable.getDefault()
 }
