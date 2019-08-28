@@ -8,7 +8,7 @@ import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -58,7 +58,7 @@ fun SpecBody.absentSubjectTests(
                 messageContains(
                     "${IterableContainsEntriesSpecBase.anEntryWhich}: ${IterableContainsSpecBase.separator}",
                     "compareTo(2.0):",
-                    "${DescriptionAnyAssertion.TO_BE.getDefault()}: 0"
+                    "${TO_BE.getDefault()}: 0"
                 )
             }
         }

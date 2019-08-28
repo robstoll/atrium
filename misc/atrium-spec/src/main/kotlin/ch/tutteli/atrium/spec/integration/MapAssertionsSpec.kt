@@ -5,7 +5,10 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.*
+import ch.tutteli.atrium.translations.DescriptionBasic.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -105,12 +108,12 @@ abstract class MapAssertionsSpec(
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
 
-    val isDescr = DescriptionBasic.IS.getDefault()
-    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+    val isDescr = IS.getDefault()
+    val isNotDescr = IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
     val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
     val containsNotKeyDescr = DescriptionMapAssertion.CONTAINS_NOT_KEY.getDefault()
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+    val toBeDescr = TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
     val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
 
@@ -347,14 +350,14 @@ abstract class MapAssertionsSpec(
                 expect {
                     fluent.hasSizeFun(1)
                 }.toThrow<AssertionError> {
-                    messageContains("size: 2", DescriptionAnyAssertion.TO_BE.getDefault() + ": 1")
+                    messageContains("size: 2", TO_BE.getDefault() + ": 1")
                 }
             }
             test("expect 3 throws an AssertionError") {
                 expect {
                     fluent.hasSizeFun(3)
                 }.toThrow<AssertionError> {
-                    messageContains("size: 2", DescriptionAnyAssertion.TO_BE.getDefault() + ": 3")
+                    messageContains("size: 2", TO_BE.getDefault() + ": 3")
                 }
             }
         }

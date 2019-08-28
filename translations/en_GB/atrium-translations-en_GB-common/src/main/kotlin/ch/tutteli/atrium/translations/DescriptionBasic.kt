@@ -8,6 +8,10 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * a two different assertion functions.
  */
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {
+    TO("to"),
+    NOT_TO("not to"),
+    TO_BE("to be"),
+    NOT_TO_BE("not to be"),
     IS("is"),
     IS_NOT("is not"),
 }

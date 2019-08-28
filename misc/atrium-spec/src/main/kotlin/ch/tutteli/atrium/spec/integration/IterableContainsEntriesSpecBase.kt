@@ -7,8 +7,8 @@ import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionBasic.IS
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.dsl.Spec
@@ -36,8 +36,8 @@ abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec
         val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH.getDefault()
         val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
         val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
-        val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
-        val isDescr = DescriptionBasic.IS.getDefault()
+        val toBeDescr = TO_BE.getDefault()
+        val isDescr = IS.getDefault()
 
         fun SpecBody.nonNullableCases(
             describePrefix: String,

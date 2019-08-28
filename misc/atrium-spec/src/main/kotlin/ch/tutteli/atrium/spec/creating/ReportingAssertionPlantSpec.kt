@@ -1,7 +1,8 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.trueProvider
@@ -14,7 +15,7 @@ import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.setUp
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context

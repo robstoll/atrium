@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFun
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock

@@ -1,12 +1,16 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.cc.en_GB.isGreaterThan
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
+import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -57,7 +61,7 @@ abstract class ListFeatureAssertionsSpec(
     val (getNullablePlant, getNullablePlantFun) = getNullablePlantPair
     val (getNullable, getNullableFun) = getNullablePair
 
-    val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+    val toBeDescr = TO_BE.getDefault()
     val indexOutOfBounds = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS.getDefault()
 
     describeFun("$getPlant returns plant") {

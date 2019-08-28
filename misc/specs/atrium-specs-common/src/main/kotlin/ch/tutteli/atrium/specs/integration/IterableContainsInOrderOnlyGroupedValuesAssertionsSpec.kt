@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
@@ -53,7 +53,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
     val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
-    val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint${DescriptionAnyAssertion.TO_BE.getDefault()}"
+    val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint${TO_BE.getDefault()}"
     val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
     val toBeAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 

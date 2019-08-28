@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.inCaseOf
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
@@ -44,7 +44,7 @@ abstract class CheckingAssertionPlantSpec(
 
         val a = subject
         inCaseOf("an assertion which holds") {
-            testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, a, { a == subject })
+            testee.createAndAddAssertion(TO_BE, a, { a == subject })
             test("${testee::allAssertionsHold.name} returns `true` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
                 verbs.checkImmediately(result).toBe(true)
@@ -52,7 +52,7 @@ abstract class CheckingAssertionPlantSpec(
         }
 
         inCaseOf("an assertion which fails") {
-            testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, -12, { a == 0 })
+            testee.createAndAddAssertion(TO_BE, -12, { a == 0 })
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
                 verbs.checkImmediately(result).toBe(false)
@@ -82,7 +82,7 @@ abstract class CheckingAssertionPlantSpec(
             testee.addAssertion(
                 AssertImpl.builder.descriptive
                     .failing
-                    .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, "my expected result")
+                    .withDescriptionAndRepresentation(TO_BE, "my expected result")
                     .build()
             )
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {

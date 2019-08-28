@@ -1968,6 +1968,7 @@ I plan that Atrium is going to support certain features in the future. Following
 - optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
 
 ## 0.10.0
+- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext)
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
 - provide an easy way to create failure hints
 

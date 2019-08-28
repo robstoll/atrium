@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -207,7 +207,7 @@ abstract class FeatureAssertionsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
                 }.toThrow<AssertionError> {
-                    messageContains("length: 37", "${DescriptionAnyAssertion.TO_BE.getDefault()}: 12")
+                    messageContains("length: 37", "${TO_BE.getDefault()}: 12")
                 }
             }
         }
@@ -219,7 +219,7 @@ abstract class FeatureAssertionsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
                 }.toThrow<AssertionError> {
-                    messageContains("length: 37", "${DescriptionAnyAssertion.TO_BE.getDefault()}: 12")
+                    messageContains("length: 37", "${TO_BE.getDefault()}: 12")
                 }
             }
         }
