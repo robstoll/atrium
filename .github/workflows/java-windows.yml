@@ -1,0 +1,20 @@
+name: STS-JAVA Windows
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: windows-latest
+        strategy:
+            fail-fast: true
+            matrix:
+                java_version: [9, 10, 12]
+
+        steps:
+            -   uses: actions/checkout@v1
+            -   name: "Set up JDK ${{ matrix.java_version }}"
+                uses: actions/setup-java@v1
+                with:
+                    java-version: ${{ matrix.java_version }}
+            -   name: Build with Gradle
+                run: ./gr jvmBuild
