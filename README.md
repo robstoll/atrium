@@ -473,9 +473,9 @@ Please [open a feature request](https://github.com/robstoll/atrium/issues/new?te
 You might be asking yourself whether it is better to [write an own assertion function](#write-own-assertion-functions) or use `feature`. 
 
 The only drawback of using an existing property is that a few more key strokes are required compared to 
-[writing an own assertion function](#write-own-assertion-functions) once and then reuse it (as I did with `message`).
-Yet, I do not recommend to write an own assertion function for every single property.
-I think it makes sense to add one if you use it a lot and (preferably) it is a stable API. 
+[writing an own assertion function](#write-own-assertion-functions) once and then reuse it (as we did with `message`).
+Yet, we do not recommend to write an own assertion function for every single property.
+We think it makes sense to add one if you use it a lot and (preferably) it is a stable API. 
 Why not always? Because one quickly forgets to rename the assertion function 
 if the property as such is renamed (e.g., as part of an IDE refactoring). 
 As you can see, you would need to keep the property name and the name of the assertion function in sync to be meaningful 
@@ -506,10 +506,10 @@ expect(myPerson)
 <details>
 <summary>:interrobang: Why only overloads for up to 5 parameters</summary>
  
-You might be asking yourself why I stopped at 5 Parameters.
+You might be asking yourself why we stopped at 5 Pprameters.
 You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it :stuck_out_tongue_winking_eye:.
 In case you have a function with 6 or more parameters and you do not want or cannot to get rid of it, 
-then I suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
+then we suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
 
 </details>
 
@@ -736,7 +736,7 @@ involving nullable types and is explained in the corresponding section.
 <details>
 <summary>:information_source: dealing a lot with nullable types from Java...</summary>
 
-... in this case I recommend to have a look at the [Java Interoperability](#java-interoperability) section.
+... in this case we recommend to have a look at the [Java Interoperability](#java-interoperability) section.
 
 </details>
 
@@ -852,7 +852,7 @@ Since we have chosen the `only` option, Atrium shows us a summary where we see t
 - Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
 - and last but not least, mismatches or additional entries as further clue (`❗❗ additional entries detected`).
 
-:heart_eyes: I am pretty sure you are going to love this feature as well. 
+:heart_eyes: We are pretty sure you are going to love this feature as well. 
 Please star Atrium if you like using it.
 
 <details>
@@ -867,11 +867,11 @@ If you have to, then please open a feature request as well. In the meantime, you
 </details>
 
 Following one more example for `inOrder` as well as a few examples for `inAnyOrder`. 
-I think explanations are no longer required at this stage.
+We think explanations are no longer required at this stage.
 In case you have a question (no matter about which section), then please turn up in the 
 [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
 ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet) 
-and I happily answer your question there. 
+and we happily answer your question there. 
 
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
@@ -1093,7 +1093,7 @@ Depending on the chosen [reporting style](#reporterbuilder) it will only show th
 This is also the reason why the call of `myFun(2)` is not listed (as the result is `c` as expected).
 
 Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
-if you want to see a summary, meaning also successful assertions -- I happily add more functionality if it is of use for someone.
+if you want to see a summary, meaning also successful assertions --we happily add more functionality if it is of use for someone.
 
 Following another example which involves an assertion creator lambda and not only a simple `toBe` check. 
 We are going to reuse the `myFun` from above
@@ -1179,7 +1179,7 @@ The following subsections shall give you a quick overview how Atrium differ from
 
 ## Ready to Help
 Atrium is designed to help you whenever possible.
-I think this is the biggest difference to other assertion libraries and a very handy one indeed.
+We think this is the biggest difference to other assertion libraries and a very handy one indeed.
 
 ### 1. Fluent API with Code Documentation
 Atrium provides a fluent API where the design focus was put on the interoperability (of the API) 
@@ -1312,7 +1312,7 @@ You prefer pure fluent and do not even want to see infix style in your code,
 then use `atrium-fluent-en_GB` which provides a pure fluent style API. 
 
 You are free to choose what fits best without introducing ambiguity etc.
-You could even mix up different API-Styles if needed (but not without losing conciseness I guess -- but hey, it is your decision :wink:). 
+You could even mix up different API-Styles if needed (but not without losing conciseness -- but hey, it is your decision :wink:). 
 
 ## Migration of Deprecated Functionality
 Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
@@ -1336,7 +1336,7 @@ Together with the HTML-Report feature (currently missing but will follow) you wi
 Already the HTML-Report feature as such might be of your interest. 
 You can use it to document your user stories etc (almost) for free.
 In case you have clients who speak different languages then the HTML-Report together with the i18n feature will be especially helpful. 
-I should not go on here, the HTML-Report feature is not yet implemented, but you can see what kind of road I plan to go down to.
+We should not go on here, the HTML-Report feature is not yet implemented, but you can see what kind of road we plan to go down to.
 
 # Write own Assertion Functions
 
@@ -1366,16 +1366,16 @@ Let us see how we actually defined `isMultipleOf`.
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
     Hence we define `isMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Expect<Int>`.
 
-2. *Use the method `createAndAddAssertion`* (which is provided by `Expect`) to create the assertion 
-    and add it to `Expect` (so that is also evaluated, creating alone is not enough). 
-    The method `createAndAddAssertion` returns the `Expect` making it easy for you to provide a fluent API as well.
+2. *Use the method `createAndAddAssertion`* (provided by `Expect`)  which creates and adds 
+    the assertion to itself (creating alone is not enough, it needs to be added in order that it is evaluated). 
+    The method `createAndAddAssertion` returns itself (the same `Expect`) making it easy for you to provide a fluent API as well.
  
     The method [createAndAddAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html)
     expects:
     - a either a `String` or a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
       as description of your assertion.
     - the representation of the expected value.
-    - and the actual check as lambda where you typically use the `it` which refers to the subject of the assertion.
+    - and the actual check as lambda where you typically use `it` which refers to the subject of the assertion.
      
 We used a `String` as description in the above example because we are not bothered with internationalization at this point
 (have a look at [Internationalization](#internationalization-1) if you are).
@@ -1403,7 +1403,7 @@ expect(13).isEven()
 
 ## Compose Assertion Functions
 
-So far I ran quickly into the situation where I want to compose functions or 
+So far we ran quickly into the situation where we wanted to compose functions or
 reuse existing functions but with different arguments. 
 We will show both use cases here, starting off by composing functions. 
 
@@ -1588,20 +1588,20 @@ was the API level) so that you can reuse and compose them in other ways.
 You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
-Unfortunately I do not have the time to cover all cases, so let me know  if you want to know more
+Unfortunately we do not have the time to cover all cases, so let me know  if you want to know more
 -- either by opening an issue or via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](http://slack.kotlinlang.org/)).
 
 ## Own Sophisticated Assertion Builders
 
 Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
-Great, I do not provide hands on documentation yet (had only one question about it so far). 
+Great, we do not provide hands on documentation yet (had only one question about it so far). 
 Therefore, please have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
 [ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization-1).
 
-I am willing to provide more documentation if you need it (please open an issue). 
-In the meantime I might help you via slack, please post your questions in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+We are willing to provide more documentation if you need it (please open an issue). 
+In the meantime we might help you via slack, please post your questions in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet).
 
 
@@ -1612,13 +1612,14 @@ Atrium offers three assertion verbs out of the box: `expect`, `assert` and `asse
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
  1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt)
- 2. Create your own atriumVerbs.kt and paste the previously copied content.
+ 2. Create your own atriumVerbs.kt and paste the previously copied content 
+    -- notice that you can also use a `String` for the assertion verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
     ```
     dependencies {
-        testCompile("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
+        testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
             exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
         }
     }
@@ -1637,7 +1638,7 @@ What are the benefits of creating own assertion verbs:
     <details>
     <summary>:interrobang: where should I put the atriumVerbs.kt?</summary>
     
-    I suggest you create an adapter project for Atrium where you specify the assertion verbs. 
+    We suggest you create an adapter project for Atrium where you specify the assertion verbs. 
     And most likely you will accumulate them with assertion functions which are so common 
     that they appear in multiple projects -- please share them with us (get in touch with us via issue or slack) if they are not of an internal nature :wink:
     
@@ -1782,7 +1783,7 @@ with a test which defines whether the assertion holds as well as a description (
 
 [`ExpectImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-expect-impl/index.html)
 helps you in writing own assertion functions. 
-I suggest you use it as entry point (rather than memorizing different class names), 
+We suggest you use it as entry point (rather than memorizing different class names), 
 it guides you to existing assertion function implementations for different types 
 as well as to other builders such as the [`AssertionBuilder`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html)
 which in turn helps you with creating assertions.
@@ -1870,7 +1871,7 @@ According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_i
 library does not yet offer a lot of out-of-the-box assertion functions. 
 More functions will follow but only if they are used somewhere by someone. 
 So, let me know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
-Some assertion functions which I miss myself will follow in the next version. 
+Some assertion functions which we miss ourselfs will follow in the next version. 
 They are listed in the [Roadmap](#roadmap) below.
 
 Atrium does especially not support (yet):
@@ -1893,7 +1894,7 @@ expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<Iterable<E>>`.
 
 <details>
-<summary>:interrobang: why do I not see anything aboutthe transformation in reporting?</summary>
+<summary>:interrobang: why do I not see anything about the transformation in reporting?</summary>
 
 `asIterable` uses `ExpectImpl.changeSubject.unreported` internally which is intended for not showing up in reporting.
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
@@ -1960,7 +1961,7 @@ And some features which would be handy
 
 # Roadmap
 
-I plan that Atrium is going to support certain features in the future. Following a rough plan (no guarantees).
+We plan that Atrium is going to support certain features in the future. Following a rough plan (no guarantees).
 
 ## 0.9.0
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
@@ -1998,7 +1999,7 @@ You are more than welcome to contribute as well:
 - [open a bug](https://github.com/robstoll/atrium/issues/new?template=bug_report.md) or [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 - share your ideas via [issue](https://github.com/robstoll/atrium/issues/new) or [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-  so that I better understand where Atrium needs to improve.
+  so that we better understand where Atrium needs to improve.
 - write a blog post about Atrium (e.g. about a feature you like) or a tutorial (let us know we happily link to your page)
 - share your assertion functions with the rest of us by creating a pull request (no need for i18n support or the like, we can augment your pull request).
 - have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
