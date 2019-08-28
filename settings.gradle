@@ -1,7 +1,7 @@
 rootProject.name = 'atrium'
 
 buildscript {
-    gradle.ext.tutteli_plugins_version = '0.27.3'
+    gradle.ext.tutteli_plugins_version = '0.28.1'
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -21,7 +21,6 @@ include {
             self.kotlinJvmJsAndroid(suffix)
         } else {
             self.kotlinJvmJs(suffix)
-
         }
     }
 
@@ -87,13 +86,13 @@ include {
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
     }
-    
+
     samples {
         js {
             project('mocha')
         }
     }
-    
+
 
     //TODO remove all below with 1.0.0
     bundles {

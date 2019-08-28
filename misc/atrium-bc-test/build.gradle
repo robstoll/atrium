@@ -14,9 +14,10 @@ configurations {
 }
 
 dependencies {
-    common "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
     common "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
     common "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
+    common "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+    common "org.junit.platform:junit-platform-console:$junit_platform_version"
 
     common mockito(), excludeKotlin
     common kotlinStdlib()
