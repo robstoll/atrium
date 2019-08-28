@@ -422,6 +422,9 @@ if (System.getenv('CI')) {
     )
 }
 
+def jvmBuild = task('jvmBuild', group: build, description: 'builds all JVM modules')
+jvmBuild.dependsOn(jacocoMulti.jacocoProjects.collect { it.build })
+
 /*
 
 Release & deploy a commit
