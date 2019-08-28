@@ -14,7 +14,7 @@ fun GroupBody.describeFunTemplate(
     funNamePrefix: String = "`",
     funNameSuffix: String = "`",
     body: Suite.() -> Unit
-) = prefixedDescribeTemplate(
+): Unit = prefixedDescribeTemplate(
     describePrefix, " fun ",
     giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body
 )
@@ -25,13 +25,17 @@ private fun giveWrappedNames(names: Array<out String>, prefix: String, postfix: 
     }
 }
 
-fun GroupBody.prefixedDescribeTemplate(prefix: String, description: String, body: Suite.() -> Unit) =
+fun GroupBody.prefixedDescribeTemplate(prefix: String, description: String, body: Suite.() -> Unit): Unit =
     prefixedDescribeTemplate(prefix, "", description, body)
 
-fun GroupBody.prefixedDescribeTemplate(prefix: String, suffix: String, description: String, body: Suite.() -> Unit) =
-    describe("${prefix}describe$suffix $description", body = body)
+fun GroupBody.prefixedDescribeTemplate(
+    prefix: String,
+    suffix: String,
+    description: String,
+    body: Suite.() -> Unit
+): Unit = describe("${prefix}describe$suffix $description", body = body)
 
-fun Root.include(spek: Spek) = spek.root(this)
+fun Root.include(spek: Spek): Unit = spek.root(this)
 
 fun <T : Any> Suite.checkNarrowingAssertion(
     description: String,
@@ -47,7 +51,7 @@ fun <T> Suite.checkGenericNarrowingAssertion(
     act: (T.() -> Unit) -> Unit,
     lazy: (T.() -> Unit),
     vararg otherMethods: Pair<String, (T.() -> Unit)>
-) = checkGenericNarrowingAssertion(description, act, "lazy" to lazy, *otherMethods)
+): Unit = checkGenericNarrowingAssertion(description, act, "lazy" to lazy, *otherMethods)
 
 fun <T> Suite.checkGenericNarrowingAssertion(
     description: String, act: (T.() -> Unit) -> Unit, vararg methods: Pair<String, (T.() -> Unit)>

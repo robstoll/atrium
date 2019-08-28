@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * or an own assertion function API (e.g., atrium-api-cc-en_GB in a different language)
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */
+@Suppress("DEPRECATION")
 object AssertionVerbFactory : ch.tutteli.atrium.spec.AssertionVerbFactory {
 
     override fun <T : Any> checkImmediately(subject: T) = assert(subject)
