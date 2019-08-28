@@ -7,7 +7,7 @@ import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -29,7 +29,6 @@ class SmokeTest {
     fun assertionFunctionWithI18nCanBeUsed() {
         assertThat(4).isMultipleOf(2)
     }
-
 
     @Test
     fun assertWithinAssert() {
@@ -80,13 +79,15 @@ class SmokeTest {
     }
 }
 
+fun Expect<Int>.isEven(): Expect<Int> =
+    createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { it % 2 == 0 }
 
-@Suppress("DEPRECATION")
-fun Expect<Int>.isEven() = createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
+fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = addAssertion(_isMultipleOf(this, base))
 
-fun Expect<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
-
-private fun _isMultipleOf(assertionContainer: Expect<Int>, base: Int): Assertion = AssertImpl.builder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
+private fun _isMultipleOf(assertionContainer: Expect<Int>, base: Int): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
+        it % base == 0
+    }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")
