@@ -19,7 +19,11 @@ install: true
 script:
   - |
     if [ $MODE == current ]; then
+      if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+        ./gr jvmBuild buildAllAndroid
+      else
         ./gr build
+      fi
     elif [ $MODE == bbc ]; then
         ./gr bbcTests
     else
