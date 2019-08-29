@@ -10,11 +10,9 @@ import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
-//TODO #116 migrate spek1 to spek2 - move to common module
 class AdjustStackSpec : Spek({
 
     describe("no-op adjuster") {
@@ -27,9 +25,9 @@ class AdjustStackSpec : Spek({
                 assertNoOp(1).toBe(2)
             }.toThrow<AssertionError> {
                 feature { f(it::stackBacktrace) }.contains(
-                    { startsWith("org.jetbrains.spek") },
-                    { startsWith("org.junit") },
-                    { startsWith("ch.tutteli.atrium") }
+                    { startsWith("org.spekframework.spek2") },
+                    { startsWith("ch.tutteli.atrium.creating") },
+                    { startsWith("ch.tutteli.atrium.reporting") }
                 )
             }
         }
@@ -43,13 +41,13 @@ class AdjustStackSpec : Spek({
     mapOf(
         "remove test runner adjuster" to Triple(
             ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-            listOf("org.jetbrains.spek", "org.junit"),
+            listOf("org.spekframework.spek2", "kotlin.coroutines", "kotlinx.coroutines"),
             listOf("ch.tutteli.atrium")
         ),
         "remove atrium adjuster" to Triple(
             ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
             listOf("ch.tutteli.atrium"),
-            listOf("org.jetbrains.spek", "org.junit")
+            listOf("org.spekframework.spek2")
         )
     ).forEach { (description, triple) ->
         val (adjuster, containsNot, contains) = triple
@@ -150,7 +148,7 @@ class AdjustStackSpec : Spek({
             )
     ).forEach { (description, adjuster) ->
         describe(description) {
-            it("does neither contain atrium nor spek nor junit in stackBacktrace") {
+            it("stackBacktrace is empty as we filter out everything") {
                 expect {
                     createExpect(1, adjuster).toBe(2)
                 }.toThrow<AssertionError> {
@@ -158,13 +156,13 @@ class AdjustStackSpec : Spek({
                 }
             }
 
-            it("does neither contain atrium nor spek nor junit in stackBacktrace of cause") {
+            it("stackBacktrace of cause is empty as we filter out everything") {
                 val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 adjuster.adjust(throwable)
                 expect(throwable.cause!!.stackBacktrace).isEmpty()
             }
 
-            it("does neither contain atrium nor spek nor junit in stackBacktrace of suppressed") {
+            it("stackBacktrace of suppressed is empty as we filter out everything") {
                 val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable = IllegalStateException("with suppressed")
