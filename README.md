@@ -8,7 +8,7 @@
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
-It is designed to support multiple [APIs](#apis), different error reporting styles and [Internationalization](#internationalization-1) (i18n). 
+It is designed to support multiple [APIs](#api-styles), different error reporting styles and [Internationalization](#internationalization-1) (i18n). 
 The project was inspired by AssertJ at first but moved on and provides now more 
 flexibility, features and hints to its users (so to you :wink:).
 
@@ -16,7 +16,7 @@ Atrium is designed to be extensible as well as configurable
 and allows you to extend it with your own assertion functions, customise reporting 
 or even replace core components with your own implementation in an easy way.
 
-Atrium currently provides two [API](#apis) styles:
+Atrium currently provides two [API Styles](#api-styles):
 pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
@@ -57,7 +57,7 @@ For instance, the [README of v0.8.0](https://github.com/robstoll/atrium/tree/v0.
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
   - [ReporterBuilder](#reporterbuilder)
 - [Internationalization](#internationalization-1)
-- [APIs](#apis)
+- [API Styles](#api-styles)
 - [Java Interoperability](#java-interoperability)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
@@ -1304,7 +1304,7 @@ Another design goal of Atrium was to give you the flexibility needed but still a
 First and most importantly, Atrium does not enforce a certain style on your code base. 
 Quite the contrary, it gives you the flexibility to [choose a desired name for the assertion verbs](#use-own-assertion-verbs), 
 it continues by providing the possibility to configure the [reporting style](#reporterbuilder), 
-goes on that you can chose from different [API styles](#apis) 
+goes on that you can chose from different [API Styles](#api-styles) 
 and ends that you can replace almost all components by other implementations and hook into existing.
 
 So for instance, if you like to use an `infix` API, then use the bundle `atrium-infix-en_GB`. 
@@ -1817,7 +1817,8 @@ A service could also reuse parts of the `Implementation`
 
 </details>
 
-# APIs
+<a name="apis"></a>
+# API Styles
 Atrium supports currently two API styles: pure `fluent` and `infix` 
 where `fluent` exists in English and German; `infix` only in English.
 All have their design focus on interoperability with code completion functionality of your IDE 
