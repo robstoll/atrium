@@ -2,7 +2,7 @@
 buildscript {
     ext {
         atrium_api='atrium-fluent-en_GB-js'
-        atrium_version='0.8.0'
+        atrium_version='0.9.0-alpha'
     }
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
