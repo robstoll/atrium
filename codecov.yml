@@ -7,6 +7,7 @@ ignore:
     # TODO remove with 1.0.0
     - "misc/atrium-assertions/**/*"
     - "misc/specs/**/*"
+    - "misc/atrium-bc-test/**/*"
     - "apis/**/assertions/**/*"
     - "domain/api/**/assertions/**/*"
     - "domain/atrium-domain-api-deprecated/**/*"
