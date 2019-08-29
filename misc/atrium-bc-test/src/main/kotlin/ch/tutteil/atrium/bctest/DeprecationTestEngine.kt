@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.spec
+package ch.tutteil.atrium.bctest
 
 import org.jetbrains.spek.engine.Scope
 import org.jetbrains.spek.engine.SpekEngineDescriptor

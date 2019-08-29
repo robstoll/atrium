@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.spec
+package ch.tutteil.atrium.bctest
 
 import org.jetbrains.spek.api.dsl.TestBody
 import org.jetbrains.spek.api.lifecycle.TestScope

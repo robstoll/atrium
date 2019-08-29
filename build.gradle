@@ -31,6 +31,7 @@ buildscript {
         docProjects = subprojects.findAll {
             !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
+                it.name != "${rootProject.name}-bc-test" &&
                 !it.name.startsWith("${rootProject.name}-specs")
         }
         ghPages_version = rootProject.version
