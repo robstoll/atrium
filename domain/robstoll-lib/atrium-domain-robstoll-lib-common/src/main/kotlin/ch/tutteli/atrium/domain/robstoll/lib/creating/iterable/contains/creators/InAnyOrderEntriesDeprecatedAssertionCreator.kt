@@ -43,10 +43,17 @@ class InAnyOrderEntriesDeprecatedAssertionCreator<out E : Any, in T : Iterable<E
 ) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
 
-    override fun searchAndCreateAssertion(subjectProvider: SubjectProvider<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+    override fun searchAndCreateAssertion(
+        subjectProvider: SubjectProvider<T>,
+        searchCriterion: (AssertionPlant<E>.() -> Unit)?,
+        featureFactory: (Int, Translatable) -> AssertionGroup
+    ): AssertionGroup {
         val iterable = subjectProvider.maybeSubject.getOrElse { emptyList<E?>() }
         val hasElementAssertion = createHasElementAssertion(iterable)
-        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(iterable.iterator(), searchCriterion)
+        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(
+            iterable.iterator(),
+            searchCriterion
+        )
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertions)
@@ -68,14 +75,20 @@ class InAnyOrderEntriesDeprecatedAssertionCreator<out E : Any, in T : Iterable<E
     }
 
     @Suppress("DEPRECATION")
-    private fun createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E?>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Pair<List<Assertion>, Int> {
+    private fun createExplanatoryAssertionsAndMatchingCount(
+        itr: Iterator<E?>,
+        assertionCreator: (AssertionPlant<E>.() -> Unit)?
+    ): Pair<List<Assertion>, Int> {
         return if (itr.hasNext()) {
             val (firstNonNullOrNull, sequence) = getFirstNonNullAndSequence(itr, sequenceOf())
             val group = collectIterableAssertionsForExplanationWithFirst(assertionCreator, firstNonNullOrNull)
             val count = sequence.count { allCreatedAssertionsHold(it, assertionCreator) }
             group to count
         } else {
-            val group = collectIterableAssertionsForExplanation(assertionCreator, ch.tutteli.atrium.creating.MaybeSubject.Absent)
+            val group = collectIterableAssertionsForExplanation(
+                assertionCreator,
+                ch.tutteli.atrium.creating.MaybeSubject.Absent
+            )
             group to 0
         }
     }

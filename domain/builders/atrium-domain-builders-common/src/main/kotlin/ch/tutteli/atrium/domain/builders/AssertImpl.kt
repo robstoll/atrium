@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -112,7 +113,7 @@ interface AssertImplCommon {
     fun <T, R : Any> changeSubject(
         originalAssertionCreator: Expect<T>,
         transformation: (T) -> R
-    ): Expect<R> =  subjectChanger.unreported(originalAssertionCreator, transformation)
+    ): Expect<R> = subjectChanger.unreported(originalAssertionCreator, transformation)
 
     /**
      * Creates a new [AssertionPlantNullable] based on the given [subjectProvider] whereas the [AssertionPlant]

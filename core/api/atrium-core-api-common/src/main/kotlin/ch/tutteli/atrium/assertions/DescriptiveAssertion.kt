@@ -16,7 +16,8 @@ interface DescriptiveAssertion : Assertion {
     val representation: Any
 
     @Deprecated("Use representation; will be removed with 1.0.0", ReplaceWith("representation"))
-    val expected get() = representation
+    val expected
+        get() = representation
 
     /**
      * The complementary description to the [representation] result such as `contains`, `is not` etc.

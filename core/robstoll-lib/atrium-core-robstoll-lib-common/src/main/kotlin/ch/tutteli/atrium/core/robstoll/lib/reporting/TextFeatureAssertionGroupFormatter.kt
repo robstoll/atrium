@@ -37,12 +37,18 @@ class TextFeatureAssertionGroupFormatter(
     bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController,
     private val assertionPairFormatter: AssertionPairFormatter
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<FeatureAssertionGroupType>(FeatureAssertionGroupType::class, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<FeatureAssertionGroupType>(
+    FeatureAssertionGroupType::class,
+    assertionFormatterController
+) {
 
     private val prefix = (bulletPoints[FeatureAssertionGroupType::class] ?: "◾ ")
     private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class] ?: "▶ ")
 
-    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
+    override fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.description)
         val group =

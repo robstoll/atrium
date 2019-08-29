@@ -33,5 +33,7 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("Diskrepanzen und zusätzliche Einträge entdeckt"),
 }
 
-internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS = "Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten"
-internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS = "Besuchen Sie die folgende Website für weiterführende Informationen (in Englisch): https://docs.atriumlib.org/could-not-evaluate-assertions"
+internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS =
+    "Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten"
+internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS =
+    "Besuchen Sie die folgende Website für weiterführende Informationen (in Englisch): https://docs.atriumlib.org/could-not-evaluate-assertions"

@@ -42,6 +42,8 @@ interface BasicAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGrou
             description: Translatable,
             representation: Any,
             assertions: List<Assertion>
-        ): BasicAssertionGroupFinalStep = BasicAssertionGroupFinalStepImpl(groupType, description, representation, assertions)
+        ): BasicAssertionGroupFinalStep = BasicAssertionGroupFinalStepImpl(
+            groupType, description, representation, assertions
+        )
     }
 }

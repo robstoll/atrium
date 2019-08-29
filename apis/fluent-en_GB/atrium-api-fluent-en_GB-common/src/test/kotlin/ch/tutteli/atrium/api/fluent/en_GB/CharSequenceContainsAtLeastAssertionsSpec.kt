@@ -79,7 +79,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ) = expect.contains.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
-        private val atLeastButAtMostIgnoringCaseDescr =  { what: String, timesAtLeast: String, timesAtMost: String ->
+        private val atLeastButAtMostIgnoringCaseDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
             "$contains $ignoringCase $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
         }
 

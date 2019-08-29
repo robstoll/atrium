@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.*
 /**
  * Provides options to create a [Translator] -- the platform specific interface might provide further options.
  */
-expect interface TranslatorOption: TranslatorOptionCommon
+expect interface TranslatorOption : TranslatorOptionCommon
 
 /**
  * Provides options to create a [Translator] -- those options have to be provided on all platforms.

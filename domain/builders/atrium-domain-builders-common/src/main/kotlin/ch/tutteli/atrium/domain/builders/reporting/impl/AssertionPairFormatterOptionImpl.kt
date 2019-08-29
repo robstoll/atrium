@@ -11,6 +11,6 @@ internal class AssertionPairFormatterOptionImpl(
     override val options: AssertionFormatterChosenOptions
 ) : AssertionPairFormatterOption {
 
-    override fun withTextAssertionPairFormatter(factory: (ObjectFormatter, Translator) -> AssertionPairFormatter)
-        = TextAssertionFormatterOption.create(options, factory(options.objectFormatter, options.translator))
+    override fun withTextAssertionPairFormatter(factory: (ObjectFormatter, Translator) -> AssertionPairFormatter) =
+        TextAssertionFormatterOption.create(options, factory(options.objectFormatter, options.translator))
 }

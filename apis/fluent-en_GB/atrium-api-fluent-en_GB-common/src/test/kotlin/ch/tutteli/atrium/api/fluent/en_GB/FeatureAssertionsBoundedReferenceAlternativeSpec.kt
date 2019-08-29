@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-
-
 class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
     propertyImmediate,
     propertyLazy,
@@ -102,4 +100,3 @@ class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs
         val f5EmptyAssertionCreator: F = { feature({ f5(it::return5, "a", 1, true, 1.2, 'b') }) {} }
     }
 }
-

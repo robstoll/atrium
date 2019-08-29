@@ -11,6 +11,5 @@ class SearchBehaviourFactoryImpl : SearchBehaviourFactory {
 
     override fun <T : CharSequence> ignoringCase(
         containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-    ): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-        = _containsIgnoringCase(containsBuilder)
+    ): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour> = _containsIgnoringCase(containsBuilder)
 }

@@ -26,7 +26,6 @@ interface ObjectFormatterOption {
     fun withObjectFormatter(factory: (Translator) -> ObjectFormatter): AssertionFormatterControllerOption
 
     companion object {
-        fun create(translator: Translator): ObjectFormatterOption
-            = ObjectFormatterOptionImpl(translator)
+        fun create(translator: Translator): ObjectFormatterOption = ObjectFormatterOptionImpl(translator)
     }
 }

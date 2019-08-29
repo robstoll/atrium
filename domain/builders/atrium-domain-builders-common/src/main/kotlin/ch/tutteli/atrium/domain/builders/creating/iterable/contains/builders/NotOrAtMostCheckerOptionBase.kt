@@ -22,7 +22,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  */
 abstract class NotOrAtMostCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     final override val times: Int,
-    final override  val containsBuilder: IterableContains.Builder<E, T, S>,
+    final override val containsBuilder: IterableContains.Builder<E, T, S>,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String
 ) : WithTimesCheckerOption<E, T, S> {

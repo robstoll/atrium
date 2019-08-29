@@ -230,7 +230,7 @@ abstract class TranslatorIntSpec(
     }
 
     prefixedDescribe("primary locale is 'de_CH', fallback is 'fr' and then 'it'") {
-        context("properties file for ${AssertionVerb::class.simpleName} is not provided for 'de_CH' nor one of its parents"){
+        context("properties file for ${AssertionVerb::class.simpleName} is not provided for 'de_CH' nor one of its parents") {
             describe("translation for $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is not provided for 'fr' nor for 'it'") {
                 it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     expect {

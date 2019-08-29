@@ -10,9 +10,8 @@ internal class ObjectFormatterOptionImpl(
     override val translator: Translator
 ) : ObjectFormatterOption {
 
-    override fun withDetailedObjectFormatter()
-        = withObjectFormatter(coreFactory::newDetailedObjectFormatter)
+    override fun withDetailedObjectFormatter() = withObjectFormatter(coreFactory::newDetailedObjectFormatter)
 
-    override fun withObjectFormatter(factory: (Translator) -> ObjectFormatter)
-        = AssertionFormatterControllerOption.create(factory(translator), translator)
+    override fun withObjectFormatter(factory: (Translator) -> ObjectFormatter) =
+        AssertionFormatterControllerOption.create(factory(translator), translator)
 }

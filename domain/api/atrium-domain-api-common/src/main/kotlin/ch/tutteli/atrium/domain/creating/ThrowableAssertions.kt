@@ -22,8 +22,8 @@ interface ThrowableAssertions {
     /**
      * Turns the given [assertionVerb] into an [Untranslatable] and delegates to the other overload.
      */
-    fun thrownBuilder(assertionVerb: String, act: () -> Unit, reporter: Reporter): ThrowableThrown.Builder
-        = thrownBuilder(Untranslatable(assertionVerb), act, reporter)
+    fun thrownBuilder(assertionVerb: String, act: () -> Unit, reporter: Reporter): ThrowableThrown.Builder =
+        thrownBuilder(Untranslatable(assertionVerb), act, reporter)
 
     fun thrownBuilder(assertionVerb: Translatable, act: () -> Unit, reporter: Reporter): ThrowableThrown.Builder
 }

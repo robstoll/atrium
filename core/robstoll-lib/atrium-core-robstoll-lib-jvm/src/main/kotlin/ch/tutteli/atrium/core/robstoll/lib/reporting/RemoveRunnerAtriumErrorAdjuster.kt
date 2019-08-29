@@ -7,7 +7,8 @@ actual class RemoveRunnerAtriumErrorAdjuster : FilterAtriumErrorAdjuster(), Atri
     override fun adjustStackTrace(stackTrace: Sequence<StackTraceElement>): Sequence<StackTraceElement> =
         stackTrace.takeWhile {
             !it.className.startsWith("org.junit") &&
-            !it.className.startsWith("org.jetbrains.spek") &&
-            !it.className.startsWith("io.kotlintest")
+                !it.className.startsWith("org.jetbrains.spek") &&
+                !it.className.startsWith("org.spekframework.spek2") &&
+                !it.className.startsWith("io.kotlintest")
         }
 }

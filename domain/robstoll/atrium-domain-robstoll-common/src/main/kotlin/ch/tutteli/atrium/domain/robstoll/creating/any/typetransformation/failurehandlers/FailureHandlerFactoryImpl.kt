@@ -12,12 +12,11 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fai
 @Deprecated("use _changeSubject or _extractFeature instead; will be removed with 1.0.0")
 class FailureHandlerFactoryImpl : FailureHandlerFactory {
 
-    override fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T>
-        = ExplanatoryFailureHandler()
+    override fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T> =
+        ExplanatoryFailureHandler()
 
     override fun <S : Any, T : Any> newExplanatoryWithHint(
         showHint: () -> Boolean,
         failureHintFactory: () -> Assertion
-    ): AnyTypeTransformation.FailureHandler<S, T>
-        = ExplanatoryFailureHandlerWithHint(showHint, failureHintFactory)
+    ): AnyTypeTransformation.FailureHandler<S, T> = ExplanatoryFailureHandlerWithHint(showHint, failureHintFactory)
 }

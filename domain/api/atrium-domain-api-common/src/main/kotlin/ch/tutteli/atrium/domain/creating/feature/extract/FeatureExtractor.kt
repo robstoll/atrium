@@ -41,14 +41,14 @@ interface FeatureExtractor {
          * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a description
          * of a method call with the given [methodName] and the given [arguments].
          */
-        fun methodCall(methodName: String, vararg arguments: Any?): ParameterObjectOption
-            = feature(coreFactory.newMethodCallFormatter().format(methodName, arguments))
+        fun methodCall(methodName: String, vararg arguments: Any?): ParameterObjectOption =
+            feature(coreFactory.newMethodCallFormatter().format(methodName, arguments))
 
         /**
          * Uses the given [featureRepresentation] as description.
          */
-        fun feature(featureRepresentation: () -> String): ParameterObjectOption
-            = withDescription(Untranslatable(featureRepresentation))
+        fun feature(featureRepresentation: () -> String): ParameterObjectOption =
+            withDescription(Untranslatable(featureRepresentation))
 
         /**
          * Uses the given [translatable] as description of the feature.
@@ -72,8 +72,7 @@ interface FeatureExtractor {
          */
         fun <TSubject : Any, T : Any> withParameterObject(
             parameterObject: ParameterObject<TSubject, T>
-        ): Creator<TSubject, T>
-            = featureExtractorCreatorFactory.create(featureDescription, parameterObject)
+        ): Creator<TSubject, T> = featureExtractorCreatorFactory.create(featureDescription, parameterObject)
 
         /**
          * Uses the given [parameterObject] where a nullable feature is extracted by
@@ -81,8 +80,8 @@ interface FeatureExtractor {
          */
         fun <TSubject : Any, T : Any?> withParameterObjectNullable(
             parameterObject: ParameterObject<TSubject, T>
-        ): CreatorNullable<TSubject, T>
-            = featureExtractorCreatorFactory.createNullable(featureDescription, parameterObject)
+        ): CreatorNullable<TSubject, T> =
+            featureExtractorCreatorFactory.createNullable(featureDescription, parameterObject)
     }
 
     /**

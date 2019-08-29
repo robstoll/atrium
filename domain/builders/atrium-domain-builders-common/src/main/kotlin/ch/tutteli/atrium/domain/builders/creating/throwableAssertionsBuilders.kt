@@ -62,8 +62,8 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
-    override inline fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
-        = throwableThrownAssertions.nothingThrown(throwableThrownBuilder)
+    override inline fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder) =
+        throwableThrownAssertions.nothingThrown(throwableThrownBuilder)
 
     /**
      * Returns [AbsentThrowableMessageProviderFactoryBuilder]
@@ -71,7 +71,8 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
     @Deprecated("Will be removed with 1.0.0")
-    inline val providers get() = AbsentThrowableMessageProviderFactoryBuilder
+    inline val providers
+        get() = AbsentThrowableMessageProviderFactoryBuilder
 }
 
 /**
@@ -81,7 +82,8 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
  */
 @Suppress("DEPRECATION")
 @Deprecated("Will be removed with 1.0.0")
-object AbsentThrowableMessageProviderFactoryBuilder : ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory {
+object AbsentThrowableMessageProviderFactoryBuilder :
+    ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory {
 
     override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider =
         absentThrowableMessageProviderFactory.translatableBased(translatable)

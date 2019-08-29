@@ -14,9 +14,9 @@ internal class AssertionFormatterFacadeOptionImpl(
     override val translator: Translator
 ) : AssertionFormatterFacadeOption {
 
-    override fun withDefaultAssertionFormatterFacade()
-        = withAssertionFormatterFacade(coreFactory::newAssertionFormatterFacade)
+    override fun withDefaultAssertionFormatterFacade() =
+        withAssertionFormatterFacade(coreFactory::newAssertionFormatterFacade)
 
-    override fun withAssertionFormatterFacade(factory: (AssertionFormatterController) -> AssertionFormatterFacade)
-        = AssertionPairFormatterOption.create(factory(assertionFormatterController), objectFormatter, translator)
+    override fun withAssertionFormatterFacade(factory: (AssertionFormatterController) -> AssertionFormatterFacade) =
+        AssertionPairFormatterOption.create(factory(assertionFormatterController), objectFormatter, translator)
 }

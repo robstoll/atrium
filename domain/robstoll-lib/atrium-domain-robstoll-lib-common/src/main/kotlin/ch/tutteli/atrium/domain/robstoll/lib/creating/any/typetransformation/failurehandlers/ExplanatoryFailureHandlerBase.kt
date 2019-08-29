@@ -14,7 +14,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeTransformation.FailureHandler<S, T> {
 
     override fun createAndAddAssertionToPlant(parameterObject: ParameterObject<S, T>) {
-        val explanatoryAssertions = collectAssertions(parameterObject.warningTransformationFailed, parameterObject.assertionCreator)
+        val explanatoryAssertions = collectAssertions(
+            parameterObject.warningTransformationFailed, parameterObject.assertionCreator
+        )
         val assertion = AssertImpl.builder.invisibleGroup
             .withAssertions(
                 createFailingAssertion(parameterObject.description, parameterObject.representation),

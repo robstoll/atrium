@@ -38,8 +38,15 @@ class AssertionFormatterControllerImpl : AssertionFormatterController {
             && !parameterObject.assertionFilter(assertion)
     }
 
-    private fun formatGroup(assertionGroup: AssertionGroup, assertionFormatter: AssertionFormatter, parameterObject: AssertionFormatterParameterObject) {
-        assertionFormatter.formatGroup(assertionGroup, parameterObject) { childParameterObject, formatAssertionInGroup ->
+    private fun formatGroup(
+        assertionGroup: AssertionGroup,
+        assertionFormatter: AssertionFormatter,
+        parameterObject: AssertionFormatterParameterObject
+    ) {
+        assertionFormatter.formatGroup(
+            assertionGroup,
+            parameterObject
+        ) { childParameterObject, formatAssertionInGroup ->
             assertionGroup.assertions
                 .filter { !noNeedToFormat(it, childParameterObject) }
                 .forEach { formatChild(it, formatAssertionInGroup) }

@@ -117,13 +117,13 @@ class KClassCastTest {
     fun illegalCasts_functionTypes__throwsClassCastException() {
         //TODO should throw but does not, see https://youtrack.jetbrains.com/issue/KT-27846
 //        expect {
-            val f: () -> Int = { 1 }
-            f::class.cast({ "a" })
+        val f: () -> Int = { 1 }
+        f::class.cast({ "a" })
 //        }.toThrow<ClassCastException> { messageContains("??? 1")  }
 
         //TODO should throw but does not, see https://youtrack.jetbrains.com/issue/KT-27846
 //        expect{
-            type<() -> Int>().cast({ "a " })
+        type<() -> Int>().cast({ "a " })
 //        }.toThrow<ClassCastException> { messageContains("??? 2")  }
 
         expect {

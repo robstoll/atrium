@@ -11,7 +11,13 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 @Suppress("DEPRECATION")
 @Deprecated("Use DescriptionAnyAssertion instead; will be removed with 1.0.0")
 enum class DescriptionTypeTransformationAssertion(override val value: String) : StringBasedTranslatable {
-    @Deprecated("Use DescriptionAnyAssertion", ReplaceWith("DescriptionAnyAssertion.IS_INSTANCE_OF_TYPE", "ch.tutteli.atrium.translations.DescriptionAnyAssertion"))
+    @Deprecated(
+        "Use DescriptionAnyAssertion",
+        ReplaceWith(
+            "DescriptionAnyAssertion.IS_INSTANCE_OF_TYPE",
+            "ch.tutteli.atrium.translations.DescriptionAnyAssertion"
+        )
+    )
     IS_A("ist vom Typ oder ein Subtyp von"),
     WARNING_DOWN_CAST_FAILED("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- down-cast zu %s schlug fehl.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
 }

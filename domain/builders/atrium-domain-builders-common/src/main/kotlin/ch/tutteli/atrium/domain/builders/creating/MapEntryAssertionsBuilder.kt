@@ -38,7 +38,6 @@ object MapEntryAssertionsBuilder : MapEntryAssertions {
         mapEntryAssertions.value(assertionContainer)
 
 
-
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <K : Any, V : Any> isKeyValue(

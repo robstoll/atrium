@@ -16,7 +16,8 @@ interface AssertionGroup : Assertion {
     val description: Translatable
 
     @Deprecated("Use description; will be removed with 1.0.0", ReplaceWith("description"))
-    val name get() = description
+    val name
+        get() = description
 
 
     /**
@@ -34,7 +35,8 @@ interface AssertionGroup : Assertion {
     val representation: Any
 
     @Deprecated("Use representation; will be removed with 1.0.0", ReplaceWith("representation"))
-    val subject get() = representation
+    val subject
+        get() = representation
 
 
     /**
@@ -113,17 +115,17 @@ interface AssertionGroup : Assertion {
 
         @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
-            fun create(name: Translatable, subject: Any, assertion: Assertion): AssertionGroup
-                = assertionBuilder.customType(groupType)
-                .withDescriptionAndRepresentation(name, subject)
-                .withAssertion(assertion)
-                .build()
+            fun create(name: Translatable, subject: Any, assertion: Assertion): AssertionGroup =
+                assertionBuilder.customType(groupType)
+                    .withDescriptionAndRepresentation(name, subject)
+                    .withAssertion(assertion)
+                    .build()
 
-            fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = assertionBuilder.customType(groupType)
-                .withDescriptionAndRepresentation(name, subject)
-                .withAssertions(assertions)
-                .build()
+            fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup =
+                assertionBuilder.customType(groupType)
+                    .withDescriptionAndRepresentation(name, subject)
+                    .withAssertions(assertions)
+                    .build()
         }
 
         @Suppress("DEPRECATION")
@@ -137,22 +139,21 @@ interface AssertionGroup : Assertion {
         @Suppress("DEPRECATION")
         @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
         class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
-            fun create(assertion: Assertion): ExplanatoryAssertionGroup
-                = create(assertion)
+            fun create(assertion: Assertion): ExplanatoryAssertionGroup = create(assertion)
 
-            fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup
-                = ExplanatoryAssertionGroup(groupType, assertions)
+            fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup =
+                ExplanatoryAssertionGroup(groupType, assertions)
         }
 
         @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
-            fun create(assertion: Assertion): AssertionGroup
-                = AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)
+            fun create(assertion: Assertion): AssertionGroup =
+                AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)
                     .withAssertion(assertion)
                     .build()
 
-            fun create(assertions: List<Assertion>): AssertionGroup
-                = AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)
+            fun create(assertions: List<Assertion>): AssertionGroup =
+                AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)
                     .withAssertions(assertions)
                     .build()
         }

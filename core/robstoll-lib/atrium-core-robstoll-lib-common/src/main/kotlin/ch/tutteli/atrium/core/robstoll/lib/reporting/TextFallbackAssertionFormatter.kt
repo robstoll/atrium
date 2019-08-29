@@ -59,20 +59,31 @@ class TextFallbackAssertionFormatter(
         }
     }
 
-    private fun appendDescriptiveAssertion(basicAssertion: DescriptiveAssertion, parameterObject: AssertionFormatterParameterObject) {
+    private fun appendDescriptiveAssertion(
+        basicAssertion: DescriptiveAssertion,
+        parameterObject: AssertionFormatterParameterObject
+    ) {
         assertionPairFormatter.format(parameterObject, basicAssertion.description, basicAssertion.representation)
     }
 
-    private fun appendExplanatoryAssertion(assertion: ExplanatoryAssertion, parameterObject: AssertionFormatterParameterObject) {
+    private fun appendExplanatoryAssertion(
+        assertion: ExplanatoryAssertion,
+        parameterObject: AssertionFormatterParameterObject
+    ) {
         parameterObject.sb.append(objectFormatter.format(assertion.explanation))
     }
 
     private fun formatFallback(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
-        val translatable = Untranslatable("Unsupported type ${assertion::class.fullName}, can only report whether it holds")
+        val translatable =
+            Untranslatable("Unsupported type ${assertion::class.fullName}, can only report whether it holds")
         assertionPairFormatter.format(parameterObject, translatable, assertion.holds())
     }
 
-    override fun formatGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) {
+    override fun formatGroup(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject,
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit
+    ) {
         val childParameterObject = formatGroupHeaderAndGetChildParameterObject(assertionGroup, parameterObject)
         formatAssertions(childParameterObject) {
             assertionFormatterController.format(it, childParameterObject)
@@ -82,7 +93,9 @@ class TextFallbackAssertionFormatter(
     private fun formatGroupHeaderAndGetChildParameterObject(
         assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject
     ) = when (assertionGroup.type) {
-        RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, parameterObject)
+        RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(
+            assertionPairFormatter, assertionGroup, parameterObject
+        )
         else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
     }
 

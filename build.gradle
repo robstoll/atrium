@@ -298,6 +298,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
             doLast {
                 services.write("""\
                 @file:Suppress("DEPRECATION")
+                
                 package $packageName
     
                 import ch.tutteli.atrium.core.polyfills.registerService

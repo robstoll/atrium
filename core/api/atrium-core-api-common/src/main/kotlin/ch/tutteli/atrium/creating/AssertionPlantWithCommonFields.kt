@@ -1,8 +1,11 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.evalOnce
+import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**

@@ -6,4 +6,4 @@ import ch.tutteli.atrium.reporting.translating.Translator
 /**
  * Provides options to create a [Translator] or [TranslationSupplier].
  */
-actual interface ReporterBuilder: ReporterBuilderCommon
+actual interface ReporterBuilder : ReporterBuilderCommon

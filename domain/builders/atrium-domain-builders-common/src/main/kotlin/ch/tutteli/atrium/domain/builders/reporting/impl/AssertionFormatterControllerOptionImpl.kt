@@ -12,9 +12,9 @@ internal class AssertionFormatterControllerOptionImpl(
     override val translator: Translator
 ) : AssertionFormatterControllerOption {
 
-    override fun withDefaultAssertionFormatterController()
-        = withAssertionFormatterController(coreFactory.newAssertionFormatterController())
+    override fun withDefaultAssertionFormatterController() =
+        withAssertionFormatterController(coreFactory.newAssertionFormatterController())
 
-    override fun withAssertionFormatterController(assertionFormatterController: AssertionFormatterController)
-        = AssertionFormatterFacadeOption.create(assertionFormatterController, objectFormatter, translator)
+    override fun withAssertionFormatterController(assertionFormatterController: AssertionFormatterController) =
+        AssertionFormatterFacadeOption.create(assertionFormatterController, objectFormatter, translator)
 }

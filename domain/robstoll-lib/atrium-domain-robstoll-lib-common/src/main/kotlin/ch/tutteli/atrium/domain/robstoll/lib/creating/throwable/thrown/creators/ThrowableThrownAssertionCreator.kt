@@ -21,18 +21,24 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider
 ) : ThrowableThrown.Creator<TExpected> {
 
-    override fun executeActAssertNothingThrown(throwableThrownBuilder: ThrowableThrown.Builder){
+    override fun executeActAssertNothingThrown(throwableThrownBuilder: ThrowableThrown.Builder) {
         val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
         val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
-        if (throwable == null){
+        if (throwable == null) {
             subjectPlant.addAssertion(
-                AssertImpl.builder.createDescriptive(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2)) {true}
+                AssertImpl.builder.createDescriptive(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2)) { true }
             )
         } else {
-            val explainingAssertion = AssertImpl.any.typeTransformation.failureHandlers.newExplanatoryWithHint<Any, TExpected>(
-                showHint = trueProvider,
-                failureHintFactory = { ThrowableThrownFailureHandler.propertiesOfException(throwable, maxStackTrace = 15) }
-            ).createFailingAssertion(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2))
+            val explainingAssertion =
+                AssertImpl.any.typeTransformation.failureHandlers.newExplanatoryWithHint<Any, TExpected>(
+                    showHint = trueProvider,
+                    failureHintFactory = {
+                        ThrowableThrownFailureHandler.propertiesOfException(
+                            throwable,
+                            maxStackTrace = 15
+                        )
+                    }
+                ).createFailingAssertion(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2))
             subjectPlant.addAssertion(explainingAssertion)
         }
     }

@@ -18,7 +18,7 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
          * * Creates an [AtriumError] and adjusts it with the given [atriumErrorAdjuster] before it is returned
          * (adjusting might filter the [stackTrace]).
          */
-        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError
-            = createAtriumError(message, atriumErrorAdjuster)
+        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError =
+            createAtriumError(message, atriumErrorAdjuster)
     }
 }

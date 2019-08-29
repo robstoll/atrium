@@ -25,7 +25,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerF
  */
 abstract class AtLeastCheckerOptionBase<out T : CharSequence, out S : SearchBehaviour>(
     final override val times: Int,
-    final override  val containsBuilder: CharSequenceContains.Builder<T, S>,
+    final override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     atLeastCall: (Int) -> String
 ) : WithTimesCheckerOption<T, S> {

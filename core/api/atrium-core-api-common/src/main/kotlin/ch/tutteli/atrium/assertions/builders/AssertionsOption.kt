@@ -41,8 +41,8 @@ interface AssertionsOption<out T : AssertionGroupType, out R> {
     /**
      * Uses the given [assertion1], [assertion2] and [assertion3] as [AssertionGroup.assertions].
      */
-    fun withAssertions(assertion1: Assertion, assertion2: Assertion, assertion3: Assertion): R
-        = withAssertions(listOf(assertion1, assertion2, assertion3))
+    fun withAssertions(assertion1: Assertion, assertion2: Assertion, assertion3: Assertion): R =
+        withAssertions(listOf(assertion1, assertion2, assertion3))
 
     /**
      * Uses the given [assertions] as [AssertionGroup.assertions].
@@ -82,8 +82,12 @@ interface AssertionsOption<out T : AssertionGroupType, out R> {
          */
         fun <T : AssertionGroupType> withDefaultFinalStepAndEmptyDescriptionAndRepresentation(
             groupType: T
-        ): AssertionsOption<T, BasicAssertionGroupFinalStep>
-            = AssertionsOptionImpl(groupType, Untranslatable.EMPTY, RawString.EMPTY, BasicAssertionGroupFinalStep.Companion::create)
+        ): AssertionsOption<T, BasicAssertionGroupFinalStep> = AssertionsOptionImpl(
+            groupType,
+            Untranslatable.EMPTY,
+            RawString.EMPTY,
+            BasicAssertionGroupFinalStep.Companion::create
+        )
 
         /**
          * Returns a factory method which creates an [AssertionsOption] where [BasicAssertionGroupFinalStep] is used
@@ -95,12 +99,13 @@ interface AssertionsOption<out T : AssertionGroupType, out R> {
                 /* that's fine because T is covariant and we do not need multiple function objects for the same functionality */
                 "UNCHECKED_CAST"
             )
-            val factory = factoryWithDefaultFinalStep as (T, Translatable, Any) -> AssertionsOption<T, BasicAssertionGroupFinalStep>
+            val factory =
+                factoryWithDefaultFinalStep as (T, Translatable, Any) -> AssertionsOption<T, BasicAssertionGroupFinalStep>
             return factory
         }
 
-        private val factoryWithDefaultFinalStep: (AssertionGroupType, Translatable, Any) -> AssertionsOption<AssertionGroupType, BasicAssertionGroupFinalStep>
-            = { t, d, r ->
+        private val factoryWithDefaultFinalStep: (AssertionGroupType, Translatable, Any) -> AssertionsOption<AssertionGroupType, BasicAssertionGroupFinalStep> =
+            { t, d, r ->
                 AssertionsOptionImpl(t, d, r, BasicAssertionGroupFinalStep.Companion::create)
             }
     }

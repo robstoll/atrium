@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.builders.impl.descriptive
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.SubjectProvider
@@ -46,6 +46,7 @@ internal class FinalStepImpl(
     override val representation: Any
 ) : Descriptive.FinalStep {
 
-    @Suppress("DEPRECATION")
-    override fun build(): DescriptiveAssertion = BasicDescriptiveAssertion(description, representation, test)
+    @Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+    override fun build(): DescriptiveAssertion =
+        ch.tutteli.atrium.assertions.BasicDescriptiveAssertion(description, representation, test)
 }

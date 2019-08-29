@@ -31,8 +31,8 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
     fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T>
 
     /**
-     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
-     * to the plant.
+     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test] and
+     * [adds][addAssertion] it to the plant.
      *
      * @param description The description of the assertion, e.g., `is less than`.
      * @param expected The expected value, e.g., `5`
@@ -43,7 +43,7 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionPlant]).
      */
-    fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T>
-        = addAssertion(assertionBuilder.createDescriptive(description, expected, test))
+    fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T> =
+        addAssertion(assertionBuilder.createDescriptive(description, expected, test))
 }
 

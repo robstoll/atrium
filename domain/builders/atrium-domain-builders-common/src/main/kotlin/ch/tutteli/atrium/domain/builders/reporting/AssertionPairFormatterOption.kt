@@ -22,14 +22,14 @@ interface AssertionPairFormatterOption {
     /**
      * Uses [CoreFactory.newTextSameLineAssertionPairFormatter] as [AssertionPairFormatter].
      */
-    fun withTextSameLineAssertionPairFormatter(): TextAssertionFormatterOption
-        = withTextAssertionPairFormatter(coreFactory::newTextSameLineAssertionPairFormatter)
+    fun withTextSameLineAssertionPairFormatter(): TextAssertionFormatterOption =
+        withTextAssertionPairFormatter(coreFactory::newTextSameLineAssertionPairFormatter)
 
     /**
      * Uses [CoreFactory.newTextNextLineAssertionPairFormatter] as [AssertionPairFormatter].
      */
-    fun withTextNextLineAssertionPairFormatter(): TextAssertionFormatterOption
-        = withTextAssertionPairFormatter(coreFactory::newTextNextLineAssertionPairFormatter)
+    fun withTextNextLineAssertionPairFormatter(): TextAssertionFormatterOption =
+        withTextAssertionPairFormatter(coreFactory::newTextNextLineAssertionPairFormatter)
 
     /**
      * Uses the given [factory] to build a custom [AssertionPairFormatter].
@@ -41,13 +41,12 @@ interface AssertionPairFormatterOption {
             assertionFormatterFacade: AssertionFormatterFacade,
             objectFormatter: ObjectFormatter,
             translator: Translator
-        ): AssertionPairFormatterOption
-            = create(AssertionFormatterChosenOptions(
-                assertionFormatterFacade, objectFormatter, translator
-            ))
+        ): AssertionPairFormatterOption = create(
+            AssertionFormatterChosenOptions(assertionFormatterFacade, objectFormatter, translator)
+        )
 
-        fun create(options: AssertionFormatterChosenOptions): AssertionPairFormatterOption
-            = AssertionPairFormatterOptionImpl(options)
+        fun create(options: AssertionFormatterChosenOptions): AssertionPairFormatterOption =
+            AssertionPairFormatterOptionImpl(options)
     }
 }
 

@@ -11,10 +11,10 @@ interface MemoizedValue<out T> {
     operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): ReadOnlyProperty<Any?, T>
 }
 
-interface Suite{
-    fun it(description: String, body: Suite.() -> Unit){}
-    fun context(description: String, body: Suite.() -> Unit){}
-    fun beforeEachTest(body: Suite.() -> Unit){}
+interface Suite {
+    fun it(description: String, body: Suite.() -> Unit) {}
+    fun context(description: String, body: Suite.() -> Unit) {}
+    fun beforeEachTest(body: Suite.() -> Unit) {}
 }
 
-fun GroupBody.describe(description: String, body: Suite.() -> Unit){}
+fun GroupBody.describe(description: String, body: Suite.() -> Unit) {}

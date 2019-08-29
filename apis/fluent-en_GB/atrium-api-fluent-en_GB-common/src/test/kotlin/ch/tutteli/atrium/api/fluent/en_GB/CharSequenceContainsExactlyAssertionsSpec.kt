@@ -24,8 +24,12 @@ class CharSequenceContainsExactlyAssertionsSpec :
                 ("$contains.$ignoringCase.$exactly" to Companion::containsExactlyIgnoringCase)
 
 
-        private fun containsExactlyIgnoringCase(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
-            expect.contains.ignoringCase.exactly(exactly).values(a, *aX)
+        private fun containsExactlyIgnoringCase(
+            expect: Expect<CharSequence>,
+            exactly: Int,
+            a: Any,
+            aX: Array<out Any>
+        ) = expect.contains.ignoringCase.exactly(exactly).values(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

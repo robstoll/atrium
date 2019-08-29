@@ -36,11 +36,17 @@ import kotlin.reflect.KClass
 class TextExplanatoryAssertionGroupFormatter(
     bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<ExplanatoryAssertionGroupType>(ExplanatoryAssertionGroupType::class, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<ExplanatoryAssertionGroupType>(
+    ExplanatoryAssertionGroupType::class,
+    assertionFormatterController
+) {
     private val explanatoryBulletPoint = bulletPoints[ExplanatoryAssertionGroupType::class] ?: "» "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class] ?: "❗❗ "
 
-    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
+    override fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject {
         val bulletPoint = when (assertionGroup.type) {
             WarningAssertionGroupType -> warningBulletPoint
             else -> explanatoryBulletPoint

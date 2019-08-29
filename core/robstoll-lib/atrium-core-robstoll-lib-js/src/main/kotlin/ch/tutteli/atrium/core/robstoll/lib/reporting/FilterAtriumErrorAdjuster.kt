@@ -15,5 +15,5 @@ abstract class FilterAtriumErrorAdjuster : AtriumErrorAdjuster {
     /**
      * Does nothing (no adjustments) - override in subclass if you want a different behaviour.
      */
-    override fun adjustOtherThanStacks(throwable: Throwable){}
+    override fun adjustOtherThanStacks(throwable: Throwable) {}
 }

@@ -20,6 +20,11 @@ val bigDecimalAssertions by lazy { loadSingleService(BigDecimalAssertions::class
 interface BigDecimalAssertions {
     fun <T : BigDecimal> isNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T : BigDecimal> isNotNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T): Assertion
-    fun <T : BigDecimal> isEqualIncludingScale(subjectProvider: SubjectProvider<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion
+    fun <T : BigDecimal> isEqualIncludingScale(
+        subjectProvider: SubjectProvider<T>,
+        expected: T,
+        nameOfIsNumericallyEqualTo: String
+    ): Assertion
+
     fun <T : BigDecimal> isNotEqualIncludingScale(subjectProvider: SubjectProvider<T>, expected: T): Assertion
 }

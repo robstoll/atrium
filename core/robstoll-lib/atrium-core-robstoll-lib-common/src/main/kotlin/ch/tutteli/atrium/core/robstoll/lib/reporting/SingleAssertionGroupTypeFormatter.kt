@@ -29,8 +29,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * Returns true if the given [assertion] is an [AssertionGroup] and its [type][AssertionGroup.type]
      * is [T] or a sub type.
      */
-    final override fun canFormat(assertion: Assertion)
-        = assertion is AssertionGroup && clazz.isInstance(assertion.type)
+    final override fun canFormat(assertion: Assertion) = assertion is AssertionGroup && clazz.isInstance(assertion.type)
 
     /**
      * Always throws an [UnsupportedOperationException], because this [AssertionFormatter] can only format
@@ -38,8 +37,10 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      *
      * @throws UnsupportedOperationException always!
      */
-    final override fun formatNonGroup(assertion: Assertion, parameterObject: AssertionFormatterParameterObject)
-        = throw UnsupportedOperationException("supports only ${clazz.fullName} for which one has to call ${AssertionFormatter::formatGroup.name}")
+    final override fun formatNonGroup(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) =
+        throw UnsupportedOperationException(
+            "supports only ${clazz.fullName} for which one has to call ${AssertionFormatter::formatGroup.name}"
+        )
 
     /**
      * Checks whether [assertionGroup] is [T] or a sub type and if so, calls [formatGroupHeaderAndGetChildParameterObject]
@@ -59,12 +60,20 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      *
      * @throws UnsupportedOperationException if the given [assertionGroup] is not [T] or a sub type of it.
      */
-    final override fun formatGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) = when {
+    final override fun formatGroup(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject,
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit
+    ) = when {
         clazz.isInstance(assertionGroup.type) -> formatSpecificGroup(assertionGroup, parameterObject, formatAssertions)
         else -> throw UnsupportedOperationException("supports only ${clazz.fullName}")
     }
 
-    private fun formatSpecificGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) {
+    private fun formatSpecificGroup(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject,
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit
+    ) {
         val childParameterObject = formatGroupHeaderAndGetChildParameterObject(assertionGroup, parameterObject)
         formatGroupAssertions(formatAssertions, childParameterObject)
     }
@@ -80,7 +89,10 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      *
      * @return The [AssertionFormatterParameterObject] which shall be used for the [AssertionGroup.assertions].
      */
-    protected abstract fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject
+    protected abstract fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject
 
     /**
      * Formats the [AssertionGroup.assertions] -- has to call the given [formatAssertions] function in order that
@@ -92,5 +104,8 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * @param childParameterObject The parameter object which shall be used to format [AssertionGroup.assertions] -- contains
      *   inter alia the [sb][AssertionFormatterParameterObject.sb] to which the result will be appended.
      */
-    protected abstract fun formatGroupAssertions(formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit, childParameterObject: AssertionFormatterParameterObject)
+    protected abstract fun formatGroupAssertions(
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit,
+        childParameterObject: AssertionFormatterParameterObject
+    )
 }

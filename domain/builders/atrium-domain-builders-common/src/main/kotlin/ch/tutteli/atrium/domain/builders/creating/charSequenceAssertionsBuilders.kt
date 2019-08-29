@@ -1,4 +1,5 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -21,32 +22,32 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
-    override inline fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>)
-        = charSequenceAssertions.containsBuilder(subjectProvider)
+    override inline fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>) =
+        charSequenceAssertions.containsBuilder(subjectProvider)
 
-    override inline fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>)
-        = charSequenceAssertions.containsNotBuilder(subjectProvider)
+    override inline fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>) =
+        charSequenceAssertions.containsNotBuilder(subjectProvider)
 
-    override inline fun startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.startsWith(subjectProvider, expected)
+    override inline fun startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence) =
+        charSequenceAssertions.startsWith(subjectProvider, expected)
 
-    override inline fun startsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.startsNotWith(subjectProvider, expected)
+    override inline fun startsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence) =
+        charSequenceAssertions.startsNotWith(subjectProvider, expected)
 
-    override inline fun endsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.endsWith(subjectProvider, expected)
+    override inline fun endsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence) =
+        charSequenceAssertions.endsWith(subjectProvider, expected)
 
-    override inline fun endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence)
-        = charSequenceAssertions.endsNotWith(subjectProvider, expected)
+    override inline fun endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence) =
+        charSequenceAssertions.endsNotWith(subjectProvider, expected)
 
-    override inline fun isEmpty(subjectProvider: SubjectProvider<CharSequence>)
-        = charSequenceAssertions.isEmpty(subjectProvider)
+    override inline fun isEmpty(subjectProvider: SubjectProvider<CharSequence>) =
+        charSequenceAssertions.isEmpty(subjectProvider)
 
-    override inline fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>)
-        = charSequenceAssertions.isNotEmpty(subjectProvider)
+    override inline fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>) =
+        charSequenceAssertions.isNotEmpty(subjectProvider)
 
-    override inline fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>)
-        = charSequenceAssertions.isNotBlank(subjectProvider)
+    override inline fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>) =
+        charSequenceAssertions.isNotBlank(subjectProvider)
 
     /**
      * Returns [CharSequenceContainsAssertionsBuilder]
@@ -60,25 +61,37 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
  * In detail, it implements [CharSequenceContainsAssertions] by delegating to [charSequenceContainsAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
+object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
 
-    override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<Any>)
-        = charSequenceContainsAssertions.values(checkerOption, expected)
+    override inline fun <T : CharSequence> values(
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
+        expected: List<Any>
+    ) = charSequenceContainsAssertions.values(checkerOption, expected)
 
-    override inline fun <T : CharSequence> valuesIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: List<Any>)
-        = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected)
+    override inline fun <T : CharSequence> valuesIgnoringCase(
+        checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
+        expected: List<Any>
+    ) = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected)
 
-    override inline fun <T : CharSequence> defaultTranslationOf(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<Translatable>)
-        = charSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected)
+    override inline fun <T : CharSequence> defaultTranslationOf(
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
+        expected: List<Translatable>
+    ) = charSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected)
 
-    override inline fun <T : CharSequence> defaultTranslationOfIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: List<Translatable>)
-        = charSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected)
+    override inline fun <T : CharSequence> defaultTranslationOfIgnoringCase(
+        checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
+        expected: List<Translatable>
+    ) = charSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected)
 
-    override inline fun <T : CharSequence> regex(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<String>)
-        = charSequenceContainsAssertions.regex(checkerOption, expected)
+    override inline fun <T : CharSequence> regex(
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
+        expected: List<String>
+    ) = charSequenceContainsAssertions.regex(checkerOption, expected)
 
-    override inline fun <T : CharSequence> regexIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: List<String>)
-        = charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected)
+    override inline fun <T : CharSequence> regexIgnoringCase(
+        checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
+        expected: List<String>
+    ) = charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected)
 
     /**
      * Returns [CharSequenceContainsSearchBehaviourFactoryBuilder]
@@ -94,6 +107,8 @@ object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
  */
 object CharSequenceContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
-    override inline fun <T : CharSequence> ignoringCase(containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-        = searchBehaviourFactory.ignoringCase(containsBuilder)
+    override inline fun <T : CharSequence> ignoringCase(
+        containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
+    ): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour> =
+        searchBehaviourFactory.ignoringCase(containsBuilder)
 }

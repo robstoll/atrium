@@ -28,10 +28,18 @@ class TextSameLineAssertionPairFormatter(
     private val translator: Translator
 ) : AssertionPairFormatter {
 
-    override fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
-        = format(parameterObject, assertionGroup.description, assertionGroup.representation)
+    override fun formatGroupHeader(
+        parameterObject: AssertionFormatterParameterObject,
+        assertionGroup: AssertionGroup,
+        newParameterObject: AssertionFormatterParameterObject
+    ): Unit = format(parameterObject, assertionGroup.description, assertionGroup.representation)
 
-    override fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any) {
-        parameterObject.sb.append(translator.translate(translatable)).append(": ").append(objectFormatter.format(representation))
+    override fun format(
+        parameterObject: AssertionFormatterParameterObject,
+        translatable: Translatable,
+        representation: Any
+    ) {
+        parameterObject.sb.append(translator.translate(translatable)).append(": ")
+            .append(objectFormatter.format(representation))
     }
 }

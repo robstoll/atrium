@@ -1,4 +1,3 @@
-
 package ch.tutteli.atrium.spec
 
 import org.jetbrains.spek.api.dsl.TestBody
@@ -27,9 +26,9 @@ class ForgivingTest(private val test: Test) :
             test.body.invoke(object : TestBody {})
         } catch (e: AssertionError) {
             println("forgiving $test")
-        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException){
+        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
             println("forgiving $test")
-        } catch(e: IllegalArgumentException){
+        } catch (e: IllegalArgumentException) {
             println("forgiving $test")
         }
         return context

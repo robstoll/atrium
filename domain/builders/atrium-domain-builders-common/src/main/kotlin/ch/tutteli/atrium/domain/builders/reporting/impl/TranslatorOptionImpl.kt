@@ -12,8 +12,8 @@ internal class TranslatorOptionImpl(
     override val localeOrderDecider: LocaleOrderDecider
 ) : TranslatorOption {
 
-    override fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
-        = ObjectFormatterOptionImpl(
+    override fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale) =
+        ObjectFormatterOptionImpl(
             coreFactory.newTranslator(
                 translationSupplier,
                 localeOrderDecider,
@@ -22,6 +22,6 @@ internal class TranslatorOptionImpl(
             )
         )
 
-    override fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator)
-        = ObjectFormatterOptionImpl(factory(translationSupplier, localeOrderDecider))
+    override fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator) =
+        ObjectFormatterOptionImpl(factory(translationSupplier, localeOrderDecider))
 }

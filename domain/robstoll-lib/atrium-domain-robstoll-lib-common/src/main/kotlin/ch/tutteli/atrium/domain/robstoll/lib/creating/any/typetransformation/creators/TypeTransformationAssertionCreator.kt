@@ -17,15 +17,17 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
     ) {
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
         subjectPlant.maybeSubject
-            .filter { it != null && canBeTransformed(it)  }
+            .filter { it != null && canBeTransformed(it) }
             .fold({
                 failureHandler.createAndAddAssertionToPlant(parameterObject)
-            }){
+            }) {
                 @Suppress("DEPRECATION") val plant = AssertImpl.changeSubject(subjectPlant) { transform(it as S) }
-                plant.addAssertion(AssertImpl.builder.descriptive
-                    .holding
-                    .withDescriptionAndRepresentation(description, representation)
-                    .build())
+                plant.addAssertion(
+                    AssertImpl.builder.descriptive
+                        .holding
+                        .withDescriptionAndRepresentation(description, representation)
+                        .build()
+                )
                 plant.addAssertionsCreatedBy(assertionCreator)
             }
     }

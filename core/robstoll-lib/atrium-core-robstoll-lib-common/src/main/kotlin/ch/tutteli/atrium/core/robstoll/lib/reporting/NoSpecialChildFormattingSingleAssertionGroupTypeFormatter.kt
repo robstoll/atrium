@@ -29,7 +29,10 @@ abstract class NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<in T : 
 ) : SingleAssertionGroupTypeFormatter<T>(clazz) {
 
 
-    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit, childParameterObject: AssertionFormatterParameterObject) {
+    override fun formatGroupAssertions(
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit,
+        childParameterObject: AssertionFormatterParameterObject
+    ) {
         formatAssertions(childParameterObject) {
             assertionFormatterController.format(it, childParameterObject)
         }

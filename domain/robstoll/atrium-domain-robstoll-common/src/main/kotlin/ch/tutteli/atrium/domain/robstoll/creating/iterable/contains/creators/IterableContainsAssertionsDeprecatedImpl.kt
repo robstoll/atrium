@@ -8,7 +8,10 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators._containsEntriesInAnyOrder
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators._containsEntriesInAnyOrderOnly
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators._containsEntriesInOrderOnly
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators._containsEntriesInOrderOnlyGrouped
 
 
 abstract class IterableContainsAssertionsDeprecatedImpl : IterableContainsAssertions {

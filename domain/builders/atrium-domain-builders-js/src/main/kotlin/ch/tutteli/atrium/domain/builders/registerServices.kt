@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.core.polyfills.registerService

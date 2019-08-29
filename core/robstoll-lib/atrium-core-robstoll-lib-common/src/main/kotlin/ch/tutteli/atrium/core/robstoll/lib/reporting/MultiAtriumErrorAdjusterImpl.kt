@@ -6,4 +6,4 @@ expect class MultiAtriumErrorAdjusterImpl(
     firstAdjuster: AtriumErrorAdjuster,
     secondAdjuster: AtriumErrorAdjuster,
     otherAdjusters: List<AtriumErrorAdjuster>
-): AtriumErrorAdjuster
+) : AtriumErrorAdjuster

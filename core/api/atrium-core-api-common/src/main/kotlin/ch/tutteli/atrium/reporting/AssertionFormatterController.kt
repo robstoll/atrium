@@ -2,8 +2,8 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.core.CoreFactory
 
 /**
@@ -52,8 +52,8 @@ interface AssertionFormatterController {
      *
      * @return `true` if it is an explanatory assertion group; `false` otherwise.
      */
-    fun isExplanatoryAssertionGroup(assertion: Assertion)
-        = assertion is AssertionGroup && assertion.type is ExplanatoryAssertionGroupType
+    fun isExplanatoryAssertionGroup(assertion: Assertion) =
+        assertion is AssertionGroup && assertion.type is ExplanatoryAssertionGroupType
 
     companion object {
         /**

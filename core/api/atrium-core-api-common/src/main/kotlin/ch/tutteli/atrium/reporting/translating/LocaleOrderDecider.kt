@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.core.CoreFactory
+
 /**
  * Responsible to decide in which order [Locale]s should be processed.
  *

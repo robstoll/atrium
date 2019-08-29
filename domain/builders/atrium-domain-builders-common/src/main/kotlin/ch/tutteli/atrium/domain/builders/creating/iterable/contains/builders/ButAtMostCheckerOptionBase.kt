@@ -28,9 +28,9 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  * @param exactlyCall The name of the function which represents a `Iterable contains exactly` assertion.
  */
 abstract class ButAtMostCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
-    final override  val times: Int,
+    final override val times: Int,
     atLeastBuilder: WithTimesCheckerOption<E, T, S>,
-    final override  val containsBuilder: IterableContains.Builder<E, T, S>,
+    final override val containsBuilder: IterableContains.Builder<E, T, S>,
     nameContainsNotFun: String,
     atLeastButAtMostCall: (Int, Int) -> String,
     atMostCall: (Int) -> String,

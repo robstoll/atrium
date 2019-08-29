@@ -8,7 +8,10 @@ import ch.tutteli.atrium.reporting.translating.*
  * Entry point to build a [Reporter]
  * -- the first step provides options to create a [Translator] or a [TranslationSupplier].
  */
-@Deprecated("use ExpectIml.reporterBuilder instead; will be removed with 1.0.0", ReplaceWith("ExpectImpl.reporterBuilder", "ch.tutteli.atrium.domain.builders.ExpectImpl"))
+@Deprecated(
+    "use ExpectIml.reporterBuilder instead; will be removed with 1.0.0",
+    ReplaceWith("ExpectImpl.reporterBuilder", "ch.tutteli.atrium.domain.builders.ExpectImpl")
+)
 val reporterBuilder: ReporterBuilder = ReporterBuilderImpl
 
 

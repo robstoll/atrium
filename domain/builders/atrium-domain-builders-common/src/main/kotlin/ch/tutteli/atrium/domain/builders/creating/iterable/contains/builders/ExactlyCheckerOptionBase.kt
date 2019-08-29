@@ -25,7 +25,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  */
 abstract class ExactlyCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     final override val times: Int,
-    final override  val containsBuilder: IterableContains.Builder<E, T, S>,
+    final override val containsBuilder: IterableContains.Builder<E, T, S>,
     nameContainsNotFun: String,
     exactlyCall: (Int) -> String
 ) : WithTimesCheckerOption<E, T, S> {

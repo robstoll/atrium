@@ -27,7 +27,10 @@ class InAnyOrderOnlyEntriesDeprecatedAssertionCreator<E : Any, in T : Iterable<E
     searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : InAnyOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: (AssertionPlant<E>.() -> Unit)?, list: MutableList<E?>): Pair<Boolean, Assertion> {
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        searchCriterion: (AssertionPlant<E>.() -> Unit)?,
+        list: MutableList<E?>
+    ): Pair<Boolean, Assertion> {
         @Suppress("DEPRECATION")
         val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)
         val found = removeMatch(list, searchCriterion)

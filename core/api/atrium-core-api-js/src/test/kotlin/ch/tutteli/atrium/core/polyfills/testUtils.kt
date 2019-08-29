@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /*TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.assertions.Assertion

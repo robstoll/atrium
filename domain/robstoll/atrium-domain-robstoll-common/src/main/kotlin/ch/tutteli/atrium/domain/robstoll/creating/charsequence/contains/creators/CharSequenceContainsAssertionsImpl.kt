@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.crea
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 
-class CharSequenceContainsAssertionsImpl: CharSequenceContainsAssertions {
+class CharSequenceContainsAssertionsImpl : CharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,

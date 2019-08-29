@@ -32,7 +32,7 @@ interface AssertionFormatterControllerOption {
     fun withAssertionFormatterController(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacadeOption
 
     companion object {
-        fun create(objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatterControllerOption
-            = AssertionFormatterControllerOptionImpl(objectFormatter, translator)
+        fun create(objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatterControllerOption =
+            AssertionFormatterControllerOptionImpl(objectFormatter, translator)
     }
 }

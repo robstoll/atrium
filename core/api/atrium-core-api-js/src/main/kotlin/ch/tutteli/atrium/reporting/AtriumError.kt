@@ -22,7 +22,7 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
          *
          * @return The newly created [AtriumError]
          */
-        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError
-            = createAtriumError(message, atriumErrorAdjuster)
+        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError =
+            createAtriumError(message, atriumErrorAdjuster)
     }
 }

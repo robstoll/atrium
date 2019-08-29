@@ -18,7 +18,7 @@ sealed class MaybeSubject<out T> {
      */
     @Suppress("DEPRECATION")
     @Deprecated("Use something like ch.tutteli.atrium.core.None instead; will be removed with 1.0.0")
-    object Absent: MaybeSubject<Nothing>(){
+    object Absent : MaybeSubject<Nothing>() {
         /**
          * Throws a [PlantHasNoSubjectException].
          * @throws PlantHasNoSubjectException if this method is called.
@@ -33,7 +33,7 @@ sealed class MaybeSubject<out T> {
      */
     @Suppress("DEPRECATION")
     @Deprecated("Use something like ch.tutteli.atrium.core.Some instead; will be removed with 1.0.0")
-    data class Present<T>(val subject: T): MaybeSubject<T>(){
+    data class Present<T>(val subject: T) : MaybeSubject<T>() {
         /**
          * Returns the [subject].
          */
@@ -42,7 +42,7 @@ sealed class MaybeSubject<out T> {
 
     companion object {
         @Suppress("DEPRECATION")
-        operator fun <T: Any> invoke(subject: T?) =
+        operator fun <T : Any> invoke(subject: T?) =
             if (subject == null) Absent
             else Present(subject)
     }

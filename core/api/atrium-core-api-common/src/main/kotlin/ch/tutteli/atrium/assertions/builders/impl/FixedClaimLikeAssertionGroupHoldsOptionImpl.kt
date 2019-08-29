@@ -16,14 +16,14 @@ internal abstract class FixedClaimLikeAssertionGroupHoldsOptionImpl<T : Assertio
     override val failing: AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, R>>
         get() = createDescriptionAndRepresentationOption(false)
 
-    override fun withClaim(holds: Boolean): AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, R>>
-        = createDescriptionAndRepresentationOption(holds)
+    override fun withClaim(holds: Boolean): AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, R>> =
+        createDescriptionAndRepresentationOption(holds)
 
-    private fun createDescriptionAndRepresentationOption(holds: Boolean)
-        = AssertionGroupDescriptionAndRepresentationOption.create(groupType, createAssertionOptionWithHolds(holds))
+    private fun createDescriptionAndRepresentationOption(holds: Boolean) =
+        AssertionGroupDescriptionAndRepresentationOption.create(groupType, createAssertionOptionWithHolds(holds))
 
-    private fun createAssertionOptionWithHolds(holds: Boolean): (T, Translatable, Any) -> AssertionsOption<T, R>
-        = { t, d, r -> AssertionsOption.create(t, d, r, createFixedClaimLikeAssertionGroupFinalStep(holds)) }
+    private fun createAssertionOptionWithHolds(holds: Boolean): (T, Translatable, Any) -> AssertionsOption<T, R> =
+        { t, d, r -> AssertionsOption.create(t, d, r, createFixedClaimLikeAssertionGroupFinalStep(holds)) }
 
     protected abstract fun createFixedClaimLikeAssertionGroupFinalStep(
         holds: Boolean

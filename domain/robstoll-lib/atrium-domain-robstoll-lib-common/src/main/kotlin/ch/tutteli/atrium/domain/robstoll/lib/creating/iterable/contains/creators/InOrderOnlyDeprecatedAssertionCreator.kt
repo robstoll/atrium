@@ -32,16 +32,22 @@ abstract class InOrderOnlyDeprecatedAssertionCreator<E, in T : Iterable<E>, SC>(
     private val searchBehaviour: InOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, SC>,
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
-    InOrderOnlyDeprecatedMatcher<E, SC>
-{
+    InOrderOnlyDeprecatedMatcher<E, SC> {
 
-    final override fun createAssertionGroup(subjectProvider: SubjectProvider<T>, searchCriteria: List<SC>): AssertionGroup {
+    final override fun createAssertionGroup(
+        subjectProvider: SubjectProvider<T>,
+        searchCriteria: List<SC>
+    ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val subject = subjectProvider.maybeSubject.fold({ emptyList<E>()}){ it.toList() }
+            val subject = subjectProvider.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
             val assertion = AssertImpl.collector.collect({ subject }) {
                 var index = 0
                 searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
-                    createSingleEntryAssertion(currentIndex, searchCriterion, DescriptionIterableAssertion.ENTRY_WITH_INDEX)
+                    createSingleEntryAssertion(
+                        currentIndex,
+                        searchCriterion,
+                        DescriptionIterableAssertion.ENTRY_WITH_INDEX
+                    )
                     index = currentIndex
                 }
                 ++index

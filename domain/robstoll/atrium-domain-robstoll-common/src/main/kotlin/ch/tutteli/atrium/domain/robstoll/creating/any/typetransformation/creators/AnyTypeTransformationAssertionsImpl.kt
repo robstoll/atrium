@@ -7,7 +7,10 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators._downCast
+import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators._isA
+import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators._isNotNull
+import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators._typeTransformation
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 

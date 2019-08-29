@@ -10,15 +10,12 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 
 internal actual object ReporterBuilderImpl : ReporterBuilder {
 
-    override fun withoutTranslations(primaryLocale: Locale)
-        = withTranslator(UsingDefaultTranslator(primaryLocale))
+    override fun withoutTranslations(primaryLocale: Locale) = withTranslator(UsingDefaultTranslator(primaryLocale))
 
-    override fun withTranslator(translator: Translator)
-        = ObjectFormatterOption.create(translator)
+    override fun withTranslator(translator: Translator) = ObjectFormatterOption.create(translator)
 
-    override fun withDefaultTranslationSupplier()
-        = TODO("we have to implement a translation supplier for JS")
+    override fun withDefaultTranslationSupplier() = TODO("we have to implement a translation supplier for JS")
 
-    override fun withTranslationSupplier(translationSupplier: TranslationSupplier)
-        = LocaleOrderDeciderOption.create(translationSupplier)
+    override fun withTranslationSupplier(translationSupplier: TranslationSupplier) =
+        LocaleOrderDeciderOption.create(translationSupplier)
 }

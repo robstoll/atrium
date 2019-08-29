@@ -32,6 +32,9 @@ abstract class TextListBasedAssertionGroupFormatter<in T : AssertionGroupType>(
     private val formatter =
         TextPrefixBasedAssertionGroupFormatter(bulletPoint)
 
-    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject)
-        = formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
+    override fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject =
+        formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
 }

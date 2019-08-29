@@ -2,8 +2,8 @@
 
 package ch.tutteli.atrium.domain.builders.utils
 
-import kotlin.reflect.*
 import kotlin.jvm.JvmName
+import kotlin.reflect.*
 
 
 /**
@@ -63,7 +63,7 @@ inline fun <T> nullableContainer(arr: Array<out T>): Array<out T?> = arr
  * compiler that we expect a nullable type and not a non-nullable one). For instance, instead of writing
  * `getPersons() as Map<String?, Person>` you can write `nullableKeyMap(getPersons())`
  */
-inline fun <K, V: Any> nullableKeyMap(map: Map<out K, V>): Map<out K?, V> = map
+inline fun <K, V : Any> nullableKeyMap(map: Map<out K, V>): Map<out K?, V> = map
 
 /**
  * Turns a [Map] into a map with a nullable value type.
@@ -76,7 +76,7 @@ inline fun <K, V: Any> nullableKeyMap(map: Map<out K, V>): Map<out K?, V> = map
  * compiler that we expect a nullable type and not a non-nullable one). For instance, instead of writing
  * `getPersons() as Map<String, Person?>` you can write `nullableValueMap(getPersons())`
  */
-inline fun <K: Any, V> nullableValueMap(map: Map<K, V>): Map<K, V?> = map
+inline fun <K : Any, V> nullableValueMap(map: Map<K, V>): Map<K, V?> = map
 
 /**
  * Turns a [Map] into a map with a nullable key and a nullable value type.
@@ -139,4 +139,5 @@ inline fun <T1, T2, T3, T4, R> nullable(t: KFunction4<T1, T2, T3, T4, R>): KFunc
  * type) of your function into a nullable type.
  */
 @JvmName("nullable5")
-inline fun <T1, T2, T3, T4, T5, R> nullable(t: KFunction5<T1, T2, T3, T4, T5, R>): KFunction5<T1, T2, T3, T4, T5, R?> = t
+inline fun <T1, T2, T3, T4, T5, R> nullable(t: KFunction5<T1, T2, T3, T4, T5, R>): KFunction5<T1, T2, T3, T4, T5, R?> =
+    t

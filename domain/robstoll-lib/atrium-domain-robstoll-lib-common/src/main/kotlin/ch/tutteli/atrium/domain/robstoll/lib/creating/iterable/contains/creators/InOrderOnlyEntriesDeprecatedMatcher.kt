@@ -8,10 +8,10 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createEx
 
 @Suppress("DEPRECATION")
 @Deprecated("Switch from Assert to Expect and use InOrderOnlyEntriesMatcher; will be removed with 1.0.0")
-class InOrderOnlyEntriesDeprecatedMatcher<E: Any> : InOrderOnlyDeprecatedMatcher<E?, (AssertionPlant<E>.() -> Unit)?> {
+class InOrderOnlyEntriesDeprecatedMatcher<E : Any> : InOrderOnlyDeprecatedMatcher<E?, (AssertionPlant<E>.() -> Unit)?> {
 
-    override fun matches(actual: E?, searchCriterion: (AssertionPlant<E>.() -> Unit)?): Boolean
-        = allCreatedAssertionsHold(actual, searchCriterion)
+    override fun matches(actual: E?, searchCriterion: (AssertionPlant<E>.() -> Unit)?): Boolean =
+        allCreatedAssertionsHold(actual, searchCriterion)
 
     override fun entryAssertionCreator(
         subjectProvider: () -> List<E?>,

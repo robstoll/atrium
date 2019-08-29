@@ -2,10 +2,8 @@ package ch.tutteli.atrium.domain.creating.iterable.contains
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.*
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -51,7 +49,8 @@ interface IterableContains {
     interface Creator<in T : Iterable<*>, in SC> : Contains.Creator<T, SC>
 
     /**
-     * Represents a check for the search result such as: the object is contained exactly once in the input of the search.
+     * Represents a check for the search result such as:
+     * the object is contained exactly once in the input of the search.
      *
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */

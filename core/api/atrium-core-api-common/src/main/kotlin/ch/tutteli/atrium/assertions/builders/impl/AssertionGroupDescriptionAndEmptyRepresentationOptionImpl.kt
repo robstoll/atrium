@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRe
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-internal class AssertionGroupDescriptionAndEmptyRepresentationOptionImpl<out T: AssertionGroupType, R>(
+internal class AssertionGroupDescriptionAndEmptyRepresentationOptionImpl<out T : AssertionGroupType, R>(
     override val groupType: T,
     private val factory: (T, Translatable, Any) -> R
 ) : AssertionGroupDescriptionAndEmptyRepresentationOption<T, R> {

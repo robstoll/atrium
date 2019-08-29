@@ -12,6 +12,6 @@ internal class AssertionsOptionImpl<out T : AssertionGroupType, R>(
     private val factory: (T, Translatable, Any, List<Assertion>) -> R
 ) : AssertionsOption<T, R> {
 
-    override fun withAssertions(assertions: List<Assertion>): R
-        = factory(groupType, description, representation, assertions)
+    override fun withAssertions(assertions: List<Assertion>): R =
+        factory(groupType, description, representation, assertions)
 }

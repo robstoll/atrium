@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -14,7 +15,7 @@ abstract class MutableListBasedAssertionPlant<out T : Any?, out A : BaseAssertio
     @Deprecated(
         "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter."
     )
-    final override val subject : T by lazy { subjectProvider() }
+    final override val subject: T by lazy { subjectProvider() }
 
     /**
      * The instance itself but typed as [A] which is the type used for the fluent style API.

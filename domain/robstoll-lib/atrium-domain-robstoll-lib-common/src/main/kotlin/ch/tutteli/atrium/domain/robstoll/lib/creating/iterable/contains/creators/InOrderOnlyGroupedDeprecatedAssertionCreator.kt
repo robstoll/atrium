@@ -27,7 +27,7 @@ abstract class InOrderOnlyGroupedDeprecatedAssertionCreator<E, in T : Iterable<E
         searchCriteria: List<List<SC>>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val subject = subjectProvider.maybeSubject.fold({emptyList<E>()}){ it.toList() }
+            val subject = subjectProvider.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
             val assertion = AssertImpl.collector.collect({ subject }) {
 
                 var index = 0

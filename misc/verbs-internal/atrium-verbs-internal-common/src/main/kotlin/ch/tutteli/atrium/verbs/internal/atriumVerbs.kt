@@ -11,19 +11,22 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 @Suppress("DEPRECATION")
-fun <T : Any> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
+fun <T : Any> assert(subject: T) = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
 @Suppress("DEPRECATION")
-fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, { subject }, reporter, assertionCreator)
+fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit) =
+    AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(
+        AssertionVerb.ASSERT,
+        { subject },
+        reporter,
+        assertionCreator
+    )
 
 @Suppress("DEPRECATION")
-fun <T : Any?> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
+fun <T : Any?> assert(subject: T) =
+    AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
 
-fun expect(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
+fun expect(act: () -> Unit) = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
 
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),
@@ -54,7 +57,8 @@ class NoAdjustingReporterFactory : ReporterFactory {
             .withOnlyFailureReporter()
             .build()
     }
+
     companion object {
-        const val ID =  "default-no-adjusting"
+        const val ID = "default-no-adjusting"
     }
 }

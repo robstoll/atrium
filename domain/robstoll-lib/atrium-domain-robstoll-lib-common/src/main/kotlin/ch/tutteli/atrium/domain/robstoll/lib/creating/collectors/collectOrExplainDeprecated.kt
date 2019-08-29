@@ -5,7 +5,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.collectors
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
-import ch.tutteli.atrium.creating.MaybeSubject.*
+import ch.tutteli.atrium.creating.MaybeSubject.Absent
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 

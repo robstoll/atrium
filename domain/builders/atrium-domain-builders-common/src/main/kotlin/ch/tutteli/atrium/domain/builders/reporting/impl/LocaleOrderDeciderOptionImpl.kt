@@ -9,9 +9,8 @@ internal class LocaleOrderDeciderOptionImpl(
     override val translationSupplier: TranslationSupplier
 ) : LocaleOrderDeciderOption {
 
-    override fun withDefaultLocaleOrderDecider()
-        = withLocaleOrderDecider(coreFactory.newLocaleOrderDecider())
+    override fun withDefaultLocaleOrderDecider() = withLocaleOrderDecider(coreFactory.newLocaleOrderDecider())
 
-    override fun withLocaleOrderDecider(localeOrderDecider: LocaleOrderDecider)
-        = TranslatorOptionImpl(translationSupplier, localeOrderDecider)
+    override fun withLocaleOrderDecider(localeOrderDecider: LocaleOrderDecider) =
+        TranslatorOptionImpl(translationSupplier, localeOrderDecider)
 }

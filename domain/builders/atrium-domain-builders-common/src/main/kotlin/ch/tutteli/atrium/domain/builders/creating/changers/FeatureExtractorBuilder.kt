@@ -188,7 +188,7 @@ interface FeatureExtractorBuilder {
      * @param T the type of the current subject.
      * @param R the type of the feature, aka the new subject.
      */
-    interface RepresentationOption<T, R>{
+    interface RepresentationOption<T, R> {
         /**
          * The so far chosen options up to the [CheckOption] step.
          */
@@ -273,7 +273,9 @@ interface FeatureExtractorBuilder {
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R,
                 representationInsteadOfFeature: Any?
-            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, representationInsteadOfFeature)
+            ): FinalStep<T, R> = FinalStepImpl(
+                checkOption, canBeTransformed, transformation, representationInsteadOfFeature
+            )
         }
     }
 }

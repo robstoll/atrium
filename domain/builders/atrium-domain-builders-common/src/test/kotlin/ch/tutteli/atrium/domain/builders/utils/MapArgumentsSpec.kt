@@ -2,13 +2,13 @@ package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.verbs.internal.assert as deprecatedAssert
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
+import ch.tutteli.atrium.verbs.internal.assert as deprecatedAssert
 
 object MapArgumentsSpec : Spek({
 
@@ -31,7 +31,7 @@ object MapArgumentsSpec : Spek({
                     .second.asIterable().containsExactly("b.", "c.")
             }
 
-            it("toExpect"){
+            it("toExpect") {
                 fun it(i: String, vararg iX: String) =
                     mapArguments(i, iX).toExpect<String> { startsWith(it) }
 

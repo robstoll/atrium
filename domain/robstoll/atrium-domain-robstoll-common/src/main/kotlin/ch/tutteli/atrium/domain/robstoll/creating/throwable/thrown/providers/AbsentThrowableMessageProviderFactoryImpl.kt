@@ -10,6 +10,6 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @Deprecated("will be removed with 1.0.0")
 class AbsentThrowableMessageProviderFactoryImpl : AbsentThrowableMessageProviderFactory {
 
-    override fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
-        = _translatableBased(translatable)
+    override fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider =
+        _translatableBased(translatable)
 }

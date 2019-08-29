@@ -27,7 +27,7 @@ expect val KClass<*>.fullName: String
  * @param obj The object from which this [KClass] was created of.
  * @return The full name of this [KClass].
  */
-expect fun <T: Any> KClass<out T>.fullName(obj: T): String
+expect fun <T : Any> KClass<out T>.fullName(obj: T): String
 
 /**
  * Casts the given [any] to the type of the given [KClass].

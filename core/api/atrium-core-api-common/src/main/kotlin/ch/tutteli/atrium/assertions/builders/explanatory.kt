@@ -18,7 +18,7 @@ interface Explanatory {
     /**
      * Option step which allows to specify an [ExplanatoryAssertion.explanation].
      */
-    interface ExplanationOption{
+    interface ExplanationOption {
 
         /**
          * Uses the given [translatable] together with the [arg] and optionally [otherArgs] to create an
@@ -27,14 +27,13 @@ interface Explanatory {
          * It delegates to the overload which expects a single [Translatable]; see there for more details about
          * how the [Translatable] is used as [ExplanatoryAssertion.explanation].
          */
-        fun withExplanation(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep
-            = withExplanation(TranslatableWithArgs(translatable, arg glue otherArgs))
+        fun withExplanation(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep =
+            withExplanation(TranslatableWithArgs(translatable, arg glue otherArgs))
 
         /**
          * Uses the given [description] as explanation.
          */
-        fun withExplanation(description: String): FinalStep
-            = withExplanation(Untranslatable(description))
+        fun withExplanation(description: String): FinalStep = withExplanation(Untranslatable(description))
 
         /**
          * Uses the given [translatable] as explanation.
@@ -42,8 +41,7 @@ interface Explanatory {
          * In detail, the given [translatable] is turned into a [RawString] so that an [ObjectFormatter] translates the
          * given [translatable] and treats the result as raw string.
          */
-        fun withExplanation(translatable: Translatable): FinalStep
-            = withExplanation(RawString.create(translatable))
+        fun withExplanation(translatable: Translatable): FinalStep = withExplanation(RawString.create(translatable))
 
         /**
          * Uses the given [explanation] as [ExplanatoryAssertion.explanation].
@@ -51,19 +49,28 @@ interface Explanatory {
          * Notice, if you want to use a text (e.g. a [String]) as explanation,
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
-        fun withExplanation(explanation: Any?) : FinalStep
+        fun withExplanation(explanation: Any?): FinalStep
 
 
-        @Deprecated("use withExplanation instead; will be removed with 1.0.0", ReplaceWith("this.withExplanation(translatable, arg, *otherArgs)"))
-        fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep
-            = withExplanation(translatable, arg, *otherArgs)
+        @Deprecated(
+            "use withExplanation instead; will be removed with 1.0.0",
+            ReplaceWith("this.withExplanation(translatable, arg, *otherArgs)")
+        )
+        fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep =
+            withExplanation(translatable, arg, *otherArgs)
 
 
-        @Deprecated("use withExplanation instead; will be removed with 1.0.0", ReplaceWith("this.withExplanation(translatable)"))
+        @Deprecated(
+            "use withExplanation instead; will be removed with 1.0.0",
+            ReplaceWith("this.withExplanation(translatable)")
+        )
         fun withDescription(translatable: Translatable): FinalStep = withExplanation(translatable)
 
-        @Deprecated("use withExplanation instead; will be removed with 1.0.0", ReplaceWith("this.withExplanation(explanation)"))
-        fun withDescription(explanation: Any?) : FinalStep = withExplanation(explanation)
+        @Deprecated(
+            "use withExplanation instead; will be removed with 1.0.0",
+            ReplaceWith("this.withExplanation(explanation)")
+        )
+        fun withDescription(explanation: Any?): FinalStep = withExplanation(explanation)
 
 
         companion object {
@@ -78,7 +85,7 @@ interface Explanatory {
     /**
      * Final step which creates an [ExplanatoryAssertion] based on the previously defined [explanation].
      */
-    interface FinalStep : AssertionBuilderFinalStep<ExplanatoryAssertion>{
+    interface FinalStep : AssertionBuilderFinalStep<ExplanatoryAssertion> {
         /**
          * The previously defined [ExplanatoryAssertion.explanation].
          */

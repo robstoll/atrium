@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  *   sophisticated `contains` assertion for [Iterable].
  */
 abstract class NotCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
-    override val  containsBuilder: IterableContains.Builder<E, T, S>
+    override val containsBuilder: IterableContains.Builder<E, T, S>
 ) : IterableContains.CheckerOption<E, T, S> {
 
     override val checkers = listOf(

@@ -3,13 +3,13 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.feature.extract.creators
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
@@ -26,35 +26,41 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
     override fun extract(): A {
 
         val isSafeToExtract = safeToExtract()
-        return if(isSafeToExtract) {
+        return if (isSafeToExtract) {
             val featureExtractionOnce = featureExtractionOnce()
-            plantCreator(AssertionPlantWithCommonFields.CommonFields(
-                 featureRepresentation,
-                 featureExtractionOnce,
-                 featureExtractionOnce,
-                 coreFactory.newFeatureAssertionChecker(parameterObject.subjectPlant),
-                 RawString.NULL
-             ))
+            plantCreator(
+                AssertionPlantWithCommonFields.CommonFields(
+                    featureRepresentation,
+                    featureExtractionOnce,
+                    featureExtractionOnce,
+                    coreFactory.newFeatureAssertionChecker(parameterObject.subjectPlant),
+                    RawString.NULL
+                )
+            )
         } else {
             val representationProvider = { RawString.create(parameterObject.extractionNotSuccessful) }
-            val plant = plantCreator(AssertionPlantWithCommonFields.CommonFields(
-                SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
-                { throw PlantHasNoSubjectException() },
-                representationProvider,
-                coreFactory.newDelegatingAssertionChecker(parameterObject.subjectPlant),
-                RawString.NULL
-            ))
-
-            plant.addAssertion(AssertImpl.builder.fixedClaimGroup
-                .withFeatureType
-                .failing
-                .withDescriptionAndRepresentation(featureRepresentation, representationProvider)
-                .withAssertion(AssertImpl.builder.explanatoryGroup
-                    .withWarningType
-                    .withExplanatoryAssertion(parameterObject.warningCannotEvaluate)
-                    .build()
+            val plant = plantCreator(
+                AssertionPlantWithCommonFields.CommonFields(
+                    SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
+                    { throw PlantHasNoSubjectException() },
+                    representationProvider,
+                    coreFactory.newDelegatingAssertionChecker(parameterObject.subjectPlant),
+                    RawString.NULL
                 )
-                .build()
+            )
+
+            plant.addAssertion(
+                AssertImpl.builder.fixedClaimGroup
+                    .withFeatureType
+                    .failing
+                    .withDescriptionAndRepresentation(featureRepresentation, representationProvider)
+                    .withAssertion(
+                        AssertImpl.builder.explanatoryGroup
+                            .withWarningType
+                            .withExplanatoryAssertion(parameterObject.warningCannotEvaluate)
+                            .build()
+                    )
+                    .build()
             )
         }
     }
@@ -86,17 +92,18 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
                     featureExtractionOnce,
                     collectingPlantFactory,
                     assertionCreator
-                ))
+                )
+            )
             .build()
     }
 
-    private fun safeToExtract(): Boolean  =
+    private fun safeToExtract(): Boolean =
         parameterObject.subjectPlant.maybeSubject.fold(falseProvider, parameterObject.canBeExtracted)
 }
 
 @Suppress("DEPRECATION")
 @Deprecated("use _extractFeature instead; will be removed with 1.0.0")
-class FeatureExtractorCreatorImpl<TSubject: Any, T: Any>(
+class FeatureExtractorCreatorImpl<TSubject : Any, T : Any>(
     featureRepresentation: Translatable,
     parameterObject: FeatureExtractor.ParameterObject<TSubject, T>
 ) : FeatureExtractor.Creator<TSubject, T>,
@@ -109,7 +116,7 @@ class FeatureExtractorCreatorImpl<TSubject: Any, T: Any>(
 
 @Suppress("DEPRECATION")
 @Deprecated("use _extractFeature instead; will be removed with 1.0.0")
-class FeatureExtractorCreatorNullableImpl<TSubject: Any, T>(
+class FeatureExtractorCreatorNullableImpl<TSubject : Any, T>(
     featureRepresentation: Translatable,
     parameterObject: FeatureExtractor.ParameterObject<TSubject, T>
 ) : FeatureExtractor.CreatorNullable<TSubject, T>,

@@ -11,7 +11,8 @@ fun validateAtMost(
     exactlyCall: (Int) -> String
 ) {
     require(1 != times) {
-        "use ${exactlyCall(times)} instead of ${atMostCall(times)}; ${atMostCall(times)} defines implicitly ${atLeastCall(1)} as well"
+        "use ${exactlyCall(times)} instead of ${atMostCall(times)}; " +
+            "${atMostCall(times)} defines implicitly ${atLeastCall(1)} as well"
     }
 }
 

@@ -1,6 +1,7 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("ListAssertionsKt")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion

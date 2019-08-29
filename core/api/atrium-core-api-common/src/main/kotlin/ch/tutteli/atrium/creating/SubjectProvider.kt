@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.None
 
 /**
  * Provides the subject of an [Assertion].
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.core.None
  * Hence, to be on the safe side, you should use [Expect] instead.
  */
 interface SubjectProvider<out T> {
-    
+
     /**
      * The subject of an [Assertion] -- deprecated, will be removed with 1.0.0.
      *

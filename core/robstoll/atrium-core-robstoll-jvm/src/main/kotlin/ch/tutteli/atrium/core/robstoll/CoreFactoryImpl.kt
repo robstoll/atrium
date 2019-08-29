@@ -7,8 +7,8 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 
 class CoreFactoryImpl : CoreFactoryCommonImpl(), CoreFactory {
-    override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
-        = newOnlyFailureReporter(assertionFormatterFacade, newNoOpAtriumErrorAdjuster())
+    override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter =
+        newOnlyFailureReporter(assertionFormatterFacade, newNoOpAtriumErrorAdjuster())
 
     override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier =
         PropertiesPerEntityAndLocaleTranslationSupplier()

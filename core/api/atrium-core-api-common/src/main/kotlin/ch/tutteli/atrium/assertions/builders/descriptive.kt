@@ -69,8 +69,8 @@ interface Descriptive {
          * Notice, if you want to use text (e.g. a [String]) as representation,
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
-        fun withDescriptionAndRepresentation(description: String, representation: Any?): R
-            = withDescriptionAndRepresentation(Untranslatable(description), representation)
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): R =
+            withDescriptionAndRepresentation(Untranslatable(description), representation)
 
         /**
          * Uses the given [description] as [DescriptiveAssertion.description] and [representation]

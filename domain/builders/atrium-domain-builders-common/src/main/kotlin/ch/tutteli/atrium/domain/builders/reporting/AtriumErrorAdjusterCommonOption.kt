@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 /**
  * Provides common options to create an [AtriumErrorAdjuster].
  */
-interface AtriumErrorAdjusterCommonOption<R: Any> {
+interface AtriumErrorAdjusterCommonOption<R : Any> {
 
     /**
      * Uses an [AtriumErrorAdjuster] which removes stackBacktrace frames of test runners from a given [AtriumError].

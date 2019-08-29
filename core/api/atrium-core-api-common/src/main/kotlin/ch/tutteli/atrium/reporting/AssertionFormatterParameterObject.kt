@@ -54,8 +54,14 @@ class AssertionFormatterParameterObject private constructor(
      *
      * @return The newly created [AssertionFormatterParameterObject].
      */
-    fun createChildWithNewPrefixAndAdditionalIndent(newPrefix: String, additionalIndent: Int)
-        = AssertionFormatterParameterObject(sb, newPrefix, indentLevel + prefix.length + additionalIndent, assertionFilter, numberOfDoNotFilterGroups)
+    fun createChildWithNewPrefixAndAdditionalIndent(newPrefix: String, additionalIndent: Int) =
+        AssertionFormatterParameterObject(
+            sb,
+            newPrefix,
+            indentLevel + prefix.length + additionalIndent,
+            assertionFilter,
+            numberOfDoNotFilterGroups
+        )
 
 
     /**
@@ -65,8 +71,8 @@ class AssertionFormatterParameterObject private constructor(
      *
      * @return The newly created [AssertionFormatterParameterObject].
      */
-    fun createForDoNotFilterAssertionGroup(): AssertionFormatterParameterObject
-        = AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1)
+    fun createForDoNotFilterAssertionGroup(): AssertionFormatterParameterObject =
+        AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1)
 
     /**
      * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
@@ -101,7 +107,7 @@ class AssertionFormatterParameterObject private constructor(
     /**
      *  Appends spaces equal to [numberOfSpaces] to [sb].
      */
-    fun indent(numberOfSpaces: Int){
+    fun indent(numberOfSpaces: Int) {
         for (i in 0 until numberOfSpaces) {
             sb.append(' ')
         }

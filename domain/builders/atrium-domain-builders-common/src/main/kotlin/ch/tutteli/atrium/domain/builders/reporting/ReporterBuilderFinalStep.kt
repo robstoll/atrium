@@ -14,7 +14,6 @@ interface ReporterBuilderFinalStep {
     fun build(): Reporter
 
     companion object {
-        fun create(factory: () -> Reporter): ReporterBuilderFinalStep
-            = ReporterBuilderFinalStepImpl(factory)
+        fun create(factory: () -> Reporter): ReporterBuilderFinalStep = ReporterBuilderFinalStepImpl(factory)
     }
 }

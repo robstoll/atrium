@@ -30,13 +30,24 @@ class TextNextLineAssertionPairFormatter(
     private val translator: Translator
 ) : AssertionPairFormatter {
 
-    override fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
-        = format(parameterObject, assertionGroup.description, assertionGroup.representation, newParameterObject)
+    override fun formatGroupHeader(
+        parameterObject: AssertionFormatterParameterObject,
+        assertionGroup: AssertionGroup,
+        newParameterObject: AssertionFormatterParameterObject
+    ): Unit = format(parameterObject, assertionGroup.description, assertionGroup.representation, newParameterObject)
 
-    override fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any)
-        = format(parameterObject, translatable, representation, parameterObject)
+    override fun format(
+        parameterObject: AssertionFormatterParameterObject,
+        translatable: Translatable,
+        representation: Any
+    ): Unit = format(parameterObject, translatable, representation, parameterObject)
 
-    private fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any, newParameterObject: AssertionFormatterParameterObject) {
+    private fun format(
+        parameterObject: AssertionFormatterParameterObject,
+        translatable: Translatable,
+        representation: Any,
+        newParameterObject: AssertionFormatterParameterObject
+    ) {
         parameterObject.sb.append(translator.translate(translatable)).append(":")
         if (representation !is RawString || representation != RawString.EMPTY) {
             newParameterObject.appendLnAndIndent()

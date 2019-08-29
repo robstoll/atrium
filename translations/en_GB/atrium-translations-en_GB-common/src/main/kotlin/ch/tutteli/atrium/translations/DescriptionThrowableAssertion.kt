@@ -7,7 +7,10 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Throwable].
  */
 enum class DescriptionThrowableAssertion(override val value: String) : StringBasedTranslatable {
-    @Deprecated("use DescriptionAnyAssertion.IS_A; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_A"))
+    @Deprecated(
+        "use DescriptionAnyAssertion.IS_A; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_A")
+    )
     IS_A("is a"),
     NO_EXCEPTION_OCCURRED("no exception occurred"),
     OCCURRED_EXCEPTION_CAUSE("cause"),

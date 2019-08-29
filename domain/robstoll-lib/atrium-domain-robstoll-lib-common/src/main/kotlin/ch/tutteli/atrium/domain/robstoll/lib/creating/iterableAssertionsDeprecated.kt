@@ -1,12 +1,13 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreatedAssertionsHold
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertions
@@ -27,14 +28,16 @@ fun <E : Any> _iterableAll(
         assertions.add(createExplanatoryAssertionGroup(assertionCreator, list))
 
         val mismatches = createMismatchAssertions(list, assertionCreator)
-        assertions.add(AssertImpl.builder.explanatoryGroup
-            .withWarningType
-            .withAssertion(AssertImpl.builder.list
-                .withDescriptionAndEmptyRepresentation(WARNING_MISMATCHES)
-                .withAssertions(mismatches)
+        assertions.add(
+            AssertImpl.builder.explanatoryGroup
+                .withWarningType
+                .withAssertion(
+                    AssertImpl.builder.list
+                        .withDescriptionAndEmptyRepresentation(WARNING_MISMATCHES)
+                        .withAssertions(mismatches)
+                        .build()
+                )
                 .build()
-            )
-            .build()
         )
 
         AssertImpl.builder.invisibleGroup

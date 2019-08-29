@@ -17,7 +17,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
@@ -32,23 +31,27 @@ fun <K, V> _contains(
 fun <K, V : Any> _containsKeyWithValueAssertion(
     plant: AssertionPlant<Map<out K, V?>>,
     keyValues: List<Pair<K, (Assert<V>.() -> Unit)?>>
-): Assertion = containsNullable(plant, keyValues.map{ it }) { assertionCreator ->
+): Assertion = containsNullable(plant, keyValues.map { it }) { assertionCreator ->
     // we can pretend that the subject is null if maybeSubject is None as we have to be in an explaining like context in such a case
-    val subjectIsNull = this.maybeSubject.fold({true}) { it == null }
+    val subjectIsNull = this.maybeSubject.fold({ true }) { it == null }
     if (assertionCreator != null && !subjectIsNull) {
         @Suppress("DEPRECATION" /* TODO switch to Expect */)
         ExpectImpl.changeSubject.unreported(this) { it as V }.assertionCreator()
-    } else if (subjectIsNull && assertionCreator == null){
+    } else if (subjectIsNull && assertionCreator == null) {
         addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider))
     } else {
-        addAssertion(AssertImpl.builder.explanatoryGroup
-            .withDefaultType
-            .withAssertions(AssertImpl.collector.forExplanation.throwIfNoAssertionIsCollected.collect(
-                DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
-                MaybeSubject.Absent,
-                assertionCreator)
-            )
-            .build())
+        addAssertion(
+            AssertImpl.builder.explanatoryGroup
+                .withDefaultType
+                .withAssertions(
+                    AssertImpl.collector.forExplanation.throwIfNoAssertionIsCollected.collect(
+                        DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
+                        MaybeSubject.Absent,
+                        assertionCreator
+                    )
+                )
+                .build()
+        )
     }
 }
 
@@ -62,11 +65,11 @@ private fun <K, V : Any, M> containsNullable(
     assertionCreator
 )
 
-private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
+private fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
     pairs: List<Pair<K, M>>,
     @Suppress("DEPRECATION") parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.CreatorLike<Map<out K, V>, V, A, C>,
     assertionCreator: C.(M) -> Unit
-): Assertion =  LazyThreadUnsafeAssertionGroup {
+): Assertion = LazyThreadUnsafeAssertionGroup {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
     val methodCallFormatter = AssertImpl.coreFactory.newMethodCallFormatter()
     val assertions = pairs.map { (key: K, matcher: M) ->
@@ -75,7 +78,7 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
                 TranslatableWithArgs(DescriptionMapAssertion.ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
             )
         parameterObjectOption(option, key)
-            .extractAndAssertIt{ assertionCreator(matcher) }
+            .extractAndAssertIt { assertionCreator(matcher) }
     }
     AssertImpl.builder.list
         .withDescriptionAndEmptyRepresentation(DescriptionMapAssertion.CONTAINS_IN_ANY_ORDER)
@@ -84,8 +87,8 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
 }
 
 
-fun <K, V : Any> _getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V>
-    = extractorForGetCall(key)
+fun <K, V : Any> _getExisting(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlant<V> =
+    extractorForGetCall(key)
         .withParameterObject(createGetParameterObject(plant, key))
         .extract()
 
@@ -97,8 +100,8 @@ fun <K, V : Any> _getExisting(
     .withParameterObject(createGetParameterObject(plant, key))
     .extractAndAssertIt(assertionCreator)
 
-fun <K, V> _getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlantNullable<V>
-    = extractorForGetCall(key)
+fun <K, V> _getExistingNullable(plant: AssertionPlant<Map<out K, V>>, key: K): AssertionPlantNullable<V> =
+    extractorForGetCall(key)
         .withParameterObjectNullable(createGetParameterObject(plant, key))
         .extract()
 
@@ -123,7 +126,8 @@ private fun <K, V> createGetParameterObject(
     warningCannotEvaluate = DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
     canBeExtracted = { it.containsKey(key) },
     featureExtraction = {
-        @Suppress("UNCHECKED_CAST"
+        @Suppress(
+            "UNCHECKED_CAST"
             /*
             UNCHECKED_CAST is OK as this function will only be called if the key exists, so the value should be V
             One note though, if one deals with a Map returned by Java code and forgot that the Map actually contains

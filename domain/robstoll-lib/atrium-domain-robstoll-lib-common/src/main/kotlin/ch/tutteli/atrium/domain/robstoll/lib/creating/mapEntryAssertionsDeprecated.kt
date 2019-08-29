@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.property
@@ -17,20 +18,20 @@ fun <K : Any, V : Any> _keyValue(
     addAssertion(AssertImpl.map.entry.value(this) { toBe(value) })
 }
 
-fun <K : Any> _key(plant: AssertionPlant<Map.Entry<K, *>>, assertionCreator: AssertionPlant<K>.() -> Unit): Assertion
-    = AssertImpl.collector.collect(plant) { property(Map.Entry<K, *>::key, assertionCreator) }
+fun <K : Any> _key(plant: AssertionPlant<Map.Entry<K, *>>, assertionCreator: AssertionPlant<K>.() -> Unit): Assertion =
+    AssertImpl.collector.collect(plant) { property(Map.Entry<K, *>::key, assertionCreator) }
 
-fun <V : Any> _value(plant: AssertionPlant<Map.Entry<*, V>>, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
-    = AssertImpl.collector.collect(plant) { property(Map.Entry<*, V>::value, assertionCreator) }
+fun <V : Any> _value(
+    plant: AssertionPlant<Map.Entry<*, V>>,
+    assertionCreator: AssertionPlant<V>.() -> Unit
+): Assertion = AssertImpl.collector.collect(plant) { property(Map.Entry<*, V>::value, assertionCreator) }
 
 fun <K> _nullableKey(
     plant: AssertionPlant<Map.Entry<K, *>>,
     assertionCreator: AssertionPlantNullable<K>.() -> Unit
-): Assertion
-    = AssertImpl.collector.collect(plant) { property(Map.Entry<K, *>::key).assertionCreator() }
+): Assertion = AssertImpl.collector.collect(plant) { property(Map.Entry<K, *>::key).assertionCreator() }
 
 fun <V> _nullableValue(
     plant: AssertionPlant<Map.Entry<*, V>>,
     assertionCreator: AssertionPlantNullable<V>.() -> Unit
-): Assertion
-    = AssertImpl.collector.collect(plant) { property(Map.Entry<*, V>::value).assertionCreator() }
+): Assertion = AssertImpl.collector.collect(plant) { property(Map.Entry<*, V>::value).assertionCreator() }

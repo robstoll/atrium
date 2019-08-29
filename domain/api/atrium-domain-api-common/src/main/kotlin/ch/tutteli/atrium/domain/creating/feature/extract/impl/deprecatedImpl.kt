@@ -7,8 +7,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 @Deprecated("will be removed with 1.0.0")
 internal class DescriptionOptionImpl : FeatureExtractor.DescriptionOption {
-    override fun withDescription(translatable: Translatable): FeatureExtractor.ParameterObjectOption
-        = ParameterObjectOptionImpl(translatable)
+    override fun withDescription(translatable: Translatable): FeatureExtractor.ParameterObjectOption =
+        ParameterObjectOptionImpl(translatable)
 }
 
 @Deprecated("will be removed with 1.0.0")

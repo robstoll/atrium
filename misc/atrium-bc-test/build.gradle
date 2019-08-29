@@ -142,15 +142,15 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         }
         if (oldVersion == '0.6.0') {
             add(confCommon, prefixedProject("api-cc-en_UK")) { //required by atrium-spec
-                exclude  group: '*'
+                exclude group: '*'
             }
         } else {
-            add(confCommon, prefixedProject("api-cc-en_GB-jvm")){  //required by atrium-spec
-                exclude  group: '*'
+            add(confCommon, prefixedProject("api-cc-en_GB-jvm")) {  //required by atrium-spec
+                exclude group: '*'
             }
             if (!apiName.endsWith('cc-de_CH')) {
                 add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by spec in the APIs
-                    exclude  group: '*'
+                    exclude group: '*'
                 }
             }
         }
@@ -336,7 +336,7 @@ createBcAndBbcTasksForApis('0.8.0',
 //@formatter:on
 
 def apis = ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB']
-apis.each {apiName ->
+apis.each { apiName ->
     createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
         return content.replaceAll(/Assert<Array<Int>>::asIterable.name/, '"asIterable"')
     }

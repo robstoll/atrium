@@ -60,19 +60,17 @@ class TranslatableWithArgs constructor(val translatable: Translatable, val argum
 
     companion object {
 
-        private fun createList(arg: Any): List<Any>
-            = ArrayList<Any>(1).apply {
-                add(arg)
-            }
+        private fun createList(arg: Any): List<Any> = ArrayList<Any>(1).apply {
+            add(arg)
+        }
 
-        private fun createList(arg1: Any, arg2: Any): List<Any>
-            = ArrayList<Any>(2).apply {
-                add(arg1)
-                add(arg2)
-            }
+        private fun createList(arg1: Any, arg2: Any): List<Any> = ArrayList<Any>(2).apply {
+            add(arg1)
+            add(arg2)
+        }
 
-        private fun createList(arg1: Any, arg2: Any, otherArgs: Array<out Any>): List<Any>
-            = ArrayList<Any>(2 + otherArgs.size).apply {
+        private fun createList(arg1: Any, arg2: Any, otherArgs: Array<out Any>): List<Any> =
+            ArrayList<Any>(2 + otherArgs.size).apply {
                 add(arg1)
                 add(arg2)
                 addAll(otherArgs)

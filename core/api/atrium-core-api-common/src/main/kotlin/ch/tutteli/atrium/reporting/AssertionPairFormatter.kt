@@ -18,7 +18,11 @@ interface AssertionPairFormatter {
      * @param assertionGroup The [AssertionGroup] of which we want to format the header.
      * @param newParameterObject The [AssertionFormatterParameterObject] used for the [AssertionGroup.assertions].
      */
-    fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
+    fun formatGroupHeader(
+        parameterObject: AssertionFormatterParameterObject,
+        assertionGroup: AssertionGroup,
+        newParameterObject: AssertionFormatterParameterObject
+    )
 
     /**
      * Formats the assertion pair consisting of the given [translatable] and the given [representation]

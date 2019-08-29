@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
-import ch.tutteli.kbox.forElementAndForEachIn
 import ch.tutteli.atrium.core.polyfills.format
+import ch.tutteli.kbox.forElementAndForEachIn
 
 /**
  * Represents a [Translator] which supports [TranslatableWithArgs].

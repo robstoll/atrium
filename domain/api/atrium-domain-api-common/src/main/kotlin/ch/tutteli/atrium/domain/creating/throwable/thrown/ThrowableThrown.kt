@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.creating.any.typetransformation.*
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.*
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.reporting.RawString
@@ -17,7 +16,8 @@ import kotlin.reflect.KClass
  * as well as the minimum set of assertions an implementation of the domain of Atrium has to provide.
  *
  * The building process is typically started by the creation of a [Builder],
- * would allow to define an [AbsentThrowableMessageProvider] as well as an [AnyTypeTransformation.FailureHandler]
+ * would allow to define an [AbsentThrowableMessageProvider] as well as an
+ * [ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler]
  * (currently all [ThrowableThrownAssertions] specify it implicitly) and
  * is finalized by one of the [ThrowableThrownAssertions] which usually use a [Creator].
  */
@@ -59,7 +59,7 @@ interface ThrowableThrown {
          * @param throwableThrownBuilder The [ThrowableThrown.Builder] containing inter alia the
          *   [act][ThrowableThrown.Builder.act] lambda.
          */
-        fun executeActAssertNothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
+        fun executeActAssertNothingThrown(throwableThrownBuilder: Builder)
 
         /**
          * Executes the [act][ThrowableThrown.Builder.act] lambda of the given [throwableThrownBuilder], catches any
@@ -74,7 +74,7 @@ interface ThrowableThrown {
          *   case it was thrown as expected and is of the expected type [TExpected].
          */
         fun executeActAndCreateAssertion(
-            throwableThrownBuilder: ThrowableThrown.Builder,
+            throwableThrownBuilder: Builder,
             description: Translatable,
             expectedType: KClass<TExpected>,
             assertionCreator: AssertionPlant<TExpected>.() -> Unit

@@ -15,15 +15,18 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders
 fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
     checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
     assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
-): Assertion
-    = createAssertionGroup(checkerOption, assertionCreators, ::InAnyOrderEntriesDeprecatedAssertionCreator)
+): Assertion = createAssertionGroup(checkerOption, assertionCreators, ::InAnyOrderEntriesDeprecatedAssertionCreator)
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrderOnly(
     builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
     assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
-    return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InAnyOrderOnlyEntriesDeprecatedAssertionCreator)
+    return createAssertionGroupWithoutChecker(
+        checkerBuilder,
+        assertionCreators,
+        ::InAnyOrderOnlyEntriesDeprecatedAssertionCreator
+    )
 }
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnly(
@@ -31,7 +34,11 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnly(
     assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
-    return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InOrderOnlyEntriesDeprecatedAssertionCreator)
+    return createAssertionGroupWithoutChecker(
+        checkerBuilder,
+        assertionCreators,
+        ::InOrderOnlyEntriesDeprecatedAssertionCreator
+    )
 }
 
 fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnlyGrouped(
@@ -39,7 +46,11 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnlyGrouped(
     groups: List<List<(AssertionPlant<E>.() -> Unit)?>>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
-    return createAssertionGroupWithoutChecker(checkerBuilder, groups, ::InOrderOnlyGroupedEntriesDeprecatedAssertionCreator)
+    return createAssertionGroupWithoutChecker(
+        checkerBuilder,
+        groups,
+        ::InOrderOnlyGroupedEntriesDeprecatedAssertionCreator
+    )
 }
 
 private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> createAssertionGroupWithoutChecker(

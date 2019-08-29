@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.CoreFactory
  * Responsible to call an appropriate [AssertionFormatter] which supports [format]ing a given [Assertion].
  */
 interface AssertionFormatterFacade {
-    
+
     /**
      * Formats the given [assertion] and appends the result to the given [sb].
      *

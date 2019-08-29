@@ -60,7 +60,7 @@ internal class ResourceBundleBasedTranslator(
          *   [primaryLocale] or one of its secondary alternatives -- the [fallbackLocales] are used in the
          *   given order.
          */
-        fun create(primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = ResourceBundleBasedTranslator(primaryLocale, fallbackLocales.toList())
+        fun create(primaryLocale: Locale, vararg fallbackLocales: Locale) =
+            ResourceBundleBasedTranslator(primaryLocale, fallbackLocales.toList())
     }
 }

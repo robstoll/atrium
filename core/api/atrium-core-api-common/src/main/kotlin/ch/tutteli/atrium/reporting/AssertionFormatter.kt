@@ -97,7 +97,11 @@ interface AssertionFormatter {
      *   It itself expects a [AssertionFormatterParameterObject] which is used for the child assertions and a function
      *   which formats the child [Assertion]s in the context of the given [assertionGroup].
      */
-    fun formatGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit)
+    fun formatGroup(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject,
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit
+    )
 
     companion object {
         val CALL_FORMAT_GROUP = "do not use `${AssertionFormatter::format.name}` for " +

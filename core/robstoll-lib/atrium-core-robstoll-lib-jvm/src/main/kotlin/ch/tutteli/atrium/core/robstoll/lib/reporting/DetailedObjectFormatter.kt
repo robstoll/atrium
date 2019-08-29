@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
+import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass

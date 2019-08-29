@@ -115,8 +115,8 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
     final override fun newLocaleOrderDecider(): LocaleOrderDecider = CoroutineBasedLocaleOrderDecider()
 
-    final override fun newDetailedObjectFormatter(
-        translator: Translator): ObjectFormatter = DetailedObjectFormatter(translator)
+    final override fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter =
+        DetailedObjectFormatter(translator)
 
     final override fun newAssertionFormatterController(): AssertionFormatterController =
         AssertionFormatterControllerImpl()

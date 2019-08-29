@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
  * Provides options to register [AssertionFormatter]s to the chosen [AssertionFormatterFacade] -- the platform
  * specific interface might provide further options.
  */
-expect interface TextAssertionFormatterOption : TextAssertionFormatterOptionCommon{
+expect interface TextAssertionFormatterOption : TextAssertionFormatterOptionCommon {
     companion object {
         fun create(
             options: AssertionFormatterChosenOptions,

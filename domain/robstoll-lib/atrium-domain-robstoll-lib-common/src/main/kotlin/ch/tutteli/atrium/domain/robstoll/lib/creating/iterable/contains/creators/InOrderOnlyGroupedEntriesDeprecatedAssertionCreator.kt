@@ -13,11 +13,15 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
 class InOrderOnlyGroupedEntriesDeprecatedAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InOrderOnlyGroupedSearchBehaviour
 ) : InOrderOnlyGroupedDeprecatedAssertionCreator<E?, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour),
-    InOrderOnlyDeprecatedMatcher<E?, (AssertionPlant<E>.() -> Unit)?> by InOrderOnlyEntriesDeprecatedMatcher()
-{
+    InOrderOnlyDeprecatedMatcher<E?, (AssertionPlant<E>.() -> Unit)?> by InOrderOnlyEntriesDeprecatedMatcher() {
 
     override fun Assert<List<E?>>.createSublistAssertion(groupOfSearchCriteria: List<(AssertionPlant<E>.() -> Unit)?>) {
         val inAnyOrderOnly = contains.inAnyOrder.only
-        addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(inAnyOrderOnly, groupOfSearchCriteria))
+        addAssertion(
+            AssertImpl.iterable.contains.entriesInAnyOrderOnlyWithAssert(
+                inAnyOrderOnly,
+                groupOfSearchCriteria
+            )
+        )
     }
 }

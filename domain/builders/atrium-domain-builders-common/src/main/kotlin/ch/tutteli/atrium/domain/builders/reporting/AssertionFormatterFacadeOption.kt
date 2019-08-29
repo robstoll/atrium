@@ -42,7 +42,7 @@ interface AssertionFormatterFacadeOption {
             assertionFormatterController: AssertionFormatterController,
             objectFormatter: ObjectFormatter,
             translator: Translator
-        ): AssertionFormatterFacadeOption
-            = AssertionFormatterFacadeOptionImpl(assertionFormatterController, objectFormatter, translator)
+        ): AssertionFormatterFacadeOption =
+            AssertionFormatterFacadeOptionImpl(assertionFormatterController, objectFormatter, translator)
     }
 }

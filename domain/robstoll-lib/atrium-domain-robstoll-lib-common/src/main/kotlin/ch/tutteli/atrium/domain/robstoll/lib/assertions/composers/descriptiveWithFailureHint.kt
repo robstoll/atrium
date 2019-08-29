@@ -19,7 +19,7 @@ fun _createDescriptiveWithFailureHint(
         true
     }
     return if (holds || !showHint()) {
-        AssertImpl.builder.createDescriptive(description, representation){ holds }
+        AssertImpl.builder.createDescriptive(description, representation) { holds }
     } else {
         AssertImpl.builder.fixedClaimGroup
             .withListType

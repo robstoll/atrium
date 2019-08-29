@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -31,9 +32,14 @@ import kotlin.reflect.KClass
 class TextIndentAssertionGroupFormatter(
     bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IndentAssertionGroupType>(IndentAssertionGroupType::class, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IndentAssertionGroupType>(
+    IndentAssertionGroupType::class,
+    assertionFormatterController
+) {
     private val bulletPoint = bulletPoints[IndentAssertionGroupType::class] ?: " ⋄ "
 
-    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject)
-        = parameterObject.createChildWithNewPrefix(bulletPoint)
+    override fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
 }

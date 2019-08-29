@@ -31,7 +31,7 @@ interface FeatureExtractorCreatorFactory {
      *
      * @return The newly created feature extractor creator.
      */
-    fun <TSubject: Any, T: Any> create(
+    fun <TSubject : Any, T : Any> create(
         featureRepresentation: Translatable,
         parameterObject: FeatureExtractor.ParameterObject<TSubject, T>
     ): FeatureExtractor.Creator<TSubject, T>
@@ -46,7 +46,7 @@ interface FeatureExtractorCreatorFactory {
      *
      * @return The newly created feature extractor creator.
      */
-    fun <TSubject: Any, T> createNullable(
+    fun <TSubject : Any, T> createNullable(
         featureRepresentation: Translatable,
         parameterObject: FeatureExtractor.ParameterObject<TSubject, T>
     ): FeatureExtractor.CreatorNullable<TSubject, T>

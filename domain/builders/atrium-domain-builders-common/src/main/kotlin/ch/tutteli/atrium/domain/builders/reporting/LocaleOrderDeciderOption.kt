@@ -26,7 +26,7 @@ interface LocaleOrderDeciderOption {
     fun withLocaleOrderDecider(localeOrderDecider: LocaleOrderDecider): TranslatorOption
 
     companion object {
-        fun create(translationSupplier: TranslationSupplier): LocaleOrderDeciderOption
-            = LocaleOrderDeciderOptionImpl(translationSupplier)
+        fun create(translationSupplier: TranslationSupplier): LocaleOrderDeciderOption =
+            LocaleOrderDeciderOptionImpl(translationSupplier)
     }
 }

@@ -36,14 +36,20 @@ class TextSummaryAssertionGroupFormatter(
     private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class] ?: "✔ ")
     private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class] ?: "✘ ")
 
-    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
+    override fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()
         assertionPairFormatter.format(parameterObject, assertionGroup.description, assertionGroup.representation)
         //the prefix which should be used for assertions is defined in the formatGroupAssertions
         return parameterObject.createForDoNotFilterAssertionGroup()
     }
 
-    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit, childParameterObject: AssertionFormatterParameterObject) {
+    override fun formatGroupAssertions(
+        formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit,
+        childParameterObject: AssertionFormatterParameterObject
+    ) {
         val successfulParameterObject = childParameterObject.createChildWithNewPrefix(successful)
         val failingParameterObject = childParameterObject.createChildWithNewPrefix(failing)
         formatAssertions(childParameterObject) {
