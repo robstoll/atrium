@@ -15,7 +15,7 @@
                     </snapshots>
                     <id>bintray-robstoll-tutteli-jars</id>
                     <name>bintray</name>
-                    <url>http://dl.bintray.com/robstoll/tutteli-jars</url>
+                    <url>https://dl.bintray.com/robstoll/tutteli-jars</url>
                 </repository>
             </repositories>
         </profile>

@@ -81,7 +81,7 @@ buildscript {
 repositories {
     jcenter()
     // either use jcenter or the repository on the next line
-    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
@@ -100,7 +100,7 @@ buildscript {
 repositories {
     jcenter()
     // either use jcenter or the repository on the next line
-    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
@@ -119,7 +119,7 @@ buildscript {
 repositories {
     jcenter()
     // either use jcenter or the repository on the next line
-    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-fluent-de_CH:$atrium_version"
@@ -148,7 +148,7 @@ buildscript {
 repositories {
     jcenter()
     // either use jcenter or the repository on the next line
-    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:$atrium_version")
@@ -191,7 +191,7 @@ buildscript {
 repositories {
     jcenter()
     // either use jcenter or the repository on the next line
-    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"
@@ -870,7 +870,7 @@ Following one more example for `inOrder` as well as a few examples for `inAnyOrd
 We think explanations are no longer required at this stage.
 In case you have a question (no matter about which section), then please turn up in the 
 [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
-([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet) 
+([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet) 
 and we happily answer your question there. 
 
 ```kotlin
@@ -1590,7 +1590,7 @@ which makes use of explanatory assertions as well as providing a failure hint.
 
 Unfortunately we do not have the time to cover all cases, so let me know  if you want to know more
 -- either by opening an issue or via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-([Invite yourself](http://slack.kotlinlang.org/)).
+([Invite yourself](https://slack.kotlinlang.org/)).
 
 ## Own Sophisticated Assertion Builders
 
@@ -1602,7 +1602,7 @@ Notice that the implementation supports [Internationalization](#internationaliza
 
 We are willing to provide more documentation if you need it (please open an issue). 
 In the meantime we might help you via slack, please post your questions in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet).
+([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet).
 
 
 # Use own Assertion Verbs
@@ -1881,7 +1881,7 @@ Atrium does especially not support (yet):
 # FAQ
 You find frequently asked questions below.
 If your question is not answered below, then please do not hesitate and ask your question in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
-In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](http://slack.kotlinlang.org/). 
+In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](https://slack.kotlinlang.org/). 
 
 ## Are there contains/any/none/all assertions for `Sequence`/`Array`?
 
@@ -2014,5 +2014,5 @@ for further suggestions and guidelines.
 Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
 
 Atrium is using:
-- [KBox](https://github.com/robstoll/kbox) licensed under [Apache 2.0](http://opensource.org/licenses/Apache2.0)
-- [Niok](https://github.com/robstoll/niok) licensed under [Apache 2.0](http://opensource.org/licenses/Apache2.0)
+- [KBox](https://github.com/robstoll/kbox) licensed under [Apache 2.0](https://opensource.org/licenses/Apache2.0)
+- [Niok](https://github.com/robstoll/niok) licensed under [Apache 2.0](https://opensource.org/licenses/Apache2.0)

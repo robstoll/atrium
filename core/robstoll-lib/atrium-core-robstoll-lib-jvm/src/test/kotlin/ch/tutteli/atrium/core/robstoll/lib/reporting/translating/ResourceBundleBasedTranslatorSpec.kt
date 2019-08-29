@@ -27,7 +27,7 @@ object ResourceBundleBasedTranslatorSpec : Spek({
                 .build()
         },
         // ResourceBundleBasedTranslator is only a reference to assure us that we have a similar implementation
-        // it could be true if http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
+        // it could be true if https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
         false,
         "[Atrium's TranslatorIntSpec] "
     )

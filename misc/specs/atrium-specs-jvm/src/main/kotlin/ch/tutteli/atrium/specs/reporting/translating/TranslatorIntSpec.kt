@@ -99,7 +99,7 @@ import java.text.SimpleDateFormat
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslatorIntSpec(
     reporterFactory: (Locale, Array<out Locale>) -> Reporter,
-    //TODO Remove as soon as http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
+    //TODO Remove as soon as https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
     withSpecialCases: Boolean = true,
     describePrefix: String = "[Atrium] "
 ) : Spek({

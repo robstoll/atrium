@@ -23,7 +23,7 @@ By participating, you are expected to uphold this code. Please report unacceptab
   [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
   and we will get back to you.
   You do not yet have a account on kotlinlang.slack.com? 
-  [Invite yourself](http://slack.kotlinlang.org/) :wink:
+  [Invite yourself](https://slack.kotlinlang.org/) :wink:
   
 - Found a bug?  
   [Open an issue](https://github.com/robstoll/atrium/issues/new?template=bug_report.md).
@@ -35,20 +35,20 @@ By participating, you are expected to uphold this code. Please report unacceptab
   Please read the section [Your First Code Contribution](#your-first-code-contribution). 
   If you still have trouble to start, then contact us on 
   [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/) 
-  ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet)
+  ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet)
   and we will try to give you some additional hints.
 
 - You do not have a particular assertion function in mind but would like to contribute with code?
   Please have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
   -- ping us on 
   [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-  ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet) 
+  ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet) 
   if there are not any.  
   
 - You would like to add a new feature to Atrium?  
   Contact use on 
   [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
-  ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet) 
+  ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet) 
   so that we can discuss it before you start.
   
 - Found spelling mistakes?  
@@ -92,7 +92,7 @@ and it gives us the chance to have a look at the description again and revise if
 
 Contact us on
 [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ/)
-([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet)  
+([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet)  
 whenever you need help to get up and running or have questions or simply write in the issue.
 
 We recommend you create a pull request (see [About pull requests](https://help.github.com/en/articles/about-pull-requests) for help)
@@ -113,7 +113,7 @@ However, here a few hints in order that your pull request is merged quickly.
 2. Try to write code in a similar style as the existing 
    (We suggest you copy something existing and modify it).
 3. Write readable code and express comments with code rather than comments.
-4. Provide tests in form of [Spek](http://spekframework.org/docs/latest/) specifications.
+4. Provide tests in form of [Spek](https://spekframework.org/docs/latest/) specifications.
 5. Write your commit message in an [imperative style](https://chris.beams.io/posts/git-commit/).     
 
 ## Pull Request Checklist

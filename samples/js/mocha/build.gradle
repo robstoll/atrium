@@ -19,11 +19,11 @@ apply plugin: 'com.moowork.node'
 repositories {
     jcenter()
     // either use jcenter or the repository on the next line
-    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
-    
+
     testImplementation "org.jetbrains.kotlin:kotlin-test-js"
     //delete this and the following line and uncomment the next line (Atrium uses a project dependency, you won't)
     testImplementation prefixedProject('fluent-en_GB-js')

@@ -46,4 +46,4 @@ A clear and concise description of any alternative solutions or features you've 
   we might give you additional hints and we can assign the task to you, so that others do not start as well.
 - See [Your first code contribution](https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md#your-first-code-contribution) for guidelines.  
 - Do not hesitate to ask questions here or to contact us via [Atrium's slack channel](https://kotlinlang.slack.com/team/U3DE1TXKP) if you need help
-  ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet).
+  ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet).
