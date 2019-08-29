@@ -34,7 +34,6 @@ buildscript {
                 !it.name.startsWith("${rootProject.name}-specs")
         }
         ghPages_version = rootProject.version
-        dokka_sourceMapping = "tree/$rootProject.version"
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
 
