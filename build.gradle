@@ -80,13 +80,13 @@ buildscript {
             def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
             project.sourceSets {
                 main {
-                    kotlin { srcDirs += ["${jvmProject.projectDir}/src/main/kotlin"] }
-                    resources { srcDirs += ["${jvmProject.projectDir}/src/main/resources"] }
+                    kotlin.srcDirs += "${jvmProject.projectDir}/src/main/kotlin"
+                    resources.srcDirs += "${jvmProject.projectDir}/src/main/resources"
                 }
                 test {
-                    kotlin { srcDirs += ["${jvmProject.projectDir}/src/test/kotlin"] }
-                    kotlin { srcDirs += ["${jvmProject.projectDir}/src/test/java"] }
-                    resources { srcDirs += ["${jvmProject.projectDir}/src/test/resources"] }
+                    java.srcDirs += "${jvmProject.projectDir}/src/test/java"
+                    kotlin.srcDirs += ["${jvmProject.projectDir}/src/test/kotlin", "${jvmProject.projectDir}/src/test/java"]
+                    resources.srcDirs += "${jvmProject.projectDir}/src/test/resources"
                 }
             }
         }
