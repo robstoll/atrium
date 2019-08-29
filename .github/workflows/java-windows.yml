@@ -1,4 +1,4 @@
-name: STS-JAVA Windows
+name: Windows
 
 on: [push]
 
