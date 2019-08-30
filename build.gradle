@@ -462,10 +462,8 @@ Prepare next dev cycle
 1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `branch=vX.Y.Z` and replace it with `branch=master`
-   c) search for `branch/vX.Y.Z` and replace it with `branch/master`
-   d) search for `tree/vX.Y.Z` and replace it with `tree/master`
-   e) search for `X.Y.Z/doc` and replace with `latest#/doc`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
+   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
 3. update README
    a) place the warning about taking a sneak peek back into README
    b) update version in the warning to X.Y.Z and update the link as well
