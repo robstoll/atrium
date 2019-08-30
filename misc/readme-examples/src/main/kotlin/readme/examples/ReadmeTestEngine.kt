@@ -143,7 +143,7 @@ class ReadmeTestEngine : TestEngine {
                     |```kotlin
                     |$sourceCode
                     |```
-                    |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
+                    |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/${System.getenv("README_PROJECT_VERSION")}/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
                     |```text
                     |$output
                     |```

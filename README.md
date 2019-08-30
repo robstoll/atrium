@@ -238,7 +238,7 @@ import ch.tutteli.atrium.api.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L11)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L23)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ to be: 9        (kotlin.Int <1234789>)
@@ -283,7 +283,7 @@ The next section shows how you can define multiple assertions for the same subje
 // two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L19)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L31)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -314,7 +314,7 @@ expect(4 + 6) {
     isGreaterThan(10)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L24)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L36)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -343,17 +343,17 @@ expect {
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L32)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L44)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:35)
-      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:9)
-      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:86)
-      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:9)
+      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:47)
+      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:21)
+      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:98)
+      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:21)
 ```
 </ex-toThrow1>
 
@@ -377,7 +377,7 @@ expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L39)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L51)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
@@ -396,7 +396,7 @@ expect {
     message { startsWith("firstName") }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L45)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L57)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
@@ -418,21 +418,21 @@ expect {
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L53)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L65)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is: not thrown at all
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:56)
-      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:9)
-      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:57)
-      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:9)
+      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:68)
+      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:21)
+      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:69)
+      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:21)
     » cause: java.lang.RuntimeException
         » message: "a cause"        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:56)
+          ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:68)
 ```
 </ex-notToThrow>
 
@@ -470,7 +470,7 @@ expect(myPerson)
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
     .startsWith("rob")                            // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L86)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
