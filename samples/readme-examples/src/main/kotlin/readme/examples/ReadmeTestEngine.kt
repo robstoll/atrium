@@ -6,13 +6,12 @@ import ch.tutteli.niok.exists
 import ch.tutteli.niok.readText
 import ch.tutteli.niok.writeText
 import org.junit.platform.engine.*
-import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor
-import org.junit.platform.engine.support.hierarchical.EngineExecutionContext
-import org.junit.platform.engine.support.hierarchical.Node
-import org.spekframework.spek2.junit.*
+import org.spekframework.spek2.junit.JUnitEngineExecutionListenerAdapter
+import org.spekframework.spek2.junit.SpekTestDescriptor
+import org.spekframework.spek2.junit.SpekTestDescriptorFactory
+import org.spekframework.spek2.junit.SpekTestEngine
 import org.spekframework.spek2.runtime.SpekRuntime
 import org.spekframework.spek2.runtime.execution.ExecutionRequest
-import java.lang.reflect.InvocationTargetException
 import java.nio.file.Paths
 import org.junit.platform.engine.ExecutionRequest as JUnitExecutionRequest
 
@@ -25,45 +24,11 @@ class ReadmeTestEngine : TestEngine {
     override fun getId(): String = "spek2-readme"
 
     override fun discover(discoveryRequest: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {
-        return try {
-            val descriptor = spek.discover(discoveryRequest, uniqueId)
-            require(descriptor.children.isNotEmpty()) {
-                "Could not find any specification, check your runtime classpath"
-            }
-            descriptor
-        } catch (t: Throwable) {
-            //since the junit gradle platform does not treat an error during discovery as failure,
-            // we have to return a fake descriptor which fails
-            // TODO check if this changes with https://github.com/junit-team/junit5/issues/1298
-            SpekEngineDescriptor(uniqueId, id).apply {
-                addChild(DiscoveryFailed(uniqueId, t))
-            }
+        val descriptor = spek.discover(discoveryRequest, uniqueId)
+        require(descriptor.children.isNotEmpty()) {
+            "Could not find any specification, check your runtime classpath"
         }
-    }
-
-    private class DiscoveryFailed(
-        uniqueId: UniqueId,
-        private val throwable: Throwable
-    ) : AbstractTestDescriptor(uniqueId.append("discovery", "fail"), "discovering specifications"),
-        Node<EngineExecutionContext> {
-
-        override fun getType() = TestDescriptor.Type.TEST
-        override fun execute(context: EngineExecutionContext?, dynamicTestExecutor: Node.DynamicTestExecutor?) =
-            when (throwable) {
-                is InvocationTargetException ->
-                    throw AssertionError(
-                        "InvocationTargetException occurred with targetException:" +
-                            "\n ${throwable.targetException}",
-                        throwable
-                    )
-                is ExceptionInInitializerError -> throw AssertionError(
-                    "ExceptionInInitializerError occurred with exception:" +
-                        "\n ${throwable.exception}",
-                    throwable
-                )
-
-                else -> throw throwable
-            }
+        return descriptor
     }
 
     override fun execute(request: JUnitExecutionRequest) {

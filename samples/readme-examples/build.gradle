@@ -30,6 +30,8 @@ def readme = task("readme", type: JavaExec, group: 'documentation') {
     main = 'org.junit.platform.console.ConsoleLauncher'
     args = [
         '--scan-class-path', sourceSets['main'].output.classesDirs.asPath,
+        '--disable-banner',
+        '--fail-if-no-tests',
         '--include-engine', 'spek2-readme',
         '--details', 'summary'
     ]
