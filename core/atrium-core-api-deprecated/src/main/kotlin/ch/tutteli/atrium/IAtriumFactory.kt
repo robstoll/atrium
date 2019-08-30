@@ -206,8 +206,8 @@ interface IAtriumFactory {
      * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
      * created [Assertion]s inside the lambda.
      *
-     * Notice, that this [AssertionPlant] might not even provide a [AssertionPlant.subject] in which case it
-     * throws a [PlantHasNoSubjectException] if [subject][AssertionPlant.subject] is accessed.
+     * Notice, that this [AssertionPlant] might not even provide a [AssertionPlant.subject][SubjectProvider.subject] in which case it
+     * throws a [PlantHasNoSubjectException] if [subject][SubjectProvider.subject] is accessed.
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an

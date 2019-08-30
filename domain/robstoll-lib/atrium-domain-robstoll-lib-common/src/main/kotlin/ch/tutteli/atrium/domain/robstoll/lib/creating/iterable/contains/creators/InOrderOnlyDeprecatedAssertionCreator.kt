@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -15,7 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * Represents the base class for `in order only` assertion creators and provides a corresponding template to fulfill
  * its responsibility.
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject] for which the `contains` assertion is be build.
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to

@@ -81,7 +81,7 @@ interface AssertionCollector {
      *   (see e.g. [MapAssertions.hasSize])
      * - You want the collected assertion to be part of an [AssertionGroup]
      *
-     * @param plant The plant from which the [AssertionPlant.subject] will be used as subject of the
+     * @param plant The plant from which the [AssertionPlant.subject][SubjectProvider.subject] will be used as subject of the
      *   [CollectingAssertionPlant].
      * @param assertionCreator A lambda which typically creates a sub [AssertionPlant] and adds assertions
      *   to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically
@@ -141,7 +141,7 @@ interface AssertionCollector {
      *   (see e.g. [MapAssertions.hasSize])
      * - You want the collected assertion to be part of an [AssertionGroup]
      *
-     * @param plant The plant from which the [AssertionPlantNullable.subject] will be used as subject of the
+     * @param plant The plant from which the [AssertionPlantNullable.subject][SubjectProvider.subject] will be used as subject of the
      *   [CollectingAssertionPlantNullable].
      * @param assertionCreator A lambda which typically creates a sub [AssertionPlantNullable] and adds
      *   assertions to it. For instance, if you create a feature assertion or a type transformation assertion, you will
@@ -233,7 +233,7 @@ interface AssertionCollector {
      * @param safeToCollect Indicates whether it is safe to use the [AssertionPlant.subjectProvider] (means it does
      *   not throw a [PlantHasNoSubjectException] if called)
      * @param warningCannotEvaluate The translatable used to explain why the assertions could not be evaluated.
-     * @param plant The plant from which the [AssertionPlant.subject] will be used as subject of the
+     * @param plant The plant from which the [AssertionPlant.subject][SubjectProvider.subject] will be used as subject of the
      *   [CollectingAssertionPlant].
      * @param assertionCreator A lambda which typically creates a sub [AssertionPlant] and adds assertions
      *   to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically
@@ -280,7 +280,7 @@ interface AssertionCollector {
      * @param safeToCollect Indicates whether it is safe to use the [AssertionPlantNullable.subjectProvider] (means
      *   it does not throw a [PlantHasNoSubjectException] if called)
      * @param warningCannotEvaluate The translatable used to explain why the assertions could not be evaluated.
-     * @param plant The plant from which the [AssertionPlantNullable.subject] will be used as subject of the
+     * @param plant The plant from which the [AssertionPlantNullable.subject][SubjectProvider.subject] will be used as subject of the
      *   [CollectingAssertionPlantNullable].
      * @param assertionCreator A lambda which typically creates a sub [AssertionPlant] and adds assertions
      *   to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically

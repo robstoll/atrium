@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.impl.MapGe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * Represents the extension point for another option after a `get key`-step within a
@@ -25,7 +26,7 @@ interface MapGetOption<K, V : Any, T : Map<out K, V>> {
     val key: K
 
     /**
-     * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the previously specified [key] and that the
+     * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the previously specified [key] and that the
      * corresponding value holds all assertions the given [assertionCreator] might create for it.
      *
      * @return This plant to support a fluent API.

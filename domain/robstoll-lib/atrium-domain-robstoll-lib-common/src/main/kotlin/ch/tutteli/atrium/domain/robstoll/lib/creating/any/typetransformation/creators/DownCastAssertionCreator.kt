@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -33,7 +34,7 @@ class DownCastAssertionCreator<T : Any, TSub : T> {
      * [subjectPlant] using the given [description].
      *
      * @param description The [description][DescriptiveAssertion.description] of the resulting [DescriptiveAssertion].
-     * @param subType The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should be down-casted.
+     * @param subType The type to which the [subjectPlant]'s [subject][SubjectProvider.subject] should be down-casted.
      * @param subjectPlant The plant to which additional assertions will be added.
      * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.
      * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions

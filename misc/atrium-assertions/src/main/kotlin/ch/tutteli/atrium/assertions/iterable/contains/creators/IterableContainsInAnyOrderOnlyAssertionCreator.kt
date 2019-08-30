@@ -20,7 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  * Represents the base class for `in any order only` assertion creators and provides a corresponding template to fulfill
  * its responsibility.
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject] for which the `contains` assertion is be build.
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to

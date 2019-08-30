@@ -4,7 +4,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -31,7 +31,7 @@ interface CharSequenceContains {
      * Represents the *deprecated* final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
      * as such.
      *
-     * @param T The type of the [AssertionPlant.subject].
+     * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
      * @param SC The type of the search criteria.
      */
     @Deprecated(

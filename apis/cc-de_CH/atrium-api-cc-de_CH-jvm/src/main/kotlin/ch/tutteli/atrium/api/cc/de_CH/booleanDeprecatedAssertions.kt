@@ -3,10 +3,10 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is `true`.
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is `true`.
  *
  * Delegates to [ist] with argument `true`.
  *
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 fun Assert<Boolean>.istTrue() = ist(true)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is `false`.
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is `false`.
  *
  * Delegates to [ist] with argument `false`.
  *

@@ -3,12 +3,12 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject],
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject],
  * creates a feature assertion plant for the corresponding element and returns the newly created plant.
  *
  * @return This plant to support a fluent API.
@@ -26,7 +26,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
     = AssertImpl.list.get(this, index)
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject] and that
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject] and that
  * the corresponding element holds all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -47,7 +47,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.(
     = addAssertion(AssertImpl.list.get(this, index, assertionCreator))
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject],
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject],
  * creates a feature assertion plant for the corresponding nullable element and returns the newly created plant.
  *
  * @return This plant to support a fluent API.

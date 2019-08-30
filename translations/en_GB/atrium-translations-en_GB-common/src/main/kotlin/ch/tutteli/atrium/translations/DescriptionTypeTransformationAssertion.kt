@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.translations
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which postulate that a
- * [AssertionPlant.subject] of type `T` can be transformed (usually down-casting or unboxing) to `TSub`.
+ * [AssertionPlant.subject][SubjectProvider.subject] of type `T` can be transformed (usually down-casting or unboxing) to `TSub`.
  */
 @Suppress("DEPRECATION")
 @Deprecated("Use DescriptionAnyAssertion instead; will be removed with 1.0.0")

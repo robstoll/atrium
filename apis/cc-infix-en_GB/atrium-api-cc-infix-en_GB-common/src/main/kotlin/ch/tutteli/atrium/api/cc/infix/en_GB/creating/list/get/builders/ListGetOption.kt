@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.impl.List
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * Represents the extension point for another option after a `get index`-step within a
@@ -24,7 +25,7 @@ interface ListGetOption<E : Any, T: List<E>> {
     val index: Int
 
     /**
-     * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject] and that
+     * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject] and that
      * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
      *
      * @return This plant to support a fluent API.

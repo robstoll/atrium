@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 
 /**
  * Represents a formatter for objects.
  *
- * Typically it formats [AssertionPlant.subject]s and expected values of [Assertion]s.
+ * Typically it formats [AssertionPlant.subject][SubjectProvider.subject]s and expected values of [Assertion]s.
  */
 interface ObjectFormatter {
 

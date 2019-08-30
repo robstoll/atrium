@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.creating.any.typetransformation
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -20,8 +21,8 @@ interface AnyTypeTransformation {
      * Represents the final step of a sophisticated `type transformation` assertion builder which creates the
      * [Assertion] as such.
      *
-     * @param S The type of [AssertionPlant.subject].
-     * @param T The target type to which [AssertionPlant.subject] should have been transformed to.
+     * @param S The type of [AssertionPlant.subject][SubjectProvider.subject].
+     * @param T The target type to which [AssertionPlant.subject][SubjectProvider.subject] should have been transformed to.
      */
     @Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")
     interface Creator<S : Any, T : Any> {
@@ -48,11 +49,11 @@ interface AnyTypeTransformation {
      * A handler which is responsible to create the [Assertion] of a failed type transformation.
      *
      * It is also responsible to decide how the lambda -- which could have created subsequent assertions for the
-     * transformed [AssertionPlant.subject] if the transformation of the [AssertionPlant.subject] to type [T]
+     * transformed [AssertionPlant.subject][SubjectProvider.subject] if the transformation of the [AssertionPlant.subject][SubjectProvider.subject] to type [T]
      * did not fail -- should be used in reporting.
      *
-     * @param S The type of [AssertionPlant.subject].
-     * @param T The target type to which [AssertionPlant.subject] should have been transformed to.
+     * @param S The type of [AssertionPlant.subject][SubjectProvider.subject].
+     * @param T The target type to which [AssertionPlant.subject][SubjectProvider.subject] should have been transformed to.
      */
     @Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")
     interface FailureHandler<in S : Any, out T : Any> {
@@ -64,7 +65,7 @@ interface AnyTypeTransformation {
          * collected assertions or such.
          *
          * @param parameterObject The [ParameterObject] containing inter alia [ParameterObject.assertionCreator], the
-         *   lambda which could have created subsequent assertions for the transformed [AssertionPlant.subject].
+         *   lambda which could have created subsequent assertions for the transformed [AssertionPlant.subject][SubjectProvider.subject].
          *
          * @throws AssertionError Might throw an [AssertionError] depending on the [ParameterObject.subjectPlant].
          */
@@ -85,8 +86,8 @@ interface AnyTypeTransformation {
      * @param subjectPlant The plant to which the assertion (including additional assertions created by
      *   [assertionCreator]) should be added.
      * @param assertionCreator The lambda which can create subsequent assertions for the transformed
-     *   [AssertionPlant.subject] in case the type transformation succeeds
-     * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][AssertionPlant.subject]
+     *   [AssertionPlant.subject][SubjectProvider.subject] in case the type transformation succeeds
+     * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][SubjectProvider.subject]
      *   could not be transformed to the desired type.
      */
     @Deprecated("Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0")

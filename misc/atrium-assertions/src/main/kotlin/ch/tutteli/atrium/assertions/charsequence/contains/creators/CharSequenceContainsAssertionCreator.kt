@@ -3,7 +3,6 @@ package ch.tutteli.atrium.assertions.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
@@ -18,7 +17,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * corresponding check. Those created assertions are then grouped into an [AssertionGroup] which represents the
  * sophisticated assertion as a whole.
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject] for which the `contains` assertion is be build.
  * @param S The search behaviour which should be applied to the input of the search.
  *
  * @constructor Represents a creator for sophisticated `contains` assertions for [CharSequence].

@@ -3,17 +3,16 @@
 @file:JvmName("TypeTransformationAssertionsKt")
 package ch.tutteli.atrium.api.cc.en_GB
 
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
- * Makes the assertion that [AssertionPlantNullable.subject] is not null but the [expected] value.
+ * Makes the assertion that [AssertionPlantNullable.subject][SubjectProvider.subject] is not null but the [expected] value.
  *
  * Is a shortcut for `istNichtNull { ist(expected) }`
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
- *   assertion ([Assert.subject][AssertionPlant.subject] is not null) holds or not.
+ *   assertion ([Assert.subject][SubjectProvider.subject] is not null) holds or not.
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */

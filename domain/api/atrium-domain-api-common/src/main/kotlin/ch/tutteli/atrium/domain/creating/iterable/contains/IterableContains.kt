@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.creating.iterable.contains
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.*
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableContainsAssertions
@@ -43,7 +43,7 @@ interface IterableContains {
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
      * as such.
      *
-     * @param T The type of the [AssertionPlant.subject].
+     * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
      * @param SC The type of the search criteria.
      */
     interface Creator<in T : Iterable<*>, in SC> : Contains.Creator<T, SC>

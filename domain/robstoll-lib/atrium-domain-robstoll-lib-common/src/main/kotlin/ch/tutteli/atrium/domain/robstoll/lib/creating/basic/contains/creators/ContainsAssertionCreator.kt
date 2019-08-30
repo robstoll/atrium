@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
@@ -13,7 +12,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  *
- * @param T The type of the [AssertionPlant.subject].
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  * @param SC The type of the search criteria.
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  *
@@ -43,7 +42,7 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
 
     /**
      * Searches for something fulfilling the given [searchCriterion] in the given [subjectProvider]'s
-     * [subject][AssertionPlant.subject] and should pass on the number of occurrences to the given
+     * [subject][SubjectProvider.subject] and should pass on the number of occurrences to the given
      * [featureFactory] which creates feature assertions based on the [checkers], which in turn can be used to create
      * a resulting [AssertionGroup] representing the assertion for a search criteria as a whole.
      *

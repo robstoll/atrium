@@ -32,6 +32,7 @@ buildscript {
             !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
                 it.name != "${rootProject.name}-bc-test" &&
+                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
                 !it.name.startsWith("${rootProject.name}-specs")
         }
         ghPages_version = rootProject.version

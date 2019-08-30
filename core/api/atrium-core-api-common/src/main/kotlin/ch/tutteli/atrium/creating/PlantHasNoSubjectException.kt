@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
 /**
- * Represents the [Exception] that an [AssertionPlant.subject] was not defined but one tried to access it.
+ * Represents the [Exception] that an [AssertionPlant.subject][SubjectProvider.subject] was not defined but one tried to access it.
  */
 @Deprecated("No longer required with Expect; will be removed with 1.0.0")
 class PlantHasNoSubjectException

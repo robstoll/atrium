@@ -4,7 +4,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
@@ -21,7 +21,7 @@ fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotChecker
     = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains [expected]'s [getDefault][Translatable.getDefault]
  * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if given),
  * using a non disjoint search.
  *
@@ -49,7 +49,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(
 ) = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does  not contain [expected]'s
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if given).
  *

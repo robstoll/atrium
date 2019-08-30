@@ -53,7 +53,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
+     * @param subjectProvider Used as [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
      *   also as [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *

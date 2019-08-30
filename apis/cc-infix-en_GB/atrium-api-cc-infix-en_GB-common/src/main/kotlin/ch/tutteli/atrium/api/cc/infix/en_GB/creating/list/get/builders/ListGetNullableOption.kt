@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * Represents the extension point for another option after a `get index`-step within a
@@ -25,7 +26,7 @@ interface ListGetNullableOption<E, T: List<E>> {
     val index: Int
 
     /**
-     * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject] and that
+     * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject] and that
      * the corresponding nullable entry holds all assertions the given [assertionCreator] might create for it.
      *
      * Notice, that the corresponding entry of the given [index] can be `null` even if the index is within bounds

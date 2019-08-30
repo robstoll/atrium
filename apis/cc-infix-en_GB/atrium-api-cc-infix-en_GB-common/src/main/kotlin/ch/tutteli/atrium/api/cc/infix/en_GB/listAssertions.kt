@@ -5,10 +5,11 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.ListGetNu
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.ListGetOption
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject],
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject],
  * creates a feature assertion plant for the corresponding element and returns the newly created plant.
  *
  * @return This plant to support a fluent API.
@@ -28,7 +29,7 @@ infix fun <E : Any, T: List<E>> Assert<T>.get(index: Index): ListGetOption<E, T>
 
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject],
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][SubjectProvider.subject],
  * creates a feature assertion plant for the corresponding nullable element and returns the newly created plant.
  *
  * @return This plant to support a fluent API.

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.No
 import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -44,7 +45,7 @@ fun <T : CharSequence> getContainsNot(plant:  Assert<T>): DeprecatedNotCheckerBu
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains [expected]'s [toString] representation
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
@@ -74,7 +75,7 @@ fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: A
     = contains.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain [expected]'s [toString] representation
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
@@ -88,7 +89,7 @@ fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains [expected]'s [getDefault][Translatable.getDefault]
  * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if given),
  * using a non disjoint search.
  *
@@ -114,7 +115,7 @@ fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(expected: Translat
     = contains.atLeast(1).defaultTranslationOf(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does  not contain [expected]'s
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if given).
  *
@@ -129,7 +130,7 @@ fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Trans
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a sequence which matches the given regular expression
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains a sequence which matches the given regular expression
  * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
@@ -156,7 +157,7 @@ fun <T : CharSequence> Assert<T>.containsRegex(pattern: String, vararg otherPatt
     = contains.atLeast(1).regex(pattern, *otherPatterns)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] starts with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] starts with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -166,7 +167,7 @@ fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not start with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not start with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -177,7 +178,7 @@ fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] ends with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] ends with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -187,7 +188,7 @@ fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not end with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not end with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -198,7 +199,7 @@ fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] [CharSequence].[kotlin.text.isEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -208,7 +209,7 @@ fun <T : CharSequence> Assert<T>.isEmpty()
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

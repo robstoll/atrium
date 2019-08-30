@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -14,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
  * in any order and is identified by expected objects (equality comparison).
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject] for which the `contains` assertion is be build.
  * @param S The type of the elements of the iterable, used as search criterion.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries

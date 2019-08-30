@@ -4,15 +4,16 @@ package ch.tutteli.atrium.assertions.charsequence.contains.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
 /**
  * Represents the *deprecated* entry point of the fluent API of sophisticated `contains` assertions.
- * It contains the [plant] for which the [Assertion] shall be build as well as the decoration behaviour which shall be
- * applied to the [plant]'s [subject][AssertionPlant.subject].
+ * It contains the [subjectProvider] for which the [Assertion] shall be build as well as the decoration behaviour which
+ * shall be applied to the [subjectProvider]'s [subject][SubjectProvider.subject].
  *
- * @param T The input type of the search which is the same as the type of the [subject][AssertionPlant.subject] of the
- *   [plant].
+ * @param T The input type of the search which is the same as the type of the [subject][SubjectProvider.subject] of the
+ *   [subjectProvider].
  * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor Represents the entry point of the fluent API of sophisticated `contains` assertions.

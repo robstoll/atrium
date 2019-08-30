@@ -4,7 +4,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have
  * to appear in the [Iterable] but in any order -- an entry is identified by an expected object (equality comparison).
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject] for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected
  *   entries have to appear in the [Iterable] but in any order -- an entry is identified by an expected

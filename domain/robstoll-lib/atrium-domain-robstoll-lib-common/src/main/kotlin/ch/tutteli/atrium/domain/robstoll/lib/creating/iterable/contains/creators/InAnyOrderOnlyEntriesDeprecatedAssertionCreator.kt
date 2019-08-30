@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreatedAssertionsHold
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createEntryAssertion
@@ -14,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * to appear in the [Iterable] but in any order -- an entry is identified by holding a group of assertions
  * created by an assertion creator lambda.
  *
- * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject] for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected
  *   entries have to appear in the [Iterable] but in any order -- an entry is identified by holding a group

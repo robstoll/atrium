@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * An assertion plant which has [CommonFields].
  *
- * @param T The type of the [AssertionPlant.subject].
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  */
 @Deprecated("Switch from Assert to Expect, use ReportingAssertionContainer.AssertionCheckerDecorator instead; will be removed with 1.0.0")
 interface AssertionPlantWithCommonFields<out T> {
@@ -24,18 +24,18 @@ interface AssertionPlantWithCommonFields<out T> {
     /**
      * Common fields of an assertion plant.
      *
-     * @param T The type of the [AssertionPlant.subject].
+     * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
      *
      * @property assertionVerb The assertion verb which will be used inter alia in reporting.
      * @property assertionChecker The checker which will be used to check [Assertion]s.
-     * @property subjectProvider Provides the [AssertionPlant.subject] for which this plant will
+     * @property subjectProvider Provides the [AssertionPlant.subject][SubjectProvider.subject] for which this plant will
      *   create/check [Assertion]s.
      * @property nullRepresentation The representation used in reporting in case [representationProvider]
      *   cannot provide a representation, provides `null` respectively.
      *
      * @constructor
      * @param assertionVerb The assertion verb which will be used inter alia in reporting.
-     * @param subjectProvider Provides the [AssertionPlant.subject] for which this plant will create/check [Assertion]s.
+     * @param subjectProvider Provides the [AssertionPlant.subject][SubjectProvider.subject] for which this plant will create/check [Assertion]s.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      * @property nullRepresentation The representation used in reporting in case [representationProvider]
      *   cannot provide a representation, provides `null` respectively.

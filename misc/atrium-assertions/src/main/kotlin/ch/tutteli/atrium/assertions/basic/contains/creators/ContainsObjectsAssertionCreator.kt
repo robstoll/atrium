@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -16,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It provides a template to fulfill the job of creating the sophisticated `contains` assertion.
  *
- * @param T The type of the [AssertionPlant.subject].
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  * @param S The type of the search criteria.
  * @param B The type of the current [Contains.SearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
@@ -61,13 +60,13 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : ch.tutteli.atrium
 
     /**
      * Searches for something matching the given [searchCriterion] in the given [subjectProvider]'s
-     * [subject][AssertionPlant.subject] and returns the number of occurrences.
+     * [subject][SubjectProvider.subject] and returns the number of occurrences.
      *
-     * @param subjectProvider The plant or rather its [subject][AssertionPlant.subject] in which we shall look for something
+     * @param subjectProvider The plant or rather its [subject][SubjectProvider.subject] in which we shall look for something
      *   matching the given [searchCriterion].
      * @param searchCriterion The search criterion used to determine whether something matches or not.
      *
-     * @return The number of times the [searchCriterion] matched in the [subjectProvider]'s [subject][AssertionPlant.subject].
+     * @return The number of times the [searchCriterion] matched in the [subjectProvider]'s [subject][SubjectProvider.subject].
      */
     protected abstract fun search(subjectProvider: SubjectProvider<T>, searchCriterion: S): Int
 }

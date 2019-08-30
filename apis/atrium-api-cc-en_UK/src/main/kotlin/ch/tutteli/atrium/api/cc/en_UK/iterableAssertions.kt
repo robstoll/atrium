@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.NotChe
 import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -43,7 +44,7 @@ fun <E, T : Iterable<E>> getContainsNot(plant: Assert<T>): DeprecatedNotCheckerB
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains [expected]
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains [expected]
  * and the [otherExpected] (if given).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)`
@@ -65,7 +66,7 @@ fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E
     = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) where it does not matter
  * in which order the entries appear.
  *
@@ -79,7 +80,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) where it does not matter
  * in which order the entries appear.
  *
@@ -99,7 +100,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only [expected] and the [otherExpected] (if given) in
  * the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.values(expected, *otherExpected)`
@@ -112,7 +113,7 @@ fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExp
     = contains.inOrder.only.values(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
@@ -126,7 +127,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
@@ -146,7 +147,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNulllable(plant: Assert<T>, asse
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain [expected]
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if given).
  *
  *  It is a shortcut for `containsNot.values(expected, *otherExpected)`

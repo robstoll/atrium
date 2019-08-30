@@ -2,7 +2,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
@@ -27,7 +27,7 @@ infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
     "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`.")
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is numerically equal to [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) == 0`)
@@ -46,7 +46,7 @@ infix fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not numerically equal to [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) != 0`)
@@ -65,7 +65,7 @@ infix fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is (equal to) [expected] including [BigDecimal.scale].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is (equal to) [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.
@@ -81,7 +81,7 @@ infix fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.

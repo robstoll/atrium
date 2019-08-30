@@ -8,15 +8,16 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.Reporter
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is (equal to) [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][SubjectProvider.subject].
  * Currently the following is possible: `assert(1).toBe(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -33,9 +34,9 @@ import kotlin.jvm.JvmName
 fun <T : Any> Assert<T>.toBe(expected: T) = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not (equal to) [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][SubjectProvider.subject].
  * Currently the following is possible: `assert(1).notToBe(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -52,9 +53,9 @@ fun <T : Any> Assert<T>.toBe(expected: T) = addAssertion(AssertImpl.any.toBe(thi
 fun <T : Any> Assert<T>.notToBe(expected: T) = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is the same instance as [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][SubjectProvider.subject].
  * Currently the following is possible: `assert(1).isSameAs(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -71,9 +72,9 @@ fun <T : Any> Assert<T>.notToBe(expected: T) = addAssertion(AssertImpl.any.notTo
 fun <T : Any> Assert<T>.isSameAs(expected: T) = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not the same instance as [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][SubjectProvider.subject].
  * Currently the following is possible: `assert(1).isNotSameAs(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -90,7 +91,7 @@ fun <T : Any> Assert<T>.isSameAs(expected: T) = addAssertion(AssertImpl.any.isSa
 fun <T : Any> Assert<T>.isNotSameAs(expected: T) = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is [expected].
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  *
@@ -109,7 +110,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
 }
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is either `null` if [assertionCreatorOrNull]
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
  *
  * It is a shortcut for

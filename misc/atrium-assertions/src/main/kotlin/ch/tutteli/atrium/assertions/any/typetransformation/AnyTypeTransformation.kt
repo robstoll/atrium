@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -21,11 +22,11 @@ interface AnyTypeTransformation {
 
     /**
      * A handler which decides how the lambda -- which could have created subsequent assertions for the
-     * transformed [AssertionPlant.subject] if the transformation of the [AssertionPlant.subject] to type [TSub]
+     * transformed [AssertionPlant.subject][SubjectProvider.subject] if the transformation of the [AssertionPlant.subject][SubjectProvider.subject] to type [TSub]
      * did not fail -- should be used in reporting.
      *
-     * @param T The type of [AssertionPlant.subject].
-     * @param TSub The type to which [AssertionPlant.subject] should have been transformed to.
+     * @param T The type of [AssertionPlant.subject][SubjectProvider.subject].
+     * @param TSub The type to which [AssertionPlant.subject][SubjectProvider.subject] should have been transformed to.
      */
     @Deprecated(
         "Use the interface from package domain.creating; will be removed with 1.0.0",
@@ -36,13 +37,13 @@ interface AnyTypeTransformation {
         /**
          * Makes something with the given [assertionCreator] lambda; might add assertions to [subjectPlant].
          *
-         * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][AssertionPlant.subject] could not be
+         * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][SubjectProvider.subject] could not be
          *   should have been down-casted.
          * @param subjectPlant The plant to which additional assertions would have been added.
          * @param failingAssertion The failing [Assertion] representing that [subjectPlant]'s
-         *   [subject][AssertionPlant.subject] can be transformed to [TSub].
+         *   [subject][SubjectProvider.subject] can be transformed to [TSub].
          * @param assertionCreator The lambda which could have created subsequent assertions for the transformed
-         *   [AssertionPlant.subject].
+         *   [AssertionPlant.subject][SubjectProvider.subject].
          *
          * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
          */

@@ -10,6 +10,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
@@ -36,7 +37,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") con
     = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the [expected] value.
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the [expected] value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 value expected`
  *
@@ -47,7 +48,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
     = o to contain inAny order atLeast 1 value expected
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the expected [values].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the expected [values].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Values(...)`
  *
@@ -69,7 +70,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionP
     = o to contain inAny order atLeast 1 the values
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -86,7 +87,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull:
     = o to contain inAny order atLeast 1 entry assertionCreatorOrNull
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding the
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains an entry holding the
  * assertions created by [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] or an entry
  * which is `null` in case [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of the
@@ -102,7 +103,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E>): A
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only
  * the [expected] value.
  *
  * It is a shortcut for `to contain inGiven order and only value expected`
@@ -114,7 +115,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(expected: E): Assertion
     = o to contain inGiven order and only value expected
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only
  * the expected [values] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order and only the Values(...)`
@@ -126,7 +127,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>): Ass
     = o to contain inGiven order and only the values
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only one entry
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only one entry
  * which is holding the assertions created by [assertionCreatorOrNull] or
  * only one entry which is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -143,7 +144,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreator
     = o to contain inGiven order and only entry assertionCreatorOrNull
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains only an entry holding
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains only an entry holding
  * the assertions created by [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] or
  * `null` in case [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null`
  * and likewise an additional entry for each
@@ -160,7 +161,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(entries: Entries
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain the [expected] value.
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain the [expected] value.
  *
  * It is a shortcut for `notTo contain value expected`
  *
@@ -171,7 +172,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlan
     = o notTo contain value expected
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain the expected [values].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain the expected [values].
  *
  * It is a shortcut for `notTo contain the Values(...)`
  *
@@ -183,7 +184,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Asserti
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains an entry holding
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains an entry holding
  * the assertions created by the [assertionCreatorOrNull] or an entry
  * which is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -197,7 +198,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.any(assertionCreatorOrNull: (Ass
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain a single entry
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain a single entry
  * which holds all assertions created by [assertionCreatorOrNull]
  * or does not contain a single entry which is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -210,7 +211,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.none(assertionCreatorOrNull: (As
     = o notTo contain entry assertionCreatorOrNull
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] has at least one element and
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] has at least one element and
  * that every element holds all assertions created by the
  * [assertionCreatorOrNull] or that all elements are `null`
  * in case [assertionCreatorOrNull] is defined as `null`.

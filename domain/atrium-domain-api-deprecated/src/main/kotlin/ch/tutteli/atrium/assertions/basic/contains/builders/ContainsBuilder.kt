@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.assertions.basic.contains.builders
 
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 
 /**
  * Represents the *deprecated* base class for builders representing the entry point of the process of building a sophisticated
  * `contains` assertion.
  *
- * @param T The type of the [AssertionPlant.subject].
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  * @param S The type of the current [Contains.SearchBehaviour].
  *
  * @property plant The [AssertionPlant] for which the sophisticated `contains` assertions shall be built.

@@ -1,4 +1,5 @@
 apply plugin: 'kotlin'
+apply plugin: 'java'
 apply plugin: 'org.jetbrains.dokka'
 
 def ghPagesPathWithoutVersion = "../${project.name}-gh-pages"
@@ -48,8 +49,15 @@ dokka {
         suffix = '#L'
     }
 
-    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
-
+//    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
+    def commonDocProjects = (docProjects - (docProjects - getCommonProjects()))
+    def jsDocProjects = (docProjects - (docProjects - getJsProjects()))
+    kotlinTasks {
+        defaultKotlinTasks() +
+            commonDocProjects.collect { it.compileKotlinCommon } +
+            jsDocProjects.collect { it.compileKotlin2Js }
+            (docProjects - commonDocProjects - jsDocProjects).collect { it.compileKotlin }
+    }
     //TODO use as soon as https://github.com/Kotlin/dokka/issues/496 is fixed
 //    (docProjects - (docProjects - getAndroidProjects())).each { subProject ->
 //        sourceRoot {

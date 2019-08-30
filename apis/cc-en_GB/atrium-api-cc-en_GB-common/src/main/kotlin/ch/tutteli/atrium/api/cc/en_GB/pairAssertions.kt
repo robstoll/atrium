@@ -5,10 +5,11 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] so that further
+ * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [first][Pair.first] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -27,7 +28,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 val <K : Any> Assert<Pair<K, *>>.first get() : Assert<K> = property(Pair<K, *>::first)
 
 /**
- * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`)
+ * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [first][Pair.first] (which could be `null`)
  * so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -48,7 +49,7 @@ val <K> Assert<Pair<K, *>>.first get() : AssertionPlantNullable<K> = property(Pa
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s property [first][Pair.first] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -69,7 +70,7 @@ fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit
     = addAssertion(AssertImpl.pair.first(this, assertionCreator))
 
 /**
- * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] so that further
+ * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [second][Pair.second] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -88,7 +89,7 @@ fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit
 val <V : Any> Assert<Pair<*, V>>.second get() : Assert<V> = property(Pair<*, V>::second)
 
 /**
- * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second]
+ * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [second][Pair.second]
  * (which could be `null`) so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -109,7 +110,7 @@ val <V> Assert<Pair<*, V>>.second get() : AssertionPlantNullable<V> = property(P
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s property [second][Pair.second] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.

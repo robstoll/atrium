@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * Represents the extension point for another option after a `get key`-step within a
@@ -26,7 +27,7 @@ interface MapGetNullableOption<K, V, T: Map<out K, V>> {
     val key: K
 
     /**
-     * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains the previously specified [key]
+     * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the previously specified [key]
      * and that the corresponding nullable value holds all assertions the given [assertionCreator] might create for it.
      *
      * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a

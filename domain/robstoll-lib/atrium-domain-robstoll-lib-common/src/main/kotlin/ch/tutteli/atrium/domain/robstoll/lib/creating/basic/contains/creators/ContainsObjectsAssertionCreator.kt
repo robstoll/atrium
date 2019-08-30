@@ -3,7 +3,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
@@ -15,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It provides a template to fulfill the job of creating the sophisticated `contains` [Assertion].
  *
- * @param T The type of the [AssertionPlant.subject].
+ * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  * @param SC The type of the search criteria.
  * @param S The type of the current [Contains.SearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).

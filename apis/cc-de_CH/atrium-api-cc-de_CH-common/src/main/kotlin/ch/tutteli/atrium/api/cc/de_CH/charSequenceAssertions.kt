@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.No
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -33,7 +34,7 @@ val <T : CharSequence> Assert<T>.enthaeltNicht: NotCheckerOption<T, NotSearchBeh
     get() = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains [expected]'s [toString] representation
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).werte(expected, *otherExpected)`.
@@ -62,7 +63,7 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
     = enthaelt.zumindest(1).werte(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not contain [expected]'s [toString] representation
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`.
@@ -77,7 +78,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
     = enthaeltNicht.werte(expected, *otherExpected)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] contains a sequence which matches the given regular expression
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains a sequence which matches the given regular expression
  * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).regex(pattern, *otherPatterns)`.
@@ -105,7 +106,7 @@ fun <T : CharSequence> Assert<T>.enthaeltRegex(
 ) = enthaelt.zumindest(1).regex(pattern, *otherPatterns)
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] starts with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] starts with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -114,7 +115,7 @@ fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not start with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not start with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -124,7 +125,7 @@ fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] ends with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] ends with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -133,7 +134,7 @@ fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] does not end with [expected].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not end with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -143,7 +144,7 @@ fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
 
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] [CharSequence].[kotlin.text.isEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -152,7 +153,7 @@ fun <T : CharSequence> Assert<T>.istLeer()
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -161,7 +162,7 @@ fun <T : CharSequence> Assert<T>.istNichtLeer()
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] [CharSequence].[kotlin.text.isNotBlank].
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] [CharSequence].[kotlin.text.isNotBlank].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

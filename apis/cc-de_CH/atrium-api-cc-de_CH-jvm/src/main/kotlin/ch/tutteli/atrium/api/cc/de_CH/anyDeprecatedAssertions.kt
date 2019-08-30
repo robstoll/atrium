@@ -3,12 +3,12 @@
 @file:JvmName("AnyAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Makes the assertion that the [Assert.subject][AssertionPlant.subject] is `null`.
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is `null`.
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  *
