@@ -11,7 +11,7 @@ repositories {
 
 
 dependencies {
-    implementation "org.junit.platform:junit-platform-engine:$junit_platform_version"
+    implementation "org.junit.platform:junit-platform-console-standalone:$junit_platform_version"
     implementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version"
     implementation "org.spekframework.spek2:spek-runner-junit5:$spek2_version"
     implementation "org.spekframework.spek2:spek-runtime-jvm:$spek2_version"

@@ -7,23 +7,40 @@ import org.spekframework.spek2.runtime.scope.TestScopeImpl
 
 class ReadmeExecutionListener(
     private val listener: JUnitEngineExecutionListenerAdapter,
-    private val outputs: MutableMap<String, String>
+    private val examples: MutableMap<String, String>,
+    private val snippets: MutableSet<String>
 ) : ExecutionListener by listener {
 
     override fun testExecutionFinish(test: TestScopeImpl, result: ExecutionResult) {
         when (result) {
-            ExecutionResult.Success -> listener.testExecutionFinish(
+            ExecutionResult.Success -> handleSuccess(test)
+            is ExecutionResult.Failure -> handleFailure(result, test)
+        }
+    }
+
+    private fun handleSuccess(test: TestScopeImpl) {
+        if (!test.id.name.startsWith("snippet")) {
+            listener.testExecutionFinish(
                 test,
                 ExecutionResult.Failure(IllegalStateException("readme tests are supposed to fail"))
             )
-            is ExecutionResult.Failure -> handleFailure(result, test)
+            return
         }
+        if (snippets.contains(test.id.name)) {
+            listener.testExecutionFinish(
+                test,
+                ExecutionResult.Failure(IllegalStateException("snippet ${test.id.name} is at least defined twice"))
+            )
+            return
+        }
+        snippets.add(test.id.name)
+        listener.testExecutionFinish(test, ExecutionResult.Success)
     }
 
     private fun handleFailure(result: ExecutionResult.Failure, test: TestScopeImpl) {
         when (result.cause) {
             is AssertionError -> {
-                outputs[test.id.name] = result.cause.message!!
+                examples[test.id.name] = result.cause.message!!
                 listener.testExecutionFinish(test, ExecutionResult.Success)
             }
             else -> listener.testExecutionFinish(test, result)

@@ -228,11 +228,23 @@ to see how the infix API looks like, how they differ respectively.
 
 ## Your First Assertion
 We start off with a simple example:
+
+<ex-first>
+
 ```kotlin
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
+
 val x = 10
 expect(x).toBe(9)
-``` 
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L11)</sub> ↓ <sub>Output</sub>
+```text
+expect: 10        (kotlin.Int <1234789>)
+◆ to be: 9        (kotlin.Int <1234789>)
+```
+</ex-first>
+
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with the following message:
 ```text
@@ -242,8 +254,10 @@ expect: 10        (kotlin.Int <934275857>)
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
 
-We have used the predefined assertion verb `expect` in the above example which we had to import first. 
-We will omit the `import` statement in the remaining examples for brevity. 
+We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+and we have used the predefined assertion verb `expect` in the above example. 
+Thus the corresponding imports at the beginning of the file.
+We will omit the `import` statements in the remaining examples for brevity. 
 
 **You want to run the example yourself?**
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
@@ -263,18 +277,18 @@ Yet, you can also [define your own assertion verbs](#use-own-assertion-verbs) if
 The next section shows how you can define multiple assertions for the same subject.
 
 ## Define Single Assertions or Assertion Groups
-<ex1>
+<ex-single>
 
 ```kotlin
 // two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L9)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L19)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
 ```
-</ex1>
+</ex-single>
 
 Atrium allows you to chain assertions or in other words
 you only need to write the `expect(...)` part once and can make several single assertions for the same subject.
@@ -291,7 +305,7 @@ In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(1
 
 If you want that both assertions are evaluated together, then use the assertion group syntax as follows:
  
-<ex2>
+<ex-group>
 
 ```kotlin
 // assertion group with two assertions, both evaluated
@@ -300,13 +314,13 @@ expect(4 + 6) {
     isGreaterThan(10)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L14)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L24)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
 ◆ is greater than: 10        (kotlin.Int <1234789>)
 ```
-</ex2>
+</ex-group>
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
 You can use `and` as filling element between single assertions and assertion group blocks:
@@ -321,7 +335,7 @@ expect(4 + 6) {
 ```
  
 ## Expect an Exception
-<ex3>
+<ex-toThrow1>
 
 ```kotlin
 expect {
@@ -329,23 +343,19 @@ expect {
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L22)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L32)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$3$1.invoke(ReadmeSpec.kt:25)
-      ⚬ readme.examples.ReadmeSpec$1$3$1.invoke(ReadmeSpec.kt:7)
-      ⚬ readme.examples.ReadmeSpec$1$3.invoke(ReadmeSpec.kt:54)
-      ⚬ readme.examples.ReadmeSpec$1$3.invoke(ReadmeSpec.kt:7)
-      ⚬ org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(Scopes.kt:94)
-      ⚬ org.spekframework.spek2.runtime.Executor$execute$$inlined$executeSafely$lambda$1$1.invokeSuspend(Executor.kt:52)
-      ⚬ kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
-      ⚬ ...
+      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:35)
+      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:9)
+      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:86)
+      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:9)
 ```
-</ex3>
+</ex-toThrow1>
 
 You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
 (`IllegalStateException` in the example above). 
@@ -360,24 +370,24 @@ As with all narrowing functions, there are two overloads:
 
 The following example uses the first overload
 
-<ex4>
+<ex-toThrow2>
 
 ```kotlin
 expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L29)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L39)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
 ```
-</ex4>
+</ex-toThrow2>
 
 And this one uses the second overload; notice the difference in reporting.
 
-<ex5>
+<ex-toThrow3>
 
 ```kotlin
 expect {
@@ -386,21 +396,21 @@ expect {
     message { startsWith("firstName") }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L35)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L45)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
       » starts with: "firstName"        <1234789>
 ```
-</ex5>
+</ex-toThrow3>
 
 Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, which creates a feature assertion (see next section) 
 about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
 
-<ex6>
+<ex-notToThrow>
 
 ```kotlin
 expect {
@@ -408,30 +418,23 @@ expect {
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L43)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L53)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is: not thrown at all
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:46)
-      ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:7)
-      ⚬ readme.examples.ReadmeSpec$1$6.invoke(ReadmeSpec.kt:47)
-      ⚬ readme.examples.ReadmeSpec$1$6.invoke(ReadmeSpec.kt:7)
-      ⚬ org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(Scopes.kt:94)
-      ⚬ org.spekframework.spek2.runtime.Executor$execute$$inlined$executeSafely$lambda$1$1.invokeSuspend(Executor.kt:52)
-      ⚬ kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
-      ⚬ kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:238)
-      ⚬ kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
-      ⚬ kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
-      ⚬ kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:742)
+      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:56)
+      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:9)
+      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:57)
+      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:9)
     » cause: java.lang.RuntimeException
         » message: "a cause"        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:46)
+          ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:56)
 ```
-</ex6>
+</ex-notToThrow>
 
 Notice that stacks are filtered so that you only see what is of interest. 
 Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate 
@@ -449,15 +452,33 @@ There are different use cases for feature assertions.
 We will start of with properties and method calls and go on with more complicated scenarios.
 
 ### Property and Methods
+We are using the `data class Person` in the following examples:
+<ex-property_methods>
+
 ```kotlin
 data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
-    fun fullName() = "$firstName $lastName"
-    fun nickname(includeLastName: Boolean) = when(includeLastName){
-        false -> "Mr. $firstName"
-        true -> "$firstName aka. $lastName"
+        fun fullName() = "$firstName $lastName"
+        fun nickname(includeLastName: Boolean) = when (includeLastName) {
+            false -> "Mr. $firstName"
+            true -> "$firstName aka. $lastName"
+        }
     }
-}
-val myPerson = Person("Robert", "Stoll", false)
+
+    val myPerson = Person("Robert", "Stoll", false)
+expect(myPerson)
+    .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
+    .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
+    .startsWith("rob")                            // not evaluated anymore
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
+◆ ▶ isStudent: false
+    ◾ to be: true
+```
+</ex-property_methods>
+```kotlin
+
 
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards

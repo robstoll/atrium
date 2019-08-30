@@ -19,7 +19,8 @@ import org.junit.platform.engine.ExecutionRequest as JUnitExecutionRequest
 class ReadmeTestEngine : TestEngine {
     private val spek = SpekTestEngine()
 
-    private val outputs = mutableMapOf<String, String>()
+    private val examples = mutableMapOf<String, String>()
+    private val snippets = HashSet<String>()
 
     override fun getId(): String = "spek2-readme"
 
@@ -77,24 +78,28 @@ class ReadmeTestEngine : TestEngine {
         }
     }
 
-    private fun processExamples(request: org.junit.platform.engine.ExecutionRequest) {
+    private fun processExamples(request: JUnitExecutionRequest) {
         val specContent = fileContent("src/main/kotlin/readme/examples/ReadmeSpec.kt", request)
         var readmeContent = fileContent(readmeStringPath, request)
 
-        outputs.forEach { (exampleId, output) ->
+        examples.forEach { (exampleId, output) ->
             readmeContent = updateExampleInReadme(readmeContent, specContent, exampleId, output, request)
+        }
+        snippets.forEach { snippetId ->
+            readmeContent = updateSnippetInReadme(readmeContent, specContent, snippetId, request)
         }
         Paths.get(readmeStringPath).writeText(readmeContent)
     }
 
-    private fun runSpekWithCustomListener(request: org.junit.platform.engine.ExecutionRequest) {
+    private fun runSpekWithCustomListener(request: JUnitExecutionRequest) {
         val roots = request.rootTestDescriptor.children
             .filterIsInstance<SpekTestDescriptor>()
             .map(SpekTestDescriptor::scope)
 
         val executionListener = ReadmeExecutionListener(
             JUnitEngineExecutionListenerAdapter(request.engineExecutionListener, SpekTestDescriptorFactory()),
-            outputs
+            examples,
+            snippets
         )
         val executionRequest = ExecutionRequest(roots, executionListener)
         SpekRuntime().execute(executionRequest)
@@ -129,21 +134,21 @@ class ReadmeTestEngine : TestEngine {
         val exampleTag = Regex("<$exampleId>[\\S\\s]*</$exampleId>")
 
         return if (!exampleTag.containsMatchIn(readmeContent)) {
-            request.fail("test tag <$exampleId> not found in $readmeStringPath")
+            request.fail("example tag <$exampleId> not found in $readmeStringPath")
             readmeContent
         } else {
             exampleTag.replace(readmeContent) {
                 """<$exampleId>
-                |
-                |```kotlin
-                |$sourceCode
-                |```
-                |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
-                |```text
-                |$output
-                |```
-                |</$exampleId>
-            """.trimMargin()
+                    |
+                    |```kotlin
+                    |$sourceCode
+                    |```
+                    |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/readme/misc/readme-examples/src/main/kotlin/ch/tutteli/atrium/readme/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
+                    |```text
+                    |$output
+                    |```
+                    |</$exampleId>
+                """.trimMargin()
             }
         }
     }
@@ -168,6 +173,28 @@ class ReadmeTestEngine : TestEngine {
         }
         request.fail("cannot find source code for $exampleId")
         return -1 to ""
+    }
+
+
+    private fun updateSnippetInReadme(
+        readmeContent: String,
+        specContent: String,
+        snippetId: String,
+        request: JUnitExecutionRequest
+    ): String {
+        val match = Regex("//$snippetId-start([\\S\\s]*)//$snippetId-end").find(specContent)
+        if (match == null) {
+            request.fail("could not find snippet marker for $snippetId in spec")
+            return readmeContent
+        }
+
+        val snippet = Regex("//$snippetId-insert")
+        return if (!snippet.containsMatchIn(readmeContent)) {
+            request.fail("snippet $snippetId never referenced in $readmeStringPath")
+            readmeContent
+        } else {
+            snippet.replace(readmeContent) { match.destructured.component1().trim() }
+        }
     }
 
     companion object {
