@@ -101,7 +101,8 @@ class ReadmeSpec : Spek({
                 endsWith("er")              // is evaluated nonetheless
             }                               // fails as a whole
 
-            feature { f(it::lastName) }.toBe("Dummy") // still evaluated, as it is in outer assertion group block
+            // still evaluated, as it is in outer assertion group block
+            feature { f(it::lastName) }.toBe("Dummy")
         }
     }
     //@formatter:on
@@ -199,10 +200,49 @@ class ReadmeSpec : Spek({
     }
     val slogan2: String? = null
     test("ex-nullable-3") {
-        expect(slogan2).notToBeNull().startsWith("atrium")
+        expect(slogan2)     // subject has type String?
+            .notToBeNull()  // subject narrowed to String
+            .startsWith("atrium")
     }
     test("ex-nullable-4") {
         expect(slogan2).notToBeNull { startsWith("atrium") }
+    }
+
+    test("ex-collection-short-1") {
+        expect(listOf(1, 2, 2, 4)).contains(2, 3)
+    }
+
+    test("ex-collection-short-2") {
+        expect(listOf(1, 2, 2, 4)).contains(
+            { isLessThan(0) },
+            { isGreaterThan(2).isLessThan(4) }
+        )
+    }
+
+    test("ex-collection-any") {
+        expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
+    }
+    test("ex-collection-none") {
+        expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
+    }
+    test("ex-collection-all") {
+        expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
+    }
+
+    test("ex-collection-builder-1") {
+        expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+    }
+    test("ex-collection-builder-2") {
+        expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
+    }
+    test("ex-collection-builder-3") {
+        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
+    }
+    test("ex-collection-builder-4") {
+        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
+    }
+    test("ex-collection-builder-5") {
+        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
     }
 })
 
