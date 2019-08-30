@@ -5,6 +5,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 //snippet-import-end
 import ch.tutteli.atrium.creating.Expect
+//snippet-subExpect-start
+import ch.tutteli.atrium.domain.builders.utils.subExpect
+//snippet-subExpect-end
 import org.spekframework.spek2.Spek
 
 /**
@@ -21,13 +24,15 @@ import org.spekframework.spek2.Spek
  */
 class ReadmeSpec : Spek({
 
+    test("snippet-import") {}
+    test("snippet-subExpect") {}
+
     test("ex-first") {
         //snippet-import-insert
 
         val x = 10
         expect(x).toBe(9)
     }
-    test("snippet-import") {}
 
     test("ex-single") {
         // two single assertions, only first evaluated
@@ -78,14 +83,16 @@ class ReadmeSpec : Spek({
             true -> "$firstName aka. $lastName"
         }
     }
-
-    val myPerson = Person("Robert", "Stoll", false)
     //snippet-Person-end
+    //snippet-myPerson-start
+    val myPerson = Person("Robert", "Stoll", false)
+    //snippet-myPerson-end
 
     test("snippet-Person") {}
 
     test("ex-property-methods-single") {
         //snippet-Person-insert
+        //snippet-myPerson-insert
         expect(myPerson)
             .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
             .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
@@ -244,6 +251,101 @@ class ReadmeSpec : Spek({
     test("ex-collection-builder-5") {
         expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
     }
+
+    test("ex-map-1") {
+        expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
+    }
+    test("ex-map-2") {
+        expect(mapOf("a" to 1, "b" to 2)).contains(
+            KeyValue("c") { toBe(2) },
+            KeyValue("a") { isGreaterThan(2) },
+            KeyValue("b") { isLessThan(2) }
+        )
+    }
+
+    test("ex-map-3") {
+        //snippet-Person-insert
+        val bernstein = Person("Leonard", "Bernstein", isStudent = false)
+        expect(mapOf("bernstein" to bernstein))
+            .getExisting("bernstein") {
+                feature { f(it::firstName) }.toBe("Leonard")
+                feature { f(it::isStudent) }.toBe(false)
+            }
+            .getExisting("einstein") {
+                feature { f(it::firstName) }.toBe("Albert")
+            }
+    }
+    test("ex-map-4") {
+        expect(mapOf("a" to 1, "b" to 2)) {
+            keys { all { startsWith("a") } }
+            values { none { isGreaterThan(1) } }
+        }
+    }
+    test("ex-map-5") {
+        expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
+            { isKeyValue("a", 1) },
+            {
+                key.startsWith("a")
+                value.isGreaterThan(2)
+            }
+        )
+    }
+
+    //snippet-data-driven-1-start
+    fun myFun(i: Int) = (i + 97).toChar()
+    //snippet-data-driven-1-end
+    test("snippet-data-driven-1") {}
+
+    test("ex-data-driven-1") {
+        //snippet-data-driven-1-insert
+
+        expect("calling myFun with...") {
+            mapOf(
+                1 to 'a',
+                2 to 'c',
+                3 to 'e'
+            ).forEach { (arg, result) ->
+                feature { f(::myFun, arg) }.toBe(result)
+            }
+        }
+    }
+
+    test("ex-data-driven-2") {
+        //snippet-subExpect-insert
+
+        expect("calling myFun with ...") {
+            mapOf(
+                1 to subExpect<Char> { isLessThan('f') },
+                2 to subExpect { toBe('c') },
+                3 to subExpect { isGreaterThan('e') }
+            ).forEach { (arg, assertionCreator) ->
+                feature({ f(::myFun, arg) }, assertionCreator)
+            }
+        }
+    }
+
+    //snippet-data-driven-3-start
+    fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
+    //snippet-data-driven-3-end
+    test("snippet-data-driven-3") {}
+
+    test("ex-data-driven-3") {
+        //snippet-data-driven-3-insert
+
+        expect("calling myNullableFun with ...") {
+            mapOf(
+                Int.MIN_VALUE to subExpect<String> { contains("min") },
+                -1 to null,
+                0 to null,
+                1 to subExpect { toBe("1") },
+                2 to subExpect { endsWith("2") },
+                Int.MAX_VALUE to subExpect { toBe("max") }
+            ).forEach { (arg, assertionCreatorOrNull) ->
+                feature { f(::myNullableFun, arg) }.toBeNullIfNullGivenElse(assertionCreatorOrNull)
+            }
+        }
+    }
+
 })
 
 
