@@ -62,7 +62,7 @@ class ReadmeTestEngine : TestEngine {
         }
 
         examples.forEach { (exampleId, output) ->
-            readmeContent = updateExampleInReadme(readmeContent, specContent, exampleId, output, request)
+            readmeContent = updateExampleLikeInReadme(readmeContent, specContent, exampleId, output, request)
         }
         code.forEach { codeId ->
             readmeContent = updateCodeInReadme(readmeContent, specContent, codeId, request)
@@ -106,6 +106,24 @@ class ReadmeTestEngine : TestEngine {
         )
     }
 
+
+    private fun updateExampleLikeInReadme(
+        readmeContent: String,
+        specContent: String,
+        exampleId: String,
+        output: String,
+        request: JUnitExecutionRequest
+    ): String = when {
+        exampleId.startsWith("ex-") -> updateExampleInReadme(readmeContent, specContent, exampleId, output, request)
+        exampleId.startsWith("exs-") -> updateSplitExampleInReadme(
+            readmeContent, specContent, exampleId, output, request
+        )
+        else -> {
+            request.fail("unknown example kind $exampleId")
+            readmeContent
+        }
+    }
+
     private fun updateExampleInReadme(
         readmeContent: String,
         specContent: String,
@@ -116,11 +134,34 @@ class ReadmeTestEngine : TestEngine {
         """```kotlin
         |$sourceCode
         |```
-        |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/${System.getenv("README_PROJECT_VERSION")}/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
+        |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/${System.getenv("README_PROJECT_VERSION")}/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
         |```text
         |$output
         |```
         """.trimMargin()
+    }
+
+
+    private fun updateSplitExampleInReadme(
+        readmeContent: String,
+        specContent: String,
+        exampleId: String,
+        output: String,
+        request: JUnitExecutionRequest
+    ): String {
+        val updatedReadme = updateTagInReadme(
+            readmeContent, specContent, exampleId, request, "ex-code"
+        ) { _, sourceCode ->
+            """```kotlin
+            |$sourceCode
+            |```""".trimMargin()
+        }
+
+        return updateTagInReadme(updatedReadme, "$exampleId-output", request, "exs-output") {
+            """```text
+            |$output
+            |```""".trimMargin()
+        }
     }
 
     private fun updateTagInReadme(
@@ -130,9 +171,18 @@ class ReadmeTestEngine : TestEngine {
         request: org.junit.platform.engine.ExecutionRequest,
         kind: String,
         content: (Int, String) -> String
-    ): String {
+    ): String = updateTagInReadme(readmeContent, tag, request, kind) {
         val (lineNumber, sourceCode) = extractSourceCode(specContent, tag, request)
+        content(lineNumber, sourceCode)
+    }
 
+    private fun updateTagInReadme(
+        readmeContent: String,
+        tag: String,
+        request: org.junit.platform.engine.ExecutionRequest,
+        kind: String,
+        contentProvider: () -> String
+    ): String {
         val tagRegex = Regex("( *)<$tag>[\\S\\s]*</$tag>")
         return if (!tagRegex.containsMatchIn(readmeContent)) {
             request.fail("$kind tag <$tag> not found in $readmeStringPath")
@@ -141,7 +191,7 @@ class ReadmeTestEngine : TestEngine {
             tagRegex.replace(readmeContent) {
                 """<$tag>
                 |
-                |${content(lineNumber, sourceCode)}
+                |${contentProvider()}
                 |</$tag>
                 """.trimMargin().prependIndent(it.destructured.component1())
             }

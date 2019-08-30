@@ -346,8 +346,30 @@ class ReadmeSpec : Spek({
         }
     }
 
-})
 
+    test("exs-add-info-1") {
+        expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
+    }
+    test("exs-add-info-2") {
+        expect(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
+    }
+    test("ex-add-info-3") {
+        expect {
+            try {
+                throw UnsupportedOperationException("not supported")
+            } catch (t: Throwable) {
+                throw IllegalArgumentException("no no no...", t)
+            }
+        }.toThrow<IllegalStateException> { messageContains("no no no") }
+    }
+
+    test("ex-pitfall-1") {
+        expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
+    }
+    test("ex-pitfall-2") {
+        expect(listOf(1)).get(0) {}
+    }
+})
 
 //@formatter:off
 //snippet-type-assertions-start
