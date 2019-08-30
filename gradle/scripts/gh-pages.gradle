@@ -35,7 +35,8 @@ dokka {
     outputDirectory = "$ghPagesPathWithoutVersion/$ghPages_version"
 
     includes = ['misc/kdoc/packages.md']
-    jdkVersion = 6
+    jdkVersion = 8
+    reportUndocumented = false
 
     doFirst {
         println "going to generate kdoc including the projects: ${docProjects*.name}"
@@ -43,11 +44,45 @@ dokka {
     }
     linkMapping {
         dir = './'
-        url = "$github_url/tree/$project.version/"
+        url = "$github_url/tree/v$project.version/"
         suffix = '#L'
     }
 
     sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
+
+    //TODO use as soon as https://github.com/Kotlin/dokka/issues/496 is fixed
+//    (docProjects - (docProjects - getAndroidProjects())).each { subProject ->
+//        sourceRoot {
+//            // Path to source root
+//            path = subProject.projectDir
+//            // See platforms section of documentation
+//            platforms = ["Android"]
+//        }
+//    }
+//    (docProjects - (docProjects - getCommonProjects())).each { subProject ->
+//        sourceRoot {
+//            // Path to source root
+//            path = subProject.projectDir
+//            // See platforms section of documentation
+//            platforms = ["Common"]
+//        }
+//    }
+//    (docProjects - (docProjects - getJsProjects())).each { subProject ->
+//        sourceRoot {
+//            // Path to source root
+//            path = subProject.projectDir
+//            // See platforms section of documentation
+//            platforms = ["JS"]
+//        }
+//    }
+//    (docProjects - (docProjects - getJvmProjects())).each { subProject ->
+//        sourceRoot {
+//            // Path to source root
+//            path = subProject.projectDir
+//            // See platforms section of documentation
+//            platforms = ["JVM"]
+//        }
+//    }
 
     [
         "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
@@ -59,10 +94,5 @@ dokka {
             prefix = pkg
             suppress = true
         }
-    }
-
-    packageOptions {
-        prefix = 'ch.tutteli.atrium.translations'
-        reportUndocumented = false
     }
 }
