@@ -1,14 +1,8 @@
-// Enable if you need to check the task tree, gr task taskTree --no-repeat
-//plugins {
-//    id "com.dorongold.task-tree" version "1.3.1"
-//}
-
 description = 'Runs examples, includes the code and the output in README.md'
 
 repositories {
     maven { url "https://dl.bintray.com/jetbrains/spek" }
 }
-
 
 dependencies {
     implementation "org.junit.platform:junit-platform-console-standalone:$junit_platform_version"

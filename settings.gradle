@@ -81,7 +81,6 @@ include {
 
     misc {
         _ 'bc-test'
-        project('readme-examples')
         _ 'spec'
         kotlinJvmJsAndAndroidIfCi(delegate, 'specs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
@@ -92,6 +91,7 @@ include {
         js {
             project('mocha')
         }
+        project('readme-examples')
     }
 
 

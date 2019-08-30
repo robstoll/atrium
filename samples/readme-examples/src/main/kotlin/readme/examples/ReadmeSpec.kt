@@ -83,11 +83,23 @@ class ReadmeSpec : Spek({
 
     test("snippet-Person") {}
 
-    test("ex-property_methods") {
+    test("ex-property-methods-single") {
         //snippet-Person-insert
         expect(myPerson)
             .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
             .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
             .startsWith("rob")                            // not evaluated anymore
+    }
+
+    test("ex-property-methods-group") {
+        expect(myPerson) { // forms an assertion group block
+
+            feature({ f(it::firstName) }) { // forms an assertion group block
+                startsWith("Pe")            // fails
+                endsWith("er")              // is evaluated nonetheless
+            }                               // fails as a whole
+
+            feature { f(it::lastName) }.toBe("Dummy") // still evaluated, as it is in outer assertion group block
+        }
     }
 })
