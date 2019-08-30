@@ -238,12 +238,12 @@ import ch.tutteli.atrium.api.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L23)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L24)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ to be: 9        (kotlin.Int <1234789>)
 ```
-</ex-first>
+</ex-first>>
 
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with the following message:
@@ -283,7 +283,7 @@ The next section shows how you can define multiple assertions for the same subje
 // two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L31)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L32)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -314,7 +314,7 @@ expect(4 + 6) {
     isGreaterThan(10)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L36)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L37)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -343,17 +343,17 @@ expect {
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L44)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L45)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:47)
-      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:21)
-      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:98)
-      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:21)
+      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:48)
+      ⚬ readme.examples.ReadmeSpec$1$5$1.invoke(ReadmeSpec.kt:22)
+      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:224)
+      ⚬ readme.examples.ReadmeSpec$1$5.invoke(ReadmeSpec.kt:22)
 ```
 </ex-toThrow1>
 
@@ -377,7 +377,7 @@ expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L51)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L52)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
@@ -396,7 +396,7 @@ expect {
     message { startsWith("firstName") }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L57)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L58)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
@@ -418,21 +418,21 @@ expect {
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L65)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L66)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is: not thrown at all
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:68)
-      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:21)
-      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:69)
-      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:21)
+      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:69)
+      ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:22)
+      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:70)
+      ⚬ readme.examples.ReadmeSpec$1$8.invoke(ReadmeSpec.kt:22)
     » cause: java.lang.RuntimeException
         » message: "a cause"        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:68)
+          ⚬ readme.examples.ReadmeSpec$1$8$1.invoke(ReadmeSpec.kt:69)
 ```
 </ex-notToThrow>
 
@@ -453,42 +453,32 @@ We will start of with properties and method calls and go on with more complicate
 
 ### Property and Methods
 We are using the `data class Person` in the following examples:
-<ex-property_methods>
+
+<ex-property-methods-single>
 
 ```kotlin
 data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
-        fun fullName() = "$firstName $lastName"
-        fun nickname(includeLastName: Boolean) = when (includeLastName) {
-            false -> "Mr. $firstName"
-            true -> "$firstName aka. $lastName"
-        }
+    fun fullName() = "$firstName $lastName"
+    fun nickname(includeLastName: Boolean) = when (includeLastName) {
+        false -> "Mr. $firstName"
+        true -> "$firstName aka. $lastName"
     }
+}
 
-    val myPerson = Person("Robert", "Stoll", false)
+val myPerson = Person("Robert", "Stoll", false)
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
     .startsWith("rob")                            // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L86)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L87)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
     ◾ to be: true
 ```
-</ex-property_methods>
-```kotlin
+</ex-property-methods-single>
 
-
-expect(myPerson)
-    .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
-    .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
-        .startsWith("rob")                        // not evaluated anymore
-  
-    // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <1841396611>)
-    // ◆ ▶ isStudent: false
-    //     ◾ to be: true
-```  
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
 Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way.</sub>
@@ -517,24 +507,30 @@ Feature assertions follow the common pattern of having two overloads:
   An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   Moreover, the subject stays the same so that subsequent calls are still about the same subject.
-
-    ```kotlin
-    expect(myPerson) { // forms an assertion group block
   
-        feature({ f(it::firstName) }) { // forms an assertion group block
-            startsWith("Pe")            // fails
-            endsWith("er")              // is evaluated nonetheless
-        }                               // fails as a whole
+  <ex-property-methods-group>
   
-        feature { f(it::lastName) }.toBe("Dummy") // still evaluated, as it is in outer assertion group block
-    }   
-        // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <1841396611>)
-        // ◆ ▶ firstName: "Robert"        <1818544933>
-        //     ◾ starts with: "Pe"        <1793436274>
-        //     ◾ ends with: "er"        <572868060>
-        // ◆ ▶ lastName: "Stoll"        <1818544933>
-        //     ◾ to be: "Dummy"        <233436274>
-    ```
+  ```kotlin
+  expect(myPerson) { // forms an assertion group block
+  
+      feature({ f(it::firstName) }) { // forms an assertion group block
+          startsWith("Pe")            // fails
+          endsWith("er")              // is evaluated nonetheless
+      }                               // fails as a whole
+  
+      feature { f(it::lastName) }.toBe("Dummy") // still evaluated, as it is in outer assertion group block
+  }
+  ```
+  ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L96)</sub> ↓ <sub>Output</sub>
+  ```text
+  expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
+  ◆ ▶ firstName: "Robert"        <1234789>
+      ◾ starts with: "Pe"        <1234789>
+      ◾ ends with: "er"        <1234789>
+  ◆ ▶ lastName: "Stoll"        <1234789>
+      ◾ to be: "Dummy"        <1234789>
+  ```
+  </ex-property-methods-group>
 
 <br/>
 
@@ -566,17 +562,22 @@ sense to wrap it into an assertion function and use `ExpectImpl.feature.extracto
 </details>
   
 Last but not least, let us have a look at an example where a method with arguments is used as feature:
+
+<ex-methods-args>
+
 ```kotlin
-
 expect(myPerson)
-    .feature { f(subject::nickname, false) } // subject narrowed to String
-        .toBe("Robert aka. Stoll")  // fails
-        .startsWith("llotS")         // not evaluated anymore
-
-    // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <168907708>)
-    // ◆ ▶ nickname(false): "Mr. Robert"        <1325465767>
-    //     ◾ to be: "Robert aka. Stoll"        <1021258849>
+    .feature { f(it::nickname, false) } // subject narrowed to String
+    .toBe("Robert aka. Stoll")  // fails
+    .startsWith("llotS")         // not evaluated anymore
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L109)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
+◆ ▶ nickname(false): "Mr. Robert"        <1234789>
+    ◾ to be: "Robert aka. Stoll"        <1234789>
+```
+</ex-methods-args>
 
 `f` supports methods with up to 5 arguments.
 
@@ -608,21 +609,26 @@ See `ExpectImpl.feature.extractor`. It is for instance used for [`List.get`](htt
 A feature does not necessarily have to be directly related to the subject as properties or method calls do.
 You can use the overload which expects a feature description in form of a `String` as first argument instead.
 Following an example:
+
+<ex-arbitrary-features>
+
 ```kotlin
-data class Person(val firstName: String, val lastName: String)
-data class Family(val members: List<Person>)
+data class FamilyMember(val name: String)
+data class Family(val members: List<FamilyMember>)
 
-val myFamily = Family(listOf(Person("Robert", "Stoll")))
-
+val myFamily = Family(listOf(FamilyMember("Robert")))
 expect(myFamily)
-    .feature("number of members", { members.size }) { toBe(1) }      // subject still Family afterwards
-    .feature("first person's lastName") { members.first().lastName } // subject narrowed to Person
-    .toBe("Robert")
-
-    // expect: Family(members=[Person(firstName=Robert, lastName=Stoll)])        (Family <1384560357>)
-    // ◆ ▶ first person's lastName: "Stoll"        <931268856>
-    //     ◾ to be: "Robert"        <86342242>
+    .feature("number of members", { members.size }) { toBe(1) } // subject still Family afterwards
+    .feature("first member's name") { members.first().name }    // subject narrowed to String
+    .toBe("Peter")
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L127)</sub> ↓ <sub>Output</sub>
+```text
+expect: Family(members=[FamilyMember(name=Robert)])        (readme.examples.ReadmeSpec$1$Family <1234789>)
+◆ ▶ first member's name: "Robert"        <1234789>
+    ◾ to be: "Peter"        <1234789>
+```
+</ex-arbitrary-features>
 
 Also this version of `feature` provides two different kind of overloads:
 - the first expects a feature description and a feature-provider-lambda
@@ -647,6 +653,9 @@ to `feature` instead.
 This has the benefit, that we can always show the feature name, also in case a previous feature extraction or subject
 transformation failed.
 Following an example: 
+
+<ex-within-assertion-functions>
+
 ```kotlin
 fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBeDoneWrong(expected: F) =
     feature({ f(it::first) }) { toBe(expected) }
@@ -658,13 +667,17 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
     firstToBeDoneWrong(1)
     firstToBe(1)
 }
-    // assert: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <61380653>)
-    // ◆ ▶ get(10): ❗❗ index out of bounds
-    //       » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
-    //             » to be: 1        (kotlin.Int <1786454499>)
-    //       » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
-    //             » to be: 1        (kotlin.Int <1786454499>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L144)</sub> ↓ <sub>Output</sub>
+```text
+expect: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
+◆ ▶ get(10): ❗❗ index out of bounds
+      » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
+            » to be: 1        (kotlin.Int <1234789>)
+      » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
+            » to be: 1        (kotlin.Int <1234789>)
+```
+</ex-within-assertion-functions>
 
 Also this version of `feature` provides to kind of overloads, one without and and with `assertionCreator`-lambda.
 (see for instance [Arbitrary Features](#arbitrary-features) for more information).
@@ -676,10 +689,11 @@ However, Atrium provides alternative functions next to `f` within the `MetaFeatu
 Use `p` for properties and `f0` to `f5` for methods. 
 Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
 
+<code-ambiguity-problems>
+
 ```kotlin
 class WorstCase {
     val propAndFun: Int = 1
-    @JsName("propFun")
     fun propAndFun(): Int = 1
 
     fun overloaded(): Int = 1
@@ -690,9 +704,10 @@ expect(WorstCase()) {
     feature { p<Int>(it::propAndFun) }
     feature { f0<Int>(it::propAndFun) }
     feature { f0<Int>(it::overloaded) }
-    feature { f1<Boolean, Int>(it::overloaded, true) }
+    feature { f1<Boolean, Int>(it::overloaded, true) }.toBe(1)
 }
 ```
+</code-ambiguity-problems>
 
 Notice, that you might run into the situation that Intellij is happy but the compiler is not.
 For instance, Intellij will suggest that you can remove the type parameters in the above example. 
@@ -725,42 +740,55 @@ expect(a)
 ``` 
 
 ## Type Assertions
+
+<ex-type-assertions-1>
+
 ```kotlin
 interface SuperType
-data class SubType1(val number: Int): SuperType
+
+data class SubType1(val number: Int) : SuperType
 data class SubType2(val word: String, val flag: Boolean) : SuperType
 
 val x: SuperType = SubType2("hello", flag = true)
 expect(x).isA<SubType1>()
-  .feature { f(it::number) }.toBe(2)
-
-    // ex'ect: SubType2(word=hello, flag=true)        (ch.tutteli.atrium.api.fluent.en_GB.SubType2 <265580735>)
-    // ◆ is instance of type: SubType1 (ch.tutteli.atrium.api.fluent.en_GB.SubType1)
-    // ◆ ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
-    //       » to be: 2        (kotlin.Int <211013631>)
-
-
-expect(x).isA<SubType2> {
-    feature { f(it::word) }.toBe("goodbye")
-    feature { f(it::flag) }.toBe(false)
-}
-
-    // expect: SubType2(word=hello, flag=true)        (ch.tutteli.atrium.api.fluent.en_GB.SubType2 <225792809>)
-    // ◆ ▶ word: "hello"        <1169583232>
-    //     ◾ to be: "goodbye"        <1413258258>
-    // ◆ ▶ flag: true
-    //     ◾ to be: false
+    .feature { f(it::number) }
+    .toBe(2)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L179)</sub> ↓ <sub>Output</sub>
+```text
+expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+◆ is instance of type: SubType1 (readme.examples.SubType1)
+```
+</ex-type-assertions-1>
+
 You can narrow a type with the `isA` function. 
 On one hand it checks that the subject of the current assertion (`x` in the above example) is actually the expected type 
 and on the other hand it turns the subject into this type. 
 This way you can make specific assertions which are only possible for the corresponding type
 -- for instance, considering the above example, `number` is not available on `SuperType` but only on `SubType1`.
 
+<ex-type-assertions-2>
+
+```kotlin
+expect(x).isA<SubType2> {
+    feature { f(it::word) }.toBe("goodbye")
+    feature { f(it::flag) }.toBe(false)
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L185)</sub> ↓ <sub>Output</sub>
+```text
+expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+◆ ▶ word: "hello"        <1234789>
+    ◾ to be: "goodbye"        <1234789>
+◆ ▶ flag: true
+    ◾ to be: false
+```
+</ex-type-assertions-2>
+
 There are two `isA` overloads: 
-- the first is parameterless and turns only the subject into the expected type; 
+- the first (shown in the first example) is parameterless and turns only the subject into the expected type; 
   failing to do so cannot include additional information in error reporting though.
-- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
+- the second (shown in the second example) expects an `assertionCreator` lambda in which you can define sub-assertions. 
   An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
   -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
@@ -778,34 +806,67 @@ For an example, have a look at the [EitherSpec](https://github.com/robstoll/atri
 
 ## Nullable Types
 Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
+
+<ex-nullable-1>
+
 ```kotlin
-val slogan1 : String? = "postulating assertions made easy"
+val slogan1: String? = "postulating assertions made easy"
 expect(slogan1).toBe(null)
-    // expect: "postulating assertions made easy"        <22600334>
-    // ◆ to be: null
-    
-val slogan2 : String? = null    
-expect(slogan2).toBe("postulating assertions made easy")
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //   » to be: "postulating assertions made easy"        <461160828>
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L192)</sub> ↓ <sub>Output</sub>
+```text
+expect: "postulating assertions made easy"        <1234789>
+◆ to be: null
+```
+</ex-nullable-1>
+
+<ex-nullable-2>
+
+```kotlin
+val slogan2: String? = null
+expect(slogan2).toBe("postulating assertions made easy")
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L196)</sub> ↓ <sub>Output</sub>
+```text
+expect: null
+◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+  » to be: "postulating assertions made easy"        <1234789>
+```
+</ex-nullable-2>
+
 On one hand, you can use `toBe` and pass the same type (`String?` in the above example, so in other words either `null` or a `String`).
 On the other hand, you can use `notToBeNull` to turn the subject into its non-null version.
 This is a shortcut for `isA<Xy>` where `Xy` is the non-nullable type (see [Type Assertions](#type-assertions)).
 Following an example:
 
+<ex-nullable-3>
+
 ```kotlin
 expect(slogan2).notToBeNull().startsWith("atrium")
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-
-expect(slogan2).notToBeNull { startsWith("atrium") }    
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //   >> starts with: "atrium"        <222427158>    
 ```
-Since `notToBeNull` delegates to `isA` it also provides two overloads, one without and one with `assertionCreator`-lambda; see  [Type Assertions](#type-assertions) for more information.
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L201)</sub> ↓ <sub>Output</sub>
+```text
+expect: null
+◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+```
+</ex-nullable-3>
+
+Since `notToBeNull` delegates to `isA` it also provides two overloads, 
+one without (example above) and one with `assertionCreator`-lambda (example below); see 
+[Type Assertions](#type-assertions) for more information on the difference of the overloads.
+
+<ex-nullable-4>
+
+```kotlin
+expect(slogan2).notToBeNull { startsWith("atrium") }
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L204)</sub> ↓ <sub>Output</sub>
+```text
+expect: null
+◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+  » starts with: "atrium"        <1234789>
+```
+</ex-nullable-4>
 
 Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
 involving nullable types and is explained in the corresponding section.

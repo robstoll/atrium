@@ -19,6 +19,7 @@ class ReadmeTestEngine : TestEngine {
     private val spek = SpekTestEngine()
 
     private val examples = mutableMapOf<String, String>()
+    private val code = HashSet<String>()
     private val snippets = HashSet<String>()
 
     override fun getId(): String = "spek2-readme"
@@ -47,8 +48,24 @@ class ReadmeTestEngine : TestEngine {
         val specContent = fileContent("src/main/kotlin/readme/examples/ReadmeSpec.kt", request)
         var readmeContent = fileContent(readmeStringPath, request)
 
+        if (examples.isEmpty()) {
+            request.fail("no examples found")
+            return
+        }
+        if (code.isEmpty()) {
+            request.fail("no code found")
+            return
+        }
+        if (snippets.isEmpty()) {
+            request.fail("no snippets found")
+            return
+        }
+
         examples.forEach { (exampleId, output) ->
             readmeContent = updateExampleInReadme(readmeContent, specContent, exampleId, output, request)
+        }
+        code.forEach { codeId ->
+            readmeContent = updateCodeInReadme(readmeContent, specContent, codeId, request)
         }
         snippets.forEach { snippetId ->
             readmeContent = updateSnippetInReadme(readmeContent, specContent, snippetId, request)
@@ -64,7 +81,8 @@ class ReadmeTestEngine : TestEngine {
         val executionListener = ReadmeExecutionListener(
             JUnitEngineExecutionListenerAdapter(request.engineExecutionListener, SpekTestDescriptorFactory()),
             examples,
-            snippets
+            snippets,
+            code
         )
         val executionRequest = ExecutionRequest(roots, executionListener)
         SpekRuntime().execute(executionRequest)
@@ -94,33 +112,45 @@ class ReadmeTestEngine : TestEngine {
         exampleId: String,
         output: String,
         request: JUnitExecutionRequest
-    ): String {
-        val (lineNumber, sourceCode) = extractSourceCode(specContent, exampleId, request)
-        val exampleTag = Regex("<$exampleId>[\\S\\s]*</$exampleId>")
+    ): String = updateTagInReadme(readmeContent, specContent, exampleId, request, "example") { lineNumber, sourceCode ->
+        """```kotlin
+        |$sourceCode
+        |```
+        |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/${System.getenv("README_PROJECT_VERSION")}/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
+        |```text
+        |$output
+        |```
+        """.trimMargin()
+    }
 
-        return if (!exampleTag.containsMatchIn(readmeContent)) {
-            request.fail("example tag <$exampleId> not found in $readmeStringPath")
+    private fun updateTagInReadme(
+        readmeContent: String,
+        specContent: String,
+        tag: String,
+        request: org.junit.platform.engine.ExecutionRequest,
+        kind: String,
+        content: (Int, String) -> String
+    ): String {
+        val (lineNumber, sourceCode) = extractSourceCode(specContent, tag, request)
+
+        val tagRegex = Regex("( *)<$tag>[\\S\\s]*</$tag>")
+        return if (!tagRegex.containsMatchIn(readmeContent)) {
+            request.fail("$kind tag <$tag> not found in $readmeStringPath")
             readmeContent
         } else {
-            exampleTag.replace(readmeContent) {
-                """<$exampleId>
-                    |
-                    |```kotlin
-                    |$sourceCode
-                    |```
-                    |↑ <sub>[Example](https://github.com/robstoll/atrium/tree/${System.getenv("README_PROJECT_VERSION")}/misc/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>Output</sub>
-                    |```text
-                    |$output
-                    |```
-                    |</$exampleId>
-                """.trimMargin()
+            tagRegex.replace(readmeContent) {
+                """<$tag>
+                |
+                |${content(lineNumber, sourceCode)}
+                |</$tag>
+                """.trimMargin().prependIndent(it.destructured.component1())
             }
         }
     }
 
     private fun extractSourceCode(
         specContent: String,
-        exampleId: String,
+        testId: String,
         request: JUnitExecutionRequest
     ): Pair<Int, String> {
         var lineNumber: Int? = null
@@ -131,13 +161,26 @@ class ReadmeTestEngine : TestEngine {
                 if (line.startsWith("    }")) return lineNumber!! to sb.toString().trimIndent()
                 sb.append(line).append("\n")
 
-            } else if (line.trim().startsWith("test(\"$exampleId\")")) {
+            } else if (line.trim().startsWith("test(\"$testId\")")) {
                 lineNumber = index + 1
             }
 
         }
-        request.fail("cannot find source code for $exampleId")
+        request.fail("cannot find source code for $testId")
         return -1 to ""
+    }
+
+    private fun updateCodeInReadme(
+        readmeContent: String,
+        specContent: String,
+        snippetId: String,
+        request: org.junit.platform.engine.ExecutionRequest
+    ): String = updateTagInReadme(readmeContent, specContent, snippetId, request, "code") { _, sourceCode ->
+
+        """```kotlin
+        |$sourceCode
+        |```
+        """.trimMargin()
     }
 
 
@@ -152,13 +195,13 @@ class ReadmeTestEngine : TestEngine {
             request.fail("could not find snippet marker for $snippetId in spec")
             return readmeContent
         }
-
+        val snippetContent = match.destructured.component1().trimIndent()
         val snippet = Regex("//$snippetId-insert")
         return if (!snippet.containsMatchIn(readmeContent)) {
             request.fail("snippet $snippetId never referenced in $readmeStringPath")
             readmeContent
         } else {
-            snippet.replace(readmeContent) { match.destructured.component1().trim() }
+            snippet.replace(readmeContent) { snippetContent }
         }
     }
 

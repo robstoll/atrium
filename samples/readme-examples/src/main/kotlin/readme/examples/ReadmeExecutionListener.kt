@@ -8,7 +8,8 @@ import org.spekframework.spek2.runtime.scope.TestScopeImpl
 class ReadmeExecutionListener(
     private val listener: JUnitEngineExecutionListenerAdapter,
     private val examples: MutableMap<String, String>,
-    private val snippets: MutableSet<String>
+    private val snippets: MutableSet<String>,
+    private val code: MutableSet<String>
 ) : ExecutionListener by listener {
 
     override fun testExecutionFinish(test: TestScopeImpl, result: ExecutionResult) {
@@ -19,10 +20,10 @@ class ReadmeExecutionListener(
     }
 
     private fun handleSuccess(test: TestScopeImpl) {
-        if (!test.id.name.startsWith("snippet")) {
+        if (!test.id.name.startsWith("snippet") && !test.id.name.startsWith("code")) {
             listener.testExecutionFinish(
                 test,
-                ExecutionResult.Failure(IllegalStateException("readme tests are supposed to fail"))
+                ExecutionResult.Failure(IllegalStateException("example tests are supposed to fail"))
             )
             return
         }
@@ -33,11 +34,28 @@ class ReadmeExecutionListener(
             )
             return
         }
-        snippets.add(test.id.name)
+
+        if (test.id.name.startsWith("snippet")) {
+            snippets.add(test.id.name)
+        } else {
+            code.add(test.id.name)
+        }
         listener.testExecutionFinish(test, ExecutionResult.Success)
     }
 
     private fun handleFailure(result: ExecutionResult.Failure, test: TestScopeImpl) {
+        if (!test.id.name.startsWith("ex")) {
+            listener.testExecutionFinish(
+                test,
+                ExecutionResult.Failure(
+                    IllegalStateException(
+                        "only example tests are supposed to fail, not ${test.id.name}",
+                        result.cause
+                    )
+                )
+            )
+            return
+        }
         when (result.cause) {
             is AssertionError -> {
                 examples[test.id.name] = result.cause.message!!
