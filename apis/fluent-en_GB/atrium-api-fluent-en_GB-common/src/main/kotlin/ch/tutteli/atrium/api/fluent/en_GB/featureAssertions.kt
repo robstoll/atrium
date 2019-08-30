@@ -13,6 +13,8 @@ import kotlin.reflect.*
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the given [property].
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): Expect<R> =
     ExpectImpl.feature.property(this, property).getExpectOfFeature()
@@ -25,6 +27,8 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): Expect<R> =
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(
     property: KProperty1<in T, R>,
@@ -38,6 +42,8 @@ fun <T, R> Expect<T>.feature(
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): Expect<R> =
     ExpectImpl.feature.f0(this, f).getExpectOfFeature()
@@ -50,6 +56,8 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): Expect<R> =
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(
     f: KFunction1<T, R>,
@@ -64,6 +72,8 @@ fun <T, R> Expect<T>.feature(
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
@@ -79,6 +89,8 @@ fun <T, A1, R> Expect<T>.feature(
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
@@ -94,6 +106,8 @@ fun <T, A1, R> Expect<T>.feature(
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
@@ -109,6 +123,8 @@ fun <T, A1, A2, R> Expect<T>.feature(
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
@@ -124,6 +140,8 @@ fun <T, A1, A2, R> Expect<T>.feature(
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
@@ -139,6 +157,8 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
@@ -154,6 +174,8 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
@@ -169,6 +191,8 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
@@ -184,6 +208,8 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
  * returns it so that subsequent calls are based on the feature.
  *
  * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
@@ -199,6 +225,8 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
@@ -217,6 +245,8 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  *   implicit parameter `it`.
  *
  * @return An [Expect] for the extracted feature.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): Expect<R> =
     ExpectImpl.feature.manualFeature(this, description, provider).getExpectOfFeature()
@@ -233,6 +263,8 @@ fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): Expect<R
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(
     description: String,
@@ -252,6 +284,8 @@ fun <T, R> Expect<T>.feature(
  *   e.g. `feature { f(it::size) }`
  *
  * @return An [Expect] for the extracted feature.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): Expect<R> =
     extractFeature(provider).getExpectOfFeature()
@@ -268,6 +302,8 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
  *
  * @return The current [Expect].
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
+ *
+ * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,

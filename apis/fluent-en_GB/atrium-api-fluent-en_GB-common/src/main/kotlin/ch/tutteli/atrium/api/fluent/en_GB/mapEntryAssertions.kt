@@ -29,6 +29,8 @@ fun <K : Any, V : Any, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: 
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 @JvmName("isKeyValueNullable")
 @JsName("isKeyValueNullable")
