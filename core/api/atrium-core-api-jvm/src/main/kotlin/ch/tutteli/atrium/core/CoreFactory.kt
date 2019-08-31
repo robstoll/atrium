@@ -61,10 +61,18 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
-            "ch.tutteli.atrium.core.Some"
+            "ExpectImpl\n" +
+                ".assertionVerbBuilder(\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "subjectProvider()\n" +
+                ")\n" +
+                ".withVerb(assertionVerb)\n" +
+                ".withCustomReporter(reporter)\n" +
+                ".build()",
+            "ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
     fun <T : Any?> newReportingPlantNullable(
@@ -98,10 +106,18 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
-            "ch.tutteli.atrium.core.Some"
+            "this.newReportingAssertionContainer(\n" +
+                "assertionVerb,\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "Some(subjectProvider()),\n" +
+                "assertionChecker\n" +
+                ")",
+            "ch.tutteli.atrium.core.coreFactory",
+            "ch.tutteli.atrium.core.Some",
+            "ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
     fun <T : Any?> newReportingPlantNullable(

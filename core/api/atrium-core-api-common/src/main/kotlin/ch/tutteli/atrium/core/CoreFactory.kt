@@ -66,10 +66,18 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
-            "ch.tutteli.atrium.core.Some"
+            "ExpectImpl\n" +
+                ".assertionVerbBuilder(\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "subjectProvider()\n" +
+                ")\n" +
+                ".withVerb(assertionVerb)\n" +
+                ".withCustomReporter(reporter)\n" +
+                ".build()",
+            "ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
     fun <T : Any> newReportingPlant(
@@ -151,10 +159,18 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
-            "ch.tutteli.atrium.core.Some"
+            "this.newReportingAssertionContainer(\n" +
+                "assertionVerb,\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "Some(subjectProvider()),\n" +
+                "assertionChecker\n" +
+                ")",
+            "ch.tutteli.atrium.core.coreFactory",
+            "ch.tutteli.atrium.core.Some",
+            "ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
     fun <T : Any> newReportingPlant(
@@ -200,7 +216,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
     )
     fun <T : Any> newReportingPlant(
@@ -233,10 +249,19 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(
-            "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter).addAssertionsCreatedBy(assertionCreator)",
-            "ch.tutteli.atrium.core.Some"
+            "ExpectImpl\n" +
+                ".assertionVerbBuilder(\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "subjectProvider()\n" +
+                ")\n" +
+                ".withVerb(assertionVerb)\n" +
+                ".withCustomReporter(reporter)\n" +
+                ".build()\n" +
+                ".addAssertionsCreatedBy(assertionCreator)",
+            "ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
     fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(
@@ -259,7 +284,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
     )
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
@@ -274,9 +299,13 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
+        "Switch from Assert to Expect and use newCollectingAssertionContainer instead, there is no CheckingAssertionContainer, you can use `getAsssertions.holds()`; will be removed with 1.0.0",
         ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "Some(subjectProvider())\n" +
+                ")",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -308,9 +337,13 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "Some(subjectProvider())\n" +
+                ")",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -331,9 +364,13 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
+            "this.newCollectingAssertionContainer(\n" +
+                "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+                "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+                "Some(subjectProvider())\n" +
+                ")",
             "ch.tutteli.atrium.core.Some"
         )
     )
@@ -704,10 +741,18 @@ interface CoreFactoryCommon {
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
     ReplaceWith(
-        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), reporter)",
-        "ch.tutteli.atrium.core.Some"
+        "ExpectImpl\n" +
+            ".assertionVerbBuilder(\n" +
+            "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+            "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+            "subjectProvider()\n" +
+            ")\n" +
+            ".withVerb(assertionVerb)\n" +
+            ".withCustomReporter(reporter)\n" +
+            ".build()",
+        "ch.tutteli.atrium.domain.builders.ExpectImpl"
     )
 )
 fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
@@ -739,10 +784,18 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
+    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
     ReplaceWith(
-        "this.newReportingAssertionContainer(assertionVerb, Some(subjectProvider - /* define the subject here instead of subjectProvider, for instance just `subject` instead of `{ subject }` - in case you have a transformation from an existing subject, then use maybeSubject.map { } */), assertionChecker)",
-        "ch.tutteli.atrium.core.Some"
+        "this.newReportingAssertionContainer(\n" +
+            "assertionVerb,\n" +
+            "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
+            "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
+            "Some(subjectProvider()),\n" +
+            "assertionChecker\n" +
+            ")",
+        "ch.tutteli.atrium.core.coreFactory",
+        "ch.tutteli.atrium.core.Some",
+        "ch.tutteli.atrium.domain.builders.ExpectImpl"
     )
 )
 fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
