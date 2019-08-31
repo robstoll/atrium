@@ -238,7 +238,7 @@ import ch.tutteli.atrium.api.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L33)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L37)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ to be: 9        (kotlin.Int <1234789>)
@@ -283,7 +283,7 @@ The next section shows how you can define multiple assertions for the same subje
 // two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L40)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L44)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -314,7 +314,7 @@ expect(4 + 6) {
     isGreaterThan(10)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L45)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L49)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -343,17 +343,17 @@ expect {
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L53)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L57)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:56)
-      ⚬ readme.examples.ReadmeSpec$1$6$1.invoke(ReadmeSpec.kt:28)
-      ⚬ readme.examples.ReadmeSpec$1$6.invoke(ReadmeSpec.kt:464)
-      ⚬ readme.examples.ReadmeSpec$1$6.invoke(ReadmeSpec.kt:28)
+      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:60)
+      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:35)
+      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:534)
+      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:35)
 ```
 </ex-toThrow1>
 
@@ -377,7 +377,7 @@ expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L60)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L64)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
@@ -396,7 +396,7 @@ expect {
     message { startsWith("firstName") }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L66)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L70)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ ▶ message: null
@@ -418,21 +418,21 @@ expect {
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L78)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is: not thrown at all
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$9$1.invoke(ReadmeSpec.kt:77)
-      ⚬ readme.examples.ReadmeSpec$1$9$1.invoke(ReadmeSpec.kt:28)
-      ⚬ readme.examples.ReadmeSpec$1$9.invoke(ReadmeSpec.kt:78)
-      ⚬ readme.examples.ReadmeSpec$1$9.invoke(ReadmeSpec.kt:28)
+      ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:81)
+      ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:35)
+      ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:82)
+      ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:35)
     » cause: java.lang.RuntimeException
         » message: "a cause"        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$9$1.invoke(ReadmeSpec.kt:77)
+          ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:81)
 ```
 </ex-notToThrow>
 
@@ -464,13 +464,14 @@ data class Person(val firstName: String, val lastName: String, val isStudent: Bo
         true -> "$firstName aka. $lastName"
     }
 }
-//snippet-myPerson-insert
+
+val myPerson = Person("Robert", "Stoll", false)
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
     .startsWith("rob")                            // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L96)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L97)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
@@ -622,7 +623,7 @@ expect(myFamily)
     .feature("first member's name") { members.first().name }    // subject narrowed to String
     .toBe("Peter")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L138)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L136)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Family(members=[FamilyMember(name=Robert)])        (readme.examples.ReadmeSpec$1$Family <1234789>)
 ◆ ▶ first member's name: "Robert"        <1234789>
@@ -668,7 +669,7 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
     firstToBe(1)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L155)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L152)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
@@ -754,7 +755,7 @@ expect(x).isA<SubType1>()
     .feature { f(it::number) }
     .toBe(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L190)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L185)</sub> ↓ <sub>Output</sub>
 ```text
 expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ is instance of type: SubType1 (readme.examples.SubType1)
@@ -775,7 +776,7 @@ expect(x).isA<SubType2> {
     feature { f(it::flag) }.toBe(false)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L196)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L191)</sub> ↓ <sub>Output</sub>
 ```text
 expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ ▶ word: "hello"        <1234789>
@@ -813,7 +814,7 @@ Let us look at the case where the subject of the assertion has a [nullable type]
 val slogan1: String? = "postulating assertions made easy"
 expect(slogan1).toBe(null)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L203)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L212)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "postulating assertions made easy"        <1234789>
 ◆ to be: null
@@ -826,7 +827,7 @@ expect: "postulating assertions made easy"        <1234789>
 val slogan2: String? = null
 expect(slogan2).toBe("postulating assertions made easy")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L207)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L216)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
 ◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
@@ -847,7 +848,7 @@ expect(slogan2)     // subject has type String?
     .notToBeNull()  // subject narrowed to String
     .startsWith("atrium")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L212)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L221)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
 ◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
@@ -863,7 +864,7 @@ one without (example above) and one with `assertionCreator`-lambda (example belo
 ```kotlin
 expect(slogan2).notToBeNull { startsWith("atrium") }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L217)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L226)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
 ◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
@@ -898,7 +899,7 @@ The following sub sections show both use cases by examples.
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains(2, 3)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L221)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L230)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -938,7 +939,7 @@ expect(listOf(1, 2, 2, 4)).contains(
     { isGreaterThan(2).isLessThan(4) }
 )
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L225)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L234)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -976,7 +977,7 @@ Following each in action:
 ```kotlin
 expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L232)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L241)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -992,7 +993,7 @@ expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L235)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L244)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ does not contain: 
@@ -1010,7 +1011,7 @@ expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L238)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L247)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ all entries: 
@@ -1039,7 +1040,7 @@ Following on the last section we will start with an `inOrder` example:
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L242)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L251)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
@@ -1089,7 +1090,7 @@ and we happily answer your question there.
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L245)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L254)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
@@ -1113,7 +1114,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L248)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L257)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -1129,7 +1130,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L251)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L260)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
@@ -1149,7 +1150,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L254)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L263)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
@@ -1171,7 +1172,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L258)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L267)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
@@ -1198,7 +1199,7 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
     KeyValue("b") { isLessThan(2) }
 )
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L261)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L270)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
@@ -1218,29 +1219,23 @@ For instance:
 <ex-map-3>
 
 ```kotlin
-data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
-    fun fullName() = "$firstName $lastName"
-    fun nickname(includeLastName: Boolean) = when (includeLastName) {
-        false -> "Mr. $firstName"
-        true -> "$firstName aka. $lastName"
-    }
-}
-val bernstein = Person("Leonard", "Bernstein", isStudent = false)
+data class Person(val firstName: String, val lastName: String, val age: Int)
+val bernstein = Person("Leonard", "Bernstein", 50)
 expect(mapOf("bernstein" to bernstein))
     .getExisting("bernstein") {
         feature { f(it::firstName) }.toBe("Leonard")
-        feature { f(it::isStudent) }.toBe(false)
+        feature { f(it::age) }.toBe(60)
     }
     .getExisting("einstein") {
         feature { f(it::firstName) }.toBe("Albert")
     }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L269)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L282)</sub> ↓ <sub>Output</sub>
 ```text
-expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, isStudent=false)}        (java.util.Collections.SingletonMap <1234789>)
-◆ ▶ get("einstein"): ❗❗ key does not exist
-      » CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
-      » to be: "Albert"        <1234789>
+expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
+◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.ReadmeSpec2$1$Person <1234789>)
+    ◾ ▶ age: 50        (kotlin.Int <1234789>)
+        ◾ to be: 60        (kotlin.Int <1234789>)
 ```
 </ex-map-3>
 
@@ -1254,7 +1249,7 @@ expect(mapOf("a" to 1, "b" to 2)) {
     values { none { isGreaterThan(1) } }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L281)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L294)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
@@ -1290,7 +1285,7 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
     }
 )
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L287)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L300)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
@@ -1348,7 +1343,7 @@ expect("calling myFun with...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L302)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L314)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "calling myFun with..."        <1234789>
 ◆ ▶ myFun(1): 'b'
@@ -1371,7 +1366,6 @@ We are going to reuse the `myFun` from above
 
 ```kotlin
 import ch.tutteli.atrium.domain.builders.utils.subExpect
-import ch.tutteli.atrium.reporting.RawString
 
 expect("calling myFun with ...") {
     mapOf(
@@ -1383,7 +1377,7 @@ expect("calling myFun with ...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L316)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L328)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "calling myFun with ..."        <1234789>
 ◆ ▶ myFun(3): 'd'
@@ -1423,7 +1417,7 @@ expect("calling myNullableFun with ...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L346)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
@@ -1552,7 +1546,7 @@ expect {
     }
 }.toThrow<IllegalStateException> { messageContains("no no no") }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L359)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L370)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
@@ -1565,14 +1559,14 @@ expect the thrown exception: java.lang.IllegalArgumentException
   » Properties of the unexpected IllegalArgumentException
     » message: "no no no..."        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$53$1.invoke(ReadmeSpec.kt:364)
-      ⚬ readme.examples.ReadmeSpec$1$53$1.invoke(ReadmeSpec.kt:28)
-      ⚬ readme.examples.ReadmeSpec$1$53.invoke(ReadmeSpec.kt:464)
-      ⚬ readme.examples.ReadmeSpec$1$53.invoke(ReadmeSpec.kt:28)
+      ⚬ readme.examples.ReadmeSpec2$1$27$1.invoke(ReadmeSpec.kt:375)
+      ⚬ readme.examples.ReadmeSpec2$1$27$1.invoke(ReadmeSpec.kt:210)
+      ⚬ readme.examples.ReadmeSpec2$1$27.invoke(ReadmeSpec.kt:534)
+      ⚬ readme.examples.ReadmeSpec2$1$27.invoke(ReadmeSpec.kt:210)
     » cause: java.lang.UnsupportedOperationException
         » message: "not supported"        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$53$1.invoke(ReadmeSpec.kt:362)
+          ⚬ readme.examples.ReadmeSpec2$1$27$1.invoke(ReadmeSpec.kt:373)
 ```
 </ex-add-info-3>
 
@@ -1593,19 +1587,13 @@ then Atrium reminds us of the possible pitfall. For instance:
 ```kotlin
 expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L369)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L380)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (java.math.BigDecimal <1234789>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
     » notice, if you used isNumericallyEqualTo then the assertion would have hold.
 ```
 </ex-pitfall-1>
-
-```text
-expect: 10        (java.math.BigDecimal <1287934450>)
-◆ is equal (including scale): 10.0        (java.math.BigDecimal <6519275>)
-    » notice, if you used isNumericallyEqualTo then the assertion would have hold.
-```
 
 Another example are empty `assertionCreator`-lambdas. 
 Getting distracted by a working colleague and taking up the work at the wrong position might sound familiar to you. 
@@ -1616,7 +1604,7 @@ For instance:
 ```kotlin
 expect(listOf(1)).get(0) {}
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L372)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L383)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1]        (java.util.Collections.SingletonList <1234789>)
 ◆ ▶ get(0): 1        (kotlin.Int <1234789>)
@@ -1677,17 +1665,31 @@ A pull request of your new assertion function is very much appreciated.
 
 This is kind of the simplest way of defining assertion functions. Following an example:
 
+<code-own-boolean-1>
+
+```kotlin
+fun Expect<Int>.isMultipleOf(base: Int) =
+    createAndAddAssertion("is multiple of", base) { it % base == 0 }
+```
+</code-own-boolean-1>
+
 ```kotlin
 fun Expect<Int>.isMultipleOf(base: Int) =
     createAndAddAssertion("is multiple of", base) { it % base == 0 }
 ```
 and its usage:
 
+<ex-own-boolean-1>
+
 ```kotlin
 expect(12).isMultipleOf(5)
-    // expect: 12        (kotlin.Int <934275857>)
-    // ◆ is multiple of: 5        (kotlin.Int <1364913072>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L395)</sub> ↓ <sub>Output</sub>
+```text
+expect: 12        (kotlin.Int <1234789>)
+◆ is multiple of: 5        (kotlin.Int <1234789>)
+```
+</ex-own-boolean-1>
 
 Let us see how we actually defined `isMultipleOf`. 
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
@@ -1714,19 +1716,29 @@ But not all assertion functions require a value which is somehow compared agains
 -- some make an assertion about a characteristic of the subject without comparing it against an expected value.
 Consider the following assertion function:
 
+<code-own-boolean-2>
+
 ```kotlin
-fun Expect<Int>.isEven() = 
+fun Expect<Int>.isEven() =
     createAndAddAssertion("is", RawString.create("an even number")) { it % 2 == 0 }
 ```
+</code-own-boolean-2>
+
 We are using a [RawString](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
 Its usage looks then as follows:
 
+<ex-own-boolean-2>
+
 ```kotlin
 expect(13).isEven()
-    // expect: 13        (kotlin.Int <1841396611>)
-    // ◆ is: an even number
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L406)</sub> ↓ <sub>Output</sub>
+```text
+expect: 13        (kotlin.Int <1234789>)
+◆ is: an even number
+```
+</ex-own-boolean-2>
 
 ## Compose Assertion Functions
 
@@ -1735,8 +1747,11 @@ reuse existing functions but with different arguments.
 We will show both use cases here, starting off by composing functions. 
 
 Say you want to build a `isBetween` assertion function for `java.util.Date`, you could write it as follows:
+
+<code-own-compose-1>
+
 ```kotlin
-fun <T: Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
 ```
 </code-own-compose-1>
@@ -1746,13 +1761,18 @@ Notice though, that this function fails fast, which means, the upper bound is no
 if the assertion about the lower bound already fails. 
 You need to use an [assertion group block](#define-single-assertions-or-assertion-groups) 
 if you want that both are evaluated:
+
+<code-own-compose-2>
+
 ```kotlin
-fun <T: Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     addAssertionsCreatedBy {
         isGreaterOrEquals(lowerBoundInclusive)
         isLessThan(upperBoundExclusive)
     }
-``` 
+```
+</code-own-compose-2>
+
 Still simple enough.
 
 <details>
@@ -1775,63 +1795,126 @@ expect(B()).foo // does not compile as foo is only available for `Expect<A>`
 
 So lets move on to an example which is a bit more complicated. Assume the following data class `Person`
 
+<code-own-compose-3a>
+
 ```kotlin
 data class Person(
-  val firstName: String, 
-  val lastName: String, 
-  val age: Int,
-  val children: Collection<Person> 
-  // ...  and others 
+    val firstName: String,
+    val lastName: String,
+    val age: Int,
+    val children: Collection<Person>
+    // ...  and others
 )
 ```
+</code-own-compose-3a>
 
 Say you want to make an assertion about the number of children a person has:
+
+<code-own-compose-3b>
+
 ```kotlin
 fun Expect<Person>.hasNumberOfChildren(number: Int) = apply {
-    feature(Person::children) { hasSize(number) } 
+    feature(Person::children) { hasSize(number) }
 }
 ```
+</code-own-compose-3b>
+
 Three things to notice here: 
 1. we make use of a [feature assertion with class reference](#within-assertion-functions)
 2. We use `apply` so that subsequent assertions are still made on `Person` and not on `children` 
    (you could also use `addAssertionsCreatedBy` or a block and `return this` instead of `apply`)
  
 Its usage is then as follows:
-```kotlin
-expect(Person("Susanne", "Whitley", listOf()))
-  .hasNumberOfChildren(2) 
 
-    // expect: Person(firstName=Susanne, lastName=Whitley, children=[])        (Person <692342133>)
-    // ◆ ▶ children: []        (kotlin.collections.EmptyList <654845766>)
-    //     ◾ ▶ size: 0        (kotlin.Int <1712536284>)
-    //         ◾ to be: 2        (kotlin.Int <2080166188>)    
+<ex-own-compose-3>
+
+```kotlin
+expect(Person("Susanne", "Whitley", 43, listOf()))
+    .hasNumberOfChildren(2)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L445)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
+◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
+    ◾ ▶ size: 0        (kotlin.Int <1234789>)
+        ◾ to be: 2        (kotlin.Int <1234789>)
+```
+</ex-own-compose-3>
+
 Another example: assert the person has children which are all adults (assuming 18 is the age of majority).
+
+<code-own-compose-4>
+
 ```kotlin
 fun Expect<Person>.hasAdultChildren() = apply {
     feature(Person::children) {
-      all { property(Person::age).isGreaterOrEquals(18) }
+        all { feature(Person::age).isGreaterOrEquals(18) }
     }
 }
 ```
+</code-own-compose-4>
+
 We also use `apply` here for the same reason as above.
 We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
 but we don't have to, as `all` already checks that there is at least one element. 
+
+<ex-own-compose-4>
+
+```kotlin
+expect(Person("Susanne", "Whitley", 43, listOf()))
+    .hasAdultChildren()
 ```
-expect: Person(firstName=Susanne, lastName=Whitley, children=[], age=30)        (Person <1870252780>)
-◆ ▶ children: []        (kotlin.collections.EmptyList <761960786>)
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L460)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
+◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ ▶ has at least one element: false
         ◾ is: true
 ```
+</ex-own-compose-4>
 
 If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function
 (assuming the API of Person is stable enough).
+
+<code-own-compose-5>
+
 ```kotlin
-val Expect<Person>.children get(): Expect<Collection<Person>> = feature(Person::children)
+val Expect<Person>.children: Expect<Collection<Person>> get() = feature(Person::children)
+
 fun Expect<Person>.children(assertionCreator: Expect<Collection<Person>>.() -> Unit): Expect<Person> =
-    apply { feature(Person::children, assertionCreator) }
+    feature(Person::children, assertionCreator)
 ```
+</code-own-compose-5>
+
+Notice, that we have used a class-reference and not a bounded-reference which is best practice 
+(see [feature assertions within assertion functions](#within-assertion-functions)).
 With this, we can write things like:
+
+<ex-own-compose-5>
+
+```kotlin
+expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
+    .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
+        none { feature { f(it::firstName) }.startsWith("Ro") }
+        all { feature { f(it::lastName) }.toBe("Whitley") }
+    } // subject is still Person here
+    .apply { // only evaluated because the previous assertion group holds
+        children  // using the val -> subsequent assertions are about children and fail fast
+            .hasSize(2)
+            .any { feature { f(it::age) }.isGreaterThan(18) }
+    } // subject is still Person here due to the `apply`
+    .children // using the val -> subsequent assertions are about children and fail fast
+    .hasSize(2)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L470)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
+◆ ▶ children: [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
+    ◾ ▶ size: 1        (kotlin.Int <1234789>)
+        ◾ to be: 2        (kotlin.Int <1234789>)
+```
+</ex-own-compose-5>
+
 ```kotlin
 expect(person)
     .children { // using the fun -> sub-assertions don't fail fast
@@ -1861,16 +1944,21 @@ And it gets worse if we want to use `contains.inAnyOrder.entries` which expects 
 because Kotlin cannot infer the types automatically.
 
 `mapArguments` to the rescue, you can write the assertion function as follows:
+
+<code-own-compose-6>
+
 ```kotlin
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 
-fun <T: List<Pair<String, String>>> Expect<T>.areNamesOf(
+fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(
     person: Person, vararg otherPersons: Person
 ): Expect<T> {
     val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
     return contains.inAnyOrder.only.values(pair, *otherPairs)
 }
 ```
+</code-own-compose-6>
+
 As you can see we moved the mapping inside the function so that the consumer of our API can happily use it as follows:
 ```kotlin
 expect(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
@@ -1878,6 +1966,9 @@ expect(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
 
 Another fictional example, say we want to assert that the pairs have the same initials as the given persons and in the given order.
 Which means, this time we need to use `assertionCreator`-lambdas. This can be written as follows:
+
+<code-own-compose-7>
+
 ```kotlin
 fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
     person: Person, vararg otherPersons: Person
@@ -1888,7 +1979,8 @@ fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
     }
     return contains.inOrder.only.entries(first, *others)
 }
-``` 
+```
+</code-own-compose-7>
 
 There are a few additional methods which you can call after `mapArguments`.
 In case you want to provide your own implementation it suffices to create an 

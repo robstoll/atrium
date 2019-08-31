@@ -5,27 +5,34 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 //snippet-import-end
 import ch.tutteli.atrium.creating.Expect
+//snippet-mapArguments-start
+import ch.tutteli.atrium.domain.builders.utils.mapArguments
+//snippet-mapArguments-end
 //snippet-subExpect-start
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 //snippet-subExpect-end
+import ch.tutteli.atrium.reporting.RawString
 import org.spekframework.spek2.Spek
+import java.math.BigDecimal
+import java.util.*
+
+
 
 /**
- * The output of the tests written here are placed into the README.
- * The generation is done this project is built, to trigger it manually, you have to use:
+ * The tests and error message are written here and automatically placed into the README via generation.
+ * The generation is done during the project built. To trigger it manually, you have to use:
  * ```
  * ./gr :readme-examples:build
  * ```
  *
- * Adding new examples is simply adding a new test and referencing it in the README.
- * Adding a new snippet requires that you:
- * - set the markers //snippet-xy-start and //snippet-xy-end
- * - create a test with the corresponding name, leaving the body empty: e.g. test("snippet-xy") {}
+ * There are currently three kind of tags supported:
+ * - <ex-xy> => places code and output into the tag
+ * - <exs-xy> => places code into the tag, output will be put into a tag named <exs-xy-output>
+ * - <code> => is not supposed to fail and only the code is put into the code
+ *
+ * Moreover, all tags can reuse snippets defined in this file with corresponding markers
  */
 class ReadmeSpec : Spek({
-
-    test("snippet-import") {}
-    test("snippet-subExpect") {}
 
     test("ex-first") {
         //snippet-import-insert
@@ -83,16 +90,12 @@ class ReadmeSpec : Spek({
             true -> "$firstName aka. $lastName"
         }
     }
-    //snippet-Person-end
-    //snippet-myPerson-start
-    val myPerson = Person("Robert", "Stoll", false)
-    //snippet-myPerson-end
 
-    test("snippet-Person") {}
+    val myPerson = Person("Robert", "Stoll", false)
+    //snippet-Person-end
 
     test("ex-property-methods-single") {
         //snippet-Person-insert
-        //snippet-myPerson-insert
         expect(myPerson)
             .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
             .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
@@ -130,8 +133,6 @@ class ReadmeSpec : Spek({
     //snippet-Family-end
     //@formatter:on
 
-    test("snippet-Family") { }
-
     test("ex-arbitrary-features") {
         //snippet-Family-insert
         expect(myFamily)
@@ -147,7 +148,6 @@ class ReadmeSpec : Spek({
     fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBe(expected: F) =
         feature(Pair<F, *>::first) { toBe(expected) }
     //snippet-within-funs-end
-    test("snippet-within-funs") { }
 
     test("ex-within-assertion-functions") {
         //snippet-within-funs-insert
@@ -169,7 +169,6 @@ class ReadmeSpec : Spek({
         fun overloaded(b: Boolean): Int = 1
     }
     //snippet-worst-case-end
-    test("snippet-worst-case") {}
 
     test("code-ambiguity-problems") {
         //snippet-worst-case-insert
@@ -183,7 +182,6 @@ class ReadmeSpec : Spek({
     }
 
 
-    test("snippet-type-assertions") {}
     test("ex-type-assertions-1") {
         //snippet-type-assertions-insert
         expect(x).isA<SubType1>()
@@ -196,6 +194,20 @@ class ReadmeSpec : Spek({
             feature { f(it::flag) }.toBe(false)
         }
     }
+})
+
+//@formatter:off
+//snippet-type-assertions-start
+interface SuperType
+
+data class SubType1(val number: Int) : SuperType
+data class SubType2(val word: String, val flag: Boolean) : SuperType
+
+val x: SuperType = SubType2("hello", flag = true)
+//snippet-type-assertions-end
+//@formatter:on
+
+object ReadmeSpec2 : Spek({
 
     test("ex-nullable-1") {
         val slogan1: String? = "postulating assertions made easy"
@@ -263,13 +275,17 @@ class ReadmeSpec : Spek({
         )
     }
 
+    //snippet-SimplePerson-start
+    data class Person(val firstName: String, val lastName: String, val age: Int)
+    //snippet-SimplePerson-end
+
     test("ex-map-3") {
-        //snippet-Person-insert
-        val bernstein = Person("Leonard", "Bernstein", isStudent = false)
+        //snippet-SimplePerson-insert
+        val bernstein = Person("Leonard", "Bernstein", 50)
         expect(mapOf("bernstein" to bernstein))
             .getExisting("bernstein") {
                 feature { f(it::firstName) }.toBe("Leonard")
-                feature { f(it::isStudent) }.toBe(false)
+                feature { f(it::age) }.toBe(60)
             }
             .getExisting("einstein") {
                 feature { f(it::firstName) }.toBe("Albert")
@@ -294,7 +310,6 @@ class ReadmeSpec : Spek({
     //snippet-data-driven-1-start
     fun myFun(i: Int) = (i + 97).toChar()
     //snippet-data-driven-1-end
-    test("snippet-data-driven-1") {}
 
     test("ex-data-driven-1") {
         //snippet-data-driven-1-insert
@@ -327,7 +342,6 @@ class ReadmeSpec : Spek({
     //snippet-data-driven-3-start
     fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
     //snippet-data-driven-3-end
-    test("snippet-data-driven-3") {}
 
     test("ex-data-driven-3") {
         //snippet-data-driven-3-insert
@@ -369,15 +383,147 @@ class ReadmeSpec : Spek({
     test("ex-pitfall-2") {
         expect(listOf(1)).get(0) {}
     }
+
+
+    //snippet-own-boolean-1-start
+    fun Expect<Int>.isMultipleOf(base: Int) =
+        createAndAddAssertion("is multiple of", base) { it % base == 0 }
+    //snippet-own-boolean-1-end
+    test("code-own-boolean-1") {
+        //snippet-own-boolean-1-insert
+    }
+    test("ex-own-boolean-1") {
+        expect(12).isMultipleOf(5)
+    }
+
+    //snippet-own-boolean-2-start
+    fun Expect<Int>.isEven() =
+        createAndAddAssertion("is", RawString.create("an even number")) { it % 2 == 0 }
+    //snippet-own-boolean-2-end
+    test("code-own-boolean-2") {
+        //snippet-own-boolean-2-insert
+    }
+    test("ex-own-boolean-2") {
+        expect(13).isEven()
+    }
 })
 
-//@formatter:off
-//snippet-type-assertions-start
-interface SuperType
 
-data class SubType1(val number: Int) : SuperType
-data class SubType2(val word: String, val flag: Boolean) : SuperType
+object Between1 : Spek({
+    test("code-own-compose-1") {
+        fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+            isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
+    }
+})
 
-val x: SuperType = SubType2("hello", flag = true)
-//snippet-type-assertions-end
-//@formatter:on
+object Between2 : Spek({
+    test("code-own-compose-2") {
+        fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+            addAssertionsCreatedBy {
+                isGreaterOrEquals(lowerBoundInclusive)
+                isLessThan(upperBoundExclusive)
+            }
+    }
+})
+
+object OwnPerson : Spek({
+
+
+    test("code-own-compose-3a") {
+        //snippet-own-Person-insert
+    }
+
+    //snippet-own-compose-3b-start
+    fun Expect<Person>.hasNumberOfChildren(number: Int) = apply {
+        feature(Person::children) { hasSize(number) }
+    }
+    //snippet-own-compose-3b-end
+    test("code-own-compose-3b") {
+        //snippet-own-compose-3b-insert
+    }
+
+    test("ex-own-compose-3") {
+        expect(Person("Susanne", "Whitley", 43, listOf()))
+            .hasNumberOfChildren(2)
+    }
+
+    //snippet-own-compose-4-start
+    fun Expect<Person>.hasAdultChildren() = apply {
+        feature(Person::children) {
+            all { feature(Person::age).isGreaterOrEquals(18) }
+        }
+    }
+    //snippet-own-compose-4-end
+    test("code-own-compose-4") {
+        //snippet-own-compose-4-insert
+    }
+    test("ex-own-compose-4") {
+        expect(Person("Susanne", "Whitley", 43, listOf()))
+            .hasAdultChildren()
+    }
+
+
+    test("code-own-compose-5") {
+        //snippet-children-insert
+    }
+    //@formatter:off
+    test("ex-own-compose-5"){
+        expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
+            .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
+                none { feature { f(it::firstName) }.startsWith("Ro") }
+                all { feature { f(it::lastName) }.toBe("Whitley") }
+            } // subject is still Person here
+            .apply { // only evaluated because the previous assertion group holds
+                children  // using the val -> subsequent assertions are about children and fail fast
+                    .hasSize(2)
+                    .any { feature { f(it::age) }.isGreaterThan(18) }
+            } // subject is still Person here due to the `apply`
+            .children // using the val -> subsequent assertions are about children and fail fast
+            .hasSize(2)
+    }
+    //@formatter:on
+
+
+    //snippet-own-compose-6-start
+    fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(
+        person: Person, vararg otherPersons: Person
+    ): Expect<T> {
+        val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
+        return contains.inAnyOrder.only.values(pair, *otherPairs)
+    }
+    //snippet-own-compose-6-end
+
+    test("code-own-compose-6") {
+        //snippet-mapArguments-insert
+
+        //snippet-own-compose-6-insert
+    }
+    test("code-own-compose-7") {
+        fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
+            person: Person, vararg otherPersons: Person
+        ): Expect<T> {
+            val (first, others) = mapArguments(person, otherPersons).toExpect<Pair<String, String>> {
+                first.startsWith(it.firstName[0].toString())
+                second.startsWith(it.lastName[0].toString())
+            }
+            return contains.inOrder.only.entries(first, *others)
+        }
+    }
+})
+
+//snippet-own-Person-start
+data class Person(
+    val firstName: String,
+    val lastName: String,
+    val age: Int,
+    val children: Collection<Person>
+    // ...  and others
+)
+//snippet-own-Person-end
+
+//snippet-children-start
+val Expect<Person>.children: Expect<Collection<Person>> get() = feature(Person::children)
+
+fun Expect<Person>.children(assertionCreator: Expect<Collection<Person>>.() -> Unit): Expect<Person> =
+    feature(Person::children, assertionCreator)
+//snippet-children-end

@@ -20,7 +20,7 @@ class ReadmeTestEngine : TestEngine {
 
     private val examples = mutableMapOf<String, String>()
     private val code = HashSet<String>()
-    private val snippets = HashSet<String>()
+    private val snippets = mutableMapOf<String, String>()
 
     override fun getId(): String = "spek2-readme"
 
@@ -46,6 +46,8 @@ class ReadmeTestEngine : TestEngine {
 
     private fun processExamples(request: JUnitExecutionRequest) {
         val specContent = fileContent("src/main/kotlin/readme/examples/ReadmeSpec.kt", request)
+        extractSnippets(specContent, request)
+
         var readmeContent = fileContent(readmeStringPath, request)
 
         if (examples.isEmpty()) {
@@ -67,10 +69,18 @@ class ReadmeTestEngine : TestEngine {
         code.forEach { codeId ->
             readmeContent = updateCodeInReadme(readmeContent, specContent, codeId, request)
         }
-        snippets.forEach { snippetId ->
-            readmeContent = updateSnippetInReadme(readmeContent, specContent, snippetId, request)
+        snippets.forEach { snippetId, snippetContent ->
+            readmeContent = updateSnippetInReadme(readmeContent, snippetId, snippetContent, request)
         }
         Paths.get(readmeStringPath).writeText(readmeContent)
+    }
+
+    private fun extractSnippets(specContent: String, request: JUnitExecutionRequest) {
+        Regex("//(snippet-.+)-start([\\S\\s]*?)//(snippet-.+)-end").findAll(specContent).forEach {
+            val (tag, content, endTag) = it.destructured
+            request.failIf(tag != endTag) { "tag $tag-start did not end with $tag-end but with $endTag" }
+            snippets[tag] = content.trimIndent()
+        }
     }
 
     private fun runSpekWithCustomListener(request: JUnitExecutionRequest) {
@@ -81,7 +91,6 @@ class ReadmeTestEngine : TestEngine {
         val executionListener = ReadmeExecutionListener(
             JUnitEngineExecutionListenerAdapter(request.engineExecutionListener, SpekTestDescriptorFactory()),
             examples,
-            snippets,
             code
         )
         val executionRequest = ExecutionRequest(roots, executionListener)
@@ -236,16 +245,11 @@ class ReadmeTestEngine : TestEngine {
 
     private fun updateSnippetInReadme(
         readmeContent: String,
-        specContent: String,
         snippetId: String,
+        snippetContent: String,
         request: JUnitExecutionRequest
     ): String {
-        val match = Regex("//$snippetId-start([\\S\\s]*)//$snippetId-end").find(specContent)
-        if (match == null) {
-            request.fail("could not find snippet marker for $snippetId in spec")
-            return readmeContent
-        }
-        val snippetContent = match.destructured.component1().trimIndent()
+
         val snippet = Regex("//$snippetId-insert")
         return if (!snippet.containsMatchIn(readmeContent)) {
             request.fail("snippet $snippetId never referenced in $readmeStringPath")

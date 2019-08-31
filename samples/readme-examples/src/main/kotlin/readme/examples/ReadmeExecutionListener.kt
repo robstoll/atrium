@@ -8,7 +8,6 @@ import org.spekframework.spek2.runtime.scope.TestScopeImpl
 class ReadmeExecutionListener(
     private val listener: JUnitEngineExecutionListenerAdapter,
     private val examples: MutableMap<String, String>,
-    private val snippets: MutableSet<String>,
     private val code: MutableSet<String>
 ) : ExecutionListener by listener {
 
@@ -20,26 +19,22 @@ class ReadmeExecutionListener(
     }
 
     private fun handleSuccess(test: TestScopeImpl) {
-        if (!test.id.name.startsWith("snippet") && !test.id.name.startsWith("code")) {
+        if (!test.id.name.startsWith("code")) {
             listener.testExecutionFinish(
                 test,
                 ExecutionResult.Failure(IllegalStateException("example tests are supposed to fail"))
             )
             return
         }
-        if (snippets.contains(test.id.name)) {
+        if (code.contains(test.id.name)) {
             listener.testExecutionFinish(
                 test,
-                ExecutionResult.Failure(IllegalStateException("snippet ${test.id.name} is at least defined twice"))
+                ExecutionResult.Failure(IllegalStateException("code ${test.id.name} is at least defined twice"))
             )
             return
         }
 
-        if (test.id.name.startsWith("snippet")) {
-            snippets.add(test.id.name)
-        } else {
-            code.add(test.id.name)
-        }
+        code.add(test.id.name)
         listener.testExecutionFinish(test, ExecutionResult.Success)
     }
 
