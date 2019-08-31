@@ -2412,9 +2412,11 @@ We plan that Atrium is going to support certain features in the future. Followin
 - optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
 
 ## 0.10.0
-- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext)
+- add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
+- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
+- refactor core and domain architecture - most likely we are going to move away from ServiceLoader and replace `-robstoll` and `-robstoll-lib` modules with one `-impl` module
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
-- provide an easy way to create failure hints
+- provide an easy way to create failure hints.
 
 ## 0.11.0
 - Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
@@ -2424,7 +2426,11 @@ We plan that Atrium is going to support certain features in the future. Followin
 - Generating testing reports in html.
   - generate multiple reports in the same test run. 
   
-## 0.13.0 (or 1.0.0)  
+## 1.0.0
+- drop support for Kotlin 1.2
+- include assertion functions specific to Kotlin 1.3 into normal API
+  
+## Sometime in the future
 - extension for Spek so that reporting includes the `describe`, `it` etc.
 - Inclusion of mockk's verify (so that it appears in the report as well).
     
