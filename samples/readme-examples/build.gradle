@@ -25,7 +25,7 @@ def readme = task("readme", type: JavaExec, group: 'documentation') {
     description = "Runs examples, includes the code and the output in README.md"
 
     classpath sourceSets.main.runtimeClasspath
-    environment "README_PROJECT_VERSION", dokka_sourceMapping
+    environment "README_SOURCETREE", dokka_sourceMapping
 
     main = 'org.junit.platform.console.ConsoleLauncher'
     args = [
