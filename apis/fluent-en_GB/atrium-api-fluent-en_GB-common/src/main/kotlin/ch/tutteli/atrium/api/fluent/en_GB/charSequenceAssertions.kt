@@ -111,6 +111,8 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: Char) = startsWith(expected.toString())
 
@@ -128,6 +130,8 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) = startsNotWith(expected.toString())
 
@@ -146,6 +150,8 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: Char) = endsWith(expected.toString())
 
@@ -163,6 +169,8 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) = endsNotWith(expected.toString())
 

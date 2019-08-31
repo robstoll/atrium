@@ -95,7 +95,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
             toBe(expectedSize)
             if (iterableAsList.size > expectedSize) {
                 addAssertion(LazyThreadUnsafeAssertionGroup {
-                    val assertions = itr.mapRemainingWithCounter { counter, it ->
+                    val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
                         ExpectImpl.builder.descriptive
                             .holding
@@ -108,7 +108,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
                         .withAssertion(
                             ExpectImpl.builder.list
                                 .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ENTRIES)
-                                .withAssertions(assertions)
+                                .withAssertions(additionalEntries)
                                 .build()
                         )
                         .build()

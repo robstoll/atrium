@@ -228,11 +228,24 @@ to see how the infix API looks like, how they differ respectively.
 
 ## Your First Assertion
 We start off with a simple example:
+
+<ex-first>
+
 ```kotlin
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.assertions.Assertion
+
 val x = 10
 expect(x).toBe(9)
-``` 
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L40)</sub> ↓ <sub>Output</sub>
+```text
+expect: 10        (kotlin.Int <1234789>)
+◆ to be: 9        (kotlin.Int <1234789>)
+```
+</ex-first>
+
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with the following message:
 ```text
@@ -242,8 +255,10 @@ expect: 10        (kotlin.Int <934275857>)
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
 
-We have used the predefined assertion verb `expect` in the above example which we had to import first. 
-We will omit the `import` statement in the remaining examples for brevity. 
+We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+and we have used the predefined assertion verb `expect` in the above example. 
+Thus the corresponding imports at the beginning of the file.
+We will omit the `import` statements in the remaining examples for brevity. 
 
 **You want to run the example yourself?**
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
@@ -263,14 +278,18 @@ Yet, you can also [define your own assertion verbs](#use-own-assertion-verbs) if
 The next section shows how you can define multiple assertions for the same subject.
 
 ## Define Single Assertions or Assertion Groups
+<ex-single>
 
 ```kotlin
-// two single assertions
- 
+// two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
-    // expect: 10        (kotlin.Int <1841396611>)
-    // ◆ is less than: 5        (kotlin.Int <1577592551>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L47)</sub> ↓ <sub>Output</sub>
+```text
+expect: 10        (kotlin.Int <1234789>)
+◆ is less than: 5        (kotlin.Int <1234789>)
+```
+</ex-single>
 
 Atrium allows you to chain assertions or in other words
 you only need to write the `expect(...)` part once and can make several single assertions for the same subject.
@@ -285,20 +304,24 @@ expect(4 + 6).isGreaterThan(10)
 Correspondingly, the first `expect` statement (which does not hold) throws an `AssertionError`. 
 In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all.
 
-If you want that both assertions are evaluated together, then use the assertion group syntax as follows: 
+If you want that both assertions are evaluated together, then use the assertion group syntax as follows:
+ 
+<ex-group>
 
 ```kotlin
-// assertion group with two assertions
-
+// assertion group with two assertions, both evaluated
 expect(4 + 6) {
     isLessThan(5)
     isGreaterThan(10)
 }
-    // expect: 10        (kotlin.Int <1841396611>)
-    // ◆ is less than: 5        (kotlin.Int <1577592551>)
-    // ◆ is greater than: 10        (kotlin.Int <1841396611>)
 ```
-
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L52)</sub> ↓ <sub>Output</sub>
+```text
+expect: 10        (kotlin.Int <1234789>)
+◆ is less than: 5        (kotlin.Int <1234789>)
+◆ is greater than: 10        (kotlin.Int <1234789>)
+```
+</ex-group>
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
 You can use `and` as filling element between single assertions and assertion group blocks:
@@ -313,15 +336,28 @@ expect(4 + 6) {
 ```
  
 ## Expect an Exception
+<ex-toThrow1>
+
 ```kotlin
 expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
-
-    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
-    // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L60)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+  » Properties of the unexpected IllegalArgumentException
+    » message: "name is empty"        <1234789>
+    » stacktrace: 
+      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:63)
+      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:38)
+      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:596)
+      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:38)
+```
+</ex-toThrow1>
+
 You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
 (`IllegalStateException` in the example above). 
 
@@ -333,50 +369,74 @@ As with all narrowing functions, there are two overloads:
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   showing some additional context in case of a failure.
 
-Following an example using both overloads:
+The following example uses the first overload
+
+<ex-toThrow2>
+
 ```kotlin
 expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
-    // expect the thrown exception: java.lang.IllegalArgumentException
-    // ◆ ▶ message: null
-    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L67)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ ▶ message: null
+    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+```
+</ex-toThrow2>
 
+And this one uses the second overload; notice the difference in reporting.
+
+<ex-toThrow3>
+
+```kotlin
 expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException> {
     message { startsWith("firstName") }
 }
-    // expect the thrown exception: java.lang.IllegalArgumentException
-    // ◆ ▶ message: null
-    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-    //       » starts with: "firstName"        <184607701>
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L73)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ ▶ message: null
+    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+      » starts with: "firstName"        <1234789>
+```
+</ex-toThrow3>
 
 Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, which creates a feature assertion (see next section) 
 about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
+
+<ex-notToThrow>
+
 ```kotlin
 expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
-
-    //  expect the thrown exception: java.lang.IllegalArgumentException
-    //  ◆ is: not thrown at all
-    //    » Properties of the unexpected IllegalArgumentException
-    //      » message: "name is empty"        <401424608>
-    //      » stacktrace: 
-    //        ⚬ TestKt$main$2.invoke(test.kt:23)
-    //        ⚬ TestKt$main$2.invoke(test.kt)
-    //        ⚬ TestKt.main(test.kt:24)
-    //      » cause: java.lang.RuntimeException
-    //          » message: "a cause"        <1348949648>
-    //          » stacktrace: 
-    //            ⚬ TestKt$main$2.invoke(test.kt:23)
-    //  	at TestKt.main(test.kt:24)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L81)</sub> ↓ <sub>Output</sub>
+```text
+expect the thrown exception: java.lang.IllegalArgumentException
+◆ is: not thrown at all
+  » Properties of the unexpected IllegalArgumentException
+    » message: "name is empty"        <1234789>
+    » stacktrace: 
+      ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:84)
+      ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:38)
+      ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:85)
+      ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:38)
+    » cause: java.lang.RuntimeException
+        » message: "a cause"        <1234789>
+        » stacktrace: 
+          ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:84)
+```
+</ex-notToThrow>
+
 Notice that stacks are filtered so that you only see what is of interest. 
 Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate 
 [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
@@ -393,25 +453,33 @@ There are different use cases for feature assertions.
 We will start of with properties and method calls and go on with more complicated scenarios.
 
 ### Property and Methods
+We are using the `data class Person` in the following examples:
+
+<ex-property-methods-single>
+
 ```kotlin
 data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
     fun fullName() = "$firstName $lastName"
-    fun nickname(includeLastName: Boolean) = when(includeLastName){
+    fun nickname(includeLastName: Boolean) = when (includeLastName) {
         false -> "Mr. $firstName"
         true -> "$firstName aka. $lastName"
     }
 }
-val myPerson = Person("Robert", "Stoll", false)
 
+val myPerson = Person("Robert", "Stoll", false)
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
-        .startsWith("rob")                        // not evaluated anymore
-  
-    // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <1841396611>)
-    // ◆ ▶ isStudent: false
-    //     ◾ to be: true
-```  
+    .startsWith("rob")                            // not evaluated anymore
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L100)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
+◆ ▶ isStudent: false
+    ◾ to be: true
+```
+</ex-property-methods-single>
+
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
 Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way.</sub>
@@ -440,24 +508,31 @@ Feature assertions follow the common pattern of having two overloads:
   An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   Moreover, the subject stays the same so that subsequent calls are still about the same subject.
-
-    ```kotlin
-    expect(myPerson) { // forms an assertion group block
   
-        feature({ f(it::firstName) }) { // forms an assertion group block
-            startsWith("Pe")            // fails
-            endsWith("er")              // is evaluated nonetheless
-        }                               // fails as a whole
+  <ex-property-methods-group>
   
-        feature { f(it::lastName) }.toBe("Dummy") // still evaluated, as it is in outer assertion group block
-    }   
-        // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <1841396611>)
-        // ◆ ▶ firstName: "Robert"        <1818544933>
-        //     ◾ starts with: "Pe"        <1793436274>
-        //     ◾ ends with: "er"        <572868060>
-        // ◆ ▶ lastName: "Stoll"        <1818544933>
-        //     ◾ to be: "Dummy"        <233436274>
-    ```
+  ```kotlin
+  expect(myPerson) { // forms an assertion group block
+  
+      feature({ f(it::firstName) }) { // forms an assertion group block
+          startsWith("Pe")            // fails
+          endsWith("er")              // is evaluated nonetheless
+      }                               // fails as a whole
+  
+      // still evaluated, as it is in outer assertion group block
+      feature { f(it::lastName) }.toBe("Dummy")
+  }
+  ```
+  ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L109)</sub> ↓ <sub>Output</sub>
+  ```text
+  expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
+  ◆ ▶ firstName: "Robert"        <1234789>
+      ◾ starts with: "Pe"        <1234789>
+      ◾ ends with: "er"        <1234789>
+  ◆ ▶ lastName: "Stoll"        <1234789>
+      ◾ to be: "Dummy"        <1234789>
+  ```
+  </ex-property-methods-group>
 
 <br/>
 
@@ -489,17 +564,22 @@ sense to wrap it into an assertion function and use `ExpectImpl.feature.extracto
 </details>
   
 Last but not least, let us have a look at an example where a method with arguments is used as feature:
+
+<ex-methods-args>
+
 ```kotlin
-
 expect(myPerson)
-    .feature { f(subject::nickname, false) } // subject narrowed to String
-        .toBe("Robert aka. Stoll")  // fails
-        .startsWith("llotS")         // not evaluated anymore
-
-    // expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (Person <168907708>)
-    // ◆ ▶ nickname(false): "Mr. Robert"        <1325465767>
-    //     ◾ to be: "Robert aka. Stoll"        <1021258849>
+    .feature { f(it::nickname, false) } // subject narrowed to String
+    .toBe("Robert aka. Stoll")  // fails
+    .startsWith("llotS")         // not evaluated anymore
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L123)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
+◆ ▶ nickname(false): "Mr. Robert"        <1234789>
+    ◾ to be: "Robert aka. Stoll"        <1234789>
+```
+</ex-methods-args>
 
 `f` supports methods with up to 5 arguments.
 
@@ -531,21 +611,26 @@ See `ExpectImpl.feature.extractor`. It is for instance used for [`List.get`](htt
 A feature does not necessarily have to be directly related to the subject as properties or method calls do.
 You can use the overload which expects a feature description in form of a `String` as first argument instead.
 Following an example:
+
+<ex-arbitrary-features>
+
 ```kotlin
-data class Person(val firstName: String, val lastName: String)
-data class Family(val members: List<Person>)
+data class FamilyMember(val name: String)
+data class Family(val members: List<FamilyMember>)
 
-val myFamily = Family(listOf(Person("Robert", "Stoll")))
-
+val myFamily = Family(listOf(FamilyMember("Robert")))
 expect(myFamily)
-    .feature("number of members", { members.size }) { toBe(1) }      // subject still Family afterwards
-    .feature("first person's lastName") { members.first().lastName } // subject narrowed to Person
-    .toBe("Robert")
-
-    // expect: Family(members=[Person(firstName=Robert, lastName=Stoll)])        (Family <1384560357>)
-    // ◆ ▶ first person's lastName: "Stoll"        <931268856>
-    //     ◾ to be: "Robert"        <86342242>
+    .feature("number of members", { members.size }) { toBe(1) } // subject still Family afterwards
+    .feature("first member's name") { members.first().name }    // subject narrowed to String
+    .toBe("Peter")
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L139)</sub> ↓ <sub>Output</sub>
+```text
+expect: Family(members=[FamilyMember(name=Robert)])        (readme.examples.ReadmeSpec$1$Family <1234789>)
+◆ ▶ first member's name: "Robert"        <1234789>
+    ◾ to be: "Peter"        <1234789>
+```
+</ex-arbitrary-features>
 
 Also this version of `feature` provides two different kind of overloads:
 - the first expects a feature description and a feature-provider-lambda
@@ -570,6 +655,9 @@ to `feature` instead.
 This has the benefit, that we can always show the feature name, also in case a previous feature extraction or subject
 transformation failed.
 Following an example: 
+
+<ex-within-assertion-functions>
+
 ```kotlin
 fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBeDoneWrong(expected: F) =
     feature({ f(it::first) }) { toBe(expected) }
@@ -581,13 +669,17 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
     firstToBeDoneWrong(1)
     firstToBe(1)
 }
-    // assert: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <61380653>)
-    // ◆ ▶ get(10): ❗❗ index out of bounds
-    //       » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
-    //             » to be: 1        (kotlin.Int <1786454499>)
-    //       » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
-    //             » to be: 1        (kotlin.Int <1786454499>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L155)</sub> ↓ <sub>Output</sub>
+```text
+expect: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
+◆ ▶ get(10): ❗❗ index out of bounds
+      » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
+            » to be: 1        (kotlin.Int <1234789>)
+      » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
+            » to be: 1        (kotlin.Int <1234789>)
+```
+</ex-within-assertion-functions>
 
 Also this version of `feature` provides to kind of overloads, one without and and with `assertionCreator`-lambda.
 (see for instance [Arbitrary Features](#arbitrary-features) for more information).
@@ -599,10 +691,11 @@ However, Atrium provides alternative functions next to `f` within the `MetaFeatu
 Use `p` for properties and `f0` to `f5` for methods. 
 Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
 
+<code-ambiguity-problems>
+
 ```kotlin
 class WorstCase {
     val propAndFun: Int = 1
-    @JsName("propFun")
     fun propAndFun(): Int = 1
 
     fun overloaded(): Int = 1
@@ -613,9 +706,10 @@ expect(WorstCase()) {
     feature { p<Int>(it::propAndFun) }
     feature { f0<Int>(it::propAndFun) }
     feature { f0<Int>(it::overloaded) }
-    feature { f1<Boolean, Int>(it::overloaded, true) }
+    feature { f1<Boolean, Int>(it::overloaded, true) }.toBe(1)
 }
 ```
+</code-ambiguity-problems>
 
 Notice, that you might run into the situation that Intellij is happy but the compiler is not.
 For instance, Intellij will suggest that you can remove the type parameters in the above example. 
@@ -648,42 +742,55 @@ expect(a)
 ``` 
 
 ## Type Assertions
+
+<ex-type-assertions-1>
+
 ```kotlin
 interface SuperType
-data class SubType1(val number: Int): SuperType
+
+data class SubType1(val number: Int) : SuperType
 data class SubType2(val word: String, val flag: Boolean) : SuperType
 
 val x: SuperType = SubType2("hello", flag = true)
 expect(x).isA<SubType1>()
-  .feature { f(it::number) }.toBe(2)
-
-    // ex'ect: SubType2(word=hello, flag=true)        (ch.tutteli.atrium.api.fluent.en_GB.SubType2 <265580735>)
-    // ◆ is instance of type: SubType1 (ch.tutteli.atrium.api.fluent.en_GB.SubType1)
-    // ◆ ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
-    //       » to be: 2        (kotlin.Int <211013631>)
-
-
-expect(x).isA<SubType2> {
-    feature { f(it::word) }.toBe("goodbye")
-    feature { f(it::flag) }.toBe(false)
-}
-
-    // expect: SubType2(word=hello, flag=true)        (ch.tutteli.atrium.api.fluent.en_GB.SubType2 <225792809>)
-    // ◆ ▶ word: "hello"        <1169583232>
-    //     ◾ to be: "goodbye"        <1413258258>
-    // ◆ ▶ flag: true
-    //     ◾ to be: false
+    .feature { f(it::number) }
+    .toBe(2)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L188)</sub> ↓ <sub>Output</sub>
+```text
+expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+◆ is instance of type: SubType1 (readme.examples.SubType1)
+```
+</ex-type-assertions-1>
+
 You can narrow a type with the `isA` function. 
 On one hand it checks that the subject of the current assertion (`x` in the above example) is actually the expected type 
 and on the other hand it turns the subject into this type. 
 This way you can make specific assertions which are only possible for the corresponding type
 -- for instance, considering the above example, `number` is not available on `SuperType` but only on `SubType1`.
 
+<ex-type-assertions-2>
+
+```kotlin
+expect(x).isA<SubType2> {
+    feature { f(it::word) }.toBe("goodbye")
+    feature { f(it::flag) }.toBe(false)
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L194)</sub> ↓ <sub>Output</sub>
+```text
+expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+◆ ▶ word: "hello"        <1234789>
+    ◾ to be: "goodbye"        <1234789>
+◆ ▶ flag: true
+    ◾ to be: false
+```
+</ex-type-assertions-2>
+
 There are two `isA` overloads: 
-- the first is parameterless and turns only the subject into the expected type; 
+- the first (shown in the first example) is parameterless and turns only the subject into the expected type; 
   failing to do so cannot include additional information in error reporting though.
-- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
+- the second (shown in the second example) expects an `assertionCreator` lambda in which you can define sub-assertions. 
   An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
   -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
@@ -701,34 +808,70 @@ For an example, have a look at the [EitherSpec](https://github.com/robstoll/atri
 
 ## Nullable Types
 Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
+
+<ex-nullable-1>
+
 ```kotlin
-val slogan1 : String? = "postulating assertions made easy"
+val slogan1: String? = "postulating assertions made easy"
 expect(slogan1).toBe(null)
-    // expect: "postulating assertions made easy"        <22600334>
-    // ◆ to be: null
-    
-val slogan2 : String? = null    
-expect(slogan2).toBe("postulating assertions made easy")
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //   » to be: "postulating assertions made easy"        <461160828>
 ```
-On one hand, you can use `toBe` and pass the same type (`String?` in the above example, so in other words either `null` or a `String`).
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L215)</sub> ↓ <sub>Output</sub>
+```text
+expect: "postulating assertions made easy"        <1234789>
+◆ to be: null
+```
+</ex-nullable-1>
+
+<ex-nullable-2>
+
+```kotlin
+val slogan2: String? = null
+expect(slogan2).toBe("postulating assertions made easy")
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L219)</sub> ↓ <sub>Output</sub>
+```text
+expect: null
+◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+  » to be: "postulating assertions made easy"        <1234789>
+```
+</ex-nullable-2>
+
+On one hand, you can use `toBe` and pass the same type -- 
+`String?` in the above example, so in other words either `null` as in the first example or a `String` as in the second example.
 On the other hand, you can use `notToBeNull` to turn the subject into its non-null version.
 This is a shortcut for `isA<Xy>` where `Xy` is the non-nullable type (see [Type Assertions](#type-assertions)).
 Following an example:
 
-```kotlin
-expect(slogan2).notToBeNull().startsWith("atrium")
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
+<ex-nullable-3>
 
-expect(slogan2).notToBeNull { startsWith("atrium") }    
-    // expect: null
-    // ◆ is type or sub-type of: String (kotlin.String) -- Class: String (java.lang.String)
-    //   >> starts with: "atrium"        <222427158>    
+```kotlin
+expect(slogan2)     // subject has type String?
+    .notToBeNull()  // subject narrowed to String
+    .startsWith("atrium")
 ```
-Since `notToBeNull` delegates to `isA` it also provides two overloads, one without and one with `assertionCreator`-lambda; see  [Type Assertions](#type-assertions) for more information.
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L224)</sub> ↓ <sub>Output</sub>
+```text
+expect: null
+◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+```
+</ex-nullable-3>
+
+Since `notToBeNull` delegates to `isA` it also provides two overloads, 
+one without (example above) and one with `assertionCreator`-lambda (example below); see 
+[Type Assertions](#type-assertions) for more information on the difference of the overloads.
+
+<ex-nullable-4>
+
+```kotlin
+expect(slogan2).notToBeNull { startsWith("atrium") }
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L229)</sub> ↓ <sub>Output</sub>
+```text
+expect: null
+◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+  » starts with: "atrium"        <1234789>
+```
+</ex-nullable-4>
 
 Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
 involving nullable types and is explained in the corresponding section.
@@ -751,14 +894,21 @@ to create a specific assertion or one of the
 The following sub sections show both use cases by examples.
 
 ### Shortcut Functions
-```kotlin
-expect(listOf(1, 2, 2, 4)).contains(2, 3)        
 
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1448525331>) 
-    // ◆ contains, in any order: 3        (kotlin.Int <1108924067>)
-    //   ⚬ ▶ number of occurrences: 0
-    //       ◾ is at least: 1
+<ex-collection-short-1>
+
+```kotlin
+expect(listOf(1, 2, 2, 4)).contains(2, 3)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L233)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains, in any order: 
+  ⚬ an entry which is: 3        (kotlin.Int <1234789>)
+    ⚬ ▶ number of occurrences: 0
+        ◾ is at least: 1
+```
+</ex-collection-short-1>
  
 The assertion function `contains(2, 3)` is a shortcut for using a 
 [Sophisticated Assertion Builder](#sophisticated-assertion-builders) -- it actually calls `contains.inAnyOrder.atLeast(1).values(2, 3)`. 
@@ -781,21 +931,31 @@ Atrium allows us to use an `assertionCreator`-lambda to identify an entry
 (`assertionCreator`-lambda can also be thought of as matcher / predicate in this context).
 An entry is considered as identified, if it holds all specified assertions.
 Following an example:
-```kotlin
-expect(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLessThan(4) })
 
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1144068272>) 
-    // ◆ contains, in any order:   
-    //   ⚬ an entry which:   
-    //       » is less than: 0        (kotlin.Int <1985836631>) 
-    //     ⚬ ▶ number of occurrences: 0 
-    //         ◾ is at least: 1 
-    //   ⚬ an entry which:    
-    //       » is greater than: 2        (kotlin.Int <1948471365>)
-    //       » is less than: 4        (kotlin.Int <1636506029>) 
-    //     ⚬ ▶ number of occurrences: 0
-    //         ◾ is at least: 1
+<ex-collection-short-2>
+
+```kotlin
+expect(listOf(1, 2, 2, 4)).contains(
+    { isLessThan(0) },
+    { isGreaterThan(2).isLessThan(4) }
+)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L237)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains, in any order: 
+  ⚬ an entry which: 
+      » is less than: 0        (kotlin.Int <1234789>)
+    ⚬ ▶ number of occurrences: 0
+        ◾ is at least: 1
+  ⚬ an entry which: 
+      » is greater than: 2        (kotlin.Int <1234789>)
+      » is less than: 4        (kotlin.Int <1234789>)
+    ⚬ ▶ number of occurrences: 0
+        ◾ is at least: 1
+```
+</ex-collection-short-2>
+
 In the above example, neither of the two lambdas matched any entries and thus both are reported as failing (sub) assertions.
 
 Another `contains` shortcut function which Atrium provides for `Iterable<T>` is kind of 
@@ -810,12 +970,59 @@ Notice that passing `null` to `containsExactly` makes only sense if your `Iterab
 
 Atrium provides also a `containsNot` shortcut function. 
 Furthermore, it provides aliases for `contains` and `containsNot` named `any` and `none`,  which might be a better 
-choice if you think in terms of: expect a predicate holds. These two are completed with an `all` assertion function:
+choice if you think in terms of: expect a predicate holds. These two are completed with an `all` assertion function. 
+Following each in action:
+
+<ex-collection-any>
+
 ```kotlin
 expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
-expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
-expect(listOf(1, 2, 3, 4)).all { isGreatherThan(2) }
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L244)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains, in any order: 
+  ⚬ an entry which: 
+      » is less than: 0        (kotlin.Int <1234789>)
+    ⚬ ▶ number of occurrences: 0
+        ◾ is at least: 1
+```
+</ex-collection-any>
+<hr/>
+<ex-collection-none>
+
+```kotlin
+expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L247)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ does not contain: 
+  ⚬ an entry which: 
+      » is greater than: 2        (kotlin.Int <1234789>)
+    ✘ ▶ number of occurrences: 2
+        ◾ is: 0        (kotlin.Int <1234789>)
+    ✔ ▶ has at least one element: true
+        ◾ is: true
+```
+</ex-collection-none>
+<hr/>
+<ex-collection-all>
+
+```kotlin
+expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L250)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ all entries: 
+    » is greater than: 2        (kotlin.Int <1234789>)
+    ❗❗ following entries were mismatched: 
+       ⚬ index 0: 1        (kotlin.Int <1234789>)
+       ⚬ index 1: 2        (kotlin.Int <1234789>)
+```
+</ex-collection-all>
+
 
 ### Sophisticated Assertion Builders
 
@@ -828,23 +1035,29 @@ In case you are using an IDE, you do not really have to think too much -- use co
 the fluent builders will guide you through your decision making :relaxed:
 
 Following on the last section we will start with an `inOrder` example:
+
+<ex-collection-builder-1>
+
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
- 
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <817978763>)
-    // ◆ contains only, in order:     
-    //   ✔ ▶ entry 0: 1        (kotlin.Int <1578009262>)
-    //       ◾ an entry which:    
-    //         ⚬ is less than: 3        (kotlin.Int <1108924067>)
-    //   ✘ ▶ entry 1: 2        (kotlin.Int <1948471365>)
-    //       ◾ an entry which:    
-    //         ⚬ is less than: 2        (kotlin.Int <1948471365>)
-    //   ✘ ▶ size: 4
-    //       ◾ to be: 2
-    //         ❗❗ additional entries detected:    
-    //            ⚬ entry 2: 2        (kotlin.Int <1948471365>)
-    //            ⚬ entry 3: 4        (kotlin.Int <1636506029>) 
-```  
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L254)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains only, in order: 
+  ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
+      ◾ an entry which: 
+          » is less than: 3        (kotlin.Int <1234789>)
+  ✘ ▶ entry 1: 2        (kotlin.Int <1234789>)
+      ◾ an entry which: 
+          » is less than: 2        (kotlin.Int <1234789>)
+  ✘ ▶ size: 4        (kotlin.Int <1234789>)
+      ◾ to be: 2        (kotlin.Int <1234789>)
+        ❗❗ additional entries detected: 
+           ⚬ entry 2: 2        (kotlin.Int <1234789>)
+           ⚬ entry 3: 4        (kotlin.Int <1234789>)
+```
+</ex-collection-builder-1>
 
 Since we have chosen the `only` option, Atrium shows us a summary where we see three things:
 - Whether a specified `assertionCreator`-lambda matched (signified by `✔` or `✘`) 
@@ -873,185 +1086,234 @@ In case you have a question (no matter about which section), then please turn up
 ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet) 
 and we happily answer your question there. 
 
+<ex-collection-builder-2>
+
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L257)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains only, in order: 
+  ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
+      ◾ to be: 1        (kotlin.Int <1234789>)
+  ✔ ▶ entry 1: 2        (kotlin.Int <1234789>)
+      ◾ to be: 2        (kotlin.Int <1234789>)
+  ✔ ▶ entry 2: 2        (kotlin.Int <1234789>)
+      ◾ to be: 2        (kotlin.Int <1234789>)
+  ✘ ▶ entry 3: 4        (kotlin.Int <1234789>)
+      ◾ to be: 3        (kotlin.Int <1234789>)
+  ✘ ▶ entry 4: ❗❗ hasNext() returned false
+      ◾ to be: 4        (kotlin.Int <1234789>)
+  ✘ ▶ size: 4        (kotlin.Int <1234789>)
+      ◾ to be: 5        (kotlin.Int <1234789>)
+```
+</ex-collection-builder-2>
+<hr/>
+<ex-collection-builder-3>
 
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1362728240>)
-    // ◆ contains only, in order:   
-    //   ✔ ▶ entry 0: 1        (kotlin.Int <1578009262>)
-    //       ◾ to be: 1        (kotlin.Int <1578009262>)
-    //   ✔ ▶ entry 1: 2        (kotlin.Int <1948471365>)
-    //       ◾ to be: 2        (kotlin.Int <1948471365>)
-    //   ✔ ▶ entry 2: 2        (kotlin.Int <1948471365>)
-    //       ◾ to be: 2        (kotlin.Int <1948471365>)
-    //   ✘ ▶ entry 3: 4        (kotlin.Int <1636506029>)
-    //       ◾ to be: 3        (kotlin.Int <1108924067>)
-    //   ✘ ▶ entry 4: ❗❗ hasNext() returned false
-    //       ◾ to be: 4        (kotlin.Int <1636506029>)
-    //   ✘ ▶ size: 4
-    //       ◾ to be: 5
-
+```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L260)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains, in any order: 
+  ⚬ an entry which: 
+      » is less than: 3        (kotlin.Int <1234789>)
+    ⚬ ▶ number of occurrences: 3
+        ◾ is at most: 2
+```
+</ex-collection-builder-3>
+<hr/>
+<ex-collection-builder-4>
 
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1092572064>)
-    // ◆ contains, in any order:   
-    //   ⚬ an entry which:   
-    //       » is less than: 3        (kotlin.Int <1108924067>)
-    //     ⚬ ▶ number of occurrences: 3
-    //         ◾ is at most: 2
-
-
+```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
-            
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <922511709>)
-    // ◆ contains only, in any order:    
-    //   ✔ an entry which is: 1        (kotlin.Int <1578009262>) 
-    //   ✔ an entry which is: 2        (kotlin.Int <1948471365>) 
-    //   ✘ an entry which is: 3        (kotlin.Int <1108924067>)  
-    //   ✔ an entry which is: 4        (kotlin.Int <1636506029>) 
-    //   ✔ ▶ size: 4  
-    //       ◾ to be: 4
-    //   ❗❗ following entries were mismatched:    
-    //      ⚬ 2        (kotlin.Int <1948471365>)
-    
-expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L263)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains only, in any order: 
+  ✔ an entry which is: 1        (kotlin.Int <1234789>)
+  ✔ an entry which is: 2        (kotlin.Int <1234789>)
+  ✘ an entry which is: 3        (kotlin.Int <1234789>)
+  ✔ an entry which is: 4        (kotlin.Int <1234789>)
+  ✔ ▶ size: 4
+      ◾ to be: 4
+  ❗❗ following entries were mismatched: 
+     ⚬ 2        (kotlin.Int <1234789>)
+```
+</ex-collection-builder-4>
+<hr/>
+<ex-collection-builder-5>
 
-    // expect: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <331994761>)
-    // ◆ contains only, in any order:   
-    //   ✔ an entry which is: 4        (kotlin.Int <1636506029>)
-    //   ✘ an entry which is: 3        (kotlin.Int <1108924067>)
-    //   ✔ an entry which is: 2        (kotlin.Int <1948471365>)
-    //   ✔ an entry which is: 2        (kotlin.Int <1948471365>)
-    //   ✔ an entry which is: 1        (kotlin.Int <1578009262>)
-    //   ✘ ▶ size: 4
-    //       ◾ to be: 5
-```     
+```kotlin
+expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L266)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ contains only, in any order: 
+  ✔ an entry which is: 4        (kotlin.Int <1234789>)
+  ✘ an entry which is: 3        (kotlin.Int <1234789>)
+  ✔ an entry which is: 2        (kotlin.Int <1234789>)
+  ✔ an entry which is: 2        (kotlin.Int <1234789>)
+  ✔ an entry which is: 1        (kotlin.Int <1234789>)
+  ✘ ▶ size: 4
+      ◾ to be: 5
+```
+</ex-collection-builder-5>
+
 
 ## Map Assertions
 
+<ex-map-1>
+
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
-
-    // expect: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
-    // ◆ contains, in any order: 
-    //   ⚬ ▶ entry "c": ❗❗ key does not exist
-    //         » to be: 2        (kotlin.Int <970865974>)
-    //   ⚬ ▶ entry "b": 2        (kotlin.Int <970865974>)
-    //       ◾ to be: 1        (kotlin.Int <1827171553>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L270)</sub> ↓ <sub>Output</sub>
+```text
+expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+◆ contains, in any order: 
+  ⚬ ▶ entry "c": ❗❗ key does not exist
+        » is instance of type: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
+        » to be: 2        (kotlin.Int <1234789>)
+  ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
+      ◾ to be: 1        (kotlin.Int <1234789>)
+```
+</ex-map-1>
  
 Map assertions are kind of very similar to [Collection Assertions](#collection-assertions), also regarding reporting. 
 That is the reason why we are not going into too much detail here because we assume you are already familiar with it.
 
 Next to making assertions based on key value pairs one can also define sub assertions for the value of an entry with 
 the help of the parameter object `KeyValue`:
+
+<ex-map-2>
+
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains(
     KeyValue("c") { toBe(2) },
     KeyValue("a") { isGreaterThan(2) },
     KeyValue("b") { isLessThan(2) }
-)   
- 
-    // expect: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
-    // ◆ contains, in any order: 
-    //   ⚬ ▶ entry "c": ❗❗ key does not exist
-    //         » to be: 2        (kotlin.Int <970865974>)
-    //   ⚬ ▶ entry "a": 1        (kotlin.Int <1827171553>)
-    //       ◾ is greater than: 2        (kotlin.Int <970865974>)
-    //   ⚬ ▶ entry "b": 2        (kotlin.Int <970865974>)
-    //       ◾ is less than: 2        (kotlin.Int <970865974>)
+)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L273)</sub> ↓ <sub>Output</sub>
+```text
+expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+◆ contains, in any order: 
+  ⚬ ▶ entry "c": ❗❗ key does not exist
+        » is instance of type: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
+        » to be: 2        (kotlin.Int <1234789>)
+  ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
+      ◾ is greater than: 2        (kotlin.Int <1234789>)
+  ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
+      ◾ is less than: 2        (kotlin.Int <1234789>)
+```
+</ex-map-2>
 
 In case you want to postulate an assertion about a value of one particular key, then you can use `getExisting`.
 For instance:
+
+<ex-map-3>
+
 ```kotlin
-data class Person(
-    val firstName: String,
-    val lastName: String,
-    val age: Int,
-    val children: Collection<Person>
-    // ...  and others 
-)
-val bernstein = Person("Leonard", "Bernstein", 50, children=listOf(/*...*/))
-
+data class Person(val firstName: String, val lastName: String, val age: Int)
+val bernstein = Person("Leonard", "Bernstein", 50)
 expect(mapOf("bernstein" to bernstein))
-    .getExisting("bernstein") { 
+    .getExisting("bernstein") {
         feature { f(it::firstName) }.toBe("Leonard")
-        feature { f(it::age) }.toBe(60) 
+        feature { f(it::age) }.toBe(60)
     }
-    .getExisting("einstein") { 
-        feature { f(it::firstName) }.toBe("Albert") 
+    .getExisting("einstein") {
+        feature { f(it::firstName) }.toBe("Albert")
     }
-    
-    // expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])}        (java.util.Collections.SingletonMap <1389647288>)
-    // ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50, children=[])        (Person <12209492>)
-    //     ◾ ▶ age: 50        (kotlin.Int <314337396>)
-    //         ◾ to be: 60        (kotlin.Int <232824863>)
-    // ◆ ▶ get("einstein"): ❗❗ key does not exist
-    //         ❗❗ Could not evaluate the defined assertion(s) -- given key does not exist.
-    // Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions
 ```
-
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L285)</sub> ↓ <sub>Output</sub>
+```text
+expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
+◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.ReadmeSpec2$1$Person <1234789>)
+    ◾ ▶ age: 50        (kotlin.Int <1234789>)
+        ◾ to be: 60        (kotlin.Int <1234789>)
+```
+</ex-map-3>
 
 In case you want to make an assertion only about the keys or values of the `Map` then you can use `keys` or `values`:
+
+<ex-map-4>
+
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)) {
     keys { all { startsWith("a") } }
     values { none { isGreaterThan(1) } }
 }
-    // expect: {a=1, b=2}        (java.util.LinkedHashMap <1690101810>)
-    // ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1502335674>)
-    //     ◾ all entries: 
-    //         » starts with: "a"        <1517640897>
-    //         ❗❗ following entries were mismatched: 
-    //            ⚬ index 1: "b"        <2061774051>
-    // ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <240630125>)
-    //     ◾ does not contain: 
-    //       ⚬ an entry which: 
-    //           » is greater than: 1        (kotlin.Int <851912430>)
-    //         ✘ ▶ number of occurrences: 1
-    //             ◾ is: 0        (kotlin.Int <586358252>)
-    //         ✔ ▶ has at least one element: true
-    //             ◾ is: true
-``` 
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L297)</sub> ↓ <sub>Output</sub>
+```text
+expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
+    ◾ all entries: 
+        » starts with: "a"        <1234789>
+        ❗❗ following entries were mismatched: 
+           ⚬ index 1: "b"        <1234789>
+◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
+    ◾ does not contain: 
+      ⚬ an entry which: 
+          » is greater than: 1        (kotlin.Int <1234789>)
+        ✘ ▶ number of occurrences: 1
+            ◾ is: 0        (kotlin.Int <1234789>)
+        ✔ ▶ has at least one element: true
+            ◾ is: true
+```
+</ex-map-4>
 
 Last but not least, you can use the non-reporting `asEntries()` function which
 turns `Expect<Map<K, V>>` into an `Expect<Set<Map.Entry<K, V>>` and thus allows that you can use all the assertion 
 functions and sophisticated builders shown in [Collection Assertions](#collection-assertions).
 
 For instance, say you have a `LinkedHashMap` and want to be sure that the order is correct:
+
+<ex-map-5>
+
 ```kotlin
 expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
     { isKeyValue("a", 1) },
     {
-        key { startsWith("a") }
-        value { isGreaterThan(2) }
+        key.startsWith("a")
+        value.isGreaterThan(2)
     }
 )
-    // expect: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
-    // ◆ contains only, in order: 
-    //   ✔ ▶ entry 0: a=1        (java.util.LinkedHashMap.Entry <970865974>)
-    //       ◾ an entry which: 
-    //           » ▶ key: "a"        <1827171553>
-    //               ◾ to be: "a"        <1827171553>
-    //           » ▶ value: 1        (kotlin.Int <1424482154>)
-    //               ◾ to be: 1        (kotlin.Int <1424482154>)
-    //   ✘ ▶ entry 1: b=2        (java.util.LinkedHashMap.Entry <1072506992>)
-    //       ◾ an entry which: 
-    //           » ▶ key: "a"        <1827171553>
-    //               ◾ starts with: "a"        <1827171553>
-    //           » ▶ value: 1        (kotlin.Int <1424482154>)
-    //               ◾ is greater than: 2        (kotlin.Int <1997702454>)
-    //   ✔ ▶ size: 2        (kotlin.Int <1997702454>)
-    //       ◾ to be: 2        (kotlin.Int <1997702454>)
 ```
-`isKeyValue` as well as `key {}` and `value {}` are assertion functions defined for `Map.Entry<K, V>`.
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L303)</sub> ↓ <sub>Output</sub>
+```text
+expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+◆ contains only, in order: 
+  ✔ ▶ entry 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
+      ◾ an entry which: 
+          » ▶ key: "a"        <1234789>
+              ◾ to be: "a"        <1234789>
+          » ▶ value: 1        (kotlin.Int <1234789>)
+              ◾ to be: 1        (kotlin.Int <1234789>)
+  ✘ ▶ entry 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
+      ◾ an entry which: 
+          » ▶ key: "a"        <1234789>
+              ◾ starts with: "a"        <1234789>
+          » ▶ value: 1        (kotlin.Int <1234789>)
+              ◾ is greater than: 2        (kotlin.Int <1234789>)
+  ✔ ▶ size: 2        (kotlin.Int <1234789>)
+      ◾ to be: 2        (kotlin.Int <1234789>)
+```
+</ex-map-5>
 
+`isKeyValue` as well as `key` and `value` are assertion functions defined for `Map.Entry<K, V>`.
 
-Following a non-exhaustive list of further functions: `containsKey`/`containsNotKey`, `isEmpty`, `hasSize` ...  
-More examples are given at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+There are more assertion functions, a full list can be found in 
+[KDoc of atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html).
 
-And in case you should miss an assertion function, then please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
+In case you should miss an assertion function, then please 
+[open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 For instance, you might want to upvote [containsInAnyOrderOnly](https://github.com/robstoll/atrium/issues/68)
 in case you want this shortcut function as well.
 
@@ -1067,28 +1329,31 @@ As an example, Atrium can help you writing data driven tests in a common module 
 The trick is to wrap your assertions into an [assertion group block](#define-single-assertions-or-assertion-groups)
 and create [Feature Assertions](#feature-assertions). Following an example:
 
+<ex-data-driven-1>
+
 ```kotlin
 fun myFun(i: Int) = (i + 97).toChar()
 
-@Test
-fun myFun_happyCases() {
-    expect("calling myFun with...") {
-        mapOf(
-            1 to 'a',
-            2 to 'c',
-            3 to 'e'
-        ).forEach { (arg, result) ->
-            feature { f(::myFun, arg) }.toBe(result)
-        }
+expect("calling myFun with...") {
+    mapOf(
+        1 to 'a',
+        2 to 'c',
+        3 to 'e'
+    ).forEach { (arg, result) ->
+        feature { f(::myFun, arg) }.toBe(result)
     }
 }
-
-    // expect: "calling myFun with..."        <1608446010>
-    // ◆ ▶ myFun(1): 'b'
-    //     ◾ to be: 'a'
-    // ◆ ▶ myFun(3): 'd'
-    //     ◾ to be: 'e'
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L317)</sub> ↓ <sub>Output</sub>
+```text
+expect: "calling myFun with..."        <1234789>
+◆ ▶ myFun(1): 'b'
+    ◾ to be: 'a'
+◆ ▶ myFun(3): 'd'
+    ◾ to be: 'e'
+```
+</ex-data-driven-1>
+
 Depending on the chosen [reporting style](#reporterbuilder) it will only show the failing cases (default behaviour).
 This is also the reason why the call of `myFun(2)` is not listed (as the result is `c` as expected).
 
@@ -1097,23 +1362,30 @@ if you want to see a summary, meaning also successful assertions --we happily ad
 
 Following another example which involves an assertion creator lambda and not only a simple `toBe` check. 
 We are going to reuse the `myFun` from above
+
+<ex-data-driven-2>
+
 ```kotlin
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 
 expect("calling myFun with ...") {
     mapOf(
         1 to subExpect<Char> { isLessThan('f') },
-        2 to subExpect { toBe('c') } ,
+        2 to subExpect { toBe('c') },
         3 to subExpect { isGreaterThan('e') }
     ).forEach { (arg, assertionCreator) ->
         feature({ f(::myFun, arg) }, assertionCreator)
     }
 }
-    
-    // expect: "calling myFun with ..."        <537548559>
-    // ◆ ▶ myFun(3): 'd'
-    //     ◾ is greater than: 'e'
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L331)</sub> ↓ <sub>Output</sub>
+```text
+expect: "calling myFun with ..."        <1234789>
+◆ ▶ myFun(3): 'd'
+    ◾ is greater than: 'e'
+```
+</ex-data-driven-2>
+
 The example should be self explanatory.
 One detail to note though is the usage of `subExpect`. 
 It is a helper function which circumvents certain [Kotlin type inference bugs](#kotlin-bugs) (upvote them please).
@@ -1127,6 +1399,9 @@ If you wish to make sub-assertions on the non-nullable type of the subject, then
 `toBeNullIfNullGivenElse` which accepts an assertion creator or `null`.
 It is short for `if (assertionCreatorOrNull == null) toBe(null) else notToBeNull(assertionCreatorOrNull)`. 
 Following another fictional example which illustrates `toBeNullIfNullGivenElse` (we are reusing `myFun` from above):
+
+<ex-data-driven-3>
+
 ```kotlin
 fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
 
@@ -1142,17 +1417,20 @@ expect("calling myNullableFun with ...") {
         feature { f(::myNullableFun, arg) }.toBeNullIfNullGivenElse(assertionCreatorOrNull)
     }
 }
-
-    // expect: "calling myNullableFun with ..."        <1151647522>
-    // ◆ ▶ myNullableFun(-2147483648): null
-    //     ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-    //       » contains: 
-    //         ⚬ value: "min"        <418730847>
-    //           ⚬ ▶ number of occurrences: -1
-    //               ◾ is at least: 1
-    // ◆ ▶ myNullableFun(2147483647): "2147483647"        <1352112848>
-    //     ◾ to be: "max"        <456846682>
-``` 
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L349)</sub> ↓ <sub>Output</sub>
+```text
+expect: "calling myNullableFun with ..."        <1234789>
+◆ ▶ myNullableFun(-2147483648): null
+    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+      » contains: 
+        ⚬ value: "min"        <1234789>
+          ⚬ ▶ number of occurrences: -1
+              ◾ is at least: 1
+◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
+    ◾ to be: "max"        <1234789>
+```
+</ex-data-driven-3>
 
 ## Further Examples
 
@@ -1202,73 +1480,97 @@ But in case, you can also browse the online documentation, e.g. [KDoc of toBe](h
 
 ### 2. Additional Information in Failure Reporting
 Atrium adds extra information to error messages so that you get quickly a better idea of what went wrong. 
-For instance, for the following assertion (which fails) 
+For instance, for the following assertion (which fails):
+
+<exs-add-info-1>
+
 ```kotlin
 expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
 ```
+</exs-add-info-1>
+
 Atrium points out which `values` were found, makes an implicit assertion about the size and 
 also states which entries were additionally contained in the list:
 
+<exs-add-info-1-output>
+
 ```text
-expect: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
+expect: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
-  ✔ ▶ entry 0: 1        (kotlin.Int <6519275>)
-      ◾ to be: 1        (kotlin.Int <6519275>)
-  ✘ ▶ entry 1: 2        (kotlin.Int <692331943>)
-      ◾ to be: 3        (kotlin.Int <692331943>)
-  ✘ ▶ size: 3
-      ◾ to be: 2
+  ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
+      ◾ to be: 1        (kotlin.Int <1234789>)
+  ✘ ▶ entry 1: 2        (kotlin.Int <1234789>)
+      ◾ to be: 3        (kotlin.Int <1234789>)
+  ✘ ▶ size: 3        (kotlin.Int <1234789>)
+      ◾ to be: 2        (kotlin.Int <1234789>)
         ❗❗ additional entries detected: 
-           ⚬ entry 2: 3        (kotlin.Int <1741979653>)
-```    
+           ⚬ entry 2: 3        (kotlin.Int <1234789>)
+```
+</exs-add-info-1-output>
+
 
 Let us have a look at another example.
+
+<exs-add-info-2>
+
 ```kotlin
 expect(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
 ```
+</exs-add-info-2>
+
 The above assertion looks good at first sight but actually fails (at least on my machine). 
 And without some extra information in the output we would believe that there is actually a bug in the assertion library itself.
 But Atrium shows where it goes wrong and even gives a possible hint:
+
+<exs-add-info-2-output>
+
 ```text
-expect: 9.99        (java.lang.Float <1287934450>)
-◆ to be (error ± 0.01): 10.0        (java.lang.Float <6519275>)
-    » failure might be due to using java.lang.Float, see exact check on the next line
+expect: 9.99        (kotlin.Float <1234789>)
+◆ to be (error ± 0.01): 10.0        (kotlin.Float <1234789>)
+    » failure might be due to using kotlin.Float, see exact check on the next line
     » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
 ```
+</exs-add-info-2-output>
 
 One last example. This time about making an assertion that a certain `Throwable` is thrown but the assertion fails 
 because it was the wrong one. 
-Atrium comes with a very useful hint, it shows the actual exception. For instance, for:
+Atrium comes with a very useful hint, it shows the actual exception:
+
+<ex-add-info-3>
+
 ```kotlin
 expect {
-  try {
-      throw UnsupportedOperationException("not supported")
-  } catch(t: Throwable) {
-      throw IllegalArgumentException("no no no...", t)
-  }
+    try {
+        throw UnsupportedOperationException("not supported")
+    } catch (t: Throwable) {
+        throw IllegalArgumentException("no no no...", t)
+    }
 }.toThrow<IllegalStateException> { messageContains("no no no") }
 ```
-the error reporting looks as follows:
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L373)</sub> ↓ <sub>Output</sub>
 ```text
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
   » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
         » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
         » contains: 
-          ⚬ value: "no no no"        <781182788>
+          ⚬ value: "no no no"        <1234789>
             ⚬ ▶ number of occurrences: -1
                 ◾ is at least: 1
   » Properties of the unexpected IllegalArgumentException
-    » message: "no no no..."        <477902612>
+    » message: "no no no..."        <1234789>
     » stacktrace: 
-      ⚬ TestKt$main$1.invoke(test.kt:12)
-      ⚬ TestKt$main$1.invoke(test.kt)
-      ⚬ TestKt.main(test.kt:72)
+      ⚬ readme.examples.ReadmeSpec2$1$27$1.invoke(ReadmeSpec.kt:378)
+      ⚬ readme.examples.ReadmeSpec2$1$27$1.invoke(ReadmeSpec.kt:213)
+      ⚬ readme.examples.ReadmeSpec2$1$27.invoke(ReadmeSpec.kt:596)
+      ⚬ readme.examples.ReadmeSpec2$1$27.invoke(ReadmeSpec.kt:213)
     » cause: java.lang.UnsupportedOperationException
-        » message: "not supported"        <985934102>
+        » message: "not supported"        <1234789>
         » stacktrace: 
-          ⚬ TestKt$main$1.invoke(test.kt:10)
+          ⚬ readme.examples.ReadmeSpec2$1$27$1.invoke(ReadmeSpec.kt:376)
 ```
+</ex-add-info-3>
+
 
 ### 3. Prevents you from Pitfalls
 But not enough. There are certain pitfalls when it comes to using an assertion library and Atrium tries to prevent you from those.
@@ -1280,24 +1582,38 @@ rather than including `BigDecimal.scale` in the comparison.
 Accordingly, the deprecation message of `toBe` (`notToBe` alike) explains the problem and suggests to either use `isNumericallyEqualTo` or `isEqualIncludingScale`.
 And if the user should decide to use `isEqualIncludingScale` and at some point an assertion fails only due to the comparison of `BigDecimal.scale`
 then Atrium reminds us of the possible pitfall. For instance:
+
+<ex-pitfall-1>
+
+```kotlin
+expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L383)</sub> ↓ <sub>Output</sub>
 ```text
-expect: 10        (java.math.BigDecimal <1287934450>)
-◆ is equal (including scale): 10.0        (java.math.BigDecimal <6519275>)
+expect: 10        (java.math.BigDecimal <1234789>)
+◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
     » notice, if you used isNumericallyEqualTo then the assertion would have hold.
 ```
+</ex-pitfall-1>
 
-another example are empty `assertionCreator`-lambdas. 
-Getting distracted by a working colleague and taking up the work at the wrong position might be familiar to you. 
+Another example are empty `assertionCreator`-lambdas. 
+Getting distracted by a working colleague and taking up the work at the wrong position might sound familiar to you. 
 For instance:
+
+<ex-pitfall-2>
+
 ```kotlin
 expect(listOf(1)).get(0) {}
-
-    // expect: [1]        (java.util.Collections.SingletonList <1695611955>)
-    // ◆ ▶ get(0): 1
-    //       » at least one assertion defined: false
-    //           » You forgot to define assertions in the assertionCreator-lambda
-    //           » Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L386)</sub> ↓ <sub>Output</sub>
+```text
+expect: [1]        (java.util.Collections.SingletonList <1234789>)
+◆ ▶ get(0): 1        (kotlin.Int <1234789>)
+    ◾ at least one assertion defined: false
+        » You forgot to define assertions in the assertionCreator-lambda
+        » Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+```
+</ex-pitfall-2>
 
 ## Flexibility
 Another design goal of Atrium was to give you the flexibility needed but still adhere to a concise design. 
@@ -1350,17 +1666,27 @@ A pull request of your new assertion function is very much appreciated.
 
 This is kind of the simplest way of defining assertion functions. Following an example:
 
+<code-own-boolean-1>
+
 ```kotlin
 fun Expect<Int>.isMultipleOf(base: Int) =
     createAndAddAssertion("is multiple of", base) { it % base == 0 }
 ```
+</code-own-boolean-1>
+
 and its usage:
+
+<ex-own-boolean-1>
 
 ```kotlin
 expect(12).isMultipleOf(5)
-    // expect: 12        (kotlin.Int <934275857>)
-    // ◆ is multiple of: 5        (kotlin.Int <1364913072>)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L398)</sub> ↓ <sub>Output</sub>
+```text
+expect: 12        (kotlin.Int <1234789>)
+◆ is multiple of: 5        (kotlin.Int <1234789>)
+```
+</ex-own-boolean-1>
 
 Let us see how we actually defined `isMultipleOf`. 
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
@@ -1387,19 +1713,29 @@ But not all assertion functions require a value which is somehow compared agains
 -- some make an assertion about a characteristic of the subject without comparing it against an expected value.
 Consider the following assertion function:
 
+<code-own-boolean-2>
+
 ```kotlin
-fun Expect<Int>.isEven() = 
+fun Expect<Int>.isEven() =
     createAndAddAssertion("is", RawString.create("an even number")) { it % 2 == 0 }
 ```
+</code-own-boolean-2>
+
 We are using a [RawString](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
 Its usage looks then as follows:
 
+<ex-own-boolean-2>
+
 ```kotlin
 expect(13).isEven()
-    // expect: 13        (kotlin.Int <1841396611>)
-    // ◆ is: an even number
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L409)</sub> ↓ <sub>Output</sub>
+```text
+expect: 13        (kotlin.Int <1234789>)
+◆ is: an even number
+```
+</ex-own-boolean-2>
 
 ## Compose Assertion Functions
 
@@ -1408,22 +1744,32 @@ reuse existing functions but with different arguments.
 We will show both use cases here, starting off by composing functions. 
 
 Say you want to build a `isBetween` assertion function for `java.util.Date`, you could write it as follows:
+
+<code-own-compose-1>
+
 ```kotlin
-fun <T: Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
 ```
+</code-own-compose-1>
+
 Pretty simply isn't it. 
 Notice though, that this function fails fast, which means, the upper bound is not evaluated 
 if the assertion about the lower bound already fails. 
 You need to use an [assertion group block](#define-single-assertions-or-assertion-groups) 
 if you want that both are evaluated:
+
+<code-own-compose-2>
+
 ```kotlin
-fun <T: Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     addAssertionsCreatedBy {
         isGreaterOrEquals(lowerBoundInclusive)
         isLessThan(upperBoundExclusive)
     }
-``` 
+```
+</code-own-compose-2>
+
 Still simple enough.
 
 <details>
@@ -1446,78 +1792,125 @@ expect(B()).foo // does not compile as foo is only available for `Expect<A>`
 
 So lets move on to an example which is a bit more complicated. Assume the following data class `Person`
 
+<code-own-compose-3a>
+
 ```kotlin
 data class Person(
-  val firstName: String, 
-  val lastName: String, 
-  val age: Int,
-  val children: Collection<Person> 
-  // ...  and others 
+    val firstName: String,
+    val lastName: String,
+    val age: Int,
+    val children: Collection<Person>
+    // ...  and others
 )
 ```
+</code-own-compose-3a>
 
 Say you want to make an assertion about the number of children a person has:
+
+<code-own-compose-3b>
+
 ```kotlin
-fun Expect<Person>.hasNumberOfChildren(number: Int) = apply {
-    feature(Person::children) { hasSize(number) } 
+fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> = apply {
+    feature(Person::children) { hasSize(number) }
 }
 ```
+</code-own-compose-3b>
+
 Three things to notice here: 
 1. we make use of a [feature assertion with class reference](#within-assertion-functions)
 2. We use `apply` so that subsequent assertions are still made on `Person` and not on `children` 
-   (you could also use `addAssertionsCreatedBy` or a block and `return this` instead of `apply`)
+   (you could also a block and `return this` instead of `apply`)
  
 Its usage is then as follows:
-```kotlin
-expect(Person("Susanne", "Whitley", listOf()))
-  .hasNumberOfChildren(2) 
 
-    // expect: Person(firstName=Susanne, lastName=Whitley, children=[])        (Person <692342133>)
-    // ◆ ▶ children: []        (kotlin.collections.EmptyList <654845766>)
-    //     ◾ ▶ size: 0        (kotlin.Int <1712536284>)
-    //         ◾ to be: 2        (kotlin.Int <2080166188>)    
-```
-Another example: assert the person has children which are all adults (assuming 18 is the age of majority).
+<ex-own-compose-3>
+
 ```kotlin
-fun Expect<Person>.hasAdultChildren() = apply {
+expect(Person("Susanne", "Whitley", 43, listOf()))
+    .hasNumberOfChildren(2)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L448)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
+◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
+    ◾ ▶ size: 0        (kotlin.Int <1234789>)
+        ◾ to be: 2        (kotlin.Int <1234789>)
+```
+</ex-own-compose-3>
+
+Another example: assert the person has children which are all adults (assuming 18 is the age of majority).
+
+<code-own-compose-4>
+
+```kotlin
+fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
     feature(Person::children) {
-      all { property(Person::age).isGreaterOrEquals(18) }
+        all { feature(Person::age).isGreaterOrEquals(18) }
     }
 }
 ```
+</code-own-compose-4>
+
 We also use `apply` here for the same reason as above.
 We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
 but we don't have to, as `all` already checks that there is at least one element. 
+
+<ex-own-compose-4>
+
+```kotlin
+expect(Person("Susanne", "Whitley", 43, listOf()))
+    .hasAdultChildren()
 ```
-expect: Person(firstName=Susanne, lastName=Whitley, children=[], age=30)        (Person <1870252780>)
-◆ ▶ children: []        (kotlin.collections.EmptyList <761960786>)
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L463)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
+◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ ▶ has at least one element: false
         ◾ is: true
 ```
+</ex-own-compose-4>
 
 If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function
 (assuming the API of Person is stable enough).
+
+<code-own-compose-5>
+
 ```kotlin
-val Expect<Person>.children get(): Expect<Collection<Person>> = feature(Person::children)
+val Expect<Person>.children: Expect<Collection<Person>> get() = feature(Person::children)
+
 fun Expect<Person>.children(assertionCreator: Expect<Collection<Person>>.() -> Unit): Expect<Person> =
-    apply { feature(Person::children, assertionCreator) }
+    feature(Person::children, assertionCreator)
 ```
+</code-own-compose-5>
+
+Notice, that we have used a class-reference and not a bounded-reference to refer to `children` which is best practice 
+(see [feature assertions within assertion functions](#within-assertion-functions)).
 With this, we can write things like:
+
+<ex-own-compose-5>
+
 ```kotlin
-expect(person)
-    .children { // using the fun -> sub-assertions don't fail fast
+expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
+    .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
         none { feature { f(it::firstName) }.startsWith("Ro") }
-        all { feature { f(it::firstName) }.toBe("Stoll") }
+        all { feature { f(it::lastName) }.toBe("Whitley") }
     } // subject is still Person here
-    .apply {
+    .apply { // only evaluated because the previous assertion group holds
         children  // using the val -> subsequent assertions are about children and fail fast
             .hasSize(2)
             .any { feature { f(it::age) }.isGreaterThan(18) }
-    } // subject is still Person here
+    } // subject is still Person here due to the `apply`
     .children // using the val -> subsequent assertions are about children and fail fast
     .hasSize(2)
-    .contains(...)
 ```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L473)</sub> ↓ <sub>Output</sub>
+```text
+expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
+◆ ▶ children: [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
+    ◾ ▶ size: 1        (kotlin.Int <1234789>)
+        ◾ to be: 2        (kotlin.Int <1234789>)
+```
+</ex-own-compose-5>
 
 <hr/>
 
@@ -1532,16 +1925,21 @@ And it gets worse if we want to use `contains.inAnyOrder.entries` which expects 
 because Kotlin cannot infer the types automatically.
 
 `mapArguments` to the rescue, you can write the assertion function as follows:
+
+<code-own-compose-6>
+
 ```kotlin
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 
-fun <T: List<Pair<String, String>>> Expect<T>.areNamesOf(
+fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(
     person: Person, vararg otherPersons: Person
 ): Expect<T> {
     val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
     return contains.inAnyOrder.only.values(pair, *otherPairs)
 }
 ```
+</code-own-compose-6>
+
 As you can see we moved the mapping inside the function so that the consumer of our API can happily use it as follows:
 ```kotlin
 expect(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
@@ -1549,6 +1947,9 @@ expect(get...WhichReturnsPairs()).areNamesOf(fKafka, eBloch, kTucholsky)
 
 Another fictional example, say we want to assert that the pairs have the same initials as the given persons and in the given order.
 Which means, this time we need to use `assertionCreator`-lambdas. This can be written as follows:
+
+<code-own-compose-7>
+
 ```kotlin
 fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
     person: Person, vararg otherPersons: Person
@@ -1559,11 +1960,13 @@ fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
     }
     return contains.inOrder.only.entries(first, *others)
 }
-``` 
+```
+</code-own-compose-7>
 
 There are a few additional methods which you can call after `mapArguments`.
+See [KDoc of ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html).
 In case you want to provide your own implementation it suffices to create an 
-extension function for [ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html). 
+extension function for `ArgumentMapperBuilder`. 
 
 ## Enhanced Reporting
 
@@ -1703,17 +2106,19 @@ This way the report could be generated in another language.
 The difference lies in the first argument passed to `createAndAddAssertion`; 
 we do no longer use a `String` but a proper `Translatable`. 
 
+<code-i18n-1>
+
 ```kotlin
-fun Expect<Int>.isMultipleOf(base: Int) = 
-    createAndAddAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
-    
-enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
+fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
+    createAndAddAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+
+enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")
-}    
+}
 ```
+</code-i18n-1>
 
-
-Typically you would put `DescriptionIntAssertions` into an own module (jar) 
+Typically you would put `DescriptionIntAssertion` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
 [atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
@@ -1733,6 +2138,8 @@ Atrium supports a properties files based `TranslationSupplier` for JVM (a suppli
 provides out of the box. 
 Yet, a `Translator` uses a more enhanced fallback mechanism compared to a `ResourceBundle`. 
 For further technical information have a look at the KDoc of [Translator](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html).
+Notice though, that we plan to move away from the `ResourceBundle`-inspired approach
+ due to enconding problems and missing implementations on other platforms than JVM.
 
 Notice, Atrium does not yet support the generation of multiple reports in the same test run. 
 This might become handy if you want to generate an HTML report in different languages.   
@@ -1744,14 +2151,19 @@ However, Atrium is designed to support this use case -- if you need this feature
 
 Let us rewrite the `isEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
 as second example:
+
+<code-i18n-2>
+
 ```kotlin
-fun Expect<Int>.isEven() = 
+fun Expect<Int>.isEven(): Expect<Int> =
     createAndAddAssertion(DescriptionBasic.IS, RawString.create(DescriptionIntAssertions.EVEN)) { it % 2 == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")
 }
 ```
+</code-i18n-2>
+
 Once again we have to wrap the text which we want to be able to exchange with another language into a `Translatable`. 
 Since we want that the translation as such is treated as a raw string in reporting, we wrap it into a `RawString` as we did before. 
 Notice also, that we are reusing a `Translatable` from `DescriptionBasic`.
@@ -1771,10 +2183,17 @@ Typically you put the API function in one module (jar) and the implementation in
 In the implementation module we define, what we will call hereafter an impl-function.
 We follow the convention that impl-functions are prefixed with `_` 
 -- this way the chance that it shows up in code completion, e.g. when a developer starts to type `is`, is very low):
+
+<code-i18n-3a>
+
 ```kotlin
-fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion 
-    = ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
+fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion =
+    ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
+        it % base == 0
+    }
 ```
+</code-i18n-3a>
+
 Notice that the impl-function is not an extension function as before 
 because we do not want to pollute the API of `Expect<Int>` with this function.
 In the above example we created a simple [DescriptiveAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
@@ -1789,19 +2208,32 @@ as well as to other builders such as the [`AssertionBuilder`](https://docs.atriu
 which in turn helps you with creating assertions.
 
 In the API module we define the extension function and call the impl-function:
+
+<code-i18n-3b>
+
 ```kotlin
-fun Expect<Int>.isMultipleOf(base: Int)
-    = addAssertion(_isMultipleOf(this, base))
+fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
+    addAssertion(_isMultipleOf(this, base))
+```
+</code-i18n-3b>
+
+```kotlin
+
+
 ```
 We do no longer have to create the assertion as in the example of
 [Write own Assertion Functions](#write-own-assertion-functions).
 Therefore we use the `addAssertion` method and call the impl-function which will create the assertion for us.
 
 You are ready to go, creating an API in a different language -- e.g. in German -- is now only a routine piece of work:
+
+<code-i18n-3c>
+
 ```kotlin
-fun Expect<Int>.istVielfachesVon(base: Int)
-    = addAssertion(_isMultipleOf(this, base))
+fun Expect<Int>.istVielfachesVon(base: Int): Expect<Int> =
+    addAssertion(_isMultipleOf(this, base))
 ```
+</code-i18n-3c>
 
 <details>
 <summary>:interrobang: Atrium has more layers</summary>
@@ -1831,9 +2263,9 @@ However, this is more intended for advanced user with special requirements.
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
-- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-cfluent-en_GB-common/build.gradle)
-- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
 - [atrium-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
+- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
@@ -1889,9 +2321,14 @@ Atrium does not provide extension function applicable to `Expect<Sequence<E>>` (
 because they would basically duplicate the functions available for `Iterable<E>`.  
 However, Atrium provides `asIterable` so that you can turn `Expect<Sequence<E>>` 
 into `Expect<Iterable<E>>`. An example:
+
+<code-faq-1>
+
 ```kotlin
 expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 ```
+</code-faq-1>
+
 Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<Iterable<E>>`.
 
 <details>
@@ -1900,9 +2337,13 @@ Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an 
 `asIterable` uses `ExpectImpl.changeSubject.unreported` internally which is intended for not showing up in reporting.
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
 as follows:
+
+<code-faq-2>
+
+```kotlin
+expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
 ```
-expect(sequenceOf(1, 2, 3)).feature(Sequence::asIterable).contains(2)
-```
+</code-faq-2>
 
 </details>
 
@@ -1923,6 +2364,9 @@ See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#pro
 # Kotlin Bugs
 The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
 Please upvote them (especially if you encounter them yourself):
+- [deprecated functions are no longer struck out in 2019.2.x](https://youtrack.jetbrains.com/issue/IDEA-216982)
+- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
+- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 - [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects.
 - [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
 - [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
@@ -1944,9 +2388,7 @@ Please upvote them (especially if you encounter them yourself):
 - [Overload resolution generic upper bound bug](https://youtrack.jetbrains.com/issue/KT-30235)
 - [Overload ambiguity between val and fun](https://youtrack.jetbrains.com/issue/KT-32958)
 - [false positive: remove explicit type arguments](https://youtrack.jetbrains.com/issue/KT-32869)
-- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 - [Wrong JS generated in case of name clash](https://youtrack.jetbrains.com/issue/KT-33294)
-- [deprecated functions are no longer struck out in 2019.2.x](https://youtrack.jetbrains.com/issue/IDEA-216982)
 - [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
 - [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
 
@@ -1970,9 +2412,11 @@ We plan that Atrium is going to support certain features in the future. Followin
 - optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
 
 ## 0.10.0
-- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext)
+- add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
+- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
+- refactor core and domain architecture - most likely we are going to move away from ServiceLoader and replace `-robstoll` and `-robstoll-lib` modules with one `-impl` module
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
-- provide an easy way to create failure hints
+- provide an easy way to create failure hints.
 
 ## 0.11.0
 - Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
@@ -1982,7 +2426,11 @@ We plan that Atrium is going to support certain features in the future. Followin
 - Generating testing reports in html.
   - generate multiple reports in the same test run. 
   
-## 0.13.0 (or 1.0.0)  
+## 1.0.0
+- drop support for Kotlin 1.2
+- include assertion functions specific to Kotlin 1.3 into normal API
+  
+## Sometime in the future
 - extension for Spek so that reporting includes the `describe`, `it` etc.
 - Inclusion of mockk's verify (so that it appears in the report as well).
     
