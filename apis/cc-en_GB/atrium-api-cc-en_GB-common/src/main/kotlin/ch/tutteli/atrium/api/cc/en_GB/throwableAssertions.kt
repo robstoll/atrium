@@ -21,8 +21,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().toThrow().asAssert(assertionCreator)",
-        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "this.toThrow<TExpected>().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.toThrow"
     )
@@ -42,8 +41,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().notToThrow()",
-        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "this.notToThrow()",
         "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
     )
 )
@@ -68,8 +66,7 @@ fun ThrowableThrown.Builder.notToThrow(){
     ReplaceWith(
         "this.asExpect().message.asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
+        "ch.tutteli.atrium.api.fluent.en_GB.message"
     )
 )
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
@@ -95,10 +92,9 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().message.asAssert(assertionCreator)",
+        "this.asExpect().messageContains(expected, *otherExpected)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
+        "ch.tutteli.atrium.api.fluent.en_GB.messageContains"
     )
 )
 fun <T : Throwable> Assert<T>.messageContains(expected: Any, vararg otherExpected: Any) {
