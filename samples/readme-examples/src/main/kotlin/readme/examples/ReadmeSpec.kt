@@ -3,8 +3,10 @@ package readme.examples
 //snippet-import-start
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.assertions.Assertion
 //snippet-import-end
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 //snippet-mapArguments-start
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 //snippet-mapArguments-end
@@ -12,10 +14,11 @@ import ch.tutteli.atrium.domain.builders.utils.mapArguments
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 //snippet-subExpect-end
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
+import ch.tutteli.atrium.translations.DescriptionBasic
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
 import java.util.*
-
 
 
 /**
@@ -434,7 +437,7 @@ object OwnPerson : Spek({
     }
 
     //snippet-own-compose-3b-start
-    fun Expect<Person>.hasNumberOfChildren(number: Int) = apply {
+    fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> = apply {
         feature(Person::children) { hasSize(number) }
     }
     //snippet-own-compose-3b-end
@@ -448,7 +451,7 @@ object OwnPerson : Spek({
     }
 
     //snippet-own-compose-4-start
-    fun Expect<Person>.hasAdultChildren() = apply {
+    fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
         feature(Person::children) {
             all { feature(Person::age).isGreaterOrEquals(18) }
         }
@@ -527,3 +530,62 @@ val Expect<Person>.children: Expect<Collection<Person>> get() = feature(Person::
 fun Expect<Person>.children(assertionCreator: Expect<Collection<Person>>.() -> Unit): Expect<Person> =
     feature(Person::children, assertionCreator)
 //snippet-children-end
+
+
+object I18n : Spek({
+
+    test("code-i18n-1") {
+        fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
+            createAndAddAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+
+        //snippet-DescriptionIntAssertion-insert
+    }
+
+    test("code-i18n-2") {
+        fun Expect<Int>.isEven(): Expect<Int> =
+            createAndAddAssertion(DescriptionBasic.IS, RawString.create(DescriptionIntAssertions.EVEN)) { it % 2 == 0 }
+
+        //snippet-DescriptionIntAssertions-insert
+    }
+
+    //snippet-i18n-3a-start
+    fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion =
+        ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
+            it % base == 0
+        }
+    //snippet-i18n-3a-end
+
+    test("code-i18n-3a") {
+        //snippet-i18n-3a-insert
+    }
+    test("code-i18n-3b") {
+        fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
+            addAssertion(_isMultipleOf(this, base))
+    }
+    test("code-i18n-3c") {
+        fun Expect<Int>.istVielfachesVon(base: Int): Expect<Int> =
+            addAssertion(_isMultipleOf(this, base))
+    }
+})
+
+//snippet-DescriptionIntAssertion-start
+enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
+    IS_MULTIPLE_OF("is multiple of")
+}
+//snippet-DescriptionIntAssertion-end
+
+
+//snippet-DescriptionIntAssertions-start
+enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
+    EVEN("an even number")
+}
+//snippet-DescriptionIntAssertions-end
+
+object Faq : Spek({
+    test("code-faq-1") {
+        expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
+    }
+    test("code-faq-2") {
+        expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
+    }
+})

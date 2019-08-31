@@ -252,7 +252,7 @@ class ReadmeTestEngine : TestEngine {
 
         val snippet = Regex("//$snippetId-insert")
         return if (!snippet.containsMatchIn(readmeContent)) {
-            request.fail("snippet $snippetId never referenced in $readmeStringPath")
+            request.fail("$snippetId is never inserted in $readmeStringPath")
             readmeContent
         } else {
             snippet.replace(readmeContent) { snippetContent }
