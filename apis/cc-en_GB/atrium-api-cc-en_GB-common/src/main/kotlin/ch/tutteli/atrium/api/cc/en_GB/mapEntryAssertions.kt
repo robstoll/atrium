@@ -22,8 +22,9 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isKeyValue(key, value)",
+        "this.asExpect().isKeyValue(key, value).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isKeyValue"
     )
 )

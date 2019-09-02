@@ -26,8 +26,9 @@ import kotlin.jvm.JvmName
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().toBeWithErrorTolerance(expected, tolerance)",
+        "this.asExpect().toBeWithErrorTolerance(expected, tolerance).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.toBeWithErrorTolerance"
     )
 )
@@ -50,8 +51,9 @@ fun Assert<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().toBeWithErrorTolerance(expected, tolerance)",
+        "this.asExpect().toBeWithErrorTolerance(expected, tolerance).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.toBeWithErrorTolerance"
     )
 )

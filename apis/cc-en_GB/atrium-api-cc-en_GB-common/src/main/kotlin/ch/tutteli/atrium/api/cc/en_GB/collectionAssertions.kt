@@ -18,8 +18,9 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().hasSize(size)",
+        "this.asExpect().hasSize(size).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.hasSize"
     )
 )
@@ -35,8 +36,9 @@ fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isEmpty()",
+        "this.asExpect().isEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isEmpty"
     )
 )
@@ -52,8 +54,9 @@ fun <T : Collection<*>> Assert<T>.isEmpty()
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNotEmpty()",
+        "this.asExpect().isNotEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty"
     )
 )

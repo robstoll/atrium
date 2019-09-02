@@ -92,8 +92,9 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().messageContains(expected, *otherExpected)",
+        "this.asExpect().messageContains(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.messageContains"
     )
 )

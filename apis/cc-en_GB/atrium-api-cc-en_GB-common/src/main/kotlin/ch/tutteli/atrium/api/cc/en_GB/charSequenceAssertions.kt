@@ -74,8 +74,9 @@ val <T : CharSequence> Assert<T>.containsNot: NotCheckerOption<T, NotSearchBehav
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().contains(expected, *otherExpected)",
+        "this.asExpect().contains(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.contains"
     )
 )
@@ -97,8 +98,9 @@ fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: A
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().containsNot(expected, *otherExpected)",
+        "this.asExpect().containsNot(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.containsNot"
     )
 )
@@ -132,8 +134,9 @@ fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().containsRegex(pattern, *otherPatterns)",
+        "this.asExpect().containsRegex(pattern, *otherPatterns).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.containsRegex"
     )
 )
@@ -149,8 +152,9 @@ fun <T : CharSequence> Assert<T>.containsRegex(pattern: String, vararg otherPatt
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().startsWith(expected)",
+        "this.asExpect().startsWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.startsWith"
     )
 )
@@ -166,8 +170,9 @@ fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence) =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().startsNotWith(expected)",
+        "this.asExpect().startsNotWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.startsNotWith"
     )
 )
@@ -184,8 +189,9 @@ fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence) =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().endsWith(expected)",
+        "this.asExpect().endsWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.endsWith"
     )
 )
@@ -201,8 +207,9 @@ fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence) =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().endsNotWith(expected)",
+        "this.asExpect().endsNotWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.endsNotWith"
     )
 )
@@ -219,8 +226,9 @@ fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence) =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isEmpty()",
+        "this.asExpect().isEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isEmpty"
     )
 )
@@ -235,8 +243,9 @@ fun <T : CharSequence> Assert<T>.isEmpty() = addAssertion(AssertImpl.charSequenc
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNotEmpty()",
+        "this.asExpect().isNotEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty"
     )
 )
@@ -251,8 +260,9 @@ fun <T : CharSequence> Assert<T>.isNotEmpty() = addAssertion(AssertImpl.charSequ
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNotBlank()",
+        "this.asExpect().isNotBlank().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNotBlank"
     )
 )
