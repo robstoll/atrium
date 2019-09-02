@@ -115,7 +115,7 @@ interface SubjectProvider<out T> {
      *    same same but different for `assert` and `assertThat`
      */
     @Deprecated(
-        "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
+        "Switch from Assert to Expect and do no longer access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
         ReplaceWith("it")
     )
     val subject: T
