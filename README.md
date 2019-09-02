@@ -27,6 +27,14 @@ For instance, the [README of v0.9.0-alpha](https://github.com/robstoll/atrium/tr
 
 ----
 
+Attention please :wink:
+
+----
+:warning: de_CH API users, I drop maintenance for the `cc-de_CH` API with 0.9.0, not introduce `fluent-de_CH` respectively
+unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137) in which case I might continue in 0.10.0
+
+----
+
 **Table of Content**
 - [Installation](#installation)
   - [JVM](#jvm)
@@ -2409,6 +2417,7 @@ We plan that Atrium is going to support certain features in the future. Followin
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
 - introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
 - optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
+- :warning: drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
 
 ## 0.10.0
 - add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
