@@ -59,7 +59,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline ass
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isA().asAssert(assertionCreator)",
+        "this.asExpect().isA<TSub>().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isA"
