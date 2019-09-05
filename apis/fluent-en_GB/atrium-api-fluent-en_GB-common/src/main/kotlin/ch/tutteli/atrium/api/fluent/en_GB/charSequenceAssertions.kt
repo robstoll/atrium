@@ -70,11 +70,6 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
 fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected: Any) =
     containsNot.values(expected, *otherExpected)
 
-
-fun foo(){
-    Regex("(e|a)").matches()
-}
-
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
