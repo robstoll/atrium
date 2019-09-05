@@ -3,8 +3,8 @@ package readme.examples
 //snippet-import-start
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.assertions.Assertion
 //snippet-import-end
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 //snippet-mapArguments-start
