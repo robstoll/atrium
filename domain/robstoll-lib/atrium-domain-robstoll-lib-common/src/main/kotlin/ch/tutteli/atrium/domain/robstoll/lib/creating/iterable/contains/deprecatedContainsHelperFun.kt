@@ -17,7 +17,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CANNOT_EVALUA
 import ch.tutteli.kbox.ifWithinBound
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 internal fun <E : Any> createExplanatoryAssertions(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     list: List<E?>
@@ -31,7 +31,7 @@ internal fun <E : Any> createExplanatoryAssertions(
 }
 
 @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     first: E?
@@ -48,7 +48,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(
 }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 internal fun <E : Any> collectIterableAssertionsForExplanation(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     maybeSubject: MaybeSubject<E>
@@ -65,7 +65,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
 
 
 @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 internal fun <E : Any> allCreatedAssertionsHold(
     subject: E?,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
@@ -82,7 +82,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
 }
 
 @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 internal fun <E, SC> createEntryAssertionTemplate(
     subjectProvider: () -> List<E>,
     index: Int,
@@ -107,7 +107,7 @@ internal fun <E, SC> createEntryAssertionTemplate(
 }
 
 @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
     val explanatoryGroup = ExpectImpl.builder.explanatoryGroup
         .withDefaultType

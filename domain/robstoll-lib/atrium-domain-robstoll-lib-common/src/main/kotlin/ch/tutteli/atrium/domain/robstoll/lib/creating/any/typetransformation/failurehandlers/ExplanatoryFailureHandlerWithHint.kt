@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 class ExplanatoryFailureHandlerWithHint<in S : Any, out T : Any>(
     private val showHint: () -> Boolean,
     private val failureHintFactory: () -> Assertion

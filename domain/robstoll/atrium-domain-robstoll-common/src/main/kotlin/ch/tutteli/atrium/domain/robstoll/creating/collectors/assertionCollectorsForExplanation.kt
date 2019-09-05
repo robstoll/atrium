@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.creating.collectors.ThrowingAssertionCollectorFo
 import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors.AssertionCollectorForExplanationImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionCollectorForExplanation {
 
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
@@ -25,7 +25,7 @@ class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionColl
         .collect(warningCannotEvaluate, maybeSubject, assertionCreator)
 }
 
-@Deprecated("will be removed with 1.0.0")
+@Deprecated("Will be removed with 1.0.0")
 class ThrowingAssertionCollectorForExplanationImpl : ThrowingAssertionCollectorForExplanation {
 
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")

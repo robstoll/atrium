@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 
-@Deprecated("use _isA or _changeSubject; will be removed with 1.0.0")
+@Deprecated("Use _isA or _changeSubject; will be removed with 1.0.0")
 class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
 
     override fun <T : Any> isNotNull(

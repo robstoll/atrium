@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.feature.extract.creators.F
 import ch.tutteli.atrium.domain.robstoll.lib.creating.feature.extract.creators.FeatureExtractorCreatorNullableImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-@Deprecated("use FeatureExtractorImpl instead; will be removed with 1.0.0")
+@Deprecated("Use FeatureExtractorImpl instead; will be removed with 1.0.0")
 class FeatureExtractorCreatorFactoryImpl : FeatureExtractorCreatorFactory {
 
     override fun <TSubject : Any, T : Any> create(

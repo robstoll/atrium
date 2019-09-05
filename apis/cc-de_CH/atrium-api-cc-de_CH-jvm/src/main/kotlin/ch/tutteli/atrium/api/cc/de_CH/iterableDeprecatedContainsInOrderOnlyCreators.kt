@@ -58,19 +58,19 @@ fun <E : Any, T : Iterable<E?>> nullableEintraege(
     = checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)
 
 
-@Deprecated("use `wert` instead; will be removed with 1.0.0", ReplaceWith("wert(expectedOrNull)"))
+@Deprecated("Use `wert` instead; will be removed with 1.0.0", ReplaceWith("wert(expectedOrNull)"))
 infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWert(expectedOrNull: E): AssertionPlant<T>
     = wert(expectedOrNull)
 
-@Deprecated("use `eintrag` instead; will be removed with 1.0.0", ReplaceWith("eintrag(assertionCreatorOrNull)"))
+@Deprecated("Use `eintrag` instead; will be removed with 1.0.0", ReplaceWith("eintrag(assertionCreatorOrNull)"))
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = eintrag(assertionCreatorOrNull)
 
-@Deprecated("use `werte` instead; will be removed with 1.0.0", ReplaceWith("werte(expectedOrNull, *otherExpectedOrNulls)"))
+@Deprecated("Use `werte` instead; will be removed with 1.0.0", ReplaceWith("werte(expectedOrNull, *otherExpectedOrNulls)"))
 fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = werte(expectedOrNull, *otherExpectedOrNulls)
 
-@Deprecated("use `eintraege` instead; will be removed with 1.0.0", ReplaceWith("eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)"))
+@Deprecated("Use `eintraege` instead; will be removed with 1.0.0", ReplaceWith("eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)"))
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEintraege(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?

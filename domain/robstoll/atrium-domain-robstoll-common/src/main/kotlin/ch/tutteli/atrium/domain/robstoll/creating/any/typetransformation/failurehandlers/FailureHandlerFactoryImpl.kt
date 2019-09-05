@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fai
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers.ExplanatoryFailureHandlerWithHint
 
 
-@Deprecated("use _changeSubject or _extractFeature instead; will be removed with 1.0.0")
+@Deprecated("Use _changeSubject or _extractFeature instead; will be removed with 1.0.0")
 class FailureHandlerFactoryImpl : FailureHandlerFactory {
 
     override fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T> =
