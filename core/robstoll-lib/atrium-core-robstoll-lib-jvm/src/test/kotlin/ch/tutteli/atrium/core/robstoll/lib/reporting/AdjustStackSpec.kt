@@ -2,6 +2,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -41,12 +42,12 @@ class AdjustStackSpec : Spek({
 
     mapOf(
         "remove test runner adjuster" to Triple(
-            ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
             listOf("org.spekframework.spek2", "kotlin.coroutines", "kotlinx.coroutines"),
             listOf("ch.tutteli.atrium")
         ),
         "remove atrium adjuster" to Triple(
-            ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
             listOf("ch.tutteli.atrium"),
             listOf("org.spekframework.spek2")
         )
@@ -120,31 +121,31 @@ class AdjustStackSpec : Spek({
 
     mapOf(
         "combine remove runner adjuster and remove atrium adjuster" to
-            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-                ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            coreFactory.newMultiAtriumErrorAdjuster(
+                coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
                 listOf()
             ),
         "combine remove atrium adjuster and remove runner adjuster" to
-            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-                ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            coreFactory.newMultiAtriumErrorAdjuster(
+                coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
                 listOf()
             ),
         "combine noop ajdust, remove atrium adjuster and remove runner adjuster" to
-            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-                ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
-                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-                listOf(ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster())
+            coreFactory.newMultiAtriumErrorAdjuster(
+                coreFactory.newNoOpAtriumErrorAdjuster(),
+                coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                listOf(coreFactory.newRemoveRunnerAtriumErrorAdjuster())
             ),
         "combine remove atrium adjuster, remove runner adjuster and noop adjuster several times" to
-            ExpectImpl.coreFactory.newMultiAtriumErrorAdjuster(
-                ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-                ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            coreFactory.newMultiAtriumErrorAdjuster(
+                coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
                 listOf(
-                    ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
-                    ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-                    ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster()
+                    coreFactory.newNoOpAtriumErrorAdjuster(),
+                    coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                    coreFactory.newNoOpAtriumErrorAdjuster()
                 )
             )
     ).forEach { (description, adjuster) ->
