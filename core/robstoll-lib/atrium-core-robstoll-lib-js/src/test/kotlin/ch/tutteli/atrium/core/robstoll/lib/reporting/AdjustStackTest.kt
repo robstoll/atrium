@@ -2,6 +2,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
@@ -36,7 +37,7 @@ class AdjustStackTest {
 
     @Test
     fun removeRunner_containsAtriumButNotMochaInCause() {
-        val adjuster = ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
+        val adjuster = coreFactory.newRemoveRunnerAtriumErrorAdjuster()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace)
@@ -57,7 +58,7 @@ class AdjustStackTest {
 
     @Test
     fun removeAtrium_containsMochaButNotAtriumInCause() {
-        val adjuster = ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
+        val adjuster = coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace)
@@ -66,15 +67,15 @@ class AdjustStackTest {
     }
 
     private fun <T : Any> assertNoOp(subject: T) = createExpect(
-        subject, ExpectImpl.coreFactory.newNoOpAtriumErrorAdjuster()
+        subject, coreFactory.newNoOpAtriumErrorAdjuster()
     )
 
     private fun <T : Any> assertRemoveRunner(subject: T) = createExpect(
-        subject, ExpectImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
+        subject, coreFactory.newRemoveRunnerAtriumErrorAdjuster()
     )
 
     private fun <T : Any> assertRemoveAtrium(subject: T) = createExpect(
-        subject, ExpectImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
+        subject, coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
     )
 
     private fun <T : Any> createExpect(subject: T, adjuster: AtriumErrorAdjuster) =

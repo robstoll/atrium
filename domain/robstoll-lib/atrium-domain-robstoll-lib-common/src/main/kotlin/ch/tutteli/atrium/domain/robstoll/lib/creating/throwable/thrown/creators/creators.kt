@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -25,12 +26,12 @@ private fun createReportingAssertionContainerForThrowable(
     throwableThrownBuilder: ThrowableThrown.Builder
 ): ReportingAssertionContainer<Throwable?> {
     val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
-    return ExpectImpl.coreFactory.newReportingAssertionContainer(
+    return coreFactory.newReportingAssertionContainer(
         ReportingAssertionContainer.AssertionCheckerDecorator.create(
             throwableThrownBuilder.assertionVerb,
             Some(throwable),
             throwable,
-            ExpectImpl.coreFactory.newThrowingAssertionChecker(throwableThrownBuilder.reporter),
+            coreFactory.newThrowingAssertionChecker(throwableThrownBuilder.reporter),
             RawString.create(NO_EXCEPTION_OCCURRED)
         )
     )

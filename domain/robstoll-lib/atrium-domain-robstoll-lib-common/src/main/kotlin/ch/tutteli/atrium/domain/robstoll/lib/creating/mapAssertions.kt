@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -34,7 +35,7 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
     keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
 ): Assertion {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via Expect
-    val methodCallFormatter = ExpectImpl.coreFactory.newMethodCallFormatter()
+    val methodCallFormatter = coreFactory.newMethodCallFormatter()
 
     val assertion = ExpectImpl.collector.collect(assertionContainer) {
         keyValues.map { (key, assertionCreatorOrNull) ->

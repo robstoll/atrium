@@ -3,9 +3,7 @@ package ch.tutteli.atrium.domain.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
@@ -61,14 +59,6 @@ object ExpectImpl {
      */
     fun <T> assertionVerbBuilder(subject: T): AssertionVerbBuilder.AssertionVerbOption<T> =
         AssertionVerbOptionImpl(Some(subject))
-
-
-    /**
-     * Returns the implementation of [CoreFactory].
-     * In detail, its an `inline` property which returns [ch.tutteli.atrium.core.coreFactory]
-     * which in turn delegates to the implementation via [loadSingleService].
-     */
-    inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
 
 
     //--- assertions ---------------------------------------------------------------------------

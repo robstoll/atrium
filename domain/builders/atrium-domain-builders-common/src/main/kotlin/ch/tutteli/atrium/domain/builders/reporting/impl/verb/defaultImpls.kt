@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.builders.reporting.impl.verb
 
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.AssertionVerbBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -28,9 +28,9 @@ class FinalStepImpl<T>(
 ) : AssertionVerbBuilder.FinalStep<T> {
 
     override fun build(): Expect<T> =
-        ExpectImpl.coreFactory.newReportingAssertionContainer(
+        coreFactory.newReportingAssertionContainer(
             assertionVerb,
             maybeSubject,
-            ExpectImpl.coreFactory.newThrowingAssertionChecker(reporter)
+            coreFactory.newThrowingAssertionChecker(reporter)
         )
 }
