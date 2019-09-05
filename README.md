@@ -234,7 +234,6 @@ We start off with a simple example:
 ```kotlin
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.assertions.Assertion
 
 val x = 10
 expect(x).toBe(9)
