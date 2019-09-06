@@ -59,38 +59,44 @@ dokka {
             (docProjects - commonDocProjects - jsDocProjects).collect { it.compileKotlin }
     }
     //TODO use as soon as https://github.com/Kotlin/dokka/issues/496 is fixed
-//    (docProjects - (docProjects - getAndroidProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["Android"]
-//        }
-//    }
-//    (docProjects - (docProjects - getCommonProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["Common"]
-//        }
-//    }
-//    (docProjects - (docProjects - getJsProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["JS"]
-//        }
-//    }
-//    (docProjects - (docProjects - getJvmProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["JVM"]
-//        }
-//    }
+    (docProjects - (docProjects - getAndroidProjects())).each { subProject ->
+        sourceRoot {
+            // Path to source root
+            path = subProject.projectDir
+            // See platforms section of documentation
+            platforms = ["Android"]
+        }
+    }
+    (docProjects - (docProjects - getCommonProjects())).each { subProject ->
+        sourceRoot {
+            // Path to source root
+            path = subProject.projectDir
+            // See platforms section of documentation
+            platforms = ["Common"]
+        }
+    }
+    (docProjects - (docProjects - getJsProjects())).each { subProject ->
+        sourceRoot {
+            // Path to source root
+            path = subProject.projectDir
+            // See platforms section of documentation
+            platforms = ["JS"]
+        }
+    }
+    (docProjects - (docProjects - getJvmProjects())).each { subProject ->
+        sourceRoot {
+            // Path to source root
+            path = subProject.projectDir
+            // See platforms section of documentation
+            platforms = ["JVM"]
+        }
+    }
+
+    rootProject.configure(docProjects) { subProject ->
+        subProject.afterEvaluate {
+            classpath += kotlin.target.compilations.getByName("main").compileDependencyFiles.files.collect { file -> file }
+        }
+    }
 
     [
         "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
