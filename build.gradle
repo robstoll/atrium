@@ -30,11 +30,13 @@ buildscript {
 
         //gh-pages.gradle
         docProjects = subprojects.findAll {
+            !it.name.endsWith("-js") &&
+            !it.name.endsWith("-android") &&
             !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
+                !it.name.startsWith("${rootProject.name}-specs") &&
                 it.name != "${rootProject.name}-bc-test" &&
-                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
-                !it.name.startsWith("${rootProject.name}-specs")
+                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
         }
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
@@ -56,7 +58,7 @@ buildscript {
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        !it.path.contains('examples')
+                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects - jsSampleProjects).findAll {
