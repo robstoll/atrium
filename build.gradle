@@ -31,9 +31,9 @@ buildscript {
         docProjects = subprojects.findAll {
             !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
+                !it.name.startsWith("${rootProject.name}-specs") &&
                 it.name != "${rootProject.name}-bc-test" &&
-                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
-                !it.name.startsWith("${rootProject.name}-specs")
+                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
         }
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'

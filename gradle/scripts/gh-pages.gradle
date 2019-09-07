@@ -18,14 +18,14 @@ task copyCSS(type: Copy) {
     into  ghPagesPath
 }
 
-task cleanGhPages {
+task removeGhPages {
     doFirst { delete ghPagesPath }
 }
 
 task ghPages {
-    dependsOn cleanGhPages
+    dependsOn removeGhPages
     dependsOn dokka
-    dokka.mustRunAfter cleanGhPages
+    dokka.mustRunAfter removeGhPages
     finalizedBy copyCSS
     finalizedBy copyIndex
 }
@@ -69,25 +69,19 @@ dokka {
     }
     (docProjects - (docProjects - getCommonProjects())).each { subProject ->
         sourceRoot {
-            // Path to source root
             path = subProject.projectDir
-            // See platforms section of documentation
             platforms = ["Common"]
         }
     }
     (docProjects - (docProjects - getJsProjects())).each { subProject ->
         sourceRoot {
-            // Path to source root
             path = subProject.projectDir
-            // See platforms section of documentation
             platforms = ["JS"]
         }
     }
     (docProjects - (docProjects - getJvmProjects())).each { subProject ->
         sourceRoot {
-            // Path to source root
             path = subProject.projectDir
-            // See platforms section of documentation
             platforms = ["JVM"]
         }
     }
