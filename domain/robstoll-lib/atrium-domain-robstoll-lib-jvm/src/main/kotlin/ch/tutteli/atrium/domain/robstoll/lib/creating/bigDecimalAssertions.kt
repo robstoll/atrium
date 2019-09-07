@@ -38,10 +38,8 @@ fun <T : BigDecimal> _isEqualIncludingScale(
             )
             .build()
     }
-    .showBasedOnSubjectOnlyIf(subjectProvider) {
-        ifDefined {
-            isNumericallyEqualTo(it, expected)
-        } ifAbsent { false }
+    .showBasedOnDefinedSubjectOnlyIf(subjectProvider) {
+        isNumericallyEqualTo(it, expected)
     }
     .withDescriptionAndRepresentation(IS_EQUAL_INCLUDING_SCALE, expected)
     .build()

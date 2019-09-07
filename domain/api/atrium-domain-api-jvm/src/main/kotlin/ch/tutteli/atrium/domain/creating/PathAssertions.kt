@@ -19,4 +19,8 @@ val pathAssertions by lazy { loadSingleService(PathAssertions::class) }
 interface PathAssertions {
     fun <T : Path> exists(assertionContainer: Expect<T>): Assertion
     fun <T : Path> existsNot(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> isReadable(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> isWritable(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> isRegularFile(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> isDirectory(assertionContainer: Expect<T>): Assertion
 }

@@ -20,8 +20,8 @@ buildscript {
         jupiter_version = '5.5.2'
         spek_version = '1.1.5'
         spek2_version = '2.0.6'
-        spekExtensions_versions = '0.4.1'
-        spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_versions" }
+        spekExtensions_version = '0.5.0'
+        spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.9.3'
 
         //TODO remove with 1.0.0
@@ -130,7 +130,7 @@ dependencies {
     dependabot "org.jacoco:org.jacoco.core:$jacoco_tool_version"
     dependabot "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
     dependabot "org.junit.platform:junit-platform-console:$junit_platform_version"
-    dependabot "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_versions"
+    dependabot "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version"
     dependabot "ch.tutteli.niok:niok:$niok_version"
     dependabot "ch.tutteli.kbox:kbox:$kbox_version"
 

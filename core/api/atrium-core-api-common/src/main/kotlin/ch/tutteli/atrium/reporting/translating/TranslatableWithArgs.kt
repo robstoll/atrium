@@ -15,7 +15,7 @@ import ch.tutteli.atrium.core.polyfills.format
  * @param arguments The arguments which should be used to substitute the placeholders of the [translatable].
  *
  */
-class TranslatableWithArgs constructor(val translatable: Translatable, val arguments: List<Any>) : Translatable {
+data class TranslatableWithArgs constructor(val translatable: Translatable, val arguments: List<Any>) : Translatable {
 
     /**
      * Creates a [TranslatableWithArgs] with the given [translatable] and its one and only [argument].

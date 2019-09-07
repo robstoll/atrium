@@ -14,4 +14,6 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
     NOT_TO_BE("not to be"),
     IS("is"),
     IS_NOT("is not"),
+    WAS("was"),
+    NONE("none")
 }
