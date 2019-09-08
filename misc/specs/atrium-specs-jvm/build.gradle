@@ -9,9 +9,9 @@ dependencies {
     api prefixedProject('translations-en_GB-jvm')
     api prefixedProject('verbs-internal-jvm')
     api spekExtensions()
+    api "io.mockk:mockk:$mockk_version"
 
     implementation prefixedProject('api-fluent-en_GB-jvm')
-    implementation "io.mockk:mockk:$mockk_version"
 
     // exclude this dependency in case you want to use another implementation
     runtimeOnly prefixedProject('domain-robstoll-jvm')

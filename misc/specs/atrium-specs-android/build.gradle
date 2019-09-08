@@ -9,9 +9,10 @@ dependencies {
     api prefixedProject('translations-en_GB-android')
     api prefixedProject('verbs-internal-android')
     api spekExtensions()
+    api "io.mockk:mockk:$mockk_version"
 
     implementation prefixedProject('api-fluent-en_GB-android')
-    implementation "io.mockk:mockk:$mockk_version"
+
 
     // exclude these dependencies in case you want to use another implementation
     runtimeOnly prefixedProject('domain-robstoll-android')
