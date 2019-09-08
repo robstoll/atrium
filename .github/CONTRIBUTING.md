@@ -119,11 +119,7 @@ However, here a few hints in order that your pull request is merged quickly.
 ## Pull Request Checklist
 Please make sure you can check every item on the following list before you create a pull request:  
 - [ ] your pull request is rebased on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
-- [ ] your pull request should ideally consists of one small commit. If not then make sure:
-     - [ ] it cannot be split up in several pull requests.
-     - [ ] your commits are meaningful to others - e.g. do not include temporary commits like `before lunch`;
-     [Squash commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#_squashing) where appropriate.
+- [ ] Your pull request adresses only “one thing”. It cannot be meaningfully split up into mulitple pull requests.
      
-Once you have created and submitted your pull request, then make sure:
-- [ ] your pull request passes travis and all other checks 
-     (if not, then improve your pull request and `git push -f`)
+Once you have created and submitted your pull request, make sure:
+- [ ] your pull request passes Continuous Integration and all other checks
