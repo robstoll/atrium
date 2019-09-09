@@ -24,7 +24,7 @@ buildscript {
         mockk_version = '1.9.3'
 
         //TODO remove with 1.0.0
-        mockito_kotlin_version = '2.1.0'
+        mockito_kotlin_version = '2.2.0'
         mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         //gh-pages.gradle
