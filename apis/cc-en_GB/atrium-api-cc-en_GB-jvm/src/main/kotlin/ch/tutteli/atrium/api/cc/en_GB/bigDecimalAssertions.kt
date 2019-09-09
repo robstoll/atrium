@@ -54,8 +54,9 @@ fun <T : BigDecimal> AssertionPlantNullable<T?>.notToBeNullBut(expected: T): Not
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNumericallyEqualTo(expected)",
+        "this.asExpect().isNumericallyEqualTo(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNumericallyEqualTo"
     )
 )
@@ -80,8 +81,9 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNotNumericallyEqualTo(expected)",
+        "this.asExpect().isNotNumericallyEqualTo(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNotNumericallyEqualTo"
     )
 )
@@ -104,8 +106,9 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isEqualIncludingScale(expected)",
+        "this.asExpect().isEqualIncludingScale(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isEqualIncludingScale"
     )
 )
@@ -127,8 +130,9 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isNotEqualIncludingScale(expected)",
+        "this.asExpect().isNotEqualIncludingScale(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale"
     )
 )
