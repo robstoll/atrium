@@ -35,10 +35,8 @@ fun <T : Any> Expect<T>.asAssert(): Assert<T> =
         "This function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0"
 )
 @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-fun <T : Any> Expect<T>.asAssert(assertionCreator: Assert<T>.() -> Unit): Expect<T> {
+fun <T : Any> Expect<T>.asAssert(assertionCreator: Assert<T>.() -> Unit): Assert<T> =
     asAssert().addAssertionsCreatedBy(assertionCreator)
-    return this
-}
 
 /**
  * Turns this [Expect] into an [AssertionPlantNullable] so that you can use functions
@@ -58,6 +56,15 @@ fun <T : Any> Expect<T?>.asAssert(): AssertionPlantNullable<T?> =
         ExpectImpl.coreFactory.newDelegatingAssertionChecker(this)
     )
 
+
+@Deprecated(
+    "Switch from Assert to Expect, migrate all inner functions first and then remove this call -- this function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith("assertionCreatorOrNull")
+)
+@Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+fun <T : Any> asSubExpect(
+    assertionCreatorOrNull: (Assert<T>.() -> Unit)?
+): (Expect<T>.() -> Unit)? = { assertionCreatorOrNull?.let { asAssert(it) } }
 
 /**
  * Turns [Assert] or [AssertionPlantNullable] into an [Expect] so that you can use new functionality

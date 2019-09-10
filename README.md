@@ -2398,6 +2398,7 @@ Please upvote them (especially if you encounter them yourself):
 - [Wrong JS generated in case of name clash](https://youtrack.jetbrains.com/issue/KT-33294)
 - [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
 - [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
+- [ReplaceWith does not add type parameter](https://youtrack.jetbrains.com/issue/KT-33685)
 
 And some features which would be handy
 - [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)

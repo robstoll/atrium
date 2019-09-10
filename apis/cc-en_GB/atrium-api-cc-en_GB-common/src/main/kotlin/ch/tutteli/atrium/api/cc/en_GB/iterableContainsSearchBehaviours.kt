@@ -12,6 +12,13 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.inAnyOrder",
+        "ch.tutteli.atrium.api.fluent.en_GB.inAnyOrder"
+    )
+)
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
@@ -21,6 +28,13 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inA
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.inAnyOrder",
+        "ch.tutteli.atrium.api.fluent.en_GB.only"
+    )
+)
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>.only
     @JvmName("butOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
@@ -32,6 +46,13 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.inAnyOrder",
+        "ch.tutteli.atrium.api.fluent.en_GB.inOrder"
+    )
+)
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
@@ -41,6 +62,14 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inO
  *
  * @return The newly created builder.
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated(
+//    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+//    ReplaceWith(
+//        "this.inAnyOrder",
+//        "ch.tutteli.atrium.api.fluent.en_GB.only"
+//    )
+//)
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.only
     @JvmName("andOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
@@ -51,6 +80,13 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.inAnyOrder",
+        "ch.tutteli.atrium.api.fluent.en_GB.grouped"
+    )
+)
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.grouped
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
 
@@ -59,5 +95,12 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.inAnyOrder",
+        "ch.tutteli.atrium.api.fluent.en_GB.within"
+    )
+)
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)
