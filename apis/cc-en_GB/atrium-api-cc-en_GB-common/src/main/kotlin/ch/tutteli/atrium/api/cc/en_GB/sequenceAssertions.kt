@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asIterable",
+        "this.asExpect().asIterable()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
     )
