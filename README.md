@@ -4,7 +4,7 @@
 [![Build Status Travis](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
 [![Build Status GitHub Actions](https://github.com/robstoll/atrium/workflows/Windows/badge.svg)](https://github.com/robstoll/atrium/actions/)
 [![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master)
-[![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B%EF%B8%8F-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
+[![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
