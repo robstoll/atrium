@@ -192,6 +192,11 @@ configure(jsProjects) { subProject ->
 configure(subprojects - commonProjects - jsProjects - jsSamples) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
+
+    dokka {
+        reportUndocumented = false
+    }
+
     compileKotlin {
         kotlinOptions.languageVersion = '1.2'
     }
