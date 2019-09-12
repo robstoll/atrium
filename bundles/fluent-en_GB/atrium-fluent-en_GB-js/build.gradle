@@ -4,6 +4,9 @@ dependencies {
     api prefixedProject('verbs-js')
     api prefixedProject('api-fluent-en_GB-js')
     api prefixedProject('translations-en_GB-js')
+    api prefixedProject('domain-builders-js')
+    api prefixedProject('domain-api-js')
+    api prefixedProject('core-api-js')
 
     //TODO should be runtimeOnly but due to https://youtrack.jetbrains.com/issue/KT-27797 it cannot be
     implementation prefixedProject('domain-robstoll-js')
