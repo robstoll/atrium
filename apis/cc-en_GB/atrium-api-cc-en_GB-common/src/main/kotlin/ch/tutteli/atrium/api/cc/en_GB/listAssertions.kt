@@ -38,7 +38,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().get(index).assAssert(assertionCreator)",
+        "this.asExpect().apply { get(index).assAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.get"

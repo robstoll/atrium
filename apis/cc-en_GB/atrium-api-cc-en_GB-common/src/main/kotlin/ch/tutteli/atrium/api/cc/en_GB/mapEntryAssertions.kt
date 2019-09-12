@@ -82,7 +82,7 @@ val <K> Assert<Map.Entry<K, *>>.key get() : AssertionPlantNullable<K> = property
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().key.asAssert(assertionCreator)",
+        "this.asExpect().apply { key.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.key"
@@ -142,7 +142,7 @@ val <V> Assert<Map.Entry<*, V>>.value get() : AssertionPlantNullable<V> = proper
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().value.asAssert(assertionCreator)",
+        "this.asExpect().apply { value.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.value"

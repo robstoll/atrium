@@ -60,7 +60,7 @@ val <K> Assert<Pair<K, *>>.first get() : AssertionPlantNullable<K> = property(Pa
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().first.asAssert(assertionCreator)",
+        "this.asExpect().apply { first.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.first"
@@ -121,7 +121,7 @@ val <V> Assert<Pair<*, V>>.second get() : AssertionPlantNullable<V> = property(P
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().second.asAssert(assertionCreator)",
+        "this.asExpect().apply { second.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.second"

@@ -133,7 +133,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().getExisting(key).asAssert(assertionCreator)",
+        "this.asExpect().apply { getExisting(key).asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.getExisting"
@@ -248,11 +248,10 @@ val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().keys.asAssert(assertionCreator)",
+        "this.asExpect().apply { keys.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.values"
+        "ch.tutteli.atrium.api.fluent.en_GB.keys"
     )
 )
 fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
@@ -289,7 +288,7 @@ val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*,
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().values.asAssert(assertionCreator)",
+        "this.asExpect().apply { values.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.values"
@@ -330,7 +329,7 @@ fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asEntries().asAssert(assertionCreator)",
+        "this.asExpect().apply { asEntries().asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.asEntries"

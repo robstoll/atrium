@@ -23,6 +23,13 @@ import kotlin.jvm.JvmName
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.value(expected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.value"
+    )
+)
 fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
     = values(expected)
 
@@ -37,6 +44,13 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavi
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.values(expected, *otherExpected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.values"
+    )
+)
 fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
@@ -54,6 +68,15 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavi
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.entry(asSubExpect(assertionCreatorOrNull))",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.entry"
+    )
+)
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = entries(assertionCreatorOrNull)
 
@@ -72,6 +95,18 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.entries(\n" +
+            "asSubExpect(assertionCreatorOrNull),\n" +
+            "*otherAssertionCreatorsOrNulls.map { asSubExpect(it) }.toTypedArray()\n" +
+            ")",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.entries"
+    )
+)
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
