@@ -1,6 +1,8 @@
 package ch.tutteli
 
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
+import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
@@ -24,6 +26,20 @@ class SmokeTest {
     @Test
     fun assertionFunctionWithI18nCanBeUsed() {
         assertThat(4).isMultipleOf(2)
+    }
+
+    @Test
+    fun assertAnExceptionOccurred() {
+        assertThat {
+            throw IllegalArgumentException()
+        }.toThrow<IllegalArgumentException>()
+    }
+
+    @Test
+    fun assertNotToThrow() {
+        assertThat {
+
+        }.notToThrow()
     }
 }
 
