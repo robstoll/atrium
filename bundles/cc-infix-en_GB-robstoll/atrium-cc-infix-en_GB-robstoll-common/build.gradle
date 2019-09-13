@@ -4,6 +4,9 @@ dependencies {
     api prefixedProject('verbs-common')
     api prefixedProject('api-cc-infix-en_GB-common')
     api prefixedProject('translations-en_GB-common')
+    api prefixedProject('domain-builders-common')
+    api prefixedProject('domain-api-common')
+    api prefixedProject('core-api-common')
 
     runtimeOnly prefixedProject('domain-robstoll-common')
     runtimeOnly prefixedProject('core-robstoll-common')

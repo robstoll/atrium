@@ -178,7 +178,6 @@ configure(subprojects - multiplatformProjects - jsSamples) {
     dependencies {
         implementation kotlinStdlib()
     }
-
 }
 
 configure(commonProjects) {

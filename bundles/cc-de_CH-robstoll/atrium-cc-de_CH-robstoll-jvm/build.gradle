@@ -4,7 +4,10 @@ dependencies {
     api prefixedProject('verbs-jvm')
     api prefixedProject('api-cc-de_CH-jvm')
     api prefixedProject('translations-de_CH-jvm')
-    
+    api prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-jvm')
+    api prefixedProject('core-api-jvm')
+
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 

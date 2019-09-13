@@ -1,4 +1,5 @@
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.AssertionVerb
@@ -77,6 +78,29 @@ class SmokeTest {
                 "${TO_BE.getDefault()}: 1"
             )
         }
+    }
+
+    @Test
+    fun assertAnExceptionOccurred() {
+        assertThat {
+            throw IllegalArgumentException()
+        }.toThrow<IllegalArgumentException>()
+    }
+
+    @Test
+    fun assertAnExceptionWithAMessageOccurred() {
+        assertThat {
+            throw IllegalArgumentException("oho... hello btw")
+        }.toThrow<IllegalArgumentException> {
+            messageContains("hello")
+        }
+    }
+
+    @Test
+    fun assertNotToThrow() {
+        assertThat {
+
+        }.notToThrow()
     }
 }
 

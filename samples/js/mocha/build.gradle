@@ -1,13 +1,13 @@
 // example project to show how to use Atrium in combination with mocha
 buildscript {
     ext {
-        atrium_api='atrium-fluent-en_GB-js'
-        atrium_version='0.9.0-alpha'
+        atrium_api = 'atrium-fluent-en_GB-js'
+        atrium_version = '0.9.0-alpha'
     }
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
-    dependencies{
+    dependencies {
         classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.71'
     }
@@ -18,6 +18,7 @@ apply plugin: 'com.moowork.node'
 
 repositories {
     jcenter()
+    mavenLocal()
     // either use jcenter or the repository on the next line
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
@@ -25,9 +26,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
 
     testImplementation "org.jetbrains.kotlin:kotlin-test-js"
-    //delete this and the following line and uncomment the next line (Atrium uses a project dependency, you won't)
-    testImplementation prefixedProject('fluent-en_GB-js')
-    //testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
+    testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
+    //TODO remove with the release of 0.9.0-beta
+    testImplementation("ch.tutteli.atrium:atrium-domain-api-js:$atrium_version")
 }
 
 // we only configure compileTestKotlin2Js and not compileKotlin2Js as well
@@ -93,8 +94,74 @@ task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
         srcFile.write(newContent, 'UTF-8')
     }
 }
-task runMocha(type: NodeTask, dependsOn: [prepareMocha, test, establishDependencyToAtrium]) {
+task runMocha(type: NodeTask, group: 'Verification', dependsOn: [prepareMocha, test, establishDependencyToAtrium]) {
     script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
     args = [compileTestKotlin2Js.outputFile]
 }
 check.dependsOn runMocha
+
+// ==========================================================================
+// Everything which follows is not required and should not be copied     ====
+// We are using it to see if the current version still works             ====
+// ==========================================================================
+
+configurations {
+    current
+}
+
+sourceSets {
+    current {
+        kotlin.srcDirs = project.sourceSets.test.kotlin.srcDirs
+    }
+}
+
+dependencies {
+    current prefixedProject('fluent-en_GB-js')
+    current "org.jetbrains.kotlin:kotlin-stdlib-js"
+    current "org.jetbrains.kotlin:kotlin-test-js"
+    currentCompile configurations.current
+}
+
+
+compileCurrentKotlin2Js.configure {
+    // mocha requires commonjs
+    kotlinOptions.moduleKind = "commonjs"
+
+    // the following allows that debugging tests kind of works within kotlin
+    // sometimes break points within a kotlin file is not taken up by Intellij.
+    // in such a case it is worth while to create a break point in build/classes/kotlin/test/...test.js
+    // stepping through the js code then usually switches to the kotlin file.
+    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
+}
+
+task populateCurrentNodeModules(type: Copy, dependsOn: [prefixedProject('fluent-en_GB-js').build]) {
+
+    afterEvaluate {
+        configurations.currentRuntimeClasspath.each {
+            from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+        }
+    }
+
+    into "$buildDir/node_modules"
+}
+task establishDependencyFromCurrentToAtrium(dependsOn: [compileTestKotlin2Js]) {
+    doLast {
+        def srcFile = file("$buildDir/classes/kotlin/current/${project.name}_current.js")
+        String newContent = srcFile.getText('UTF-8')
+            .replace("(function (_, Kotlin,", "(function (_, Kotlin, \$module\$${atrium_api.replace('-', '_')},")
+            .replace("(module.exports, require('kotlin'),", "(module.exports, require('kotlin'), require('$atrium_api'),")
+        srcFile.write(newContent, 'UTF-8')
+    }
+}
+task runMochaForCurrent(type: NodeTask, group: 'Verification', dependsOn: [compileCurrentKotlin2Js, populateCurrentNodeModules, installMocha, establishDependencyFromCurrentToAtrium]) {
+    script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
+    args = [compileCurrentKotlin2Js.outputFile]
+}
+
+task deleteNodeModules(type: Delete, dependsOn: [runMochaForCurrent]) {
+    delete file("$buildDir/node_modules")
+}
+
+check.dependsOn deleteNodeModules
+runMocha.mustRunAfter(deleteNodeModules)
