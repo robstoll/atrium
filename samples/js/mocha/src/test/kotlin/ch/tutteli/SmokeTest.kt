@@ -1,6 +1,7 @@
 package ch.tutteli
 
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.assertThat
@@ -33,6 +34,15 @@ class SmokeTest {
         assertThat {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
+    }
+
+    @Test
+    fun assertAnExceptionWithAMessageOccurred() {
+        assertThat {
+            throw IllegalArgumentException("oho... hello btw")
+        }.toThrow<IllegalArgumentException>{
+            messageContains("hello")
+        }
     }
 
     @Test
