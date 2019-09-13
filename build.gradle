@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.9.0-alpha'
+    rootProject.version = '0.9.0-beta'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -189,14 +189,15 @@ configure(jsProjects) { subProject ->
     }
 }
 
+
+
 configure(subprojects - commonProjects - jsProjects - jsSamples) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
     dokka {
-        reportUndocumented = false
+        logging.setLevel(LogLevel.QUIET)
     }
-
     compileKotlin {
         kotlinOptions.languageVersion = '1.2'
     }
