@@ -2413,6 +2413,7 @@ And some features which would be handy
 # Roadmap
 
 We plan that Atrium is going to support certain features in the future. Following a rough plan (no guarantees).
+A more detailed backlog can be found at [atrium-roadmap](https://github.com/robstoll/atrium-roadmap) -- you are invited to take part in the discussions related to design decisions, upcoming features and more.
 
 ## 0.9.0
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
@@ -2424,7 +2425,7 @@ We plan that Atrium is going to support certain features in the future. Followin
 - add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
 - move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
 - refactor core and domain architecture - most likely we are going to move away from ServiceLoader and replace `-robstoll` and `-robstoll-lib` modules with one `-impl` module
-- fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
+- fix verbosity issues in conjunction with feature assertions and explanatory groups.
 - provide an easy way to create failure hints.
 
 ## 0.11.0
