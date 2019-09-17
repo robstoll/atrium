@@ -11,20 +11,20 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 
-inline fun explainForResolvedLink(path: Path, block: (realPath: Path) -> Assertion): Assertion {
+inline fun explainForResolvedLink(path: Path, assertionCreator: (realPath: Path) -> Assertion): Assertion {
     val hintList = LinkedList<Assertion>()
     val realPath = addAllLevelResolvedSymlinkHints(path, hintList)
-    val blockResult = block(realPath)
+    val createdAssertion = assertionCreator(realPath)
     return if (hintList.isNotEmpty()) {
-        when (blockResult) {
-            is AssertionGroup -> hintList.addAll(blockResult.assertions)
-            else -> hintList.add(blockResult)
+        when (createdAssertion) {
+            is AssertionGroup -> hintList.addAll(createdAssertion.assertions)
+            else -> hintList.add(createdAssertion)
         }
         ExpectImpl.builder.explanatoryGroup.withDefaultType
             .withAssertions(hintList)
             .build()
     } else {
-        blockResult
+        createdAssertion
     }
 }
 
