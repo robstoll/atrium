@@ -6,8 +6,8 @@ import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
+import ch.tutteli.niok.followSymbolicLink
 import java.io.IOException
-import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 
@@ -33,7 +33,7 @@ inline fun explainForResolvedLink(path: Path, assertionCreator: (realPath: Path)
  * Adds explanatory hints for all involved symbolic links to [hintList].
  */
 fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
-    val absolutePath = path.toAbsolutePath()
+    val absolutePath = path.toAbsolutePath().normalize()
     return addAllLevelResolvedSymlinkHints(absolutePath, hintList, LinkedList(), absolutePath)
 }
 
@@ -73,7 +73,7 @@ private fun addAllLevelResolvedSymlinkHints(
  * Return `null` and does not modify [hintList] otherwise.
  */
 private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<Assertion>) = try {
-    val nextPath = Files.readSymbolicLink(absolutePath)
+    val nextPath = absolutePath.resolveSibling(absolutePath.followSymbolicLink()).normalize()
     hintList.add(
         ExpectImpl.builder.explanatory
             .withExplanation(HINT_FOLLOWED_SYMBOLIC_LINK, absolutePath, nextPath)

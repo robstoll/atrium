@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
+import ch.tutteli.niok.relativeTo
 import ch.tutteli.spek.extensions.TempFolder
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
@@ -26,6 +27,7 @@ import org.spekframework.spek2.lifecycle.CachingMode.TEST
 import org.spekframework.spek2.style.specification.describe
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 
 object SymbolicLinkResolvingSpec : Spek({
     val tempFolder = TempFolder.perTest()
@@ -66,12 +68,42 @@ object SymbolicLinkResolvingSpec : Spek({
                 verify(expectListener)(notExisting)
             }
 
+            it("a relative path to its absolute target") {
+                val target = tempFolder.newFile("testFile")
+                val relativePath = target.relativeTo(Paths.get(".").toRealPath())
+
+                // precondition
+                expect(relativePath).feature { f(it::isAbsolute) }.toBe(false)
+                // assertion
+                explainForResolvedLink(relativePath, expectListener)
+                verify(expectListener)(target)
+            }
+
             it("a symbolic link to its target") {
                 val target = tempFolder.tmpDir.resolve("notExisting")
                 val link = tempFolder.newSymbolicLink("link", target)
 
                 explainForResolvedLink(link, expectListener)
                 verify(expectListener)(target)
+            }
+
+            it("a relative symbolic link to its absolute target") {
+                val target = tempFolder.newFile("testFile")
+                val folder = tempFolder.newFolder("testFolder")
+                val relativeLink =
+                    Files.createSymbolicLink(folder.resolve("testLink"), Paths.get("..").resolve(target.fileName))
+
+                explainForResolvedLink(relativeLink, expectListener)
+                verify(expectListener)(target)
+            }
+
+            it("a symbolic link chain as far as possible") {
+                val nowhere = tempFolder.tmpDir.resolve("dont-exist")
+                val toNowhere = tempFolder.newSymbolicLink("link-to-nowhere", nowhere)
+                val start = tempFolder.newSymbolicLink("start", toNowhere)
+
+                explainForResolvedLink(start, expectListener)
+                verify(expectListener)(nowhere)
             }
 
             it("multiple symbolic links to their target") {
@@ -106,6 +138,20 @@ object SymbolicLinkResolvingSpec : Spek({
                 expect(resultAssertion).isA<AssertionGroup>()
                     .feature { p(it::assertions) }.containsExactly(
                         { describesLink(link, target) },
+                        { isSameAs(testAssertion) }
+                    )
+            }
+
+            it("adds explanations for a symbolic link chain as far as possible") {
+                val nowhere = tempFolder.tmpDir.resolve("dont-exist")
+                val toNowhere = tempFolder.newSymbolicLink("link-to-nowhere", nowhere)
+                val start = tempFolder.newSymbolicLink("start", toNowhere)
+
+                val resultAssertion = explainForResolvedLink(start, expectListener)
+                expect(resultAssertion).isA<AssertionGroup>()
+                    .feature { p(it::assertions) }.containsExactly(
+                        { describesLink(start, toNowhere) },
+                        { describesLink(toNowhere, nowhere) },
                         { isSameAs(testAssertion) }
                     )
             }
