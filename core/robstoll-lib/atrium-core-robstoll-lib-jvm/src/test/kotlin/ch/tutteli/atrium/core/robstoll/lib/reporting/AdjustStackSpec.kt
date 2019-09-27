@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
@@ -180,5 +181,5 @@ class AdjustStackSpec : Spek({
 private fun <T : Any> createExpect(subject: T, adjuster: AtriumErrorAdjuster) =
     ExpectImpl.assertionVerbBuilder(subject)
         .withVerb(AssertionVerb.ASSERT)
-        .withCustomReporter(DelegatingReporter(reporter, adjuster))
+        .withOptions(ExpectOptions(reporter = DelegatingReporter(reporter, adjuster)))
         .build()

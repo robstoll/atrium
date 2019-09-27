@@ -10,10 +10,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
-import ch.tutteli.atrium.domain.builders.reporting.AssertionVerbBuilder
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.domain.builders.reporting.impl.ReporterBuilderImpl
-import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbOptionImpl
+import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
@@ -54,13 +54,13 @@ object ExpectImpl {
     /**
      * Returns [ReporterBuilder] - helping you to create a custom [Reporter].
      */
-    val reporterBuilder get(): ReporterBuilder = ReporterBuilderImpl
+    val reporterBuilder: ReporterBuilder get() = ReporterBuilderImpl
 
     /**
      * Entry point to create an assertion verb for the given [subject] or rather an [Expect] for the given [subject]
      */
-    fun <T> assertionVerbBuilder(subject: T): AssertionVerbBuilder.AssertionVerbOption<T> =
-        AssertionVerbOptionImpl(Some(subject))
+    fun <T> assertionVerbBuilder(subject: T): ExpectBuilder.AssertionVerbStep<T> =
+        AssertionVerbStepImpl(Some(subject))
 
 
     /**
