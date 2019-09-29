@@ -93,3 +93,21 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
         assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
     )
 )
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [expectedIterable]
+ * shall be searched within the [Iterable].
+ *
+ * @param expectedIterable The [Iterable] in which one of the items is expected to be contained within the [Iterable].
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Collection can not be empty" }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
