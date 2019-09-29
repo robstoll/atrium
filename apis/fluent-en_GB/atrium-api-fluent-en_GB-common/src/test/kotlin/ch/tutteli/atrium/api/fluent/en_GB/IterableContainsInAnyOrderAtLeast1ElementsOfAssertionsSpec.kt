@@ -21,8 +21,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> =
-            expect.contains.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.contains.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
 
         fun getContainsNullablePair() =
             "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderElementsOf" to Companion::containsNullableValues
@@ -31,8 +30,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> =
-            expect.contains.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.contains.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
 
     }
 }
