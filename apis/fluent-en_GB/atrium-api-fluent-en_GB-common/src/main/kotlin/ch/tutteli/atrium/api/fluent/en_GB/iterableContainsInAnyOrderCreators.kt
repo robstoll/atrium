@@ -18,7 +18,7 @@ import kotlin.jvm.JvmName
  *
  * Delegates to `values(expected)`.
  *
- * @param expected The value which is expected to be contained within the [Iterable].
+ * @param expected The value which is expected to be contained within this [Iterable].
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -40,8 +40,8 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * instead of:
  *   `contains.inAnyOrder.atLeast(1).values('a', 'a')`
  *
- * @param expected The object which is expected to be contained within the [Iterable].
- * @param otherExpected Additional objects which are expected to be contained within [Iterable].
+ * @param expected The object which is expected to be contained within this [Iterable].
+ * @param otherExpected Additional objects which are expected to be contained within this [Iterable].
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -93,3 +93,25 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
         assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
     )
 )
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched within the [Iterable].
+ *
+ * Delegates to [values] which also means that it does not search for unique matches
+ * (see [values] for more information).
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.9.0
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
