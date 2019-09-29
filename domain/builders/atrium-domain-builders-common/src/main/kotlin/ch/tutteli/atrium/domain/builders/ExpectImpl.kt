@@ -54,12 +54,6 @@ object ExpectImpl {
      */
     val reporterBuilder: ReporterBuilder get() = ReporterBuilderImpl
 
-    /**
-     * Entry point to create an assertion verb for the given [subject] or rather an [Expect] for the given [subject]
-     */
-    fun <T> assertionVerbBuilder(subject: T): ExpectBuilder.AssertionVerbStep<T> =
-        AssertionVerbStepImpl(Some(subject))
-
 
     //--- assertions ---------------------------------------------------------------------------
 

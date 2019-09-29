@@ -4,11 +4,11 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import kotlin.test.Test
 
 class AdjustStackTest {
@@ -80,7 +80,7 @@ class AdjustStackTest {
     )
 
     private fun <T : Any> createExpect(subject: T, adjuster: AtriumErrorAdjuster) =
-        ExpectImpl.assertionVerbBuilder(subject)
+        ExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.EXPECT)
             .withOptions(ExpectOptions(reporter = DelegatingReporter(reporter, adjuster)))
             .build()
