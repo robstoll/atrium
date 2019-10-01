@@ -22,26 +22,29 @@ class OptionsStepImpl<T>(
     override val assertionVerb: Translatable
 ) : ExpectBuilder.OptionsStep<T> {
 
-    override fun withOptions(expectOptions: ExpectOptions): ExpectBuilder.FinalStep<T> =
+    override fun withOptions(expectOptions: ExpectOptions): ExpectBuilder.FinalStep<T> = toFinalStep(expectOptions)
+    override fun withoutOptions(): ExpectBuilder.FinalStep<T> = toFinalStep(null)
+
+    private fun toFinalStep(expectOptions: ExpectOptions?) =
         ExpectBuilder.FinalStep.create(maybeSubject, assertionVerb, expectOptions)
 }
 
 class FinalStepImpl<T>(
     override val maybeSubject: Option<T>,
     override val assertionVerb: Translatable,
-    override val options: ExpectOptions
+    override val options: ExpectOptions?
 ) : ExpectBuilder.FinalStep<T> {
 
     override fun build(): Expect<T> =
         coreFactory.newReportingAssertionContainer(
             ReportingAssertionContainer.AssertionCheckerDecorator.create(
-                options.assertionVerb ?: assertionVerb,
+                options?.assertionVerb ?: assertionVerb,
                 maybeSubject,
-                options.representation ?: maybeSubject.getOrElse {
+                options?.representation ?: maybeSubject.getOrElse {
                     RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
                 },
-                coreFactory.newThrowingAssertionChecker(options.reporter ?: reporter),
-                options.nullRepresentation ?: RawString.NULL
+                coreFactory.newThrowingAssertionChecker(options?.reporter ?: reporter),
+                options?.nullRepresentation ?: RawString.NULL
             )
         )
 }
