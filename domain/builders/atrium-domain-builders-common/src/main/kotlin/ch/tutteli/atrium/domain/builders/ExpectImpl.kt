@@ -49,12 +49,6 @@ object ExpectImpl {
      */
     inline val collector get() = AssertionCollectorBuilder
 
-    /**
-     * Returns [ReporterBuilder] - helping you to create a custom [Reporter].
-     */
-    val reporterBuilder: ReporterBuilder get() = ReporterBuilderImpl
-
-
     //--- assertions ---------------------------------------------------------------------------
 
     /**

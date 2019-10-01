@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
@@ -335,7 +336,7 @@ private fun Suite.testNonNullableCustomisation(assertionVerbFun: (Int, String?, 
 
         context("reporter via ExpectOptions") {
 
-            val allAssertionsReporter = ExpectImpl.reporterBuilder
+            val allAssertionsReporter = ReporterBuilder.create()
                 .withoutTranslationsUseDefaultLocale()
                 .withDetailedObjectFormatter()
                 .withDefaultAssertionFormatterController()
@@ -403,7 +404,7 @@ private fun assert(act: () -> Unit) =
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
-        ExpectImpl.reporterBuilder
+        ReporterBuilder.create()
             .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
