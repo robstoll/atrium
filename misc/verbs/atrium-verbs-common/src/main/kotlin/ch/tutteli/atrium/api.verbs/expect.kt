@@ -15,25 +15,33 @@ import ch.tutteli.atrium.reporting.reporter
 /**
  * Creates an [Expect] for the given [subject].
  *
+ * @param subject The subject for which we are going to postulate assertions.
+ * @param representation Optional, use it in case you want to use a custom representation for the subject.
+ * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
  * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold
  */
-fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions = ExpectOptions()): Expect<T> =
+fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions? = null): Expect<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
-        .withOptions(options.merge(ExpectOptions(representation = representation?.let { RawString.create(it) })))
+        .withMaybeRepresentationAndMaybeOptions(representation, options)
         .build()
 
 /**
  * Creates an [Expect] for the given [subject] and [Expect.addAssertionsCreatedBy] the
- * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reported as a whole.
+ * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
  *
+ * @param subject The subject for which we are going to postulate assertions.
+ * @param representation Optional, use it in case you want to use a custom representation for the subject.
+ * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ * @param assertionCreator Assertion group block with a non-fail fast behaviour.
  * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold
  */
 fun <T> expect(
     subject: T,
     representation: String? = null,
-    options: ExpectOptions = ExpectOptions(),
+    options: ExpectOptions? = null,
     assertionCreator: Expect<T>.() -> Unit
 ): Expect<T> = expect(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
 
@@ -48,7 +56,7 @@ fun expect(act: () -> Unit): ThrowableThrown.Builder = ExpectImpl.throwable.thro
 // TODO #97 now we are almost there to implement expect{}.toThrow in terms of expect
 //fun <R> expect(
 //    representation: String? = null,
-//    options: ExpectOptions = ExpectOptions(),
+//    options: ExpectOptions? = null,
 //    act: () -> R
 //): Expect<() -> R> = expect(act, representation, ExpectOptions {
 //    withVerb(EXPECT_THROWN)

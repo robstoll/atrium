@@ -79,13 +79,14 @@ interface ExpectBuilder {
         fun withOptions(expectOptions: ExpectOptions): FinalStep<T>
 
         /**
-         * Creates a new [Expect] based on the previously defined mandatory options but without any optional options or
-         * in other words, the default values are used for the optional options..
+         * States explicitly that no optional [ExpectOptions] are defined, which means, `build` will create
+         * a new [Expect] based on the previously defined mandatory options but without any optional options or
+         * in other words, the default values are used for the optional options.
          *
          * Use [withOptions] if you want to define optional [ExpectOptions] such as, override the
          * verb, define an own representation or use an own [Reporter].
          */
-        fun build(): Expect<T> = withOptions(ExpectOptions()).build()
+        fun withoutOptions(): FinalStep<T>
 
         companion object {
             fun <T> create(
@@ -162,9 +163,9 @@ interface ExpectBuilder {
         val assertionVerb: Translatable
 
         /**
-         * The previously specified [ExpectOptions].
+         * Either the previously specified [ExpectOptions] or `null`.
          */
-        val options: ExpectOptions
+        val options: ExpectOptions?
 
         /**
          * Creates a new [Expect] based on the previously defined maybeOptions.
@@ -175,14 +176,19 @@ interface ExpectBuilder {
             fun <T> create(
                 maybeSubject: Option<T>,
                 assertionVerb: Translatable,
-                options: ExpectOptions
+                options: ExpectOptions?
             ): FinalStep<T> = FinalStepImpl(maybeSubject, assertionVerb, options)
         }
     }
 }
 
 /**
- * Additional options for the [ExpectBuilder] to create an [Expect].
+ * Additional (non-mandatory) options for the [ExpectBuilder] to create an [Expect].
+ *
+ * @property assertionVerb Defines a custom assertion verb if not null.
+ * @property representation Defines a custom representation for the subject if not null.
+ * @property nullRepresentation Defines a custom representation for `null` if not null.
+ * @property reporter Defines a custom reporter if not null.
  */
 data class ExpectOptions(
     val assertionVerb: Translatable? = null,

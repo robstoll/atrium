@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.builders.reporting.impl
 
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
 
@@ -24,7 +24,7 @@ class DefaultReporterFactory : ReporterFactory {
     override val id = "default"
 
     override fun create(): Reporter =
-        ExpectImpl.reporterBuilder
+        ReporterBuilder.create()
             .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()

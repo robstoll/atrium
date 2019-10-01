@@ -3,7 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
@@ -46,7 +46,7 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
     override val id = ID
 
     override fun create(): Reporter {
-        return ExpectImpl.reporterBuilder
+        return ReporterBuilder.create()
             .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()

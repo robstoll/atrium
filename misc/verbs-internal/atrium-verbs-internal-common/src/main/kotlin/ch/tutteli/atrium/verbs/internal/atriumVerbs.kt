@@ -4,7 +4,7 @@ package ch.tutteli.atrium.verbs.internal
 import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.reporter
@@ -53,7 +53,7 @@ class NoAdjustingReporterFactory : ReporterFactory {
     override val id: String = ID
 
     override fun create(): Reporter {
-        return ExpectImpl.reporterBuilder
+        return ReporterBuilder.create()
             .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
