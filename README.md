@@ -10,7 +10,7 @@
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
 It is designed to support multiple [APIs](#api-styles), different error reporting styles and [Internationalization](#internationalization-1) (i18n). 
 The project was inspired by AssertJ at first but moved on and provides now more 
-flexibility, features and hints to its users (so to you :wink:).
+flexibility, features and hints to its users (so to you 😉).
 
 Atrium is designed to be extensible as well as configurable 
 and allows you to extend it with your own assertion functions, customise reporting 
@@ -21,16 +21,16 @@ pure fluent and infix where both of them have their design focus on usability in
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 ----
-:warning: You are taking a *sneak peek* at the next version. 
+❗ You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
 For instance, the [README of v0.9.0-alpha](https://github.com/robstoll/atrium/tree/v0.9.0-alpha/README.md).
 
 ----
 
-Attention please :wink:
+Attention please 😉
 
 ----
-:warning: de_CH API users, I drop maintenance for the `cc-de_CH` API with 0.9.0, not introduce `fluent-de_CH` respectively
+❗ de_CH API users, I drop maintenance for the `cc-de_CH` API with 0.9.0, not introduce `fluent-de_CH` respectively
 unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137) in which case I might continue in 0.10.0
 
 ----
@@ -270,11 +270,11 @@ We will omit the `import` statements in the remaining examples for brevity.
 **You want to run the example yourself?**
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
 
-:information_source: _&lt;- this icon signifies additional information, worth reading IMO but if you are only after code examples,
+👓 _&lt;- this icon signifies additional information, worth reading IMO but if you are only after code examples,
 then you can skip now to the next section (otherwise click on the arrow to expand the section)._<br/> 
 
 <details>
-<summary>:information_source: further assertion verbs...</summary>
+<summary>👓 further assertion verbs...</summary>
 
 Atrium provides two further assertion verbs next to `expect` out of the box: `assert` and `assertThat`
 which you can import with `import ch.tutteli.atrium.api.verbs.assert`, `import ch.tutteli.atrium.api.verbs.assertThat` respectively. 
@@ -547,10 +547,10 @@ Atrium provides several shortcuts for commonly used properties so that you can u
 For instance, `message` for Throwable (see [Expect an Exception](#expect-an-exception)), `first` and `second` for `Pair` and others.
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) in case you miss a shortcut.
 
-:interrobang: &lt;- _this icon signifies answers/input for advanced users, you might want to skip them if you are new to Atrium._<br/>
+💬 &lt;- _this icon signifies answers/input for advanced users, you might want to skip them if you are new to Atrium._<br/>
 
 <details>
-<summary>:interrobang: Wrap each property into an assertion function? </summary>
+<summary>💬 Wrap each property into an assertion function? </summary>
 
 You might be asking yourself whether it is better to [write an own assertion function](#write-own-assertion-functions) or use `feature`. 
 
@@ -591,10 +591,10 @@ expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme
 `f` supports methods with up to 5 arguments.
 
 <details>
-<summary>:interrobang: Why only overloads for up to 5 parameters</summary>
+<summary>💬 Why only overloads for up to 5 parameters</summary>
  
 You might be asking yourself why we stopped at 5 Pprameters.
-You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it :stuck_out_tongue_winking_eye:.
+You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it 😜.
 In case you have a function with 6 or more parameters and you do not want or cannot to get rid of it, 
 then we suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
 
@@ -607,7 +607,7 @@ Please [open a feature request](https://github.com/robstoll/atrium/issues/new?te
 in case you miss a shortcut. 
 
 <details>
-<summary>:interrobang: Write own feature assertion functions with additional checks.</summary>
+<summary>💬 Write own feature assertion functions with additional checks.</summary>
 
 Atrium provides a feature extractor which allows to make feature assertions in a safe way in case they are only valid for certain input.
 See `ExpectImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
@@ -804,7 +804,7 @@ There are two `isA` overloads:
   showing some additional context in case of a failure.
 
 <details>
-<summary>:interrobang: How to make arbitrary type transformations?</summary>
+<summary>💬 How to make arbitrary type transformations?</summary>
 
 Atrium provides the possibility to make arbitrary subject transformations 
 as long as you can provide a checking function which can tell whether the transformation is safe or not 
@@ -884,7 +884,7 @@ Atrium provides one additional function which is intended for [data driven testi
 involving nullable types and is explained in the corresponding section.
 
 <details>
-<summary>:information_source: dealing a lot with nullable types from Java...</summary>
+<summary>👓 dealing a lot with nullable types from Java...</summary>
 
 ... in this case we recommend to have a look at the [Java Interoperability](#java-interoperability) section.
 
@@ -922,7 +922,7 @@ The assertion function `contains(2, 3)` is a shortcut for using a
 This is reflected in the output, which tells us that we expected that the `number of occurrences` of `3` (which is actually `0`) `is at least: 1`.
 
 <details>
-<summary>:information_source: and what about expected value 2?</summary>
+<summary>👓 and what about expected value 2?</summary>
 
 Exactly, what about the expected value `2`, why do we not see anything about it in the output?
 The output does not show anything about the expected value `2` because the predefined assertion verbs have configured [`ReporterBuilder`](#reporterbuilder) 
@@ -1039,7 +1039,7 @@ To use the assertion builder for sophisticated `Iterable<T>`-contains-assertions
 but type `.` as next step (so that you are using the property `contains` instead of one of the shortcut functions). 
 Currently, the builder provides two options, either `inAnyOrder` or `inOrder`. 
 In case you are using an IDE, you do not really have to think too much -- use code completion; 
-the fluent builders will guide you through your decision making :relaxed:
+the fluent builders will guide you through your decision making 😊
 
 Following on the last section we will start with an `inOrder` example:
 
@@ -1072,11 +1072,11 @@ Since we have chosen the `only` option, Atrium shows us a summary where we see t
 - Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
 - and last but not least, mismatches or additional entries as further clue (`❗❗ additional entries detected`).
 
-:heart_eyes: We are pretty sure you are going to love this feature as well. 
+😍 We are pretty sure you are going to love this feature as well. 
 Please star Atrium if you like using it.
 
 <details>
-<summary>:interrobang: too verbose?</summary>
+<summary>💬 too verbose?</summary>
 
 As side notice, in case you are dealing with large `Iterable` and do not want such a verbose output, 
 then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
@@ -1473,11 +1473,11 @@ Or in other words, you can always use code completion to get direct help from yo
 This experience is improved by providing up-to-date [code documentation](#kdoc) (in form of KDoc) for all assertion functions, 
 so that you get the extra help needed.
 
-:poop: &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. 
+💩 &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. 
 We try to provide a workaround whenever possible._
 
 <details>
-<summary>:poop: There is no KDoc for toBe</summary>
+<summary>💩 There is no KDoc for toBe</summary>
 
 There is, but IntelliJ will not show it to you due to [this bug](https://youtrack.jetbrains.com/issue/KT-24836) (please upvote it).
 You should be able to see the KDoc of other functions without problems. 
@@ -1635,7 +1635,7 @@ You prefer pure fluent and do not even want to see infix style in your code,
 then use `atrium-fluent-en_GB` which provides a pure fluent style API. 
 
 You are free to choose what fits best without introducing ambiguity etc.
-You could even mix up different API-Styles if needed (but not without losing conciseness -- but hey, it is your decision :wink:). 
+You could even mix up different API-Styles if needed (but not without losing conciseness -- but hey, it is your decision 😉). 
 
 ## Migration of Deprecated Functionality
 Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
@@ -1652,7 +1652,7 @@ Might well be that this topic is not really a concern of yours; unless...
 - you are using domain-driven-design and would like to adopt the ubiquitous language also to your test code.
 - you want to document the results of your defined assertions (in different languages) 
 
-Atrium already supports APIs in two languages, and it is an easy task to translate an API to another language (hello DDD-people :wave: you are good to go).
+Atrium already supports APIs in two languages, and it is an easy task to translate an API to another language (hello DDD-people 👋 you are good to go).
 Moreover, it is already possible to generate the output in a different language than the used API (e.g. code in English but report in German).
 
 Together with the HTML-Report feature (currently missing but will follow) you will be able to generate reports in different languages.
@@ -1780,7 +1780,7 @@ fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: 
 Still simple enough.
 
 <details>
-<summary>:interrobang: Why is a type parameter used in the above examples?</summary>
+<summary>💬 Why is a type parameter used in the above examples?</summary>
 
 That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
 You should always do this unless your type is final (not `open`) and does not have type parameters itself. 
@@ -2046,11 +2046,11 @@ What are the benefits of creating own assertion verbs:
   For instance, you could change from same-line to multi-line reporting or report not only failing but also successful assertions, change the output language etc.
   
     <details>
-    <summary>:interrobang: where should I put the atriumVerbs.kt?</summary>
+    <summary>💬 where should I put the atriumVerbs.kt?</summary>
     
     We suggest you create an adapter project for Atrium where you specify the assertion verbs. 
     And most likely you will accumulate them with assertion functions which are so common 
-    that they appear in multiple projects -- please share them with us (get in touch with us via issue or slack) if they are not of an internal nature :wink:
+    that they appear in multiple projects -- please share them with us (get in touch with us via issue or slack) if they are not of an internal nature 😉
     
     <hr/>
     </details>
@@ -2134,7 +2134,7 @@ uses `atrium-translations-en_GB-common` whereas
 uses `atrium-translations-de_CH-common`.  
 
 <details>
-<summary>:interrobang: Using a TranslationSupplier</summary>
+<summary>💬 Using a TranslationSupplier</summary>
 
 Next to providing translations via code you can also use a 
 [TranslationSupplier](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
@@ -2243,7 +2243,7 @@ fun Expect<Int>.istVielfachesVon(base: Int): Expect<Int> =
 </code-i18n-3c>
 
 <details>
-<summary>:interrobang: Atrium has more layers</summary>
+<summary>💬 Atrium has more layers</summary>
 
 If you have a look at existing assertion functions and try to reach the impl-function from the API
 then you will see that they use `ExpectImpl` and that a few more indirections were introduced into Atrium. 
@@ -2339,7 +2339,7 @@ expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<Iterable<E>>`.
 
 <details>
-<summary>:interrobang: why do I not see anything about the transformation in reporting?</summary>
+<summary>💬 why do I not see anything about the transformation in reporting?</summary>
 
 `asIterable` uses `ExpectImpl.changeSubject.unreported` internally which is intended for not showing up in reporting.
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
@@ -2419,7 +2419,7 @@ A more detailed backlog can be found at [atrium-roadmap](https://github.com/robs
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
 - introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
 - optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
-- :warning: drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
+- ❗ drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
 
 ## 0.10.0
 - add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
