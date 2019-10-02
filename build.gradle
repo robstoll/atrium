@@ -476,7 +476,7 @@ Release & deploy a commit
     d) commit & push changes
 4. deploy to bintray:
     // export CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
-    a) java -version 2>&1 | grep "version \"9" && export CI=true && ./gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z
