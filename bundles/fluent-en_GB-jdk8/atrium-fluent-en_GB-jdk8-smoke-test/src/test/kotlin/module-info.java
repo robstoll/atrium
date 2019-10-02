@@ -4,7 +4,6 @@ module ch.tutteli.atrium.bundle.fluent.en_GB.jdk8.smoke {
     // I am using symbols from packages I do not require etc.
 
     requires ch.tutteli.atrium.bundle.fluent.en_GB.jdk8;
-    requires ch.tutteli.atrium.verbs;
     requires kotlin.stdlib;
     requires spek.api;
 }

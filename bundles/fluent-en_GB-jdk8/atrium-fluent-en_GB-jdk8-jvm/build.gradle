@@ -2,7 +2,7 @@ description = 'Represents a convenience module which merely bundles dependencies
 
 dependencies {
     api prefixedProject('verbs-jvm')
-    api prefixedProject('api-fluent-en_GB-jdk8')
+    api prefixedProject('api-fluent-en_GB-jdk8-jvm')
     api prefixedProject('translations-en_GB-jvm')
     api prefixedProject('domain-builders-jvm')
     api prefixedProject('domain-api-jvm')
