@@ -46,6 +46,11 @@ interface CharSequenceContainsAssertions {
         expected: List<String>
     ): AssertionGroup
 
+    fun <T : CharSequence> regex(
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
+        expected: List<Regex>
+    ): AssertionGroup
+
     fun <T : CharSequence> regexIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<String>
