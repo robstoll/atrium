@@ -4,7 +4,6 @@ module ch.tutteli.atrium.bundle.cc.en_GB.smoke {
     // I am using symbols from packages I do not require etc.
 
     requires ch.tutteli.atrium.bundle.cc.en_GB.robstoll;
-    requires ch.tutteli.atrium.verbs;
     requires kotlin.stdlib;
     requires spek.api;
 }
