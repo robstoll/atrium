@@ -28,3 +28,14 @@ flags:
   misc:
     paths:
       - misc/
+
+coverage:
+  range: 70..95
+  status:
+    project:
+      default:
+          target: 85%
+    patch:
+      default:
+          against: parent
+          target: 85%

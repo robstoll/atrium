@@ -2,7 +2,8 @@ package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
+import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -110,16 +111,16 @@ abstract class TranslatorIntSpec(
 
     val reporterDeChFallbackFr = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
     fun <T : Any> assertWithDeCh_Fr(subject: T) =
-        ExpectImpl.assertionVerbBuilder(subject)
+        ExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.ASSERT)
-            .withCustomReporter(reporterDeChFallbackFr)
+            .withOptions(ExpectOptions(reporter = reporterDeChFallbackFr))
             .build()
 
     val reporterDeChFallbackFrIt = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr", "CH"), Locale("it", "CH")))
     fun <T : Any> assertWithDeCh_Fr_It(subject: T) =
-        ExpectImpl.assertionVerbBuilder(subject)
+        ExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.ASSERT)
-            .withCustomReporter(reporterDeChFallbackFrIt)
+            .withOptions(ExpectOptions(reporter = reporterDeChFallbackFrIt))
             .build()
 
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
@@ -275,9 +276,9 @@ abstract class TranslatorIntSpec(
             val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
 
-            val assert = ExpectImpl.assertionVerbBuilder(1)
+            val assert = ExpectBuilder.forSubject(1)
                 .withVerb(AssertionVerb.ASSERT)
-                .withCustomReporter(reporter)
+                .withOptions(ExpectOptions(reporter = reporter))
                 .build()
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {

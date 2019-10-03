@@ -17,7 +17,7 @@ import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
@@ -55,7 +55,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${AssertionGroup::description.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
                 val assertionGroup = with(AssertImpl.builder) {
-                    root.withDescriptionAndRepresentation(ASSERT, "subject")
+                    root.withDescriptionAndRepresentation(EXPECT, "subject")
                         .withAssertions(
                             descriptive.failing.withDescriptionAndRepresentation(TO_BE, "bli").build(),
                             descriptive.failing.withDescriptionAndRepresentation(NOT_TO_BE, "bye").build()
@@ -65,7 +65,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()).toBe(
-                    "assert: subject$separator" +
+                    "expect: subject$separator" +
                         "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
                         "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
                 )

@@ -4,3 +4,4 @@ out
 .idea
 *.iml
 node_modules
+.github/**/*.tpl.md

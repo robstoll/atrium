@@ -18,14 +18,16 @@ task copyCSS(type: Copy) {
     into  ghPagesPath
 }
 
-task cleanGhPages {
-    doFirst { delete ghPagesPath }
+task removeGhPages {
+    doFirst {
+        delete ghPagesPath
+    }
 }
 
 task ghPages {
-    dependsOn cleanGhPages
+    dependsOn removeGhPages
     dependsOn dokka
-    dokka.mustRunAfter cleanGhPages
+    dokka.mustRunAfter removeGhPages
     finalizedBy copyCSS
     finalizedBy copyIndex
 }
@@ -49,15 +51,13 @@ dokka {
         suffix = '#L'
     }
 
-//    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
-    def commonDocProjects = (docProjects - (docProjects - getCommonProjects()))
-    def jsDocProjects = (docProjects - (docProjects - getJsProjects()))
-    kotlinTasks {
-        defaultKotlinTasks() +
-            commonDocProjects.collect { it.compileKotlinCommon } +
-            jsDocProjects.collect { it.compileKotlin2Js }
-            (docProjects - commonDocProjects - jsDocProjects).collect { it.compileKotlin }
+    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
+    rootProject.configure(docProjects) { subProject ->
+        subProject.afterEvaluate {
+            classpath += kotlin.target.compilations.getByName("main").compileDependencyFiles.files.collect { file -> file }
+        }
     }
+
     //TODO use as soon as https://github.com/Kotlin/dokka/issues/496 is fixed
 //    (docProjects - (docProjects - getAndroidProjects())).each { subProject ->
 //        sourceRoot {

@@ -22,12 +22,12 @@ fun <T, R> _extractFeature(
     return originalAssertionContainer.maybeSubject
         .filter(canBeExtracted)
         .fold({
-            val assertionContainer = ExpectImpl.coreFactory.newReportingAssertionContainer<R>(
+            val assertionContainer = coreFactory.newReportingAssertionContainer<R>(
                 ReportingAssertionContainer.AssertionCheckerDecorator.create(
                     SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
                     None,
                     representationForFailure,
-                    ExpectImpl.coreFactory.newDelegatingAssertionChecker(originalAssertionContainer),
+                    coreFactory.newDelegatingAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )
             )
@@ -50,12 +50,12 @@ fun <T, R> _extractFeature(
             assertionContainer
         }) { subject ->
             val featureProvider = { featureExtraction(subject) }.evalOnce()
-            val assertionContainer = ExpectImpl.coreFactory.newReportingAssertionContainer(
+            val assertionContainer = coreFactory.newReportingAssertionContainer(
                 ReportingAssertionContainer.AssertionCheckerDecorator.createLazy(
                     description,
                     { Some(featureProvider()) },
                     { representationInsteadOfFeature ?: featureProvider() },
-                    ExpectImpl.coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
+                    coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )
             )

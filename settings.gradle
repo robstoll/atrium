@@ -12,22 +12,32 @@ buildscript {
 
 apply plugin: 'ch.tutteli.settings'
 
+//TODO remove as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
+def kotlinJvmJsAndAndroidIfCi = { self, String suffix ->
+    if (System.getenv('CI')) {
+        self.kotlinJvmJsAndroid(suffix)
+    } else {
+        self.kotlinJvmJs(suffix)
+    }
+}
+def kotlinJvmAndAndroidIfCi = { self, String suffix ->
+    self.folder(suffix, "$suffix-") {
+        prefixed('common', 'jvm')
+        if (System.getenv('CI')) {
+            prefixed('android')
+        }
+    }
+}
+
 //noinspection GroovyAssignabilityCheck
 include {
 
-    //TODO remove as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
-    def kotlinJvmJsAndAndroidIfCi = { self, String suffix ->
-        if (System.getenv('CI')) {
-            self.kotlinJvmJsAndroid(suffix)
-        } else {
-            self.kotlinJvmJs(suffix)
-        }
-    }
+
 
     bundles {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
         kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
-        _ 'fluent-en_GB-jdk8'
+        kotlinJvmAndAndroidIfCi(delegate, 'fluent-en_GB-jdk8')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
@@ -39,7 +49,7 @@ include {
             folder('fluent-en_GB') {
                 _ 'fluent-en_GB-smoke-test'
             }
-            folder('atrium-fluent-en_GB-jdk8') {
+            folder('fluent-en_GB-jdk8') {
                 _ 'fluent-en_GB-jdk8-smoke-test'
             }
 
@@ -55,7 +65,7 @@ include {
         kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
         folder('fluent-en_GB', 'fluent-en_GB-') {
             extensions {
-                _ 'jdk8'
+                kotlinJvmAndAndroidIfCi(delegate, 'jdk8')
             }
         }
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')

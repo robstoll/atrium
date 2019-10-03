@@ -24,7 +24,7 @@ class OnlyFailureReporter(
      * Formats the given [assertion] with the help of the defined [assertionFormatterFacade]
      * and appends the result to the given [sb] but only in case the given [assertion] [holds][Assertion.holds].
      */
-    override fun format(assertion: Assertion, sb: StringBuilder) =
+    override fun format(assertion: Assertion, sb: StringBuilder): Unit =
         assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
 
     private fun assertionFilter(assertion: Assertion) = !assertion.holds()

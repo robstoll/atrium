@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
-import ch.tutteli.atrium.verbs.internal.AssertionVerb
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
@@ -92,20 +92,20 @@ object DetailedObjectFormatterSpec : Spek({
         on("a ${TranslatableBasedRawString::class.simpleName}") {
             val translation = "es gilt"
             val translator = mock<Translator> {
-                on { translate(AssertionVerb.ASSERT) } doReturn translation
+                on { translate(AssertionVerb.EXPECT) } doReturn translation
             }
             val testeeWithMockedTranslation = DetailedObjectFormatter(translator)
-            val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.ASSERT))
+            val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.EXPECT))
             it("returns the translated string") {
                 expect(result).toBe(translation)
             }
         }
 
         on("an enum") {
-            val enum = AssertionVerb.ASSERT
+            val enum = AssertionVerb.EXPECT
             val result = testee.format(enum)
             it("returns its toString representation together with its Class.name but without System.identityHash") {
-                expect(result).toBe("ASSERT" + INDENT + "(${enum::class.java.name})")
+                expect(result).toBe("EXPECT" + INDENT + "(${enum::class.java.name})")
             }
         }
 
