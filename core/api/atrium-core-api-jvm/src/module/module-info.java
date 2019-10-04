@@ -4,6 +4,7 @@ module ch.tutteli.atrium.core.api {
 
     exports ch.tutteli.atrium.assertions;
     exports ch.tutteli.atrium.assertions.builders;
+    exports ch.tutteli.atrium.assertions.builders.common;
     exports ch.tutteli.atrium.checking;
     exports ch.tutteli.atrium.core;
     exports ch.tutteli.atrium.core.migration;

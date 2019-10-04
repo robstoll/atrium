@@ -59,11 +59,8 @@ abstract class TextFallbackAssertionFormatterSpec(
 
         context("unsupported ${Assertion::class.simpleName}") {
             it("writes whether the assertion holds including a message telling the type is unsupported") {
-                testee.formatNonGroup(
-                    unsupportedAssertion,
-                    parameterObject
-                )
-                expect(sb).addAssertionsCreatedBy {
+                testee.formatNonGroup(unsupportedAssertion, parameterObject)
+                expect(sb) {
                     contains("false")
                     contains("Unsupported type ${unsupportedAssertion::class.java.name}")
                 }
@@ -73,11 +70,15 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
                 val assertion =
                     ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
-                testee.formatNonGroup(
-                    assertion,
-                    parameterObject
-                )
+                testee.formatNonGroup(assertion, parameterObject)
                 expect(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
+            }
+        }
+        context("assertion of type ${RepresentationOnlyAssertion::class.simpleName}") {
+            it("writes ${RepresentationOnlyAssertion::representation.name} without any additional colon or such") {
+                val assertion = ExpectImpl.builder.representationOnly.failing.withRepresentation("hello").build()
+                testee.formatNonGroup(assertion, parameterObject)
+                expect(sb.toString()).toBe("${separator}hello")
             }
         }
     }
@@ -86,10 +87,7 @@ abstract class TextFallbackAssertionFormatterSpec(
         context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
             facade.register {
-                testeeFactory(
-                    bulletPoints, it,
-                    ToStringObjectFormatter, UsingDefaultTranslator()
-                )
+                testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator())
             }
 
             context("only ${DescriptiveAssertion::class.simpleName}") {
@@ -100,14 +98,12 @@ abstract class TextFallbackAssertionFormatterSpec(
                             override val description = Untranslatable("group")
                             override val representation = "subject of group"
                             override val assertions = listOf(
-                                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                                    IS_SAME,
-                                    "b"
-                                ).build(),
-                                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                                    TO_BE,
-                                    "d"
-                                ).build()
+                                ExpectImpl.builder.descriptive.failing
+                                    .withDescriptionAndRepresentation(IS_SAME, "b")
+                                    .build(),
+                                ExpectImpl.builder.descriptive.failing
+                                    .withDescriptionAndRepresentation(TO_BE, "d")
+                                    .build()
                             )
                         },
                         sb,
@@ -137,14 +133,12 @@ abstract class TextFallbackAssertionFormatterSpec(
                                     override val description = Untranslatable("inner group")
                                     override val representation = "subject of inner group"
                                     override val assertions = listOf(
-                                        ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                                            IS_SAME,
-                                            "b"
-                                        ).build(),
-                                        ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                                            TO_BE,
-                                            "d"
-                                        ).build()
+                                        ExpectImpl.builder.descriptive.failing
+                                            .withDescriptionAndRepresentation(IS_SAME, "b")
+                                            .build(),
+                                        ExpectImpl.builder.descriptive.failing
+                                            .withDescriptionAndRepresentation(TO_BE, "d")
+                                            .build()
                                     )
                                 },
                                 unsupportedAssertion
