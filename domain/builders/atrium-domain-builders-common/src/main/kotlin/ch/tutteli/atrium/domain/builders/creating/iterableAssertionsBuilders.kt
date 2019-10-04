@@ -55,8 +55,8 @@ object IterableAssertionsBuilder : IterableAssertions {
         noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?
     ): Assertion = iterableAssertions.all(plant, assertionCreator)
 
-    override inline fun hasNext(subjectProvider: SubjectProvider<Iterable<*>>): Assertion =
-        iterableAssertions.hasNext(subjectProvider)
+    override inline fun<E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion =
+        iterableAssertions.hasNext(expect)
 }
 
 /**

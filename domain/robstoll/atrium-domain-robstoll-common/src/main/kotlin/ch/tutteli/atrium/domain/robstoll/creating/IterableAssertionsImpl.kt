@@ -23,5 +23,5 @@ class IterableAssertionsImpl : IterableAssertions, IterableAssertionsDeprecatedI
         assertionCreator: (Expect<E>.() -> Unit)?
     ): Assertion = _iterableAll(assertionContainer, assertionCreator)
 
-    override fun hasNext(subjectProvider: SubjectProvider<Iterable<*>>): Assertion = _hasNext(subjectProvider)
+    override fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion = _hasNext(expect)
 }
