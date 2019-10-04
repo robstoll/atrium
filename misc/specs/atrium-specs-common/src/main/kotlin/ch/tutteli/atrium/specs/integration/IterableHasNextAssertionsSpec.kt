@@ -11,6 +11,7 @@ import ch.tutteli.atrium.specs.include
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -28,7 +29,8 @@ abstract class IterableHasNextAssertionsSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
 
-    val hasDescriptionBasic = DescriptionBasic.HAS_ELEMENT.getDefault()
+    val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
+    val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
 
     describeFun(hasNext.name) {
         val hasNextFun = hasNext.lambda
@@ -40,7 +42,7 @@ abstract class IterableHasNextAssertionsSpec(
         it("throws an AssertionError if an iterable does not have next") {
             expect {
                 expect(listOf<Int>() as Iterable<Int>).hasNextFun()
-            }.toThrow<AssertionError> { messageContains(hasDescriptionBasic) }
+            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement") }
         }
     }
 })
