@@ -113,7 +113,7 @@ However, here a few hints in order that your pull request is merged quickly.
 2. Try to write code in a similar style as the existing 
    (We suggest you copy something existing and modify it).
 3. Write readable code and express comments with code rather than comments.
-4. Provide tests in form of [Spek](https://spekframework.org/docs/latest/) specifications.
+4. Provide tests in form of [Spek](https://spekframework.org/specification/) specifications.
 5. Write your commit message in an [imperative style](https://chris.beams.io/posts/git-commit/).     
 
 ## Pull Request Checklist
