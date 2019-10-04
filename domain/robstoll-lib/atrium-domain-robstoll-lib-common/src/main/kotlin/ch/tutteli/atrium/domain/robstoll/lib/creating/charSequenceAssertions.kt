@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -41,3 +42,6 @@ fun _isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion =
 
 fun _isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion =
     AssertImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(BLANK)) { it.isNotBlank() }
+
+fun _matches(subjectProvider: Expect<Regex>): Assertion =
+    AssertImpl.builder.createDescriptive(subjectProvider, MATCHES, TODO()) { it.matches(TODO()) }

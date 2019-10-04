@@ -2,7 +2,9 @@
 
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
 import ch.tutteli.atrium.domain.creating.charSequenceAssertions
@@ -48,6 +50,9 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
     override inline fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>) =
         charSequenceAssertions.isNotBlank(subjectProvider)
+
+    override fun matches(subjectProvider: Expect<Regex>) =
+        charSequenceAssertions.matches(subjectProvider)
 
     /**
      * Returns [CharSequenceContainsAssertionsBuilder]
