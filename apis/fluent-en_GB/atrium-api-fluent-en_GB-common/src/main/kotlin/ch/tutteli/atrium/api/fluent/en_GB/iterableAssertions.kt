@@ -195,3 +195,11 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
     addAssertion(ExpectImpl.iterable.all(this, assertionCreatorOrNull))
+
+/**
+ * Expects that the subject of the assertion (an [Iterable]) has at least one element.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any> Expect<Iterable<E>>.hasNext() = addAssertion(ExpectImpl.iterable.hasNext(this))

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.IterableAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._containsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating._containsNotBuilder
+import ch.tutteli.atrium.domain.robstoll.lib.creating._hasNext
 import ch.tutteli.atrium.domain.robstoll.lib.creating._iterableAll
 
 
@@ -21,4 +22,6 @@ class IterableAssertionsImpl : IterableAssertions, IterableAssertionsDeprecatedI
         assertionContainer: Expect<T>,
         assertionCreator: (Expect<E>.() -> Unit)?
     ): Assertion = _iterableAll(assertionContainer, assertionCreator)
+
+    override fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion = _hasNext(expect)
 }

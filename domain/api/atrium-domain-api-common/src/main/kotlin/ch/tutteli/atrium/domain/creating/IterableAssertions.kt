@@ -33,4 +33,6 @@ interface IterableAssertions {
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <E : Any> all(plant: AssertionPlant<Iterable<E?>>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
+
+    fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion
 }
