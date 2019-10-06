@@ -42,7 +42,7 @@ abstract class PathFeatureAssertionsSpec(
                     val childFolder = tempFolder.newFolder("child")
                     expect(childFolder).parentVal().toBe(childFolder)
                 }.toThrow<AssertionError> {
-                    messageContains("/child")
+                    messageContains("child")
                 }
             }
         }
@@ -62,7 +62,7 @@ abstract class PathFeatureAssertionsSpec(
                     val childFolder = tempFolder.newFolder("child")
                     expect(childFolder).parentFun { toBe(childFolder) }
                 }.toThrow<AssertionError> {
-                    messageContains("/child")
+                    messageContains("child")
                 }
             }
         }
