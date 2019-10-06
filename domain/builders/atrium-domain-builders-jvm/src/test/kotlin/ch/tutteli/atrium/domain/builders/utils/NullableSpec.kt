@@ -84,11 +84,11 @@ object NullableSpec : Spek({
 
         context("Array<out String!>!") {
             it("can be applied to it") {
-                expect(nullableContainer(testee.stringArray)).asIterable().contains(null)
+                expect(nullableContainer(testee.stringArray)).asList().contains(null)
             }
             it("can be combined with ${nullableFun.name}") {
                 expect(nullable(nullableContainer(testee.stringArray))).notToBeNull {
-                    asIterable().contains(null, "hello")
+                    asList().contains(null, "hello")
                 }
             }
         }

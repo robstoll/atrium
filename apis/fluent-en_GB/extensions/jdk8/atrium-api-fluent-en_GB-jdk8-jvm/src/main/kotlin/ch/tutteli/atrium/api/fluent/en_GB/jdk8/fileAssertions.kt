@@ -12,6 +12,8 @@ import java.nio.file.Path
  * Use `feature(File::toPath)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 fun <T : File> Expect<T>.asPath(): Expect<Path> =
     ExpectImpl.changeSubject.unreported(this) { it.toPath() }
@@ -24,6 +26,8 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  * Use `feature(File::toPath, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @since 0.9.0
  */
 fun <T : File> Expect<T>.asPath(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     apply { asPath().addAssertionsCreatedBy(assertionCreator) }
