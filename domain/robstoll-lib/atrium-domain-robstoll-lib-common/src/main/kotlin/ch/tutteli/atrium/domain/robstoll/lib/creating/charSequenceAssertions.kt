@@ -44,4 +44,4 @@ fun _isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion =
     AssertImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(BLANK)) { it.isNotBlank() }
 
 fun <T : CharSequence> _mismatches(assertionContainer: Expect<T>, expected: Regex): Assertion =
-    AssertImpl.builder.createDescriptive(assertionContainer, MISMATCHES, expected) {!it.matches(expected)}
+    ExpectImpl.builder.createDescriptive(assertionContainer, MISMATCHES, expected) { !it.matches(expected) }
