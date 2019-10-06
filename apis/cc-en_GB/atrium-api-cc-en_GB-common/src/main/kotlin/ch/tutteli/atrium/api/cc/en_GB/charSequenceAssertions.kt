@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.No
 import ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
