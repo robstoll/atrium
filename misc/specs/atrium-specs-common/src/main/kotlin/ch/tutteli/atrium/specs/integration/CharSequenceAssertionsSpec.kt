@@ -216,7 +216,6 @@ abstract class CharSequenceAssertionsSpec(
     }
 
     describeFun(mismatches.name){
-        // TODO : matchesFun
         val mismatchesFun = mismatches.lambda
 
         context("text '$text"){
