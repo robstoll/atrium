@@ -219,12 +219,10 @@ abstract class CharSequenceAssertionsSpec(
         val mismatchesFun = mismatches.lambda
 
         context("text '$text"){
-            // TODO : Matches Negative Condition
             it("${mismatches.name} 'Hello' does not throw"){
                 fluent.mismatchesFun(Regex("Hello"))
             }
 
-            // TODO : Matches Negative Condition
             it("${mismatches.name} 'Hello my name is Robert' throws an AssertionError"){
                 expect {
                     fluent.mismatchesFun(Regex("Hello my name is Robert"))
