@@ -51,7 +51,7 @@ abstract class IterableAssertionsSpec(
     describeFun(hasNotNext.name) {
         val hasNotNextFun = hasNotNext.lambda
 
-        it("does not throw if an has not next") {
+        it("does not throw if an iterable has not next") {
             expect(listOf<Int>() as Iterable<Int>).hasNotNextFun()
         }
 
