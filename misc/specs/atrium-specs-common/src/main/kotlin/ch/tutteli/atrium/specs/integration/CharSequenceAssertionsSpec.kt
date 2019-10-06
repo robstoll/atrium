@@ -221,7 +221,6 @@ abstract class CharSequenceAssertionsSpec(
 
         context("text '$text"){
             // TODO : Matches Negative Condition
-
             it("${mismatches.name} 'Hello' does not throw"){
                 fluent.mismatchesFun(Regex("Hello"))
             }
