@@ -5,69 +5,69 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class ArrayAsIterableAssertionsSpec(
-    asIterableFunName: String,
-    arr: Expect<Array<Int>>.() -> Expect<Iterable<Int>>,
-    arrByte: Expect<ByteArray>.() -> Expect<Iterable<Byte>>,
-    arrChar: Expect<CharArray>.() -> Expect<Iterable<Char>>,
-    arrShort: Expect<ShortArray>.() -> Expect<Iterable<Short>>,
-    arrInt: Expect<IntArray>.() -> Expect<Iterable<Int>>,
-    arrLong: Expect<LongArray>.() -> Expect<Iterable<Long>>,
-    arrFloat: Expect<FloatArray>.() -> Expect<Iterable<Float>>,
-    arrDouble: Expect<DoubleArray>.() -> Expect<Iterable<Double>>,
-    arrBoolean: Expect<BooleanArray>.() -> Expect<Iterable<Boolean>>,
-    arrWithCreator: Expect<Array<Int>>.(Expect<Iterable<Int>>.() -> Unit) -> Expect<Array<Int>>,
-    arrByteWithCreator: Expect<ByteArray>.(Expect<Iterable<Byte>>.() -> Unit) -> Expect<ByteArray>,
-    arrCharWithCreator: Expect<CharArray>.(Expect<Iterable<Char>>.() -> Unit) -> Expect<CharArray>,
-    arrShortWithCreator: Expect<ShortArray>.(Expect<Iterable<Short>>.() -> Unit) -> Expect<ShortArray>,
-    arrIntWithCreator: Expect<IntArray>.(Expect<Iterable<Int>>.() -> Unit) -> Expect<IntArray>,
-    arrLongWithCreator: Expect<LongArray>.(Expect<Iterable<Long>>.() -> Unit) -> Expect<LongArray>,
-    arrFloatWithCreator: Expect<FloatArray>.(Expect<Iterable<Float>>.() -> Unit) -> Expect<FloatArray>,
-    arrDoubleWithCreator: Expect<DoubleArray>.(Expect<Iterable<Double>>.() -> Unit) -> Expect<DoubleArray>,
-    arrBooleanWithCreator: Expect<BooleanArray>.(Expect<Iterable<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
+abstract class ArrayAsListAssertionsSpec(
+    asListFunName: String,
+    arr: Expect<Array<Int>>.() -> Expect<List<Int>>,
+    arrByte: Expect<ByteArray>.() -> Expect<List<Byte>>,
+    arrChar: Expect<CharArray>.() -> Expect<List<Char>>,
+    arrShort: Expect<ShortArray>.() -> Expect<List<Short>>,
+    arrInt: Expect<IntArray>.() -> Expect<List<Int>>,
+    arrLong: Expect<LongArray>.() -> Expect<List<Long>>,
+    arrFloat: Expect<FloatArray>.() -> Expect<List<Float>>,
+    arrDouble: Expect<DoubleArray>.() -> Expect<List<Double>>,
+    arrBoolean: Expect<BooleanArray>.() -> Expect<List<Boolean>>,
+    arrWithCreator: Expect<Array<Int>>.(Expect<List<Int>>.() -> Unit) -> Expect<Array<Int>>,
+    arrByteWithCreator: Expect<ByteArray>.(Expect<List<Byte>>.() -> Unit) -> Expect<ByteArray>,
+    arrCharWithCreator: Expect<CharArray>.(Expect<List<Char>>.() -> Unit) -> Expect<CharArray>,
+    arrShortWithCreator: Expect<ShortArray>.(Expect<List<Short>>.() -> Unit) -> Expect<ShortArray>,
+    arrIntWithCreator: Expect<IntArray>.(Expect<List<Int>>.() -> Unit) -> Expect<IntArray>,
+    arrLongWithCreator: Expect<LongArray>.(Expect<List<Long>>.() -> Unit) -> Expect<LongArray>,
+    arrFloatWithCreator: Expect<FloatArray>.(Expect<List<Float>>.() -> Unit) -> Expect<FloatArray>,
+    arrDoubleWithCreator: Expect<DoubleArray>.(Expect<List<Double>>.() -> Unit) -> Expect<DoubleArray>,
+    arrBooleanWithCreator: Expect<BooleanArray>.(Expect<List<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val asIterableWithCreator = "$asIterableFunName with Creator"
+    val asListWithCreator = "$asListFunName with Creator"
     include(object : SubjectLessSpec<Array<Int>>("$describePrefix[arr] ",
-        asIterableFunName to expectLambda { arr(this) },
-        asIterableWithCreator to expectLambda { arrWithCreator(this) { contains(1) } }
+        asListFunName to expectLambda { arr(this) },
+        asListWithCreator to expectLambda { arrWithCreator(this) { contains(1) } }
     ) {})
     include(object : SubjectLessSpec<ByteArray>("$describePrefix[arrByte] ",
-        asIterableFunName to expectLambda { arrByte(this) },
-        asIterableWithCreator to expectLambda { arrByteWithCreator(this) { contains(1) } }
+        asListFunName to expectLambda { arrByte(this) },
+        asListWithCreator to expectLambda { arrByteWithCreator(this) { contains(1) } }
     ) {})
     include(object : SubjectLessSpec<CharArray>("$describePrefix[arrChar] ",
-        asIterableFunName to expectLambda { arrChar(this) },
-        asIterableWithCreator to expectLambda { arrCharWithCreator(this) { contains('a') } }
+        asListFunName to expectLambda { arrChar(this) },
+        asListWithCreator to expectLambda { arrCharWithCreator(this) { contains('a') } }
     ) {})
     include(object : SubjectLessSpec<ShortArray>("$describePrefix[arrShort] ",
-        asIterableFunName to expectLambda { arrShort(this) },
-        asIterableWithCreator to expectLambda { arrShortWithCreator(this) { contains(1.toShort()) } }
+        asListFunName to expectLambda { arrShort(this) },
+        asListWithCreator to expectLambda { arrShortWithCreator(this) { contains(1.toShort()) } }
     ) {})
     include(object : SubjectLessSpec<IntArray>("$describePrefix[arrInt] ",
-        asIterableFunName to expectLambda { arrInt(this) },
-        asIterableWithCreator to expectLambda { arrIntWithCreator(this) { contains(1) } }
+        asListFunName to expectLambda { arrInt(this) },
+        asListWithCreator to expectLambda { arrIntWithCreator(this) { contains(1) } }
     ) {})
     include(object : SubjectLessSpec<LongArray>("$describePrefix[arrLong] ",
-        asIterableFunName to expectLambda { arrLong(this) },
-        asIterableWithCreator to expectLambda { arrLongWithCreator(this) { contains(1L) } }
+        asListFunName to expectLambda { arrLong(this) },
+        asListWithCreator to expectLambda { arrLongWithCreator(this) { contains(1L) } }
     ) {})
     include(object : SubjectLessSpec<FloatArray>("$describePrefix[arrFloat] ",
-        asIterableFunName to expectLambda { arrFloat(this) },
-        asIterableWithCreator to expectLambda { arrFloatWithCreator(this) { contains(1f) } }
+        asListFunName to expectLambda { arrFloat(this) },
+        asListWithCreator to expectLambda { arrFloatWithCreator(this) { contains(1f) } }
     ) {})
     include(object : SubjectLessSpec<DoubleArray>("$describePrefix[arrDouble] ",
-        asIterableFunName to expectLambda { arrDouble(this) },
-        asIterableWithCreator to expectLambda { arrDoubleWithCreator(this) { contains(1.0) } }
+        asListFunName to expectLambda { arrDouble(this) },
+        asListWithCreator to expectLambda { arrDoubleWithCreator(this) { contains(1.0) } }
     ) {})
     include(object : SubjectLessSpec<BooleanArray>("$describePrefix[arrBoolean] ",
-        asIterableFunName to expectLambda { arrBoolean(this) },
-        asIterableWithCreator to expectLambda { arrBooleanWithCreator(this) { contains(true) } }
+        asListFunName to expectLambda { arrBoolean(this) },
+        asListWithCreator to expectLambda { arrBooleanWithCreator(this) { contains(true) } }
     ) {})
 
     fun bytes(vararg bytes: Byte) = bytes
@@ -79,11 +79,11 @@ abstract class ArrayAsIterableAssertionsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
-    val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
+    val anEntryWhich = DescriptionListAssertion.AN_ENTRY_WHICH_IS.getDefault()
     include(object : AssertionCreatorSpec<Array<Int>>(
         "$describePrefix[arr] ", arrayOf(1),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrWithCreator.invoke(this) { contains(1) } },
             { arrWithCreator.invoke(this) {} })
@@ -91,7 +91,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<ByteArray>(
         "$describePrefix[arrByte] ", bytes(1),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrByteWithCreator.invoke(this) { contains(1) } },
             { arrByteWithCreator.invoke(this) {} })
@@ -99,7 +99,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<CharArray>(
         "$describePrefix[arrChar] ", chars('a'),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrCharWithCreator.invoke(this) { contains('a') } },
             { arrCharWithCreator.invoke(this) {} })
@@ -107,7 +107,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<ShortArray>(
         "$describePrefix[arrShort] ", shorts(1),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrShortWithCreator.invoke(this) { contains(1) } },
             { arrShortWithCreator.invoke(this) {} })
@@ -115,7 +115,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<IntArray>(
         "$describePrefix[arrInt] ", ints(1),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrIntWithCreator.invoke(this) { contains(1) } },
             { arrIntWithCreator.invoke(this) {} })
@@ -123,7 +123,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<LongArray>(
         "$describePrefix[arrLong] ", longs(1),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrLongWithCreator.invoke(this) { contains(1) } },
             { arrLongWithCreator.invoke(this) {} })
@@ -131,7 +131,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<FloatArray>(
         "$describePrefix[arrFloat] ", floats(1.0f),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrFloatWithCreator.invoke(this) { contains(1.0f) } },
             { arrFloatWithCreator.invoke(this) {} })
@@ -139,7 +139,7 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<DoubleArray>(
         "$describePrefix[arrDouble] ", doubles(1.0),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrDoubleWithCreator.invoke(this) { contains(1.0) } },
             { arrDoubleWithCreator.invoke(this) {} })
@@ -147,13 +147,13 @@ abstract class ArrayAsIterableAssertionsSpec(
     include(object : AssertionCreatorSpec<BooleanArray>(
         "$describePrefix[arrBoolean] ", booleans(true),
         assertionCreatorSpecTriple(
-            asIterableFunName,
+            asListFunName,
             anEntryWhich,
             { arrBooleanWithCreator.invoke(this) { contains(true) } },
             { arrBooleanWithCreator.invoke(this) {} })
     ) {})
 
-    describe("$asIterableFunName arr") {
+    describe("$asListFunName arr") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(arrayOf(1, 2)).arr().containsExactly(1, 2)
         }
@@ -162,7 +162,7 @@ abstract class ArrayAsIterableAssertionsSpec(
         }
     }
 
-    describe("$asIterableFunName arrByte") {
+    describe("$asListFunName arrByte") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(bytes(1.toByte(), 2.toByte())).arrByte().containsExactly(1.toByte(), 2.toByte())
         }
@@ -170,7 +170,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(bytes(1.toByte(), 2.toByte())).arrByteWithCreator { containsExactly(1.toByte(), 2.toByte()) }
         }
     }
-    describe("$asIterableFunName arrChar") {
+    describe("$asListFunName arrChar") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(chars(1.toChar(), 2.toChar())).arrChar().containsExactly(1.toChar(), 2.toChar())
         }
@@ -178,7 +178,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(chars(1.toChar(), 2.toChar())).arrCharWithCreator { containsExactly(1.toChar(), 2.toChar()) }
         }
     }
-    describe("$asIterableFunName arrShort") {
+    describe("$asListFunName arrShort") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(shorts(1, 2)).arrShort().containsExactly(1.toShort(), 2.toShort())
         }
@@ -186,7 +186,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(shorts(1, 2)).arrShortWithCreator { containsExactly(1.toShort(), 2.toShort()) }
         }
     }
-    describe("$asIterableFunName arrInt") {
+    describe("$asListFunName arrInt") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(ints(1, 2)).arrInt().containsExactly(1, 2)
         }
@@ -194,7 +194,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(ints(1, 2)).arrIntWithCreator { containsExactly(1, 2) }
         }
     }
-    describe("$asIterableFunName arrLong") {
+    describe("$asListFunName arrLong") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(longs(1, 2)).arrLong().containsExactly(1L, 2L)
         }
@@ -202,7 +202,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(longs(1, 2)).arrLongWithCreator { containsExactly(1L, 2L) }
         }
     }
-    describe("$asIterableFunName arrFloat") {
+    describe("$asListFunName arrFloat") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(floats(1f, 2f)).arrFloat().containsExactly(1f, 2f)
         }
@@ -210,7 +210,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(floats(1f, 2f)).arrFloatWithCreator { containsExactly(1f, 2f) }
         }
     }
-    describe("$asIterableFunName arrDouble") {
+    describe("$asListFunName arrDouble") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(doubles(1.0, 2.0)).arrDouble().containsExactly(1.0, 2.0)
         }
@@ -218,7 +218,7 @@ abstract class ArrayAsIterableAssertionsSpec(
             expect(doubles(1.0, 2.0)).arrDoubleWithCreator { containsExactly(1.0, 2.0) }
         }
     }
-    describe("$asIterableFunName arrBoolean") {
+    describe("$asListFunName arrBoolean") {
         it("transformation can be applied and a subsequent assertion made") {
             expect(booleans(true, false)).arrBoolean().containsExactly(true, false)
         }
