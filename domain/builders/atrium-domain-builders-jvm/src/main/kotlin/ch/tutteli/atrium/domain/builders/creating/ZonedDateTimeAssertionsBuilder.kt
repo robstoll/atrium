@@ -3,8 +3,10 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions
 import ch.tutteli.atrium.domain.creating.zonedDateTimeAssertions
+import java.time.ZonedDateTime
 
 /**
  * Delegates inter alia to the implementation of [ZonedDateTimeAssertions].
@@ -12,5 +14,6 @@ import ch.tutteli.atrium.domain.creating.zonedDateTimeAssertions
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ZonedDateTimeAssertionsBuilder : ZonedDateTimeAssertions {
+    override fun year(assertionContainer: Expect<ZonedDateTime>) = zonedDateTimeAssertions.year(assertionContainer)
 
 }
