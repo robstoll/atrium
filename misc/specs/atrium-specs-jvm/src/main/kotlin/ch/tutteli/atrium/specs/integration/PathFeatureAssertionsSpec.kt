@@ -46,6 +46,17 @@ abstract class PathFeatureAssertionsSpec(
                 }
             }
         }
+
+        context("Folder without parent") {
+            it("toBe(folder.parent) fails") {
+                expect {
+                    val rootFolder = tempFolder.tmpDir.root
+                    expect(rootFolder).parentVal().toBe(rootFolder)
+                }.toThrow<AssertionError> {
+                    messageContains("does not have parent")
+                }
+            }
+        }
     }
 
     describeFun("fun ${parent.name}") {
@@ -63,6 +74,17 @@ abstract class PathFeatureAssertionsSpec(
                     expect(childFolder).parentFun { toBe(childFolder) }
                 }.toThrow<AssertionError> {
                     messageContains("child")
+                }
+            }
+        }
+
+        context("Folder without parent") {
+            it("toBe(folder.parent) fails") {
+                expect {
+                    val rootFolder = tempFolder.tmpDir.root
+                    expect(rootFolder).parentFun { toBe(rootFolder) }
+                }.toThrow<AssertionError> {
+                    messageContains("does not have parent")
                 }
             }
         }

@@ -4,5 +4,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 enum class DescriptionPathAssertion(override val value: String) : StringBasedTranslatable {
     EXIST("existieren"),
-    PARENT("übergeordneter Pfad")
+    DOES_NOT_HAVE_PARENT("hat kein Pfad")
 }
