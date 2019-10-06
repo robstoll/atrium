@@ -205,4 +205,4 @@ fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequ
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) =
-    addAssertion(AssertImpl.charSequence.mismatches(this, expected))
+    addAssertion(ExpectImpl.charSequence.mismatches(this, expected))
