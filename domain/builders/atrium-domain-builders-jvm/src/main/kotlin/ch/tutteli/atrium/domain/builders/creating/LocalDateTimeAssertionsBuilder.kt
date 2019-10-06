@@ -14,6 +14,6 @@ import java.time.LocalDateTime
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object LocalDateTimeAssertionsBuilder : LocalDateTimeAssertions {
-    override fun year(assertionContainer: Expect<LocalDateTime>) = localDateTimeAssertions.year(assertionContainer)
+    override inline fun year(assertionContainer: Expect<LocalDateTime>) = localDateTimeAssertions.year(assertionContainer)
 
 }
