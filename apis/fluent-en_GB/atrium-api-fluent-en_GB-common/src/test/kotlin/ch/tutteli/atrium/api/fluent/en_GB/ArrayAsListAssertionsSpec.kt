@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
 object ArrayAsListAssertionsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListAssertionsSpec (
-    "asIterable",
+    "asList",
     Expect<Array<Int>>::asList,
     Expect<ByteArray>::asList,
     Expect<CharArray>::asList,

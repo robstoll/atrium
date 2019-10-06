@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionListAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -79,7 +79,7 @@ abstract class ArrayAsListAssertionsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
-    val anEntryWhich = DescriptionListAssertion.AN_ENTRY_WHICH_IS.getDefault()
+    val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
     include(object : AssertionCreatorSpec<Array<Int>>(
         "$describePrefix[arr] ", arrayOf(1),
         assertionCreatorSpecTriple(

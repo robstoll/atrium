@@ -28,16 +28,16 @@ inline fun <T> nullable(t: T): T? = t
 inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
 
 /**
- * Turns an [List] into an list with a nullable element type.
+ * Turns an [Iterable] into an iterable with a nullable element type.
  *
  * Intended to be used in conjunction with [platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
- * such as `List<String!>` or in other words, when you deal with Java and you want to turn a platform type into a nullable type.
+ * such as `Iterable<String!>` or in other words, when you deal with Java and you want to turn a platform type into a nullable type.
  *
  * Basically it is a replacement for cast but without introducing one explicitly (we only give an additional hint to the
  * compiler that we expect a nullable type and not a non-nullable one). For instance, instead of writing
- * `getPersons() as List<String?>` you can write `nullableContainer(getPersons())`
+ * `getPersons() as Iterable<String?>` you can write `nullableContainer(getPersons())`
  */
-inline fun <T> nullableContainer(list: List<T>): List<T?> = list
+inline fun <T> nullableContainer(iterable: Iterable<T>): Iterable<T?> = iterable
 
 /**
  * Turns an [Array] into an array with a nullable element type.
