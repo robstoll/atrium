@@ -31,5 +31,24 @@ fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exis
  */
 fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.existsNot(this))
 
+/**
+ * Creates an [Expect] for the property [Path.getParent] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ *
+ * @since 0.9.0
+ */
+val <T : Path> Expect<T>.parent get(): Expect<Path> = ExpectImpl.path.parent(this).getExpectOfFeature()
 
-
+/**
+ * Expects that the property [Path.getParent] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
+    ExpectImpl.path.parent(this).addToInitial(assertionCreator)
