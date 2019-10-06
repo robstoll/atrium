@@ -356,7 +356,10 @@ createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstol
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     !(it in [
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
-        'ch.tutteli.atrium.domain.creating.PathAssertions'
+        'ch.tutteli.atrium.domain.creating.PathAssertions',
+        'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
+        'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
+        'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions'
     ])
 }
 createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }

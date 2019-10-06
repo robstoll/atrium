@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.time.ZonedDateTime
 
 /**
@@ -15,4 +17,5 @@ val zonedDateTimeAssertions by lazy { loadSingleService(ZonedDateTimeAssertions:
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ZonedDateTimeAssertions {
+    fun year(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int>
 }
