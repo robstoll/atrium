@@ -226,7 +226,6 @@ abstract class CharSequenceAssertionsSpec(
             }
 
             // TODO : Matches Negative Condition
-
             it("${mismatches.name} 'Hello my name is Robert' throws an AssertionError"){
                 expect {
                     fluent.mismatchesFun(Regex("Hello my name is Robert"))
