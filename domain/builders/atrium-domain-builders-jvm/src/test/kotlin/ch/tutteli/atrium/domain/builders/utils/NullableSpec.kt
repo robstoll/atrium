@@ -13,9 +13,9 @@ object NullableSpec : Spek({
     //TODO use function reference directly once https://youtrack.jetbrains.com/issue/KT-24606 is fixed
     val t: (Int) -> Int? = ::nullable
     val nullableFun: KFunction1<Int, Int?> = t as KFunction1<Int, Int?>
-    val t2: (Iterable<Int>) -> Iterable<Int?> = ::nullableContainer
-    val nullableContainerFun: KFunction1<Iterable<Int>, Iterable<Int?>> =
-        t2 as KFunction1<Iterable<Int>, Iterable<Int?>>
+    val t2: (List<Int>) -> List<Int?> = ::nullableContainer
+    val nullableContainerFun: KFunction1<List<Int>, List<Int?>> =
+        t2 as KFunction1<List<Int>, List<Int?>>
     val t3: (Map<Int, String>) -> Map<Int, String?> = ::nullableValueMap
     val nullableValueMapFun: KFunction1<Map<Int, String>, Map<Int, String?>> =
         t3 as KFunction1<Map<Int, String>, Map<Int, String?>>
@@ -84,11 +84,11 @@ object NullableSpec : Spek({
 
         context("Array<out String!>!") {
             it("can be applied to it") {
-                expect(nullableContainer(testee.stringArray)).asIterable().contains(null)
+                expect(nullableContainer(testee.stringArray)).asList().contains(null)
             }
             it("can be combined with ${nullableFun.name}") {
                 expect(nullable(nullableContainer(testee.stringArray))).notToBeNull {
-                    asIterable().contains(null, "hello")
+                    asList().contains(null, "hello")
                 }
             }
         }

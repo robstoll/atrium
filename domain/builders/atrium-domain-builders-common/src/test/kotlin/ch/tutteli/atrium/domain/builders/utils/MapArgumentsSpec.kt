@@ -20,7 +20,7 @@ object MapArgumentsSpec : Spek({
 
                 expect(it("a", "b", "c"))
                     .first { toBe("a.") }
-                    .second.asIterable().containsExactly("b.", "c.")
+                    .second.asList().containsExactly("b.", "c.")
             }
 
             it("with second step `to`") {
@@ -28,7 +28,7 @@ object MapArgumentsSpec : Spek({
 
                 expect(it("a", "b", "c"))
                     .first { toBe("a.") }
-                    .second.asIterable().containsExactly("b.", "c.")
+                    .second.asList().containsExactly("b.", "c.")
             }
 
             it("toExpect") {
@@ -121,7 +121,7 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
 
             it("with second step") {
@@ -129,7 +129,7 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
         }
         context("Char") {
@@ -138,14 +138,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it('a', 'b', 'c'))
                     .first { toBe('b') }
-                    .second.asIterable().containsExactly('c', 'd')
+                    .second.asList().containsExactly('c', 'd')
             }
             it("with second step") {
                 fun it(i: Char, vararg iX: Char) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it('a', 'b', 'c'))
                     .first { toBe('b') }
-                    .second.asIterable().containsExactly('c', 'd')
+                    .second.asList().containsExactly('c', 'd')
             }
         }
         context("Short") {
@@ -154,14 +154,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Short, vararg iX: Short) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
         }
         context("Int") {
@@ -170,14 +170,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Int, vararg iX: Int) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1, 2, 3, 4))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
         }
         context("Long") {
@@ -186,14 +186,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1L, 2L, 3L, 4L))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Long, vararg iX: Long) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1L, 2L, 3L, 4L))
                     .first { toBe(2) }
-                    .second.asIterable().containsExactly(3, 4, 5)
+                    .second.asList().containsExactly(3, 4, 5)
             }
         }
         context("Float") {
@@ -202,14 +202,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1f, 2f, 3f, 4f))
                     .first { toBe(2f) }
-                    .second.asIterable().containsExactly(3f, 4f, 5f)
+                    .second.asList().containsExactly(3f, 4f, 5f)
             }
             it("with second step") {
                 fun it(i: Float, vararg iX: Float) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1f, 2f, 3f, 4f))
                     .first { toBe(2f) }
-                    .second.asIterable().containsExactly(3f, 4f, 5f)
+                    .second.asList().containsExactly(3f, 4f, 5f)
             }
         }
         context("Double") {
@@ -218,14 +218,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(1.0, 2.0, 3.0, 4.0))
                     .first { toBe(2.0) }
-                    .second.asIterable().containsExactly(3.0, 4.0, 5.0)
+                    .second.asList().containsExactly(3.0, 4.0, 5.0)
             }
             it("with second step") {
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1.0, 2.0, 3.0, 4.0))
                     .first { toBe(2.0) }
-                    .second.asIterable().containsExactly(3.0, 4.0, 5.0)
+                    .second.asList().containsExactly(3.0, 4.0, 5.0)
             }
         }
         context("Boolean") {
@@ -234,14 +234,14 @@ object MapArgumentsSpec : Spek({
 
                 expect(it(true, false, true))
                     .first { toBe(false) }
-                    .second.asIterable().containsExactly(true, false)
+                    .second.asList().containsExactly(true, false)
             }
             it("with second step") {
                 fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX).to { if (it) "a" else "b" }
 
                 expect(it(true, false, false))
                     .first { toBe("a") }
-                    .second.asIterable().containsExactly("b", "b")
+                    .second.asList().containsExactly("b", "b")
             }
         }
     }

@@ -7,6 +7,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Map].
  */
 enum class DescriptionListAssertion(override val value: String) : StringBasedTranslatable {
+    AN_ENTRY_WHICH_IS("an entry which is"),
     CANNOT_EVALUATE_INDEX_OUT_OF_BOUNDS("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- index out of bounds.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    INDEX_OUT_OF_BOUNDS("❗❗ index out of bounds")
+    INDEX_OUT_OF_BOUNDS("❗❗ index out of bounds"),
 }
