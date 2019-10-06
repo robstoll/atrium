@@ -57,6 +57,9 @@ object IterableAssertionsBuilder : IterableAssertions {
 
     override inline fun<E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion =
         iterableAssertions.hasNext(expect)
+
+    override inline fun<E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion =
+        iterableAssertions.hasNotNext(expect)
 }
 
 /**
