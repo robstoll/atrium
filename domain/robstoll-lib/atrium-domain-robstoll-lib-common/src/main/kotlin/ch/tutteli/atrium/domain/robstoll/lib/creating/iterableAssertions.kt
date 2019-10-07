@@ -74,6 +74,12 @@ fun <E : Any> _hasNext(expect: Expect<Iterable<E>>): Assertion =
     ExpectImpl.builder.createDescriptive(expect,
         DescriptionBasic.HAS, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) { it.iterator().hasNext() }
 
+fun <E : Any> _hasNotNext(expect: Expect<Iterable<E>>): Assertion =
+    ExpectImpl.builder.createDescriptive(expect,
+        DescriptionBasic.HAS_NOT, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) {
+        !it.iterator().hasNext()
+    }
+
 private fun <E : Any> createMismatchAssertions(
     list: List<E?>,
     assertionCreator: (Expect<E>.() -> Unit)?

@@ -35,4 +35,6 @@ interface IterableAssertions {
     fun <E : Any> all(plant: AssertionPlant<Iterable<E?>>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
 
     fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion
+
+    fun <E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion
 }
