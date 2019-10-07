@@ -53,7 +53,7 @@ abstract class PathFeatureAssertionsSpec(
                     val rootFolder = tempFolder.tmpDir.root
                     expect(rootFolder).parentVal().toBe(rootFolder)
                 }.toThrow<AssertionError> {
-                    messageContains("does not have parent")
+                    messageContains("does not have a parent")
                 }
             }
         }
@@ -84,7 +84,7 @@ abstract class PathFeatureAssertionsSpec(
                     val rootFolder = tempFolder.tmpDir.root
                     expect(rootFolder).parentFun { toBe(rootFolder) }
                 }.toThrow<AssertionError> {
-                    messageContains("does not have parent")
+                    messageContains("does not have a parent")
                 }
             }
         }
