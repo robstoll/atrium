@@ -19,4 +19,7 @@ object PathAssertionsBuilder : PathAssertions {
 
     override inline fun <T : Path> existsNot(assertionContainer: Expect<T>) =
         pathAssertions.existsNot(assertionContainer)
+
+    override inline fun <T : Path> parent(assertionContainer: Expect<T>) =
+        pathAssertions.parent(assertionContainer)
 }
