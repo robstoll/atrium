@@ -7,6 +7,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
 import ch.tutteli.atrium.translations.DescriptionBasic.TO
+import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.DOES_NOT_HAVE_PARENT
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.EXIST
 import ch.tutteli.niok.exists
@@ -21,7 +22,7 @@ fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
 
 fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.extractor(assertionContainer)
-        .methodCall("parent")
+        .withDescription(DescriptionPathAssertion.PARENT)
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
         .withCheck { it.parent != null }
         .withFeatureExtraction { it.parent }
