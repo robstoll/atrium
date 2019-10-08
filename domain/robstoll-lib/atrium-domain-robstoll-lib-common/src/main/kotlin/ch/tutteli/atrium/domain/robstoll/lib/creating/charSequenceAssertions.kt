@@ -43,5 +43,5 @@ fun _isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion =
 fun _isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion =
     AssertImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(BLANK)) { it.isNotBlank() }
 
-fun _matches(subjectProvider: Expect<CharSequence>, pattern: Regex): Assertion =
+fun _matches(subjectProvider: SubjectProvider<CharSequence>, pattern: Regex): Assertion =
     AssertImpl.builder.createDescriptive(subjectProvider, MATCHES, pattern) { pattern.matches(it) }
