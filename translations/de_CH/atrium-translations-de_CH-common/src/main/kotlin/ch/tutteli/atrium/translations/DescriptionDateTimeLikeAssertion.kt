@@ -8,5 +8,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * which are applicable to date like instances (e.g. LocalDate, LocaleDateTime, ZonedDateTime etc.)
  */
 enum class DescriptionDateTimeLikeAssertion(override val value: String) : StringBasedTranslatable {
-    YEAR("Jahr")
+    YEAR("Jahr"),
+    MONTH("Monat")
 }

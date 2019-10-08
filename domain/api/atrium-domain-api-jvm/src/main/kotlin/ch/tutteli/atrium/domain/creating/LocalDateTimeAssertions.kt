@@ -18,4 +18,6 @@ val localDateTimeAssertions by lazy { loadSingleService(LocalDateTimeAssertions:
  */
 interface LocalDateTimeAssertions {
     fun year(assertionContainer: Expect<LocalDateTime>): ExtractedFeaturePostStep<LocalDateTime, Int>
+
+    fun month(assertionContainer: Expect<LocalDateTime>): ExtractedFeaturePostStep<LocalDateTime, Int>
 }

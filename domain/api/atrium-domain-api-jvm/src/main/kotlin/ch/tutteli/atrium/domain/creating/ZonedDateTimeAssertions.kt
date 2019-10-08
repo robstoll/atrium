@@ -18,4 +18,6 @@ val zonedDateTimeAssertions by lazy { loadSingleService(ZonedDateTimeAssertions:
  */
 interface ZonedDateTimeAssertions {
     fun year(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int>
+
+    fun month(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int>
 }
