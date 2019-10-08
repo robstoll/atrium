@@ -130,6 +130,33 @@ abstract class PathFeatureAssertionsSpec(
             }
         }
 
+        context("path with no extension") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my")).fileNameWithoutExtensionFun { toBe("my") }
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                }
+            }
+
+        }
+
+        context("directory") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toBe("my") }
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                }
+            }
+        }
+
         context("path with double extension") {
             it("toBe(my.tar) holds") {
                 expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my.tar") }

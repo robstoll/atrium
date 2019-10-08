@@ -58,10 +58,11 @@ fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expe
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
 
 /**
- * Expects that this [Path] has a [fileNameWithoutExtension][Path.fileNameWithoutExtension] and creates an [Expect] for it,
+ * Creates an [Expect] for the property [Path.fileNameWithoutExtension]
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect].
+ * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
