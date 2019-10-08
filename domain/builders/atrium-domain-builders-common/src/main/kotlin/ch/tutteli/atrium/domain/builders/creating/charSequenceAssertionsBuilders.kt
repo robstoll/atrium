@@ -51,8 +51,8 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
     override inline fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>) =
         charSequenceAssertions.isNotBlank(subjectProvider)
 
-    override fun matches(subjectProvider: Expect<Regex>) =
-        charSequenceAssertions.matches(subjectProvider)
+    override fun matches(subjectProvider: Expect<CharSequence>, pattern: Regex) =
+        charSequenceAssertions.matches(subjectProvider, pattern)
 
     /**
      * Returns [CharSequenceContainsAssertionsBuilder]

@@ -34,5 +34,5 @@ class CharSequenceAssertionsImpl : CharSequenceAssertions {
 
     override fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>) = _isNotBlank(subjectProvider)
 
-    override fun matches(subjectProvider: Expect<Regex>) = _matches(subjectProvider)
+    override fun matches(subjectProvider: Expect<CharSequence>, pattern: Regex) = _matches(subjectProvider, pattern)
 }
