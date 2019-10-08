@@ -9,3 +9,7 @@ import java.time.LocalDate
 fun _year(assertionContainer: Expect<LocalDate>): ExtractedFeaturePostStep<LocalDate, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.YEAR) { year }
 
+fun _month(assertionContainer: Expect<LocalDate>): ExtractedFeaturePostStep<LocalDate, Int> =
+    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
+
+

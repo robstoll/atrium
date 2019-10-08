@@ -9,3 +9,7 @@ import java.time.ZonedDateTime
 fun _year(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.YEAR) { year }
 
+fun _month(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int> =
+    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
+
+
