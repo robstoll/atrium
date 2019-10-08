@@ -16,6 +16,7 @@ import java.nio.file.Paths
 abstract class PathAssertionsSpec(
     exists: Fun0<Path>,
     existsNot: Fun0<Path>,
+    endsWith: Fun1<Path, Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -85,6 +86,28 @@ abstract class PathAssertionsSpec(
                     expect(folder).existsNotFun()
                 }.toThrow<AssertionError> {
                     messageContains(expectedMessageIfExisting)
+                }
+            }
+        }
+    }
+
+    describeFun(endsWith.name) {
+        val endsWithFun = endsWith.lambda
+        context("ends with") {
+            it("does not throw") {
+                expect(Paths.get("/not/existed/for/test"))
+                    .endsWithFun(Paths.get("for/test"))
+            }
+        }
+        val expectedMessageIfNotEndsWith = "${TO.getDefault()}: ${DescriptionPathAssertion.ENDS_WITH.getDefault()}"
+
+        context("not ends with") {
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("/not/existed/for/test"))
+                        .endsWithFun(Paths.get("/for/test"))
+                }.toThrow<AssertionError> {
+                    messageContains(expectedMessageIfNotEndsWith)
                 }
             }
         }

@@ -10,6 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic.TO
 import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.DOES_NOT_HAVE_PARENT
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.EXIST
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.ENDS_WITH
 import ch.tutteli.niok.exists
 import ch.tutteli.niok.notExists
 import java.nio.file.Path
@@ -19,6 +20,9 @@ fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
 
 fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, NOT_TO, RawString.create(EXIST)) { it.notExists }
+
+fun <T : Path> _endsWith(assertionContainer: Expect<T>, other: T): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, TO, RawString.create(ENDS_WITH)) { it.endsWith(other) }
 
 fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.extractor(assertionContainer)
