@@ -8,9 +8,9 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
 import ch.tutteli.atrium.translations.DescriptionBasic.TO
 import ch.tutteli.atrium.translations.DescriptionPathAssertion
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.DOES_NOT_HAVE_PARENT
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.EXIST
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.exists
+import ch.tutteli.niok.fileNameWithoutExtension
 import ch.tutteli.niok.notExists
 import java.nio.file.Path
 
@@ -27,3 +27,6 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
         .withCheck { it.parent != null }
         .withFeatureExtraction { it.parent }
         .build()
+
+fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }

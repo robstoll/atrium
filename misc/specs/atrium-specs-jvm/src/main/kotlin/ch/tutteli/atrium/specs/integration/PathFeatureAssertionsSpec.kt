@@ -6,14 +6,18 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.spek.extensions.TempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.nio.file.Path
+import java.nio.file.Paths
 
 abstract class PathFeatureAssertionsSpec(
     parentFeature: Feature0<Path, Path>,
     parent: Fun1<Path, Expect<Path>.() -> Unit>,
+    fileNameWithoutExtensionFeature: Feature0<Path, String>,
+    fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -22,7 +26,10 @@ abstract class PathFeatureAssertionsSpec(
 
     include(object : SubjectLessSpec<Path>(describePrefix,
         parentFeature.forSubjectLess().adjustName { "$it feature" },
-        parent.forSubjectLess() { }
+        parent.forSubjectLess() { },
+        fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
+        fileNameWithoutExtension.forSubjectLess() { }
+
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -89,4 +96,52 @@ abstract class PathFeatureAssertionsSpec(
             }
         }
     }
+
+    describeFun("val ${fileNameWithoutExtensionFeature.name}") {
+        val fileNameWithoutExtensionVal = fileNameWithoutExtensionFeature.lambda
+
+        context("File with extension") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my.txt")).fileNameWithoutExtensionVal().toBe("my")
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionVal().toBe("my.txt")
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                }
+            }
+        }
+    }
+
+    describeFun("fun ${fileNameWithoutExtension.name}") {
+        val fileNameWithoutExtensionFun = fileNameWithoutExtension.lambda
+
+        context("File with extension") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my") }
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                }
+            }
+        }
+
+        context("path with double extension") {
+            it("toBe(my.tar) holds") {
+                expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my.tar") }
+            }
+            it("toBe(my) fails") {
+                expect {
+                    expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my") }
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                }
+            }
+        }
+    }
+
 })

@@ -1,8 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
 import ch.tutteli.atrium.translations.DescriptionBasic.TO
@@ -16,6 +18,7 @@ import java.nio.file.Paths
 abstract class PathAssertionsSpec(
     exists: Fun0<Path>,
     existsNot: Fun0<Path>,
+    fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -86,6 +89,30 @@ abstract class PathAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(expectedMessageIfExisting)
                 }
+            }
+        }
+    }
+
+    describeFun(fileNameWithoutExtension.name) {
+        val fileNameWithoutExtensionFun = fileNameWithoutExtension.lambda
+
+        context("path with extension") {
+            it("does not throw") {
+                expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my") }
+            }
+
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                }
+            }
+        }
+
+        context("path with double extension") {
+            it("does not throw") {
+                expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my.tar") }
             }
         }
     }
