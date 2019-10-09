@@ -105,7 +105,7 @@ abstract class PathAssertionsSpec(
         val expectedMessageIfNotStartsWith = "${DescriptionPathAssertion.STARTS_WITH.getDefault()}:"
 
         context("does not start with") {
-            it("throws an AssertionException") {
+            it("throws an AssertionError") {
                 expect {
                     expect(Paths.get("/some/path/for/test"))
                         .startsWithFun(Paths.get("/other/path"))
