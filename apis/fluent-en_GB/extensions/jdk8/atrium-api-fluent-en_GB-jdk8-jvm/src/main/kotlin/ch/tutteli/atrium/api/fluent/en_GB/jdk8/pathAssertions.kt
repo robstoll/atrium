@@ -35,15 +35,15 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.e
 
 
 /**
- * Expects that the subject of the assertion (a [Path]) is ends with the other [Path];
+ * Expects that the subject of the assertion (a [Path]) ends with the expected [Path];
  *
- * @param other The [Path] provided to the assertion
+ * @param expected The [Path] provided to the assertion
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
-fun <T : Path> Expect<T>.endsWith(other: T): Expect<T> = addAssertion(ExpectImpl.path.endsWith(this, other))
+fun <T : Path> Expect<T>.endsWith(expected: T): Expect<T> = addAssertion(ExpectImpl.path.endsWith(this, expected))
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and creates an [Expect] for it,
