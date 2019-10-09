@@ -174,7 +174,7 @@ abstract class PathAssertionsSpec(
                     expect(Paths.get("/path/ends/with/this"))
                         .endsNotWithFun(Paths.get("with/this"))
                 }.toThrow<AssertionError> {
-                    messageContains("${DescriptionPathAssertion.ENDS_NOT_WITH.getDefault()}: with/this")
+                    messageContains("${DescriptionPathAssertion.ENDS_NOT_WITH.getDefault()}:")
                 }
             }
         }
