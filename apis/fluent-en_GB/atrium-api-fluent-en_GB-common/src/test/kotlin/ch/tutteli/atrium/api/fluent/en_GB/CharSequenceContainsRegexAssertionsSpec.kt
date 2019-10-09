@@ -1,9 +1,13 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.include
+import org.spekframework.spek2.Spek
 
-class CharSequenceContainsRegexAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
+class CharSequenceContainsRegexAssertionsSpec : Spek({
+    include(StringSpec)
+}) {
+    object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
         getNameContainsRegex(),
         getAtLeastTriple(),
         getAtLeastIgnoringCaseTriple(),
@@ -11,7 +15,7 @@ class CharSequenceContainsRegexAssertionsSpec :
         getAtMostTriple(),
         getAtMostIgnoringCaseTriple(),
         "◆ ", "⚬ "
-    ) {
+    )
 
     companion object : CharSequenceContainsSpecBase() {
 

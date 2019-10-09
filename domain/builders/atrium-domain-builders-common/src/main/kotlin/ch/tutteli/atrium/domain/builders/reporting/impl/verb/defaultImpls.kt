@@ -1,36 +1,50 @@
 package ch.tutteli.atrium.domain.builders.reporting.impl.verb
 
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.reporting.AssertionVerbBuilder
-import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.creating.ReportingAssertionContainer
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
+import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-class AssertionVerbOptionImpl<T>(override val maybeSubject: Option<T>) : AssertionVerbBuilder.AssertionVerbOption<T> {
-    override fun withVerb(verb: Translatable): AssertionVerbBuilder.ReporterOption<T> =
-        AssertionVerbBuilder.ReporterOption.create(maybeSubject, verb)
+class AssertionVerbStepImpl<T>(override val maybeSubject: Option<T>) : ExpectBuilder.AssertionVerbStep<T> {
+    override fun withVerb(verb: Translatable): ExpectBuilder.OptionsStep<T> =
+        ExpectBuilder.OptionsStep.create(maybeSubject, verb)
 }
 
-class ReporterOptionImpl<T>(
+class OptionsStepImpl<T>(
     override val maybeSubject: Option<T>,
     override val assertionVerb: Translatable
-) : AssertionVerbBuilder.ReporterOption<T> {
+) : ExpectBuilder.OptionsStep<T> {
 
-    override fun withCustomReporter(reporter: Reporter): AssertionVerbBuilder.FinalStep<T> =
-        AssertionVerbBuilder.FinalStep.create(maybeSubject, assertionVerb, reporter)
+    override fun withOptions(expectOptions: ExpectOptions): ExpectBuilder.FinalStep<T> = toFinalStep(expectOptions)
+    override fun withoutOptions(): ExpectBuilder.FinalStep<T> = toFinalStep(null)
+
+    private fun toFinalStep(expectOptions: ExpectOptions?) =
+        ExpectBuilder.FinalStep.create(maybeSubject, assertionVerb, expectOptions)
 }
 
 class FinalStepImpl<T>(
     override val maybeSubject: Option<T>,
     override val assertionVerb: Translatable,
-    override val reporter: Reporter
-) : AssertionVerbBuilder.FinalStep<T> {
+    override val options: ExpectOptions?
+) : ExpectBuilder.FinalStep<T> {
 
     override fun build(): Expect<T> =
-        ExpectImpl.coreFactory.newReportingAssertionContainer(
-            assertionVerb,
-            maybeSubject,
-            ExpectImpl.coreFactory.newThrowingAssertionChecker(reporter)
+        coreFactory.newReportingAssertionContainer(
+            ReportingAssertionContainer.AssertionCheckerDecorator.create(
+                options?.assertionVerb ?: assertionVerb,
+                maybeSubject,
+                options?.representation ?: maybeSubject.getOrElse {
+                    RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
+                },
+                coreFactory.newThrowingAssertionChecker(options?.reporter ?: reporter),
+                options?.nullRepresentation ?: RawString.NULL
+            )
         )
 }

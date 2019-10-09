@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -15,7 +15,7 @@ object ResourceBundleBasedTranslatorSpec : Spek({
 
     object AtriumsTranslatorIntSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec(
         { primaryLocale, fallbackLocales ->
-            ExpectImpl.reporterBuilder
+            ReporterBuilder.create()
                 .withTranslator(ResourceBundleBasedTranslator.create(primaryLocale, *fallbackLocales))
                 .withDetailedObjectFormatter()
                 .withDefaultAssertionFormatterController()

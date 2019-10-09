@@ -15,6 +15,7 @@ import org.spekframework.spek2.dsl.Skip.Yes
 import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.attribute.*
 import java.nio.file.attribute.AclEntryPermission.READ_DATA
 import java.nio.file.attribute.AclEntryPermission.WRITE_DATA
@@ -26,6 +27,7 @@ import java.util.regex.Pattern.quote
 abstract class PathAssertionsSpec(
     exists: Fun0<Path>,
     existsNot: Fun0<Path>,
+    endsWith: Fun1<Path, Path>,
     isReadable: Fun0<Path>,
     isWritable: Fun0<Path>,
     isRegularFile: Fun0<Path>,
@@ -208,6 +210,28 @@ abstract class PathAssertionsSpec(
                         "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
                     )
                     containsExplanationFor(maybeLink)
+                }
+            }
+        }
+    }
+
+    describeFun(endsWith.name) {
+        val endsWithFun = endsWith.lambda
+        context("ends with") {
+            it("does not throw") {
+                expect(Paths.get("/not/existed/for/test"))
+                    .endsWithFun(Paths.get("for/test"))
+            }
+        }
+        val expectedMessageIfNotEndsWith = "${ENDS_WITH.getDefault()}:"
+
+        context("not ends with") {
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("/not/existed/for/test"))
+                        .endsWithFun(Paths.get("/for/test"))
+                }.toThrow<AssertionError> {
+                    messageContains(expectedMessageIfNotEndsWith)
                 }
             }
         }

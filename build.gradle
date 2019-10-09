@@ -10,7 +10,7 @@ buildscript {
         // main
         kbox_version = '0.13.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
-        niok_version = '1.0.0'
+        niok_version = '1.2.0'
         niok = { "ch.tutteli.niok:niok:$niok_version" }
         kotlin_version = '1.3.50'
 
@@ -30,11 +30,13 @@ buildscript {
 
         //gh-pages.gradle
         docProjects = subprojects.findAll {
+            !it.name.endsWith("-js") &&
+            !it.name.endsWith("-android") &&
             !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
+                !it.name.startsWith("${rootProject.name}-specs") &&
                 it.name != "${rootProject.name}-bc-test" &&
-                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
-                !it.name.startsWith("${rootProject.name}-specs")
+                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
         }
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
@@ -56,7 +58,7 @@ buildscript {
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        !it.path.contains('examples')
+                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects - jsSampleProjects).findAll {
@@ -216,7 +218,11 @@ configure(subprojects - commonProjects - jsProjects - jsSamples) {
         logging.setLevel(LogLevel.QUIET)
     }
     compileKotlin {
-        kotlinOptions.languageVersion = '1.2'
+        kotlinOptions {
+            languageVersion = '1.2'
+            //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-34257 is fixed
+            allWarningsAsErrors = false
+        }
     }
 }
 
@@ -239,10 +245,6 @@ configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
     spek.version = '1.1.5'
-
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
 
     dependencies {
         testImplementation mockito(), excludeKotlin
@@ -285,9 +287,7 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
-    Project bundle = bundleUnderTest.endsWith("-jdk8")
-        ? project(":$bundleUnderTest")
-        : project(":$bundleUnderTest-jvm")
+    Project bundle = project(":$bundleUnderTest-jvm")
 
     description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
 
@@ -356,7 +356,10 @@ createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstol
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     !(it in [
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
-        'ch.tutteli.atrium.domain.creating.PathAssertions'
+        'ch.tutteli.atrium.domain.creating.PathAssertions',
+        'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
+        'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
+        'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions'
     ])
 }
 createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
@@ -474,7 +477,7 @@ Release & deploy a commit
     d) commit & push changes
 4. deploy to bintray:
     // export CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
-    a) java -version 2>&1 | grep "version \"9" && export CI=true && ./gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z

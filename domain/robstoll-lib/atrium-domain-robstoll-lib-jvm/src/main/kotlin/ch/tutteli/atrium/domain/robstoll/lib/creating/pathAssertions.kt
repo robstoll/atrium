@@ -5,15 +5,14 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.*
+import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
-import ch.tutteli.niok.getFileAttributeView
-import ch.tutteli.niok.isReadable
-import ch.tutteli.niok.isWritable
-import ch.tutteli.niok.readAttributes
+import ch.tutteli.niok.*
 import java.io.IOException
 import java.nio.file.AccessDeniedException
 import java.nio.file.NoSuchFileException
@@ -21,6 +20,9 @@ import java.nio.file.Path
 import java.nio.file.attribute.*
 import java.nio.file.attribute.PosixFilePermission.*
 import java.util.*
+
+fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
 
 fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
     changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
@@ -345,3 +347,14 @@ private val BasicFileAttributes.fileType: Translatable
         isSymbolicLink -> A_SYMBOLIC_LINK
         else -> A_UNKNOWN_FILE_TYPE
     }
+
+fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
+
+fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
+    ExpectImpl.feature.extractor(assertionContainer)
+        .withDescription(DescriptionPathAssertion.PARENT)
+        .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
+        .withCheck { it.parent != null }
+        .withFeatureExtraction { it.parent }
+        .build()

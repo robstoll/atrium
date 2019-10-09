@@ -7,6 +7,8 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
+import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -24,12 +26,14 @@ abstract class SubjectLessSpec<T>(
 
                 expandAssertionGroups(assertions)
 
-                val container = ExpectImpl.assertionVerbBuilder(1.0)
+                val container = ExpectBuilder.forSubject(1.0)
                     .withVerb("custom assertion verb")
-                    .withCustomReporter(
-                        coreFactory.newOnlyFailureReporter(
-                            coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController()),
-                            coreFactory.newNoOpAtriumErrorAdjuster()
+                    .withOptions(
+                        ExpectOptions(
+                            reporter = coreFactory.newOnlyFailureReporter(
+                                coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController()),
+                                coreFactory.newNoOpAtriumErrorAdjuster()
+                            )
                         )
                     )
                     .build()

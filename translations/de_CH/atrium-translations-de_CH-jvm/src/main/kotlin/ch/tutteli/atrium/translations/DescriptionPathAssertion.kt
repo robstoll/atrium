@@ -3,7 +3,11 @@ package ch.tutteli.atrium.translations
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 enum class DescriptionPathAssertion(override val value: String) : StringBasedTranslatable {
+    DOES_NOT_HAVE_PARENT("hat keinen Elternpfad"),
     EXIST("existieren"),
+    ENDS_WITH("endet mit"),
+    PARENT("Elternpfad"),
+    FILE_NAME_WITHOUT_EXTENSION("Dateiname ohne Endung"),
     READABLE("lesbar"),
     WRITABLE("schreibbar"),
     A_FILE("eine Datei"),

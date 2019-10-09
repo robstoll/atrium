@@ -3,17 +3,15 @@ package ch.tutteli.atrium.domain.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
-import ch.tutteli.atrium.domain.builders.reporting.AssertionVerbBuilder
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.domain.builders.reporting.impl.ReporterBuilderImpl
-import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbOptionImpl
+import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
@@ -50,26 +48,6 @@ object ExpectImpl {
      * which inter alia delegates to the implementation of [AssertionCollector].
      */
     inline val collector get() = AssertionCollectorBuilder
-
-    /**
-     * Returns [ReporterBuilder] - helping you to create a custom [Reporter].
-     */
-    val reporterBuilder get(): ReporterBuilder = ReporterBuilderImpl
-
-    /**
-     * Entry point to create an assertion verb for the given [subject] or rather an [Expect] for the given [subject]
-     */
-    fun <T> assertionVerbBuilder(subject: T): AssertionVerbBuilder.AssertionVerbOption<T> =
-        AssertionVerbOptionImpl(Some(subject))
-
-
-    /**
-     * Returns the implementation of [CoreFactory].
-     * In detail, its an `inline` property which returns [ch.tutteli.atrium.core.coreFactory]
-     * which in turn delegates to the implementation via [loadSingleService].
-     */
-    inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
-
 
     //--- assertions ---------------------------------------------------------------------------
 

@@ -1,12 +1,16 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.migration.toAtriumLocale
+import ch.tutteli.atrium.domain.builders.reporting.impl.ReporterBuilderImpl
 import ch.tutteli.atrium.reporting.translating.*
 
 /**
  * Provides options to create a [Translator] or [TranslationSupplier].
  */
 actual interface ReporterBuilder : ReporterBuilderCommon {
+    actual companion object {
+        actual fun create(): ReporterBuilder = ReporterBuilderImpl
+    }
 
     /**
      * Uses [UsingDefaultTranslator] as [Translator] where the given [primaryLocale] is used to format arguments
@@ -27,6 +31,7 @@ actual interface ReporterBuilder : ReporterBuilderCommon {
             "ch.tutteli.atrium.core.migration.toAtriumLocale"
         )
     )
+    //TODO only here to retain backward compatibility - remove with 1.0.0 and move companion object to common
     fun withoutTranslations(primaryLocale: java.util.Locale = java.util.Locale.getDefault()): ObjectFormatterOption =
         @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
         withoutTranslations(primaryLocale.toAtriumLocale())

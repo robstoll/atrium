@@ -4,17 +4,18 @@ package ch.tutteli.atrium.reporting.translating
 /**
  * Represents a translator of [Translatable]s.
  *
- * It shall be more or less compatible with [ResourceBundle] in terms of how candidate [Locale]s are determined.
- * So, more or less the same rules apply as described in [ResourceBundle.Control.getCandidateLocales].
+ * It shall be more or less compatible with [ResourceBundle](https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html)
+ * in terms of how candidate [Locale]s are determined.
+ * So, more or less the same rules apply as described in [ResourceBundle.Control.getCandidateLocales](https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.Control.html#getCandidateLocales-java.lang.String-java.util.Locale-).
  * However, it shall apply an extended fallback mechanism. In case not a single properties file could be found
- * for one of the candidate [Locale]s, then instead of falling back to [Locale.getDefault] (as [ResourceBundle]
- * would do per default), one shall be able to specify fallback [Locale]s oneself -- whether this includes
- * [Locale.getDefault] or not is up to the user of Atrium.
+ * for one of the candidate [Locale]s, then instead of falling back to `java.util.Locale.getDefault`
+ * (as `ResourceBundle` would do per default), one shall be able to specify fallback [Locale]s oneself --
+ * whether this includes `java.util.Locale.getDefault`or not  on a JVM platform is up to the user of Atrium.
  * Moreover, the fallback even applies if a properties file for one of the candidate [Locale]s is specified but does
- * not contain the property which we are looking for ([ResourceBundle] would throw a [MissingResourceException] in
+ * not contain the property which we are looking for (`ResourceBundle` would throw a [MissingResourceException](https://docs.oracle.com/javase/8/docs/api/java/util/MissingResourceException.html) in
  * such a case).
- * Last but not least, it shall never return [Locale.ROOT], a user can define fallback locales on its own, so there is
- * no need for ROOT.
+ * Last but not least, Atrium's [Locale] does not have an equivalent of java.util.Locale.ROOT`;
+ * a user can define fallback locales on its own, so there is no need for `ROOT`.
  *
  * Following an example. `de_CH` is used as primary Locale and `fr_CH` as fallback Locale.
  * We are looking for the translation of `DescriptionAnyAssertions.TO_BE`. The following files exists:
@@ -29,9 +30,9 @@ package ch.tutteli.atrium.reporting.translating
  * - fr => found
  *
  * Notice, that a [Translator] should treat the two special cases Norwegian and Chinese differently than
- * [ResourceBundle] suggests (the actual implementation for Java is buggy anyway).
+ * `ResourceBundle` suggests (the actual implementation for Java is buggy anyway).
  *
- * A [Translator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
+ * A [Translator] should not support [Locale]s with [Locale.language] equal to `no` and
  * should throw an [IllegalArgumentException] instead.
  * A user has to use either `nn` (for Nynorsk) or `nb` (for Bokmål). One can still define the other Locale as
  * fallback if needed (which effectively makes the ambiguous `no` Locale obsolete). As an example, one can define

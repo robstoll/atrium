@@ -1,7 +1,7 @@
 package readme.examples
 
 import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatterCommon
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -11,7 +11,7 @@ class ReadmeReporterFactory : ReporterFactory {
     override val id: String = ID
 
     override fun create(): Reporter {
-        return ExpectImpl.reporterBuilder
+        return ReporterBuilder.create()
             .withoutTranslationsUseDefaultLocale()
             .withObjectFormatter { translator -> ReadmeObjectFormatter(translator) }
             .withDefaultAssertionFormatterController()
