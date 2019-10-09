@@ -16,6 +16,8 @@ import java.nio.file.Paths
 abstract class PathAssertionsSpec(
     exists: Fun0<Path>,
     existsNot: Fun0<Path>,
+    startsWith: Fun1<Path, Path>,
+    startsNotWith: Fun1<Path, Path>,
     endsWith: Fun1<Path, Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -87,6 +89,30 @@ abstract class PathAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(expectedMessageIfExisting)
                 }
+            }
+        }
+    }
+
+    describeFun(startsWith.name) {
+        val startsWithFun = startsWith.lambda
+        context("starts with") {
+            it("does not throw") {
+                expect(Paths.get("/some/path/for/test"))
+                    .startsWithFun(Paths.get("/some/path/"))
+            }
+        }
+    }
+
+    describeFun(startsNotWith.name) {
+        val startsNotWithFun = startsNotWith.lambda
+        context("starts not with") {
+            it("does not throw") {
+                expect(Paths.get("/some/path/for/test"))
+                    .startsNotWithFun(Paths.get("/other/path/"))
+            }
+            it("does not match partials") {
+                expect(Paths.get("/some/path/for/test"))
+                    .startsNotWithFun(Paths.get("/some/pa"))
             }
         }
     }

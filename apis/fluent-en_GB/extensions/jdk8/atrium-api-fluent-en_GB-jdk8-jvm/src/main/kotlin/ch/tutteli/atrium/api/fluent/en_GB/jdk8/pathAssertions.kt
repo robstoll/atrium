@@ -6,6 +6,28 @@ import ch.tutteli.atrium.domain.builders.path
 import java.nio.file.Path
 
 /**
+ * Expects that the subject of the assertion (a [Path]) starts with the expected [Path].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
+    addAssertion(ExpectImpl.path.startsWith(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) does not start with the expected [Path].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
+    addAssertion(ExpectImpl.path.startsNotWith(this, expected))
+
+/**
  * Expects that the subject of the assertion (a [Path]) ends with the expected [Path].
  *
  * @return This assertion container to support a fluent API.

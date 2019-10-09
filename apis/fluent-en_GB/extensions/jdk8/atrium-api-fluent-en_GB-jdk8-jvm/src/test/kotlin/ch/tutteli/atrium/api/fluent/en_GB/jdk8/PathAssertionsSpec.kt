@@ -10,6 +10,8 @@ import java.nio.file.Paths
 class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpec(
     fun0(Expect<Path>::exists),
     fun0(Expect<Path>::existsNot),
+    fun1(Expect<Path>::startsWith),
+    fun1(Expect<Path>::startsNotWith),
     fun1(Expect<Path>::endsWith)
 ){
     @Suppress("unused", "UNUSED_VALUE")
