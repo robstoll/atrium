@@ -224,12 +224,8 @@ abstract class CharSequenceAssertionsSpec(
                     fluent.matchesFun(Regex("Hello"))
                 }.toThrow<AssertionError> { messageContains(MATCHES.getDefault()) }
             }
-
-            // TODO does this run?
             it("${matches.name} '^Hello.+' does not throw") {
-                expect {
-                    fluent.matchesFun(Regex("^Hello.+"))
-                }
+                fluent.matchesFun(Regex("^Hello.+"))
             }
         }
     }
