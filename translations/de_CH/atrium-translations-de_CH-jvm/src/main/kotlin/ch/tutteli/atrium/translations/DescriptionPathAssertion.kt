@@ -7,4 +7,5 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     EXIST("existieren"),
     ENDS_WITH("endet mit"),
     PARENT("übergeordneter Pfad"),
+    FILE_NAME_WITHOUT_EXTENSION("Dateiname ohne Endung"),
 }

@@ -16,4 +16,5 @@ import java.time.LocalDateTime
 object LocalDateTimeAssertionsBuilder : LocalDateTimeAssertions {
     override inline fun year(assertionContainer: Expect<LocalDateTime>) = localDateTimeAssertions.year(assertionContainer)
 
+    override inline fun month(assertionContainer: Expect<LocalDateTime>) = localDateTimeAssertions.month(assertionContainer)
 }

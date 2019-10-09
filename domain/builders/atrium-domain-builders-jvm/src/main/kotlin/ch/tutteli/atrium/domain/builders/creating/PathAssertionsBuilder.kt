@@ -25,4 +25,7 @@ object PathAssertionsBuilder : PathAssertions {
 
     override inline fun <T : Path> parent(assertionContainer: Expect<T>) =
         pathAssertions.parent(assertionContainer)
+
+    override inline fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =
+        pathAssertions.fileNameWithoutExtension(assertionContainer)
 }

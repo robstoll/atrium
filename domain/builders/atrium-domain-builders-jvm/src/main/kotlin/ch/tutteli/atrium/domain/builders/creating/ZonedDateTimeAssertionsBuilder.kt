@@ -16,4 +16,5 @@ import java.time.ZonedDateTime
 object ZonedDateTimeAssertionsBuilder : ZonedDateTimeAssertions {
     override inline fun year(assertionContainer: Expect<ZonedDateTime>) = zonedDateTimeAssertions.year(assertionContainer)
 
+    override inline fun month(assertionContainer: Expect<ZonedDateTime>) = zonedDateTimeAssertions.month(assertionContainer)
 }
