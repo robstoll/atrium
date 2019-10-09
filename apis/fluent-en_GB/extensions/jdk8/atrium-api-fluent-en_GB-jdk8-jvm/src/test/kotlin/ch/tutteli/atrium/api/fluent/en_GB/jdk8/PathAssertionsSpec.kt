@@ -34,5 +34,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
 
         a1.endsWith(Paths.get("a"))
         a2.endsWith(Paths.get("a"))
+
+        a1.endsNotWith(Paths.get("a"))
+        a2.endsNotWith(Paths.get("a"))
     }
 }

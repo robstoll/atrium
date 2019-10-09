@@ -23,7 +23,7 @@ interface PathAssertions {
 
     fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path): Assertion
 
-    fun <T : Path> endsNotWith(assertionContainer: Expect<T>, expected: T): Assertion
+    fun <T : Path> endsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion
 
     fun <T : Path> exists(assertionContainer: Expect<T>): Assertion
     fun <T : Path> existsNot(assertionContainer: Expect<T>): Assertion

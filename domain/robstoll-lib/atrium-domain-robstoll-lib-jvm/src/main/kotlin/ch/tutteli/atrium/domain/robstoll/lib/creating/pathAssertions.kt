@@ -22,7 +22,7 @@ fun <T: Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Ass
 fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
 
-fun <T : Path> _endsNotWith(assertionContainer: Expect<T>, expected: T) =
+fun <T : Path> _endsNotWith(assertionContainer: Expect<T>, expected: Path) =
     ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
 fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =

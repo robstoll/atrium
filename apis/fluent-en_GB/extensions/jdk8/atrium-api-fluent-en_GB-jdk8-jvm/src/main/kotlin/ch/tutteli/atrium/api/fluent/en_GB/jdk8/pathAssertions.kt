@@ -47,7 +47,7 @@ fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
-fun <T : Path> Expect<T>.endsNotWith(expected: T): Expect<T> =
+fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.endsNotWith(this, expected))
 
 /**
