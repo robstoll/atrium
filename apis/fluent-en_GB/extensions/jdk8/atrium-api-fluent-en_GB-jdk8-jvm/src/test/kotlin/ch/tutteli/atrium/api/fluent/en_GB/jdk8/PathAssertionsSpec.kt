@@ -25,6 +25,12 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a2.existsNot()
         a2.existsNot()
 
+        a1.startsWith(Paths.get("a"))
+        a2.startsWith(Paths.get("a"))
+
+        a1.startsNotWith(Paths.get("a"))
+        a2.startsNotWith(Paths.get("a"))
+
         a1.endsWith(Paths.get("a"))
         a2.endsWith(Paths.get("a"))
     }
