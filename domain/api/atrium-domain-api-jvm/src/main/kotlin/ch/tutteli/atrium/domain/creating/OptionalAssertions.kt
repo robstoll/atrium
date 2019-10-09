@@ -17,5 +17,5 @@ val optionalAssertions by lazy { loadSingleService(OptionalAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface OptionalAssertions {
-    fun <T> isEmpty(assertionContainer: Expect<Optional<T>>): Assertion
+    fun <E, T: Optional<E>> isEmpty(assertionContainer: Expect<T>): Assertion
 }

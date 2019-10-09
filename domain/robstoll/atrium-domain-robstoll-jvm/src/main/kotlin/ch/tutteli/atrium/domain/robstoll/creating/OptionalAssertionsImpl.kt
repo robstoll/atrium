@@ -8,5 +8,5 @@ import java.util.*
 
 class OptionalAssertionsImpl : OptionalAssertions {
 
-    override fun <T> isEmpty(assertionContainer: Expect<Optional<T>>) = _isEmpty(assertionContainer)
+    override fun <E, T: Optional<E>> isEmpty(assertionContainer: Expect<T>) = _isEmpty(assertionContainer)
 }

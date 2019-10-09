@@ -14,7 +14,7 @@ import java.time.ZonedDateTime
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ZonedDateTimeAssertionsBuilder : ZonedDateTimeAssertions {
-    override inline fun year(assertionContainer: Expect<ZonedDateTime>) = zonedDateTimeAssertions.year(assertionContainer)
+    override inline fun <T: ZonedDateTime> year(assertionContainer: Expect<T>) = zonedDateTimeAssertions.year(assertionContainer)
 
-    override inline fun month(assertionContainer: Expect<ZonedDateTime>) = zonedDateTimeAssertions.month(assertionContainer)
+    override inline fun <T: ZonedDateTime> month(assertionContainer: Expect<T>) = zonedDateTimeAssertions.month(assertionContainer)
 }

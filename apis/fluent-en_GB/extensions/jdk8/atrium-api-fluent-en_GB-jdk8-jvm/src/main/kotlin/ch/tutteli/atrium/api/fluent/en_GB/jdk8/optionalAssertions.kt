@@ -16,4 +16,4 @@ import java.util.*
  *
  * @since 0.9.0
  */
-fun <T> Expect<Optional<T>>.isEmpty() = addAssertion(ExpectImpl.optional.isEmpty(this))
+fun <E, T: Optional<E>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.optional.isEmpty(this))
