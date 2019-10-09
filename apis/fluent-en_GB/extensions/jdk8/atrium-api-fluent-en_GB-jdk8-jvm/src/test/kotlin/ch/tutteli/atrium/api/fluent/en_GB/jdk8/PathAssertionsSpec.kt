@@ -5,6 +5,7 @@ import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import java.nio.file.Path
+import java.nio.file.Paths
 
 class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpec(
     fun0(Expect<Path>::exists),
@@ -21,5 +22,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
 
         a2.existsNot()
         a2.existsNot()
+
+        a1.endsWith(Paths.get("a"))
+        a2.endsWith(Paths.get("a"))
     }
 }
