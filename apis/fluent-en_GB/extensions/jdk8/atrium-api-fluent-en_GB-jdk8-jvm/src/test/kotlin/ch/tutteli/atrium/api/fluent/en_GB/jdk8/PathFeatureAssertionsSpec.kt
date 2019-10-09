@@ -8,7 +8,9 @@ import java.nio.file.Path
 
 class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatureAssertionsSpec(
     property<Path, Path>(Expect<Path>::parent),
-    fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent)
+    fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
+    property<Path, String>(Expect<Path>::fileNameWithoutExtension),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileNameWithoutExtension)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.path
 import java.nio.file.Path
+import ch.tutteli.niok.fileNameWithoutExtension
 
 /**
  * Expects that the subject of the assertion (a [Path]) exists;
@@ -55,3 +56,29 @@ val <T : Path> Expect<T>.parent get(): Expect<Path> = ExpectImpl.path.parent(thi
  */
 fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [Path.fileNameWithoutExtension]
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+val <T : Path> Expect<T>.fileNameWithoutExtension
+    get(): Expect<String> = ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [Path.fileNameWithoutExtension] (provided via [niok](https://github.com/robstoll/niok))
+ * of the subject of the assertion holds all assertions the given [assertionCreator] creates for it
+ * and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+    ExpectImpl.path.fileNameWithoutExtension(this).addToInitial(assertionCreator)
