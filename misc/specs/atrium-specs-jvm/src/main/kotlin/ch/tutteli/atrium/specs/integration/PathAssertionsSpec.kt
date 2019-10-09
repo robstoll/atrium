@@ -99,7 +99,7 @@ abstract class PathAssertionsSpec(
                     .endsWithFun(Paths.get("for/test"))
             }
         }
-        val expectedMessageIfNotEndsWith = "${TO.getDefault()}: ${DescriptionPathAssertion.ENDS_WITH.getDefault()}"
+        val expectedMessageIfNotEndsWith = "${DescriptionPathAssertion.ENDS_WITH.getDefault()}:"
 
         context("not ends with") {
             it("throws an AssertionError") {

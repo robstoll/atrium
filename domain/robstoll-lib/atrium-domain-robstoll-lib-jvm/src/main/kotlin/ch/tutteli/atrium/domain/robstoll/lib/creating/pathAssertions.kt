@@ -21,8 +21,8 @@ fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
 fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, NOT_TO, RawString.create(EXIST)) { it.notExists }
 
-fun <T : Path> _endsWith(assertionContainer: Expect<T>, other: T): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, TO, RawString.create(ENDS_WITH)) { it.endsWith(other) }
+fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: T): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
 
 fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.extractor(assertionContainer)
