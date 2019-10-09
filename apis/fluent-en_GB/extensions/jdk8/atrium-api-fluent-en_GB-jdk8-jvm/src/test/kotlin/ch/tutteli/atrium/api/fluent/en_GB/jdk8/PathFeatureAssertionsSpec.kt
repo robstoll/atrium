@@ -5,6 +5,7 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 import java.nio.file.Path
+import java.nio.file.Paths
 
 class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatureAssertionsSpec(
     property<Path, Path>(Expect<Path>::parent),
@@ -26,5 +27,8 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
         a1 = a1.fileNameWithoutExtension { }
         a2.fileNameWithoutExtension
         a2 = a2.fileNameWithoutExtension {  }
+
+        a1.endsWith(Paths.get("a"))
+        a2.endsWith(Paths.get("a"))
     }
 }

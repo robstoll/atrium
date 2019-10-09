@@ -18,9 +18,12 @@ val pathAssertions by lazy { loadSingleService(PathAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface PathAssertions {
+    fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path): Assertion
+
     fun <T : Path> exists(assertionContainer: Expect<T>): Assertion
     fun <T : Path> existsNot(assertionContainer: Expect<T>): Assertion
-    fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: T): Assertion
-    fun <T : Path> parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path>
+
     fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String>
+
+    fun <T : Path> parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path>
 }

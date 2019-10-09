@@ -14,18 +14,18 @@ import java.nio.file.Path
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object PathAssertionsBuilder : PathAssertions {
+    override fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path) =
+        pathAssertions.endsWith(assertionContainer, expected)
+
     override inline fun <T : Path> exists(assertionContainer: Expect<T>) =
         pathAssertions.exists(assertionContainer)
 
     override inline fun <T : Path> existsNot(assertionContainer: Expect<T>) =
         pathAssertions.existsNot(assertionContainer)
 
-    override fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: T) =
-        pathAssertions.endsWith(assertionContainer, expected)
+    override inline fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =
+        pathAssertions.fileNameWithoutExtension(assertionContainer)
 
     override inline fun <T : Path> parent(assertionContainer: Expect<T>) =
         pathAssertions.parent(assertionContainer)
-
-    override inline fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =
-        pathAssertions.fileNameWithoutExtension(assertionContainer)
 }
