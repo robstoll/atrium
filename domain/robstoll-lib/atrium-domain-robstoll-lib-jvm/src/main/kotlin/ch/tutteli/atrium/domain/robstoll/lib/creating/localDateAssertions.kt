@@ -6,10 +6,10 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import java.time.LocalDate
 
-fun _year(assertionContainer: Expect<LocalDate>): ExtractedFeaturePostStep<LocalDate, Int> =
+fun <T: LocalDate> _year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.YEAR) { year }
 
-fun _month(assertionContainer: Expect<LocalDate>): ExtractedFeaturePostStep<LocalDate, Int> =
+fun <T: LocalDate> _month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
 
 

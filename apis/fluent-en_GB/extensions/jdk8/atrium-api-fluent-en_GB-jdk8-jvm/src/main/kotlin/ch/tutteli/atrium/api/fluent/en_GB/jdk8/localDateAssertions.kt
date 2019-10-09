@@ -14,7 +14,7 @@ import java.time.LocalDate
  *
  * @since 0.9.0
  */
-val Expect<LocalDate>.year get(): Expect<Int> = ExpectImpl.localDate.year(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.year get(): Expect<Int> = ExpectImpl.localDate.year(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.year][LocalDate.getYear]of the subject of the assertion
@@ -25,7 +25,7 @@ val Expect<LocalDate>.year get(): Expect<Int> = ExpectImpl.localDate.year(this).
  *
  * @since 0.9.0
  */
-fun Expect<LocalDate>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDate> =
+fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.year(this).addToInitial(assertionCreator)
 
 /**
@@ -36,7 +36,7 @@ fun Expect<LocalDate>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<Loc
  *
  * @since 0.9.0
  */
-val Expect<LocalDate>.month get(): Expect<Int> = ExpectImpl.localDate.month(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.month get(): Expect<Int> = ExpectImpl.localDate.month(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.month][LocalDate.getMonthValue]of the subject of the assertion
@@ -47,5 +47,5 @@ val Expect<LocalDate>.month get(): Expect<Int> = ExpectImpl.localDate.month(this
  *
  * @since 0.9.0
  */
-fun Expect<LocalDate>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDate> =
+fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.month(this).addToInitial(assertionCreator)

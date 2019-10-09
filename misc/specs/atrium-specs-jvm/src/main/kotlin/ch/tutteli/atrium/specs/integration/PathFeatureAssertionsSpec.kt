@@ -35,6 +35,9 @@ abstract class PathFeatureAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
+    val fileNameWithoutExtensionDescr = DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault()
+    val doesNotHaveParentDescr = DescriptionPathAssertion.DOES_NOT_HAVE_PARENT.getDefault()
+
     describeFun("val ${parentFeature.name}") {
         val parentVal = parentFeature.lambda
 
@@ -60,7 +63,7 @@ abstract class PathFeatureAssertionsSpec(
                     val rootFolder = tempFolder.tmpDir.root
                     expect(rootFolder).parentVal().toBe(rootFolder)
                 }.toThrow<AssertionError> {
-                    messageContains("does not have a parent")
+                    messageContains(doesNotHaveParentDescr)
                 }
             }
         }
@@ -91,11 +94,12 @@ abstract class PathFeatureAssertionsSpec(
                     val rootFolder = tempFolder.tmpDir.root
                     expect(rootFolder).parentFun { toBe(rootFolder) }
                 }.toThrow<AssertionError> {
-                    messageContains("does not have a parent")
+                    messageContains(doesNotHaveParentDescr)
                 }
             }
         }
     }
+
 
     describeFun("val ${fileNameWithoutExtensionFeature.name}") {
         val fileNameWithoutExtensionVal = fileNameWithoutExtensionFeature.lambda
@@ -108,7 +112,7 @@ abstract class PathFeatureAssertionsSpec(
                 expect {
                     expect(Paths.get("a/my.txt")).fileNameWithoutExtensionVal().toBe("my.txt")
                 }.toThrow<AssertionError> {
-                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                    messageContains("$fileNameWithoutExtensionDescr: \"my\"")
                 }
             }
         }
@@ -125,34 +129,21 @@ abstract class PathFeatureAssertionsSpec(
                 expect {
                     expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my.txt") }
                 }.toThrow<AssertionError> {
-                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                    messageContains("$fileNameWithoutExtensionDescr: \"my\"")
                 }
             }
         }
 
-        context("path with no extension") {
+        val directory = "a/my/"
+        context("directory $directory") {
             it("toBe(my) holds") {
-                expect(Paths.get("a/my")).fileNameWithoutExtensionFun { toBe("my") }
-            }
-            it("toBe(my.txt) fails") {
-                expect {
-                    expect(Paths.get("a/my")).fileNameWithoutExtensionFun { toBe("my.txt") }
-                }.toThrow<AssertionError> {
-                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
-                }
-            }
-
-        }
-
-        context("directory") {
-            it("toBe(my) holds") {
-                expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toBe("my") }
+                expect(Paths.get(directory)).fileNameWithoutExtensionFun { toBe("my") }
             }
             it("toBe(my.txt) fails") {
                 expect {
                     expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toBe("my.txt") }
                 }.toThrow<AssertionError> {
-                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                    messageContains("$fileNameWithoutExtensionDescr: \"my\"")
                 }
             }
         }
@@ -165,7 +156,7 @@ abstract class PathFeatureAssertionsSpec(
                 expect {
                     expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my") }
                 }.toThrow<AssertionError> {
-                    messageContains(DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault())
+                    messageContains("$fileNameWithoutExtensionDescr: \"my.tar\"")
                 }
             }
         }

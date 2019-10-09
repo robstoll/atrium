@@ -218,7 +218,11 @@ configure(subprojects - commonProjects - jsProjects - jsSamples) {
         logging.setLevel(LogLevel.QUIET)
     }
     compileKotlin {
-        kotlinOptions.languageVersion = '1.2'
+        kotlinOptions {
+            languageVersion = '1.2'
+            //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-34257 is fixed
+            allWarningsAsErrors = false
+        }
     }
 }
 
@@ -241,10 +245,6 @@ configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
     spek.version = '1.1.5'
-
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
 
     dependencies {
         testImplementation mockito(), excludeKotlin

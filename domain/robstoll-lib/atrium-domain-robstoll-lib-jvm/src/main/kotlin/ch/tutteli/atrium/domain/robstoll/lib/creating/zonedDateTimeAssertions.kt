@@ -6,10 +6,10 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import java.time.ZonedDateTime
 
-fun _year(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int> =
+fun <T: ZonedDateTime> _year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.YEAR) { year }
 
-fun _month(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int> =
+fun <T: ZonedDateTime> _month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
 
 

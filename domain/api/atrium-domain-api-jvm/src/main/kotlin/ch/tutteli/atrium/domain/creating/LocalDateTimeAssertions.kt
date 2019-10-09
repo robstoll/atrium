@@ -17,7 +17,7 @@ val localDateTimeAssertions by lazy { loadSingleService(LocalDateTimeAssertions:
  * which an implementation of the domain of Atrium has to provide.
  */
 interface LocalDateTimeAssertions {
-    fun year(assertionContainer: Expect<LocalDateTime>): ExtractedFeaturePostStep<LocalDateTime, Int>
+    fun <T: LocalDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun month(assertionContainer: Expect<LocalDateTime>): ExtractedFeaturePostStep<LocalDateTime, Int>
+    fun <T: LocalDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 }
