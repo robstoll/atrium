@@ -202,7 +202,7 @@ interface AssertionBuilder {
      *   possible that [AssertionPlant.maybeSubject] is [None].
      */
     //TODO remove @throws with 1.0.0
-    fun <T>     createDescriptive(
+    fun <T> createDescriptive(
         subjectProvider: SubjectProvider<T>,
         description: Translatable,
         representation: Any?,

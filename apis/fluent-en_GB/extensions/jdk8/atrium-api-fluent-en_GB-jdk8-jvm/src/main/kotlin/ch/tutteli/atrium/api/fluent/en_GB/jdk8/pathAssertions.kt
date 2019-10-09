@@ -89,9 +89,8 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.e
  *
  * @since 0.9.0
  */
-val <T : Path> Expect<T>.fileNameWithoutExtension
-    get(): Expect<String> =
-        ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
+val <T : Path> Expect<T>.fileNameWithoutExtension get(): Expect<String> =
+    ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
