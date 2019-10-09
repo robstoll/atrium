@@ -3,11 +3,11 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * The base interface for [Assertion]s which only consist of a [representation] of an expected result
+ * The base interface for [Assertion]s which consist of a [representation] of an expected result
  * with a complementary [description].
  *
- * E.g., the assertion `is not: null` could be represented with this type where `null` is the [representation] and
- * `is not` the complementary description.
+ * For instance, the assertion `is not: null` could be represented with this type where `null` is the [representation]
+ * and `is not` the complementary [description].
  */
 interface DescriptiveAssertion : Assertion {
     /**

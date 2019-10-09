@@ -54,16 +54,24 @@ class TextFallbackAssertionFormatter(
         parameterObject.appendLnIndentAndPrefix()
         when (assertion) {
             is DescriptiveAssertion -> appendDescriptiveAssertion(assertion, parameterObject)
+            is RepresentationOnlyAssertion -> appendRepresentationOnlyAssertion(assertion, parameterObject)
             is ExplanatoryAssertion -> appendExplanatoryAssertion(assertion, parameterObject)
             else -> formatFallback(assertion, parameterObject)
         }
     }
 
     private fun appendDescriptiveAssertion(
-        basicAssertion: DescriptiveAssertion,
+        assertion: DescriptiveAssertion,
         parameterObject: AssertionFormatterParameterObject
     ) {
-        assertionPairFormatter.format(parameterObject, basicAssertion.description, basicAssertion.representation)
+        assertionPairFormatter.format(parameterObject, assertion.description, assertion.representation)
+    }
+
+    private fun appendRepresentationOnlyAssertion(
+        assertion: RepresentationOnlyAssertion,
+        parameterObject: AssertionFormatterParameterObject
+    ) {
+        parameterObject.sb.append(objectFormatter.format(assertion.representation))
     }
 
     private fun appendExplanatoryAssertion(

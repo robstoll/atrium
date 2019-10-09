@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -31,4 +32,5 @@ interface CharSequenceAssertions {
     fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion
     fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion
     fun matches(subjectProvider: SubjectProvider<CharSequence>, pattern: Regex): Assertion
+    fun <T : CharSequence> mismatches(assertionContainer: Expect<T>, expected: Regex): Assertion
 }

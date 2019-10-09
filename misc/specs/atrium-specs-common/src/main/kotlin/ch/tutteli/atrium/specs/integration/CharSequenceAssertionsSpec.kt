@@ -23,6 +23,7 @@ abstract class CharSequenceAssertionsSpec(
     endsNotWith: Fun1<CharSequence, CharSequence>,
     endsNotWithChar: Fun1<CharSequence, Char>,
     matches: Fun1<CharSequence, Regex>,
+    mismatches: Fun1<CharSequence, Regex>,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -39,7 +40,8 @@ abstract class CharSequenceAssertionsSpec(
         endsWithChar.forSubjectLess('\u0000'),
         endsNotWith.forSubjectLess(""),
         endsNotWithChar.forSubjectLess('\u0000'),
-        matches.forSubjectLess(Regex(""))
+        matches.forSubjectLess(Regex("")),
+        mismatches.forSubjectLess(Regex(""))
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -226,6 +228,22 @@ abstract class CharSequenceAssertionsSpec(
             }
             it("${matches.name} '^Hello.+' does not throw") {
                 fluent.matchesFun(Regex("^Hello.+"))
+            }
+        }
+    }
+
+    describeFun(mismatches.name){
+        val mismatchesFun = mismatches.lambda
+
+        context("text '$text"){
+            it("${mismatches.name} 'Hello' does not throw"){
+                fluent.mismatchesFun(Regex("Hello"))
+            }
+
+            it("${mismatches.name} 'Hello my name is Robert' throws an AssertionError"){
+                expect {
+                    fluent.mismatchesFun(Regex("Hello my name is Robert"))
+                }.toThrow<AssertionError> { messageContains(MISMATCHES.getDefault()) }
             }
         }
     }

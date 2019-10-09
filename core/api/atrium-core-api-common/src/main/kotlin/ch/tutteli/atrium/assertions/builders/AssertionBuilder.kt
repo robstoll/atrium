@@ -72,6 +72,8 @@ interface AssertionBuilder {
      * Builder to create a [DescriptiveAssertion] -- use it to create a simple assertion consisting of a
      * [DescriptiveAssertion.description] (such as `is less than`) and a [DescriptiveAssertion.representation]
      * (which most of time corresponds to the expected value).
+     *
+     * Use [representationOnly] in case your assertion does not require a description.
      */
     val descriptive: Descriptive.HoldsOption
 
@@ -80,9 +82,18 @@ interface AssertionBuilder {
      * [ObjectFormatter] -- has to be a child of an [ExplanatoryGroup] (see [explanatoryGroup]).
      *
      * For instance, it is used to explain additional entries in an [Iterable] `contains entries` assertion.
-     * It is typically used in an [explanatoryGroup].
+     *
+     * Use [representationOnly] instead if the assertion can also fail.
      */
     val explanatory: Explanatory.ExplanationOption
+
+    /**
+     * Builder to create an [RepresentationOnlyAssertion] -- typically used within an [AssertionGroup] where the
+     * description of the group gives enough context, so that this assertion does not require an additional description.
+     *
+     * Use [descriptive] in case the assertion requires an additional description.
+     */
+    val representationOnly: RepresentationOnly.HoldsStep
 
     /**
      * Builder to create a basic [AssertionGroup] with a custom [AssertionGroupType].

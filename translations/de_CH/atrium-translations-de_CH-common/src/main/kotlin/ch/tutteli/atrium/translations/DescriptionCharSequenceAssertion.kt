@@ -18,6 +18,7 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : String
     EXACTLY("ist genau"),
     IGNORING_CASE("%s, Gross-/Kleinschreibung ignorierend"),
     MATCHES("stimmt vollständig überein mit"),
+    MISMATCHES("stimmt nicht vollständig überein mit"),
     NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
     STARTS_WITH("beginnt mit"),
     STARTS_NOT_WITH("beginnt nicht mit"),

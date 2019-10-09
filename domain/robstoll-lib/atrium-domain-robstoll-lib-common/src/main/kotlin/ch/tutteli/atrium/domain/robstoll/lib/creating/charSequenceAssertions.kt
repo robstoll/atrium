@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
@@ -45,3 +46,6 @@ fun _isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion =
 
 fun _matches(subjectProvider: SubjectProvider<CharSequence>, pattern: Regex): Assertion =
     AssertImpl.builder.createDescriptive(subjectProvider, MATCHES, pattern) { pattern.matches(it) }
+
+fun <T : CharSequence> _mismatches(assertionContainer: Expect<T>, expected: Regex): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, MISMATCHES, expected) { !it.matches(expected) }
