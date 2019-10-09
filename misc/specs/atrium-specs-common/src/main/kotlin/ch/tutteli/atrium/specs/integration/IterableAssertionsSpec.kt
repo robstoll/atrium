@@ -7,7 +7,6 @@ import ch.tutteli.atrium.specs.Fun0
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.include
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.translations.DescriptionBasic
