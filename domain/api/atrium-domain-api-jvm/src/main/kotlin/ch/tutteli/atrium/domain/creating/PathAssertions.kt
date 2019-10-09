@@ -20,6 +20,7 @@ val pathAssertions by lazy { loadSingleService(PathAssertions::class) }
 interface PathAssertions {
     fun <T : Path> exists(assertionContainer: Expect<T>): Assertion
     fun <T : Path> existsNot(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: T): Assertion
     fun <T : Path> parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path>
     fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String>
 }
