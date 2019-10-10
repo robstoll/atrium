@@ -24,7 +24,7 @@ fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, NOT_TO, RawString.create(EXIST)) { it.notExists }
 
 fun <T : Path> _fileName(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionPathAssertion.FILE_NAME) { fileName.toString() }
+    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME) { fileName.toString() }
 
 fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
     ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
