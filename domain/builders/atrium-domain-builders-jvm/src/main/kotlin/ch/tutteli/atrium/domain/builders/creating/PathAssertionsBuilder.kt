@@ -20,7 +20,7 @@ object PathAssertionsBuilder : PathAssertions {
     override fun <T : Path> startsNotWith(assertionContainer: Expect<T>, expected: Path) =
         pathAssertions.startsNotWith(assertionContainer, expected)
 
-    override fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path) =
+    override inline fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path) =
         pathAssertions.endsWith(assertionContainer, expected)
 
     override inline fun <T : Path> endsNotWith(assertionContainer: Expect<T>, expected: Path) =
