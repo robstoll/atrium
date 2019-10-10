@@ -14,6 +14,12 @@ import java.nio.file.Path
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object PathAssertionsBuilder : PathAssertions {
+    override fun <T : Path> startsWith(assertionContainer: Expect<T>, expected: Path) =
+        pathAssertions.startsWith(assertionContainer, expected)
+
+    override fun <T : Path> startsNotWith(assertionContainer: Expect<T>, expected: Path) =
+        pathAssertions.startsNotWith(assertionContainer, expected)
+
     override fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path) =
         pathAssertions.endsWith(assertionContainer, expected)
 
