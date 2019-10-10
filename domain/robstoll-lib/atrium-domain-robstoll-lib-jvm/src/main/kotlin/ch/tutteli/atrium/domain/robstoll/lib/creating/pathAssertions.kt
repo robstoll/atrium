@@ -7,6 +7,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
 import ch.tutteli.atrium.translations.DescriptionBasic.TO
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.exists
 import ch.tutteli.niok.fileNameWithoutExtension
