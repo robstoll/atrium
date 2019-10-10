@@ -39,6 +39,18 @@ fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.endsWith(this, expected))
 
 /**
+ * Expects that the subject of the assertion (a [Path]) does not end with the expected [Path];
+ *
+ * @param expected The [Path] provided to the assertion
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
+    addAssertion(ExpectImpl.path.endsNotWith(this, expected))
+
+/**
  * Expects that the subject of the assertion (a [Path]) exists;
  *
  * meaning that there is a file system entry at the location the [Path] points to.

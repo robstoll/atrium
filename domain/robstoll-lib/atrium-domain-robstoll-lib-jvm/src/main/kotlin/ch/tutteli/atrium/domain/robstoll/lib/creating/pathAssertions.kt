@@ -7,7 +7,6 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
 import ch.tutteli.atrium.translations.DescriptionBasic.TO
-import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.exists
 import ch.tutteli.niok.fileNameWithoutExtension
@@ -23,6 +22,9 @@ fun <T: Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Ass
 fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
 
+fun <T : Path> _endsNotWith(assertionContainer: Expect<T>, expected: Path) =
+    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
+
 fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, TO, RawString.create(EXIST)) { it.exists }
 
@@ -34,7 +36,7 @@ fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): Extract
 
 fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.extractor(assertionContainer)
-        .withDescription(DescriptionPathAssertion.PARENT)
+        .withDescription(PARENT)
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
         .withCheck { it.parent != null }
         .withFeatureExtraction { it.parent }

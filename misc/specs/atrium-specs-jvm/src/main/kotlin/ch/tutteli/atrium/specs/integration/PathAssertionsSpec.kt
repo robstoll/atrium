@@ -19,6 +19,7 @@ abstract class PathAssertionsSpec(
     startsWith: Fun1<Path, Path>,
     startsNotWith: Fun1<Path, Path>,
     endsWith: Fun1<Path, Path>,
+    endsNotWith: Fun1<Path, Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -161,6 +162,27 @@ abstract class PathAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(expectedMessageIfNotEndsWith)
                 }
+            }
+        }
+    }
+
+    describeFun(endsNotWith.name) {
+        val endsNotWithFun = endsNotWith.lambda
+        context("path ends with") {
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("/path/ends/with/this"))
+                        .endsNotWithFun(Paths.get("with/this"))
+                }.toThrow<AssertionError> {
+                    messageContains("${DescriptionPathAssertion.ENDS_NOT_WITH.getDefault()}:")
+                }
+            }
+        }
+
+        context("path does not end with") {
+            it("does not throw") {
+                expect(Paths.get("/path/ends/with/this"))
+                    .endsNotWithFun(Paths.get("with/another"))
             }
         }
     }
