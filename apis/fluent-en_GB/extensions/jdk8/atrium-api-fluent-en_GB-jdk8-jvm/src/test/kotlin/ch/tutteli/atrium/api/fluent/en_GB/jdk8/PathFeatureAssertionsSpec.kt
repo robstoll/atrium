@@ -23,6 +23,11 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
         a2.parent
         a2 = a2.parent { }
 
+        a1.fileName
+        a1 = a1.fileName { }
+        a2.fileName
+        a2 = a2.fileName {  }
+
         a1.fileNameWithoutExtension
         a1 = a1.fileNameWithoutExtension { }
         a2.fileNameWithoutExtension

@@ -61,7 +61,7 @@ val <T : Path> Expect<T>.fileName get(): Expect<String> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Path> Expect<T>.fileNameString(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
 
 /**
