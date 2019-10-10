@@ -10,8 +10,11 @@ import java.nio.file.Paths
 class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpec(
     fun0(Expect<Path>::exists),
     fun0(Expect<Path>::existsNot),
-    fun1(Expect<Path>::endsWith)
-){
+    fun1(Expect<Path>::startsWith),
+    fun1(Expect<Path>::startsNotWith),
+    fun1(Expect<Path>::endsWith),
+    fun1(Expect<Path>::endsNotWith)
+) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Path> = notImplemented()
@@ -23,7 +26,16 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a2.existsNot()
         a2.existsNot()
 
+        a1.startsWith(Paths.get("a"))
+        a2.startsWith(Paths.get("a"))
+
+        a1.startsNotWith(Paths.get("a"))
+        a2.startsNotWith(Paths.get("a"))
+
         a1.endsWith(Paths.get("a"))
         a2.endsWith(Paths.get("a"))
+
+        a1.endsNotWith(Paths.get("a"))
+        a2.endsNotWith(Paths.get("a"))
     }
 }

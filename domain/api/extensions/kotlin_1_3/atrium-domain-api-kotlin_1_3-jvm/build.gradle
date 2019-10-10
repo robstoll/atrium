@@ -1,0 +1,9 @@
+description = 'Kotlin 1.3 specific extension for domain-api-jvm -- will be merged into domain-api-jvm with 1.0.0'
+
+dependencies {
+    api prefixedProject('domain-api-jvm')
+    api prefixedProject('core-api-jvm')
+
+    // it is up to the consumer of atrium-domain-api which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-jvm')
+}

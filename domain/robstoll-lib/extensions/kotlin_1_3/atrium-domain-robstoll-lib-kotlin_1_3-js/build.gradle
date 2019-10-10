@@ -1,0 +1,16 @@
+description = 'Kotlin 1.3 specific extension for domain-robstoll-lib-js -- will be merged into domain-robstoll-lib-js with 1.0.0'
+
+dependencies {
+    api prefixedProject('domain-robstoll-lib-js')
+    api prefixedProject('domain-builders-kotlin_1_3-js')
+
+    implementation prefixedProject('api-fluent-en_GB-js')
+
+    // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-js')
+
+    // TODO remove with 1.0.0
+    implementation prefixedProject('api-cc-en_GB-js')
+
+    testImplementation prefixedProject('verbs-internal-js')
+}
