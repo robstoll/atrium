@@ -36,3 +36,5 @@ dependencies {
 }
 
 srcAndResourcesFromJvmProject(project)
+
+compileKotlin.kotlinOptions.languageVersion = '1.3'

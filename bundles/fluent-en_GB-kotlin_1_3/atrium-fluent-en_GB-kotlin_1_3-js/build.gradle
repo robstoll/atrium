@@ -1,0 +1,15 @@
+description = 'Represents a convenience module which merely bundles dependencies for the js platform.'
+
+dependencies {
+    api prefixedProject('verbs-js')
+    api prefixedProject('api-fluent-en_GB-kotlin_1_3-js')
+    api prefixedProject('translations-en_GB-js')
+    api prefixedProject('domain-builders-js')
+    api prefixedProject('domain-api-js')
+    api prefixedProject('core-api-js')
+
+    implementation prefixedProject('domain-robstoll-js')
+    implementation prefixedProject('core-robstoll-js')
+}
+
+compileKotlin2Js.kotlinOptions.languageVersion = '1.3'

@@ -171,9 +171,9 @@ def jvmProjects = getJvmProjects()
 def multiplatformProjects = commonProjects + jsProjects + jvmProjects
 
 configureCommonProjects()
+configureAndroidProjects()
 configureJsProjects()
 configureJvmProjects()
-configureAndroidProjects()
 
 configure(subprojects - multiplatformProjects - jsSamples) {
     apply plugin: 'kotlin'
@@ -225,6 +225,21 @@ configure(subprojects - commonProjects - jsProjects - jsSamples) {
         }
     }
 }
+
+//allow kotlin 1.3 for kotlin_1_3 modules
+configure(subprojects.findAll { it.name.endsWith('-kotlin_1_3-common')}){
+    compileKotlinCommon.kotlinOptions.languageVersion = '1.3'
+}
+configure(subprojects.findAll { it.name.endsWith('-kotlin_1_3-android')}){
+    compileKotlin.kotlinOptions.languageVersion = '1.3'
+}
+configure(subprojects.findAll { it.name.endsWith('-kotlin_1_3-js')}){
+    compileKotlin2Js.kotlinOptions.languageVersion = '1.3'
+}
+configure(subprojects.findAll { it.name.endsWith('-kotlin_1_3-jvm')}){
+    compileKotlin.kotlinOptions.languageVersion = '1.3'
+}
+
 
 def apiProjects = subprojects.findAll { it.name.startsWith("${rootProject.name}-api") && it.name.endsWith("-jvm") }
 configure(apiProjects) { apiProject ->

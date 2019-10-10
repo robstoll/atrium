@@ -1,0 +1,25 @@
+description = 'Kotlin 1.3 specific assertion functions and builders for fluent-en_GB -- will be merged into fluent-en_GB with 1.0.0'
+
+ext.jacoco_additional = [
+    prefixedProject('domain-builders-jvm'),
+    prefixedProject('domain-robstoll-jvm'),
+    prefixedProject('domain-robstoll-lib-jvm'),
+    prefixedProject('core-robstoll-jvm'),
+    prefixedProject('core-robstoll-lib-jvm'),
+]
+
+dependencies {
+    api prefixedProject('api-fluent-en_GB-jvm')
+    api prefixedProject('domain-builders-kotlin_1_3-jvm')
+
+    testImplementation prefixedProject('specs-jvm')
+}
+
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileTestKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').compileKotlin,
+    prefixedProject('core-robstoll-jvm').processResources,
+    prefixedProject('domain-robstoll-jvm').compileKotlin,
+    prefixedProject('domain-robstoll-jvm').processResources
+)

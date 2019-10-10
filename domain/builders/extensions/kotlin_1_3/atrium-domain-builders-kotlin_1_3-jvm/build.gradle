@@ -1,0 +1,21 @@
+description = 'Kotlin 1.3 specific extension for domain-builders-jvm -- will be merged into domain-builders-jvm with 1.0.0'
+
+dependencies {
+    api prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-kotlin_1_3-jvm')
+
+    // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-jvm')
+
+    testImplementation prefixedProject('api-fluent-en_GB-jvm')
+    testImplementation prefixedProject('specs-jvm')
+}
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileTestKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').compileKotlin,
+    prefixedProject('core-robstoll-jvm').processResources,
+    prefixedProject('domain-robstoll-jvm').compileKotlin,
+    prefixedProject('domain-robstoll-jvm').processResources
+)
+

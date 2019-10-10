@@ -33,3 +33,5 @@ dependencies {
     api "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
     api mockito(), excludeKotlin
 }
+
+compileKotlin.kotlinOptions.languageVersion = '1.3'
