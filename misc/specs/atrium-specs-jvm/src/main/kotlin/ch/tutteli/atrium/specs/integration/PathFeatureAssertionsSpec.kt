@@ -24,14 +24,13 @@ abstract class PathFeatureAssertionsSpec(
 
     val tempFolder = TempFolder.perTest() //or perGroup()
     registerListener(tempFolder)
-    val file = tempFolder.newFile("test")
 
     include(object : SubjectLessSpec<Path>(describePrefix,
         parentFeature.forSubjectLess().adjustName { "$it feature" },
-        parent.forSubjectLess() { },
+        parent.forSubjectLess { },
         fileName.forSubjectLess(),
         fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
-        fileNameWithoutExtension.forSubjectLess() { }
+        fileNameWithoutExtension.forSubjectLess { }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -108,18 +107,18 @@ abstract class PathFeatureAssertionsSpec(
 
         context("File with extension") {
             it("toBe(my) holds") {
-                expect(Paths.get("a/my.txt")).fileNameVal().toBe("my")
+                expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
             }
             it("toBe(my.txt) fails") {
                 expect {
-                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
+                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("my")
                 }.toThrow<AssertionError> {
                     messageContains("$fileNameDescr: \"my\"")
                 }
             }
         }
     }
-    
+
     describeFun("val ${fileNameWithoutExtensionFeature.name}") {
         val fileNameWithoutExtensionVal = fileNameWithoutExtensionFeature.lambda
 
@@ -136,7 +135,7 @@ abstract class PathFeatureAssertionsSpec(
             }
         }
     }
-    
+
     describeFun("fun ${fileNameWithoutExtension.name}") {
         val fileNameWithoutExtensionFun = fileNameWithoutExtension.lambda
 

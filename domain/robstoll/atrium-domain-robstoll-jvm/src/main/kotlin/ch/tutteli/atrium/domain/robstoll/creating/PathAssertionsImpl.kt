@@ -16,9 +16,9 @@ class PathAssertionsImpl : PathAssertions {
         _endsWith(assertionContainer, expected)
 
     override fun <T : Path> exists(assertionContainer: Expect<T>) = _exists(assertionContainer)
-  
+
     override fun <T : Path> existsNot(assertionContainer: Expect<T>) = _existsNot(assertionContainer)
-  
+
     override fun <T : Path> fileName(assertionContainer: Expect<T>) = _fileName(assertionContainer)
 
     override fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =

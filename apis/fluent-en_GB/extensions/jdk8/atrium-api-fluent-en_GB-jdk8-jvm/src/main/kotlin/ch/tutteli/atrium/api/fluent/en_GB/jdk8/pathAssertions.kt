@@ -51,7 +51,8 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.e
  *
  * @return The newly created [Expect].
  */
-val <T : Path> Expect<T>.fileName get(): Expect<Path> = ExpectImpl.path.fileName(this).getExpectOfFeature()
+val <T : Path> Expect<T>.fileName get(): Expect<String> =
+    ExpectImpl.path.fileName(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.fileName] of the subject of the assertion
@@ -60,7 +61,7 @@ val <T : Path> Expect<T>.fileName get(): Expect<Path> = ExpectImpl.path.fileName
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
+fun <T : Path> Expect<T>.fileNameString(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
 
 /**
