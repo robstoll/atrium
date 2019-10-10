@@ -111,7 +111,7 @@ abstract class PathFeatureAssertionsSpec(
             }
             it("toBe(my.txt) fails") {
                 expect {
-                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("my")
+                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("a/my.txt")
                 }.toThrow<AssertionError> {
                     messageContains("$fileNameDescr: \"my\"")
                 }
