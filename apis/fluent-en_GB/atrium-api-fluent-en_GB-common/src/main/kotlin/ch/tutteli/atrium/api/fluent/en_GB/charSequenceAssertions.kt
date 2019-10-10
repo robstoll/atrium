@@ -204,7 +204,8 @@ fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequ
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.matches(pattern: Regex) = addAssertion(ExpectImpl.charSequence.matches(this, pattern))
+fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
+    addAssertion(ExpectImpl.charSequence.matches(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches given [Regex].

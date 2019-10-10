@@ -221,13 +221,14 @@ abstract class CharSequenceAssertionsSpec(
         val matchesFun = matches.lambda
 
         context("text '$text'") {
+            it("${matches.name} '^Hello.+' does not throw") {
+                fluent.matchesFun(Regex("^Hello.+"))
+            }
+
             it("${matches.name} 'Hello' throws an AssertionError") {
                 expect {
                     fluent.matchesFun(Regex("Hello"))
                 }.toThrow<AssertionError> { messageContains(MATCHES.getDefault()) }
-            }
-            it("${matches.name} '^Hello.+' does not throw") {
-                fluent.matchesFun(Regex("^Hello.+"))
             }
         }
     }
