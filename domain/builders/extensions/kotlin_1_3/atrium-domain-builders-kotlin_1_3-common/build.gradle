@@ -1,0 +1,12 @@
+description = 'Kotlin 1.3 specific extension for domain-builders-common -- will be merged into domain-builders-common with 1.0.0'
+
+dependencies {
+    api prefixedProject('domain-builders-common')
+    api prefixedProject('domain-api-kotlin_1_3-common')
+
+    // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-common')
+
+    testImplementation prefixedProject('api-fluent-en_GB-common')
+    testImplementation prefixedProject('specs-common')
+}

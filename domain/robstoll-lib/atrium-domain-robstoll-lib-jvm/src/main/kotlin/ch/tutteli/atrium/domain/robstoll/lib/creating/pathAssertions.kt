@@ -21,8 +21,17 @@ import java.nio.file.attribute.*
 import java.nio.file.attribute.PosixFilePermission.*
 import java.util.*
 
+fun <T: Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }
+
+fun <T: Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
+
 fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
+
+fun <T : Path> _endsNotWith(assertionContainer: Expect<T>, expected: Path) =
+    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
 fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
     changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
@@ -353,7 +362,7 @@ fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): Extract
 
 fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.extractor(assertionContainer)
-        .withDescription(DescriptionPathAssertion.PARENT)
+        .withDescription(PARENT)
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
         .withCheck { it.parent != null }
         .withFeatureExtraction { it.parent }

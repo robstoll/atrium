@@ -38,6 +38,7 @@ include {
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
         kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
         kotlinJvmAndAndroidIfCi(delegate, 'fluent-en_GB-jdk8')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB-kotlin_1_3')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
@@ -51,6 +52,9 @@ include {
             }
             folder('fluent-en_GB-jdk8') {
                 _ 'fluent-en_GB-jdk8-smoke-test'
+            }
+            folder('fluent-en_GB-kotlin_1_3') {
+                _ 'fluent-en_GB-kotlin_1_3-smoke-test'
             }
 
             //TODO remove with 1.0.0
@@ -66,8 +70,10 @@ include {
         folder('fluent-en_GB', 'fluent-en_GB-') {
             extensions {
                 kotlinJvmAndAndroidIfCi(delegate, 'jdk8')
+                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
             }
         }
+
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
     }
 
@@ -76,6 +82,30 @@ include {
         kotlinJvmJsAndAndroidIfCi(delegate, 'builders')
         kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
         kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
+
+        api('api-') {
+            extensions {
+                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+            }
+        }
+
+        builders('builders-') {
+            extensions {
+                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+            }
+        }
+
+        robstoll('robstoll-') {
+            extensions {
+                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+            }
+        }
+
+        folder('robstoll-lib', 'robstoll-lib-') {
+            extensions {
+                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+            }
+        }
     }
 
     core('core-') {

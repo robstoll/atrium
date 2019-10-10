@@ -34,3 +34,5 @@ dependencies {
     api mockito(), excludeKotlin
     api niok(), excludeKotlin
 }
+
+compileKotlin.kotlinOptions.languageVersion = '1.3'
