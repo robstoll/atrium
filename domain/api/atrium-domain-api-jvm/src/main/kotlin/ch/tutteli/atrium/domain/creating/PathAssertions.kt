@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.nio.file.Path
 
 /**
@@ -19,4 +20,5 @@ val pathAssertions by lazy { loadSingleService(PathAssertions::class) }
 interface PathAssertions {
     fun <T : Path> exists(assertionContainer: Expect<T>): Assertion
     fun <T : Path> existsNot(assertionContainer: Expect<T>): Assertion
+    fun <T : Path> fileName(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path>
 }

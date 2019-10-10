@@ -19,4 +19,7 @@ object PathAssertionsBuilder : PathAssertions {
 
     override inline fun <T : Path> existsNot(assertionContainer: Expect<T>) =
         pathAssertions.existsNot(assertionContainer)
+
+    override inline fun <T : Path> fileName(assertionContainer: Expect<T>) =
+        pathAssertions.fileName(assertionContainer)
 }
