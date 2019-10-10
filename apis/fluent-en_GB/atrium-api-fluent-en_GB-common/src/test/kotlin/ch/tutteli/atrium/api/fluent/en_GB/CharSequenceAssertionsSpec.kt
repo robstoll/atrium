@@ -15,5 +15,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.specs.integration.CharSeque
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::endsWith),
     fun1<CharSequence, Char>(Expect<CharSequence>::endsWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::endsNotWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::endsNotWith)
+    fun1<CharSequence, Char>(Expect<CharSequence>::endsNotWith),
+    fun1<CharSequence, Regex>(Expect<CharSequence>::mismatches)
+
 )

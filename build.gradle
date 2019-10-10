@@ -218,7 +218,11 @@ configure(subprojects - commonProjects - jsProjects - jsSamples) {
         logging.setLevel(LogLevel.QUIET)
     }
     compileKotlin {
-        kotlinOptions.languageVersion = '1.2'
+        kotlinOptions {
+            languageVersion = '1.2'
+            //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-34257 is fixed
+            allWarningsAsErrors = false
+        }
     }
 }
 
@@ -241,10 +245,6 @@ configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
     spek.version = '1.1.5'
-
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
 
     dependencies {
         testImplementation mockito(), excludeKotlin
@@ -356,7 +356,10 @@ createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstol
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     !(it in [
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
-        'ch.tutteli.atrium.domain.creating.PathAssertions'
+        'ch.tutteli.atrium.domain.creating.PathAssertions',
+        'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
+        'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
+        'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions'
     ])
 }
 createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }

@@ -93,7 +93,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                expect(throwable.suppressed).asIterable().all {
+                expect(throwable.suppressed).asList().all {
                     feature { f(it::stackBacktrace) }
                         .containsNot.entries(containsNotFirst, *containsNotRest)
                         .contains(containsFirst, *containsRest)
@@ -107,7 +107,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                expect(throwable.suppressed).asIterable().all {
+                expect(throwable.suppressed).asList().all {
                     //TODO #31 replace with shortcut fun
                     feature { f(it::cause) }.notToBeNull {
                         feature { f(it::stackBacktrace) }
@@ -171,7 +171,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable1)
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
-                expect(throwable.suppressed).asIterable().all {
+                expect(throwable.suppressed).asList().all {
                     feature { f(it::stackBacktrace) }.isEmpty()
                 }
             }

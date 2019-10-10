@@ -35,7 +35,7 @@ inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
  *
  * Basically it is a replacement for cast but without introducing one explicitly (we only give an additional hint to the
  * compiler that we expect a nullable type and not a non-nullable one). For instance, instead of writing
- * `getPersons() as List<String?>` you can write `nullableContainer(getPersons())`
+ * `getPersons() as Iterable<String?>` you can write `nullableContainer(getPersons())`
  */
 inline fun <T> nullableContainer(iterable: Iterable<T>): Iterable<T?> = iterable
 

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
@@ -31,4 +32,6 @@ class CharSequenceAssertionsImpl : CharSequenceAssertions {
     override fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>) = _isNotEmpty(subjectProvider)
 
     override fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>) = _isNotBlank(subjectProvider)
+
+    override fun <T : CharSequence> mismatches(assertionContainer: Expect<T>, expected: Regex) = _mismatches(assertionContainer, expected)
 }

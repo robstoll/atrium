@@ -11,12 +11,14 @@ import ch.tutteli.spek.extensions.TempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.nio.file.Path
+import java.nio.file.Paths
 
 abstract class PathFeatureAssertionsSpec(
-    getFeature: Feature1<Path, Int, Int>,
-    get: Fun2<Path, Int, Expect<Int>.() -> Unit>,
-    getNullableFeature: Feature1<Path, Int, Int?>,
-    getNullable: Fun2<Path, Int, Expect<Int?>.() -> Unit>,
+    parentFeature: Feature0<Path, Path>,
+    parent: Fun1<Path, Expect<Path>.() -> Unit>,
+    fileName: Feature0<Path, String>,
+    fileNameWithoutExtensionFeature: Feature0<Path, String>,
+    fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -25,59 +27,158 @@ abstract class PathFeatureAssertionsSpec(
     val file = tempFolder.newFile("test")
 
     include(object : SubjectLessSpec<Path>(describePrefix,
-        getFeature.forSubjectLess(1).adjustName { "$it feature" },
-        get.forSubjectLess(1) { toBe(1) }
-    ) {})
-    include(object : SubjectLessSpec<Path>("$describePrefix[nullable Element] ",
-        getNullableFeature.forSubjectLess(1).adjustName { "$it feature" },
-        getNullable.forSubjectLess(1) { toBe(null) }
-    ) {})
-
-    include(object : AssertionCreatorSpec<Path>(
-        describePrefix, file,
-        get.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
-    ) {})
-    include(object : AssertionCreatorSpec<Path>(
-        "$describePrefix[nullable Element] ", file,
-        getNullable.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
+        parentFeature.forSubjectLess().adjustName { "$it feature" },
+        parent.forSubjectLess() { },
+        fileName.forSubjectLess(),
+        fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
+        fileNameWithoutExtension.forSubjectLess() { }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val fluent = expect(file)
+    val fileNameDescr = DescriptionPathAssertion.FILE_NAME.getDefault()
+    val fileNameWithoutExtensionDescr = DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault()
+    val doesNotHaveParentDescr = DescriptionPathAssertion.DOES_NOT_HAVE_PARENT.getDefault()
 
-    val fileName = DescriptionPathAssertion.FILE_NAME.getDefault()
+    describeFun("val ${parentFeature.name}") {
+        val parentVal = parentFeature.lambda
 
-    describeFun("${getFeature.name} feature") {
-        val getFun = getFeature.lambda
-        context("file $file") {
-            it("can perform sub-assertion on existing index") {
-                fluent.getFun(0).toBe(1)
+        context("Folder with parent") {
+            it("toBe(folder.parent) holds") {
+                val childFolder = tempFolder.newFolder("child")
+                val parentFolder = childFolder.parent
+                expect(childFolder).parentVal().toBe(parentFolder)
             }
-            it("non-existing index throws") {
+            it("toBe(folder) fails") {
                 expect {
-                    fluent.getFun(4).toBe(1)
+                    val childFolder = tempFolder.newFolder("child")
+                    expect(childFolder).parentVal().toBe(childFolder)
                 }.toThrow<AssertionError> {
-                    messageContains("get(4): $fileName")
+                    messageContains("child")
+                }
+            }
+        }
+
+        context("Folder without parent") {
+            it("toBe(folder.parent) fails") {
+                expect {
+                    val rootFolder = tempFolder.tmpDir.root
+                    expect(rootFolder).parentVal().toBe(rootFolder)
+                }.toThrow<AssertionError> {
+                    messageContains(doesNotHaveParentDescr)
                 }
             }
         }
     }
 
-    describeFun(get.name) {
-        val getFun = get.lambda
-        context("file $file") {
-            it("can perform sub-assertion on existing index") {
-                fluent.getFun(0) { toBe(1) }
+    describeFun("fun ${parent.name}") {
+        val parentFun = parent.lambda
+
+        context("Folder with parent") {
+            it("toBe(folder.parent) holds") {
+                val childFolder = tempFolder.newFolder("child")
+                val parentFolder = childFolder.parent
+                expect(childFolder).parentFun { toBe(parentFolder) }
             }
-            it("non-existing index throws but shows intended sub-assertion") {
+            it("toBe(folder) fails") {
                 expect {
-                    fluent.getFun(4) { toBe(3) }
+                    val childFolder = tempFolder.newFolder("child")
+                    expect(childFolder).parentFun { toBe(childFolder) }
                 }.toThrow<AssertionError> {
-                    messageContains("get(4): $fileName", "$toBeDescr: 3")
+                    messageContains("child")
+                }
+            }
+        }
+
+        context("Folder without parent") {
+            it("toBe(folder.parent) fails") {
+                expect {
+                    val rootFolder = tempFolder.tmpDir.root
+                    expect(rootFolder).parentFun { toBe(rootFolder) }
+                }.toThrow<AssertionError> {
+                    messageContains(doesNotHaveParentDescr)
                 }
             }
         }
     }
+
+    describeFun("val ${fileName.name}") {
+        val fileNameVal = fileName.lambda
+
+        context("File with extension") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my.txt")).fileNameVal().toBe("my")
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameDescr: \"my\"")
+                }
+            }
+        }
+    }
+    
+    describeFun("val ${fileNameWithoutExtensionFeature.name}") {
+        val fileNameWithoutExtensionVal = fileNameWithoutExtensionFeature.lambda
+
+        context("File with extension") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my.txt")).fileNameWithoutExtensionVal().toBe("my")
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionVal().toBe("my.txt")
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                }
+            }
+        }
+    }
+    
+    describeFun("fun ${fileNameWithoutExtension.name}") {
+        val fileNameWithoutExtensionFun = fileNameWithoutExtension.lambda
+
+        context("File with extension") {
+            it("toBe(my) holds") {
+                expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my") }
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                }
+            }
+        }
+
+        val directory = "a/my/"
+        context("directory $directory") {
+            it("toBe(my) holds") {
+                expect(Paths.get(directory)).fileNameWithoutExtensionFun { toBe("my") }
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                }
+            }
+        }
+
+        context("path with double extension") {
+            it("toBe(my.tar) holds") {
+                expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my.tar") }
+            }
+            it("toBe(my) fails") {
+                expect {
+                    expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my") }
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameWithoutExtensionDescr: \"my.tar\"")
+                }
+            }
+        }
+    }
+
 })
