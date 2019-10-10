@@ -15,7 +15,6 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
-import ch.tutteli.niok.relativeTo
 import ch.tutteli.spek.extensions.TempFolder
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
@@ -33,8 +32,7 @@ object SymbolicLinkResolvingSpec : Spek({
     val tempFolder = TempFolder.perTest()
     registerListener(tempFolder)
 
-
-    // Windows with neither symlink nor admin privileges
+    // Windows with neither symlink nor admin privilege
     val ifSymlinksNotSupported =
         if (fileSystemSupportsCreatingSymlinks()) Skip.No else Skip.Yes("creating symbolic links is not supported on this file system")
 
@@ -69,14 +67,10 @@ object SymbolicLinkResolvingSpec : Spek({
             }
 
             it("a relative path to its absolute target") {
-                val target = tempFolder.newFile("testFile")
-                val relativePath = target.relativeTo(Paths.get(".").toRealPath())
+                val relativePath = Paths.get(".")
 
-                // precondition
-                expect(relativePath).feature { f(it::isAbsolute) }.toBe(false)
-                // assertion
                 explainForResolvedLink(relativePath, expectListener)
-                verify(expectListener)(target)
+                verify(expectListener)(relativePath.toRealPath())
             }
 
             it("a symbolic link to its target") {
