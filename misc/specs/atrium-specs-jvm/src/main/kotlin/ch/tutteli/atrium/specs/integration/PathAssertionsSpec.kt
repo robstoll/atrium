@@ -16,7 +16,10 @@ import java.nio.file.Paths
 abstract class PathAssertionsSpec(
     exists: Fun0<Path>,
     existsNot: Fun0<Path>,
+    startsWith: Fun1<Path, Path>,
+    startsNotWith: Fun1<Path, Path>,
     endsWith: Fun1<Path, Path>,
+    endsNotWith: Fun1<Path, Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -91,6 +94,56 @@ abstract class PathAssertionsSpec(
         }
     }
 
+    describeFun(startsWith.name) {
+        val startsWithFun = startsWith.lambda
+        context("starts with") {
+            it("does not throw") {
+                expect(Paths.get("/some/path/for/test"))
+                    .startsWithFun(Paths.get("/some/path/"))
+            }
+        }
+
+        val expectedMessageIfNotStartsWith = "${DescriptionPathAssertion.STARTS_WITH.getDefault()}:"
+
+        context("does not start with") {
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("/some/path/for/test"))
+                        .startsWithFun(Paths.get("/other/path"))
+                }.toThrow<AssertionError> {
+                    messageContains(expectedMessageIfNotStartsWith)
+                }
+            }
+        }
+    }
+
+    describeFun(startsNotWith.name) {
+        val startsNotWithFun = startsNotWith.lambda
+        context("does not start with") {
+            it("does not throw") {
+                expect(Paths.get("/some/path/for/test"))
+                    .startsNotWithFun(Paths.get("/other/path/"))
+            }
+            it("does not match partials") {
+                expect(Paths.get("/some/path/for/test"))
+                    .startsNotWithFun(Paths.get("/some/pa"))
+            }
+        }
+
+        val expectedMessageIfStartsWith = "${DescriptionPathAssertion.STARTS_NOT_WITH.getDefault()}:"
+
+        context("starts with") {
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("/some/path/for/test"))
+                        .startsNotWithFun(Paths.get("/some/path"))
+                }.toThrow<AssertionError> {
+                    messageContains(expectedMessageIfStartsWith)
+                }
+            }
+        }
+    }
+
     describeFun(endsWith.name) {
         val endsWithFun = endsWith.lambda
         context("ends with") {
@@ -112,5 +165,25 @@ abstract class PathAssertionsSpec(
             }
         }
     }
-})
 
+    describeFun(endsNotWith.name) {
+        val endsNotWithFun = endsNotWith.lambda
+        context("path ends with") {
+            it("throws an AssertionError") {
+                expect {
+                    expect(Paths.get("/path/ends/with/this"))
+                        .endsNotWithFun(Paths.get("with/this"))
+                }.toThrow<AssertionError> {
+                    messageContains("${DescriptionPathAssertion.ENDS_NOT_WITH.getDefault()}:")
+                }
+            }
+        }
+
+        context("path does not end with") {
+            it("does not throw") {
+                expect(Paths.get("/path/ends/with/this"))
+                    .endsNotWithFun(Paths.get("with/another"))
+            }
+        }
+    }
+})
