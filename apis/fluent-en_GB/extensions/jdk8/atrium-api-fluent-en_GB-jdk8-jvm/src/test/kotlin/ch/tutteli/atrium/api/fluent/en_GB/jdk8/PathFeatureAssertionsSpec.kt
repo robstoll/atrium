@@ -10,6 +10,7 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, Path>(Expect<Path>::parent),
     fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
     property<Path, String>(Expect<Path>::fileName),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileName),
     property<Path, String>(Expect<Path>::fileNameWithoutExtension),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileNameWithoutExtension)
 ) {

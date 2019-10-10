@@ -16,7 +16,8 @@ import java.nio.file.Paths
 abstract class PathFeatureAssertionsSpec(
     parentFeature: Feature0<Path, Path>,
     parent: Fun1<Path, Expect<Path>.() -> Unit>,
-    fileName: Feature0<Path, String>,
+    fileNameFeature: Feature0<Path, String>,
+    fileName: Fun1<Path, Expect<String>.() -> Unit>,
     fileNameWithoutExtensionFeature: Feature0<Path, String>,
     fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
@@ -28,7 +29,8 @@ abstract class PathFeatureAssertionsSpec(
     include(object : SubjectLessSpec<Path>(describePrefix,
         parentFeature.forSubjectLess().adjustName { "$it feature" },
         parent.forSubjectLess { },
-        fileName.forSubjectLess(),
+        fileNameFeature.forSubjectLess(),
+        fileName.forSubjectLess { },
         fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
         fileNameWithoutExtension.forSubjectLess { }
     ) {})
@@ -102,18 +104,62 @@ abstract class PathFeatureAssertionsSpec(
         }
     }
 
-    describeFun("val ${fileName.name}") {
-        val fileNameVal = fileName.lambda
+    describeFun("val ${fileNameFeature.name}") {
+        val fileNameVal = fileNameFeature.lambda
+
+        context("File with extension") {
+            it("toBe(my.txt) holds") {
+                expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
+            }
+            it("toBe(my) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("my")
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameDescr: \"my\"")
+                }
+            }
+        }
+    }
+
+    describeFun("fun ${fileName.name}") {
+        val fileNameFun = fileName.lambda
 
         context("File with extension") {
             it("toBe(my) holds") {
-                expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
+                expect(Paths.get("a/my.txt")).fileNameFun { toBe("my.txt") }
             }
-            it("toBe(my.txt) fails") {
+            it("toBe(my) fails") {
                 expect {
-                    expect(Paths.get("a/my.txt")).fileNameVal().toBe("a/my.txt")
+                    expect(Paths.get("a/my.txt")).fileNameFun { toBe("my") }
                 }.toThrow<AssertionError> {
                     messageContains("$fileNameDescr: \"my\"")
+                }
+            }
+        }
+
+        val directory = "a/my/"
+        context("directory $directory") {
+            it("toBe(my.txt) holds") {
+                expect(Paths.get(directory)).fileNameFun { toBe("my.txt") }
+            }
+            it("toBe(my) fails") {
+                expect {
+                    expect(Paths.get("a/my/")).fileNameFun { toBe("my") }
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameDescr: \"my\"")
+                }
+            }
+        }
+
+        context("path with double extension") {
+            it("toBe(my.tar.gz) holds") {
+                expect(Paths.get("a/my.tar.gz")).fileNameFun { toBe("my.tar.gz") }
+            }
+            it("toBe(my.tar) fails") {
+                expect {
+                    expect(Paths.get("a/my.tar.gz")).fileNameFun { toBe("my.tar") }
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameDescr: \"my.tar\"")
                 }
             }
         }
