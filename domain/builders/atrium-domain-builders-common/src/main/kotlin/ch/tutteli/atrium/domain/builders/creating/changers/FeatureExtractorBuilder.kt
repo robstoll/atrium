@@ -25,18 +25,18 @@ interface FeatureExtractorBuilder {
 
     companion object {
         /**
-         * Entry point to use the feature extractor.
+         * Entry point to use the [FeatureExtractorBuilder].
          */
-        fun <T> builder(originalAssertionContainer: Expect<T>): DescriptionOption<T> =
-            DescriptionOption.create(originalAssertionContainer)
+        fun <T> create(originalAssertionContainer: Expect<T>): DescriptionStep<T> =
+            DescriptionStep.create(originalAssertionContainer)
     }
 
     /**
-     * Option step which allows to specify the description which will be used to describe the feature.
+     * Step which allows to specify the description which will be used to describe the feature.
      *
      * @param T the type of the current subject.
      */
-    interface DescriptionOption<T> {
+    interface DescriptionStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
          */
@@ -45,35 +45,37 @@ interface FeatureExtractorBuilder {
         /**
          * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a description
          * of a method call with the given [methodName] and the given [arguments].
+         *
+         * Use [withDescription] in case the feature extraction is not based on a method call.
          */
-        fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureOption<T> =
+        fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureStep<T> =
             withDescription(coreFactory.newMethodCallFormatter().formatCall(methodName, arguments))
 
         /**
          * Uses the given [description], wraps it into an [Untranslatable] and uses it as description of the feature.
          */
-        fun withDescription(description: String): RepresentationInCaseOfFailureOption<T> =
+        fun withDescription(description: String): RepresentationInCaseOfFailureStep<T> =
             withDescription(Untranslatable(description))
 
         /**
          * Uses the given [translatable] as description of the feature.
          */
-        fun withDescription(translatable: Translatable): RepresentationInCaseOfFailureOption<T>
+        fun withDescription(translatable: Translatable): RepresentationInCaseOfFailureStep<T>
 
         companion object {
             fun <T> create(
                 originalAssertionContainer: Expect<T>
-            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer)
+            ): DescriptionStep<T> = DescriptionStepImpl(originalAssertionContainer)
         }
     }
 
     /**
-     * Option step which allows to to define the representation which shall be used in case
-     * the extraction cannot be performed.
+     * Step which allows to to define the representation which shall be used
+     * in case the extraction cannot be performed.
      *
      * @param T the type of the current subject.
      */
-    interface RepresentationInCaseOfFailureOption<T> {
+    interface RepresentationInCaseOfFailureStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
          */
@@ -87,14 +89,14 @@ interface FeatureExtractorBuilder {
         /**
          * Uses [translatable] as representation which will be used in case the extraction cannot be performed.
          */
-        fun withRepresentationForFailure(translatable: Translatable): CheckOption<T> =
+        fun withRepresentationForFailure(translatable: Translatable): CheckStep<T> =
             withRepresentationForFailure(RawString.create(translatable))
 
         /**
          * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
          * to get the representation which will be used in case the extraction cannot be performed.
          */
-        fun withRepresentationForFailure(representationProvider: () -> Any?): CheckOption<T> =
+        fun withRepresentationForFailure(representationProvider: () -> Any?): CheckStep<T> =
             withRepresentationForFailure(LazyRepresentation(representationProvider))
 
         /**
@@ -103,24 +105,27 @@ interface FeatureExtractorBuilder {
          * Notice, if you want to use text (e.g. a [String]), then wrap it into a [RawString] via [RawString.create]
          * and pass the [RawString] instead.
          */
-        fun withRepresentationForFailure(representation: Any): CheckOption<T>
+        fun withRepresentationForFailure(representation: Any): CheckStep<T>
 
         companion object {
+            /**
+             * Creates a [RepresentationInCaseOfFailureStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T> create(
                 originalAssertionContainer: Expect<T>,
                 description: Translatable
-            ): RepresentationInCaseOfFailureOption<T> =
-                RepresentationInCaseOfFailureOptionImpl(originalAssertionContainer, description)
+            ): RepresentationInCaseOfFailureStep<T> =
+                RepresentationInCaseOfFailureStepImpl(originalAssertionContainer, description)
         }
     }
 
     /**
-     *  Option step which allows to specify checks which should be consulted to see whether the feature extraction is
-     *  feasible or not.
+     *  Step which allows to specify a check which should be consulted
+     *  to see whether the feature extraction is feasible or not.
      *
      * @param T the type of the current subject.
      */
-    interface CheckOption<T> {
+    interface CheckStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
          */
@@ -140,59 +145,64 @@ interface FeatureExtractorBuilder {
         /**
          * Defines whether the feature can be extracted or not.
          */
-        fun withCheck(canBeTransformed: (T) -> Boolean): FeatureExtractionOption<T>
+        fun withCheck(canBeTransformed: (subject: T) -> Boolean): FeatureExtractionStep<T>
 
         companion object {
+            /**
+             * Creates a [CheckStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T> create(
                 originalAssertionContainer: Expect<T>,
                 description: Translatable,
                 representationForFailure: Any
-            ): CheckOption<T> = CheckOptionImpl(originalAssertionContainer, description, representationForFailure)
+            ): CheckStep<T> = CheckStepImpl(originalAssertionContainer, description, representationForFailure)
         }
     }
 
     /**
-     * Option step to define the feature extraction as such.
+     * Step to define the feature extraction as such.
      *
      * @param T the type of the current subject.
      */
-    interface FeatureExtractionOption<T> {
+    interface FeatureExtractionStep<T> {
         /**
-         * The so far chosen options up to but not inclusive the [CheckOption] step.
+         * The so far chosen options up to but not inclusive the [CheckStep] step.
          */
-        val checkOption: CheckOption<T>
+        val checkOption: CheckStep<T>
 
         /**
          * The previously specified lambda which indicates whether we can extract the feature or not.
          */
-        val canBeExtracted: (T) -> Boolean
+        val canBeExtracted: (subject: T) -> Boolean
 
         /**
          * Defines the feature extraction as such which is most likely based on the current subject
          * (but does not need to be).
          */
-        fun <R> withFeatureExtraction(extraction: (T) -> R): RepresentationOption<T, R>
+        fun <R> withFeatureExtraction(extraction: (subject: T) -> R): OptionalRepresentationStep<T, R>
 
         companion object {
+            /**
+             * Creates a [FeatureExtractionStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T> create(
-                checkOption: CheckOption<T>,
-                canBeTransformed: (T) -> Boolean
-            ): FeatureExtractionOption<T> = FeatureExtractionOptionImpl(checkOption, canBeTransformed)
+                checkOption: CheckStep<T>,
+                canBeTransformed: (subject: T) -> Boolean
+            ): FeatureExtractionStep<T> = FeatureExtractionStepImpl(checkOption, canBeTransformed)
         }
     }
 
-
     /**
-     * Option step which allows to specify a custom representation instead of the feature as such.
+     * Optional step which allows to specify a custom representation instead of the feature as such.
      *
      * @param T the type of the current subject.
      * @param R the type of the feature, aka the new subject.
      */
-    interface RepresentationOption<T, R> {
+    interface OptionalRepresentationStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckOption] step.
+         * The so far chosen options up to the [CheckStep] step.
          */
-        val checkOption: CheckOption<T>
+        val checkOption: CheckStep<T>
 
         /**
          * The previously specified lambda which indicates whether we can extract the feature or not.
@@ -207,7 +217,7 @@ interface FeatureExtractorBuilder {
         /**
          * Uses the given [representation] to represent the feature instead of using the feature itself.
          *
-         * Use [build] if you do not want to provide a custom represetation.
+         * Use [build] if you do **not** want to provide a custom representation.
          */
         fun withRepresentationInsteadOfFeature(representation: Any): FinalStep<T, R>
 
@@ -221,11 +231,16 @@ interface FeatureExtractorBuilder {
         fun build(): ExtractedFeaturePostStep<T, R>
 
         companion object {
+            /**
+             * Creates a [OptionalRepresentationStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T, R> create(
-                checkOption: CheckOption<T>,
+                checkOption: CheckStep<T>,
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R
-            ): RepresentationOption<T, R> = RepresentationOptionImpl(checkOption, canBeTransformed, transformation)
+            ): OptionalRepresentationStep<T, R> = OptionalRepresentationStepImpl(
+                checkOption, canBeTransformed, transformation
+            )
         }
     }
 
@@ -238,9 +253,9 @@ interface FeatureExtractorBuilder {
      */
     interface FinalStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckOption] step.
+         * The so far chosen options up to the [CheckStep] step.
          */
-        val checkOption: CheckOption<T>
+        val checkOption: CheckStep<T>
 
         /**
          * The previously specified lambda which indicates whether we can transform the current subject
@@ -268,8 +283,11 @@ interface FeatureExtractorBuilder {
         fun build(): ExtractedFeaturePostStep<T, R>
 
         companion object {
+            /**
+             * Creates the [FinalStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T, R> create(
-                checkOption: CheckOption<T>,
+                checkOption: CheckStep<T>,
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R,
                 representationInsteadOfFeature: Any?
