@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
 import ch.tutteli.atrium.translations.DescriptionBasic.TO
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.spek.extensions.TempFolder
 import org.spekframework.spek2.Spek
@@ -175,7 +174,7 @@ abstract class PathAssertionsSpec(
                     expect(Paths.get("/path/ends/with/this"))
                         .endsNotWithFun(Paths.get("with/this"))
                 }.toThrow<AssertionError> {
-                    messageContains("${DescriptionCharSequenceAssertion.ENDS_NOT_WITH.getDefault()}:")
+                    messageContains("${DescriptionPathAssertion.ENDS_NOT_WITH.getDefault()}:")
                 }
             }
         }

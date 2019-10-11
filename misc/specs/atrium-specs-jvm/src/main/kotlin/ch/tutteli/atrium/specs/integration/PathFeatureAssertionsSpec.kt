@@ -107,7 +107,7 @@ abstract class PathFeatureAssertionsSpec(
     describeFun("val ${fileNameFeature.name}") {
         val fileNameVal = fileNameFeature.lambda
 
-        context("File with extension") {
+        context("path a/my.txt") {
             it("toBe(my.txt) holds") {
                 expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
             }
@@ -124,7 +124,7 @@ abstract class PathFeatureAssertionsSpec(
     describeFun("fun ${fileName.name}") {
         val fileNameFun = fileName.lambda
 
-        context("File with extension") {
+        context("path a/my.txt") {
             it("toBe(my.txt) holds") {
                 expect(Paths.get("a/my.txt")).fileNameFun { toBe("my.txt") }
             }
@@ -133,19 +133,6 @@ abstract class PathFeatureAssertionsSpec(
                     expect(Paths.get("a/my")).fileNameFun { toBe("my.txt") }
                 }.toThrow<AssertionError> {
                     messageContains("$fileNameDescr: \"my\"")
-                }
-            }
-        }
-
-        context("path with double extension") {
-            it("toBe(my.tar.gz) holds") {
-                expect(Paths.get("a/my.tar.gz")).fileNameFun { toBe("my.tar.gz") }
-            }
-            it("toBe(my.tar.gz) fails") {
-                expect {
-                    expect(Paths.get("a/my.tar")).fileNameFun { toBe("my.tar.gz") }
-                }.toThrow<AssertionError> {
-                    messageContains("$fileNameDescr: \"my.tar\"")
                 }
             }
         }
