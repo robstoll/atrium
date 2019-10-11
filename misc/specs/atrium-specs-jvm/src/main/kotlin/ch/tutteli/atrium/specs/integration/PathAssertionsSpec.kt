@@ -38,12 +38,12 @@ abstract class PathAssertionsSpec(
         val existsFun = exists.lambda
         val existsNotFun = existsNot.lambda
         context("file exists") {
-            it("${exists.name} does not throw when file exists") {
+            it("${exists.name} does not throw") {
                 val file = tempFolder.newFile("test")
                 expect(file).existsFun()
             }
 
-            it("${existsNot.name} throws an AssertionError when file exists") {
+            it("${existsNot.name} throws an AssertionError") {
                 val file = tempFolder.newFile("exists-though-shouldnt")
                 expect {
                     expect(file).existsNotFun()
@@ -54,13 +54,13 @@ abstract class PathAssertionsSpec(
         }
 
         context("folder exists") {
-            it("${exists.name} does not throw when folder exists") {
+            it("${exists.name} does not throw") {
                 val file = tempFolder.newFolder("test")
                 expect(file).existsFun()
             }
 
 
-            it("${existsNot.name} throws an AssertionError when folder exists") {
+            it("${existsNot.name} throws an AssertionError") {
                 val folder = tempFolder.newFolder("exists-though-shouldnt")
                 expect {
                     expect(folder).existsNotFun()
@@ -71,7 +71,7 @@ abstract class PathAssertionsSpec(
         }
 
         context("file does not exist") {
-            it("${exists.name} throws an AssertionError when file does not exist") {
+            it("${exists.name} throws an AssertionError") {
                 expect {
                     expect(Paths.get("nonExistingFile")).existsFun()
                 }.toThrow<AssertionError> {
@@ -81,7 +81,7 @@ abstract class PathAssertionsSpec(
                 }
             }
 
-            it("${existsNot.name} does not throw when file does not exist") {
+            it("${existsNot.name} does not throw") {
                 expect(Paths.get("nonExistingFile")).existsNotFun()
             }
         }
@@ -91,12 +91,12 @@ abstract class PathAssertionsSpec(
         val startsWithFun = startsWith.lambda
         val startsNotWithFun = startsNotWith.lambda
         context("starts with") {
-            it("${startsWith.name} does not throw when tested path starts with expected path") {
+            it("${startsWith.name} does not throw") {
                 expect(Paths.get("/some/path/for/test"))
                     .startsWithFun(Paths.get("/some/path/"))
             }
 
-            it("${startsWith.name} throws an AssertionError when tested path does not start with expected path") {
+            it("${startsWith.name} throws an AssertionError") {
                 val expectedMessageIfNotStartsWith = "${DescriptionPathAssertion.STARTS_WITH.getDefault()}:"
                 expect {
                     expect(Paths.get("/some/path/for/test"))
@@ -108,7 +108,7 @@ abstract class PathAssertionsSpec(
         }
 
         context("does not start with") {
-            it("${startsNotWith.name} does not throw when tested path does not start with expected path") {
+            it("${startsNotWith.name} does not throw") {
                 expect(Paths.get("/some/path/for/test"))
                     .startsNotWithFun(Paths.get("/other/path/"))
             }
@@ -118,7 +118,7 @@ abstract class PathAssertionsSpec(
                     .startsNotWithFun(Paths.get("/some/pa"))
             }
 
-            it("${startsNotWith.name} throws an AssertionError when tested path starts with expected path") {
+            it("${startsNotWith.name} throws an AssertionError") {
                 val expectedMessageIfStartsWith = "${DescriptionPathAssertion.STARTS_NOT_WITH.getDefault()}:"
                 expect {
                     expect(Paths.get("/some/path/for/test"))
@@ -135,12 +135,12 @@ abstract class PathAssertionsSpec(
         val endsNotWithFun = endsNotWith.lambda
 
         context("ends with") {
-            it("${endsWith.name} does not throw when tested path ends with expected path") {
+            it("${endsWith.name} does not throw") {
                 expect(Paths.get("/not/existed/for/test"))
                     .endsWithFun(Paths.get("for/test"))
             }
 
-            it("${endsWith.name} throws an AssertionError when tested path does not end with expected path") {
+            it("${endsWith.name} throws an AssertionError") {
                 val expectedMessageIfNotEndsWith = "${DescriptionPathAssertion.ENDS_WITH.getDefault()}:"
                 expect {
                     expect(Paths.get("/not/existed/for/test"))
@@ -152,7 +152,7 @@ abstract class PathAssertionsSpec(
         }
 
         context("path ends not with") {
-            it("${endsNotWith.name} throws an AssertionError when tested path ends with expected path") {
+            it("${endsNotWith.name} throws an AssertionError") {
                 expect {
                     expect(Paths.get("/path/ends/with/this"))
                         .endsNotWithFun(Paths.get("with/this"))
@@ -161,7 +161,7 @@ abstract class PathAssertionsSpec(
                 }
             }
 
-            it("${endsNotWith.name} does not throw when tested path does not end with expected path") {
+            it("${endsNotWith.name} does not throw") {
                 expect(Paths.get("/path/ends/with/this"))
                     .endsNotWithFun(Paths.get("with/another"))
             }
