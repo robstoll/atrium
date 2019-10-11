@@ -35,8 +35,6 @@ fun GroupBody.prefixedDescribeTemplate(
     body: Suite.() -> Unit
 ): Unit = describe("${prefix}describe$suffix $description", body = body)
 
-fun Root.include(spek: Spek): Unit = spek.root(this)
-
 fun <T : Any> Suite.checkNarrowingAssertion(
     description: String,
     act: (Expect<T>.() -> Unit) -> Unit,
