@@ -34,9 +34,10 @@ abstract class PathAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    describeFun(exists.name) {
+    describeFun(exists.name, existsNot.name) {
         val existsFun = exists.lambda
-        context("non existing") {
+        val existsNotFun = existsNot.lambda
+        context("exists") {
             it("throws an AssertionError") {
                 expect {
                     expect(Paths.get("nonExistingFile")).existsFun()
@@ -46,32 +47,20 @@ abstract class PathAssertionsSpec(
                     )
                 }
             }
-        }
-        context("existing file") {
+
             it("does not throw") {
                 val file = tempFolder.newFile("test")
                 expect(file).existsFun()
             }
-        }
-        context("existing folder") {
+
             it("does not throw") {
                 val file = tempFolder.newFolder("test")
                 expect(file).existsFun()
             }
         }
-    }
 
-    describeFun(existsNot.name) {
-        val existsNotFun = existsNot.lambda
-        context("non existing") {
-            it("does not throw") {
-                expect(Paths.get("nonExistingFile")).existsNotFun()
-            }
-        }
-
-        val expectedMessageIfExisting = "${NOT_TO.getDefault()}: ${DescriptionPathAssertion.EXIST.getDefault()}"
-
-        context("existing file") {
+        context("does not exist") {
+            val expectedMessageIfExisting = "${NOT_TO.getDefault()}: ${DescriptionPathAssertion.EXIST.getDefault()}"
             it("throws an AssertionError") {
                 val file = tempFolder.newFile("exists-though-shouldnt")
                 expect {
@@ -80,9 +69,7 @@ abstract class PathAssertionsSpec(
                     messageContains(expectedMessageIfExisting)
                 }
             }
-        }
 
-        context("existing folder") {
             it("throws an AssertionError") {
                 val folder = tempFolder.newFolder("exists-though-shouldnt")
                 expect {
@@ -90,6 +77,10 @@ abstract class PathAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(expectedMessageIfExisting)
                 }
+            }
+
+            it("does not throw") {
+                expect(Paths.get("nonExistingFile")).existsNotFun()
             }
         }
     }
