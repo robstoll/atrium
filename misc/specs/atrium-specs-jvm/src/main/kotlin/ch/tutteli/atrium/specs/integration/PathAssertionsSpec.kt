@@ -90,13 +90,14 @@ abstract class PathAssertionsSpec(
     describeFun(startsWith.name, startsNotWith.name) {
         val startsWithFun = startsWith.lambda
         val startsNotWithFun = startsNotWith.lambda
-        context("starts with") {
-            it("${startsWith.name} does not throw") {
+
+        context("path '/some/path/for/test'") {
+            it("${startsWith.name} '/some/path/' does not throw") {
                 expect(Paths.get("/some/path/for/test"))
                     .startsWithFun(Paths.get("/some/path/"))
             }
 
-            it("${startsWith.name} throws an AssertionError") {
+            it("${startsWith.name} '/other/path' throws an AssertionError") {
                 expect {
                     expect(Paths.get("/some/path/for/test"))
                         .startsWithFun(Paths.get("/other/path"))
@@ -104,20 +105,18 @@ abstract class PathAssertionsSpec(
                     messageContains("${DescriptionPathAssertion.STARTS_WITH.getDefault()}:")
                 }
             }
-        }
 
-        context("does not start with") {
-            it("${startsNotWith.name} does not throw") {
+            it("${startsNotWith.name} '/other/path' does not throw") {
                 expect(Paths.get("/some/path/for/test"))
-                    .startsNotWithFun(Paths.get("/other/path/"))
+                    .startsNotWithFun(Paths.get("/other/path"))
             }
 
-            it("${startsNotWith.name} does not match partials") {
+            it("${startsNotWith.name} '/some/pa' does not match partials") {
                 expect(Paths.get("/some/path/for/test"))
                     .startsNotWithFun(Paths.get("/some/pa"))
             }
 
-            it("${startsNotWith.name} throws an AssertionError") {
+            it("${startsNotWith.name} '/some/path' throws an AssertionError") {
                 expect {
                     expect(Paths.get("/some/path/for/test"))
                         .startsNotWithFun(Paths.get("/some/path"))
