@@ -97,12 +97,11 @@ abstract class PathAssertionsSpec(
             }
 
             it("${startsWith.name} throws an AssertionError") {
-                val expectedMessageIfNotStartsWith = "${DescriptionPathAssertion.STARTS_WITH.getDefault()}:"
                 expect {
                     expect(Paths.get("/some/path/for/test"))
                         .startsWithFun(Paths.get("/other/path"))
                 }.toThrow<AssertionError> {
-                    messageContains(expectedMessageIfNotStartsWith)
+                    messageContains("${DescriptionPathAssertion.STARTS_WITH.getDefault()}:")
                 }
             }
         }
@@ -119,12 +118,11 @@ abstract class PathAssertionsSpec(
             }
 
             it("${startsNotWith.name} throws an AssertionError") {
-                val expectedMessageIfStartsWith = "${DescriptionPathAssertion.STARTS_NOT_WITH.getDefault()}:"
                 expect {
                     expect(Paths.get("/some/path/for/test"))
                         .startsNotWithFun(Paths.get("/some/path"))
                 }.toThrow<AssertionError> {
-                    messageContains(expectedMessageIfStartsWith)
+                    messageContains("${DescriptionPathAssertion.STARTS_NOT_WITH.getDefault()}:")
                 }
             }
         }
@@ -141,12 +139,11 @@ abstract class PathAssertionsSpec(
             }
 
             it("${endsWith.name} throws an AssertionError") {
-                val expectedMessageIfNotEndsWith = "${DescriptionPathAssertion.ENDS_WITH.getDefault()}:"
                 expect {
                     expect(Paths.get("/not/existed/for/test"))
                         .endsWithFun(Paths.get("/for/test"))
                 }.toThrow<AssertionError> {
-                    messageContains(expectedMessageIfNotEndsWith)
+                    messageContains("${DescriptionPathAssertion.ENDS_WITH.getDefault()}:")
                 }
             }
         }
