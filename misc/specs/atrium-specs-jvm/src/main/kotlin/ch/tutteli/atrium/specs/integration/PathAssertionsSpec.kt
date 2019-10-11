@@ -131,35 +131,33 @@ abstract class PathAssertionsSpec(
         val endsWithFun = endsWith.lambda
         val endsNotWithFun = endsNotWith.lambda
 
-        context("ends with") {
-            it("${endsWith.name} does not throw") {
-                expect(Paths.get("/not/existed/for/test"))
+        context("path '/some/path/for/test'") {
+            it("${endsWith.name} 'for/test' does not throw") {
+                expect(Paths.get("/some/path/for/test"))
                     .endsWithFun(Paths.get("for/test"))
             }
 
-            it("${endsWith.name} throws an AssertionError") {
+            it("${endsWith.name} 'for/another' throws an AssertionError") {
                 expect {
-                    expect(Paths.get("/not/existed/for/test"))
-                        .endsWithFun(Paths.get("/for/test"))
+                    expect(Paths.get("/some/path/for/test"))
+                        .endsWithFun(Paths.get("for/another"))
                 }.toThrow<AssertionError> {
                     messageContains("${DescriptionPathAssertion.ENDS_WITH.getDefault()}:")
                 }
             }
-        }
 
-        context("path ends not with") {
-            it("${endsNotWith.name} throws an AssertionError") {
+            it("${endsNotWith.name} 'for/test' throws an AssertionError") {
                 expect {
-                    expect(Paths.get("/path/ends/with/this"))
-                        .endsNotWithFun(Paths.get("with/this"))
+                    expect(Paths.get("/some/path/for/test"))
+                        .endsNotWithFun(Paths.get("for/test"))
                 }.toThrow<AssertionError> {
                     messageContains("${DescriptionPathAssertion.ENDS_NOT_WITH.getDefault()}:")
                 }
             }
 
-            it("${endsNotWith.name} does not throw") {
-                expect(Paths.get("/path/ends/with/this"))
-                    .endsNotWithFun(Paths.get("with/another"))
+            it("${endsNotWith.name} 'for/another' does not throw") {
+                expect(Paths.get("/some/path/for/test"))
+                    .endsNotWithFun(Paths.get("for/another"))
             }
         }
     }
