@@ -1,0 +1,167 @@
+// example project to show how to use Atrium in combination with jasmine
+buildscript {
+    ext {
+        atrium_api = 'atrium-fluent-en_GB-js'
+        atrium_version = '0.9.0-alpha'
+    }
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.71'
+    }
+}
+
+apply plugin: 'kotlin2js'
+apply plugin: 'com.moowork.node'
+
+repositories {
+    jcenter()
+    mavenLocal()
+    // either use jcenter or the repository on the next line
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+    testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
+    //TODO remove with the release of 0.9.0-beta
+    testImplementation("ch.tutteli.atrium:atrium-domain-api-js:$atrium_version")
+}
+
+// we only configure compileTestKotlin2Js and not compileKotlin2Js as well
+// so that you can also use UMD as moduleKind for compileKotlin2Js
+compileTestKotlin2Js.configure {
+    // jasmine requires commonjs
+    kotlinOptions.moduleKind = "commonjs"
+
+    // the following allows that debugging tests kind of works within kotlin
+    // sometimes break points within a kotlin file is not taken up by Intellij.
+    // in such a case it is worth while to create a break point in build/classes/kotlin/test/...test.js
+    // stepping through the js code then usually switches to the kotlin file.
+    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
+}
+
+//gather all required dependencies and put them into the node_modules folder of this (sub)-project
+task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+    from compileKotlin2Js.destinationDir
+
+    afterEvaluate {
+        // in contrast to kotlin examples we use testRuntimeClasspath this way we also pick up runtimeOnly dependencies
+        configurations.testRuntimeClasspath.each {
+            from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+        }
+    }
+
+    into "$buildDir/node_modules"
+}
+
+//node, npm and dependencies of jasmine is installed in the same folder for all sub-projects
+def nodeModulesParentDir = file("$rootProject.projectDir/gradle/")
+node {
+    //download this way we don't have to download each time
+    download = true
+    npmVersion = '6.4.1'
+    workDir = file("$rootProject.projectDir/.gradle/nodejs")
+    npmWorkDir = file("$rootProject.projectDir/.gradle/npm")
+    nodeModulesDir = nodeModulesParentDir
+}
+
+task installJasmine(type: NpmTask) {
+    // note, without the '--prefer-offline' it works only if you are online,
+    // with '--prefer-offline' it works also offline if you have already as well in case you have already downloaded jasmine once
+    args = ['install', 'jasmine', '--prefer-offline']
+}
+
+task prepareJasmine(dependsOn: [compileTestKotlin2Js, populateNodeModules, installJasmine])
+
+//either you use this task or create a testSetup.kt in your src/test with the following content
+//
+// // adopt to the api you use
+// import ch.tutteli.atrium.fluent.en_GB.dependOnAtrium
+//
+// @Suppress("unused")
+// private val establishDependencyToAtrium = dependOnAtrium()
+task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
+    doLast {
+        def srcFile = file("$buildDir/classes/kotlin/test/${project.name}_test.js")
+        String newContent = srcFile.getText('UTF-8')
+            .replace("(function (_, Kotlin,", "(function (_, Kotlin, \$module\$${atrium_api.replace('-', '_')},")
+            .replace("(module.exports, require('kotlin'),", "(module.exports, require('kotlin'), require('$atrium_api'),")
+        srcFile.write(newContent, 'UTF-8')
+    }
+}
+task runJasmine(type: NodeTask, group: 'Verification', dependsOn: [prepareJasmine, test, establishDependencyToAtrium]) {
+    script = file("$nodeModulesParentDir/node_modules/jasmine/bin/jasmine")
+    args = [compileTestKotlin2Js.outputFile]
+}
+check.dependsOn runJasmine
+
+// ==========================================================================
+// Everything which follows is not required and should not be copied     ====
+// We are using it to see if the current version still works             ====
+// ==========================================================================
+
+configurations {
+    current
+}
+
+sourceSets {
+    current {
+        kotlin.srcDirs = project.sourceSets.test.kotlin.srcDirs
+    }
+}
+
+dependencies {
+    current prefixedProject('fluent-en_GB-js')
+    current "org.jetbrains.kotlin:kotlin-stdlib-js"
+    current "org.jetbrains.kotlin:kotlin-test-js"
+    currentCompile configurations.current
+}
+
+
+compileCurrentKotlin2Js.configure {
+    // jasmine requires commonjs
+    kotlinOptions.moduleKind = "commonjs"
+
+    // the following allows that debugging tests kind of works within kotlin
+    // sometimes break points within a kotlin file is not taken up by Intellij.
+    // in such a case it is worth while to create a break point in build/classes/kotlin/test/...test.js
+    // stepping through the js code then usually switches to the kotlin file.
+    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
+}
+
+task populateCurrentNodeModules(type: Copy, dependsOn: [prefixedProject('fluent-en_GB-js').build]) {
+
+    afterEvaluate {
+        configurations.currentRuntimeClasspath.each {
+            from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+        }
+    }
+
+    into "$buildDir/node_modules"
+}
+task establishDependencyFromCurrentToAtrium(dependsOn: [compileTestKotlin2Js]) {
+    doLast {
+        def srcFile = file("$buildDir/classes/kotlin/current/${project.name}_current.js")
+        String newContent = srcFile.getText('UTF-8')
+            .replace("(function (_, Kotlin,", "(function (_, Kotlin, \$module\$${atrium_api.replace('-', '_')},")
+            .replace("(module.exports, require('kotlin'),", "(module.exports, require('kotlin'), require('$atrium_api'),")
+        srcFile.write(newContent, 'UTF-8')
+    }
+}
+task runJasmineForCurrent(type: NodeTask, group: 'Verification', dependsOn: [compileCurrentKotlin2Js, populateCurrentNodeModules, installJasmine, establishDependencyFromCurrentToAtrium]) {
+    script = file("$nodeModulesParentDir/node_modules/jasmine/bin/jasmine")
+    args = [compileCurrentKotlin2Js.outputFile]
+}
+
+task deleteNodeModules(type: Delete, dependsOn: [runJasmineForCurrent]) {
+    delete file("$buildDir/node_modules")
+}
+
+check.dependsOn deleteNodeModules
+runJasmine.mustRunAfter(deleteNodeModules)
