@@ -16,10 +16,10 @@ import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
 import ch.tutteli.spek.extensions.TempFolder
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.lifecycle.CachingMode.TEST
@@ -38,39 +38,43 @@ object SymbolicLinkResolvingSpec : Spek({
 
     val testAssertion = ExpectImpl.builder.createDescriptive(Untranslatable("testAssertion"), null) { true }
     val expectListener by memoized(TEST) {
-        mock<(Path) -> Assertion> {
-            on { invoke(any()) } doReturn testAssertion
+        mockk<(Path) -> Assertion> {
+            every { this@mockk.invoke(any()) } returns testAssertion
         }
     }
 
     describe("explainForResolvedLink", skip = ifSymlinksNotSupported) {
         describe("resolves correctly") {
+            afterEachTest {
+                confirmVerified(expectListener)
+            }
+
             it("an existing file to itself") {
                 val file = tempFolder.newFile("testFile")
 
                 explainForResolvedLink(file, expectListener)
-                verify(expectListener)(file)
+                verify { expectListener(file) }
             }
 
             it("an existing directory to itself") {
                 val folder = tempFolder.newFile("testDir")
 
                 explainForResolvedLink(folder, expectListener)
-                verify(expectListener)(folder)
+                verify { expectListener(folder) }
             }
 
             it("a non-existent path to itself") {
                 val notExisting = tempFolder.tmpDir.resolve("notExisting")
 
                 explainForResolvedLink(notExisting, expectListener)
-                verify(expectListener)(notExisting)
+                verify { expectListener(notExisting) }
             }
 
             it("a relative path to its absolute target") {
                 val relativePath = Paths.get(".")
 
                 explainForResolvedLink(relativePath, expectListener)
-                verify(expectListener)(relativePath.toRealPath())
+                verify { expectListener(relativePath.toRealPath()) }
             }
 
             it("a symbolic link to its target") {
@@ -78,7 +82,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val link = tempFolder.newSymbolicLink("link", target)
 
                 explainForResolvedLink(link, expectListener)
-                verify(expectListener)(target)
+                verify { expectListener(target) }
             }
 
             it("a relative symbolic link to its absolute target") {
@@ -88,7 +92,7 @@ object SymbolicLinkResolvingSpec : Spek({
                     Files.createSymbolicLink(folder.resolve("testLink"), Paths.get("..").resolve(target.fileName))
 
                 explainForResolvedLink(relativeLink, expectListener)
-                verify(expectListener)(target)
+                verify { expectListener(target) }
             }
 
             it("a symbolic link chain as far as possible") {
@@ -97,7 +101,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val start = tempFolder.newSymbolicLink("start", toNowhere)
 
                 explainForResolvedLink(start, expectListener)
-                verify(expectListener)(nowhere)
+                verify { expectListener(nowhere) }
             }
 
             it("multiple symbolic links to their target") {
@@ -112,7 +116,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 )
 
                 explainForResolvedLink(linkToInnerLink, expectListener)
-                verify(expectListener)(target)
+                verify { expectListener(target) }
             }
         }
 
