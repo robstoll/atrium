@@ -3,14 +3,16 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.*
-import ch.tutteli.atrium.translations.DescriptionPathAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import java.io.IOException
@@ -21,10 +23,12 @@ import java.nio.file.attribute.*
 import java.nio.file.attribute.PosixFilePermission.*
 import java.util.*
 
-fun <T: Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+private const val IO_EXCEPTION_STACK_TRACE_LENGTH = 15
+
+fun <T : Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }
 
-fun <T: Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+fun <T : Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
 
 fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
@@ -41,7 +45,7 @@ fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
                 explainForResolvedLink(result.path) { realPath ->
                     val exception = (result as Failure).exception
                     when (exception) {
-                        // TODO remove group once https://github.com/robstoll/atrium/issues/150 is resolved
+                        // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
                         is NoSuchFileException -> ExpectImpl.builder.explanatoryGroup.withDefaultType.withAssertion(
                             hintForClosestExistingParent(realPath)
                         ).build()
@@ -172,7 +176,7 @@ private fun hintForParentFailure(parent: Path, explanation: Assertion) =
                 .build(),
             when (explanation) {
                 is AssertionGroup -> explanation
-                // TODO remove group once https://github.com/robstoll/atrium/issues/150 is resolved
+                // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
                 else -> ExpectImpl.builder.explanatoryGroup.withDefaultType
                     .withAssertion(explanation)
                     .build()
@@ -338,13 +342,16 @@ private fun hintForNotDirectory(actualType: Translatable) =
         .build()
 
 private fun hintForOtherIoException(exception: IOException) =
-    ExpectImpl.builder.explanatory
-        .withExplanation(
-            FAILURE_DUE_TO_EXCEPTION,
-            exception::class.simpleName ?: "IoException",
-            exception.message ?: ""
-        )
-        .build()
+    ThrowableThrownFailureHandler.propertiesOfThrowable(
+        exception,
+        maxStackTrace = IO_EXCEPTION_STACK_TRACE_LENGTH,
+        explanation = AssertImpl.builder.explanatory
+            .withExplanation(
+                FAILURE_DUE_TO_ACCESS_EXCEPTION,
+                exception::class.simpleName ?: exception::class.fullName
+            )
+            .build()
+    )
 
 private val Path.fileType: Translatable
     get() = readAttributes<BasicFileAttributes>().fileType

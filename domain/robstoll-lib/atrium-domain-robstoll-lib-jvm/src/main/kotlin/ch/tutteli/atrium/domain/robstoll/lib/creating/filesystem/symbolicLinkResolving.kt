@@ -73,7 +73,9 @@ private fun addAllLevelResolvedSymlinkHints(
  * Return `null` and does not modify [hintList] otherwise.
  */
 private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<Assertion>) = try {
-    val nextPath = absolutePath.resolveSibling(absolutePath.followSymbolicLink()).normalize()
+    val nextPath = absolutePath
+        .resolveSibling(absolutePath.followSymbolicLink())
+        .normalize()
     hintList.add(
         ExpectImpl.builder.explanatory
             .withExplanation(HINT_FOLLOWED_SYMBOLIC_LINK, absolutePath, nextPath)

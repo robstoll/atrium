@@ -51,21 +51,27 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
          * Returns an [AssertionGroup] with an [ExplanatoryAssertionGroupType] containing properties
          * of the given [throwable] where [maxStackTrace] are shown.
          */
-        fun propertiesOfThrowable(throwable: Throwable, maxStackTrace: Int): AssertionGroup {
+        fun propertiesOfThrowable(
+            throwable: Throwable,
+            maxStackTrace: Int,
+            explanation: Assertion = createExplanation(throwable)
+        ): AssertionGroup {
             return AssertImpl.builder.explanatoryGroup
                 .withDefaultType
                 .withAssertions(
-                    AssertImpl.builder.explanatory
-                        .withExplanation(
-                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
-                            throwable::class.simpleName ?: throwable::class.fullName
-                        )
-                        .build(),
+                    explanation,
                     createHints(throwable, maxStackTrace, secondStackFrameOfParent = null)
                 )
                 .build()
         }
 
+        private fun createExplanation(throwable: Throwable) =
+            AssertImpl.builder.explanatory
+                .withExplanation(
+                    DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
+                    throwable::class.simpleName ?: throwable::class.fullName
+                )
+                .build()
 
         private fun createHints(
             throwable: Throwable,

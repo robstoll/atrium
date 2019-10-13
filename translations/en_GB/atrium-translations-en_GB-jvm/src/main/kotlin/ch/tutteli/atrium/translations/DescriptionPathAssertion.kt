@@ -25,7 +25,7 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     HINT_ACTUAL_ACL_PERMISSIONS("the Access Control List is:"),
     FAILURE_DUE_TO_PARENT("failure at parent path"),
     FAILURE_DUE_TO_ACCESS_DENIED("access was denied"),
-    FAILURE_DUE_TO_EXCEPTION("access threw %s: %s"),
+    FAILURE_DUE_TO_ACCESS_EXCEPTION("access threw a %s:"),
     FAILURE_DUE_TO_WRONG_FILE_TYPE("was %s instead of %s"),
     FAILURE_DUE_TO_LINK_LOOP("found a symbolic link loop: %s"),
     HINT_CLOSEST_EXISTING_PARENT_DIRECTORY("the closest existing parent directory is %s"),
