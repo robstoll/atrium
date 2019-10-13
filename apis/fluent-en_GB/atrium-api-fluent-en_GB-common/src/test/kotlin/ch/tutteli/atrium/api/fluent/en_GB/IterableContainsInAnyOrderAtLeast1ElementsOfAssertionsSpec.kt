@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.include
 import org.spekframework.spek2.Spek
 
 class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({

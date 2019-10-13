@@ -19,7 +19,7 @@ buildscript {
         junit_platform_version = '1.5.2'
         jupiter_version = '5.5.2'
         spek_version = '1.1.5'
-        spek2_version = '2.0.6'
+        spek2_version = '2.0.7'
         spekExtensions_version = '0.5.0'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.9.3'
@@ -371,6 +371,7 @@ createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstol
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     !(it in [
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
+        'ch.tutteli.atrium.domain.creating.OptionalAssertions',
         'ch.tutteli.atrium.domain.creating.PathAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
