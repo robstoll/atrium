@@ -36,11 +36,6 @@ class CharSequenceContainsAssertionsImpl : CharSequenceContainsAssertions {
         expected: List<String>
     ): AssertionGroup = _containsRegex(checkerOption, expected)
 
-    override fun <T : CharSequence> regex(
-        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: List<Regex>
-    ): AssertionGroup = _containsRegex(checkerOption, expected)
-
     override fun <T : CharSequence> regexIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<String>

@@ -62,11 +62,6 @@ fun <T : CharSequence> _containsRegex(
     expected: List<String>
 ): AssertionGroup = createAssertionGroup(checkerOption, RegexSearcher(), expected, STRING_MATCHING_REGEX)
 
-fun <T : CharSequence> _containsRegex(
-    checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-    expected: List<Regex>
-): AssertionGroup = createAssertionGroup(checkerOption, RegexSearcher(), expected, STRING_MATCHING_REGEX)
-
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<String>

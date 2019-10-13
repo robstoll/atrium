@@ -88,11 +88,6 @@ object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
         expected: List<String>
     ) = charSequenceContainsAssertions.regex(checkerOption, expected)
 
-    override inline fun <T : CharSequence> regex(
-        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: List<Regex>
-    ) = charSequenceContainsAssertions.regex(checkerOption, expected)
-
     override inline fun <T : CharSequence> regexIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<String>

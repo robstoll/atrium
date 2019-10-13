@@ -60,12 +60,11 @@ interface CharSequenceContains {
      * @param S The search behaviour which should be applied to the input [CharSequence] in which the [Searcher]
      *   will look for something -- the actual implementation of the search behaviour happens in the
      *   [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
-     * @param SC Represents the search criterion; use it for searchFor
      */
     @Deprecated(
         "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher")
     )
-    interface Searcher<S : SearchBehaviour, SC> :
+    interface Searcher<S : SearchBehaviour> :
         ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher<S>
 }

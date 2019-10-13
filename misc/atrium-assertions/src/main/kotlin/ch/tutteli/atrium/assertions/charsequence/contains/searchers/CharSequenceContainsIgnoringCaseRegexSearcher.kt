@@ -10,7 +10,7 @@ import java.util.regex.Pattern
  * the matches of a given regular expression on the input of the search.
  */
 @Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
-class CharSequenceContainsIgnoringCaseRegexSearcher : Searcher<CharSequenceContainsIgnoringCaseSearchBehaviour, Regex> {
+class CharSequenceContainsIgnoringCaseRegexSearcher : Searcher<CharSequenceContainsIgnoringCaseSearchBehaviour> {
     private val searcher = CharSequenceContainsRegexSearcher()
 
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
