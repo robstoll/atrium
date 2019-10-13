@@ -14,7 +14,6 @@ class CharSequenceAssertionsImpl : CharSequenceAssertions {
     override fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>) =
         _containsNotBuilder(subjectProvider)
 
-
     override fun startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence) =
         _startsWith(subjectProvider, expected)
 
