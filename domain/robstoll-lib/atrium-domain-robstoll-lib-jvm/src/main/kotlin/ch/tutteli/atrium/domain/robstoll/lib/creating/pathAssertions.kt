@@ -14,9 +14,12 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
-import ch.tutteli.niok.*
+import ch.tutteli.niok.fileNameWithoutExtension
+import ch.tutteli.niok.getFileAttributeView
+import ch.tutteli.niok.readAttributes
 import java.io.IOException
 import java.nio.file.AccessDeniedException
+import java.nio.file.AccessMode
 import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import java.nio.file.attribute.*
@@ -74,10 +77,10 @@ fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
     }
 
 fun <T : Path> _isReadable(assertionContainer: Expect<T>): Assertion =
-    filePermissionAssertion(assertionContainer, READABLE) { it.isReadable }
+    filePermissionAssertion(assertionContainer, READABLE, AccessMode.READ)
 
 fun <T : Path> _isWritable(assertionContainer: Expect<T>): Assertion =
-    filePermissionAssertion(assertionContainer, WRITABLE) { it.isWritable }
+    filePermissionAssertion(assertionContainer, WRITABLE, AccessMode.WRITE)
 
 fun <T : Path> _isRegularFile(assertionContainer: Expect<T>): Assertion =
     fileTypeAssertion(assertionContainer, A_FILE) { it.isRegularFile }
@@ -88,25 +91,30 @@ fun <T : Path> _isDirectory(assertionContainer: Expect<T>): Assertion =
 private fun <T : Path> filePermissionAssertion(
     assertionContainer: Expect<T>,
     permissionName: Translatable,
-    permissionTest: (Path) -> Boolean
-) = ExpectImpl.builder.descriptive
-    .withTest(assertionContainer, permissionTest)
-    .withFailureHintBasedOnDefinedSubject(assertionContainer) { path ->
-        explainForResolvedLink(path) { realPath ->
-            try {
-                val hints = hintForOwnersAndPermissions(realPath)
-                hints.add(0, hintForExistsButMissingPermission(path, permissionName))
-                ExpectImpl.builder.explanatoryGroup.withDefaultType
-                    .withAssertions(hints)
-                    .build()
-            } catch (e: IOException) {
-                hintForIoException(realPath, e)
+    accessMode: AccessMode
+) = ExpectImpl.changeSubject.unreported(assertionContainer) {
+    it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
+}.let { checkAccessResultContainer ->
+    ExpectImpl.builder.descriptive
+        .withTest(checkAccessResultContainer) { it is Success }
+        .withFailureHintBasedOnDefinedSubject(checkAccessResultContainer) { result ->
+            explainForResolvedLink(result.path) { realPath ->
+                val exception = (result as Failure).exception
+                when (exception) {
+                    is AccessDeniedException -> findHintForProblemWithParent(realPath)
+                        ?: ExpectImpl.builder.explanatoryGroup.withDefaultType
+                            .withAssertions(
+                                listOf(hintForExistsButMissingPermission(realPath, permissionName))
+                                    + hintForOwnersAndPermissions(realPath)
+                            )
+                            .build()
+                    else -> hintForIoException(realPath, exception)
+                }
             }
         }
-    }
-    .withDescriptionAndRepresentation(TO_BE, RawString.create(permissionName))
-    .build()
-
+        .withDescriptionAndRepresentation(TO_BE, RawString.create(permissionName))
+        .build()
+}
 
 private inline fun <T : Path> fileTypeAssertion(
     assertionContainer: Expect<T>,

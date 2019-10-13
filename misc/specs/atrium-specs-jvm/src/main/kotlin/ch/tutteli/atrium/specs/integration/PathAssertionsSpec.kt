@@ -8,12 +8,15 @@ import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import ch.tutteli.spek.extensions.TempFolder
+import io.mockk.every
+import io.mockk.spyk
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.dsl.Skip.No
 import org.spekframework.spek2.dsl.Skip.Yes
 import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
+import java.io.IOException
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.attribute.*
@@ -63,6 +66,20 @@ abstract class PathAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
+    fun throwingPath(): Path {
+        val baseFile = tempFolder.tmpDir.resolve("throwing")
+        return spyk(baseFile) {
+            every { fileSystem } returns spyk(baseFile.fileSystem) {
+                every { provider() } returns spyk(baseFile.fileSystem.provider()) {
+                    every {
+                        readAttributes(any(), any<Class<BasicFileAttributes>>(), *anyVararg())
+                    } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
+                    every { checkAccess(any(), *anyVararg()) } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
+                }
+            }
+        }
+    }
+
     fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
         SymlinkTestBuilder(tempFolder, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
             val skipToUse = if (skip == No) innerSkip else skip
@@ -92,6 +109,17 @@ abstract class PathAssertionsSpec(
                     )
                     containsExplanationFor(maybeLink)
                 }
+            }
+        }
+    }
+
+    fun Suite.itPrintsFileAccessExceptionDetails(block: (Path) -> Unit) {
+        it("prints details if an unknown IoException is thrown") {
+            expect {
+                block(throwingPath())
+            }.toThrow<AssertionError>().message {
+                contains(String.format(FAILURE_DUE_TO_ACCESS_EXCEPTION.getDefault(), IOException::class.simpleName))
+                contains(TEST_IO_EXCEPTION_MESSAGE)
             }
         }
     }
@@ -141,6 +169,7 @@ abstract class PathAssertionsSpec(
         }
 
         itPrintsParentAccessDeniedDetails(block)
+        itPrintsFileAccessExceptionDetails(block)
     }
 
     describeFun(exists.name) {
@@ -183,6 +212,10 @@ abstract class PathAssertionsSpec(
             }
 
             itPrintsParentAccessDeniedDetails { testFile ->
+                expect(testFile).existsNotFun()
+            }
+
+            itPrintsFileAccessExceptionDetails { testFile ->
                 expect(testFile).existsNotFun()
             }
         }
@@ -450,8 +483,8 @@ abstract class PathAssertionsSpec(
                 }
             }
 
-            itPrintsFileAccessProblemDetails {
-                expect(it).isWritableFun()
+            itPrintsFileAccessProblemDetails { testFile ->
+                expect(testFile).isWritableFun()
             }
         }
 
@@ -652,6 +685,8 @@ abstract class PathAssertionsSpec(
         }
     }
 })
+
+private const val TEST_IO_EXCEPTION_MESSAGE = "unknown test error"
 
 internal object TestAcls {
     // although counter-intuitive, the entries must be in this order!
