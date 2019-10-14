@@ -68,8 +68,11 @@ abstract class PathAssertionsSpec(
 
     fun throwingPath(): Path {
         val baseFile = tempFolder.tmpDir.resolve("throwing")
-        return spyk(baseFile) {
-            every { fileSystem } returns spyk(baseFile.fileSystem) {
+
+        // using spyk on baseFile and mocking #getFileSystem does not work on Java 8 on Linux (but everywhere else).
+        // because of that, we use plain old manual delegation:
+        return object : Path by baseFile {
+            override fun getFileSystem() = spyk(baseFile.fileSystem) {
                 every { provider() } returns spyk(baseFile.fileSystem.provider()) {
                     every {
                         readAttributes(any(), any<Class<BasicFileAttributes>>(), *anyVararg())
