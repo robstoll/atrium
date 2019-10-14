@@ -17,7 +17,6 @@ import ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions
 object ResultAssertionsBuilder : ResultAssertions {
 
     override inline fun <E, T : Result<E>> isSuccess(
-        assertionContainer: Expect<T>,
-        index: Int
-    ) :  ExtractedFeaturePostStep<T, E> = resultAssertions.isSuccess(assertionContainer, index)
+        assertionContainer: Expect<T>
+    ) :  ExtractedFeaturePostStep<T, E> = resultAssertions.isSuccess(assertionContainer)
 }

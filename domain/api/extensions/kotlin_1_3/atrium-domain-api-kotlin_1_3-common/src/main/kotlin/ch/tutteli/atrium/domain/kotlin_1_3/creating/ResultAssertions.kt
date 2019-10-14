@@ -17,5 +17,7 @@ val resultAssertions by lazy { loadSingleService(ResultAssertions::class) }
  */
 interface ResultAssertions {
 
-    fun <E, T : Result<E>> isSuccess() : ExtractedFeaturePostStep<T, E>
+    fun <E, T : Result<E>> isSuccess(
+        assertionContainer: Expect<T>
+        ) : ExtractedFeaturePostStep<T, E>
 }

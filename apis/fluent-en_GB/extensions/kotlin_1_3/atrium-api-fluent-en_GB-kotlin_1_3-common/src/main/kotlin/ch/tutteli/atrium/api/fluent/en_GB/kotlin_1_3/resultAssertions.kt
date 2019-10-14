@@ -5,5 +5,10 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
 
 
-//TODO copy KDoc from another assertion which includes a check, e.g. listAssertions.kt -> get
-fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSuccess()
+/**
+ * Expects that given result is successful
+ * returns an [Expect] for the element at that position.
+ *
+ * @return The newly created [Expect].
+ */
+fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSuccess(this).getExpectOfFeature()
