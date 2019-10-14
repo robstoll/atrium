@@ -13,6 +13,9 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.*
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
+import ch.tutteli.atrium.translations.DescriptionBasic.TO
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.fileNameWithoutExtension
 import ch.tutteli.niok.getFileAttributeView
@@ -371,6 +374,9 @@ private val BasicFileAttributes.fileType: Translatable
         isSymbolicLink -> A_SYMBOLIC_LINK
         else -> A_UNKNOWN_FILE_TYPE
     }
+
+fun <T : Path> _fileName(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME) { fileName.toString() }
 
 fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
     ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }

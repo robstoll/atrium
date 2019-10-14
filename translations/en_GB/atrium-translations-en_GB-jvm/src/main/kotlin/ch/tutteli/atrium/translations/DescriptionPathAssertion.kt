@@ -4,13 +4,14 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 enum class DescriptionPathAssertion(override val value: String) : StringBasedTranslatable {
     DOES_NOT_HAVE_PARENT("does not have a parent"),
-    ENDS_NOT_WITH("ends not with"),
-    EXIST("exist"),
+    ENDS_NOT_WITH("does not end with"),
     ENDS_WITH("ends with"),
+    EXIST("exist"),
+    FILE_NAME("file name"),
     PARENT("parent"),
+    FILE_NAME_WITHOUT_EXTENSION("file name without extension"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),
-    FILE_NAME_WITHOUT_EXTENSION("file name without extension"),
     READABLE("readable"),
     WRITABLE("writable"),
     A_FILE("a file"),
