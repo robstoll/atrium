@@ -1535,7 +1535,7 @@ But Atrium shows where it goes wrong and even gives a possible hint:
 expect: 9.99        (kotlin.Float <1234789>)
 ◆ to be (error ± 0.01): 10.0        (kotlin.Float <1234789>)
     » failure might be due to using kotlin.Float, see exact check on the next line
-    » exact check is |9,989999771118164 - 10,0| = 0,010000228881835938 ≤ 0,009999999776482582
+    » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
 ```
 </exs-add-info-2-output>
 
