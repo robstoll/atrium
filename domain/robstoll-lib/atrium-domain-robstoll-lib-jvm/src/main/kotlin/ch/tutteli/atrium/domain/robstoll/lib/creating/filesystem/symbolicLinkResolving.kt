@@ -32,7 +32,8 @@ inline fun explainForResolvedLink(path: Path, assertionCreator: (realPath: Path)
  * Resolves the provided [path] and returns the resolved target (if resolving is possible).
  * Adds explanatory hints for all involved symbolic links to [hintList].
  */
-fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
+@PublishedApi
+internal fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
     val absolutePath = path.toAbsolutePath().normalize()
     return addAllLevelResolvedSymlinkHints(absolutePath, hintList, LinkedList(), absolutePath)
 }
