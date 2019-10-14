@@ -6,6 +6,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._endsWith
 import ch.tutteli.atrium.domain.robstoll.lib.creating._endsNotWith
 import ch.tutteli.atrium.domain.robstoll.lib.creating._exists
 import ch.tutteli.atrium.domain.robstoll.lib.creating._existsNot
+import ch.tutteli.atrium.domain.robstoll.lib.creating._fileName
 import ch.tutteli.atrium.domain.robstoll.lib.creating._fileNameWithoutExtension
 import ch.tutteli.atrium.domain.robstoll.lib.creating._parent
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
@@ -25,7 +26,10 @@ class PathAssertionsImpl : PathAssertions {
         _endsNotWith(assertionContainer, expected)
 
     override fun <T : Path> exists(assertionContainer: Expect<T>) = _exists(assertionContainer)
+
     override fun <T : Path> existsNot(assertionContainer: Expect<T>) = _existsNot(assertionContainer)
+
+    override fun <T : Path> fileName(assertionContainer: Expect<T>) = _fileName(assertionContainer)
 
     override fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =
         _fileNameWithoutExtension(assertionContainer)
