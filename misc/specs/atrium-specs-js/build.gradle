@@ -23,9 +23,7 @@ dependencies {
 }
 
 dependencies {
-    //TODO does not work probably due to different module systems
-    //look for a fix once spek has a runner for JS
-    //api "org.spekframework.spek2:spek-dsl-js:$spek2_version"
+    api "org.spekframework.spek2:spek-dsl-js:$spek2_version"
 }
 
 compileKotlin2Js.kotlinOptions.languageVersion = '1.3'
