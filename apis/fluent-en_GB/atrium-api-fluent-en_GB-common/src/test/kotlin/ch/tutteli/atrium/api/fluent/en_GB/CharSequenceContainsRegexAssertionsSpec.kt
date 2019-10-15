@@ -6,8 +6,19 @@ import org.spekframework.spek2.Spek
 
 class CharSequenceContainsRegexAssertionsSpec : Spek({
     include(StringSpec)
+    include(RegexSpec)
 }) {
     object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
+        getNameContainsRegex(),
+        getAtLeastTriple(),
+        getAtLeastIgnoringCaseTriple(),
+        getShortcutTriple(),
+        getAtMostTriple(),
+        getAtMostIgnoringCaseTriple(),
+        "◆ ", "⚬ "
+    )
+
+    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
         getNameContainsRegex(),
         getAtLeastTriple(),
         getAtLeastIgnoringCaseTriple(),
