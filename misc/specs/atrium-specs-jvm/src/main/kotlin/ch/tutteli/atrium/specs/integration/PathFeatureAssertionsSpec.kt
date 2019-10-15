@@ -20,6 +20,8 @@ abstract class PathFeatureAssertionsSpec(
     fileName: Fun1<Path, Expect<String>.() -> Unit>,
     fileNameWithoutExtensionFeature: Feature0<Path, String>,
     fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
+    extensionFeature: Feature0<Path, String>,
+    extension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -199,4 +201,35 @@ abstract class PathFeatureAssertionsSpec(
         }
     }
 
+    describeFun("val ${extensionFeature.name}") {
+        val extensionVal = extensionFeature.lambda
+
+        context("Path without extension") {
+            it("${extensionFeature.name} is empty") {
+                expect(Paths.get("/foo/no-extension-here")).extensionVal().toBe("")
+            }
+        }
+
+        context("Path with extension") {
+            it("${extensionFeature.name} contains the extension") {
+                expect(Paths.get("/foo/something.txt")).extensionVal().toBe("txt")
+            }
+        }
+    }
+
+    describeFun(extension.name) {
+        val extensionFun = extension.lambda
+
+        context("Path without extension") {
+            it("Returns empty extension") {
+                expect(Paths.get("/foo/no-extension-here")).extensionFun { toBe("") }
+            }
+        }
+
+        context("Path with extension") {
+            it("Returns the extension") {
+                expect(Paths.get("/foo/something.txt")).extensionFun { toBe("txt") }
+            }
+        }
+    }
 })
