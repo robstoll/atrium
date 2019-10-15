@@ -11,13 +11,14 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.exists
 import ch.tutteli.niok.fileNameWithoutExtension
+import ch.tutteli.niok.extension
 import ch.tutteli.niok.notExists
 import java.nio.file.Path
 
-fun <T: Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+fun <T : Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }
 
-fun <T: Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
+fun <T : Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
 
 fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
@@ -45,3 +46,6 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
         .withCheck { it.parent != null }
         .withFeatureExtraction { it.parent }
         .build()
+
+fun <T : Path> _extension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(assertionContainer, EXTENSION) { extension }

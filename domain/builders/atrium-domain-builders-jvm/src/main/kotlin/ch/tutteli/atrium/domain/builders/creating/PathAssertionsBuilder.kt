@@ -40,4 +40,7 @@ object PathAssertionsBuilder : PathAssertions {
 
     override inline fun <T : Path> parent(assertionContainer: Expect<T>) =
         pathAssertions.parent(assertionContainer)
+
+    override inline fun <T : Path> extension(assertionContainer: Expect<T>) =
+        pathAssertions.extension(assertionContainer)
 }

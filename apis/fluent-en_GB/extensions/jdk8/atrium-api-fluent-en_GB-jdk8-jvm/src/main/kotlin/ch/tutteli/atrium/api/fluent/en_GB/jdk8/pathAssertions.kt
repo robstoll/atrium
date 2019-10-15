@@ -147,3 +147,22 @@ val <T : Path> Expect<T>.parent get(): Expect<Path> = ExpectImpl.path.parent(thi
  */
 fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [Path.extension] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ */
+val <T : Path> Expect<T>.extension get(): Expect<String> =
+    ExpectImpl.path.extension(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [Path.extension] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+    ExpectImpl.path.extension(this).addToInitial(assertionCreator)

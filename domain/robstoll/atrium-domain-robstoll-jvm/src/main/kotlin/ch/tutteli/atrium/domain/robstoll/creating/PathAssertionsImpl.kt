@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._exists
 import ch.tutteli.atrium.domain.robstoll.lib.creating._existsNot
 import ch.tutteli.atrium.domain.robstoll.lib.creating._fileName
 import ch.tutteli.atrium.domain.robstoll.lib.creating._fileNameWithoutExtension
+import ch.tutteli.atrium.domain.robstoll.lib.creating._extension
 import ch.tutteli.atrium.domain.robstoll.lib.creating._parent
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.nio.file.Path
@@ -35,4 +36,6 @@ class PathAssertionsImpl : PathAssertions {
         _fileNameWithoutExtension(assertionContainer)
 
     override fun <T : Path> parent(assertionContainer: Expect<T>) = _parent(assertionContainer)
+
+    override fun <T : Path> extension(assertionContainer: Expect<T>) = _extension(assertionContainer)
 }
