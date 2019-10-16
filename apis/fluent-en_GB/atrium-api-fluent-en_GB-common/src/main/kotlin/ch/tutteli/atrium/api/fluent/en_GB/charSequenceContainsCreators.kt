@@ -175,9 +175,9 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex('a(b)?')`
+ *   `contains.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -201,9 +201,9 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex('a(b)?')`
+ *   `contains.exactly(2).regex(Regex("a(b)?"))`
  * instead of:
- *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -214,7 +214,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex
-): Expect<T> = regex(pattern.toString(), *otherPatterns.map { it.toString() }.toTypedArray())
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]

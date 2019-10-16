@@ -83,9 +83,9 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex('a(b)?')`
+ *   `contains.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -109,9 +109,9 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex('a(b)?')`
+ *   `contains.exactly(2).regex(Regex("a(b)?"))`
  * instead of:
- *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -120,7 +120,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatterns: Regex): Expect<T> =
-    containsRegex(pattern.toString(), *otherPatterns.map { it.toString() }.toTypedArray())
+    contains.atLeast(1).regex(pattern, *otherPatterns)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
