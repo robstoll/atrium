@@ -148,7 +148,7 @@ private fun <K, V, T : Map<out K, V>> Expect<T>.values() = ExpectImpl.feature.pr
  * @return The newly created [Expect] for the transformed subject.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
-    ExpectImpl.changeSubject.unreported(this) { it.entries }
+    ExpectImpl.changeSubject(this).unreported { it.entries }
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given

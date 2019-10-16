@@ -63,6 +63,9 @@ interface FeatureExtractorBuilder {
         fun withDescription(translatable: Translatable): RepresentationInCaseOfFailureStep<T>
 
         companion object {
+            /**
+             * Creates a [DescriptionStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T> create(
                 originalAssertionContainer: Expect<T>
             ): DescriptionStep<T> = DescriptionStepImpl(originalAssertionContainer)

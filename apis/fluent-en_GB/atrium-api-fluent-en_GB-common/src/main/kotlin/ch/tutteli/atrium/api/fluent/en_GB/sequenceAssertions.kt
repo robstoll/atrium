@@ -12,7 +12,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return The newly created [Expect] for the transformed subject.
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
-    ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
