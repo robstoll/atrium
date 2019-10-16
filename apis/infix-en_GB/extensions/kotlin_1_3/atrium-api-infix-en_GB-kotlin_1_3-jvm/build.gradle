@@ -1,7 +1,6 @@
-description = 'A fluent assertion function API in en_GB with a focus on code completion for the JVM platform.'
+description = 'Kotlin 1.3 specific assertion functions and builders for infix-en_GB -- will be merged into infix-en_GB with 1.0.0'
 
 ext.jacoco_additional = [
-    prefixedProject('translations-en_GB-jvm'),
     prefixedProject('domain-builders-jvm'),
     prefixedProject('domain-robstoll-jvm'),
     prefixedProject('domain-robstoll-lib-jvm'),
@@ -10,7 +9,8 @@ ext.jacoco_additional = [
 ]
 
 dependencies {
-    api prefixedProject('domain-builders-jvm')
+    api prefixedProject('api-infix-en_GB-jvm')
+    api prefixedProject('domain-builders-kotlin_1_3-jvm')
 
     testImplementation prefixedProject('specs-jvm')
 }

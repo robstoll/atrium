@@ -1,4 +1,4 @@
-description = 'A fluent assertion function API in en_GB with a focus on code completion for the JS platform.'
+description = 'An infix API in en_GB with a focus on code completion for JS.'
 
 dependencies {
     api prefixedProject('domain-builders-js')

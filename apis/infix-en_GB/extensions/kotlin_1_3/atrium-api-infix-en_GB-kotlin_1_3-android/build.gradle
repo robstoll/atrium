@@ -1,0 +1,10 @@
+description = 'Kotlin 1.3 specific assertion functions and builders for infix-en_GB-android -- will be merged into infix-en_GB-android with 1.0.0'
+
+dependencies {
+    api prefixedProject('api-infix-en_GB-android')
+    api prefixedProject('domain-builders-kotlin_1_3-android')
+
+    testImplementation prefixedProject('specs-android')
+}
+
+srcAndResourcesFromJvmProject(project)

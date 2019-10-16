@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("IterableContainsInOrderOnlyCreatorsKt")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -9,8 +6,6 @@ import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
-import kotlin.jvm.JvmMultifileClass
-import kotlin.jvm.JvmName
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the

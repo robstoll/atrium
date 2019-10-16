@@ -1,7 +1,6 @@
-description = 'A fluent assertion function API in en_GB with a focus on code completion for the JVM platform.'
+description = 'JDK 8 specific assertion functions and builders for infix-en_GB.'
 
 ext.jacoco_additional = [
-    prefixedProject('translations-en_GB-jvm'),
     prefixedProject('domain-builders-jvm'),
     prefixedProject('domain-robstoll-jvm'),
     prefixedProject('domain-robstoll-lib-jvm'),
@@ -10,7 +9,9 @@ ext.jacoco_additional = [
 ]
 
 dependencies {
+    api prefixedProject('api-infix-en_GB-jvm')
     api prefixedProject('domain-builders-jvm')
+    api niok()
 
     testImplementation prefixedProject('specs-jvm')
 }
