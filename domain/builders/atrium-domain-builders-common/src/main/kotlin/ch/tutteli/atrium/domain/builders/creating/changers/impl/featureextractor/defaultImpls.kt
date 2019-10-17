@@ -9,48 +9,48 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.changers.featureExtractor
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-class DescriptionOptionImpl<T>(
+class DescriptionStepImpl<T>(
     override val originalAssertionContainer: Expect<T>
-) : FeatureExtractorBuilder.DescriptionOption<T> {
+) : FeatureExtractorBuilder.DescriptionStep<T> {
 
     override fun withDescription(
         translatable: Translatable
-    ): FeatureExtractorBuilder.RepresentationInCaseOfFailureOption<T> =
-        FeatureExtractorBuilder.RepresentationInCaseOfFailureOption.create(originalAssertionContainer, translatable)
+    ): FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<T> =
+        FeatureExtractorBuilder.RepresentationInCaseOfFailureStep.create(originalAssertionContainer, translatable)
 }
 
-internal class RepresentationInCaseOfFailureOptionImpl<T>(
+internal class RepresentationInCaseOfFailureStepImpl<T>(
     override val originalAssertionContainer: Expect<T>,
     override val description: Translatable
-) : FeatureExtractorBuilder.RepresentationInCaseOfFailureOption<T> {
-    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.CheckOption<T> =
-        FeatureExtractorBuilder.CheckOption.create(originalAssertionContainer, description, representation)
+) : FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<T> {
+    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.CheckStep<T> =
+        FeatureExtractorBuilder.CheckStep.create(originalAssertionContainer, description, representation)
 }
 
-class CheckOptionImpl<T>(
+class CheckStepImpl<T>(
     override val originalAssertionContainer: Expect<T>,
     override val description: Translatable,
     override val representationForFailure: Any
-) : FeatureExtractorBuilder.CheckOption<T> {
+) : FeatureExtractorBuilder.CheckStep<T> {
 
-    override fun withCheck(canBeTransformed: (T) -> Boolean): FeatureExtractorBuilder.FeatureExtractionOption<T> =
-        FeatureExtractorBuilder.FeatureExtractionOption.create(this, canBeTransformed)
+    override fun withCheck(canBeTransformed: (T) -> Boolean): FeatureExtractorBuilder.FeatureExtractionStep<T> =
+        FeatureExtractorBuilder.FeatureExtractionStep.create(this, canBeTransformed)
 }
 
-class FeatureExtractionOptionImpl<T>(
-    override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
+class FeatureExtractionStepImpl<T>(
+    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
     override val canBeExtracted: (T) -> Boolean
-) : FeatureExtractorBuilder.FeatureExtractionOption<T> {
+) : FeatureExtractorBuilder.FeatureExtractionStep<T> {
 
-    override fun <R> withFeatureExtraction(extraction: (T) -> R): FeatureExtractorBuilder.RepresentationOption<T, R> =
-        FeatureExtractorBuilder.RepresentationOption.create(checkOption, canBeExtracted, extraction)
+    override fun <R> withFeatureExtraction(extraction: (T) -> R): FeatureExtractorBuilder.OptionalRepresentationStep<T, R> =
+        FeatureExtractorBuilder.OptionalRepresentationStep.create(checkOption, canBeExtracted, extraction)
 }
 
-class RepresentationOptionImpl<T, R>(
-    override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
+class OptionalRepresentationStepImpl<T, R>(
+    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
     override val canBeExtracted: (T) -> Boolean,
     override val featureExtraction: (T) -> R
-) : FeatureExtractorBuilder.RepresentationOption<T, R> {
+) : FeatureExtractorBuilder.OptionalRepresentationStep<T, R> {
 
     override fun withRepresentationInsteadOfFeature(representation: Any): FeatureExtractorBuilder.FinalStep<T, R> =
         createFinalStep(representation)
@@ -67,7 +67,7 @@ class RepresentationOptionImpl<T, R>(
 }
 
 class FinalStepImpl<T, R>(
-    override val checkOption: FeatureExtractorBuilder.CheckOption<T>,
+    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
     override val canBeExtracted: (T) -> Boolean,
     override val featureExtraction: (T) -> R,
     override val representationInsteadOfFeature: Any?
