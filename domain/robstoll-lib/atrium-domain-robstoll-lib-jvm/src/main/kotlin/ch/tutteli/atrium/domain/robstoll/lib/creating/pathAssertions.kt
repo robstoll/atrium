@@ -24,6 +24,7 @@ import java.io.IOException
 import java.nio.file.AccessDeniedException
 import java.nio.file.AccessMode
 import java.nio.file.NoSuchFileException
+import ch.tutteli.niok.extension
 import java.nio.file.Path
 import java.nio.file.attribute.*
 import java.nio.file.attribute.PosixFilePermission.*
@@ -388,3 +389,6 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
         .withCheck { it.parent != null }
         .withFeatureExtraction { it.parent }
         .build()
+
+fun <T : Path> _extension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(assertionContainer, EXTENSION) { extension }

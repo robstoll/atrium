@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("AnyAssertionsKt")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.checking.AssertionChecker
@@ -8,7 +5,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
 import kotlin.js.JsName
-import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**

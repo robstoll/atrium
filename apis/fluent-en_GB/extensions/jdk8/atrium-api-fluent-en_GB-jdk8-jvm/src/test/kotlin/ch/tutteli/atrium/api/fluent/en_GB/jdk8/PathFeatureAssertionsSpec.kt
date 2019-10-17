@@ -12,7 +12,9 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, String>(Expect<Path>::fileName),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileName),
     property<Path, String>(Expect<Path>::fileNameWithoutExtension),
-    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileNameWithoutExtension)
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileNameWithoutExtension),
+    property<Path, String>(Expect<Path>::extension),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

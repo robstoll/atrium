@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("IterableAssertionsKt")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.NotCheckerOption
@@ -10,8 +7,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import kotlin.jvm.JvmMultifileClass
-import kotlin.jvm.JvmName
 
 /**
  * Creates an [IterableContains.Builder] based on this [Expect] which allows to define
