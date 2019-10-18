@@ -4,8 +4,18 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.name
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
+
+//TODO remove once you have AnyAssertionsSpec
+object DummyRemove : Spek({
+  describe("dummy"){
+      it("test"){
+      }
+  }
+})
 
 //class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 //    fun1<Int, Int>(Expect<Int>::toBe).name to Companion::toBe,
