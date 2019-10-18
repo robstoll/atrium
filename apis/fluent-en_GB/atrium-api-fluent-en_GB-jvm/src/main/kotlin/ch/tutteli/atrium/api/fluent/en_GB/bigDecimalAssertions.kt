@@ -42,11 +42,6 @@ fun Expect<out BigDecimal?>.toBe(expected: BigDecimal?): Nothing = throw PleaseU
 )
 
 @JvmName("toBeNullable")
-@Suppress(
-    //TODO remove ignoredDontPassSomething with 1.0.0
-    //  in case https://youtrack.jetbrains.com/issue/KT-33294 is fixed by then
-    "UNUSED_PARAMETER"
-)
 inline fun <reified T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
     addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
 

@@ -13,10 +13,9 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.*
-import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
-import ch.tutteli.atrium.translations.DescriptionBasic.TO
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
+import ch.tutteli.niok.extension
 import ch.tutteli.niok.fileNameWithoutExtension
 import ch.tutteli.niok.getFileAttributeView
 import ch.tutteli.niok.readAttributes
@@ -24,7 +23,6 @@ import java.io.IOException
 import java.nio.file.AccessDeniedException
 import java.nio.file.AccessMode
 import java.nio.file.NoSuchFileException
-import ch.tutteli.niok.extension
 import java.nio.file.Path
 import java.nio.file.attribute.*
 import java.nio.file.attribute.PosixFilePermission.*
@@ -96,7 +94,7 @@ private fun <T : Path> filePermissionAssertion(
     assertionContainer: Expect<T>,
     permissionName: Translatable,
     accessMode: AccessMode
-) = ExpectImpl.changeSubject.unreported(assertionContainer) {
+) = ExpectImpl.changeSubject(assertionContainer).unreported {
     it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
 }.let { checkAccessResultContainer ->
     ExpectImpl.builder.descriptive
@@ -142,7 +140,7 @@ private inline fun <T : Path> fileTypeAssertion(
 private inline fun <T : Path, R> changeSubjectToFileAttributes(
     assertionContainer: Expect<T>,
     block: (Expect<IoResult<BasicFileAttributes>>) -> R
-): R = ExpectImpl.changeSubject.unreported(assertionContainer) {
+): R = ExpectImpl.changeSubject(assertionContainer).unreported {
     it.runCatchingIo { readAttributes<BasicFileAttributes>() }
 }.let(block)
 

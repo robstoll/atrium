@@ -211,7 +211,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Col
  */
 @Suppress("DEPRECATION")
 fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
-    = ExpectImpl.changeSubject.unreported(this) { it.entries }
+    = ExpectImpl.changeSubject(this).unreported { it.entries }
 
 /**
  * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given

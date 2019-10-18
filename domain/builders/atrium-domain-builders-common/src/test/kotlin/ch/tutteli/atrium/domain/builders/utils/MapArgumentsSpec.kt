@@ -73,12 +73,12 @@ object MapArgumentsSpec : Spek({
                     expect(first).toBe(null)
                     expect(others[0]).notToBeNull {
                         maybeSubject.map { assertionCreator ->
-                            ExpectImpl.changeSubject.unreported(this) { "banana" }.assertionCreator()
+                            ExpectImpl.changeSubject(this).unreported { "banana" }.assertionCreator()
                         }
                     }
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
-                            ExpectImpl.changeSubject.unreported(this) { "caramel" }.assertionCreator()
+                            ExpectImpl.changeSubject(this).unreported { "caramel" }.assertionCreator()
                         }
                     }
                 }
@@ -93,13 +93,13 @@ object MapArgumentsSpec : Spek({
                     deprecatedAssert(others[0]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             @Suppress("DEPRECATION")
-                            ExpectImpl.changeSubject.unreported(this) { "banana" }.asAssert().assertionCreator()
+                            ExpectImpl.changeSubject(this).unreported { "banana" }.asAssert().assertionCreator()
                         }
                     }
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             @Suppress("DEPRECATION")
-                            ExpectImpl.changeSubject.unreported(this) { "caramel" }.asAssert().assertionCreator()
+                            ExpectImpl.changeSubject(this).unreported { "caramel" }.asAssert().assertionCreator()
                         }
                     }
                 }

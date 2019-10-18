@@ -16,7 +16,7 @@ import java.nio.file.Path
  * @since 0.9.0
  */
 fun <T : File> Expect<T>.asPath(): Expect<Path> =
-    ExpectImpl.changeSubject.unreported(this) { it.toPath() }
+    ExpectImpl.changeSubject(this).unreported { it.toPath() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
