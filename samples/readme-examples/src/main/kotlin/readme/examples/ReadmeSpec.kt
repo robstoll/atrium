@@ -1,23 +1,30 @@
 package readme.examples
 
 //snippet-import-start
-import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
 //snippet-import-end
+//snippet-mapArguments-start
+//snippet-mapArguments-end
+//snippet-subExpect-start
+//snippet-subExpect-end
+import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.exists
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isRegularFile
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isWritable
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-//snippet-mapArguments-start
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
-//snippet-mapArguments-end
-//snippet-subExpect-start
 import ch.tutteli.atrium.domain.builders.utils.subExpect
-//snippet-subExpect-end
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.niok.deleteRecursively
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.*
 
 
@@ -107,9 +114,11 @@ class ReadmeSpec : Spek({
 
     //@formatter:off
     test("ex-property-methods-group") {
-        expect(myPerson) { // forms an assertion group block
+        expect(myPerson) {
+            // forms an assertion group block
 
-            feature({ f(it::firstName) }) { // forms an assertion group block
+            feature({ f(it::firstName) }) {
+                // forms an assertion group block
                 startsWith("Pe")            // fails
                 endsWith("er")              // is evaluated nonetheless
             }                               // fails as a whole
@@ -130,6 +139,7 @@ class ReadmeSpec : Spek({
     //@formatter:off
     //snippet-Family-start
     data class FamilyMember(val name: String)
+
     data class Family(val members: List<FamilyMember>)
 
     val myFamily = Family(listOf(FamilyMember("Robert")))
@@ -211,6 +221,11 @@ val x: SuperType = SubType2("hello", flag = true)
 //@formatter:on
 
 object ReadmeSpec2 : Spek({
+    val toDelete: MutableSet<Path> = HashSet()
+
+    afterGroup {
+        toDelete.forEach { it.deleteRecursively() }
+    }
 
     test("ex-nullable-1") {
         val slogan1: String? = "postulating assertions made easy"
@@ -309,6 +324,24 @@ object ReadmeSpec2 : Spek({
             }
         )
     }
+
+    test("ex-path-exsits") {
+        expect(Paths.get("/usr/bin/noprogram")).exists()
+    }
+
+    test("ex-path-writable") {
+        expect(Paths.get("/root/.ssh/config")).isWritable()
+    }
+
+    val tmpdir = Paths.get(System.getProperty("java.io.tmpdir"))
+    test("ex-path-symlink-and-parent-not-folder") {
+        val directory = Files.createDirectory(tmpdir.resolve("atrium-path"))
+        val file = Files.createFile(directory.resolve("file"))
+        val filePointer = Files.createSymbolicLink(directory.resolve("directory"), file)
+
+        expect(filePointer.resolve("subfolder/file")).isRegularFile()
+    }
+    toDelete.add(tmpdir.resolve("atrium-path"))
 
     //snippet-data-driven-1-start
     fun myFun(i: Int) = (i + 97).toChar()
@@ -470,13 +503,15 @@ object OwnPerson : Spek({
         //snippet-children-insert
     }
     //@formatter:off
-    test("ex-own-compose-5"){
+    test("ex-own-compose-5") {
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
-            .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
+            .children {
+                // using the fun -> assertion group, ergo sub-assertions don't fail fast
                 none { feature { f(it::firstName) }.startsWith("Ro") }
                 all { feature { f(it::lastName) }.toBe("Whitley") }
             } // subject is still Person here
-            .apply { // only evaluated because the previous assertion group holds
+            .apply {
+                // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast
                     .hasSize(2)
                     .any { feature { f(it::age) }.isGreaterThan(18) }
