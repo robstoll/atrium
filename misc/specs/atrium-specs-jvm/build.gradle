@@ -32,6 +32,7 @@ dependencies {
     //TODO #116 remove once there aren't any spek1 specs anymore
     api "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
     api mockito(), excludeKotlin
+    api niok(), excludeKotlin
 }
 
 compileKotlin.kotlinOptions.languageVersion = '1.3'
