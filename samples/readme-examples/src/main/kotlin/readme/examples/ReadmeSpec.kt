@@ -1,21 +1,21 @@
 package readme.examples
 
 //snippet-import-start
-//snippet-import-end
-//snippet-mapArguments-start
-//snippet-mapArguments-end
-//snippet-subExpect-start
-//snippet-subExpect-end
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+//snippet-import-end
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.exists
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isRegularFile
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isWritable
-import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+//snippet-mapArguments-start
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
+//snippet-mapArguments-end
+//snippet-subExpect-start
 import ch.tutteli.atrium.domain.builders.utils.subExpect
+//snippet-subExpect-end
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -114,11 +114,9 @@ class ReadmeSpec : Spek({
 
     //@formatter:off
     test("ex-property-methods-group") {
-        expect(myPerson) {
-            // forms an assertion group block
+        expect(myPerson) { // forms an assertion group block
 
-            feature({ f(it::firstName) }) {
-                // forms an assertion group block
+            feature({ f(it::firstName) }) { // forms an assertion group block
                 startsWith("Pe")            // fails
                 endsWith("er")              // is evaluated nonetheless
             }                               // fails as a whole
@@ -503,15 +501,13 @@ object OwnPerson : Spek({
         //snippet-children-insert
     }
     //@formatter:off
-    test("ex-own-compose-5") {
+    test("ex-own-compose-5"){
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
-            .children {
-                // using the fun -> assertion group, ergo sub-assertions don't fail fast
+            .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
                 none { feature { f(it::firstName) }.startsWith("Ro") }
                 all { feature { f(it::lastName) }.toBe("Whitley") }
             } // subject is still Person here
-            .apply {
-                // only evaluated because the previous assertion group holds
+            .apply { // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast
                     .hasSize(2)
                     .any { feature { f(it::age) }.isGreaterThan(18) }
