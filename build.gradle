@@ -299,6 +299,7 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
 }
 
 apply from: 'gradle/scripts/gh-pages.gradle'
+apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
