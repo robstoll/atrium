@@ -368,6 +368,7 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
 }
 
 createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstoll') { true }
+createRegisterJsServicesTask('domain-robstoll-kotlin_1_3-js', 'ch.tutteli.atrium.domain.kotlin_1_3') { true }
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     !(it in [
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
