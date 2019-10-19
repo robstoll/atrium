@@ -1363,7 +1363,7 @@ expect: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
 ```
 </ex-path-writable>
 
-Even in more complicated scenarios, atrium explains step by step what happened:
+Even in more complicated scenarios, Atrium explains step by step what happened:
 
 <ex-path-symlink-and-parent-not-folder>
 
