@@ -13,8 +13,8 @@ abstract class FileAsPathAssertionsSpec(
     asPath: Expect<File>.(Expect<Path>.() -> Unit) -> Expect<File>
 ) : Spek({
 
-    describe("something") {
-        it("something else") {
+    describe("asPath") {
+        it("transformation can be applied and a subsequent assertion made") {
             val path = "/foo/bar"
             expect(File(path)).asPath { toBe(Paths.get(path)) }
         }
