@@ -26,11 +26,11 @@ abstract class IterableAllAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        describePrefix, oneToSeven,
+        describePrefix, oneToSeven().toList().asIterable(),
         all.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
         allNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
     ) {})
 
@@ -64,12 +64,11 @@ abstract class IterableAllAssertionsSpec(
             }
         }
 
-        val fluent = expect(oneToSeven)
-        context("iterable $oneToSeven") {
+        context("iterable ${oneToSeven().toList()}") {
             context("all are $isGreaterThanFun(2.5) and $isLessThanFun(7.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.allFun { isGreaterThan(2.5); isLessThan(7.0) }
+                        expect(oneToSeven()).allFun { isGreaterThan(2.5); isLessThan(7.0) }
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
@@ -88,7 +87,7 @@ abstract class IterableAllAssertionsSpec(
 
             context("all are $isGreaterThanFun(0.5) and $isLessThanFun(7.5)") {
                 it("does not throw an exception") {
-                    fluent.allFun { isGreaterThan(0.5); isLessThan(7.5) }
+                    expect(oneToSeven()).allFun { isGreaterThan(0.5); isLessThan(7.5) }
                 }
             }
         }

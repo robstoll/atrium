@@ -28,11 +28,11 @@ abstract class IterableNoneAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        describePrefix, oneToSeven,
+        describePrefix, oneToSeven().toList().asIterable(),
         none.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
         noneNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
 
@@ -63,13 +63,11 @@ abstract class IterableNoneAssertionsSpec(
         noneNullable
     ) { noneFun ->
 
-        val fluent = expect(oneToSeven)
-
-        context("iterable $oneToSeven") {
+        context("iterable ${oneToSeven().toList()}") {
             context("happy case") {
                 listOf(1.1, 2.2, 3.3).forEach {
                     it("$toBeDescr($it) does not throw") {
-                        fluent.noneFun { toBe(1.1) }
+                        expect(oneToSeven()).noneFun { toBe(1.1) }
                     }
                 }
             }
@@ -77,7 +75,7 @@ abstract class IterableNoneAssertionsSpec(
             context("failing cases; search string at different positions") {
                 it("$toBeDescr(4.0) throws AssertionError") {
                     expect {
-                        fluent.noneFun { toBe(4.0) }
+                        expect(oneToSeven()).noneFun { toBe(4.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -100,15 +98,15 @@ abstract class IterableNoneAssertionsSpec(
         describeFun("${noneNullable.name} for nullable") {
             val noneFun = noneNullable.lambda
 
-            context("iterable $oneToSeven") {
+            context("iterable ${oneToSeven().toList()}") {
                 it("null does not throw") {
-                    expect(oneToSeven as Iterable<Double?>).noneFun(null)
+                    expect(oneToSeven() as Iterable<Double?>).noneFun(null)
                 }
             }
-            context("iterable $oneToSevenNullable") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 it("null throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable).noneFun(null)
+                        expect(oneToSevenNullable()).noneFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -126,7 +124,7 @@ abstract class IterableNoneAssertionsSpec(
 
                 it("1.0 throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable).noneFun { toBe(1.0) }
+                        expect(oneToSevenNullable()).noneFun { toBe(1.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

@@ -164,26 +164,25 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                 containsFunArr(t1, t2, tX)
 
             describeFun(describe) {
-                val fluent = expect(oneToFour)
                 context("throws an $illegalArgumentException") {
                     it("if an empty group is given as first parameter") {
                         expect {
-                            fluent.containsFun(context(), context(-1.2))
+                            expect(oneToFour()).containsFun(context(), context(-1.2))
                         }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                     }
                     it("if an empty group is given as second parameter") {
                         expect {
-                            fluent.containsFun(context(1.2), context())
+                            expect(oneToFour()).containsFun(context(1.2), context())
                         }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                     }
                     it("if an empty group is given as third parameter") {
                         expect {
-                            fluent.containsFun(context(1.2), context(4.3), context())
+                            expect(oneToFour()).containsFun(context(1.2), context(4.3), context())
                         }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                     }
                     it("if an empty group is given as fourth parameter") {
                         expect {
-                            fluent.containsFun(context(1.2), context(4.3), context(5.7), context())
+                            expect(oneToFour()).containsFun(context(1.2), context(4.3), context(5.7), context())
                         }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                     }
                 }
@@ -204,20 +203,20 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                     }
                 }
 
-                context("iterable $oneToFour") {
+                context("iterable ${oneToFour().toList()}") {
 
                     context("happy case") {
                         it("(1.0), (2.0, 3.0), (4.0, 4.0)") {
-                            fluent.containsFun(context(1.0), context(2.0, 3.0), context(4.0, 4.0))
+                            expect(oneToFour()).containsFun(context(1.0), context(2.0, 3.0), context(4.0, 4.0))
                         }
                         it("(2.0, 1.0), (4.0, 3.0), (4.0)") {
-                            fluent.containsFun(context(2.0, 1.0), context(4.0, 3.0), context(4.0))
+                            expect(oneToFour()).containsFun(context(2.0, 1.0), context(4.0, 3.0), context(4.0))
                         }
                         it("(2.0, 3.0, 1.0), (4.0), (4.0)") {
-                            fluent.containsFun(context(2.0, 3.0, 1.0), context(4.0), context(4.0))
+                            expect(oneToFour()).containsFun(context(2.0, 3.0, 1.0), context(4.0), context(4.0))
                         }
                         it("(1.0, 2.0), (4.0, 3.0, 4.0)") {
-                            fluent.containsFun(context(1.0, 2.0), context(4.0, 3.0, 4.0))
+                            expect(oneToFour()).containsFun(context(1.0, 2.0), context(4.0, 3.0, 4.0))
                         }
                     }
 
@@ -225,7 +224,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
                         it("(4.0, 1.0), (2.0, 3.0, 4.0) -- wrong order") {
                             expect {
-                                fluent.containsFun(context(4.0, 1.0), context(2.0, 3.0, 4.0))
+                                expect(oneToFour()).containsFun(context(4.0, 1.0), context(2.0, 3.0, 4.0))
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
@@ -251,7 +250,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
                         it("(1.0), (4.0, 3.0, 2.0) -- 4.0 was missing") {
                             expect {
-                                fluent.containsFun(context(1.0), context(4.0, 2.0, 3.0))
+                                expect(oneToFour()).containsFun(context(1.0), context(4.0, 2.0, 3.0))
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
@@ -269,7 +268,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
                         it("(1.0), (4.0) -- 2.0, 3.0 and 4.0 was missing") {
                             expect {
-                                fluent.containsFun(context(1.0), context(4.0))
+                                expect(oneToFour()).containsFun(context(1.0), context(4.0))
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
@@ -282,7 +281,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                         }
                         it("(1.0, 3.0), (5.0) -- 5.0 is wrong and 4.0 and 4.0 are missing") {
                             expect {
-                                fluent.containsFun(context(1.0, 3.0), context(5.0))
+                                expect(oneToFour()).containsFun(context(1.0, 3.0), context(5.0))
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
@@ -301,7 +300,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                         }
                         it("( 4.0, 1.0, 3.0, 2.0), (5.0, 4.0) -- 5.0 too much") {
                             expect {
-                                fluent.containsFun(context(4.0, 1.0, 3.0, 2.0), context(5.0, 4.0))
+                                expect(oneToFour()).containsFun(context(4.0, 1.0, 3.0, 2.0), context(5.0, 4.0))
                             }.toThrow<AssertionError> {
                                 message {
                                     contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
