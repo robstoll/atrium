@@ -49,28 +49,27 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
             }
         }
 
-        val fluent = expect(oneToSeven)
-        context("iterable '$oneToSeven'") {
+        context("iterable '${oneToSeven().toList()}'") {
 
             context("happy cases") {
                 (1..7).forEach {
                     val d = it.toDouble()
                     it("$d does not throw") {
-                        fluent.containsFun(d)
+                        expect(oneToSeven()).containsFun(d)
                     }
                 }
                 it("1.0 and 4.0 does not throw") {
-                    fluent.containsFun(1.0, 4.0)
+                    expect(oneToSeven()).containsFun(1.0, 4.0)
                 }
                 it("1.0 and 1.0 (searching twice in the same assertion) does not throw") {
-                    fluent.containsFun(1.0, 1.0)
+                    expect(oneToSeven()).containsFun(1.0, 1.0)
                 }
             }
 
             context("error cases") {
                 it("9.5 throws AssertionError") {
                     expect {
-                        fluent.containsFun(9.5)
+                        expect(oneToSeven()).containsFun(9.5)
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -82,7 +81,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 }
                 it("9.5 and 7.1 throws AssertionError") {
                     expect {
-                        fluent.containsFun(9.5, 7.1)
+                        expect(oneToSeven()).containsFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(2).values(
@@ -99,7 +98,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 }
                 it("1.0 and 9.5 throws AssertionError") {
                     expect {
-                        fluent.containsFun(1.0, 9.5)
+                        expect(oneToSeven()).containsFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 9.5")

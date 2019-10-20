@@ -96,12 +96,11 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
             }
         }
 
-        context("iterable $oneToFour") {
-            val fluent = expect(oneToFour)
+        context("iterable ${oneToFour().toList()}") {
 
             context("happy case") {
                 it("1.0, 2.0, 3.0, 4.0, 4.0") {
-                    fluent.containsFun(1.0, 2.0, 3.0, 4.0, 4.0)
+                    expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0, 4.0)
                 }
             }
 
@@ -109,7 +108,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
                 it("4.0, 1.0, 2.0, 3.0, 4.0 -- wrong order") {
                     expect {
-                        fluent.containsFun(4.0, 1.0, 2.0, 3.0, 4.0)
+                        expect(oneToFour()).containsFun(4.0, 1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -125,7 +124,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
                 it("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
                     expect {
-                        fluent.containsFun(1.0, 2.0, 3.0, 4.0)
+                        expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -144,7 +143,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
                 it("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
                     expect {
-                        fluent.containsFun(1.0, 4.0)
+                        expect(oneToFour()).containsFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -162,7 +161,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 }
                 it("1.0, 3.0, 5.0 -- 5.0 is wrong and 4.0 and 4.0 are missing") {
                     expect {
-                        fluent.containsFun(1.0, 3.0, 5.0)
+                        expect(oneToFour()).containsFun(1.0, 3.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -180,7 +179,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 }
                 it("1.0, 2.0, 3.0, 4.0, 4.0, 5.0 -- 5.0 too much") {
                     expect {
-                        fluent.containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
+                        expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")

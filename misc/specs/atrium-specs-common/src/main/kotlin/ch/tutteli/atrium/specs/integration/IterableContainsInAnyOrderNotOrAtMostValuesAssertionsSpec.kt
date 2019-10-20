@@ -23,8 +23,6 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val fluent = expect(oneToSeven)
-
     fun Expect<Iterable<Double>>.containsNotOrAtMostFun(atLeast: Int, a: Double, vararg aX: Double) =
         containsNotOrAtMost(this, atLeast, a, aX.toTypedArray())
 
@@ -35,41 +33,41 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
         context("throws an $illegalArgumentException") {
             it("for not at all or at most -1 -- only positive numbers") {
                 expect {
-                    fluent.containsNotOrAtMostFun(-1, 0.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(-1, 0.0)
                 }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             it("for not at all or at most 0 -- points to $containsNot") {
                 expect {
-                    fluent.containsNotOrAtMostFun(0, 0.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(0, 0.0)
                 }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
             }
         }
 
-        context("iterable $oneToSeven") {
+        context("iterable ${oneToSeven().toList()}") {
             context("happy case with $containsNotOrAtMost once") {
                 it("${containsNotOrAtMostPair.first("1.0", "once")} does not throw") {
-                    fluent.containsNotOrAtMostFun(1, 1.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(1, 1.0)
                 }
                 it("${containsNotOrAtMostPair.first("1.0 and 2.0 and 3.0", "once")} does not throw") {
-                    fluent.containsNotOrAtMostFun(1, 1.0, 2.0, 3.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(1, 1.0, 2.0, 3.0)
                 }
                 it("${containsNotOrAtMostPair.first("3.0 and 1.0 and 2.0", "once")} does not throw") {
-                    fluent.containsNotOrAtMostFun(1, 3.0, 1.0, 2.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(1, 3.0, 1.0, 2.0)
                 }
                 it("${containsNotOrAtMostPair.first("21.1 and 34.0 and 11.23", "twice")}  does not throw") {
-                    fluent.containsNotOrAtMostFun(2, 21.1, 34.0, 11.23)
+                    expect(oneToSeven()).containsNotOrAtMostFun(2, 21.1, 34.0, 11.23)
                 }
             }
 
             context("failing cases; search string at different positions") {
                 it("${containsNotOrAtMostPair.first("4.0", "once")} throws AssertionError") {
                     expect {
-                        fluent.containsNotOrAtMostFun(1, 4.0)
+                        expect(oneToSeven()).containsNotOrAtMostFun(1, 4.0)
                     }.toThrow<AssertionError> { messageContains("$atMost: 1", "$anEntryWhichIs: 4.0") }
                 }
                 it("${containsNotOrAtMostPair.first("1.0, 4.0", "once")} throws AssertionError mentioning only 4.0") {
                     expect {
-                        fluent.containsNotOrAtMostFun(1, 1.0, 4.0)
+                        expect(oneToSeven()).containsNotOrAtMostFun(1, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains("$atMost: 1", "$anEntryWhichIs: 4.0")
@@ -84,7 +82,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     )} once throws AssertionError mentioning only 4.0"
                 ) {
                     expect {
-                        fluent.containsNotOrAtMostFun(1, 4.0, 1.0)
+                        expect(oneToSeven()).containsNotOrAtMostFun(1, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains("$atMost: 1", "$anEntryWhichIs: 4.0")
@@ -94,7 +92,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                 }
                 it("${containsNotOrAtMostPair.first("5.0, 3.1, 3.0, 4.0", "once")} throws AssertionError") {
                     expect {
-                        fluent.containsNotOrAtMostFun(1, 5.0, 3.1, 3.0, 4.0)
+                        expect(oneToSeven()).containsNotOrAtMostFun(1, 5.0, 3.1, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(2).values(
@@ -120,7 +118,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     )} throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 5.0 (2)"
                 ) {
                     expect {
-                        fluent.containsNotOrAtMostFun(1, 5.0)
+                        expect(oneToSeven()).containsNotOrAtMostFun(1, 5.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains(
@@ -134,12 +132,12 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                 }
 
                 it("${containsNotOrAtMostPair.first("5.0", "twice")} does not throw") {
-                    fluent.containsNotOrAtMostFun(2, 5.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(2, 5.0)
                 }
 
 
                 it("${containsNotOrAtMostPair.first("5.0", "3 times")} does not throw") {
-                    fluent.containsNotOrAtMostFun(3, 5.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(3, 5.0)
                 }
                 it(
                     "${containsNotOrAtMostPair.first(
@@ -148,7 +146,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     )} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 4.0 (3)"
                 ) {
                     expect {
-                        fluent.containsNotOrAtMostFun(2, 5.0, 4.0)
+                        expect(oneToSeven()).containsNotOrAtMostFun(2, 5.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             contains(
@@ -162,10 +160,10 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     }
                 }
                 it("${containsNotOrAtMostPair.first("4.0", "3 times")} does not throw") {
-                    fluent.containsNotOrAtMostFun(3, 4.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(3, 4.0)
                 }
                 it("${containsNotOrAtMostPair.first("5.0 and 4.0", "3 times")} does not throw") {
-                    fluent.containsNotOrAtMostFun(3, 5.0, 4.0)
+                    expect(oneToSeven()).containsNotOrAtMostFun(3, 5.0, 4.0)
                 }
 
             }

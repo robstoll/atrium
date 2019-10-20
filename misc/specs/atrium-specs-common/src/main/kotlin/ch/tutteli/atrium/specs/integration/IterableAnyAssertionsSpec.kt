@@ -28,11 +28,11 @@ abstract class IterableAnyAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        describePrefix, oneToSeven,
+        describePrefix, oneToSeven().toList().asIterable(),
         any.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
         anyNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
     ) {})
 
@@ -67,12 +67,11 @@ abstract class IterableAnyAssertionsSpec(
             }
         }
 
-        val fluent = expect(oneToSeven)
-        context("iterable $oneToSeven") {
+        context("iterable ${oneToSeven().toList()}") {
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.anyFun { isGreaterThan(1.0); isLessThan(2.0) }
+                        expect(oneToSeven()).anyFun { isGreaterThan(1.0); isLessThan(2.0) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -88,7 +87,7 @@ abstract class IterableAnyAssertionsSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    fluent.anyFun { isGreaterThan(1.0); isLessThan(2.1) }
+                    expect(oneToSeven()).anyFun { isGreaterThan(1.0); isLessThan(2.1) }
                 }
             }
         }
@@ -130,10 +129,10 @@ abstract class IterableAnyAssertionsSpec(
                 }
             }
 
-            context("iterable $oneToSeven") {
+            context("iterable ${oneToSeven().toList()}") {
                 it("null, throws an AssertionError") {
                     expect {
-                        expect(oneToSeven as Iterable<Double?>).anyNullableFun(null)
+                        expect(oneToSeven() as Iterable<Double?>).anyNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
