@@ -1,0 +1,17 @@
+description = 'Represents a convenience module which merely bundles dependencies for the Android platform.'
+
+dependencies {
+    api prefixedProject('verbs-android')
+    api prefixedProject('api-infix-en_GB-kotlin_1_3-android')
+    api prefixedProject('translations-en_GB-android')
+    api prefixedProject('domain-builders-android')
+    api prefixedProject('domain-api-android')
+    api prefixedProject('core-api-android')
+
+    runtimeOnly prefixedProject('domain-robstoll-android')
+    runtimeOnly prefixedProject('core-robstoll-android')
+}
+
+srcAndResourcesFromJvmProject(project)
+
+compileKotlin.kotlinOptions.languageVersion = '1.3'

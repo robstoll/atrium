@@ -62,6 +62,7 @@ include {
 
     bundles {
         bundleWithExtensionsAndSmokeTest(delegate, 'fluent-en_GB')
+        bundleWithExtensionsAndSmokeTest(delegate, 'infix-en_GB')
     }
 
     apis('api-') {

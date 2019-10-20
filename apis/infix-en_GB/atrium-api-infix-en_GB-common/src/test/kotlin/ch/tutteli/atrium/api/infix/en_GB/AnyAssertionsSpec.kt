@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder.toBe
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.name
@@ -9,20 +10,20 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
-//TODO remove once you have AnyAssertionsSpec
-object DummyRemove : Spek({
-  describe("dummy"){
-      it("test"){
-      }
-  }
-})
+////TODO remove once you have AnyAssertionsSpec
+//object DummyRemove : Spek({
+//  describe("dummy"){
+//      it("test"){
+//      }
+//  }
+//})
 
 //class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 //    fun1<Int, Int>(Expect<Int>::toBe).name to Companion::toBe,
-
-    //TODO adjust the following lines -> also use `fun1<...>(...).name to Companion:...`
-    //we use `fun...` do distinguish between potential overloads but want to see the infix API in action
-
+//
+//    TODO adjust the following lines -> also use `fun1<...>(...).name to Companion:...`
+//    we use `fun...` do distinguish between potential overloads but want to see the infix API in action
+//
 //    fun1<DataClass, DataClass>(Expect<DataClass>::toBe),
 //    fun2<Int?, Int?, Nothing?>(Expect<Int?>::toBe, suffix = " nullable").name to Companion::toBeNullableInt,
 //    fun2<DataClass?, DataClass?, Nothing?>(
@@ -54,17 +55,17 @@ object DummyRemove : Spek({
 //    "notToBeNull" to Companion::notToBeNull,
 //    Companion::notToBeNullLess,
 //    Companion::notToBeNullGreaterAndLess,
-
+//
 //    getAndImmediatePair(),
 //    getAndLazyPair()
 //) {
-
+//
 //    companion object {
-
+//
 //        private fun toBe(expect: Expect<Int>, a: Int): Expect<Int?> =
 //            expect toBe a
-
-        //TODO adjust the following to infix API as well
+//
+//        TODO adjust the following to infix API as well
 //        private fun toBeNullableInt(expect: Expect<Int?>, a: Int?): Expect<Int?> =
 //            expect.toBe(a)
 //
