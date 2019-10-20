@@ -245,3 +245,58 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = atLeast(1).regex(pattern, *otherPatterns)
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched, using a non disjoint search.
+ *
+ * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
+ * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
+ * [expectedIterable] does not have elements (is empty).
+ * @since 0.9.0
+ */
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<Any>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched (ignoring case), using a non disjoint search.
+ *
+ * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
+ * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
+ * [expectedIterable] does not have elements (is empty).
+ * @since 0.9.0
+ */
+@JvmName("elementsOfIgnoringCase")
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<Any>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
