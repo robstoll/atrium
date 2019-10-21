@@ -10,7 +10,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
 
     describe("elementsOf") {
         it("passing an empty iterable throws an IllegalArgumentException") {
-            ch.tutteli.atrium.verbs.internal.expect {
+            expect {
                 expect(listOf(1, 2)).contains.inAnyOrder.atLeast(1).elementsOf(listOf())
             }.toThrow<IllegalArgumentException>()
         }
