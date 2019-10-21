@@ -5,7 +5,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.translations.DescriptionResultAssertion
 
-fun  <E, T : Result<E>>_isSuccess( assertionContainer: Expect<T>) : ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep<T, E> =
+fun  <E, T : Result<E>>_isSuccess( assertionContainer: Expect<T>) : ExtractedFeaturePostStep<T, E> =
     ExpectImpl.feature.extractor(assertionContainer)
         .withDescription(DescriptionResultAssertion.UNBOXED)
         .withRepresentationForFailure(DescriptionResultAssertion.IS_NOT_SUCCESS)
