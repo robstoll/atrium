@@ -42,7 +42,7 @@ test {
 
 dependencies {
     // setup for atrium:
-    // for infix-api/german-fluent-api -> change artifact-id to 'atrium-infix-en_GB'
+    // for infix-api -> change artifact-id to 'atrium-infix-en_GB'
     // for german fluent API -> change artifact-id to 'atrium-fluent-de_CH'
     testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
 
