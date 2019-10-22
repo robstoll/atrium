@@ -4,7 +4,7 @@ buildscript {
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     def jsSampleProjects = subprojects.findAll {
-        it.projectDir.parent.endsWith('samples/js') || it.projectDir.parent.endsWith('samples\\js')
+        it.projectDir.parent.endsWith('samples/js/') || it.projectDir.parent.endsWith('samples\\js\\')
     }
     ext {
         // main
@@ -248,7 +248,9 @@ configure(apiProjects) { apiProject ->
 }
 
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
-def sampleProjects = jsSamples
+def sampleProjects = subprojects.findAll {
+    it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
+}
 configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
