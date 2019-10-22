@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder.toBe
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.spek.extensions.TempFolder
 import org.spekframework.spek2.Spek
@@ -35,12 +36,12 @@ abstract class PathFeatureAssertionsSpec(
             it("toBe(folder.parent) holds") {
                 val childFolder = tempFolder.newFolder("child")
                 val parentFolder = childFolder.parent
-                expect(childFolder).parentVal().toBe(parentFolder)
+                toBe(parentFolder,expect(childFolder))
             }
             it("toBe(folder) fails") {
                 expect {
                     val childFolder = tempFolder.newFolder("child")
-                    expect(childFolder).parentVal().toBe(childFolder)
+                    toBe(childFolder,expect(childFolder))
                 }.toThrow<AssertionError> {
                     messageContains("child")
                 }
@@ -51,7 +52,7 @@ abstract class PathFeatureAssertionsSpec(
             it("toBe(folder.parent) fails") {
                 expect {
                     val rootFolder = tempFolder.tmpDir.root
-                    expect(rootFolder).parentVal().toBe(rootFolder)
+                    toBe(rootFolder,expect(rootFolder))
                 }.toThrow<AssertionError> {
                     messageContains("does not have a parent")
                 }
@@ -66,12 +67,12 @@ abstract class PathFeatureAssertionsSpec(
             it("toBe(folder.parent) holds") {
                 val childFolder = tempFolder.newFolder("child")
                 val parentFolder = childFolder.parent
-                expect(childFolder).parentFun { toBe(parentFolder) }
+                toBe(parentFolder, expect (childFolder))
             }
             it("toBe(folder) fails") {
                 expect {
                     val childFolder = tempFolder.newFolder("child")
-                    expect(childFolder).parentFun { toBe(childFolder) }
+                    toBe(childFolder,expect(childFolder))
                 }.toThrow<AssertionError> {
                     messageContains("child")
                 }
@@ -82,7 +83,7 @@ abstract class PathFeatureAssertionsSpec(
             it("toBe(folder.parent) fails") {
                 expect {
                     val rootFolder = tempFolder.tmpDir.root
-                    expect(rootFolder).parentFun { toBe(rootFolder) }
+                    toBe(rootFolder,expect(rootFolder))
                 }.toThrow<AssertionError> {
                     messageContains("does not have a parent")
                 }

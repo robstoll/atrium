@@ -20,7 +20,7 @@ buildscript {
         jupiter_version = '5.5.2'
         spek_version = '1.1.5'
         spek2_version = '2.0.6'
-        spekExtensions_versions = '0.4.1'
+        spekExtensions_versions = '1.0.1'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_versions" }
         mockk_version = '1.9.3'
 
