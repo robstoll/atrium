@@ -1338,9 +1338,9 @@ expect(Paths.get("/usr/bin/noprogram")).exists()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L326)</sub> ↓ <sub>Output</sub>
 ```text
-expect: /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
+expect: \usr\bin\noprogram        (sun.nio.fs.WindowsPath <1234789>)
 ◆ to: exist
-    » the closest existing parent directory is /usr/bin
+    » the closest existing parent directory is none
 ```
 </ex-path-exsits>
 
@@ -1353,12 +1353,10 @@ expect(Paths.get("/root/.ssh/config")).isWritable()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L330)</sub> ↓ <sub>Output</sub>
 ```text
-expect: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
+expect: \root\.ssh\config        (sun.nio.fs.WindowsPath <1234789>)
 ◆ to be: writable
-    » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
-      » access was denied
-      » the owner is root, the group is root
-      » the permissions are u=rwx g= o=
+    » no file system entry exists at this location
+    » the closest existing parent directory is none
 ```
 </ex-path-writable>
 
@@ -1375,11 +1373,12 @@ expect(filePointer.resolve("subfolder/file")).isRegularFile()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
 ```text
-expect: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
+expect: C:\Users\ratkay\AppData\Local\Temp\atrium-path\directory\subfolder\file        (sun.nio.fs.WindowsPath <1234789>)
 ◆ to be: a file
-    » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
-    » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
-      » was a file instead of a directory
+    » followed the symbolic link C:\Users\ratkay\AppData\Local\Temp\atrium-path\directory to C:\Users\ratkay\AppData\Local\Temp\atrium-path\file
+    » no file system entry exists at this location
+      » failure at parent path: C:\Users\ratkay\AppData\Local\Temp\atrium-path\file        (sun.nio.fs.WindowsPath <1234789>)
+        » was a file instead of a directory
 ```
 </ex-path-symlink-and-parent-not-folder>
 
