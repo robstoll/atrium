@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -20,10 +21,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbe
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ALL
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.INDEX
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.WARNING_MISMATCHES
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.mapWithIndex
 
 fun <E, T : Iterable<E>> _containsBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NoOpSearchBehaviour> =
@@ -71,14 +69,21 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
 }
 
 fun <E : Any> _hasNext(expect: Expect<Iterable<E>>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect,
-        DescriptionBasic.HAS, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) { it.iterator().hasNext() }
+    ExpectImpl.builder.createDescriptive(
+        expect,
+        DescriptionBasic.HAS, RawString.create(NEXT_ELEMENT)
+    ) { it.iterator().hasNext() }
 
 fun <E : Any> _hasNotNext(expect: Expect<Iterable<E>>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect,
-        DescriptionBasic.HAS_NOT, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) {
+    ExpectImpl.builder.createDescriptive(
+        expect,
+        DescriptionBasic.HAS_NOT, RawString.create(NEXT_ELEMENT)
+    ) {
         !it.iterator().hasNext()
     }
+
+fun <E : Comparable<E>, T : Iterable<E>> _min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E?> =
+    ExpectImpl.feature.manualFeature(assertionContainer, MIN) { min() }
 
 private fun <E : Any> createMismatchAssertions(
     list: List<E?>,
