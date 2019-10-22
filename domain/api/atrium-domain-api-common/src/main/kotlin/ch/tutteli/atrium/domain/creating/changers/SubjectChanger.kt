@@ -37,7 +37,7 @@ interface SubjectChanger {
      * then you should use [reported] so that the assertion is reflected in reporting.
      *
      * @param originalAssertionContainer the assertion container with the current subject (before the change) --
-     *   if you use `ExpectImpl.changeSubject.unreported(...)` within an assertion function (an extension function of
+     *   if you use `ExpectImpl.changeSubject(...).unreported` within an assertion function (an extension function of
      *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param transformation Provides the subject.
      *

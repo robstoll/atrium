@@ -70,7 +70,7 @@ interface SubjectProvider<out T> {
      * 6.
      *      ```
      *      AssertImpl.changeSubject(this) { subject.asIterable() }        // old
-     *      ExpectImpl.changeSubject.unreported(this) { it.asIterable() }  // new
+     *      ExpectImpl.changeSubject(this).unreported { it.asIterable() }  // new
      *      ```
      *      notice the switch from `AssertImpl` to `ExpectImpl`
      *

@@ -119,6 +119,15 @@ interface DescriptiveAssertionWithFailureHint {
             showOnlyIf { subjectProvider.maybeSubject.isDefined() }
 
         /**
+         * Defines that the failure hint shall be shown if the subject is defined and the given [predicate] holds for it
+         */
+        fun <T> showBasedOnDefinedSubjectOnlyIf(
+            subjectProvider: SubjectProvider<T>,
+            predicate: (T) -> Boolean
+        ): Descriptive.DescriptionOption<FinalStep> =
+            showBasedOnSubjectOnlyIf(subjectProvider) { ifDefined { predicate(it) } ifAbsent { false } }
+
+        /**
          * Defines that the failure hint shall only be shown based on a predicate influenced by the
          * subject of the assertion.
          *

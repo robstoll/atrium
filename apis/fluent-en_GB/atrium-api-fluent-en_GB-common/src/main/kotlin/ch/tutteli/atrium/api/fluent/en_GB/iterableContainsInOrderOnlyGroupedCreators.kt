@@ -1,7 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -11,7 +7,6 @@ import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.groupsToList
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
-import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**

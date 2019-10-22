@@ -33,5 +33,7 @@ class CharSequenceAssertionsImpl : CharSequenceAssertions {
 
     override fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>) = _isNotBlank(subjectProvider)
 
+    override fun <T : CharSequence> matches(assertionContainer: Expect<T>, expected: Regex) = _matches(assertionContainer, expected)
+
     override fun <T : CharSequence> mismatches(assertionContainer: Expect<T>, expected: Regex) = _mismatches(assertionContainer, expected)
 }

@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.expectLambda
-import ch.tutteli.atrium.specs.include
 import org.spekframework.spek2.Spek
 
 class DescriptiveWithBasedOnSubjectSpec : Spek({
@@ -57,6 +56,13 @@ class DescriptiveWithBasedOnSubjectSpec : Spek({
             builder.failing
                 .withFailureHint { ExpectImpl.builder.explanatory.withExplanation("any hint").build() }
                 .showOnlyIfSubjectDefined(expect)
+                .withDescriptionAndRepresentation("what ever", 1)
+                .build()
+        },
+        "showBasedOnDefinedSubjectOnlyIf" to addDescriptive { expect, builder ->
+            builder.failing
+                .withFailureHint { ExpectImpl.builder.explanatory.withExplanation("any hint").build() }
+                .showBasedOnDefinedSubjectOnlyIf(expect) { it < 3 }
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
         }

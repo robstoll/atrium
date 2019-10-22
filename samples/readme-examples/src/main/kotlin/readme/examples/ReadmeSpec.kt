@@ -4,6 +4,9 @@ package readme.examples
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 //snippet-import-end
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.exists
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isRegularFile
+import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isWritable
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -16,8 +19,12 @@ import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.niok.deleteRecursively
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.*
 
 
@@ -130,6 +137,7 @@ class ReadmeSpec : Spek({
     //@formatter:off
     //snippet-Family-start
     data class FamilyMember(val name: String)
+
     data class Family(val members: List<FamilyMember>)
 
     val myFamily = Family(listOf(FamilyMember("Robert")))
@@ -211,6 +219,11 @@ val x: SuperType = SubType2("hello", flag = true)
 //@formatter:on
 
 object ReadmeSpec2 : Spek({
+    val toDelete: MutableSet<Path> = HashSet()
+
+    afterGroup {
+        toDelete.forEach { it.deleteRecursively() }
+    }
 
     test("ex-nullable-1") {
         val slogan1: String? = "postulating assertions made easy"
@@ -309,6 +322,24 @@ object ReadmeSpec2 : Spek({
             }
         )
     }
+
+    test("ex-path-exsits") {
+        expect(Paths.get("/usr/bin/noprogram")).exists()
+    }
+
+    test("ex-path-writable") {
+        expect(Paths.get("/root/.ssh/config")).isWritable()
+    }
+
+    val tmpdir = Paths.get(System.getProperty("java.io.tmpdir"))
+    test("ex-path-symlink-and-parent-not-folder") {
+        val directory = Files.createDirectory(tmpdir.resolve("atrium-path"))
+        val file = Files.createFile(directory.resolve("file"))
+        val filePointer = Files.createSymbolicLink(directory.resolve("directory"), file)
+
+        expect(filePointer.resolve("subfolder/file")).isRegularFile()
+    }
+    toDelete.add(tmpdir.resolve("atrium-path"))
 
     //snippet-data-driven-1-start
     fun myFun(i: Int) = (i + 97).toChar()

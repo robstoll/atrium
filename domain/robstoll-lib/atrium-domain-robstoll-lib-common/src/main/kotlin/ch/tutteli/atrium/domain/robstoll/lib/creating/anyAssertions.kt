@@ -62,6 +62,6 @@ fun <T, TSub : Any> _isA(
     assertionContainer: Expect<T>,
     subType: KClass<TSub>
 ): ChangedSubjectPostStep<T, TSub> =
-    ExpectImpl.changeSubject.reportBuilder(assertionContainer)
+    ExpectImpl.changeSubject(assertionContainer).reportBuilder()
         .downCastTo(subType)
         .build()

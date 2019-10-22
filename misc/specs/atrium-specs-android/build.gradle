@@ -10,6 +10,7 @@ dependencies {
     api prefixedProject('verbs-internal-android')
     api spekExtensions()
     api "io.mockk:mockk:$mockk_version"
+    api niok(), excludeKotlin
 
     implementation prefixedProject('api-fluent-en_GB-android')
 
@@ -36,3 +37,5 @@ dependencies {
 }
 
 srcAndResourcesFromJvmProject(project)
+
+compileKotlin.kotlinOptions.languageVersion = '1.3'

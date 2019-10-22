@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.include
 import ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceAssertionsSpec.TestData
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root

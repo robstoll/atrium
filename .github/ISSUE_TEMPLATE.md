@@ -4,7 +4,8 @@ Please choose the appropriate template and fill in all sections
 
 *Affected Version*:
 *API* (fluent-en_GB, cc or cc-infix):
-*Platform* (jvm, jdk8, js, android): 
+*Platform* (jvm, js, android):
+*Extension* (none, kotlin 1.3, jdk8): none
 
 ## How to reproduce the problem  
 Consider the following code snippet
@@ -23,7 +24,8 @@ A clear and concise description of what you expected to happen.
 
 # Feature Request
 
-*Platform* (jvm, jdk8, js, android): 
+*Platform* (jvm, js, android):
+*Extension* (none, kotlin 1.3, jdk8): none
 
 ## Code related feature
 ```

@@ -1,0 +1,7 @@
+description = 'Kotlin 1.3 specific extension for domain-robstoll-js -- will be merged into domain-robstoll-js with 1.0.0'
+
+dependencies {
+    api prefixedProject('domain-robstoll-js')
+    api prefixedProject('domain-api-kotlin_1_3-js')
+    implementation prefixedProject('domain-robstoll-lib-kotlin_1_3-js')
+}

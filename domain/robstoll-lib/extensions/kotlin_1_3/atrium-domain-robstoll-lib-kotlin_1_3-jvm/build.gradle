@@ -1,0 +1,30 @@
+description = 'Kotlin 1.3 specific extension for domain-robstoll-lib-jvm -- will be merged into domain-robstoll-lib-jvm with 1.0.0'
+
+ext.jacoco_additional = [
+    prefixedProject('core-robstoll-jvm'),
+    prefixedProject('core-robstoll-lib-jvm'),
+]
+
+dependencies {
+    api prefixedProject('domain-robstoll-lib-jvm')
+    api prefixedProject('domain-builders-kotlin_1_3-jvm')
+
+    implementation prefixedProject('api-fluent-en_GB-jvm')
+    implementation niok()
+
+    // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-jvm')
+
+    //TODO remove with 1.0.0
+    implementation prefixedProject('api-cc-en_GB-jvm')
+
+    testImplementation prefixedProject('verbs-internal-jvm')
+}
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileTestKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').compileKotlin,
+    prefixedProject('core-robstoll-jvm').processResources,
+    prefixedProject('domain-robstoll-jvm').compileKotlin,
+    prefixedProject('domain-robstoll-jvm').processResources
+)

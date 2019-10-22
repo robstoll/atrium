@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.include
 
 abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     containsInAnyOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,

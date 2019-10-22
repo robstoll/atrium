@@ -17,7 +17,7 @@ val zonedDateTimeAssertions by lazy { loadSingleService(ZonedDateTimeAssertions:
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ZonedDateTimeAssertions {
-    fun year(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int>
+    fun <T: ZonedDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun month(assertionContainer: Expect<ZonedDateTime>): ExtractedFeaturePostStep<ZonedDateTime, Int>
+    fun <T: ZonedDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 }
