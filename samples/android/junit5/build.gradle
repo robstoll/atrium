@@ -1,0 +1,58 @@
+// example project to show how to use Atrium in combination with jasmine
+
+
+buildscript {
+    ext {
+        kotlin_version = '1.3.41'
+        atrium_api = 'atrium-fluent-en_GB-android'
+        atrium_version = '0.9.0-alpha'
+    }
+    repositories {
+        jcenter()
+
+    }
+    dependencies {
+//        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+    }
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+    // either use jcenter or the repository on the next line
+    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    testImplementation "org.jetbrains.kotlin:kotlin-test-android"
+    testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
+    //TODO remove with the release of 0.9.0-beta
+    testImplementation("ch.tutteli.atrium:atrium-domain-api-android:$atrium_version")
+}
+
+
+// ==========================================================================
+// Everything which follows is not required and should not be copied     ====
+// We are using it to see if the current version still works             ====
+// ==========================================================================
+
+configurations {
+    current
+}
+
+sourceSets {
+    current {
+        kotlin.srcDirs = project.sourceSets.test.kotlin.srcDirs
+    }
+}
+
+dependencies {
+    current prefixedProject('fluent-en_GB-android')
+    current "org.jetbrains.kotlin:kotlin-stdlib-android"
+    current "org.jetbrains.kotlin:kotlin-test-android"
+    currentCompile configurations.current
+}
+
