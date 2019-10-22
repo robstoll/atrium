@@ -62,8 +62,9 @@ interface CharSequenceContains {
      * @param S The search behaviour which should be applied to the input [CharSequence] in which the [Searcher]
      *   will look for something -- the actual implementation of the search behaviour happens in the
      *   [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
+     * @param SC The search criterion
      */
-    interface Searcher<S : SearchBehaviour> {
+    interface Searcher<S : SearchBehaviour, SC> {
         /**
          * Searches in the given [searchIn] for the given [searchFor], using its [toString][Any.toString]
          * implementation, and returns the number of occurrences.
