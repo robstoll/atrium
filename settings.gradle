@@ -112,11 +112,14 @@ include {
     }
 
     misc {
-        _ 'bc-test'
         _ 'spec'
         kotlinJvmJsAndAndroidIfCi(delegate, 'specs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
+
+        tools {
+            _ 'bc-test'
+        }
     }
 
     samples {
