@@ -4,7 +4,7 @@ buildscript {
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     def jsSampleProjects = subprojects.findAll {
-        it.projectDir.parent.endsWith('samples/js/') || it.projectDir.parent.endsWith('samples\\js\\')
+        it.projectDir.parent.endsWith('samples/js') || it.projectDir.parent.endsWith('samples\\js')
     }
     ext {
         // main
