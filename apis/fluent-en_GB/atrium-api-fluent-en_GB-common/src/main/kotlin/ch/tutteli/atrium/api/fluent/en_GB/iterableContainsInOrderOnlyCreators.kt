@@ -38,6 +38,24 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
 /**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched within the [Iterable]
+ * (if given) in the specified order.
+ *
+ * @param expected The value which is expected to be contained within the [Iterable].
+ * @param otherExpected Additional values which are expected to be contained within [Iterable].
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
+
+/**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
  * single entry which holds all assertions created by the given [assertionCreatorOrNull] or needs to be `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
