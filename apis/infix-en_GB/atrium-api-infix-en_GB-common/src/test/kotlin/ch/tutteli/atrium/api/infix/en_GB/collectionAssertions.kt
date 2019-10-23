@@ -3,8 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
-object Empty
-
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
  *
