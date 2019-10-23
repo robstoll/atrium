@@ -4,7 +4,6 @@ package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
@@ -50,7 +49,7 @@ object IterableAssertionsBuilder : IterableAssertions {
         noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?
     ): Assertion = iterableAssertions.all(plant, assertionCreator)
 
-    override inline fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E?> =
+    override inline fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
         iterableAssertions.min(assertionContainer)
 
     override inline fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion =
