@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * It performs a non-disjoint search, meaning searching 'aa?' in 'aaaa' has 4 hits.
  */
 class RegexSearcher : Searcher<NoOpSearchBehaviour, Regex> {
-    override fun search(searchIn: CharSequence, searchFor: Any): Int = search(searchIn, Regex(searchFor.toString()))
+    override fun search(searchIn: CharSequence, searchFor: Any): Int = search(searchIn, searchFor)
 
     fun search(searchIn: CharSequence, regex: Regex): Int {
         var counter = 0
