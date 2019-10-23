@@ -19,7 +19,7 @@ buildscript {
         junit_platform_version = '1.5.2'
         jupiter_version = '5.5.2'
         spek_version = '1.1.5'
-        spek2_version = '2.0.7'
+        spek2_version = '2.0.8'
         spekExtensions_version = '1.0.1'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.9.3'
@@ -35,8 +35,8 @@ buildscript {
             !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
                 !it.name.startsWith("${rootProject.name}-specs") &&
-                it.name != "${rootProject.name}-bc-test" &&
-                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
+                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
+                !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\"))
         }
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
@@ -58,7 +58,8 @@ buildscript {
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\"))
+                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
+                        !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\"))
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects - jsSampleProjects).findAll {
@@ -70,8 +71,8 @@ buildscript {
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        it.name != "${rootProject.name}-bc-test" &&
-                        !it.path.contains('examples') &&
+                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
+                        !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\")) &&
                         //TODO remove with 1.0.0
                         it.name != "${rootProject.name}-assertions" &&
                         it.name != "${rootProject.name}-core-api-deprecated" &&
