@@ -13,6 +13,7 @@ import org.spekframework.spek2.junit.SpekTestEngine
 import org.spekframework.spek2.runtime.SpekRuntime
 import org.spekframework.spek2.runtime.execution.ExecutionRequest
 import java.nio.file.Paths
+import java.util.Locale
 import org.junit.platform.engine.ExecutionRequest as JUnitExecutionRequest
 
 class ReadmeTestEngine : TestEngine {
@@ -33,13 +34,19 @@ class ReadmeTestEngine : TestEngine {
     }
 
     override fun execute(request: JUnitExecutionRequest) {
-        ReporterFactory.specifyFactory(ReadmeReporterFactory.ID)
-
-        runSpekWithCustomListener(request)
-
+        val default = Locale.getDefault()
         try {
+            Locale.setDefault(Locale.UK)
+
+            ReporterFactory.specifyFactory(ReadmeReporterFactory.ID)
+
+            runSpekWithCustomListener(request)
+
             processExamples(request)
         } catch (t: Throwable) {
+            t.printStackTrace()
+            Locale.setDefault(default)
+
             request.fail(t)
         }
     }

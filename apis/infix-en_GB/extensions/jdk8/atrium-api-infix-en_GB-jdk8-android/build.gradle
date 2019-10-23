@@ -1,0 +1,11 @@
+description = 'JDK 8 specific assertion functions and builders for infix-en_GB-android.'
+
+dependencies {
+    api prefixedProject('api-infix-en_GB-android')
+    api prefixedProject('domain-builders-android')
+    api "ch.tutteli.niok:niok-android:$niok_version"
+
+    testImplementation prefixedProject('specs-android')
+}
+
+srcAndResourcesFromJvmProject(project)

@@ -315,7 +315,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
     )
 )
 fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
-    = ExpectImpl.changeSubject.unreported(this) { it.entries }
+    = ExpectImpl.changeSubject(this).unreported { it.entries }
 
 /**
  * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given

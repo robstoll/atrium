@@ -94,7 +94,7 @@ interface AssertImplCommon {
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported; will be removed with 1.0.0 - moreover we advice you to switch to Expect and no longer use Assert",
         ReplaceWith(
-            "ExpectImpl.changeSubject.unreported(originalPlant, subjectProvider)",
+            "ExpectImpl.changeSubject(originalPlant, subjectProvider).unreported",
             "import ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
@@ -106,7 +106,7 @@ interface AssertImplCommon {
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
         ReplaceWith(
-            "ExpectImpl.changeSubject.unreported(originalAssertionCreator, transformation)",
+            "ExpectImpl.changeSubject(originalAssertionCreator, transformation).unreported",
             "import ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
@@ -129,7 +129,7 @@ interface AssertImplCommon {
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported; will be removed with 1.0.0 - moreover we advice you to switch to Expect and no longer use Assert",
         ReplaceWith(
-            "ExpectImpl.changeSubject.unreported(originalPlant, subjectProvider)",
+            "ExpectImpl.changeSubject(originalPlant, subjectProvider).unreported",
             "import ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )
@@ -141,7 +141,7 @@ interface AssertImplCommon {
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
         ReplaceWith(
-            "ExpectImpl.changeSubject.unreported(originalAssertionCreator, transformation)",
+            "ExpectImpl.changeSubject(originalAssertionCreator, transformation).unreported",
             "import ch.tutteli.atrium.domain.builders.ExpectImpl"
         )
     )

@@ -13,8 +13,12 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1(Expect<Path>::startsWith),
     fun1(Expect<Path>::startsNotWith),
     fun1(Expect<Path>::endsWith),
-    fun1(Expect<Path>::endsNotWith)
-) {
+    fun1(Expect<Path>::endsNotWith),
+    fun0(Expect<Path>::isReadable),
+    fun0(Expect<Path>::isWritable),
+    fun0(Expect<Path>::isRegularFile),
+    fun0(Expect<Path>::isDirectory)
+){
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Path> = notImplemented()

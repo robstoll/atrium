@@ -58,6 +58,13 @@ class DescriptiveWithBasedOnSubjectSpec : Spek({
                 .showOnlyIfSubjectDefined(expect)
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
+        },
+        "showBasedOnDefinedSubjectOnlyIf" to addDescriptive { expect, builder ->
+            builder.failing
+                .withFailureHint { ExpectImpl.builder.explanatory.withExplanation("any hint").build() }
+                .showBasedOnDefinedSubjectOnlyIf(expect) { it < 3 }
+                .withDescriptionAndRepresentation("what ever", 1)
+                .build()
         }
     ) {})
 })

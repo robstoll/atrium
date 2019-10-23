@@ -43,7 +43,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
      * (e.g. [f1] for a function expecting 1 argument) or [property].
      */
     inline fun <T> extractor(originalAssertionContainer: Expect<T>) =
-        FeatureExtractorBuilder.builder(originalAssertionContainer)
+        FeatureExtractorBuilder.create(originalAssertionContainer)
 
 
     //@formatter:off

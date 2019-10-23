@@ -4,7 +4,6 @@ package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.cast
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
@@ -18,51 +17,88 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import kotlin.reflect.KClass
 
-
 /**
- * Delegates inter alia to the implementation of [SubjectChanger].
- * In detail, it delegates to [subjectChanger]
- * which in turn delegates to the implementation via [loadSingleService].
+ * Defines the contract for sophisticated `change subject` processes.
  */
-object SubjectChangerBuilder {
+interface SubjectChangerBuilder {
 
-    inline fun <T, R> unreported(
-        originalAssertionContainer: Expect<T>,
-        noinline transformation: (T) -> R
-    ): Expect<R> = subjectChanger.unreported(originalAssertionContainer, transformation)
+    companion object {
+        /**
+         * Entry point to use the [SubjectChangerBuilder].
+         */
+        fun <T> create(originalAssertionContainer: Expect<T>): KindStep<T> = KindStepImpl(originalAssertionContainer)
 
-    /**
-     * Entry point of the building process to not only change the subject but also report the change in reporting.
-     *
-     * Typically the change is documented by adding a [DescriptiveAssertion] to the new resulting [Expect].
-     *
-     * This is basically a guide towards [SubjectChanger.reported],
-     * hence in a more verbose manner but also more readable in many cases.
-     */
-    fun <T> reportBuilder(originalAssertionContainer: Expect<T>): DescriptionOption<T> =
-        DescriptionOption.create(originalAssertionContainer)
-
-
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    inline fun <T, R : Any> unreported(
-        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
-        noinline transformation: (T) -> R
-    ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
-
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    inline fun <T, R> unreportedNullable(
-        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
-        noinline transformation: (T) -> R
-    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
+        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+        @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+        fun <T> create(
+            originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>
+        ): DeprecatedKindStep<T> = DeprecatedKindStepImpl(originalPlant)
+    }
 
     /**
-     * Option step which allows to specify the description and representation of the change.
+     * Step where one has to decide the kind of subject change.
      *
      * @param T the type of the current subject.
      */
-    interface DescriptionOption<T> {
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+    interface DeprecatedKindStep<T> {
+        /**
+         * The previously specified assertion plant to which the new [Assert] will delegate assertion checking.
+         */
+        @Suppress("DEPRECATION")
+        val originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>
+
+        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+        @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+        fun <R : Any> unreported(
+            transformation: (T) -> R
+        ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
+
+        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+        @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+        fun <R> unreportedNullable(
+            transformation: (T) -> R
+        ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
+    }
+
+    /**
+     * Step where one has to decide the kind of subject change.
+     *
+     * @param T the type of the current subject.
+     */
+    interface KindStep<T> {
+        /**
+         * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
+         */
+        val originalAssertionContainer: Expect<T>
+
+
+        /**
+         * First and final step in the change-subject-process -- changes the subject without showing the change as
+         * such in reporting.
+         *
+         * @return The newly created [Expect] for the new subject.
+         */
+        fun <R> unreported(transformation: (T) -> R): Expect<R> =
+            subjectChanger.unreported(originalAssertionContainer, transformation)
+
+        /**
+         * Entry point of the building process to not only change the subject but also report the change in reporting.
+         *
+         * Typically the change is documented by adding a [DescriptiveAssertion] to the new resulting [Expect].
+         *
+         * This is basically a guide towards [SubjectChanger.reported],
+         * hence in a more verbose manner but also more readable in many cases.
+         */
+        fun reportBuilder(): DescriptionRepresentationStep<T>
+    }
+
+    /**
+     * Step which allows to specify the description and representation of the change.
+     *
+     * @param T the type of the current subject.
+     */
+    interface DescriptionRepresentationStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
@@ -85,7 +121,7 @@ object SubjectChangerBuilder {
          *
          * See the other overload for further information.
          */
-        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckOption<T> =
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckStep<T> =
             withDescriptionAndRepresentation(Untranslatable(description), representation)
 
         /**
@@ -97,22 +133,25 @@ object SubjectChangerBuilder {
          * Notice, if you want to use text (e.g. a [String]) as [representation],
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
-        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): CheckOption<T>
+        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): CheckStep<T>
 
         companion object {
+            /**
+             * Creates a [DescriptionRepresentationStep] in the context of the [SubjectChangerBuilder].
+             */
             fun <T> create(
                 originalAssertionContainer: Expect<T>
-            ): DescriptionOption<T> = DescriptionOptionImpl(originalAssertionContainer)
+            ): DescriptionRepresentationStep<T> = DescriptionRepresentationStepImpl(originalAssertionContainer)
         }
     }
 
     /**
-     * Option step which allows to specify checks which should be consulted to see whether the subject change is
+     * Step which allows to specify checks which should be consulted to see whether the subject change is
      * feasible or not.
      *
      * @param T the type of the current subject.
      */
-    interface CheckOption<T> {
+    interface CheckStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
@@ -131,27 +170,30 @@ object SubjectChangerBuilder {
         /**
          * Defines when the current subject can be transformed to the new one.
          */
-        fun withCheck(canBeTransformed: (T) -> Boolean): TransformationOption<T>
+        fun withCheck(canBeTransformed: (T) -> Boolean): TransformationStep<T>
 
         companion object {
+            /**
+             * Creates a [CheckStep] in the context of the [SubjectChangerBuilder].
+             */
             fun <T> create(
                 originalAssertionContainer: Expect<T>,
                 description: Translatable,
                 representation: Any
-            ): CheckOption<T> = CheckOptionImpl(originalAssertionContainer, description, representation)
+            ): CheckStep<T> = CheckStepImpl(originalAssertionContainer, description, representation)
         }
     }
 
     /**
-     * Option step to define the transformation which yields the new subject.
+     * Step to define the transformation which yields the new subject.
      *
      * @param T the type of the current subject.
      */
-    interface TransformationOption<T> {
+    interface TransformationStep<T> {
         /**
-         * The so far chosen options up to but not inclusive the [CheckOption] step.
+         * The so far chosen options up to but not inclusive the [CheckStep] step.
          */
-        val checkOption: CheckOption<T>
+        val checkStep: CheckStep<T>
 
         /**
          * The previously specified lambda which indicates whether we can transform the current subject
@@ -165,24 +207,27 @@ object SubjectChangerBuilder {
         fun <R> withTransformation(transformation: (T) -> R): FailureHandlerOption<T, R>
 
         companion object {
+            /**
+             * Creates a [TransformationStep] in the context of the [SubjectChangerBuilder].
+             */
             fun <T> create(
-                checkOption: CheckOption<T>,
+                checkStep: CheckStep<T>,
                 canBeTransformed: (T) -> Boolean
-            ): TransformationOption<T> = TransformationOptionImpl(checkOption, canBeTransformed)
+            ): TransformationStep<T> = TransformationStepImpl(checkStep, canBeTransformed)
         }
     }
 
     /**
-     * Option step which allows to specify a custom [SubjectChanger.FailureHandler].
+     * Optional step which allows to specify a custom [SubjectChanger.FailureHandler].
      *
      * @param T the type of the current subject.
      * @param R the type of the new subject.
      */
     interface FailureHandlerOption<T, R> {
         /**
-         * The so far chosen options up to the [CheckOption] step.
+         * The so far chosen options up to the [CheckStep] step.
          */
-        val checkOption: CheckOption<T>
+        val checkStep: CheckStep<T>
 
         /**
          * The previously specified lambda which indicates whether we can transform the current subject
@@ -203,7 +248,7 @@ object SubjectChangerBuilder {
 
         /**
          * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
-         * [CheckOption.description] and [CheckOption.representation] and includes the assertions
+         * [CheckStep.description] and [CheckStep.representation] and includes the assertions
          * a given assertionCreator lambda would create.
          */
         fun withDefaultFailureHandler(): FinalStep<T, R>
@@ -215,11 +260,14 @@ object SubjectChangerBuilder {
         fun build(): ChangedSubjectPostStep<T, R> = withDefaultFailureHandler().build()
 
         companion object {
+            /**
+             * Creates a [FailureHandlerOption] in the context of the [SubjectChangerBuilder].
+             */
             fun <T, R> create(
-                checkOption: CheckOption<T>,
+                checkStep: CheckStep<T>,
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R
-            ): FailureHandlerOption<T, R> = FailureHandlerOptionImpl(checkOption, canBeTransformed, transformation)
+            ): FailureHandlerOption<T, R> = FailureHandlerOptionImpl(checkStep, canBeTransformed, transformation)
         }
     }
 
@@ -232,9 +280,9 @@ object SubjectChangerBuilder {
      */
     interface FinalStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckOption] step.
+         * The so far chosen options up to the [CheckStep] step.
          */
-        val checkOption: CheckOption<T>
+        val checkStep: CheckStep<T>
 
         /**
          * The previously specified lambda which indicates whether we can transform the current subject
@@ -261,12 +309,15 @@ object SubjectChangerBuilder {
         fun build(): ChangedSubjectPostStep<T, R>
 
         companion object {
+            /**
+             * Creates the [FinalStep] in the context of the [SubjectChangerBuilder].
+             */
             fun <T, R> create(
-                checkOption: CheckOption<T>,
+                checkStep: CheckStep<T>,
                 canBeTransformed: (T) -> Boolean,
                 transformation: (T) -> R,
                 failureHandler: SubjectChanger.FailureHandler<T, R>
-            ): FinalStep<T, R> = FinalStepImpl(checkOption, canBeTransformed, transformation, failureHandler)
+            ): FinalStep<T, R> = FinalStepImpl(checkStep, canBeTransformed, transformation, failureHandler)
         }
     }
 }

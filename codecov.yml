@@ -4,15 +4,19 @@ ignore:
     - "domain/builders/**/creating/**Builder.kt"
     - "domain/builders/**/creating/*Builders.kt"
 
-    # TODO remove with 1.0.0
-    - "misc/atrium-assertions/**/*"
     - "misc/specs/**/*"
-    - "misc/atrium-bc-test/**/*"
-    - "apis/**/assertions/**/*"
-    - "domain/api/**/assertions/**/*"
-    - "domain/atrium-domain-api-deprecated/**/*"
-    - "**/IAtriumFactory.kt"
-    - "**/AtriumFactory.kt"
+
+    - "misc/tools/**/*"
+    - "samples/**/*"
+
+    # TODO remove with 1.0.0
+     - "misc/atrium-spec/**/*"
+#    - "misc/atrium-assertions/**/*"
+#    - "apis/**/assertions/**/*"
+#    - "domain/api/**/assertions/**/*"
+#    - "domain/atrium-domain-api-deprecated/**/*"
+#    - "**/IAtriumFactory.kt"
+#    - "**/AtriumFactory.kt"
 
 
 flags:
@@ -28,6 +32,9 @@ flags:
   misc:
     paths:
       - misc/
+  translations:
+    paths:
+      - translations/
 
 coverage:
   range: 70..95

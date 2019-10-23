@@ -16,7 +16,7 @@ import kotlin.jvm.JvmName
  */
 @Suppress("DEPRECATION")
 fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<Array<E>>` into `Assert<Iterable<E>>` and makes the assertion that the assertions the given
@@ -42,7 +42,7 @@ infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<
 @Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
 fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<CharArray>` into `Assert<Iterable<Byte>>` and makes the assertion that the assertions the given
@@ -69,7 +69,7 @@ infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.
 @Suppress("DEPRECATION")
 @JvmName("charArrAsIterable")
 fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<CharArray>` into `Assert<Iterable<Char>>` and makes the assertion that the assertions the given
@@ -96,7 +96,7 @@ infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.
 @Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
 fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<ShortArray>` into `Assert<Iterable<Short>>` and makes the assertion that the assertions the given
@@ -123,7 +123,7 @@ infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>
 @Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
 fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<IntArray>` into `Assert<Iterable<Int>>` and makes the assertion that the assertions the given
@@ -150,7 +150,7 @@ infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.()
 @Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
 fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<LongArray>` into `Assert<Iterable<Double>>` and makes the assertion that the assertions the given
@@ -177,7 +177,7 @@ infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.
 @Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
 fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<FloatArray>` into `Assert<Iterable<Float>>` and makes the assertion that the assertions the given
@@ -204,7 +204,7 @@ infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>
 @Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
 fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<DoubleArray>` into `Assert<Iterable<Double>>` and makes the assertion that the assertions the given
@@ -231,7 +231,7 @@ infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Doubl
 @Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
 fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
 /**
  * Turns `Assert<BooleanArray>` into `Assert<Iterable<Boolean>>` and makes the assertion that the assertions the given

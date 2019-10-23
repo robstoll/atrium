@@ -16,25 +16,31 @@ import java.nio.file.Paths
 abstract class PathFeatureAssertionsSpec(
     parentFeature: Feature0<Path, Path>,
     parent: Fun1<Path, Expect<Path>.() -> Unit>,
+    fileNameFeature: Feature0<Path, String>,
+    fileName: Fun1<Path, Expect<String>.() -> Unit>,
     fileNameWithoutExtensionFeature: Feature0<Path, String>,
     fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
+    extensionFeature: Feature0<Path, String>,
+    extension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val tempFolder = TempFolder.perTest()
+    val tempFolder = TempFolder.perTest() //or perGroup()
     registerListener(tempFolder)
 
     include(object : SubjectLessSpec<Path>(describePrefix,
         parentFeature.forSubjectLess().adjustName { "$it feature" },
-        parent.forSubjectLess() { },
+        parent.forSubjectLess { },
+        fileNameFeature.forSubjectLess().adjustName { "$it feature" },
+        fileName.forSubjectLess { },
         fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
-        fileNameWithoutExtension.forSubjectLess() { }
-
+        fileNameWithoutExtension.forSubjectLess { }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
+    val fileNameDescr = DescriptionPathAssertion.FILE_NAME.getDefault()
     val fileNameWithoutExtensionDescr = DescriptionPathAssertion.FILE_NAME_WITHOUT_EXTENSION.getDefault()
     val doesNotHaveParentDescr = DescriptionPathAssertion.DOES_NOT_HAVE_PARENT.getDefault()
 
@@ -100,6 +106,39 @@ abstract class PathFeatureAssertionsSpec(
         }
     }
 
+    describeFun("val ${fileNameFeature.name}") {
+        val fileNameVal = fileNameFeature.lambda
+
+        context("path a/my.txt") {
+            it("toBe(my.txt) holds") {
+                expect(Paths.get("a/my.txt")).fileNameVal().toBe("my.txt")
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my")).fileNameVal().toBe("my.txt")
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameDescr: \"my\"")
+                }
+            }
+        }
+    }
+
+    describeFun("fun ${fileName.name}") {
+        val fileNameFun = fileName.lambda
+
+        context("path a/my.txt") {
+            it("toBe(my.txt) holds") {
+                expect(Paths.get("a/my.txt")).fileNameFun { toBe("my.txt") }
+            }
+            it("toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my")).fileNameFun { toBe("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageContains("$fileNameDescr: \"my\"")
+                }
+            }
+        }
+    }
 
     describeFun("val ${fileNameWithoutExtensionFeature.name}") {
         val fileNameWithoutExtensionVal = fileNameWithoutExtensionFeature.lambda
@@ -162,4 +201,35 @@ abstract class PathFeatureAssertionsSpec(
         }
     }
 
+    describeFun("val ${extensionFeature.name}") {
+        val extensionVal = extensionFeature.lambda
+
+        context("Path without extension") {
+            it("${extensionFeature.name} is empty") {
+                expect(Paths.get("/foo/no-extension-here")).extensionVal().toBe("")
+            }
+        }
+
+        context("Path with extension") {
+            it("${extensionFeature.name} contains the extension") {
+                expect(Paths.get("/foo/something.txt")).extensionVal().toBe("txt")
+            }
+        }
+    }
+
+    describeFun(extension.name) {
+        val extensionFun = extension.lambda
+
+        context("Path without extension") {
+            it("Returns empty extension") {
+                expect(Paths.get("/foo/no-extension-here")).extensionFun { toBe("") }
+            }
+        }
+
+        context("Path with extension") {
+            it("Returns the extension") {
+                expect(Paths.get("/foo/something.txt")).extensionFun { toBe("txt") }
+            }
+        }
+    }
 })

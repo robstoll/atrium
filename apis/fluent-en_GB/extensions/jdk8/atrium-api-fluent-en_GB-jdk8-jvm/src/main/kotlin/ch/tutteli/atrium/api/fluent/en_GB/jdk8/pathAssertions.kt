@@ -80,6 +80,25 @@ fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exis
 fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.existsNot(this))
 
 /**
+ * Creates an [Expect] for the property [Path.fileName] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ */
+val <T : Path> Expect<T>.fileName get(): Expect<String> =
+    ExpectImpl.path.fileName(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [Path.fileName] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+    ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
+
+/**
  * Creates an [Expect] for the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
  * so that further fluent calls are assertions about it.
@@ -128,3 +147,84 @@ val <T : Path> Expect<T>.parent get(): Expect<Path> = ExpectImpl.path.parent(thi
  */
 fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
+
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is readable; meaning that there is a file system entry at the location the [Path] points to and that the current thread has the permission to read from it.
+ *
+ * This matcher _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue at the location the link points at.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations take place.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.isReadable(): Expect<T> = addAssertion(ExpectImpl.path.isReadable(this))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is writable; meaning that there is a file system entry at the location the [Path] points to and that the current thread has the permission to write to it.
+ *
+ * This matcher _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue at the location the link points at.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.isWritable(this))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is a file; meaning that there is a file system entry at the location the [Path] points to and that is a regular file.
+ *
+ * This matcher _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue at the location the link points at.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations take place.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.path.isRegularFile(this))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is a directory; meaning that there is a file system entry at the location the [Path] points to and that is a directory.
+ *
+ * This matcher _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue at the location the link points at.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations take place.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.isDirectory(): Expect<T> = addAssertion(ExpectImpl.path.isDirectory(this))
+
+/**
+ * Creates an [Expect] for the property [Path.extension] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ */
+val <T : Path> Expect<T>.extension get(): Expect<String> =
+    ExpectImpl.path.extension(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [Path.extension] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+    ExpectImpl.path.extension(this).addToInitial(assertionCreator)
