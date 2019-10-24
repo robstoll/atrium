@@ -21,7 +21,7 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
     object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
         getNameContainsRegex(),
         getAtLeastTripleRegex(),
-        getAtLeastIgnoringCaseTripleRegex(),
+        getAtLeastIgnoringCaseTripleString(),
         getShortcutTripleRegex(),
         getAtMostTripleRegex(),
         getAtMostIgnoringCaseTripleRegex(),
