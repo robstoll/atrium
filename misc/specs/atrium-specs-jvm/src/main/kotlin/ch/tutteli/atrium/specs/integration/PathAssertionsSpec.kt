@@ -84,7 +84,7 @@ abstract class PathAssertionsSpec(
     }
 
     fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
-        SymlinkTestBuilder(tempFolder, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
+        SymlinkTestBuilder({ tempFolder }, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
             val skipToUse = if (skip == No) innerSkip else skip
             it(prefix + description, skipToUse, timeout, body)
         }
@@ -751,7 +751,7 @@ private inline fun Path.whileWithAcl(aclToUse: (owner: UserPrincipal) -> List<Ac
 }
 
 class SymlinkTestBuilder(
-    private val tempFolder: MemoizedTempFolder,
+    private val tempFolderProvider: () -> MemoizedTempFolder,
     private val skipWithLink: Skip,
     private val testBodyConsumer: (testPrefix: String, skip: Skip, testBody: TestBody.() -> Unit) -> Unit
 ) {
@@ -767,7 +767,7 @@ class SymlinkTestBuilder(
      */
     internal infix fun withAndWithoutSymlink(body: TestBody.(maybeLink: MaybeLink) -> Unit) {
         callWith(NoLink(), No, body)
-        callWith(SimpleLink(tempFolder), skipWithLink, body)
+        callWith(SimpleLink(tempFolderProvider), skipWithLink, body)
     }
 
     private inline fun callWith(
@@ -832,12 +832,12 @@ internal class NoLink : InternalMaybeLink("") {
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {}
 }
 
-internal class SimpleLink(private val tempFolder: MemoizedTempFolder) : InternalMaybeLink("via symbolic link") {
+internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFolder) : InternalMaybeLink("via symbolic link") {
     private var link: Path? = null
     private var path: Path? = null
     override fun callCheckedCreate(path: Path): Path {
         this.path = path
-        val link = tempFolder.newSymbolicLink("__linkTo_" + path.fileName, path)
+        val link = tempFolderProvider().newSymbolicLink("__linkTo_" + path.fileName, path)
         this.link = link
         return link
     }
