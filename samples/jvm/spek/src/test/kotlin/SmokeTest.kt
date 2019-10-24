@@ -23,7 +23,7 @@ object CalculatorTestBySpek : Spek({
         }
 
         it("defaults to fancy"){
-            expect(calculator.isFancy)
+            expect(calculator.isFancy).toBe(true)
         }
     }
 })
