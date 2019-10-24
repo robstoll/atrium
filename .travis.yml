@@ -19,6 +19,7 @@ install: true
 script:
   - |
     if [ $MODE == current ]; then
+      ./samples/jvm/spek/gradlew -p ./samples/jvm/spek build       
       if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
         ./gr jvmBuild buildAllAndroid
       else
