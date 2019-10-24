@@ -1,5 +1,6 @@
 package org.spekframework.spek2
 
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.expect
@@ -12,14 +13,14 @@ object CalculatorTestBySpek : Spek({
 
         it("1 + 2 = 3") {
             val sum = 3
-            expect(sum).toBe(calculator.add(1, 2))
+            expect(calculator.add(1, 2)).toBe(sum)
         }
 
         it("division sanity") {
             expect {
                 // the below statement throws exception
                 calculator.divide(12, 0)
-            }.toThrow<IllegalArgumentException>()
+            }.toThrow<IllegalArgumentException> { messageContains("division by zero") }
         }
 
         it("defaults to fancy"){
