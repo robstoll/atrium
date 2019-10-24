@@ -32,7 +32,6 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.9.0
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(
     expected: E,
@@ -49,6 +48,8 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
