@@ -20,10 +20,10 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
 
     object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
         getNameContainsRegex(),
-        getAtLeastTripleRegex(),
+        getAtLeastTripleString(),
         getAtLeastIgnoringCaseTripleString(),
         getShortcutTripleRegex(),
-        getAtMostTripleRegex(),
+        getAtMostTripleString(),
         getAtMostIgnoringCaseTripleString(),
         "◆ ", "⚬ "
     )
