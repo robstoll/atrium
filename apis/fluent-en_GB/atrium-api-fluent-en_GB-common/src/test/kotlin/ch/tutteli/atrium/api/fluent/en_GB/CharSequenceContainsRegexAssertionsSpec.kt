@@ -24,7 +24,7 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
         getAtLeastIgnoringCaseTripleString(),
         getShortcutTripleRegex(),
         getAtMostTripleRegex(),
-        getAtMostIgnoringCaseTripleRegex(),
+        getAtMostIgnoringCaseTripleString(),
         "◆ ", "⚬ "
     )
 
