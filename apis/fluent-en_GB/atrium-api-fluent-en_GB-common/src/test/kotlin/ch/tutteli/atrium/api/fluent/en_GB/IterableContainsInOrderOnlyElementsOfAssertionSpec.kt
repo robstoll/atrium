@@ -18,19 +18,19 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
         fun getContainsPair() = "$contains.$inOrder.$inOrderElementsOf" to Companion::containsInOrderOnlyValues
 
         private fun containsInOrderOnlyValues(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = plant.contains.inOrder.only.elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.contains.inOrder.only.elementsOf(listOf(a, *aX))
 
         fun getContainsNullablePair() =
             "$contains.$inOrder.$inOrderElementsOf" to Companion::containsInOrderOnlyNullableValues
 
         private fun containsInOrderOnlyNullableValues(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = plant.contains.inOrder.only.elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.elementsOf(listOf(a, *aX))
 
     }
 }
