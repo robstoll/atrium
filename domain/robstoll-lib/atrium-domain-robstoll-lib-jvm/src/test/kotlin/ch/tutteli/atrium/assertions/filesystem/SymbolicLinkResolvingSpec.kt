@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
-import ch.tutteli.spek.extensions.TempFolder
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -29,8 +29,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 object SymbolicLinkResolvingSpec : Spek({
-    val tempFolder = TempFolder.perTest()
-    registerListener(tempFolder)
+    val tempFolder by memoizedTempFolder()
 
     // Windows with neither symlink nor admin privilege
     val ifSymlinksNotSupported =

@@ -7,7 +7,8 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
-import ch.tutteli.spek.extensions.TempFolder
+import ch.tutteli.spek.extensions.MemoizedTempFolder
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import io.mockk.every
 import io.mockk.spyk
 import org.spekframework.spek2.Spek
@@ -40,8 +41,7 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
-    val tempFolder = TempFolder.perTest() //or perGroup()
-    registerListener(tempFolder)
+    val tempFolder by memoizedTempFolder()
 
     // Linux & Mac
     val ifAclNotSupported =
@@ -77,14 +77,14 @@ abstract class PathAssertionsSpec(
                     every {
                         readAttributes(any(), any<Class<BasicFileAttributes>>(), *anyVararg())
                     } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
-                    every { checkAccess(any(), *anyVararg()) } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
+                    every { checkAccess(any(), *anyVararg()) }throws IOException(TEST_IO_EXCEPTION_MESSAGE)
                 }
             }
         }
     }
 
     fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
-        SymlinkTestBuilder(tempFolder, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
+        SymlinkTestBuilder({ tempFolder }, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
             val skipToUse = if (skip == No) innerSkip else skip
             it(prefix + description, skipToUse, timeout, body)
         }
@@ -751,7 +751,7 @@ private inline fun Path.whileWithAcl(aclToUse: (owner: UserPrincipal) -> List<Ac
 }
 
 class SymlinkTestBuilder(
-    private val tempFolder: TempFolder,
+    private val tempFolderProvider: () -> MemoizedTempFolder,
     private val skipWithLink: Skip,
     private val testBodyConsumer: (testPrefix: String, skip: Skip, testBody: TestBody.() -> Unit) -> Unit
 ) {
@@ -767,7 +767,7 @@ class SymlinkTestBuilder(
      */
     internal infix fun withAndWithoutSymlink(body: TestBody.(maybeLink: MaybeLink) -> Unit) {
         callWith(NoLink(), No, body)
-        callWith(SimpleLink(tempFolder), skipWithLink, body)
+        callWith(SimpleLink(tempFolderProvider), skipWithLink, body)
     }
 
     private inline fun callWith(
@@ -832,12 +832,12 @@ internal class NoLink : InternalMaybeLink("") {
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {}
 }
 
-internal class SimpleLink(private val tempFolder: TempFolder) : InternalMaybeLink("via symbolic link") {
+internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFolder) : InternalMaybeLink("via symbolic link") {
     private var link: Path? = null
     private var path: Path? = null
     override fun callCheckedCreate(path: Path): Path {
         this.path = path
-        val link = tempFolder.newSymbolicLink("__linkTo_" + path.fileName, path)
+        val link = tempFolderProvider().newSymbolicLink("__linkTo_" + path.fileName, path)
         this.link = link
         return link
     }
