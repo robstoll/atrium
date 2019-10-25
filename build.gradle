@@ -337,7 +337,6 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
             def servicesDir = project.file("../$jvm/src/main/resources/META-INF/services/")
             def services = project.file("$srcKotlin/${packageName.replace('.', '/')}/registerServices.kt")
             inputs.dir servicesDir
-            inputs.file services
             outputs.file services
 
             doLast {
