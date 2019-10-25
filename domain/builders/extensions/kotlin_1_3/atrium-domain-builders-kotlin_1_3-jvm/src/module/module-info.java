@@ -6,4 +6,5 @@ module ch.tutteli.atrium.domain.builders.kotlin_1_3 {
     requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.domain.builders.kotlin_1_3.creating;
+    exports ch.tutteli.atrium.domain.builders.kotlin_1_3;
 }

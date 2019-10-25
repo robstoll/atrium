@@ -10,6 +10,6 @@ fun  <E, T : Result<E>>_isSuccess( assertionContainer: Expect<T>) : ExtractedFea
         .withDescription(DescriptionResultAssertion.UNBOXED)
         .withRepresentationForFailure(DescriptionResultAssertion.IS_NOT_SUCCESS)
         .withCheck { it.isSuccess }
-        .withFeatureExtraction { it.getOrNull() ?: IllegalStateException("checked it.isSuccess and suddenly it isn't any more: $it")}
+        .withFeatureExtraction { it.getOrNull() ?: throw IllegalStateException("checked it.isSuccess and suddenly it isn't any more: $it")}
         .build()
 
