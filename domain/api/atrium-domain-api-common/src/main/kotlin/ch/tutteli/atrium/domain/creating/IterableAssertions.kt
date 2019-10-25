@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -37,4 +38,6 @@ interface IterableAssertions {
     fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion
 
     fun <E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion
+
+    fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
 }

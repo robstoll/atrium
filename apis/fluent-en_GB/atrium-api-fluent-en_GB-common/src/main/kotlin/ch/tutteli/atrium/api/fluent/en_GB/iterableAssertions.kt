@@ -26,8 +26,27 @@ val <E, T : Iterable<E>> Expect<T>.contains: IterableContains.Builder<E, T, NoOp
 val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
 
+/**
+ * Expects that the property min of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @since 0.9.0
+ */
+fun <E:Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.iterable.min(this).addToInitial(assertionCreator)
 
-/**c
+/**
+ * Creates an [Expect] for the property min of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ * @since 0.9.0
+ */
+fun <E: Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = ExpectImpl.iterable.min(this).getExpectOfFeature()
+
+/**
  * Expects that the subject of the assertion (an [Iterable]) contains the
  * [expected] value and the [otherExpected] values (if given).
  *

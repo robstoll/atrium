@@ -8,17 +8,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.IterableAssertions
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.iterableContainsAssertions
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.SearchBehaviourFactory
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.searchBehaviourFactory
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.domain.creating.iterableAssertions
 
 /**
@@ -55,10 +49,13 @@ object IterableAssertionsBuilder : IterableAssertions {
         noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?
     ): Assertion = iterableAssertions.all(plant, assertionCreator)
 
-    override inline fun<E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion =
+    override inline fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
+        iterableAssertions.min(assertionContainer)
+
+    override inline fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion =
         iterableAssertions.hasNext(expect)
 
-    override inline fun<E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion =
+    override inline fun <E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion =
         iterableAssertions.hasNotNext(expect)
 }
 
