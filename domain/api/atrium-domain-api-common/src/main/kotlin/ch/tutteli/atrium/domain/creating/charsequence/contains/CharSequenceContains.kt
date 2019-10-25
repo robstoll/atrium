@@ -76,7 +76,7 @@ interface CharSequenceContains {
          *
          * @return The number of occurrences of [searchFor] in [searchIn].
          */
-        fun search(searchIn: CharSequence, searchFor: Any): Int
+        fun search(searchIn: CharSequence, searchFor: SC): Int
     }
 }
 
