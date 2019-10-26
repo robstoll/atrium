@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
- * Represents the extension point for another option after a `get index`-step within a
+ * Represents the extension point for another step after a `get index`-step within a
  * sophisticated `get` assertion building process for [List].
  *
  * @param E The element type of the [List].
@@ -16,7 +16,7 @@ interface ListGetStep<E, T: List<E>> {
     /**
      * The [Expect] for which this assertion is created
      */
-    val plant: Expect<T>
+    val assertionContainer: Expect<T>
 
     /**
      * The given index which will be used to perform the [List.get].
@@ -24,10 +24,10 @@ interface ListGetStep<E, T: List<E>> {
     val index: Int
 
     /**
-     * Makes the assertion that the given [index] is within the bounds of [Expect.subject][SubjectProvider.subject] and that
+     * Makes the assertion that the given [index] is within the bounds of [Expect.subject] and that
      * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
      *
-     * @return This plant to support a fluent API.
+     * @return This assertionContainer to support a fluent API.
      * @throws AssertionError Might throw an [AssertionError] if a created [Expect]s (by calling [assertionCreator])
      *   does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
@@ -35,8 +35,8 @@ interface ListGetStep<E, T: List<E>> {
     infix fun assertIt(assertionCreator: Expect<E>.() -> Unit): Expect<T>
 
     companion object {
-        fun <E, T: List<E>> create(plant: Expect<T>, index: Int): ListGetStep<E, T>
-            = ListGetStepImpl(plant, index)
+        fun <E, T: List<E>> create(assertionContainer: Expect<T>, index: Int): ListGetStep<E, T>
+            = ListGetStepImpl(assertionContainer, index)
     }
 }
 
