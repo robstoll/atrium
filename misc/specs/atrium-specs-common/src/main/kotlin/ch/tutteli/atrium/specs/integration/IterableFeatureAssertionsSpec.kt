@@ -128,7 +128,7 @@ private fun Suite.checkMax(testMax: Expect<Iterable<Int>>.(Expect<Int>.() -> Uni
             expect {
                 emptyIterable.testMax { toBe(1) }
             }.toThrow<AssertionError> {
-                messageContains("cannot be determined, empty Iterable")
+                messageContains(DescriptionIterableAssertion.NO_ELEMENTS.getDefault())
             }
         }
     }
