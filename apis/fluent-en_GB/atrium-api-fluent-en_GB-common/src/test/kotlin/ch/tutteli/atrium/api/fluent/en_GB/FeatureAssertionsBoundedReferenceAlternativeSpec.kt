@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.notImplemented
+
 class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
     propertyImmediate,
     propertyLazy,
@@ -98,5 +101,28 @@ class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs
         val f3EmptyAssertionCreator: F = { feature({ f3(it::return3, "a", 1, true) }) {} }
         val f4EmptyAssertionCreator: F = { feature({ f4(it::return4, "a", 1, true, 1.2) }) {} }
         val f5EmptyAssertionCreator: F = { feature({ f5(it::return5, "a", 1, true, 1.2, 'b') }) {} }
+    }
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        val a1: Expect<Collection<Int>> = notImplemented()
+        val a2: Expect<out Collection<Int>> = notImplemented()
+        val a1b: Expect<Collection<Int?>> = notImplemented()
+        val a2b: Expect<out Collection<Int?>> = notImplemented()
+
+        val a3: Expect<out Collection<*>> = notImplemented()
+
+        a1.feature { p(it::size) }
+        a2.feature { p(it::size) }
+        a1.feature({ p(it::size) }) {}
+        a2.feature({ p(it::size) }) {}
+
+        a1b.feature { p(it::size) }
+        a2b.feature { p(it::size) }
+        a1b.feature({ p(it::size) }) {}
+        a2b.feature({ p(it::size) }) {}
+
+        a3.feature { p(it::size) }
+        a3.feature({ p(it::size) }) {}
     }
 }

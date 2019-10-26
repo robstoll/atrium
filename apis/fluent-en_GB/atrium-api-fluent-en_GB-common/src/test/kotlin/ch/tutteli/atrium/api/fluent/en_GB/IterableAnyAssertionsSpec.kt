@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
@@ -83,5 +84,33 @@ class IterableAnyAssertionsSpec : Spek({
 
         private fun containsNullableEntriesSequence(plant: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
             ExpectImpl.changeSubject(plant).unreported { it.asSequence() }.asIterable().contains(a)
+    }
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var a1: Expect<Iterable<Double>> = notImplemented()
+        var a2: Expect<out Iterable<Double>> = notImplemented()
+        var a1b: Expect<Iterable<Double?>> = notImplemented()
+        var a2b: Expect<out Iterable<Double?>> = notImplemented()
+
+        var a3: Expect<out Iterable<*>> = notImplemented()
+
+        a1 = a1.any {}
+        a2 = a2.any {}
+        a1 = a1.contains {}
+        a2 = a2.contains {}
+
+        a1b = a1b.any {}
+        a2b = a2b.any {}
+        a1b = a1b.any(null)
+        a2b = a2b.any(null)
+        a1b = a1b.contains {}
+        a2b = a2b.contains {}
+        a1b = a1b.contains(null)
+        a2b = a2b.contains(null)
+
+
+        a3 = a3.any {}
+        a3 = a3.contains {}
     }
 }

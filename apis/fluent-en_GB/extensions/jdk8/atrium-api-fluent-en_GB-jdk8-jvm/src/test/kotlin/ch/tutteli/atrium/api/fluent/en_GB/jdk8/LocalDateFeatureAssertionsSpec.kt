@@ -18,14 +18,14 @@ class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Local
         var a2: Expect<out LocalDate> = notImplemented()
 
         a1.year
-        a1 = a1.year { }
         a2.year
+        a1 = a1.year { }
         a2 = a2.year { }
 
         a1.month
-        a1 = a1.month {  }
         a2.month
-        a2 = a2.month {  }
+        a1 = a1.month { }
+        a2 = a2.month { }
     }
 }
 
