@@ -10,19 +10,23 @@ class CollectionFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Coll
     property<Collection<String>, Int>(Expect<Collection<String>>::size),
     fun1<Collection<String>, Expect<Int>.() -> Unit>(Expect<Collection<String>>::size).name to Companion::size
 ) {
+    companion object {
+        fun size(expect: Expect<Collection<String>>, assertionCreator: Expect<Int>.() -> Unit) =
+            expect size { assertionCreator() }
+    }
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<Collection<Int>> = notImplemented()
         var a2: Expect<out Collection<Int>> = notImplemented()
+        var a3: Expect<out Collection<Int?>> = notImplemented()
 
         a1.size
-        a1 = a1.size { }
         a2.size
-        a2 = a2.size { }
-    }
+        a3.size
 
-    companion object {
-        fun size(plant: Expect<Collection<String>>, assertionCreator: Expect<Int>.() -> Unit)
-            = plant size { assertionCreator() }
+        a1 = a1.size { }
+        a2 = a2.size { }
+        a3 = a3.size { }
     }
 }

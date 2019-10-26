@@ -9,7 +9,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) = addAssertion(ExpectImpl.collection.isEmpty(this))
+infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+    addAssertion(ExpectImpl.collection.isEmpty(this))
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
@@ -17,7 +18,8 @@ infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) = addAssertion(ExpectImpl.collection.isNotEmpty(this))
+infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+    addAssertion(ExpectImpl.collection.isNotEmpty(this))
 
 /**
  * Creates an [Expect] for the property [Collection.size] of the subject of the assertion,
