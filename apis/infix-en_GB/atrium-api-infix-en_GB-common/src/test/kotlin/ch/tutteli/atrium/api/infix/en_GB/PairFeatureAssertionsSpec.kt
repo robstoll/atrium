@@ -16,11 +16,11 @@ class PairFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PairFeatur
     fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Pair<String?, Int?>>::second)
 ) {
     companion object {
-        fun first(plant: Expect<Pair<String, Int>>, expectationCreator: Expect<String>.() -> Unit) =
-            plant first { expectationCreator() }
+        fun first(expect: Expect<Pair<String, Int>>, expectationCreator: Expect<String>.() -> Unit) =
+            expect first { expectationCreator() }
 
-        fun second(plant: Expect<Pair<String, Int>>, expectationCreator: Expect<Int>.() -> Unit) =
-            plant second { expectationCreator() }
+        fun second(expect: Expect<Pair<String, Int>>, expectationCreator: Expect<Int>.() -> Unit) =
+            expect second { expectationCreator() }
     }
 
     @Suppress("unused", "UNUSED_VALUE")

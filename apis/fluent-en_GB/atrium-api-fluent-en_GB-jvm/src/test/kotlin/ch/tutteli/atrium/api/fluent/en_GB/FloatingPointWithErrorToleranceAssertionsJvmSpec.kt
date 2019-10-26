@@ -17,9 +17,9 @@ class FloatingPointWithErrorToleranceAssertionsJvmSpec :
             "${toBeWithErrorToleranceBigDecimalFun.name} for BigDecimal" to Companion::toBeWithErrorToleranceBigDecimal
 
         private fun toBeWithErrorToleranceBigDecimal(
-            plant: Expect<BigDecimal>,
+            expect: Expect<BigDecimal>,
             expected: BigDecimal,
             tolerance: BigDecimal
-        ) = plant.toBeWithErrorTolerance(expected, tolerance)
+        ) = expect.toBeWithErrorTolerance(expected, tolerance)
     }
 }

@@ -28,25 +28,25 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         //@formatter:on
 
         fun contains(
-            plant: Expect<Map<out String, Int>>,
+            expect: Expect<Map<out String, Int>>,
             keyValuePair: Pair<String, Int>,
             otherKeyValuePairs: Array<out Pair<String, Int>>
-        ) = plant.contains(keyValuePair, *otherKeyValuePairs)
+        ) = expect.contains(keyValuePair, *otherKeyValuePairs)
 
         fun containsKeyValue(
-            plant: Expect<Map<out String, Int>>,
+            expect: Expect<Map<out String, Int>>,
             keyValue: Pair<String, Expect<Int>.() -> Unit>,
             otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
         ) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
-            plant.contains(first, *others)
+            expect.contains(first, *others)
         }
 
         fun containsNullable(
-            plant: Expect<Map<out String?, Int?>>,
+            expect: Expect<Map<out String?, Int?>>,
             keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
             otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
         ) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
-            plant.contains(first, *others)
+            expect.contains(first, *others)
         }
     }
 
