@@ -80,14 +80,24 @@ fun <E : Any> _hasNotNext(expect: Expect<Iterable<E>>): Assertion =
     }
 
 fun <E : Comparable<E>, T : Iterable<E>> _min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
-    ExpectImpl.feature.extractor(assertionContainer)
-        .methodCall("min")
-        .withRepresentationForFailure(DescriptionIterableAssertion.NO_ELEMENTS)
+    collect(assertionContainer, "min", Iterable<E>::min)
+
+fun <E : Comparable<E>, T : Iterable<E>> _max(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
+    collect(assertionContainer, "max", Iterable<E>::max)
+
+private fun <E : Comparable<E>, T : Iterable<E>> collect(
+    assertionContainer: Expect<T>,
+    method: String,
+    collect: T.() -> E?
+): ExtractedFeaturePostStep<T, E> {
+    return ExpectImpl.feature.extractor(assertionContainer)
+        .methodCall(method)
+        .withRepresentationForFailure(NO_ELEMENTS)
         .withCheck { it.iterator().hasNext() }
         .withFeatureExtraction {
-            it.min() ?: throw IllegalStateException("Iterable does not haveNext even though checked before. Concurrent access?")
-        }
-        .build()
+            it.collect() ?: throw IllegalStateException("Iterable does not haveNext even though checked before. Concurrent access?")
+        }.build()
+}
 
 private fun <E : Any> createMismatchAssertions(
     list: List<E?>,

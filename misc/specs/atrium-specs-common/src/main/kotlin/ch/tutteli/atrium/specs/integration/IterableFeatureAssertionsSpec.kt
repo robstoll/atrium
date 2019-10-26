@@ -1,28 +1,46 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
+import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.AssertionCreatorSpec
+import ch.tutteli.atrium.specs.Feature0
+import ch.tutteli.atrium.specs.Fun1
+import ch.tutteli.atrium.specs.SubjectLessSpec
+import ch.tutteli.atrium.specs.adjustName
+import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.forAssertionCreatorSpec
+import ch.tutteli.atrium.specs.forSubjectLess
+import ch.tutteli.atrium.specs.lambda
+import ch.tutteli.atrium.specs.name
+import ch.tutteli.atrium.specs.toBeDescr
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
-import kotlin.math.exp
 
 abstract class IterableFeatureAssertionsSpec(
     minFeature: Feature0<Iterable<Int>,Int>,
     min: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
+    maxFeature: Feature0<Iterable<Int>, Int>,
+    max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Iterable<Int>>(describePrefix,
         minFeature.forSubjectLess().adjustName { "$it feature" },
-        min.forSubjectLess { isGreaterThan(-100) }
+        min.forSubjectLess { isGreaterThan(-100) },
+        maxFeature.forSubjectLess().adjustName { "$it feature" },
+        max.forSubjectLess { toBe(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
         describePrefix, listOf(-20,20,0),
-        min.forAssertionCreatorSpec("$toBeDescr: -20") { toBe(-20) }
+        min.forAssertionCreatorSpec("$toBeDescr: -20") { toBe(-20) },
+        max.forAssertionCreatorSpec("$toBeDescr: 20") { toBe(20) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -74,4 +92,44 @@ abstract class IterableFeatureAssertionsSpec(
             }
         }
     }
+
+    describeFun("val ${maxFeature.name}") {
+        val maxVal = max.lambda
+        checkMax { assertion -> maxVal(assertion) }
+    }
+
+    describeFun("fun ${max.name}") {
+        val maxFun = maxFeature.lambda
+        checkMax { assert -> maxFun().assert() }
+    }
 })
+
+
+private fun Suite.checkMax(testMax: Expect<Iterable<Int>>.(Expect<Int>.() -> Unit) -> Unit) {
+    val emptyIterable = expect(emptyList<Int>() as Iterable<Int>)
+
+    val filledIterable = expect(listOf(1, 2) as Iterable<Int>)
+
+    context("list with 1 and 2") {
+        it("toBe(2) holds") {
+            filledIterable.testMax { toBe(2) }
+        }
+        it("toBe(1) fails") {
+            expect {
+                filledIterable.testMax { toBe(1) }
+            }.toThrow<AssertionError> {
+                messageContains("max(): 2")
+            }
+        }
+    }
+
+    context("empty list") {
+        it("fails warning about empty iterable") {
+            expect {
+                emptyIterable.testMax { toBe(1) }
+            }.toThrow<AssertionError> {
+                messageContains("cannot be determined, empty Iterable")
+            }
+        }
+    }
+}
