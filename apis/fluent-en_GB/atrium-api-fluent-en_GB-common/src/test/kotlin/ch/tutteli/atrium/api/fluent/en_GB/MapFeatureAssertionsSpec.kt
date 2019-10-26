@@ -21,16 +21,20 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
         var a3: Expect<out Map<String, Int>> = notImplemented()
         var a4: Expect<out Map<out String, Int>> = notImplemented()
         var a5: Expect<out Map<out String?, Int?>> = notImplemented()
+        var a6: Expect<out Map<*, *>> = notImplemented()
 
         a1.getExisting("a")
-        a1 = a1.getExisting("a") { }
         a2.getExisting("a")
-        a2 = a2.getExisting("a") { }
         a3.getExisting("a")
-        a3 = a3.getExisting("a") { }
         a4.getExisting("a")
-        a4 = a4.getExisting("a") { }
         a5.getExisting("a")
+        a6.getExisting("a")
+
+        a1 = a1.getExisting("a") { }
+        a2 = a2.getExisting("a") { }
+        a3 = a3.getExisting("a") { }
+        a4 = a4.getExisting("a") { }
         a5 = a5.getExisting("a") { }
+        a6 = a6.getExisting("a") { }
     }
 }

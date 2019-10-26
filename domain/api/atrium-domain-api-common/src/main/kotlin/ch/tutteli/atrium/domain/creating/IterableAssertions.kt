@@ -31,15 +31,12 @@ interface IterableAssertions {
         assertionCreator: (Expect<E>.() -> Unit)?
     ): Assertion
 
+    fun <E, T : Iterable<E>> hasNext(expect: Expect<T>): Assertion
+    fun <E, T : Iterable<E>> hasNotNext(expect: Expect<T>): Assertion
+
+    fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
+    fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <E : Any> all(plant: AssertionPlant<Iterable<E?>>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
-
-    fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion
-
-    fun <E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion
-
-    fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
-
-    fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
 }

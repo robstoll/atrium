@@ -52,12 +52,12 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyEntriesShortcut
 
         private fun containsInOrderOnlyEntriesShortcut(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.containsExactly { a() }
-            else plant.containsExactly(a, *aX)
+            if (aX.isEmpty()) expect.containsExactly { a() }
+            else expect.containsExactly(a, *aX)
 
         private val containsNullableShortcutFun: KFunction3<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsExactly
@@ -66,15 +66,15 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
             containsNullableShortcutFun.name to Companion::containsInOrderOnlyNullableEntriesShortcut
 
         private fun containsInOrderOnlyNullableEntriesShortcut(
-            plant: Expect<Iterable<Double?>>,
+            expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) {
-                if (a == null) plant.containsExactly(a)
-                else plant.containsExactly { a() }
+                if (a == null) expect.containsExactly(a)
+                else expect.containsExactly { a() }
             } else {
-                plant.containsExactly(a, *aX)
+                expect.containsExactly(a, *aX)
             }
     }
 }

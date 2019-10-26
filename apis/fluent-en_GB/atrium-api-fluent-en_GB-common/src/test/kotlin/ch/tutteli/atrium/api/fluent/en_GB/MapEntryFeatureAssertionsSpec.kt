@@ -23,42 +23,32 @@ class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEnt
         var m3: Expect<Map.Entry<CharSequence, Number?>> = notImplemented()
         var m4: Expect<Map.Entry<CharSequence?, Number?>> = notImplemented()
         var m5: Expect<out Map.Entry<CharSequence?, Number?>> = notImplemented()
-
-        m1 = m1.isKeyValue("a", 1)
-        m1 = m1.isKeyValue("a" as CharSequence, 1 as Number)
-
-        m2 = m2.isKeyValue("a", 1)
-        m2 = m2.isKeyValue("a" as CharSequence, 1 as Number)
-
-        m3 = m3.isKeyValue("a", 1)
-        m3 = m3.isKeyValue("a" as CharSequence, 1 as Number)
-
-        m4 = m4.isKeyValue("a", 1)
-        m4 = m4.isKeyValue("a" as CharSequence, 1 as Number)
-
-        m5 = m5.isKeyValue("a", 1)
-        m5 = m5.isKeyValue("a" as CharSequence, 1 as Number)
+        var m6: Expect<out Map.Entry<*, *>> = notImplemented()
 
         m1.key
         m2.key
         m3.key
         m4.key
         m5.key
+        m6.key
         m1 = m1.key { }
         m2 = m2.key { }
         m3 = m3.key { }
         m4 = m4.key { }
         m5 = m5.key { }
+        m6 = m6.key { }
 
         m1.value
         m2.value
         m3.value
         m4.value
         m5.value
+        m6.value
         m1 = m1.value { }
         m2 = m2.value { }
         m3 = m3.value { }
         m4 = m4.value { }
         m5 = m5.value { }
+        m6 = m6.value { }
     }
 }

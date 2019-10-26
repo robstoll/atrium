@@ -21,7 +21,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbe
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.mapWithIndex
 
@@ -69,13 +68,27 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
     }
 }
 
-fun <E : Any> _hasNext(expect: Expect<Iterable<E>>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect,
-        DescriptionBasic.HAS, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) { it.iterator().hasNext() }
+private fun <E : Any> createMismatchAssertions(
+    list: List<E?>,
+    assertionCreator: (Expect<E>.() -> Unit)?
+): List<Assertion> {
+    return list
+        .asSequence()
+        .mapWithIndex()
+        .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
+        .map { (index, element) ->
+            ExpectImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element, falseProvider)
+        }
+        .toList()
+}
 
-fun <E : Any> _hasNotNext(expect: Expect<Iterable<E>>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect,
-        DescriptionBasic.HAS_NOT, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) {
+fun <E, T : Iterable<E>> _hasNext(assertionContainer: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionBasic.HAS, RawString.create(NEXT_ELEMENT)) {
+        it.iterator().hasNext()
+    }
+
+fun <E, T : Iterable<E>> _hasNotNext(assertionContainer: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionBasic.HAS_NOT, RawString.create(NEXT_ELEMENT)) {
         !it.iterator().hasNext()
     }
 
@@ -95,20 +108,8 @@ private fun <E : Comparable<E>, T : Iterable<E>> collect(
         .withRepresentationForFailure(NO_ELEMENTS)
         .withCheck { it.iterator().hasNext() }
         .withFeatureExtraction {
-            it.collect() ?: throw IllegalStateException("Iterable does not haveNext even though checked before. Concurrent access?")
+            it.collect() ?: throw IllegalStateException(
+                "Iterable does not haveNext() even though checked before! Concurrent access?"
+            )
         }.build()
-}
-
-private fun <E : Any> createMismatchAssertions(
-    list: List<E?>,
-    assertionCreator: (Expect<E>.() -> Unit)?
-): List<Assertion> {
-    return list
-        .asSequence()
-        .mapWithIndex()
-        .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
-        .map { (index, element) ->
-            ExpectImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element, falseProvider)
-        }
-        .toList()
 }
