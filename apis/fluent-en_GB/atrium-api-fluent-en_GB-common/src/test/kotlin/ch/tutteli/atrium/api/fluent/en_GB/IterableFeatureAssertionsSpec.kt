@@ -5,7 +5,9 @@ import ch.tutteli.atrium.specs.*
 
 class IterableFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableFeatureAssertionsSpec(
     feature0<Iterable<Int>,Int>(Expect<Iterable<Int>>::min ,"min"),
-    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min)
+    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
+    feature0<Iterable<Int>,Int>(Expect<Iterable<Int>>::max ,"max"),
+    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

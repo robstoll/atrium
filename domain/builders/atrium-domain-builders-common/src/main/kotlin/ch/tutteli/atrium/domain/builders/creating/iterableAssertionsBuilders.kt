@@ -28,7 +28,6 @@ object IterableAssertionsBuilder : IterableAssertions {
     override inline fun <E, T : Iterable<E>> containsNotBuilder(subjectProvider: SubjectProvider<T>) =
         iterableAssertions.containsNotBuilder(subjectProvider)
 
-
     override inline fun <E : Any, T : Iterable<E?>> all(
         assertionContainer: Expect<T>,
         noinline assertionCreator: (Expect<E>.() -> Unit)?
@@ -51,6 +50,9 @@ object IterableAssertionsBuilder : IterableAssertions {
 
     override inline fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
         iterableAssertions.min(assertionContainer)
+
+    override inline fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>) =
+        iterableAssertions.max(assertionContainer)
 
     override inline fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion =
         iterableAssertions.hasNext(expect)

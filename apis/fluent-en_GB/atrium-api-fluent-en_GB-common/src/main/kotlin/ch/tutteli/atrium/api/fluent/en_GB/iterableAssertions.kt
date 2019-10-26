@@ -34,7 +34,7 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearch
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @since 0.9.0
  */
-fun <E:Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.iterable.min(this).addToInitial(assertionCreator)
 
 /**
@@ -44,7 +44,27 @@ fun <E:Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>
  * @return The newly created [Expect].
  * @since 0.9.0
  */
-fun <E: Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = ExpectImpl.iterable.min(this).getExpectOfFeature()
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = ExpectImpl.iterable.min(this).getExpectOfFeature()
+
+/**
+ * Expects that the property max of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.iterable.max(this).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property max of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> = ExpectImpl.iterable.max(this).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the
@@ -169,7 +189,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
  */
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E) =
     containsNot.values(expected, *otherExpected)
-
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains an entry holding

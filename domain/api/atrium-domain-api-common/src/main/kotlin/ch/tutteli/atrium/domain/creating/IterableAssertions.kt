@@ -40,4 +40,6 @@ interface IterableAssertions {
     fun <E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion
 
     fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
+
+    fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
 }
