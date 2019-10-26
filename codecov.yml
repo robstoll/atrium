@@ -1,48 +1,47 @@
 ignore:
-    - "domain/builders/**/AssertImpl.kt"
-    - "domain/builders/**/ExpectImpl.kt"
-    - "domain/builders/**/creating/**Builder.kt"
-    - "domain/builders/**/creating/*Builders.kt"
-
-    - "misc/specs/**/*"
-
-    - "misc/tools/**/*"
-    - "samples/**/*"
+    - "domain/builders/**/AssertImpl.kt$"
+    - "domain/builders/**/ExpectImpl.kt$"
+    - "domain/builders/**/ExpectImplExtensions.kt$"
+    - "domain/builders/**/creating/**AssertionsBuilders?.kt$"
+    - "domain/builders/**/utils/nullable.kt$"
+    - "domain/builders/**/utils/subAssert.kt$"
+    - "misc/specs/**"
+    - "misc/tools/**"
+    - "samples/**"
 
     # TODO remove with 1.0.0
-     - "misc/atrium-spec/**/*"
-#    - "misc/atrium-assertions/**/*"
-#    - "apis/**/assertions/**/*"
-#    - "domain/api/**/assertions/**/*"
-#    - "domain/atrium-domain-api-deprecated/**/*"
-#    - "**/IAtriumFactory.kt"
-#    - "**/AtriumFactory.kt"
+    - "misc/atrium-spec/**"
+    - "misc/atrium-assertions/**"
+    - "domain/api/**/assertions/**"
+    - "domain/atrium-domain-api-deprecated/**"
+    - "**/IAtriumFactory.kt$"
+    - "**/AtriumFactory.kt$"
 
 
 flags:
-  api:
-    paths:
-      - apis/
-  domain:
-    paths:
-      - domain/
-  core:
-    paths:
-      - core/
-  misc:
-    paths:
-      - misc/
-  translations:
-    paths:
-      - translations/
+    api:
+        paths:
+            - apis/
+    domain:
+        paths:
+            - domain/
+    core:
+        paths:
+            - core/
+    misc:
+        paths:
+            - misc/
+    translations:
+        paths:
+            - translations/
 
 coverage:
-  range: 70..95
-  status:
-    project:
-      default:
-          target: 85%
-    patch:
-      default:
-          against: parent
-          target: 85%
+    range: 70..95
+    status:
+        project:
+            default:
+                target: 85%
+        patch:
+            default:
+                against: parent
+                target: 85%
