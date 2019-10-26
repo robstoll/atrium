@@ -19,4 +19,4 @@ jobs:
             -   name: Build with Gradle
                 run: ./gr jvmBuild
             -   name: build sample atrium+spek project
-                run: ./gr -p samples\jvm\spek build
+                run: samples\jvm\spek\gradlew -p samples\jvm\spek build

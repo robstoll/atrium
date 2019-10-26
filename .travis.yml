@@ -19,7 +19,7 @@ install: true
 script:
   - |
     if [ $MODE == current ]; then
-      ./gr -p ./samples/jvm/spek build
+      samples/jvm/spek/gradlew -p ./samples/jvm/spek build
     fi
     if [ $MODE == current ]; then
       if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
