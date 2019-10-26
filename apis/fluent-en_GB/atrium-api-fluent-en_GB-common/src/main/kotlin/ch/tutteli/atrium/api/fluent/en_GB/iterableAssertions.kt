@@ -237,7 +237,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  *
  * @since 0.9.0
  */
-fun <E : Any> Expect<Iterable<E>>.hasNext() = addAssertion(ExpectImpl.iterable.hasNext(this))
+fun <E, T : Iterable<E>> Expect<T>.hasNext() = addAssertion(ExpectImpl.iterable.hasNext(this))
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not have next element.
@@ -247,4 +247,4 @@ fun <E : Any> Expect<Iterable<E>>.hasNext() = addAssertion(ExpectImpl.iterable.h
  *
  * @since 0.9.0
  */
-fun <E : Any> Expect<Iterable<E>>.hasNotNext() = addAssertion(ExpectImpl.iterable.hasNotNext(this))
+fun <E, T : Iterable<E>> Expect<T>.hasNotNext() = addAssertion(ExpectImpl.iterable.hasNotNext(this))

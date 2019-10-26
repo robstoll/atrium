@@ -15,12 +15,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._min
 
 class IterableAssertionsImpl : IterableAssertions, IterableAssertionsDeprecatedImpl() {
 
-    override fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>) =
-        _min(assertionContainer)
-
-    override fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>) =
-        _max(assertionContainer)
-
     override fun <E, T : Iterable<E>> containsBuilder(subjectProvider: SubjectProvider<T>) =
         _containsBuilder(subjectProvider)
 
@@ -32,7 +26,14 @@ class IterableAssertionsImpl : IterableAssertions, IterableAssertionsDeprecatedI
         assertionCreator: (Expect<E>.() -> Unit)?
     ): Assertion = _iterableAll(assertionContainer, assertionCreator)
 
-    override fun <E : Any> hasNext(expect: Expect<Iterable<E>>): Assertion = _hasNext(expect)
+    override fun <E, T : Iterable<E>> hasNext(expect: Expect<T>): Assertion = _hasNext(expect)
 
-    override fun <E : Any> hasNotNext(expect: Expect<Iterable<E>>): Assertion = _hasNotNext(expect)
+    override fun <E, T : Iterable<E>> hasNotNext(expect: Expect<T>): Assertion = _hasNotNext(expect)
+
+    override fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>) =
+        _min(assertionContainer)
+
+    override fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>) =
+        _max(assertionContainer)
+
 }
