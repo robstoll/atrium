@@ -16,18 +16,29 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
 
         @Suppress("unused", "UNUSED_VALUE")
         private fun ambiguityTest() {
-            var a1: Expect<List<Int>> = notImplemented()
-            var a2: Expect<out List<Int>> = notImplemented()
 
-            getPlant(a1, 1)
-            getPlant(a1, Index(1))
-            a1 = a1.get(1) { }
-            getPlant(a2, 1)
-            getPlant(a2, Index(1))
-            a2 = a2.get(1) { }
+            val a1: Expect<List<Int>> = notImplemented()
+            val a2: Expect<out List<Int>> = notImplemented()
+            val a1b: Expect<List<Int?>> = notImplemented()
+            val a2b: Expect<out List<Int?>> = notImplemented()
+
+            val a3: Expect<out List<*>> = notImplemented()
+
+            a1 get 1
+            a2 get 1
+
+            a1b get 1
+            a2b get 1
+
+            a3 get 1
+
+            a1 get Index(1)
+            a2 get Index(1)
+
+            a1b get Index(1)
+            a2b get Index(1)
+
+            a3 get Index(1)
         }
-
-        private fun getPlant(plant: Expect<out List<Int>>, index: Int) = plant get index
-        private fun getPlant(plant: Expect<out List<Int>>, index: Index) = plant get index
     }
 }
