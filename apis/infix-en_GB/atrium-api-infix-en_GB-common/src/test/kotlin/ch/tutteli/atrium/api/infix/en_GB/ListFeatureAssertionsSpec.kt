@@ -26,20 +26,15 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
 
             a1 get 1
             a2 get 1
-            a1 get Index(1)
-            a2 get Index(1)
             a1 = a1 get Index(1) assertIt { }
             a2 = a2 get Index(1) assertIt { }
 
             a1b get 1
             a2b get 1
-            a1b get Index(1)
-            a2b get Index(1)
             a1b = a1b get Index(1) assertIt { }
             a2b = a2b get Index(1) assertIt { }
 
             a3 get 1
-            a3 get Index(1)
             a3 = a3 get Index(1) assertIt { }
         }
     }
