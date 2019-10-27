@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.zonedDateTime
+import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
 /**
@@ -55,9 +56,9 @@ fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
  *
  * @return The newly created [Expect].
  *
- * @since 0.10.0
+ * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.dayOfWeek get(): Expect<Int> =
+val <T : ZonedDateTime> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
     ExpectImpl.zonedDateTime.dayOfWeek(this).getExpectOfFeature()
 
 /**
@@ -67,7 +68,7 @@ val <T : ZonedDateTime> Expect<T>.dayOfWeek get(): Expect<Int> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.9.0
  */
-fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.zonedDateTime.dayOfWeek(this).addToInitial(assertionCreator)

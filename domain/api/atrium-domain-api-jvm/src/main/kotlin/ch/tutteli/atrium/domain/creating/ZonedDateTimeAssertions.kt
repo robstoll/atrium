@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
 /**
@@ -21,5 +22,5 @@ interface ZonedDateTimeAssertions {
 
     fun <T: ZonedDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun <T: ZonedDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T: ZonedDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek>
 }

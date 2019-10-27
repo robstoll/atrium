@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
+import java.time.DayOfWeek
 import java.time.LocalDateTime
 
 fun <T: LocalDateTime>_year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
@@ -12,6 +13,6 @@ fun <T: LocalDateTime>_year(assertionContainer: Expect<T>): ExtractedFeaturePost
 fun <T: LocalDateTime>_month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
 
-fun <T: LocalDateTime>_dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
-    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.DAY_OF_WEEK) { dayOfWeek.value }
+fun <T: LocalDateTime>_dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek> =
+    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.DAY_OF_WEEK) { dayOfWeek }
 

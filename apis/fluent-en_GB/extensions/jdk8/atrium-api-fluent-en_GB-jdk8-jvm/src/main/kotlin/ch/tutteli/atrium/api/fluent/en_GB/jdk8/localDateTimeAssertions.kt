@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.localDateTime
+import java.time.DayOfWeek
 import java.time.LocalDateTime
 
 /**
@@ -57,7 +58,7 @@ fun <T : LocalDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
  *
  * @since 0.9.0
  */
-val <T : LocalDateTime> Expect<T>.dayOfWeek get(): Expect<Int> =
+val <T : LocalDateTime> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
     ExpectImpl.localDateTime.dayOfWeek(this).getExpectOfFeature()
 
 /**
@@ -69,6 +70,6 @@ val <T : LocalDateTime> Expect<T>.dayOfWeek get(): Expect<Int> =
  *
  * @since 0.9.0
  */
-fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.localDateTime.dayOfWeek(this).addToInitial(assertionCreator)
 
