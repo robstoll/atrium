@@ -69,28 +69,24 @@ abstract class PathAssertionsSpec(
         if (fileSystemSupportsPosixPermissions()) No
         else Yes("POSIX permissions are not supported on this file system")
 
+    // Windows with neither symlink nor admin privileges
+    val ifSymlinksNotSupported =
+        if (fileSystemSupportsCreatingSymlinks()) No
+        else Yes("creating symbolic links is not supported on this file system")
 
-    // TODO mcp#258 remove once symlink loop bug is fixed
-    fun tempDirectoryHasSymlink(): Boolean {
+
+    // TODO #258 remove once symlink loop bug is fixed
+    val tempDirectoryHasSymlink by lazy {
         val tmp = Files.createTempDirectory("a")
         val absolutePath = tmp.toAbsolutePath()
 
         var currentPath = absolutePath.root
         for (part in absolutePath) {
             currentPath = currentPath.resolve(part)
-            if (currentPath.isSymbolicLink) return true
+            if (currentPath.isSymbolicLink) return@lazy true
         }
-        return false
+        return@lazy false
     }
-
-    // Windows with neither symlink nor admin privileges
-    val ifSymlinksNotSupported =
-        if (fileSystemSupportsCreatingSymlinks()) {
-            // TODO mcp#258 should not be necessary
-            if (tempDirectoryHasSymlink()) Yes("skipping due to bug in Atrium, see https://github.com/robstoll/atrium/issues/258")
-            else No
-        } else Yes("creating symbolic links is not supported on this file system")
-
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -188,7 +184,10 @@ abstract class PathAssertionsSpec(
             }
         }
 
-        it("prints an explanation for link loops", skip = ifSymlinksNotSupported) {
+        it(
+            "prints an explanation for link loops",
+            skip = if (tempDirectoryHasSymlink) Yes("skipping due to bug in Atrium, see https://github.com/robstoll/atrium/issues/258") else ifSymlinksNotSupported
+        ) {
             val a = tempFolder.tmpDir.resolve("a")
             val b = tempFolder.newSymbolicLink("b", a)
             b.createSymbolicLink(a)
@@ -857,7 +856,9 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
     private var path: Path? = null
     override fun callCheckedCreate(path: Path): Path {
         this.path = path
-        val link = tempFolderProvider().newSymbolicLink("__linkTo_" + path.fileName, path)
+        val tempFolder = tempFolderProvider()
+        // we assume in the tests that the temporary directory does not contain symlinks, thus we resolve them here.
+        val link = Files.createSymbolicLink(tempFolder.tmpDir.toRealPath().resolve("__linkTo_" + path.fileName), path)
         this.link = link
         return link
     }
