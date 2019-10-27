@@ -18,6 +18,7 @@ import org.spekframework.spek2.dsl.Skip.Yes
 import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
+import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.attribute.*
@@ -41,47 +42,58 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
-    val tempFolder by memoizedTempFolder()
-
-    // Linux & Mac
-    val ifAclNotSupported =
-        if (fileSystemSupportsAcls()) No else Yes("ACLs are not supported on this file system")
-    // Windows
-    val ifPosixNotSupported =
-        if (fileSystemSupportsPosixPermissions()) No else Yes("POSIX permissions are not supported on this file system")
-    // Windows with neither symlink nor admin privileges
-    val ifSymlinksNotSupported =
-        if (fileSystemSupportsCreatingSymlinks()) No else Yes("creating symbolic links is not supported on this file system")
 
     include(object : SubjectLessSpec<Path>(
         "$describePrefix[Path] ",
         exists.forSubjectLess(),
         existsNot.forSubjectLess(),
+        startsWith.forSubjectLess(Paths.get("a")),
+        startsNotWith.forSubjectLess(Paths.get("a")),
+        endsWith.forSubjectLess(Paths.get("a")),
+        endsNotWith.forSubjectLess(Paths.get("a")),
         isReadable.forSubjectLess(),
         isWritable.forSubjectLess(),
         isRegularFile.forSubjectLess(),
         isDirectory.forSubjectLess()
     ) {})
 
+    val tempFolder by memoizedTempFolder()
+
+    // Linux & Mac
+    val ifAclNotSupported =
+        if (fileSystemSupportsAcls()) No
+        else Yes("ACLs are not supported on this file system")
+
+    // Windows
+    val ifPosixNotSupported =
+        if (fileSystemSupportsPosixPermissions()) No
+        else Yes("POSIX permissions are not supported on this file system")
+
+
+    // TODO mcp#258 remove once symlink loop bug is fixed
+    fun tempDirectoryHasSymlink(): Boolean {
+        val tmp = Files.createTempDirectory("a")
+        val absolutePath = tmp.toAbsolutePath()
+
+        var currentPath = absolutePath.root
+        for (part in absolutePath) {
+            currentPath = currentPath.resolve(part)
+            if (currentPath.isSymbolicLink) return true
+        }
+        return false
+    }
+
+    // Windows with neither symlink nor admin privileges
+    val ifSymlinksNotSupported =
+        if (fileSystemSupportsCreatingSymlinks()) {
+            // TODO mcp#258 should not be necessary
+            if (tempDirectoryHasSymlink()) Yes("skipping due to bug in Atrium, see https://github.com/robstoll/atrium/issues/258")
+            else No
+        } else Yes("creating symbolic links is not supported on this file system")
+
+
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
-
-    fun throwingPath(): Path {
-        val baseFile = tempFolder.tmpDir.resolve("throwing")
-
-        // using spyk on baseFile and mocking #getFileSystem does not work on Java 8 on Linux (but everywhere else).
-        // because of that, we use plain old manual delegation:
-        return object : Path by baseFile {
-            override fun getFileSystem() = spyk(baseFile.fileSystem) {
-                every { provider() } returns spyk(baseFile.fileSystem.provider()) {
-                    every {
-                        readAttributes(any(), any<Class<BasicFileAttributes>>(), *anyVararg())
-                    } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
-                    every { checkAccess(any(), *anyVararg()) }throws IOException(TEST_IO_EXCEPTION_MESSAGE)
-                }
-            }
-        }
-    }
 
     fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
         SymlinkTestBuilder({ tempFolder }, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
@@ -116,6 +128,23 @@ abstract class PathAssertionsSpec(
         }
     }
 
+    fun throwingPath(): Path {
+        val baseFile = tempFolder.tmpDir.resolve("throwing")
+
+        // using spyk on baseFile and mocking #getFileSystem does not work on Java 8 on Linux (but everywhere else).
+        // because of that, we use plain old manual delegation:
+        return object : Path by baseFile {
+            override fun getFileSystem() = spyk(baseFile.fileSystem) {
+                every { provider() } returns spyk(baseFile.fileSystem.provider()) {
+                    every {
+                        readAttributes(any(), any<Class<BasicFileAttributes>>(), *anyVararg())
+                    } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
+                    every { checkAccess(any(), *anyVararg()) } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
+                }
+            }
+        }
+    }
+
     fun Suite.itPrintsFileAccessExceptionDetails(block: (Path) -> Unit) {
         it("prints details if an unknown IoException is thrown") {
             expect {
@@ -129,7 +158,7 @@ abstract class PathAssertionsSpec(
 
     fun Suite.itPrintsFileAccessProblemDetails(block: (Path) -> Unit) {
         it("prints the closest existing parent if it is a directory") withAndWithoutSymlink { maybeLink ->
-            val start = tempFolder.newFolder("startDir")
+            val start = tempFolder.newFolder("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
                 String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.getDefault(), start)
@@ -223,8 +252,6 @@ abstract class PathAssertionsSpec(
             }
         }
 
-        val expectedMessageIfExisting = "${NOT_TO.getDefault()}: ${EXIST.getDefault()}"
-
         context("existing") {
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("exists-though-shouldnt"))
@@ -232,7 +259,7 @@ abstract class PathAssertionsSpec(
                     expect(file).existsNotFun()
                 }.toThrow<AssertionError>().message {
                     contains(
-                        expectedMessageIfExisting,
+                        "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
                         "${WAS.getDefault()}: ${A_FILE.getDefault()}"
                     )
                     containsExplanationFor(maybeLink)
@@ -245,7 +272,7 @@ abstract class PathAssertionsSpec(
                     expect(folder).existsNotFun()
                 }.toThrow<AssertionError>().message {
                     contains(
-                        expectedMessageIfExisting,
+                        "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
                         "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
                     )
                     containsExplanationFor(maybeLink)
@@ -260,50 +287,44 @@ abstract class PathAssertionsSpec(
         val endsWithFun = endsWith.lambda
         val endsNotWithFun = endsNotWith.lambda
 
-        val expectPath = "/some/path/for/test"
-        context("path '$expectPath'") {
+        val path = "/some/path/for/test"
+        val expectPath = expect(Paths.get(path))
+        context("path '$path'") {
             it("${startsWith.name} '/some/path/' does not throw") {
-                expect(Paths.get(expectPath))
-                    .startsWithFun(Paths.get("/some/path/"))
+                expectPath.startsWithFun(Paths.get("/some/path/"))
             }
 
             it("${startsWith.name} '/other/path' throws an AssertionError") {
                 expect {
-                    expect(Paths.get(expectPath))
-                        .startsWithFun(Paths.get("/other/path"))
+                    expectPath.startsWithFun(Paths.get("/other/path"))
                 }.toThrow<AssertionError> {
                     messageContains("${STARTS_WITH.getDefault()}:")
                 }
             }
 
             it("${startsNotWith.name} '/other/path' does not throw") {
-                expect(Paths.get(expectPath))
-                    .startsNotWithFun(Paths.get("/other/path"))
+                expectPath.startsNotWithFun(Paths.get("/other/path"))
             }
 
             it("${startsNotWith.name} '/some/pa' does not match partials") {
-                expect(Paths.get(expectPath))
-                    .startsNotWithFun(Paths.get("/some/pa"))
+                expectPath.startsNotWithFun(Paths.get("/some/pa"))
             }
 
             it("${startsNotWith.name} '/some/path' throws an AssertionError") {
                 expect {
-                    expect(Paths.get(expectPath))
-                        .startsNotWithFun(Paths.get("/some/path"))
+                    expectPath.startsNotWithFun(Paths.get("/some/path"))
                 }.toThrow<AssertionError> {
                     messageContains("${STARTS_NOT_WITH.getDefault()}:")
                 }
             }
 
             it("${endsWith.name} 'for/test' does not throw") {
-                expect(Paths.get(expectPath))
-                    .endsWithFun(Paths.get("for/test"))
+                expectPath.endsWithFun(Paths.get("for/test"))
             }
 
             it("${endsWith.name} 'for/another' throws an AssertionError") {
                 expect {
-                    expect(Paths.get(expectPath))
-                        .endsWithFun(Paths.get("for/another"))
+                    expectPath.endsWithFun(Paths.get("for/another"))
                 }.toThrow<AssertionError> {
                     messageContains("${ENDS_WITH.getDefault()}:")
                 }
@@ -311,16 +332,14 @@ abstract class PathAssertionsSpec(
 
             it("${endsNotWith.name} 'for/test' throws an AssertionError") {
                 expect {
-                    expect(Paths.get(expectPath))
-                        .endsNotWithFun(Paths.get("for/test"))
+                    expectPath.endsNotWithFun(Paths.get("for/test"))
                 }.toThrow<AssertionError> {
                     messageContains("${ENDS_NOT_WITH.getDefault()}:")
                 }
             }
 
             it("${endsNotWith.name} 'for/another' does not throw") {
-                expect(Paths.get(expectPath))
-                    .endsNotWithFun(Paths.get("for/another"))
+                expectPath.endsNotWithFun(Paths.get("for/another"))
             }
         }
     }
@@ -330,8 +349,8 @@ abstract class PathAssertionsSpec(
         val expectedMessage = "${TO_BE.getDefault()}: ${READABLE.getDefault()}"
 
         context("not accessible") {
-            it("throws an AssertionError for non-existant path") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistant"))
+            it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).isReadableFun()
                 }.toThrow<AssertionError>().message {
@@ -474,7 +493,7 @@ abstract class PathAssertionsSpec(
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistant"))
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).isWritableFun()
                 }.toThrow<AssertionError>().message {
@@ -616,7 +635,7 @@ abstract class PathAssertionsSpec(
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistant"))
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).isRegularFileFun()
                 }.toThrow<AssertionError>().message {
@@ -658,7 +677,7 @@ abstract class PathAssertionsSpec(
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistant"))
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).isDirectoryFun()
                 }.toThrow<AssertionError>().message {
@@ -832,7 +851,8 @@ internal class NoLink : InternalMaybeLink("") {
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {}
 }
 
-internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFolder) : InternalMaybeLink("via symbolic link") {
+internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFolder) :
+    InternalMaybeLink("via symbolic link") {
     private var link: Path? = null
     private var path: Path? = null
     override fun callCheckedCreate(path: Path): Path {
