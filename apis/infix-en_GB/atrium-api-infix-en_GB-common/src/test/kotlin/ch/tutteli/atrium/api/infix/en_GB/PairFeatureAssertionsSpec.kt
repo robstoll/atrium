@@ -2,25 +2,32 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 
 class PairFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PairFeatureAssertionsSpec(
     property<Pair<String, Int>, String>(Expect<Pair<String, Int>>::first),
-    fun1<Pair<String, Int>, Expect<String>.() -> Unit>(Expect<Pair<String, Int>>::first),
+    fun1<Pair<String, Int>, Expect<String>.() -> Unit>(Expect<Pair<String, Int>>::first).name to Companion::first,
     property<Pair<String, Int>, Int>(Expect<Pair<String, Int>>::second),
-    fun1<Pair<String, Int>, Expect<Int>.() -> Unit>(Expect<Pair<String, Int>>::second),
+    fun1<Pair<String, Int>, Expect<Int>.() -> Unit>(Expect<Pair<String, Int>>::second).name to Companion::second,
     property<Pair<String?, Int?>, String?>(Expect<Pair<String?, Int?>>::first),
-    fun1<Pair<String?, Int?>, Expect<String?>.() -> Unit>(Expect<Pair<String?, Int?>>::first),
+    fun1<Pair<String?, Int?>, Expect<String?>.() -> Unit>(Expect<Pair<String?, Int?>>::first).name to Companion::firstNullable,
     property<Pair<String?, Int?>, Int?>(Expect<Pair<String?, Int?>>::second),
-    fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Pair<String?, Int?>>::second)
+    fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Pair<String?, Int?>>::second).name to Companion::secondNullable
 ) {
     companion object {
-        fun first(expect: Expect<Pair<String, Int>>, expectationCreator: Expect<String>.() -> Unit) =
-            expect first { expectationCreator() }
+        fun first(expect: Expect<Pair<String, Int>>, assertionCreator: Expect<String>.() -> Unit) =
+            expect first { assertionCreator() }
 
-        fun second(expect: Expect<Pair<String, Int>>, expectationCreator: Expect<Int>.() -> Unit) =
-            expect second { expectationCreator() }
+        fun second(expect: Expect<Pair<String, Int>>, assertionCreator: Expect<Int>.() -> Unit) =
+            expect second { assertionCreator() }
+
+        fun firstNullable(expect: Expect<Pair<String?, Int?>>, assertionCreator: Expect<String?>.() -> Unit) =
+            expect first { assertionCreator() }
+
+        fun secondNullable(expect: Expect<Pair<String?, Int?>>, assertionCreator: Expect<Int?>.() -> Unit) =
+            expect second { assertionCreator() }
     }
 
     @Suppress("unused", "UNUSED_VALUE")

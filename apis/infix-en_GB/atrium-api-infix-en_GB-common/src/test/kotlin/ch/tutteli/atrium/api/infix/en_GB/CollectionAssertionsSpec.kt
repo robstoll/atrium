@@ -28,7 +28,6 @@ class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionA
         a1 notToBe Empty
         a2 notToBe Empty
 
-
         a1b toBe Empty
         a2b toBe Empty
         a1b notToBe Empty
