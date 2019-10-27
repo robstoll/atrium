@@ -19,9 +19,6 @@ install: true
 script:
   - |
     if [ $MODE == current ]; then
-      samples/jvm/spek/gradlew -p ./samples/jvm/spek build
-    fi
-    if [ $MODE == current ]; then
       if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
         ./gr jvmBuild buildAllAndroid
       else
@@ -32,6 +29,10 @@ script:
     else
         ./gr bcTests
     fi
+  - |
+      if [ $MODE == current ]; then
+        samples/jvm/spek/gradlew -p ./samples/jvm/spek build
+      fi
 
 after_success:
   - |
