@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders.impl.ListGetStepImpl
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * Represents the extension point for another step after a `get index`-step within a
@@ -12,7 +10,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
  * @param E The element type of the [List].
  * @param T A subtype of [List].
  */
-interface ListGetStep<E, T: List<E>> {
+interface ListGetStep<E, T : List<E>> {
     /**
      * The [Expect] for which this assertion is created
      */
@@ -35,8 +33,8 @@ interface ListGetStep<E, T: List<E>> {
     infix fun assertIt(assertionCreator: Expect<E>.() -> Unit): Expect<T>
 
     companion object {
-        fun <E, T: List<E>> create(assertionContainer: Expect<T>, index: Int): ListGetStep<E, T>
-            = ListGetStepImpl(assertionContainer, index)
+        fun <E, T : List<E>> create(assertionContainer: Expect<T>, index: Int): ListGetStep<E, T> =
+            ListGetStepImpl(assertionContainer, index)
     }
 }
 

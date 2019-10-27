@@ -19,5 +19,5 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <E, T: List<E>> Expect<T>.get(index: Index): ListGetStep<E, T>
-    = ListGetStep.create(this, index.index)
+infix fun <E, T : List<E>> Expect<T>.get(index: Index): ListGetStep<E, T> =
+    ListGetStep.create(this, index.index)
