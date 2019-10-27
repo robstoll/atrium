@@ -42,6 +42,21 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    include(object : SubjectLessSpec<Path>(
+        "$describePrefix[Path] ",
+        exists.forSubjectLess(),
+        existsNot.forSubjectLess(),
+        startsWith.forSubjectLess(Paths.get("a")),
+        startsNotWith.forSubjectLess(Paths.get("a")),
+        endsWith.forSubjectLess(Paths.get("a")),
+        endsNotWith.forSubjectLess(Paths.get("a")),
+        isReadable.forSubjectLess(),
+        isWritable.forSubjectLess(),
+        isRegularFile.forSubjectLess(),
+        isDirectory.forSubjectLess()
+    ) {})
+
     val tempFolder by memoizedTempFolder()
 
     // Linux & Mac
@@ -76,15 +91,6 @@ abstract class PathAssertionsSpec(
             else No
         } else Yes("creating symbolic links is not supported on this file system")
 
-    include(object : SubjectLessSpec<Path>(
-        "$describePrefix[Path] ",
-        exists.forSubjectLess(),
-        existsNot.forSubjectLess(),
-        isReadable.forSubjectLess(),
-        isWritable.forSubjectLess(),
-        isRegularFile.forSubjectLess(),
-        isDirectory.forSubjectLess()
-    ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
