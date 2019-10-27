@@ -4,13 +4,16 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
+import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
 class ZonedDateTimeFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ZonedDateTimeFeatureAssertionsSpec(
     property<ZonedDateTime, Int>(Expect<ZonedDateTime>::year),
     fun1<ZonedDateTime, Expect<Int>.() -> Unit>(Expect<ZonedDateTime>::year),
     property<ZonedDateTime, Int>(Expect<ZonedDateTime>::month),
-    fun1<ZonedDateTime, Expect<Int>.() -> Unit>(Expect<ZonedDateTime>::month)
+    fun1<ZonedDateTime, Expect<Int>.() -> Unit>(Expect<ZonedDateTime>::month),
+    property<ZonedDateTime, DayOfWeek>(Expect<ZonedDateTime>::dayOfWeek),
+    fun1<ZonedDateTime, Expect<DayOfWeek>.() -> Unit>(Expect<ZonedDateTime>::dayOfWeek)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -26,5 +29,10 @@ class ZonedDateTimeFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Z
         a2.month
         a1 = a1.month { }
         a2 = a2.month { }
+
+        a1.dayOfWeek
+        a2.dayOfWeek
+        a1 = a1.dayOfWeek { }
+        a2 = a2.dayOfWeek { }
     }
 }
