@@ -17,4 +17,7 @@ object ZonedDateTimeAssertionsBuilder : ZonedDateTimeAssertions {
     override inline fun <T: ZonedDateTime> year(assertionContainer: Expect<T>) = zonedDateTimeAssertions.year(assertionContainer)
 
     override inline fun <T: ZonedDateTime> month(assertionContainer: Expect<T>) = zonedDateTimeAssertions.month(assertionContainer)
+
+    override inline fun <T: ZonedDateTime> dayOfWeek(assertionContainer: Expect<T>) =
+        zonedDateTimeAssertions.dayOfWeek(assertionContainer)
 }

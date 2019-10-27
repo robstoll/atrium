@@ -20,4 +20,6 @@ interface ZonedDateTimeAssertions {
     fun <T: ZonedDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
     fun <T: ZonedDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T: ZonedDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 }

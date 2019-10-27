@@ -12,3 +12,6 @@ fun <T: LocalDateTime>_year(assertionContainer: Expect<T>): ExtractedFeaturePost
 fun <T: LocalDateTime>_month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
 
+fun <T: LocalDateTime>_dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
+    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionDateTimeLikeAssertion.DAY_OF_WEEK) { dayOfWeek.value }
+

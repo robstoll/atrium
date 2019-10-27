@@ -26,5 +26,10 @@ class LocalDateTimeFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.L
         a1 = a1.month { }
         a2.month
         a2 = a2.month { }
+
+        a1.dayOfWeek
+        a1 = a1.dayOfWeek { }
+        a2.dayOfWeek
+        a2 = a2.dayOfWeek { }
     }
 }

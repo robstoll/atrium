@@ -20,4 +20,6 @@ interface LocalDateAssertions {
     fun <T: LocalDate> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
     fun <T: LocalDate> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T: LocalDate> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 }

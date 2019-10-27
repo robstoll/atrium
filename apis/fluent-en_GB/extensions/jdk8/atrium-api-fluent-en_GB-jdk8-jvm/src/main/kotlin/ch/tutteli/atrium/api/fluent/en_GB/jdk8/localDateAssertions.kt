@@ -49,3 +49,26 @@ val <T : LocalDate> Expect<T>.month get(): Expect<Int> = ExpectImpl.localDate.mo
  */
 fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.month(this).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [LocalDate.getDayOfWeek] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ *
+ * @since 0.10.0
+ */
+val <T : LocalDate> Expect<T>.dayOfWeek get(): Expect<Int> =
+    ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [LocalDate.getDayOfWeek] of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.10.0
+ */
+fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+    ExpectImpl.localDate.dayOfWeek(this).addToInitial(assertionCreator)
