@@ -13,11 +13,11 @@ fun fileSystemSupportsPosixPermissions() = Paths.get("test").getFileAttributeVie
 
 fun fileSystemSupportsCreatingSymlinks(): Boolean {
     val testDir = Files.createTempDirectory("symlinktest")
-    try {
+    return try {
         testDir.resolve("test").createSymbolicLink(testDir.resolve("testLink"))
-        return true
+        true
     } catch (_: java.nio.file.FileSystemException) {
-        return false
+        false
     } finally {
         testDir.deleteRecursively()
     }

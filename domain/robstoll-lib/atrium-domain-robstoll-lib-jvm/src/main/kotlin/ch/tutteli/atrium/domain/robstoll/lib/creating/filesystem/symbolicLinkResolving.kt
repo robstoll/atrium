@@ -49,10 +49,7 @@ private fun addAllLevelResolvedSymlinkHints(
 
     for (part in absolutePath) {
         currentPath = currentPath.resolve(part)
-        val nextPath = addOneStepResolvedSymlinkHint(
-            currentPath,
-            hintList
-        )
+        val nextPath = addOneStepResolvedSymlinkHint(currentPath, hintList)
         if (nextPath != null) {
             val visitedIndex = visitedList.indexOf(nextPath)
             if (visitedIndex != -1) {
