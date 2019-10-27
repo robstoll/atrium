@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastAssertionsSpec(
@@ -25,6 +27,23 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
         CharSequenceContainsAtLeastAssertionsSpec.Companion::getErrorMsgAtLeastButAtMost,
         "◆ ", "⚬ "
     ) {})
+
+    include(object: Spek({
+        describe("elementsOf") {
+            it("passing an empty iterable throws an IllegalArgumentException") {
+                expect {
+                    expect("test").contains.atLeast(1).elementsOf(emptyList())
+                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+            }
+        }
+        describe("elementsOf ignoring case") {
+            it("passing an empty iterable throws an IllegalArgumentException") {
+                expect {
+                    expect("test").contains.ignoringCase.atLeast(1).elementsOf(emptyList())
+                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+            }
+        }
+    }) {})
 }) {
 
     companion object : CharSequenceContainsSpecBase() {
