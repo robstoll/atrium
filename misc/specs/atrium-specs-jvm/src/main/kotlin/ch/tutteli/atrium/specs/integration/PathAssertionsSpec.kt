@@ -18,6 +18,7 @@ import org.spekframework.spek2.dsl.Skip.Yes
 import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
+import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.attribute.*
@@ -53,10 +54,27 @@ abstract class PathAssertionsSpec(
         if (fileSystemSupportsPosixPermissions()) No
         else Yes("POSIX permissions are not supported on this file system")
 
+
+    // TODO mcp#258 remove once symlink loop bug is fixed
+    fun tempDirectoryHasSymlink(): Boolean {
+        val tmp = Files.createTempDirectory("a")
+        val absolutePath = tmp.toAbsolutePath()
+
+        var currentPath = absolutePath.root
+        for (part in absolutePath) {
+            currentPath = currentPath.resolve(part)
+            if (currentPath.isSymbolicLink) return true
+        }
+        return false
+    }
+
     // Windows with neither symlink nor admin privileges
     val ifSymlinksNotSupported =
-        if (fileSystemSupportsCreatingSymlinks()) No
-        else Yes("creating symbolic links is not supported on this file system")
+        if (fileSystemSupportsCreatingSymlinks()) {
+            // TODO mcp#258 should not be necessary
+            if (tempDirectoryHasSymlink()) Yes("skipping due to bug in Atrium, see https://github.com/robstoll/atrium/issues/258")
+            else No
+        } else Yes("creating symbolic links is not supported on this file system")
 
     include(object : SubjectLessSpec<Path>(
         "$describePrefix[Path] ",
@@ -134,7 +152,7 @@ abstract class PathAssertionsSpec(
 
     fun Suite.itPrintsFileAccessProblemDetails(block: (Path) -> Unit) {
         it("prints the closest existing parent if it is a directory") withAndWithoutSymlink { maybeLink ->
-            val start = tempFolder.newFolder("startDir")
+            val start = tempFolder.newFolder("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
                 String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.getDefault(), start)
