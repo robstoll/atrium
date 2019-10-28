@@ -15,24 +15,17 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 fun <T : CharSequence> _containsValues(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<Any>
-): AssertionGroup = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
-    checkerOption,
-    IndexSearcher(),
-    expected.map { it.toString() }
-)
+): AssertionGroup = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<Any>
-): AssertionGroup = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
-    checkerOption,
-    IgnoringCaseIndexSearcher(),
-    expected.map { it.toString() }
-)
+): AssertionGroup =
+    checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
-    searcher: CharSequenceContains.Searcher<S, SC>,
+    searcher: CharSequenceContains.Searcher<S, String>,
     expected: List<Any>
 ): AssertionGroup {
     require(expected.isNotEmpty()) {
