@@ -67,8 +67,8 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
     expected: List<String>
 ): AssertionGroup = createAssertionGroup(
     checkerOption,
-    IgnoringCaseRegexSearcher(),
-    expected.map { it.toRegex() },
+    RegexSearcher(),
+    expected.map { Regex(it, RegexOption.IGNORE_CASE) },
     STRING_MATCHING_REGEX
 )
 

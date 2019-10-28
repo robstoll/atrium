@@ -207,8 +207,6 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) = endsNotWith(expec
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequence.isEmpty(this))
 

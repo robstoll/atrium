@@ -26,12 +26,11 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * @param checkers The checkers which create assertions based on the search result.
  */
 @Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
-class CharSequenceContainsAssertionCreator<T : CharSequence, S : CharSequenceContains.SearchBehaviour>(
+class CharSequenceContainsAssertionCreator<T : CharSequence, S : SearchBehaviour>(
     searchBehaviour: S,
-    private val searcher: CharSequenceContains.Searcher<S>,
-    checkers: List<CharSequenceContains.Checker>
-) : ContainsObjectsAssertionCreator<T, Any, S, CharSequenceContains.Checker>(searchBehaviour, checkers),
-    CharSequenceContains.Creator<T, Any> {
+    private val searcher: Searcher<S, Any>,
+    checkers: List<Checker>
+) : ContainsObjectsAssertionCreator<T, Any, S, Checker>(searchBehaviour, checkers), Creator<T, Any> {
 
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
