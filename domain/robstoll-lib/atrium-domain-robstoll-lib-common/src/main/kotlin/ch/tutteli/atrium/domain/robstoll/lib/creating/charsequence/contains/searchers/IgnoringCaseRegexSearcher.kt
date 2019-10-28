@@ -11,7 +11,7 @@ class IgnoringCaseRegexSearcher : Searcher<IgnoringCaseSearchBehaviour, Regex> {
     private val searcher = RegexSearcher()
 
     override fun search(searchIn: CharSequence, searchFor: Regex): Int {
-        val pattern = Regex(searchFor.toString(), RegexOption.IGNORE_CASE)
+        val pattern = Regex(searchFor.pattern, RegexOption.IGNORE_CASE)
         return searcher.search(searchIn, pattern)
     }
 }
