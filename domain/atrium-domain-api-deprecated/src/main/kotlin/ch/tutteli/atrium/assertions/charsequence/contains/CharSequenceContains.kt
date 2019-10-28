@@ -65,6 +65,6 @@ interface CharSequenceContains {
         "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher")
     )
-    interface Searcher<S : SearchBehaviour, Any> :
+    interface Searcher<S : SearchBehaviour> :
         ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher<S, Any>
 }

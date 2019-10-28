@@ -32,7 +32,7 @@ fun <T : CharSequence> _containsValuesIgnoringCase(
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
-    searcher: CharSequenceContains.Searcher<S, String>,
+    searcher: CharSequenceContains.Searcher<S, SC>,
     expected: List<Any>
 ): AssertionGroup {
     require(expected.isNotEmpty()) {
