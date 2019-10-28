@@ -84,6 +84,8 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.e
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
+ *
+ * @since 0.9.0
  */
 val <T : Path> Expect<T>.fileName get(): Expect<String> = ExpectImpl.path.fileName(this).getExpectOfFeature()
 
@@ -94,6 +96,8 @@ val <T : Path> Expect<T>.fileName get(): Expect<String> = ExpectImpl.path.fileNa
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
@@ -230,10 +234,10 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> = addAssertion(ExpectImpl.path
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
+ *
+ * @since 0.9.0
  */
-val <T : Path> Expect<T>.extension
-    get(): Expect<String> =
-        ExpectImpl.path.extension(this).getExpectOfFeature()
+val <T : Path> Expect<T>.extension get(): Expect<String> = ExpectImpl.path.extension(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
@@ -242,6 +246,8 @@ val <T : Path> Expect<T>.extension
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
  */
 fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.extension(this).addToInitial(assertionCreator)
