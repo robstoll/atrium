@@ -10,9 +10,7 @@ import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import io.mockk.slot
-import io.mockk.spyk
-import io.mockk.verify
+import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -40,7 +38,7 @@ abstract class DelegatingAssertionCheckerSpec(
     describeFun("check") {
         context("empty assertion list") {
             it("does not throw an exception") {
-                val testee = testeeFactory(spyk())
+                val testee = testeeFactory(mockk(relaxed = true))
                 testee.check(assertionVerb, 1, listOf())
             }
         }
@@ -54,7 +52,9 @@ abstract class DelegatingAssertionCheckerSpec(
             context(description) {
                 it("adds the assertion(s) to the subject plant") {
                     //arrange
-                    val subjectFactory = spyk<AssertionPlant<Int>>()
+                    val subjectFactory = mockk<AssertionPlant<Int>>()
+                    every { subjectFactory.addAssertion(any()) } returns subjectFactory
+
                     val testee = testeeFactory(subjectFactory)
                     //act
                     testee.check(assertionVerb, 1, assertions)
