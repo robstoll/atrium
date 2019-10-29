@@ -25,7 +25,7 @@ fun <T : CharSequence> _containsValuesIgnoringCase(
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
-    searcher: CharSequenceContains.Searcher<S, String>,
+    searcher: CharSequenceContains.Searcher<S, Any>,
     expected: List<Any>
 ): AssertionGroup {
     require(expected.isNotEmpty()) {
@@ -44,7 +44,7 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
             "Searching for an empty CharSequence does not make sense. You probably forgot to specify the search criterion."
         }
     }
-    return createAssertionGroup(checkerOption, searcher, expected.map { it.toString() }, VALUE)
+    return createAssertionGroup(checkerOption, searcher, expected, VALUE)
 }
 
 fun <T : CharSequence> _containsDefaultTranslationOf(

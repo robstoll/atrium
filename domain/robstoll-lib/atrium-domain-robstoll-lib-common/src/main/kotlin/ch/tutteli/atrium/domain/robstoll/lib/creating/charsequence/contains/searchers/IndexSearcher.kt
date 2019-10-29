@@ -6,12 +6,12 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 /**
  * Represents a [Searcher] which uses [CharSequence.indexOf] to find expected objects.
  */
-class IndexSearcher : Searcher<NoOpSearchBehaviour, String> {
-    override fun search(searchIn: CharSequence, searchFor: String): Int {
-        var index = searchIn.indexOf(searchFor)
+class IndexSearcher : Searcher<NoOpSearchBehaviour, Any> {
+    override fun search(searchIn: CharSequence, searchFor: Any): Int {
+        var index = searchIn.indexOf(searchFor.toString())
         var counter = 0
         while (index >= 0) {
-            index = searchIn.indexOf(searchFor, index + 1)
+            index = searchIn.indexOf(searchFor.toString(), index + 1)
             ++counter
         }
         return counter
