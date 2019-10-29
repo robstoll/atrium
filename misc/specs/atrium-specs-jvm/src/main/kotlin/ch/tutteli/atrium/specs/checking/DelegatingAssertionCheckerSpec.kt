@@ -9,14 +9,12 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionHolder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.describeFun
-import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import io.mockk.slot
+import io.mockk.spyk
+import io.mockk.verify
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
 //TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class DelegatingAssertionCheckerSpec(
@@ -24,8 +22,8 @@ abstract class DelegatingAssertionCheckerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val assertions = ArrayList<Assertion>()
     assertions.add(object : Assertion {
@@ -42,7 +40,7 @@ abstract class DelegatingAssertionCheckerSpec(
     describeFun("check") {
         context("empty assertion list") {
             it("does not throw an exception") {
-                val testee = testeeFactory(mock())
+                val testee = testeeFactory(spyk())
                 testee.check(assertionVerb, 1, listOf())
             }
         }
@@ -56,14 +54,14 @@ abstract class DelegatingAssertionCheckerSpec(
             context(description) {
                 it("adds the assertion(s) to the subject plant") {
                     //arrange
-                    val subjectFactory = mock<AssertionPlant<Int>>()
+                    val subjectFactory = spyk<AssertionPlant<Int>>()
                     val testee = testeeFactory(subjectFactory)
                     //act
                     testee.check(assertionVerb, 1, assertions)
                     //assert
-                    val captor = argumentCaptor<Assertion>()
-                    verify(subjectFactory).addAssertion(captor.capture())
-                    expect(captor.firstValue).isA<AssertionGroup> {
+                    val captor = slot<Assertion>()
+                    verify(exactly = 1) { subjectFactory.addAssertion(assertion = capture(captor)) }
+                    expect(captor.captured).isA<AssertionGroup> {
                         feature(AssertionGroup::type).isA<InvisibleAssertionGroupType>()
                         feature(AssertionGroup::assertions) {
                             contains.inAnyOrder.only.values(assertions.first(), *assertions.drop(1).toTypedArray())
