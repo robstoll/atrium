@@ -36,7 +36,7 @@ fun <K, V : Any> _containsKeyWithValueAssertion(
     val subjectIsNull = this.maybeSubject.fold({ true }) { it == null }
     if (assertionCreator != null && !subjectIsNull) {
         @Suppress("DEPRECATION" /* TODO switch to Expect */)
-        ExpectImpl.changeSubject.unreported(this) { it as V }.assertionCreator()
+        ExpectImpl.changeSubject(this).unreported { it as V }.assertionCreator()
     } else if (subjectIsNull && assertionCreator == null) {
         addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider))
     } else {

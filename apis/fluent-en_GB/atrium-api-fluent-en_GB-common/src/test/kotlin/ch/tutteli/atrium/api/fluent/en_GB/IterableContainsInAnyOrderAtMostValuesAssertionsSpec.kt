@@ -16,8 +16,8 @@ class IterableContainsInAnyOrderAtMostValuesAssertionsSpec :
             { what: String, times: String -> "$contains $what $atMost $times" } to
                 ("$contains.$inAnyOrder.$atMost" to Companion::containsAtMost)
 
-        private fun containsAtMost(plant: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
-            plant.contains.inAnyOrder.atMost(atMost).values(a, *aX)
+        private fun containsAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
+            expect.contains.inAnyOrder.atMost(atMost).values(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

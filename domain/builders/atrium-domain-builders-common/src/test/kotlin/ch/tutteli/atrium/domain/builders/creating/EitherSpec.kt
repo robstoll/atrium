@@ -61,7 +61,7 @@ fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
     changeToLeft().addToInitial(assertionCreator)
 
 private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ChangedSubjectPostStep<Either<A, B>, A> {
-    return ExpectImpl.changeSubject.reportBuilder(this)
+    return ExpectImpl.changeSubject(this).reportBuilder()
         .withDescriptionAndRepresentation("is a", RawString.create("Left"))
         .withCheck { it.isLeft() }
         .withTransformation { (it as Left).a }
@@ -73,7 +73,7 @@ fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) 
     changeToRight().addToInitial(assertionCreator)
 
 private fun <A, B> Expect<Either<A, B>>.changeToRight(): ChangedSubjectPostStep<Either<A, B>, B> {
-    return ExpectImpl.changeSubject.reportBuilder(this)
+    return ExpectImpl.changeSubject(this).reportBuilder()
         .withDescriptionAndRepresentation("is a", RawString.create("Right"))
         .withCheck { it.isRight() }
         .withTransformation { (it as Right).b }

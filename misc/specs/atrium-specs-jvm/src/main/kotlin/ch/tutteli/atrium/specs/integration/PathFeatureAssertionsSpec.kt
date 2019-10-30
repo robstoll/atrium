@@ -7,7 +7,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion
-import ch.tutteli.spek.extensions.TempFolder
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.nio.file.Path
@@ -25,8 +25,7 @@ abstract class PathFeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val tempFolder = TempFolder.perTest() //or perGroup()
-    registerListener(tempFolder)
+    val tempFolder by memoizedTempFolder()
 
     include(object : SubjectLessSpec<Path>(describePrefix,
         parentFeature.forSubjectLess().adjustName { "$it feature" },

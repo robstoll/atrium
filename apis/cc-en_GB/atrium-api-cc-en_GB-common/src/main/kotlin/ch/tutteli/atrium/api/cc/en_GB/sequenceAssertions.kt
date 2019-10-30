@@ -22,4 +22,4 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
     )
 )
 fun <E> Assert<Sequence<E>>.asIterable(): Assert<Iterable<E>>
-    = ExpectImpl.changeSubject.unreported(this) { it.asIterable() }
+    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }

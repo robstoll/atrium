@@ -3,25 +3,19 @@ package ch.tutteli.atrium.domain.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
-import ch.tutteli.atrium.domain.builders.reporting.impl.ReporterBuilderImpl
-import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
-import ch.tutteli.atrium.reporting.Reporter
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
  * to give assertion writers (and other consumers of the domain) a fluent API as well.
  */
-@Suppress("OVERRIDE_BY_INLINE")
+@Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 object ExpectImpl {
 
     /**
@@ -40,7 +34,13 @@ object ExpectImpl {
      * into another representation (e.g. down-cast `Person` to `Student`) then you should use
      * [feature.extractor][NewFeatureAssertionsBuilder.extractor] instead.
      */
-    inline val changeSubject get() = SubjectChangerBuilder
+    inline fun <T> changeSubject(originalAssertionContainer: Expect<T>) =
+        SubjectChangerBuilder.create(originalAssertionContainer)
+
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+    inline fun <T> changeSubject(originalAssertionContainer: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>) =
+        SubjectChangerBuilder.create(originalAssertionContainer)
 
     /**
      * Returns [AssertionCollectorBuilder] - helping you to collect feature assertions.

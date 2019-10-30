@@ -22,18 +22,18 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
         var a2: Expect<out Path> = notImplemented()
 
         a1.parent
-        a1 = a1.parent { }
         a2.parent
+        a1 = a1.parent { }
         a2 = a2.parent { }
 
         a1.fileName
-        a1 = a1.fileName { }
         a2.fileName
-        a2 = a2.fileName {  }
+        a1 = a1.fileName { }
+        a2 = a2.fileName { }
 
         a1.fileNameWithoutExtension
-        a1 = a1.fileNameWithoutExtension { }
         a2.fileNameWithoutExtension
-        a2 = a2.fileNameWithoutExtension {  }
+        a1 = a1.fileNameWithoutExtension { }
+        a2 = a2.fileNameWithoutExtension { }
     }
 }

@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("IterableContainsInOrderOnlyCreatorsKt")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -9,8 +6,6 @@ import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
-import kotlin.jvm.JvmMultifileClass
-import kotlin.jvm.JvmName
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -41,6 +36,26 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
     expected: E,
     vararg otherExpected: E
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched within the [Iterable]
+ * (if given) in the specified order.
+ *
+ * @param expected The value which is expected to be contained within the [Iterable].
+ * @param otherExpected Additional values which are expected to be contained within [Iterable].
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a

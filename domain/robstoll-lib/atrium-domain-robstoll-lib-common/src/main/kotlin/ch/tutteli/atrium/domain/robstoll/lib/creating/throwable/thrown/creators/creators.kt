@@ -16,7 +16,7 @@ fun <TExpected : Throwable> _isThrown(
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<Throwable?, TExpected> {
     val assertionContainer = createReportingAssertionContainerForThrowable(throwableThrownBuilder)
-    return ExpectImpl.changeSubject.reportBuilder(assertionContainer)
+    return ExpectImpl.changeSubject(assertionContainer).reportBuilder()
         .downCastTo(expectedType)
         .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 7))
         .build()
@@ -50,7 +50,7 @@ private fun catchThrowableAndAdjust(throwableThrownBuilder: ThrowableThrown.Buil
 
 fun _notThrown(throwableThrownBuilder: ThrowableThrown.Builder): ChangedSubjectPostStep<Throwable?, Nothing?> {
     val assertionContainer = createReportingAssertionContainerForThrowable(throwableThrownBuilder)
-    return ExpectImpl.changeSubject.reportBuilder(assertionContainer)
+    return ExpectImpl.changeSubject(assertionContainer).reportBuilder()
         .withDescriptionAndRepresentation(
             DescriptionThrowableAssertion.IS_NOT_THROWN_1,
             RawString.create(DescriptionThrowableAssertion.IS_NOT_THROWN_2)

@@ -29,52 +29,44 @@ def kotlinJvmAndAndroidIfCi = { self, String suffix ->
     }
 }
 
+def bundleWithExtensionsAndSmokeTest = { self, String apiName ->
+    kotlinJvmJsAndAndroidIfCi(self, apiName)
+    kotlinJvmAndAndroidIfCi(self, "$apiName-jdk8")
+    kotlinJvmJsAndAndroidIfCi(self, "$apiName-kotlin_1_3")
+
+    if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+        self.folder(apiName) {
+            _ "$apiName-smoke-test"
+        }
+        self.folder("$apiName-jdk8") {
+            _ "$apiName-jdk8-smoke-test"
+        }
+        self.folder("$apiName-kotlin_1_3") {
+            _ "$apiName-kotlin_1_3-smoke-test"
+        }
+    }
+}
+
+def apiWithExtensions = { self, String apiName ->
+    kotlinJvmJsAndAndroidIfCi(self, apiName)
+    self.folder(apiName, "$apiName-") {
+        extensions {
+            kotlinJvmAndAndroidIfCi(delegate, 'jdk8')
+            kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+        }
+    }
+}
+
 //noinspection GroovyAssignabilityCheck
 include {
 
-
-
     bundles {
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
-        kotlinJvmAndAndroidIfCi(delegate, 'fluent-en_GB-jdk8')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB-kotlin_1_3')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
-
-        if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-            //TODO add cc-de_CH-robstoll-smoke-test with 1.0.0
-
-            folder('cc-infix-en_GB-robstoll') {
-                _ 'cc-infix-en_GB-robstoll-smoke-test'
-            }
-            folder('fluent-en_GB') {
-                _ 'fluent-en_GB-smoke-test'
-            }
-            folder('fluent-en_GB-jdk8') {
-                _ 'fluent-en_GB-jdk8-smoke-test'
-            }
-            folder('fluent-en_GB-kotlin_1_3') {
-                _ 'fluent-en_GB-kotlin_1_3-smoke-test'
-            }
-
-            //TODO remove with 1.0.0
-            folder('cc-en_GB-robstoll') {
-                _ 'cc-en_GB-robstoll-smoke-test'
-            }
-        }
+        bundleWithExtensionsAndSmokeTest(delegate, 'fluent-en_GB')
     }
 
     apis('api-') {
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'fluent-en_GB')
-        folder('fluent-en_GB', 'fluent-en_GB-') {
-            extensions {
-                kotlinJvmAndAndroidIfCi(delegate, 'jdk8')
-                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
-            }
-        }
-
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
+        apiWithExtensions(delegate, 'fluent-en_GB')
+        apiWithExtensions(delegate, 'infix-en_GB')
     }
 
     domain('domain-') {
@@ -120,11 +112,14 @@ include {
     }
 
     misc {
-        _ 'bc-test'
         _ 'spec'
         kotlinJvmJsAndAndroidIfCi(delegate, 'specs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
         kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
+
+        tools {
+            _ 'bc-test'
+        }
     }
 
     samples {
@@ -140,12 +135,26 @@ include {
     bundles {
         _ 'cc-en_UK-robstoll'
         _ 'cc-infix-en_UK-robstoll'
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB-robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
+
+        if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+            folder('cc-en_GB-robstoll') {
+                _ 'cc-en_GB-robstoll-smoke-test'
+            }
+            folder('cc-infix-en_GB-robstoll') {
+                _ 'cc-infix-en_GB-robstoll-smoke-test'
+            }
+        }
     }
+
     folder('apis', 'api-') {
         _ 'cc-en_UK'
         _ 'cc-infix-en_UK'
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
         kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
     }
     domain('domain-') {
         _ 'api-deprecated'

@@ -8,5 +8,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionOptionalAssertion.EMPTY
 import java.util.*
 
-fun <E, T: Optional<E>> _isEmpty(assertionContainer: Expect<T>): Assertion =
+fun <T : Optional<*>> _isEmpty(assertionContainer: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, IS, RawString.create(EMPTY)) { !it.isPresent }

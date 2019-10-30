@@ -34,15 +34,19 @@ class ReadmeTestEngine : TestEngine {
     }
 
     override fun execute(request: JUnitExecutionRequest) {
-        Locale.setDefault(Locale.UK)
-
-        ReporterFactory.specifyFactory(ReadmeReporterFactory.ID)
-
-        runSpekWithCustomListener(request)
-
+        val default = Locale.getDefault()
         try {
+            Locale.setDefault(Locale.UK)
+
+            ReporterFactory.specifyFactory(ReadmeReporterFactory.ID)
+
+            runSpekWithCustomListener(request)
+
             processExamples(request)
         } catch (t: Throwable) {
+            t.printStackTrace()
+            Locale.setDefault(default)
+
             request.fail(t)
         }
     }

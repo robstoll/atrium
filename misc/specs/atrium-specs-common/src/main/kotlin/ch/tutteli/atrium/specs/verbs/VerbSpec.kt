@@ -141,11 +141,11 @@ abstract class VerbSpec(
             }
         }
         context("subject is not null") {
-            testNonNullableSubject { subject -> ExpectImpl.changeSubject.unreported(assertionVerb(subject)) { it!! } }
+            testNonNullableSubject { subject -> ExpectImpl.changeSubject(assertionVerb(subject)).unreported { it!! } }
         }
 
         testNonNullableCustomisation { subject, representation, options, assertionCreator ->
-            ExpectImpl.changeSubject.unreported(assertionVerbFun(subject, representation, options)) { it!! }
+            ExpectImpl.changeSubject(assertionVerbFun(subject, representation, options)).unreported { it!! }
                 .addAssertionsCreatedBy(assertionCreator)
         }
 

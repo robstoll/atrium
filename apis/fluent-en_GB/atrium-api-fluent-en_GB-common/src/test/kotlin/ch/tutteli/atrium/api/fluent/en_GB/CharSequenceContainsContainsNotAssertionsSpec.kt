@@ -15,14 +15,14 @@ class CharSequenceContainsContainsNotAssertionsSpec :
 
         fun getContainsPair() = containsFun.name to Companion::containsShortcut
 
-        private fun containsShortcut(plant: Expect<CharSequence>, a: Any, aX: Array<out Any>) = plant.contains(a, *aX)
+        private fun containsShortcut(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) = expect.contains(a, *aX)
 
         private val containsNotFun: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
             Expect<CharSequence>::containsNot
 
         private fun getContainsNotPair() = containsNotFun.name to Companion::containsNotShortcut
 
-        private fun containsNotShortcut(plant: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            plant.containsNot(a, *aX)
+        private fun containsNotShortcut(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.containsNot(a, *aX)
     }
 }

@@ -19,13 +19,13 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec :
                 ("$contains.$inAnyOrder.$atLeast" to Companion::containsAtLeast)
 
         private fun containsAtLeast(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             atLeast: Int,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) plant.contains.inAnyOrder.atLeast(atLeast).value(a)
-            else plant.contains.inAnyOrder.atLeast(atLeast).values(a, *aX)
+            if (aX.isEmpty()) expect.contains.inAnyOrder.atLeast(atLeast).value(a)
+            else expect.contains.inAnyOrder.atLeast(atLeast).values(a, *aX)
 
 
         private fun getAtLeastButAtMostTriple() =
@@ -33,12 +33,12 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec :
                 ("$contains.$atLeast.$butAtMost" to Companion::containsAtLeastButAtMost)
 
         private fun containsAtLeastButAtMost(
-            plant: Expect<Iterable<Double>>,
+            expect: Expect<Iterable<Double>>,
             atLeast: Int,
             butAtMost: Int,
             a: Double,
             aX: Array<out Double>
-        ) = plant.contains.inAnyOrder.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
+        ) = expect.contains.inAnyOrder.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

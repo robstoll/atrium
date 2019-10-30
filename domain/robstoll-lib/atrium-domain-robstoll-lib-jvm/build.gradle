@@ -20,7 +20,7 @@ dependencies {
     //TODO remove with 1.0.0
     implementation prefixedProject('api-cc-en_GB-jvm')
 
-    testImplementation prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('specs-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124

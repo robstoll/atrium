@@ -37,6 +37,7 @@ abstract class IterableContainsSpecBase {
     protected val only = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::only.name
     protected val inOrderOnlyValues = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::values.name
     protected val inOrderOnlyEntries = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::entries.name
+    protected val inOrderElementsOf = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
     protected val grouped = IterableContains.Builder<*, *, InOrderOnlySearchBehaviour>::grouped.name
     protected val within = IterableContains.Builder<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
     private val withinInAnyOrderFun: KFunction4<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, Expect<Iterable<Int>>> =
@@ -46,77 +47,77 @@ abstract class IterableContainsSpecBase {
 
     @Suppress("unused")
     private fun ambiguityTest() {
-        val list: List<Number> = notImplemented()
-        val nullableList: List<Number?> = notImplemented()
-        val subList: ArrayList<out Number> = notImplemented()
+        val list: Expect<List<Number>> = notImplemented()
+        val nullableList: Expect<List<Number?>> = notImplemented()
+        val subList: Expect<ArrayList<out Number>> = notImplemented()
 
-        expect(list).contains(1)
-        expect(list).contains(1f)
-        expect(list).contains(1, 2)
-        expect(list).contains(1, 2f)
-        expect(list).contains {}
-        expect(list).contains({}, {})
-        expect(subList).contains(1)
-        expect(subList).contains(1f)
-        expect(subList).contains(1, 2)
-        expect(subList).contains(1, 2f)
-        expect(subList).contains {}
-        expect(subList).contains({}, {})
-        expect(nullableList).contains(1)
-        expect(nullableList).contains(1f)
-        expect(nullableList).contains(1, 2)
-        expect(nullableList).contains(1, 2f)
-        expect(nullableList).contains {}
-        expect(nullableList).contains(null)
-        expect(nullableList).contains({}, null)
-        expect(nullableList).contains({}, {})
-        expect(nullableList).contains(null, {})
+        list.contains(1)
+        list.contains(1f)
+        list.contains(1, 2)
+        list.contains(1, 2f)
+        list.contains {}
+        list.contains({}, {})
+        subList.contains(1)
+        subList.contains(1f)
+        subList.contains(1, 2)
+        subList.contains(1, 2f)
+        subList.contains {}
+        subList.contains({}, {})
+        nullableList.contains(1)
+        nullableList.contains(1f)
+        nullableList.contains(1, 2)
+        nullableList.contains(1, 2f)
+        nullableList.contains {}
+        nullableList.contains(null)
+        nullableList.contains({}, null)
+        nullableList.contains({}, {})
+        nullableList.contains(null, {})
 
-        expect(list).containsExactly(1)
-        expect(list).containsExactly(1, 2f)
-        expect(list).containsExactly {}
-        expect(list).containsExactly({}, {})
-        expect(subList).containsExactly(1)
-        expect(subList).containsExactly(1, 2f)
-        expect(subList).containsExactly {}
-        expect(subList).containsExactly({}, {})
-        expect(nullableList).containsExactly(1)
-        expect(nullableList).containsExactly(1, 1)
-        expect(nullableList).containsExactly {}
-        expect(nullableList).containsExactly(null)
-        expect(nullableList).containsExactly({}, null)
-        expect(nullableList).containsExactly({}, {})
-        expect(nullableList).containsExactly(null, {})
+        list.containsExactly(1)
+        list.containsExactly(1, 2f)
+        list.containsExactly {}
+        list.containsExactly({}, {})
+        subList.containsExactly(1)
+        subList.containsExactly(1, 2f)
+        subList.containsExactly {}
+        subList.containsExactly({}, {})
+        nullableList.containsExactly(1)
+        nullableList.containsExactly(1, 1)
+        nullableList.containsExactly {}
+        nullableList.containsExactly(null)
+        nullableList.containsExactly({}, null)
+        nullableList.containsExactly({}, {})
+        nullableList.containsExactly(null, {})
 
-        expect(list).contains.inAnyOrder.atLeast(1).value(1)
-        expect(list).contains.inAnyOrder.atLeast(1).value(null)
-        expect(list).contains.inAnyOrder.atLeast(1).entry {}
-        expect(list).contains.inAnyOrder.atLeast(1).entry(null)
-        expect(subList).contains.inAnyOrder.atLeast(1).value(1)
-        expect(subList).contains.inAnyOrder.atLeast(1).value(null)
-        expect(subList).contains.inAnyOrder.atLeast(1).entry {}
-        expect(subList).contains.inAnyOrder.atLeast(1).entry(null)
+        list.contains.inAnyOrder.atLeast(1).value(1)
+        list.contains.inAnyOrder.atLeast(1).value(null)
+        list.contains.inAnyOrder.atLeast(1).entry {}
+        list.contains.inAnyOrder.atLeast(1).entry(null)
+        subList.contains.inAnyOrder.atLeast(1).value(1)
+        subList.contains.inAnyOrder.atLeast(1).value(null)
+        subList.contains.inAnyOrder.atLeast(1).entry {}
+        subList.contains.inAnyOrder.atLeast(1).entry(null)
 
-        expect(list).contains.inAnyOrder.only.value(1)
-        expect(list).contains.inAnyOrder.only.value(null)
-        expect(list).contains.inAnyOrder.only.entry {}
-        expect(list).contains.inAnyOrder.only.entry(null)
-        expect(subList).contains.inAnyOrder.only.value(1)
-        expect(subList).contains.inAnyOrder.only.value(null)
-        expect(subList).contains.inAnyOrder.only.entry {}
-        expect(subList).contains.inAnyOrder.only.entry(null)
+        list.contains.inAnyOrder.only.value(1)
+        list.contains.inAnyOrder.only.value(null)
+        list.contains.inAnyOrder.only.entry {}
+        list.contains.inAnyOrder.only.entry(null)
+        subList.contains.inAnyOrder.only.value(1)
+        subList.contains.inAnyOrder.only.value(null)
+        subList.contains.inAnyOrder.only.entry {}
+        subList.contains.inAnyOrder.only.entry(null)
 
-        expect(list).contains.inOrder.only.value(1)
-        expect(list).contains.inOrder.only.value(null)
-        expect(list).contains.inOrder.only.entry {}
-        expect(list).contains.inOrder.only.entry(null)
-        expect(subList).contains.inOrder.only.value(1)
-        expect(subList).contains.inOrder.only.value(null)
-        expect(subList).contains.inOrder.only.entry {}
-        expect(subList).contains.inOrder.only.entry(null)
+        list.contains.inOrder.only.value(1)
+        list.contains.inOrder.only.value(null)
+        list.contains.inOrder.only.entry {}
+        list.contains.inOrder.only.entry(null)
+        subList.contains.inOrder.only.value(1)
+        subList.contains.inOrder.only.value(null)
+        subList.contains.inOrder.only.entry {}
+        subList.contains.inOrder.only.entry(null)
 
 
-        expect(list).contains.inOrder.only.grouped.within.inAnyOrder(
+        list.contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
             Value(null),
             Values(1f),
@@ -125,7 +126,7 @@ abstract class IterableContainsSpecBase {
             Values(1, null),
             Values(null, null)
         )
-        expect(subList).contains.inOrder.only.grouped.within.inAnyOrder(
+        subList.contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
             Value(null),
             Values(1f),
@@ -135,7 +136,7 @@ abstract class IterableContainsSpecBase {
             Values(null, null)
         )
 
-        expect(list).contains.inOrder.only.grouped.within.inAnyOrder(
+        list.contains.inOrder.only.grouped.within.inAnyOrder(
             Entry {},
             Entry(null),
             Entries({}),
@@ -144,7 +145,7 @@ abstract class IterableContainsSpecBase {
             Entries({}, null),
             Entries(null, null)
         )
-        expect(subList).contains.inOrder.only.grouped.within.inAnyOrder(
+        subList.contains.inOrder.only.grouped.within.inAnyOrder(
             Entry {},
             Entry(null),
             Entries({}),
