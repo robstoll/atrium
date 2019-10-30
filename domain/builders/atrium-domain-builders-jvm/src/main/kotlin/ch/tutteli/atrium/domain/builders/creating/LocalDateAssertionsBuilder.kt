@@ -15,6 +15,10 @@ import java.time.LocalDate
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object LocalDateAssertionsBuilder : LocalDateAssertions {
+
+    override inline fun <T : Collection<*>> day(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
+        localDateAssertions.day(assertionContainer)
+
     override inline fun <T: LocalDate> year(assertionContainer: Expect<T>) = localDateAssertions.year(assertionContainer)
 
     override inline fun <T: LocalDate> month(assertionContainer: Expect<T>) = localDateAssertions.month(assertionContainer)
