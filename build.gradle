@@ -377,6 +377,7 @@ createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.rob
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
         'ch.tutteli.atrium.domain.creating.OptionalAssertions',
         'ch.tutteli.atrium.domain.creating.PathAssertions',
+        'ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
         'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions'

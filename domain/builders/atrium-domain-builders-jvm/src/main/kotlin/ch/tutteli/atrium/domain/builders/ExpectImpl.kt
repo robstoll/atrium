@@ -25,6 +25,12 @@ inline val ExpectImpl.optional get() = OptionalAssertionsBuilder
 inline val ExpectImpl.path get() = PathAssertionsBuilder
 
 /**
+ * Returns [ChronoLocalDateAssertionsBuilder]
+ * which inter alia delegates to the implementation of [ChronoLocalDateAssertions].
+ */
+inline val ExpectImpl.chronoLocalDate get() = ChronoLocalDateAssertionsBuilder
+
+/**
  * Returns [LocalDateAssertionsBuilder]
  * which inter alia delegates to the implementation of [LocalDateAssertions].
  */
