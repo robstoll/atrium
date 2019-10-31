@@ -8,5 +8,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionResultAssertion(override val value: String) : StringBasedTranslatable {
     IS_NOT_SUCCESS("!! ist kein Success"),
-    UNBOXED("unverpackt")
+    VALUE("Wert")
 }
