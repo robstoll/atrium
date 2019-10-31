@@ -8,7 +8,8 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  */
 class IndexSearcher : Searcher<NoOpSearchBehaviour, Any> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
-        var index = searchIn.indexOf(searchFor.toString())
+        val expected = searchFor.toString()
+        var index = searchIn.indexOf(expected)
         var counter = 0
         while (index >= 0) {
             index = searchIn.indexOf(searchFor.toString(), index + 1)
