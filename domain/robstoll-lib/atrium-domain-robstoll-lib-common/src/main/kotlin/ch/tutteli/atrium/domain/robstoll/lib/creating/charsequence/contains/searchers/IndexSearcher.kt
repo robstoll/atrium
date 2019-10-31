@@ -12,7 +12,7 @@ class IndexSearcher : Searcher<NoOpSearchBehaviour, Any> {
         var index = searchIn.indexOf(expected)
         var counter = 0
         while (index >= 0) {
-            index = searchIn.indexOf(searchFor.toString(), index + 1)
+            index = searchIn.indexOf(expected, index + 1)
             ++counter
         }
         return counter
