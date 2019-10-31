@@ -11,5 +11,5 @@ class IgnoringCaseIndexSearcher : Searcher<IgnoringCaseSearchBehaviour, Any> {
     private val searcher = IndexSearcher()
 
     override fun search(searchIn: CharSequence, searchFor: Any): Int =
-        searcher.search(searchIn.toString().toUpperCase(), (searchFor as String).toUpperCase())
+        searcher.search(searchIn.toString().toUpperCase(), searchFor.toString().toUpperCase())
 }
