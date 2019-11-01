@@ -41,3 +41,9 @@ inline val ExpectImpl.localDateTime get() = LocalDateTimeAssertionsBuilder
  * which inter alia delegates to the implementation of [ZonedDateTimeAssertionsBuilder].
  */
 inline val ExpectImpl.zonedDateTime get() = ZonedDateTimeAssertionsBuilder
+
+/**
+ * Returns [ChronoLocalDateAssertionsBuilder]
+ * which inter alia delegates to the implementation of [ChronoLocalDateAssertions].
+ */
+inline val ExpectImpl.chronoLocalDate get() = ChronoLocalDateAssertionsBuilder
