@@ -6,8 +6,8 @@ import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
 
 /**
  *
- * Expects that the given assertion is a success
- * returns an [Expect]
+ * Expects that the subject of the assertion (a [Result]) is a Success
+ * and returns an [Expect] for the inner type [E].
  *
  * @return The newly created [Expect] if the given assertion is success
  * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
@@ -18,8 +18,8 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSu
 
 /**
  *
- * Expects that the given assertions are success
- * returns [Expect]
+ * Expects that the subject of the assertion (a [Result]) is a Success for each condition in the lambda expression
+ * and returns an [Expect] for the inner type [E].
  *
  * @return The newly created [Expect] if the given assertions are success
  * @throws AssertionError Might throw an [AssertionError]  if the given assertions are not success.
