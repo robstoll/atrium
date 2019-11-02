@@ -2,13 +2,11 @@
 
 package ch.tutteli.atrium.domain.builders.creating
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions
 import ch.tutteli.atrium.domain.creating.chronoLocalDateAssertions
 import java.time.chrono.ChronoLocalDate
-import java.time.chrono.ChronoLocalDateTime
 
 /**
  * Delegates inter alia to the implementation of [ChronoLocalDateAssertionsBuilder].
@@ -16,9 +14,6 @@ import java.time.chrono.ChronoLocalDateTime
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ChronoLocalDateAssertionsBuilder : ChronoLocalDateAssertions {
-    override fun <T : ChronoLocalDateTime<ChronoLocalDate>> isBefore(
-        assertionContainer: Expect<T>,
-        expected: T
-    ): Assertion =
+    override inline fun <T : ChronoLocalDate> isBefore(assertionContainer: Expect<T>, expected: T) =
         chronoLocalDateAssertions.isBefore(assertionContainer, expected)
 }

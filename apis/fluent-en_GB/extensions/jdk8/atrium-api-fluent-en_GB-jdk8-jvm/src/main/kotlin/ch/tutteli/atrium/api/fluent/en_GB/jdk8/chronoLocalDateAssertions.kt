@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.chronoLocalDate
 import java.time.chrono.ChronoLocalDate
-import java.time.chrono.ChronoLocalDateTime
 
 
 /**
@@ -15,5 +14,5 @@ import java.time.chrono.ChronoLocalDateTime
  *
  * @since 0.9.0
  */
-fun <T : ChronoLocalDateTime<ChronoLocalDate>> Expect<T>.isBefore(expected: T): Expect<T> =
+fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: T): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBefore(this, expected))

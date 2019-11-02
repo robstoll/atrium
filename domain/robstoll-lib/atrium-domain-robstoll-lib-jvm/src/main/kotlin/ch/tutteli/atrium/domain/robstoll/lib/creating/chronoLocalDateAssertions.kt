@@ -5,7 +5,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.IS_BEFORE
 import java.time.chrono.ChronoLocalDate
-import java.time.chrono.ChronoLocalDateTime
 
-fun <T : ChronoLocalDateTime<ChronoLocalDate>> _isBefore(assertionContainer: Expect<T>, expected: T): Assertion =
+fun <T : ChronoLocalDate> _isBefore(assertionContainer: Expect<T>, expected: T): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE, expected) { it.isBefore(expected) }
