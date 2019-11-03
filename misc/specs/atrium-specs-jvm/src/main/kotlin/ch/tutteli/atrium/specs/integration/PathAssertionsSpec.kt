@@ -74,20 +74,6 @@ abstract class PathAssertionsSpec(
         if (fileSystemSupportsCreatingSymlinks()) No
         else Yes("creating symbolic links is not supported on this file system")
 
-
-    // TODO #258 remove once symlink loop bug is fixed
-    val tempDirectoryHasSymlink by lazy {
-        val tmp = Files.createTempDirectory("a")
-        val absolutePath = tmp.toAbsolutePath()
-
-        var currentPath = absolutePath.root
-        for (part in absolutePath) {
-            currentPath = currentPath.resolve(part)
-            if (currentPath.isSymbolicLink) return@lazy true
-        }
-        return@lazy false
-    }
-
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
@@ -184,12 +170,10 @@ abstract class PathAssertionsSpec(
             }
         }
 
-        it(
-            "prints an explanation for link loops",
-            skip = if (tempDirectoryHasSymlink) Yes("skipping due to bug in Atrium, see https://github.com/robstoll/atrium/issues/258") else ifSymlinksNotSupported
-        ) {
-            val a = tempFolder.tmpDir.resolve("a")
-            val b = tempFolder.newSymbolicLink("b", a)
+        it("prints an explanation for link loops", skip = ifSymlinksNotSupported) {
+            val testdir = tempFolder.newFolder("loop").toRealPath()
+            val a = testdir.resolve("a")
+            val b = a.createSymbolicLink(testdir.resolve("b"))
             b.createSymbolicLink(a)
 
             expect {
