@@ -12,4 +12,6 @@ class BasicExplanatoryAssertion
         "ch.tutteli.atrium.domain.builders.AssertImpl"
     )
 )
-constructor(override val explanation: Any?) : ExplanatoryAssertion
+constructor(override val explanation: Any?) : ExplanatoryAssertion {
+    override fun toString() = explanation.toString()
+}

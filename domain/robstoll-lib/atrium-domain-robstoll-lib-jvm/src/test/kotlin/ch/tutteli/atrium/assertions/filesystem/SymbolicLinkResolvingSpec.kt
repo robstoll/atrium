@@ -215,6 +215,8 @@ object SymbolicLinkResolvingSpec : Spek({
             val resultAssertion = explainForResolvedLink(a, resolvedPathConsumer)
             expect(resultAssertion).isA<AssertionGroup>()
                 .feature { p(it::assertions) }.containsExactly(
+                    { describesLink(a, b) },
+                    { describesLink(b, a) },
                     { describesLinkLoop(a, b, a) },
                     { isSameAs(testAssertion) }
                 )
@@ -229,7 +231,9 @@ object SymbolicLinkResolvingSpec : Spek({
             val resultAssertion = explainForResolvedLink(link, resolvedPathConsumer)
             expect(resultAssertion).isA<AssertionGroup>()
                 .feature { p(it::assertions) }.containsExactly(
-                    { describesLinkLoop(link, foolink, link) },
+                    { describesLink(link, foolink.resolve("link")) },
+                    { describesLink(foolink, foo) },
+                    { describesLinkLoop(link, link) },
                     { isSameAs(testAssertion) }
                 )
         }
@@ -254,6 +258,9 @@ object SymbolicLinkResolvingSpec : Spek({
                     { describesLink(linkToInnerLink, innerLinkInGrandparentLink) },
                     { describesLink(grandparentlink, grandparent) },
                     { describesLink(innerLink, a) },
+                    { describesLink(a, b) },
+                    { describesLink(b, c) },
+                    { describesLink(c, a) },
                     { describesLinkLoop(a, b, c, a) },
                     { isSameAs(testAssertion) }
                 )
