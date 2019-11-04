@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
+import kotlin.jvm.JvmName
 
 /**
  * Delegates inter alia to the implementation of [CharSequenceAssertions].
@@ -90,9 +91,15 @@ object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
         expected: List<Translatable>
     ) = charSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected)
 
-    override inline fun <T : CharSequence> regex(
+    @JvmName("stringRegex")
+    inline fun <T : CharSequence> regex(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<String>
+    ) = regex(checkerOption, expected.map { it.toRegex() })
+
+    override inline fun <T : CharSequence> regex(
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
+        expected: List<Regex>
     ) = charSequenceContainsAssertions.regex(checkerOption, expected)
 
     override inline fun <T : CharSequence> regexIgnoringCase(

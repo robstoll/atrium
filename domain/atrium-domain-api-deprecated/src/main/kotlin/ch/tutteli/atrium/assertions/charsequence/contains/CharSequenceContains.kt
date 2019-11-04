@@ -66,5 +66,5 @@ interface CharSequenceContains {
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher")
     )
     interface Searcher<S : SearchBehaviour> :
-        ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher<S>
+        ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher<S, Any>
 }

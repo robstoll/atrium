@@ -5,14 +5,25 @@ import org.spekframework.spek2.Spek
 
 class CharSequenceContainsRegexAssertionsSpec : Spek({
     include(StringSpec)
+    include(RegexSpec)
 }) {
     object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
         getNameContainsRegex(),
-        getAtLeastTriple(),
-        getAtLeastIgnoringCaseTriple(),
-        getShortcutTriple(),
-        getAtMostTriple(),
-        getAtMostIgnoringCaseTriple(),
+        getAtLeastTripleString(),
+        getAtLeastIgnoringCaseTripleString(),
+        getShortcutTripleString(),
+        getAtMostTripleString(),
+        getAtMostIgnoringCaseTripleString(),
+        "◆ ", "⚬ "
+    )
+
+    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
+        getNameContainsRegex(),
+        getAtLeastTripleRegex(),
+        getAtLeastIgnoringCaseTripleString(),
+        getShortcutTripleRegex(),
+        getAtMostTripleRegex(),
+        getAtMostIgnoringCaseTripleString(),
         "◆ ", "⚬ "
     )
 
@@ -20,16 +31,27 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
 
         private fun getNameContainsRegex() = "$contains with search mode $regex"
 
-        private fun getAtLeastTriple() =
+        private fun getAtLeastTripleString() =
             { what: String, times: String -> "$contains $what $atLeast $times" } to
-                ("$contains.$atLeast.$regex" to Companion::containsAtLeast)
+                ("$contains.$atLeast.$regex" to ::containsAtLeastString)
 
-        private fun containsAtLeast(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
-            expect.contains.atLeast(atLeast).regex(a, *aX)
+        private fun getAtLeastTripleRegex() =
+            { what: String, times: String -> "$contains $what $atLeast $times" } to
+                ("$contains.$atLeast.$regex" to ::containsAtLeastRegex)
 
-        private fun getAtLeastIgnoringCaseTriple() =
+        private fun containsAtLeastString(
+            expect: Expect<CharSequence>,
+            atLeast: Int,
+            a: String,
+            aX: Array<out String>
+        ) = expect.contains.atLeast(atLeast).regex(a, *aX)
+
+        private fun containsAtLeastRegex(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
+            expect.contains.atLeast(atLeast).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+
+        private fun getAtLeastIgnoringCaseTripleString() =
             { what: String, times: String -> "$contains $ignoringCase $what $atLeast $times" } to
-                ("$contains.$atLeast.$ignoringCase.$regex" to Companion::containsAtLeastIgnoringCase)
+                ("$contains.$atLeast.$ignoringCase.$regex" to ::containsAtLeastIgnoringCase)
 
         private fun containsAtLeastIgnoringCase(
             expect: Expect<CharSequence>,
@@ -39,23 +61,37 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
         ) = if (atLeast == 1) expect.contains.ignoringCase.regex(a, *aX)
         else expect.contains.ignoringCase.atLeast(atLeast).regex(a, *aX)
 
-        private fun getShortcutTriple() =
+        private fun getShortcutTripleString() =
             { what: String, times: String -> "$contains $what $atLeast $times" } to
-                (containsRegex to Companion::containsShortcut)
+                (containsRegex to ::containsShortcutString)
 
-        private fun containsShortcut(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
+        private fun getShortcutTripleRegex() =
+            { what: String, times: String -> "$contains $what $atLeast $times" } to
+                (containsRegex to ::containsShortcutRegex)
+
+        private fun containsShortcutString(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
             expect.containsRegex(a, *aX)
 
-        private fun getAtMostTriple() =
-            { what: String, times: String -> "$contains $what $atMost $times" } to
-                ("$contains.$atMost.$regex" to Companion::containsAtMost)
+        private fun containsShortcutRegex(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
+            expect.containsRegex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
-        private fun containsAtMost(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
+        private fun getAtMostTripleString() =
+            { what: String, times: String -> "$contains $what $atMost $times" } to
+                ("$contains.$atMost.$regex" to ::containsAtMostString)
+
+        private fun getAtMostTripleRegex() =
+            { what: String, times: String -> "$contains $what $atMost $times" } to
+                ("$contains.$atMost.$regex" to ::containsAtMostRegex)
+
+        private fun containsAtMostString(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
             expect.contains.atMost(atMost).regex(a, *aX)
 
-        private fun getAtMostIgnoringCaseTriple() =
+        private fun getAtMostIgnoringCaseTripleString() =
             { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" } to
-                ("$contains.$ignoringCase.$atMost.$regex" to Companion::containsAtMostIgnoringCase)
+                ("$contains.$ignoringCase.$atMost.$regex" to ::containsAtMostIgnoringCase)
+
+        private fun containsAtMostRegex(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
+            expect.contains.atMost(atMost).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
         private fun containsAtMostIgnoringCase(
             expect: Expect<CharSequence>,

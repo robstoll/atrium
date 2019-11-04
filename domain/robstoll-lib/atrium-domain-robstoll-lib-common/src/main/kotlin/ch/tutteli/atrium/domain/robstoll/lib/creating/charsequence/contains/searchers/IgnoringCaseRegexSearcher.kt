@@ -7,11 +7,9 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * Represents a [Searcher] which implements the [IgnoringCaseSearchBehaviour] behaviour and evaluates
  * the matches of a given regular expression on the input of the search.
  */
-class IgnoringCaseRegexSearcher : Searcher<IgnoringCaseSearchBehaviour> {
+class IgnoringCaseRegexSearcher : Searcher<IgnoringCaseSearchBehaviour, String> {
     private val searcher = RegexSearcher()
 
-    override fun search(searchIn: CharSequence, searchFor: Any): Int {
-        val pattern = Regex(searchFor.toString(), RegexOption.IGNORE_CASE)
-        return searcher.search(searchIn, pattern)
-    }
+    override fun search(searchIn: CharSequence, searchFor: String): Int =
+        searcher.search(searchIn, Regex(searchFor, RegexOption.IGNORE_CASE))
 }
