@@ -193,7 +193,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val testdir = tempFolder.newFolder("multi-non-loop").toRealPath()
                 val barLink = testdir.createSymbolicLink(testdir.resolve("bar"))
                 val target = testdir.resolve("target").createFile()
-                val testLink = barLink.resolve(barLink.fileName).resolve(barLink.fileName).resolve("target")
+                val testLink = barLink.resolve(barLink.fileName).resolve(barLink.fileName).resolve(target.fileName)
 
                 val resultAssertion = explainForResolvedLink(testLink, resolvedPathConsumer)
                 expect(resultAssertion).isA<AssertionGroup>()
