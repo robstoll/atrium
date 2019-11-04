@@ -14,7 +14,8 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
         getShortcutTripleString(),
         getAtMostTripleString(),
         getAtMostIgnoringCaseTripleString(),
-        "◆ ", "⚬ "
+        "◆ ", "⚬ ",
+        "[StringSpec] "
     )
 
     object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
@@ -24,7 +25,8 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
         getShortcutTripleRegex(),
         getAtMostTripleRegex(),
         getAtMostIgnoringCaseTripleString(),
-        "◆ ", "⚬ "
+        "◆ ", "⚬ ",
+        "[RegexSpec] "
     )
 
     companion object : CharSequenceContainsSpecBase() {

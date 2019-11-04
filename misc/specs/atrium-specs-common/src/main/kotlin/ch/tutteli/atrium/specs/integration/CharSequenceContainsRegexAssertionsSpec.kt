@@ -137,7 +137,8 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(
-                            "$rootBulletPoint$containsDescr: $separator" + "$regexWithIndent: ${roberto.toLowerCase()}",
+                            "$rootBulletPoint$containsDescr: $separator" +
+                                "$regexWithIndent: ${roberto.toLowerCase()}",
                             "$numberOfOccurrences: 0",
                             "$atLeast: 1"
                         )
@@ -174,7 +175,8 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(
-                            "$rootBulletPoint$containsDescr: $separator$regexWithIndent: [a-z]",
+                            "$rootBulletPoint$containsDescr: $separator" +
+                                "$regexWithIndent: [a-z]",
                             "$numberOfOccurrences: 17",
                             "$atMost: 16"
                         )
@@ -187,7 +189,8 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(
-                            "$rootBulletPoint$containsIgnoringCase: $separator$regexWithIndent: [a-z]",
+                            "$rootBulletPoint$containsIgnoringCase: $separator" +
+                                "$regexWithIndent: \"[a-z]\"",
                             "$numberOfOccurrences: 19",
                             "$atMost: 18"
                         )

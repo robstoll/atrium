@@ -6,15 +6,15 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import kotlin.reflect.KFunction3
 import kotlin.reflect.KProperty
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.name
 
 abstract class CharSequenceContainsSpecBase {
     private val containsProp: KProperty<*> = Expect<String>::contains
     protected val contains = containsProp.name
     private val containsNotProp: KProperty<*> = Expect<String>::containsNot
     protected val containsNot = containsNotProp.name
-    private val containsRegexKFun: KFunction3<Expect<String>, String, Array<out String>, Expect<*>> =
-        Expect<String>::containsRegex
-    protected val containsRegex = containsRegexKFun.name
+    protected val containsRegex = fun2<String, String, Array<out String>>(Expect<String>::containsRegex).name
     protected val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
     protected val butAtMost = AtLeastCheckerOption<*, *>::butAtMost.name
     protected val exactly = CharSequenceContains.Builder<*, *>::exactly.name
