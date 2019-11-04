@@ -36,35 +36,32 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
 @PublishedApi
 internal fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
     val absolutePath = path.toAbsolutePath().normalize()
-    return addAllLevelResolvedSymlinkHints(absolutePath, hintList, LinkedList(), absolutePath)
+    return addAllLevelResolvedSymlinkHints(absolutePath, hintList, Stack())
 }
 
 private fun addAllLevelResolvedSymlinkHints(
     absolutePath: Path,
     hintList: Deque<Assertion>,
-    visitedList: MutableList<Path>,
-    initialPath: Path
+    loopDetection: Stack<Path>
 ): Path {
     var currentPath = absolutePath.root
-    visitedList.add(absolutePath)
 
     for (part in absolutePath) {
         currentPath = currentPath.resolve(part)
+
+        val loopDetectionIndex = loopDetection.indexOf(currentPath)
+        if (loopDetectionIndex != -1) {
+            // add to the list so [hintForLinkLoop] prints this duplicate twice
+            loopDetection.add(currentPath)
+            hintList.add(hintForLinkLoop(loopDetection, loopDetectionIndex))
+            return absolutePath
+        }
+
         val nextPathAfterFollowSymbolicLink = addOneStepResolvedSymlinkHint(currentPath, hintList)
         if (nextPathAfterFollowSymbolicLink != null) {
-            val visitedIndex = visitedList.indexOf(nextPathAfterFollowSymbolicLink)
-            if (visitedIndex != -1) {
-                //TODO #258 not sure we should do this, this for instance removes followed symlink and could be the reason why the symlink - loop is then wrong
-                repeat(hintList.size - visitedIndex) { hintList.removeLast() }
-                // add to the list so [hintForLinkLoop] prints this duplicate twice
-                visitedList.add(nextPathAfterFollowSymbolicLink)
-                hintList.add(hintForLinkLoop(visitedList, visitedIndex))
-                return initialPath
-            } else {
-                currentPath = addAllLevelResolvedSymlinkHints(
-                    nextPathAfterFollowSymbolicLink, hintList, visitedList, initialPath
-                )
-            }
+            loopDetection.push(currentPath)
+            currentPath = addAllLevelResolvedSymlinkHints(nextPathAfterFollowSymbolicLink, hintList, loopDetection)
+            loopDetection.pop()
         }
     }
     return currentPath
@@ -75,7 +72,7 @@ private fun addAllLevelResolvedSymlinkHints(
  * Return `null` and does not modify [hintList] otherwise.
  */
 private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<Assertion>): Path? {
-    //try-catch is used as control flow structure, where within the try we assume absolutePath to be a symbolic link
+    // we use try-catch as a control flow structure, where within the try we assume [absolutePath] to be a symbolic link
     return try {
         val nextPath = absolutePath
             .resolveSibling(absolutePath.followSymbolicLink())
