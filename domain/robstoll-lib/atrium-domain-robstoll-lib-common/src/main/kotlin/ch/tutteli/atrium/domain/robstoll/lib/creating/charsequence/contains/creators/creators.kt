@@ -25,7 +25,7 @@ fun <T : CharSequence> _containsValuesIgnoringCase(
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
-    searcher: CharSequenceContains.Searcher<S>,
+    searcher: CharSequenceContains.Searcher<S, Any>,
     expected: List<Any>
 ): AssertionGroup {
     require(expected.isNotEmpty()) {
@@ -59,17 +59,22 @@ fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
 
 fun <T : CharSequence> _containsRegex(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-    expected: List<String>
+    expected: List<Regex>
 ): AssertionGroup = createAssertionGroup(checkerOption, RegexSearcher(), expected, STRING_MATCHING_REGEX)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<String>
-): AssertionGroup = createAssertionGroup(checkerOption, IgnoringCaseRegexSearcher(), expected, STRING_MATCHING_REGEX)
+): AssertionGroup = createAssertionGroup(
+    checkerOption,
+    IgnoringCaseRegexSearcher(),
+    expected,
+    STRING_MATCHING_REGEX
+)
 
 private fun <T : CharSequence, SC : Any, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
-    searcher: CharSequenceContains.Searcher<S>,
+    searcher: CharSequenceContains.Searcher<S, SC>,
     expected: List<SC>,
     groupDescription: Translatable
 ): AssertionGroup {

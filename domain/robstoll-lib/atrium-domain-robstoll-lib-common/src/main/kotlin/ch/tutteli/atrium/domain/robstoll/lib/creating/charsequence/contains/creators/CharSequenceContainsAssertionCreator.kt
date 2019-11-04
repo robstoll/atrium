@@ -30,7 +30,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  */
 class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC : Any, S : SearchBehaviour>(
     searchBehaviour: S,
-    private val searcher: Searcher<S>,
+    private val searcher: Searcher<S, SC>,
     checkers: List<Checker>,
     override val groupDescription: Translatable
 ) : ContainsObjectsAssertionCreator<T, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
