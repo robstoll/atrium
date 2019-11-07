@@ -74,6 +74,7 @@ unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137
 - [Kotlin Bugs](#kotlin-bugs)
 - [Roadmap](#roadmap)
 - [Contributors and contribute](#contributors-and-contribute)
+- [Sponsors](#sponsors)
 - [License](#license)
 
 # Installation
@@ -2527,6 +2528,12 @@ You are more than welcome to contribute as well:
 Please have a look at 
 [CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
 for further suggestions and guidelines.
+
+# Sponsors
+We like to thank the following sponsors for their support:
+- [Tegonal GmbH](https://tegonal.com) sponsoring Support and PR-Review time.
+
+Want to become a sponsor as well? Please ping @robstoll in the Slack-Channel (GitHub Sponsors will be added in the future)
 
 # License
 Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
