@@ -2531,7 +2531,7 @@ for further suggestions and guidelines.
 
 # Sponsors
 We like to thank the following sponsors for their support:
-- [Tegonal GmbH](https://tegonal.com) sponsoring Support and PR-Review time.
+- [Tegonal GmbH](https://tegonal.com) for sponsoring Support and PR-Review time.
 
 Want to become a sponsor as well? Please ping @robstoll in the Slack-Channel (GitHub Sponsors will be added in the future)
 
