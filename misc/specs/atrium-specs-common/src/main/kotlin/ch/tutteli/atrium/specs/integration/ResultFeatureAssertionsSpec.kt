@@ -11,8 +11,8 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class ResultFeatureAssertionsSpec(
-    getFeature: Feature1<Result<Int>, Int, Int>,
-    isSuccess: Fun2<Result<Int>, Int, Expect<Int>.() -> Unit>,
+    isSuccessFeature: Feature0<Result<Int>, Int>,
+    isSuccess: Fun1<Result<Int>, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -20,13 +20,13 @@ abstract class ResultFeatureAssertionsSpec(
     val result: Result<Int> = Result.success(1)
 
     include(object : SubjectLessSpec<Result<Int>>(describePrefix,
-        getFeature.forSubjectLess(1).adjustName { "$it feature" },
-        isSuccess.forSubjectLess(1) { toBe(1) }
+        isSuccessFeature.forSubjectLess().adjustName { "$it feature" },
+        isSuccess.forSubjectLess() { toBe(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         describePrefix, result,
-        isSuccess.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
+        isSuccess.forAssertionCreatorSpec("$toBeDescr: 2" ) { toBe(2) }
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -37,33 +37,33 @@ abstract class ResultFeatureAssertionsSpec(
 
     val illegalStateException = DescriptionResultAssertion.ILLEGAL_STATE_EXCEPTION.getDefault()
 
-    describeFun("${getFeature.name} feature") {
-        val getFun = getFeature.lambda
+    describeFun("${isSuccessFeature.name} feature") {
+        val isSuccessFeature = isSuccessFeature.lambda
         context("result $result") {
             it("can perform sub-assertion result") {
-                fluent.getFun(0).toBe(1)
+                fluent.isSuccessFeature().toBe(1)
             }
             it("value") {
                 expect {
-                    fluent.getFun(4).toBe(1)
+                    fluent.isSuccessFeature().toBe(1)
                 }.toThrow<AssertionError> {
-                    messageContains("get(4): $illegalStateException")
+                    messageContains("isSuccess(): $illegalStateException")
                 }
             }
         }
     }
 
     describeFun(isSuccess.name) {
-        val getFun = isSuccess.lambda
+        val isSuccessFun = isSuccess.lambda
         context("result $result") {
             it("can perform sub-assertion on result") {
-                fluent.getFun(0) { toBe(1) }
+                fluent.isSuccessFun() { toBe(1) }
             }
             it("value") {
                 expect {
-                    fluent.getFun(4) { toBe(3) }
+                    fluent.isSuccessFun() { toBe(3) }
                 }.toThrow<AssertionError> {
-                    messageContains("get(4): $illegalStateException", "$toBeDescr: 3")
+                    messageContains("isSuccess(): $illegalStateException", "$toBeDescr: 3")
                 }
             }
         }
