@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
@@ -39,7 +40,7 @@ object ExpectImpl {
 
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    inline fun <T> changeSubject(originalAssertionContainer: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>) =
+    inline fun <T> changeSubject(originalAssertionContainer: SubjectProvider<T>) =
         SubjectChangerBuilder.create(originalAssertionContainer)
 
     /**

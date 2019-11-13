@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
@@ -31,7 +32,7 @@ interface SubjectChangerBuilder {
         @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
         fun <T> create(
-            originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>
+            originalPlant: SubjectProvider<T>
         ): DeprecatedKindStep<T> = DeprecatedKindStepImpl(originalPlant)
     }
 
@@ -46,19 +47,19 @@ interface SubjectChangerBuilder {
          * The previously specified assertion plant to which the new [Assert] will delegate assertion checking.
          */
         @Suppress("DEPRECATION")
-        val originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>
+        val originalPlant: SubjectProvider<T>
 
         @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
         fun <R : Any> unreported(
             transformation: (T) -> R
-        ): Assert<R> = subjectChanger.unreported(originalPlant, transformation)
+        ): Assert<R> = subjectChanger.unreportedToAssert(originalPlant, transformation)
 
         @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
         fun <R> unreportedNullable(
             transformation: (T) -> R
-        ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant, transformation)
+        ): AssertionPlantNullable<R> = subjectChanger.unreportedNullableToAssert(originalPlant, transformation)
     }
 
     /**

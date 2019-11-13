@@ -36,7 +36,7 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
         val list = assertionContainer.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
-        val hasElementAssertion = createHasElementAssertion(list)
+        val hasElementAssertion = createHasElementAssertion(list.iterator())
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(assertionCreatorOrNull, list))

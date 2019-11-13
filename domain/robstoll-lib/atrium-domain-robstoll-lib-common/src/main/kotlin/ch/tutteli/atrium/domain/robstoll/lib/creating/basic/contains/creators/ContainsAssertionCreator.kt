@@ -7,7 +7,6 @@ import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
@@ -21,7 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @constructor Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>(
+abstract class ContainsAssertionCreator<in T : Any, TT : Any, in SC, C : Contains.Checker>(
     protected val searchBehaviour: Contains.SearchBehaviour,
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {
@@ -35,8 +34,11 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
         subjectProvider: SubjectProvider<T>,
         searchCriteria: List<SC>
     ): AssertionGroup {
+        val transformedSubjectProvider = makeSubjectMultipleTimesConsumable(subjectProvider)
         val assertions = searchCriteria.map {
-            LazyThreadUnsafeAssertionGroup { searchAndCreateAssertion(subjectProvider, it, this::featureFactory) }
+            LazyThreadUnsafeAssertionGroup {
+                searchAndCreateAssertion(transformedSubjectProvider, it, this::featureFactory)
+            }
         }
         val description = searchBehaviour.decorateDescription(descriptionContains)
         return AssertImpl.builder.list
@@ -44,6 +46,11 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
             .withAssertions(assertions)
             .build()
     }
+
+    /**
+     * Make the underlying subject multiple times consumable.
+     */
+    protected abstract fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<TT>
 
     /**
      * Searches for something fulfilling the given [searchCriterion] in the given [subjectProvider]'s
@@ -59,7 +66,7 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
      * @return The newly created [AssertionGroup].
      */
     protected abstract fun searchAndCreateAssertion(
-        subjectProvider: SubjectProvider<T>,
+        subjectProvider: SubjectProvider<TT>,
         searchCriterion: SC,
         featureFactory: (numberOfOccurrences: Int, description: Translatable) -> AssertionGroup
     ): AssertionGroup

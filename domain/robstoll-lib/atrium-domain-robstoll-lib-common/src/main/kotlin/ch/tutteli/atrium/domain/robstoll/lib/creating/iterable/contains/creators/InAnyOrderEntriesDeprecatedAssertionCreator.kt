@@ -37,23 +37,28 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  * @param checkers The checkers which create assertions based on the search result.
  */
 @Deprecated("Switch from Assert to Expect and use InAnyOrderEntriesAssertionCreator; will be removed with 1.0.0")
-class InAnyOrderEntriesDeprecatedAssertionCreator<out E : Any, in T : Iterable<E?>>(
+class InAnyOrderEntriesDeprecatedAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
-    IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
+) : ContainsAssertionCreator<T, List<E?>, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(
+    searchBehaviour,
+    checkers
+), IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
 
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
 
+    override fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<List<E?>> =
+        turnSubjectToList(subjectProvider)
+
     override fun searchAndCreateAssertion(
-        subjectProvider: SubjectProvider<T>,
+        subjectProvider: SubjectProvider<List<E?>>,
         searchCriterion: (AssertionPlant<E>.() -> Unit)?,
         featureFactory: (Int, Translatable) -> AssertionGroup
     ): AssertionGroup {
-        val iterable = subjectProvider.maybeSubject.getOrElse { emptyList<E?>() }
-        val hasElementAssertion = createHasElementAssertion(iterable)
+        val iterator = subjectProvider.maybeSubject.getOrElse { emptyList() }.iterator()
+        val hasElementAssertion = createHasElementAssertion(iterator)
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(
-            iterable.iterator(),
+            iterator,
             searchCriterion
         )
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup

@@ -183,7 +183,8 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                         expect {
                             expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun(
                                 { isLessThan(1.0) },
-                                { isGreaterThan(7.0) })
+                                { isGreaterThan(7.0) }
+                            )
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(2).values(

@@ -26,13 +26,13 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
+abstract class ContainsObjectsAssertionCreator<in T : Any, TT : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
     searchBehaviour: S,
     checkers: List<C>
-) : ContainsAssertionCreator<T, SC, C>(searchBehaviour, checkers) {
+) : ContainsAssertionCreator<T, TT, SC, C>(searchBehaviour, checkers) {
 
     final override fun searchAndCreateAssertion(
-        subjectProvider: SubjectProvider<T>,
+        subjectProvider: SubjectProvider<TT>,
         searchCriterion: SC,
         featureFactory: (Int, Translatable) -> AssertionGroup
     ): AssertionGroup {
@@ -71,10 +71,10 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
      *
      * @return The number of times the [searchCriterion] matched in the subject of the assertion.
      */
-    protected abstract fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int
+    protected abstract fun search(subjectProvider: SubjectProvider<TT>, searchCriterion: SC): Int
 
     /**
      * Either return the given [featureAssertion] as [List] or add further assertions.
      */
-    abstract fun decorateAssertion(subjectProvider: SubjectProvider<T>, featureAssertion: Assertion): List<Assertion>
+    abstract fun decorateAssertion(subjectProvider: SubjectProvider<TT>, featureAssertion: Assertion): List<Assertion>
 }

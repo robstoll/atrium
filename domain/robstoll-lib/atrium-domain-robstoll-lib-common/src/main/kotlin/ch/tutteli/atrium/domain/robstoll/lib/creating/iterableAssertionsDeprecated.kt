@@ -22,7 +22,7 @@ fun <E : Any> _iterableAll(
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
         val list = plant.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
-        val hasElementAssertion = createHasElementAssertion(list)
+        val hasElementAssertion = createHasElementAssertion(list.iterator())
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(assertionCreator, list))
