@@ -43,6 +43,8 @@ class InAnyOrderEntriesDeprecatedAssertionCreator<out E : Any, in T : Iterable<E
 ) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
 
+    override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
+
     override fun searchAndCreateAssertion(
         subjectProvider: SubjectProvider<T>,
         searchCriterion: (AssertionPlant<E>.() -> Unit)?,

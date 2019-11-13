@@ -98,26 +98,25 @@ abstract class IterableAllAssertionsSpec(
         describeFun("${allNullable.name} for nullable") {
             val allNullableFun = allNullable.lambda
 
-            val listOfNulls = listOf(null, null) as Iterable<Double?>
-            context("iterable $listOfNulls") {
-                it("all are `null` (does not throw)") {
-                    expect(listOfNulls).allNullableFun(null)
+            val iterableOfNulls = { sequenceOf<Double?>(null, null).constrainOnce().asIterable() }
+            context("iterable ${iterableOfNulls()}") {
+                it("all are `null` does not throw") {
+                    expect(iterableOfNulls()).allNullableFun(null)
                 }
             }
 
-            val list = listOf(null, 1.0, null, 3.0) as Iterable<Double?>
-            context("iterable $list") {
-                it("$isGreaterThanDescr(0.5)") {
+            context("iterable ${oneToSevenNullable().toList()}") {
+                it("$isGreaterThanDescr(0.5) throws because two are `null`") {
                     expect {
-                        expect(list).allNullableFun { isGreaterThan(0.5) }
+                        expect(oneToSevenNullable()).allNullableFun { isGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
                                 "$rootBulletPoint$allDescr: $separator",
                                 "$explanatoryPointWithIndent$isGreaterThanDescr: 0.5",
                                 "$warningBulletPoint$mismatches:",
-                                "${index(0)}: null",
-                                "${index(2)}: null"
+                                "${index(1)}: null",
+                                "${index(5)}: null"
                             )
                         }
                     }

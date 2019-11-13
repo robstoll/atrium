@@ -290,29 +290,38 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     nullableCases(describePrefix) {
 
         describeFun("${containsInAnyOrderOnlyNullableEntries.name} for nullable") {
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
+            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
-            context("iterable $list") {
+            context("iterable ${null1null3().toList()}") {
                 context("happy cases (do not throw)") {
                     it("null, $toBeFun(1.0), null, $toBeFun(3.0)") {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) })
+                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                            null, { toBe(1.0) }, null, { toBe(3.0) }
+                        )
                     }
                     it("$toBeFun(1.0), null, null, $toBeFun(3.0)") {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, null, null, { toBe(3.0) })
+                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                            { toBe(1.0) }, null, null, { toBe(3.0) }
+                        )
                     }
                     it("$toBeFun(1.0), null, $toBeFun(3.0), null") {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, null, { toBe(3.0) }, null)
+                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                            { toBe(1.0) }, null, { toBe(3.0) }, null
+                        )
                     }
                     it("$toBeFun(1.0), $toBeFun(3.0), null, null") {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, { toBe(3.0) }, null, null)
+                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                            { toBe(1.0) }, { toBe(3.0) }, null, null
+                        )
                     }
                 }
 
                 context("failing cases") {
-                    it("null, $toBeFun(1.0), $toBeFun(3.0) -- null was missing") {
+                    it("null, $toBeFun(1.0), $toBeFun(3.0) -- second null was missing") {
                         expect {
-                            fluent.containsInAnyOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, { toBe(3.0) })
+                            expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                                null, { toBe(1.0) }, { toBe(3.0) }
+                            )
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -328,9 +337,9 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                         }
                     }
 
-                    it("first wins: $isLessThanFun(5.0), 1.0, 2.0, 3.0, 4.0") {
+                    it("first wins: $isLessThanFun(4.0), null, null, $toBeDescr(1.0)") {
                         expect {
-                            fluent.containsInAnyOrderOnlyNullableEntriesFun(
+                            expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
                                 { isLessThan(4.0) },
                                 null,
                                 null,

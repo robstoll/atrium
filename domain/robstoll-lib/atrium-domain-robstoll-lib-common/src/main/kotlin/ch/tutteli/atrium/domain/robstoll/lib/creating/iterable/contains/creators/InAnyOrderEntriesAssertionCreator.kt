@@ -44,6 +44,8 @@ class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
 ) : ContainsAssertionCreator<T, (Expect<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
+    override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
+
     override fun searchAndCreateAssertion(
         subjectProvider: SubjectProvider<T>,
         searchCriterion: (Expect<E>.() -> Unit)?,

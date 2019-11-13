@@ -26,6 +26,11 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {
 
+    /**
+     * Provides the translation for `contains`.
+     */
+    protected abstract val descriptionContains: Translatable
+
     final override fun createAssertionGroup(
         subjectProvider: SubjectProvider<T>,
         searchCriteria: List<SC>
@@ -33,7 +38,7 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
         val assertions = searchCriteria.map {
             LazyThreadUnsafeAssertionGroup { searchAndCreateAssertion(subjectProvider, it, this::featureFactory) }
         }
-        val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
+        val description = searchBehaviour.decorateDescription(descriptionContains)
         return AssertImpl.builder.list
             .withDescriptionAndEmptyRepresentation(description)
             .withAssertions(assertions)

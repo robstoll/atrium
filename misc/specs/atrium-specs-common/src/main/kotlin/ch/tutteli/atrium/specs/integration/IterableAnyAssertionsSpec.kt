@@ -98,22 +98,20 @@ abstract class IterableAnyAssertionsSpec(
         describeFun("${anyNullable.name} for nullable") {
             val anyNullableFun = anyNullable.lambda
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
-            context("iterable $list") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {
                     it("$toBeFun(1.0)") {
-                        fluent.anyNullableFun { toBe(1.0) }
+                        expect(oneToSevenNullable()).anyNullableFun { toBe(1.0) }
                     }
                     it("null") {
-                        fluent.anyNullableFun(null)
+                        expect(oneToSevenNullable()).anyNullableFun(null)
                     }
                 }
 
                 context("failing cases") {
                     it("$toBeFun(2.0)") {
                         expect {
-                            fluent.anyNullableFun { toBe(2.0) }
+                            expect(oneToSevenNullable()).anyNullableFun { toBe(2.0) }
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(

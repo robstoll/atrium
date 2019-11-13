@@ -202,29 +202,28 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     nullableCases(describePrefix) {
         describeFun("$containsInOrderNullableValues for nullable") {
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
+            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
-            context("iterable $list") {
+            context("iterable ${null1null3().toList()}") {
                 context("happy cases (do not throw)") {
                     it("null, 1.0, null, 3.0") {
-                        fluent.containsInOrderNullableValuesFun(null, 1.0, null, 3.0)
+                        expect(null1null3()).containsInOrderNullableValuesFun(null, 1.0, null, 3.0)
                     }
                     it("1.0, null, null, 3.0") {
-                        fluent.containsInOrderNullableValuesFun(1.0, null, null, 3.0)
+                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, null, null, 3.0)
                     }
                     it("1.0, null, 3.0, null") {
-                        fluent.containsInOrderNullableValuesFun(1.0, null, 3.0, null)
+                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, null, 3.0, null)
                     }
                     it("1.0, 3.0, null, null") {
-                        fluent.containsInOrderNullableValuesFun(1.0, 3.0, null, null)
+                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, 3.0, null, null)
                     }
                 }
 
                 context("failing cases") {
                     it("null, 1.0, 3.0 -- null was missing") {
                         expect {
-                            fluent.containsInOrderNullableValuesFun(null, 1.0, 3.0)
+                            expect(null1null3()).containsInOrderNullableValuesFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(

@@ -49,7 +49,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
             }
         }
 
-        context("iterable '${oneToSeven().toList()}'") {
+        context("iterable '${oneToSeven()}'") {
 
             context("happy cases") {
                 (1..7).forEach {
@@ -115,23 +115,20 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
 
         describeFun("${containsInAnyOrderNullableValues.name} for nullable") {
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
-
-            context("iterable $list") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 listOf(
                     1.0 to arrayOf<Double>(),
-                    3.0 to arrayOf<Double>(),
+                    4.0 to arrayOf<Double>(),
                     null to arrayOf<Double>(),
-                    null to arrayOf(3.0, null),
+                    null to arrayOf(4.0, null),
                     null to arrayOf(1.0),
-                    1.0 to arrayOf(3.0, null)
+                    1.0 to arrayOf(4.0, null)
                 ).forEach { (first, rest) ->
                     val restText = if (rest.isEmpty()) "" else ", ${rest.joinToString()}"
 
                     context("search for $first$restText") {
                         it("$first$restText does not throw") {
-                            fluent.containsInAnyOrderNullableValuesFun(first, *rest)
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableValuesFun(first, *rest)
                         }
                     }
 
@@ -140,7 +137,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 context("search for 2.5") {
                     it("2.5 throws AssertionError") {
                         expect {
-                            fluent.containsInAnyOrderNullableValuesFun(2.5)
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableValuesFun(2.5)
                         }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CONTAINS.getDefault()) }
                     }
                 }

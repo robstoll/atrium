@@ -46,11 +46,6 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
     }
 
     /**
-     * Provides the translation for `contains`.
-     */
-    protected abstract val descriptionContains: Translatable
-
-    /**
      * Provides the translation for `number of occurrences`.
      */
     protected abstract val descriptionNumberOfOccurrences: Translatable

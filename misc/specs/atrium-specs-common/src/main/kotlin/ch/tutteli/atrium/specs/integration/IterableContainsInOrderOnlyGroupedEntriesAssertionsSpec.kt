@@ -165,12 +165,18 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
             context("throws an $illegalArgumentException") {
                 it("if an empty group is given as first parameter") {
                     expect {
-                        expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(context(), context({ toBe(-1.2) }))
+                        expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
+                            context(),
+                            context({ toBe(-1.2) })
+                        )
                     }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                 }
                 it("if an empty group is given as second parameter") {
                     expect {
-                        expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(context({ toBe(1.2) }), context())
+                        expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
+                            context({ toBe(1.2) }),
+                            context()
+                        )
                     }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                 }
                 it("if an empty group is given as third parameter") {
@@ -333,7 +339,11 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
                     it("(1.0), (4.0) -- 2.0, 3.0 and 4.0 was missing") {
                         expect {
-                            expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(context({ toBe(1.0) }), context({ toBe(4.0) }))
+                            expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(context({
+                                toBe(
+                                    1.0
+                                )
+                            }), context({ toBe(4.0) }))
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
@@ -401,20 +411,19 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     }
     nullableCases(describePrefix) {
         describeFun("$containsInOrderOnlyGroupedEntries for nullable") {
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
+            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
-            context("iterable $list") {
+            context("iterable ${null1null3().toList()}") {
 
                 context("happy case") {
                     it("[$toBeFun(1.0), null], [null, $toBeFun(3.0)]") {
-                        fluent.containsInOrderOnlyGroupedEntriesFun(
+                        expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
                             context({ toBe(1.0) }, null),
                             context(null, { toBe(3.0) })
                         )
                     }
                     it("[null], [null, $isGreaterThanFun(2.0), $isLessThanFun(5.0)]") {
-                        fluent.containsInOrderOnlyGroupedEntriesFun(
+                        expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
                             context(null),
                             context(null, { isGreaterThan(2.0) }, { isLessThan(5.0) })
                         )
@@ -425,7 +434,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
                     it("[null, null], [$isLessThanFun(5.0), $isGreaterThanFun(2.0)] -- wrong order") {
                         expect {
-                            fluent.containsInOrderOnlyGroupedEntriesFun(
+                            expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
                                 context(null, null),
                                 context({ isLessThan(5.0) }, { isGreaterThan(2.0) })
                             )
@@ -451,7 +460,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
                     it("[null, $toBeFun(1.0)], [$toBeFun(3.0), null, null] -- null too much") {
                         expect {
-                            fluent.containsInOrderOnlyGroupedEntriesFun(
+                            expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
                                 context(null, { toBe(1.0) }),
                                 context({ toBe(3.0) }, null, null)
                             )

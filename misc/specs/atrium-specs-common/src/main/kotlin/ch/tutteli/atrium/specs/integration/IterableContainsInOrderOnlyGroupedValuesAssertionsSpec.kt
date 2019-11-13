@@ -328,20 +328,19 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     nullableCases(describePrefix) {
 
         describeFun("$containsInOrderOnlyGroupedNullableValues for nullable") {
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
+            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
-            context("iterable $list") {
+            context("iterable ${null1null3().toList()}") {
 
                 context("happy case") {
                     it("[1.0, null], [null, 3.0]") {
-                        fluent.containsInOrderOnlyGroupedNullableValuesFun(
+                        expect(null1null3()).containsInOrderOnlyGroupedNullableValuesFun(
                             nullableGroup(1.0, null),
                             nullableGroup(null, 3.0)
                         )
                     }
                     it("[null], [null, 3.0, 1.0]") {
-                        fluent.containsInOrderOnlyGroupedNullableValuesFun(
+                        expect(null1null3()).containsInOrderOnlyGroupedNullableValuesFun(
                             nullableGroup(null),
                             nullableGroup(null, 3.0, 1.0)
                         )
@@ -352,7 +351,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
                     it("[null, null], [3.0, 1.0] -- wrong order") {
                         expect {
-                            fluent.containsInOrderOnlyGroupedNullableValuesFun(
+                            expect(null1null3()).containsInOrderOnlyGroupedNullableValuesFun(
                                 nullableGroup(null, null),
                                 nullableGroup(3.0, 1.0)
                             )
@@ -378,7 +377,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
                     it("[null, 1.0], [3.0, null, null] -- null too much") {
                         expect {
-                            fluent.containsInOrderOnlyGroupedNullableValuesFun(
+                            expect(null1null3()).containsInOrderOnlyGroupedNullableValuesFun(
                                 nullableGroup(null, 1.0),
                                 nullableGroup(3.0, null, null)
                             )
