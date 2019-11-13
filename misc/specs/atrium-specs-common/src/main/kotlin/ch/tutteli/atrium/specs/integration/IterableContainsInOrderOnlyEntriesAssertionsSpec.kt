@@ -139,12 +139,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
             }
         }
 
-        val fluent = expect(oneToFour)
-        context("iterable $oneToFour") {
+        context("iterable ${oneToFour().toList()}") {
 
             context("happy case") {
                 it("1.0, 2.0, 3.0, 4.0, 4.0") {
-                    fluent.containsEntriesFun(
+                    expect(oneToFour()).containsEntriesFun(
                         { toBe(1.0) },
                         { toBe(2.0) },
                         { toBe(3.0) },
@@ -152,7 +151,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         { toBe(4.0) })
                 }
                 it("$isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0)") {
-                    fluent.containsEntriesFun(
+                    expect(oneToFour()).containsEntriesFun(
                         { isLessThan(5.0) },
                         { isLessThan(5.0) },
                         { isLessThan(5.0) },
@@ -165,7 +164,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
                 it("$isLessThanFun(5.0), 1.0, 2.0, $isGreaterThanFun(2.0), 4.0 -- wrong order") {
                     expect {
-                        fluent.containsEntriesFun(
+                        expect(oneToFour()).containsEntriesFun(
                             { isLessThan(5.0) },
                             { toBe(1.0) },
                             { toBe(2.0) },
@@ -186,7 +185,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
                 it("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
                     expect {
-                        fluent.containsEntriesFun({ toBe(1.0) }, { toBe(2.0) }, { toBe(3.0) }, { toBe(4.0) })
+                        expect(oneToFour()).containsEntriesFun(
+                            { toBe(1.0) },
+                            { toBe(2.0) },
+                            { toBe(3.0) },
+                            { toBe(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -205,7 +208,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
                 it("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
                     expect {
-                        fluent.containsEntriesFun({ toBe(1.0) }, { toBe(4.0) })
+                        expect(oneToFour()).containsEntriesFun({ toBe(1.0) }, { toBe(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -223,7 +226,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 }
                 it("1.0, 3.0, $isGreaterThanFun(4.0) -- $isGreaterThanFun(4.0) is wrong and 4.0 and 4.0 are missing") {
                     expect {
-                        fluent.containsEntriesFun({ toBe(1.0) }, { toBe(3.0) }, { isGreaterThan(4.0) })
+                        expect(oneToFour()).containsEntriesFun({ toBe(1.0) }, { toBe(3.0) }, { isGreaterThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -241,7 +244,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 }
                 it("1.0, 2.0, 3.0, 4.0, 4.0, 5.0 -- 5.0 too much") {
                     expect {
-                        fluent.containsEntriesFun(
+                        expect(oneToFour()).containsEntriesFun(
                             { toBe(1.0) },
                             { toBe(2.0) },
                             { toBe(3.0) },
@@ -269,16 +272,20 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
         describeFun("${containsInOrderOnlyNullableEntries.name} for nullable") {
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
-            context("iterable $list") {
+            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
+
+            context("iterable ${null1null3().toList()}") {
 
                 context("happy case") {
                     it("null, 1.0, null, 3.0") {
-                        fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) })
+                        expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
+                            null,
+                            { toBe(1.0) },
+                            null,
+                            { toBe(3.0) })
                     }
                     it("null, $isLessThanFun(5.0), null, $isLessThanFun(5.0)") {
-                        fluent.containsInOrderOnlyNullableEntriesFun(
+                        expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
                             null,
                             { isLessThan(5.0) },
                             null,
@@ -291,7 +298,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
                     it("null, null, $isLessThanFun(5.0), $isGreaterThanFun(2.0) -- wrong order") {
                         expect {
-                            fluent.containsInOrderOnlyNullableEntriesFun(
+                            expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
                                 null,
                                 null,
                                 { isLessThan(5.0) },
@@ -311,7 +318,13 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
                     it("null, 1.0, null, 3.0, null -- null too much") {
                         expect {
-                            fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) }, null)
+                            expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
+                                null,
+                                { toBe(1.0) },
+                                null,
+                                { toBe(3.0) },
+                                null
+                            )
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")

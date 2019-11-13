@@ -101,7 +101,7 @@ interface AssertImplCommon {
     fun <T, R : Any> changeSubject(
         originalPlant: BaseAssertionPlant<T, *>,
         subjectProvider: () -> R
-    ): AssertionPlant<R> = subjectChanger.unreported(originalPlant) { subjectProvider() }
+    ): AssertionPlant<R> = subjectChanger.unreportedToAssert(originalPlant) { subjectProvider() }
 
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",
@@ -136,7 +136,7 @@ interface AssertImplCommon {
     fun <T, R> changeToNullableSubject(
         originalPlant: BaseAssertionPlant<T, *>,
         subjectProvider: () -> R
-    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullable(originalPlant) { subjectProvider() }
+    ): AssertionPlantNullable<R> = subjectChanger.unreportedNullableToAssert(originalPlant) { subjectProvider() }
 
     @Deprecated(
         "Use ExpectImpl.changeSubject.unreported - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0",

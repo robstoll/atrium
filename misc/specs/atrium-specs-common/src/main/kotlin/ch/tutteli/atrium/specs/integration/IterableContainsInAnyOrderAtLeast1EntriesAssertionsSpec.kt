@@ -102,12 +102,11 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             }
         }
 
-        val fluent = expect(oneToSeven)
-        context("iterable $oneToSeven") {
+        context("iterable ${oneToSeven().toList()}") {
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.0) })
+                        expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
@@ -125,14 +124,14 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.1) })
+                    expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.1) })
                 }
             }
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1) and another entry which is $isLessThanFun(2.0)") {
                 it("does not throw an exception") {
                     //finds twice the entry 1.0 but that is fine since we do not search for unique entries in this case
-                    fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.1) }, { isLessThan(2.0) })
+                    expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0).isLessThan(2.1) }, { isLessThan(2.0) })
                 }
             }
 
@@ -143,33 +142,32 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
 
         describeFun("${containsInAnyOrderNullableEntries.name} for nullable") {
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
-            context("iterable $list") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {
                     it("$toBeFun(1.0)") {
-                        fluent.containsInAnyOrderNullableEntriesFun({ toBe(1.0) })
+                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toBe(1.0) })
                     }
                     it("null") {
-                        fluent.containsInAnyOrderNullableEntriesFun(null)
+                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun(null)
                     }
                     it("$toBeFun(1.0) and null") {
-                        fluent.containsInAnyOrderNullableEntriesFun({ toBe(1.0) }, null)
+                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toBe(1.0) }, null)
                     }
-                    it("$toBeFun(3.0), null and $toBeFun(1.0)") {
-                        fluent.containsInAnyOrderNullableEntriesFun({ toBe(3.0) }, null, { toBe(1.0) })
+                    it("$toBeFun(4.0), null and $toBeFun(1.0)") {
+                        expect(oneToSevenNullable())
+                            .containsInAnyOrderNullableEntriesFun({ toBe(4.0) }, null, { toBe(1.0) })
                     }
                     it("null, null, null") {
                         // finds twice the same entry with null but that is fine
                         // since we do not search for unique entries in this case
-                        fluent.containsInAnyOrderNullableEntriesFun(null, null, null)
+                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun(null, null, null)
                     }
                 }
 
                 context("failing cases") {
                     it("$toBeFun(2.0)") {
                         expect {
-                            fluent.containsInAnyOrderNullableEntriesFun({ toBe(2.0) })
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toBe(2.0) })
                         }.toThrow<AssertionError> {
                             messageContains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -181,9 +179,12 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                         }
                     }
 
-                    it("$isLessThanFun(1.0) and $isLessThanFun(3.0)") {
+                    it("$isLessThanFun(1.0) and $isGreaterThanDescr(7.0)") {
                         expect {
-                            fluent.containsInAnyOrderNullableEntriesFun({ isLessThan(1.0) }, { isGreaterThan(3.0) })
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun(
+                                { isLessThan(1.0) },
+                                { isGreaterThan(7.0) }
+                            )
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(2).values(
@@ -194,7 +195,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrder: $separator",
                                     "$isLessThanDescr: 1.0",
-                                    "$isGreaterThanDescr: 3.0"
+                                    "$isGreaterThanDescr: 7.0"
                                 )
                             }
                         }
@@ -202,10 +203,10 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                 }
             }
 
-            context("iterable $oneToSeven") {
+            context("iterable ${oneToSeven().toList()}") {
                 it("null, throws an AssertionError") {
                     expect {
-                        expect(oneToSeven as Iterable<Double?>).containsInAnyOrderNullableEntriesFun(null)
+                        expect(oneToSeven() as Iterable<Double?>).containsInAnyOrderNullableEntriesFun(null)
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",

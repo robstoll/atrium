@@ -31,7 +31,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
-        describePrefix, oneToSeven,
+        describePrefix, oneToSeven().toList().asIterable(),
         *containsNotEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
@@ -39,7 +39,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        "$describePrefix[nullable Element] ", oneToSeven,
+        "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
         *containsNotNullableEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
@@ -106,25 +106,24 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
             }
         }
 
-        context("iterable $oneToSeven") {
-            val fluent = expect(oneToSeven)
+        context("iterable ${oneToSeven().toList()}") {
 
             context("happy case") {
                 it("$isGreaterThanFun(1.0) and $isLessThanFun(2.0) does not throw") {
-                    fluent.containsNotFun({ isGreaterThan(1.0); isLessThan(2.0) })
+                    expect(oneToSeven()).containsNotFun({ isGreaterThan(1.0); isLessThan(2.0) })
                 }
                 it("$toBeFun(1.1), $toBeFun(2.2), $toBeFun(3.3) does not throw") {
-                    fluent.containsNotFun({ toBe(1.1) }, { toBe(2.2) }, { toBe(3.3) })
+                    expect(oneToSeven()).containsNotFun({ toBe(1.1) }, { toBe(2.2) }, { toBe(3.3) })
                 }
                 it("$toBeFun(3.3), $toBeFun(1.1), $toBeFun(2.2) does not throw") {
-                    fluent.containsNotFun({ toBe(3.3) }, { toBe(1.1) }, { toBe(2.2) })
+                    expect(oneToSeven()).containsNotFun({ toBe(3.3) }, { toBe(1.1) }, { toBe(2.2) })
                 }
             }
 
             context("failing cases; search string at different positions") {
                 it("$isLessThanFun(4.0) throws AssertionError") {
                     expect {
-                        fluent.containsNotFun({ isLessThan(4.0) })
+                        expect(oneToSeven()).containsNotFun({ isLessThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -141,7 +140,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                 }
                 it("$toBeFun(1.0), $toBeFun(4.0) throws AssertionError") {
                     expect {
-                        fluent.containsNotFun({ toBe(1.0) }, { toBe(4.0) })
+                        expect(oneToSeven()).containsNotFun({ toBe(1.0) }, { toBe(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -164,7 +163,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                 }
                 it("$toBeFun(4.0), $toBeFun(1.1) throws AssertionError mentioning only 4.0") {
                     expect {
-                        fluent.containsNotFun({ toBe(4.0) }, { toBe(1.0) })
+                        expect(oneToSeven()).containsNotFun({ toBe(4.0) }, { toBe(1.0) })
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex("$anEntryWhich: $separator.*$toBeDescr: 4.0")
@@ -179,15 +178,15 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
 
     nullableCases(describePrefix) {
         describeFun("${containsNotNullableEntries.name} for nullable") {
-            context("iterable $oneToSeven") {
+            context("iterable ${oneToSeven().toList()}") {
                 it("null does not throw") {
-                    expect(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
+                    expect(oneToSeven() as Iterable<Double?>).containsNotNullableFun(null)
                 }
             }
-            context("iterable $oneToSevenNullable") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 it("null throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable).containsNotNullableFun(null)
+                        expect(oneToSevenNullable()).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -205,7 +204,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
 
                 it("1.1, null throws AssertionError mentioning only null") {
                     expect {
-                        expect(oneToSevenNullable).containsNotNullableFun({ toBe(1.1) }, null)
+                        expect(oneToSevenNullable()).containsNotNullableFun({ toBe(1.1) }, null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

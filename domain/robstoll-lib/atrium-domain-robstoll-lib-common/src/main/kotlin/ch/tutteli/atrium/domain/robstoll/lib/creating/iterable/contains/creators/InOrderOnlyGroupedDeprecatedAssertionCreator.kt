@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.evalOnce
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
@@ -27,7 +28,7 @@ abstract class InOrderOnlyGroupedDeprecatedAssertionCreator<E, in T : Iterable<E
         searchCriteria: List<List<SC>>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val subject = subjectProvider.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
+            val subject = turnSubjectToList(subjectProvider).maybeSubject.getOrElse { emptyList() }
             val assertion = AssertImpl.collector.collect({ subject }) {
 
                 var index = 0

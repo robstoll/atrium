@@ -27,7 +27,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsObjectsAssertionCreator<T, SC, InAnyOrderSearchBehaviour, IterableContains.Checker>(
+) : ContainsObjectsAssertionCreator<T, List<SC>, SC, InAnyOrderSearchBehaviour, IterableContains.Checker>(
     searchBehaviour,
     checkers
 ), IterableContains.Creator<T, SC> {
@@ -44,14 +44,20 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
         }
     }
 
-    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int =
+    override fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<List<SC>> =
+        turnSubjectToList(subjectProvider)
+
+    override fun search(subjectProvider: SubjectProvider<List<SC>>, searchCriterion: SC): Int =
         subjectProvider.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
 
-    override fun decorateAssertion(subjectProvider: SubjectProvider<T>, featureAssertion: Assertion): List<Assertion> {
+    override fun decorateAssertion(
+        subjectProvider: SubjectProvider<List<SC>>,
+        featureAssertion: Assertion
+    ): List<Assertion> {
         return if (searchBehaviour is NotSearchBehaviour) {
             listOf(
                 featureAssertion,
-                createHasElementAssertion(subjectProvider.maybeSubject.getOrElse { emptyList<SC>() })
+                createHasElementAssertion(subjectProvider.maybeSubject.getOrElse { emptyList() }.iterator())
             )
         } else {
             listOf(featureAssertion)

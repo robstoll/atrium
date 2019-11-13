@@ -4,6 +4,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
@@ -21,7 +22,7 @@ class KindStepImpl<T>(
 
 @Suppress("DEPRECATION")
 class DeprecatedKindStepImpl<T>(
-    override val originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>
+    override val originalPlant: SubjectProvider<T>
 ) : SubjectChangerBuilder.DeprecatedKindStep<T>
 
 class DescriptionRepresentationStepImpl<T>(

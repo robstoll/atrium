@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -112,15 +113,15 @@ interface SubjectChanger {
 
     @Suppress("DEPRECATION")
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    fun <T, R : Any> unreported(
-        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
+    fun <T, R : Any> unreportedToAssert(
+        originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): Assert<R>
 
     @Suppress("DEPRECATION")
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    fun <T, R> unreportedNullable(
-        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
+    fun <T, R> unreportedNullableToAssert(
+        originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): AssertionPlantNullable<R>
 }

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -38,7 +39,7 @@ abstract class InOrderOnlyDeprecatedAssertionCreator<E, in T : Iterable<E>, SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val subject = subjectProvider.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
+            val subject = turnSubjectToList(subjectProvider).maybeSubject.getOrElse { emptyList() }
             val assertion = AssertImpl.collector.collect({ subject }) {
                 var index = 0
                 searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
