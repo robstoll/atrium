@@ -1844,7 +1844,7 @@ Still simple enough.
 
 That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
 You should always do this unless your type is final (not `open`) and does not have type parameters itself. 
-This way the assertion function is also available for subtypes. This is because `Expect` is invariant.
+This way the assertion function is also available for subtypes. This is because `Expect` is invariant. 
 Following an example:
 ```kotlin
 interface A { val foo get() = 1 }
@@ -1853,6 +1853,9 @@ val Expect<A>.foo get() = feature(A::foo)
 
 expect(B()).foo // does not compile as foo is only available for `Expect<A>`
 ```
+
+In case your assertion function should also be available for an `Expect<out MyClass>` where `MyClass` is a final class
+then you have to use a type parameter as well -- thus easiest way, always use a type parameter.
     
 </details>
 
