@@ -4,10 +4,10 @@ import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builder
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import kotlin.reflect.KFunction3
-import kotlin.reflect.KProperty
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.name
+import kotlin.reflect.KFunction3
+import kotlin.reflect.KProperty
 
 abstract class CharSequenceContainsSpecBase {
     private val containsProp: KProperty<*> = Expect<String>::contains
