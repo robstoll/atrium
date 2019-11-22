@@ -7,14 +7,13 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionHolder
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class DelegatingAssertionCheckerSpec(
     testeeFactory: (AssertionHolder) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
@@ -50,17 +49,17 @@ abstract class DelegatingAssertionCheckerSpec(
             "one assertion which holds and one which fails" to listOf(assertionWhichHolds, assertionWhichFails)
         ).forEach { (description, assertions) ->
             context(description) {
-                it("adds the assertion(s) to the subject plant") {
+                it("adds the assertion(s) to the assertion container") {
                     //arrange
-                    val subjectFactory = mockk<AssertionPlant<Int>>()
-                    every { subjectFactory.addAssertion(any()) } returns subjectFactory
+                    val assertionContainer = mockk<Expect<Int>>()
+                    every { assertionContainer.addAssertion(any()) } returns assertionContainer
 
-                    val testee = testeeFactory(subjectFactory)
+                    val testee = testeeFactory(assertionContainer)
                     //act
                     testee.check(assertionVerb, 1, assertions)
                     //assert
                     val captor = slot<Assertion>()
-                    verify(exactly = 1) { subjectFactory.addAssertion(assertion = capture(captor)) }
+                    verify(exactly = 1) { assertionContainer.addAssertion(assertion = capture(captor)) }
                     expect(captor.captured).isA<AssertionGroup> {
                         feature(AssertionGroup::type).isA<InvisibleAssertionGroupType>()
                         feature(AssertionGroup::assertions) {
