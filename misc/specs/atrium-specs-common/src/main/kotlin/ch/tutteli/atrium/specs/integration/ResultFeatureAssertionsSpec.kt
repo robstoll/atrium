@@ -38,14 +38,14 @@ abstract class ResultFeatureAssertionsSpec(
     val illegalStateException = DescriptionResultAssertion.ILLEGAL_STATE_EXCEPTION.getDefault()
 
     describeFun("${isSuccessFeature.name} feature") {
-        val isSuccessFeature = isSuccessFeature.lambda
+        val isSuccessFun = isSuccessFeature.lambda
         context("result $result") {
             it("can perform sub-assertion result") {
-                fluent.isSuccessFeature().toBe(1)
+                fluent.isSuccessFun().toBe(1)
             }
             it("value") {
                 expect {
-                    fluent.isSuccessFeature().toBe(1)
+                    fluent.isSuccessFun().toBe(1)
                 }.toThrow<AssertionError> {
                     messageContains("isSuccess(): $illegalStateException")
                 }

@@ -14,6 +14,7 @@ dependencies {
     // `api` and not `implementation` in order that a depending module can use dependOn_...
     api prefixedProject('domain-robstoll-js')
     api prefixedProject('core-robstoll-js')
+    runtimeOnly prefixedProject('domain-robstoll-kotlin_1_3-common')
 
     implementation prefixedProject('api-fluent-en_GB-js')
 
