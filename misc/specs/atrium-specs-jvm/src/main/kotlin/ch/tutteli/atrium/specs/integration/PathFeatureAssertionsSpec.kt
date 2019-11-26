@@ -48,13 +48,13 @@ abstract class PathFeatureAssertionsSpec(
 
         context("Folder with parent") {
             it("toBe(folder.parent) holds") {
-                val childFolder = tempFolder.newFolder("child")
+                val childFolder = tempFolder.newDirectory("child")
                 val parentFolder = childFolder.parent
                 expect(childFolder).parentVal().toBe(parentFolder)
             }
             it("toBe(folder) fails") {
                 expect {
-                    val childFolder = tempFolder.newFolder("child")
+                    val childFolder = tempFolder.newDirectory("child")
                     expect(childFolder).parentVal().toBe(childFolder)
                 }.toThrow<AssertionError> {
                     messageContains("child")
@@ -79,13 +79,13 @@ abstract class PathFeatureAssertionsSpec(
 
         context("Folder with parent") {
             it("toBe(folder.parent) holds") {
-                val childFolder = tempFolder.newFolder("child")
+                val childFolder = tempFolder.newDirectory("child")
                 val parentFolder = childFolder.parent
                 expect(childFolder).parentFun { toBe(parentFolder) }
             }
             it("toBe(folder) fails") {
                 expect {
-                    val childFolder = tempFolder.newFolder("child")
+                    val childFolder = tempFolder.newDirectory("child")
                     expect(childFolder).parentFun { toBe(childFolder) }
                 }.toThrow<AssertionError> {
                     messageContains("child")

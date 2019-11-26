@@ -4,6 +4,7 @@ repositories {
     maven { url "https://dl.bintray.com/jetbrains/spek" }
 }
 
+apply plugin: 'kotlin'
 dependencies {
     implementation "org.junit.platform:junit-platform-console-standalone:$junit_platform_version"
     implementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version"
@@ -13,7 +14,7 @@ dependencies {
 
     implementation kotlinStdlib()
     implementation prefixedProject('fluent-en_GB-jvm')
-    implementation prefixedProject('fluent-en_GB-jdk8-jvm')
+    implementation prefixedProject('api-fluent-en_GB-jdk8-jvm')
     implementation prefixedProject('core-robstoll-lib-jvm')
     implementation niok()
     implementation spekExtensions()

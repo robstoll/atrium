@@ -2,13 +2,12 @@ buildscript {
     rootProject.version = '0.9.0-beta-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
-    def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
-    def jsSampleProjects = subprojects.findAll {
-        it.projectDir.parent.endsWith('samples/js') || it.projectDir.parent.endsWith('samples\\js')
+    def sampleProjectsFun = subprojects.findAll {
+        it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
     }
     ext {
         // main
-        kbox_version = '0.13.0'
+        kbox_version = '0.14.1'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         niok_version = '1.2.0'
         niok = { "ch.tutteli.niok:niok:$niok_version" }
@@ -20,7 +19,7 @@ buildscript {
         jupiter_version = '5.5.2'
         spek_version = '1.1.5'
         spek2_version = '2.0.8'
-        spekExtensions_version = '1.0.1'
+        spekExtensions_version = '1.1.0'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.9.3'
 
@@ -44,12 +43,12 @@ buildscript {
         dokka_sourceMapping = "tree/master"
 
 
-        jsSamples = jsSampleProjects
+        sampleProjects = sampleProjectsFun
         //jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
-                (subprojects - deprecatedProjects).findAll {
+                (subprojects - deprecatedProjects- sampleProjectsFun).findAll {
                     !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
                         // would have two classes with the same name if we add it as project as well,
@@ -58,11 +57,11 @@ buildscript {
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
                         !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\"))
                 },
             jacocoProjects:
-                (subprojects - deprecatedProjects - translationProjects - jsSampleProjects).findAll {
+                (subprojects - deprecatedProjects - sampleProjectsFun).findAll {
+                    !it.projectDir.path.contains("translations") &&
                     !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
@@ -71,7 +70,6 @@ buildscript {
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
                         !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\")) &&
                         //TODO remove with 1.0.0
                         it.name != "${rootProject.name}-assertions" &&
@@ -176,7 +174,7 @@ configureAndroidProjects()
 configureJsProjects()
 configureJvmProjects()
 
-configure(subprojects - multiplatformProjects - jsSamples) {
+configure(subprojects - multiplatformProjects - sampleProjects) {
     apply plugin: 'kotlin'
     dependencies {
         implementation kotlinStdlib()
@@ -211,7 +209,7 @@ configure(jsProjects) { subProject ->
 
 
 
-configure(subprojects - commonProjects - jsProjects - jsSamples) {
+configure(subprojects - commonProjects - jsProjects - sampleProjects) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
@@ -249,9 +247,7 @@ configure(apiProjects) { apiProject ->
 }
 
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
-def sampleProjects = subprojects.findAll {
-    it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
-}
+
 configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
@@ -316,7 +312,7 @@ configure(bundleSmokeTests) {
     ext.jacoco_additional = [bundle]
 
     sourceSets {
-        //we are reusing the source from the bundle, so that we do not have to re-invent the spec
+        // we are reusing the source from the bundle, so that we do not have to re-invent the spec
         test { kotlin { srcDirs += ["${bundle.projectDir}/src/test/kotlin"] } }
     }
 
