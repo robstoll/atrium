@@ -91,7 +91,7 @@ abstract class PathAssertionsSpec(
             "POSIX: prints parent permission error details",
             skip = ifPosixNotSupported
         ) withAndWithoutSymlink { maybeLink ->
-            val start = tempFolder.newFolder("startDir")
+            val start = tempFolder.newDirectory("startDir")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
 
             start.whileWithPermissions(OWNER_READ, OWNER_WRITE) {
@@ -140,7 +140,7 @@ abstract class PathAssertionsSpec(
 
     fun Suite.itPrintsFileAccessProblemDetails(block: (Path) -> Unit) {
         it("prints the closest existing parent if it is a directory") withAndWithoutSymlink { maybeLink ->
-            val start = tempFolder.newFolder("startDir").toRealPath()
+            val start = tempFolder.newDirectory("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
                 String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.getDefault(), start)
@@ -171,9 +171,9 @@ abstract class PathAssertionsSpec(
         }
 
         it("prints an explanation for link loops", skip = ifSymlinksNotSupported) {
-            val testdir = tempFolder.newFolder("loop").toRealPath()
-            val a = testdir.resolve("a")
-            val b = a.createSymbolicLink(testdir.resolve("b"))
+            val testDir = tempFolder.newDirectory("loop").toRealPath()
+            val a = testDir.resolve("a")
+            val b = a.createSymbolicLink(testDir.resolve("b"))
             b.createSymbolicLink(a)
 
             expect {
@@ -212,7 +212,7 @@ abstract class PathAssertionsSpec(
             }
 
             it("does not throw for an existing directory") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.newFolder("test"))
+                val file = maybeLink.create(tempFolder.newDirectory("test"))
                 expect(file).existsFun()
             }
         }
@@ -250,7 +250,7 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val folder = maybeLink.create(tempFolder.newFolder("exists-though-shouldnt"))
+                val folder = maybeLink.create(tempFolder.newDirectory("exists-though-shouldnt"))
                 expect {
                     expect(folder).existsNotFun()
                 }.toThrow<AssertionError>().message {
@@ -354,7 +354,7 @@ abstract class PathAssertionsSpec(
             }
 
             it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
-                val folder = maybeLink.create(tempFolder.newFolder("readable"))
+                val folder = maybeLink.create(tempFolder.newDirectory("readable"))
                 expect(folder).isReadableFun()
             }
         }
@@ -392,7 +392,7 @@ abstract class PathAssertionsSpec(
                     READABLE.getDefault()
                 )
 
-                val folder = maybeLink.create(tempFolder.newFolder("not-readable"))
+                val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
                     expect {
                         expect(folder).isReadableFun()
@@ -446,7 +446,7 @@ abstract class PathAssertionsSpec(
                     READABLE.getDefault()
                 )
 
-                val folder = maybeLink.create(tempFolder.newFolder("not-readable"))
+                val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoRead) {
                     expect {
                         expect(folder).isReadableFun()
@@ -500,7 +500,7 @@ abstract class PathAssertionsSpec(
             }
 
             it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
-                val folder = maybeLink.create(tempFolder.newFolder("writable"))
+                val folder = maybeLink.create(tempFolder.newDirectory("writable"))
                 expect(folder).isWritableFun()
             }
         }
@@ -538,7 +538,7 @@ abstract class PathAssertionsSpec(
                     WRITABLE.getDefault()
                 )
 
-                val folder = maybeLink.create(tempFolder.newFolder("not-writable"))
+                val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect {
                         expect(folder).isWritableFun()
@@ -590,7 +590,7 @@ abstract class PathAssertionsSpec(
                     WRITABLE.getDefault()
                 )
 
-                val folder = maybeLink.create(tempFolder.newFolder("not-writable"))
+                val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithAcl(TestAcls::ownerNoWrite) {
                     expect {
                         expect(folder).isWritableFun()
@@ -641,7 +641,7 @@ abstract class PathAssertionsSpec(
         }
 
         it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-            val folder = maybeLink.create(tempFolder.newFolder("test"))
+            val folder = maybeLink.create(tempFolder.newDirectory("test"))
             expect {
                 expect(folder).isRegularFileFun()
             }.toThrow<AssertionError>().message {
@@ -685,7 +685,7 @@ abstract class PathAssertionsSpec(
         }
 
         it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
-            val folder = maybeLink.create(tempFolder.newFolder("test"))
+            val folder = maybeLink.create(tempFolder.newDirectory("test"))
             expect(folder).isDirectoryFun()
         }
     }
