@@ -31,18 +31,14 @@ def kotlinJvmAndAndroidIfCi = { self, String suffix ->
 
 def bundleWithExtensionsAndSmokeTest = { self, String apiName ->
     kotlinJvmJsAndAndroidIfCi(self, apiName)
-    kotlinJvmAndAndroidIfCi(self, "$apiName-jdk8")
-    kotlinJvmJsAndAndroidIfCi(self, "$apiName-kotlin_1_3")
 
     if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
         self.folder(apiName) {
             _ "$apiName-smoke-test"
-        }
-        self.folder("$apiName-jdk8") {
-            _ "$apiName-jdk8-smoke-test"
-        }
-        self.folder("$apiName-kotlin_1_3") {
-            _ "$apiName-kotlin_1_3-smoke-test"
+            folder("extensions"){
+                _ "$apiName-smoke-test-jdk8"
+                _ "$apiName-smoke-test-kotlin_1_3"
+            }
         }
     }
 }
