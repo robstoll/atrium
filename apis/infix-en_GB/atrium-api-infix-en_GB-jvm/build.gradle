@@ -26,3 +26,7 @@ compileTestKotlin.dependsOn(
     prefixedProject('domain-robstoll-jvm').compileKotlin,
     prefixedProject('domain-robstoll-jvm').processResources
 )
+
+tasks.withType(Test) {
+    systemProperty("ch.tutteli.atrium.reporting.reporterFactory", "ascii")
+}
