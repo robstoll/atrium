@@ -1,4 +1,4 @@
-package ch.tutteli.atrium
+package ch.tutteli.atrium.api.infix.en_GB.testutils
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder

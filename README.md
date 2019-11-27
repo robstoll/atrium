@@ -2109,7 +2109,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -2141,7 +2141,7 @@ It does not matter if you use your [own assertion verb](#use-own-assertion-verbs
 You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
 This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
 and by calling `registerService` on JS where the call has to be before your tests run.  
-An example for JVM is given in [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+An example for JVM is given in [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt).
 An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
