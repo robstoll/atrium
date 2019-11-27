@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <E> Assert<Sequence<E>>.asIterable(): Assert<Iterable<E>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }

@@ -15,6 +15,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inBeliebigerReihenfolge
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
@@ -24,6 +25,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inB
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>.nur
     @JvmName("aberNur")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
@@ -34,6 +36,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inGegebenerReihenfolge
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
@@ -43,6 +46,8 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inG
  *
  * @return The newly created builder.
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.nur
     @JvmName("undNur")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
@@ -53,6 +58,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.gruppiert
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
 
@@ -61,5 +67,6 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.innerhalb
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)

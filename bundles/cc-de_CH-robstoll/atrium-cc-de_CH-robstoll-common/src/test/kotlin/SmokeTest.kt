@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 import ch.tutteli.atrium.api.cc.de_CH.ist
 import ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt
 import ch.tutteli.atrium.api.cc.de_CH.wirft

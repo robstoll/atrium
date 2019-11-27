@@ -21,6 +21,7 @@ import kotlin.jvm.JvmName
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
@@ -48,6 +49,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline as
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 inline fun <reified TSub : Any> Assert<Any>.istEin(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)

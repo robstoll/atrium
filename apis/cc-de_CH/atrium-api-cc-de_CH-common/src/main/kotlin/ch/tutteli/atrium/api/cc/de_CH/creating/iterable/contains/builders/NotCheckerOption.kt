@@ -9,5 +9,6 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 interface NotCheckerOption<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
     : IterableContains.CheckerOption<E, T, S>
