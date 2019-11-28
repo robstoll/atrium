@@ -14,13 +14,13 @@ fun <T, R> _extractFeature(
     originalAssertionContainer: Expect<T>,
     description: Translatable,
     representationForFailure: Any,
-    canBeExtracted: (T) -> Boolean,
-    featureExtraction: (T) -> R,
+    featureExtraction: (T) -> Option<R>,
     maybeSubAssertions: Option<Expect<R>.() -> Unit>,
     representationInsteadOfFeature: Any?
 ): Expect<R> {
+
     return originalAssertionContainer.maybeSubject
-        .filter(canBeExtracted)
+        .flatMap { subject -> featureExtraction(subject) }
         .fold({
             val assertionContainer = coreFactory.newReportingAssertionContainer<R>(
                 ReportingAssertionContainer.AssertionCheckerDecorator.create(
@@ -49,12 +49,11 @@ fun <T, R> _extractFeature(
             )
             assertionContainer
         }) { subject ->
-            val featureProvider = { featureExtraction(subject) }.evalOnce()
             val assertionContainer = coreFactory.newReportingAssertionContainer(
                 ReportingAssertionContainer.AssertionCheckerDecorator.createLazy(
                     description,
-                    { Some(featureProvider()) },
-                    { representationInsteadOfFeature ?: featureProvider() },
+                    { Some(subject) },
+                    { representationInsteadOfFeature ?: subject },
                     coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )
