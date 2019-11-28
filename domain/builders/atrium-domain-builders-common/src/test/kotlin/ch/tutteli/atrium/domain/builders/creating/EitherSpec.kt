@@ -5,6 +5,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.startsWith
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -63,8 +66,9 @@ fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
 private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ChangedSubjectPostStep<Either<A, B>, A> {
     return ExpectImpl.changeSubject(this).reportBuilder()
         .withDescriptionAndRepresentation("is a", RawString.create("Left"))
-        .withCheck { it.isLeft() }
-        .withTransformation { (it as Left).a }
+        .withTransformation {
+            if (it is Left) Some(it.a) else None
+        }
         .build()
 }
 
@@ -75,8 +79,9 @@ fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) 
 private fun <A, B> Expect<Either<A, B>>.changeToRight(): ChangedSubjectPostStep<Either<A, B>, B> {
     return ExpectImpl.changeSubject(this).reportBuilder()
         .withDescriptionAndRepresentation("is a", RawString.create("Right"))
-        .withCheck { it.isRight() }
-        .withTransformation { (it as Right).b }
+        .withTransformation {
+            if (it is Right) Some(it.b) else None
+        }
         .build()
 }
 
