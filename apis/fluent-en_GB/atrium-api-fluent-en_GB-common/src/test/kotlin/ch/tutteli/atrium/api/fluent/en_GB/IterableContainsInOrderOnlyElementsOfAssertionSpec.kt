@@ -2,12 +2,11 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
-import kotlin.reflect.KFunction3
 
 class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
     include(BuilderSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec  (
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
         getContainsPair(),
         getContainsNullablePair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
@@ -31,7 +30,6 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.elementsOf(listOf(a, *aX))
-
     }
 }
 

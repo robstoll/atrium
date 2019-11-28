@@ -10,7 +10,7 @@ import kotlin.test.Test
 /**
  * As there are bugs related to JsName in Kotlin we should test each to be sure that it works also during runtime.
  */
-class JsNameTest {
+class JsNameAmbiguityTest {
 
     @Test
     fun toBeNullable() {

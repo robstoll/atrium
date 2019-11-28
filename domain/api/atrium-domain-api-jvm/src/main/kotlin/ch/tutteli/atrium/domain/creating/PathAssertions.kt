@@ -23,8 +23,8 @@ interface PathAssertions {
     fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String>
     fun <T : Path> parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path>
 
-    fun <T: Path> startsWith(assertionContainer: Expect<T>, expected: Path): Assertion
-    fun <T: Path> startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion
+    fun <T : Path> startsWith(assertionContainer: Expect<T>, expected: Path): Assertion
+    fun <T : Path> startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion
     fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path): Assertion
     fun <T : Path> endsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion
 
