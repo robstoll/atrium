@@ -9,5 +9,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 interface ExactlyCheckerOption<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
     : CharSequenceContains.CheckerOption<T, S>

@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <T : Collection<*>> Assert<T>.hatDieGroesse(size: Int)
     = addAssertion(AssertImpl.collection.hasSize(this, size))
@@ -25,6 +26,7 @@ fun <T : Collection<*>> Assert<T>.hatDieGroesse(size: Int)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Collection<*>> Assert<T>.istLeer()
     = addAssertion(AssertImpl.collection.isEmpty(this))
 
@@ -34,6 +36,7 @@ fun <T : Collection<*>> Assert<T>.istLeer()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Collection<*>> Assert<T>.istNichtLeer()
     = addAssertion(AssertImpl.collection.isNotEmpty(this))
 
@@ -46,6 +49,7 @@ fun <T : Collection<*>> Assert<T>.istNichtLeer()
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size)
 
 /**
@@ -57,6 +61,7 @@ val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <E, T: Collection<E>> Assert<T>.size (assertionCreator: Assert<Int>.() -> Unit): Assert<T>
     = addAssertion(AssertImpl.collection.size(this, assertionCreator))

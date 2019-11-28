@@ -1,6 +1,7 @@
 description = 'Represents a convenience module which merely bundles dependencies for the JVM platform.'
 
 dependencies {
+    api prefixedProject('api-fluent-en_GB-jvm')
     api prefixedProject('verbs-jvm')
     api prefixedProject('api-cc-de_CH-jvm')
     api prefixedProject('translations-de_CH-jvm')
