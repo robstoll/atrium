@@ -25,6 +25,7 @@ import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month
+import java.time.MonthDay
 
 abstract class LocalDateFeatureAssertionsSpec(
     yearFeature: Feature0<LocalDate, Int>,
@@ -33,6 +34,8 @@ abstract class LocalDateFeatureAssertionsSpec(
     month: Fun1<LocalDate, Expect<Int>.() -> Unit>,
     dayOfWeekFeature: Feature0<LocalDate, DayOfWeek>,
     dayOfWeek: Fun1<LocalDate, Expect<DayOfWeek>.() -> Unit>,
+    dayFeature: Feature0<LocalDate, Int>,
+    day: Fun1<LocalDate,  Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -42,15 +45,18 @@ abstract class LocalDateFeatureAssertionsSpec(
         monthFeature.forSubjectLess().adjustName { "$it feature" },
         month.forSubjectLess { isLessThan(12) },
         dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
-        dayOfWeek.forSubjectLess { isLessOrEquals(DayOfWeek.SUNDAY) }
+        dayOfWeek.forSubjectLess { isLessOrEquals(DayOfWeek.SUNDAY) },
+        dayFeature.forSubjectLess().adjustName { "$it feature" },
+        day.forSubjectLess { isLessOrEquals(20) }
     ) {})
 
     include(object : AssertionCreatorSpec<LocalDate>(
-        describePrefix, LocalDate.ofYearDay(2040, 1),
+        describePrefix, LocalDate.ofYearDay(2040, 1).withDayOfMonth(13),
         year.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(2040) },
         month.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(1)},
-        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(DayOfWeek.SUNDAY)}
-    ) {})
+        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(DayOfWeek.FRIDAY)},
+        day.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(13)}
+        ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -59,6 +65,7 @@ abstract class LocalDateFeatureAssertionsSpec(
     val monthDescr = DescriptionDateTimeLikeAssertion.MONTH.getDefault()
     val yearDescr = DescriptionDateTimeLikeAssertion.YEAR.getDefault()
     val dayOfWeekDescr = DescriptionDateTimeLikeAssertion.DAY_OF_WEEK.getDefault()
+    val dayDescr = DescriptionDateTimeLikeAssertion.DAY.getDefault()
 
     describeFun("val ${yearFeature.name}") {
         val yearVal = yearFeature.lambda
@@ -157,6 +164,40 @@ abstract class LocalDateFeatureAssertionsSpec(
                     fluent.dayOfWeekFun { isLessThan(DayOfWeek.FRIDAY) }
                 }.toThrow<AssertionError> {
                     messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}" )
+                }
+            }
+        }
+    }
+
+    describeFun("val ${dayFeature.name}") {
+        val dayVal = dayFeature.lambda
+
+        context("LocalDate with day of month 13") {
+            it("toBe(13) holds") {
+                fluent.dayVal().toBe(13)
+            }
+            it("toBe(20) fails") {
+                expect {
+                    fluent.dayVal().toBe(20)
+                }.toThrow<AssertionError> {
+                    messageContains("expect: 2009-03-13" )
+                }
+            }
+        }
+    }
+
+    describeFun("fun ${day.name}") {
+        val dayOfMonthFun = day.lambda
+
+        context("LocalDate with day of month 13") {
+            it("is greater than 5 holds") {
+                fluent.dayOfMonthFun { isGreaterThan(5) }
+            }
+            it("is less than 5 fails") {
+                expect {
+                    fluent.dayOfMonthFun { isLessThan(5) }
+                }.toThrow<AssertionError> {
+                    messageContains("expect: 2009-03-13" )
                 }
             }
         }

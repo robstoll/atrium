@@ -6,6 +6,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.MonthDay
 
 class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.LocalDateFeatureAssertionsSpec(
     property<LocalDate, Int>(Expect<LocalDate>::year),
@@ -13,7 +14,9 @@ class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Local
     property<LocalDate, Int>(Expect<LocalDate>::month),
     fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::month),
     property<LocalDate, DayOfWeek>(Expect<LocalDate>::dayOfWeek),
-    fun1<LocalDate, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDate>::dayOfWeek)
+    fun1<LocalDate, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDate>::dayOfWeek),
+    property<LocalDate, Int>(Expect<LocalDate>::day),
+    fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::day)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -34,6 +37,11 @@ class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Local
         a2.dayOfWeek
         a1 = a1.dayOfWeek { }
         a2 = a2.dayOfWeek { }
+
+        a1.day
+        a2.day
+        a1 = a1.day { }
+        a2 = a2.day { }
     }
 }
 

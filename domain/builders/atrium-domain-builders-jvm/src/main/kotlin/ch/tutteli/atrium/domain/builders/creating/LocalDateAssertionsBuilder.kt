@@ -18,6 +18,7 @@ object LocalDateAssertionsBuilder : LocalDateAssertions {
 
     override inline fun <T: LocalDate> month(assertionContainer: Expect<T>) = localDateAssertions.month(assertionContainer)
 
-    override inline fun <T : LocalDate> dayOfWeek(assertionContainer: Expect<T>) =
-        localDateAssertions.dayOfWeek(assertionContainer)
+    override inline fun <T: LocalDate> day(assertionContainer: Expect<T>) = localDateAssertions.day(assertionContainer)
+
+    override inline fun <T : LocalDate> dayOfWeek(assertionContainer: Expect<T>) = localDateAssertions.dayOfWeek(assertionContainer)
 }

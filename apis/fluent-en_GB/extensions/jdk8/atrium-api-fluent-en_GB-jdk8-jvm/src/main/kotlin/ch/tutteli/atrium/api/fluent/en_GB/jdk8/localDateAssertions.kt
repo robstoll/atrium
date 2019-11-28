@@ -5,6 +5,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.localDate
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.MonthDay
 
 
 /**
@@ -73,3 +74,27 @@ val <T : LocalDate> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
  */
 fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.dayOfWeek(this).addToInitial(assertionCreator)
+
+
+/**
+ * Creates an [Expect] for the property [LocalDate.day][LocalDate.getDayOfMonth] of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ *
+ * @since 0.9.0
+ */
+val <T : LocalDate> Expect<T>.day get(): Expect<Int> =
+    ExpectImpl.localDate.day(this).getExpectOfFeature()
+
+/**
+ * Expects that the property [LocalDate.day][LocalDate.getDayOfMonth]of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : LocalDate> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+    ExpectImpl.localDate.day(this).addToInitial(assertionCreator)

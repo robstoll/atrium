@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.time.DayOfWeek
 import java.time.LocalDateTime
+import java.time.MonthDay
 
 /**
  * The access point to an implementation of [LocalDateTimeAssertions].
@@ -21,6 +22,8 @@ interface LocalDateTimeAssertions {
     fun <T: LocalDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
     fun <T: LocalDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T: LocalDateTime> day(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
     fun <T: LocalDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek>
 }
