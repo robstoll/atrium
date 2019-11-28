@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
@@ -108,10 +109,11 @@ private fun <E : Comparable<E>, T : Iterable<E>> collect(
     return ExpectImpl.feature.extractor(assertionContainer)
         .methodCall(method)
         .withRepresentationForFailure(NO_ELEMENTS)
-        .withCheck { it.iterator().hasNext() }
         .withFeatureExtraction {
-            it.collect() ?: throw IllegalStateException(
-                "Iterable does not haveNext() even though checked before! Concurrent access?"
-            )
+            Option.someIf(it.iterator().hasNext()) {
+                it.collect() ?: throw IllegalStateException(
+                    "Iterable does not haveNext() even though checked before! Concurrent access?"
+                )
+            }
         }.build()
 }

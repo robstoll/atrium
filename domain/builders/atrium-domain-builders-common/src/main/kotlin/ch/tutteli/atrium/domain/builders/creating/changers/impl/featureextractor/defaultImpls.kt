@@ -23,33 +23,23 @@ internal class RepresentationInCaseOfFailureStepImpl<T>(
     override val originalAssertionContainer: Expect<T>,
     override val description: Translatable
 ) : FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<T> {
-    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.CheckStep<T> =
-        FeatureExtractorBuilder.CheckStep.create(originalAssertionContainer, description, representation)
-}
-
-class CheckStepImpl<T>(
-    override val originalAssertionContainer: Expect<T>,
-    override val description: Translatable,
-    override val representationForFailure: Any
-) : FeatureExtractorBuilder.CheckStep<T> {
-
-    override fun withCheck(canBeTransformed: (T) -> Boolean): FeatureExtractorBuilder.FeatureExtractionStep<T> =
-        FeatureExtractorBuilder.FeatureExtractionStep.create(this, canBeTransformed)
+    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.FeatureExtractionStep<T> =
+        FeatureExtractorBuilder.FeatureExtractionStep.create(originalAssertionContainer, description, representation)
 }
 
 class FeatureExtractionStepImpl<T>(
-    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
-    override val canBeExtracted: (T) -> Boolean
+    override val originalAssertionContainer: Expect<T>,
+    override val description: Translatable,
+    override val representationForFailure: Any
 ) : FeatureExtractorBuilder.FeatureExtractionStep<T> {
 
-    override fun <R> withFeatureExtraction(extraction: (T) -> R): FeatureExtractorBuilder.OptionalRepresentationStep<T, R> =
-        FeatureExtractorBuilder.OptionalRepresentationStep.create(checkOption, canBeExtracted, extraction)
+    override fun <R> withFeatureExtraction(extraction: (T) -> Option<R>): FeatureExtractorBuilder.OptionalRepresentationStep<T, R> =
+        FeatureExtractorBuilder.OptionalRepresentationStep.create(this, extraction)
 }
 
 class OptionalRepresentationStepImpl<T, R>(
-    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
-    override val canBeExtracted: (T) -> Boolean,
-    override val featureExtraction: (T) -> R
+    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
+    override val featureExtraction: (T) -> Option<R>
 ) : FeatureExtractorBuilder.OptionalRepresentationStep<T, R> {
 
     override fun withRepresentationInsteadOfFeature(representation: Any): FeatureExtractorBuilder.FinalStep<T, R> =
@@ -59,22 +49,20 @@ class OptionalRepresentationStepImpl<T, R>(
 
     private fun createFinalStep(representation: Any?) =
         FeatureExtractorBuilder.FinalStep.create(
-            checkOption,
-            canBeExtracted,
+            featureExtractionStep,
             featureExtraction,
             representation
         )
 }
 
 class FinalStepImpl<T, R>(
-    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
-    override val canBeExtracted: (T) -> Boolean,
-    override val featureExtraction: (T) -> R,
+    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
+    override val featureExtraction: (T) -> Option<R>,
     override val representationInsteadOfFeature: Any?
 ) : FeatureExtractorBuilder.FinalStep<T, R> {
 
     override fun build(): ExtractedFeaturePostStep<T, R> =
-        ExtractedFeaturePostStep(checkOption.originalAssertionContainer,
+        ExtractedFeaturePostStep(featureExtractionStep.originalAssertionContainer,
             extract = { extractIt(this, None) },
             extractAndApply = { assertionCreator -> extractIt(this, Some(assertionCreator)) }
         )
@@ -82,9 +70,8 @@ class FinalStepImpl<T, R>(
     private fun extractIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
         featureExtractor.extract(
             expect,
-            checkOption.description,
-            checkOption.representationForFailure,
-            canBeExtracted,
+            featureExtractionStep.description,
+            featureExtractionStep.representationForFailure,
             featureExtraction,
             subAssertions,
             representationInsteadOfFeature

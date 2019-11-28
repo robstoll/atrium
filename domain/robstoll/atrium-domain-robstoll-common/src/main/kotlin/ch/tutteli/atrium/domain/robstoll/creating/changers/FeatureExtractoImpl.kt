@@ -12,15 +12,13 @@ class FeatureExtractorImpl : FeatureExtractor {
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representationForFailure: Any,
-        canBeExtracted: (T) -> Boolean,
-        featureExtraction: (T) -> R,
+        featureExtraction: (T) -> Option<R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>,
         representationInsteadOfFeature: Any?
     ): Expect<R> = _extractFeature(
         originalAssertionContainer,
         description,
         representationForFailure,
-        canBeExtracted,
         featureExtraction,
         maybeSubAssertions,
         representationInsteadOfFeature
