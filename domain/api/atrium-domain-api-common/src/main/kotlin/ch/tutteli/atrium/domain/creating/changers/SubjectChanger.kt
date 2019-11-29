@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -51,12 +53,13 @@ interface SubjectChanger {
 
 
     /**
-     * Changes to a new subject according to the given [transformation] but only if the current subject
-     * [canBeTransformed] to the new subject -- the change as such is reflected in reporting by the given
-     * [description] and [representation].
+     * Changes to a new subject according to the given [transformation] --
+     * the change as such is reflected in reporting by the given [description] and [representation].
      *
      * Explained a bit more in depth: it creates a new [Expect] incorporating the given [transformation]
      * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer].
+     * The [transformation] as such can either return the new subject wrapped in a [Some] or [None] in case
+     * the transformation cannot be carried out.
      *
      * This method is useful if you want to change the subject whereas the change as such is assertion like as well, so
      * that it should be reported as well. For instance, say you want to change the subject of type `Int?` to `Int`.
@@ -68,8 +71,8 @@ interface SubjectChanger {
      *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param description Describes the kind of subject change (e.g. in case of a type change `is a`).
      * @param representation Representation of the change (e.g. in case of a type transformation the KClass).
-     * @param canBeTransformed Indicates whether it is safe to transform to the new subject.
-     * @param transformation Provides the subject.
+     * @param transformation Provides the subject wrapped into a [Some] if the extraction as such can be carried out
+     *   otherwise [None].
      * @param failureHandler The [FailureHandler] which shall be used in case the subject cannot be transformed.
      *   A failure has the chance to augment the failing assertion representing the failed transformation with further
      *   information.
@@ -83,8 +86,7 @@ interface SubjectChanger {
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representation: Any,
-        canBeTransformed: (T) -> Boolean,
-        transformation: (T) -> R,
+        transformation: (T) -> Option<R>,
         failureHandler: FailureHandler<T, R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>
     ): Expect<R>

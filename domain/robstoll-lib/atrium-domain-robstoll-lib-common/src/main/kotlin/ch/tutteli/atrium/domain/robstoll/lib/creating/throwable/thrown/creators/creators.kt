@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
@@ -55,8 +56,7 @@ fun _notThrown(throwableThrownBuilder: ThrowableThrown.Builder): ChangedSubjectP
             DescriptionThrowableAssertion.IS_NOT_THROWN_1,
             RawString.create(DescriptionThrowableAssertion.IS_NOT_THROWN_2)
         )
-        .withCheck { it == null }
-        .withTransformation { it as Nothing? }
+        .withTransformation { Option.someIf(it == null) { it as Nothing? } }
         .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 15))
         .build()
 }
