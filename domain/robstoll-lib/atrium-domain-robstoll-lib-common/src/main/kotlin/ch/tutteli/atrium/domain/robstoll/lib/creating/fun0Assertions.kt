@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -37,7 +35,7 @@ fun <TExpected : Throwable> _isThrowing(
                 .build()
         }
 
-private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<R> =
+private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, R> =
     try {
         Right(act())
     } catch (throwable: Throwable) {
@@ -45,22 +43,6 @@ private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<R> =
         reporter.atriumErrorAdjuster.adjust(throwable)
         Left(throwable)
     }
-
-//TODO consider to move to core of Atrium
-private sealed class Either<out R> {
-
-    inline fun <T> map(f: (R) -> T): Either<T> = flatMap { Right(f(it)) }
-
-    inline fun <T> flatMap(f: (R) -> Either<T>): Either<T> = fold({ Left(it) }, f)
-
-    inline fun <T> fold(default: (Throwable) -> T, f: (R) -> T): T = when (this) {
-        is Right -> f(this.r)
-        is Left -> default(this.l)
-    }
-}
-
-private data class Left(val l: Throwable) : Either<Nothing>()
-private data class Right<R>(val r: R) : Either<R>()
 
 fun <R, T : () -> R> _isNotThrowing(assertionContainer: Expect<T>): ChangedSubjectPostStep<*, R> {
     return ExpectImpl.changeSubject(assertionContainer)
@@ -74,9 +56,9 @@ fun <R, T : () -> R> _isNotThrowing(assertionContainer: Expect<T>): ChangedSubje
                     if (it is Right) Some(it.r) else None
                 }
                 //TODO could be extracted into an own pattern/function FailureHandlerAdapter
-                .withFailureHandler(object : SubjectChanger.FailureHandler<Either<R>, R> {
+                .withFailureHandler(object : SubjectChanger.FailureHandler<Either<Throwable, R>, R> {
                     override fun createAssertion(
-                        originalAssertionContainer: Expect<Either<R>>,
+                        originalAssertionContainer: Expect<Either<Throwable, R>>,
                         descriptiveAssertion: Assertion,
                         maybeAssertionCreator: Option<Expect<R>.() -> Unit>
                     ): Assertion {
