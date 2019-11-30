@@ -4,6 +4,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.expectOld
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
@@ -60,7 +61,7 @@ abstract class ThrowableAssertionsSpec(
         pattern: String, vararg otherPatterns: String
     ) {
         expect {
-            expect { ({ throw throwable })() }.toThrowFun()
+            expectOld { ({ throw throwable })() }.toThrowFun()
         }.toThrow<AssertionError> {
             message { containsRegex(pattern, *otherPatterns) }
         }
@@ -82,7 +83,7 @@ abstract class ThrowableAssertionsSpec(
     describeFun(toThrow) {
         checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
             expect {
-                expect { ({ /* no exception occurs */ })() }.doToThrow()
+                expectOld { ({ /* no exception occurs */ })() }.doToThrow()
             }.toThrow<AssertionError> {
                 message {
                     contains.exactly(1).regex(
@@ -97,7 +98,7 @@ abstract class ThrowableAssertionsSpec(
         checkToThrow(
             "it allows to define assertions for the Throwable if the correct exception is thrown",
             { toThrowWithCheck ->
-                expect {
+                expectOld {
                     throw IllegalArgumentException("hello")
                 }.toThrowWithCheck()
             },
@@ -146,7 +147,7 @@ abstract class ThrowableAssertionsSpec(
 
         it("throws if no assertion is made") {
             expect {
-                expect {
+                expectOld {
                     throw IllegalArgumentException("hello")
                 }.toThrowFunLazy { }
             }.toThrow<AssertionError> {
@@ -163,7 +164,7 @@ abstract class ThrowableAssertionsSpec(
         val notToThrowFun = notToThrow.lambda
         context("no exception occurs") {
             it("does not throw") {
-                expect {}.notToThrowFun()
+                expectOld {}.notToThrowFun()
             }
         }
         context("exception is thrown") {

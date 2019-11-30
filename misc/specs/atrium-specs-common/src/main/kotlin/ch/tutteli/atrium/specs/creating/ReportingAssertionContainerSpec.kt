@@ -104,7 +104,7 @@ abstract class ReportingAssertionContainerSpec(
 
             context("in case of assertion which fails") {
                 context("throws an AssertionError") {
-                    fun expectFun(): ThrowableThrown.Builder {
+                    fun expectFun(): Expect<() -> Any?> {
                         val testee = createTestee()
                         return expect {
                             testee.failingFun()

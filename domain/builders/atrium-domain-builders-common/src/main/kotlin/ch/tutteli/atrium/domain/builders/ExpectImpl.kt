@@ -89,6 +89,12 @@ object ExpectImpl {
     inline val floatingPoint get() = FloatingPointAssertionsBuilder
 
     /**
+     * Returns [Fun0AssertionsBuilder] - [Assertion]s applicable to lambdas with arity 0
+     * which inter alia delegates to the implementation of [FloatingPointAssertions].
+     */
+    inline val fun0 get() = Fun0AssertionsBuilder
+
+    /**
      * Returns [IterableAssertionsBuilder].
      * which inter alia delegates to the implementation of [IterableAssertions].
      */

@@ -18,25 +18,35 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Creates an [Expect] for the given [subject].
  *
+ * @param subject The subject for which we are going to postulate assertions.
+ * @param representation Optional, use it in case you want to use a custom representation for the subject.
+ * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ *
  * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions = ExpectOptions()): Expect<T> =
+fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions? = null): Expect<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
-        .withOptions(options.merge(ExpectOptions(representation = representation?.let { RawString.create(it) })))
+        .withMaybeRepresentationAndMaybeOptions(representation, options)
         .build()
 
 /**
  * Creates an [Expect] for the given [subject] and [Expect.addAssertionsCreatedBy] the
- * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reported as a whole.
+ * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
+ *
+ * @param subject The subject for which we are going to postulate assertions.
+ * @param representation Optional, use it in case you want to use a custom representation for the subject.
+ * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ * @param assertionCreator Assertion group block with a non-fail fast behaviour.
  *
  * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> expect(
     subject: T,
     representation: String? = null,
-    options: ExpectOptions = ExpectOptions(),
+    options: ExpectOptions? = null,
     assertionCreator: Expect<T>.() -> Unit
 ): Expect<T> = expect(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
 
@@ -46,7 +56,40 @@ fun <T> expect(
  *
  * @return The newly created [ThrowableThrown.Builder].
  */
-fun expect(act: () -> Unit): ThrowableThrown.Builder = ExpectImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+fun expectOld(act: () -> Unit): ThrowableThrown.Builder =
+    ExpectImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+
+/**
+ * Creates an [Expect] with the given [act]-lambda as subject.
+ *
+ * @param act the subject for which we are going to postulate assertions.
+ * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ * @param representation Optional, use it in case you want to use a custom representation for the subject.
+ *
+ * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold.
+ */
+fun <R> expect(
+    options: ExpectOptions? = null,
+    representation: String? = null,
+    act: () -> R
+): Expect<() -> R> = expect(act, representation, options)
+
+/**
+ * Optimised version which only creates ExpectOptions if really required.
+ */
+fun <T> ExpectBuilder.OptionsStep<T>.withMaybeRepresentationAndMaybeOptions(
+    representation: String?, options: ExpectOptions?
+): ExpectBuilder.FinalStep<T> =
+    if (representation == null) {
+        if (options == null) this.withoutOptions()
+        else this.withOptions(options)
+    } else {
+        val representationOption = ExpectOptions(representation = RawString.create(representation))
+        if (options == null) this.withOptions(representationOption)
+        else this.withOptions(options.merge(representationOption))
+    }
+
 
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     EXPECT("expect"),

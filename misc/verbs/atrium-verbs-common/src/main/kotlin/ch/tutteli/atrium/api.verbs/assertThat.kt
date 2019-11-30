@@ -1,14 +1,11 @@
 package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT_THAT
-import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT_THAT_THROWN
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.reporting.reporter
 
 /**
  * Creates an [Expect] for the given [subject].
@@ -16,8 +13,9 @@ import ch.tutteli.atrium.reporting.reporter
  * @param subject The subject for which we are going to postulate assertions.
  * @param representation Optional, use it in case you want to use a custom representation for the subject.
  * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ *
  * @return The newly created assertion container.
- * @throws AssertionError in case an assertion does not hold
+ * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> assertThat(subject: T, representation: String? = null, options: ExpectOptions? = null): Expect<T> =
     ExpectBuilder.forSubject(subject)
@@ -32,9 +30,10 @@ fun <T> assertThat(subject: T, representation: String? = null, options: ExpectOp
  * @param subject The subject for which we are going to postulate assertions.
  * @param representation Optional, use it in case you want to use a custom representation for the subject.
  * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ *
  * @param assertionCreator Assertion group block with a non-fail fast behaviour.
  * @return The newly created assertion container.
- * @throws AssertionError in case an assertion does not hold
+ * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> assertThat(
     subject: T,
@@ -44,13 +43,20 @@ fun <T> assertThat(
 ): Expect<T> = assertThat(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
 
 /**
- * Creates a [ThrowableThrown.Builder] for the given function [act] which catches a potentially thrown [Throwable]
- * and allows to define an assertion for it.
+ * Creates an [Expect] with the given [act]-lambda as subject.
  *
- * @return The newly created [ThrowableThrown.Builder].
+ * @param act the subject for which we are going to postulate assertions.
+ * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
+ *
+ * @param representation Optional, use it in case you want to use a custom representation for the subject.
+ * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold.
  */
-fun assertThat(act: () -> Unit): ThrowableThrown.Builder =
-    ExpectImpl.throwable.thrownBuilder(ASSERT_THAT_THROWN, act, reporter)
+fun <R> assertThat(
+    options: ExpectOptions? = null,
+    representation: String? = null,
+    act: () -> R
+): Expect<() -> R> = assertThat(act, representation, options)
 
 @Deprecated(
     "`assertThat` should not be nested, use `feature` instead.",

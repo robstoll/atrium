@@ -123,8 +123,7 @@ interface FeatureExtractorBuilder {
 
     /**
      * Step to define the feature extraction as such where a one can include a check by returning [None] in case the
-     * extraction should not be carried out
-     *  to see whether the feature extraction is feasible or not.
+     * extraction should not be carried out.
      *
      * @param T the type of the current subject.
      */
