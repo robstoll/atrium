@@ -4,8 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.RawString
@@ -401,10 +401,12 @@ private fun Suite.testNonNullableCustomisation(assertionVerbFun: (Int, String?, 
     }
 }
 
-
-// does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
-private fun assert(act: () -> Unit) =
-    AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+// does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verb here
+private fun <R> assert(act: () -> R): Expect<() -> R> =
+    ExpectBuilder.forSubject(act)
+        .withVerb(AssertionVerb.EXPECT_THROWN)
+        .withOptions(ExpectOptions(reporter = AtriumReporterSupplier.REPORTER))
+        .build()
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {

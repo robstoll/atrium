@@ -52,6 +52,7 @@ fun <T> assertThat(
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
+//note the order of the parameters (options before representation) is this way to disambiguate calls
 fun <R> assertThat(
     options: ExpectOptions? = null,
     representation: String? = null,

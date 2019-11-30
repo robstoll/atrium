@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* will be remove with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.providers
 

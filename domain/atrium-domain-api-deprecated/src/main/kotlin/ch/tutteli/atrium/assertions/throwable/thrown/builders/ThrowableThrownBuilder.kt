@@ -2,7 +2,6 @@ package ch.tutteli.atrium.assertions.throwable.thrown.builders
 
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -21,6 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param act The function which is expected to throw a [Throwable].
  * @param reporter The reporter which will be used for a [CoreFactory.newThrowingAssertionChecker].
  */
+@Suppress("DEPRECATION")
 @Deprecated(
     "Use AssertImpl; will be removed with 1.0.0",
     ReplaceWith(
@@ -32,4 +32,4 @@ class ThrowableThrownBuilder(
     override val assertionVerb: Translatable,
     override val act: () -> Unit,
     override val reporter: Reporter
-) : ThrowableThrown.Builder
+) : ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder
