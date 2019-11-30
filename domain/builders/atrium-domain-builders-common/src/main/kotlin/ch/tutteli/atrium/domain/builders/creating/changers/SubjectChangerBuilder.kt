@@ -13,6 +13,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.RawString
@@ -211,6 +212,16 @@ interface SubjectChangerBuilder {
          * to create the failing assertion in case the subject change fails.
          */
         fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<T, R>): FinalStep<T, R>
+
+        /**
+         * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
+         * to create the failing assertion in case the subject change fails but previously maps the subject from
+         * [T] to [R1] as the failure handler only deals with [R1] subjects.
+         */
+        fun <R1> withFailureHandlerAdapter(
+            failureHandler: SubjectChanger.FailureHandler<R1, R>,
+            map: (T) -> R1
+        ): FinalStep<T, R> = withFailureHandler(FailureHandlerAdapter(failureHandler, map))
 
         /**
          * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
