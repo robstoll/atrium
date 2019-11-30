@@ -8,12 +8,9 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
-    getToThrowTriple(),
-    getNotThrownPair(),
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
-    fun2(Expect<Throwable>::messageContains),
-    "⚬ ", "» "
+    fun2(Expect<Throwable>::messageContains)
 ) {
 
     companion object {

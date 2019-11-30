@@ -55,9 +55,19 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
 
 
 /**
- * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without argument)
+ * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
  * and changes the subject of the assertion to the return value of type [R].
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> = ExpectImpl.fun0.isNotThrowing(this).getExpectOfFeature()
+
+/**
+ * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
+ * and that the corresponding return value holds all assertions the given [assertionCreator] creates.
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <R, T : () -> R> Expect<T>.notToThrow(
+    assertionCreator: Expect<R>.() -> Unit
+): Expect<R> = ExpectImpl.fun0.isNotThrowing(this).addToFeature(assertionCreator)
