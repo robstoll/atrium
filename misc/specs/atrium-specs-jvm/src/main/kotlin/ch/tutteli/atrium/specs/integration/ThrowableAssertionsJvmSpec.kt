@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.expectOld
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
@@ -50,7 +51,7 @@ abstract class ThrowableAssertionsJvmSpec(
         pattern: String, vararg otherPatterns: String
     ) {
         expect {
-            expect { ({ throw throwable })() }.toThrowFun()
+            expectOld { ({ throw throwable })() }.toThrowFun()
         }.toThrow<AssertionError> {
             message {
                 containsRegex(pattern, *otherPatterns)

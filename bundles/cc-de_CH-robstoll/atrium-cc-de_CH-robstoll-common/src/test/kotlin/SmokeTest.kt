@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt
 import ch.tutteli.atrium.api.cc.de_CH.wirft
 import ch.tutteli.atrium.api.cc.de_CH.wirftNichts
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -41,14 +40,14 @@ class SmokeTest {
 
     @Test
     fun assertAnExceptionOccurred() {
-        assertThat {
+        expect {
             throw IllegalArgumentException()
         }.wirft<IllegalArgumentException>{}
     }
 
     @Test
     fun assertAnExceptionWithAMessageOccurred() {
-        assertThat {
+        expect {
             throw IllegalArgumentException("oho... hello btw")
         }.wirft<IllegalArgumentException> {
             messageEnthaelt("hello")
@@ -57,7 +56,7 @@ class SmokeTest {
 
     @Test
     fun assertNotToThrow() {
-        assertThat {
+        expect {
 
         }.wirftNichts()
     }

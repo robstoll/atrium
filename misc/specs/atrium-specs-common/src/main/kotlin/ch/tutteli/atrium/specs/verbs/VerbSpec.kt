@@ -8,7 +8,6 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -25,7 +24,7 @@ abstract class VerbSpec(
     forNonNullable: Pair<String, (subject: Int, representation: String?, ExpectOptions) -> Expect<Int>>,
     forNonNullableCreator: Pair<String, (subject: Int, representation: String?, ExpectOptions, assertionCreator: Expect<Int>.() -> Unit) -> Expect<Int>>,
     forNullable: Pair<String, (subject: Int?, representation: String?, ExpectOptions) -> Expect<Int?>>,
-    forThrowable: Pair<String, (act: () -> Unit) -> ThrowableThrown.Builder>,
+    forThrowable: Pair<String, (act: () -> Any?, ExpectOptions, representation: String?) -> Expect<() -> Any?>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -178,8 +177,11 @@ abstract class VerbSpec(
     }
 
     prefixedDescribe("assertion verb '${forThrowable.first}' which deals with exceptions") {
+        val (_, assertionVerbFun) = forThrowable
+        fun assertionVerb(options: ExpectOptions = ExpectOptions(), representation: String? = null, act: () -> Any?) =
+            assertionVerbFun(act, options, representation)
+
         context("an IllegalArgumentException occurs") {
-            val (_, assertionVerb) = forThrowable
             it("does not throw an exception expecting an IllegalArgumentException") {
                 assertionVerb {
                     throw IllegalArgumentException("hello")
@@ -201,6 +203,8 @@ abstract class VerbSpec(
                 }
             }
         }
+
+        // customisations are not checked as it is assumed that this verb delegates to the verb forNonNullable
     }
 
 })
