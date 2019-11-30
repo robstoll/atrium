@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.providers
 
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown

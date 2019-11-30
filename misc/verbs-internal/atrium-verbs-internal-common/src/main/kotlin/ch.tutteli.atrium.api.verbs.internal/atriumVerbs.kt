@@ -1,18 +1,14 @@
 package ch.tutteli.atrium.api.verbs.internal
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
-import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
@@ -49,15 +45,6 @@ fun <T> expect(
     options: ExpectOptions? = null,
     assertionCreator: Expect<T>.() -> Unit
 ): Expect<T> = expect(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
-
-/**
- * Creates a [ThrowableThrown.Builder] for the given function [act] which catches a potentially thrown [Throwable]
- * and allows to define an assertion for it.
- *
- * @return The newly created [ThrowableThrown.Builder].
- */
-fun expectOld(act: () -> Unit): ThrowableThrown.Builder =
-    ExpectImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
 
 /**
  * Creates an [Expect] with the given [act]-lambda as subject.
