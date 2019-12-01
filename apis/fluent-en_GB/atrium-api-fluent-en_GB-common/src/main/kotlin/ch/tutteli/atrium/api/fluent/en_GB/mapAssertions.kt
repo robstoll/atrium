@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.kbox.glue
 
 /**
@@ -105,6 +106,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  *
  * @return The newly created [Expect] for the feature.
  */
+//hm... what shall we do now? adding featureOptions: FeatureOptions<Set<K>>? = null, is not possible this way, no more vals but only fun?
 val <K, T : Map<out K, *>> Expect<T>.keys get() : Expect<Set<K>> = keys(this).getExpectOfFeature()
 
 /**
@@ -114,10 +116,14 @@ val <K, T : Map<out K, *>> Expect<T>.keys get() : Expect<Set<K>> = keys(this).ge
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
-    keys(this).addToInitial(assertionCreator)
+fun <K, V, T : Map<out K, V>> Expect<T>.keys(
+    featureOptions: FeatureOptions<Set<K>>? = null,
+    assertionCreator: Expect<Set<K>>.() -> Unit
+): Expect<T> =
+    keys(this, featureOptions).addToInitial(assertionCreator)
 
-private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.property(e, Map<out K, *>::keys)
+private fun <K, T : Map<out K, *>> keys(expect: Expect<T>, featureOptions: FeatureOptions<Set<K>>?) =
+    ExpectImpl.feature.property(expect, Map<out K, *>::keys, featureOptions)
 
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of the assertion,

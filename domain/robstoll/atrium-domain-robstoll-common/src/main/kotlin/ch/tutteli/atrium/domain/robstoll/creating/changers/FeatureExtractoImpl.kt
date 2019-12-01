@@ -14,7 +14,7 @@ class FeatureExtractorImpl : FeatureExtractor {
         representationForFailure: Any,
         featureExtraction: (T) -> Option<R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-        representationInsteadOfFeature: Any?
+        representationInsteadOfFeature: ((R) -> Any)?
     ): Expect<R> = _extractFeature(
         originalAssertionContainer,
         description,

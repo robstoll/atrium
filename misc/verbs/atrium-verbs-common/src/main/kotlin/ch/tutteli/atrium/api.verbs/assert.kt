@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.verbs
 import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
@@ -17,7 +18,7 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> assert(subject: T, representation: String? = null, options: ExpectOptions? = null): Expect<T> =
+fun <T> assert(subject: T, representation: String? = null, options: ExpectOptions? = null): ReportingAssertionContainer<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(ASSERT)
         .withMaybeRepresentationAndMaybeOptions(representation, options)
@@ -40,7 +41,7 @@ fun <T> assert(
     representation: String? = null,
     options: ExpectOptions? = null,
     assertionCreator: Expect<T>.() -> Unit
-): Expect<T> = assert(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
+): ReportingAssertionContainer<T> = assert(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
 
 /**
  * Creates an [Expect] with the given [act]-lambda as subject.
@@ -57,7 +58,7 @@ fun <R> assert(
     options: ExpectOptions? = null,
     representation: String? = null,
     act: () -> R
-): Expect<() -> R> = assert(act, representation, options)
+): ReportingAssertionContainer<() -> R> = assert(act, representation, options)
 
 @Deprecated(
     "`assert` should not be nested, use `feature` instead.",

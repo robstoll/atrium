@@ -16,7 +16,7 @@ fun <T, R> _extractFeature(
     representationForFailure: Any,
     featureExtraction: (T) -> Option<R>,
     maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-    representationInsteadOfFeature: Any?
+    representationInsteadOfFeature: ((R) -> Any)?
 ): Expect<R> {
 
     return originalAssertionContainer.maybeSubject
@@ -53,7 +53,7 @@ fun <T, R> _extractFeature(
                 ReportingAssertionContainer.AssertionCheckerDecorator.createLazy(
                     description,
                     { Some(subject) },
-                    { representationInsteadOfFeature ?: subject },
+                    { representationInsteadOfFeature?.invoke(subject) ?: subject },
                     coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
                     RawString.NULL
                 )

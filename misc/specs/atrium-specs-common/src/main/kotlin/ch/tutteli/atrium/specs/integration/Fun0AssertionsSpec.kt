@@ -98,9 +98,8 @@ abstract class Fun0AssertionsSpec(
             }.toThrow<AssertionError> {
                 message {
                     contains.exactly(1).regex(
-                        "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: null",
-                        //TODO requires that we can change nullRepresentations for features
-//                        DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                        "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
+                            DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
                         "$isADescr: ${IllegalArgumentException::class.simpleName}"
                     )
                 }

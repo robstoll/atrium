@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
@@ -12,6 +13,6 @@ fun <T, R> _genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeatu
         .withDescription(metaFeature.description)
         .withRepresentationForFailure(representation)
         .withFeatureExtraction { metaFeature.maybeSubject }
-        .withRepresentationInsteadOfFeature(representation)
+        .withOptions(FeatureOptions(representationInsteadOfFeature = metaFeature.representationInsteadOfFeature))
         .build()
 }

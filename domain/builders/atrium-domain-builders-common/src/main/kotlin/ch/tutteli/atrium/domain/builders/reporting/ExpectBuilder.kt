@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.builders.reporting
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.OptionsChooserImpl
@@ -170,7 +171,7 @@ interface ExpectBuilder {
         /**
          * Creates a new [Expect] based on the previously defined maybeOptions.
          */
-        fun build(): Expect<T>
+        fun build(): ReportingAssertionContainer<T>
 
         companion object {
             fun <T> create(
@@ -200,8 +201,8 @@ data class ExpectOptions(
      * Merges the given [options] with this object creating a new [ExpectOptions]
      * where defined properties in [options] will have precedence over properties defined in this instance.
      *
-     * For instance, this object has defined [representation] (meaning it is [Some]) and the given [options] as well,
-     * then the resulting [ExpectOptions] will have the [representation] of [options].
+     * For instance, this object has defined [representation] (meaning it is not `null`) and
+     * the given [options] as well, then the resulting [ExpectOptions] will have the [representation] of [options].
      */
     fun merge(options: ExpectOptions): ExpectOptions =
         ExpectOptions(

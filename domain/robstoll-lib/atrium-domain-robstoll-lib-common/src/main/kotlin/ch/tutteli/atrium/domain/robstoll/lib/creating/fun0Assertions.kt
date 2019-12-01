@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.Left
 import ch.tutteli.atrium.core.Right
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString
@@ -16,9 +17,10 @@ fun <TExpected : Throwable> _isThrowing(
     assertionContainer: Expect<out () -> Any?>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<*, TExpected> =
-    //TODO allow to pass an ExpectOptions which allows to change the nullRepresentation.
     ExpectImpl.feature
-        .manualFeature(assertionContainer, THROWN_EXCEPTION_WHEN_CALLED) {
+        .manualFeature(assertionContainer, THROWN_EXCEPTION_WHEN_CALLED, FeatureOptions {
+            withSubjectBasedRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) }
+        }) {
             catchAndAdjustThrowable(this).fold(
                 { it },
                 {

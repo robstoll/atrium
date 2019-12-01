@@ -47,10 +47,27 @@ interface NewFeatureAssertions {
  * @property representation The representation of the feature, in most cases the value behind the feature.
  * @property maybeSubject The feature as such where it is [Some] in case the extraction was successful or [None] if it
  *   was not.
+ * @property representationInsteadOfFeature The feature as such where it is [Some] in case the extraction was successful or [None] if it
+ *   was not.
  */
-data class MetaFeature<T>(val description: Translatable, val representation: Any?, val maybeSubject: Option<T>) {
-    constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
-        this(Untranslatable(description), representation, maybeSubject)
+data class MetaFeature<T>(
+    val description: Translatable,
+    val representation: Any?,
+    val maybeSubject: Option<T>,
+    val representationInsteadOfFeature: ((T) -> Any)?
+) {
+    constructor(
+        description: String,
+        representation: Any?,
+        maybeSubject: Option<T>,
+        representationInsteadOfFeature: ((T) -> Any)?
+    ) :
+        this(Untranslatable(description), representation, maybeSubject, representationInsteadOfFeature)
 
-    constructor(description: String, subject: T) : this(description, subject, Some(subject))
+    constructor(description: String, subject: T, representationInsteadOfFeature: ((T) -> Any)?) : this(
+        description,
+        subject,
+        Some(subject),
+        representationInsteadOfFeature
+    )
 }

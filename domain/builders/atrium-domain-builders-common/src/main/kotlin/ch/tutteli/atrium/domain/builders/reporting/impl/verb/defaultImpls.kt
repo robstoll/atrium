@@ -22,10 +22,10 @@ class OptionsStepImpl<T>(
     override val assertionVerb: Translatable
 ) : ExpectBuilder.OptionsStep<T> {
 
-    override fun withOptions(expectOptions: ExpectOptions): ExpectBuilder.FinalStep<T> = toFinalStep(expectOptions)
-    override fun withoutOptions(): ExpectBuilder.FinalStep<T> = toFinalStep(null)
+    override fun withOptions(expectOptions: ExpectOptions): ExpectBuilder.FinalStep<T> = createFinalStep(expectOptions)
+    override fun withoutOptions(): ExpectBuilder.FinalStep<T> = createFinalStep(null)
 
-    private fun toFinalStep(expectOptions: ExpectOptions?) =
+    private fun createFinalStep(expectOptions: ExpectOptions?) =
         ExpectBuilder.FinalStep.create(maybeSubject, assertionVerb, expectOptions)
 }
 

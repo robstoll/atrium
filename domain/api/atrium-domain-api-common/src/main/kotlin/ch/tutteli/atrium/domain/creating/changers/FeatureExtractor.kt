@@ -57,6 +57,6 @@ interface FeatureExtractor {
         representationForFailure: Any,
         featureExtraction: (T) -> Option<R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-        representationInsteadOfFeature: Any? = null
+        representationInsteadOfFeature: ((R) -> Any)? = null
     ): Expect<R>
 }

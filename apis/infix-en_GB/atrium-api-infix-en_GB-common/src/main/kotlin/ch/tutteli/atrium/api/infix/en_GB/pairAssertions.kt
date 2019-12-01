@@ -18,7 +18,7 @@ val <K, T : Pair<K, *>> Expect<T>.first get() : Expect<K> = ExpectImpl.pair.firs
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
+fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Unit, a: Int = 1): Expect<T> =
     ExpectImpl.pair.first(this).addToInitial(assertionCreator)
 
 /**

@@ -12,6 +12,10 @@ enum class DescriptionThrowableAssertion(override val value: String) : StringBas
         ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_A")
     )
     IS_A("is a"),
+    @Deprecated(
+        "use DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED")
+    )
     NO_EXCEPTION_OCCURRED("no exception occurred"),
     OCCURRED_EXCEPTION_CAUSE("cause"),
     OCCURRED_EXCEPTION_PROPERTIES("Properties of the unexpected %s"),
