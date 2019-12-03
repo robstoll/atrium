@@ -12,6 +12,8 @@ class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Local
     fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::year),
     property<LocalDate, Int>(Expect<LocalDate>::month),
     fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::month),
+    property<LocalDate, Int>(Expect<LocalDate>::day),
+    fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::day),
     property<LocalDate, DayOfWeek>(Expect<LocalDate>::dayOfWeek),
     fun1<LocalDate, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDate>::dayOfWeek)
 ) {
@@ -34,6 +36,11 @@ class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Local
         a2.dayOfWeek
         a1 = a1.dayOfWeek { }
         a2 = a2.dayOfWeek { }
+
+        a1.day
+        a2.day
+        a1 = a1.day { }
+        a2 = a2.day { }
     }
 }
 
