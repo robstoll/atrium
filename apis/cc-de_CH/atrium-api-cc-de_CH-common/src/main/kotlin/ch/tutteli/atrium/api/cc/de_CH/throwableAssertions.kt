@@ -23,6 +23,7 @@ import kotlin.jvm.JvmName
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
     @Suppress("DEPRECATION")
     AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
@@ -36,6 +37,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(noinlin
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun ThrowableThrown.Builder.wirftNichts() {
     @Suppress("DEPRECATION")
     AssertImpl.throwable.thrown.nothingThrown(this)
@@ -53,6 +55,7 @@ fun ThrowableThrown.Builder.wirftNichts() {
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(Throwable::message).istNichtNull(assertionCreator)
 }
@@ -73,6 +76,7 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or does not contain [expected] or [otherExpected].
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Throwable> Assert<T>.messageEnthaelt(expected: Any, vararg otherExpected: Any) {
     message { enthaelt(expected, *otherExpected) }
 }

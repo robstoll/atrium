@@ -24,15 +24,13 @@ class SubjectChangerImpl : SubjectChanger {
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representation: Any,
-        canBeTransformed: (T) -> Boolean,
-        transformation: (T) -> R,
+        transformation: (T) -> Option<R>,
         failureHandler: SubjectChanger.FailureHandler<T, R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>
     ): Expect<R> = _changeSubject(
         originalAssertionContainer,
         description,
         representation,
-        canBeTransformed,
         transformation,
         failureHandler,
         maybeSubAssertions

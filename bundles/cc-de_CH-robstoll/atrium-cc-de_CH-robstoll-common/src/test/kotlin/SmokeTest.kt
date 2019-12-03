@@ -1,12 +1,15 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 import ch.tutteli.atrium.api.cc.de_CH.ist
 import ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt
 import ch.tutteli.atrium.api.cc.de_CH.wirft
 import ch.tutteli.atrium.api.cc.de_CH.wirftNichts
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -18,7 +21,7 @@ class SmokeTest {
     fun toBe_canBeUsed() {
         expect(1).ist(1)
         expect {
-            expect(1).ist(2)
+            expect(1).asExpect().toBe(2)
         }.wirft<AssertionError> {
             //check that correct translation is used
             messageEnthaelt("ist: 2")

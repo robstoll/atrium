@@ -17,6 +17,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import kotlin.reflect.KClass
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
 
 /**
  * Defines the contract for sophisticated `change subject` processes.
@@ -113,8 +116,9 @@ interface SubjectChangerBuilder {
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter next to `: Any` we should restrict TSub : T & Any
         fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerOption<T, TSub> =
             withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
-                .withCheck { subType.isInstance(it) }
-                .withTransformation { subType.cast(it) }
+                .withTransformation {
+                    Option.someIf( subType.isInstance(it) ){  subType.cast(it) }
+               }
 
         /**
          * Uses the given [description] and [representation] to represent the change by delegating to the other overload
@@ -122,7 +126,7 @@ interface SubjectChangerBuilder {
          *
          * See the other overload for further information.
          */
-        fun withDescriptionAndRepresentation(description: String, representation: Any?): CheckStep<T> =
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): TransformationStep<T> =
             withDescriptionAndRepresentation(Untranslatable(description), representation)
 
         /**
@@ -134,7 +138,7 @@ interface SubjectChangerBuilder {
          * Notice, if you want to use text (e.g. a [String]) as [representation],
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
-        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): CheckStep<T>
+        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): TransformationStep<T>
 
         companion object {
             /**
@@ -147,12 +151,12 @@ interface SubjectChangerBuilder {
     }
 
     /**
-     * Step which allows to specify checks which should be consulted to see whether the subject change is
-     * feasible or not.
+     * Step to define the transformation which yields the new subject wrapped into a [Some] if the transformation
+     * as such can be carried out or [None].
      *
      * @param T the type of the current subject.
      */
-    interface CheckStep<T> {
+    interface TransformationStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
@@ -169,52 +173,19 @@ interface SubjectChangerBuilder {
         val representation: Any
 
         /**
-         * Defines when the current subject can be transformed to the new one.
-         */
-        fun withCheck(canBeTransformed: (T) -> Boolean): TransformationStep<T>
-
-        companion object {
-            /**
-             * Creates a [CheckStep] in the context of the [SubjectChangerBuilder].
-             */
-            fun <T> create(
-                originalAssertionContainer: Expect<T>,
-                description: Translatable,
-                representation: Any
-            ): CheckStep<T> = CheckStepImpl(originalAssertionContainer, description, representation)
-        }
-    }
-
-    /**
-     * Step to define the transformation which yields the new subject.
-     *
-     * @param T the type of the current subject.
-     */
-    interface TransformationStep<T> {
-        /**
-         * The so far chosen options up to but not inclusive the [CheckStep] step.
-         */
-        val checkStep: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can transform the current subject
-         * to the new one or not.
-         */
-        val canBeTransformed: (T) -> Boolean
-
-        /**
          * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
-        fun <R> withTransformation(transformation: (T) -> R): FailureHandlerOption<T, R>
+        fun <R> withTransformation(transformation: (T) -> Option<R>): FailureHandlerOption<T, R>
 
         companion object {
             /**
              * Creates a [TransformationStep] in the context of the [SubjectChangerBuilder].
              */
             fun <T> create(
-                checkStep: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean
-            ): TransformationStep<T> = TransformationStepImpl(checkStep, canBeTransformed)
+                originalAssertionContainer: Expect<T>,
+                description: Translatable,
+                representation: Any
+            ): TransformationStep<T> = TransformationStepImpl(originalAssertionContainer, description, representation)
         }
     }
 
@@ -226,20 +197,14 @@ interface SubjectChangerBuilder {
      */
     interface FailureHandlerOption<T, R> {
         /**
-         * The so far chosen options up to the [CheckStep] step.
+         * The so far chosen options up to the [TransformationStep] step.
          */
-        val checkStep: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can transform the current subject
-         * to the new one or not.
-         */
-        val canBeTransformed: (T) -> Boolean
+        val transformationStep: TransformationStep<T>
 
         /**
          * The previously specified new subject.
          */
-        val transformation: (T) -> R
+        val transformation: (T) -> Option<R>
 
         /**
          * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
@@ -249,7 +214,7 @@ interface SubjectChangerBuilder {
 
         /**
          * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
-         * [CheckStep.description] and [CheckStep.representation] and includes the assertions
+         * [TransformationStep.description] and [TransformationStep.representation] and includes the assertions
          * a given assertionCreator lambda would create.
          */
         fun withDefaultFailureHandler(): FinalStep<T, R>
@@ -265,10 +230,9 @@ interface SubjectChangerBuilder {
              * Creates a [FailureHandlerOption] in the context of the [SubjectChangerBuilder].
              */
             fun <T, R> create(
-                checkStep: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R
-            ): FailureHandlerOption<T, R> = FailureHandlerOptionImpl(checkStep, canBeTransformed, transformation)
+                transformationStep: TransformationStep<T>,
+                transformation: (T) -> Option<R>
+            ): FailureHandlerOption<T, R> = FailureHandlerOptionImpl(transformationStep, transformation)
         }
     }
 
@@ -281,20 +245,14 @@ interface SubjectChangerBuilder {
      */
     interface FinalStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckStep] step.
+         * The so far chosen options up to the [TransformationStep] step.
          */
-        val checkStep: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can transform the current subject
-         * to the new one or not.
-         */
-        val canBeTransformed: (T) -> Boolean
+        val transformationStep: TransformationStep<T>
 
         /**
          * The previously specified new subject.
          */
-        val transformation: (T) -> R
+        val transformation: (T) -> Option<R>
 
         /**
          * The previously specified [SubjectChanger.FailureHandler].
@@ -314,11 +272,10 @@ interface SubjectChangerBuilder {
              * Creates the [FinalStep] in the context of the [SubjectChangerBuilder].
              */
             fun <T, R> create(
-                checkStep: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R,
+                transformationStep: TransformationStep<T>,
+                transformation: (T) -> Option<R>,
                 failureHandler: SubjectChanger.FailureHandler<T, R>
-            ): FinalStep<T, R> = FinalStepImpl(checkStep, canBeTransformed, transformation, failureHandler)
+            ): FinalStep<T, R> = FinalStepImpl(transformationStep, transformation, failureHandler)
         }
     }
 }

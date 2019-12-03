@@ -17,6 +17,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <K : Any> Assert<Pair<K, *>>.first get() : Assert<K> = property(Pair<K, *>::first)
 
 /**
@@ -28,6 +29,8 @@ val <K : Any> Assert<Pair<K, *>>.first get() : Assert<K> = property(Pair<K, *>::
  *
  * @return The newly created [AssertionPlant].
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <K> Assert<Pair<K, *>>.first get() : AssertionPlantNullable<K> = property(Pair<K, *>::first)
 
 
@@ -40,6 +43,7 @@ val <K> Assert<Pair<K, *>>.first get() : AssertionPlantNullable<K> = property(Pa
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit)
     = addAssertion(AssertImpl.pair.first(this, assertionCreator))
@@ -53,6 +57,7 @@ fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <V : Any> Assert<Pair<*, V>>.second get() : Assert<V> = property(Pair<*, V>::second)
 
 /**
@@ -64,6 +69,8 @@ val <V : Any> Assert<Pair<*, V>>.second get() : Assert<V> = property(Pair<*, V>:
  *
  * @return The newly created [AssertionPlant].
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <V> Assert<Pair<*, V>>.second get() : AssertionPlantNullable<V> = property(Pair<*, V>::second)
 
 
@@ -76,6 +83,7 @@ val <V> Assert<Pair<*, V>>.second get() : AssertionPlantNullable<V> = property(P
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <K, V: Any> Assert<Pair<K, V>>.second(assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.pair.second(this, assertionCreator))

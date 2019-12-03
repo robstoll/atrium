@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.builders.creating.changers
 
-import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor.*
 import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
@@ -92,14 +91,14 @@ interface FeatureExtractorBuilder {
         /**
          * Uses [translatable] as representation which will be used in case the extraction cannot be performed.
          */
-        fun withRepresentationForFailure(translatable: Translatable): CheckStep<T> =
+        fun withRepresentationForFailure(translatable: Translatable): FeatureExtractionStep<T> =
             withRepresentationForFailure(RawString.create(translatable))
 
         /**
          * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
          * to get the representation which will be used in case the extraction cannot be performed.
          */
-        fun withRepresentationForFailure(representationProvider: () -> Any?): CheckStep<T> =
+        fun withRepresentationForFailure(representationProvider: () -> Any?): FeatureExtractionStep<T> =
             withRepresentationForFailure(LazyRepresentation(representationProvider))
 
         /**
@@ -108,7 +107,7 @@ interface FeatureExtractorBuilder {
          * Notice, if you want to use text (e.g. a [String]), then wrap it into a [RawString] via [RawString.create]
          * and pass the [RawString] instead.
          */
-        fun withRepresentationForFailure(representation: Any): CheckStep<T>
+        fun withRepresentationForFailure(representation: Any): FeatureExtractionStep<T>
 
         companion object {
             /**
@@ -123,12 +122,13 @@ interface FeatureExtractorBuilder {
     }
 
     /**
-     *  Step which allows to specify a check which should be consulted
+     * Step to define the feature extraction as such where a one can include a check by returning [None] in case the
+     * extraction should not be carried out
      *  to see whether the feature extraction is feasible or not.
      *
      * @param T the type of the current subject.
      */
-    interface CheckStep<T> {
+    interface FeatureExtractionStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
          */
@@ -146,52 +146,25 @@ interface FeatureExtractorBuilder {
         val representationForFailure: Any
 
         /**
-         * Defines whether the feature can be extracted or not.
-         */
-        fun withCheck(canBeTransformed: (subject: T) -> Boolean): FeatureExtractionStep<T>
-
-        companion object {
-            /**
-             * Creates a [CheckStep] in the context of the [FeatureExtractorBuilder].
-             */
-            fun <T> create(
-                originalAssertionContainer: Expect<T>,
-                description: Translatable,
-                representationForFailure: Any
-            ): CheckStep<T> = CheckStepImpl(originalAssertionContainer, description, representationForFailure)
-        }
-    }
-
-    /**
-     * Step to define the feature extraction as such.
-     *
-     * @param T the type of the current subject.
-     */
-    interface FeatureExtractionStep<T> {
-        /**
-         * The so far chosen options up to but not inclusive the [CheckStep] step.
-         */
-        val checkOption: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can extract the feature or not.
-         */
-        val canBeExtracted: (subject: T) -> Boolean
-
-        /**
          * Defines the feature extraction as such which is most likely based on the current subject
          * (but does not need to be).
+         *
+         * @param extraction A function returning either [Some] with the corresponding feature or [None] in case the
+         *   extraction cannot be carried out.
          */
-        fun <R> withFeatureExtraction(extraction: (subject: T) -> R): OptionalRepresentationStep<T, R>
+        fun <R> withFeatureExtraction(extraction: (subject: T) -> Option<R>): OptionalRepresentationStep<T, R>
 
         companion object {
             /**
              * Creates a [FeatureExtractionStep] in the context of the [FeatureExtractorBuilder].
              */
             fun <T> create(
-                checkOption: CheckStep<T>,
-                canBeTransformed: (subject: T) -> Boolean
-            ): FeatureExtractionStep<T> = FeatureExtractionStepImpl(checkOption, canBeTransformed)
+                originalAssertionContainer: Expect<T>,
+                description: Translatable,
+                representationForFailure: Any
+            ): FeatureExtractionStep<T> = FeatureExtractionStepImpl(
+                originalAssertionContainer, description, representationForFailure
+            )
         }
     }
 
@@ -203,19 +176,14 @@ interface FeatureExtractorBuilder {
      */
     interface OptionalRepresentationStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckStep] step.
+         * The so far chosen options up to the [FeatureExtractionStep] step.
          */
-        val checkOption: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can extract the feature or not.
-         */
-        val canBeExtracted: (T) -> Boolean
+        val featureExtractionStep: FeatureExtractionStep<T>
 
         /**
          * The previously specified feature extraction lambda.
          */
-        val featureExtraction: (T) -> R
+        val featureExtraction: (T) -> Option<R>
 
         /**
          * Uses the given [representation] to represent the feature instead of using the feature itself.
@@ -238,11 +206,10 @@ interface FeatureExtractorBuilder {
              * Creates a [OptionalRepresentationStep] in the context of the [FeatureExtractorBuilder].
              */
             fun <T, R> create(
-                checkOption: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R
+                featureExtractionStep: FeatureExtractionStep<T>,
+                featureExtraction: (T) -> Option<R>
             ): OptionalRepresentationStep<T, R> = OptionalRepresentationStepImpl(
-                checkOption, canBeTransformed, transformation
+                featureExtractionStep, featureExtraction
             )
         }
     }
@@ -256,20 +223,14 @@ interface FeatureExtractorBuilder {
      */
     interface FinalStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckStep] step.
+         * The so far chosen options up to the [FeatureExtractionStep] step.
          */
-        val checkOption: CheckStep<T>
+        val featureExtractionStep: FeatureExtractionStep<T>
 
         /**
-         * The previously specified lambda which indicates whether we can transform the current subject
-         * to the new one or not.
+         * The previously specified feature extraction lambda.
          */
-        val canBeExtracted: (T) -> Boolean
-
-        /**
-         * The previously specified new subject.
-         */
-        val featureExtraction: (T) -> R
+        val featureExtraction: (T) -> Option<R>
 
         /**
          * The previously specified representation which shall be used instead of the future as such -- `null` means
@@ -290,12 +251,11 @@ interface FeatureExtractorBuilder {
              * Creates the [FinalStep] in the context of the [FeatureExtractorBuilder].
              */
             fun <T, R> create(
-                checkOption: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R,
+                featureExtractionStep: FeatureExtractionStep<T>,
+                featureExtraction: (T) -> Option<R>,
                 representationInsteadOfFeature: Any?
             ): FinalStep<T, R> = FinalStepImpl(
-                checkOption, canBeTransformed, transformation, representationInsteadOfFeature
+                featureExtractionStep, featureExtraction, representationInsteadOfFeature
             )
         }
     }

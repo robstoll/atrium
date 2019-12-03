@@ -118,25 +118,6 @@ dependencies {
 ```
 <hr/>
 </details>
-
-<details>
-<summary>click to see how the setup for the fluent API in German looks like</summary>
-
-```
-buildscript {
-    ext { atrium_version='0.9.0-alpha' }
-}
-repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
-}
-dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-fluent-de_CH:$atrium_version"
-}
-```
-<hr/>
-</details>
 <br/>
 
 *maven*:  
@@ -2128,7 +2109,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/apis/fluent-de_CH/atrium-api-fluent-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -2160,7 +2141,7 @@ It does not matter if you use your [own assertion verb](#use-own-assertion-verbs
 You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
 This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
 and by calling `registerService` on JS where the call has to be before your tests run.  
-An example for JVM is given in [atriumVerbs.kt of atrium-api-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/apis/fluent-de_CH/atrium-api-fluent-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+An example for JVM is given in [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt).
 An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
@@ -2193,7 +2174,8 @@ so that it could be replaced (with zero performance cost) by another language re
 For instance,
 [atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
 uses `atrium-translations-en_GB-common` whereas 
-[atrium-fluent-de_CH-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
+tests of 
+[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 uses `atrium-translations-de_CH-common`.  
 
 <details>
@@ -2321,20 +2303,18 @@ A service could also reuse parts of the `Implementation`
 
 <a name="apis"></a>
 # API Styles
-Atrium supports currently two API styles: pure `fluent` and `infix` 
-where `fluent` exists in English and German; `infix` only in English.
-All have their design focus on interoperability with code completion functionality of your IDE 
+Atrium supports currently two API styles: pure `fluent` and `infix`.
+Both have their design focus on interoperability with code completion functionality of your IDE 
 -- so that you can let your IDE do some of the work.
 
 Atrium is 
 [built up by different modules](https://docs.atriumlib.org/latest#/doc/) 
 and it is your choice which implementation you want to use. 
 However, this is more intended for advanced user with special requirements.
-Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
+Atrium provides bundle modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
 - [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 
 Have a look at 
@@ -2421,8 +2401,9 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+- [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
-Deprecated APIS:
+Deprecated APIs:
 - [atrium-api-cc-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
 - [atrium-api-cc-de_CH](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-d-e/index.html)
 - [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)

@@ -1,6 +1,7 @@
 description = 'Represents a convenience module which merely bundles dependencies for Android.'
 
 dependencies {
+    api prefixedProject('api-fluent-en_GB-android')
     api prefixedProject('verbs-android')
     api prefixedProject('api-cc-de_CH-android')
     api prefixedProject('translations-de_CH-android')

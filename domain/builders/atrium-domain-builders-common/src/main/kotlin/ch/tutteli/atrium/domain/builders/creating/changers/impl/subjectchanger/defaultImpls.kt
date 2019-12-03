@@ -32,65 +32,56 @@ class DescriptionRepresentationStepImpl<T>(
     override fun withDescriptionAndRepresentation(
         description: Translatable,
         representation: Any?
-    ): SubjectChangerBuilder.CheckStep<T> = SubjectChangerBuilder.CheckStep.create(
+    ): SubjectChangerBuilder.TransformationStep<T> = SubjectChangerBuilder.TransformationStep.create(
         originalAssertionContainer,
         description,
         representation ?: RawString.NULL
     )
 }
 
-class CheckStepImpl<T>(
+class TransformationStepImpl<T>(
     override val originalAssertionContainer: Expect<T>,
     override val description: Translatable,
     override val representation: Any
-) : SubjectChangerBuilder.CheckStep<T> {
-
-    override fun withCheck(canBeTransformed: (T) -> Boolean): SubjectChangerBuilder.TransformationStep<T> =
-        SubjectChangerBuilder.TransformationStep.create(this, canBeTransformed)
-}
-
-class TransformationStepImpl<T>(
-    override val checkStep: SubjectChangerBuilder.CheckStep<T>,
-    override val canBeTransformed: (T) -> Boolean
 ) : SubjectChangerBuilder.TransformationStep<T> {
 
-    override fun <R> withTransformation(transformation: (T) -> R): SubjectChangerBuilder.FailureHandlerOption<T, R> =
-        SubjectChangerBuilder.FailureHandlerOption.create(checkStep, canBeTransformed, transformation)
+    override fun <R> withTransformation(
+        transformation: (T) -> Option<R>
+    ): SubjectChangerBuilder.FailureHandlerOption<T, R> =
+        SubjectChangerBuilder.FailureHandlerOption.create(this, transformation)
 }
 
 class FailureHandlerOptionImpl<T, R>(
-    override val checkStep: SubjectChangerBuilder.CheckStep<T>,
-    override val canBeTransformed: (T) -> Boolean,
-    override val transformation: (T) -> R
+    override val transformationStep: SubjectChangerBuilder.TransformationStep<T>,
+    override val transformation: (T) -> Option<R>
 ) : SubjectChangerBuilder.FailureHandlerOption<T, R> {
 
     override fun withFailureHandler(
         failureHandler: SubjectChanger.FailureHandler<T, R>
     ): SubjectChangerBuilder.FinalStep<T, R> =
-        SubjectChangerBuilder.FinalStep.create(checkStep, canBeTransformed, transformation, failureHandler)
+        SubjectChangerBuilder.FinalStep.create(transformationStep, transformation, failureHandler)
 
     override fun withDefaultFailureHandler(): SubjectChangerBuilder.FinalStep<T, R> =
         withFailureHandler(DefaultFailureHandlerImpl())
 }
 
 class FinalStepImpl<T, R>(
-    override val checkStep: SubjectChangerBuilder.CheckStep<T>,
-    override val canBeTransformed: (T) -> Boolean,
-    override val transformation: (T) -> R,
+    override val transformationStep: SubjectChangerBuilder.TransformationStep<T>,
+    override val transformation: (T) -> Option<R>,
     override val failureHandler: SubjectChanger.FailureHandler<T, R>
 ) : SubjectChangerBuilder.FinalStep<T, R> {
 
-    override fun build(): ChangedSubjectPostStep<T, R> = ChangedSubjectPostStep(checkStep.originalAssertionContainer,
-        transform = { transformIt(this, None) },
-        transformAndApply = { assertionCreator -> transformIt(this, Some(assertionCreator)) }
-    )
+    override fun build(): ChangedSubjectPostStep<T, R> =
+        ChangedSubjectPostStep(transformationStep.originalAssertionContainer,
+            transform = { transformIt(this, None) },
+            transformAndApply = { assertionCreator -> transformIt(this, Some(assertionCreator)) }
+        )
 
     private fun transformIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
         subjectChanger.reported(
             expect,
-            checkStep.description,
-            checkStep.representation,
-            canBeTransformed,
+            transformationStep.description,
+            transformationStep.representation,
             transformation,
             failureHandler,
             subAssertions

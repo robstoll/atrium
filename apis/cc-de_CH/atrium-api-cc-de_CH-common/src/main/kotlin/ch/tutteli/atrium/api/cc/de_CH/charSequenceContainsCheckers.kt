@@ -21,6 +21,7 @@ import kotlin.jvm.JvmName
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.zumindest(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -39,6 +40,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.z
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [genau] restriction instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.aberHoechstens(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -53,6 +55,7 @@ fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.aberHoech
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.genau(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -72,6 +75,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.g
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.hoechstens(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -86,5 +90,6 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.h
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.nichtOderHoechstens(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)

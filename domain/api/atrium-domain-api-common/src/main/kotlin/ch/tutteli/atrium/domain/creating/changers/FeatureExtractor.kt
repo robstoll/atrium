@@ -2,7 +2,9 @@
 
 package ch.tutteli.atrium.domain.creating.changers
 
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
@@ -28,7 +30,7 @@ val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
 interface FeatureExtractor {
 
     /**
-     * Extracts a feature according to the given [featureExtraction] if it [canBeExtracted], creates an [Expect] for the
+     * Extracts a feature according to the given [featureExtraction], creates an [Expect] for the
      * new subject and applies [maybeSubAssertions] in case they are specified.
      *
      *
@@ -37,8 +39,8 @@ interface FeatureExtractor {
      *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param description Describes the feature
      * @param representationForFailure Representation in case the extraction cannot be carried out.
-     * @param canBeExtracted Indicates whether it is safe to extract the feature.
-     * @param featureExtraction Extracts the feature.
+     * @param featureExtraction Extracts the feature where it returns the feature wrapped into a [Some] if the
+     *   extraction as such can be carried out, otherwise [None].
      * @param maybeSubAssertions Optionally, subsequent assertions for the feature (the new subject).
      *   This is especially useful if the extraction cannot be carried out, because this way we can then already
      *   show to you (in error reporting) what you wanted to assert about the feature (which gives you more context to
@@ -53,8 +55,7 @@ interface FeatureExtractor {
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representationForFailure: Any,
-        canBeExtracted: (T) -> Boolean,
-        featureExtraction: (T) -> R,
+        featureExtraction: (T) -> Option<R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>,
         representationInsteadOfFeature: Any? = null
     ): Expect<R>

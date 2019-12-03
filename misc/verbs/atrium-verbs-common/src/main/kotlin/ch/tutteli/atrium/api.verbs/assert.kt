@@ -8,7 +8,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
 
 /**
