@@ -32,10 +32,10 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
     year: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
     monthFeature: Feature0<ZonedDateTime, Int>,
     month: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
-    dayOfWeekFeature: Feature0<ZonedDateTime, DayOfWeek>,
-    dayOfWeek: Fun1<ZonedDateTime, Expect<DayOfWeek>.() -> Unit>,
     dayFeature: Feature0<ZonedDateTime, Int>,
     day: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
+    dayOfWeekFeature: Feature0<ZonedDateTime, DayOfWeek>,
+    dayOfWeek: Fun1<ZonedDateTime, Expect<DayOfWeek>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -44,18 +44,18 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
         year.forSubjectLess { isGreaterThan(2000) },
         monthFeature.forSubjectLess().adjustName { "$it feature" },
         month.forSubjectLess { isLessThan(12) },
-        dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
-        dayOfWeek.forSubjectLess { isLessOrEquals(DayOfWeek.SUNDAY) },
         dayFeature.forSubjectLess().adjustName { "$it feature" },
-        day.forSubjectLess { isLessOrEquals(20) }
+        day.forSubjectLess { isLessOrEquals(20) },
+        dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
+        dayOfWeek.forSubjectLess { isLessOrEquals(DayOfWeek.SUNDAY) }
     ) {})
 
     include(object : AssertionCreatorSpec<ZonedDateTime>(
         describePrefix, ZonedDateTime.now().withYear(2040).withDayOfYear(1).withDayOfMonth(15),
         year.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(2040) },
         month.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(1)},
-        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(DayOfWeek.SUNDAY)},
-        day.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(15)}
+        day.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(15)},
+        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(DayOfWeek.SUNDAY)}
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -136,6 +136,40 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
         }
     }
 
+    describeFun("val ${dayFeature.name}") {
+        val dayVal = dayFeature.lambda
+
+        context("LocalDate with day of month 15") {
+            it("toBe(15) holds") {
+                fluent.dayVal().toBe(15)
+            }
+            it("toBe(20) fails") {
+                expect {
+                    fluent.dayVal().toBe(20)
+                }.toThrow<AssertionError> {
+                    messageContains("$dayDescr: 15" )
+                }
+            }
+        }
+    }
+
+    describeFun("fun ${day.name}") {
+        val dayOfMonthFun = day.lambda
+
+        context("LocalDate with day of month 15") {
+            it("is greater than 5 holds") {
+                fluent.dayOfMonthFun { isGreaterThan(5) }
+            }
+            it("is less than 5 fails") {
+                expect {
+                    fluent.dayOfMonthFun { isLessThan(5) }
+                }.toThrow<AssertionError> {
+                    messageContains("$dayDescr: 15" )
+                }
+            }
+        }
+    }
+
     describeFun("val ${dayOfWeekFeature.name}") {
         val dayOfWeekVal = dayOfWeekFeature.lambda
 
@@ -165,40 +199,6 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
                     fluent.dayOfWeekFun { isLessThan(DayOfWeek.FRIDAY) }
                 }.toThrow<AssertionError> {
                     messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}" )
-                }
-            }
-        }
-    }
-
-    describeFun("val ${dayFeature.name}") {
-        val dayVal = dayFeature.lambda
-
-        context("LocalDate with day of month 15") {
-            it("toBe(15) holds") {
-                fluent.dayVal().toBe(15)
-            }
-            it("toBe(20) fails") {
-                expect {
-                    fluent.dayVal().toBe(20)
-                }.toThrow<AssertionError> {
-                    messageContains("expect: 2009-05-15T11:24:56.831+05:30" )
-                }
-            }
-        }
-    }
-
-    describeFun("fun ${day.name}") {
-        val dayOfMonthFun = day.lambda
-
-        context("LocalDate with day of month 13") {
-            it("is greater than 5 holds") {
-                fluent.dayOfMonthFun { isGreaterThan(5) }
-            }
-            it("is less than 5 fails") {
-                expect {
-                    fluent.dayOfMonthFun { isLessThan(5) }
-                }.toThrow<AssertionError> {
-                    messageContains("expect: 2009-05-15T11:24:56.831+05:30" )
                 }
             }
         }

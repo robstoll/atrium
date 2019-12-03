@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.zonedDateTime
 import java.time.DayOfWeek
-import java.time.MonthDay
 import java.time.ZonedDateTime
 
 /**
