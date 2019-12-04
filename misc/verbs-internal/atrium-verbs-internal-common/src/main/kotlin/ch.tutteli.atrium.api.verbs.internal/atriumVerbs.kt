@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.verbs.internal
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
@@ -21,7 +22,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions? = null): Expect<T> =
+fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions? = null): RootExpect<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
         .withMaybeRepresentationAndMaybeOptions(representation, options)
@@ -60,7 +61,7 @@ fun <R> expect(
     options: ExpectOptions? = null,
     representation: String? = null,
     act: () -> R
-): Expect<() -> R> = expect(act, representation, options)
+): RootExpect<() -> R> = expect(act, representation, options)
 
 /**
  * Optimised version which only creates ExpectOptions if really required.

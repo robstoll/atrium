@@ -84,5 +84,4 @@ interface Expect<T> : SubjectProvider<T> {
      */
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
-
 }

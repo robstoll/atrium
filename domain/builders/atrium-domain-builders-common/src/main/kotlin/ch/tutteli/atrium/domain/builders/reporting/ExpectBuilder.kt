@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.builders.reporting
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.OptionsChooserImpl
@@ -170,7 +171,7 @@ interface ExpectBuilder {
         /**
          * Creates a new [Expect] based on the previously defined maybeOptions.
          */
-        fun build(): Expect<T>
+        fun build(): RootExpect<T>
 
         companion object {
             fun <T> create(
