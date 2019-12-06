@@ -103,8 +103,12 @@ which provides a pure fluent API (in en_GB) for the JVM platform.
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
-The new infix API is not yet available
-in 0.9.0-alpha. Please use the old API in the meantime. Following an example:
+
+The new infix API is not yet available in 0.9.0-alpha. 
+[Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
+In bringing the new infix API forward is appreciated.
+
+Please use the old API in the meantime. Following an example:
 
 ```
 buildscript {
