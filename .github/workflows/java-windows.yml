@@ -8,7 +8,7 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                java_version: [9, 10, 12]
+                java_version: [9, 10, 12, 13]
 
         steps:
             -   uses: actions/checkout@v1
