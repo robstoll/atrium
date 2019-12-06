@@ -103,9 +103,12 @@ which provides a pure fluent API (in en_GB) for the JVM platform.
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
+The new infix API is not yet available
+in 0.9.0-alpha. Please use the old API in the meantime. Following an example:
+
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='0.8.0' }
 }
 repositories {
     jcenter()
@@ -113,7 +116,7 @@ repositories {
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version"
 }
 ```
 <hr/>
