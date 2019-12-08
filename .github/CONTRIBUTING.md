@@ -76,7 +76,7 @@ Following a small guidance how we suggest to start.
    We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/)
    and install the following plugins:
    - EditorConfig by JetBrains (might be already activated)
-   - Spek Framework by Spek Team 
+   - Spek by Ranie Jade Ramiso
 3. Import the project (import the build.gradle -> import as project, works more reliable)
 4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gr build` 
    This builds the project (compile, run tests etc) via gradle (notice, we renamed `gradlew` to `gr`, more convenient no?) 
