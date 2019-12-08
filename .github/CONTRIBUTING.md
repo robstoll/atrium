@@ -82,6 +82,12 @@ Following a small guidance how we suggest to start.
    This builds the project (compile, run tests etc) via gradle (notice, we renamed `gradlew` to `gr`, more convenient no?) 
 5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
 
+Note: IntelliJ requires a few workarounds.
+- IntelliJ may warn you about duplicate content roots.
+  Simply ignore it (IntelliJ doesn't support it).
+- IntelliJ may warn you about a Symbol being declared in an unnamed module.
+  This is an IntelliJ bug, and can be worked around by using JDK 8, which you can switch to in File &rarr; Project Structure &rarr; Project &rarr; Project SDK.
+
 Perfect, you are setup and ready to go. 
 Have a look at [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 where [good first issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
