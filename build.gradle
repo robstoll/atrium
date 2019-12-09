@@ -338,11 +338,11 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
             doLast {
                 services.write("""\
                 @file:Suppress("DEPRECATION")
-                
+
                 package $packageName
-    
+
                 import ch.tutteli.atrium.core.polyfills.registerService
-                
+
                 @Suppress("unused" /* here in order that the code is executed when module is loaded */)
                 private val register = run {
             """.stripIndent())
@@ -373,6 +373,7 @@ createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.rob
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
         'ch.tutteli.atrium.domain.creating.OptionalAssertions',
         'ch.tutteli.atrium.domain.creating.PathAssertions',
+        'ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
         'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions',
