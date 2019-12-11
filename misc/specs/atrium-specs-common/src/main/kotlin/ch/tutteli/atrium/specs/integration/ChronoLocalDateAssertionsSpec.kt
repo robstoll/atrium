@@ -12,13 +12,13 @@ abstract class ChronoLocalDateAssertionsSpec(
 //    isBefore: Fun1<Int, Int>,
 //    isBeforeOrEquals: Fun1<Int, Int>,
 //    isAfter: Fun1<Int, Int>,
-    isAfterOrEquals: Fun1<Int, Int>,
+    isAfterOrEquals: Fun0<ChronoLocalDate>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Int>(
         describePrefix,
-        isAfterOrEquals.forSubjectLess(1)
+        isAfterOrEquals.forSubjectLess()
     ) {})
 
     val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS
