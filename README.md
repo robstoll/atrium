@@ -2524,7 +2524,10 @@ for further suggestions and guidelines.
 We like to thank the following sponsors for their support:
 - [Tegonal GmbH](https://tegonal.com) for sponsoring Support and PR-Review time.
 
-Want to become a sponsor as well? Please ping @robstoll in the Slack-Channel (GitHub Sponsors will be added in the future)
+Want to become a sponsor as well? Great, have a look at the following GitHub sponsor profiles:
+- [robstoll](https://github.com/sponsors/robstoll) (Author and main contributor)
+
+or ping @robstoll in the Slack-Channel if you would like to support the project in another way.
 
 # License
 Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
