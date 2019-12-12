@@ -33,10 +33,9 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions): Expect<T> = coreFacto
         options.assertionVerb ?: this.config.description,
         this.maybeSubject,
         options.representation ?: this.config.representation,
-        //TODO #280  reporter should be configurable as well
+        //TODO #280 reporter should be configurable as well
         coreFactory.newThrowingAssertionChecker(options.reporter ?: reporter),
-        //TODO #279 remove nullRepresentation from options -> can be dealt with on ObjectFormatter, no need for an extra property I guess
-        options.nullRepresentation ?: RawString
+        RawString.NULL
     )
 )
 

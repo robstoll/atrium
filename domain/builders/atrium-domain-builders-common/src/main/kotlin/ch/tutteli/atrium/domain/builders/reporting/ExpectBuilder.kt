@@ -196,13 +196,11 @@ interface ExpectBuilder {
  *
  * @property assertionVerb Defines a custom assertion verb if not null.
  * @property representation Defines a custom representation for the subject if not null.
- * @property nullRepresentation Defines a custom representation for `null` if not null.
  * @property reporter Defines a custom reporter if not null.
  */
 data class ExpectOptions(
     val assertionVerb: Translatable? = null,
     val representation: Any? = null,
-    val nullRepresentation: Any? = null,
     val reporter: Reporter? = null
 ) {
     /**
@@ -216,7 +214,6 @@ data class ExpectOptions(
         ExpectOptions(
             options.assertionVerb ?: assertionVerb,
             options.representation ?: representation,
-            options.nullRepresentation ?: nullRepresentation,
             options.reporter ?: reporter
         )
 }
