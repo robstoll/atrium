@@ -19,4 +19,4 @@ class ChangedSubjectPostStep<T, R>(
     assertionContainer: Expect<T>,
     transform: Expect<T>.() -> Expect<R>,
     transformAndApply: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>
-) : PostFinalStep<T, R>(assertionContainer, transform, transformAndApply)
+) : PostFinalStep<T, R, Expect<R>>(assertionContainer, transform, transformAndApply)

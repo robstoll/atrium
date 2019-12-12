@@ -115,5 +115,7 @@ private fun <E : Comparable<E>, T : Iterable<E>> collect(
                     "Iterable does not haveNext() even though checked before! Concurrent access?"
                 )
             }
-        }.build()
+        }
+        .withoutOptions()
+        .build()
 }

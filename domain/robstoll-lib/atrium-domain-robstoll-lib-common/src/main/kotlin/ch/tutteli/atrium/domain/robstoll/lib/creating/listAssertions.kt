@@ -18,4 +18,5 @@ fun <E, T : List<E>> _get(assertionContainer: Expect<T>, index: Int): ExtractedF
         .withFeatureExtraction {
             Option.someIf(index < it.size) { it[index] }
         }
+        .withoutOptions()
         .build()

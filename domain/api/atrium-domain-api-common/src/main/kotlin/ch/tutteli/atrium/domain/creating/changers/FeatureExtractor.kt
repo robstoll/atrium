@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -57,6 +58,6 @@ interface FeatureExtractor {
         representationForFailure: Any,
         featureExtraction: (T) -> Option<R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-        representationInsteadOfFeature: Any? = null
-    ): Expect<R>
+        representationInsteadOfFeature: ((R) -> Any)? = null
+    ): FeatureExpect<T, R>
 }

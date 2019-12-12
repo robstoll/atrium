@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
@@ -16,7 +17,7 @@ import kotlin.reflect.*
  *
  * @since 0.9.0
  */
-fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): Expect<R> =
+fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.property(this, property).getExpectOfFeature()
 
 /**
@@ -45,7 +46,7 @@ fun <T, R> Expect<T>.feature(
  *
  * @since 0.9.0
  */
-fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): Expect<R> =
+fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.f0(this, f).getExpectOfFeature()
 
 /**
@@ -78,7 +79,7 @@ fun <T, R> Expect<T>.feature(
 fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1
-): Expect<R> = ExpectImpl.feature.f1(this, f, a1).getExpectOfFeature()
+): FeatureExpect<T, R> = ExpectImpl.feature.f1(this, f, a1).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1]
@@ -112,7 +113,7 @@ fun <T, A1, R> Expect<T>.feature(
 fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2
-): Expect<R> = ExpectImpl.feature.f2(this, f, a1, a2).getExpectOfFeature()
+): FeatureExpect<T, R> = ExpectImpl.feature.f2(this, f, a1, a2).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2]
@@ -146,7 +147,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
 fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3
-): Expect<R> = ExpectImpl.feature.f3(this, f, a1, a2, a3).getExpectOfFeature()
+): FeatureExpect<T, R> = ExpectImpl.feature.f3(this, f, a1, a2, a3).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3]
@@ -180,7 +181,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4
-): Expect<R> = ExpectImpl.feature.f4(this, f, a1, a2, a3, a4).getExpectOfFeature()
+): FeatureExpect<T, R> = ExpectImpl.feature.f4(this, f, a1, a2, a3, a4).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4]
@@ -214,7 +215,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
-): Expect<R> = ExpectImpl.feature.f5(this, f, a1, a2, a3, a4, a5).getExpectOfFeature()
+): FeatureExpect<T, R> = ExpectImpl.feature.f5(this, f, a1, a2, a3, a4, a5).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4], [a5]
@@ -248,7 +249,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  *
  * @since 0.9.0
  */
-fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): Expect<R> =
+fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureExpect<T, R> =
     ExpectImpl.feature.manualFeature(this, description, provider).getExpectOfFeature()
 
 /**
@@ -287,7 +288,7 @@ fun <T, R> Expect<T>.feature(
  *
  * @since 0.9.0
  */
-fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): Expect<R> =
+fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
     extractFeature(provider).getExpectOfFeature()
 
 /**

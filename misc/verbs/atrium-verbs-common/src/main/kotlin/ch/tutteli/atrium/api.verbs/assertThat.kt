@@ -11,16 +11,14 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
  * Creates an [Expect] for the given [subject].
  *
  * @param subject The subject for which we are going to postulate assertions.
- * @param representation Optional, use it in case you want to use a custom representation for the subject.
- * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
  *
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> assertThat(subject: T, representation: String? = null, options: ExpectOptions? = null): Expect<T> =
+fun <T> assertThat(subject: T): Expect<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(ASSERT_THAT)
-        .withMaybeRepresentationAndMaybeOptions(representation, options)
+        .withoutOptions()
         .build()
 
 /**
@@ -28,36 +26,12 @@ fun <T> assertThat(subject: T, representation: String? = null, options: ExpectOp
  * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
  *
  * @param subject The subject for which we are going to postulate assertions.
- * @param representation Optional, use it in case you want to use a custom representation for the subject.
- * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
- *
  * @param assertionCreator Assertion group block with a non-fail fast behaviour.
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> assertThat(
-    subject: T,
-    representation: String? = null,
-    options: ExpectOptions? = null,
-    assertionCreator: Expect<T>.() -> Unit
-): Expect<T> = assertThat(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
-
-/**
- * Creates an [Expect] with the given [act]-lambda as subject.
- *
- * @param act the subject for which we are going to postulate assertions.
- * @param options Optional, use it in case you want to tweak the resulting [Expect], for instance, use another reporter.
- *
- * @param representation Optional, use it in case you want to use a custom representation for the subject.
- * @return The newly created assertion container.
- * @throws AssertionError in case an assertion does not hold.
- */
-//note the order of the parameters (options before representation) is this way to disambiguate calls
-fun <R> assertThat(
-    options: ExpectOptions? = null,
-    representation: String? = null,
-    act: () -> R
-): Expect<() -> R> = assertThat(act, representation, options)
+fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    assertThat(subject).addAssertionsCreatedBy(assertionCreator)
 
 @Deprecated(
     "`assertThat` should not be nested, use `feature` instead.",

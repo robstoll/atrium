@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.builders.reporting
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.OptionsChooserImpl
@@ -119,6 +120,13 @@ interface ExpectBuilder {
         fun withVerb(verb: Translatable)
 
         /**
+         * Wraps the given [representation] into a [RawString] and uses it as representation of the subject
+         * instead of the so far defined representation (which defaults to the subject as such).
+         */
+        @Suppress("PublicApiImplicitType" /* fine withRepresentation defines it */)
+        fun withTextRepresentation(representation: String) = withRepresentation(RawString.create(representation))
+
+        /**
          * Uses the given [representation] as representation of the subject instead of using the subject as such to
          * represent itself.
          *
@@ -133,6 +141,7 @@ interface ExpectBuilder {
          * Notice, if you want to use text (e.g. a [String]) as representation,
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
          */
+        //TODO #279 remove
         fun withNullRepresentation(representation: Any)
 
         /**
@@ -170,7 +179,7 @@ interface ExpectBuilder {
         /**
          * Creates a new [Expect] based on the previously defined maybeOptions.
          */
-        fun build(): Expect<T>
+        fun build(): RootExpect<T>
 
         companion object {
             fun <T> create(

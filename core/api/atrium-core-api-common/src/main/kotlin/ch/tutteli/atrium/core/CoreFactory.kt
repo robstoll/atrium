@@ -100,6 +100,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion container.
      */
+    //TODO #280 remove, should no longer be necessary once we have newRootExpect without AssertionChecker
     fun <T> newDelegatingReportingAssertionContainer(
         originalAssertionHolder: AssertionHolder,
         maybeSubject: Option<T>
@@ -123,6 +124,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion container.
      */
+    //TODO #280 rename to newRootExpect
     fun <T> newReportingAssertionContainer(
         assertionVerb: Translatable,
         maybeSubject: Option<T>,
@@ -200,9 +202,19 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion container.
      */
+    //TODO #280 rename to newRootExpect and change to config
     fun <T> newReportingAssertionContainer(
         assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
     ): ReportingAssertionContainer<T>
+
+
+    //TODO #280 add KDoc
+    fun <T, R> newFeatureExpect(
+        previousExpect: Expect<T>,
+        maybeSubject: Option<R>,
+        featureConfig: FeatureExpectConfig,
+        assertions: List<Assertion>
+    ): FeatureExpect<T, R>
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -222,7 +234,6 @@ interface CoreFactoryCommon {
     fun <T : Any> newReportingPlant(
         commonFields: AssertionPlantWithCommonFields.CommonFields<T>
     ): ReportingAssertionPlant<T>
-
 
     /**
      * Creates a [ReportingAssertionPlant] which [AssertionPlant.addAssertionsCreatedBy] the

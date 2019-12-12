@@ -3,8 +3,8 @@ package ch.tutteli.atrium.domain.builders.reporting.impl.verb
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.RawString
@@ -35,7 +35,7 @@ class FinalStepImpl<T>(
     override val options: ExpectOptions?
 ) : ExpectBuilder.FinalStep<T> {
 
-    override fun build(): Expect<T> =
+    override fun build(): RootExpect<T> =
         coreFactory.newReportingAssertionContainer(
             ReportingAssertionContainer.AssertionCheckerDecorator.create(
                 options?.assertionVerb ?: assertionVerb,

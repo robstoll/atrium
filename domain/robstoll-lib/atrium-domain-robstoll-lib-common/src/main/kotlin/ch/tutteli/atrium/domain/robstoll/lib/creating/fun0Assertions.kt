@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
+import ch.tutteli.atrium.api.fluent.en_GB.withOptions
 import ch.tutteli.atrium.core.Either
 import ch.tutteli.atrium.core.Left
 import ch.tutteli.atrium.core.Right
@@ -16,7 +17,6 @@ fun <TExpected : Throwable> _isThrowing(
     assertionContainer: Expect<out () -> Any?>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<*, TExpected> =
-    //TODO allow to pass an ExpectOptions which allows to change the nullRepresentation.
     ExpectImpl.feature
         .manualFeature(assertionContainer, THROWN_EXCEPTION_WHEN_CALLED) {
             catchAndAdjustThrowable(this).fold(
@@ -28,6 +28,7 @@ fun <TExpected : Throwable> _isThrowing(
             )
         }
         .getExpectOfFeature()
+        .withOptions { withSubjectBasedRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) } }
         .let {
             ExpectImpl.changeSubject(it).reportBuilder()
                 .downCastTo(expectedType)

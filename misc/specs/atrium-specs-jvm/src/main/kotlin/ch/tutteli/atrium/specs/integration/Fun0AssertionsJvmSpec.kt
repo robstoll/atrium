@@ -44,7 +44,7 @@ abstract class Fun0AssertionsJvmSpec(
     ) {
         expect {
             val act: () -> R = { throw throwable }
-            expect(act = act).toThrowFun()
+            expect(act).toThrowFun()
         }.toThrow<AssertionError> {
             message { containsRegex(pattern, *otherPatterns) }
         }
@@ -62,8 +62,6 @@ abstract class Fun0AssertionsJvmSpec(
         "\\s+\\Q$explanationBulletPoint\\E$messageDescr: \"$message\".*$separator" +
             "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
             "\\s+\\Q$listBulletPoint\\E${Fun0AssertionsJvmSpec::class.fullName}"
-
-
 
     describeFun("${toThrowFeature.name} feature and ${toThrow.name}") {
         val toThrowFeatureFun = toThrowFeature.lambda
