@@ -45,16 +45,6 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
 @Deprecated("Will be removed with 1.0.0")
 object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
-    override inline fun <TExpected : Throwable> isA(
-        throwableThrownBuilder: ThrowableThrown.Builder,
-        expectedType: KClass<TExpected>
-    ) = throwableThrownAssertions.isA(throwableThrownBuilder, expectedType)
-
-    override inline fun notThrown(
-        throwableThrownBuilder: ThrowableThrown.Builder
-    ): ChangedSubjectPostStep<Throwable?, Nothing?> = throwableThrownAssertions.notThrown(throwableThrownBuilder)
-
-
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override inline fun <TExpected : Throwable> toBe(
