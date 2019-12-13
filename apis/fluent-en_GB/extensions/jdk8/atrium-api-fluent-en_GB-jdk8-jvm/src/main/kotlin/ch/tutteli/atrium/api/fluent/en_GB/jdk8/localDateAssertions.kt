@@ -1,3 +1,5 @@
+@file:Suppress("FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */)
+
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect

@@ -1,3 +1,5 @@
+@file:Suppress("FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
