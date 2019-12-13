@@ -89,3 +89,10 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
         assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
     )
 )
+
+inline fun <reified E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+) : Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed"}
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
