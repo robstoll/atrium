@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
+<<<<<<< HEAD
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import java.time.LocalDate
@@ -45,3 +46,13 @@ class ChronoLocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.Chrono
         a2 = a2.isAfter(chronoLocalDate)
     }
 }
+=======
+import ch.tutteli.atrium.domain.builders.creating.ChronoLocalDateAssertionsBuilder.isAfterOrEquals
+import ch.tutteli.atrium.specs.fun1
+import java.time.chrono.ChronoLocalDate
+
+object ChronoLocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAssertionsSpec(
+    fun1(Expect<ChronoLocalDate>::isAfterOrEquals) // Unresolved reference: isAfterOrEquals
+)
+
+>>>>>>> move ChronoLocalDate tests to jdk8-jvm
