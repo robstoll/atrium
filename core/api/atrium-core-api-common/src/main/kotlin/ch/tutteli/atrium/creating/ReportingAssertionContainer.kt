@@ -85,8 +85,6 @@ interface ReportingAssertionContainer<T> : RootExpect<T> {
          */
         val assertionChecker: AssertionChecker
 
-        val nullRepresentation: Any
-
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [AssertionChecker.check]).
          *
@@ -108,16 +106,14 @@ interface ReportingAssertionContainer<T> : RootExpect<T> {
              *   store (check/report) [Assertion]s for the subject of the assertion.
              * @param representation The representation which will be used to represent the subject in reporting.
              * @param assertionChecker The checker which will be used to check [Assertion]s.
-             * @param nullRepresentation The representation used in reporting in case [representation] is `null`.
              */
             fun <T> create(
                 assertionVerb: Translatable,
                 maybeSubject: Option<T>,
                 representation: Any?,
-                assertionChecker: AssertionChecker,
-                nullRepresentation: Any
+                assertionChecker: AssertionChecker
             ): AssertionCheckerDecorator<T> = EagerCommonFields(
-                assertionVerb, maybeSubject, representation, assertionChecker, nullRepresentation
+                assertionVerb, maybeSubject, representation, assertionChecker
             )
         }
     }
@@ -127,12 +123,11 @@ interface ReportingAssertionContainer<T> : RootExpect<T> {
         override val assertionVerb: Translatable,
         override val maybeSubject: Option<T>,
         override val representation: Any?,
-        override val assertionChecker: AssertionChecker,
-        override val nullRepresentation: Any
+        override val assertionChecker: AssertionChecker
     ) : AssertionCheckerDecorator<T> {
 
         override fun check(assertions: List<Assertion>) {
-            assertionChecker.check(assertionVerb, representation ?: nullRepresentation, assertions)
+            assertionChecker.check(assertionVerb, representation, assertions)
         }
     }
 }

@@ -16,5 +16,5 @@ class OptionsChooserImpl<R> : FeatureExtractorBuilder.OptionsChooser<R> {
         this.representationInsteadOfFeature = representationProvider
     }
 
-    fun build(): FeatureOptions<R> = FeatureOptions(description, representationInsteadOfFeature, null)
+    fun build(): FeatureOptions<R> = FeatureOptions(description, representationInsteadOfFeature)
 }

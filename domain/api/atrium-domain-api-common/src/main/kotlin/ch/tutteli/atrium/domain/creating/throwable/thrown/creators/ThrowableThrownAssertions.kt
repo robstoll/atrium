@@ -1,9 +1,9 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import kotlin.reflect.KClass
 
@@ -22,18 +22,6 @@ val throwableThrownAssertions by lazy { loadSingleService(ThrowableThrownAsserti
  */
 @Deprecated("Use Fun0Assertions instead; will be removed with 1.0.0")
 interface ThrowableThrownAssertions {
-
-    @Deprecated("Use Fun0Assertions instead; will be removed with 1.0.0")
-    fun <TExpected : Throwable> isA(
-        throwableThrownBuilder: ThrowableThrown.Builder,
-        expectedType: KClass<TExpected>
-    ): ChangedSubjectPostStep<Throwable?, TExpected>
-
-    @Deprecated("Use Fun0Assertions instead; will be removed with 1.0.0")
-    fun notThrown(
-        throwableThrownBuilder: ThrowableThrown.Builder
-    ): ChangedSubjectPostStep<Throwable?, Nothing?>
-
 
     @Deprecated("Switch from Assert to Expect and use Fun0Assertions  instead; will be removed with 1.0.0")
     fun <TExpected : Throwable> toBe(

@@ -135,8 +135,7 @@ interface CoreFactoryCommon {
                 assertionVerb,
                 maybeSubject,
                 maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) },
-                assertionChecker,
-                RawString.NULL
+                assertionChecker
             )
         )
     }

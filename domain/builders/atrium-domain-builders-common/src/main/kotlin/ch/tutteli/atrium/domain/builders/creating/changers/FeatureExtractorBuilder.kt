@@ -246,7 +246,7 @@ interface FeatureExtractorBuilder {
         fun withTextRepresentation(representation: String) = withRepresentation(RawString.create(representation))
 
         /**
-         * Uses the given [representation] as representation of the subject instead of
+         * Uses the given [representation] as representation of the subject in case the is defined instead of
          * the so far defined representation (which defaults to the subject as such).
          *
          * Notice, if you want to use text (e.g. a [String]) as representation,
@@ -322,13 +322,11 @@ interface FeatureExtractorBuilder {
  * Additional (non-mandatory) options for the [FeatureExtractorBuilder] to create an [Expect].
  *
  * @property description Defines a custom description if not null.
- * @property representationInsteadOfFeature Defines a custom representation for the subject if not null.
+ * @property representationInsteadOfFeature Defines a custom representation based on a present subject if not null.
  */
-//TODO #279 remove nullRepresentation
 data class FeatureOptions<R>(
     val description: Translatable? = null,
-    val representationInsteadOfFeature: ((R) -> Any)? = null,
-    val nullRepresentation: Any? = null
+    val representationInsteadOfFeature: ((R) -> Any)? = null
 ) {
     /**
      * Merges the given [options] with this object creating a new [FeatureOptions]
@@ -341,8 +339,7 @@ data class FeatureOptions<R>(
     fun merge(options: FeatureOptions<R>): FeatureOptions<R> =
         FeatureOptions(
             options.description ?: description,
-            options.representationInsteadOfFeature ?: representationInsteadOfFeature,
-            options.nullRepresentation ?: nullRepresentation
+            options.representationInsteadOfFeature ?: representationInsteadOfFeature
         )
 }
 
