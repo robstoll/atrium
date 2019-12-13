@@ -35,7 +35,8 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(expected)
  *
  * @return The newly created [Expect].
  */
-val <T : Collection<*>> Expect<T>.size get(): Expect<Int> = ExpectImpl.collection.size(this).getExpectOfFeature()
+val <T : Collection<*>> Expect<T>.size: Expect<Int>
+    get() = ExpectImpl.collection.size(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion

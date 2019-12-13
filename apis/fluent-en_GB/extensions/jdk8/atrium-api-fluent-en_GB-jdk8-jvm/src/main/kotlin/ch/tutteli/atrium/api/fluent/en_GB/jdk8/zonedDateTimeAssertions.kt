@@ -16,7 +16,8 @@ import java.time.ZonedDateTime
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.year get(): Expect<Int> = ExpectImpl.zonedDateTime.year(this).getExpectOfFeature()
+val <T : ZonedDateTime> Expect<T>.year: Expect<Int>
+    get() = ExpectImpl.zonedDateTime.year(this).getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDateTime.year][ZonedDateTime.getYear] of the subject of the assertion
@@ -38,7 +39,8 @@ fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit)
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.month get(): Expect<Int> = ExpectImpl.zonedDateTime.month(this).getExpectOfFeature()
+val <T : ZonedDateTime> Expect<T>.month: Expect<Int>
+    get() = ExpectImpl.zonedDateTime.month(this).getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue] of the subject of the assertion
@@ -60,8 +62,8 @@ fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
-    ExpectImpl.zonedDateTime.dayOfWeek(this).getExpectOfFeature()
+val <T : ZonedDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
+    get() = ExpectImpl.zonedDateTime.dayOfWeek(this).getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek] of the subject of the assertion
@@ -83,8 +85,8 @@ fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.day get(): Expect<Int> =
-    ExpectImpl.zonedDateTime.day(this).getExpectOfFeature()
+val <T : ZonedDateTime> Expect<T>.day: Expect<Int>
+    get() = ExpectImpl.zonedDateTime.day(this).getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth] of the subject of the assertion

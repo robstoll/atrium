@@ -16,7 +16,8 @@ import java.time.LocalDate
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.year get(): Expect<Int> = ExpectImpl.localDate.year(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.year: Expect<Int>
+    get() = ExpectImpl.localDate.year(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.year][LocalDate.getYear]of the subject of the assertion
@@ -38,7 +39,8 @@ fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Ex
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.month get(): Expect<Int> = ExpectImpl.localDate.month(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.month: Expect<Int>
+    get() = ExpectImpl.localDate.month(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.monthValue][LocalDate.getMonthValue] of the subject of the assertion
@@ -60,8 +62,8 @@ fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): E
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
-    ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.dayOfWeek: Expect<DayOfWeek>
+    get() = ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.getDayOfWeek] of the subject of the assertion
@@ -84,8 +86,8 @@ fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.day get(): Expect<Int> =
-    ExpectImpl.localDate.day(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.day: Expect<Int>
+    get() = ExpectImpl.localDate.day(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.dayOfMonth][LocalDate.getDayOfMonth] of the subject of the assertion
