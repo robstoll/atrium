@@ -30,7 +30,7 @@ abstract class ChronoLocalDateAssertionsSpec(
         describe("${isAfterOrEquals.name} ...") {
             val isAfterOrEqualsFun = isAfterOrEquals.lambda
 
-            it("... 2019/12/16 throws an AssertionError containing ${DescriptionDateTimeLikeAssertion::class.simpleName}.${DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS} and `: 11`") {
+            it("... 2019/12/16 throws an AssertionError") {
                 expect {
                     fluent.isAfterOrEqualsFun(LocalDate.of(2019, 12, 16))
                 }.toThrow<AssertionError> { messageContains("$isAfterOrEqualsDescr: 2019/12/16") }
