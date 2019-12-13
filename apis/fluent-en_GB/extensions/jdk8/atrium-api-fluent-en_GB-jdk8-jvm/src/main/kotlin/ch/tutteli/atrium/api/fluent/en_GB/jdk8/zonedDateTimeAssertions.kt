@@ -31,8 +31,8 @@ fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit)
     ExpectImpl.zonedDateTime.year(this).addToInitial(assertionCreator)
 
 /**
- * Creates an [Expect] for the property [ZonedDateTime.month][ZonedDateTime.getMonthValue] of the subject of the assertion,
- * so that further fluent calls are assertions about it.
+ * Creates an [Expect] for the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue]
+ * of the subject of the assertion, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
  *
@@ -41,7 +41,7 @@ fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit)
 val <T : ZonedDateTime> Expect<T>.month get(): Expect<Int> = ExpectImpl.zonedDateTime.month(this).getExpectOfFeature()
 
 /**
- * Expects that the property [ZonedDateTime.month][ZonedDateTime.getMonthValue] of the subject of the assertion
+ * Expects that the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue] of the subject of the assertion
  * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
@@ -53,8 +53,8 @@ fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
     ExpectImpl.zonedDateTime.month(this).addToInitial(assertionCreator)
 
 /**
- * Creates an [Expect] for the property [ZonedDateTime.getDayOfWeek] of the subject of the assertion,
- * so that further fluent calls are assertions about it.
+ * Creates an [Expect] for the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek]
+ * of the subject of the assertion, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
  *
@@ -64,7 +64,7 @@ val <T : ZonedDateTime> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
     ExpectImpl.zonedDateTime.dayOfWeek(this).getExpectOfFeature()
 
 /**
- * Expects that the property [ZonedDateTime.getDayOfWeek] of the subject of the assertion
+ * Expects that the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek] of the subject of the assertion
  * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
@@ -74,9 +74,10 @@ val <T : ZonedDateTime> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
  */
 fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.zonedDateTime.dayOfWeek(this).addToInitial(assertionCreator)
+
 /**
- * Creates an [Expect] for the property [ZonedDateTime.getDayOfMonth] of the subject of the assertion,
- * so that further fluent calls are assertions about it.
+ * Creates an [Expect] for the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth]
+ * of the subject of the assertion, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
  *
@@ -86,7 +87,7 @@ val <T : ZonedDateTime> Expect<T>.day get(): Expect<Int> =
     ExpectImpl.zonedDateTime.day(this).getExpectOfFeature()
 
 /**
- * Expects that the property [ZonedDateTime.getDayOfMonth] of the subject of the assertion
+ * Expects that the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth] of the subject of the assertion
  * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
