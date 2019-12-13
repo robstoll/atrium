@@ -77,13 +77,13 @@ class FinalStepImpl<T, R>(
             transformAndApply = { assertionCreator -> transformIt(this, Some(assertionCreator)) }
         )
 
-    private fun transformIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
+    private fun transformIt(expect: Expect<T>, maybeSubAssertions: Option<Expect<R>.() -> Unit>) =
         subjectChanger.reported(
             expect,
             transformationStep.description,
             transformationStep.representation,
             transformation,
             failureHandler,
-            subAssertions
+            maybeSubAssertions
         )
 }

@@ -391,6 +391,7 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
             val parent: Path? = it.parent
             if(parent != null) Some(parent) else None
         }
+        .withoutOptions()
         .build()
 
 fun <T : Path> _extension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =

@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.core.robstoll
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactoryCommon
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
@@ -27,6 +29,20 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T> newReportingAssertionContainer(
         assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
     ): ReportingAssertionContainer<T> = ReportingAssertionContainerImpl(assertionCheckerDecorator)
+
+
+    final override fun <T, R> newFeatureExpect(
+        previousExpect: Expect<T>,
+        maybeSubject: Option<R>,
+        featureConfig: FeatureExpectConfig,
+        assertions: List<Assertion>
+    ): FeatureExpect<T, R> = FeatureExpectImpl(
+        previousExpect,
+        maybeSubject,
+        featureConfig,
+        coreFactory.newFeatureAssertionChecker(previousExpect),
+        assertions
+    )
 
     @Suppress("DEPRECATION")
     @Deprecated(

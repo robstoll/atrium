@@ -49,6 +49,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
                     subject.subList(currentIndex, safeUntilIndex)
                 }
             }
+            .withoutOptions()
             .build()
             .addToInitial {
                 createSublistAssertion(groupOfSearchCriteria)

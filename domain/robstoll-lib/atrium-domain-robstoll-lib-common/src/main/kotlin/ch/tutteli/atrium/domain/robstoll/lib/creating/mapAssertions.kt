@@ -43,9 +43,8 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
             ExpectImpl.feature.extractor(this)
                 .withDescription(TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key)))
                 .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
-                .withFeatureExtraction {
-                    Option.someIf(it.containsKey(key)) { it[key] }
-                }
+                .withFeatureExtraction { Option.someIf(it.containsKey(key)) { it[key] } }
+                .withoutOptions()
                 .build()
                 .addToInitial {
                     addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, valueType, assertionCreatorOrNull))
@@ -92,6 +91,7 @@ fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K
                 it[key] as V
             }
         }
+        .withoutOptions()
         .build()
 
 fun <T : Map<*, *>> _size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =

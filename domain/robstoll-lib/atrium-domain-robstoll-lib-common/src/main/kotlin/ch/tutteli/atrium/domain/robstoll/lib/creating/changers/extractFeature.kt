@@ -1,13 +1,16 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.core.*
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ReportingAssertionContainer
+import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.creating.FeatureExpectConfig
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 fun <T, R> _extractFeature(
@@ -16,51 +19,45 @@ fun <T, R> _extractFeature(
     representationForFailure: Any,
     featureExtraction: (T) -> Option<R>,
     maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-    representationInsteadOfFeature: Any?
-): Expect<R> {
-
-    return originalAssertionContainer.maybeSubject
+    representationInsteadOfFeature: ((R) -> Any)?
+): FeatureExpect<T, R> =
+    originalAssertionContainer.maybeSubject
         .flatMap { subject -> featureExtraction(subject) }
-        .fold({
-            val assertionContainer = coreFactory.newReportingAssertionContainer<R>(
-                ReportingAssertionContainer.AssertionCheckerDecorator.create(
-                    SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
-                    None,
-                    representationForFailure,
-                    coreFactory.newDelegatingAssertionChecker(originalAssertionContainer),
-                    RawString.NULL
-                )
-            )
-            assertionContainer.addAssertion(
-                maybeSubAssertions.fold({
-                    ExpectImpl.builder.createDescriptive(description, representationForFailure, falseProvider)
-                }) { assertionCreator ->
+        .fold(
+            {
+                originalAssertionContainer.addAssertion(
                     ExpectImpl.builder.fixedClaimGroup
                         .withFeatureType
                         .failing
                         .withDescriptionAndRepresentation(description, representationForFailure)
-                        .withAssertion(
-                            ExpectImpl.builder.explanatoryGroup.withDefaultType
-                                .collectAssertions(assertionContainer, assertionCreator)
-                                .build()
-                        )
+                        .withAssertions(maybeSubAssertions.fold({
+                            listOf<Assertion>()
+                        }) { assertionCreator ->
+                            listOf(
+                                ExpectImpl.builder.explanatoryGroup.withDefaultType
+                                    .collectAssertions(None, assertionCreator)
+                                    .build()
+                            )
+                        })
                         .build()
-                }
-            )
-            assertionContainer
-        }) { subject ->
-            val assertionContainer = coreFactory.newReportingAssertionContainer(
-                ReportingAssertionContainer.AssertionCheckerDecorator.createLazy(
-                    description,
-                    { Some(subject) },
-                    { representationInsteadOfFeature ?: subject },
-                    coreFactory.newFeatureAssertionChecker(originalAssertionContainer),
-                    RawString.NULL
                 )
-            )
-            maybeSubAssertions.fold({ /* nothing to do */ }) { assertionCreator ->
-                assertionContainer.addAssertionsCreatedBy(assertionCreator)
+                coreFactory.newFeatureExpect(
+                    originalAssertionContainer,
+                    None,
+                    FeatureExpectConfig.create(description, representationForFailure),
+                    listOf()
+                )
+            },
+            { subject ->
+                coreFactory.newFeatureExpect(
+                    originalAssertionContainer,
+                    Some(subject),
+                    FeatureExpectConfig.create(description, representationInsteadOfFeature?.invoke(subject) ?: subject),
+                    maybeSubAssertions.fold({
+                        listOf<Assertion>()
+                    }) { assertionCreator ->
+                        ExpectImpl.collector.collectForComposition(Some(subject), assertionCreator)
+                    }
+                )
             }
-            assertionContainer
-        }
-}
+        )

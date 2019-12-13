@@ -12,6 +12,6 @@ fun <T, R> _genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeatu
         .withDescription(metaFeature.description)
         .withRepresentationForFailure(representation)
         .withFeatureExtraction { metaFeature.maybeSubject }
-        .withRepresentationInsteadOfFeature(representation)
+        .withOptions { withRepresentation(representation) }
         .build()
 }

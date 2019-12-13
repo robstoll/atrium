@@ -3,6 +3,9 @@
 package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -10,6 +13,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.RawString
@@ -17,9 +21,6 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import kotlin.reflect.KClass
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
 
 /**
  * Defines the contract for sophisticated `change subject` processes.
@@ -117,8 +118,8 @@ interface SubjectChangerBuilder {
         fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerOption<T, TSub> =
             withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
                 .withTransformation {
-                    Option.someIf( subType.isInstance(it) ){  subType.cast(it) }
-               }
+                    Option.someIf(subType.isInstance(it)) { subType.cast(it) }
+                }
 
         /**
          * Uses the given [description] and [representation] to represent the change by delegating to the other overload
@@ -152,7 +153,7 @@ interface SubjectChangerBuilder {
 
     /**
      * Step to define the transformation which yields the new subject wrapped into a [Some] if the transformation
-     * as such can be carried out or [None].
+     * as such can be carried out; otherwise [None].
      *
      * @param T the type of the current subject.
      */
@@ -211,6 +212,16 @@ interface SubjectChangerBuilder {
          * to create the failing assertion in case the subject change fails.
          */
         fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<T, R>): FinalStep<T, R>
+
+        /**
+         * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
+         * to create the failing assertion in case the subject change fails but previously maps the subject from
+         * [T] to [R1] as the failure handler only deals with [R1] subjects.
+         */
+        fun <R1> withFailureHandlerAdapter(
+            failureHandler: SubjectChanger.FailureHandler<R1, R>,
+            map: (T) -> R1
+        ): FinalStep<T, R> = withFailureHandler(FailureHandlerAdapter(failureHandler, map))
 
         /**
          * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified

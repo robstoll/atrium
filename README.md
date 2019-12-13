@@ -319,6 +319,7 @@ expect: 10        (kotlin.Int <1234789>)
 ◆ is greater than: 10        (kotlin.Int <1234789>)
 ```
 </ex-group>
+
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
 You can use `and` as filling element between single assertions and assertion group blocks:
@@ -343,15 +344,16 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L67)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
-  » Properties of the unexpected IllegalArgumentException
-    » message: "name is empty"        <1234789>
-    » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:70)
-      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:45)
-      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:627)
-      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:45)
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$4$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+      » Properties of the unexpected IllegalArgumentException
+        » message: "name is empty"        <1234789>
+        » stacktrace: 
+          ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:70)
+          ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:45)
+          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:626)
+          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:45)
 ```
 </ex-toThrow1>
 
@@ -377,9 +379,10 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ ▶ message: null
-    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$5$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ ▶ message: null
+        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
 ```
 </ex-toThrow2>
 
@@ -396,10 +399,11 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L80)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ ▶ message: null
-    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-      » starts with: "firstName"        <1234789>
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$6$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ ▶ message: null
+        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+          » starts with: "firstName"        <1234789>
 ```
 </ex-toThrow3>
 
@@ -418,8 +422,8 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L88)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ is: not thrown at all
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$7$1 <1234789>)
+◆ does not: throw when called
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
@@ -1604,25 +1608,26 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L404)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
-  » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
-        » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-        » contains: 
-          ⚬ value: "no no no"        <1234789>
-            ⚬ ▶ number of occurrences: -1
-                ◾ is at least: 1
-  » Properties of the unexpected IllegalArgumentException
-    » message: "no no no..."        <1234789>
-    » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:409)
-      ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:221)
-      ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:627)
-      ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:221)
-    » cause: java.lang.UnsupportedOperationException
-        » message: "not supported"        <1234789>
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+      » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
+            » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+            » contains: 
+              ⚬ value: "no no no"        <1234789>
+                ⚬ ▶ number of occurrences: -1
+                    ◾ is at least: 1
+      » Properties of the unexpected IllegalArgumentException
+        » message: "no no no..."        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:407)
+          ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:409)
+          ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:221)
+          ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:626)
+          ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:221)
+        » cause: java.lang.UnsupportedOperationException
+            » message: "not supported"        <1234789>
+            » stacktrace: 
+              ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:407)
 ```
 </ex-add-info-3>
 
