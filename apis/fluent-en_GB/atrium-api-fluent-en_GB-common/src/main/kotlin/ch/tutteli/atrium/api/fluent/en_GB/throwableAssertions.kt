@@ -9,7 +9,8 @@ import ch.tutteli.atrium.creating.Expect
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-val <T : Throwable> Expect<T>.message get(): Expect<String> = feature(Throwable::message).notToBeNull()
+val <T : Throwable> Expect<T>.message: Expect<String>
+    get() = feature(Throwable::message).notToBeNull()
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and

@@ -1,3 +1,5 @@
+@file:Suppress("FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */)
+
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
@@ -14,7 +16,8 @@ import java.time.LocalDate
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.year get(): Expect<Int> = ExpectImpl.localDate.year(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.year: Expect<Int>
+    get() = ExpectImpl.localDate.year(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.year][LocalDate.getYear]of the subject of the assertion
@@ -29,17 +32,18 @@ fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Ex
     ExpectImpl.localDate.year(this).addToInitial(assertionCreator)
 
 /**
- * Creates an [Expect] for the property [LocalDate.month][LocalDate.getMonthValue] of the subject of the assertion,
+ * Creates an [Expect] for the property [LocalDate.monthValue][LocalDate.getMonthValue] of the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.month get(): Expect<Int> = ExpectImpl.localDate.month(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.month: Expect<Int>
+    get() = ExpectImpl.localDate.month(this).getExpectOfFeature()
 
 /**
- * Expects that the property [LocalDate.month][LocalDate.getMonthValue]of the subject of the assertion
+ * Expects that the property [LocalDate.monthValue][LocalDate.getMonthValue] of the subject of the assertion
  * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
@@ -58,8 +62,8 @@ fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): E
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.dayOfWeek get(): Expect<DayOfWeek> =
-    ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.dayOfWeek: Expect<DayOfWeek>
+    get() = ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDate.getDayOfWeek] of the subject of the assertion
@@ -75,18 +79,18 @@ fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -
 
 
 /**
- * Creates an [Expect] for the property [LocalDate.getDayOfMonth] of the subject of the assertion,
+ * Creates an [Expect] for the property [LocalDate.dayOfMonth][LocalDate.getDayOfMonth] of the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
  *
  * @since 0.9.0
  */
-val <T : LocalDate> Expect<T>.day get(): Expect<Int> =
-    ExpectImpl.localDate.day(this).getExpectOfFeature()
+val <T : LocalDate> Expect<T>.day: Expect<Int>
+    get() = ExpectImpl.localDate.day(this).getExpectOfFeature()
 
 /**
- * Expects that the property [LocalDate.getDayOfMonth] of the subject of the assertion
+ * Expects that the property [LocalDate.dayOfMonth][LocalDate.getDayOfMonth] of the subject of the assertion
  * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
