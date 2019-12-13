@@ -34,8 +34,7 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions): Expect<T> = coreFacto
         this.maybeSubject,
         options.representation ?: this.config.representation,
         //TODO #280 reporter should be configurable as well
-        coreFactory.newThrowingAssertionChecker(options.reporter ?: reporter),
-        RawString.NULL
+        coreFactory.newThrowingAssertionChecker(options.reporter ?: reporter)
     )
 )
 

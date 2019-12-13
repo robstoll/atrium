@@ -33,8 +33,7 @@ abstract class ReportingAssertionContainerSpec(
             assertionVerb,
             Some(subject),
             subject,
-            assertionChecker,
-            RawString.NULL
+            assertionChecker
         )
     )
 
