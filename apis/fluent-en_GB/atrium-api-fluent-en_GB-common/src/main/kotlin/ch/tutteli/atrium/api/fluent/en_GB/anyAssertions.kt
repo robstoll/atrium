@@ -2,7 +2,12 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating.anyDomain
+import ch.tutteli.atrium.domain.builders.creating.anyDomainNonNullable
+import ch.tutteli.atrium.domain.builders.creating.anyDomainOnlyNullable
+import ch.tutteli.atrium.domain.creating.AnyDomain
+import ch.tutteli.atrium.domain.creating.AnyDomainNonNullable
+import ch.tutteli.atrium.domain.creating.AnyDomainOnlyNullable
 import ch.tutteli.atrium.reporting.Reporter
 import kotlin.js.JsName
 import kotlin.jvm.JvmName
@@ -13,7 +18,7 @@ import kotlin.jvm.JvmName
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
+fun <T : Any> Expect<T>.toBe(expected: T) = addAssertion(_domain.toBe(expected))
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -31,7 +36,7 @@ fun <T : Any> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(thi
 inline fun <reified T : Any> Expect<T?>.toBe(
     expected: T?,
     ignoredDontPassSomething: Nothing? = null
-): Expect<T?> = addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
+): Expect<T?> = addAssertion(_domain.toBeNullable(T::class, expected))
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
@@ -39,7 +44,7 @@ inline fun <reified T : Any> Expect<T?>.toBe(
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(this, expected))
+fun <T> Expect<T>.notToBe(expected: T) = addAssertion(_domain.notToBe(expected))
 
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
@@ -47,7 +52,7 @@ fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(thi
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(this, expected))
+fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(_domain.isSame(expected))
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -55,7 +60,7 @@ fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(thi
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSame(this, expected))
+fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(_domain.isNotSame(expected))
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
@@ -72,7 +77,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSa
  */
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-) = addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+) = addAssertion(_domain.toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull))
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
@@ -118,7 +123,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    ExpectImpl.any.isA(this, TSub::class).getExpectOfFeature()
+    anyDomain(this).isA(TSub::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -162,7 +167,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    ExpectImpl.any.isA(this, TSub::class).addToFeature(assertionCreator)
+    anyDomain(this).isA(TSub::class).addToFeature(assertionCreator)
 
 /**
  * Can be used to separate single assertions.
@@ -187,3 +192,17 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * @return This assertion container to support a fluent API.
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// convenience val in order that one does not have think about on which interface
+// the corresponding function is implemented.
+//
+// please place new assertion functions above this line
+
+private val <T> Expect<T>._domain: AnyDomain<T> get() = anyDomain(this)
+private val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = anyDomainNonNullable(this)
+
+@PublishedApi
+internal val <T : Any> Expect<T?>._domain: AnyDomainOnlyNullable<T>
+    get() = anyDomainOnlyNullable(this)
