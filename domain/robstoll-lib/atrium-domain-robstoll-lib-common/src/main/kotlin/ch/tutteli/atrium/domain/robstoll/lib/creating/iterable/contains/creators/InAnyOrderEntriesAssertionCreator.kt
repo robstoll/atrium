@@ -41,18 +41,24 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
 class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsAssertionCreator<T, (Expect<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
+) : ContainsAssertionCreator<T, List<E?>, (Expect<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
+
+    override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
+
+    override fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<List<E?>> =
+        turnSubjectToList(subjectProvider)
+
     override fun searchAndCreateAssertion(
-        subjectProvider: SubjectProvider<T>,
+        subjectProvider: SubjectProvider<List<E?>>,
         searchCriterion: (Expect<E>.() -> Unit)?,
         featureFactory: (Int, Translatable) -> AssertionGroup
     ): AssertionGroup {
-        val iterable = subjectProvider.maybeSubject.getOrElse { emptyList<E?>() }
-        val hasElementAssertion = createHasElementAssertion(iterable)
+        val iterator = subjectProvider.maybeSubject.getOrElse { emptyList() }.iterator()
+        val hasElementAssertion = createHasElementAssertion(iterator)
         val (explanatoryGroup, count) =
-            createExplanatoryAssertionsAndMatchingCount(iterable.iterator(), searchCriterion)
+            createExplanatoryAssertionsAndMatchingCount(iterator, searchCriterion)
 
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
         val assertions = mutableListOf<Assertion>(explanatoryGroup, featureAssertion)

@@ -1,6 +1,7 @@
 description = 'Represents a convenience module which merely bundles dependencies for the JS platform.'
 
 dependencies {
+    api prefixedProject('api-fluent-en_GB-js')
     api prefixedProject('verbs-js')
     api prefixedProject('api-cc-de_CH-js')
     api prefixedProject('translations-de_CH-js')

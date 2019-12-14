@@ -85,25 +85,24 @@ abstract class IterableContainsNotValuesAssertionsSpec(
             }
         }
 
-        context("iterable $oneToSeven") {
-            val fluent = expect(oneToSeven)
+        context("iterable ${oneToSeven().toList()}") {
 
             context("happy case") {
                 it("1.1 does not throw") {
-                    fluent.containsNotFun(1.1)
+                    expect(oneToSeven()).containsNotFun(1.1)
                 }
                 it("1.1, 2.2, 3.3 does not throw") {
-                    fluent.containsNotFun(1.1, 2.2, 3.3)
+                    expect(oneToSeven()).containsNotFun(1.1, 2.2, 3.3)
                 }
                 it("3.3, 1.1, 2.2 does not throw") {
-                    fluent.containsNotFun(3.3, 1.1, 2.2)
+                    expect(oneToSeven()).containsNotFun(3.3, 1.1, 2.2)
                 }
             }
 
             context("failing cases; search string at different positions") {
                 it("4.0 throws AssertionError") {
                     expect {
-                        fluent.containsNotFun(4.0)
+                        expect(oneToSeven()).containsNotFun(4.0)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -119,7 +118,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                 }
                 it("1.0, 4.0 throws AssertionError") {
                     expect {
-                        fluent.containsNotFun(1.0, 4.0)
+                        expect(oneToSeven()).containsNotFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -140,7 +139,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                 }
                 it("4.0, 1.1 throws AssertionError") {
                     expect {
-                        fluent.containsNotFun(4.0, 1.0)
+                        expect(oneToSeven()).containsNotFun(4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -166,15 +165,15 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 
     nullableCases(describePrefix) {
         describeFun("${containsNotNullableValues.name} for nullable") {
-            context("iterable $oneToSeven") {
+            context("iterable ${oneToSeven().toList()}") {
                 it("null does not throw") {
-                    expect(oneToSeven as Iterable<Double?>).containsNotNullableFun(null)
+                    expect(oneToSeven() as Iterable<Double?>).containsNotNullableFun(null)
                 }
             }
-            context("iterable $oneToSevenNullable") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 it("null throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable).containsNotNullableFun(null)
+                        expect(oneToSevenNullable()).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -191,7 +190,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 
                 it("1.1, null throws AssertionError mentioning only null") {
                     expect {
-                        expect(oneToSevenNullable).containsNotNullableFun(1.1, null)
+                        expect(oneToSevenNullable()).containsNotNullableFun(1.1, null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

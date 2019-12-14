@@ -7,3 +7,7 @@ dependencies {
 }
 
 srcAndResourcesFromJvmProject(project)
+
+tasks.withType(Test) {
+    systemProperty("ch.tutteli.atrium.reporting.reporterFactory", "ascii")
+}

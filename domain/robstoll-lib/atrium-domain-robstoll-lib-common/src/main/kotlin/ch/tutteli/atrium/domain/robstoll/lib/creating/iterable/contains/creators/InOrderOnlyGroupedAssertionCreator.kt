@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -42,11 +43,13 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
                 TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
             )
             .withRepresentationForFailure(RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
-            .withCheck { currentIndex <= it.size }
             .withFeatureExtraction {
-                val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
-                subject.subList(currentIndex, safeUntilIndex)
+                Option.someIf(currentIndex <= it.size) {
+                    val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
+                    subject.subList(currentIndex, safeUntilIndex)
+                }
             }
+            .withoutOptions()
             .build()
             .addToInitial {
                 createSublistAssertion(groupOfSearchCriteria)

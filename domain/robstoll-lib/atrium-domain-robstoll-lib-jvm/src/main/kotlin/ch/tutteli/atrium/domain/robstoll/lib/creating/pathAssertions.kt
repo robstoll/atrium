@@ -3,6 +3,9 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -384,8 +387,11 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
     ExpectImpl.feature.extractor(assertionContainer)
         .withDescription(PARENT)
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
-        .withCheck { it.parent != null }
-        .withFeatureExtraction { it.parent }
+        .withFeatureExtraction {
+            val parent: Path? = it.parent
+            if(parent != null) Some(parent) else None
+        }
+        .withoutOptions()
         .build()
 
 fun <T : Path> _extension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =

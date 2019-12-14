@@ -42,7 +42,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
      * Also, if the extraction of the feature is always safe, then you can just use one of the fN functions
      * (e.g. [f1] for a function expecting 1 argument) or [property].
      */
-    inline fun <T> extractor(originalAssertionContainer: Expect<T>) =
+    inline fun <T> extractor(originalAssertionContainer: Expect<T>): FeatureExtractorBuilder.DescriptionStep<T> =
         FeatureExtractorBuilder.create(originalAssertionContainer)
 
 
@@ -71,16 +71,16 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
 
     fun <T, R> manualFeature(
         assertionContainer: Expect<T>,
-        name: String,
+        description: String,
         provider: T.() -> R
-    ): ExtractedFeaturePostStep<T, R> = extractFeature(assertionContainer, name, provider)
+    ): ExtractedFeaturePostStep<T, R> = extractFeature(assertionContainer, description, provider)
 
     fun <T, R> manualFeature(
         assertionContainer: Expect<T>,
-        name: Translatable,
+        description: Translatable,
         provider: T.() -> R
     ): ExtractedFeaturePostStep<T, R> =
-        genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
+        genericFeature(assertionContainer, createMetaFeature(assertionContainer, description, provider))
 
     fun <T, R> genericSubjectBasedFeature(
         assertionContainer: Expect<T>,
@@ -104,31 +104,31 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
 
     private fun <T, R> extractFeature(
         assertionContainer: Expect<T>,
-        name: String,
+        description: String,
         provider: (T) -> R
     ): ExtractedFeaturePostStep<T, R> =
-        genericFeature(assertionContainer, createMetaFeature(assertionContainer, name, provider))
+        genericFeature(assertionContainer, createMetaFeature(assertionContainer, description, provider))
 
     private fun <T, R> createMetaFeature(
         assertionContainer: Expect<T>,
-        name: String,
+        description: String,
         provider: (T) -> R
-    ): MetaFeature<R> = createMetaFeature(assertionContainer, Untranslatable(name), provider)
+    ): MetaFeature<R> = createMetaFeature(assertionContainer, Untranslatable(description), provider)
 
     private fun <T, R> createMetaFeature(
         assertionContainer: Expect<T>,
-        name: Translatable,
+        description: Translatable,
         provider: (T) -> R
     ): MetaFeature<R> {
         return assertionContainer.maybeSubject.fold({
             MetaFeature(
-                name,
+                description,
                 RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
                 None
             )
         }) {
             val prop = provider(it)
-            MetaFeature(name, prop, Some(prop))
+            MetaFeature(description, prop, Some(prop))
         }
     }
 
@@ -157,7 +157,8 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
 
     //@formatter:off
     /**
-     * Creates a [MetaFeature] for the given function [f] without arguments => use [f0] in case of ambiguity issues.
+     * Creates a [MetaFeature] for the given function [f] without arguments => use [f0] in case of
+     * ambiguity issues.
      *
      * Notice for assertion function writers: you should use [ExpectImpl].[feature][ExpectImpl.feature] and pass a
      * class reference instead of using this convenience function (e.g. `ExpectImpl.feature(MyClass::fun)`).
@@ -168,7 +169,8 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
         f0(f)
 
     /**
-     * Creates a [MetaFeature] for the given function [f] which expects 1 argument => use [f1] in case of ambiguity issues.
+     * Creates a [MetaFeature] for the given function [f] which expects 1 argument => use [f1] in case of
+     * ambiguity issues.
      *
      * Notice for assertion function writers: you should use [ExpectImpl].[feature][ExpectImpl.feature] and pass a
      * class reference instead of using this convenience function (e.g. `ExpectImpl.feature(MyClass::fun, ...)`).
@@ -179,7 +181,8 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
         f1(f, a1)
 
     /**
-     * Creates a [MetaFeature] for the given function [f] which expects 2 arguments => use [f2] in case of ambiguity issues.
+     * Creates a [MetaFeature] for the given function [f] which expects 2 arguments => use [f2] in case of
+     * ambiguity issues.
      *
      * Notice for assertion function writers: you should use [ExpectImpl].[feature][ExpectImpl.feature] and pass a
      * class reference instead of using this convenience function (e.g. `ExpectImpl.feature(MyClass::fun, ...)`).
@@ -190,7 +193,8 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
         f2(f, a1, a2)
 
     /**
-     * Creates a [MetaFeature] for the given function [f] which expects 3 arguments => use [f3] in case of ambiguity issues.
+     * Creates a [MetaFeature] for the given function [f] which expects 3 arguments => use [f3] in case of
+     * ambiguity issues.
      *
      * Notice for assertion function writers: you should use [ExpectImpl].[feature][ExpectImpl.feature] and pass a
      * class reference instead of using this convenience function (e.g. `ExpectImpl.feature(MyClass::fun, ...)`).
@@ -201,7 +205,8 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
         f3(f, a1, a2, a3)
 
     /**
-     * Creates a [MetaFeature] for the given function [f] which expects 4 arguments => use [f4] in case of ambiguity issues.
+     * Creates a [MetaFeature] for the given function [f] which expects 4 arguments => use [f4] in case of
+     * ambiguity issues.
      *
      * Notice for assertion function writers: you should use [ExpectImpl].[feature][ExpectImpl.feature] and pass a
      * class reference instead of using this convenience function (e.g. `ExpectImpl.feature(MyClass::fun, ...)`).
@@ -212,7 +217,8 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
         f4(f, a1, a2, a3, a4)
 
     /**
-     * Creates a [MetaFeature] for the given function [f] which expects 5 arguments => use [f5] in case of ambiguity issues.
+     * Creates a [MetaFeature] for the given function [f] which expects 5 arguments => use [f5] in case of
+     * ambiguity issues.
      *
      * Notice for assertion function writers: you should use [ExpectImpl].[feature][ExpectImpl.feature] and pass a
      * class reference instead of using this convenience function (e.g. `ExpectImpl.feature(MyClass::fun, ...)`).

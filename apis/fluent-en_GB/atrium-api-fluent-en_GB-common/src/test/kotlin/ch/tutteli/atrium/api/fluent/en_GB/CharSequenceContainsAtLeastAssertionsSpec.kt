@@ -28,7 +28,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
         "◆ ", "⚬ "
     ) {})
 
-    include(object: Spek({
+    include(object : Spek({
         describe("elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {

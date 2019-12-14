@@ -175,9 +175,9 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex('a(b)?')`
+ *   `contains.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -188,6 +188,34 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
+ *
+ * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
+ * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
+ * control the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `contains.exactly(2).regex(Regex("a(b)?"))`
+ * instead of:
+ *   `contains.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
+ *
+ * @param pattern The pattern which is expected to have a match against the input of the search.
+ * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+    pattern: Regex,
+    vararg otherPatterns: Regex
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**

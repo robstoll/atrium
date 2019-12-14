@@ -6,7 +6,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 /**
  * Represents a [Searcher] which uses [CharSequence.indexOf] to find expected objects.
  */
-class IndexSearcher : Searcher<NoOpSearchBehaviour> {
+class IndexSearcher : Searcher<NoOpSearchBehaviour, Any> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
         val expected = searchFor.toString()
         var index = searchIn.indexOf(expected)

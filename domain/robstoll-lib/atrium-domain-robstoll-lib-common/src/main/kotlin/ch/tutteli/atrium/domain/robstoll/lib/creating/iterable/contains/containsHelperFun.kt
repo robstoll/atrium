@@ -118,8 +118,8 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     }
 }
 
-internal fun createHasElementAssertion(iterable: Iterable<*>): AssertionGroup {
-    val hasElement = iterable.iterator().hasNext()
+internal fun createHasElementAssertion(iterator: Iterator<*>): AssertionGroup {
+    val hasElement = iterator.hasNext()
     return ExpectImpl.builder.feature
         .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
         .withAssertion(

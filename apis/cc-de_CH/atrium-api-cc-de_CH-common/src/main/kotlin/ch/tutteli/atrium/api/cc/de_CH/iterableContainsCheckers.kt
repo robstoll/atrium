@@ -21,6 +21,7 @@ import kotlin.jvm.JvmName
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.zumindest(times: Int): AtLeastCheckerOption<E, T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -39,6 +40,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [genau] restriction instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T, S>.aberHoechstens(times: Int): ButAtMostCheckerOption<E, T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -53,6 +55,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.genau(times: Int): ExactlyCheckerOption<E, T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -72,6 +75,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.hoechstens(times: Int): AtMostCheckerOption<E, T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -86,5 +90,6 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.nichtOderHoechstens(times: Int): NotOrAtMostCheckerOption<E, T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)

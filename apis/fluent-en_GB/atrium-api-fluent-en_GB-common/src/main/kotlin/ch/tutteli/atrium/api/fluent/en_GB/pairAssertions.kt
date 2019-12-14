@@ -9,7 +9,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @return The newly created [Expect].
  */
-val <K, T : Pair<K, *>> Expect<T>.first get() : Expect<K> = ExpectImpl.pair.first(this).getExpectOfFeature()
+val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
+    get() = ExpectImpl.pair.first(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Pair.first] of the subject of the assertion
@@ -27,7 +28,8 @@ fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Uni
  *
  * @return The newly created [Expect].
  */
-val <V, T : Pair<*, V>> Expect<T>.second get() : Expect<V> = ExpectImpl.pair.second(this).getExpectOfFeature()
+val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
+    get() = ExpectImpl.pair.second(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Pair.second] of the subject of the assertion

@@ -74,6 +74,7 @@ unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137
 - [Kotlin Bugs](#kotlin-bugs)
 - [Roadmap](#roadmap)
 - [Contributors and contribute](#contributors-and-contribute)
+- [Sponsors](#sponsors)
 - [License](#license)
 
 # Installation
@@ -102,9 +103,16 @@ which provides a pure fluent API (in en_GB) for the JVM platform.
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
+
+The new infix API is not yet available in 0.9.0-alpha. 
+[Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
+In bringing the new infix API forward is appreciated.
+
+Please use the old API in the meantime. Following an example:
+
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='0.8.0' }
 }
 repositories {
     jcenter()
@@ -112,26 +120,7 @@ repositories {
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
-}
-```
-<hr/>
-</details>
-
-<details>
-<summary>click to see how the setup for the fluent API in German looks like</summary>
-
-```
-buildscript {
-    ext { atrium_version='0.9.0-alpha' }
-}
-repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
-}
-dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-fluent-de_CH:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version"
 }
 ```
 <hr/>
@@ -330,6 +319,7 @@ expect: 10        (kotlin.Int <1234789>)
 ◆ is greater than: 10        (kotlin.Int <1234789>)
 ```
 </ex-group>
+
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
 You can use `and` as filling element between single assertions and assertion group blocks:
@@ -354,15 +344,16 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L67)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
-  » Properties of the unexpected IllegalArgumentException
-    » message: "name is empty"        <1234789>
-    » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:70)
-      ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:45)
-      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:627)
-      ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:45)
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$4$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+      » Properties of the unexpected IllegalArgumentException
+        » message: "name is empty"        <1234789>
+        » stacktrace: 
+          ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:70)
+          ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:45)
+          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:626)
+          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:45)
 ```
 </ex-toThrow1>
 
@@ -388,9 +379,10 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ ▶ message: null
-    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$5$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ ▶ message: null
+        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
 ```
 </ex-toThrow2>
 
@@ -407,10 +399,11 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L80)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ ▶ message: null
-    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-      » starts with: "firstName"        <1234789>
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$6$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ ▶ message: null
+        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+          » starts with: "firstName"        <1234789>
 ```
 </ex-toThrow3>
 
@@ -429,8 +422,8 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L88)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ is: not thrown at all
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$7$1 <1234789>)
+◆ does not: throw when called
   » Properties of the unexpected IllegalArgumentException
     » message: "name is empty"        <1234789>
     » stacktrace: 
@@ -1615,25 +1608,26 @@ expect {
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L404)</sub> ↓ <sub>Output</sub>
 ```text
-expect the thrown exception: java.lang.IllegalArgumentException
-◆ is instance of type: IllegalStateException (java.lang.IllegalStateException)
-  » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
-        » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-        » contains: 
-          ⚬ value: "no no no"        <1234789>
-            ⚬ ▶ number of occurrences: -1
-                ◾ is at least: 1
-  » Properties of the unexpected IllegalArgumentException
-    » message: "no no no..."        <1234789>
-    » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:409)
-      ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:221)
-      ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:627)
-      ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:221)
-    » cause: java.lang.UnsupportedOperationException
-        » message: "not supported"        <1234789>
+expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789>)
+◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
+    ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+      » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
+            » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+            » contains: 
+              ⚬ value: "no no no"        <1234789>
+                ⚬ ▶ number of occurrences: -1
+                    ◾ is at least: 1
+      » Properties of the unexpected IllegalArgumentException
+        » message: "no no no..."        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:407)
+          ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:409)
+          ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:221)
+          ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:626)
+          ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:221)
+        » cause: java.lang.UnsupportedOperationException
+            » message: "not supported"        <1234789>
+            » stacktrace: 
+              ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:407)
 ```
 </ex-add-info-3>
 
@@ -1843,7 +1837,7 @@ Still simple enough.
 
 That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
 You should always do this unless your type is final (not `open`) and does not have type parameters itself. 
-This way the assertion function is also available for subtypes. This is because `Expect` is invariant.
+This way the assertion function is also available for subtypes. This is because `Expect` is invariant. 
 Following an example:
 ```kotlin
 interface A { val foo get() = 1 }
@@ -1852,6 +1846,9 @@ val Expect<A>.foo get() = feature(A::foo)
 
 expect(B()).foo // does not compile as foo is only available for `Expect<A>`
 ```
+
+In case your assertion function should also be available for an `Expect<out MyClass>` where `MyClass` is a final class
+then you have to use a type parameter as well -- thus easiest way, always use a type parameter.
     
 </details>
 
@@ -2124,7 +2121,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/apis/fluent-de_CH/atrium-api-fluent-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -2156,7 +2153,7 @@ It does not matter if you use your [own assertion verb](#use-own-assertion-verbs
 You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
 This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
 and by calling `registerService` on JS where the call has to be before your tests run.  
-An example for JVM is given in [atriumVerbs.kt of atrium-api-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/apis/fluent-de_CH/atrium-api-fluent-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+An example for JVM is given in [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt).
 An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
@@ -2189,7 +2186,8 @@ so that it could be replaced (with zero performance cost) by another language re
 For instance,
 [atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
 uses `atrium-translations-en_GB-common` whereas 
-[atrium-fluent-de_CH-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
+tests of 
+[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 uses `atrium-translations-de_CH-common`.  
 
 <details>
@@ -2317,20 +2315,18 @@ A service could also reuse parts of the `Implementation`
 
 <a name="apis"></a>
 # API Styles
-Atrium supports currently two API styles: pure `fluent` and `infix` 
-where `fluent` exists in English and German; `infix` only in English.
-All have their design focus on interoperability with code completion functionality of your IDE 
+Atrium supports currently two API styles: pure `fluent` and `infix`.
+Both have their design focus on interoperability with code completion functionality of your IDE 
 -- so that you can let your IDE do some of the work.
 
 Atrium is 
 [built up by different modules](https://docs.atriumlib.org/latest#/doc/) 
 and it is your choice which implementation you want to use. 
 However, this is more intended for advanced user with special requirements.
-Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
+Atrium provides bundle modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-fluent-de_CH](https://github.com/robstoll/atrium/tree/master/bundles/fluent-de_CH/atrium-fluent-de_CH-common/build.gradle)
 - [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 
 Have a look at 
@@ -2417,8 +2413,9 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+- [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
-Deprecated APIS:
+Deprecated APIs:
 - [atrium-api-cc-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
 - [atrium-api-cc-de_CH](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-d-e/index.html)
 - [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
@@ -2527,6 +2524,15 @@ You are more than welcome to contribute as well:
 Please have a look at 
 [CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
 for further suggestions and guidelines.
+
+# Sponsors
+We like to thank the following sponsors for their support:
+- [Tegonal GmbH](https://tegonal.com) for sponsoring Support and PR-Review time.
+
+Want to become a sponsor as well? Great, have a look at the following GitHub sponsor profiles:
+- [robstoll](https://github.com/sponsors/robstoll) (Author and main contributor)
+
+or ping @robstoll in the Slack-Channel if you would like to support the project in another way.
 
 # License
 Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).

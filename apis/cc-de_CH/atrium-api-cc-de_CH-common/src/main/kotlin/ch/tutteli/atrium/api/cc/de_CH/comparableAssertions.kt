@@ -11,6 +11,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
     = addAssertion(AssertImpl.comparable.isLessThan(this, expected))
 
@@ -20,6 +21,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
     = addAssertion(AssertImpl.comparable.isLessOrEquals(this, expected))
 
@@ -29,6 +31,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
     = addAssertion(AssertImpl.comparable.isGreaterThan(this, expected))
 
@@ -38,6 +41,7 @@ fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Comparable<T>> Assert<T>.istGroesserOderGleich(expected: T)
     = addAssertion(AssertImpl.comparable.isGreaterOrEquals(this, expected))
 

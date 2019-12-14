@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -30,20 +31,26 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  */
 class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC : Any, S : SearchBehaviour>(
     searchBehaviour: S,
-    private val searcher: Searcher<S>,
+    private val searcher: Searcher<S, SC>,
     checkers: List<Checker>,
     override val groupDescription: Translatable
-) : ContainsObjectsAssertionCreator<T, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
+) : ContainsObjectsAssertionCreator<T, String, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
 
     override val descriptionContains: Translatable = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 
     override fun getAssertionGroupType(): AssertionGroupType = DefaultListAssertionGroupType
 
-    override fun search(subjectProvider: SubjectProvider<T>, searchCriterion: SC): Int =
+    @Suppress("DEPRECATION" /* switch to Expect and remove this annotation with 1.0.0 */)
+    override fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<String> =
+        ExpectImpl.changeSubject(subjectProvider).unreported { it.toString() }
+
+    override fun search(subjectProvider: SubjectProvider<String>, searchCriterion: SC): Int =
         // if the maybeSubject is None it means we are in an explanation like context in which it does not matter if it is found or not.
         subjectProvider.maybeSubject.fold({ -1 }) { searcher.search(it, searchCriterion) }
 
-    override fun decorateAssertion(subjectProvider: SubjectProvider<T>, featureAssertion: Assertion): List<Assertion> =
-        listOf(featureAssertion)
+    override fun decorateAssertion(
+        subjectProvider: SubjectProvider<String>,
+        featureAssertion: Assertion
+    ): List<Assertion> = listOf(featureAssertion)
 }
