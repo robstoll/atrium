@@ -1,11 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.regex
 import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
@@ -58,7 +59,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
+): Expect<T> = addAssertion(_domain.values(expected glue otherExpected))
 
 
 /**
@@ -113,7 +114,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
+): Expect<T> = addAssertion(_domain.values(expected glue otherExpected))
 
 
 /**
@@ -188,7 +189,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+): Expect<T> = addAssertion(_domain.regex(pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -216,7 +217,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+): Expect<T> = addAssertion(_domain.regex(pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -243,7 +244,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
+): Expect<T> = addAssertion(_domain.regex(pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -290,8 +291,8 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
- * [expectedIterable] does not have elements (is empty).
+ * @throws IllegalArgumentException in case elements of [expectedIterable] are not a [CharSequence], [Number] or [Char]
+ *   or the given [expectedIterable] does not have elements (is empty).
  * @since 0.9.0
  */
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.elementsOf(

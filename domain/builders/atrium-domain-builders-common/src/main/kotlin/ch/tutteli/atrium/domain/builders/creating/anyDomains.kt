@@ -8,7 +8,11 @@ import ch.tutteli.atrium.domain.creating.AnyDomain
 import ch.tutteli.atrium.domain.creating.AnyDomainNonNullable
 import ch.tutteli.atrium.domain.creating.AnyDomainOnlyNullable
 
-//TODO inline functions and replace the following bodies with: (expect as DomainExpect<T>).config.impl()
-fun <T> anyDomain(expect: Expect<T>): AnyDomain<T> = AnyDomainImpl(expect)
-fun <T : Any> anyDomainNonNullable(expect: Expect<T>): AnyDomainNonNullable<T> = AnyDomainNonNullableImpl(expect)
-fun <T : Any> anyDomainOnlyNullable(expect: Expect<T?>): AnyDomainOnlyNullable<T> = AnyDomainOnlyNullableImpl(expect)
+val <T> Expect<T>._domain: AnyDomain<T> get() = AnyDomainImpl(this)
+val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNullableImpl(this)
+
+// we cannot use the same name since:
+// - Kotlin has a bug in JS and the same mangled identifiert results as for <T: Any> above
+// - isA would choose this overload instead of <T>
+val <T : Any> Expect<T?>._domainNullable: AnyDomainOnlyNullable<T> get() = AnyDomainOnlyNullableImpl(this)
+

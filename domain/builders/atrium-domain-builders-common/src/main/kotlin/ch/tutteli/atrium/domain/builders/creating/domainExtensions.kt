@@ -3,6 +3,6 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
-import ch.tutteli.atrium.domain.creating.Domain
+import ch.tutteli.atrium.domain.creating.ExpectDomain
 
-inline fun <T> Domain<T>.changeSubject() = SubjectChangerBuilder.create(expect)
+inline fun <T> ExpectDomain<T>.changeSubject() = SubjectChangerBuilder.create(expect)

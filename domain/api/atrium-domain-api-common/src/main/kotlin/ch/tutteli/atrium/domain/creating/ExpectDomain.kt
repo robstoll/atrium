@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.Expect
  * - the domain is only in en_GB and is programming language agnostic (e.g. Kotlin or Scala)
  * - the core is only in en_GB and shall be programming language agnostic, i.e. be usable from Java, Scala etc.
  */
-interface Domain<T> {
+interface ExpectDomain<T> {
     /**
      * The expect of the API level.
      */

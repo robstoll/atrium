@@ -31,11 +31,13 @@ interface CharSequenceContainsAssertions {
         expected: List<Any>
     ): AssertionGroup
 
+    @Deprecated("Will be removed with 1.0.0")
     fun <T : CharSequence> defaultTranslationOf(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<Translatable>
     ): AssertionGroup
 
+    @Deprecated("Will be removed with 1.0.0")
     fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<Translatable>

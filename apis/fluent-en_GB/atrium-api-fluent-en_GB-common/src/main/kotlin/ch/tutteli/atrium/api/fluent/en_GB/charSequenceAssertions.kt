@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * @return The newly created builder.
  */
 val <T : CharSequence> Expect<T>.contains: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-    get() = ExpectImpl.charSequence.containsBuilder(this)
+    get() = _domain.containsBuilder
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -24,7 +24,7 @@ val <T : CharSequence> Expect<T>.contains: CharSequenceContains.Builder<T, NoOpS
  * @return The newly created builder.
  */
 val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehaviour>
-    get() = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
+    get() = NotCheckerOptionImpl(_domain.containsNotBuilder)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains [expected]'s [toString] representation
@@ -131,7 +131,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.startsWith(this, expected))
+    addAssertion(_domain.startsWith(expected))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
@@ -141,7 +141,8 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.startsWith(expected: Char) = startsWith(expected.toString())
+fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
+    startsWith(expected.toString())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
@@ -150,7 +151,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char) = startsWith(expecte
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.startsNotWith(this, expected))
+    addAssertion(_domain.startsNotWith(expected))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
@@ -160,7 +161,8 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) = startsNotWith(expected.toString())
+fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
+    startsNotWith(expected.toString())
 
 
 /**
@@ -170,7 +172,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) = startsNotWith(e
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.endsWith(this, expected))
+    addAssertion(_domain.endsWith(expected))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
@@ -180,7 +182,8 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.endsWith(expected: Char) = endsWith(expected.toString())
+fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
+    endsWith(expected.toString())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -189,7 +192,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char) = endsWith(expected.to
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.endsNotWith(this, expected))
+    addAssertion(_domain.endsNotWith(expected))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -199,7 +202,8 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) = endsNotWith(expected.toString())
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
+    endsNotWith(expected.toString())
 
 
 /**
@@ -208,7 +212,8 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) = endsNotWith(expec
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequence.isEmpty(this))
+fun <T : CharSequence> Expect<T>.isEmpty() =
+    addAssertion(_domain.isEmpty())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
@@ -216,7 +221,8 @@ fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequenc
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
+fun <T : CharSequence> Expect<T>.isNotEmpty() =
+    addAssertion(_domain.isNotEmpty())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
@@ -224,7 +230,8 @@ fun <T : CharSequence> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.charSequ
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequence.isNotBlank(this))
+fun <T : CharSequence> Expect<T>.isNotBlank() =
+    addAssertion(_domain.isNotBlank())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
@@ -235,7 +242,7 @@ fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequ
  * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
-    addAssertion(ExpectImpl.charSequence.matches(this, expected))
+    addAssertion(_domain.matches(expected))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
@@ -246,4 +253,4 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
  * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) =
-    addAssertion(ExpectImpl.charSequence.mismatches(this, expected))
+    addAssertion(_domain.mismatches(expected))

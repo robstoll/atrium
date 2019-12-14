@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
  * Defines the minimum set of assertion functions and builders applicable to types extending [Any]?,
  * which an implementation of the domain of Atrium has to provide.
  */
-interface AnyDomain<T> : Domain<T> {
+interface AnyDomain<T> : ExpectDomain<T> {
 
     fun notToBe(expected: T): Assertion
     fun isSame(expected: T): Assertion
@@ -26,7 +26,7 @@ interface AnyDomain<T> : Domain<T> {
  * Defines the minimum set of assertion functions and builders applicable to types extending [Any],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface AnyDomainNonNullable<T : Any> : Domain<T> {
+interface AnyDomainNonNullable<T : Any> : ExpectDomain<T> {
 
     fun toBe(expected: T): Assertion
 }
@@ -35,7 +35,7 @@ interface AnyDomainNonNullable<T : Any> : Domain<T> {
  * Defines the minimum set of assertion functions and builders applicable to nullable types extending [Any]?,
  * which an implementation of the domain of Atrium has to provide.
  */
-interface AnyDomainOnlyNullable<T : Any> : Domain<T?> {
+interface AnyDomainOnlyNullable<T : Any> : ExpectDomain<T?> {
 
     fun toBeNullable(
         type: KClass<T>,
