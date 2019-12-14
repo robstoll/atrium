@@ -17,14 +17,16 @@ abstract class ChronoLocalDateAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    val date: ChronoLocalDate = LocalDate.of(2019, 12, 15)
+
     include(object : SubjectLessSpec<ChronoLocalDate>(
         describePrefix,
-        isAfterOrEquals.forSubjectLess(1)
+        isAfterOrEquals.forSubjectLess(date)
     ) {})
 
     val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS.getDefault()
 
-    val fluent = expect(LocalDate.of(2019, 12, 15) as ChronoLocalDate)
+    val fluent = expect(date)
 
     describe("$describePrefix context subject is 2019/12/15") {
         describe("${isAfterOrEquals.name} ...") {
