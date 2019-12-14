@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.fluent.en_GB.util.requireIterableHasElement
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
@@ -46,6 +47,29 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
     vararg otherExpected: E
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
 
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched within the [Iterable].
+ *
+ * Delegates to [values] which also means that it does not search for unique matches
+ * (see [values] for more information).
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.9.0
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    requireIterableHasElement(expectedIterable)
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
  * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case [assertionCreatorOrNull]
@@ -88,25 +112,3 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
         assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
     )
 )
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched within the [Iterable].
- *
- * Delegates to [values] which also means that it does not search for unique matches
- * (see [values] for more information).
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
- *
- * @return The [Expect] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
- *
- * @since 0.9.0
- */
-inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<E>
-): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
-}

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.fluent.en_GB.util.requireIterableHasElement
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
@@ -298,7 +299,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    requireIterableHasElement(expectedIterable)
     return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
 }
 
@@ -326,6 +327,6 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    requireIterableHasElement(expectedIterable)
     return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
 }

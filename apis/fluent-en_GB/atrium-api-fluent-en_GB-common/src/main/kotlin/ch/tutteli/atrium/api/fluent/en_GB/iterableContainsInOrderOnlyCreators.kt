@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.fluent.en_GB.util.requireIterableHasElement
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
@@ -42,18 +43,18 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * shall be searched within the [Iterable]
  * (if given) in the specified order.
  *
- * @param expected The value which is expected to be contained within the [Iterable].
- * @param otherExpected Additional values which are expected to be contained within [Iterable].
+ * @param expectedIterable The iterable which is expected to be contained the [Iterable].
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the [expectedIterable] has no elements (is empty).
  *
  * @since 0.9.0
  */
 inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    requireIterableHasElement(expectedIterable)
     return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
 }
 

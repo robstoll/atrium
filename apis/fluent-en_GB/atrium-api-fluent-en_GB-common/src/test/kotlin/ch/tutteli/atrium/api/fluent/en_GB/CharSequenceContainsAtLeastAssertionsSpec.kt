@@ -33,14 +33,14 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.atLeast(1).elementsOf(emptyList())
-                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements is not allowed") }
             }
         }
         describe("elementsOf ignoring case") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.ignoringCase.atLeast(1).elementsOf(emptyList())
-                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements is not allowed") }
             }
         }
     }) {})
