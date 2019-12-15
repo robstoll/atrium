@@ -120,7 +120,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     keys(this).addToInitial(assertionCreator)
 
-private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.property(e, Map<out K, *>::keys)
+private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = e._domain.property(Map<out K, *>::keys)
 
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
@@ -141,7 +141,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
 fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     values().addToInitial(assertionCreator)
 
-private fun <K, V, T : Map<out K, V>> Expect<T>.values() = ExpectImpl.feature.property(this, Map<out K, V>::values)
+private fun <K, V, T : Map<out K, V>> Expect<T>.values() = _domain.property(Map<out K, V>::values)
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.

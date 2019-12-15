@@ -11,5 +11,5 @@ interface CollectionDomain<E, T : Collection<E>> : ExpectDomain<T> {
     fun isEmpty(): Assertion
     fun isNotEmpty(): Assertion
 
-    fun size(): ExtractedFeaturePostStep<T, Int>
+    val size: ExtractedFeaturePostStep<T, Int>
 }

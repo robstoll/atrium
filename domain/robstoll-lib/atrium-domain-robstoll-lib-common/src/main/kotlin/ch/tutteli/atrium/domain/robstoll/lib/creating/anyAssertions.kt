@@ -8,6 +8,10 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating._domainNullable
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.builders.creating.notToBeNull
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
@@ -39,7 +43,7 @@ fun <T : Any> _toBeNullable(
     type: KClass<T>,
     expectedOrNull: T?
 ): Assertion = when (expectedOrNull) {
-    null -> ExpectImpl.any.toBeNull(assertionContainer)
+    null -> assertionContainer._domain.toBeNull()
     else -> notToBeNull(assertionContainer, type) { toBe(expectedOrNull) }
 }
 
@@ -48,20 +52,20 @@ fun <T : Any> _toBeNullIfNullGivenElse(
     type: KClass<T>,
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): Assertion =
-    if (assertionCreatorOrNull == null) ExpectImpl.any.toBeNull(assertionContainer)
+    if (assertionCreatorOrNull == null) assertionContainer._domain.toBeNull()
     else notToBeNull(assertionContainer, type, assertionCreatorOrNull)
 
 private fun <T : Any> notToBeNull(
     assertionContainer: Expect<T?>,
     type: KClass<T>,
     assertionCreator: Expect<T>.() -> Unit
-) = ExpectImpl.any.notToBeNull(assertionContainer, type).collect(assertionCreator)
+) = assertionContainer._domainNullable.notToBeNull(type).collect(assertionCreator)
 
 
 fun <T, TSub : Any> _isA(
     assertionContainer: Expect<T>,
     subType: KClass<TSub>
 ): ChangedSubjectPostStep<T, TSub> =
-    ExpectImpl.changeSubject(assertionContainer).reportBuilder()
+    assertionContainer._domain.changeSubject.reportBuilder()
         .downCastTo(subType)
         .build()

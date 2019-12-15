@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.domain.builders.creating._domainNullable
 import java.math.BigDecimal
 
 /**
@@ -45,7 +46,7 @@ fun Expect<out BigDecimal?>.toBe(expected: BigDecimal?): Nothing = throw PleaseU
 
 @JvmName("toBeNullable")
 inline fun <reified T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
-    addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
+    addAssertion(_domainNullable.toBeNullable(T::class, expected))
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale

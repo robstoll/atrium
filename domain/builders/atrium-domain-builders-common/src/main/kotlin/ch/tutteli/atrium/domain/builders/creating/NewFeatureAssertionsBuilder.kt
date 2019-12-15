@@ -131,11 +131,6 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
             MetaFeature(description, prop, Some(prop))
         }
     }
-
-    /**
-     * Returns [MetaFeatureBuilder] which helps to create a [MetaFeature].
-     */
-    inline val meta get() = MetaFeatureBuilder
 }
 
 /**
@@ -143,6 +138,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
  * into an overload ambiguity, then either [p] (for property) or one of the `fN` functions (e.g. [f2] for
  * a function which expects 2 arguments).
  */
+//TODO move to API with 1.0.0?
 class MetaFeatureOption<T>(private val expect: Expect<T>) {
 
     /**
@@ -239,7 +235,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <R> p(property: KProperty0<R>): MetaFeature<R> =
-        ExpectImpl.feature.meta.property(property)
+        MetaFeatureBuilder.property(property)
 
     /**
      * Creates a [MetaFeature] for the given function [f] without arguments.
@@ -250,7 +246,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <R> f0(f: KFunction0<R>): MetaFeature<R> =
-        ExpectImpl.feature.meta.f0(expect, f)
+        MetaFeatureBuilder.f0(expect, f)
 
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 1 argument.
@@ -261,7 +257,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <A1, R> f1(f: KFunction1<A1, R>, a1: A1): MetaFeature<R> =
-        ExpectImpl.feature.meta.f1(expect, f, a1)
+        MetaFeatureBuilder.f1(expect, f, a1)
 
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 2 arguments.
@@ -272,7 +268,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <A1, A2, R> f2(f: KFunction2<A1, A2, R>, a1: A1, a2: A2): MetaFeature<R> =
-        ExpectImpl.feature.meta.f2(expect, f, a1, a2)
+        MetaFeatureBuilder.f2(expect, f, a1, a2)
 
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 3 arguments.
@@ -283,7 +279,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <A1, A2, A3, R> f3(f: KFunction3<A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): MetaFeature<R> =
-        ExpectImpl.feature.meta.f3(expect, f, a1, a2, a3)
+        MetaFeatureBuilder.f3(expect, f, a1, a2, a3)
 
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 4 arguments.
@@ -294,7 +290,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <A1, A2, A3, A4, R> f4(f: KFunction4<A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): MetaFeature<R> =
-        ExpectImpl.feature.meta.f4(expect, f, a1, a2, a3, a4)
+        MetaFeatureBuilder.f4(expect, f, a1, a2, a3, a4)
 
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 5 arguments.
@@ -305,7 +301,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * previous transformation of the subject could not be carried out.
      */
     fun <A1, A2, A3, A4, A5, R> f5(f: KFunction5<A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): MetaFeature<R> =
-        ExpectImpl.feature.meta.f5(expect, f, a1, a2, a3, a4, a5)
+        MetaFeatureBuilder.f5(expect, f, a1, a2, a3, a4, a5)
 
     //@formatter:on
 }

@@ -53,30 +53,6 @@ object ExpectImpl {
     //--- assertions ---------------------------------------------------------------------------
 
     /**
-     * Returns [AnyAssertionsBuilder]
-     * which inter alia delegates to the implementation of [AnyAssertions].
-     */
-    inline val any get() = AnyAssertionsBuilder
-
-    /**
-     * Returns [CharSequenceAssertionsBuilder]
-     * which inter alia delegates to the implementation of [CharSequenceAssertions].
-     */
-    inline val charSequence get() = CharSequenceAssertionsBuilder
-
-    /**
-     * Returns [CollectionAssertionsBuilder]
-     * which inter alia delegates to the implementation of [CollectionAssertions].
-     */
-    inline val collection get() = CollectionAssertionsBuilder
-
-    /**
-     * Returns [ComparableAssertionsBuilder]
-     * which inter alia delegates to the implementation of [ComparableAssertions].
-     */
-    inline val comparable get() = ComparableAssertionsBuilder
-
-    /**
      * Returns [NewFeatureAssertionsBuilder]
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */

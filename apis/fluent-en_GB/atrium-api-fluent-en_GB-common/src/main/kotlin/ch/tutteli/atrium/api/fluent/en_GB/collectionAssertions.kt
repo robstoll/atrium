@@ -39,7 +39,7 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) =
  * @return The newly created [Expect].
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = _domain.size().getExpectOfFeature()
+    get() = _domain.size.getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
@@ -49,4 +49,4 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _domain.size().addToInitial(assertionCreator)
+    _domain.size.addToInitial(assertionCreator)

@@ -5,7 +5,8 @@ import ch.tutteli.atrium.core.Either
 import ch.tutteli.atrium.core.Left
 import ch.tutteli.atrium.core.Right
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString
@@ -17,8 +18,8 @@ fun <TExpected : Throwable> _isThrowing(
     assertionContainer: Expect<out () -> Any?>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<*, TExpected> =
-    ExpectImpl.feature
-        .manualFeature(assertionContainer, THROWN_EXCEPTION_WHEN_CALLED) {
+    assertionContainer._domain
+        .manualFeature(THROWN_EXCEPTION_WHEN_CALLED) {
             catchAndAdjustThrowable(this).fold(
                 { it },
                 {
@@ -29,12 +30,11 @@ fun <TExpected : Throwable> _isThrowing(
         }
         .getExpectOfFeature()
         .withOptions { withSubjectBasedRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) } }
-        .let {
-            ExpectImpl.changeSubject(it).reportBuilder()
-                .downCastTo(expectedType)
-                .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 7))
-                .build()
-        }
+        ._domain.changeSubject.reportBuilder()
+        .downCastTo(expectedType)
+        .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 7))
+        .build()
+
 
 private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, R> =
     try {
@@ -46,20 +46,18 @@ private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, 
     }
 
 fun <R, T : () -> R> _isNotThrowing(assertionContainer: Expect<T>): ChangedSubjectPostStep<*, R> {
-    return ExpectImpl.changeSubject(assertionContainer)
-        .unreported {
-            catchAndAdjustThrowable(it)
+    val eitherContainer = assertionContainer._domain.changeSubject
+        .unreported { catchAndAdjustThrowable(it) }
+
+    return eitherContainer._domain.changeSubject.reportBuilder()
+        .withDescriptionAndRepresentation(IS_NOT_THROWING_1, RawString.create(IS_NOT_THROWING_2))
+        .withTransformation { either -> either.toOption() }
+        .withFailureHandlerAdapter(ThrowableThrownFailureHandler(maxStackTrace = 15)) {
+            // must be left as otherwise the failure handler would not kick in.
+            (it as Left).l
         }
-        .let { eitherContainer ->
-            ExpectImpl.changeSubject(eitherContainer).reportBuilder()
-                .withDescriptionAndRepresentation(IS_NOT_THROWING_1, RawString.create(IS_NOT_THROWING_2))
-                .withTransformation { either -> either.toOption() }
-                .withFailureHandlerAdapter(ThrowableThrownFailureHandler(maxStackTrace = 15)) {
-                    // must be left as otherwise the failure handler would not kick in.
-                    (it as Left).l
-                }
-                .build()
-        }
+        .build()
+
 }
 
 

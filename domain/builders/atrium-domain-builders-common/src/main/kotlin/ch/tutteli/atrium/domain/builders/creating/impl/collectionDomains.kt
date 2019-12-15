@@ -9,5 +9,5 @@ import ch.tutteli.atrium.domain.creating.collectionAssertions
 internal class CollectionDomainImpl<E, T : Collection<E>>(override val expect: Expect<T>) : CollectionDomain<E, T> {
     override fun isEmpty(): Assertion = collectionAssertions.isEmpty(expect)
     override fun isNotEmpty(): Assertion = collectionAssertions.isNotEmpty(expect)
-    override fun size(): ExtractedFeaturePostStep<T, Int> = collectionAssertions.size(expect)
+    override val size: ExtractedFeaturePostStep<T, Int> = collectionAssertions.size(expect)
 }

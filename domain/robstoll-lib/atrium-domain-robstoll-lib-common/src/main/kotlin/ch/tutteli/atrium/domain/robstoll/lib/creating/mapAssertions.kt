@@ -10,6 +10,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domainNullable
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
@@ -47,7 +48,7 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
                 .withoutOptions()
                 .build()
                 .addToInitial {
-                    addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, valueType, assertionCreatorOrNull))
+                    addAssertion(_domainNullable.toBeNullIfNullGivenElse(valueType, assertionCreatorOrNull))
                 }
         }
     }

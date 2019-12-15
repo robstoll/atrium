@@ -103,7 +103,7 @@ interface AnyDomain<T> : FeatureDomain<T> {
  * Defines the minimum set of assertion functions and builders applicable to types extending [Any],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface AnyDomainNonNullable<T : Any> : ExpectDomain<T> {
+interface AnyDomainNonNullable<T : Any> : AnyDomain<T> {
 
     fun toBe(expected: T): Assertion
 }

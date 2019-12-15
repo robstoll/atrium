@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domainNullable
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
 
@@ -22,10 +23,10 @@ fun <K : Any, V : Any, T : Map.Entry<K?, V?>> _isKeyValue(
 ): Assertion =
     ExpectImpl.collector.collect(assertionContainer) {
         ExpectImpl.map.entry.key(this).addToInitial {
-            addAssertion(ExpectImpl.any.toBeNullable(this, keyType, key))
+            addAssertion(_domainNullable.toBeNullable(keyType, key))
         }
         ExpectImpl.map.entry.value(this).addToInitial {
-            addAssertion(ExpectImpl.any.toBeNullable(this, valueType, value))
+            addAssertion(_domainNullable.toBeNullable(valueType, value))
         }
     }
 

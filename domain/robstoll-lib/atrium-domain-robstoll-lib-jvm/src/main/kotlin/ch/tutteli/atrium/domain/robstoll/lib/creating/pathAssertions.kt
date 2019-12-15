@@ -5,12 +5,13 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
@@ -98,7 +99,7 @@ private fun <T : Path> filePermissionAssertion(
     assertionContainer: Expect<T>,
     permissionName: Translatable,
     accessMode: AccessMode
-) = ExpectImpl.changeSubject(assertionContainer).unreported {
+) = assertionContainer._domain.changeSubject.unreported {
     it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
 }.let { checkAccessResultContainer ->
     ExpectImpl.builder.descriptive
@@ -144,9 +145,10 @@ private inline fun <T : Path> fileTypeAssertion(
 private inline fun <T : Path, R> changeSubjectToFileAttributes(
     assertionContainer: Expect<T>,
     block: (Expect<IoResult<BasicFileAttributes>>) -> R
-): R = ExpectImpl.changeSubject(assertionContainer).unreported {
-    it.runCatchingIo { readAttributes<BasicFileAttributes>() }
-}.let(block)
+): R = assertionContainer._domain.changeSubject
+    .unreported {
+        it.runCatchingIo { readAttributes<BasicFileAttributes>() }
+    }.let(block)
 
 /**
  * Searches for any problem with a parent directory that is not that the directory does not exist.
@@ -390,7 +392,7 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
         .withFeatureExtraction {
             val parent: Path? = it.parent
-            if(parent != null) Some(parent) else None
+            if (parent != null) Some(parent) else None
         }
         .withoutOptions()
         .build()

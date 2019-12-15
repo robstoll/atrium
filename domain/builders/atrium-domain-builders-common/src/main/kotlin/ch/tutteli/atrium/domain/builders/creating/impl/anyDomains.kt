@@ -22,7 +22,11 @@ internal class AnyDomainImpl<T>(override val expect: Expect<T>) : AnyDomain<T> {
         newFeatureAssertions.genericFeature(expect, metaFeature)
 }
 
-internal class AnyDomainNonNullableImpl<T : Any>(override val expect: Expect<T>) : AnyDomainNonNullable<T> {
+internal class AnyDomainNonNullableImpl<T : Any>(
+    override val expect: Expect<T>,
+    anyDomain: AnyDomain<T>
+) : AnyDomainNonNullable<T>, AnyDomain<T> by anyDomain {
+
     override fun toBe(expected: T): Assertion = anyAssertions.toBe(expect, expected)
 }
 
