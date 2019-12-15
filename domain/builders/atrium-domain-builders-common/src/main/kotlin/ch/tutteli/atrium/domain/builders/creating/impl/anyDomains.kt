@@ -2,11 +2,9 @@ package ch.tutteli.atrium.domain.builders.creating.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.AnyDomain
-import ch.tutteli.atrium.domain.creating.AnyDomainNonNullable
-import ch.tutteli.atrium.domain.creating.AnyDomainOnlyNullable
-import ch.tutteli.atrium.domain.creating.anyAssertions
+import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
 
 internal class AnyDomainImpl<T>(override val expect: Expect<T>) : AnyDomain<T> {
@@ -19,6 +17,9 @@ internal class AnyDomainImpl<T>(override val expect: Expect<T>) : AnyDomain<T> {
 
     override fun <TSub : Any> isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> =
         anyAssertions.isA(expect, subType)
+
+    override fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R> =
+        newFeatureAssertions.genericFeature(expect, metaFeature)
 }
 
 internal class AnyDomainNonNullableImpl<T : Any>(override val expect: Expect<T>) : AnyDomainNonNullable<T> {
