@@ -69,8 +69,10 @@ class IterableAnyAssertionsSpec : Spek({
         fun getContainsNullableShortcutPair() =
             containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
 
-        private fun containsNullableEntriesShortcut(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
-            expect.contains(a)
+        private fun containsNullableEntriesShortcut(
+            expect: Expect<Iterable<Double?>>,
+            a: (Expect<Double>.() -> Unit)?
+        ) = expect.contains(a)
 
 
         private fun getContainsSequencePair() =
@@ -82,8 +84,10 @@ class IterableAnyAssertionsSpec : Spek({
         fun getContainsNullableSequencePair() =
             "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
 
-        private fun containsNullableEntriesSequence(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
-            ExpectImpl.changeSubject(expect).unreported { it.asSequence() }.asIterable().contains(a)
+        private fun containsNullableEntriesSequence(
+            expect: Expect<Iterable<Double?>>,
+            a: (Expect<Double>.() -> Unit)?
+        ) = ExpectImpl.changeSubject(expect).unreported { it.asSequence() }.asIterable().contains(a)
     }
 
     @Suppress("unused", "UNUSED_VALUE")

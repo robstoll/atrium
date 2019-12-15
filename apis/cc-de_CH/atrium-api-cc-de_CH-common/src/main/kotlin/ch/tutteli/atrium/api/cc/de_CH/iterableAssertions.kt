@@ -21,6 +21,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, NoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
@@ -30,6 +31,7 @@ val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, NoOp
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: NotCheckerOption<E, T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
@@ -52,6 +54,7 @@ val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: NotCheckerOption<E, T, NotSear
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T: Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)
 
@@ -65,6 +68,7 @@ fun <E, T: Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreatorOrNull)
 
@@ -79,6 +83,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
@@ -92,6 +97,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.enthaelt(assertionCreatorOrNull: (Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E , T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)
 
@@ -105,6 +111,7 @@ fun <E , T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg otherExpec
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.eintrag(assertionCreatorOrNull)
 
@@ -119,6 +126,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
@@ -132,6 +140,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExakt(assertionCreatorOrNull: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
     = enthaeltNicht.werte(expected, *otherExpected)
 
@@ -145,6 +154,7 @@ fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpect
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEiner(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreatorOrNull)
 
@@ -158,6 +168,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEiner(assertionCreatorOrNull: (Ass
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E : Any, T : Iterable<E?>> Assert<T>.keiner(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = enthaeltNicht.eintrag(assertionCreatorOrNull)
 
@@ -169,5 +180,6 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.keiner(assertionCreatorOrNull: (Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <E : Any, T : Iterable<E?>> Assert<T>.alle(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = addAssertion(AssertImpl.iterable.all(this, assertionCreatorOrNull))

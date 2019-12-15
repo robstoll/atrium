@@ -25,6 +25,7 @@ import kotlin.jvm.JvmName
  *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
  *   [assertionCreator] is defined as `null`.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 class Eintrag<in T : Any>(
     val assertionCreator: ((Assert<T>) -> Unit)?
 ) : GroupWithoutNullableEntries<((Assert<T>) -> Unit)?>, GroupWithNullableEntries<((Assert<T>) -> Unit)?> {
@@ -42,6 +43,7 @@ class Eintrag<in T : Any>(
  *   [assertionCreatorOrNull] is defined as `null`.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 class Eintraege<in T : Any>(
     val assertionCreatorOrNull: ((Assert<T>) -> Unit)?,
     vararg val otherAssertionCreatorsOrNulls: ((Assert<T>) -> Unit)?
@@ -57,6 +59,7 @@ class Eintraege<in T : Any>(
  * Parameter object to express a key/value [Pair] whose value type is a lambda with an
  * [Assert][AssertionPlant] receiver, which means one can either pass a lambda or `null`.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Assert<V>.() -> Unit)?) {
     fun toPair(): Pair<K, (Assert<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
     override fun toString(): String
@@ -66,6 +69,7 @@ data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull:
 /**
  * Represents a [GroupWithoutNullableEntries] with a single value.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 data class Wert<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
     override fun toList() = listOf(expected)
 }
@@ -73,6 +77,7 @@ data class Wert<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWith
 /**
  * Represents a [GroupWithoutNullableEntries] of multiple values.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 class Werte<out T>(
     override val expected: T,
     override vararg val otherExpected: T

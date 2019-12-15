@@ -17,16 +17,17 @@ import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
  * @property actionAndApply An action such as transform, extract etc. which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
-abstract class PostFinalStep<T, R>(
+abstract class PostFinalStep<T, R, E : Expect<R>>(
     protected val assertionContainer: Expect<T>,
-    protected val action: Expect<T>.() -> Expect<R>,
+    protected val action: Expect<T>.() -> E,
     protected val actionAndApply: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>
 ) {
 
     /**
      * Returns the newly created [Expect] for the feature.
      */
-    fun getExpectOfFeature(): Expect<R> = action(assertionContainer)
+    //TODO mcp#280 rename to getFeatureExpect in case also ChangedSubjectPostStep is returning FeatureExpect
+    fun getExpectOfFeature(): E = action(assertionContainer)
 
 
     /**

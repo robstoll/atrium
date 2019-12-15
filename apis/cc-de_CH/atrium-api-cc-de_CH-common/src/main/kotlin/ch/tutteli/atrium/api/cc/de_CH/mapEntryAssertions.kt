@@ -19,6 +19,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <K : Any, V : Any> Assert<Map.Entry<K, V>>.istKeyValue(key: K, value: V): Assert<Map.Entry<K, V>>
     = addAssertion(AssertImpl.map.entry.isKeyValue(this, key, value))
@@ -32,6 +33,7 @@ fun <K : Any, V : Any> Assert<Map.Entry<K, V>>.istKeyValue(key: K, value: V): As
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <K : Any> Assert<Map.Entry<K, *>>.key get() : Assert<K> = property(Map.Entry<K, *>::key)
 
 /**
@@ -43,6 +45,8 @@ val <K : Any> Assert<Map.Entry<K, *>>.key get() : Assert<K> = property(Map.Entry
  *
  * @return The newly created [AssertionPlant].
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <K> Assert<Map.Entry<K, *>>.key get() : AssertionPlantNullable<K> = property(Map.Entry<K, *>::key)
 
 /**
@@ -54,6 +58,7 @@ val <K> Assert<Map.Entry<K, *>>.key get() : AssertionPlantNullable<K> = property
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <K : Any, V> Assert<Map.Entry<K, V>>.key(assertionCreator: Assert<K>.() -> Unit)
     = addAssertion(AssertImpl.map.entry.key(this, assertionCreator))
@@ -67,6 +72,8 @@ fun <K : Any, V> Assert<Map.Entry<K, V>>.key(assertionCreator: Assert<K>.() -> U
  *
  * @return The newly created [AssertionPlant].
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <V : Any> Assert<Map.Entry<*, V>>.value get() : Assert<V> = property(Map.Entry<*, V>::value)
 
 /**
@@ -78,6 +85,8 @@ val <V : Any> Assert<Map.Entry<*, V>>.value get() : Assert<V> = property(Map.Ent
  *
  * @return The newly created [AssertionPlant].
  */
+//TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
+//@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <V> Assert<Map.Entry<*, V>>.value get() : AssertionPlantNullable<V> = property(Map.Entry<*, V>::value)
 
 /**
@@ -89,6 +98,7 @@ val <V> Assert<Map.Entry<*, V>>.value get() : AssertionPlantNullable<V> = proper
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <K, V: Any> Assert<Map.Entry<K, V>>.value(assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.entry.value(this, assertionCreator))

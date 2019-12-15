@@ -5,13 +5,18 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ReportingAssertionContainer
+import ch.tutteli.atrium.creating.*
 
 class ReportingAssertionContainerImpl<T>(
     private val assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
 ) : MutableListBasedAssertionContainer<T>(assertionCheckerDecorator.maybeSubject),
     ReportingAssertionContainer<T> {
+
+    override val config: RootExpectConfig =
+        RootExpectConfig.create(
+            assertionCheckerDecorator.assertionVerb,
+            assertionCheckerDecorator.representation
+        )
 
     override val assertionChecker: AssertionChecker get() = assertionCheckerDecorator.assertionChecker
 

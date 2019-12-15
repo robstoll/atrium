@@ -45,7 +45,8 @@ inline fun <reified K : Any, reified V : Any, T : Map.Entry<K?, V?>> Expect<T>.i
  *
  * @return The newly created [Expect].
  */
-val <K, T : Map.Entry<K, *>> Expect<T>.key get() : Expect<K> = ExpectImpl.map.entry.key(this).getExpectOfFeature()
+val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
+    get() = ExpectImpl.map.entry.key(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.Entry.key] of the subject of the assertion
@@ -63,7 +64,8 @@ fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> 
  *
  * @return The newly created [Expect].
  */
-val <V, T : Map.Entry<*, V>> Expect<T>.value get() : Expect<V> = ExpectImpl.map.entry.value(this).getExpectOfFeature()
+val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
+    get() = ExpectImpl.map.entry.value(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.Entry.value] of the subject of the assertion

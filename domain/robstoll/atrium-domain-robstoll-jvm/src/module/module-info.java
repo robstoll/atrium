@@ -54,6 +54,9 @@ module ch.tutteli.atrium.domain.robstoll {
     provides ch.tutteli.atrium.domain.creating.FeatureAssertions
         with ch.tutteli.atrium.domain.robstoll.creating.FeatureAssertionsImpl;
 
+    provides ch.tutteli.atrium.domain.creating.Fun0Assertions
+        with ch.tutteli.atrium.domain.robstoll.creating.Fun0AssertionsImpl;
+
     provides ch.tutteli.atrium.domain.creating.feature.extract.creators.FeatureExtractorCreatorFactory
         with ch.tutteli.atrium.domain.robstoll.creating.feature.extract.creators.FeatureExtractorCreatorFactoryImpl;
 

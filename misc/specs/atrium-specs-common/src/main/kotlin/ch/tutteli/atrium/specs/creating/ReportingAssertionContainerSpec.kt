@@ -7,7 +7,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -34,8 +33,7 @@ abstract class ReportingAssertionContainerSpec(
             assertionVerb,
             Some(subject),
             subject,
-            assertionChecker,
-            RawString.NULL
+            assertionChecker
         )
     )
 
@@ -104,7 +102,7 @@ abstract class ReportingAssertionContainerSpec(
 
             context("in case of assertion which fails") {
                 context("throws an AssertionError") {
-                    fun expectFun(): ThrowableThrown.Builder {
+                    fun expectFun(): Expect<() -> Any?> {
                         val testee = createTestee()
                         return expect {
                             testee.failingFun()

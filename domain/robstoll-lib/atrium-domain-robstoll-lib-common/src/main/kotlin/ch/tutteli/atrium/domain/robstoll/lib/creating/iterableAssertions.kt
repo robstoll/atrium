@@ -3,7 +3,9 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -16,6 +18,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreat
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertionGroup
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHasElementAssertion
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.turnSubjectToList
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NotSearchBehaviourImpl
 import ch.tutteli.atrium.reporting.RawString
@@ -35,8 +38,8 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
-        val list = assertionContainer.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
-        val hasElementAssertion = createHasElementAssertion(list)
+        val list = turnSubjectToList(assertionContainer).maybeSubject.getOrElse { emptyList() }
+        val hasElementAssertion = createHasElementAssertion(list.iterator())
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(assertionCreatorOrNull, list))
@@ -106,10 +109,13 @@ private fun <E : Comparable<E>, T : Iterable<E>> collect(
     return ExpectImpl.feature.extractor(assertionContainer)
         .methodCall(method)
         .withRepresentationForFailure(NO_ELEMENTS)
-        .withCheck { it.iterator().hasNext() }
         .withFeatureExtraction {
-            it.collect() ?: throw IllegalStateException(
-                "Iterable does not haveNext() even though checked before! Concurrent access?"
-            )
-        }.build()
+            Option.someIf(it.iterator().hasNext()) {
+                it.collect() ?: throw IllegalStateException(
+                    "Iterable does not haveNext() even though checked before! Concurrent access?"
+                )
+            }
+        }
+        .withoutOptions()
+        .build()
 }

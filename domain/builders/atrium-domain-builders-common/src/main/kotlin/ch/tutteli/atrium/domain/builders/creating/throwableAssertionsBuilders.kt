@@ -1,4 +1,4 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -22,6 +22,7 @@ import kotlin.reflect.KClass
  */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
 
+    @Suppress("KDocMissingDocumentation")
     override inline fun thrownBuilder(
         assertionVerb: Translatable,
         noinline act: () -> Unit,
@@ -32,6 +33,7 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
      * Returns [ThrowableThrownAssertionsBuilder]
      * which inter alia delegates to the implementation of [ThrowableThrownAssertions].
      */
+    @Deprecated("Will be removed with 1.0.0")
     inline val thrown get() = ThrowableThrownAssertionsBuilder
 }
 
@@ -40,17 +42,8 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
  * In detail, it implements [ThrowableThrownAssertions] by delegating to [throwableThrownAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Will be removed with 1.0.0")
 object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
-
-    override inline fun <TExpected : Throwable> isA(
-        throwableThrownBuilder: ThrowableThrown.Builder,
-        expectedType: KClass<TExpected>
-    ) = throwableThrownAssertions.isA(throwableThrownBuilder, expectedType)
-
-    override inline fun notThrown(
-        throwableThrownBuilder: ThrowableThrown.Builder
-    ): ChangedSubjectPostStep<Throwable?, Nothing?> = throwableThrownAssertions.notThrown(throwableThrownBuilder)
-
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

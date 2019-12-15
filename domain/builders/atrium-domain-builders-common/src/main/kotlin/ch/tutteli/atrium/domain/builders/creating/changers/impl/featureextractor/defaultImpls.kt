@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
+import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.changers.featureExtractor
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -23,58 +24,46 @@ internal class RepresentationInCaseOfFailureStepImpl<T>(
     override val originalAssertionContainer: Expect<T>,
     override val description: Translatable
 ) : FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<T> {
-    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.CheckStep<T> =
-        FeatureExtractorBuilder.CheckStep.create(originalAssertionContainer, description, representation)
-}
-
-class CheckStepImpl<T>(
-    override val originalAssertionContainer: Expect<T>,
-    override val description: Translatable,
-    override val representationForFailure: Any
-) : FeatureExtractorBuilder.CheckStep<T> {
-
-    override fun withCheck(canBeTransformed: (T) -> Boolean): FeatureExtractorBuilder.FeatureExtractionStep<T> =
-        FeatureExtractorBuilder.FeatureExtractionStep.create(this, canBeTransformed)
+    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.FeatureExtractionStep<T> =
+        FeatureExtractorBuilder.FeatureExtractionStep.create(originalAssertionContainer, description, representation)
 }
 
 class FeatureExtractionStepImpl<T>(
-    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
-    override val canBeExtracted: (T) -> Boolean
+    override val originalAssertionContainer: Expect<T>,
+    override val description: Translatable,
+    override val representationForFailure: Any
 ) : FeatureExtractorBuilder.FeatureExtractionStep<T> {
 
-    override fun <R> withFeatureExtraction(extraction: (T) -> R): FeatureExtractorBuilder.OptionalRepresentationStep<T, R> =
-        FeatureExtractorBuilder.OptionalRepresentationStep.create(checkOption, canBeExtracted, extraction)
+    override fun <R> withFeatureExtraction(extraction: (T) -> Option<R>): FeatureExtractorBuilder.OptionsStep<T, R> =
+        FeatureExtractorBuilder.OptionsStep.create(this, extraction)
 }
 
-class OptionalRepresentationStepImpl<T, R>(
-    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
-    override val canBeExtracted: (T) -> Boolean,
-    override val featureExtraction: (T) -> R
-) : FeatureExtractorBuilder.OptionalRepresentationStep<T, R> {
+class OptionsStepImpl<T, R>(
+    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
+    override val featureExtraction: (T) -> Option<R>
+) : FeatureExtractorBuilder.OptionsStep<T, R> {
 
-    override fun withRepresentationInsteadOfFeature(representation: Any): FeatureExtractorBuilder.FinalStep<T, R> =
-        createFinalStep(representation)
+    override fun withOptions(expectOptions: FeatureOptions<R>): FeatureExtractorBuilder.FinalStep<T, R> =
+        createFinalStep(expectOptions)
 
-    override fun build(): ExtractedFeaturePostStep<T, R> = createFinalStep(null).build()
+    override fun withoutOptions(): FeatureExtractorBuilder.FinalStep<T, R> = createFinalStep(null)
 
-    private fun createFinalStep(representation: Any?) =
+    private fun createFinalStep(featureOptions: FeatureOptions<R>?) =
         FeatureExtractorBuilder.FinalStep.create(
-            checkOption,
-            canBeExtracted,
+            featureExtractionStep,
             featureExtraction,
-            representation
+            featureOptions
         )
 }
 
 class FinalStepImpl<T, R>(
-    override val checkOption: FeatureExtractorBuilder.CheckStep<T>,
-    override val canBeExtracted: (T) -> Boolean,
-    override val featureExtraction: (T) -> R,
-    override val representationInsteadOfFeature: Any?
+    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
+    override val featureExtraction: (T) -> Option<R>,
+    override val featureOptions: FeatureOptions<R>?
 ) : FeatureExtractorBuilder.FinalStep<T, R> {
 
     override fun build(): ExtractedFeaturePostStep<T, R> =
-        ExtractedFeaturePostStep(checkOption.originalAssertionContainer,
+        ExtractedFeaturePostStep(featureExtractionStep.originalAssertionContainer,
             extract = { extractIt(this, None) },
             extractAndApply = { assertionCreator -> extractIt(this, Some(assertionCreator)) }
         )
@@ -82,12 +71,11 @@ class FinalStepImpl<T, R>(
     private fun extractIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
         featureExtractor.extract(
             expect,
-            checkOption.description,
-            checkOption.representationForFailure,
-            canBeExtracted,
+            featureOptions?.description ?: featureExtractionStep.description,
+            featureExtractionStep.representationForFailure,
             featureExtraction,
             subAssertions,
-            representationInsteadOfFeature
+            featureOptions?.representationInsteadOfFeature
         )
 }
 

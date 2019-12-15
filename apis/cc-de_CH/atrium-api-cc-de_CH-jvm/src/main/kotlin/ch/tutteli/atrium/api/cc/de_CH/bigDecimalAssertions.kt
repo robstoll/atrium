@@ -51,6 +51,7 @@ infix fun <T : BigDecimal> AssertionPlantNullable<T?>.istNichtNullAber(expected:
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
@@ -69,6 +70,7 @@ fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
@@ -85,6 +87,7 @@ fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::istNumerischGleichWie.name))
 
@@ -100,5 +103,6 @@ fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : BigDecimal> Assert<T>.istNichtGleichInklusiveScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

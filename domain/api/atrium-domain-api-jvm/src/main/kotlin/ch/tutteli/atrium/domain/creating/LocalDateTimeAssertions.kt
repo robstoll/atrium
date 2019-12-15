@@ -1,3 +1,5 @@
+@file:Suppress("FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -18,9 +20,11 @@ val localDateTimeAssertions by lazy { loadSingleService(LocalDateTimeAssertions:
  * which an implementation of the domain of Atrium has to provide.
  */
 interface LocalDateTimeAssertions {
-    fun <T: LocalDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : LocalDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun <T: LocalDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : LocalDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun <T: LocalDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek>
+    fun <T : LocalDateTime> day(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T : LocalDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek>
 }

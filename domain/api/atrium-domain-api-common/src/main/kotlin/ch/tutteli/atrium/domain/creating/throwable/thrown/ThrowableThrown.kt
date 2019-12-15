@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.domain.creating.throwable.thrown
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -21,10 +22,12 @@ import kotlin.reflect.KClass
  * (currently all [ThrowableThrownAssertions] specify it implicitly) and
  * is finalized by one of the [ThrowableThrownAssertions] which usually use a [Creator].
  */
+@Deprecated("Use Expect instead; will be removed with 1.0.0")
 interface ThrowableThrown {
     /**
      * The entry point of the [Throwable] `thrown` contract.
      */
+    @Deprecated("Use Expect instead; will be removed with 1.0.0")
     interface Builder {
         val assertionVerb: Translatable
         val act: () -> Unit
@@ -59,6 +62,7 @@ interface ThrowableThrown {
          * @param throwableThrownBuilder The [ThrowableThrown.Builder] containing inter alia the
          *   [act][ThrowableThrown.Builder.act] lambda.
          */
+        @Deprecated("Will be removed with 1.0.0")
         fun executeActAssertNothingThrown(throwableThrownBuilder: Builder)
 
         /**
@@ -73,6 +77,7 @@ interface ThrowableThrown {
          * @param assertionCreator The assertion creator which defines subsequent assertions for the [Throwable] in
          *   case it was thrown as expected and is of the expected type [TExpected].
          */
+        @Deprecated("Will be removed with 1.0.0")
         fun executeActAndCreateAssertion(
             throwableThrownBuilder: Builder,
             description: Translatable,

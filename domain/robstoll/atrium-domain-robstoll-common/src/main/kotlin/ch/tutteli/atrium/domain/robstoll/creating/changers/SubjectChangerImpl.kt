@@ -24,23 +24,21 @@ class SubjectChangerImpl : SubjectChanger {
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representation: Any,
-        canBeTransformed: (T) -> Boolean,
-        transformation: (T) -> R,
+        transformation: (T) -> Option<R>,
         failureHandler: SubjectChanger.FailureHandler<T, R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>
     ): Expect<R> = _changeSubject(
         originalAssertionContainer,
         description,
         representation,
-        canBeTransformed,
         transformation,
         failureHandler,
         maybeSubAssertions
     )
 
     @Suppress("DEPRECATION", "KDocMissingDocumentation", "OverridingDeprecatedMember")
-    override fun <T, R : Any> unreported(
-        originalPlant: BaseAssertionPlant<T, *>,
+    override fun <T, R : Any> unreportedToAssert(
+        originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): Assert<R> {
         val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalPlant)
@@ -52,8 +50,8 @@ class SubjectChangerImpl : SubjectChanger {
     }
 
     @Suppress("DEPRECATION", "KDocMissingDocumentation", "OverridingDeprecatedMember")
-    override fun <T, R> unreportedNullable(
-        originalPlant: BaseAssertionPlant<T, *>,
+    override fun <T, R> unreportedNullableToAssert(
+        originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): AssertionPlantNullable<R> {
         val (assertionChecker, assertionVerb) = createDelegatingAssertionCheckerAndVerb(originalPlant)
@@ -64,6 +62,7 @@ class SubjectChangerImpl : SubjectChanger {
         )
     }
 
+    //TODO remove with 1.0.0
     private fun createDelegatingAssertionCheckerAndVerb(originalPlant: AssertionHolder): Pair<AssertionChecker, Untranslatable> {
         val assertionChecker = coreFactory.newDelegatingAssertionChecker(originalPlant)
         return assertionChecker to SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE

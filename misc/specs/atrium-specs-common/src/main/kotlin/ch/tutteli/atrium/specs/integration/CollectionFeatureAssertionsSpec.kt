@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -27,6 +28,7 @@ abstract class CollectionFeatureAssertionsSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val fluent = expect(listOf("a", "b") as Collection<String>)
+    val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
 
     describeFun("val ${sizeFeature.name}") {
         val sizeVal = sizeFeature.lambda
@@ -39,7 +41,7 @@ abstract class CollectionFeatureAssertionsSpec(
                 expect {
                     fluent.sizeVal().toBe(1)
                 }.toThrow<AssertionError> {
-                    messageContains("size: 2")
+                    messageContains("$sizeDescr: 2")
                 }
             }
         }
@@ -56,7 +58,7 @@ abstract class CollectionFeatureAssertionsSpec(
                 expect {
                     fluent.sizeFun { isLessThan(1) }
                 }.toThrow<AssertionError> {
-                    messageContains("size: 2")
+                    messageContains("$sizeDescr: 2")
                 }
             }
         }

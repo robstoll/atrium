@@ -28,5 +28,5 @@ class OptionsChooserImpl : ExpectBuilder.OptionsChooser {
         this.reporter = reporter
     }
 
-    fun build(): ExpectOptions = ExpectOptions(description, representation, nullRepresentation, reporter)
+    fun build(): ExpectOptions = ExpectOptions(description, representation, reporter)
 }

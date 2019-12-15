@@ -105,7 +105,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  *
  * @return The newly created [Expect] for the feature.
  */
-val <K, T : Map<out K, *>> Expect<T>.keys get() : Expect<Set<K>> = keys(this).getExpectOfFeature()
+val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
+    get() = keys(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
@@ -125,7 +126,8 @@ private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.prope
  *
  * @return The newly created [Expect] for the feature.
  */
-val <V, T : Map<*, V>> Expect<T>.values get() : Expect<Collection<V>> = values().getExpectOfFeature()
+val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
+    get() = values().getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion

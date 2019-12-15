@@ -73,8 +73,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
             }
         }
 
-        context("iterable $oneToFour") {
-            val fluent = expect(oneToFour)
+        context("iterable ${oneToFour().toList()}") {
 
             context("happy cases") {
                 listOf(
@@ -86,7 +85,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                     arrayOf(4.0, 4.0, 3.0, 2.0, 1.0)
                 ).forEach {
                     it(it.joinToString()) {
-                        fluent.containsFun(it.first(), *it.drop(1).toDoubleArray())
+                        expect(oneToFour()).containsFun(it.first(), *it.drop(1).toDoubleArray())
                     }
                 }
             }
@@ -96,7 +95,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                 context("additional entries") {
                     it("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
                         expect {
-                            fluent.containsFun(1.0, 2.0, 3.0, 4.0)
+                            expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -115,7 +114,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
 
                     it("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
                         expect {
-                            fluent.containsFun(1.0, 4.0)
+                            expect(oneToFour()).containsFun(1.0, 4.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -136,7 +135,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                 context("mismatches") {
                     it("1.0, 2.0, 3.0, 4.0, 5.0") {
                         expect {
-                            fluent.containsFun(1.0, 2.0, 3.0, 4.0, 5.0)
+                            expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0, 5.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -157,7 +156,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                 context("mismatches and additional entries") {
                     it("1.0, 3.0, 5.0 -- 5.0 is wrong and 2.0, 4.0 and 4.0 are missing") {
                         expect {
-                            fluent.containsFun(1.0, 3.0, 5.0)
+                            expect(oneToFour()).containsFun(1.0, 3.0, 5.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -178,7 +177,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                 context("too many matcher") {
                     it("1.0, 2.0, 3.0, 4.0, 4.0, 5.0 -- 5.0 was too much") {
                         expect {
-                            fluent.containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
+                            expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
@@ -203,29 +202,28 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     nullableCases(describePrefix) {
         describeFun("$containsInOrderNullableValues for nullable") {
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
+            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
-            context("iterable $list") {
+            context("iterable ${null1null3().toList()}") {
                 context("happy cases (do not throw)") {
                     it("null, 1.0, null, 3.0") {
-                        fluent.containsInOrderNullableValuesFun(null, 1.0, null, 3.0)
+                        expect(null1null3()).containsInOrderNullableValuesFun(null, 1.0, null, 3.0)
                     }
                     it("1.0, null, null, 3.0") {
-                        fluent.containsInOrderNullableValuesFun(1.0, null, null, 3.0)
+                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, null, null, 3.0)
                     }
                     it("1.0, null, 3.0, null") {
-                        fluent.containsInOrderNullableValuesFun(1.0, null, 3.0, null)
+                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, null, 3.0, null)
                     }
                     it("1.0, 3.0, null, null") {
-                        fluent.containsInOrderNullableValuesFun(1.0, 3.0, null, null)
+                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, 3.0, null, null)
                     }
                 }
 
                 context("failing cases") {
                     it("null, 1.0, 3.0 -- null was missing") {
                         expect {
-                            fluent.containsInOrderNullableValuesFun(null, 1.0, 3.0)
+                            expect(null1null3()).containsInOrderNullableValuesFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(

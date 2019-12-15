@@ -49,28 +49,27 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
             }
         }
 
-        val fluent = expect(oneToSeven)
-        context("iterable '$oneToSeven'") {
+        context("iterable '${oneToSeven()}'") {
 
             context("happy cases") {
                 (1..7).forEach {
                     val d = it.toDouble()
                     it("$d does not throw") {
-                        fluent.containsFun(d)
+                        expect(oneToSeven()).containsFun(d)
                     }
                 }
                 it("1.0 and 4.0 does not throw") {
-                    fluent.containsFun(1.0, 4.0)
+                    expect(oneToSeven()).containsFun(1.0, 4.0)
                 }
                 it("1.0 and 1.0 (searching twice in the same assertion) does not throw") {
-                    fluent.containsFun(1.0, 1.0)
+                    expect(oneToSeven()).containsFun(1.0, 1.0)
                 }
             }
 
             context("error cases") {
                 it("9.5 throws AssertionError") {
                     expect {
-                        fluent.containsFun(9.5)
+                        expect(oneToSeven()).containsFun(9.5)
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -82,7 +81,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 }
                 it("9.5 and 7.1 throws AssertionError") {
                     expect {
-                        fluent.containsFun(9.5, 7.1)
+                        expect(oneToSeven()).containsFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(2).values(
@@ -99,7 +98,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 }
                 it("1.0 and 9.5 throws AssertionError") {
                     expect {
-                        fluent.containsFun(1.0, 9.5)
+                        expect(oneToSeven()).containsFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 9.5")
@@ -116,23 +115,20 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
 
         describeFun("${containsInAnyOrderNullableValues.name} for nullable") {
 
-            val list = listOf(null, 1.0, null, 3.0).asIterable()
-            val fluent = expect(list)
-
-            context("iterable $list") {
+            context("iterable ${oneToSevenNullable().toList()}") {
                 listOf(
                     1.0 to arrayOf<Double>(),
-                    3.0 to arrayOf<Double>(),
+                    4.0 to arrayOf<Double>(),
                     null to arrayOf<Double>(),
-                    null to arrayOf(3.0, null),
+                    null to arrayOf(4.0, null),
                     null to arrayOf(1.0),
-                    1.0 to arrayOf(3.0, null)
+                    1.0 to arrayOf(4.0, null)
                 ).forEach { (first, rest) ->
                     val restText = if (rest.isEmpty()) "" else ", ${rest.joinToString()}"
 
                     context("search for $first$restText") {
                         it("$first$restText does not throw") {
-                            fluent.containsInAnyOrderNullableValuesFun(first, *rest)
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableValuesFun(first, *rest)
                         }
                     }
 
@@ -141,7 +137,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 context("search for 2.5") {
                     it("2.5 throws AssertionError") {
                         expect {
-                            fluent.containsInAnyOrderNullableValuesFun(2.5)
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableValuesFun(2.5)
                         }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CONTAINS.getDefault()) }
                     }
                 }

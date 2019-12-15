@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.builders
 
 import ch.tutteli.atrium.core.CoreFactory
@@ -21,15 +23,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param act The function which is expected to throw a [Throwable].
  * @param reporter The reporter which will be used for a [CoreFactory.newThrowingAssertionChecker].
  */
-class ThrowableThrownBuilder
-@Deprecated(
-    "It is not deprecated but we suggest that you do not use an implementation class directly. Use AssertImpl instead",
-    ReplaceWith(
-        "AssertImpl.throwable.thrownBuilder(assertionVerb, act, reporter)",
-        "ch.tutteli.atrium.creating.AssertImpl"
-    )
-)
-constructor(
+@Deprecated("Use Expect instead; will be removed with 1.0.0")
+class ThrowableThrownBuilder(
     override val assertionVerb: Translatable,
     override val act: () -> Unit,
     override val reporter: Reporter

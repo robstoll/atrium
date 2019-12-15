@@ -14,8 +14,8 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * @return The newly created builder.
  */
 val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoringCase
-    get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-    = ExpectImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
+    get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour> =
+        ExpectImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
 /**
  * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
@@ -23,5 +23,5 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
  * @return The newly created builder.
  */
 val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase
-    get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
-    = NotCheckerOptionImpl(containsBuilder.ignoringCase)
+    get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour> =
+        NotCheckerOptionImpl(containsBuilder.ignoringCase)

@@ -87,7 +87,8 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.e
  *
  * @since 0.9.0
  */
-val <T : Path> Expect<T>.fileName get(): Expect<String> = ExpectImpl.path.fileName(this).getExpectOfFeature()
+val <T : Path> Expect<T>.fileName: Expect<String>
+    get() = ExpectImpl.path.fileName(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
@@ -112,9 +113,8 @@ fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): 
  *
  * @since 0.9.0
  */
-val <T : Path> Expect<T>.fileNameWithoutExtension
-    get(): Expect<String> =
-        ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
+val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
+    get() = ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
@@ -139,7 +139,8 @@ fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<Strin
  *
  * @since 0.9.0
  */
-val <T : Path> Expect<T>.parent get(): Expect<Path> = ExpectImpl.path.parent(this).getExpectOfFeature()
+val <T : Path> Expect<T>.parent: Expect<Path>
+    get() = ExpectImpl.path.parent(this).getExpectOfFeature()
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and that the parent holds all assertions the
@@ -237,7 +238,8 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> = addAssertion(ExpectImpl.path
  *
  * @since 0.9.0
  */
-val <T : Path> Expect<T>.extension get(): Expect<String> = ExpectImpl.path.extension(this).getExpectOfFeature()
+val <T : Path> Expect<T>.extension: Expect<String>
+    get() = ExpectImpl.path.extension(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
