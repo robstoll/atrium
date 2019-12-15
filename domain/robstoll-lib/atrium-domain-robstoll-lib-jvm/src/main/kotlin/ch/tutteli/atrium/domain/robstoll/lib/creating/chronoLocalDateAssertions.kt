@@ -7,4 +7,4 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.chrono.ChronoLocalDate
 
 fun <T: ChronoLocalDate> _isAfter(assertionContainer: Expect<T>, expected: T): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_AFTER, expected)
+    ExpectImpl.builder.createDescriptive(assertionContainer, IS_AFTER, expected) {it.isAfter(expected)}
