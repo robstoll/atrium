@@ -15,4 +15,3 @@ val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNul
 // - Kotlin has a bug in JS and the same mangled identifiert results as for <T: Any> above
 // - isA would choose this overload instead of <T>
 val <T : Any> Expect<T?>._domainNullable: AnyDomainOnlyNullable<T> get() = AnyDomainOnlyNullableImpl(this)
-

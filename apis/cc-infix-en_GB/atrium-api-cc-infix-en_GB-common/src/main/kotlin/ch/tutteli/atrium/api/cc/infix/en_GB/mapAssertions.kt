@@ -9,7 +9,8 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import kotlin.js.JsName
 
 /**
@@ -211,7 +212,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Col
  */
 @Suppress("DEPRECATION")
 fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
-    = ExpectImpl.changeSubject(this).unreported { it.entries }
+    = _domain.changeSubject.unreported { it.entries }
 
 /**
  * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given

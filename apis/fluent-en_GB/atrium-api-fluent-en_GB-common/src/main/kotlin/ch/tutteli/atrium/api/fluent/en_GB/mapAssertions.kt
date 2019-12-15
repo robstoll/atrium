@@ -3,6 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.kbox.glue
 
 /**
@@ -150,7 +152,7 @@ private fun <K, V, T : Map<out K, V>> Expect<T>.values() = ExpectImpl.feature.pr
  * @return The newly created [Expect] for the transformed subject.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
-    ExpectImpl.changeSubject(this).unreported { it.entries }
+    _domain.changeSubject.unreported { it.entries }
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given

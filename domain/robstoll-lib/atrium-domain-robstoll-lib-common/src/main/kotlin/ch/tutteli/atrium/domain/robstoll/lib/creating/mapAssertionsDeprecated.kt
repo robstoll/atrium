@@ -10,7 +10,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -35,8 +36,7 @@ fun <K, V : Any> _containsKeyWithValueAssertion(
     // we can pretend that the subject is null if maybeSubject is None as we have to be in an explaining like context in such a case
     val subjectIsNull = this.maybeSubject.fold({ true }) { it == null }
     if (assertionCreator != null && !subjectIsNull) {
-        @Suppress("DEPRECATION" /* TODO switch to Expect */)
-        ExpectImpl.changeSubject(this).unreported { it as V }.assertionCreator()
+        _domain.changeSubject.unreported { it as V }.assertionCreator()
     } else if (subjectIsNull && assertionCreator == null) {
         addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider))
     } else {

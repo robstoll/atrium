@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -7,7 +8,8 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.kbox.glue
 import kotlin.js.JsName
 
@@ -32,8 +34,8 @@ import kotlin.js.JsName
         "ch.tutteli.atrium.api.fluent.en_GB.contains"
     )
 )
-fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
-    = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
+fun <K, V, T : Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>) =
+    addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -58,10 +60,14 @@ fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg
         "ch.tutteli.atrium.api.fluent.en_GB.contains"
     )
 )
-fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
+fun <K, V : Any, T : Map<out K, V?>> Assert<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
-) = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
+) = addAssertion(
+    AssertImpl.map.containsKeyWithValueAssertions(
+        this,
+        (keyValue glue otherKeyValues).map { it.toPair() })
+)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the given [key].
@@ -78,8 +84,7 @@ fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
         "ch.tutteli.atrium.api.fluent.en_GB.containsKey"
     )
 )
-fun <K> Assert<Map<out K, *>>.containsKey(key: K)
-    = addAssertion(AssertImpl.map.containsKey(this, key))
+fun <K> Assert<Map<out K, *>>.containsKey(key: K) = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain the given [key].
@@ -96,9 +101,7 @@ fun <K> Assert<Map<out K, *>>.containsKey(key: K)
         "ch.tutteli.atrium.api.fluent.en_GB.containsNotKey"
     )
 )
-fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
-    = addAssertion(AssertImpl.map.containsNotKey(this, key))
-
+fun <K> Assert<Map<out K, *>>.containsNotKey(key: K) = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 
 /**
@@ -118,8 +121,7 @@ fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
     )
 )
 @JsName("getExisting")
-fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
-    = AssertImpl.map.getExisting(this, key)
+fun <K, V : Any, T : Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V> = AssertImpl.map.getExisting(this, key)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the given [key] and that
@@ -139,8 +141,8 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
         "ch.tutteli.atrium.api.fluent.en_GB.getExisting"
     )
 )
-fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator: Assert<V>.() -> Unit)
-    = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
+fun <K, V : Any, T : Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator: Assert<V>.() -> Unit) =
+    addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
 
 /**
@@ -159,8 +161,8 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator
         "ch.tutteli.atrium.api.fluent.en_GB.getExisting"
     )
 )
-fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlantNullable<V?>
-    = AssertImpl.map.getExistingNullable(this, key)
+fun <K, V : Any, T : Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlantNullable<V?> =
+    AssertImpl.map.getExistingNullable(this, key)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s [Map.size] is [size].
@@ -177,8 +179,7 @@ fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlant
         "ch.tutteli.atrium.api.fluent.en_GB.hasSize"
     )
 )
-fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
-    = addAssertion(AssertImpl.map.hasSize(this, size))
+fun <T : Map<*, *>> Assert<T>.hasSize(size: Int) = addAssertion(AssertImpl.map.hasSize(this, size))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is an empty [Map].
@@ -195,8 +196,7 @@ fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
         "ch.tutteli.atrium.api.fluent.en_GB.isEmpty"
     )
 )
-fun <T : Map<*, *>> Assert<T>.isEmpty()
-    = addAssertion(AssertImpl.map.isEmpty(this))
+fun <T : Map<*, *>> Assert<T>.isEmpty() = addAssertion(AssertImpl.map.isEmpty(this))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not an empty [Map].
@@ -213,8 +213,7 @@ fun <T : Map<*, *>> Assert<T>.isEmpty()
         "ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty"
     )
 )
-fun <T : Map<*, *>> Assert<T>.isNotEmpty()
-    = addAssertion(AssertImpl.map.isNotEmpty(this))
+fun <T : Map<*, *>> Assert<T>.isNotEmpty() = addAssertion(AssertImpl.map.isNotEmpty(this))
 
 
 /**
@@ -234,7 +233,8 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
         "ch.tutteli.atrium.api.fluent.en_GB.keys"
     )
 )
-val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys)
+val <K> Assert<Map<K, *>>.keys
+    get() : Assert<Set<K>> = property(Map<K, *>::keys)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s property [keys][Map.keys] holds all assertions the given
@@ -254,8 +254,8 @@ val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys
         "ch.tutteli.atrium.api.fluent.en_GB.keys"
     )
 )
-fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
-    = addAssertion(AssertImpl.map.keys(this, assertionCreator))
+fun <K, V, T : Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit) =
+    addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
  * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [values][Map.values] so that further
@@ -274,7 +274,8 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
         "ch.tutteli.atrium.api.fluent.en_GB.values"
     )
 )
-val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*, V>::values)
+val <V> Assert<Map<*, V>>.values
+    get() : Assert<Collection<V>> = property(Map<*, V>::values)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s property [values][Map.values] holds all assertions the given
@@ -294,8 +295,8 @@ val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*,
         "ch.tutteli.atrium.api.fluent.en_GB.values"
     )
 )
-fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
-    = addAssertion(AssertImpl.map.values(this, assertionCreator))
+fun <K, V, T : Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit) =
+    addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
  * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
@@ -314,8 +315,8 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
         "ch.tutteli.atrium.api.fluent.en_GB.asEntries"
     )
 )
-fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
-    = ExpectImpl.changeSubject(this).unreported { it.entries }
+fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>> =
+    _domain.changeSubject.unreported { it.entries }
 
 /**
  * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
@@ -335,5 +336,5 @@ fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
         "ch.tutteli.atrium.api.fluent.en_GB.asEntries"
     )
 )
-fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
-    = asEntries().addAssertionsCreatedBy(assertionCreator)
+fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>> =
+    asEntries().addAssertionsCreatedBy(assertionCreator)

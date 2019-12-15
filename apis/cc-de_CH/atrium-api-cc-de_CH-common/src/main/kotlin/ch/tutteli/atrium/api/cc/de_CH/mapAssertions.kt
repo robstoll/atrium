@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -7,7 +8,8 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.kbox.glue
 import kotlin.js.JsName
 
@@ -57,8 +59,7 @@ fun <K, V : Any, T: Map<out K, V?>> Assert<T>.enthaelt(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-fun <K> Assert<Map<out K, *>>.enthaeltKey(key: K)
-    = addAssertion(AssertImpl.map.containsKey(this, key))
+fun <K> Assert<Map<out K, *>>.enthaeltKey(key: K) = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] does not contain the given [key].
@@ -67,8 +68,7 @@ fun <K> Assert<Map<out K, *>>.enthaeltKey(key: K)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K)
-    = addAssertion(AssertImpl.map.containsNotKey(this, key))
+fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K) = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 
 /**
@@ -81,8 +81,7 @@ fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K)
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 @JsName("getExistierend")
-fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
-    = AssertImpl.map.getExisting(this, key)
+fun <K, V : Any, T : Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V> = AssertImpl.map.getExisting(this, key)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains the given [key] and that the corresponding value
@@ -95,8 +94,8 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
-fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
-    = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
+fun <K, V : Any, T : Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit) =
+    addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
 
 /**
@@ -108,8 +107,8 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCrea
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
-fun <K, V, T: Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNullable<V>
-    = AssertImpl.map.getExistingNullable(this, key)
+fun <K, V, T : Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNullable<V> =
+    AssertImpl.map.getExistingNullable(this, key)
 
 
 /**
@@ -120,8 +119,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNul
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
-fun <T : Map<*, *>> Assert<T>.hatDieGroesse(size: Int)
-    = addAssertion(AssertImpl.map.hasSize(this, size))
+fun <T : Map<*, *>> Assert<T>.hatDieGroesse(size: Int) = addAssertion(AssertImpl.map.hasSize(this, size))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is an empty [Map].
@@ -130,8 +128,7 @@ fun <T : Map<*, *>> Assert<T>.hatDieGroesse(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-fun <T : Map<*, *>> Assert<T>.istLeer()
-    = addAssertion(AssertImpl.map.isEmpty(this))
+fun <T : Map<*, *>> Assert<T>.istLeer() = addAssertion(AssertImpl.map.isEmpty(this))
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not an empty [Map].
@@ -140,8 +137,7 @@ fun <T : Map<*, *>> Assert<T>.istLeer()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-fun <T : Map<*, *>> Assert<T>.istNichtLeer()
-    = addAssertion(AssertImpl.map.isNotEmpty(this))
+fun <T : Map<*, *>> Assert<T>.istNichtLeer() = addAssertion(AssertImpl.map.isNotEmpty(this))
 
 /**
  * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [keys][Map.keys] so that further
@@ -153,7 +149,8 @@ fun <T : Map<*, *>> Assert<T>.istNichtLeer()
  * @return The newly created [AssertionPlant].
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out K, V>::keys)
+val <K, V> Assert<Map<out K, V>>.keys
+    get() : Assert<Set<K>> = property(Map<out K, V>::keys)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s property [keys][Map.keys] holds all assertions the given
@@ -165,8 +162,8 @@ val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out 
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
-fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
-    = addAssertion(AssertImpl.map.keys(this, assertionCreator))
+fun <K, V, T : Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit) =
+    addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
  * Creates an [AssertionPlant] for the [Assert.subject][SubjectProvider.subject]'s property [values][Map.values] so that further
@@ -178,7 +175,8 @@ fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() 
  * @return The newly created [AssertionPlant].
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property(Map<out K, V>::values)
+val <K, V> Assert<Map<out K, V>>.values
+    get() : Assert<Collection<V>> = property(Map<out K, V>::values)
 
 /**
  * Makes the assertion that the [Assert.subject][SubjectProvider.subject]'s property [values][Map.values] holds all assertions the given
@@ -190,8 +188,8 @@ val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
-fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
-    = addAssertion(AssertImpl.map.values(this, assertionCreator))
+fun <K, V, T : Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit) =
+    addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
  * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
@@ -203,8 +201,8 @@ fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collectio
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
-fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
-    = ExpectImpl.changeSubject(this).unreported { it.entries }
+fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>> =
+    _domain.changeSubject.unreported { it.entries }
 
 /**
  * Turns `Assert<Map<out K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
@@ -216,5 +214,5 @@ fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
-fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
-    = asEntries().addAssertionsCreatedBy(assertionCreator)
+fun <K, V> Assert<Map<out K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>> =
+    asEntries().addAssertionsCreatedBy(assertionCreator)

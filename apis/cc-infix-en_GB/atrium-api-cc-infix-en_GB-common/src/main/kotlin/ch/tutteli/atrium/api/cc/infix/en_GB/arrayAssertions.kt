@@ -1,9 +1,11 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import kotlin.jvm.JvmName
 
 /**
@@ -15,8 +17,8 @@ import kotlin.jvm.JvmName
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Suppress("DEPRECATION")
-fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<Array<E>>` into `Assert<Iterable<E>>` and makes the assertion that the assertions the given
@@ -27,8 +29,8 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -41,8 +43,8 @@ infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<
  */
 @Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
-fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<CharArray>` into `Assert<Iterable<Byte>>` and makes the assertion that the assertions the given
@@ -54,8 +56,8 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
  * @return The newly created [Assert] for the transformed subject.
  */
 @JvmName("byteArrAsIterable")
-infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> Unit): Assert<Iterable<Byte>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> Unit): Assert<Iterable<Byte>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -68,8 +70,8 @@ infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.
  */
 @Suppress("DEPRECATION")
 @JvmName("charArrAsIterable")
-fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<CharArray>` into `Assert<Iterable<Char>>` and makes the assertion that the assertions the given
@@ -81,8 +83,8 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("charArrAsIterable")
-infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> Unit): Assert<Iterable<Char>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> Unit): Assert<Iterable<Char>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -95,8 +97,8 @@ infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.
  */
 @Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
-fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<ShortArray>` into `Assert<Iterable<Short>>` and makes the assertion that the assertions the given
@@ -108,8 +110,8 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("shortArrAsIterable")
-infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -> Unit): Assert<Iterable<Short>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -> Unit): Assert<Iterable<Short>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -122,8 +124,8 @@ infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>
  */
 @Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
-fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<IntArray>` into `Assert<Iterable<Int>>` and makes the assertion that the assertions the given
@@ -135,8 +137,8 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("intArrAsIterable")
-infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Unit): Assert<Iterable<Int>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Unit): Assert<Iterable<Int>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -149,8 +151,8 @@ infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.()
  */
 @Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
-fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<LongArray>` into `Assert<Iterable<Double>>` and makes the assertion that the assertions the given
@@ -162,8 +164,8 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("longArrAsIterable")
-infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> Unit): Assert<Iterable<Long>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> Unit): Assert<Iterable<Long>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -176,8 +178,8 @@ infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.
  */
 @Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
-fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<FloatArray>` into `Assert<Iterable<Float>>` and makes the assertion that the assertions the given
@@ -189,8 +191,8 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("floatArrAsIterable")
-infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -> Unit): Assert<Iterable<Float>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -> Unit): Assert<Iterable<Float>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -203,8 +205,8 @@ infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>
  */
 @Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
-fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<DoubleArray>` into `Assert<Iterable<Double>>` and makes the assertion that the assertions the given
@@ -216,8 +218,8 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("doubleArrAsIterable")
-infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.() -> Unit): Assert<Iterable<Double>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.() -> Unit): Assert<Iterable<Double>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)
 
 
 /**
@@ -230,8 +232,8 @@ infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Doubl
  */
 @Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
-fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
-    = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
+fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>> =
+    _domain.changeSubject.unreported { it.asIterable() }
 
 /**
  * Turns `Assert<BooleanArray>` into `Assert<Iterable<Boolean>>` and makes the assertion that the assertions the given
@@ -243,5 +245,5 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("boolArrAsIterable")
-infix fun Assert<BooleanArray>.asIterable(assertionCreator: Assert<Iterable<Boolean>>.() -> Unit): Assert<Iterable<Boolean>>
-    = asIterable().addAssertionsCreatedBy(assertionCreator)
+infix fun Assert<BooleanArray>.asIterable(assertionCreator: Assert<Iterable<Boolean>>.() -> Unit): Assert<Iterable<Boolean>> =
+    asIterable().addAssertionsCreatedBy(assertionCreator)

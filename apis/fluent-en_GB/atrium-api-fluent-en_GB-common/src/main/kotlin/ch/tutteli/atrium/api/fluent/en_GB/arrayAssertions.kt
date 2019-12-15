@@ -14,7 +14,7 @@ import kotlin.jvm.JvmName
  * @return The newly created [Expect] for the transformed subject.
  */
 fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -78,7 +78,7 @@ fun <E> Expect<out Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> 
  */
 @JvmName("byteArrAsList")
 fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -104,7 +104,7 @@ fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): E
  */
 @JvmName("charArrAsList")
 fun Expect<CharArray>.asList(): Expect<List<Char>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -130,7 +130,7 @@ fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): E
  */
 @JvmName("shortArrAsList")
 fun Expect<ShortArray>.asList(): Expect<List<Short>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -155,7 +155,7 @@ fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit):
  * @return The newly created [Expect] for the transformed subject.
  */
 @JvmName("intArrAsList")
-fun Expect<IntArray>.asList(): Expect<List<Int>> = _domain.changeSubject().unreported { it.asList() }
+fun Expect<IntArray>.asList(): Expect<List<Int>> = _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -181,7 +181,7 @@ fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Exp
  */
 @JvmName("longArrAsList")
 fun Expect<LongArray>.asList(): Expect<List<Long>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -207,7 +207,7 @@ fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): E
  */
 @JvmName("floatArrAsList")
 fun Expect<FloatArray>.asList(): Expect<List<Float>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -233,7 +233,7 @@ fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit):
  */
 @JvmName("doubleArrAsList")
 fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -259,7 +259,7 @@ fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit
  */
 @JvmName("boolArrAsList")
 fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
-    _domain.changeSubject().unreported { it.asList() }
+    _domain.changeSubject.unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for

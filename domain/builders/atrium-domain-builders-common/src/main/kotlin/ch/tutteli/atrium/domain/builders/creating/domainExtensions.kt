@@ -5,4 +5,5 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.ExpectDomain
 
-inline fun <T> ExpectDomain<T>.changeSubject() = SubjectChangerBuilder.create(expect)
+inline val <T> ExpectDomain<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
+    get() = SubjectChangerBuilder.create(expect)
