@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>typeTransformationDeprecatedAssertions.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.api.cc.infix.en_GB</a> &gt; <span class="el_source">typeTransformationDeprecatedAssertions.kt</span></div><h1>typeTransformationDeprecatedAssertions.kt</h1><pre class="source lang-java linenums">@file:Suppress(&quot;DEPRECATION&quot; /* will be removed with 1.0.0 */)
+@file:JvmMultifileClass
+@file:JvmName(&quot;TypeTransformationAssertionsKt&quot;)
+package ch.tutteli.atrium.api.cc.infix.en_GB
+
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Keyword
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+
+
+/**
+ * Makes the assertion that [AssertionPlantNullable.subject][SubjectProvider.subject] is not null but the [expected] value.
+ *
+ * Is a shortcut for `istNichtNull { ist(expected) }`
+ *
+ * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+ *   assertion ([Assert.subject][SubjectProvider.subject] is not null) holds or not.
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(&quot;Will be removed with 1.0.0 because it is redundant in terms of `ist(expected)` without adding enough to be a legit alternative.&quot;, ReplaceWith(&quot;ist(expected)&quot;))
+inline infix fun &lt;reified T : Any&gt; AssertionPlantNullable&lt;T?&gt;.notToBeNullBut(expected: T) {
+<span class="nc" id="L25">    notToBeNull { this toBe expected }</span>
+}
+
+@Deprecated(ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED, ReplaceWith(&quot;this notToBeNullBut (keyword as Any)&quot;))
+@Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;unused&quot;)
+infix fun &lt;T: Any&gt; AssertionPlantNullable&lt;T&gt;.notToBeNullBut(keyword: Keyword): Nothing
+    = throw PleaseUseReplacementException(&quot;this notToBe (keyword as Any)&quot;)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

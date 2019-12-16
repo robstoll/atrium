@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>bigDecimalAssertions.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.api.cc.infix.en_GB</a> &gt; <span class="el_source">bigDecimalAssertions.kt</span></div><h1>bigDecimalAssertions.kt</h1><pre class="source lang-java linenums">@file:Suppress(&quot;DEPRECATION&quot; /* will be removed with 1.0.0 */)
+package ch.tutteli.atrium.api.cc.infix.en_GB
+
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.bigDecimal
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import java.math.BigDecimal
+
+@Deprecated(&quot;Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n&quot; +
+    &quot;`assert(BigDecimal(\&quot;10\&quot;).toBe(BigDecimal(\&quot;10.0\&quot;))`\n&quot; +
+    &quot;However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.&quot;,
+    ReplaceWith(&quot;this isNumericallyEqualTo expected or isEqualIncludingScale expected&quot;))
+@Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;unused&quot;)
+infix fun &lt;T : BigDecimal&gt; Assert&lt;T&gt;.toBe(expected: T): Nothing
+<span class="fc" id="L18">    = throw PleaseUseReplacementException(&quot;BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n&quot; +</span>
+    &quot;If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`.&quot;)
+
+@Deprecated(&quot;Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n&quot; +
+    &quot;`assert(BigDecimal(\&quot;10\&quot;) notToBe BigDecimal(\&quot;10.0\&quot;)`\n&quot; +
+    &quot;However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.&quot;,
+    ReplaceWith(&quot;this isNotNumericallyEqualTo expected or isNotEqualIncludingScale expected&quot;))
+@Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;unused&quot;)
+infix fun &lt;T : BigDecimal&gt; Assert&lt;T&gt;.notToBe(expected: T): Nothing
+<span class="fc" id="L27">    = throw PleaseUseReplacementException(&quot;BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n&quot; +</span>
+    &quot;If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`.&quot;)
+
+@Deprecated(&quot;Use `notToBeNullBut { isNumericallyEqualTo ... }` if you expect that the following assertion holds:\n&quot; +
+    &quot;`assert(BigDecimal(\&quot;10\&quot;).toBe(BigDecimal(\&quot;10.0\&quot;))`\n&quot; +
+    &quot;However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `notToBeNullBut { isEqualIncludingScale ... }`.&quot;,
+    ReplaceWith(&quot;this notToBeNullBut { o isNumericallyEqualTo expected } or notToBeNullBut { o isEqualIncludingScale expected }&quot;))
+@Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;unused&quot;)
+infix fun &lt;T : BigDecimal&gt; AssertionPlantNullable&lt;T?&gt;.notToBeNullBut(expected: T): Nothing
+<span class="nc" id="L36">    = throw PleaseUseReplacementException(&quot;BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n&quot; +</span>
+    &quot;If you know it and want that `scale` is included in the comparison, then use `notToBeNullBut { o isEqualIncludingScale expected }`.&quot;)
+
+
+/**
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is numerically equal to [expected].
+ *
+ * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
+ * it uses `compareTo(expected) == 0`)
+ *
+ * Most of the time you want to use this function instead of [isEqualIncludingScale] because
+ * [isEqualIncludingScale] compares [BigDecimal.scale].
+ * Following the two functions compared:
+ * - `assert(BigDecimal(&quot;10&quot;)) isEqualIncludingScale BigDecimal(&quot;10.0&quot;)` does not hold
+ * - `assert(BigDecimal(&quot;10&quot;)) isNumericallyEqualTo BigDecimal(&quot;10.0&quot;)` holds.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun &lt;T : BigDecimal&gt; Assert&lt;T&gt;.isNumericallyEqualTo(expected: T)
+<span class="fc" id="L56">    = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))</span>
+
+/**
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not numerically equal to [expected].
+ *
+ * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
+ * it uses `compareTo(expected) != 0`)
+ * Most of the time you want to use this function instead of [isNotEqualIncludingScale] because
+ * [isNotEqualIncludingScale] compares [BigDecimal.scale].
+ * Following the two functions compared:
+ * - `assert(BigDecimal(&quot;10&quot;)) notToBe BigDecimal(&quot;10.0&quot;)` holds.
+ * - `assert(BigDecimal(&quot;10&quot;)) isNotNumericallyEqualTo BigDecimal(&quot;10.0&quot;)`  does not hold.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun &lt;T : BigDecimal&gt; Assert&lt;T&gt;.isNotNumericallyEqualTo(expected: T)
+<span class="fc" id="L73">    = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))</span>
+
+
+/**
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is (equal to) [expected] including [BigDecimal.scale].
+ *
+ * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
+ * in contrast to this function.
+ * Following the two functions compared:
+ * - `assert(BigDecimal(&quot;10&quot;)) isEqualIncludingScale BigDecimal(&quot;10.0&quot;)` does not hold.
+ * - `assert(BigDecimal(&quot;10&quot;)) isNumericallyEqualTo BigDecimal(&quot;10.0&quot;)` holds.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun &lt;T : BigDecimal&gt; Assert&lt;T&gt;.isEqualIncludingScale(expected: T)
+<span class="fc" id="L89">    = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))</span>
+
+/**
+ * Makes the assertion that the [Assert.subject][SubjectProvider.subject] is not equal to [expected] including [BigDecimal.scale].
+ *
+ * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
+ * in contrast to this function.
+ * Following the two functions compared:
+ * - `assert(BigDecimal(&quot;10&quot;)) isNotEqualIncludingScale BigDecimal(&quot;10.0&quot;)` holds.
+ * - `assert(BigDecimal(&quot;10&quot;)) isNotNumericallyEqualTo BigDecimal(&quot;10.0&quot;)`  does not hold.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun &lt;T : BigDecimal&gt; Assert&lt;T&gt;.isNotEqualIncludingScale(expected: T)
+<span class="fc" id="L104">    = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

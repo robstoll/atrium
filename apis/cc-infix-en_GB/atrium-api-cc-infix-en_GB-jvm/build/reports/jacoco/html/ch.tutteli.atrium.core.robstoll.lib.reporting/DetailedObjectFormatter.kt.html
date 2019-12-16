@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DetailedObjectFormatter.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.core.robstoll.lib.reporting</a> &gt; <span class="el_source">DetailedObjectFormatter.kt</span></div><h1>DetailedObjectFormatter.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.core.robstoll.lib.reporting
+
+import ch.tutteli.atrium.reporting.LazyRepresentation
+import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.StringBasedRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.translating.Translator
+import kotlin.reflect.KClass
+
+/**
+ * Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
+ * (in most cases).
+ *
+ * Some objects are treated differently, refer to [format] for details.
+ *
+ * The aim of representing more information than just [toString] is to avoid situations where an assert may fail
+ * and [toString] does not distinguish two compared objects.
+ * Consider the following error message &quot;error, assert: 1 to be 1&quot; would not be very helpful.
+ * &quot;error, assert: 1 (Int &lt;123&gt;) to be 1 (Double &lt;456&gt;)&quot; on the other hand is helpful.
+<span class="fc" id="L21"> *</span>
+ * @property translator The [Translator] used to translate [TranslatableBasedRawString]s.
+ *
+ * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
+ *   (in most cases).
+ * @param translator The [Translator] used to translate [TranslatableBasedRawString]s.
+ */
+<span class="fc" id="L28">actual class DetailedObjectFormatter actual constructor(</span>
+    private val translator: Translator
+<span class="fc" id="L30">) : DetailedObjectFormatterCommon(translator), ObjectFormatter {</span>
+
+    /**
+     * Returns a formatted version of the given [value].
+     *
+     * The following rules apply for the representation of an object:
+     * - `null` is represented as [RawString.NULL].[StringBasedRawString.string]
+     * - [LazyRepresentation] is [evaluated][LazyRepresentation.eval] and then again [format]ted
+     * - [Char] is put in apostrophes
+     * - [Boolean] is represented with its [toString] representation
+     * - [String] is put in quotes and its [Class.getName] is omitted
+     * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
+     * - [StringBasedRawString] is represented as [StringBasedRawString.string]
+     * - [TranslatableBasedRawString] is represented as result of its translation (by [translator])
+     * - [Class] is represented as &quot;[Class.getSimpleName] ([Class.getName])&quot;
+     * - [KClass] is represented as &quot;[Class.getSimpleName] ([Class.getName])&quot;
+<span class="fc bfc" id="L46" title="All 2 branches covered.">     * - [Enum] is represented as &quot;[toString] ([Class.getName])</span>
+<span class="fc" id="L47">     * - [Throwable] is represented as &quot;[Class.getName]&quot;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">     * - All other objects are represented as &quot;[toString] ([Class.getName] &lt;[System.identityHashCode]&gt;)&quot;</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">     *</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">     * @param value The value which shall be formatted.</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">     *</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">     * @return The formatted [value].</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">     */</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    override fun format(value: Any?): String = when (value) {</span>
+<span class="pc bpc" id="L55" title="1 of 4 branches missed.">        is Class&lt;*&gt; -&gt; format(value)</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        else -&gt; super.format(value)</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    }</span>
+<span class="fc" id="L58"></span>
+<span class="fc" id="L59">    private fun format(clazz: Class&lt;*&gt;) = &quot;${clazz.simpleName} (${clazz.name})&quot;</span>
+
+    override fun format(kClass: KClass&lt;*&gt;): String {
+<span class="fc" id="L62">        val kotlinClass = &quot;${kClass.simpleName} (${kClass.qualifiedName})&quot;</span>
+<span class="fc" id="L63">        return when {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            kClass.qualifiedName == kClass.java.name -&gt; kotlinClass</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">            kClass.java.isPrimitive -&gt; &quot;$kotlinClass -- Class: ${kClass.java.simpleName}&quot;</span>
+<span class="pc" id="L66">            else -&gt; &quot;$kotlinClass -- Class: ${format(kClass.java)}&quot;</span>
+<span class="fc" id="L67">        }</span>
+    }
+<span class="fc" id="L69"></span>
+<span class="fc" id="L70">    override fun identityHash(indent: String, any: Any): String = &quot;$indent&lt;${System.identityHashCode(any)}&gt;&quot;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

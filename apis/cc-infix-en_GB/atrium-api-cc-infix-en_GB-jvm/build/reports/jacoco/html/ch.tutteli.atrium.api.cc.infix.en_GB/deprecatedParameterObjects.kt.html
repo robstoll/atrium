@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>deprecatedParameterObjects.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.api.cc.infix.en_GB</a> &gt; <span class="el_source">deprecatedParameterObjects.kt</span></div><h1>deprecatedParameterObjects.kt</h1><pre class="source lang-java linenums">@file:Suppress(&quot;DEPRECATION&quot; /* will be removed with 1.0.0 */)
+@file:JvmMultifileClass
+@file:JvmName(&quot;ParameterObjectsKt&quot;)
+package ch.tutteli.atrium.api.cc.infix.en_GB
+
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
+import ch.tutteli.kbox.glue
+
+@Deprecated(&quot;Use Value instead, it was opened up to Any? in 0.8.0; will be removed with 1.0.0&quot;, ReplaceWith(&quot;Value(expected)&quot;))
+<span class="nc" id="L11">data class NullableValue&lt;T : Any?&gt;(val expected: T) : GroupWithNullableEntries&lt;T&gt; {</span>
+<span class="nc" id="L12">    override fun toList() = listOf(expected)</span>
+}
+
+@Deprecated(&quot;Use Values instead, it was opened up to Any? in 0.8.0; will be removed with 1.0.0&quot;, ReplaceWith(&quot;Values(expected, *otherExpected)&quot;))
+<span class="nc" id="L16">class NullableValues&lt;T : Any?&gt;(val expected: T, vararg val otherExpected: T) : GroupWithNullableEntries&lt;T&gt;{</span>
+<span class="nc" id="L17">    override fun toList() = listOf(expected, *otherExpected)</span>
+}
+
+@Deprecated(&quot;Use Entry instead, it was opened up to `(Assert&lt;V&gt;.() -&gt; Unit)?` in 0.8.0; will be removed with 1.0.0&quot;, ReplaceWith(&quot;Entry(assertionCreatorOrNull)&quot;))
+<span class="nc" id="L21">class NullableEntry&lt;T : Any&gt;(</span>
+<span class="nc" id="L22">    val assertionCreator: (Assert&lt;T&gt;.() -&gt; Unit)?</span>
+) : GroupWithNullableEntries&lt;(Assert&lt;T&gt;.() -&gt; Unit)?&gt; {
+<span class="nc" id="L24">    override fun toList(): List&lt;(Assert&lt;T&gt;.() -&gt; Unit)?&gt; = listOf(assertionCreator)</span>
+}
+
+@Deprecated(&quot;Use Entries instead, it was opened up to Any? in 0.8.0; will be removed with 1.0.0&quot;, ReplaceWith(&quot;Entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)&quot;))
+<span class="nc" id="L28">class NullableEntries&lt;T : Any&gt;(</span>
+<span class="nc" id="L29">    val assertionCreatorOrNull: (Assert&lt;T&gt;.() -&gt; Unit)?,</span>
+<span class="nc" id="L30">    vararg val otherAssertionCreatorsOrNulls: (Assert&lt;T&gt;.() -&gt; Unit)?</span>
+) : GroupWithNullableEntries&lt;(Assert&lt;T&gt;.() -&gt; Unit)?&gt; {
+<span class="nc" id="L32">    override fun toList(): List&lt;(Assert&lt;T&gt;.() -&gt; Unit)?&gt; = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls</span>
+}
+
+@Deprecated(&quot;Use KeyValue instead, it was opened up to `(Assert&lt;V&gt;.() -&gt; Unit)?` in 0.8.0; will be removed with 1.0.0&quot;, ReplaceWith(&quot;KeyValue(key, *valueAssertionCreatorOrNull)&quot;))
+<span class="nc" id="L36">data class KeyNullableValue&lt;out K, V : Any&gt;(val key: K, val valueAssertionCreatorOrNull: (Assert&lt;V&gt;.() -&gt; Unit)?) {</span>
+<span class="nc" id="L37">    fun toPair(): Pair&lt;K, (Assert&lt;V&gt;.() -&gt; Unit)?&gt; = key to valueAssertionCreatorOrNull</span>
+    override fun toString(): String
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        = &quot;KeyNullableValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) &quot;null&quot; else &quot;lambda&quot;})&quot;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

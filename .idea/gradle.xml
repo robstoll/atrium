@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="disableWrapperSourceDistributionNotification" value="true" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/apis/atrium-api-cc-en_UK" />
+            <option value="$PROJECT_DIR$/apis/atrium-api-cc-infix-en_UK" />
+            <option value="$PROJECT_DIR$/apis/cc-de_CH/atrium-api-cc-de_CH-common" />
+            <option value="$PROJECT_DIR$/apis/cc-de_CH/atrium-api-cc-de_CH-js" />
+            <option value="$PROJECT_DIR$/apis/cc-de_CH/atrium-api-cc-de_CH-jvm" />
+            <option value="$PROJECT_DIR$/apis/cc-en_GB/atrium-api-cc-en_GB-common" />
+            <option value="$PROJECT_DIR$/apis/cc-en_GB/atrium-api-cc-en_GB-js" />
+            <option value="$PROJECT_DIR$/apis/cc-en_GB/atrium-api-cc-en_GB-jvm" />
+            <option value="$PROJECT_DIR$/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common" />
+            <option value="$PROJECT_DIR$/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-js" />
+            <option value="$PROJECT_DIR$/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-jvm" />
+            <option value="$PROJECT_DIR$/apis/fluent-en_GB/atrium-api-fluent-en_GB-common" />
+            <option value="$PROJECT_DIR$/apis/fluent-en_GB/atrium-api-fluent-en_GB-js" />
+            <option value="$PROJECT_DIR$/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm" />
+            <option value="$PROJECT_DIR$/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-common" />
+            <option value="$PROJECT_DIR$/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-jvm" />
+            <option value="$PROJECT_DIR$/bundles/atrium-cc-en_UK-robstoll" />
+            <option value="$PROJECT_DIR$/bundles/atrium-cc-infix-en_UK-robstoll" />
+            <option value="$PROJECT_DIR$/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common" />
+            <option value="$PROJECT_DIR$/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-js" />
+            <option value="$PROJECT_DIR$/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-jvm" />
+            <option value="$PROJECT_DIR$/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common" />
+            <option value="$PROJECT_DIR$/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-js" />
+            <option value="$PROJECT_DIR$/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm" />
+            <option value="$PROJECT_DIR$/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-smoke-test" />
+            <option value="$PROJECT_DIR$/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common" />
+            <option value="$PROJECT_DIR$/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-js" />
+            <option value="$PROJECT_DIR$/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-jvm" />
+            <option value="$PROJECT_DIR$/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-smoke-test" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB-jdk8/atrium-fluent-en_GB-jdk8-common" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB-jdk8/atrium-fluent-en_GB-jdk8-jvm" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB-jdk8/atrium-fluent-en_GB-jdk8-smoke-test" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB/atrium-fluent-en_GB-common" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB/atrium-fluent-en_GB-js" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB/atrium-fluent-en_GB-jvm" />
+            <option value="$PROJECT_DIR$/bundles/fluent-en_GB/atrium-fluent-en_GB-smoke-test" />
+            <option value="$PROJECT_DIR$/core/api/atrium-core-api-common" />
+            <option value="$PROJECT_DIR$/core/api/atrium-core-api-js" />
+            <option value="$PROJECT_DIR$/core/api/atrium-core-api-jvm" />
+            <option value="$PROJECT_DIR$/core/atrium-core-api-deprecated" />
+            <option value="$PROJECT_DIR$/core/atrium-core-robstoll-deprecated" />
+            <option value="$PROJECT_DIR$/core/robstoll-lib/atrium-core-robstoll-lib-common" />
+            <option value="$PROJECT_DIR$/core/robstoll-lib/atrium-core-robstoll-lib-js" />
+            <option value="$PROJECT_DIR$/core/robstoll-lib/atrium-core-robstoll-lib-jvm" />
+            <option value="$PROJECT_DIR$/core/robstoll/atrium-core-robstoll-common" />
+            <option value="$PROJECT_DIR$/core/robstoll/atrium-core-robstoll-js" />
+            <option value="$PROJECT_DIR$/core/robstoll/atrium-core-robstoll-jvm" />
+            <option value="$PROJECT_DIR$/domain/api/atrium-domain-api-common" />
+            <option value="$PROJECT_DIR$/domain/api/atrium-domain-api-js" />
+            <option value="$PROJECT_DIR$/domain/api/atrium-domain-api-jvm" />
+            <option value="$PROJECT_DIR$/domain/atrium-domain-api-deprecated" />
+            <option value="$PROJECT_DIR$/domain/builders/atrium-domain-builders-common" />
+            <option value="$PROJECT_DIR$/domain/builders/atrium-domain-builders-js" />
+            <option value="$PROJECT_DIR$/domain/builders/atrium-domain-builders-jvm" />
+            <option value="$PROJECT_DIR$/domain/robstoll-lib/atrium-domain-robstoll-lib-common" />
+            <option value="$PROJECT_DIR$/domain/robstoll-lib/atrium-domain-robstoll-lib-js" />
+            <option value="$PROJECT_DIR$/domain/robstoll-lib/atrium-domain-robstoll-lib-jvm" />
+            <option value="$PROJECT_DIR$/domain/robstoll/atrium-domain-robstoll-common" />
+            <option value="$PROJECT_DIR$/domain/robstoll/atrium-domain-robstoll-js" />
+            <option value="$PROJECT_DIR$/domain/robstoll/atrium-domain-robstoll-jvm" />
+            <option value="$PROJECT_DIR$/misc/atrium-assertions" />
+            <option value="$PROJECT_DIR$/misc/atrium-bc-test" />
+            <option value="$PROJECT_DIR$/misc/atrium-spec" />
+            <option value="$PROJECT_DIR$/misc/specs/atrium-specs-common" />
+            <option value="$PROJECT_DIR$/misc/specs/atrium-specs-js" />
+            <option value="$PROJECT_DIR$/misc/specs/atrium-specs-jvm" />
+            <option value="$PROJECT_DIR$/misc/verbs-internal/atrium-verbs-internal-common" />
+            <option value="$PROJECT_DIR$/misc/verbs-internal/atrium-verbs-internal-js" />
+            <option value="$PROJECT_DIR$/misc/verbs-internal/atrium-verbs-internal-jvm" />
+            <option value="$PROJECT_DIR$/misc/verbs/atrium-verbs-common" />
+            <option value="$PROJECT_DIR$/misc/verbs/atrium-verbs-js" />
+            <option value="$PROJECT_DIR$/misc/verbs/atrium-verbs-jvm" />
+            <option value="$PROJECT_DIR$/samples/js/mocha" />
+            <option value="$PROJECT_DIR$/samples/readme-examples" />
+            <option value="$PROJECT_DIR$/translations/atrium-translations-de_CH-deprecated" />
+            <option value="$PROJECT_DIR$/translations/atrium-translations-en_UK-deprecated" />
+            <option value="$PROJECT_DIR$/translations/de_CH/atrium-translations-de_CH-common" />
+            <option value="$PROJECT_DIR$/translations/de_CH/atrium-translations-de_CH-js" />
+            <option value="$PROJECT_DIR$/translations/de_CH/atrium-translations-de_CH-jvm" />
+            <option value="$PROJECT_DIR$/translations/en_GB/atrium-translations-en_GB-common" />
+            <option value="$PROJECT_DIR$/translations/en_GB/atrium-translations-en_GB-js" />
+            <option value="$PROJECT_DIR$/translations/en_GB/atrium-translations-en_GB-jvm" />
+          </set>
+        </option>
+        <option name="useAutoImport" value="true" />
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

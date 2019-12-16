@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PathAssertionsImpl.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.domain.robstoll.creating</a> &gt; <span class="el_source">PathAssertionsImpl.kt</span></div><h1>PathAssertionsImpl.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.domain.robstoll.creating
+
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.PathAssertions
+import ch.tutteli.atrium.domain.robstoll.lib.creating._endsWith
+import ch.tutteli.atrium.domain.robstoll.lib.creating._endsNotWith
+import ch.tutteli.atrium.domain.robstoll.lib.creating._exists
+import ch.tutteli.atrium.domain.robstoll.lib.creating._existsNot
+import ch.tutteli.atrium.domain.robstoll.lib.creating._fileNameWithoutExtension
+import ch.tutteli.atrium.domain.robstoll.lib.creating._extension
+import ch.tutteli.atrium.domain.robstoll.lib.creating._parent
+import ch.tutteli.atrium.domain.robstoll.lib.creating.*
+import java.nio.file.Path
+
+<span class="nc" id="L15">class PathAssertionsImpl : PathAssertions {</span>
+    override fun &lt;T : Path&gt; startsWith(assertionContainer: Expect&lt;T&gt;, expected: Path) =
+<span class="nc" id="L17">        _startsWith(assertionContainer, expected)</span>
+    override fun &lt;T : Path&gt; startsNotWith(assertionContainer: Expect&lt;T&gt;, expected: Path) =
+<span class="nc" id="L19">        _startsNotWith(assertionContainer, expected)</span>
+
+    override fun &lt;T : Path&gt; endsWith(assertionContainer: Expect&lt;T&gt;, expected: Path) =
+<span class="nc" id="L22">        _endsWith(assertionContainer, expected)</span>
+    override fun &lt;T : Path&gt; endsNotWith(assertionContainer: Expect&lt;T&gt;, expected: Path) =
+<span class="nc" id="L24">        _endsNotWith(assertionContainer, expected)</span>
+
+<span class="nc" id="L26">    override fun &lt;T : Path&gt; exists(assertionContainer: Expect&lt;T&gt;) = _exists(assertionContainer)</span>
+
+<span class="nc" id="L28">    override fun &lt;T : Path&gt; existsNot(assertionContainer: Expect&lt;T&gt;) = _existsNot(assertionContainer)</span>
+
+<span class="nc" id="L30">    override fun &lt;T : Path&gt; fileName(assertionContainer: Expect&lt;T&gt;) = _fileName(assertionContainer)</span>
+<span class="nc" id="L31">    override fun &lt;T : Path&gt; extension(assertionContainer: Expect&lt;T&gt;) = _extension(assertionContainer)</span>
+    override fun &lt;T : Path&gt; fileNameWithoutExtension(assertionContainer: Expect&lt;T&gt;) =
+<span class="nc" id="L33">        _fileNameWithoutExtension(assertionContainer)</span>
+
+<span class="nc" id="L35">    override fun &lt;T : Path&gt; parent(assertionContainer: Expect&lt;T&gt;) = _parent(assertionContainer)</span>
+
+<span class="nc" id="L37">    override fun &lt;T : Path&gt; isReadable(assertionContainer: Expect&lt;T&gt;) = _isReadable(assertionContainer)</span>
+<span class="nc" id="L38">    override fun &lt;T : Path&gt; isWritable(assertionContainer: Expect&lt;T&gt;) = _isWritable(assertionContainer)</span>
+<span class="nc" id="L39">    override fun &lt;T : Path&gt; isRegularFile(assertionContainer: Expect&lt;T&gt;) = _isRegularFile(assertionContainer)</span>
+<span class="nc" id="L40">    override fun &lt;T : Path&gt; isDirectory(assertionContainer: Expect&lt;T&gt;) = _isDirectory(assertionContainer)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

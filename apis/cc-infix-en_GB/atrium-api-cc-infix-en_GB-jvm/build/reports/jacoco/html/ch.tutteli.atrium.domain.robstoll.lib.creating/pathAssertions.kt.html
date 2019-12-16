@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>pathAssertions.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.domain.robstoll.lib.creating</a> &gt; <span class="el_source">pathAssertions.kt</span></div><h1>pathAssertions.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.domain.robstoll.lib.creating
+
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionBasic.*
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
+import ch.tutteli.niok.extension
+import ch.tutteli.niok.fileNameWithoutExtension
+import ch.tutteli.niok.getFileAttributeView
+import ch.tutteli.niok.readAttributes
+import java.io.IOException
+import java.nio.file.AccessDeniedException
+import java.nio.file.AccessMode
+import java.nio.file.NoSuchFileException
+import java.nio.file.Path
+import java.nio.file.attribute.*
+import java.nio.file.attribute.PosixFilePermission.*
+import java.util.*
+
+private const val IO_EXCEPTION_STACK_TRACE_LENGTH = 15
+
+fun &lt;T : Path&gt; _startsWith(assertionContainer: Expect&lt;T&gt;, expected: Path): Assertion =
+<span class="nc" id="L37">    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }</span>
+
+fun &lt;T : Path&gt; _startsNotWith(assertionContainer: Expect&lt;T&gt;, expected: Path): Assertion =
+<span class="nc bnc" id="L40" title="All 2 branches missed.">    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }</span>
+
+fun &lt;T : Path&gt; _endsWith(assertionContainer: Expect&lt;T&gt;, expected: Path): Assertion =
+<span class="nc" id="L43">    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }</span>
+
+fun &lt;T : Path&gt; _endsNotWith(assertionContainer: Expect&lt;T&gt;, expected: Path) =
+<span class="nc bnc" id="L46" title="All 2 branches missed.">    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }</span>
+
+fun &lt;T : Path&gt; _exists(assertionContainer: Expect&lt;T&gt;): Assertion =
+<span class="nc" id="L49">    changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer -&gt;</span>
+<span class="nc" id="L50">        ExpectImpl.builder.descriptive</span>
+<span class="nc" id="L51">            .withTest(fileAttributesAssertionContainer) { it is Success }</span>
+<span class="nc" id="L52">            .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result -&gt;</span>
+<span class="nc" id="L53">                explainForResolvedLink(result.path) { realPath -&gt;</span>
+<span class="nc" id="L54">                    val exception = (result as Failure).exception</span>
+<span class="nc" id="L55">                    when (exception) {</span>
+                        // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                        is NoSuchFileException -&gt; ExpectImpl.builder.explanatoryGroup.withDefaultType.withAssertion(</span>
+<span class="nc" id="L58">                            hintForClosestExistingParent(realPath)</span>
+<span class="nc" id="L59">                        ).build()</span>
+<span class="nc" id="L60">                        else -&gt; hintForIoException(realPath, exception)</span>
+<span class="nc" id="L61">                    }</span>
+<span class="nc" id="L62">                }</span>
+            }
+<span class="nc" id="L64">            .withDescriptionAndRepresentation(TO, RawString.create(EXIST))</span>
+<span class="nc" id="L65">            .build()</span>
+<span class="nc" id="L66">    }</span>
+
+fun &lt;T : Path&gt; _existsNot(assertionContainer: Expect&lt;T&gt;): Assertion =
+<span class="nc" id="L69">    changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer -&gt;</span>
+<span class="nc" id="L70">        ExpectImpl.builder.descriptive</span>
+<span class="nc bnc" id="L71" title="All 4 branches missed.">            .withTest(fileAttributesAssertionContainer) { it is Failure &amp;&amp; it.exception is NoSuchFileException }</span>
+<span class="nc" id="L72">            .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result -&gt;</span>
+<span class="nc" id="L73">                explainForResolvedLink(result.path) { realPath -&gt;</span>
+<span class="nc" id="L74">                    when (result) {</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">                        is Success -&gt; describeWas(result.value.fileType)</span>
+<span class="nc" id="L76">                        is Failure -&gt; hintForIoException(realPath, result.exception)</span>
+<span class="nc" id="L77">                    }</span>
+<span class="nc" id="L78">                }</span>
+            }
+<span class="nc" id="L80">            .withDescriptionAndRepresentation(NOT_TO, RawString.create(EXIST))</span>
+<span class="nc" id="L81">            .build()</span>
+<span class="nc" id="L82">    }</span>
+
+fun &lt;T : Path&gt; _isReadable(assertionContainer: Expect&lt;T&gt;): Assertion =
+<span class="nc" id="L85">    filePermissionAssertion(assertionContainer, READABLE, AccessMode.READ)</span>
+
+fun &lt;T : Path&gt; _isWritable(assertionContainer: Expect&lt;T&gt;): Assertion =
+<span class="nc" id="L88">    filePermissionAssertion(assertionContainer, WRITABLE, AccessMode.WRITE)</span>
+
+fun &lt;T : Path&gt; _isRegularFile(assertionContainer: Expect&lt;T&gt;): Assertion =
+<span class="nc" id="L91">    fileTypeAssertion(assertionContainer, A_FILE) { it.isRegularFile }</span>
+
+fun &lt;T : Path&gt; _isDirectory(assertionContainer: Expect&lt;T&gt;): Assertion =
+<span class="nc" id="L94">    fileTypeAssertion(assertionContainer, A_DIRECTORY) { it.isDirectory }</span>
+
+private fun &lt;T : Path&gt; filePermissionAssertion(
+    assertionContainer: Expect&lt;T&gt;,
+    permissionName: Translatable,
+    accessMode: AccessMode
+<span class="nc" id="L100">) = ExpectImpl.changeSubject(assertionContainer).unreported {</span>
+<span class="nc" id="L101">    it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }</span>
+<span class="nc" id="L102">}.let { checkAccessResultContainer -&gt;</span>
+<span class="nc" id="L103">    ExpectImpl.builder.descriptive</span>
+<span class="nc" id="L104">        .withTest(checkAccessResultContainer) { it is Success }</span>
+<span class="nc" id="L105">        .withFailureHintBasedOnDefinedSubject(checkAccessResultContainer) { result -&gt;</span>
+<span class="nc" id="L106">            explainForResolvedLink(result.path) { realPath -&gt;</span>
+<span class="nc" id="L107">                val exception = (result as Failure).exception</span>
+<span class="nc" id="L108">                when (exception) {</span>
+<span class="nc bnc" id="L109" title="All 4 branches missed.">                    is AccessDeniedException -&gt; findHintForProblemWithParent(realPath)</span>
+<span class="nc" id="L110">                        ?: ExpectImpl.builder.explanatoryGroup.withDefaultType</span>
+<span class="nc" id="L111">                            .withAssertions(</span>
+<span class="nc" id="L112">                                listOf(hintForExistsButMissingPermission(realPath, permissionName))</span>
+<span class="nc" id="L113">                                    + hintForOwnersAndPermissions(realPath)</span>
+                            )
+<span class="nc" id="L115">                            .build()</span>
+<span class="nc" id="L116">                    else -&gt; hintForIoException(realPath, exception)</span>
+<span class="nc" id="L117">                }</span>
+<span class="nc" id="L118">            }</span>
+        }
+<span class="nc" id="L120">        .withDescriptionAndRepresentation(TO_BE, RawString.create(permissionName))</span>
+<span class="nc" id="L121">        .build()</span>
+<span class="nc" id="L122">}</span>
+
+private inline fun &lt;T : Path&gt; fileTypeAssertion(
+    assertionContainer: Expect&lt;T&gt;,
+    typeName: Translatable,
+    crossinline typeTest: (BasicFileAttributes) -&gt; Boolean
+<span class="nc" id="L128">) = changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer -&gt;</span>
+<span class="nc" id="L129">    ExpectImpl.builder.descriptive</span>
+<span class="nc bnc" id="L130" title="All 16 branches missed.">        .withTest(fileAttributesAssertionContainer) { it is Success &amp;&amp; typeTest(it.value) }</span>
+<span class="nc" id="L131">        .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result -&gt;</span>
+<span class="nc" id="L132">            explainForResolvedLink(result.path) { realPath -&gt;</span>
+<span class="nc" id="L133">                when (result) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">                    is Success -&gt; describeWas(result.value.fileType)</span>
+<span class="nc" id="L135">                    is Failure -&gt; hintForIoException(realPath, result.exception)</span>
+<span class="nc" id="L136">                }</span>
+<span class="nc" id="L137">            }</span>
+        }
+<span class="nc" id="L139">        .withDescriptionAndRepresentation(TO_BE, RawString.create(typeName))</span>
+<span class="nc" id="L140">        .build()</span>
+<span class="nc" id="L141">}</span>
+
+private inline fun &lt;T : Path, R&gt; changeSubjectToFileAttributes(
+    assertionContainer: Expect&lt;T&gt;,
+    block: (Expect&lt;IoResult&lt;BasicFileAttributes&gt;&gt;) -&gt; R
+<span class="nc" id="L146">): R = ExpectImpl.changeSubject(assertionContainer).unreported {</span>
+<span class="nc" id="L147">    it.runCatchingIo { readAttributes&lt;BasicFileAttributes&gt;() }</span>
+<span class="nc" id="L148">}.let(block)</span>
+
+/**
+ * Searches for any problem with a parent directory that is not that the directory does not exist.
+ * @return an appropriate hint if a problem with a parent is found that is not that that parent does not exist.
+ */
+private fun findHintForProblemWithParent(path: Path): Assertion? {
+<span class="nc" id="L155">    val absolutePath = path.toAbsolutePath()</span>
+<span class="nc" id="L156">    var currentParentPart = absolutePath.root</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">    for (part in absolutePath) {</span>
+<span class="nc" id="L158">        currentParentPart = currentParentPart.resolve(part)</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (currentParentPart != path) {</span>
+<span class="nc" id="L160">            try {</span>
+<span class="nc" id="L161">                val attributes = currentParentPart.readAttributes&lt;BasicFileAttributes&gt;()</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                if (!attributes.isDirectory) {</span>
+<span class="nc" id="L163">                    return hintForParentFailure(</span>
+<span class="nc" id="L164">                        currentParentPart,</span>
+<span class="nc" id="L165">                        explanation = hintForNotDirectory(attributes.fileType)</span>
+                    )
+                }
+<span class="nc" id="L168">            } catch (e: AccessDeniedException) {</span>
+<span class="nc" id="L169">                return hintForParentFailure(</span>
+<span class="nc" id="L170">                    currentParentPart.parent,</span>
+<span class="nc" id="L171">                    explanation = hintForAccessDenied(currentParentPart.parent)</span>
+                )
+<span class="nc" id="L173">            } catch (e: IOException) {</span>
+<span class="nc" id="L174">                return hintForParentFailure(</span>
+<span class="nc" id="L175">                    currentParentPart,</span>
+<span class="nc" id="L176">                    explanation = hintForFileSpecificIoException(currentParentPart, e)</span>
+                )
+            }
+        }
+    }
+<span class="nc" id="L181">    return null</span>
+}
+
+private fun hintForParentFailure(parent: Path, explanation: Assertion) =
+<span class="nc" id="L185">    ExpectImpl.builder.explanatoryGroup.withDefaultType</span>
+<span class="nc" id="L186">        .withAssertions(</span>
+<span class="nc" id="L187">            ExpectImpl.builder.descriptive.failing</span>
+<span class="nc" id="L188">                .withDescriptionAndRepresentation(FAILURE_DUE_TO_PARENT, parent)</span>
+<span class="nc" id="L189">                .build(),</span>
+<span class="nc" id="L190">            when (explanation) {</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">                is AssertionGroup -&gt; explanation</span>
+                // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
+<span class="nc" id="L193">                else -&gt; ExpectImpl.builder.explanatoryGroup.withDefaultType</span>
+<span class="nc" id="L194">                    .withAssertion(explanation)</span>
+<span class="nc" id="L195">                    .build()</span>
+            }
+<span class="nc" id="L197">        ).build()</span>
+
+private fun hintForAccessDenied(path: Path): Assertion {
+<span class="nc" id="L200">    val failureDueToAccessDeniedHint = ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L201">        .withExplanation(FAILURE_DUE_TO_ACCESS_DENIED)</span>
+<span class="nc" id="L202">        .build()</span>
+<span class="nc" id="L203">    return try {</span>
+<span class="nc" id="L204">        val hints = hintForOwnersAndPermissions(path)</span>
+<span class="nc" id="L205">        hints.add(0, failureDueToAccessDeniedHint)</span>
+<span class="nc" id="L206">        ExpectImpl.builder.explanatoryGroup.withDefaultType</span>
+<span class="nc" id="L207">            .withAssertions(hints)</span>
+<span class="nc" id="L208">            .build()</span>
+<span class="nc" id="L209">    } catch (e: IOException) {</span>
+<span class="nc" id="L210">        failureDueToAccessDeniedHint</span>
+    }
+}
+
+private fun hintForOwnersAndPermissions(path: Path): MutableList&lt;Assertion&gt; {
+<span class="nc" id="L215">    val hintList = LinkedList&lt;Assertion&gt;()</span>
+<span class="nc" id="L216">    val aclView = path.getFileAttributeView&lt;AclFileAttributeView&gt;()</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">    if (aclView != null) {</span>
+<span class="nc" id="L218">        hintList.add(hintForOwner(aclView.owner.name))</span>
+<span class="nc" id="L219">        hintList.addAll(hintsForActualAclPermissions(aclView.acl))</span>
+    } else {
+<span class="nc" id="L221">        val posixView = path.getFileAttributeView&lt;PosixFileAttributeView&gt;()</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        if (posixView != null) {</span>
+<span class="nc" id="L223">            val posixAttributes = posixView.readAttributes()</span>
+<span class="nc" id="L224">            hintList.add(hintForOwnerAndGroup(posixAttributes.owner().name, posixAttributes.group().name))</span>
+<span class="nc" id="L225">            hintList.add(hintForActualPosixPermissions(posixAttributes.permissions()))</span>
+        }
+    }
+<span class="nc" id="L228">    return hintList</span>
+}
+
+private fun hintForOwner(owner: String) =
+<span class="nc" id="L232">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L233">        .withExplanation(HINT_OWNER, owner)</span>
+<span class="nc" id="L234">        .build()</span>
+
+private fun hintForOwnerAndGroup(owner: String, group: String) =
+<span class="nc" id="L237">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L238">        .withExplanation(HINT_OWNER_AND_GROUP, owner, group)</span>
+<span class="nc" id="L239">        .build()</span>
+
+private fun hintsForActualAclPermissions(acl: List&lt;AclEntry&gt;) =
+<span class="nc" id="L242">    arrayOf(</span>
+<span class="nc" id="L243">        ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L244">            .withExplanation(HINT_ACTUAL_ACL_PERMISSIONS)</span>
+<span class="nc" id="L245">            .build(),</span>
+<span class="nc" id="L246">        ExpectImpl.builder.explanatoryGroup.withDefaultType</span>
+<span class="nc" id="L247">            .withAssertions(acl.map(::hintForAclEntry))</span>
+<span class="nc" id="L248">            .build()</span>
+<span class="nc" id="L249">    )</span>
+
+private fun hintForAclEntry(entry: AclEntry) =
+<span class="nc" id="L252">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L253">        .withExplanation(&quot;${entry.type()} ${entry.principal().name}: ${entry.permissions().joinToString()}&quot;)</span>
+<span class="nc" id="L254">        .build()</span>
+
+private fun hintForActualPosixPermissions(filePermissions: Set&lt;PosixFilePermission&gt;) =
+<span class="nc" id="L257">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L258">        .withExplanation(HINT_ACTUAL_POSIX_PERMISSIONS, formatPosixPermissions(filePermissions))</span>
+<span class="nc" id="L259">        .build()</span>
+
+private fun formatPosixPermissions(filePermissions: Set&lt;PosixFilePermission&gt;): StringBuilder {
+<span class="nc" id="L262">    val permissionString = StringBuilder(3 * 5 + 2)</span>
+<span class="nc" id="L263">    permissionString</span>
+<span class="nc" id="L264">        .append(&quot;u=&quot;)</span>
+<span class="nc" id="L265">        .append(toPermissionString(filePermissions, OWNER_READ, OWNER_WRITE, OWNER_EXECUTE))</span>
+<span class="nc" id="L266">        .append(' ')</span>
+<span class="nc" id="L267">        .append(&quot;g=&quot;)</span>
+<span class="nc" id="L268">        .append(toPermissionString(filePermissions, GROUP_READ, GROUP_WRITE, GROUP_EXECUTE))</span>
+<span class="nc" id="L269">        .append(' ')</span>
+<span class="nc" id="L270">        .append(&quot;o=&quot;)</span>
+<span class="nc" id="L271">        .append(toPermissionString(filePermissions, OTHERS_READ, OTHERS_WRITE, OTHERS_EXECUTE))</span>
+<span class="nc" id="L272">    return permissionString</span>
+}
+
+private fun toPermissionString(
+    permissions: Set&lt;PosixFilePermission&gt;,
+    readPermission: PosixFilePermission,
+    writePermission: PosixFilePermission,
+    executePermission: PosixFilePermission
+): StringBuilder {
+<span class="nc" id="L281">    val result = StringBuilder(3)</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">    if (permissions.contains(readPermission)) result.append('r')</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">    if (permissions.contains(writePermission)) result.append('w')</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">    if (permissions.contains(executePermission)) result.append('x')</span>
+<span class="nc" id="L285">    return result</span>
+}
+
+private fun &lt;T : Path&gt; hintForExistsButMissingPermission(subject: T, permissionName: Translatable) =
+<span class="nc" id="L289">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L290">        .withExplanation(FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT, subject.fileType, permissionName)</span>
+<span class="nc" id="L291">        .build()</span>
+
+private fun describeWas(actual: Translatable) =
+<span class="nc" id="L294">    ExpectImpl.builder.descriptive.failing</span>
+<span class="nc" id="L295">        .withDescriptionAndRepresentation(WAS, RawString.create(actual))</span>
+<span class="nc" id="L296">        .build()</span>
+
+<span class="nc" id="L298">private fun hintForIoException(path: Path, exception: IOException) = when (exception) {</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">    is NoSuchFileException -&gt; hintForFileNotFound(path)</span>
+<span class="nc bnc" id="L300" title="All 2 branches missed.">    else -&gt; findHintForProblemWithParent(path) ?: hintForFileSpecificIoException(path, exception)</span>
+<span class="nc" id="L301">}</span>
+
+private fun hintForFileSpecificIoException(path: Path, exception: IOException) =
+<span class="nc" id="L304">    when (exception) {</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">        is AccessDeniedException -&gt; hintForAccessDenied(path)</span>
+<span class="nc" id="L306">        else -&gt; hintForOtherIoException(exception)</span>
+<span class="nc" id="L307">    }</span>
+
+private fun hintForFileNotFound(path: Path) =
+<span class="nc" id="L310">    ExpectImpl.builder.explanatoryGroup.withDefaultType</span>
+<span class="nc" id="L311">        .withAssertions(</span>
+<span class="nc" id="L312">            hintForNoSuchFile(),</span>
+<span class="nc" id="L313">            hintForClosestExistingParent(path)</span>
+        )
+<span class="nc" id="L315">        .build()</span>
+
+private fun hintForNoSuchFile() =
+<span class="nc" id="L318">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L319">        .withExplanation(FAILURE_DUE_TO_NO_SUCH_FILE)</span>
+<span class="nc" id="L320">        .build()</span>
+
+/**
+ * Assumes that we know that [path] does not exist.
+ * @return The closest parent directory (including [path] itself) that exists. `null` if there is no such directory.
+ */
+private fun hintForClosestExistingParent(path: Path): Assertion {
+<span class="nc" id="L327">    var testPath = path.toAbsolutePath().parent</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">    while (testPath.nameCount &gt; 0) {</span>
+<span class="nc" id="L329">        try {</span>
+<span class="nc" id="L330">            val testPathAttributes = testPath.readAttributes&lt;BasicFileAttributes&gt;()</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">            return if (testPathAttributes.isDirectory) {</span>
+<span class="nc" id="L332">                hintForExistingParentDirectory(testPath)</span>
+            } else {
+<span class="nc" id="L334">                hintForParentFailure(</span>
+<span class="nc" id="L335">                    testPath,</span>
+<span class="nc" id="L336">                    explanation = hintForNotDirectory(testPathAttributes.fileType)</span>
+                )
+            }
+<span class="nc" id="L339">        } catch (e: NoSuchFileException) {</span>
+            /* continue searching. Any other IOException should not occur because [path] does not exist */
+        }
+<span class="nc" id="L342">        testPath = testPath.parent</span>
+    }
+<span class="nc" id="L344">    return hintForExistingParentDirectory(null)</span>
+}
+
+private fun hintForExistingParentDirectory(parent: Path?) =
+<span class="nc" id="L348">    ExpectImpl.builder.explanatory</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">        .withExplanation(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY, parent ?: NONE)</span>
+<span class="nc" id="L350">        .build()</span>
+
+private fun hintForNotDirectory(actualType: Translatable) =
+<span class="nc" id="L353">    ExpectImpl.builder.explanatory</span>
+<span class="nc" id="L354">        .withExplanation(FAILURE_DUE_TO_WRONG_FILE_TYPE, actualType, A_DIRECTORY)</span>
+<span class="nc" id="L355">        .build()</span>
+
+private fun hintForOtherIoException(exception: IOException) =
+<span class="nc" id="L358">    ThrowableThrownFailureHandler.propertiesOfThrowable(</span>
+<span class="nc" id="L359">        exception,</span>
+<span class="nc" id="L360">        maxStackTrace = IO_EXCEPTION_STACK_TRACE_LENGTH,</span>
+<span class="nc" id="L361">        explanation = AssertImpl.builder.explanatory</span>
+<span class="nc" id="L362">            .withExplanation(</span>
+<span class="nc" id="L363">                FAILURE_DUE_TO_ACCESS_EXCEPTION,</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">                exception::class.simpleName ?: exception::class.fullName</span>
+            )
+<span class="nc" id="L366">            .build()</span>
+<span class="nc" id="L367">    )</span>
+
+private val Path.fileType: Translatable
+<span class="nc" id="L370">    get() = readAttributes&lt;BasicFileAttributes&gt;().fileType</span>
+
+private val BasicFileAttributes.fileType: Translatable
+<span class="nc" id="L373">    get() = when {</span>
+<span class="nc bnc" id="L374" title="All 2 branches missed.">        isRegularFile -&gt; A_FILE</span>
+<span class="nc bnc" id="L375" title="All 2 branches missed.">        isDirectory -&gt; A_DIRECTORY</span>
+<span class="nc bnc" id="L376" title="All 2 branches missed.">        isSymbolicLink -&gt; A_SYMBOLIC_LINK</span>
+<span class="nc" id="L377">        else -&gt; A_UNKNOWN_FILE_TYPE</span>
+<span class="nc" id="L378">    }</span>
+
+fun &lt;T : Path&gt; _fileName(assertionContainer: Expect&lt;T&gt;): ExtractedFeaturePostStep&lt;T, String&gt; =
+<span class="nc" id="L381">    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME) { fileName.toString() }</span>
+
+fun &lt;T : Path&gt; _fileNameWithoutExtension(assertionContainer: Expect&lt;T&gt;): ExtractedFeaturePostStep&lt;T, String&gt; =
+<span class="nc" id="L384">    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }</span>
+
+fun &lt;T : Path&gt; _parent(assertionContainer: Expect&lt;T&gt;): ExtractedFeaturePostStep&lt;T, Path&gt; =
+<span class="nc" id="L387">    ExpectImpl.feature.extractor(assertionContainer)</span>
+<span class="nc" id="L388">        .withDescription(PARENT)</span>
+<span class="nc" id="L389">        .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)</span>
+<span class="nc" id="L390">        .withFeatureExtraction {</span>
+<span class="nc" id="L391">            val parent: Path? = it.parent</span>
+<span class="nc bnc" id="L392" title="All 2 branches missed.">            if(parent != null) Some(parent) else None</span>
+        }
+<span class="nc" id="L394">        .build()</span>
+
+fun &lt;T : Path&gt; _extension(assertionContainer: Expect&lt;T&gt;): ExtractedFeaturePostStep&lt;T, String&gt; =
+<span class="nc" id="L397">    ExpectImpl.feature.manualFeature(assertionContainer, EXTENSION) { extension }</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertiesBasedTranslationSupplier.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.core.robstoll.lib.reporting.translating</a> &gt; <span class="el_source">PropertiesBasedTranslationSupplier.kt</span></div><h1>PropertiesBasedTranslationSupplier.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
+
+import ch.tutteli.atrium.reporting.translating.Locale
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslationSupplier
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
+
+/**
+ * A base class for properties based [TranslationSupplier]s which provides a loading
+ * and caching mechanism of properties files.
+ *
+ * There is no way to purge the cache. This class is intended for a one run process where
+ * translations do not change in between.
+ *
+ * @param T Translations are grouped by a certain aspect (for instance, by [Locale]). [T] defines the type of it.
+ */
+<span class="nc" id="L18">abstract class PropertiesBasedTranslationSupplier&lt;in T&gt; : TranslationSupplier {</span>
+    /**
+     * The cached translations.
+     */
+<span class="nc" id="L22">    private val translations = ConcurrentHashMap&lt;T, Map&lt;String, String&gt;&gt;()</span>
+
+    /**
+     * Gets the cached [Properties] content as [Map] for the given [key] or
+     * loads the properties file with the given [fileName] and creates a map out of it using the given [keyCreator]
+     * function to create the keys of the map, based on a key of a property.
+     *
+     * @param key The key which identifies the [Properties]
+     * @param fileName The fileName of the properties file without file extension, including the package in which it resides
+     *   as absolute path (no '../' are allowed). In case it does not start with '/' (which would be a
+     *   relative path), then a '/' is prepended. Hence it is always searched with an
+     *   absolute path -- which is the same behaviour as for a properties based [ResourceBundle].
+     * @param keyCreator The function used to create keys of the resulting [Map] (in case the properties file needs
+     *   to be loaded). It is called passing in a key of a property of the properties file.
+     *
+     * @return A [Map] containing the resulting keys (based on the [Properties], see [keyCreator]) with its translations.
+     */
+    protected fun getOrLoadProperties(key: T, fileName: String, keyCreator: (String) -&gt; String): Map&lt;String, String&gt; {
+<span class="nc bnc" id="L40" title="All 4 branches missed.">        require(!fileName.contains(&quot;../&quot;)) {</span>
+<span class="nc" id="L41">            &quot;only paths without any '../' are allowed&quot;</span>
+        }
+<span class="nc" id="L43">        return this.translations.getOrPut(key) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            val absoluteFileName = if (fileName.startsWith('/')) fileName else &quot;/$fileName&quot;</span>
+<span class="nc" id="L45">            val file = this::class.java.getResourceAsStream(&quot;$absoluteFileName.properties&quot;)</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            if (file != null) {</span>
+<span class="nc" id="L47">                val properties = Properties()</span>
+<span class="nc" id="L48">                file.use {</span>
+<span class="nc" id="L49">                    properties.load(it)</span>
+<span class="nc" id="L50">                }</span>
+<span class="nc" id="L51">                properties.stringPropertyNames().associate {</span>
+<span class="nc" id="L52">                    keyCreator(it) to properties.getProperty(it)</span>
+                }
+            } else {
+<span class="nc" id="L55">                emptyMap()</span>
+<span class="nc" id="L56">            }</span>
+        }
+    }
+
+    /**
+     * Returns the name of the properties file without extension -- including the package (as prefixed relative path)
+     * in which it resides if necessary -- in which we expect to find a translation in the given [locale] for
+     * [baseName].
+     *
+     * The implementation is based on [ResourceBundle.Control.toBundleName].
+     * @param baseName Usually the [Translatable] or another identifier for which we are searching translations. Has to
+     *   contain the package name as well if necessary ('.' will be replaced with '/').
+     * @param locale The [Locale] for which we are searching a translation.
+     *
+     * @return The name of the properties file.
+     */
+    protected fun getFileNameFor(baseName: String, locale: Locale): String {
+<span class="nc" id="L73">        val sb = StringBuilder(baseName)</span>
+            //using _ as separator to be compatible with ResourceBundle
+<span class="nc" id="L75">            .append('_').append(locale.language)</span>
+
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (locale.script != null) {</span>
+<span class="nc" id="L78">            sb.append('_').append(locale.script)</span>
+        }
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (locale.country != null) {</span>
+<span class="nc" id="L81">            sb.append('_').append(locale.country)</span>
+        }
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (locale.variant != null) {</span>
+<span class="nc" id="L84">            sb.append('_').append(locale.variant)</span>
+        }
+<span class="nc" id="L86">        return sb.toString().replace('.', '/')</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - PathAssertionsSpec</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>PathAssertionsSpec</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/ch.tutteli.atrium.api.fluent.en_GB.jdk8.html">ch.tutteli.atrium.api.fluent.en_GB.jdk8</a> &gt; PathAssertionsSpec</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">114</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">6</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">8</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.932s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">94%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="prints details if an unknown IoException is thrown"></a>
+<h3 class="failures">prints details if an unknown IoException is thrown</h3>
+<span class="code">
+<pre>ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;120006029&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at ???(Coroutine boundary.?(?)
+	at kotlinx.coroutines.DeferredCoroutine.await$suspendImpl(Builders.common.kt:99)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$exception$1.invokeSuspend(Executor.kt:87)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1.invokeSuspend(Executor.kt:85)
+	at org.spekframework.spek2.runtime.ExecutorsKt$doRunBlocking$1.invokeSuspend(executors.kt:8)
+Caused by: ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;120006029&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:241)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:740)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="prints details if an unknown IoException is thrown"></a>
+<h3 class="failures">prints details if an unknown IoException is thrown</h3>
+<span class="code">
+<pre>ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;1450600231&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt:101)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder$KindStep$DefaultImpls.unreported(SubjectChangerBuilder.kt:87)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.KindStepImpl.unreported(defaultImpls.kt:15)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at ???(Coroutine boundary.?(?)
+	at kotlinx.coroutines.DeferredCoroutine.await$suspendImpl(Builders.common.kt:99)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$exception$1.invokeSuspend(Executor.kt:87)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1.invokeSuspend(Executor.kt:85)
+	at org.spekframework.spek2.runtime.ExecutorsKt$doRunBlocking$1.invokeSuspend(executors.kt:8)
+Caused by: ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;1450600231&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt:101)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder$KindStep$DefaultImpls.unreported(SubjectChangerBuilder.kt:87)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.KindStepImpl.unreported(defaultImpls.kt:15)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:241)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:740)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="prints details if an unknown IoException is thrown"></a>
+<h3 class="failures">prints details if an unknown IoException is thrown</h3>
+<span class="code">
+<pre>ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.ExceptionInInitializerError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected ExceptionInInitializerError
+    » message: null
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+    » cause: java.lang.IllegalStateException
+        » message: &quot;Error during attachment using: net.bytebuddy.agent.ByteBuddyAgent$AttachmentProvider$Compound@7f9cb9a4&quot;        &lt;828583488&gt;
+        » stacktrace: 
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:427)
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:401)
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:353)
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:330)
+          ⚬ io.mockk.proxy.jvm.JvmMockKAgentFactory.initInstrumentation(JvmMockKAgentFactory.kt:134)
+          ⚬ io.mockk.proxy.jvm.JvmMockKAgentFactory.init(JvmMockKAgentFactory.kt:34)
+          ⚬ io.mockk.impl.JvmMockKGateway.&lt;init&gt;(JvmMockKGateway.kt:46)
+          ⚬ ...
+        » cause: java.io.IOException
+            » message: &quot;Cannot run program &quot;&quot;/Applications/IntelliJ IDEA CE.app/Contents/jbr/Contents/Home/bin/java&quot;&quot;: error=2, No such file or directory&quot;        &lt;1247826894&gt;
+            » stacktrace: 
+              ⚬ java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
+              ⚬ java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
+              ⚬ net.bytebuddy.agent.ByteBuddyAgent.installExternal(ByteBuddyAgent.java:485)
+              ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:420)
+            » cause: java.io.IOException
+                » message: &quot;error=2, No such file or directory&quot;        &lt;1353417407&gt;
+                » stacktrace: 
+                  ⚬ java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+                  ⚬ java.base/java.lang.ProcessImpl.&lt;init&gt;(ProcessImpl.java:340)
+                  ⚬ java.base/java.lang.ProcessImpl.start(ProcessImpl.java:271)
+                  ⚬ java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at ???(Coroutine boundary.?(?)
+	at kotlinx.coroutines.DeferredCoroutine.await$suspendImpl(Builders.common.kt:99)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$exception$1.invokeSuspend(Executor.kt:87)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1.invokeSuspend(Executor.kt:85)
+	at org.spekframework.spek2.runtime.ExecutorsKt$doRunBlocking$1.invokeSuspend(executors.kt:8)
+Caused by: ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.ExceptionInInitializerError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected ExceptionInInitializerError
+    » message: null
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+    » cause: java.lang.IllegalStateException
+        » message: &quot;Error during attachment using: net.bytebuddy.agent.ByteBuddyAgent$AttachmentProvider$Compound@7f9cb9a4&quot;        &lt;828583488&gt;
+        » stacktrace: 
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:427)
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:401)
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:353)
+          ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:330)
+          ⚬ io.mockk.proxy.jvm.JvmMockKAgentFactory.initInstrumentation(JvmMockKAgentFactory.kt:134)
+          ⚬ io.mockk.proxy.jvm.JvmMockKAgentFactory.init(JvmMockKAgentFactory.kt:34)
+          ⚬ io.mockk.impl.JvmMockKGateway.&lt;init&gt;(JvmMockKGateway.kt:46)
+          ⚬ ...
+        » cause: java.io.IOException
+            » message: &quot;Cannot run program &quot;&quot;/Applications/IntelliJ IDEA CE.app/Contents/jbr/Contents/Home/bin/java&quot;&quot;: error=2, No such file or directory&quot;        &lt;1247826894&gt;
+            » stacktrace: 
+              ⚬ java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
+              ⚬ java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
+              ⚬ net.bytebuddy.agent.ByteBuddyAgent.installExternal(ByteBuddyAgent.java:485)
+              ⚬ net.bytebuddy.agent.ByteBuddyAgent.install(ByteBuddyAgent.java:420)
+            » cause: java.io.IOException
+                » message: &quot;error=2, No such file or directory&quot;        &lt;1353417407&gt;
+                » stacktrace: 
+                  ⚬ java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+                  ⚬ java.base/java.lang.ProcessImpl.&lt;init&gt;(ProcessImpl.java:340)
+                  ⚬ java.base/java.lang.ProcessImpl.start(ProcessImpl.java:271)
+                  ⚬ java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:241)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:740)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="prints details if an unknown IoException is thrown"></a>
+<h3 class="failures">prints details if an unknown IoException is thrown</h3>
+<span class="code">
+<pre>ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;2114134457&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt:101)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder$KindStep$DefaultImpls.unreported(SubjectChangerBuilder.kt:87)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.KindStepImpl.unreported(defaultImpls.kt:15)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at ???(Coroutine boundary.?(?)
+	at kotlinx.coroutines.DeferredCoroutine.await$suspendImpl(Builders.common.kt:99)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$exception$1.invokeSuspend(Executor.kt:87)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1.invokeSuspend(Executor.kt:85)
+	at org.spekframework.spek2.runtime.ExecutorsKt$doRunBlocking$1.invokeSuspend(executors.kt:8)
+Caused by: ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;2114134457&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt:101)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$filePermissionAssertion$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder$KindStep$DefaultImpls.unreported(SubjectChangerBuilder.kt:87)
+      ⚬ ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.KindStepImpl.unreported(defaultImpls.kt:15)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:241)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:740)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="prints details if an unknown IoException is thrown"></a>
+<h3 class="failures">prints details if an unknown IoException is thrown</h3>
+<span class="code">
+<pre>ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;1548924702&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at ???(Coroutine boundary.?(?)
+	at kotlinx.coroutines.DeferredCoroutine.await$suspendImpl(Builders.common.kt:99)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$exception$1.invokeSuspend(Executor.kt:87)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1.invokeSuspend(Executor.kt:85)
+	at org.spekframework.spek2.runtime.ExecutorsKt$doRunBlocking$1.invokeSuspend(executors.kt:8)
+Caused by: ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;1548924702&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:241)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:740)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="prints details if an unknown IoException is thrown"></a>
+<h3 class="failures">prints details if an unknown IoException is thrown</h3>
+<span class="code">
+<pre>ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;656708095&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at ???(Coroutine boundary.?(?)
+	at kotlinx.coroutines.DeferredCoroutine.await$suspendImpl(Builders.common.kt:99)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$exception$1.invokeSuspend(Executor.kt:87)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1.invokeSuspend(Executor.kt:85)
+	at org.spekframework.spek2.runtime.ExecutorsKt$doRunBlocking$1.invokeSuspend(executors.kt:8)
+Caused by: ch.tutteli.atrium.reporting.AtriumError: expect the thrown exception: java.lang.NoClassDefFoundError
+◆ is instance of type: AssertionError (java.lang.AssertionError)
+  » Properties of the unexpected NoClassDefFoundError
+    » message: &quot;Could not initialize class io.mockk.impl.JvmMockKGateway&quot;        &lt;656708095&gt;
+    » stacktrace: 
+      ⚬ ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$5$1.getFileSystem(PathAssertionsSpec.kt:863)
+      ⚬ java.base/java.nio.file.Files.provider(Files.java:100)
+      ⚬ java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt:401)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.PathAssertionsKt$changeSubjectToFileAttributes$1.invoke(pathAssertions.kt)
+      ⚬ ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubjectUnreported(changeSubject.kt:59)
+      ⚬ ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.unreported(SubjectChangerImpl.kt:21)
+      ⚬ ...
+	at ch.tutteli.atrium.reporting.AtriumErrorKt.createAtriumError(AtriumError.kt:26)
+	at ch.tutteli.atrium.reporting.AtriumError$Companion.create(AtriumError.kt:22)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker.check(ThrowingAssertionChecker.kt:43)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:11)
+	at ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker.check(DelegatingAssertionChecker.kt:13)
+	at ch.tutteli.atrium.creating.ReportingAssertionContainer$EagerCommonFields.check(ReportingAssertionContainer.kt:111)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.checkAndClearAssertions(ReportingAssertionContainerImpl.kt:35)
+	at ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionContainerImpl.addAssertion(ReportingAssertionContainerImpl.kt:29)
+	at ch.tutteli.atrium.domain.robstoll.lib.creating.changers.ChangeSubjectKt._changeSubject(changeSubject.kt:54)
+	at ch.tutteli.atrium.domain.robstoll.creating.changers.SubjectChangerImpl.reported(SubjectChangerImpl.kt:30)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.transformIt(defaultImpls.kt:81)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl.access$transformIt(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:76)
+	at ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.FinalStepImpl$build$1.invoke(defaultImpls.kt:68)
+	at ch.tutteli.atrium.domain.creating.changers.PostFinalStep.getExpectOfFeature(PostFinalStep.kt:29)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:858)
+	at ch.tutteli.atrium.specs.integration.PathAssertionsSpec$1$6$1.invoke(PathAssertionsSpec.kt:32)
+	at org.spekframework.spek2.runtime.scope.TestScopeImpl.execute(scopes.kt:136)
+	at org.spekframework.spek2.runtime.Executor$execute$result$2$1$job$1.invokeSuspend(Executor.kt:74)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(Dispatched.kt:241)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:594)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.access$runSafely(CoroutineScheduler.kt:60)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:740)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">POSIX: prints parent permission error details</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">POSIX: prints parent permission error details</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">POSIX: prints parent permission error details</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">POSIX: prints parent permission error details</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">POSIX: prints parent permission error details</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">POSIX: prints parent permission error details</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for a directory</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for a file</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for a non-existent path</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for an existing directory</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for an existing file</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for directory</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for directory</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for file</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">does not throw for file</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">endsNotWith 'for/another' does not throw</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">endsNotWith 'for/test' throws an AssertionError</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">endsWith 'for/another' throws an AssertionError</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">endsWith 'for/test' does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">explains if a parent is a file</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">explains if a parent is a file</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">explains if a parent is a file</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">explains if a parent is a file</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">explains if a parent is a file</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `endsNotWith`</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `endsWith`</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `existsNot`</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `exists`</td>
+<td class="success">0.037s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `isDirectory`</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `isReadable`</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `isRegularFile`</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `isWritable`</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `startsNotWith`</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `startsWith`</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints an explanation for link loops</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints an explanation for link loops</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints an explanation for link loops</td>
+<td class="success">0.035s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints an explanation for link loops</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints an explanation for link loops</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="failures">prints details if an unknown IoException is thrown</td>
+<td class="failures">0.005s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">prints details if an unknown IoException is thrown</td>
+<td class="failures">0.018s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">prints details if an unknown IoException is thrown</td>
+<td class="failures">0.092s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">prints details if an unknown IoException is thrown</td>
+<td class="failures">0.006s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">prints details if an unknown IoException is thrown</td>
+<td class="failures">0.005s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">prints details if an unknown IoException is thrown</td>
+<td class="failures">0.004s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="success">prints the closest existing parent if it is a directory</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints the closest existing parent if it is a directory</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints the closest existing parent if it is a directory</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints the closest existing parent if it is a directory</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">prints the closest existing parent if it is a directory</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">startsNotWith '/other/path' does not throw</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">startsNotWith '/some/pa' does not match partials</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">startsNotWith '/some/path' throws an AssertionError</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">startsWith '/other/path' throws an AssertionError</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">startsWith '/some/path/' does not throw</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a directory</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a directory</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a directory</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">throws an AssertionError for a directory</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="skipped">throws an AssertionError for a directory</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a directory</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a file</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">throws an AssertionError for a file</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a file</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a file</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">throws an AssertionError for a file</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a file</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a non-existent path</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a non-existent path</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a non-existent path</td>
+<td class="success">0.070s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for a non-existent path</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throws an AssertionError for non-existent path</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: POSIX: prints parent permission error details</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: POSIX: prints parent permission error details</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: POSIX: prints parent permission error details</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: POSIX: prints parent permission error details</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: POSIX: prints parent permission error details</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: POSIX: prints parent permission error details</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for a directory</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for a file</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for a non-existent path</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for an existing directory</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for an existing file</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for directory</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for directory</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for file</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: does not throw for file</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: explains if a parent is a file</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: explains if a parent is a file</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: explains if a parent is a file</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: explains if a parent is a file</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: explains if a parent is a file</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: prints the closest existing parent if it is a directory</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: prints the closest existing parent if it is a directory</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: prints the closest existing parent if it is a directory</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: prints the closest existing parent if it is a directory</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: prints the closest existing parent if it is a directory</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a directory</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a directory</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">via symbolic link: throws an AssertionError for a directory</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a directory</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">via symbolic link: throws an AssertionError for a directory</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a directory</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a file</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">via symbolic link: throws an AssertionError for a file</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a file</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="skipped">via symbolic link: throws an AssertionError for a file</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a file</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a file</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a non-existent path</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a non-existent path</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a non-existent path</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for a non-existent path</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">via symbolic link: throws an AssertionError for non-existent path</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 5.5.1</a> at Dec 15, 2019, 8:22:28 PM</p>
+</div>
+</div>
+</body>
+</html>
