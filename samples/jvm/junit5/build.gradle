@@ -1,0 +1,46 @@
+buildscript {
+    ext {
+        kotlin_version= '1.3.41'
+        atrium_api= 'atrium-fluent-en_GB'
+        atrium_version='0.9.0-alpha'
+        junit_version= '5.3.1'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+
+    // Apply the Kotlin JVM plugin to add support for Kotlin.
+    id("org.jetbrains.kotlin.jvm") version "$kotlin_version"
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+    jcenter()
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+    }
+}
+
+dependencies {
+
+    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version")
+    // Use the Kotlin JDK 8 standard library.
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+}
+
+
+
