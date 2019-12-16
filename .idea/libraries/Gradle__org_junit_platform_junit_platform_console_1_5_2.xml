@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.junit.platform:junit-platform-console:1.5.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-console/1.5.2/709534254b410d5c252ebb5179b2bbf7c57b281a/junit-platform-console-1.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-console/1.5.2/b196e57b1518946ed97c78a1a34490cca7c10a94/junit-platform-console-1.5.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

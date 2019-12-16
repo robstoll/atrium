@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a2f8e155-5e02-4cd1-a137-0e2219d74d04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/atrium.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_api_cc_en_GB_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_api_cc_en_GB_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_api_fluent_en_GB_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_api_fluent_en_GB_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_core_api_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_core_api_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_core_robstoll_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_core_robstoll_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_core_robstoll_lib_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_core_robstoll_lib_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_api_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_api_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_builders_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_builders_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_robstoll_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_robstoll_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_robstoll_lib_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_domain_robstoll_lib_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_fluent_en_GB_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_fluent_en_GB_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_spec_0_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_spec_0_8_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_translations_en_GB_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_translations_en_GB_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_verbs_common_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_atrium_verbs_js_0_9_0_alpha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_atrium_spec_0_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_kbox_kbox_0_14_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_kbox_kbox_common_0_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_kbox_kbox_common_0_14_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_kbox_kbox_js_0_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_kbox_kbox_js_0_14_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_niok_niok_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_tutteli_spek_tutteli_spek_extensions_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nhaarman_mockitokotlin2_mockito_kotlin_2_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_github_classgraph_classgraph_4_8_37.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_agent_api_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_agent_common_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_agent_jvm_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_common_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_dsl_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_dsl_js_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_mockk_mockk_dsl_jvm_1_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_1_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_agent_1_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_agent_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_reflect_1_3_50.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_reflect_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_50.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_60.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_3_60.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_js_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_annotations_common_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_common_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_js_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_test_junit5_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_common_1_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_spek_spek_api_1_1_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_spek_spek_junit_platform_engine_1_1_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_console_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_console_standalone_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_launcher_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_reporting_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_2_23_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_objenesis_objenesis_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_objenesis_objenesis_3_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_spekframework_spek2_spek_dsl_js_2_0_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_spekframework_spek2_spek_dsl_jvm_2_0_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_spekframework_spek2_spek_dsl_metadata_2_0_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_spekframework_spek2_spek_runner_junit5_2_0_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_spekframework_spek2_spek_runtime_jvm_2_0_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/atrium-api-cc-en_UK/atrium.atrium-api-cc-en_UK.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/atrium-api-cc-en_UK/atrium.atrium-api-cc-en_UK.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/atrium-api-cc-en_UK/atrium.atrium-api-cc-en_UK.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/atrium-api-cc-infix-en_UK/atrium.atrium-api-cc-infix-en_UK.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/atrium-api-cc-infix-en_UK/atrium.atrium-api-cc-infix-en_UK.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/atrium-api-cc-infix-en_UK/atrium.atrium-api-cc-infix-en_UK.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-common/atrium.atrium-api-cc-de_CH-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-common/atrium.atrium-api-cc-de_CH-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-common/atrium.atrium-api-cc-de_CH-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-js/atrium.atrium-api-cc-de_CH-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-js/atrium.atrium-api-cc-de_CH-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-js/atrium.atrium-api-cc-de_CH-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/atrium.atrium-api-cc-de_CH-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/atrium.atrium-api-cc-de_CH-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-de_CH/atrium-api-cc-de_CH-jvm/atrium.atrium-api-cc-de_CH-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-common/atrium.atrium-api-cc-en_GB-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-common/atrium.atrium-api-cc-en_GB-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-common/atrium.atrium-api-cc-en_GB-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-js/atrium.atrium-api-cc-en_GB-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-js/atrium.atrium-api-cc-en_GB-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-js/atrium.atrium-api-cc-en_GB-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/atrium.atrium-api-cc-en_GB-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/atrium.atrium-api-cc-en_GB-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/atrium.atrium-api-cc-en_GB-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-en_GB/atrium-api-cc-en_GB-jvm/atrium.atrium-api-cc-en_GB-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/atrium.atrium-api-cc-infix-en_GB-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/atrium.atrium-api-cc-infix-en_GB-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/atrium.atrium-api-cc-infix-en_GB-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-js/atrium.atrium-api-cc-infix-en_GB-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-js/atrium.atrium-api-cc-infix-en_GB-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-js/atrium.atrium-api-cc-infix-en_GB-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-jvm/atrium.atrium-api-cc-infix-en_GB-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-jvm/atrium.atrium-api-cc-infix-en_GB-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-jvm/atrium.atrium-api-cc-infix-en_GB-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-jvm/atrium.atrium-api-cc-infix-en_GB-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/atrium.atrium-api-fluent-en_GB-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/atrium.atrium-api-fluent-en_GB-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/atrium.atrium-api-fluent-en_GB-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-js/atrium.atrium-api-fluent-en_GB-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-js/atrium.atrium-api-fluent-en_GB-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-js/atrium.atrium-api-fluent-en_GB-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/atrium.atrium-api-fluent-en_GB-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/atrium.atrium-api-fluent-en_GB-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/atrium.atrium-api-fluent-en_GB-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/atrium.atrium-api-fluent-en_GB-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-common/atrium.atrium-api-fluent-en_GB-jdk8-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-common/atrium.atrium-api-fluent-en_GB-jdk8-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-common/atrium.atrium-api-fluent-en_GB-jdk8-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-jvm/atrium.atrium-api-fluent-en_GB-jdk8-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-jvm/atrium.atrium-api-fluent-en_GB-jdk8-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-jvm/atrium.atrium-api-fluent-en_GB-jdk8-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-jvm/atrium.atrium-api-fluent-en_GB-jdk8-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/atrium.atrium-api-fluent-en_GB-kotlin_1_3-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/atrium.atrium-api-fluent-en_GB-kotlin_1_3-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/atrium.atrium-api-fluent-en_GB-kotlin_1_3-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-js/atrium.atrium-api-fluent-en_GB-kotlin_1_3-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-js/atrium.atrium-api-fluent-en_GB-kotlin_1_3-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-js/atrium.atrium-api-fluent-en_GB-kotlin_1_3-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-jvm/atrium.atrium-api-fluent-en_GB-kotlin_1_3-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-jvm/atrium.atrium-api-fluent-en_GB-kotlin_1_3-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-jvm/atrium.atrium-api-fluent-en_GB-kotlin_1_3-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-jvm/atrium.atrium-api-fluent-en_GB-kotlin_1_3-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-common/atrium.atrium-api-infix-en_GB-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-common/atrium.atrium-api-infix-en_GB-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-common/atrium.atrium-api-infix-en_GB-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-js/atrium.atrium-api-infix-en_GB-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-js/atrium.atrium-api-infix-en_GB-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-js/atrium.atrium-api-infix-en_GB-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/atrium.atrium-api-infix-en_GB-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/atrium.atrium-api-infix-en_GB-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/atrium.atrium-api-infix-en_GB-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/atrium.atrium-api-infix-en_GB-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-common/atrium.atrium-api-infix-en_GB-jdk8-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-common/atrium.atrium-api-infix-en_GB-jdk8-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-common/atrium.atrium-api-infix-en_GB-jdk8-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-jvm/atrium.atrium-api-infix-en_GB-jdk8-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-jvm/atrium.atrium-api-infix-en_GB-jdk8-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-jvm/atrium.atrium-api-infix-en_GB-jdk8-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/jdk8/atrium-api-infix-en_GB-jdk8-jvm/atrium.atrium-api-infix-en_GB-jdk8-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-common/atrium.atrium-api-infix-en_GB-kotlin_1_3-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-common/atrium.atrium-api-infix-en_GB-kotlin_1_3-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-common/atrium.atrium-api-infix-en_GB-kotlin_1_3-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-js/atrium.atrium-api-infix-en_GB-kotlin_1_3-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-js/atrium.atrium-api-infix-en_GB-kotlin_1_3-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-js/atrium.atrium-api-infix-en_GB-kotlin_1_3-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-jvm/atrium.atrium-api-infix-en_GB-kotlin_1_3-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-jvm/atrium.atrium-api-infix-en_GB-kotlin_1_3-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-jvm/atrium.atrium-api-infix-en_GB-kotlin_1_3-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-jvm/atrium.atrium-api-infix-en_GB-kotlin_1_3-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/atrium.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/atrium.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/atrium-cc-en_UK-robstoll/atrium.atrium-cc-en_UK-robstoll.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/atrium-cc-en_UK-robstoll/atrium.atrium-cc-en_UK-robstoll.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/atrium-cc-en_UK-robstoll/atrium.atrium-cc-en_UK-robstoll.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/atrium-cc-infix-en_UK-robstoll/atrium.atrium-cc-infix-en_UK-robstoll.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/atrium-cc-infix-en_UK-robstoll/atrium.atrium-cc-infix-en_UK-robstoll.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/atrium-cc-infix-en_UK-robstoll/atrium.atrium-cc-infix-en_UK-robstoll.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/atrium.atrium-cc-de_CH-robstoll-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/atrium.atrium-cc-de_CH-robstoll-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-common/atrium.atrium-cc-de_CH-robstoll-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-js/atrium.atrium-cc-de_CH-robstoll-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-js/atrium.atrium-cc-de_CH-robstoll-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-js/atrium.atrium-cc-de_CH-robstoll-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-jvm/atrium.atrium-cc-de_CH-robstoll-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-jvm/atrium.atrium-cc-de_CH-robstoll-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-de_CH-robstoll/atrium-cc-de_CH-robstoll-jvm/atrium.atrium-cc-de_CH-robstoll-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/atrium.atrium-cc-en_GB-robstoll-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/atrium.atrium-cc-en_GB-robstoll-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-common/atrium.atrium-cc-en_GB-robstoll-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-js/atrium.atrium-cc-en_GB-robstoll-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-js/atrium.atrium-cc-en_GB-robstoll-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-js/atrium.atrium-cc-en_GB-robstoll-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm/atrium.atrium-cc-en_GB-robstoll-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm/atrium.atrium-cc-en_GB-robstoll-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm/atrium.atrium-cc-en_GB-robstoll-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-jvm/atrium.atrium-cc-en_GB-robstoll-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-smoke-test/atrium.atrium-cc-en_GB-robstoll-smoke-test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-smoke-test/atrium.atrium-cc-en_GB-robstoll-smoke-test.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-en_GB-robstoll/atrium-cc-en_GB-robstoll-smoke-test/atrium.atrium-cc-en_GB-robstoll-smoke-test.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/atrium.atrium-cc-infix-en_GB-robstoll-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/atrium.atrium-cc-infix-en_GB-robstoll-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/atrium.atrium-cc-infix-en_GB-robstoll-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-js/atrium.atrium-cc-infix-en_GB-robstoll-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-js/atrium.atrium-cc-infix-en_GB-robstoll-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-js/atrium.atrium-cc-infix-en_GB-robstoll-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-jvm/atrium.atrium-cc-infix-en_GB-robstoll-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-jvm/atrium.atrium-cc-infix-en_GB-robstoll-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-jvm/atrium.atrium-cc-infix-en_GB-robstoll-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-jvm/atrium.atrium-cc-infix-en_GB-robstoll-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-smoke-test/atrium.atrium-cc-infix-en_GB-robstoll-smoke-test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-smoke-test/atrium.atrium-cc-infix-en_GB-robstoll-smoke-test.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-smoke-test/atrium.atrium-cc-infix-en_GB-robstoll-smoke-test.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-common/atrium.atrium-fluent-en_GB-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-common/atrium.atrium-fluent-en_GB-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-common/atrium.atrium-fluent-en_GB-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-js/atrium.atrium-fluent-en_GB-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-js/atrium.atrium-fluent-en_GB-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-js/atrium.atrium-fluent-en_GB-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-jvm/atrium.atrium-fluent-en_GB-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-jvm/atrium.atrium-fluent-en_GB-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-jvm/atrium.atrium-fluent-en_GB-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-jvm/atrium.atrium-fluent-en_GB-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-smoke-test/atrium.atrium-fluent-en_GB-smoke-test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-smoke-test/atrium.atrium-fluent-en_GB-smoke-test.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/atrium-fluent-en_GB-smoke-test/atrium.atrium-fluent-en_GB-smoke-test.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/extensions/atrium-fluent-en_GB-smoke-test-jdk8/atrium.atrium-fluent-en_GB-smoke-test-jdk8.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/extensions/atrium-fluent-en_GB-smoke-test-jdk8/atrium.atrium-fluent-en_GB-smoke-test-jdk8.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/extensions/atrium-fluent-en_GB-smoke-test-jdk8/atrium.atrium-fluent-en_GB-smoke-test-jdk8.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/extensions/atrium-fluent-en_GB-smoke-test-kotlin_1_3/atrium.atrium-fluent-en_GB-smoke-test-kotlin_1_3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/extensions/atrium-fluent-en_GB-smoke-test-kotlin_1_3/atrium.atrium-fluent-en_GB-smoke-test-kotlin_1_3.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/bundles/fluent-en_GB/extensions/atrium-fluent-en_GB-smoke-test-kotlin_1_3/atrium.atrium-fluent-en_GB-smoke-test-kotlin_1_3.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-common/atrium.atrium-core-api-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-common/atrium.atrium-core-api-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-common/atrium.atrium-core-api-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-js/atrium.atrium-core-api-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-js/atrium.atrium-core-api-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-js/atrium.atrium-core-api-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-jvm/atrium.atrium-core-api-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-jvm/atrium.atrium-core-api-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-jvm/atrium.atrium-core-api-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/api/atrium-core-api-jvm/atrium.atrium-core-api-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/atrium-core-api-deprecated/atrium.atrium-core-api-deprecated.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/atrium-core-api-deprecated/atrium.atrium-core-api-deprecated.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/atrium-core-api-deprecated/atrium.atrium-core-api-deprecated.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/atrium-core-robstoll-deprecated/atrium.atrium-core-robstoll-deprecated.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/atrium-core-robstoll-deprecated/atrium.atrium-core-robstoll-deprecated.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/atrium-core-robstoll-deprecated/atrium.atrium-core-robstoll-deprecated.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-common/atrium.atrium-core-robstoll-lib-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-common/atrium.atrium-core-robstoll-lib-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-common/atrium.atrium-core-robstoll-lib-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-js/atrium.atrium-core-robstoll-lib-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-js/atrium.atrium-core-robstoll-lib-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-js/atrium.atrium-core-robstoll-lib-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-jvm/atrium.atrium-core-robstoll-lib-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-jvm/atrium.atrium-core-robstoll-lib-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-jvm/atrium.atrium-core-robstoll-lib-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll-lib/atrium-core-robstoll-lib-jvm/atrium.atrium-core-robstoll-lib-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-common/atrium.atrium-core-robstoll-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-common/atrium.atrium-core-robstoll-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-common/atrium.atrium-core-robstoll-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-js/atrium.atrium-core-robstoll-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-js/atrium.atrium-core-robstoll-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-js/atrium.atrium-core-robstoll-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-jvm/atrium.atrium-core-robstoll-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-jvm/atrium.atrium-core-robstoll-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-jvm/atrium.atrium-core-robstoll-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/core/robstoll/atrium-core-robstoll-jvm/atrium.atrium-core-robstoll-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-common/atrium.atrium-domain-api-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-common/atrium.atrium-domain-api-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-common/atrium.atrium-domain-api-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-js/atrium.atrium-domain-api-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-js/atrium.atrium-domain-api-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-js/atrium.atrium-domain-api-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-jvm/atrium.atrium-domain-api-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-jvm/atrium.atrium-domain-api-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-jvm/atrium.atrium-domain-api-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/atrium-domain-api-jvm/atrium.atrium-domain-api-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-common/atrium.atrium-domain-api-kotlin_1_3-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-common/atrium.atrium-domain-api-kotlin_1_3-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-common/atrium.atrium-domain-api-kotlin_1_3-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-js/atrium.atrium-domain-api-kotlin_1_3-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-js/atrium.atrium-domain-api-kotlin_1_3-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-js/atrium.atrium-domain-api-kotlin_1_3-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-jvm/atrium.atrium-domain-api-kotlin_1_3-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-jvm/atrium.atrium-domain-api-kotlin_1_3-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-jvm/atrium.atrium-domain-api-kotlin_1_3-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/api/extensions/kotlin_1_3/atrium-domain-api-kotlin_1_3-jvm/atrium.atrium-domain-api-kotlin_1_3-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/atrium-domain-api-deprecated/atrium.atrium-domain-api-deprecated.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/atrium-domain-api-deprecated/atrium.atrium-domain-api-deprecated.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/atrium-domain-api-deprecated/atrium.atrium-domain-api-deprecated.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-common/atrium.atrium-domain-builders-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-common/atrium.atrium-domain-builders-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-common/atrium.atrium-domain-builders-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-js/atrium.atrium-domain-builders-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-js/atrium.atrium-domain-builders-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-js/atrium.atrium-domain-builders-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-jvm/atrium.atrium-domain-builders-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-jvm/atrium.atrium-domain-builders-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-jvm/atrium.atrium-domain-builders-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/atrium-domain-builders-jvm/atrium.atrium-domain-builders-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-common/atrium.atrium-domain-builders-kotlin_1_3-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-common/atrium.atrium-domain-builders-kotlin_1_3-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-common/atrium.atrium-domain-builders-kotlin_1_3-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-js/atrium.atrium-domain-builders-kotlin_1_3-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-js/atrium.atrium-domain-builders-kotlin_1_3-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-js/atrium.atrium-domain-builders-kotlin_1_3-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-jvm/atrium.atrium-domain-builders-kotlin_1_3-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-jvm/atrium.atrium-domain-builders-kotlin_1_3-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-jvm/atrium.atrium-domain-builders-kotlin_1_3-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/builders/extensions/kotlin_1_3/atrium-domain-builders-kotlin_1_3-jvm/atrium.atrium-domain-builders-kotlin_1_3-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-common/atrium.atrium-domain-robstoll-lib-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-common/atrium.atrium-domain-robstoll-lib-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-common/atrium.atrium-domain-robstoll-lib-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-js/atrium.atrium-domain-robstoll-lib-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-js/atrium.atrium-domain-robstoll-lib-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-js/atrium.atrium-domain-robstoll-lib-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-jvm/atrium.atrium-domain-robstoll-lib-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-jvm/atrium.atrium-domain-robstoll-lib-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-jvm/atrium.atrium-domain-robstoll-lib-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/atrium-domain-robstoll-lib-jvm/atrium.atrium-domain-robstoll-lib-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-common/atrium.atrium-domain-robstoll-lib-kotlin_1_3-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-common/atrium.atrium-domain-robstoll-lib-kotlin_1_3-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-common/atrium.atrium-domain-robstoll-lib-kotlin_1_3-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-js/atrium.atrium-domain-robstoll-lib-kotlin_1_3-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-js/atrium.atrium-domain-robstoll-lib-kotlin_1_3-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-js/atrium.atrium-domain-robstoll-lib-kotlin_1_3-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-lib-kotlin_1_3-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-lib-kotlin_1_3-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-lib-kotlin_1_3-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll-lib/extensions/kotlin_1_3/atrium-domain-robstoll-lib-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-lib-kotlin_1_3-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-common/atrium.atrium-domain-robstoll-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-common/atrium.atrium-domain-robstoll-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-common/atrium.atrium-domain-robstoll-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-js/atrium.atrium-domain-robstoll-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-js/atrium.atrium-domain-robstoll-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-js/atrium.atrium-domain-robstoll-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-jvm/atrium.atrium-domain-robstoll-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-jvm/atrium.atrium-domain-robstoll-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-jvm/atrium.atrium-domain-robstoll-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/atrium-domain-robstoll-jvm/atrium.atrium-domain-robstoll-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-common/atrium.atrium-domain-robstoll-kotlin_1_3-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-common/atrium.atrium-domain-robstoll-kotlin_1_3-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-common/atrium.atrium-domain-robstoll-kotlin_1_3-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-js/atrium.atrium-domain-robstoll-kotlin_1_3-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-js/atrium.atrium-domain-robstoll-kotlin_1_3-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-js/atrium.atrium-domain-robstoll-kotlin_1_3-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-kotlin_1_3-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-kotlin_1_3-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-kotlin_1_3-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/domain/robstoll/extensions/kotlin_1_3/atrium-domain-robstoll-kotlin_1_3-jvm/atrium.atrium-domain-robstoll-kotlin_1_3-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/atrium-assertions/atrium.atrium-assertions.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/atrium-assertions/atrium.atrium-assertions.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/atrium-assertions/atrium.atrium-assertions.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/atrium-spec/atrium.atrium-spec.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/atrium-spec/atrium.atrium-spec.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/atrium-spec/atrium.atrium-spec.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-common/atrium.atrium-specs-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-common/atrium.atrium-specs-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-common/atrium.atrium-specs-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-js/atrium.atrium-specs-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-js/atrium.atrium-specs-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-js/atrium.atrium-specs-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-jvm/atrium.atrium-specs-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-jvm/atrium.atrium-specs-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/specs/atrium-specs-jvm/atrium.atrium-specs-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_de_CH_0_6_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_de_CH_0_7_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_de_CH_0_8_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_en_GB_0_7_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_en_GB_0_8_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_en_UK_0_6_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_infix_en_GB_0_7_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_infix_en_GB_0_8_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.src_cc_infix_en_UK_0_6_0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/tools/atrium-bc-test/atrium.atrium-bc-test.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-common/atrium.atrium-verbs-internal-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-common/atrium.atrium-verbs-internal-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-common/atrium.atrium-verbs-internal-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-js/atrium.atrium-verbs-internal-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-js/atrium.atrium-verbs-internal-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-js/atrium.atrium-verbs-internal-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-jvm/atrium.atrium-verbs-internal-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-jvm/atrium.atrium-verbs-internal-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-jvm/atrium.atrium-verbs-internal-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs-internal/atrium-verbs-internal-jvm/atrium.atrium-verbs-internal-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-common/atrium.atrium-verbs-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-common/atrium.atrium-verbs-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-common/atrium.atrium-verbs-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-js/atrium.atrium-verbs-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-js/atrium.atrium-verbs-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-js/atrium.atrium-verbs-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-jvm/atrium.atrium-verbs-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-jvm/atrium.atrium-verbs-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-jvm/atrium.atrium-verbs-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/misc/verbs/atrium-verbs-jvm/atrium.atrium-verbs-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/jasmine/atrium.jasmine.current.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/jasmine/atrium.jasmine.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/jasmine/atrium.jasmine.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/jasmine/atrium.jasmine.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/mocha/atrium.mocha.current.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/mocha/atrium.mocha.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/mocha/atrium.mocha.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/js/mocha/atrium.mocha.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/readme-examples/atrium.readme-examples.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/readme-examples/atrium.readme-examples.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/samples/readme-examples/atrium.readme-examples.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/atrium-translations-de_CH-deprecated/atrium.atrium-translations-de_CH-deprecated.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/atrium-translations-de_CH-deprecated/atrium.atrium-translations-de_CH-deprecated.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/atrium-translations-de_CH-deprecated/atrium.atrium-translations-de_CH-deprecated.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/atrium-translations-en_UK-deprecated/atrium.atrium-translations-en_UK-deprecated.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/atrium-translations-en_UK-deprecated/atrium.atrium-translations-en_UK-deprecated.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/atrium-translations-en_UK-deprecated/atrium.atrium-translations-en_UK-deprecated.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-common/atrium.atrium-translations-de_CH-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-common/atrium.atrium-translations-de_CH-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-common/atrium.atrium-translations-de_CH-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-js/atrium.atrium-translations-de_CH-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-js/atrium.atrium-translations-de_CH-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-js/atrium.atrium-translations-de_CH-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-jvm/atrium.atrium-translations-de_CH-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-jvm/atrium.atrium-translations-de_CH-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-jvm/atrium.atrium-translations-de_CH-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/de_CH/atrium-translations-de_CH-jvm/atrium.atrium-translations-de_CH-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-common/atrium.atrium-translations-en_GB-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-common/atrium.atrium-translations-en_GB-common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-common/atrium.atrium-translations-en_GB-common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-js/atrium.atrium-translations-en_GB-js.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-js/atrium.atrium-translations-en_GB-js.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-js/atrium.atrium-translations-en_GB-js.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-jvm/atrium.atrium-translations-en_GB-jvm.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-jvm/atrium.atrium-translations-en_GB-jvm.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-jvm/atrium.atrium-translations-en_GB-jvm.module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/translations/en_GB/atrium-translations-en_GB-jvm/atrium.atrium-translations-en_GB-jvm.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/fileContent/fileContent.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/6.0.1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/samples/jvm/junit5/src/test/kotlin/ch/tutteli/SmokeTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/java-windows.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/java-windows.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="250" y="66" key="CommitChangelistDialog2" timestamp="1576526905057">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="250" y="66" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1576526905057" />
+    <state x="503" y="386" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576512778365">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="503" y="386" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1576512778365" />
+  </component>
+</project>

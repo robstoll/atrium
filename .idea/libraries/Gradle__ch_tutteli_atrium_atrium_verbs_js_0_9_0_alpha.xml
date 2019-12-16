@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.tutteli.atrium:atrium-verbs-js:0.9.0-alpha" type="kotlin.js">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.atrium/atrium-verbs-js/0.9.0-alpha/b33ded6b5fdf8f6c474974808b03a144de4aafcd/atrium-verbs-js-0.9.0-alpha.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.atrium/atrium-verbs-js/0.9.0-alpha/58e15bf4b31a08a492ed06f930ec8a1c2d1becf2/atrium-verbs-js-0.9.0-alpha-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

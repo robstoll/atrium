@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.tutteli.kbox:kbox:0.14.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.kbox/kbox/0.14.1/e46f2a7b56e697629ee7348eceec5e02e5e0a927/kbox-0.14.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.kbox/kbox/0.14.1/1920a9649763946b1317b3e209cd93694d837efc/kbox-0.14.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

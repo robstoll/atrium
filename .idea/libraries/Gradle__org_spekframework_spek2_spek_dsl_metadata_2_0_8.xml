@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.spekframework.spek2:spek-dsl-metadata:2.0.8" type="kotlin.common">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.spekframework.spek2/spek-dsl-metadata/2.0.8/853175e12f2e6407f7656f493b6fdf575352961b/spek-dsl-metadata-2.0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.spekframework.spek2/spek-dsl-metadata/2.0.8/fdb9dea0e553746cf0bf25f4d13570ffe4453a31/spek-dsl-metadata-2.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

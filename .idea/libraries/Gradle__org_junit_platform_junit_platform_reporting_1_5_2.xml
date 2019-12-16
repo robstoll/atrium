@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.junit.platform:junit-platform-reporting:1.5.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-reporting/1.5.2/59b399131bdd6d2c816abb589e8e71185982a2ca/junit-platform-reporting-1.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-reporting/1.5.2/c3f40815dea3faf23fa32a98b50959737d177b1a/junit-platform-reporting-1.5.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

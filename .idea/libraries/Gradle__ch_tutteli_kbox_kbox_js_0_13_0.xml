@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.tutteli.kbox:kbox-js:0.13.0" type="kotlin.js">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.kbox/kbox-js/0.13.0/b3201e4c4772ddc2661d85254e137694cf4c6d70/kbox-js-0.13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.kbox/kbox-js/0.13.0/9cdabbaa00dfad5010c3f1f6929585eb7a4b6935/kbox-js-0.13.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

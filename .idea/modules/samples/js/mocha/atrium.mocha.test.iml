@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="ExternalSystem" externalSystem="GRADLE" externalSystemModuleGroup="atrium" externalSystemModuleType="sourceSet" externalSystemModuleVersion="unspecified" linkedProjectId=":mocha:test" linkedProjectPath="$MODULE_DIR$/../../../../../samples/js/mocha" rootProjectPath="$MODULE_DIR$/../../../../.." />
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JavaScript " allPlatforms="JS []" useProjectSettings="false">
+        <productionOutputPath>$MODULE_DIR$/../../../../../samples/js/mocha/build/classes/kotlin/main/mocha.js</productionOutputPath>
+        <compilerSettings />
+        <compilerArguments>
+          <option name="outputFile" value="$MODULE_DIR$/../../../../../samples/js/mocha/build/classes/kotlin/test/mocha_test.js" />
+          <option name="noStdlib" value="true" />
+          <option name="sourceMap" value="true" />
+          <option name="sourceMapEmbedSources" value="always" />
+          <option name="metaInfo" value="true" />
+          <option name="target" value="v5" />
+          <option name="moduleKind" value="commonjs" />
+          <option name="main" value="call" />
+          <option name="languageVersion" value="1.2" />
+          <option name="apiVersion" value="1.2" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+          <option name="coroutinesState" value="warn" />
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="TestModuleProperties" production-module="atrium.mocha.main" />
+</module>

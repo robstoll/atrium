@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.tutteli:atrium-spec:0.6.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli/atrium-spec/0.6.0/1ea7f3b822f2d9a1ad1bff31c0c8b4b2e49126e2/atrium-spec-0.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli/atrium-spec/0.6.0/bbdd0104af96c36964309f8e745e07d79306ed0c/atrium-spec-0.6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

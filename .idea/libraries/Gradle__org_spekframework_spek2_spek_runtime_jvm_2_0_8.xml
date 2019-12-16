@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.spekframework.spek2:spek-runtime-jvm:2.0.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.spekframework.spek2/spek-runtime-jvm/2.0.8/9f61bfd9e43829d8ba0b210d089a760c6ea5df54/spek-runtime-jvm-2.0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.spekframework.spek2/spek-runtime-jvm/2.0.8/2156d820929accd03b136124b9e45f67bf7a5f0e/spek-runtime-jvm-2.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

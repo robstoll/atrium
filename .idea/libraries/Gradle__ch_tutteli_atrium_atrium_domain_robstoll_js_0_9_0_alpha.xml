@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.tutteli.atrium:atrium-domain-robstoll-js:0.9.0-alpha" type="kotlin.js">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.atrium/atrium-domain-robstoll-js/0.9.0-alpha/531ccc33e58ed3598ff1936c896facf5666705/atrium-domain-robstoll-js-0.9.0-alpha.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.atrium/atrium-domain-robstoll-js/0.9.0-alpha/de28850a7ad0bee2ec4b93b5a5839cbfbecc19ca/atrium-domain-robstoll-js-0.9.0-alpha-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

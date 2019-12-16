@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="ExternalSystem" externalSystem="GRADLE" externalSystemModuleGroup="ch.tutteli.atrium" externalSystemModuleVersion="0.9.0-beta-SNAPSHOT" linkedProjectId=":atrium-api-fluent-en_GB-common" linkedProjectPath="$MODULE_DIR$/../../../../../apis/fluent-en_GB/atrium-api-fluent-en_GB-common" rootProjectPath="$MODULE_DIR$/../../../../.." />
+</module>

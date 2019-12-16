@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.tutteli.niok:niok:1.2.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.niok/niok/1.2.0/dc1b5735e7ec70b2bed8f7ae718b24c44e128a65/niok-1.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.tutteli.niok/niok/1.2.0/a09aad0d6c1ce66685f45b77abd248fa0255deee/niok-1.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
