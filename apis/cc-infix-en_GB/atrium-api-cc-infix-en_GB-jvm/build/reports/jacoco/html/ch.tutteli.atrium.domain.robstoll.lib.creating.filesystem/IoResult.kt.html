@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IoResult.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem</a> &gt; <span class="el_source">IoResult.kt</span></div><h1>IoResult.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem
+
+import java.io.IOException
+import java.nio.file.Path
+
+/**
+ * Executes the given [block] and catches [IOException]s.
+ *
+ * @return [Success] with [this] path and [block]’s result if [block] executes successfully.
+ *  [Failure] with [this] path and the thrown [IOException] if [block] throws an [IOException]
+ *  @throws Exception any exception that is thrown by [block] if it is not an [IOException]
+ */
+<span class="nc" id="L13">inline fun &lt;T&gt; Path.runCatchingIo(block: Path.() -&gt; T): IoResult&lt;T&gt; = try {</span>
+<span class="nc" id="L14">    Success(this, this.block())</span>
+<span class="nc" id="L15">} catch (e: IOException) {</span>
+<span class="nc" id="L16">    Failure(this, e)</span>
+<span class="nc" id="L17">}</span>
+
+<span class="nc" id="L19">sealed class IoResult&lt;out T&gt;(val path: Path)</span>
+<span class="nc" id="L20">class Success&lt;out T&gt;(path: Path, val value: T) : IoResult&lt;T&gt;(path)</span>
+<span class="nc" id="L21">class Failure(path: Path, val exception: IOException) : IoResult&lt;Nothing&gt;(path)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

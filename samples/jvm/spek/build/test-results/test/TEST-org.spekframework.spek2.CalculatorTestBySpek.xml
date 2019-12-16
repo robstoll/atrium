@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.spekframework.spek2.CalculatorTestBySpek" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-12-15T18:25:46" hostname="mbp.local" time="0.128">
+  <properties/>
+  <testcase name="1 + 2 = 3" classname="org.spekframework.spek2.CalculatorTestBySpek" time="0.063"/>
+  <testcase name="division sanity" classname="org.spekframework.spek2.CalculatorTestBySpek" time="0.064"/>
+  <testcase name="defaults to fancy" classname="org.spekframework.spek2.CalculatorTestBySpek" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

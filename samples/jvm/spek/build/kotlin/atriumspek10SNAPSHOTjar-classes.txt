@@ -1,0 +1,1 @@
+/Users/berr/atrium/samples/jvm/spek/build/classes/kotlin/main/org/spekframework/spek2/Calculator.class

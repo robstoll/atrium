@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertiesPerEntityAndLocaleTranslationSupplier.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.core.robstoll.lib.reporting.translating</a> &gt; <span class="el_source">PropertiesPerEntityAndLocaleTranslationSupplier.kt</span></div><h1>PropertiesPerEntityAndLocaleTranslationSupplier.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
+
+import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.reporting.translating.Locale
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslationSupplier
+import java.util.*
+
+/**
+ * Represents a [TranslationSupplier] which is based on properties-files which are structured per
+ * entity (enum, object or class) and [Locale].
+ *
+ * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
+ * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`
+ * (compatible with the behaviour of [ResourceBundle] - thus properties files should also use ISO-8859-1 as encoding).
+ *
+ * An entry in such a file would look like as follows:
+ * `TO_BE = a translation for TO_BE`
+ */
+<span class="nc" id="L20">class PropertiesPerEntityAndLocaleTranslationSupplier : PropertiesBasedTranslationSupplier&lt;String&gt;() {</span>
+
+    override fun get(translatable: Translatable, locale: Locale): String? {
+<span class="nc" id="L23">        val qualifiedName = translatable::class.java.name</span>
+<span class="nc" id="L24">        val fileName = getFileNameFor(qualifiedName, locale)</span>
+<span class="nc" id="L25">        val fullName = translatable::class.fullName(translatable)</span>
+<span class="nc" id="L26">        val translations = getOrLoadProperties(fileName, fileName, keyCreator = {</span>
+<span class="nc" id="L27">            fullName + Translatable.ID_SEPARATOR + it</span>
+        })
+<span class="nc" id="L29">        return translations[translatable.id]</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

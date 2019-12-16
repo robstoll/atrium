@@ -4,7 +4,7 @@ language: java
 jdk:
   # junit5 requires java 8
   - oraclejdk8
-  - openjdk11
+  - oraclejdk11
 
 env:
   - MODE=current
@@ -29,10 +29,6 @@ script:
     else
         ./gr bcTests
     fi
-  - |
-      if [ $MODE == current ]; then
-        samples/jvm/spek/gradlew -p ./samples/jvm/spek build
-      fi
 
 after_success:
   - |

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>bigDecimalAssertions.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">atrium-api-cc-infix-en_GB-jvm</a> &gt; <a href="index.source.html" class="el_package">ch.tutteli.atrium.domain.robstoll.lib.creating</a> &gt; <span class="el_source">bigDecimalAssertions.kt</span></div><h1>bigDecimalAssertions.kt</h1><pre class="source lang-java linenums">package ch.tutteli.atrium.domain.robstoll.lib.creating
+
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.withFailureHint
+import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
+import java.math.BigDecimal
+
+fun &lt;T : BigDecimal&gt; _isNumericallyEqualTo(subjectProvider: SubjectProvider&lt;T&gt;, expected: T) =
+<span class="fc" id="L12">    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NUMERICALLY_EQUAL_TO, expected) {</span>
+<span class="fc" id="L13">        isNumericallyEqualTo(it, expected)</span>
+<span class="fc" id="L14">    }</span>
+
+private fun &lt;T : BigDecimal&gt; isNumericallyEqualTo(subject: T, expected: T) =
+<span class="fc bfc" id="L17" title="All 2 branches covered.">    subject.compareTo(expected) == 0</span>
+
+fun &lt;T : BigDecimal&gt; _isNotNumericallyEqualTo(subjectProvider: SubjectProvider&lt;T&gt;, expected: T) =
+<span class="fc" id="L20">    ExpectImpl.builder.createDescriptive(</span>
+<span class="fc" id="L21">        subjectProvider,</span>
+<span class="fc" id="L22">        IS_NOT_NUMERICALLY_EQUAL_TO,</span>
+<span class="fc" id="L23">        expected</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">    ) { !isNumericallyEqualTo(it, expected) }</span>
+
+fun &lt;T : BigDecimal&gt; _isEqualIncludingScale(
+    subjectProvider: SubjectProvider&lt;T&gt;,
+    expected: T,
+    nameOfIsNumericallyEqualTo: String
+<span class="fc" id="L30">): Assertion = ExpectImpl.builder.descriptive</span>
+<span class="fc" id="L31">    .withTest(subjectProvider) { it == expected }</span>
+<span class="fc" id="L32">    .withFailureHint {</span>
+<span class="fc" id="L33">        ExpectImpl.builder.explanatoryGroup</span>
+            .withDefaultType
+<span class="fc" id="L35">            .withExplanatoryAssertion(</span>
+<span class="fc" id="L36">                FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL,</span>
+<span class="fc" id="L37">                nameOfIsNumericallyEqualTo</span>
+            )
+<span class="fc" id="L39">            .build()</span>
+    }
+<span class="fc" id="L41">    .showBasedOnDefinedSubjectOnlyIf(subjectProvider) {</span>
+<span class="fc" id="L42">        isNumericallyEqualTo(it, expected)</span>
+    }
+<span class="fc" id="L44">    .withDescriptionAndRepresentation(IS_EQUAL_INCLUDING_SCALE, expected)</span>
+<span class="fc" id="L45">    .build()</span>
+
+fun &lt;T : BigDecimal&gt; _isNotEqualIncludingScale(subjectProvider: SubjectProvider&lt;T&gt;, expected: T): Assertion {
+    // unfortunately we cannot give a hint about isNotNumericallyEqualTo, because &lt;&lt;10 is not 10.0&gt;&gt; holds
+    // so we do not get to the point where we can detect that using this function instead of isNotNumericallyEqualTo
+    // might not be the intention of the user
+<span class="fc" id="L51">    return ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_EQUAL_INCLUDING_SCALE, expected) {</span>
+<span class="fc" id="L52">        it != expected</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

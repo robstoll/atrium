@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class ch.tutteli.atrium.api.cc.infix.en_GB.IterableContainsInAnyOrderAtLeastValuesAssertionsSpec</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class ch.tutteli.atrium.api.cc.infix.en_GB.IterableContainsInAnyOrderAtLeastValuesAssertionsSpec</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/ch.tutteli.atrium.api.cc.infix.en_GB.html">ch.tutteli.atrium.api.cc.infix.en_GB</a> &gt; IterableContainsInAnyOrderAtLeastValuesAssertionsSpec</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">29</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.167s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">assertion which does not hold -- does not throw, returns `false`</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">assertion which does not hold -- does not throw, returns `false`</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">assertion which holds -- does not throw, returns `true`</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">assertion which holds -- does not throw, returns `true`</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">for at least -1 -- only positive numbers</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">for at least 0 -- points to containsNot Values</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">for at least 1 but at most -1 -- since -1 is smaller than 1</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">for at least 1 but at most 0 -- since 0 is smaller than 1</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">for at least 1 but at most 1 -- points to exactly</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">for at least 2 but at most 1 -- since 1 is smaller than 2</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `to contain atLeast butAtMost`</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">fun `to contain inAny order atLeast`</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 1.0 and 2.0 and 3.0 in any order atLeast once does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 1.0 in any order atLeast once does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 1.0, 2.3 in any order atLeast once throws AssertionError mentioning only 2.3</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 1.0, 2.3, 3.1 and 6.0 in any order atLeast once throws AssertionError</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 1.1 in any order atLeast once throws AssertionError</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 2.3, 1.0 in any order atLeast once throws AssertionError mentioning only 2.3</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 3.0 and 1.0 and 2.0 in any order atLeast once does not throw</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 4.0 in any order atLeast 3 times does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 and 4.0 atLeast 3 times butAtMost 4 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 and 4.0 atLeast once butAtMost twice throws AssertionError and message contains both, at most: 2 and how many times it actually contained 4.0 (3)</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 and 4.0 atLeast twice butAtMost 3 times does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 and 4.0 in any order atLeast 3 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 and 4.0 in any order atLeast twice does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 atLeast once butAtMost twice does not throw</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 in any order atLeast 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)</td>
+<td class="success">0.019s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 in any order atLeast once does not throw</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">to contain 5.0 in any order atLeast twice does not throw</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 5.5.1</a> at Dec 15, 2019, 8:21:22 PM</p>
+</div>
+</div>
+</body>
+</html>
