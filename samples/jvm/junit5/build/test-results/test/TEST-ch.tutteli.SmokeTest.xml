@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ch.tutteli.SmokeTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-12-16T04:24:51" hostname="mbp.local" time="0.318">
+  <properties/>
+  <testcase name="assertAnExceptionWithAMessageOccurred()" classname="ch.tutteli.SmokeTest" time="0.3"/>
+  <testcase name="assertionFunctionWithI18nCanBeUsed()" classname="ch.tutteli.SmokeTest" time="0.003"/>
+  <testcase name="assertAnExceptionOccurred()" classname="ch.tutteli.SmokeTest" time="0.001"/>
+  <testcase name="toBe_canBeUsed()" classname="ch.tutteli.SmokeTest" time="0.004"/>
+  <testcase name="assertionFunctionWithoutI18nCanBeUsed()" classname="ch.tutteli.SmokeTest" time="0.002"/>
+  <testcase name="assertNotToThrow()" classname="ch.tutteli.SmokeTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
