@@ -29,6 +29,10 @@ script:
     else
         ./gr bcTests
     fi
+  - |
+      if [ $MODE == current ]; then
+        samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
+      fi
 
 after_success:
   - |
