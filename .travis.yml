@@ -33,6 +33,10 @@ script:
       if [ $MODE == current ]; then
         samples/jvm/spek/gradlew -p ./samples/jvm/spek build
       fi
+  - |
+    if [ $MODE == current ]; then
+      samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
+    fi
 
 after_success:
   - |
