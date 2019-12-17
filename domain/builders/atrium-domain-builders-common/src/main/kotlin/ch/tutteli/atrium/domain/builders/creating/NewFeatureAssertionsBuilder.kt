@@ -85,7 +85,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
     fun <T, R> genericSubjectBasedFeature(
         assertionContainer: Expect<T>,
         provider: (T) -> MetaFeature<R>
-    ): ExtractedFeaturePostStep<T, R> = ExpectImpl.feature.genericFeature(
+    ): ExtractedFeaturePostStep<T, R> = genericFeature(
         assertionContainer,
         assertionContainer.maybeSubject.fold(this::createFeatureSubjectNotDefined) { provider(it) }
     )

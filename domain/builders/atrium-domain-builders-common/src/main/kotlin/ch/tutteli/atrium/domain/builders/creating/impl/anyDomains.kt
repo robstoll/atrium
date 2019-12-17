@@ -7,13 +7,13 @@ import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
 
-internal class AnyDomainImpl<T>(override val expect: Expect<T>) : AnyDomain<T> {
+internal class AnyDomainImpl<T>(
+    override val expect: Expect<T>
+) : AnyDomain<T> {
 
     override fun notToBe(expected: T): Assertion = anyAssertions.notToBe(expect, expected)
     override fun isSame(expected: T): Assertion = anyAssertions.isSame(expect, expected)
     override fun isNotSame(expected: T): Assertion = anyAssertions.isNotSame(expect, expected)
-
-    override fun toBeNull(): Assertion = anyAssertions.toBeNull(expect)
 
     override fun <TSub : Any> isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> =
         anyAssertions.isA(expect, subType)
@@ -32,6 +32,9 @@ internal class AnyDomainNonNullableImpl<T : Any>(
 
 
 internal class AnyDomainOnlyNullableImpl<T : Any>(override val expect: Expect<T?>) : AnyDomainOnlyNullable<T> {
+
+    override fun toBeNull(): Assertion = anyAssertions.toBeNull(expect)
+
     override fun toBeNullable(type: KClass<T>, expectedOrNull: T?) =
         anyAssertions.toBeNullable(expect, type, expectedOrNull)
 

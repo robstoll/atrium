@@ -43,7 +43,7 @@ fun <T : Any> _toBeNullable(
     type: KClass<T>,
     expectedOrNull: T?
 ): Assertion = when (expectedOrNull) {
-    null -> assertionContainer._domain.toBeNull()
+    null -> assertionContainer._domainNullable.toBeNull()
     else -> notToBeNull(assertionContainer, type) { toBe(expectedOrNull) }
 }
 
@@ -52,7 +52,7 @@ fun <T : Any> _toBeNullIfNullGivenElse(
     type: KClass<T>,
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): Assertion =
-    if (assertionCreatorOrNull == null) assertionContainer._domain.toBeNull()
+    if (assertionCreatorOrNull == null) assertionContainer._domainNullable.toBeNull()
     else notToBeNull(assertionContainer, type, assertionCreatorOrNull)
 
 private fun <T : Any> notToBeNull(

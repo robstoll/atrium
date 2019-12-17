@@ -13,8 +13,31 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.*
 
+
 /**
- * Thematic separation of the rest of AnyDomain
+ * Defines the minimum set of assertion functions and builders applicable to types extending [Any]?,
+ * which an implementation of the domain of Atrium has to provide.
+ */
+interface AnyDomain<T> : EqualityDomain<T>, FeatureDomain<T>
+
+/**
+ * Represents the topic equality/identity of the [AnyDomain].
+ *
+ * Note though, that `toBe` is defined in [EqualityNonNullableDomain.toBe] and [EqualityOnlyNullableDomain.toBeNullable].
+ */
+interface EqualityDomain<T> : ExpectDomain<T> {
+
+    fun notToBe(expected: T): Assertion
+    fun isSame(expected: T): Assertion
+    fun isNotSame(expected: T): Assertion
+
+    //TODO restrict TSub with T once type parameter for upper bounds are supported:
+    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
+    fun <TSub : Any> isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
+}
+
+/**
+ * Represents the topic feature of the [AnyDomain].
  */
 interface FeatureDomain<T> : ExpectDomain<T> {
 
@@ -81,46 +104,43 @@ interface FeatureDomain<T> : ExpectDomain<T> {
     fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R>
 }
 
-/**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Any]?,
- * which an implementation of the domain of Atrium has to provide.
- */
-interface AnyDomain<T> : FeatureDomain<T> {
 
-    fun notToBe(expected: T): Assertion
-    fun isSame(expected: T): Assertion
-    fun isNotSame(expected: T): Assertion
-
-    fun toBeNull(): Assertion
-
-    //TODO restrict TSub with T once type parameter for upper bounds are supported:
-    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-    fun <TSub : Any> isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
-
-}
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Any],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface AnyDomainNonNullable<T : Any> : AnyDomain<T> {
+interface AnyDomainNonNullable<T : Any> : AnyDomain<T>, EqualityNonNullableDomain<T>
+
+/**
+ * Represents the topic equality of the [AnyDomainNonNullable].
+ *
+ * Interface segregation for better extensibility (less methods, smaller classes).
+ */
+interface EqualityNonNullableDomain<T : Any> : ExpectDomain<T> {
 
     fun toBe(expected: T): Assertion
 }
+
+
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to nullable types extending [Any]?,
  * which an implementation of the domain of Atrium has to provide.
  */
-interface AnyDomainOnlyNullable<T : Any> : ExpectDomain<T?> {
+interface AnyDomainOnlyNullable<T : Any> : EqualityOnlyNullableDomain<T> {
 
-    fun toBeNullable(
-        type: KClass<T>,
-        expectedOrNull: T?
-    ): Assertion
+    fun toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion
+}
 
-    fun toBeNullIfNullGivenElse(
-        type: KClass<T>,
-        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-    ): Assertion
+/**
+ * Represents the topic equality of the [AnyDomainOnlyNullable].
+ *
+ * Interface segregation for better extensibility (less methods, smaller classes).
+ */
+interface EqualityOnlyNullableDomain<T : Any> : ExpectDomain<T?> {
+
+    fun toBeNull(): Assertion
+
+    fun toBeNullable(type: KClass<T>, expectedOrNull: T?): Assertion
 }

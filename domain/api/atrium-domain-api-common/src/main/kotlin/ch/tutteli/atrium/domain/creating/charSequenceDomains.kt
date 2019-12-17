@@ -11,8 +11,14 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * Defines the minimum set of assertion functions and builders applicable to types extending [CharSequence],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface CharSequenceDomain<T : CharSequence> : ExpectDomain<T> {
+interface CharSequenceDomain<T : CharSequence> : CharSequenceOnlyDomain<T>, AnyDomain<T>
 
+/**
+ * Defines the minimum set of assertion functions and builders applicable to types extending [CharSequence]
+ * excluding the assertion functions which are defined on domains of  super types
+ * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ */
+interface CharSequenceOnlyDomain<T : CharSequence> : ExpectDomain<T> {
     val containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     val containsNotBuilder: CharSequenceContains.Builder<T, NotSearchBehaviour>
 
@@ -27,10 +33,17 @@ interface CharSequenceDomain<T : CharSequence> : ExpectDomain<T> {
     fun mismatches(expected: Regex): Assertion
 }
 
+
+/**
+ * Represents the base interface for domains of [CharSequenceContains.Builder].
+ */
 interface CharSequenceContainsBuilderDomain<T : CharSequence, S : CharSequenceContains.SearchBehaviour> {
     val builder: CharSequenceContains.Builder<T, S>
 }
 
+/**
+ * Represents the domains of [CharSequenceContains.Builder] with a [NoOpSearchBehaviour].
+ */
 interface CharSequenceContainsBuilderNoOpSearchBehaviourDomain<T : CharSequence> :
     CharSequenceContainsBuilderDomain<T, NoOpSearchBehaviour> {
 
@@ -38,10 +51,16 @@ interface CharSequenceContainsBuilderNoOpSearchBehaviourDomain<T : CharSequence>
 }
 
 
+/**
+ * Represents the base interface for domains of [ CharSequenceContains.CheckerOption].
+ */
 interface CharSequenceContainsCheckerDomain<T : CharSequence, S : CharSequenceContains.SearchBehaviour> {
-    val checker: CharSequenceContains.CheckerOption<T, S>
+    val checkerOption: CharSequenceContains.CheckerOption<T, S>
 }
 
+/**
+ * Represents the domains of [CharSequenceContains.CheckerOption] with a [NoOpSearchBehaviour].
+ */
 interface CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T : CharSequence> :
     CharSequenceContainsCheckerDomain<T, NoOpSearchBehaviour> {
 
@@ -55,6 +74,9 @@ fun <T : CharSequence> CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T>.r
     expected: List<String>
 ): AssertionGroup = regex(expected.map { it.toRegex() })
 
+/**
+ * Represents the domains of [CharSequenceContains.CheckerOption] with an [IgnoringCaseSearchBehaviour].
+ */
 interface CharSequenceContainsCheckerIgnoringCaseSearchBehaviourDomain<T : CharSequence> :
     CharSequenceContainsCheckerDomain<T, IgnoringCaseSearchBehaviour> {
 
