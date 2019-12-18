@@ -2,13 +2,8 @@
 
 package ch.tutteli.atrium.domain.builders.creating.impl
 
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.builders.creating.AssertDomain
-import ch.tutteli.atrium.domain.builders.creating.AssertionPlantNullableDomain
+import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.builders.creating.SubjectProviderDomain
 
-internal class AssertDomainImpl<T : Any>(override val assert: Assert<T>) : AssertDomain<T>
-
-internal class AssertionPlantNullableDomainImpl<T>(override val assert: AssertionPlantNullable<T>) :
-    AssertionPlantNullableDomain<T>
-
+internal class SubjectProviderDomainImpl<T>(override val subjectProvider: SubjectProvider<T>) :
+    SubjectProviderDomain<T>

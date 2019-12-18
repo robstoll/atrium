@@ -5,7 +5,8 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -43,7 +44,7 @@ class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC : Any, S :
 
     @Suppress("DEPRECATION" /* switch to Expect and remove this annotation with 1.0.0 */)
     override fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<String> =
-        ExpectImpl.changeSubject(subjectProvider).unreported { it.toString() }
+        subjectProvider._domain.changeSubject.unreported { it.toString() }
 
     override fun search(subjectProvider: SubjectProvider<String>, searchCriterion: SC): Int =
         // if the maybeSubject is None it means we are in an explanation like context in which it does not matter if it is found or not.

@@ -2,26 +2,14 @@
 
 package ch.tutteli.atrium.domain.builders.creating
 
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.builders.creating.impl.AssertDomainImpl
-import ch.tutteli.atrium.domain.builders.creating.impl.AssertionPlantNullableDomainImpl
+import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.builders.creating.impl.SubjectProviderDomainImpl
 
-@Deprecated("Do no longer use Assert, use Expect instead - this interface was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-interface AssertDomain<T : Any> {
-    val assert: Assert<T>
+@Deprecated("Do no longer use Assert/AssertionPlantNullable, use Expect instead - this interface was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+interface SubjectProviderDomain<T> {
+    val subjectProvider: SubjectProvider<T>
 }
 
-@Deprecated("Do no longer use Assert, use Expect instead - this interface was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-interface AssertionPlantNullableDomain<T> {
-    val assert: AssertionPlantNullable<T>
-}
-
-@Deprecated("Do no longer use Assert, use Expect instead - this property was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-val <T : Any> Assert<T>._domain: AssertDomain<T>
-    get() = AssertDomainImpl(this)
-
-
-@Deprecated("Do no longer use Assert, use Expect instead - this property was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-val <T> AssertionPlantNullable<T>._domain: AssertionPlantNullableDomain<T>
-    get() = AssertionPlantNullableDomainImpl(this)
+@Deprecated("Do no longer use Assert/AssertionPlantNullable, use Expect instead - this property was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+val <T> SubjectProvider<T>._domain: SubjectProviderDomain<T>
+    get() = SubjectProviderDomainImpl(this)

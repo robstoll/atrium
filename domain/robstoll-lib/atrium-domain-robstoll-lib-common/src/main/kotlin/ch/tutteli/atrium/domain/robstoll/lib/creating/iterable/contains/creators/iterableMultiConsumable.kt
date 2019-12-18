@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.changeSubject
 
 @Suppress("DEPRECATION" /* TODO switch to Expect instead of SubjectProvider and remove this annotation with 1.0.0 */)
 fun <E> turnSubjectToList(subjectProvider: SubjectProvider<Iterable<E>>): SubjectProvider<List<E>> =
@@ -23,7 +24,7 @@ fun <E> turnSubjectToList(subjectProvider: SubjectProvider<Iterable<E>>): Subjec
                 )
                 subjectProvider as SubjectProvider<List<E>>
             } else {
-                ExpectImpl.changeSubject(subjectProvider).unreported { it.toList() }
+                subjectProvider._domain.changeSubject.unreported { it.toList() }
             }
         }
     )

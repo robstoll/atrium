@@ -3,13 +3,9 @@ package ch.tutteli.atrium.domain.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.creating.*
-import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
-import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 
 /**
@@ -25,23 +21,6 @@ object ExpectImpl {
      * which in turn returns an implementation of [AssertionBuilder].
      */
     inline val builder get() = assertionBuilder
-
-    /**
-     * Returns [SubjectChangerBuilder] - helping you to change the subject of the assertion.
-     * In detail, its an `inline` property which returns [SubjectChangerBuilder]
-     * which inter alia delegates to the implementation of [SubjectChanger].
-     *
-     * In case you want to extract a feature (e.g. get the first element of a `List`) instead of changing the subject
-     * into another representation (e.g. down-cast `Person` to `Student`) then you should use
-     * [feature.extractor][NewFeatureAssertionsBuilder.extractor] instead.
-     */
-    inline fun <T> changeSubject(originalAssertionContainer: Expect<T>) =
-        SubjectChangerBuilder.create(originalAssertionContainer)
-
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    inline fun <T> changeSubject(originalAssertionContainer: SubjectProvider<T>) =
-        SubjectChangerBuilder.create(originalAssertionContainer)
 
     /**
      * Returns [AssertionCollectorBuilder] - helping you to collect feature assertions.

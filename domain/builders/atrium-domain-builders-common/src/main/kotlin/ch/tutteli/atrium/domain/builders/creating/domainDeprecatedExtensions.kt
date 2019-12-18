@@ -5,9 +5,5 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 
 @Deprecated("Do no longer use Assert, use Expect instead - this interface was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-inline val <T : Any> AssertDomain<T>.changeSubject: SubjectChangerBuilder.DeprecatedKindStep<T>
-    get() = SubjectChangerBuilder.create(assert)
-
-@Deprecated("Do no longer use Assert, use Expect instead - this interface was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-inline val <T> AssertionPlantNullableDomain<T>.changeSubject: SubjectChangerBuilder.DeprecatedKindStep<T>
-    get() = SubjectChangerBuilder.create(assert)
+inline val <T> SubjectProviderDomain<T>.changeSubject: SubjectChangerBuilder.DeprecatedKindStep<T>
+    get() = SubjectChangerBuilder.create(subjectProvider)
