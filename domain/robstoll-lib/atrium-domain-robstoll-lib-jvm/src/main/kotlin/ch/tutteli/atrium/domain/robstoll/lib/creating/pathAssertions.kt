@@ -12,6 +12,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.builders.creating.featureExtractor
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
@@ -381,13 +382,13 @@ private val BasicFileAttributes.fileType: Translatable
     }
 
 fun <T : Path> _fileName(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME) { fileName.toString() }
+    assertionContainer._domain.manualFeature(FILE_NAME) { fileName.toString() }
 
 fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
+    assertionContainer._domain.manualFeature(FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
 
 fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
-    ExpectImpl.feature.extractor(assertionContainer)
+    assertionContainer._domain.featureExtractor
         .withDescription(PARENT)
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
         .withFeatureExtraction {
@@ -398,4 +399,4 @@ fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<
         .build()
 
 fun <T : Path> _extension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, EXTENSION) { extension }
+    assertionContainer._domain.manualFeature(EXTENSION) { extension }

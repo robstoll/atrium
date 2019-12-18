@@ -32,12 +32,6 @@ object ExpectImpl {
     //--- assertions ---------------------------------------------------------------------------
 
     /**
-     * Returns [NewFeatureAssertionsBuilder]
-     * which inter alia delegates to the implementation of [FeatureAssertions].
-     */
-    inline val feature get() = NewFeatureAssertionsBuilder
-
-    /**
      * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
      * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
      */

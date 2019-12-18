@@ -9,6 +9,8 @@ import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.builders.creating.featureExtractor
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
@@ -106,7 +108,7 @@ private fun <E : Comparable<E>, T : Iterable<E>> collect(
     method: String,
     collect: T.() -> E?
 ): ExtractedFeaturePostStep<T, E> {
-    return ExpectImpl.feature.extractor(assertionContainer)
+    return assertionContainer._domain.featureExtractor
         .methodCall(method)
         .withRepresentationForFailure(NO_ELEMENTS)
         .withFeatureExtraction {

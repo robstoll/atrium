@@ -3,9 +3,8 @@ package ch.tutteli.atrium.api.verbs
 import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 
 /**
  * Creates an [Expect] for the given [subject].
@@ -42,4 +41,4 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     )
 )
 fun <T, R> Expect<T>.expect(newSubject: R): Expect<R> =
-    ExpectImpl.feature.manualFeature(this, EXPECT) { newSubject }.getExpectOfFeature()
+    _domain.manualFeature(EXPECT) { newSubject }.getExpectOfFeature()

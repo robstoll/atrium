@@ -10,7 +10,9 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.builders.creating._domainNullable
+import ch.tutteli.atrium.domain.builders.creating.featureExtractor
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
@@ -41,7 +43,7 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
 
     val assertion = ExpectImpl.collector.collect(assertionContainer) {
         keyValues.map { (key, assertionCreatorOrNull) ->
-            ExpectImpl.feature.extractor(this)
+            _domain.featureExtractor
                 .withDescription(TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key)))
                 .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
                 .withFeatureExtraction { Option.someIf(it.containsKey(key)) { it[key] } }
@@ -72,7 +74,7 @@ fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
 fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
-    ExpectImpl.feature.extractor(assertionContainer)
+    assertionContainer._domain.featureExtractor
         .methodCall("get", key)
         .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
         .withFeatureExtraction {
@@ -96,4 +98,4 @@ fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K
         .build()
 
 fun <T : Map<*, *>> _size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
-    ExpectImpl.feature.manualFeature(assertionContainer, SIZE) { size }
+    assertionContainer._domain.manualFeature(SIZE) { size }

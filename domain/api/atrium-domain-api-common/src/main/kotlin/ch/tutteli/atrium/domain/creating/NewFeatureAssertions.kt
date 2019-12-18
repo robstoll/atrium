@@ -40,7 +40,7 @@ interface NewFeatureAssertions {
 
 /**
  * Represents an extracted feature of type [T] defined by the given [maybeSubject] including a [description]
- * and a [representation]
+ * and a [representation].
  *
  * @property description Will be used in reporting to describe the feature extraction - e.g. the name of a property,
  *   a method call etc.
