@@ -37,9 +37,11 @@ abstract class PostFinalStep<T, R, E : Expect<R>>(
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
      */
-    fun collect(assertionCreator: Expect<R>.() -> Unit): Assertion = assertionCollector.collect(assertionContainer) {
-        actionAndApply(this, assertionCreator)
-    }
+    @Suppress("DEPRECATION")
+    fun collect(assertionCreator: Expect<R>.() -> Unit): Assertion =
+        assertionCollector.collect(assertionContainer) {
+            actionAndApply(this, assertionCreator)
+        }
 
 
     /**
@@ -48,12 +50,12 @@ abstract class PostFinalStep<T, R, E : Expect<R>>(
      * @returns An assertion consisting of all assertions the given [assertionCreator] might create
      *   for the new [Expect] of the feature.
      */
-    fun addToFeature(assertionCreator: Expect<R>.() -> Unit): Expect<R> {
-        return actionAndApply(assertionContainer) {
+    fun addToFeature(assertionCreator: Expect<R>.() -> Unit): Expect<R> =
+        actionAndApply(assertionContainer) {
             // collect also checks that the user specified at least one assertion in the assertionCreator lambda
+            @Suppress("DEPRECATION")
             addAssertion(assertionCollector.collect(this, assertionCreator))
         }
-    }
 
     /**
      * Creates a new [Expect] for the feature, adds all assertions the given [assertionCreator] creates for it

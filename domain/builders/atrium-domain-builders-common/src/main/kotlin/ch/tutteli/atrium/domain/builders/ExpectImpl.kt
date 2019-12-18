@@ -22,13 +22,6 @@ object ExpectImpl {
      */
     inline val builder get() = assertionBuilder
 
-    /**
-     * Returns [AssertionCollectorBuilder] - helping you to collect feature assertions.
-     * In detail, its an `inline` property which returns [AssertionCollectorBuilder]
-     * which inter alia delegates to the implementation of [AssertionCollector].
-     */
-    inline val collector get() = AssertionCollectorBuilder
-
     //--- assertions ---------------------------------------------------------------------------
 
     /**

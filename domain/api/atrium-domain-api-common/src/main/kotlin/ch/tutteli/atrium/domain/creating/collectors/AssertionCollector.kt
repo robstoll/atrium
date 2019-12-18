@@ -30,6 +30,7 @@ interface AssertionCollector {
      *
      * See the other overload for more information.
      */
+    @Deprecated("not really deprecated but you should not use this method directly and instead go through `_domain`. This method will be removed with 1.0.0 latest, maybe even earlier without previous notice.")
     fun <T> collect(
         assertionContainer: Expect<T>,
         assertionCreator: Expect<T>.() -> Unit

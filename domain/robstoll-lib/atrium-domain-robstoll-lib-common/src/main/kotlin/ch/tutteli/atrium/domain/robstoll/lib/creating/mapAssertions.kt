@@ -12,6 +12,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating._domain
 import ch.tutteli.atrium.domain.builders.creating._domainNullable
+import ch.tutteli.atrium.domain.builders.creating.collector
 import ch.tutteli.atrium.domain.builders.creating.featureExtractor
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
@@ -41,7 +42,7 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via Expect
     val methodCallFormatter = coreFactory.newMethodCallFormatter()
 
-    val assertion = ExpectImpl.collector.collect(assertionContainer) {
+    val assertion = assertionContainer._domain.collector.collect {
         keyValues.map { (key, assertionCreatorOrNull) ->
             _domain.featureExtractor
                 .withDescription(TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key)))

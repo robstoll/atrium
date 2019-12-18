@@ -3,6 +3,8 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
+import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
+import ch.tutteli.atrium.domain.builders.creating.collectors.ExpectBasedAssertionCollectorBuilder
 import ch.tutteli.atrium.domain.builders.creating.impl.AnyDomainImpl
 import ch.tutteli.atrium.domain.builders.creating.impl.AnyDomainNonNullableImpl
 import ch.tutteli.atrium.domain.builders.creating.impl.AnyDomainOnlyNullableImpl
@@ -11,6 +13,7 @@ import ch.tutteli.atrium.domain.creating.AnyDomainNonNullable
 import ch.tutteli.atrium.domain.creating.AnyDomainOnlyNullable
 import ch.tutteli.atrium.domain.creating.FeatureDomain
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
+import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import kotlin.reflect.KClass
 
 val <T> Expect<T>._domain: AnyDomain<T> get() = AnyDomainImpl(this)
@@ -55,3 +58,11 @@ inline val <T> AnyDomain<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
 //TODO move next to AnyDomain with 0.10.0 when we fuse the domain modules
 inline val <T> AnyDomain<T>.featureExtractor: FeatureExtractorBuilder.DescriptionStep<T>
     get() = FeatureExtractorBuilder.create(expect)
+
+
+/**
+ * Returns [AssertionCollectorBuilder] - helping you to collect feature assertions.
+ * In detail, its an `inline` property which returns [AssertionCollectorBuilder]
+ * which inter alia delegates to the implementation of [AssertionCollector].
+ */
+inline val <T> AnyDomain<T>.collector get() = ExpectBasedAssertionCollectorBuilder(expect)

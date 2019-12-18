@@ -9,6 +9,7 @@ import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
+import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -59,7 +60,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
     assertionCreator: (Expect<E>.() -> Unit)?
 ): Boolean = when (subject) {
     null -> assertionCreator == null
-    else -> assertionCreator != null && ExpectImpl.collector.collect(Some(subject), assertionCreator).holds()
+    else -> assertionCreator != null && assertionCollector.collect(Some(subject), assertionCreator).holds()
 }
 
 internal fun <E, SC> createEntryAssertionTemplate(
@@ -90,7 +91,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     iterableAsList: List<E?>,
     itr: Iterator<E?>
 ): Assertion {
-    return ExpectImpl.collector.collect(Some(iterableAsList)) {
+    return assertionCollector.collect(Some(iterableAsList)) {
         feature(Collection<*>::size) {
             toBe(expectedSize)
             if (iterableAsList.size > expectedSize) {
