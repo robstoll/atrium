@@ -26,17 +26,6 @@ val assertionCollector: AssertionCollector by lazy { loadSingleService(Assertion
 interface AssertionCollector {
 
     /**
-     * Uses the [Expect.maybeSubject] and delegates to the other overload.
-     *
-     * See the other overload for more information.
-     */
-    @Deprecated("not really deprecated but you should not use this method directly and instead go through `_domain`. This method will be removed with 1.0.0 latest, maybe even earlier without previous notice.")
-    fun <T> collect(
-        assertionContainer: Expect<T>,
-        assertionCreator: Expect<T>.() -> Unit
-    ): Assertion = collect(assertionContainer.maybeSubject, assertionCreator)
-
-    /**
      * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
      * other action which results in an assertion container being created and
      * you do not require this resulting container.
@@ -52,9 +41,10 @@ interface AssertionCollector {
      *
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
+     *
+     * @since 0.9.0
      */
     fun <T> collect(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): Assertion
-
 
     /**
      * Use this function if you want to collect [Assertion]s and use it as part of an [AssertionGroup].
@@ -67,6 +57,8 @@ interface AssertionCollector {
      *
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
+     *
+     * @since 0.9.0
      */
     fun <T> collectForComposition(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): List<Assertion>
 

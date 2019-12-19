@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
+import ch.tutteli.atrium.domain.creating._domain
 
 /**
  * Step which kind of holds the state of a previous final step related to a subject change/feature extraction etc.
@@ -41,7 +41,7 @@ abstract class PostFinalStep<T, R, E : Expect<R>>(
      */
     @Suppress("DEPRECATION")
     fun collect(assertionCreator: Expect<R>.() -> Unit): Assertion =
-        assertionCollector.collect(assertionContainer) {
+        assertionContainer._domain.collector.collect {
             actionAndApply(this, assertionCreator)
         }
 
@@ -56,7 +56,7 @@ abstract class PostFinalStep<T, R, E : Expect<R>>(
         actionAndApply(assertionContainer) {
             // collect also checks that the user specified at least one assertion in the assertionCreator lambda
             @Suppress("DEPRECATION")
-            addAssertion(assertionCollector.collect(this, assertionCreator))
+            addAssertion(_domain.collector.collect(assertionCreator))
         }
 
     /**

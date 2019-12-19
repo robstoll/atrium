@@ -17,6 +17,7 @@ import ch.tutteli.atrium.creating.Expect
  * @since 0.9.0
  */
 interface ExpectDomain<T> {
+
     /**
      * The expect of the API level.
      */

@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove file with 1.0.0 */)
+@file:Suppress("ObjectPropertyName", "DEPRECATION" /* TODO remove file with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.creating
 

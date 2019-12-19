@@ -1,3 +1,5 @@
+@file:Suppress("ObjectPropertyName")
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion

@@ -1,3 +1,5 @@
+@file:Suppress("ObjectPropertyName")
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -126,6 +128,13 @@ interface CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T : CharSequence>
     fun regex(expected: List<Regex>): AssertionGroup
 }
 
+
+/**
+ * Helper function, maps the given [expected] regex which are [String]s to [Regex] and delegates to
+ * [CharSequenceContainsCheckerNoOpSearchBehaviourDomain.regex].
+ *
+ * @since 0.9.0
+ */
 // cannot be in the interface as we have a JVM name clash otherwise and
 // @JvmName on the other hand cannot be applied in an interface
 fun <T : CharSequence> CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T>.regex(
