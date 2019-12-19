@@ -150,6 +150,9 @@ interface ExpectBuilder {
         fun withReporter(reporter: Reporter)
 
         companion object {
+            /**
+             * Creates an [OptionsChooser] and builds an [ExpectOptions] based on the given [configuration]-lambda.
+             */
             fun createAndBuild(configuration: OptionsChooser.() -> Unit): ExpectOptions =
                 OptionsChooserImpl().apply(configuration).build()
         }
@@ -218,6 +221,9 @@ data class ExpectOptions(
         )
 }
 
+/**
+ * Factory function which delegates to [ExpectBuilder.OptionsChooser.createAndBuild].
+ */
 @Suppress("FunctionName")
 fun ExpectOptions(configuration: ExpectBuilder.OptionsChooser.() -> Unit): ExpectOptions =
     ExpectBuilder.OptionsChooser.createAndBuild(configuration)

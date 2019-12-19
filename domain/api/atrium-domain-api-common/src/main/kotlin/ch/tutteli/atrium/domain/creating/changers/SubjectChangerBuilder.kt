@@ -1,6 +1,6 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
-package ch.tutteli.atrium.domain.builders.creating.changers
+package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.None
@@ -11,11 +11,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
-import ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter
-import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
-import ch.tutteli.atrium.domain.creating.changers.subjectChanger
+import ch.tutteli.atrium.domain.creating.changers.impl.subjectchanger.*
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -24,6 +20,8 @@ import kotlin.reflect.KClass
 
 /**
  * Defines the contract for sophisticated `change subject` processes.
+ *
+ * @since 0.9.0
  */
 interface SubjectChangerBuilder {
 
@@ -84,6 +82,7 @@ interface SubjectChangerBuilder {
          *
          * @return The newly created [Expect] for the new subject.
          */
+        @Suppress("DEPRECATION" /* TODO change to expect.config.subjectChanger and remove annotation with 0.10.0 */)
         fun <R> unreported(transformation: (T) -> R): Expect<R> =
             subjectChanger.unreported(originalAssertionContainer, transformation)
 

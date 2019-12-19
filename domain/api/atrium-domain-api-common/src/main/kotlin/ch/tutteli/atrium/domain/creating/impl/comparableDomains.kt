@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.creating.impl
+package ch.tutteli.atrium.domain.creating.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect

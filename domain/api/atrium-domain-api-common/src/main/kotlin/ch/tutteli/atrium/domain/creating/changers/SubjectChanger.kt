@@ -9,18 +9,23 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * The access point to an implementation of [SubjectChanger].
  *
  * It loads the implementation lazily via [loadSingleService].
+ *
  */
+@Deprecated("Introduced in 0.9.0 because we still have the domain-api separate from the implementation module wise. This will change in 0.10.0 where this interface will be removed again. You should therefore go through `_domain` instead.")
 val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
 
 /**
  * Defines the contract to change the subject of an assertion container (e.g. the subject of [Expect]) by creating
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.
+ *
+ * @since 0.9.0
  */
 interface SubjectChanger {
 
@@ -117,14 +122,14 @@ interface SubjectChanger {
     }
 
     @Suppress("DEPRECATION")
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0 latest, might also be removed earlier")
     fun <T, R : Any> unreportedToAssert(
         originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): Assert<R>
 
     @Suppress("DEPRECATION")
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0 latest, might also be removed earlier")
     fun <T, R> unreportedNullableToAssert(
         originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
@@ -141,6 +146,8 @@ interface SubjectChanger {
  * @param T The type of the subject
  * @param R1 The type of the mapped subject
  * @param R The type of the subject after the subject change (if it were possible).
+ *
+ * @since 0.9.0
  */
 class FailureHandlerAdapter<T, R1, R>(
     val failureHandler: SubjectChanger.FailureHandler<R1, R>,
@@ -152,7 +159,7 @@ class FailureHandlerAdapter<T, R1, R>(
         descriptiveAssertion: Assertion,
         maybeAssertionCreator: Option<Expect<R>.() -> Unit>
     ): Assertion {
-        return subjectChanger.unreported(originalAssertionContainer, map)
+        return originalAssertionContainer._domain.changeSubject.unreported(map)
             .let {
                 failureHandler.createAssertion(it, descriptiveAssertion, maybeAssertionCreator)
             }

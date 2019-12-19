@@ -14,6 +14,8 @@ import ch.tutteli.atrium.creating.Expect
  * @param transform The subject transformation which creates and returns a new [Expect] of type [R].
  * @param transformAndApply The subject transformation which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
+ *
+ * @since 0.9.0
  */
 class ChangedSubjectPostStep<T, R>(
     assertionContainer: Expect<T>,

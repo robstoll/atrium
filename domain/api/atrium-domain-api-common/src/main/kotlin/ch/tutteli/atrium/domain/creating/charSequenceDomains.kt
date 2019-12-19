@@ -2,14 +2,62 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.impl.*
+
+/**
+ * Access to the domain level of Atrium where this [Expect] is passed along,
+ * scoping it to the domain of subjects which have a type extending [CharSequence].
+ *
+ * @since 0.9.0
+ */
+val <T : CharSequence> Expect<T>._domain: CharSequenceDomain<T>
+    get() = CharSequenceDomainImpl(CharSequenceOnlyDomainImpl(this), AnyDomainImpl(this))
+
+
+/**
+ * Access to the domain level of Atrium where this [CharSequenceContains.Builder] is passed along,
+ * scoping it to the domain of subjects which have a type extending [CharSequence]
+ * and a [NoOpSearchBehaviour].
+ *
+ * @since 0.9.0
+ */
+val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>._domain
+    get(): CharSequenceContainsBuilderNoOpSearchBehaviourDomain<T> =
+        CharSequenceContainsBuilderNoOpSearchBehaviourDomainImpl(this)
+
+/**
+ * Access to the domain level of Atrium where this [CharSequenceContains.CheckerOption] is passed along,
+ * scoping it to the domain of subjects which have a type extending [CharSequence]
+ * and a [NoOpSearchBehaviour].
+ *
+ * @since 0.9.0
+ */
+val <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>._domain
+    get() : CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T> =
+        CharSequenceContainsCheckerNoOpSearchBehaviourDomainImpl(this)
+
+/**
+ * Access to the domain level of Atrium where this [CharSequenceContains.CheckerOption] is passed along,
+ * scoping it to the domain of subjects which have a type extending [CharSequence]
+ * and a [IgnoringCaseSearchBehaviour].
+ *
+ * @since 0.9.0
+ */
+val <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>._domain
+    get() : CharSequenceContainsCheckerIgnoringCaseSearchBehaviourDomain<T> =
+        CharSequenceContainsCheckerIgnoringCaseSearchBehaviourDomainImpl(this)
+
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [CharSequence],
  * which an implementation of the domain of Atrium has to provide.
+ *
+ * @since 0.9.0
  */
 interface CharSequenceDomain<T : CharSequence> : CharSequenceOnlyDomain<T>, AnyDomain<T>
 
@@ -17,6 +65,8 @@ interface CharSequenceDomain<T : CharSequence> : CharSequenceOnlyDomain<T>, AnyD
  * Defines the minimum set of assertion functions and builders applicable to types extending [CharSequence]
  * excluding the assertion functions which are defined on domains of  super types
  * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ *
+ * @since 0.9.0
  */
 interface CharSequenceOnlyDomain<T : CharSequence> : ExpectDomain<T> {
     val containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
@@ -36,6 +86,8 @@ interface CharSequenceOnlyDomain<T : CharSequence> : ExpectDomain<T> {
 
 /**
  * Represents the base interface for domains of [CharSequenceContains.Builder].
+ *
+ * @since 0.9.0
  */
 interface CharSequenceContainsBuilderDomain<T : CharSequence, S : CharSequenceContains.SearchBehaviour> {
     val builder: CharSequenceContains.Builder<T, S>
@@ -43,6 +95,8 @@ interface CharSequenceContainsBuilderDomain<T : CharSequence, S : CharSequenceCo
 
 /**
  * Represents the domains of [CharSequenceContains.Builder] with a [NoOpSearchBehaviour].
+ *
+ * @since 0.9.0
  */
 interface CharSequenceContainsBuilderNoOpSearchBehaviourDomain<T : CharSequence> :
     CharSequenceContainsBuilderDomain<T, NoOpSearchBehaviour> {
@@ -52,7 +106,9 @@ interface CharSequenceContainsBuilderNoOpSearchBehaviourDomain<T : CharSequence>
 
 
 /**
- * Represents the base interface for domains of [ CharSequenceContains.CheckerOption].
+ * Represents the base interface for domains of [CharSequenceContains.CheckerOption].
+ *
+ * @since 0.9.0
  */
 interface CharSequenceContainsCheckerDomain<T : CharSequence, S : CharSequenceContains.SearchBehaviour> {
     val checkerOption: CharSequenceContains.CheckerOption<T, S>
@@ -60,6 +116,8 @@ interface CharSequenceContainsCheckerDomain<T : CharSequence, S : CharSequenceCo
 
 /**
  * Represents the domains of [CharSequenceContains.CheckerOption] with a [NoOpSearchBehaviour].
+ *
+ * @since 0.9.0
  */
 interface CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T : CharSequence> :
     CharSequenceContainsCheckerDomain<T, NoOpSearchBehaviour> {
@@ -76,6 +134,8 @@ fun <T : CharSequence> CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T>.r
 
 /**
  * Represents the domains of [CharSequenceContains.CheckerOption] with an [IgnoringCaseSearchBehaviour].
+ *
+ * @since 0.9.0
  */
 interface CharSequenceContainsCheckerIgnoringCaseSearchBehaviourDomain<T : CharSequence> :
     CharSequenceContainsCheckerDomain<T, IgnoringCaseSearchBehaviour> {

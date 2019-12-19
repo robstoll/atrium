@@ -10,10 +10,8 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating._domainNullable
-import ch.tutteli.atrium.domain.builders.creating.collector
-import ch.tutteli.atrium.domain.builders.creating.featureExtractor
+import ch.tutteli.atrium.domain.creating._domain
+import ch.tutteli.atrium.domain.creating._domainNullable
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString

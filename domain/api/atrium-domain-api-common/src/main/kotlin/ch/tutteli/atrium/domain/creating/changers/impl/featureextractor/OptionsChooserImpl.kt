@@ -1,7 +1,7 @@
-package ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor
+package ch.tutteli.atrium.domain.creating.changers.impl.featureextractor
 
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
+import ch.tutteli.atrium.domain.creating.changers.FeatureExtractorBuilder
+import ch.tutteli.atrium.domain.creating.changers.FeatureOptions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class OptionsChooserImpl<R> : FeatureExtractorBuilder.OptionsChooser<R> {

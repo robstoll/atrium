@@ -3,8 +3,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.creating._domain
 import java.io.File
 import java.nio.file.Path
 

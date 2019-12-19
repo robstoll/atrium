@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor
+package ch.tutteli.atrium.domain.creating.changers.impl.featureextractor
 
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
+import ch.tutteli.atrium.domain.creating.changers.FeatureExtractorBuilder
+import ch.tutteli.atrium.domain.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.changers.featureExtractor
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -68,6 +68,7 @@ class FinalStepImpl<T, R>(
             extractAndApply = { assertionCreator -> extractIt(this, Some(assertionCreator)) }
         )
 
+    @Suppress("DEPRECATION" /* TODO change to expect.config.featureExtractor and remove annotation with 0.10.0 */)
     private fun extractIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
         featureExtractor.extract(
             expect,

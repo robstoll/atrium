@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Introduced in 0.9.0 because we still have the domain-api separate from the implementation module wise. This will change in 0.10.0 where this interface will be removed again. You should therefore go through `_domain` instead.")
 val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
 
 /**
@@ -27,6 +28,8 @@ val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
  * The [FeatureExtractor] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.
  * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
+ *
+ * @since 0.9.0
  */
 interface FeatureExtractor {
 

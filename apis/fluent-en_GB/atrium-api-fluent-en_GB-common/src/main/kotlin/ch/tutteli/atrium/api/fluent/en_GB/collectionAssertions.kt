@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.creating._domain
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].

@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.creating.impl
+package ch.tutteli.atrium.domain.creating.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
@@ -18,6 +18,7 @@ internal class AnyDomainImpl<T>(
     override fun <TSub : Any> isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> =
         anyAssertions.isA(expect, subType)
 
+    @Suppress("DEPRECATION" /* TODO implement here directly and remove annotation with 0.10.0 */)
     override fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R> =
         newFeatureAssertions.genericFeature(expect, metaFeature)
 }

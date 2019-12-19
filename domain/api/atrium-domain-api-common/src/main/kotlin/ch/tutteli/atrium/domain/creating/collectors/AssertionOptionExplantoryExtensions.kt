@@ -1,12 +1,10 @@
-package ch.tutteli.atrium.domain.builders.creating.collectors
+package ch.tutteli.atrium.domain.creating.collectors
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].

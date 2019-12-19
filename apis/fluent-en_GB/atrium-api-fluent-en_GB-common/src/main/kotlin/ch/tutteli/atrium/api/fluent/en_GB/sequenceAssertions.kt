@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.creating._domain
 
 /**
  * Turns `Expect<Sequence<E>>` into `Expect<Iterable<E>>`.

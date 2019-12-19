@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.util.requireIterableHasElement
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.verbs
 import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating._domain
+import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 
 /**

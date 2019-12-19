@@ -10,8 +10,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup

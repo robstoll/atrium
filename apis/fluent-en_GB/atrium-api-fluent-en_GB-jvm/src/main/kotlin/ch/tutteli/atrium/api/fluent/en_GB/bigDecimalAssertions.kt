@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
-import ch.tutteli.atrium.domain.builders.creating._domainNullable
+import ch.tutteli.atrium.domain.creating._domainNullable
 import java.math.BigDecimal
 
 /**

@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.creating._domain
 
 @Suppress("DEPRECATION" /* TODO switch to Expect instead of SubjectProvider and remove this annotation with 1.0.0 */)
 fun <E> turnSubjectToList(subjectProvider: SubjectProvider<Iterable<E>>): SubjectProvider<List<E>> =

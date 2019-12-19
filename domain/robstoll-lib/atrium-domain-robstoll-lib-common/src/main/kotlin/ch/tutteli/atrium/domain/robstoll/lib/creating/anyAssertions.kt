@@ -8,10 +8,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating._domainNullable
-import ch.tutteli.atrium.domain.builders.creating.changeSubject
-import ch.tutteli.atrium.domain.builders.creating.notToBeNull
+import ch.tutteli.atrium.domain.creating._domain
+import ch.tutteli.atrium.domain.creating._domainNullable
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME

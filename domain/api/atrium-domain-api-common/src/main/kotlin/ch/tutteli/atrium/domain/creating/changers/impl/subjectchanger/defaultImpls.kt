@@ -1,13 +1,13 @@
-package ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger
+package ch.tutteli.atrium.domain.creating.changers.impl.subjectchanger
 
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
+import ch.tutteli.atrium.domain.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -77,6 +77,7 @@ class FinalStepImpl<T, R>(
             transformAndApply = { assertionCreator -> transformIt(this, Some(assertionCreator)) }
         )
 
+    @Suppress("DEPRECATION" /* TODO change to expect.config.subjectChanger and remove annotation with 0.10.0 */)
     private fun transformIt(expect: Expect<T>, maybeSubAssertions: Option<Expect<R>.() -> Unit>) =
         subjectChanger.reported(
             expect,

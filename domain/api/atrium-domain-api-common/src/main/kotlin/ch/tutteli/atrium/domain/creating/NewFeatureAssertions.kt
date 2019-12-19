@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.None
@@ -16,6 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *
  * Will be renamed to featureAssertions with 1.0.0
  */
+@Deprecated("Introduce in 0.9.0 because we still have the domain-api separate from the implementation module wise. This will change in 0.10.0 where this interface will be removed again. You should therefore go through `_domain` instead.")
 val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class) }
 
 /**
@@ -24,6 +27,7 @@ val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class
  *
  * Will be renamed to FeatureAssertions with 1.0.0
  */
+@Deprecated("Introduce in 0.9.0 because we still have the domain-api separate from the implementation module wise. This will change in 0.10.0 where this interface will be removed again. You should therefore go through `_domain` instead.")
 interface NewFeatureAssertions {
 
     /**
@@ -32,6 +36,7 @@ interface NewFeatureAssertions {
      *
      * @return The newly created [ExtractedFeaturePostStep].
      */
+    @Deprecated("Introduce in 0.9.0 because we still have the domain-api separate from the implementation module wise. This will change in 0.10.0 where this interface will be removed again. You should therefore go through `_domain` instead.")
     fun <T, R> genericFeature(
         assertionContainer: Expect<T>,
         metaFeature: MetaFeature<R>

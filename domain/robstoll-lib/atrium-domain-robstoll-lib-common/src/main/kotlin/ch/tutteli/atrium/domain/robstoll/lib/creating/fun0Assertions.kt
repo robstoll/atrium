@@ -5,8 +5,7 @@ import ch.tutteli.atrium.core.Either
 import ch.tutteli.atrium.core.Left
 import ch.tutteli.atrium.core.Right
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating._domain
-import ch.tutteli.atrium.domain.builders.creating.changeSubject
+import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString

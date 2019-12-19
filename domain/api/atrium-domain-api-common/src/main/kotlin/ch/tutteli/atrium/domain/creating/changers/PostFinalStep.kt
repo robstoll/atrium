@@ -16,6 +16,8 @@ import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
  * @property action An action such as transform, extract etc. which creates and returns a new [Expect] of type [R].
  * @property actionAndApply An action such as transform, extract etc. which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
+ *
+ * @since 0.9.0
  */
 abstract class PostFinalStep<T, R, E : Expect<R>>(
     protected val assertionContainer: Expect<T>,

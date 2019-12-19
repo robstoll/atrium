@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect

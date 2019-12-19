@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
+import ch.tutteli.atrium.domain.creating.changers.FeatureExtractorBuilder
+import ch.tutteli.atrium.domain.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.RawString

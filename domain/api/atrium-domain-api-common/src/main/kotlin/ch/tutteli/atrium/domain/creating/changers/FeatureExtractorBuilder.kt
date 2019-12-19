@@ -1,10 +1,9 @@
-package ch.tutteli.atrium.domain.builders.creating.changers
+package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor.*
-import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.domain.creating.FeatureDomain
+import ch.tutteli.atrium.domain.creating.changers.impl.featureextractor.*
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -13,12 +12,14 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
- * It is similar to [NewFeatureAssertions] but differs in the intended usage.
- * [NewFeatureAssertions] are intended to make assertions about a return value of a method call or a property,
+ * It is similar to [FeatureDomain] but differs in the intended usage.
+ * [FeatureDomain] are intended to make assertions about a return value of a method call or a property,
  * assuming that the call as such always succeeds (no exception is thrown).
  * The [FeatureExtractorBuilder] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.
  * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
+ *
+ * @since 0.9.0
  */
 interface FeatureExtractorBuilder {
 
@@ -209,6 +210,9 @@ interface FeatureExtractorBuilder {
         fun withoutOptions(): FinalStep<T, R>
 
         companion object {
+            /**
+             * Creates an [OptionsStep] in the context of the [FeatureExtractorBuilder].
+             */
             fun <T, R> create(
                 featureExtractionStep: FeatureExtractionStep<T>,
                 featureExtraction: (T) -> Option<R>
@@ -266,6 +270,9 @@ interface FeatureExtractorBuilder {
         fun withSubjectBasedRepresentation(representationProvider: (R) -> Any)
 
         companion object {
+            /**
+             * Creates an [OptionsChooser] and builds a [FeatureOptions] based on the given [configuration]-lambda.
+             */
             fun <R> createAndBuild(configuration: OptionsChooser<R>.() -> Unit): FeatureOptions<R> =
                 OptionsChooserImpl<R>().apply(configuration).build()
         }
@@ -323,6 +330,8 @@ interface FeatureExtractorBuilder {
  *
  * @property description Defines a custom description if not null.
  * @property representationInsteadOfFeature Defines a custom representation based on a present subject if not null.
+ *
+ * @since 0.9.0
  */
 data class FeatureOptions<R>(
     val description: Translatable? = null,
@@ -343,6 +352,11 @@ data class FeatureOptions<R>(
         )
 }
 
+/**
+ * Factory function which delegates to [FeatureExtractorBuilder.OptionsChooser.createAndBuild].
+ *
+ * @since 0.9.0
+ */
 @Suppress("FunctionName")
 fun <R> FeatureOptions(configuration: FeatureExtractorBuilder.OptionsChooser<R>.() -> Unit): FeatureOptions<R> =
     FeatureExtractorBuilder.OptionsChooser.createAndBuild(configuration)
