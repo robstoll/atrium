@@ -1,8 +1,13 @@
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.creating.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating._day
+import ch.tutteli.atrium.domain.robstoll.lib.creating._dayOfWeek
+import ch.tutteli.atrium.domain.robstoll.lib.creating._month
+import ch.tutteli.atrium.domain.robstoll.lib.creating._year
 import java.time.LocalDateTime
 
 class LocalDateTimeAssertionsImpl : LocalDateTimeAssertions {
