@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
+import ch.tutteli.atrium.domain.creating.FeatureDomain
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -22,8 +22,8 @@ val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
- * It is similar to [NewFeatureAssertions] but differs in the intended usage.
- * [NewFeatureAssertions] are intended to make assertions about a return value of a method call or a property,
+ * It is similar to [FeatureDomain] but differs in the intended usage.
+ * [FeatureDomain] are intended to make assertions about a return value of a method call or a property,
  * assuming that the call as such always succeeds (no exception is thrown).
  * The [FeatureExtractor] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.reporting.RawString
 import kotlin.reflect.KClass
 
 internal class AnyDomainImpl<T>(
@@ -19,8 +20,15 @@ internal class AnyDomainImpl<T>(
         anyAssertions.isA(expect, subType)
 
     @Suppress("DEPRECATION" /* TODO implement here directly and remove annotation with 0.10.0 */)
-    override fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R> =
-        newFeatureAssertions.genericFeature(expect, metaFeature)
+    override fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R> {
+        val representation: Any = metaFeature.representation ?: RawString.NULL
+        return expect._domain.featureExtractor
+            .withDescription(metaFeature.description)
+            .withRepresentationForFailure(representation)
+            .withFeatureExtraction { metaFeature.maybeSubject }
+            .withOptions { withRepresentation(representation) }
+            .build()
+    }
 }
 
 internal class AnyDomainNonNullableImpl<T : Any>(

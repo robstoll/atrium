@@ -4,6 +4,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
@@ -117,11 +118,10 @@ interface FeatureDomain<T> : ExpectDomain<T> {
     )
 
     private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
-        MetaFeature(
-            ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT,
-            RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
-            None
-        )
+        createFeatureSubjectNotDefined(ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT)
+
+    private fun <R> createFeatureSubjectNotDefined(description: Translatable): MetaFeature<R> =
+        MetaFeature(description, RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED), None)
 
     private fun <R> extractFeature(description: String, provider: (T) -> R): ExtractedFeaturePostStep<T, R> =
         genericFeature(createMetaFeature(description, provider))
@@ -130,19 +130,31 @@ interface FeatureDomain<T> : ExpectDomain<T> {
         createMetaFeature(Untranslatable(description), provider)
 
     private fun <R> createMetaFeature(description: Translatable, provider: (T) -> R): MetaFeature<R> =
-        expect.maybeSubject.fold({
-            MetaFeature(
-                description,
-                RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
-                None
-            )
-        }) {
-            val prop = provider(it)
-            MetaFeature(description, prop, Some(prop))
-        }
+        expect.maybeSubject.fold(
+            { createFeatureSubjectNotDefined(description) },
+            { provider(it).let { prop -> MetaFeature(description, prop, Some(prop)) } }
+        )
 
     fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R>
 }
+
+/**
+ * Represents an extracted feature of type [T] defined by the given [maybeSubject] including a [description]
+ * and a [representation].
+ *
+ * @property description Will be used in reporting to describe the feature extraction - e.g. the name of a property,
+ *   a method call etc.
+ * @property representation The representation of the feature, in most cases the value behind the feature.
+ * @property maybeSubject The feature as such where it is [Some] in case the extraction was successful or [None] if it
+ *   was not.
+ */
+data class MetaFeature<T>(val description: Translatable, val representation: Any?, val maybeSubject: Option<T>) {
+    constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
+        this(Untranslatable(description), representation, maybeSubject)
+
+    constructor(description: String, subject: T) : this(description, subject, Some(subject))
+}
+
 
 /**
  * Represents the topic builders of the [AnyDomain].
