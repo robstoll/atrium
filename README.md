@@ -2252,7 +2252,7 @@ We follow the convention that impl-functions are prefixed with `_`
 
 ```kotlin
 fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion =
-    ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
+    assertionBuilder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
         it % base == 0
     }
 ```

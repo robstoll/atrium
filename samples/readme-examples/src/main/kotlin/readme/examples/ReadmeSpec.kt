@@ -8,8 +8,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.jdk8.exists
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isRegularFile
 import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isWritable
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 //snippet-mapArguments-start
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 //snippet-mapArguments-end
@@ -581,7 +581,7 @@ object I18n : Spek({
 
     //snippet-i18n-3a-start
     fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion =
-        ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
+        assertionBuilder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
             it % base == 0
         }
     //snippet-i18n-3a-end

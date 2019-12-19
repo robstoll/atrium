@@ -6,9 +6,9 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
@@ -50,7 +50,7 @@ abstract class OnlyFailureReporterSpec(
         val assertion = object : Assertion {
             override fun holds() = true
         }
-        val basicAssertion = ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(TO_BE, 0).build()
+        val basicAssertion = assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(TO_BE, 0).build()
         val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val representation = 1
             override val description = AssertionVerb.VERB
@@ -63,7 +63,7 @@ abstract class OnlyFailureReporterSpec(
             override val representation = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
-        val assertionGroup = ExpectImpl.builder.root
+        val assertionGroup = assertionBuilder.root
             .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
             .withAssertions(listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
             .build()

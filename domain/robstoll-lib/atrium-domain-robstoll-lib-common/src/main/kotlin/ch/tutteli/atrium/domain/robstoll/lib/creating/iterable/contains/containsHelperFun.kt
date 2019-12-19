@@ -4,12 +4,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
+import ch.tutteli.atrium.domain.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -30,7 +30,7 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
     noinline assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     firstOrNull: () -> Option<E>
 ): AssertionGroup {
-    return ExpectImpl.builder.explanatoryGroup
+    return assertionBuilder.explanatoryGroup
         .withDefaultType
         .let {
             if (assertionCreatorOrNull != null) {
@@ -39,7 +39,7 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not
                     // thus it is OK to use trueProvider
-                    ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider)
+                    assertionBuilder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider)
                 )
             }
         }
@@ -47,7 +47,7 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
 }
 
 internal fun createEntryAssertion(explanatoryGroup: AssertionGroup, found: Boolean): AssertionGroup {
-    return ExpectImpl.builder.fixedClaimGroup
+    return assertionBuilder.fixedClaimGroup
         .withListType
         .withClaim(found)
         .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
@@ -79,7 +79,7 @@ internal fun <E, SC> createEntryAssertionTemplate(
             false to RawString.create(SIZE_EXCEEDED)
         })
         val description = TranslatableWithArgs(entryWithIndex, index)
-        ExpectImpl.builder.feature
+        assertionBuilder.feature
             .withDescriptionAndRepresentation(description, entryRepresentation)
             .withAssertion(createEntryFeatureAssertion { found })
             .build()
@@ -98,16 +98,16 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
                 addAssertion(LazyThreadUnsafeAssertionGroup {
                     val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
-                        ExpectImpl.builder.descriptive
+                        assertionBuilder.descriptive
                             .holding
                             .withDescriptionAndRepresentation(description, it)
                             .build()
                     }
 
-                    ExpectImpl.builder.explanatoryGroup
+                    assertionBuilder.explanatoryGroup
                         .withWarningType
                         .withAssertion(
-                            ExpectImpl.builder.list
+                            assertionBuilder.list
                                 .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ENTRIES)
                                 .withAssertions(additionalEntries)
                                 .build()
@@ -121,10 +121,10 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
 
 internal fun createHasElementAssertion(iterator: Iterator<*>): AssertionGroup {
     val hasElement = iterator.hasNext()
-    return ExpectImpl.builder.feature
+    return assertionBuilder.feature
         .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
         .withAssertion(
-            ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(true.toString())) { hasElement }
+            assertionBuilder.createDescriptive(DescriptionBasic.IS, RawString.create(true.toString())) { hasElement }
         )
         .build()
 }

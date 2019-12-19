@@ -4,8 +4,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
 import ch.tutteli.niok.followSymbolicLink
@@ -23,7 +23,7 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
             is AssertionGroup -> hintList.addAll(resolvedPathAssertion.assertions)
             else -> hintList.add(resolvedPathAssertion)
         }
-        ExpectImpl.builder.explanatoryGroup.withDefaultType
+        assertionBuilder.explanatoryGroup.withDefaultType
             .withAssertions(hintList)
             .build()
     } else {
@@ -81,7 +81,7 @@ private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<As
             .normalize()
 
         hintList.add(
-            ExpectImpl.builder.explanatory
+            assertionBuilder.explanatory
                 .withExplanation(HINT_FOLLOWED_SYMBOLIC_LINK, absolutePath, nextPath)
                 .build()
         )
@@ -94,7 +94,7 @@ private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<As
 
 private fun hintForLinkLoop(loop: List<Path>, startIndex: Int): Assertion {
     val loopRepresentation = loop.subList(startIndex, loop.size).joinToString(" -> ")
-    return ExpectImpl.builder.explanatoryGroup.withWarningType
+    return assertionBuilder.explanatoryGroup.withWarningType
         .withExplanatoryAssertion(FAILURE_DUE_TO_LINK_LOOP, loopRepresentation)
         .build()
 }

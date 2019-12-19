@@ -1,12 +1,8 @@
 package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.domain.builders.creating.*
-import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
-import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
@@ -14,13 +10,6 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
  */
 @Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 object ExpectImpl {
-
-    /**
-     * Returns [AssertionBuilder] - helping you creating [Assertion]s.
-     * In detail, its an `inline` property which returns [ch.tutteli.atrium.assertions.builders.assertionBuilder]
-     * which in turn returns an implementation of [AssertionBuilder].
-     */
-    inline val builder get() = assertionBuilder
 
     //--- assertions ---------------------------------------------------------------------------
 

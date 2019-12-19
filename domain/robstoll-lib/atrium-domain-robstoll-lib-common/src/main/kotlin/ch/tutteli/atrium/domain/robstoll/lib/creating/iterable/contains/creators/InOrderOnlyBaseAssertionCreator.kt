@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -32,7 +32,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, in T : Iterable<E>, SC>(
                 addAssertion(createSizeFeatureAssertionForInOrderOnly(index, subject, remainingList.iterator()))
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            ExpectImpl.builder.summary
+            assertionBuilder.summary
                 .withDescription(description)
                 .withAssertion(assertion)
                 .build()

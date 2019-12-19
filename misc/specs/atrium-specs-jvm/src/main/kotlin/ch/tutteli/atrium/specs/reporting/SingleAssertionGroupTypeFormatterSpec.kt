@@ -9,8 +9,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -44,11 +44,11 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     val unsupportedAssertion = object : Assertion {
         override fun holds() = false
     }
-    val unsupportedAssertionGroup = ExpectImpl.builder.customType(object : AssertionGroupType {})
+    val unsupportedAssertionGroup = assertionBuilder.customType(object : AssertionGroupType {})
         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
         .withAssertions(listOf())
         .build()
-    val supportedAssertionGroupWithAnonymousType = ExpectImpl.builder.customType(supportedAnonymousAssertionGroupType)
+    val supportedAssertionGroupWithAnonymousType = assertionBuilder.customType(supportedAnonymousAssertionGroupType)
         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
         .withAssertions(listOf())
         .build()
@@ -58,7 +58,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         override val representation = 1
         override val assertions: List<Assertion> = emptyList()
     }
-    val supportedAssertionGroup = ExpectImpl.builder.customType(supportedAssertionGroupType)
+    val supportedAssertionGroup = assertionBuilder.customType(supportedAssertionGroupType)
         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
         .withAssertions(listOf())
         .build()

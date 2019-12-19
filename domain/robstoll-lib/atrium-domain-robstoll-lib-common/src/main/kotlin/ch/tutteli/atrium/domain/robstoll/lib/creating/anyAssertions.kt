@@ -5,9 +5,9 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating._domainNullable
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -21,20 +21,20 @@ import kotlin.jvm.JvmName
 import kotlin.reflect.KClass
 
 fun <T> _toBe(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, expected) { it == expected }
+    assertionBuilder.createDescriptive(subjectProvider, TO_BE, expected) { it == expected }
 
 fun <T> _notToBe(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, NOT_TO_BE, expected) { it != expected }
+    assertionBuilder.createDescriptive(subjectProvider, NOT_TO_BE, expected) { it != expected }
 
 fun <T> _isSame(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_SAME, expected) { it === expected }
+    assertionBuilder.createDescriptive(subjectProvider, IS_SAME, expected) { it === expected }
 
 fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_SAME, expected) { it !== expected }
+    assertionBuilder.createDescriptive(subjectProvider, IS_NOT_SAME, expected) { it !== expected }
 
 
 fun <T : Any?> _toBeNull(subjectProvider: SubjectProvider<T>) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, RawString.NULL) { it == null }
+    assertionBuilder.createDescriptive(subjectProvider, TO_BE, RawString.NULL) { it == null }
 
 fun <T : Any> _toBeNullable(
     assertionContainer: Expect<T?>,

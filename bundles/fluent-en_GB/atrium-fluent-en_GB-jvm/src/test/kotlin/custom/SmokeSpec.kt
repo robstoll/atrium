@@ -3,8 +3,8 @@ package custom
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -31,7 +31,7 @@ fun Expect<Int>.isEven() =
 fun Expect<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 
 fun _isMultipleOf(assertionContainer: Expect<Int>, base: Int): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
+    assertionBuilder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
         it % base == 0
     }
 

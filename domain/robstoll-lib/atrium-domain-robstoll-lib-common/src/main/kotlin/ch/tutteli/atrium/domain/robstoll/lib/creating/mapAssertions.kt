@@ -5,14 +5,14 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating._domainNullable
-import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -53,24 +53,24 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
                 }
         }
     }
-    return ExpectImpl.builder.list
+    return assertionBuilder.list
         .withDescriptionAndEmptyRepresentation(CONTAINS_IN_ANY_ORDER)
         .withAssertion(assertion)
         .build()
 }
 
 fun <K> _containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, CONTAINS_KEY, key) { it.containsKey(key) }
+    assertionBuilder.createDescriptive(subjectProvider, CONTAINS_KEY, key) { it.containsKey(key) }
 
 fun <K> _containsNotKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, CONTAINS_NOT_KEY, key) { it.containsKey(key).not() }
+    assertionBuilder.createDescriptive(subjectProvider, CONTAINS_NOT_KEY, key) { it.containsKey(key).not() }
 
 
 fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS, RawString.create(EMPTY)) { it.isEmpty() }
+    assertionBuilder.createDescriptive(subjectProvider, IS, RawString.create(EMPTY)) { it.isEmpty() }
 
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
+    assertionBuilder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
 fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
     assertionContainer._domain.featureExtractor

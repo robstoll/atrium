@@ -3,13 +3,13 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
@@ -35,27 +35,27 @@ import java.util.*
 private const val IO_EXCEPTION_STACK_TRACE_LENGTH = 15
 
 fun <T : Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }
+    assertionBuilder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }
 
 fun <T : Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
+    assertionBuilder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
 
 fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
+    assertionBuilder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
 
 fun <T : Path> _endsNotWith(assertionContainer: Expect<T>, expected: Path) =
-    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
+    assertionBuilder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
 fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
     changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
-        ExpectImpl.builder.descriptive
+        assertionBuilder.descriptive
             .withTest(fileAttributesAssertionContainer) { it is Success }
             .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result ->
                 explainForResolvedLink(result.path) { realPath ->
                     val exception = (result as Failure).exception
                     when (exception) {
                         // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
-                        is NoSuchFileException -> ExpectImpl.builder.explanatoryGroup.withDefaultType.withAssertion(
+                        is NoSuchFileException -> assertionBuilder.explanatoryGroup.withDefaultType.withAssertion(
                             hintForClosestExistingParent(realPath)
                         ).build()
                         else -> hintForIoException(realPath, exception)
@@ -68,7 +68,7 @@ fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
 
 fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
     changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
-        ExpectImpl.builder.descriptive
+        assertionBuilder.descriptive
             .withTest(fileAttributesAssertionContainer) { it is Failure && it.exception is NoSuchFileException }
             .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result ->
                 explainForResolvedLink(result.path) { realPath ->
@@ -101,14 +101,14 @@ private fun <T : Path> filePermissionAssertion(
 ) = assertionContainer._domain.changeSubject.unreported {
     it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
 }.let { checkAccessResultContainer ->
-    ExpectImpl.builder.descriptive
+    assertionBuilder.descriptive
         .withTest(checkAccessResultContainer) { it is Success }
         .withFailureHintBasedOnDefinedSubject(checkAccessResultContainer) { result ->
             explainForResolvedLink(result.path) { realPath ->
                 val exception = (result as Failure).exception
                 when (exception) {
                     is AccessDeniedException -> findHintForProblemWithParent(realPath)
-                        ?: ExpectImpl.builder.explanatoryGroup.withDefaultType
+                        ?: assertionBuilder.explanatoryGroup.withDefaultType
                             .withAssertions(
                                 listOf(hintForExistsButMissingPermission(realPath, permissionName))
                                     + hintForOwnersAndPermissions(realPath)
@@ -127,7 +127,7 @@ private inline fun <T : Path> fileTypeAssertion(
     typeName: Translatable,
     crossinline typeTest: (BasicFileAttributes) -> Boolean
 ) = changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
-    ExpectImpl.builder.descriptive
+    assertionBuilder.descriptive
         .withTest(fileAttributesAssertionContainer) { it is Success && typeTest(it.value) }
         .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result ->
             explainForResolvedLink(result.path) { realPath ->
@@ -184,28 +184,28 @@ private fun findHintForProblemWithParent(path: Path): Assertion? {
 }
 
 private fun hintForParentFailure(parent: Path, explanation: Assertion) =
-    ExpectImpl.builder.explanatoryGroup.withDefaultType
+    assertionBuilder.explanatoryGroup.withDefaultType
         .withAssertions(
-            ExpectImpl.builder.descriptive.failing
+            assertionBuilder.descriptive.failing
                 .withDescriptionAndRepresentation(FAILURE_DUE_TO_PARENT, parent)
                 .build(),
             when (explanation) {
                 is AssertionGroup -> explanation
                 // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
-                else -> ExpectImpl.builder.explanatoryGroup.withDefaultType
+                else -> assertionBuilder.explanatoryGroup.withDefaultType
                     .withAssertion(explanation)
                     .build()
             }
         ).build()
 
 private fun hintForAccessDenied(path: Path): Assertion {
-    val failureDueToAccessDeniedHint = ExpectImpl.builder.explanatory
+    val failureDueToAccessDeniedHint = assertionBuilder.explanatory
         .withExplanation(FAILURE_DUE_TO_ACCESS_DENIED)
         .build()
     return try {
         val hints = hintForOwnersAndPermissions(path)
         hints.add(0, failureDueToAccessDeniedHint)
-        ExpectImpl.builder.explanatoryGroup.withDefaultType
+        assertionBuilder.explanatoryGroup.withDefaultType
             .withAssertions(hints)
             .build()
     } catch (e: IOException) {
@@ -231,32 +231,32 @@ private fun hintForOwnersAndPermissions(path: Path): MutableList<Assertion> {
 }
 
 private fun hintForOwner(owner: String) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(HINT_OWNER, owner)
         .build()
 
 private fun hintForOwnerAndGroup(owner: String, group: String) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(HINT_OWNER_AND_GROUP, owner, group)
         .build()
 
 private fun hintsForActualAclPermissions(acl: List<AclEntry>) =
     arrayOf(
-        ExpectImpl.builder.explanatory
+        assertionBuilder.explanatory
             .withExplanation(HINT_ACTUAL_ACL_PERMISSIONS)
             .build(),
-        ExpectImpl.builder.explanatoryGroup.withDefaultType
+        assertionBuilder.explanatoryGroup.withDefaultType
             .withAssertions(acl.map(::hintForAclEntry))
             .build()
     )
 
 private fun hintForAclEntry(entry: AclEntry) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation("${entry.type()} ${entry.principal().name}: ${entry.permissions().joinToString()}")
         .build()
 
 private fun hintForActualPosixPermissions(filePermissions: Set<PosixFilePermission>) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(HINT_ACTUAL_POSIX_PERMISSIONS, formatPosixPermissions(filePermissions))
         .build()
 
@@ -288,12 +288,12 @@ private fun toPermissionString(
 }
 
 private fun <T : Path> hintForExistsButMissingPermission(subject: T, permissionName: Translatable) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT, subject.fileType, permissionName)
         .build()
 
 private fun describeWas(actual: Translatable) =
-    ExpectImpl.builder.descriptive.failing
+    assertionBuilder.descriptive.failing
         .withDescriptionAndRepresentation(WAS, RawString.create(actual))
         .build()
 
@@ -309,7 +309,7 @@ private fun hintForFileSpecificIoException(path: Path, exception: IOException) =
     }
 
 private fun hintForFileNotFound(path: Path) =
-    ExpectImpl.builder.explanatoryGroup.withDefaultType
+    assertionBuilder.explanatoryGroup.withDefaultType
         .withAssertions(
             hintForNoSuchFile(),
             hintForClosestExistingParent(path)
@@ -317,7 +317,7 @@ private fun hintForFileNotFound(path: Path) =
         .build()
 
 private fun hintForNoSuchFile() =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(FAILURE_DUE_TO_NO_SUCH_FILE)
         .build()
 
@@ -347,12 +347,12 @@ private fun hintForClosestExistingParent(path: Path): Assertion {
 }
 
 private fun hintForExistingParentDirectory(parent: Path?) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY, parent ?: NONE)
         .build()
 
 private fun hintForNotDirectory(actualType: Translatable) =
-    ExpectImpl.builder.explanatory
+    assertionBuilder.explanatory
         .withExplanation(FAILURE_DUE_TO_WRONG_FILE_TYPE, actualType, A_DIRECTORY)
         .build()
 
