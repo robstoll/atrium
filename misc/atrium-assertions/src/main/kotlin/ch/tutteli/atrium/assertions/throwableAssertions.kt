@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -11,6 +13,5 @@ import kotlin.reflect.KClass
     )
 )
 fun <TExpected : Throwable> _toThrow(throwableThrownBuilder: ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.builders.ThrowableThrownBuilder, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-    @Suppress("DEPRECATION")
     AssertImpl.throwable.thrown.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 }

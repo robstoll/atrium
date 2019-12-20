@@ -14,12 +14,6 @@ object ExpectImpl {
     //--- assertions ---------------------------------------------------------------------------
 
     /**
-     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
-     * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
-     */
-    inline val floatingPoint get() = FloatingPointAssertionsBuilder
-
-    /**
      * Returns [Fun0AssertionsBuilder] - [Assertion]s applicable to lambdas with arity 0
      * which inter alia delegates to the implementation of [FloatingPointAssertions].
      */

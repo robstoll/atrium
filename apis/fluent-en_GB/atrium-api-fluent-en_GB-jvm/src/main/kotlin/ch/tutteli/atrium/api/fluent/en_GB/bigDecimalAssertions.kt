@@ -3,11 +3,94 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating._domainNullable
 import java.math.BigDecimal
+
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is equal to [expected] with an error [tolerance]
+ * (range including bounds).
+ *
+ * In detail, It compares the absolute difference between the subject and [expected];
+ * as long as it is less than or equal the [tolerance] the assertion holds; otherwise it fails.
+ * A more mathematical way of expressing the assertion is the following inequality:
+ *
+ * | `subject of the assertion` - [expected] | ≤ [tolerance]
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: T, tolerance: T) =
+    addAssertion(_domain.toBeWithErrorTolerance(expected, tolerance))
+
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is numerically equal to [expected].
+ *
+ * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
+ * it uses `compareTo(expected) == 0`)
+ *
+ * Most of the time you want to use this function instead of [isEqualIncludingScale] because
+ * [isEqualIncludingScale] compares [BigDecimal.scale].
+ * Following the two functions compared:
+ * - `expect(BigDecimal("10")).isEqualIncludingScale(BigDecimal("10.0"))` does not hold.
+ * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
+    addAssertion(_domain.isNumericallyEqualTo(expected))
+
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is not numerically equal to [expected].
+ *
+ * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
+ * it uses `compareTo(expected) != 0`)
+ *
+ * Most of the time you want to use this function instead of [isNotEqualIncludingScale] because
+ * [isNotEqualIncludingScale] compares [BigDecimal.scale].
+ * Following the two functions compared:
+ * - `expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))` holds.
+ * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
+    addAssertion(_domain.isNotNumericallyEqualTo(expected))
+
+
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is equal to [expected] including [BigDecimal.scale].
+ *
+ * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
+ * in contrast to this function.
+ * Following the two functions compared:
+ * - `expect(BigDecimal("10")).isEqualIncludingScale(BigDecimal("10.0"))` does not hold.
+ * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
+    addAssertion(_domain.isEqualIncludingScale(expected, this::isNumericallyEqualTo.name))
+
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is not equal to [expected] including [BigDecimal.scale].
+ *
+ * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
+ * in contrast to this function.
+ * Following the two functions compared:
+ * - `expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))` holds.
+ * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T) =
+    addAssertion(_domain.isNotEqualIncludingScale(expected))
+
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -44,6 +127,9 @@ fun Expect<out BigDecimal?>.toBe(expected: BigDecimal?): Nothing = throw PleaseU
         "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
 )
 
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is `null`.
+ */
 @JvmName("toBeNullable")
 inline fun <reified T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
     addAssertion(_domainNullable.toBeNullable(T::class, expected))
@@ -69,70 +155,3 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseRe
     "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
         "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`."
 )
-
-/**
- * Expects that the subject of the assertion is numerically equal to [expected].
- *
- * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
- * it uses `compareTo(expected) == 0`)
- *
- * Most of the time you want to use this function instead of [isEqualIncludingScale] because
- * [isEqualIncludingScale] compares [BigDecimal.scale].
- * Following the two functions compared:
- * - `expect(BigDecimal("10")).isEqualIncludingScale(BigDecimal("10.0"))` does not hold.
- * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
- *
- * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
-    addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
-
-/**
- * Expects that the subject of the assertion is not numerically equal to [expected].
- *
- * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
- * it uses `compareTo(expected) != 0`)
- *
- * Most of the time you want to use this function instead of [isNotEqualIncludingScale] because
- * [isNotEqualIncludingScale] compares [BigDecimal.scale].
- * Following the two functions compared:
- * - `expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))` holds.
- * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
- *
- * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
-    addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
-
-
-/**
- * Expects that the subject of the assertion is equal to [expected] including [BigDecimal.scale].
- *
- * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
- * in contrast to this function.
- * Following the two functions compared:
- * - `expect(BigDecimal("10")).isEqualIncludingScale(BigDecimal("10.0"))` does not hold.
- * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
- *
- * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
-    addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
-
-/**
- * Expects that the subject of the assertion is not equal to [expected] including [BigDecimal.scale].
- *
- * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
- * in contrast to this function.
- * Following the two functions compared:
- * - `expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))` holds.
- * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
- *
- * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T) =
-    addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

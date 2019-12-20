@@ -24,16 +24,12 @@ import kotlin.reflect.*
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects which have a type extending [Any]`?`.
- *
- * @since 0.9.0
  */
 val <T> Expect<T>._domain: AnyDomain<T> get() = AnyDomainImpl(this)
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects which have a type extending [Any].
- *
- * @since 0.9.0
  */
 val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNullableImpl(this, AnyDomainImpl(this))
 
@@ -43,8 +39,6 @@ val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNul
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of nullable types extending [Any]?.
- *
- * @since 0.9.0
  */
 val <T : Any> Expect<T?>._domainNullable: AnyDomainOnlyNullable<T> get() = AnyDomainOnlyNullableImpl(this)
 
@@ -52,8 +46,6 @@ val <T : Any> Expect<T?>._domainNullable: AnyDomainOnlyNullable<T> get() = AnyDo
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Any]?,
  * which an implementation of the domain of Atrium has to provide.
- *
- * @since 0.9.0
  */
 interface AnyDomain<T> : EqualityDomain<T>, FeatureDomain<T>, BuilderDomain<T>
 
@@ -61,8 +53,6 @@ interface AnyDomain<T> : EqualityDomain<T>, FeatureDomain<T>, BuilderDomain<T>
  * Represents the topic equality/identity of the [AnyDomain].
  *
  * Note though, that `toBe` is defined in [EqualityNonNullableDomain.toBe] and [EqualityOnlyNullableDomain.toBeNullable].
- *
- * @since 0.9.0
  */
 interface EqualityDomain<T> : ExpectDomain<T> {
 
@@ -147,6 +137,8 @@ interface FeatureDomain<T> : ExpectDomain<T> {
  * @property representation The representation of the feature, in most cases the value behind the feature.
  * @property maybeSubject The feature as such where it is [Some] in case the extraction was successful or [None] if it
  *   was not.
+ *
+ * @since 0.9.0
  */
 data class MetaFeature<T>(val description: Translatable, val representation: Any?, val maybeSubject: Option<T>) {
     constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
@@ -205,17 +197,11 @@ interface BuilderDomain<T> : ExpectDomain<T> {
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Any],
  * which an implementation of the domain of Atrium has to provide.
- *
- * @since 0.9.0
  */
 interface AnyDomainNonNullable<T : Any> : AnyDomain<T>, EqualityNonNullableDomain<T>
 
 /**
  * Represents the topic equality of the [AnyDomainNonNullable].
- *
- * Interface segregation for better extensibility (less methods, smaller classes).
- *
- * @since 0.9.0
  */
 interface EqualityNonNullableDomain<T : Any> : ExpectDomain<T> {
 
@@ -226,8 +212,6 @@ interface EqualityNonNullableDomain<T : Any> : ExpectDomain<T> {
 /**
  * Defines the minimum set of assertion functions and builders applicable to nullable types extending [Any]?,
  * which an implementation of the domain of Atrium has to provide.
- *
- * @since 0.9.0
  */
 interface AnyDomainOnlyNullable<T : Any> : EqualityOnlyNullableDomain<T> {
 
@@ -241,10 +225,6 @@ interface AnyDomainOnlyNullable<T : Any> : EqualityOnlyNullableDomain<T> {
 
 /**
  * Represents the topic equality of the [AnyDomainOnlyNullable].
- *
- * Interface segregation for better extensibility (less methods, smaller classes).
- *
- * @since 0.9.0
  */
 interface EqualityOnlyNullableDomain<T : Any> : ExpectDomain<T?> {
 

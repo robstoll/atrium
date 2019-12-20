@@ -14,8 +14,6 @@ import ch.tutteli.atrium.domain.creating.impl.ComparableOnlyDomainImpl
  *
  * @param T the type which is able to compare itself against another type [O]
  * @param O the other type to which [T] is comparable
- *
- * @since 0.9.0
  */
 val <O, T : Comparable<O>> Expect<T>._domain: ComparableDomain<O, T>
     get() = ComparableDomainImpl(ComparableOnlyDomainImpl(this), AnyDomainImpl(this))
@@ -27,20 +25,16 @@ val <O, T : Comparable<O>> Expect<T>._domain: ComparableDomain<O, T>
  *
  * @param T the type which is able to compare itself against another type [O]
  * @param O the other type to which [T] is comparable
- *
- * @since 0.9.0
  */
 interface ComparableDomain<O, T : Comparable<O>> : ComparableOnlyDomain<O, T>, AnyDomain<T>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [CharSequence]
+ * Defines the minimum set of assertion functions and builders applicable to types extending [Comparable]
  * excluding the assertion functions which are defined on domains of  super types
  * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
  *
  * @param T the type which is able to compare itself against another type [O]
  * @param O the other type to which [T] is comparable
- *
- * @since 0.9.0
  */
 interface ComparableOnlyDomain<O, T : Comparable<O>> : ExpectDomain<T> {
     fun isLessThan(expected: O): Assertion
