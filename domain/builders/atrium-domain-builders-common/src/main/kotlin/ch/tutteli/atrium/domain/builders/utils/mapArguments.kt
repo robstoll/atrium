@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.domain.utils.subExpect
 import kotlin.js.JsName
 
 /**
@@ -175,7 +176,13 @@ class ArgumentMapperBuilder<out T>(
      */
     inline fun <reified R> toExpect(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
-    ): Pair<Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>> = to { t -> subExpect<R> { assertionCreator(t) } }
+    ): Pair<Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>> = to { t ->
+        subExpect<R> {
+            assertionCreator(
+                t
+            )
+        }
+    }
 
     /**
      * Maps each argument to an [Assert][AssertionPlant]&lt;[R]&gt; lambda with receiver
@@ -183,6 +190,7 @@ class ArgumentMapperBuilder<out T>(
      *
      * @returns The mapped [first] and [others].
      */
+    @Suppress("DEPRECATION")
     @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
     inline fun <reified R : Any> toAssert(
         crossinline assertionCreator: Assert<R>.(T) -> Unit
@@ -196,6 +204,7 @@ class ArgumentMapperBuilder<out T>(
      *
      * @returns The mapped [first] and [others].
      */
+    @Suppress("DEPRECATION")
     @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
     inline fun <reified R> toAssertionPlantNullable(
         crossinline assertionCreator: AssertionPlantNullable<R>.(T) -> Unit
@@ -230,7 +239,9 @@ fun <T : Any> ArgumentMapperBuilder<T?>.toNullOr(): ArgumentToNullOrMapperBuilde
     ReplaceWith("toExpect(assertionCreator)")
 )
 fun <T : Any> ArgumentMapperBuilder<T>.toNullOr(): Nothing =
-    throw PleaseUseReplacementException("Since your arguments are not nullable it does not make sense to call this function.")
+    throw PleaseUseReplacementException(
+        "Since your arguments are not nullable it does not make sense to call this function."
+    )
 
 /**
  * Builder to map variable length arguments formulated as `(first: T, vararg others : T)` to something else.
@@ -251,7 +262,15 @@ class ArgumentToNullOrMapperBuilder<T : Any>(
     inline fun <R : Any> toExpect(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
     ): Pair<(Expect<R>.() -> Unit)?, Array<out (Expect<R>.() -> Unit)?>> =
-        argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subExpect<R> { assertionCreator(t) } } }
+        argumentMapperBuilder.to { nullableT ->
+            nullableT?.let { t ->
+                subExpect<R> {
+                    assertionCreator(
+                        t
+                    )
+                }
+            }
+        }
 
     /**
      * Maps each argument to `null` if it is already `null` and if not, then to an [AssertionPlantNullable]&lt;[R]&gt;
@@ -259,6 +278,7 @@ class ArgumentToNullOrMapperBuilder<T : Any>(
      *
      * @returns The mapped arguments.
      */
+    @Suppress("DEPRECATION")
     @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
     inline fun <R : Any> toAssert(
         crossinline assertionCreator: Assert<R>.(T) -> Unit

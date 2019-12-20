@@ -3,7 +3,6 @@ package ch.tutteli.atrium.domain.builders.utils
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.Expect
 
 /**
  * Helper function to create an  [Assert&lt;T&gt;][AssertionPlant] lambda with receiver;
@@ -17,7 +16,8 @@ import ch.tutteli.atrium.creating.Expect
  * @param assertionCreator Your assertion creator lambda.
  * @return your passed lambda.
  */
-@Suppress("NOTHING_TO_INLINE")
+@Suppress("NOTHING_TO_INLINE", "DeprecatedCallableAddReplaceWith")
+@Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
 inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) = assertionCreator
 
 
@@ -33,9 +33,8 @@ inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) 
  * @param assertionCreator Your assertion creator lambda.
  * @return your passed lambda.
  */
-@Suppress("NOTHING_TO_INLINE")
+@Suppress("NOTHING_TO_INLINE", "DeprecatedCallableAddReplaceWith")
+@Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
 inline fun <T> subAssertNullable(noinline assertionCreator: AssertionPlantNullable<T>.() -> Unit) =
     assertionCreator
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun <T> subExpect(noinline assertionCreator: Expect<T>.() -> Unit) = assertionCreator

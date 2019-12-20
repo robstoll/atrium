@@ -4,9 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import kotlin.reflect.KClass
 
 /**
@@ -29,28 +27,6 @@ interface AnyAssertions {
     fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion
 
     fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>): Assertion
-
-    fun <T : Any> toBeNullable(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        expectedOrNull: T?
-    ): Assertion
-
-    fun <T : Any> toBeNullIfNullGivenElse(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-    ): Assertion
-
-    /**
-     * Convenience method for nullable-types which delegates to [isA].
-     */
-    fun <T : Any> notToBeNull(assertionContainer: Expect<T?>, subType: KClass<T>) =
-        isA(assertionContainer, subType)
-
-    //TODO restrict TSub with T once type parameter for upper bounds are supported:
-    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-    fun <T, TSub : Any> isA(assertionContainer: Expect<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
 
 
     @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")

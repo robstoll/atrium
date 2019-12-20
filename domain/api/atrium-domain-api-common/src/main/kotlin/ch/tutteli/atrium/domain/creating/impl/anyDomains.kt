@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.domain.utils.subExpect
 import ch.tutteli.atrium.reporting.RawString
 import kotlin.reflect.KClass
 
@@ -17,7 +18,9 @@ internal class AnyDomainImpl<T>(
     override fun isNotSame(expected: T): Assertion = anyAssertions.isNotSame(expect, expected)
 
     override fun <TSub : Any> isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> =
-        anyAssertions.isA(expect, subType)
+        changeSubject.reportBuilder()
+            .downCastTo(subType)
+            .build()
 
     @Suppress("DEPRECATION" /* TODO implement here directly and remove annotation with 0.10.0 */)
     override fun <R> genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R> {
@@ -30,6 +33,7 @@ internal class AnyDomainImpl<T>(
             .build()
     }
 }
+
 
 internal class AnyDomainNonNullableImpl<T : Any>(
     override val expect: Expect<T>,
@@ -44,11 +48,12 @@ internal class AnyDomainOnlyNullableImpl<T : Any>(override val expect: Expect<T?
 
     override fun toBeNull(): Assertion = anyAssertions.toBeNull(expect)
 
-    override fun toBeNullable(type: KClass<T>, expectedOrNull: T?) =
-        anyAssertions.toBeNullable(expect, type, expectedOrNull)
+    override fun toBeNullable(type: KClass<T>, expectedOrNull: T?): Assertion =
+        toBeNullIfNullGivenElse(type, expectedOrNull?.let { subExpect<T> { addAssertion(_domain.toBe(it)) } })
 
-    override fun toBeNullIfNullGivenElse(
-        type: KClass<T>,
-        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-    ): Assertion = anyAssertions.toBeNullIfNullGivenElse(expect, type, assertionCreatorOrNull)
+    override fun toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
+        when (assertionCreatorOrNull) {
+            null -> toBeNull()
+            else -> notToBeNull(type).collect(assertionCreatorOrNull)
+        }
 }

@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.domain.utils.subExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.style.specification.Suite

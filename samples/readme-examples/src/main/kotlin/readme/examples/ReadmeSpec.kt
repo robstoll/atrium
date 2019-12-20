@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 //snippet-mapArguments-end
 //snippet-subExpect-start
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.domain.utils.subExpect
 //snippet-subExpect-end
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable

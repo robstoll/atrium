@@ -37,22 +37,6 @@ object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T> toBeNull(subjectProvider: SubjectProvider<T>) =
         anyAssertions.toBeNull(subjectProvider)
 
-    override inline fun <T : Any> toBeNullable(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        expectedOrNull: T?
-    ) = anyAssertions.toBeNullable(assertionContainer, type, expectedOrNull)
-
-    override inline fun <T : Any> toBeNullIfNullGivenElse(
-        assertionContainer: Expect<T?>,
-        type: KClass<T>,
-        noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-    ) = anyAssertions.toBeNullIfNullGivenElse(assertionContainer, type, assertionCreatorOrNull)
-
-    override inline fun <T, TSub : Any> isA(assertionContainer: Expect<T>, subType: KClass<TSub>) =
-        anyAssertions.isA(assertionContainer, subType)
-
-
     // everything below is deprecated functionality and will be removed with 1.0.0
 
     @Suppress("DeprecatedCallableAddReplaceWith")

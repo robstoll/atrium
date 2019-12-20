@@ -4,7 +4,7 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.domain.utils.subExpect
 import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2

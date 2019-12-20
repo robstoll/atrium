@@ -1425,7 +1425,7 @@ We are going to reuse the `myFun` from above
 <ex-data-driven-2>
 
 ```kotlin
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.domain.utils.subExpect
 
 expect("calling myFun with ...") {
     mapOf(

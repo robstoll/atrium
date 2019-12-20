@@ -23,4 +23,5 @@ module ch.tutteli.atrium.domain.api {
     exports ch.tutteli.atrium.domain.creating.throwable.thrown;
     exports ch.tutteli.atrium.domain.creating.throwable.thrown.creators;
     exports ch.tutteli.atrium.domain.creating.throwable.thrown.providers;
+    exports ch.tutteli.atrium.domain.utils;
 }

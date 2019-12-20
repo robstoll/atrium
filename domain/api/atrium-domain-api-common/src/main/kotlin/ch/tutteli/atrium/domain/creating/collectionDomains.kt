@@ -37,6 +37,5 @@ interface CollectionDomain<E, T : Collection<E>> : CollectionOnlyDomain<E, T>, A
 interface CollectionOnlyDomain<E, T : Collection<E>> : ExpectDomain<T> {
     fun isEmpty(): Assertion
     fun isNotEmpty(): Assertion
-
     val size: ExtractedFeaturePostStep<T, Int>
 }
