@@ -1,7 +1,7 @@
 @file:Suppress(
     "OVERRIDE_BY_INLINE",
     "NOTHING_TO_INLINE",
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
 )
 
 package ch.tutteli.atrium.domain.builders.creating
