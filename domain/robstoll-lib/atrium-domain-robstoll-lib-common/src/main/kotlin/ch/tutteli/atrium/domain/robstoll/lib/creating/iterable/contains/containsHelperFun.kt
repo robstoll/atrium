@@ -10,7 +10,7 @@ import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.collectAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.domain.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -19,6 +19,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
+//TODO duplicated in domain-api, remove with 0.10.0
 internal fun <E : Any> createExplanatoryAssertionGroup(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     list: List<E?>
@@ -55,6 +56,7 @@ internal fun createEntryAssertion(explanatoryGroup: AssertionGroup, found: Boole
         .build()
 }
 
+//TODO duplicated in domain-api, remove with 0.10.0
 internal fun <E : Any> allCreatedAssertionsHold(
     subject: E?,
     assertionCreator: (Expect<E>.() -> Unit)?
@@ -119,6 +121,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     }
 }
 
+//TODO duplicated in domain-api, remove with 0.10.0
 internal fun createHasElementAssertion(iterator: Iterator<*>): AssertionGroup {
     val hasElement = iterator.hasNext()
     return assertionBuilder.feature

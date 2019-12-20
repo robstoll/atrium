@@ -8,8 +8,8 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 
 internal class CollectionDomainImpl<E, T : Collection<E>>(
     collectionOnlyDomain: CollectionOnlyDomain<E, T>,
-    anyDomain: AnyDomain<T>
-) : CollectionDomain<E, T>, CollectionOnlyDomain<E, T> by collectionOnlyDomain, AnyDomain<T> by anyDomain {
+    iterableDomain: IterableDomain<E, T>
+) : CollectionDomain<E, T>, CollectionOnlyDomain<E, T> by collectionOnlyDomain, IterableDomain<E, T> by iterableDomain {
     override val expect: Expect<T> = collectionOnlyDomain.expect
 }
 

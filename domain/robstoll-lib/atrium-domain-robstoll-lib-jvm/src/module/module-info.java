@@ -8,7 +8,6 @@ module ch.tutteli.atrium.domain.robstoll.lib {
     //TODO remove with 1.0.0
     requires        ch.tutteli.atrium.api.cc.en_GB;
 
-    exports ch.tutteli.atrium.domain.robstoll.lib.assertions;
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions.composers;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating;
     exports ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators;

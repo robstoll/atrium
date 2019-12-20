@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains._domain
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
 
@@ -36,7 +36,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeha
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrderOnly(this, expected glue otherExpected))
+): Expect<T> = addAssertion(_domain.values(expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -83,9 +83,4 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInAnyOrderOnly(
-        this,
-        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
-    )
-)
+): Expect<T> = addAssertion(_domain.entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))

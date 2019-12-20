@@ -8,7 +8,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.domain.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.domain.creating.iterable.contains.creators.turnSubjectToList
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createSizeFeatureAssertionForInOrderOnly
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.ifWithinBound

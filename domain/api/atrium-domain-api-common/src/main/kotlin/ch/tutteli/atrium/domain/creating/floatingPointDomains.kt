@@ -37,7 +37,7 @@ interface FloatDomain : FloatOnlyDomain, AnyDomain<Float>
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Float]
- * excluding the assertion functions which are defined on domains of  super types
+ * excluding the assertion functions which are defined on domains of super types
  * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
  */
 interface FloatOnlyDomain : FloatingPointDomain<Float>
@@ -51,7 +51,7 @@ interface DoubleDomain : DoubleOnlyDomain, AnyDomain<Double>
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Double]
- * excluding the assertion functions which are defined on domains of  super types
+ * excluding the assertion functions which are defined on domains of super types
  * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
  */
 interface DoubleOnlyDomain : FloatingPointDomain<Double>

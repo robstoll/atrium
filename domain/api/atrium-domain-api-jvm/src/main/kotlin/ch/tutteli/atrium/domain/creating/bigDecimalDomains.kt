@@ -23,15 +23,15 @@ val <T : BigDecimal> Expect<T>._domain: BigDecimalDomain<T>
  * Defines the minimum set of assertion functions and builders applicable to types extending [BigDecimal],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface BigDecimalDomain<T> : BigDecimalOnlyDomain<T>, AnyDomain<T>
+interface BigDecimalDomain<T : BigDecimal> : BigDecimalOnlyDomain<T>, AnyDomain<T>
 
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [BigDecimal]
- * excluding the assertion functions which are defined on domains of  super types
+ * excluding the assertion functions which are defined on domains of super types
  * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
  */
-interface BigDecimalOnlyDomain<T> : FloatingPointDomain<T> {
+interface BigDecimalOnlyDomain<T : BigDecimal> : FloatingPointDomain<T> {
     fun isNumericallyEqualTo(expected: T): Assertion
     fun isNotNumericallyEqualTo(expected: T): Assertion
     fun isEqualIncludingScale(expected: T, nameOfIsNumericallyEqualTo: String): Assertion

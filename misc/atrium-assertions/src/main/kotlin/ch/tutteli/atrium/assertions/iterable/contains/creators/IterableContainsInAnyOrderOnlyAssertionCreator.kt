@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.domain.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE

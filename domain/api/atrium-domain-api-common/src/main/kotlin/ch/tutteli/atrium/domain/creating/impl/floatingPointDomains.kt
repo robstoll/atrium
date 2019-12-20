@@ -5,10 +5,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.*
 
 internal class FloatDomainImpl(
-    FloatDomainOnlyImpl: FloatOnlyDomain,
+    floatDomainOnlyImpl: FloatOnlyDomain,
     anyDomain: AnyDomain<Float>
-) : FloatDomain, FloatOnlyDomain by FloatDomainOnlyImpl, AnyDomain<Float> by anyDomain {
-    override val expect: Expect<Float> = FloatDomainOnlyImpl.expect
+) : FloatDomain, FloatOnlyDomain by floatDomainOnlyImpl, AnyDomain<Float> by anyDomain {
+    override val expect: Expect<Float> = floatDomainOnlyImpl.expect
 }
 
 internal class FloatOnlyDomainImpl(
@@ -20,10 +20,10 @@ internal class FloatOnlyDomainImpl(
 
 
 internal class DoubleDomainImpl(
-    DoubleDomainOnlyImpl: DoubleOnlyDomain,
+    doubleDomainOnlyImpl: DoubleOnlyDomain,
     anyDomain: AnyDomain<Double>
-) : DoubleDomain, DoubleOnlyDomain by DoubleDomainOnlyImpl, AnyDomain<Double> by anyDomain {
-    override val expect: Expect<Double> = DoubleDomainOnlyImpl.expect
+) : DoubleDomain, DoubleOnlyDomain by doubleDomainOnlyImpl, AnyDomain<Double> by anyDomain {
+    override val expect: Expect<Double> = doubleDomainOnlyImpl.expect
 }
 
 internal class DoubleOnlyDomainImpl(

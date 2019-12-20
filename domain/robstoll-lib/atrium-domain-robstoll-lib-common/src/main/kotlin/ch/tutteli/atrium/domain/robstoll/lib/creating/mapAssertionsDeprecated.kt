@@ -13,7 +13,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
-import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.domain.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic

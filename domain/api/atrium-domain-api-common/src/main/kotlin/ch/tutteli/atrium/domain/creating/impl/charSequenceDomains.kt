@@ -43,32 +43,3 @@ internal class CharSequenceOnlyDomainImpl<T : CharSequence>(
         assertionBuilder.createDescriptive(expect, MISMATCHES, expected) { !it.matches(expected) }
 }
 
-
-internal class CharSequenceContainsBuilderNoOpSearchBehaviourDomainImpl<T : CharSequence>(
-    override val builder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-) : CharSequenceContainsBuilderNoOpSearchBehaviourDomain<T> {
-    override val ignoringCase: CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-        get() = searchBehaviourFactory.ignoringCase(builder)
-}
-
-internal class CharSequenceContainsCheckerNoOpSearchBehaviourDomainImpl<T : CharSequence>(
-    override val checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>
-) : CharSequenceContainsCheckerNoOpSearchBehaviourDomain<T> {
-
-    override fun values(expected: List<Any>): AssertionGroup =
-        charSequenceContainsAssertions.values(checkerOption, expected)
-
-    override fun regex(expected: List<Regex>): AssertionGroup =
-        charSequenceContainsAssertions.regex(checkerOption, expected)
-}
-
-internal class CharSequenceContainsCheckerIgnoringCaseSearchBehaviourDomainImpl<T : CharSequence>(
-    override val checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>
-) : CharSequenceContainsCheckerIgnoringCaseSearchBehaviourDomain<T> {
-
-    override fun values(expected: List<Any>): AssertionGroup =
-        charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected)
-
-    override fun regex(expected: List<String>): AssertionGroup =
-        charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected)
-}

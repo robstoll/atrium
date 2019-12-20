@@ -35,6 +35,7 @@ val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNul
 
 // we cannot use the same name since:
 // - Kotlin has a bug in JS and the same mangled identifier results as for <T: Any> above
+// - JsName cannot be used on an extension property
 // - isA would choose this overload instead of <T>
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,

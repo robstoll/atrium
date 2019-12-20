@@ -5,23 +5,24 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import ch.tutteli.atrium.domain.creating.impl.AnyDomainImpl
-import ch.tutteli.atrium.domain.creating.impl.CollectionDomainImpl
-import ch.tutteli.atrium.domain.creating.impl.CollectionOnlyDomainImpl
+import ch.tutteli.atrium.domain.creating.impl.*
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects which have a type extending [Collection].
  */
 val <E, T : Collection<E>> Expect<T>._domain: CollectionDomain<E, T>
-    get() = CollectionDomainImpl(CollectionOnlyDomainImpl(this), AnyDomainImpl(this))
-
+    get() = CollectionDomainImpl(
+        CollectionOnlyDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        IterableDomainImpl(IterableOnlyDomainImpl(this), AnyDomainImpl(this))
+    )
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Collection],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface CollectionDomain<E, T : Collection<E>> : CollectionOnlyDomain<E, T>, AnyDomain<T>
+interface CollectionDomain<E, T : Collection<E>> : CollectionOnlyDomain<E, T>, IterableDomain<E, T>
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Collection]

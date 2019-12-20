@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains._domain
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import kotlin.jvm.JvmName
 
@@ -12,7 +12,7 @@ import kotlin.jvm.JvmName
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
+    get() = _domain.inAnyOrder
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -22,7 +22,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inA
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>.only
     @JvmName("butOnly")
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
+    get() = _domain.only
 
 
 /**
@@ -32,7 +32,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inOrder
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrder(this)
+    get() = _domain.inOrder
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -42,7 +42,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inO
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.only
     @JvmName("andOnly")
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
+    get() = _domain.only
 
 /**
  * Defines that the [Iterable] contains `in order only` groups of entries
@@ -51,7 +51,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.grouped
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
+    get() = _domain.grouped
 
 /**
  * A filler word to emphasis that the next step defines the order within expected groups of values.
@@ -59,4 +59,4 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)
+    get() = _domain.within

@@ -30,7 +30,7 @@ interface ComparableDomain<O, T : Comparable<O>> : ComparableOnlyDomain<O, T>, A
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to types extending [Comparable]
- * excluding the assertion functions which are defined on domains of  super types
+ * excluding the assertion functions which are defined on domains of super types
  * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
  *
  * @param T the type which is able to compare itself against another type [O]

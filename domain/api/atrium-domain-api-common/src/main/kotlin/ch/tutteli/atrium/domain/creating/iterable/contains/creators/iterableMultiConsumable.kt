@@ -1,8 +1,13 @@
-package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
+package ch.tutteli.atrium.domain.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating._domain
 
+
+/**
+ * Changes the subject to a list in case it is defined and not already one.
+ * @since 0.9.0
+ */
 @Suppress("DEPRECATION" /* TODO switch to Expect instead of SubjectProvider and remove this annotation with 1.0.0 */)
 fun <E> turnSubjectToList(subjectProvider: SubjectProvider<Iterable<E>>): SubjectProvider<List<E>> =
     subjectProvider.maybeSubject.fold(

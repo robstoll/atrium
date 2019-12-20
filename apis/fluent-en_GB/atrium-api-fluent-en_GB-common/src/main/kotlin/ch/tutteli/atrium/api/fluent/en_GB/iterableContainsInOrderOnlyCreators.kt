@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.util.requireIterableHasElement
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains._domain
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
 
@@ -36,7 +36,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
+): Expect<T> = addAssertion(_domain.values(expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
@@ -55,7 +55,7 @@ inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOn
     expectedIterable: Iterable<E>
 ): Expect<T> {
     requireIterableHasElement(expectedIterable)
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    return addAssertion(_domain.values(expectedIterable.toList()))
 }
 
 /**
@@ -94,9 +94,4 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInOrderOnly(
-        this,
-        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
-    )
-)
+): Expect<T> = addAssertion(_domain.entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))

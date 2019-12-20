@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.util.requireIterableHasElement
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains._domain
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.kbox.glue
 
@@ -45,7 +45,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
 fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
+): Expect<T> = addAssertion(_domain.values(expected glue otherExpected))
 
 
 /**
@@ -67,7 +67,7 @@ inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InA
     expectedIterable: Iterable<E>
 ): Expect<T> {
     requireIterableHasElement(expectedIterable)
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    return addAssertion(_domain.values(expectedIterable.toList()))
 }
 
 /**
@@ -106,9 +106,4 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
 fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInAnyOrder(
-        this,
-        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
-    )
-)
+): Expect<T> = addAssertion(_domain.entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))

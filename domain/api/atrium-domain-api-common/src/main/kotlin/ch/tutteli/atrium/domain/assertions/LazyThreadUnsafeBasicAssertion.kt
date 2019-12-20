@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.robstoll.lib.assertions
+package ch.tutteli.atrium.domain.assertions
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 

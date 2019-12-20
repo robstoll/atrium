@@ -20,12 +20,6 @@ object ExpectImpl {
     inline val fun0 get() = Fun0AssertionsBuilder
 
     /**
-     * Returns [IterableAssertionsBuilder].
-     * which inter alia delegates to the implementation of [IterableAssertions].
-     */
-    inline val iterable get() = IterableAssertionsBuilder
-
-    /**
      * Returns [ListAssertionsBuilder]
      * which inter alia delegates to the implementation of [ListAssertions].
      */

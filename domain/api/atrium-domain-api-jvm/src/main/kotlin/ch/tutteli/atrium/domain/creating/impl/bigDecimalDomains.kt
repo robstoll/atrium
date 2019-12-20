@@ -8,10 +8,10 @@ import ch.tutteli.atrium.domain.creating.*
 import java.math.BigDecimal
 
 internal class BigDecimalDomainImpl<T : BigDecimal>(
-    BigDecimalDomainOnlyImpl: BigDecimalOnlyDomain<T>,
+    bigDecimalDomainOnlyImpl: BigDecimalOnlyDomain<T>,
     anyDomain: AnyDomain<T>
-) : BigDecimalDomain<T>, BigDecimalOnlyDomain<T> by BigDecimalDomainOnlyImpl, AnyDomain<T> by anyDomain {
-    override val expect: Expect<T> = BigDecimalDomainOnlyImpl.expect
+) : BigDecimalDomain<T>, BigDecimalOnlyDomain<T> by bigDecimalDomainOnlyImpl, AnyDomain<T> by anyDomain {
+    override val expect: Expect<T> = bigDecimalDomainOnlyImpl.expect
 }
 
 internal class BigDecimalOnlyDomainImpl<T : BigDecimal>(

@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.groupsToList
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains._domain
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
 import kotlin.jvm.JvmName
 
@@ -29,12 +29,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.valuesInOrderOnlyGrouped(
-        this,
-        groupsToList(firstGroup, secondGroup, otherExpectedGroups)
-    )
-)
+): Expect<T> = addAssertion(_domain.values(groupsToList(firstGroup, secondGroup, otherExpectedGroups)))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [firstGroup] as well as
@@ -61,9 +56,4 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroup
     firstGroup: Group<(Expect<E>.() -> Unit)?>,
     secondGroup: Group<(Expect<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Expect<E>.() -> Unit)?>
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInOrderOnlyGrouped(
-        this,
-        groupsToList(firstGroup, secondGroup, otherExpectedGroups)
-    )
-)
+): Expect<T> = addAssertion(_domain.entries(groupsToList(firstGroup, secondGroup, otherExpectedGroups)))

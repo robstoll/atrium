@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating._domainNullable
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) has at least one element and
@@ -11,5 +11,5 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
-    addAssertion(ExpectImpl.iterable.all(this, assertionCreatorOrNull))
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    addAssertion(_domainNullable.all(assertionCreatorOrNull))
