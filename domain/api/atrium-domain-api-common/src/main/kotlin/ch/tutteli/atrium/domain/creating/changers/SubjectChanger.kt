@@ -9,7 +9,9 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.creating._domain
+import ch.tutteli.atrium.domain.creating.changers.impl.subjectchanger.DefaultFailureHandler
+import ch.tutteli.atrium.domain.creating.changers.impl.subjectchanger.FailureHandlerAdapter
+import ch.tutteli.atrium.domain.creating.changers.impl.subjectchanger.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -119,6 +121,40 @@ interface SubjectChanger {
             descriptiveAssertion: Assertion,
             maybeAssertionCreator: Option<Expect<R>.() -> Unit>
         ): Assertion
+
+        companion object {
+            /**
+             * Creates an instance of the default implementation of [SubjectChanger.FailureHandler].
+             */
+            fun <T, R> createDefault(): FailureHandler<T, R> = DefaultFailureHandler()
+
+            /**
+             * Creates a [SubjectChanger.FailureHandler] which acts as an adapter for another failure handler
+             * by [map]ping first the given subject to another type [R1] which is understood as input by
+             * the other [failureHandler].
+             *
+             * Effectively turning a `FailureHandler<R1, R>` into a `FailureHandler<T, R>` with the help of a mapping
+             * function `(T) -> R1`
+             *
+             * @param T The type of the subject
+             * @param R1 The type of the mapped subject
+             * @param R The type of the subject after the subject change (if it were possible).
+             *
+             * @since 0.9.0
+             */
+            fun <T, R1, R> createAdapter(
+                failureHandler: FailureHandler<R1, R>,
+                map: (T) -> R1
+            ): FailureHandler<T, R> =
+                FailureHandlerAdapter(
+                    failureHandler,
+                    map
+                )
+
+
+            fun <T : Throwable?, R> createThrowableThrownFailureHandler(maxStackTrace: Int): FailureHandler<T, R> =
+                ThrowableThrownFailureHandler(maxStackTrace)
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -134,34 +170,4 @@ interface SubjectChanger {
         originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): AssertionPlantNullable<R>
-}
-
-/**
- * Represents a [SubjectChanger.FailureHandler] which as an adapter for another failure handler by mapping first
- * the given subject to another type [R1] which is understood as input of the other failure handler.
- *
- * Effectively turning a `FailureHandler<R1, R>` into a `FailureHandler<T, R>` with the help of a mapping
- * function `(T) -> R1`
- *
- * @param T The type of the subject
- * @param R1 The type of the mapped subject
- * @param R The type of the subject after the subject change (if it were possible).
- *
- * @since 0.9.0
- */
-class FailureHandlerAdapter<T, R1, R>(
-    val failureHandler: SubjectChanger.FailureHandler<R1, R>,
-    val map: (T) -> R1
-) : SubjectChanger.FailureHandler<T, R> {
-
-    override fun createAssertion(
-        originalAssertionContainer: Expect<T>,
-        descriptiveAssertion: Assertion,
-        maybeAssertionCreator: Option<Expect<R>.() -> Unit>
-    ): Assertion {
-        return originalAssertionContainer._domain.changeSubject.unreported(map)
-            .let {
-                failureHandler.createAssertion(it, descriptiveAssertion, maybeAssertionCreator)
-            }
-    }
 }

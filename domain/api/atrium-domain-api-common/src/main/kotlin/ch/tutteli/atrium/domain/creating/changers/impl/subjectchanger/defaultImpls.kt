@@ -60,9 +60,6 @@ class FailureHandlerOptionImpl<T, R>(
         failureHandler: SubjectChanger.FailureHandler<T, R>
     ): SubjectChangerBuilder.FinalStep<T, R> =
         SubjectChangerBuilder.FinalStep.create(transformationStep, transformation, failureHandler)
-
-    override fun withDefaultFailureHandler(): SubjectChangerBuilder.FinalStep<T, R> =
-        withFailureHandler(DefaultFailureHandlerImpl())
 }
 
 class FinalStepImpl<T, R>(

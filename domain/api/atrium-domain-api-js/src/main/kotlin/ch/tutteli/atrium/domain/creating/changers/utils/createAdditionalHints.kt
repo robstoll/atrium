@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
+package ch.tutteli.atrium.domain.creating.changers.utils
 
 import ch.tutteli.atrium.assertions.Assertion
 

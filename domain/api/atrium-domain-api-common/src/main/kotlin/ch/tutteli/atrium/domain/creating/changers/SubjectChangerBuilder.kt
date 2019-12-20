@@ -207,10 +207,12 @@ interface SubjectChangerBuilder {
         val transformation: (T) -> Option<R>
 
         /**
-         * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
-         * to create the failing assertion in case the subject change fails.
+         * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
+         * [TransformationStep.description] and [TransformationStep.representation] and includes the assertions
+         * a given assertionCreator lambda would create.
          */
-        fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<T, R>): FinalStep<T, R>
+        fun withDefaultFailureHandler(): FinalStep<T, R> =
+            withFailureHandler(SubjectChanger.FailureHandler.createDefault())
 
         /**
          * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
@@ -220,17 +222,17 @@ interface SubjectChangerBuilder {
         fun <R1> withFailureHandlerAdapter(
             failureHandler: SubjectChanger.FailureHandler<R1, R>,
             map: (T) -> R1
-        ): FinalStep<T, R> = withFailureHandler(FailureHandlerAdapter(failureHandler, map))
+        ): FinalStep<T, R> = withFailureHandler(SubjectChanger.FailureHandler.createAdapter(failureHandler, map))
 
         /**
-         * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
-         * [TransformationStep.description] and [TransformationStep.representation] and includes the assertions
-         * a given assertionCreator lambda would create.
+         * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
+         * to create the failing assertion in case the subject change fails.
          */
-        fun withDefaultFailureHandler(): FinalStep<T, R>
+        fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<T, R>): FinalStep<T, R>
 
         /**
          * Skips this step by using [withDefaultFailureHandler] and calls [FinalStep.build].
+         *
          * @return
          */
         fun build(): ChangedSubjectPostStep<T, R> = withDefaultFailureHandler().build()

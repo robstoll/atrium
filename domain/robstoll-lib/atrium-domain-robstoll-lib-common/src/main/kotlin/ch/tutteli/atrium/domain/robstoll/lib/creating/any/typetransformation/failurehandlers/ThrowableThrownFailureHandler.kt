@@ -5,14 +5,10 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fa
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-@Deprecated(
-    "Use ThrowableThrownFailureHandler in package throwable.thrown; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler")
-)
+@Deprecated("Use SubjectChanger.FailureHandler.createThrowableThrownFailureHandler; will be removed with 1.0.0")
 class ThrowableThrownFailureHandler<out TExpected : Throwable>(
     private val throwable: Throwable?,
     private val expectedType: KClass<TExpected>
@@ -31,32 +27,17 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
 
     companion object {
         @Deprecated(
-            "Use throwable.thrown.creators.ThrowableThrownFailureHandler.propertiesOfThrowable",
-            ReplaceWith("ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler.propertiesOfThrowable(throwable, maxStackTrace)")
+            "Use ch.tutteli.atrium.domain.creating.changers.utils.propertiesOfThrowable",
+            ReplaceWith("ch.tutteli.atrium.domain.creating.changers.utils.propertiesOfThrowable(throwable, maxStackTrace)")
         )
         fun propertiesOfException(throwable: Throwable, maxStackTrace: Int): AssertionGroup =
-            ThrowableThrownFailureHandler.propertiesOfThrowable(throwable, maxStackTrace)
-
-        @Deprecated(
-            "Use throwable.thrown.creators.ThrowableThrownFailureHandler.createChildHint",
-            ReplaceWith("ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler.createChildHint(throwable, child, childDescription, maxStackTrace)")
-        )
-        fun createChildHint(
-            throwable: Throwable,
-            child: Throwable,
-            childDescription: Translatable,
-            maxStackTrace: Int
-        ): AssertionGroup = ThrowableThrownFailureHandler.createChildHint(
-            throwable, child, childDescription, maxStackTrace
-        )
+            ch.tutteli.atrium.domain.creating.changers.utils.propertiesOfThrowable(throwable, maxStackTrace)
     }
 }
 
 @Deprecated(
-    "use the function from package throwable.thrown; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.createAdditionalHints(throwable, maxStackTrace)")
+    "Use ch.tutteli.atrium.domain.creating.changers.utils.createAdditionalHints; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.domain.creating.changers.utils.createAdditionalHints(throwable, maxStackTrace)")
 )
 fun createAdditionalHints(throwable: Throwable, maxStackTrace: Int): List<Assertion> =
-    ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.createAdditionalHints(
-        throwable, maxStackTrace
-    )
+    ch.tutteli.atrium.domain.creating.changers.utils.createAdditionalHints(throwable, maxStackTrace)

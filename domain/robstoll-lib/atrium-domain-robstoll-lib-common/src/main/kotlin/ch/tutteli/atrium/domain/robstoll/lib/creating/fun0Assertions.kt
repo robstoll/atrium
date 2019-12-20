@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.Right
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
-import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
@@ -31,7 +31,7 @@ fun <TExpected : Throwable> _isThrowing(
         .withOptions { withSubjectBasedRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) } }
         ._domain.changeSubject.reportBuilder()
         .downCastTo(expectedType)
-        .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 7))
+        .withFailureHandler(SubjectChanger.FailureHandler.createThrowableThrownFailureHandler(maxStackTrace = 7))
         .build()
 
 
@@ -51,7 +51,7 @@ fun <R, T : () -> R> _isNotThrowing(assertionContainer: Expect<T>): ChangedSubje
     return eitherContainer._domain.changeSubject.reportBuilder()
         .withDescriptionAndRepresentation(IS_NOT_THROWING_1, RawString.create(IS_NOT_THROWING_2))
         .withTransformation { either -> either.toOption() }
-        .withFailureHandlerAdapter(ThrowableThrownFailureHandler(maxStackTrace = 15)) {
+        .withFailureHandlerAdapter(SubjectChanger.FailureHandler.createThrowableThrownFailureHandler(maxStackTrace = 15)) {
             // must be left as otherwise the failure handler would not kick in.
             (it as Left).l
         }
