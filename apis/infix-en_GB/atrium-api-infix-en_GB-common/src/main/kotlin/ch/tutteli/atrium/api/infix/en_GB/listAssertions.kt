@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders.ListGetStep
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating._domain
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @throws AssertionError if the given [index] is out of bound.
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
-    ExpectImpl.list.get(this, index).getExpectOfFeature()
+    _domain.get(index).getExpectOfFeature()
 
 /**
  * Prepares the assertion about the return value of calling [get][List.get] with the given [index].

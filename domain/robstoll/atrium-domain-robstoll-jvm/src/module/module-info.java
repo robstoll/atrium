@@ -73,7 +73,7 @@ module ch.tutteli.atrium.domain.robstoll {
         with ch.tutteli.atrium.domain.robstoll.creating.IterableAssertionsImpl;
 
     provides ch.tutteli.atrium.domain.creating.ListAssertions
-        with ch.tutteli.atrium.domain.robstoll.creating.ListAssertionsImpl;
+        with ch.tutteli.atrium.domain.robstoll.creating.ListAssertionsDeprecatedImpl;
 
     provides ch.tutteli.atrium.domain.creating.MapAssertions
         with ch.tutteli.atrium.domain.robstoll.creating.MapAssertionsImpl;

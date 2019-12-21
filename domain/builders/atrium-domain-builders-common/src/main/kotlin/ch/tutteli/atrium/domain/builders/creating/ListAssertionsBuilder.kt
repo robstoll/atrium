@@ -16,13 +16,6 @@ import ch.tutteli.atrium.domain.creating.listAssertions
  */
 object ListAssertionsBuilder : ListAssertions {
 
-    override inline fun <E, T : List<E>> get(
-        assertionContainer: Expect<T>,
-        index: Int
-    ) = listAssertions.get(assertionContainer, index)
-
-    // everything below is deprecated functionality and will be removed with 1.0.0
-
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T> =
