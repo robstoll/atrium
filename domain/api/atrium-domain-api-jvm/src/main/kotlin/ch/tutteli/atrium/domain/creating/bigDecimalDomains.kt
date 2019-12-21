@@ -9,29 +9,30 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.impl.AnyDomainImpl
 import ch.tutteli.atrium.domain.creating.impl.BigDecimalDomainImpl
-import ch.tutteli.atrium.domain.creating.impl.BigDecimalOnlyDomainImpl
+import ch.tutteli.atrium.domain.creating.impl.BigDecimalSubDomainImpl
 import java.math.BigDecimal
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [BigDecimal].
+ * scoping it to the domain of subjects whose type extends [BigDecimal];
+ * i.e. it returns a [BigDecimalDomain] for this [Expect].
  */
 val <T : BigDecimal> Expect<T>._domain: BigDecimalDomain<T>
-    get() = BigDecimalDomainImpl(BigDecimalOnlyDomainImpl(this), AnyDomainImpl(this))
+    get() = BigDecimalDomainImpl(BigDecimalSubDomainImpl(this), AnyDomainImpl(this))
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [BigDecimal],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [BigDecimal];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface BigDecimalDomain<T : BigDecimal> : BigDecimalOnlyDomain<T>, AnyDomain<T>
+interface BigDecimalDomain<T : BigDecimal> : BigDecimalSubDomain<T>, AnyDomain<T>
 
 
-/**
- * Defines the minimum set of assertion functions and builders applicable to types extending [BigDecimal]
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+/**f
+ * Represents a sub-[ExpectDomain] whose type extends [BigDecimal]
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [BigDecimal] (e.g. the functions of the [AnyDomain]).
  */
-interface BigDecimalOnlyDomain<T : BigDecimal> : FloatingPointDomain<T> {
+interface BigDecimalSubDomain<T : BigDecimal> : FloatingPointDomain<T> {
     fun isNumericallyEqualTo(expected: T): Assertion
     fun isNotNumericallyEqualTo(expected: T): Assertion
     fun isEqualIncludingScale(expected: T, nameOfIsNumericallyEqualTo: String): Assertion

@@ -8,16 +8,16 @@ import ch.tutteli.atrium.domain.creating.*
 import java.math.BigDecimal
 
 internal class BigDecimalDomainImpl<T : BigDecimal>(
-    bigDecimalDomainOnlyImpl: BigDecimalOnlyDomain<T>,
+    bigDecimalDomainSubImpl: BigDecimalSubDomain<T>,
     anyDomain: AnyDomain<T>
-) : BigDecimalDomain<T>, BigDecimalOnlyDomain<T> by bigDecimalDomainOnlyImpl, AnyDomain<T> by anyDomain {
-    override val expect: Expect<T> = bigDecimalDomainOnlyImpl.expect
+) : BigDecimalDomain<T>, BigDecimalSubDomain<T> by bigDecimalDomainSubImpl, AnyDomain<T> by anyDomain {
+    override val expect: Expect<T> = bigDecimalDomainSubImpl.expect
 }
 
-internal class BigDecimalOnlyDomainImpl<T : BigDecimal>(
+internal class BigDecimalSubDomainImpl<T : BigDecimal>(
     override val expect: Expect<T>
 
-) : BigDecimalOnlyDomain<T> {
+) : BigDecimalSubDomain<T> {
     override fun toBeWithErrorTolerance(expected: T, tolerance: T): Assertion =
         floatingPointAssertions.toBeWithErrorTolerance(expect, expected, tolerance)
 

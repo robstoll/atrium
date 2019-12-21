@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.domain.creating.AnyDomain
 import ch.tutteli.atrium.domain.creating.IterableElementNullableDomain
-import ch.tutteli.atrium.domain.creating.IterableElementNullableOnlyDomain
+import ch.tutteli.atrium.domain.creating.IterableElementNullableSubDomain
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.turnSubjectToList
@@ -21,18 +21,18 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.mapWithIndex
 
 internal class IterableElementNullableDomainImpl<E : Any, T : Iterable<E?>>(
-    iterableElementNullableOnlyDomain: IterableElementNullableOnlyDomain<E, T>,
+    iterableElementNullableSubDomain: IterableElementNullableSubDomain<E, T>,
     anyDomain: AnyDomain<T>
 ) : IterableElementNullableDomain<E, T>,
-    IterableElementNullableOnlyDomain<E, T> by iterableElementNullableOnlyDomain,
+    IterableElementNullableSubDomain<E, T> by iterableElementNullableSubDomain,
     AnyDomain<T> by anyDomain {
 
-    override val expect: Expect<T> = iterableElementNullableOnlyDomain.expect
+    override val expect: Expect<T> = iterableElementNullableSubDomain.expect
 }
 
-internal class IterableElementNullableOnlyDomainImpl<E : Any, T : Iterable<E?>>(
+internal class IterableElementNullableSubDomainImpl<E : Any, T : Iterable<E?>>(
     override val expect: Expect<T>
-) : IterableElementNullableOnlyDomain<E, T> {
+) : IterableElementNullableSubDomain<E, T> {
 
     override fun all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion {
         return LazyThreadUnsafeAssertionGroup {

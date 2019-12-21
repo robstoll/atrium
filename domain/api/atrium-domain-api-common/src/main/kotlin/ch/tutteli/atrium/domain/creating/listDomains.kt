@@ -8,30 +8,31 @@ import ch.tutteli.atrium.domain.creating.impl.*
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [List].
+ * scoping it to the domain of subjects whose type extends [List];
+ * i.e. it returns a [ListDomain] for this [Expect].
  */
 val <E, T : List<E>> Expect<T>._domain: ListDomain<E, T>
     get() = ListDomainImpl(
-        ListOnlyDomainImpl(this),
+        ListSubDomainImpl(this),
         //TODO simplify once we have expect.config.impl in 0.10.0
         CollectionDomainImpl(
-            CollectionOnlyDomainImpl(this),
-            IterableDomainImpl(IterableOnlyDomainImpl(this), AnyDomainImpl(this))
+            CollectionSubDomainImpl(this),
+            IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
         )
     )
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [List],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [List];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface ListDomain<E, T : List<E>> : ListOnlyDomain<E, T>, CollectionDomain<E, T>
+interface ListDomain<E, T : List<E>> : ListSubDomain<E, T>, CollectionDomain<E, T>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [List]
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [List]
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [List] (e.g. the functions of the [AnyDomain]).
  */
-interface ListOnlyDomain<E, T : List<E>> : ExpectDomain<T> {
+interface ListSubDomain<E, T : List<E>> : ExpectDomain<T> {
 
     fun get(index: Int): ExtractedFeaturePostStep<T, E>
 }

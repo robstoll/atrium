@@ -1,28 +1,24 @@
 package ch.tutteli.atrium.domain.creating.impl
 
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.charSequenceContainsAssertions
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.MATCHES
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.MISMATCHES
 
 internal class CharSequenceDomainImpl<T : CharSequence>(
-    charSequenceOnlyDomain: CharSequenceOnlyDomain<T>,
+    charSequenceSubDomain: CharSequenceSubDomain<T>,
     anyDomain: AnyDomain<T>
-) : CharSequenceDomain<T>, CharSequenceOnlyDomain<T> by charSequenceOnlyDomain, AnyDomain<T> by anyDomain {
-    override val expect: Expect<T> = charSequenceOnlyDomain.expect
+) : CharSequenceDomain<T>, CharSequenceSubDomain<T> by charSequenceSubDomain, AnyDomain<T> by anyDomain {
+    override val expect: Expect<T> = charSequenceSubDomain.expect
 }
 
-internal class CharSequenceOnlyDomainImpl<T : CharSequence>(
+internal class CharSequenceSubDomainImpl<T : CharSequence>(
     override val expect: Expect<T>
-) : CharSequenceOnlyDomain<T> {
+) : CharSequenceSubDomain<T> {
     override val containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour> =
         charSequenceAssertions.containsBuilder(expect)
     override val containsNotBuilder: CharSequenceContains.Builder<T, NotSearchBehaviour> =

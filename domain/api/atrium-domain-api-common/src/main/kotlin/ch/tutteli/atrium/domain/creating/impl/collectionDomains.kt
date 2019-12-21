@@ -7,15 +7,15 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 
 internal class CollectionDomainImpl<E, T : Collection<E>>(
-    collectionOnlyDomain: CollectionOnlyDomain<E, T>,
+    collectionSubDomain: CollectionSubDomain<E, T>,
     iterableDomain: IterableDomain<E, T>
-) : CollectionDomain<E, T>, CollectionOnlyDomain<E, T> by collectionOnlyDomain, IterableDomain<E, T> by iterableDomain {
-    override val expect: Expect<T> = collectionOnlyDomain.expect
+) : CollectionDomain<E, T>, CollectionSubDomain<E, T> by collectionSubDomain, IterableDomain<E, T> by iterableDomain {
+    override val expect: Expect<T> = collectionSubDomain.expect
 }
 
-internal class CollectionOnlyDomainImpl<E, T : Collection<E>>(
+internal class CollectionSubDomainImpl<E, T : Collection<E>>(
     override val expect: Expect<T>
-) : CollectionOnlyDomain<E, T> {
+) : CollectionSubDomain<E, T> {
 
     override fun isEmpty(): Assertion = collectionAssertions.isEmpty(expect)
     override fun isNotEmpty(): Assertion = collectionAssertions.isNotEmpty(expect)

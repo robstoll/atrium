@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 
 /**
  * Access to the domain level of Atrium where this [CharSequenceContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [CharSequence]
+ * scoping it to the domain of subjects whose type extends [CharSequence]
  * and a [NoOpSearchBehaviour].
  */
 val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>._domain

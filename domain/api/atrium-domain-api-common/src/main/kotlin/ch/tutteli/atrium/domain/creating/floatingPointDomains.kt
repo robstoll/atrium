@@ -8,21 +8,28 @@ import ch.tutteli.atrium.domain.creating.impl.*
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Float].
+ * scoping it to the domain of subjects whose type extends [Float];
+ * i.e. it returns a [FloatDomain] for this [Expect].
  */
 val Expect<Float>._domain: FloatDomain
-    get() = FloatDomainImpl(FloatOnlyDomainImpl(this), AnyDomainImpl(this))
+    get() = FloatDomainImpl(
+        FloatSubDomainImpl(this),
+        ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this))
+    )
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Double].
+ * scoping it to the domain of subjects whose type extends [Double];
+ * i.e. it returns a [DoubleDomain] for this [Expect].
  */
 val Expect<Double>._domain: DoubleDomain
-    get() = DoubleDomainImpl(DoubleOnlyDomainImpl(this), AnyDomainImpl(this))
+    get() = DoubleDomainImpl(
+        DoubleSubDomainImpl(this), ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this))
+    )
 
 
 /**
- * Represents a base interface for floating point like types which thus share common assertion functions.
+ * Represents a base interface for floating point like domains which share common assertion functions.
  */
 interface FloatingPointDomain<T> : ExpectDomain<T> {
     fun toBeWithErrorTolerance(expected: T, tolerance: T): Assertion
@@ -30,28 +37,28 @@ interface FloatingPointDomain<T> : ExpectDomain<T> {
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Float],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Float];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface FloatDomain : FloatOnlyDomain, AnyDomain<Float>
+interface FloatDomain : FloatSubDomain, ComparableDomain<Float, Float>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Float]
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [Float]
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [Float] (e.g. the functions of the [AnyDomain]).
  */
-interface FloatOnlyDomain : FloatingPointDomain<Float>
+interface FloatSubDomain : FloatingPointDomain<Float>
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Double],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Double];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface DoubleDomain : DoubleOnlyDomain, AnyDomain<Double>
+interface DoubleDomain : DoubleSubDomain, ComparableDomain<Double, Double>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Double]
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [Double]
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [Double] (e.g. the functions of the [AnyDomain]).
  */
-interface DoubleOnlyDomain : FloatingPointDomain<Double>
+interface DoubleSubDomain : FloatingPointDomain<Double>

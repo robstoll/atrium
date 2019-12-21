@@ -35,16 +35,16 @@ internal class AnyDomainImpl<T>(
 }
 
 
-internal class AnyDomainNonNullableImpl<T : Any>(
+internal class AnyNonNullableDomainImpl<T : Any>(
     override val expect: Expect<T>,
     anyDomain: AnyDomain<T>
-) : AnyDomainNonNullable<T>, AnyDomain<T> by anyDomain {
+) : AnyNonNullableDomain<T>, AnyDomain<T> by anyDomain {
 
     override fun toBe(expected: T): Assertion = anyAssertions.toBe(expect, expected)
 }
 
 
-internal class AnyDomainOnlyNullableImpl<T : Any>(override val expect: Expect<T?>) : AnyDomainOnlyNullable<T> {
+internal class AnyNullableDomainImpl<T : Any>(override val expect: Expect<T?>) : AnyNullableDomain<T> {
 
     override fun toBeNull(): Assertion = anyAssertions.toBeNull(expect)
 

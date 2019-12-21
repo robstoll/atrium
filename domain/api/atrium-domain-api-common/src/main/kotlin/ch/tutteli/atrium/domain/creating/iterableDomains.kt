@@ -12,41 +12,44 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotS
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable].
+ * scoping it to the domain of subjects whose type extends [Iterable];
+ * i.e. it returns a [IterableDomain] for this [Expect].
  */
 val <E, T : Iterable<E>> Expect<T>._domain: IterableDomain<E, T>
-    get() = IterableDomainImpl(IterableOnlyDomainImpl(this), AnyDomainImpl(this))
+    get() = IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
 
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable].
+ * scoping it to the domain of subjects whose type extends [Iterable] with an element type extending [Comparable];
+ * i.e. it returns a [IterableElementComparableDomain] for this [Expect].
  */
 //TODO rename to _domain with 1.0.0 if https://youtrack.jetbrains.com/issue/KT-32451 is fixed
 val <E : Comparable<E>, T : Iterable<E>> Expect<T>._domainComparable: IterableElementComparableDomain<E, T>
-    get() = IterableElementComparableDomainImpl(IterableElementComparableOnlyDomainImpl(this), AnyDomainImpl(this))
+    get() = IterableElementComparableDomainImpl(IterableElementComparableSubDomainImpl(this), AnyDomainImpl(this))
 
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable].
+ * scoping it to the domain of subjects whose type extends [Iterable] with a nullable element type;
+ * i.e. it returns a [IterableElementNullableDomain] for this [Expect].
  */
 //TODO rename to _domain with 1.0.0 if https://youtrack.jetbrains.com/issue/KT-32451 is fixed
 val <E : Any, T : Iterable<E?>> Expect<T>._domainNullable: IterableElementNullableDomain<E, T>
-    get() = IterableElementNullableDomainImpl(IterableElementNullableOnlyDomainImpl(this), AnyDomainImpl(this))
+    get() = IterableElementNullableDomainImpl(IterableElementNullableSubDomainImpl(this), AnyDomainImpl(this))
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Iterable],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Iterable];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface IterableDomain<E, T : Iterable<E>> : IterableOnlyDomain<E, T>, AnyDomain<T>
+interface IterableDomain<E, T : Iterable<E>> : IterableSubDomain<E, T>, AnyDomain<T>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Iterable]
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [Iterable]
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [Iterable] (e.g. the functions of the [AnyDomain]).
  */
-interface IterableOnlyDomain<E, T : Iterable<E>> : ExpectDomain<T> {
+interface IterableSubDomain<E, T : Iterable<E>> : ExpectDomain<T> {
     val containsBuilder: IterableContains.Builder<E, T, NoOpSearchBehaviour>
     val containsNotBuilder: IterableContains.Builder<E, T, NotSearchBehaviour>
 
@@ -63,20 +66,18 @@ interface IterableOnlyDomain<E, T : Iterable<E>> : ExpectDomain<T> {
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Iterable]
- * and having an element type extending [Comparable],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Iterable] with an element type extending [Comparable];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
 interface IterableElementComparableDomain<E : Comparable<E>, T : Iterable<E>> :
-    IterableElementComparableOnlyDomain<E, T>, AnyDomain<T>
+    IterableElementComparableSubDomain<E, T>, AnyDomain<T>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Iterable]
- * and having an element type extending [Comparable] --
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [Iterable] with an element type extending [Comparable];
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [Iterable] (e.g. the functions of the [AnyDomain]).
  */
-interface IterableElementComparableOnlyDomain<E : Comparable<E>, T : Iterable<E>> : ExpectDomain<T> {
+interface IterableElementComparableSubDomain<E : Comparable<E>, T : Iterable<E>> : ExpectDomain<T> {
     /**
      * @since 0.9.0
      */
@@ -90,20 +91,18 @@ interface IterableElementComparableOnlyDomain<E : Comparable<E>, T : Iterable<E>
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Iterable]
- * and having an element type extending [Comparable],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Iterable] with a nullable element type;
+ * i.e. the subject of the underlying [expect] has such a type.
  */
 interface IterableElementNullableDomain<E : Any, T : Iterable<E?>> :
-    IterableElementNullableOnlyDomain<E, T>, AnyDomain<T>
+    IterableElementNullableSubDomain<E, T>, AnyDomain<T>
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Iterable]
- * and having a nullable element type extending [Any] --
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [Iterable] with a nullable element type;
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [Iterable] (e.g. the functions of the [AnyDomain]).
  */
-interface IterableElementNullableOnlyDomain<E : Any, T : Iterable<E?>> : ExpectDomain<T> {
+interface IterableElementNullableSubDomain<E : Any, T : Iterable<E?>> : ExpectDomain<T> {
     fun all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion
 }
 

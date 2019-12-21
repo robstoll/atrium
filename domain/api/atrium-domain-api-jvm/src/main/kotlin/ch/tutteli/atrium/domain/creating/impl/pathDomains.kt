@@ -9,21 +9,21 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.nio.file.Path
 
 internal class PathDomainImpl<T : Path>(
-    pathDomainOnlyImpl: PathOnlyDomain<T>,
-    comparableDomain: ComparableOnlyDomain<Path, T>,
+    pathDomainSubImpl: PathSubDomain<T>,
+    comparableDomain: ComparableSubDomain<Path, T>,
     iterableDomain: IterableDomain<Path, T>
 ) : PathDomain<T>,
-    PathOnlyDomain<T> by pathDomainOnlyImpl,
-    ComparableOnlyDomain<Path, T> by comparableDomain,
+    PathSubDomain<T> by pathDomainSubImpl,
+    ComparableSubDomain<Path, T> by comparableDomain,
     IterableDomain<Path, T> by iterableDomain {
 
-    override val expect: Expect<T> = pathDomainOnlyImpl.expect
+    override val expect: Expect<T> = pathDomainSubImpl.expect
 }
 
-internal class PathOnlyDomainImpl<T : Path>(
+internal class PathSubDomainImpl<T : Path>(
     override val expect: Expect<T>
 
-) : PathOnlyDomain<T> {
+) : PathSubDomain<T> {
     override val fileName: ExtractedFeaturePostStep<T, String>
         get() = pathAssertions.fileName(expect)
     override val extension: ExtractedFeaturePostStep<T, String>

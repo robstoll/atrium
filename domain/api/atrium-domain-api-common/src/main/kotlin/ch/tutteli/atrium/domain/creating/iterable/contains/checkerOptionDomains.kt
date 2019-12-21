@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.CheckerOption] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the checkerOption is using an [InAnyOrderSearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>._domain
@@ -18,7 +18,7 @@ val <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.CheckerOption] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable]and a nullable element type
+ * scoping it to the domain of subjects whose type extends [Iterable]and a nullable element type
  * extending [Any] as well as where the checkerOption is using an [InAnyOrderSearchBehaviour].
  */
 val <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>._domain

@@ -15,15 +15,15 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NO_ELEMENTS
 
 internal class IterableDomainImpl<E, T : Iterable<E>>(
-    IterableDomainOnlyImpl: IterableOnlyDomain<E, T>,
+    iterableDomainSubImpl: IterableSubDomain<E, T>,
     anyDomain: AnyDomain<T>
-) : IterableDomain<E, T>, IterableOnlyDomain<E, T> by IterableDomainOnlyImpl, AnyDomain<T> by anyDomain {
-    override val expect: Expect<T> = IterableDomainOnlyImpl.expect
+) : IterableDomain<E, T>, IterableSubDomain<E, T> by iterableDomainSubImpl, AnyDomain<T> by anyDomain {
+    override val expect: Expect<T> = iterableDomainSubImpl.expect
 }
 
-internal class IterableOnlyDomainImpl<E, T : Iterable<E>>(
+internal class IterableSubDomainImpl<E, T : Iterable<E>>(
     override val expect: Expect<T>
-) : IterableOnlyDomain<E, T> {
+) : IterableSubDomain<E, T> {
     override val containsBuilder: IterableContains.Builder<E, T, NoOpSearchBehaviour> =
         iterableAssertions.containsBuilder(expect)
 
@@ -42,18 +42,18 @@ internal class IterableOnlyDomainImpl<E, T : Iterable<E>>(
 }
 
 internal class IterableElementComparableDomainImpl<E : Comparable<E>, T : Iterable<E>>(
-    iterableElementComparableOnlyDomain: IterableElementComparableOnlyDomain<E, T>,
+    iterableElementComparableSubDomain: IterableElementComparableSubDomain<E, T>,
     anyDomain: AnyDomain<T>
 ) : IterableElementComparableDomain<E, T>,
-    IterableElementComparableOnlyDomain<E, T> by iterableElementComparableOnlyDomain,
+    IterableElementComparableSubDomain<E, T> by iterableElementComparableSubDomain,
     AnyDomain<T> by anyDomain {
 
-    override val expect: Expect<T> = iterableElementComparableOnlyDomain.expect
+    override val expect: Expect<T> = iterableElementComparableSubDomain.expect
 }
 
-internal class IterableElementComparableOnlyDomainImpl<E : Comparable<E>, T : Iterable<E>>(
+internal class IterableElementComparableSubDomainImpl<E : Comparable<E>, T : Iterable<E>>(
     override val expect: Expect<T>
-) : IterableElementComparableOnlyDomain<E, T> {
+) : IterableElementComparableSubDomain<E, T> {
     override fun min(): ExtractedFeaturePostStep<T, E> = collect("min", Iterable<E>::min)
 
     override fun max(): ExtractedFeaturePostStep<T, E> = collect("max", Iterable<E>::max)

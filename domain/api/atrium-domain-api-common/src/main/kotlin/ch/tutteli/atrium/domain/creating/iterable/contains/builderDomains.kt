@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the builder is using an [NoOpSearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>._domain
@@ -17,7 +17,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>._do
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the builder is using an [NoOpSearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>._domain
@@ -26,7 +26,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the builder is using an [InAnyOrderOnlySearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>._domain
@@ -34,7 +34,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeha
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable]and a nullable element type
+ * scoping it to the domain of subjects whose type extends [Iterable]and a nullable element type
  * extending [Any] as well as where the builder is using an [InAnyOrderOnlySearchBehaviour].
  */
 val <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>._domain
@@ -43,7 +43,7 @@ val <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the builder is using an [InOrderSearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>._domain
@@ -51,7 +51,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the builder is using an [InOrderOnlySearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>._domain
@@ -59,7 +59,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable]and a nullable element type
+ * scoping it to the domain of subjects whose type extends [Iterable]and a nullable element type
  * extending [Any] as well as where the builder is using an [InOrderOnlySearchBehaviour].
  */
 val <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>._domain
@@ -68,7 +68,7 @@ val <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable] and an element type extending [Any]`?`
+ * scoping it to the domain of subjects whose type extends [Iterable] and an element type extending [Any]`?`
  * as well as where the builder is using an [InOrderOnlyGroupedSearchBehaviour].
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>._domain
@@ -76,7 +76,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearch
 
 /**
  * Access to the domain level of Atrium where this [IterableContains.Builder] is passed along,
- * scoping it to the domain of subjects which have a type extending [Iterable]and a nullable element type
+ * scoping it to the domain of subjects whose type extends [Iterable]and a nullable element type
  * extending [Any] as well as where the builder is using an [InOrderOnlyGroupedSearchBehaviour].
  */
 val <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>._domain

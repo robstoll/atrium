@@ -13,8 +13,8 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.DelegateToAssertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.creating.impl.AnyDomainImpl
-import ch.tutteli.atrium.domain.creating.impl.AnyDomainNonNullableImpl
-import ch.tutteli.atrium.domain.creating.impl.AnyDomainOnlyNullableImpl
+import ch.tutteli.atrium.domain.creating.impl.AnyNonNullableDomainImpl
+import ch.tutteli.atrium.domain.creating.impl.AnyNullableDomainImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -23,15 +23,17 @@ import kotlin.reflect.*
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Any]`?`.
+ * scoping it to the domain of subjects whose type extends [Any]`?` (so basically no scoping);
+ * i.e. it returns a [AnyDomain] for this [Expect].
  */
 val <T> Expect<T>._domain: AnyDomain<T> get() = AnyDomainImpl(this)
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Any].
+ * scoping it to the domain of subjects whose type extends [Any] (hence only non-nullable subjects);
+ * i.e. it returns a [AnyNonNullableDomain] for this [Expect].
  */
-val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNullableImpl(this, AnyDomainImpl(this))
+val <T : Any> Expect<T>._domain: AnyNonNullableDomain<T> get() = AnyNonNullableDomainImpl(this, AnyDomainImpl(this))
 
 // we cannot use the same name since:
 // - Kotlin has a bug in JS and the same mangled identifier results as for <T: Any> above
@@ -39,23 +41,24 @@ val <T : Any> Expect<T>._domain: AnyDomainNonNullable<T> get() = AnyDomainNonNul
 // - isA would choose this overload instead of <T>
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of nullable types extending [Any]?.
+ * scoping it to the domain of subjects whose type is a nullable type;
+ * i.e. it returns a [AnyNullableDomain] for this [Expect].
  */
-val <T : Any> Expect<T?>._domainNullable: AnyDomainOnlyNullable<T> get() = AnyDomainOnlyNullableImpl(this)
+val <T : Any> Expect<T?>._domainNullable: AnyNullableDomain<T> get() = AnyNullableDomainImpl(this)
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Any]?,
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Any]`?`;
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface AnyDomain<T> : EqualityDomain<T>, FeatureDomain<T>, BuilderDomain<T>
+interface AnyDomain<T> : EqualitySubDomain<T>, FeatureSubDomain<T>, BuilderSubDomain<T>
 
 /**
- * Represents the topic equality/identity of the [AnyDomain].
+ * Represents the sub domain of the topic equality/identity within the [AnyDomain].
  *
- * Note though, that `toBe` is defined in [EqualityNonNullableDomain.toBe] and [EqualityOnlyNullableDomain.toBeNullable].
+ * Note though, that `toBe` is defined in [EqualityNonNullableSubDomain.toBe] and [EqualityNullableSubDomain.toBeNullable].
  */
-interface EqualityDomain<T> : ExpectDomain<T> {
+interface EqualitySubDomain<T> : ExpectDomain<T> {
 
     fun notToBe(expected: T): Assertion
     fun isSame(expected: T): Assertion
@@ -67,11 +70,11 @@ interface EqualityDomain<T> : ExpectDomain<T> {
 }
 
 /**
- * Represents the topic feature of the [AnyDomain].
+ * Represents the sub domain of the topic feature within the [AnyDomain].
  *
  * @since 0.9.0
  */
-interface FeatureDomain<T> : ExpectDomain<T> {
+interface FeatureSubDomain<T> : ExpectDomain<T> {
 
     //@formatter:off
    fun <TProperty> property(property: KProperty1<in T, TProperty>): ExtractedFeaturePostStep<T, TProperty> =
@@ -150,11 +153,11 @@ data class MetaFeature<T>(val description: Translatable, val representation: Any
 
 
 /**
- * Represents the topic builders of the [AnyDomain].
+ * Represents the sub domain of the topic builders within the [AnyDomain].
  *
  * @since 0.9.0
  */
-interface BuilderDomain<T> : ExpectDomain<T> {
+interface BuilderSubDomain<T> : ExpectDomain<T> {
 
     /**
      * Returns [SubjectChangerBuilder] - helping you to change the subject of the assertion.
@@ -176,7 +179,7 @@ interface BuilderDomain<T> : ExpectDomain<T> {
      * [changeSubject] instead.
      *
      * Also, if the extraction of the feature is always safe, then you can just use one of the `fN` functions
-     * (e.g. [FeatureDomain.f1] for a function expecting 1 argument) or [FeatureDomain.property].
+     * (e.g. [FeatureSubDomain.f1] for a function expecting 1 argument) or [FeatureSubDomain.property].
      */
     val featureExtractor: FeatureExtractorBuilder.DescriptionStep<T>
         get() = FeatureExtractorBuilder.create(expect)
@@ -196,25 +199,26 @@ interface BuilderDomain<T> : ExpectDomain<T> {
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Any],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Any];
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface AnyDomainNonNullable<T : Any> : AnyDomain<T>, EqualityNonNullableDomain<T>
+interface AnyNonNullableDomain<T : Any> : AnyDomain<T>, EqualityNonNullableSubDomain<T>
 
 /**
- * Represents the topic equality of the [AnyDomainNonNullable].
+ * Represents the sub domain of the topic  equality within the [AnyNonNullableDomain].
+ *
  */
-interface EqualityNonNullableDomain<T : Any> : ExpectDomain<T> {
+interface EqualityNonNullableSubDomain<T : Any> : ExpectDomain<T> {
 
     fun toBe(expected: T): Assertion
 }
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to nullable types extending [Any]?,
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type is a nullable type;
+ * i.e. the subject of the underlying [expect] has such a type.
  */
-interface AnyDomainOnlyNullable<T : Any> : EqualityOnlyNullableDomain<T> {
+interface AnyNullableDomain<T : Any> : EqualityNullableSubDomain<T> {
 
     fun toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion
 
@@ -225,9 +229,9 @@ interface AnyDomainOnlyNullable<T : Any> : EqualityOnlyNullableDomain<T> {
 }
 
 /**
- * Represents the topic equality of the [AnyDomainOnlyNullable].
+ * Represents the sub domain of the topic  equality within the [AnyNullableDomain].
  */
-interface EqualityOnlyNullableDomain<T : Any> : ExpectDomain<T?> {
+interface EqualityNullableSubDomain<T : Any> : ExpectDomain<T?> {
 
     fun toBeNull(): Assertion
 

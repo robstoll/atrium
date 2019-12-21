@@ -13,34 +13,35 @@ import java.nio.file.Path
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
- * scoping it to the domain of subjects which have a type extending [Path].
+ * scoping it to the domain of subjects whose type extends [Path];
+ * i.e. it returns a [PathDomain] for this [Expect].
  *
  * @since 0.9.0
  */
 val <T : Path> Expect<T>._domain: PathDomain<T>
     get() = PathDomainImpl(
-        PathOnlyDomainImpl(this),
-        ComparableOnlyDomainImpl(this),
-        IterableDomainImpl(IterableOnlyDomainImpl(this), AnyDomainImpl(this))
+        PathSubDomainImpl(this),
+        ComparableSubDomainImpl(this),
+        IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
     )
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Path],
- * which an implementation of the domain of Atrium has to provide.
+ * Represents the [ExpectDomain] whose type extends [Path];
+ * i.e. the subject of the underlying [expect] has such a type.
  *
  * @since 0.9.0
  */
-interface PathDomain<T : Path> : PathOnlyDomain<T>, ComparableOnlyDomain<Path, T>, IterableDomain<Path, T>
+interface PathDomain<T : Path> : PathSubDomain<T>, ComparableSubDomain<Path, T>, IterableDomain<Path, T>
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to types extending [Path]
- * excluding the assertion functions which are defined on domains of super types
- * (e.g. the functions of the [AnyDomain]), which an implementation of the domain of Atrium has to provide.
+ * Represents a sub-[ExpectDomain] whose type extends [Path]
+ * -- i.e. the subject of the underlying [expect] has such a type --
+ * where it does not include the sub domains of super types of [Path] (e.g. the functions of the [AnyDomain]).
  *
  * @since 0.9.0
  */
-interface PathOnlyDomain<T : Path> : ExpectDomain<T> {
+interface PathSubDomain<T : Path> : ExpectDomain<T> {
 
     val fileName: ExtractedFeaturePostStep<T, String>
     val extension: ExtractedFeaturePostStep<T, String>
