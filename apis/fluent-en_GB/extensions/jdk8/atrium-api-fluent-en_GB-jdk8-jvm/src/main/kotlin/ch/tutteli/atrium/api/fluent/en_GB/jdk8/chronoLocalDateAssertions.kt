@@ -6,7 +6,7 @@ import ch.tutteli.atrium.domain.builders.chronoLocalDate
 import java.time.chrono.ChronoLocalDate
 
 /**
- * Expects that the subject of the assertion is before [expected] [ChronoLocalDate].
+ * Expects that the subject of the assertion is after [expected] [ChronoLocalDate].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
