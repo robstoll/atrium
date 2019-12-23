@@ -14,7 +14,8 @@ import ch.tutteli.atrium.domain.creating.impl.*
 val Expect<Float>._domain: FloatDomain
     get() = FloatDomainImpl(
         FloatSubDomainImpl(this),
-        ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this))
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
     )
 
 /**
@@ -24,7 +25,9 @@ val Expect<Float>._domain: FloatDomain
  */
 val Expect<Double>._domain: DoubleDomain
     get() = DoubleDomainImpl(
-        DoubleSubDomainImpl(this), ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this))
+        DoubleSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
     )
 
 

@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.No
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating._domain
-import ch.tutteli.atrium.domain.creating._domainComparable
 import ch.tutteli.atrium.domain.creating._domainNullable
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
@@ -38,7 +37,7 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearch
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _domainComparable.min().addToInitial(assertionCreator)
+    _domain.min().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property min of the subject of the assertion,
@@ -48,7 +47,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<
  *
  * @since 0.9.0
  */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = _domainComparable.min().getExpectOfFeature()
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = _domain.min().getExpectOfFeature()
 
 /**
  * Expects that the property max of the subject of the assertion
@@ -60,7 +59,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = _domainCom
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _domainComparable.max().addToInitial(assertionCreator)
+    _domain.max().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property max of the subject of the assertion,
@@ -70,7 +69,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<
  *
  * @since 0.9.0
  */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> = _domainComparable.max().getExpectOfFeature()
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> = _domain.max().getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the
@@ -193,7 +192,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E) =
+fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E): Expect<T> =
     containsNot.values(expected, *otherExpected)
 
 /**
@@ -220,7 +219,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     containsNot.entry(assertionCreatorOrNull)
 
 
@@ -232,7 +231,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     addAssertion(_domainNullable.all(assertionCreatorOrNull))
 
 /**
@@ -243,7 +242,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  *
  * @since 0.9.0
  */
-fun <E, T : Iterable<E>> Expect<T>.hasNext() = addAssertion(_domain.hasNext())
+fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> = addAssertion(_domain.hasNext())
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not have next element.
@@ -253,4 +252,4 @@ fun <E, T : Iterable<E>> Expect<T>.hasNext() = addAssertion(_domain.hasNext())
  *
  * @since 0.9.0
  */
-fun <E, T : Iterable<E>> Expect<T>.hasNotNext() = addAssertion(_domain.hasNotNext())
+fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> = addAssertion(_domain.hasNotNext())

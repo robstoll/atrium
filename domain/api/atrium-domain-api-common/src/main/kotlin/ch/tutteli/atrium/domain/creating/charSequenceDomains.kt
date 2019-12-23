@@ -15,7 +15,11 @@ import ch.tutteli.atrium.domain.creating.impl.*
  * i.e. it returns a [CharSequenceDomain] for this [Expect].
  */
 val <T : CharSequence> Expect<T>._domain: CharSequenceDomain<T>
-    get() = CharSequenceDomainImpl(CharSequenceSubDomainImpl(this), AnyDomainImpl(this))
+    get() = CharSequenceDomainImpl(
+        CharSequenceSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
+    )
 
 /**
  * Represents the [ExpectDomain] whose type extends [CharSequence];

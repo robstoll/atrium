@@ -17,7 +17,7 @@ val <E, T : List<E>> Expect<T>._domain: ListDomain<E, T>
         //TODO simplify once we have expect.config.impl in 0.10.0
         CollectionDomainImpl(
             CollectionSubDomainImpl(this),
-            IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
+            IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
         )
     )
 

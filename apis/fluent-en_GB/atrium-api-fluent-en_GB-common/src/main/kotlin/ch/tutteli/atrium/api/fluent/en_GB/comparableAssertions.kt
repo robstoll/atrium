@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating._domain
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
+fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
     addAssertion(_domain.isLessThan(expected))
 
 /**
@@ -18,7 +18,7 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isLessOrEquals(expected: T) =
+fun <T : Comparable<T>> Expect<T>.isLessOrEquals(expected: T): Expect<T> =
     addAssertion(_domain.isLessOrEquals(expected))
 
 /**
@@ -27,7 +27,7 @@ fun <T : Comparable<T>> Expect<T>.isLessOrEquals(expected: T) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
+fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
     addAssertion(_domain.isGreaterThan(expected))
 
 /**
@@ -36,6 +36,6 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isGreaterOrEquals(expected: T) =
+fun <T : Comparable<T>> Expect<T>.isGreaterOrEquals(expected: T): Expect<T> =
     addAssertion(_domain.isGreaterOrEquals(expected))
 

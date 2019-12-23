@@ -2,8 +2,6 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating._domain
-import kotlin.jvm.JvmMultifileClass
-import kotlin.jvm.JvmName
 
 /**
  * Expects that the subject of the assertion (a [Float]) is equal to [expected] with an error [tolerance]
@@ -18,7 +16,7 @@ import kotlin.jvm.JvmName
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
+fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Expect<Float> =
     addAssertion(_domain.toBeWithErrorTolerance(expected, tolerance))
 
 /**
@@ -34,5 +32,5 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double) =
+fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double): Expect<Double> =
     addAssertion(_domain.toBeWithErrorTolerance(expected, tolerance))

@@ -23,3 +23,12 @@ internal class CollectionSubDomainImpl<E, T : Collection<E>>(
     override val size: ExtractedFeaturePostStep<T, Int>
         get() = expect._domain.manualFeature(DescriptionCollectionAssertion.SIZE) { size }
 }
+
+internal class CollectionElementNullableDomainImpl<E : Any, T : Collection<E?>>(
+    collectionSubDomain: CollectionSubDomain<E?, T>,
+    iterableDomain: IterableElementNullableDomain<E, T>
+) : CollectionElementNullableDomain<E, T>,
+    CollectionSubDomain<E?, T> by collectionSubDomain,
+    IterableElementNullableDomain<E, T> by iterableDomain {
+    override val expect: Expect<T> = collectionSubDomain.expect
+}

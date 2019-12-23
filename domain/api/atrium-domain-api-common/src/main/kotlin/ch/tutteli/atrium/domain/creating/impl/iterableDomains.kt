@@ -43,10 +43,10 @@ internal class IterableSubDomainImpl<E, T : Iterable<E>>(
 
 internal class IterableElementComparableDomainImpl<E : Comparable<E>, T : Iterable<E>>(
     iterableElementComparableSubDomain: IterableElementComparableSubDomain<E, T>,
-    anyDomain: AnyDomain<T>
+    iterableDomain: IterableDomain<E, T>
 ) : IterableElementComparableDomain<E, T>,
     IterableElementComparableSubDomain<E, T> by iterableElementComparableSubDomain,
-    AnyDomain<T> by anyDomain {
+    IterableDomain<E, T> by iterableDomain {
 
     override val expect: Expect<T> = iterableElementComparableSubDomain.expect
 }

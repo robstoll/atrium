@@ -13,45 +13,51 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.DelegateToAssertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.creating.impl.AnyDomainImpl
-import ch.tutteli.atrium.domain.creating.impl.AnyNonNullableDomainImpl
+import ch.tutteli.atrium.domain.creating.impl.AnyInclNullableDomainImpl
 import ch.tutteli.atrium.domain.creating.impl.AnyNullableDomainImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
+import kotlin.js.JsName
 import kotlin.reflect.*
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects whose type extends [Any]`?` (so basically no scoping);
- * i.e. it returns a [AnyDomain] for this [Expect].
+ * i.e. it returns a [AnyInclNullableDomain] for this [Expect].
  */
-val <T> Expect<T>._domain: AnyDomain<T> get() = AnyDomainImpl(this)
+val <T> Expect<T>._domain: AnyInclNullableDomain<T>
+    get() = AnyInclNullableDomainImpl(this)
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects whose type extends [Any] (hence only non-nullable subjects);
- * i.e. it returns a [AnyNonNullableDomain] for this [Expect].
+ * i.e. it returns a [AnyDomain] for this [Expect].
  */
-val <T : Any> Expect<T>._domain: AnyNonNullableDomain<T> get() = AnyNonNullableDomainImpl(this, AnyDomainImpl(this))
+val <T : Any> Expect<T>._domain: AnyDomain<T>
+    get() = AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
 
-// we cannot use the same name since:
-// - Kotlin has a bug in JS and the same mangled identifier results as for <T: Any> above
-// - JsName cannot be used on an extension property
-// - isA would choose this overload instead of <T>
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects whose type is a nullable type;
  * i.e. it returns a [AnyNullableDomain] for this [Expect].
  */
-val <T : Any> Expect<T?>._domainNullable: AnyNullableDomain<T> get() = AnyNullableDomainImpl(this)
+//TODO rename to _domain with 1.0.0 in case https://youtrack.jetbrains.com/issue/KT-33294 is fixed by then
+val <T : Any> Expect<T?>._domainNullable: AnyNullableDomain<T>
+    get() = AnyNullableDomainImpl(this, AnyInclNullableDomainImpl(this))
 
 
 /**
  * Represents the [ExpectDomain] whose type extends [Any]`?`;
  * i.e. the subject of the underlying [expect] has such a type.
+ *
+ * In this sense it should always be included in other domains (meaning, another domain
+ * will extend [AnyInclNullableDomain], most of the time via [AnyDomain] though).
+ * However, since a domain might not want to provide all functionality [AnyInclNullableDomain] provides,
+ * it is perfectly fine if this is not the case.
  */
-interface AnyDomain<T> : EqualitySubDomain<T>, FeatureSubDomain<T>, BuilderSubDomain<T>
+interface AnyInclNullableDomain<T> : EqualitySubDomain<T>, FeatureSubDomain<T>, BuilderSubDomain<T>
 
 /**
  * Represents the sub domain of the topic equality/identity within the [AnyDomain].
@@ -202,7 +208,7 @@ interface BuilderSubDomain<T> : ExpectDomain<T> {
  * Represents the [ExpectDomain] whose type extends [Any];
  * i.e. the subject of the underlying [expect] has such a type.
  */
-interface AnyNonNullableDomain<T : Any> : AnyDomain<T>, EqualityNonNullableSubDomain<T>
+interface AnyDomain<T : Any> : EqualityNonNullableSubDomain<T>, AnyInclNullableDomain<T>
 
 /**
  * Represents the sub domain of the topic  equality within the [AnyNonNullableDomain].
@@ -218,7 +224,7 @@ interface EqualityNonNullableSubDomain<T : Any> : ExpectDomain<T> {
  * Represents the [ExpectDomain] whose type is a nullable type;
  * i.e. the subject of the underlying [expect] has such a type.
  */
-interface AnyNullableDomain<T : Any> : EqualityNullableSubDomain<T> {
+interface AnyNullableDomain<T : Any> : EqualityNullableSubDomain<T>, AnyInclNullableDomain<T?> {
 
     fun toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion
 

@@ -10,25 +10,24 @@ object CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.Collection
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<Collection<Int>> = notImplemented()
-        val a2: Expect<out Collection<Int>> = notImplemented()
-        val a1b: Expect<Collection<Int?>> = notImplemented()
-        val a2b: Expect<out Collection<Int?>> = notImplemented()
+        var a1: Expect<Collection<Int>> = notImplemented()
+        var a2: Expect<out Collection<Int>> = notImplemented()
+        var a1b: Expect<Collection<Int?>> = notImplemented()
+        var a2b: Expect<out Collection<Int?>> = notImplemented()
 
-        val a3: Expect<out Collection<*>> = notImplemented()
+        var a3: Expect<out Collection<*>> = notImplemented()
 
-        a1.isEmpty()
-        a2.isEmpty()
-        a1.isNotEmpty()
-        a2.isNotEmpty()
+        a1 = a1.isEmpty()
+        a2 = a2.isEmpty()
+        a1 = a1.isNotEmpty()
+        a2 = a2.isNotEmpty()
 
+        a1b = a1b.isEmpty()
+        a2b = a2b.isEmpty()
+        a1b = a1b.isNotEmpty()
+        a2b = a2b.isNotEmpty()
 
-        a1b.isEmpty()
-        a2b.isEmpty()
-        a1b.isNotEmpty()
-        a2b.isNotEmpty()
-
-        a3.isEmpty()
-        a3.isNotEmpty()
+        a3 = a3.isEmpty()
+        a3 = a3.isNotEmpty()
     }
 }

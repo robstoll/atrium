@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating._domain
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isEmpty() =
+fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
     addAssertion(_domain.isEmpty())
 
 /**
@@ -18,7 +18,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty() =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isNotEmpty() =
+fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
     addAssertion(_domain.isNotEmpty())
 
 /**
@@ -29,7 +29,7 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty() =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) =
+fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
     size { toBe(expected) }
 
 /**

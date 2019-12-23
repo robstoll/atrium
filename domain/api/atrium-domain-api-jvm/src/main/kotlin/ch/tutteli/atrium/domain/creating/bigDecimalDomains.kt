@@ -8,6 +8,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.impl.AnyDomainImpl
+import ch.tutteli.atrium.domain.creating.impl.AnyInclNullableDomainImpl
 import ch.tutteli.atrium.domain.creating.impl.BigDecimalDomainImpl
 import ch.tutteli.atrium.domain.creating.impl.BigDecimalSubDomainImpl
 import java.math.BigDecimal
@@ -18,7 +19,11 @@ import java.math.BigDecimal
  * i.e. it returns a [BigDecimalDomain] for this [Expect].
  */
 val <T : BigDecimal> Expect<T>._domain: BigDecimalDomain<T>
-    get() = BigDecimalDomainImpl(BigDecimalSubDomainImpl(this), AnyDomainImpl(this))
+    get() = BigDecimalDomainImpl(
+        BigDecimalSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
+    )
 
 /**
  * Represents the [ExpectDomain] whose type extends [BigDecimal];

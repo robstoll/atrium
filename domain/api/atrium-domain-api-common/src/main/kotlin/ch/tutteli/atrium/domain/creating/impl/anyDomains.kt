@@ -9,9 +9,9 @@ import ch.tutteli.atrium.domain.utils.subExpect
 import ch.tutteli.atrium.reporting.RawString
 import kotlin.reflect.KClass
 
-internal class AnyDomainImpl<T>(
+internal class AnyInclNullableDomainImpl<T>(
     override val expect: Expect<T>
-) : AnyDomain<T> {
+) : AnyInclNullableDomain<T> {
 
     override fun notToBe(expected: T): Assertion = anyAssertions.notToBe(expect, expected)
     override fun isSame(expected: T): Assertion = anyAssertions.isSame(expect, expected)
@@ -35,16 +35,19 @@ internal class AnyDomainImpl<T>(
 }
 
 
-internal class AnyNonNullableDomainImpl<T : Any>(
+internal class AnyDomainImpl<T : Any>(
     override val expect: Expect<T>,
-    anyDomain: AnyDomain<T>
-) : AnyNonNullableDomain<T>, AnyDomain<T> by anyDomain {
+    anyInclNullableDomain: AnyInclNullableDomain<T>
+) : AnyDomain<T>, AnyInclNullableDomain<T> by anyInclNullableDomain {
 
     override fun toBe(expected: T): Assertion = anyAssertions.toBe(expect, expected)
 }
 
 
-internal class AnyNullableDomainImpl<T : Any>(override val expect: Expect<T?>) : AnyNullableDomain<T> {
+internal class AnyNullableDomainImpl<T : Any>(
+    override val expect: Expect<T?>,
+    anyInclNullableDomain: AnyInclNullableDomain<T?>
+) : AnyNullableDomain<T>, AnyInclNullableDomain<T?> by anyInclNullableDomain {
 
     override fun toBeNull(): Assertion = anyAssertions.toBeNull(expect)
 

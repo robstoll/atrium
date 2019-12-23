@@ -22,7 +22,8 @@ val <T : Path> Expect<T>._domain: PathDomain<T>
     get() = PathDomainImpl(
         PathSubDomainImpl(this),
         ComparableSubDomainImpl(this),
-        IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
     )
 
 /**

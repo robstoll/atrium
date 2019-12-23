@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.creating.impl.*
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import kotlin.js.JsName
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
@@ -16,17 +17,27 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotS
  * i.e. it returns a [IterableDomain] for this [Expect].
  */
 val <E, T : Iterable<E>> Expect<T>._domain: IterableDomain<E, T>
-    get() = IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
-
+    get() = IterableDomainImpl(
+        IterableSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
+    )
 
 /**
  * Access to the domain level of Atrium where this [Expect] is passed along,
  * scoping it to the domain of subjects whose type extends [Iterable] with an element type extending [Comparable];
  * i.e. it returns a [IterableElementComparableDomain] for this [Expect].
  */
-//TODO rename to _domain with 1.0.0 if https://youtrack.jetbrains.com/issue/KT-32451 is fixed
-val <E : Comparable<E>, T : Iterable<E>> Expect<T>._domainComparable: IterableElementComparableDomain<E, T>
-    get() = IterableElementComparableDomainImpl(IterableElementComparableSubDomainImpl(this), AnyDomainImpl(this))
+val <E : Comparable<E>, T : Iterable<E>> Expect<T>._domain: IterableElementComparableDomain<E, T>
+    @JsName("_domainIterableElementComparable")
+    get() = IterableElementComparableDomainImpl(
+        IterableElementComparableSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        IterableDomainImpl(
+            IterableSubDomainImpl(this),
+            AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
+        )
+    )
 
 
 /**
@@ -34,9 +45,15 @@ val <E : Comparable<E>, T : Iterable<E>> Expect<T>._domainComparable: IterableEl
  * scoping it to the domain of subjects whose type extends [Iterable] with a nullable element type;
  * i.e. it returns a [IterableElementNullableDomain] for this [Expect].
  */
-//TODO rename to _domain with 1.0.0 if https://youtrack.jetbrains.com/issue/KT-32451 is fixed
 val <E : Any, T : Iterable<E?>> Expect<T>._domainNullable: IterableElementNullableDomain<E, T>
-    get() = IterableElementNullableDomainImpl(IterableElementNullableSubDomainImpl(this), AnyDomainImpl(this))
+    get() = IterableElementNullableDomainImpl(
+        IterableElementNullableSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        IterableDomainImpl(
+            IterableSubDomainImpl(this),
+            AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
+        )
+    )
 
 /**
  * Represents the [ExpectDomain] whose type extends [Iterable];
@@ -70,7 +87,7 @@ interface IterableSubDomain<E, T : Iterable<E>> : ExpectDomain<T> {
  * i.e. the subject of the underlying [expect] has such a type.
  */
 interface IterableElementComparableDomain<E : Comparable<E>, T : Iterable<E>> :
-    IterableElementComparableSubDomain<E, T>, AnyDomain<T>
+    IterableElementComparableSubDomain<E, T>, IterableDomain<E, T>
 
 /**
  * Represents a sub-[ExpectDomain] whose type extends [Iterable] with an element type extending [Comparable];
@@ -95,7 +112,7 @@ interface IterableElementComparableSubDomain<E : Comparable<E>, T : Iterable<E>>
  * i.e. the subject of the underlying [expect] has such a type.
  */
 interface IterableElementNullableDomain<E : Any, T : Iterable<E?>> :
-    IterableElementNullableSubDomain<E, T>, AnyDomain<T>
+    IterableElementNullableSubDomain<E, T>, IterableDomain<E?, T>
 
 /**
  * Represents a sub-[ExpectDomain] whose type extends [Iterable] with a nullable element type;

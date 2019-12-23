@@ -4,8 +4,8 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
-import ch.tutteli.atrium.domain.creating._domain
 import ch.tutteli.atrium.domain.creating.MetaFeature
+import ch.tutteli.atrium.domain.creating._domain
 import kotlin.reflect.*
 
 /**

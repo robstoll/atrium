@@ -16,7 +16,7 @@ val <E, T : Collection<E>> Expect<T>._domain: CollectionDomain<E, T>
     get() = CollectionDomainImpl(
         CollectionSubDomainImpl(this),
         //TODO simplify once we have expect.config.impl in 0.10.0
-        IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this))
+        IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
     )
 
 /**
@@ -40,3 +40,10 @@ interface CollectionSubDomain<E, T : Collection<E>> : ExpectDomain<T> {
      */
     val size: ExtractedFeaturePostStep<T, Int>
 }
+
+/**
+ * Represents the [ExpectDomain] whose type extends [Collection];
+ * i.e. the subject of the underlying [expect] has such a type.
+ */
+interface CollectionElementNullableDomain<E : Any, T : Collection<E?>> : CollectionSubDomain<E?, T>,
+    IterableElementNullableDomain<E, T>

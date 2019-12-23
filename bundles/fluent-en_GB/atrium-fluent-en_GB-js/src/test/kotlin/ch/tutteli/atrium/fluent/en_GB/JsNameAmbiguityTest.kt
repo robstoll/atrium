@@ -5,10 +5,13 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.isKeyValue
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.domain.creating._domain
 import kotlin.test.Test
 
 /**
- * As there are bugs related to JsName in Kotlin we should test each to be sure that it works also during runtime.
+ * As there are bugs related to @JsName in Kotlin we should test each to be sure that it works also during runtime.
+ *
+ * See https://youtrack.jetbrains.com/issue/KT-33294 for more information
  */
 class JsNameAmbiguityTest {
 

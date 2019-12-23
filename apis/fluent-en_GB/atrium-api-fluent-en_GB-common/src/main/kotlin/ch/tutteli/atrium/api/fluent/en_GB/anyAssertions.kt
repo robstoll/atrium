@@ -14,7 +14,7 @@ import kotlin.jvm.JvmName
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Expect<T>.toBe(expected: T) =
+fun <T : Any> Expect<T>.toBe(expected: T): Expect<T> =
     addAssertion(_domain.toBe(expected))
 
 /**
@@ -41,7 +41,7 @@ inline fun <reified T : Any> Expect<T?>.toBe(
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.notToBe(expected: T) =
+fun <T> Expect<T>.notToBe(expected: T): Expect<T> =
     addAssertion(_domain.notToBe(expected))
 
 /**
@@ -50,7 +50,7 @@ fun <T> Expect<T>.notToBe(expected: T) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isSameAs(expected: T) =
+fun <T> Expect<T>.isSameAs(expected: T): Expect<T> =
     addAssertion(_domain.isSame(expected))
 
 /**
@@ -59,7 +59,7 @@ fun <T> Expect<T>.isSameAs(expected: T) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isNotSameAs(expected: T) =
+fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> =
     addAssertion(_domain.isNotSame(expected))
 
 /**
@@ -77,7 +77,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T) =
  */
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-) = addAssertion(_domainNullable.toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull))
+): Expect<T?> = addAssertion(_domainNullable.toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull))
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
@@ -191,5 +191,5 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @return This assertion container to support a fluent API.
  */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) =
+infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     addAssertionsCreatedBy(assertionCreator)

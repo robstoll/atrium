@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.impl.AnyDomainImpl
+import ch.tutteli.atrium.domain.creating.impl.AnyInclNullableDomainImpl
 import ch.tutteli.atrium.domain.creating.impl.ComparableDomainImpl
 import ch.tutteli.atrium.domain.creating.impl.ComparableSubDomainImpl
 
@@ -17,7 +18,11 @@ import ch.tutteli.atrium.domain.creating.impl.ComparableSubDomainImpl
  * @param O the other type to which [T] is comparable
  */
 val <O, T : Comparable<O>> Expect<T>._domain: ComparableDomain<O, T>
-    get() = ComparableDomainImpl(ComparableSubDomainImpl(this), AnyDomainImpl(this))
+    get() = ComparableDomainImpl(
+        ComparableSubDomainImpl(this),
+        //TODO simplify once we have expect.config.impl in 0.10.0
+        AnyDomainImpl(this, AnyInclNullableDomainImpl(this))
+    )
 
 
 /**

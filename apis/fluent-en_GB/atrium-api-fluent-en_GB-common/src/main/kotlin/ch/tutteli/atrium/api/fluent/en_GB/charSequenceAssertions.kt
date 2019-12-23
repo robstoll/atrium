@@ -67,7 +67,7 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected: Any) =
+fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected: Any): Expect<T> =
     containsNot.values(expected, *otherExpected)
 
 /**
@@ -130,7 +130,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
+fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
     addAssertion(_domain.startsWith(expected))
 
 /**
@@ -141,7 +141,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
+fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
     startsWith(expected.toString())
 
 /**
@@ -150,7 +150,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
+fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T> =
     addAssertion(_domain.startsNotWith(expected))
 
 /**
@@ -161,7 +161,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
+fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     startsNotWith(expected.toString())
 
 
@@ -171,7 +171,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
+fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
     addAssertion(_domain.endsWith(expected))
 
 /**
@@ -182,7 +182,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
+fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     endsWith(expected.toString())
 
 /**
@@ -191,7 +191,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
     addAssertion(_domain.endsNotWith(expected))
 
 /**
@@ -202,7 +202,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     endsNotWith(expected.toString())
 
 
@@ -212,7 +212,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isEmpty() =
+fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
     addAssertion(_domain.isEmpty())
 
 /**
@@ -221,7 +221,7 @@ fun <T : CharSequence> Expect<T>.isEmpty() =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotEmpty() =
+fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
     addAssertion(_domain.isNotEmpty())
 
 /**
@@ -230,7 +230,7 @@ fun <T : CharSequence> Expect<T>.isNotEmpty() =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotBlank() =
+fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
     addAssertion(_domain.isNotBlank())
 
 /**
@@ -241,7 +241,7 @@ fun <T : CharSequence> Expect<T>.isNotBlank() =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
+fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     addAssertion(_domain.matches(expected))
 
 /**
@@ -252,5 +252,5 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) =
+fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
     addAssertion(_domain.mismatches(expected))

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.domain.creating.AnyDomain
+import ch.tutteli.atrium.domain.creating.IterableDomain
 import ch.tutteli.atrium.domain.creating.IterableElementNullableDomain
 import ch.tutteli.atrium.domain.creating.IterableElementNullableSubDomain
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
@@ -22,10 +22,10 @@ import ch.tutteli.kbox.mapWithIndex
 
 internal class IterableElementNullableDomainImpl<E : Any, T : Iterable<E?>>(
     iterableElementNullableSubDomain: IterableElementNullableSubDomain<E, T>,
-    anyDomain: AnyDomain<T>
+    iterableDomain: IterableDomain<E?, T>
 ) : IterableElementNullableDomain<E, T>,
     IterableElementNullableSubDomain<E, T> by iterableElementNullableSubDomain,
-    AnyDomain<T> by anyDomain {
+    IterableDomain<E?, T> by iterableDomain {
 
     override val expect: Expect<T> = iterableElementNullableSubDomain.expect
 }
@@ -144,7 +144,6 @@ internal class IterableElementNullableSubDomainImpl<E : Any, T : Iterable<E?>>(
         assertionCreator: (Expect<E>.() -> Unit)?
     ): Boolean = when (subject) {
         null -> assertionCreator == null
-        else -> assertionCreator != null && assertionCollector.collect(
-            Some(subject), assertionCreator).holds()
+        else -> assertionCreator != null && assertionCollector.collect(Some(subject), assertionCreator).holds()
     }
 }

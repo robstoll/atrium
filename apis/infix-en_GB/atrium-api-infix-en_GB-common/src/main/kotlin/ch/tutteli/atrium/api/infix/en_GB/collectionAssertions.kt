@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating._domain
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): Expect<T> =
     addAssertion(_domain.isEmpty())
 
 /**
@@ -18,7 +18,7 @@ infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): Expect<T> =
     addAssertion(_domain.isNotEmpty())
 
 /**
@@ -27,7 +27,8 @@ infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Em
  *
  * @return The newly created [Expect].
  */
-val <T : Collection<*>> Expect<T>.size get(): Expect<Int> = _domain.size.getExpectOfFeature()
+val <T : Collection<*>> Expect<T>.size: Expect<Int>
+    get() = _domain.size.getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion

@@ -3,7 +3,6 @@ package ch.tutteli.atrium.domain.creating.iterable.contains.creators
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating._domain
 
-
 /**
  * Changes the subject to a list in case it is defined and not already one.
  * @since 0.9.0
