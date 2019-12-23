@@ -374,11 +374,11 @@ createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.rob
         'ch.tutteli.atrium.domain.creating.OptionalAssertions',
         'ch.tutteli.atrium.domain.creating.PathAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
-        'ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions',
-        'ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions',
-        'ch.tutteli.atrium.domain.creating.ChronoLocalDateTimeAssertions',
         'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
         'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions'
+        'ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions',
+        'ch.tutteli.atrium.domain.creating.ChronoLocalDateTimeAssertions',
+        'ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions',
     ])
 }
 createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
