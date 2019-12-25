@@ -1,25 +1,13 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.MapAssertions
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import ch.tutteli.atrium.domain.robstoll.lib.creating.*
-import kotlin.reflect.KClass
+import ch.tutteli.atrium.domain.robstoll.lib.creating._containsKey
+import ch.tutteli.atrium.domain.robstoll.lib.creating._containsNotKey
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isEmpty
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
 
 class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
-
-    override fun <K, V : Any, T : Map<out K, V?>> contains(
-        assertionContainer: Expect<T>,
-        valueType: KClass<V>,
-        keyValuePairs: List<Pair<K, V?>>
-    ) = _contains(assertionContainer, valueType, keyValuePairs)
-
-    override fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
-        assertionContainer: Expect<T>,
-        valueType: KClass<V>,
-        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
-    ) = _containsKeyWithValueAssertion(assertionContainer, valueType, keyValues)
 
     override fun <K> containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K) =
         _containsKey(subjectProvider, key)
@@ -31,10 +19,4 @@ class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
 
     override fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>) = _isNotEmpty(subjectProvider)
 
-    override fun <K, V, T : Map<out K, V>> getExisting(
-        assertionContainer: Expect<T>,
-        key: K
-    ): ExtractedFeaturePostStep<T, V> = _getExisting(assertionContainer, key)
-
-    override fun <T : Map<*, *>> size(assertionContainer: Expect<T>) = _size(assertionContainer)
 }

@@ -2,9 +2,11 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating._domain
+import ch.tutteli.atrium.domain.creating._domainNullable
 import ch.tutteli.kbox.glue
+import kotlin.js.JsName
+import kotlin.jvm.JvmName
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
@@ -18,10 +20,54 @@ import ch.tutteli.kbox.glue
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+fun <K, V : Any, T : Map<out K, V>> Expect<T>.contains(
+    keyValuePair: Pair<K, V>,
+    vararg otherPairs: Pair<K, V>
+): Expect<T> = addAssertion(_domain.contains(keyValuePair glue otherPairs))
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
+ * with a corresponding value which holds all assertions [keyValue]'s
+ * [KeyValue.valueAssertionCreatorOrNull] creates.
+ * -- optionally the same assertions are created for the [otherKeyValues].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
+ * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
+ * , then both match, even though they match the same entry.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case you pass `null` for [KeyValue.valueAssertionCreatorOrNull].
+ */
+fun <K, V : Any, T : Map<out K, V>> Expect<T>.contains(
+    keyValue: KeyValue<K, V>,
+    vararg otherKeyValues: KeyValue<K, V>
+): Expect<T> = addAssertion(
+    _domain.containsKeyWithValueAssertion((keyValue glue otherKeyValues).map {
+        val valueAssertion = (it.valueAssertionCreatorOrNull
+            ?: throw IllegalArgumentException("`null` does not make sense as we don't deal with a nullable value type."))
+        it.key to valueAssertion
+    })
+)
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherPairs].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValuePair] is
+ * defined as `'a' to 1` and one of the [otherPairs] is defined as `'a' to 1` as well, then both match,
+ * even though they match the same entry.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsNullable")
+@JsName("containsNullable")
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValuePair: Pair<K, V?>,
     vararg otherPairs: Pair<K, V?>
-): Expect<T> = addAssertion(ExpectImpl.map.contains(this, V::class, keyValuePair glue otherPairs))
+): Expect<T> = addAssertion(_domainNullable.contains(V::class, keyValuePair glue otherPairs))
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -37,11 +83,13 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@JvmName("containsNullable")
+@JsName("containsNullableValueAssertion")
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
 ): Expect<T> = addAssertion(
-    ExpectImpl.map.containsKeyWithValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() })
+    _domainNullable.containsKeyWithValueAssertion(V::class, (keyValue glue otherKeyValues).map { it.toPair() })
 )
 
 /**
@@ -51,7 +99,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
-    addAssertion(ExpectImpl.map.containsKey(this, key))
+    addAssertion(_domain.containsKey(key))
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -60,7 +108,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
-    addAssertion(ExpectImpl.map.containsNotKey(this, key))
+    addAssertion(_domain.containsNotKey(key))
 
 
 /**
@@ -69,7 +117,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.map.isEmpty(this))
+fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> = addAssertion(_domain.isEmpty())
 
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
@@ -77,7 +125,7 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.map
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> = addAssertion(ExpectImpl.map.isNotEmpty(this))
+fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> = addAssertion(_domain.isNotEmpty())
 
 
 /**
@@ -89,7 +137,7 @@ fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> = addAssertion(ExpectImpl.
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
-    ExpectImpl.map.getExisting(this, key).getExpectOfFeature()
+    _domain.getExisting(key).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
@@ -100,7 +148,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *   does not hold.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit) =
-    ExpectImpl.map.getExisting(this, key).addToInitial(assertionCreator)
+    _domain.getExisting(key).addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of the assertion,
