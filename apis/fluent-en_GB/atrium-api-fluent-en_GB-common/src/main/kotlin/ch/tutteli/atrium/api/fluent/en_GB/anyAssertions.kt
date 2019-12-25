@@ -64,7 +64,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> =
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
- * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
+ * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
  * Depending on the implementation, it is not much more than a shortcut for
  * ```kotlin

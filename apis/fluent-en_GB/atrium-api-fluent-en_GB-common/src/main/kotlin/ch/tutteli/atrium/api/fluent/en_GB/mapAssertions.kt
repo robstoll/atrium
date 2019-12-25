@@ -26,7 +26,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
- * [KeyValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
  * -- optionally the same assertions are created for the [otherKeyValues].
  *
@@ -157,7 +157,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
- * [assertionCreator] might create hold.
+ * [assertionCreator] creates hold.
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
