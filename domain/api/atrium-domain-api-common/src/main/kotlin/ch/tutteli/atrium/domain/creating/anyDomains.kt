@@ -211,7 +211,7 @@ interface BuilderSubDomain<T> : ExpectDomain<T> {
 interface AnyDomain<T : Any> : EqualityNonNullableSubDomain<T>, AnyInclNullableDomain<T>
 
 /**
- * Represents the sub domain of the topic  equality within the [AnyNonNullableDomain].
+ * Represents the sub domain of the topic equality within the [AnyDomain].
  *
  */
 interface EqualityNonNullableSubDomain<T : Any> : ExpectDomain<T> {
@@ -235,7 +235,7 @@ interface AnyNullableDomain<T : Any> : EqualityNullableSubDomain<T>, AnyInclNull
 }
 
 /**
- * Represents the sub domain of the topic  equality within the [AnyNullableDomain].
+ * Represents the sub domain of the topic equality within the [AnyNullableDomain].
  */
 interface EqualityNullableSubDomain<T : Any> : ExpectDomain<T?> {
 

@@ -5,4 +5,6 @@ dependencies {
 
     // it is up to the consumer of atrium-domain-api which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
+
+    testImplementation prefixedProject('specs-jvm')
 }

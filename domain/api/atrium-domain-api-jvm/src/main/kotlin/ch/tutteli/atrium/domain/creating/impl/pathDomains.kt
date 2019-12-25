@@ -11,11 +11,11 @@ import java.nio.file.Path
 internal class PathDomainImpl<T : Path>(
     pathDomainSubImpl: PathSubDomain<T>,
     comparableDomain: ComparableSubDomain<Path, T>,
-    iterableDomain: IterableDomain<Path, T>
+    iterableElementComparableDomain: IterableElementComparableDomain<Path, T>
 ) : PathDomain<T>,
     PathSubDomain<T> by pathDomainSubImpl,
     ComparableSubDomain<Path, T> by comparableDomain,
-    IterableDomain<Path, T> by iterableDomain {
+    IterableElementComparableDomain<Path, T> by iterableElementComparableDomain {
 
     override val expect: Expect<T> = pathDomainSubImpl.expect
 }

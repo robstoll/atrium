@@ -24,11 +24,18 @@ internal class CollectionSubDomainImpl<E, T : Collection<E>>(
         get() = expect._domain.manualFeature(DescriptionCollectionAssertion.SIZE) { size }
 }
 
-internal class CollectionElementNullableDomainImpl<E : Any, T : Collection<E?>>(
-    collectionSubDomain: CollectionSubDomain<E?, T>,
-    iterableDomain: IterableElementNullableDomain<E, T>
-) : CollectionElementNullableDomain<E, T>,
-    CollectionSubDomain<E?, T> by collectionSubDomain,
-    IterableElementNullableDomain<E, T> by iterableDomain {
-    override val expect: Expect<T> = collectionSubDomain.expect
+
+internal class CollectionElementComparableDomainImpl<E : Comparable<E>, T : Collection<E>>(
+    collectionElementComparableSubDomain: CollectionElementComparableSubDomain<E, T>,
+    collectionSubDomain: CollectionSubDomain<E, T>,
+    iterableElementComparableDomain: IterableElementComparableDomain<E, T>
+) : CollectionElementComparableDomain<E, T>,
+    CollectionElementComparableSubDomain<E, T> by collectionElementComparableSubDomain,
+    CollectionSubDomain<E, T> by collectionSubDomain,
+    IterableElementComparableDomain<E, T> by iterableElementComparableDomain {
+    override val expect: Expect<T> = collectionElementComparableSubDomain.expect
 }
+
+internal class CollectionElementComparableSubDomainImpl<E : Comparable<E>, T : Collection<E>>(
+    override val expect: Expect<T>
+) : CollectionElementComparableSubDomain<E, T>

@@ -23,7 +23,10 @@ val <T : Path> Expect<T>._domain: PathDomain<T>
         PathSubDomainImpl(this),
         ComparableSubDomainImpl(this),
         //TODO simplify once we have expect.config.impl in 0.10.0
-        IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
+        IterableElementComparableDomainImpl(
+            IterableElementComparableSubDomainImpl(this),
+            IterableDomainImpl(IterableSubDomainImpl(this), AnyDomainImpl(this, AnyInclNullableDomainImpl(this)))
+        )
     )
 
 /**
@@ -32,7 +35,8 @@ val <T : Path> Expect<T>._domain: PathDomain<T>
  *
  * @since 0.9.0
  */
-interface PathDomain<T : Path> : PathSubDomain<T>, ComparableSubDomain<Path, T>, IterableDomain<Path, T>
+interface PathDomain<T : Path> : PathSubDomain<T>, ComparableSubDomain<Path, T>,
+    IterableElementComparableDomain<Path, T>
 
 
 /**

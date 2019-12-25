@@ -5,6 +5,8 @@ dependencies {
 
     // it is up to the consumer of atrium-domain-api which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-android')
+
+    testImplementation prefixedProject('specs-android')
 }
 
 srcAndResourcesFromJvmProject(project)
