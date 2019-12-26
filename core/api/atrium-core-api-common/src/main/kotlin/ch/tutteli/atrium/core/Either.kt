@@ -9,9 +9,9 @@ sealed class Either<out L, out R> {
 
     inline fun <T> map(f: (R) -> T): Either<L, T> = flatMap { Right(f(it)) }
 
-    inline fun <T> fold(default: (L) -> T, f: (R) -> T): T = when (this) {
-        is Right -> f(this.r)
-        is Left -> default(this.l)
+    inline fun <T> fold(fL: (L) -> T, fR: (R) -> T): T = when (this) {
+        is Right -> fR(this.r)
+        is Left -> fL(this.l)
     }
 
     fun toOption(): Option<R> = if (this is Right) Some(this.r) else None
