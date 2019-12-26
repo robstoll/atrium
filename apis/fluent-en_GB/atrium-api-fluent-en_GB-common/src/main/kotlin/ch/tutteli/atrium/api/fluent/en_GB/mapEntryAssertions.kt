@@ -34,9 +34,15 @@ fun <K : Any, V : Any, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: 
  */
 @JvmName("isKeyValueNullable")
 @JsName("isKeyValueNullable")
+@Suppress(
+    //TODO remove ignoredDontPassSomething with 1.0.0
+    //  in case https://youtrack.jetbrains.com/issue/KT-33294 is fixed by then
+    "UNUSED_PARAMETER"
+)
 inline fun <reified K : Any, reified V : Any, T : Map.Entry<K?, V?>> Expect<T>.isKeyValue(
     key: K?,
-    value: V?
+    value: V?,
+    ignoredDontPassSomething: Nothing? = null
 ): Expect<T> = addAssertion(ExpectImpl.map.entry.isKeyValue(this, key, value, K::class, V::class))
 
 /**

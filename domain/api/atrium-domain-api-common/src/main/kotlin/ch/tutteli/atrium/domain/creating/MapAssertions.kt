@@ -2,9 +2,10 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import kotlin.reflect.KClass
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * The access point to an implementation of [MapAssertions].
@@ -19,27 +20,12 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
-    fun <K, V : Any, T : Map<out K, V?>> contains(
-        assertionContainer: Expect<T>,
-        valueType: KClass<V>,
-        keyValuePairs: List<Pair<K, V?>>
-    ): Assertion
-
-    fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
-        assertionContainer: Expect<T>,
-        valueType: KClass<V>,
-        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
-    ): Assertion
 
     fun <K> containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion
     fun <K> containsNotKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion
 
     fun isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
-
-    fun <K, V, T : Map<out K, V>> getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V>
-
-    fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

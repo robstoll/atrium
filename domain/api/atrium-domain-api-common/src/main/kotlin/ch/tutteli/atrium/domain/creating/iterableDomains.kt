@@ -29,6 +29,9 @@ val <E, T : Iterable<E>> Expect<T>._domain: IterableDomain<E, T>
  * i.e. it returns a [IterableElementComparableDomain] for this [Expect].
  */
 val <E : Comparable<E>, T : Iterable<E>> Expect<T>._domain: IterableElementComparableDomain<E, T>
+    // note, the generated JS is wrong but it works due to dynamic typing in JS and
+    // as long as this definition is defined after the one above (as it is a subtype)
+    // TODO remove this comment as soon as https://youtrack.jetbrains.com/issue/KT-33294 is fixed
     @JsName("_domainIterableElementComparable")
     get() = IterableElementComparableDomainImpl(
         IterableElementComparableSubDomainImpl(this),

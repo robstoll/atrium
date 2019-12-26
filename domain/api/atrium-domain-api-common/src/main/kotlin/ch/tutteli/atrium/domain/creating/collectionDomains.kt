@@ -26,6 +26,9 @@ val <E, T : Collection<E>> Expect<T>._domain: CollectionDomain<E, T>
  * i.e. it returns a [CollectionDomain] for this [Expect].
  */
 val <E : Comparable<E>, T : Collection<E>> Expect<T>._domain: CollectionElementComparableDomain<E, T>
+    // note, the generated JS is wrong but it works due to dynamic typing in JS and
+    // as long as this definition is defined after the one above (as it is a subtype)
+    // TODO remove this comment as soon as https://youtrack.jetbrains.com/issue/KT-33294 is fixed
     @JsName("_domainCollectionElementComparable")
     get() = CollectionElementComparableDomainImpl(
         CollectionElementComparableSubDomainImpl(this),

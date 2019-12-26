@@ -23,32 +23,8 @@ class JsNameAmbiguityTest {
         expect(mapOf(1 to null as Int?)).asEntries().containsExactly {
             isKeyValue(1, null)
         }
-    }
-
-
-    @Suppress("unused")
-    fun iterableAmbiguityTest() {
-        //iterable
-        expect(listOf(1, 2).asIterable())._domain.hasNext()
-
-        //iterable comparable
-        expect(listOf(1, 2).asIterable())._domain.min()
-    }
-
-    @Suppress("unused")
-    fun collectionAmbiguityTest() {
-        //collection
-        expect(listOf(1, 2) as Collection<Int>)._domain.size
-
-        //iterable
-        expect(listOf(1, 2) as Collection<Int>)._domain.hasNext()
-
-        //iterable comparable
-        expect(listOf(1, 2) as Collection<Int>)._domain.min()
-    }
-
-    @Suppress("unused")
-    fun listAmbiguityTest() {
-        expect(listOf(1, 2))._domain
+        expect(mapOf(1 to 1)).asEntries().containsExactly {
+            isKeyValue(1, 1)
+        }
     }
 }

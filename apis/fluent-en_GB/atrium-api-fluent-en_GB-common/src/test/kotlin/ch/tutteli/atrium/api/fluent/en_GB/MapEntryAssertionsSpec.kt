@@ -4,10 +4,18 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 
-object MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAssertionsSpec(
-    fun2(Expect<Map.Entry<String, Int>>::isKeyValue),
-    fun2(Expect<Map.Entry<String?, Int?>>::isKeyValue)
+class MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAssertionsSpec(
+    fun2<Map.Entry<String, Int>, String, Int>(Expect<Map.Entry<String, Int>>::isKeyValue),
+    Expect<Map.Entry<String?, Int?>>::isKeyValue.name to Companion::isKeyValue
 ) {
+    companion object {
+        fun isKeyValue(
+            expect: Expect<Map.Entry<String?, Int?>>,
+            key: String?,
+            value: Int?
+        ): Expect<Map.Entry<String?, Int?>> = expect.isKeyValue(key, value)
+    }
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Map.Entry<String, Int>> = notImplemented()

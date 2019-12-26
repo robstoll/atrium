@@ -2,14 +2,11 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
-import ch.tutteli.atrium.specs.fun0
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.*
 import kotlin.reflect.KFunction3
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
-    containsFun.name to Companion::contains,
+    fun2<Map<out String, Int>, Pair<String, Int>, Array<out Pair<String, Int>>>(Expect<Map<out String, Int>>::contains).name to Companion::contains,
     fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>(Expect<Map<out String?, Int?>>::contains),
     "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyValue,
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsNullable,
@@ -22,7 +19,6 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 ) {
     companion object {
         //@formatter:off
-        private val containsFun : KFunction3<Expect<Map<out String, Int>>, Pair<String, Int>, Array<out Pair<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
         private val containsKeyWithValueAssertionsFun : KFunction3<Expect<Map<out String, Int>>, KeyValue<String, Int>, Array<out KeyValue<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
         private val containsKeyWithNullableValueAssertionsFun : KFunction3<Expect<Map<out String?, Int?>>, KeyValue<String?, Int>, Array<out KeyValue<String?, Int>>, Expect<Map<out String?, Int?>>> = Expect<Map<out String?, Int?>>::contains
         //@formatter:on
