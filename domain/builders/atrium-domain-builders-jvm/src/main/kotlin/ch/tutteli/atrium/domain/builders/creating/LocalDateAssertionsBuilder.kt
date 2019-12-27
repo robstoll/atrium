@@ -1,4 +1,8 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress(
+    "OVERRIDE_BY_INLINE",
+    "NOTHING_TO_INLINE",
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+)
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -20,7 +24,8 @@ object LocalDateAssertionsBuilder : LocalDateAssertions {
     override inline fun <T : LocalDate> month(assertionContainer: Expect<T>) =
         localDateAssertions.month(assertionContainer)
 
-    override inline fun <T : LocalDate> day(assertionContainer: Expect<T>) = localDateAssertions.day(assertionContainer)
+    override inline fun <T : LocalDate> day(assertionContainer: Expect<T>) =
+        localDateAssertions.day(assertionContainer)
 
     override inline fun <T : LocalDate> dayOfWeek(assertionContainer: Expect<T>) =
         localDateAssertions.dayOfWeek(assertionContainer)

@@ -2427,7 +2427,7 @@ See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#pro
 # Kotlin Bugs
 The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
 Please upvote them (especially if you encounter them yourself):
-- [deprecated functions are no longer struck out in 2019.2.x](https://youtrack.jetbrains.com/issue/IDEA-216982)
+- [Symbol is declared in unnamed module](https://youtrack.jetbrains.com/issue/KT-35343)
 - [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
 - [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
 - [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects.

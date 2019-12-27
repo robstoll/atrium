@@ -2,7 +2,9 @@ package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.creating.BigDecimalAssertions
+import ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions
 import ch.tutteli.atrium.domain.creating.LocalDateAssertions
+import ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions
 import ch.tutteli.atrium.domain.creating.OptionalAssertions
 import ch.tutteli.atrium.domain.creating.PathAssertions
 
@@ -23,6 +25,24 @@ inline val ExpectImpl.optional get() = OptionalAssertionsBuilder
  * which inter alia delegates to the implementation of [PathAssertions].
  */
 inline val ExpectImpl.path get() = PathAssertionsBuilder
+
+/**
+ * Returns [ChronoLocalDateAssertionsBuilder]
+ * which inter alia delegates to the implementation of [ChronoLocalDateAssertions].
+ */
+inline val ExpectImpl.chronoLocalDate get() = ChronoLocalDateAssertionsBuilder
+
+/**
+ * Returns [ChronoLocalDateTimeAssertionsBuilder]
+ * which inter alia delegates to the implementation of [ChronoLocalDateTimeAssertions].
+ */
+inline val ExpectImpl.chronoLocalDateTime get() = ChronoLocalDateTimeAssertionsBuilder
+
+/**
+ * Returns [ChronoZonedDateTimeAssertionsBuilder]
+ * which inter alia delegates to the implementation of [ChronoZonedDateTimeAssertions].
+ */
+inline val ExpectImpl.chronoZonedDateTime get() = ChronoZonedDateTimeAssertionsBuilder
 
 /**
  * Returns [LocalDateAssertionsBuilder]
