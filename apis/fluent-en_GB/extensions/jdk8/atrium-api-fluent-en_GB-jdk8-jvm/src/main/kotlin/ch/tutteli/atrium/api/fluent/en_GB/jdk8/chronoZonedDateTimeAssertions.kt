@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.chronoZonedDateTime
 import java.time.chrono.ChronoLocalDate
-import java.time.chrono.ChronoLocalDateTime
 import java.time.chrono.ChronoZonedDateTime
 
 /**
