@@ -26,4 +26,4 @@ fun <D: ChronoLocalDate, T : ChronoLocalDateTime<D>> Expect<T>.isAfter(expected:
  * @since 0.9.0
  */
 fun <D: ChronoLocalDate,  T: ChronoLocalDateTime<D>> Expect<T>.isBeforeOrEquals(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDateTime.isAfter(this, expected))
+    addAssertion(ExpectImpl.chronoLocalDateTime.isBeforeOrEquals(this, expected))
