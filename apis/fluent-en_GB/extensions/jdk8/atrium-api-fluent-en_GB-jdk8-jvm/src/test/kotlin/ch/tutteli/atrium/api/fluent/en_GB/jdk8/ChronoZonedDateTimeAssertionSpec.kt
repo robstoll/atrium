@@ -5,5 +5,6 @@ import ch.tutteli.atrium.specs.fun1
 import java.time.ZonedDateTime
 
 object ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAssertionSpec(
-    fun1(Expect<ZonedDateTime>::isAfter)
+    fun1(Expect<ZonedDateTime>::isAfter),
+    fun1(Expect<ZonedDateTime>::isBeforeOrEquals)
 )

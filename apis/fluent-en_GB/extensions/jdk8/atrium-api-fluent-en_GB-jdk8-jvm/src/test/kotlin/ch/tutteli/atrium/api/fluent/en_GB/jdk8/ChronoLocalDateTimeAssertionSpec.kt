@@ -7,5 +7,6 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
 object ChronoLocalDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
-    fun1(Expect<LocalDateTime>::isAfter)
+    fun1(Expect<LocalDateTime>::isAfter),
+    fun1(Expect<LocalDateTime>::isBeforeOrEquals)
 )
