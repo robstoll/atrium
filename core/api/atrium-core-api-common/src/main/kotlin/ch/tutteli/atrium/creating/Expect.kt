@@ -19,10 +19,13 @@ annotation class ExpectMarker
  * It is also the base type of all assertion container types (like [ReportingAssertionContainer],
  * [CollectingAssertionContainer] etc.)
  *
+ * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
+ * further notice.
+ *
  * @param T The type of the [subject] of the assertion.
  */
 @ExpectMarker
-interface Expect<T> : SubjectProvider<T>, AssertionHolder {
+interface Expect<T> : SubjectProvider<T> {
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this container and

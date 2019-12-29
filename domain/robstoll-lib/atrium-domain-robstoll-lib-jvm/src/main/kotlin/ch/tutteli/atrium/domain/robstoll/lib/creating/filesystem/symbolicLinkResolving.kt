@@ -17,6 +17,7 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
     val resolvedPathAssertion = resolvedPathAssertionProvider(realPath)
     return if (hintList.isNotEmpty()) {
         when (resolvedPathAssertion) {
+            //TODO this should be done differently
             is AssertionGroup -> hintList.addAll(resolvedPathAssertion.assertions)
             else -> hintList.add(resolvedPathAssertion)
         }
@@ -35,35 +36,32 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
 @PublishedApi
 internal fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
     val absolutePath = path.toAbsolutePath().normalize()
-    return addAllLevelResolvedSymlinkHints(absolutePath, hintList, LinkedList(), absolutePath)
+    return addAllLevelResolvedSymlinkHints(absolutePath, hintList, Stack())
 }
 
 private fun addAllLevelResolvedSymlinkHints(
     absolutePath: Path,
     hintList: Deque<Assertion>,
-    visitedList: MutableList<Path>,
-    initialPath: Path
+    loopDetection: Stack<Path>
 ): Path {
     var currentPath = absolutePath.root
-    visitedList.add(absolutePath)
 
     for (part in absolutePath) {
         currentPath = currentPath.resolve(part)
-        val nextPath = addOneStepResolvedSymlinkHint(
-            currentPath,
-            hintList
-        )
-        if (nextPath != null) {
-            val visitedIndex = visitedList.indexOf(nextPath)
-            if (visitedIndex != -1) {
-                repeat(hintList.size - visitedIndex) { hintList.removeLast() }
-                // add to the list so [hintForLinkLoop] prints this duplicate twice
-                visitedList.add(nextPath)
-                hintList.add(hintForLinkLoop(visitedList, visitedIndex))
-                return initialPath
-            } else {
-                currentPath = addAllLevelResolvedSymlinkHints(nextPath, hintList, visitedList, initialPath)
-            }
+
+        val loopDetectionIndex = loopDetection.indexOf(currentPath)
+        if (loopDetectionIndex != -1) {
+            // add to the list so [hintForLinkLoop] prints this duplicate twice
+            loopDetection.add(currentPath)
+            hintList.add(hintForLinkLoop(loopDetection, loopDetectionIndex))
+            return absolutePath
+        }
+
+        val nextPathAfterFollowSymbolicLink = addOneStepResolvedSymlinkHint(currentPath, hintList)
+        if (nextPathAfterFollowSymbolicLink != null) {
+            loopDetection.push(currentPath)
+            currentPath = addAllLevelResolvedSymlinkHints(nextPathAfterFollowSymbolicLink, hintList, loopDetection)
+            loopDetection.pop()
         }
     }
     return currentPath
@@ -73,19 +71,23 @@ private fun addAllLevelResolvedSymlinkHints(
  * If [absolutePath] is surely a symlink, adds an explanatory hint to [hintList] and returns the link target.
  * Return `null` and does not modify [hintList] otherwise.
  */
-private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<Assertion>) = try {
-    val nextPath = absolutePath
-        .resolveSibling(absolutePath.followSymbolicLink())
-        .normalize()
-    hintList.add(
-        ExpectImpl.builder.explanatory
-            .withExplanation(HINT_FOLLOWED_SYMBOLIC_LINK, absolutePath, nextPath)
-            .build()
-    )
-    nextPath
-} catch (e: IOException) {
-    // either this is not a link, or we cannot check it. The best we can do is assume it is not a link.
-    null
+private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<Assertion>): Path? {
+    // we use try-catch as a control flow structure, where within the try we assume [absolutePath] to be a symbolic link
+    return try {
+        val nextPath = absolutePath
+            .resolveSibling(absolutePath.followSymbolicLink())
+            .normalize()
+
+        hintList.add(
+            ExpectImpl.builder.explanatory
+                .withExplanation(HINT_FOLLOWED_SYMBOLIC_LINK, absolutePath, nextPath)
+                .build()
+        )
+        nextPath
+    } catch (e: IOException) {
+        // either this is not a link, or we cannot check it. The best we can do is assume it is not a link.
+        null
+    }
 }
 
 private fun hintForLinkLoop(loop: List<Path>, startIndex: Int): Assertion {

@@ -15,7 +15,10 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
-import ch.tutteli.spek.extensions.TempFolder
+import ch.tutteli.niok.createDirectory
+import ch.tutteli.niok.createFile
+import ch.tutteli.niok.createSymbolicLink
+import ch.tutteli.spek.extensions.memoizedTempFolder
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -24,115 +27,123 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.lifecycle.CachingMode.TEST
 import org.spekframework.spek2.style.specification.describe
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
 object SymbolicLinkResolvingSpec : Spek({
-    val tempFolder = TempFolder.perTest()
-    registerListener(tempFolder)
+    val tempFolder by memoizedTempFolder()
 
     // Windows with neither symlink nor admin privilege
     val ifSymlinksNotSupported =
         if (fileSystemSupportsCreatingSymlinks()) Skip.No else Skip.Yes("creating symbolic links is not supported on this file system")
 
     val testAssertion = ExpectImpl.builder.createDescriptive(Untranslatable("testAssertion"), null) { true }
-    val expectListener by memoized(TEST) {
+    val resolvedPathConsumer by memoized(TEST) {
         mockk<(Path) -> Assertion> {
             every { this@mockk.invoke(any()) } returns testAssertion
         }
     }
 
+    /**
+     * Throughout this suite, we have to make sure that all paths we use are already completely resolved. Otherwise, we
+     * might get additional, unexpected messages because the path to the temporary folder contains a symlink.
+     */
+
     describe("explainForResolvedLink", skip = ifSymlinksNotSupported) {
         describe("resolves correctly") {
             afterEachTest {
-                confirmVerified(expectListener)
+                confirmVerified(resolvedPathConsumer)
             }
 
-            it("an existing file to itself") {
-                val file = tempFolder.newFile("testFile")
+            it("resolves an existing file to itself") {
+                val file = tempFolder.newFile("testFile").toRealPath()
 
-                explainForResolvedLink(file, expectListener)
-                verify { expectListener(file) }
+                explainForResolvedLink(file, resolvedPathConsumer)
+                verify { resolvedPathConsumer(file) }
             }
 
-            it("an existing directory to itself") {
-                val folder = tempFolder.newFile("testDir")
+            it("resolves an existing directory to itself") {
+                val folder = tempFolder.newFile("testDir").toRealPath()
 
-                explainForResolvedLink(folder, expectListener)
-                verify { expectListener(folder) }
+                explainForResolvedLink(folder, resolvedPathConsumer)
+                verify { resolvedPathConsumer(folder) }
             }
 
-            it("a non-existent path to itself") {
-                val notExisting = tempFolder.tmpDir.resolve("notExisting")
+            it("resolves a non-existent path to itself") {
+                val notExisting = tempFolder.tmpDir.toRealPath().resolve("notExisting")
 
-                explainForResolvedLink(notExisting, expectListener)
-                verify { expectListener(notExisting) }
+                explainForResolvedLink(notExisting, resolvedPathConsumer)
+                verify { resolvedPathConsumer(notExisting) }
             }
 
-            it("a relative path to its absolute target") {
+            it("resolves a relative path to its absolute target") {
                 val relativePath = Paths.get(".")
 
-                explainForResolvedLink(relativePath, expectListener)
-                verify { expectListener(relativePath.toRealPath()) }
+                explainForResolvedLink(relativePath, resolvedPathConsumer)
+                verify { resolvedPathConsumer(relativePath.toRealPath()) }
             }
 
-            it("a symbolic link to its target") {
-                val target = tempFolder.tmpDir.resolve("notExisting")
-                val link = tempFolder.newSymbolicLink("link", target)
+            it("resolves a symbolic link to its target") {
+                val testDir = tempFolder.newDirectory("symbolic-to-target").toRealPath()
+                val target = testDir.resolve("notExisting")
+                val link = target.createSymbolicLink(testDir.resolve("link"))
 
-                explainForResolvedLink(link, expectListener)
-                verify { expectListener(target) }
+                explainForResolvedLink(link, resolvedPathConsumer)
+                verify { resolvedPathConsumer(target) }
             }
 
             it("a relative symbolic link to its absolute target") {
-                val target = tempFolder.newFile("testFile")
-                val folder = tempFolder.newFolder("testFolder")
+                val testDir = tempFolder.newDirectory("relative-symbolic-to-target").toRealPath()
+                val target = testDir.resolve("testFile").createFile()
+                val folder = testDir.resolve("testFolder").createDirectory()
                 val relativeLink =
-                    Files.createSymbolicLink(folder.resolve("testLink"), Paths.get("..").resolve(target.fileName))
+                    Paths.get("..").resolve(target.fileName).createSymbolicLink(folder.resolve("testLink"))
 
-                explainForResolvedLink(relativeLink, expectListener)
-                verify { expectListener(target) }
+                explainForResolvedLink(relativeLink, resolvedPathConsumer)
+                verify { resolvedPathConsumer(target) }
             }
 
-            it("a symbolic link chain as far as possible") {
-                val nowhere = tempFolder.tmpDir.resolve("dont-exist")
-                val toNowhere = tempFolder.newSymbolicLink("link-to-nowhere", nowhere)
+            it("resolves a symbolic link chain as far as possible") {
+                val testDir = tempFolder.newDirectory("chain").toRealPath()
+                val nowhere = testDir.resolve("dont-exist")
+                val toNowhere = nowhere.createSymbolicLink(testDir.resolve("link-to-nowhere"))
                 val start = tempFolder.newSymbolicLink("start", toNowhere)
 
-                explainForResolvedLink(start, expectListener)
-                verify { expectListener(nowhere) }
+                explainForResolvedLink(start, resolvedPathConsumer)
+                verify { resolvedPathConsumer(nowhere) }
             }
 
-            it("multiple symbolic links to their target") {
-                val target = tempFolder.tmpDir.resolve("notExisting")
-                val grandparent = tempFolder.newFolder("__linksgrandparent")
-                val parent = Files.createDirectory(grandparent.resolve("step"))
-                val grandparentlink = tempFolder.newSymbolicLink("__linkTo_grandparent", grandparent)
-                val innerLink = Files.createSymbolicLink(parent.resolve("__linkTo_${target.fileName}"), target)
-                val innerLinkInGrandparentLink = grandparentlink.resolve(parent.fileName).resolve(innerLink.fileName)
+            it("resolves multiple symbolic links to their target") {
+                val testDir = tempFolder.newDirectory("multi-links").toRealPath()
+                val target = testDir.resolve("notExisting")
+                val grandparent = testDir.resolve("__linksgrandparent").createDirectory()
+                val parent = grandparent.resolve("step").createDirectory()
+                val grandparentLink = grandparent.createSymbolicLink(testDir.resolve("__linkTo_grandparent"))
+                val innerLink = target.createSymbolicLink(parent.resolve("__linkTo_${target.fileName}"))
+                val innerLinkInGrandparentLink = grandparentLink.resolve(parent.fileName).resolve(innerLink.fileName)
                 val linkToInnerLink = tempFolder.newSymbolicLink(
                     "__transitive_linkTo_${target.fileName}", innerLinkInGrandparentLink
                 )
 
-                explainForResolvedLink(linkToInnerLink, expectListener)
-                verify { expectListener(target) }
+                explainForResolvedLink(linkToInnerLink, resolvedPathConsumer)
+                verify { resolvedPathConsumer(target) }
             }
         }
 
         describe("explains correctly") {
             it("returns the original assertion if no link is involved") {
-                val file = tempFolder.newFile("testFile")
+                val file = tempFolder.newFile("testFile").toRealPath()
 
-                val resultAssertion = explainForResolvedLink(file, expectListener)
+                val resultAssertion = explainForResolvedLink(file, resolvedPathConsumer)
                 expect(resultAssertion).isSameAs(testAssertion)
             }
 
             it("adds an explanation for one symbolic link") {
-                val target = tempFolder.tmpDir.resolve("notExisting")
-                val link = tempFolder.newSymbolicLink("link", target)
+                val testDir = tempFolder.newDirectory("link").toRealPath()
+                val target = testDir.resolve("notExisting")
+                val link = target.createSymbolicLink(testDir.resolve("link"))
 
-                val resultAssertion = explainForResolvedLink(link, expectListener)
+                val resultAssertion = explainForResolvedLink(link, resolvedPathConsumer)
                 expect(resultAssertion).isA<AssertionGroup>()
                     .feature { p(it::assertions) }.containsExactly(
                         { describesLink(link, target) },
@@ -141,11 +152,12 @@ object SymbolicLinkResolvingSpec : Spek({
             }
 
             it("adds explanations for a symbolic link chain as far as possible") {
-                val nowhere = tempFolder.tmpDir.resolve("dont-exist")
-                val toNowhere = tempFolder.newSymbolicLink("link-to-nowhere", nowhere)
-                val start = tempFolder.newSymbolicLink("start", toNowhere)
+                val testDir = tempFolder.newDirectory("chain").toRealPath()
+                val nowhere = testDir.resolve("dont-exist")
+                val toNowhere = nowhere.createSymbolicLink(testDir.resolve("link-to-nowhere"))
+                val start = toNowhere.createSymbolicLink(testDir.resolve("start"))
 
-                val resultAssertion = explainForResolvedLink(start, expectListener)
+                val resultAssertion = explainForResolvedLink(start, resolvedPathConsumer)
                 expect(resultAssertion).isA<AssertionGroup>()
                     .feature { p(it::assertions) }.containsExactly(
                         { describesLink(start, toNowhere) },
@@ -155,61 +167,100 @@ object SymbolicLinkResolvingSpec : Spek({
             }
 
             it("adds explanations for multiple symbolic links") {
-                val target = tempFolder.tmpDir.resolve("notExisting")
-                val grandparent = tempFolder.newFolder("__linksgrandparent")
-                val parent = Files.createDirectory(grandparent.resolve("step"))
-                val grandparentlink = tempFolder.newSymbolicLink("__linkTo_grandparent", grandparent)
-                val innerLink = Files.createSymbolicLink(parent.resolve("__linkTo_${target.fileName}"), target)
+                val testDir = tempFolder.newDirectory("multi-links").toRealPath()
+                val target = testDir.resolve("notExisting")
+                val grandparent = testDir.resolve("__linksgrandparent").createDirectory()
+                val parent = grandparent.resolve("step").createDirectory()
+                val grandparentLink = grandparent.createSymbolicLink(testDir.resolve("__linkTo_grandparent"))
+                val innerLink = target.createSymbolicLink(parent.resolve("__linkTo_${target.fileName}"))
                 val innerLinkInGrandparentLink =
-                    grandparentlink.resolve(parent.fileName).resolve(innerLink.fileName)
-                val linkToInnerLink = tempFolder.newSymbolicLink(
-                    "__transitive_linkTo_${target.fileName}", innerLinkInGrandparentLink
+                    grandparentLink.resolve(parent.fileName).resolve(innerLink.fileName)
+                val linkToInnerLink = innerLinkInGrandparentLink.createSymbolicLink(
+                    testDir.resolve("__transitive_linkTo_${target.fileName}")
                 )
 
-                val resultAssertion = explainForResolvedLink(linkToInnerLink, expectListener)
+                val resultAssertion = explainForResolvedLink(linkToInnerLink, resolvedPathConsumer)
                 expect(resultAssertion).isA<AssertionGroup>()
                     .feature { p(it::assertions) }.containsExactly(
                         { describesLink(linkToInnerLink, innerLinkInGrandparentLink) },
-                        { describesLink(grandparentlink, grandparent) },
+                        { describesLink(grandparentLink, grandparent) },
                         { describesLink(innerLink, target) },
+                        { isSameAs(testAssertion) }
+                    )
+            }
+
+            it("does not assume a link loop even if the same link appears multiple times") {
+                val testDir = tempFolder.newDirectory("multi-non-loop").toRealPath()
+                val barLink = testDir.createSymbolicLink(testDir.resolve("bar"))
+                val target = testDir.resolve("target").createFile()
+                val testLink = barLink.resolve(barLink.fileName).resolve(barLink.fileName).resolve(target.fileName)
+
+                val resultAssertion = explainForResolvedLink(testLink, resolvedPathConsumer)
+                expect(resultAssertion).isA<AssertionGroup>()
+                    .feature { p(it::assertions) }.containsExactly(
+                        { describesLink(barLink, testDir) },
+                        { describesLink(barLink, testDir) },
+                        { describesLink(barLink, testDir) },
                         { isSameAs(testAssertion) }
                     )
             }
         }
 
         it("adds an explanation for link loops") {
-            val a = tempFolder.tmpDir.resolve("linkA")
-            val b = tempFolder.newSymbolicLink("linkB", a)
-            Files.createSymbolicLink(a, b)
+            val testDir = tempFolder.newDirectory("link-loop").toRealPath()
+            val a = testDir.resolve("linkA")
+            val b = a.createSymbolicLink(testDir.resolve("linkB"))
+            b.createSymbolicLink(a)
 
-            val resultAssertion = explainForResolvedLink(a, expectListener)
+            val resultAssertion = explainForResolvedLink(a, resolvedPathConsumer)
             expect(resultAssertion).isA<AssertionGroup>()
                 .feature { p(it::assertions) }.containsExactly(
+                    { describesLink(a, b) },
+                    { describesLink(b, a) },
                     { describesLinkLoop(a, b, a) },
                     { isSameAs(testAssertion) }
                 )
         }
 
-        it("keeps explanations for links that are not part of the loop") {
-            val a = tempFolder.tmpDir.resolve("linkA")
-            val c = tempFolder.newSymbolicLink("linkC", a)
-            val b = tempFolder.newSymbolicLink("linkB", c)
-            Files.createSymbolicLink(a, b)
-            val grandparent = tempFolder.newFolder("__linksgrandparent")
-            val parent = Files.createDirectory(grandparent.resolve("step"))
-            val grandparentlink = tempFolder.newSymbolicLink("__linkTo_grandparent", grandparent)
-            val innerLink = Files.createSymbolicLink(parent.resolve("__linkTo_${a.fileName}"), a)
-            val innerLinkInGrandparentLink = grandparentlink.resolve(parent.fileName).resolve(innerLink.fileName)
-            val linkToInnerLink = tempFolder.newSymbolicLink(
-                "__transitive_linkTo_${a.fileName}", innerLinkInGrandparentLink
-            )
+        it("adds an explanation for more subtle link loops") {
+            val testDir = tempFolder.newDirectory("sneaky-loop").toRealPath()
+            val foo = testDir.resolve("foo").createDirectory()
+            val fooLink = foo.createSymbolicLink(testDir.resolve("bar"))
+            val link = fooLink.resolve("link").createSymbolicLink(foo.resolve("link"))
 
-            val resultAssertion = explainForResolvedLink(linkToInnerLink, expectListener)
+            val resultAssertion = explainForResolvedLink(link, resolvedPathConsumer)
+            expect(resultAssertion).isA<AssertionGroup>()
+                .feature { p(it::assertions) }.containsExactly(
+                    { describesLink(link, fooLink.resolve("link")) },
+                    { describesLink(fooLink, foo) },
+                    { describesLinkLoop(link, link) },
+                    { isSameAs(testAssertion) }
+                )
+        }
+
+        it("keeps explanations for links that are not part of the loop") {
+            val testDir = tempFolder.newDirectory("link-loop").toRealPath()
+            val a = testDir.resolve("linkA")
+            val c = a.createSymbolicLink(testDir.resolve("linkC"))
+            val b = c.createSymbolicLink(testDir.resolve("linkB"))
+            b.createSymbolicLink(a)
+            val grandparent = testDir.resolve("__linksgrandparent").createDirectory()
+            val parent = grandparent.resolve("step").createDirectory()
+            val grandparentLink = grandparent.createSymbolicLink(testDir.resolve("__linkTo_grandparent"))
+            val innerLink = a.createSymbolicLink(parent.resolve("__linkTo_${a.fileName}"))
+            val innerLinkInGrandparentLink = grandparentLink.resolve(parent.fileName).resolve(innerLink.fileName)
+            val linkToInnerLink =
+                innerLinkInGrandparentLink.createSymbolicLink(testDir.resolve("__transitive_linkTo_${a.fileName}"))
+
+            val resultAssertion = explainForResolvedLink(linkToInnerLink, resolvedPathConsumer)
             expect(resultAssertion).isA<AssertionGroup>()
                 .feature { p(it::assertions) }.containsExactly(
                     { describesLink(linkToInnerLink, innerLinkInGrandparentLink) },
-                    { describesLink(grandparentlink, grandparent) },
+                    { describesLink(grandparentLink, grandparent) },
                     { describesLink(innerLink, a) },
+                    { describesLink(a, b) },
+                    { describesLink(b, c) },
+                    { describesLink(c, a) },
                     { describesLinkLoop(a, b, c, a) },
                     { isSameAs(testAssertion) }
                 )

@@ -22,6 +22,7 @@ import kotlin.jvm.JvmName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Any> Assert<T>.ist(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
@@ -34,6 +35,7 @@ fun <T : Any> Assert<T>.ist(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Any> Assert<T>.istNicht(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
@@ -46,6 +48,7 @@ fun <T : Any> Assert<T>.istNicht(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -58,6 +61,7 @@ fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
@@ -68,6 +72,7 @@ fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 inline fun <reified T : Any> AssertionPlantNullable<T?>.ist(expected: T?) {
     addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
@@ -86,6 +91,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.ist(expected: T?) {
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullWennNullGegebenSonst(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
     addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
@@ -101,6 +107,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullWennNullGegebenSo
  *
  * @return This plant to support a fluent API.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <T : Any> Assert<T>.und: Assert<T> get() = this
 
 /**
@@ -113,5 +120,6 @@ val <T : Any> Assert<T>.und: Assert<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

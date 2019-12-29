@@ -26,8 +26,47 @@ val <E, T : Iterable<E>> Expect<T>.contains: IterableContains.Builder<E, T, NoOp
 val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
 
+/**
+ * Expects that the property min of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.iterable.min(this).addToInitial(assertionCreator)
 
-/**c
+/**
+ * Creates an [Expect] for the property min of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = ExpectImpl.iterable.min(this).getExpectOfFeature()
+
+/**
+ * Expects that the property max of the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.iterable.max(this).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property max of the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> = ExpectImpl.iterable.max(this).getExpectOfFeature()
+
+/**
  * Expects that the subject of the assertion (an [Iterable]) contains the
  * [expected] value and the [otherExpected] values (if given).
  *
@@ -151,7 +190,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E) =
     containsNot.values(expected, *otherExpected)
 
-
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains an entry holding
  * the assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
@@ -199,7 +237,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  *
  * @since 0.9.0
  */
-fun <E : Any> Expect<Iterable<E>>.hasNext() = addAssertion(ExpectImpl.iterable.hasNext(this))
+fun <E, T : Iterable<E>> Expect<T>.hasNext() = addAssertion(ExpectImpl.iterable.hasNext(this))
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not have next element.
@@ -209,4 +247,4 @@ fun <E : Any> Expect<Iterable<E>>.hasNext() = addAssertion(ExpectImpl.iterable.h
  *
  * @since 0.9.0
  */
-fun <E : Any> Expect<Iterable<E>>.hasNotNext() = addAssertion(ExpectImpl.iterable.hasNotNext(this))
+fun <E, T : Iterable<E>> Expect<T>.hasNotNext() = addAssertion(ExpectImpl.iterable.hasNotNext(this))

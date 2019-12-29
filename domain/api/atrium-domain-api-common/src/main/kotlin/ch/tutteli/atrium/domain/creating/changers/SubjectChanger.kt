@@ -1,11 +1,14 @@
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -50,12 +53,13 @@ interface SubjectChanger {
 
 
     /**
-     * Changes to a new subject according to the given [transformation] but only if the current subject
-     * [canBeTransformed] to the new subject -- the change as such is reflected in reporting by the given
-     * [description] and [representation].
+     * Changes to a new subject according to the given [transformation] --
+     * the change as such is reflected in reporting by the given [description] and [representation].
      *
      * Explained a bit more in depth: it creates a new [Expect] incorporating the given [transformation]
      * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer].
+     * The [transformation] as such can either return the new subject wrapped in a [Some] or [None] in case
+     * the transformation cannot be carried out.
      *
      * This method is useful if you want to change the subject whereas the change as such is assertion like as well, so
      * that it should be reported as well. For instance, say you want to change the subject of type `Int?` to `Int`.
@@ -67,8 +71,8 @@ interface SubjectChanger {
      *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param description Describes the kind of subject change (e.g. in case of a type change `is a`).
      * @param representation Representation of the change (e.g. in case of a type transformation the KClass).
-     * @param canBeTransformed Indicates whether it is safe to transform to the new subject.
-     * @param transformation Provides the subject.
+     * @param transformation Provides the subject wrapped into a [Some] if the extraction as such can be carried out
+     *   otherwise [None].
      * @param failureHandler The [FailureHandler] which shall be used in case the subject cannot be transformed.
      *   A failure has the chance to augment the failing assertion representing the failed transformation with further
      *   information.
@@ -82,8 +86,7 @@ interface SubjectChanger {
         originalAssertionContainer: Expect<T>,
         description: Translatable,
         representation: Any,
-        canBeTransformed: (T) -> Boolean,
-        transformation: (T) -> R,
+        transformation: (T) -> Option<R>,
         failureHandler: FailureHandler<T, R>,
         maybeSubAssertions: Option<Expect<R>.() -> Unit>
     ): Expect<R>
@@ -94,6 +97,9 @@ interface SubjectChanger {
      * A handler should augment the failing assertion with explanatory assertions in case the user supplied an
      * assertionCreator lambda. Yet, a failure handler might also add additional information -- e.g. regarding the
      * current subject.
+     *
+     * @param T The type of the subject
+     * @param R The type of the subject after the subject change (if it were possible).
      */
     interface FailureHandler<T, R> {
         /**
@@ -112,15 +118,43 @@ interface SubjectChanger {
 
     @Suppress("DEPRECATION")
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    fun <T, R : Any> unreported(
-        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
+    fun <T, R : Any> unreportedToAssert(
+        originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): Assert<R>
 
     @Suppress("DEPRECATION")
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    fun <T, R> unreportedNullable(
-        originalPlant: ch.tutteli.atrium.creating.BaseAssertionPlant<T, *>,
+    fun <T, R> unreportedNullableToAssert(
+        originalPlant: SubjectProvider<T>,
         transformation: (T) -> R
     ): AssertionPlantNullable<R>
+}
+
+/**
+ * Represents a [SubjectChanger.FailureHandler] which as an adapter for another failure handler by mapping first
+ * the given subject to another type [R1] which is understood as input of the other failure handler.
+ *
+ * Effectively turning a `FailureHandler<R1, R>` into a `FailureHandler<T, R>` with the help of a mapping
+ * function `(T) -> R1`
+ *
+ * @param T The type of the subject
+ * @param R1 The type of the mapped subject
+ * @param R The type of the subject after the subject change (if it were possible).
+ */
+class FailureHandlerAdapter<T, R1, R>(
+    val failureHandler: SubjectChanger.FailureHandler<R1, R>,
+    val map: (T) -> R1
+) : SubjectChanger.FailureHandler<T, R> {
+
+    override fun createAssertion(
+        originalAssertionContainer: Expect<T>,
+        descriptiveAssertion: Assertion,
+        maybeAssertionCreator: Option<Expect<R>.() -> Unit>
+    ): Assertion {
+        return subjectChanger.unreported(originalAssertionContainer, map)
+            .let {
+                failureHandler.createAssertion(it, descriptiveAssertion, maybeAssertionCreator)
+            }
+    }
 }

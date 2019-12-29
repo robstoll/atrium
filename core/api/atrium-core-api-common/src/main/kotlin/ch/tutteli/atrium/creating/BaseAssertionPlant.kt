@@ -18,7 +18,7 @@ import ch.tutteli.atrium.core.Some
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API and as self type.
  */
 @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
-interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> : SubjectProvider<T>, AssertionHolder {
+interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> : SubjectProvider<T> {
 
     /**
      * The provider which provides [subject].

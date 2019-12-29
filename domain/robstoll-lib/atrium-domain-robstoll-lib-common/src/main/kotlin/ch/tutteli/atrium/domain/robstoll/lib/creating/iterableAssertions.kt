@@ -3,10 +3,13 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -15,15 +18,13 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreat
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertionGroup
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHasElementAssertion
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.turnSubjectToList
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NotSearchBehaviourImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ALL
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.INDEX
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.WARNING_MISMATCHES
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.mapWithIndex
 
 fun <E, T : Iterable<E>> _containsBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NoOpSearchBehaviour> =
@@ -37,8 +38,8 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
-        val list = assertionContainer.maybeSubject.fold({ emptyList<E>() }) { it.toList() }
-        val hasElementAssertion = createHasElementAssertion(list)
+        val list = turnSubjectToList(assertionContainer).maybeSubject.getOrElse { emptyList() }
+        val hasElementAssertion = createHasElementAssertion(list.iterator())
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(assertionCreatorOrNull, list))
@@ -70,16 +71,6 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
     }
 }
 
-fun <E : Any> _hasNext(expect: Expect<Iterable<E>>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect,
-        DescriptionBasic.HAS, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) { it.iterator().hasNext() }
-
-fun <E : Any> _hasNotNext(expect: Expect<Iterable<E>>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect,
-        DescriptionBasic.HAS_NOT, RawString.create(DescriptionIterableAssertion.NEXT_ELEMENT)) {
-        !it.iterator().hasNext()
-    }
-
 private fun <E : Any> createMismatchAssertions(
     list: List<E?>,
     assertionCreator: (Expect<E>.() -> Unit)?
@@ -92,4 +83,39 @@ private fun <E : Any> createMismatchAssertions(
             ExpectImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element, falseProvider)
         }
         .toList()
+}
+
+fun <E, T : Iterable<E>> _hasNext(assertionContainer: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionBasic.HAS, RawString.create(NEXT_ELEMENT)) {
+        it.iterator().hasNext()
+    }
+
+fun <E, T : Iterable<E>> _hasNotNext(assertionContainer: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionBasic.HAS_NOT, RawString.create(NEXT_ELEMENT)) {
+        !it.iterator().hasNext()
+    }
+
+fun <E : Comparable<E>, T : Iterable<E>> _min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
+    collect(assertionContainer, "min", Iterable<E>::min)
+
+fun <E : Comparable<E>, T : Iterable<E>> _max(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
+    collect(assertionContainer, "max", Iterable<E>::max)
+
+private fun <E : Comparable<E>, T : Iterable<E>> collect(
+    assertionContainer: Expect<T>,
+    method: String,
+    collect: T.() -> E?
+): ExtractedFeaturePostStep<T, E> {
+    return ExpectImpl.feature.extractor(assertionContainer)
+        .methodCall(method)
+        .withRepresentationForFailure(NO_ELEMENTS)
+        .withFeatureExtraction {
+            Option.someIf(it.iterator().hasNext()) {
+                it.collect() ?: throw IllegalStateException(
+                    "Iterable does not haveNext() even though checked before! Concurrent access?"
+                )
+            }
+        }
+        .withoutOptions()
+        .build()
 }

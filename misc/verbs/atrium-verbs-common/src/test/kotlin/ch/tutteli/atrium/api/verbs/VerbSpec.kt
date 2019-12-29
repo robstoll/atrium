@@ -3,26 +3,20 @@ package ch.tutteli.atrium.api.verbs
 import ch.tutteli.atrium.specs.verbs.VerbSpec
 
 object AssertSpec : VerbSpec(
-    "assert" to { subject: Int, representation, options -> assert(subject, representation, options) },
-    "assert" to { subject: Int, representation, options, assertionCreator ->
-        assert(subject, representation, options, assertionCreator)
-    },
-    "assert" to { subject: Int?, representation, options -> assert(subject, representation, options) },
+    "assert" to { subject: Int -> assert(subject) },
+    "assert" to { subject: Int, assertionCreator -> assert(subject, assertionCreator) },
+    "assert" to { subject: Int? -> assert(subject) },
     "assert" to { act -> assert { act() } })
 
 object AssertThatSpec : VerbSpec(
-    "assertThat" to { subject: Int, representation, options -> assertThat(subject, representation, options) },
-    "assertThat" to { subject: Int, representation, options, assertionCreator ->
-        assertThat(subject, representation, options, assertionCreator)
-    },
-    "assertThat" to { subject: Int?, representation, options -> assertThat(subject, representation, options) },
+    "assertThat" to { subject: Int -> assertThat(subject) },
+    "assertThat" to { subject: Int, assertionCreator -> assertThat(subject, assertionCreator) },
+    "assertThat" to { subject: Int? -> assertThat(subject) },
     "assertThat" to { act -> assertThat { act() } })
 
 object ExpectSpec : VerbSpec(
-    "expect" to { subject: Int, representation, options -> expect(subject, representation, options) },
-    "expect" to { subject: Int, representation, options, assertionCreator ->
-        expect(subject, representation, options, assertionCreator)
-    },
-    "expect" to { subject: Int?, representation, options -> expect(subject, representation, options) },
+    "expect" to { subject: Int -> expect(subject) },
+    "expect" to { subject: Int, assertionCreator -> expect(subject, assertionCreator) },
+    "expect" to { subject: Int? -> expect(subject) },
     "expect" to { act -> expect { act() } })
 

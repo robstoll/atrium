@@ -9,5 +9,8 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionDateTimeLikeAssertion(override val value: String) : StringBasedTranslatable {
     YEAR("year"),
-    MONTH("month")
+    MONTH("month"),
+    DAY_OF_WEEK("day of week"),
+    DAY("day"),
+    IS_BEFORE("is before"),
 }

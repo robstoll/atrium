@@ -16,9 +16,9 @@ import org.spekframework.spek2.style.specification.describe
 abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
-        val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0).asIterable()
-        val oneToSeven = listOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0).asIterable()
-        val oneToSevenNullable = listOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).asIterable()
+        val oneToFour = { sequenceOf(1.0, 2.0, 3.0, 4.0, 4.0).constrainOnce().asIterable() }
+        val oneToSeven = { sequenceOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
+        val oneToSevenNullable = { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
 
         val containsInAnyOrder = String.format(
             DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(),

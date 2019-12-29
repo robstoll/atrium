@@ -12,7 +12,7 @@ import ch.tutteli.atrium.core.Some
  * It might well be that we are going to remove it with 1.0.0 without previous notice.
  * Hence, to be on the safe side, you should use [Expect] instead.
  */
-interface SubjectProvider<out T> {
+interface SubjectProvider<out T> : AssertionHolder {
 
     /**
      * The subject of an [Assertion] -- deprecated, will be removed with 1.0.0.

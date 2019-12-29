@@ -42,7 +42,7 @@ abstract class CollectingAssertionContainerSpec(
                     expect(testee.getAssertions()).toBe(listOf(assertion))
                 }
 
-                it("returns the assertion when calling ${testee::getAssertions.name} a second time") {
+                it("returns the assertion when calling ${CollectingAssertionContainer<Int>::getAssertions.name} a second time") {
                     expect(testee.getAssertions()).toBe(listOf(assertion))
                 }
             }

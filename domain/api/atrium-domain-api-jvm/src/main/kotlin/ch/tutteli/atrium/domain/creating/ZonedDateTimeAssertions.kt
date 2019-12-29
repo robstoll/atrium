@@ -1,8 +1,11 @@
+@file:Suppress("FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
 /**
@@ -17,7 +20,11 @@ val zonedDateTimeAssertions by lazy { loadSingleService(ZonedDateTimeAssertions:
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ZonedDateTimeAssertions {
-    fun <T: ZonedDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : ZonedDateTime> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun <T: ZonedDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : ZonedDateTime> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T : ZonedDateTime> day(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T : ZonedDateTime> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek>
 }

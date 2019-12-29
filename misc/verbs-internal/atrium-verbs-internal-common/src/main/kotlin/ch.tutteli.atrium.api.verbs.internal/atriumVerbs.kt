@@ -1,56 +1,44 @@
 package ch.tutteli.atrium.api.verbs.internal
 
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
-import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
  * Creates an [Expect] for the given [subject].
  *
+ * @param subject The subject for which we are going to postulate assertions.
+ *
  * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> expect(subject: T, representation: String? = null, options: ExpectOptions = ExpectOptions()): Expect<T> =
+fun <T> expect(subject: T): RootExpect<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
-        .withOptions(options.merge(ExpectOptions(representation = representation?.let { RawString.create(it) })))
+        .withoutOptions()
         .build()
 
 /**
  * Creates an [Expect] for the given [subject] and [Expect.addAssertionsCreatedBy] the
- * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reported as a whole.
+ * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
+ *
+ * @param subject The subject for which we are going to postulate assertions.
+ * @param assertionCreator Assertion group block with a non-fail fast behaviour.
  *
  * @return The newly created assertion container.
+ * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> expect(
-    subject: T,
-    representation: String? = null,
-    options: ExpectOptions = ExpectOptions(),
-    assertionCreator: Expect<T>.() -> Unit
-): Expect<T> = expect(subject, representation, options).addAssertionsCreatedBy(assertionCreator)
-
-/**
- * Creates a [ThrowableThrown.Builder] for the given function [act] which catches a potentially thrown [Throwable]
- * and allows to define an assertion for it.
- *
- * @return The newly created [ThrowableThrown.Builder].
- */
-fun expect(act: () -> Unit): ThrowableThrown.Builder = ExpectImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
+fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    expect(subject).addAssertionsCreatedBy(assertionCreator)
 
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     EXPECT("expect"),
-    EXPECT_THROWN("expect the thrown exception"),
     ;
 
     init {

@@ -21,6 +21,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
@@ -30,6 +31,7 @@ val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContains.Builder<T, NoOpS
  *
  * @return The newly created builder.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 val <T : CharSequence> Assert<T>.enthaeltNicht: NotCheckerOption<T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
@@ -59,6 +61,7 @@ val <T : CharSequence> Assert<T>.enthaeltNicht: NotCheckerOption<T, NotSearchBeh
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: Any)
     = enthaelt.zumindest(1).werte(expected, *otherExpected)
 
@@ -74,6 +77,7 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any)
     = enthaeltNicht.werte(expected, *otherExpected)
 
@@ -100,6 +104,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.enthaeltRegex(
     pattern: String,
     vararg otherPatterns: String
@@ -111,6 +116,7 @@ fun <T : CharSequence> Assert<T>.enthaeltRegex(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
@@ -120,6 +126,7 @@ fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsNotWith(this, expected))
 
@@ -130,6 +137,7 @@ fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
@@ -139,6 +147,7 @@ fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsNotWith(this, expected))
 
@@ -149,6 +158,7 @@ fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.istLeer()
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
@@ -158,6 +168,7 @@ fun <T : CharSequence> Assert<T>.istLeer()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.istNichtLeer()
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))
 
@@ -167,5 +178,6 @@ fun <T : CharSequence> Assert<T>.istNichtLeer()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : CharSequence> Assert<T>.istNichtBlank()
     = addAssertion(AssertImpl.charSequence.isNotBlank(this))

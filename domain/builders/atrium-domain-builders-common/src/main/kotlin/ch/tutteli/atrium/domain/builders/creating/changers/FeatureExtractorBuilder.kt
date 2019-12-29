@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.builders.creating.changers
 
-import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor.*
 import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
@@ -92,14 +91,14 @@ interface FeatureExtractorBuilder {
         /**
          * Uses [translatable] as representation which will be used in case the extraction cannot be performed.
          */
-        fun withRepresentationForFailure(translatable: Translatable): CheckStep<T> =
+        fun withRepresentationForFailure(translatable: Translatable): FeatureExtractionStep<T> =
             withRepresentationForFailure(RawString.create(translatable))
 
         /**
          * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
          * to get the representation which will be used in case the extraction cannot be performed.
          */
-        fun withRepresentationForFailure(representationProvider: () -> Any?): CheckStep<T> =
+        fun withRepresentationForFailure(representationProvider: () -> Any?): FeatureExtractionStep<T> =
             withRepresentationForFailure(LazyRepresentation(representationProvider))
 
         /**
@@ -108,7 +107,7 @@ interface FeatureExtractorBuilder {
          * Notice, if you want to use text (e.g. a [String]), then wrap it into a [RawString] via [RawString.create]
          * and pass the [RawString] instead.
          */
-        fun withRepresentationForFailure(representation: Any): CheckStep<T>
+        fun withRepresentationForFailure(representation: Any): FeatureExtractionStep<T>
 
         companion object {
             /**
@@ -123,12 +122,12 @@ interface FeatureExtractorBuilder {
     }
 
     /**
-     *  Step which allows to specify a check which should be consulted
-     *  to see whether the feature extraction is feasible or not.
+     * Step to define the feature extraction as such where a one can include a check by returning [None] in case the
+     * extraction should not be carried out.
      *
      * @param T the type of the current subject.
      */
-    interface CheckStep<T> {
+    interface FeatureExtractionStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
          */
@@ -146,104 +145,129 @@ interface FeatureExtractorBuilder {
         val representationForFailure: Any
 
         /**
-         * Defines whether the feature can be extracted or not.
-         */
-        fun withCheck(canBeTransformed: (subject: T) -> Boolean): FeatureExtractionStep<T>
-
-        companion object {
-            /**
-             * Creates a [CheckStep] in the context of the [FeatureExtractorBuilder].
-             */
-            fun <T> create(
-                originalAssertionContainer: Expect<T>,
-                description: Translatable,
-                representationForFailure: Any
-            ): CheckStep<T> = CheckStepImpl(originalAssertionContainer, description, representationForFailure)
-        }
-    }
-
-    /**
-     * Step to define the feature extraction as such.
-     *
-     * @param T the type of the current subject.
-     */
-    interface FeatureExtractionStep<T> {
-        /**
-         * The so far chosen options up to but not inclusive the [CheckStep] step.
-         */
-        val checkOption: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can extract the feature or not.
-         */
-        val canBeExtracted: (subject: T) -> Boolean
-
-        /**
          * Defines the feature extraction as such which is most likely based on the current subject
          * (but does not need to be).
+         *
+         * @param extraction A function returning either [Some] with the corresponding feature or [None] in case the
+         *   extraction cannot be carried out.
          */
-        fun <R> withFeatureExtraction(extraction: (subject: T) -> R): OptionalRepresentationStep<T, R>
+        fun <R> withFeatureExtraction(extraction: (subject: T) -> Option<R>): OptionsStep<T, R>
 
         companion object {
             /**
              * Creates a [FeatureExtractionStep] in the context of the [FeatureExtractorBuilder].
              */
             fun <T> create(
-                checkOption: CheckStep<T>,
-                canBeTransformed: (subject: T) -> Boolean
-            ): FeatureExtractionStep<T> = FeatureExtractionStepImpl(checkOption, canBeTransformed)
+                originalAssertionContainer: Expect<T>,
+                description: Translatable,
+                representationForFailure: Any
+            ): FeatureExtractionStep<T> = FeatureExtractionStepImpl(
+                originalAssertionContainer, description, representationForFailure
+            )
         }
     }
 
     /**
-     * Optional step which allows to specify a custom representation instead of the feature as such.
+     * Step which allows to override previously defined properties -- such as use a different description -- but
+     * also allows to define options where usually a default value is used, such as use the subject itself as
+     * representation.
      *
-     * @param T the type of the current subject.
-     * @param R the type of the feature, aka the new subject.
+     * @param T the type of the subject.
      */
-    interface OptionalRepresentationStep<T, R> {
+    interface OptionsStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckStep] step.
+         * The so far chosen options up to the [FeatureExtractionStep] step.
          */
-        val checkOption: CheckStep<T>
-
-        /**
-         * The previously specified lambda which indicates whether we can extract the feature or not.
-         */
-        val canBeExtracted: (T) -> Boolean
+        val featureExtractionStep: FeatureExtractionStep<T>
 
         /**
          * The previously specified feature extraction lambda.
          */
-        val featureExtraction: (T) -> R
+        val featureExtraction: (T) -> Option<R>
 
         /**
-         * Uses the given [representation] to represent the feature instead of using the feature itself.
+         * Allows to define the [FeatureOptions] via an [OptionsChooser]-lambda which provides convenience functions.
          *
-         * Use [build] if you do **not** want to provide a custom representation.
+         * The function usually start with `with...` and are sometimes overloaded to ease the configuration.
          */
-        fun withRepresentationInsteadOfFeature(representation: Any): FinalStep<T, R>
+        fun withOptions(configuration: OptionsChooser<R>.() -> Unit): FinalStep<T, R> =
+            withOptions(FeatureOptions(configuration))
 
         /**
-         * Skips the option of defining a custom representation (uses the feature as such) and
-         * finishes the `feature extraction`-process by building a new [Expect] taking the previously chosen
-         * options into account.
-         *
-         * @return The newly created [Expect].
+         * Uses the given [expectOptions].
          */
-        fun build(): ExtractedFeaturePostStep<T, R>
+        fun withOptions(expectOptions: FeatureOptions<R>): FinalStep<T, R>
+
+        /**
+         * States explicitly that no optional [FeatureOptions] are defined, which means, `build` will create
+         * a new [Expect] based on the previously defined mandatory options but without any optional options or
+         * in other words, the default values are used for the optional options.
+         *
+         * Use [withOptions] if you want to define optional [FeatureOptions] such as, override the
+         * description, define an own representation etc.
+         */
+        fun withoutOptions(): FinalStep<T, R>
 
         companion object {
-            /**
-             * Creates a [OptionalRepresentationStep] in the context of the [FeatureExtractorBuilder].
-             */
             fun <T, R> create(
-                checkOption: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R
-            ): OptionalRepresentationStep<T, R> = OptionalRepresentationStepImpl(
-                checkOption, canBeTransformed, transformation
-            )
+                featureExtractionStep: FeatureExtractionStep<T>,
+                featureExtraction: (T) -> Option<R>
+            ): OptionsStep<T, R> = OptionsStepImpl(featureExtractionStep, featureExtraction)
+        }
+    }
+
+    /**
+     * Helper lambda to specify [FeatureOptions] via convenience methods.
+     *
+     * Calling multiple times the same method overrides the previously defined value.
+     */
+    interface OptionsChooser<R> {
+
+        /**
+         * Wraps the given [description] into an [Untranslatable] and passes it to the overload
+         * which expects a [Translatable] -- this is then used as custom description
+         * instead of the previously defined description.
+         *
+         */
+        fun withDescription(description: String) {
+            withDescription(Untranslatable(description))
+        }
+
+        /**
+         * Uses the given [description] as custom description instead of the previously defined description.
+         */
+        fun withDescription(description: Translatable)
+
+        /**
+         * Wraps the given [representation] into a [RawString] and uses it as representation of the subject
+         * instead of the so far defined representation (which defaults to the subject as such).
+         */
+        @Suppress("PublicApiImplicitType" /* fine withSubjectBasedRepresentation defines it */)
+        fun withTextRepresentation(representation: String) = withRepresentation(RawString.create(representation))
+
+        /**
+         * Uses the given [representation] as representation of the subject in case the is defined instead of
+         * the so far defined representation (which defaults to the subject as such).
+         *
+         * Notice, if you want to use text (e.g. a [String]) as representation,
+         * then use [withTextRepresentation] instead.
+         */
+        @Suppress("PublicApiImplicitType" /* fine withSubjectBasedRepresentation defines it */)
+        fun withRepresentation(representation: Any) = withSubjectBasedRepresentation { representation }
+
+
+        /**
+         * Uses the given [representationProvider] which provides the representation for a given subject wrapped in
+         * [Option] instead of the so far defined representation (which defaults to the subject as such).
+         *
+         * Notice, if you want to use text (e.g. a [String]) as representation,
+         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         */
+        fun withSubjectBasedRepresentation(representationProvider: (R) -> Any)
+
+        companion object {
+            fun <R> createAndBuild(configuration: OptionsChooser<R>.() -> Unit): FeatureOptions<R> =
+                OptionsChooserImpl<R>().apply(configuration).build()
         }
     }
 
@@ -256,26 +280,19 @@ interface FeatureExtractorBuilder {
      */
     interface FinalStep<T, R> {
         /**
-         * The so far chosen options up to the [CheckStep] step.
+         * The so far chosen options up to the [FeatureExtractionStep] step.
          */
-        val checkOption: CheckStep<T>
+        val featureExtractionStep: FeatureExtractionStep<T>
 
         /**
-         * The previously specified lambda which indicates whether we can transform the current subject
-         * to the new one or not.
+         * The previously specified feature extraction lambda.
          */
-        val canBeExtracted: (T) -> Boolean
+        val featureExtraction: (T) -> Option<R>
 
         /**
-         * The previously specified new subject.
+         * Either the previously specified [FeatureOptions] or `null`.
          */
-        val featureExtraction: (T) -> R
-
-        /**
-         * The previously specified representation which shall be used instead of the future as such -- `null` means
-         * use the feature as such.
-         */
-        val representationInsteadOfFeature: Any?
+        val featureOptions: FeatureOptions<R>?
 
         /**
          * Finishes the `feature extraction`-process by building a new [Expect] taking the previously chosen
@@ -290,13 +307,42 @@ interface FeatureExtractorBuilder {
              * Creates the [FinalStep] in the context of the [FeatureExtractorBuilder].
              */
             fun <T, R> create(
-                checkOption: CheckStep<T>,
-                canBeTransformed: (T) -> Boolean,
-                transformation: (T) -> R,
-                representationInsteadOfFeature: Any?
+                featureExtractionStep: FeatureExtractionStep<T>,
+                featureExtraction: (T) -> Option<R>,
+                featureOptions: FeatureOptions<R>?
             ): FinalStep<T, R> = FinalStepImpl(
-                checkOption, canBeTransformed, transformation, representationInsteadOfFeature
+                featureExtractionStep, featureExtraction, featureOptions
             )
         }
     }
 }
+
+
+/**
+ * Additional (non-mandatory) options for the [FeatureExtractorBuilder] to create an [Expect].
+ *
+ * @property description Defines a custom description if not null.
+ * @property representationInsteadOfFeature Defines a custom representation based on a present subject if not null.
+ */
+data class FeatureOptions<R>(
+    val description: Translatable? = null,
+    val representationInsteadOfFeature: ((R) -> Any)? = null
+) {
+    /**
+     * Merges the given [options] with this object creating a new [FeatureOptions]
+     * where defined properties in [options] will have precedence over properties defined in this instance.
+     *
+     * For instance, this object has defined [representationInsteadOfFeature] (meaning it is not `null`) and
+     * the given [options] as well, then the resulting [FeatureOptions] will have the
+     * [representationInsteadOfFeature] of [options].
+     */
+    fun merge(options: FeatureOptions<R>): FeatureOptions<R> =
+        FeatureOptions(
+            options.description ?: description,
+            options.representationInsteadOfFeature ?: representationInsteadOfFeature
+        )
+}
+
+@Suppress("FunctionName")
+fun <R> FeatureOptions(configuration: FeatureExtractorBuilder.OptionsChooser<R>.() -> Unit): FeatureOptions<R> =
+    FeatureExtractorBuilder.OptionsChooser.createAndBuild(configuration)

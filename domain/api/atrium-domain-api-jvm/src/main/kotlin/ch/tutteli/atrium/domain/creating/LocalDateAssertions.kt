@@ -1,8 +1,11 @@
+@file:Suppress("FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 /**
@@ -17,7 +20,11 @@ val localDateAssertions by lazy { loadSingleService(LocalDateAssertions::class) 
  * which an implementation of the domain of Atrium has to provide.
  */
 interface LocalDateAssertions {
-    fun <T: LocalDate> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : LocalDate> year(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
-    fun <T: LocalDate> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : LocalDate> month(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T : LocalDate> day(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+
+    fun <T : LocalDate> dayOfWeek(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek>
 }

@@ -14,6 +14,7 @@ private val register = run {
     registerService<ch.tutteli.atrium.domain.creating.ComparableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ComparableAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.FeatureAssertions> { ch.tutteli.atrium.domain.robstoll.creating.FeatureAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.FloatingPointAssertions> { ch.tutteli.atrium.domain.robstoll.creating.FloatingPointAssertionsImpl() }
+    registerService<ch.tutteli.atrium.domain.creating.Fun0Assertions> { ch.tutteli.atrium.domain.robstoll.creating.Fun0AssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.IterableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.IterableAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.ListAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ListAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.MapAssertions> { ch.tutteli.atrium.domain.robstoll.creating.MapAssertionsImpl() }

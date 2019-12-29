@@ -29,6 +29,10 @@ script:
     else
         ./gr bcTests
     fi
+  - |
+      if [ $MODE == current ]; then
+        samples/jvm/spek/gradlew -p ./samples/jvm/spek build
+      fi
 
 after_success:
   - |

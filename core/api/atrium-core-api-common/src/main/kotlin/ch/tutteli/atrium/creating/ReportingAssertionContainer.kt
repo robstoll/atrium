@@ -5,8 +5,47 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.translating.Translatable
+
+/**
+ * Represents the root of an [Expect] chain, intended as extension point for functionality
+ * which should only be available on the root.
+ *
+ * It exposes the [config] in contrast to [Expect].
+ */
+interface RootExpect<T> : Expect<T> {
+    /**
+     * The chosen [RootExpectConfig].
+     */
+    val config: RootExpectConfig
+}
+
+/**
+ * Represents an [Expect] which results due to a change of the [Expect.maybeSubject] to a feature of the subject.
+ *
+ * A change can for instance be a feature extraction such as `expect(listOf(1)).get(0)`
+ * but also just a feature assertion such as `expect(listOf(1)).feature { f(it::size) }`
+ *
+ * It exposes the [config] as well as the already specified [Assertion]s (see [getAssertions]) in contrast to [Expect].
+ */
+interface FeatureExpect<T, R> : Expect<R> {
+
+    /**
+     * The [Expect] from which this feature is derived/was extracted.
+     */
+    val previousExpect: Expect<T>
+
+    /**
+     * The chosen [FeatureExpectConfig].
+     */
+    val config: FeatureExpectConfig
+
+    /**
+     * The so far specified [Assertion]s for this feature.
+     */
+    fun getAssertions(): List<Assertion>
+}
+
 
 /**
  * Represents a container for [Assertion]s and offers the possibility to [addAssertion]s which are reported
@@ -14,11 +53,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [subject] of this [Assert].
  */
-interface ReportingAssertionContainer<T> : Expect<T> {
+interface ReportingAssertionContainer<T> : RootExpect<T> {
 
     /**
      * The [AssertionChecker] which shall be used for checking the assertions.
      */
+    //TODO #280 remove
     val assertionChecker: AssertionChecker
 
     /**
@@ -27,7 +67,13 @@ interface ReportingAssertionContainer<T> : Expect<T> {
      *
      * @param T The type of the [maybeSubject].
      */
+    //TODO #280 remove/replace with config
     interface AssertionCheckerDecorator<T> {
+
+        val assertionVerb: Translatable
+
+        val representation: Any?
+
         /**
          * Either [Some] wrapping the subject of the current assertion or
          * [None] in case a previous subject change was not successful.
@@ -52,8 +98,7 @@ interface ReportingAssertionContainer<T> : Expect<T> {
         companion object {
 
             /**
-             * Creates an [AssertionCheckerDecorator] -- use [createLazy] in case subject creation or representation
-             * are costly.
+             * Creates an [AssertionCheckerDecorator].
              *
              * @param assertionVerb The assertion verb which will be used inter alia in reporting.
              * @param maybeSubject Either [Some] wrapping the subject of the assertion or
@@ -61,67 +106,25 @@ interface ReportingAssertionContainer<T> : Expect<T> {
              *   store (check/report) [Assertion]s for the subject of the assertion.
              * @param representation The representation which will be used to represent the subject in reporting.
              * @param assertionChecker The checker which will be used to check [Assertion]s.
-             * @param nullRepresentation The representation used in reporting in case [representation] is `null`.
              */
             fun <T> create(
                 assertionVerb: Translatable,
                 maybeSubject: Option<T>,
                 representation: Any?,
-                assertionChecker: AssertionChecker,
-                nullRepresentation: Any
+                assertionChecker: AssertionChecker
             ): AssertionCheckerDecorator<T> = EagerCommonFields(
-                assertionVerb, maybeSubject, representation, assertionChecker, nullRepresentation
-            )
-
-            /**
-             * Creates an [AssertionCheckerDecorator] which lazily evaluates the
-             * given [maybeSubjectProvider] and [representationProvider].
-             *
-             * @param assertionVerb The assertion verb which will be used inter alia in reporting.
-             * @param maybeSubjectProvider Providing either a [Some] wrapping the subject of the assertion or
-             *   [None] in case a previous subject change could not be performed. The assertion container will
-             *   store (check/report) [Assertion]s for the subject of the assertion.
-             * @param representationProvider Provides the representation which will be used to
-             *   represent the subject in reporting.
-             * @param assertionChecker The checker which will be used to check [Assertion]s.
-             * @param nullRepresentation The representation used in reporting in case [representationProvider]
-             *   cannot provide a representation, provides `null` respectively.
-             */
-            fun <T> createLazy(
-                assertionVerb: Translatable,
-                maybeSubjectProvider: () -> Option<T>,
-                representationProvider: () -> Any?,
-                assertionChecker: AssertionChecker,
-                nullRepresentation: Any
-            ): AssertionCheckerDecorator<T> = LazyCommonFields(
-                assertionVerb, maybeSubjectProvider, representationProvider, assertionChecker, nullRepresentation
+                assertionVerb, maybeSubject, representation, assertionChecker
             )
         }
     }
 
+    //TODO #280 remove
     private class EagerCommonFields<T>(
-        private val assertionVerb: Translatable,
+        override val assertionVerb: Translatable,
         override val maybeSubject: Option<T>,
-        private val representation: Any?,
-        override val assertionChecker: AssertionChecker,
-        private val nullRepresentation: Any
+        override val representation: Any?,
+        override val assertionChecker: AssertionChecker
     ) : AssertionCheckerDecorator<T> {
-
-        override fun check(assertions: List<Assertion>) {
-            assertionChecker.check(assertionVerb, representation ?: nullRepresentation, assertions)
-        }
-    }
-
-    private class LazyCommonFields<T>(
-        private val assertionVerb: Translatable,
-        maybeSubjectProvider: () -> Option<T>,
-        representationProvider: () -> Any?,
-        override val assertionChecker: AssertionChecker,
-        private val nullRepresentation: Any
-    ) : AssertionCheckerDecorator<T> {
-
-        override val maybeSubject: Option<T> by lazy(maybeSubjectProvider)
-        private val representation = LazyRepresentation { representationProvider() ?: nullRepresentation }
 
         override fun check(assertions: List<Assertion>) {
             assertionChecker.check(assertionVerb, representation, assertions)

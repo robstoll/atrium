@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
 
 /**
  * Option step which allows to decide what should be done with the extracted feature of type [R].
@@ -17,6 +18,6 @@ import ch.tutteli.atrium.creating.Expect
  */
 class ExtractedFeaturePostStep<T, R>(
     assertionContainer: Expect<T>,
-    extract: Expect<T>.() -> Expect<R>,
+    extract: Expect<T>.() -> FeatureExpect<T, R>,
     extractAndApply: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>
-) : PostFinalStep<T, R>(assertionContainer, extract, extractAndApply)
+) : PostFinalStep<T, R, FeatureExpect<T, R>>(assertionContainer, extract, extractAndApply)
