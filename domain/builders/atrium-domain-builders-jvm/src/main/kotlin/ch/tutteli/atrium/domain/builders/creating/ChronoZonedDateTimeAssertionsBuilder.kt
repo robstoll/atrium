@@ -20,4 +20,7 @@ object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
 
     override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T) =
         chronoZonedDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
+
+    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(assertionContainer: Expect<T>, expected: T) =
+        chronoZonedDateTimeAssertions.isBefore(assertionContainer, expected)
 }

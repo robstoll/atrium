@@ -12,3 +12,6 @@ fun <D: ChronoLocalDate, T : ChronoZonedDateTime<D>> _isAfter(assertionContainer
 
 fun <D: ChronoLocalDate, T : ChronoZonedDateTime<D>> _isBeforeOrEquals(assertionContainer: Expect<T>, expected: T): Assertion =
     ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE_OR_EQUALS, expected) { it.isBefore(expected) || it.isEqual(expected) }
+
+fun <D: ChronoLocalDate, T : ChronoZonedDateTime<D>> _isBefore(assertionContainer: Expect<T>, expected: T): Assertion =
+    ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE, expected) { it.isBefore(expected) }
