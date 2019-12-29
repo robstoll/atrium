@@ -1,3 +1,5 @@
+@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.Expect
@@ -12,6 +14,10 @@ import java.time.chrono.ChronoZonedDateTime
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
+
     override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isAfter(assertionContainer: Expect<T>, expected: T) =
         chronoZonedDateTimeAssertions.isAfter(assertionContainer, expected)
+
+    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T) =
+        chronoZonedDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
 }

@@ -10,20 +10,22 @@ import org.spekframework.spek2.style.specification.describe
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-
 const val SPEK_ZONE_ID = "Europe/Zurich"
 
 abstract class ChronoZonedDateTimeAssertionSpec(
     isAfter: Fun1<ZonedDateTime, ZonedDateTime>,
+    isBeforeOrEquals: Fun1<ZonedDateTime, ZonedDateTime>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<ZonedDateTime>(
         describePrefix,
-        isAfter.forSubjectLess(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
+        isAfter.forSubjectLess(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID))),
+        isBeforeOrEquals.forSubjectLess(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
     ){})
 
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
 
     val fluent = expect(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
 
@@ -43,6 +45,21 @@ abstract class ChronoZonedDateTimeAssertionSpec(
             }
             it("2019-12-24T10:15:30.210+01:00 does not throw") {
                 fluent.isAfterFun(ZonedDateTime.of(2019, 12, 24,10,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
+            }
+        }
+        describe("${isBeforeOrEquals.name} ...") {
+            val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+
+            it("2019-12-24T12:15:30.210+01:00 does not throw") {
+                fluent.isBeforeOrEqualsFun(ZonedDateTime.of(2019, 12, 24,12,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
+            }
+            it("2019-12-24T11:15:30.210+01:00 does not throw") {
+                fluent.isBeforeOrEqualsFun(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
+            }
+            it("2019-12-24T10:15:30.210+01:00 throws an AssertionError") {
+                expect {
+                    fluent.isBeforeOrEqualsFun(ZonedDateTime.of(2019, 12, 24,10,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
+                }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: 2019-12-24T10:15:30.000000210+01:00[Europe/Zurich]")}
             }
         }
     }
