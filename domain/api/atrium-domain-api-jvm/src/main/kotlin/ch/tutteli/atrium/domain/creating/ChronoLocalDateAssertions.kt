@@ -19,4 +19,5 @@ val chronoLocalDateAssertions by lazy { loadSingleService(ChronoLocalDateAsserti
 interface ChronoLocalDateAssertions {
     fun <T : ChronoLocalDate> isAfter(assertionContainer: Expect<T>, expected: T): Assertion
     fun <T : ChronoLocalDate> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T): Assertion
+    fun <T : ChronoLocalDate> isBefore(assertionContainer: Expect<T>, expected: T): Assertion
 }

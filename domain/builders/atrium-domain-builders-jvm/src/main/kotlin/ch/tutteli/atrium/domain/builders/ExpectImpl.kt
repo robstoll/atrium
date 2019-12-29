@@ -33,6 +33,7 @@ inline val ExpectImpl.path get() = PathAssertionsBuilder
 inline val ExpectImpl.chronoLocalDate get() = ChronoLocalDateAssertionsBuilder
 
 /**
+<<<<<<< HEAD
  * Returns [ChronoLocalDateTimeAssertionsBuilder]
  * which inter alia delegates to the implementation of [ChronoLocalDateTimeAssertions].
  */
@@ -45,6 +46,8 @@ inline val ExpectImpl.chronoLocalDateTime get() = ChronoLocalDateTimeAssertionsB
 inline val ExpectImpl.chronoZonedDateTime get() = ChronoZonedDateTimeAssertionsBuilder
 
 /**
+=======
+>>>>>>> 691797d453184acdc258795f03d59ce29be7888b
  * Returns [LocalDateAssertionsBuilder]
  * which inter alia delegates to the implementation of [LocalDateAssertions].
  */
