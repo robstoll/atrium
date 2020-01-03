@@ -17,12 +17,20 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
         private fun ambiguityTest() {
             var a1: Expect<Result<Int>> = notImplemented()
             var a2: Expect<out Result<Int>> = notImplemented()
+            var a1b: Expect<Result<Int>> = notImplemented()
+            var a2b: Expect<out Result<Int>> = notImplemented()
+
             var a3: Expect<Result<*>> = notImplemented()
 
             a1.isSuccess()
             a1 = a1.isSuccess { }
             a2.isSuccess();
             a2 = a2.isSuccess { }
+
+            a1b.isSuccess()
+            a1b = a1b.isSuccess { }
+            a2b.isSuccess();
+            a2b = a2b.isSuccess { }
 
             a3.isSuccess()
             a3 = a3.isSuccess { }
