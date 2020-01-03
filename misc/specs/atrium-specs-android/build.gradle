@@ -16,8 +16,9 @@ dependencies {
 
 
     // exclude these dependencies in case you want to use another implementation
-    runtimeOnly prefixedProject('domain-robstoll-android')
     runtimeOnly prefixedProject('core-robstoll-android')
+    runtimeOnly prefixedProject('domain-robstoll-android')
+    runtimeOnly prefixedProject('domain-robstoll-kotlin_1_3-android')
 
     //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-android')

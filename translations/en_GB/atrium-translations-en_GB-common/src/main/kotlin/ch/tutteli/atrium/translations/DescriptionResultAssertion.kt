@@ -8,5 +8,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionResultAssertion(override val value: String) : StringBasedTranslatable {
     VALUE("value"),
-    ILLEGAL_STATE_EXCEPTION("Illegal state exception !!")
+    IS_NOT_SUCCESS("!! is not a Success")
 }
