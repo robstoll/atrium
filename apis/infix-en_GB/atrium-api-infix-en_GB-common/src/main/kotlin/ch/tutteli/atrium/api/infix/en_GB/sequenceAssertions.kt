@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject
  * The transformation as such is not reflected in reporting.
  * Use `feature(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
- * @return The newly created [AssertionPlant] for the transformed subject.
+ * @return The newly created [Expect] for the transformed subject.
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>>
     = changeSubject(this).unreported { it.asIterable() }
