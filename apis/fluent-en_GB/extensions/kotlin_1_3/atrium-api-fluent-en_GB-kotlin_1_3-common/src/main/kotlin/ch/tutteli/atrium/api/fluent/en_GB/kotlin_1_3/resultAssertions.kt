@@ -1,6 +1,28 @@
 package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
 
-//TODO copy KDoc from another assertion which includes a check, e.g. listAssertions.kt -> get
-fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = TODO("implement")
+/**
+ * Expects that the subject of the assertion (a [Result]) is a Success
+ * and returns an [Expect] for the inner type [E].
+ *
+ * @return The newly created [Expect] if the given assertion is success
+ * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
+ *
+ * @since 0.9.0
+ */
+fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSuccess(this).getExpectOfFeature()
+
+/**
+ * Expects that the subject of the assertion (a [Result]) is a Success and
+ * that it holds all assertions the given [assertionCreator] creates.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
+ *
+ * @since 0.9.0
+ */
+fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.result.isSuccess(this).addToInitial(assertionCreator)

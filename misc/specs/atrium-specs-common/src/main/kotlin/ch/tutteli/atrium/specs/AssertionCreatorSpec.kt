@@ -47,5 +47,4 @@ fun <T> assertionCreatorSpecTriple(
     containsNot: String,
     assertionCreatorOk: Expect<T>.() -> Expect<T>,
     assertionCreatorFail: Expect<T>.() -> Expect<T>
-) =
-    Triple(name, containsNot, assertionCreatorOk to assertionCreatorFail)
+) = Triple(name, containsNot, assertionCreatorOk to assertionCreatorFail)
