@@ -20,4 +20,5 @@ val chronoZonedDateTimeAssertions by lazy { loadSingleService(ChronoZonedDateTim
 interface ChronoZonedDateTimeAssertions {
     fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isAfter(assertionContainer: Expect<T>, expected: T): Assertion
     fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T): Assertion
+    fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(assertionContainer: Expect<T>, expected: T): Assertion
 }
