@@ -15,4 +15,3 @@ fun <E, T : Result<E>> _isSuccess(assertionContainer: Expect<T>): ExtractedFeatu
         }
         .withoutOptions()
         .build()
-

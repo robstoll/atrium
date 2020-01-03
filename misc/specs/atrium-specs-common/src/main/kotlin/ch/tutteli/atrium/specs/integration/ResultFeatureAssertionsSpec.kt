@@ -50,7 +50,7 @@ abstract class ResultFeatureAssertionsSpec(
 
     val isNotSuccessDescr = DescriptionResultAssertion.IS_NOT_SUCCESS.getDefault()
 
-    describeFun("${isSuccessFeature.name} feature") {
+    describeFun("${isSuccessFeature.name} feature" /* TODO #204: , "${isFailureFeature.name} feature" */) {
         val isSuccessFun = isSuccessFeature.lambda
 
         context("$resultSuccess") {
@@ -64,6 +64,10 @@ abstract class ResultFeatureAssertionsSpec(
                     messageContains("value: 1", "$toBeDescr: 2")
                 }
             }
+            //TODO #204
+            //it("${isFailureFeature.name} - throws AssertionError showing the expected type") {
+            //    ...
+            //}
         }
 
         context("$resultFailure") {
@@ -77,7 +81,7 @@ abstract class ResultFeatureAssertionsSpec(
         }
     }
 
-    describeFun(isSuccess.name) {
+    describeFun(isSuccess.name /* TODO #204: , "${isFailureFeature.name}" */) {
         val isSuccessFun = isSuccess.lambda
 
         context("$resultSuccess") {
@@ -91,6 +95,10 @@ abstract class ResultFeatureAssertionsSpec(
                     messageContains("value: 1", "$toBeDescr: 2")
                 }
             }
+            //TODO #204
+            //it("${isFailureFeature.name} - throws AssertionError showing the expected type and the expected message") {
+            //    ...
+            //}
         }
 
         context("$resultFailure") {
