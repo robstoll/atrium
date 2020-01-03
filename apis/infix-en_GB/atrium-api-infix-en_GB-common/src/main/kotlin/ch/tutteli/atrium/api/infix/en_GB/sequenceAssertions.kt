@@ -6,7 +6,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject
  * Turns `Expect<E, T : Sequence<E>>` into `Expect<Iterable<E>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
+ * Use `feature(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
