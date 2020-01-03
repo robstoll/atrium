@@ -24,12 +24,12 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
 
             a1.isSuccess()
             a1 = a1.isSuccess { }
-            a2.isSuccess();
+            a2.isSuccess()
             a2 = a2.isSuccess { }
 
             a1b.isSuccess()
             a1b = a1b.isSuccess { }
-            a2b.isSuccess();
+            a2b.isSuccess()
             a2b = a2b.isSuccess { }
 
             a3.isSuccess()
