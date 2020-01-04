@@ -13,17 +13,20 @@ import java.time.chrono.ChronoLocalDate
 abstract class ChronoLocalDateAssertionSpec(
     isAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isBeforeOrEquals: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<ChronoLocalDate>(
         describePrefix,
         isAfter.forSubjectLess(LocalDate.of(2019, 12, 23)),
-        isBeforeOrEquals.forSubjectLess(LocalDate.of(2019, 12, 23))
+        isBeforeOrEquals.forSubjectLess(LocalDate.of(2019, 12, 23)),
+        isBefore.forSubjectLess(LocalDate.of(2019, 12, 23))
     ){})
 
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
     val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
 
     val fluent = expect(LocalDate.of(2019, 12, 23) as ChronoLocalDate)
 
@@ -58,6 +61,23 @@ abstract class ChronoLocalDateAssertionSpec(
                 expect {
                     fluent.isBeforeOrEqualsFun(LocalDate.of(2019, 12, 22))
                 }.toThrow<AssertionError> {messageContains("$isBeforeOrEqualsDescr: 2019-12-22")}
+            }
+        }
+        describe("${isBefore.name} ...") {
+            val isBeforeFun = isBefore.lambda
+
+            it("... 2019/12/24 does not throw") {
+                fluent.isBeforeFun(LocalDate.of(2019, 12, 24))
+            }
+            it("... 2019/12/23 throws an AssertionError") {
+                expect{
+                    fluent.isBeforeFun(LocalDate.of(2019, 12, 23))
+                }.toThrow<AssertionError> {messageContains("$isBeforeDescr: 2019-12-23")}
+            }
+            it("... 2019/12/22 throws an AssertionError") {
+                expect {
+                    fluent.isBeforeFun(LocalDate.of(2019, 12, 22))
+                }.toThrow<AssertionError> {messageContains("$isBeforeDescr: 2019-12-22")}
             }
         }
     }

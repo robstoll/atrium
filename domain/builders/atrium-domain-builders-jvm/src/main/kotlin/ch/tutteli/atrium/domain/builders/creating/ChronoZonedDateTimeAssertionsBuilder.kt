@@ -2,6 +2,7 @@
 
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions
 import ch.tutteli.atrium.domain.creating.chronoZonedDateTimeAssertions
@@ -20,4 +21,7 @@ object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
 
     override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T) =
         chronoZonedDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
+
+    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(assertionContainer: Expect<T>, expected: T) =
+        chronoZonedDateTimeAssertions.isBefore(assertionContainer, expected)
 }

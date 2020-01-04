@@ -15,17 +15,20 @@ import java.time.chrono.ChronoLocalDateTime
 abstract class ChronoLocalDateTimeAssertionSpec(
     isAfter: Fun1<LocalDateTime, LocalDateTime>,
     isBeforeOrEquals: Fun1<LocalDateTime, LocalDateTime>,
+    isBefore: Fun1<LocalDateTime, LocalDateTime>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<LocalDateTime>(
         describePrefix,
         isAfter.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30)),
-        isBeforeOrEquals.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30))
+        isBeforeOrEquals.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30)),
+        isBefore.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30))
     ){})
 
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
     val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
 
     val fluent = expect(LocalDateTime.of(2019, 12, 24, 11, 15, 30))
 
@@ -60,6 +63,23 @@ abstract class ChronoLocalDateTimeAssertionSpec(
                 expect {
                     fluent.isBeforeOrEqualsFun(LocalDateTime.of(2019,12,24,10,15,30))
                 }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: 2019-12-24T10:15:30")}
+            }
+        }
+        describe("${isBefore.name} ...") {
+            val isBeforeFun = isBefore.lambda
+
+            it("2019-12-24T12:15:30 does not throw") {
+                fluent.isBeforeFun(LocalDateTime.of(2019,12,24,12,15,30))
+            }
+            it("2019-12-24T11:15:30 throws an AssertionError") {
+                expect{
+                    fluent.isBeforeFun(LocalDateTime.of(2019,12,24,11,15,30))
+                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: 2019-12-24T11:15:30")}
+            }
+            it("2019-12-24T:10:15:30 throws an AssertionError") {
+                expect {
+                    fluent.isBeforeFun(LocalDateTime.of(2019,12,24,10,15,30))
+                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: 2019-12-24T10:15:30")}
             }
         }
     }
