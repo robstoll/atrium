@@ -13,7 +13,7 @@ class ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.Chr
     fun1(Expect<ZonedDateTime>::isBeforeOrEquals),
     fun1(Expect<ZonedDateTime>::isAfter)
 ) {
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused", "UNUSED_VALUE", /* TODO #289 remove again => */ "UNUSED_VARIABLE")
     private fun ambiguityTest() {
         val chronoZonedDateTime: ChronoZonedDateTime<*> = notImplemented()
         var a1: Expect<ChronoZonedDateTime<ChronoLocalDate>> = notImplemented()
