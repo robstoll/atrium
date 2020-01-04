@@ -1,3 +1,5 @@
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -17,7 +19,7 @@ val chronoLocalDateAssertions by lazy { loadSingleService(ChronoLocalDateAsserti
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ChronoLocalDateAssertions {
+    fun <T : ChronoLocalDate> isBefore(assertionContainer: Expect<T>, expected: T): Assertion
     fun <T : ChronoLocalDate> isAfter(assertionContainer: Expect<T>, expected: T): Assertion
     fun <T : ChronoLocalDate> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T): Assertion
-    fun <T : ChronoLocalDate> isBefore(assertionContainer: Expect<T>, expected: T): Assertion
 }
