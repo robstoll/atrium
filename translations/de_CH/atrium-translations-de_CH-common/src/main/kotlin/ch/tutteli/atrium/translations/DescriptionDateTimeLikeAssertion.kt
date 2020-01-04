@@ -11,8 +11,8 @@ enum class DescriptionDateTimeLikeAssertion(override val value: String) : String
     YEAR("Jahr"),
     MONTH("Monat"),
     DAY_OF_WEEK("Wochentag"),
-    IS_AFTER("ist nach dem"),
-    IS_BEFORE_OR_EQUALS("ist am oder vor dem"),
+    IS_AFTER("ist nach"),
+    IS_BEFORE_OR_EQUALS("ist vor oder gleichzeitig"),
     IS_BEFORE("ist vor"),
     DAY("Tag")
 }
