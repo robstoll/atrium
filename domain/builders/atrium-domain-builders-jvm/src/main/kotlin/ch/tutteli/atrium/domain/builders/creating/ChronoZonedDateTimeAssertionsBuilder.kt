@@ -1,4 +1,8 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress(
+    "OVERRIDE_BY_INLINE",
+    "NOTHING_TO_INLINE",
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+)
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -16,12 +20,18 @@ import java.time.chrono.ChronoZonedDateTime
  */
 object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
 
-    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isAfter(assertionContainer: Expect<T>, expected: T) =
-        chronoZonedDateTimeAssertions.isAfter(assertionContainer, expected)
+    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(
+        assertionContainer: Expect<T>,
+        expected: T
+    ) = chronoZonedDateTimeAssertions.isBefore(assertionContainer, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T) =
-        chronoZonedDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
+    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(
+        assertionContainer: Expect<T>,
+        expected: T
+    ) = chronoZonedDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(assertionContainer: Expect<T>, expected: T) =
-        chronoZonedDateTimeAssertions.isBefore(assertionContainer, expected)
+    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isAfter(
+        assertionContainer: Expect<T>,
+        expected: T
+    ) = chronoZonedDateTimeAssertions.isAfter(assertionContainer, expected)
 }

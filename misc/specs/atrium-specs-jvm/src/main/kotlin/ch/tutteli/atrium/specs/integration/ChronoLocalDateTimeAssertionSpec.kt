@@ -7,79 +7,81 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.chrono.ChronoLocalDate
-import java.time.chrono.ChronoLocalDateTime
 
 abstract class ChronoLocalDateTimeAssertionSpec(
-    isAfter: Fun1<LocalDateTime, LocalDateTime>,
-    isBeforeOrEquals: Fun1<LocalDateTime, LocalDateTime>,
     isBefore: Fun1<LocalDateTime, LocalDateTime>,
+    isBeforeOrEquals: Fun1<LocalDateTime, LocalDateTime>,
+    isAfter: Fun1<LocalDateTime, LocalDateTime>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    val ten = LocalDateTime.of(2019, 12, 24, 10, 15, 30)
+    val eleven = LocalDateTime.of(2019, 12, 24, 11, 15, 30)
+    val twelve = LocalDateTime.of(2019, 12, 24, 12, 15, 30)
+
     include(object : SubjectLessSpec<LocalDateTime>(
         describePrefix,
-        isAfter.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30)),
-        isBeforeOrEquals.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30)),
-        isBefore.forSubjectLess(LocalDateTime.of(2019, 12, 24, 11, 15, 30))
-    ){})
+        isBefore.forSubjectLess(eleven),
+        isBeforeOrEquals.forSubjectLess(eleven),
+        isAfter.forSubjectLess(eleven)
+    ) {})
 
-    val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
-    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
+    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
 
-    val fluent = expect(LocalDateTime.of(2019, 12, 24, 11, 15, 30))
+    val fluent = expect(eleven)
 
-    describe("$describePrefix contextSubject is 2019-12-24T11:15:30") {
-        describe("${isAfter.name} ...") {
-            val isAfterFun = isAfter.lambda
+    describe("$describePrefix subject is $eleven") {
+        describe("${isBefore.name} ...") {
+            val isBeforeFun = isBefore.lambda
 
-            it("2019-12-24T12:15:30 throws an AssertionError") {
+            it("$ten throws an AssertionError") {
                 expect {
-                    fluent.isAfterFun(LocalDateTime.of(2019,12,24,12,15,30))
-                }.toThrow<AssertionError> { messageContains("$isAfterDescr: 2019-12-24T12:15:30") }
+                    fluent.isBeforeFun(ten)
+                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $ten") }
             }
-            it("2019-12-24T11:15:30 throws an AssertionError") {
+            it("$eleven throws an AssertionError") {
                 expect {
-                    fluent.isAfterFun(LocalDateTime.of(2019,12,24,11,15,30))
-                }.toThrow<AssertionError> { messageContains("$isAfterDescr: 2019-12-24T11:15:30") }
+                    fluent.isBeforeFun(eleven)
+                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $eleven") }
             }
-            it("2019-12-24T:10:15:30 does not throw") {
-                fluent.isAfterFun(LocalDateTime.of(2019,12,24,10,15,30))
+            it("$twelve does not throw") {
+                fluent.isBeforeFun(twelve)
             }
         }
         describe("${isBeforeOrEquals.name} ...") {
             val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
 
-            it("2019-12-24T12:15:30 does not throw") {
-                fluent.isBeforeOrEqualsFun(LocalDateTime.of(2019,12,24,12,15,30))
-            }
-            it("2019-12-24T11:15:30 does not throw") {
-                fluent.isBeforeOrEqualsFun(LocalDateTime.of(2019,12,24,11,15,30))
-            }
-            it("2019-12-24T:10:15:30 throws an AssertionError") {
+            it("$ten throws an AssertionError") {
                 expect {
-                    fluent.isBeforeOrEqualsFun(LocalDateTime.of(2019,12,24,10,15,30))
-                }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: 2019-12-24T10:15:30")}
+                    fluent.isBeforeOrEqualsFun(ten)
+                }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: $ten") }
+            }
+            it("$eleven does not throw") {
+                fluent.isBeforeOrEqualsFun(eleven)
+            }
+            it("$twelve does not throw") {
+                fluent.isBeforeOrEqualsFun(twelve)
             }
         }
-        describe("${isBefore.name} ...") {
-            val isBeforeFun = isBefore.lambda
 
-            it("2019-12-24T12:15:30 does not throw") {
-                fluent.isBeforeFun(LocalDateTime.of(2019,12,24,12,15,30))
+        describe("${isAfter.name} ...") {
+            val isAfterFun = isAfter.lambda
+
+            it("$ten does not throw") {
+                fluent.isAfterFun(ten)
             }
-            it("2019-12-24T11:15:30 throws an AssertionError") {
-                expect{
-                    fluent.isBeforeFun(LocalDateTime.of(2019,12,24,11,15,30))
-                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: 2019-12-24T11:15:30")}
-            }
-            it("2019-12-24T:10:15:30 throws an AssertionError") {
+            it("$eleven throws an AssertionError") {
                 expect {
-                    fluent.isBeforeFun(LocalDateTime.of(2019,12,24,10,15,30))
-                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: 2019-12-24T10:15:30")}
+                    fluent.isAfterFun(eleven)
+                }.toThrow<AssertionError> { messageContains("$isAfterDescr: $eleven") }
+            }
+            it("$twelve throws an AssertionError") {
+                expect {
+                    fluent.isAfterFun(twelve)
+                }.toThrow<AssertionError> { messageContains("$isAfterDescr: $twelve") }
             }
         }
     }

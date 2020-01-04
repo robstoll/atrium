@@ -8,78 +8,88 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
-const val SPEK_ZONE_ID = "Europe/Zurich"
-
 abstract class ChronoZonedDateTimeAssertionSpec(
-    isAfter: Fun1<ZonedDateTime, ZonedDateTime>,
-    isBeforeOrEquals: Fun1<ZonedDateTime, ZonedDateTime>,
     isBefore: Fun1<ZonedDateTime, ZonedDateTime>,
+    isBeforeOrEquals: Fun1<ZonedDateTime, ZonedDateTime>,
+    isAfter: Fun1<ZonedDateTime, ZonedDateTime>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    val ten = ZonedDateTime.of(2019, 12, 24, 10, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+    val eleven = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+    val twelve = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+
     include(object : SubjectLessSpec<ZonedDateTime>(
         describePrefix,
-        isAfter.forSubjectLess(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID))),
-        isBeforeOrEquals.forSubjectLess(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID))),
-        isBefore.forSubjectLess(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-    ){})
+        isBefore.forSubjectLess(eleven),
+        isBeforeOrEquals.forSubjectLess(eleven),
+        isAfter.forSubjectLess(eleven)
+    ) {})
 
-    val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
-    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
+    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
 
-    val fluent = expect(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
 
-    describe("$describePrefix contextSubject 2019-12-24T11:15:30.210+01:00") {
-        describe("${isAfter.name} ...") {
-            val isAfterFun = isAfter.lambda
+    listOf(
+        eleven,
+        eleven.withZoneSameInstant(ZoneOffset.UTC)
+    ).forEach { subject ->
 
-            it("2019-12-24T12:15:30.210+01:00 throws an AssertionError") {
-                expect {
-                    fluent.isAfterFun(ZonedDateTime.of(2019, 12, 24,12,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-                }.toThrow<AssertionError> { messageContains("$isAfterDescr: 2019-12-24T12:15:30.000000210+01:00[Europe/Zurich]") }
-            }
-            it("2019-12-24T11:15:30.210+01:00 throws an AssertionError") {
-                expect {
-                    fluent.isAfterFun(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-                }.toThrow<AssertionError> { messageContains("$isAfterDescr: 2019-12-24T11:15:30.000000210+01:00[Europe/Zurich]") }
-            }
-            it("2019-12-24T10:15:30.210+01:00 does not throw") {
-                fluent.isAfterFun(ZonedDateTime.of(2019, 12, 24,10,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-            }
-        }
-        describe("${isBeforeOrEquals.name} ...") {
-            val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+        val fluent = expect(subject)
 
-            it("2019-12-24T12:15:30.210+01:00 does not throw") {
-                fluent.isBeforeOrEqualsFun(ZonedDateTime.of(2019, 12, 24,12,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-            }
-            it("2019-12-24T11:15:30.210+01:00 does not throw") {
-                fluent.isBeforeOrEqualsFun(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-            }
-            it("2019-12-24T10:15:30.210+01:00 throws an AssertionError") {
-                expect {
-                    fluent.isBeforeOrEqualsFun(ZonedDateTime.of(2019, 12, 24,10,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-                }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: 2019-12-24T10:15:30.000000210+01:00[Europe/Zurich]")}
-            }
-        }
-        describe("${isBefore.name} ...") {
-            val isBeforeFun = isBefore.lambda
+        describe("$describePrefix subject is $subject") {
+            describe("${isBefore.name} ...") {
+                val isBeforeFun = isBefore.lambda
 
-            it("2019-12-24T12:15:30.210+01:00 does not throw") {
-                fluent.isBeforeFun(ZonedDateTime.of(2019, 12, 24,12,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
+                it("$ten throws an AssertionError") {
+                    expect {
+                        fluent.isBeforeFun(ten)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $ten") }
+                }
+                it("$eleven does not throw") {
+                    expect {
+                        fluent.isBeforeFun(eleven)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $eleven") }
+                }
+                it("$twelve does not throw") {
+                    fluent.isBeforeFun(twelve)
+                }
             }
-            it("2019-12-24T11:15:30.210+01:00 does not throw") {
-                expect{
-                    fluent.isBeforeFun(ZonedDateTime.of(2019, 12, 24,11,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: 2019-12-24T11:15:30.000000210+01:00[Europe/Zurich]")}
+            describe("${isBeforeOrEquals.name} ...") {
+                val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+
+                it("$ten throws an AssertionError") {
+                    expect {
+                        fluent.isBeforeOrEqualsFun(ten)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: $ten") }
+                }
+                it("$eleven does not throw") {
+                    fluent.isBeforeOrEqualsFun(eleven)
+                }
+                it("$twelve does not throw") {
+                    fluent.isBeforeOrEqualsFun(twelve)
+                }
             }
-            it("2019-12-24T10:15:30.210+01:00 throws an AssertionError") {
-                expect {
-                    fluent.isBeforeFun(ZonedDateTime.of(2019, 12, 24,10,15,30, 210, ZoneId.of(SPEK_ZONE_ID)))
-                }.toThrow<AssertionError> { messageContains("$isBeforeDescr: 2019-12-24T10:15:30.000000210+01:00[Europe/Zurich]")}
+            describe("${isAfter.name} ...") {
+                val isAfterFun = isAfter.lambda
+
+                it("$ten does not throw") {
+                    fluent.isAfterFun(ten)
+                }
+                it("$eleven throws an AssertionError") {
+                    expect {
+                        fluent.isAfterFun(eleven)
+                    }.toThrow<AssertionError> { messageContains("$isAfterDescr: $eleven") }
+                }
+                it("$twelve throws an AssertionError") {
+                    expect {
+                        fluent.isAfterFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isAfterDescr: $twelve") }
+                }
             }
         }
     }

@@ -1,4 +1,8 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress(
+    "OVERRIDE_BY_INLINE",
+    "NOTHING_TO_INLINE",
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+)
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -15,12 +19,12 @@ import java.time.chrono.ChronoLocalDate
  */
 object ChronoLocalDateAssertionsBuilder : ChronoLocalDateAssertions {
 
-    override inline fun <T : ChronoLocalDate> isAfter(assertionContainer: Expect<T>, expected: T) =
-        chronoLocalDateAssertions.isAfter(assertionContainer, expected)
+    override inline fun <T : ChronoLocalDate> isBefore(assertionContainer: Expect<T>, expected: T) =
+        chronoLocalDateAssertions.isBefore(assertionContainer, expected)
 
     override inline fun <T : ChronoLocalDate> isBeforeOrEquals(assertionContainer: Expect<T>, expected: T) =
         chronoLocalDateAssertions.isBeforeOrEquals(assertionContainer, expected)
 
-    override inline fun <T : ChronoLocalDate> isBefore(assertionContainer: Expect<T>, expected: T) =
-        chronoLocalDateAssertions.isBefore(assertionContainer, expected)
+    override inline fun <T : ChronoLocalDate> isAfter(assertionContainer: Expect<T>, expected: T) =
+        chronoLocalDateAssertions.isAfter(assertionContainer, expected)
 }
