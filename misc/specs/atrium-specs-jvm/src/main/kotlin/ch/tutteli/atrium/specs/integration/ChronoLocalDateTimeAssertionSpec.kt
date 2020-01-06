@@ -19,9 +19,9 @@ abstract class ChronoLocalDateTimeAssertionSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val ten : ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 10, 15, 30)
-    val eleven : ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 11, 15, 30)
-    val twelve : ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 12, 15, 30)
+    val ten: ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 10, 15, 30)
+    val eleven: ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 11, 15, 30)
+    val twelve: ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 12, 15, 30)
 
     include(object : SubjectLessSpec<ChronoLocalDateTime<*>>(
         describePrefix,
