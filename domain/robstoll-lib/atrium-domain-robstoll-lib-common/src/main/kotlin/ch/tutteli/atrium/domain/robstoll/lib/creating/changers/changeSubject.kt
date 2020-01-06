@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.trueProvider
