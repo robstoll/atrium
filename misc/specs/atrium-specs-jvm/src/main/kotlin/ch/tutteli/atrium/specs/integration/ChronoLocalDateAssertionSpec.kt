@@ -18,9 +18,9 @@ abstract class ChronoLocalDateAssertionSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val december22: ChronoLocalDate = LocalDate.of(2019, 12, 22)
-    val december23: ChronoLocalDate = LocalDate.of(2019, 12, 23)
-    val december24: ChronoLocalDate = LocalDate.of(2019, 12, 24)
+    val december22 = LocalDate.of(2019, 12, 22)
+    val december23 = LocalDate.of(2019, 12, 23)
+    val december24 = LocalDate.of(2019, 12, 24)
 
     include(object : SubjectLessSpec<ChronoLocalDate>(
         describePrefix,
@@ -33,7 +33,7 @@ abstract class ChronoLocalDateAssertionSpec(
     val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
 
-    listOf(
+    listOf<ChronoLocalDate>(
         december23,
         JapaneseDate.of(2019, 12, 23)
     ).forEach { subject ->
