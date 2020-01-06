@@ -31,19 +31,17 @@ class ChronoLocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.Chrono
         a1 = a1.isBeforeOrEquals(JapaneseDate.now())
         a1 = a1.isAfter(JapaneseDate.now())
 
-        //TODO #289 we need to change the signature, this should actually be supported
-//        a2 = a2.isBefore(JapaneseDate.now())
-//        a2 = a2.isBeforeOrEquals(JapaneseDate.now())
-//        a2 = a2.isAfter(JapaneseDate.now())
+        a2 = a2.isBefore(JapaneseDate.now())
+        a2 = a2.isBeforeOrEquals(JapaneseDate.now())
+        a2 = a2.isAfter(JapaneseDate.now())
 
 
         a1 = a1.isBefore(chronoLocalDate)
         a1 = a1.isBeforeOrEquals(chronoLocalDate)
         a1 = a1.isAfter(chronoLocalDate)
 
-        //TODO #289 we need to change the signature, this should actually be supported
-//        a2 = a2.isBefore(chronoLocalDate)
-//        a2 = a2.isBeforeOrEquals(chronoLocalDate)
-//        a2 = a2.isAfter(chronoLocalDate)
+        a2 = a2.isBefore(chronoLocalDate)
+        a2 = a2.isBeforeOrEquals(chronoLocalDate)
+        a2 = a2.isAfter(chronoLocalDate)
     }
 }

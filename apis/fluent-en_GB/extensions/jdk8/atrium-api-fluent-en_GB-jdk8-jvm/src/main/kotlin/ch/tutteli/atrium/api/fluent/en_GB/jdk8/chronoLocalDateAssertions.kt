@@ -16,8 +16,7 @@ import java.time.chrono.ChronoLocalDate
  *
  * @since 0.9.0
  */
-//TODO #289 should accept ChronoLocalDate, same same but different for other methods
-fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: T): Expect<T> =
+fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBefore(this, expected))
 
 /**
@@ -29,7 +28,7 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: T): Expect<T> =
  *
  * @since 0.9.0
  */
-fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEquals(expected: T): Expect<T> =
+fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEquals(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBeforeOrEquals(this, expected))
 
 
@@ -42,5 +41,5 @@ fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEquals(expected: T): Expect<T> =
  *
  * @since 0.9.0
  */
-fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: T): Expect<T> =
+fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isAfter(this, expected))

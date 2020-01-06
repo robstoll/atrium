@@ -20,18 +20,18 @@ import java.time.chrono.ChronoLocalDateTime
  */
 object ChronoLocalDateTimeAssertionsBuilder : ChronoLocalDateTimeAssertions {
 
-    override inline fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isBefore(
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         assertionContainer: Expect<T>,
-        expected: T
+        expected: ChronoLocalDateTime<*>
     ) = chronoLocalDateTimeAssertions.isBefore(assertionContainer, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isBeforeOrEquals(
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
         assertionContainer: Expect<T>,
-        expected: T
+        expected: ChronoLocalDateTime<*>
     ) = chronoLocalDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isAfter(
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
         assertionContainer: Expect<T>,
-        expected: T
+        expected: ChronoLocalDateTime<*>
     ) = chronoLocalDateTimeAssertions.isAfter(assertionContainer, expected)
 }
