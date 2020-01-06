@@ -25,14 +25,16 @@ script:
         ./gr build
       fi
     elif [ $MODE == bbc ]; then
-        ./gr bbcTests
+      ./gr bbcTests
     else
-        ./gr bcTests
+      ./gr bcTests
     fi
+
   - |
-      if [ $MODE == current ]; then
-        samples/jvm/spek/gradlew -p ./samples/jvm/spek build
-      fi
+    if [ $MODE == current ]; then
+      samples/jvm/spek/gradlew -p ./samples/jvm/spek build
+    fi
+
   - |
     if [ $MODE == current ]; then
       samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
@@ -56,3 +58,4 @@ cache:
   directories:
     - $HOME/.gradle/wrapper/
     - $HOME/.gradle/caches/
+    - ./gradle/node_modules

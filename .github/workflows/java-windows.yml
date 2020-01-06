@@ -18,7 +18,9 @@ jobs:
                     java-version: ${{ matrix.java_version }}
             -   name: Build with Gradle
                 run: ./gr jvmBuild
+
             -   name: build sample atrium+spek project
                 run: samples\jvm\spek\gradlew -p samples\jvm\spek build
+
             -   name: Build sample atrium+junit5 project
                 run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
