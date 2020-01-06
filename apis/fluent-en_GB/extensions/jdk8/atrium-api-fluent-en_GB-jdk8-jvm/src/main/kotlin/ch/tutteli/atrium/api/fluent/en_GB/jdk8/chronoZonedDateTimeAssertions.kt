@@ -17,8 +17,7 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @since 0.9.0
  */
-//TODO #289 remove type parameter D, use  T : ChronoZonedDateTime<out ChronoLocalDate> and should accept ChronoZonedDateTime<*>, same same but different for other methods
-fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> Expect<T>.isBefore(expected: T): Expect<T> =
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: ChronoZonedDateTime<*>): Expect<T> =
     addAssertion(ExpectImpl.chronoZonedDateTime.isBefore(this, expected))
 
 /**
@@ -30,7 +29,7 @@ fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> Expect<T>.isBefore(expecte
  *
  * @since 0.9.0
  */
-fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> Expect<T>.isBeforeOrEquals(expected: T): Expect<T> =
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEquals(expected: ChronoZonedDateTime<*>): Expect<T> =
     addAssertion(ExpectImpl.chronoZonedDateTime.isBeforeOrEquals(this, expected))
 
 /**
@@ -42,5 +41,5 @@ fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> Expect<T>.isBeforeOrEquals
  *
  * @since 0.9.0
  */
-fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> Expect<T>.isAfter(expected: T): Expect<T> =
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(expected: ChronoZonedDateTime<*>): Expect<T> =
     addAssertion(ExpectImpl.chronoZonedDateTime.isAfter(this, expected))

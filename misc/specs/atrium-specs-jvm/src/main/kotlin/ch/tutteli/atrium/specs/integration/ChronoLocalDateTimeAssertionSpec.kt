@@ -9,20 +9,21 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.chrono.ChronoLocalDateTime
 import java.time.chrono.JapaneseDate
 
 abstract class ChronoLocalDateTimeAssertionSpec(
-    isBefore: Fun1<LocalDateTime, LocalDateTime>,
-    isBeforeOrEquals: Fun1<LocalDateTime, LocalDateTime>,
-    isAfter: Fun1<LocalDateTime, LocalDateTime>,
+    isBefore: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
+    isBeforeOrEquals: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
+    isAfter: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val ten = LocalDateTime.of(2019, 12, 24, 10, 15, 30)
-    val eleven = LocalDateTime.of(2019, 12, 24, 11, 15, 30)
-    val twelve = LocalDateTime.of(2019, 12, 24, 12, 15, 30)
+    val ten : ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 10, 15, 30)
+    val eleven : ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 11, 15, 30)
+    val twelve : ChronoLocalDateTime<*> = LocalDateTime.of(2019, 12, 24, 12, 15, 30)
 
-    include(object : SubjectLessSpec<LocalDateTime>(
+    include(object : SubjectLessSpec<ChronoLocalDateTime<*>>(
         describePrefix,
         isBefore.forSubjectLess(eleven),
         isBeforeOrEquals.forSubjectLess(eleven),
@@ -34,9 +35,8 @@ abstract class ChronoLocalDateTimeAssertionSpec(
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
 
     listOf(
-        eleven
-        //TODO #289 add the following case, adjust isBefore etc. to Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>
-//        JapaneseDate.of(2019, 12, 23).atTime(LocalTime.of(11, 15, 30))
+        eleven,
+        JapaneseDate.of(2019, 12, 24).atTime(LocalTime.of(11, 15, 30))
     ).forEach { subject ->
         val fluent = expect(subject)
 

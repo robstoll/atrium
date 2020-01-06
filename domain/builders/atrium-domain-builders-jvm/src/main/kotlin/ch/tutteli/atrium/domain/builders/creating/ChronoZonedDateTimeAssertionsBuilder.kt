@@ -20,18 +20,18 @@ import java.time.chrono.ChronoZonedDateTime
  */
 object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
 
-    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(
+    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
         assertionContainer: Expect<T>,
-        expected: T
+        expected: ChronoZonedDateTime<*>
     ) = chronoZonedDateTimeAssertions.isBefore(assertionContainer, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(
+    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEquals(
         assertionContainer: Expect<T>,
-        expected: T
+        expected: ChronoZonedDateTime<*>
     ) = chronoZonedDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isAfter(
+    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfter(
         assertionContainer: Expect<T>,
-        expected: T
+        expected: ChronoZonedDateTime<*>
     ) = chronoZonedDateTimeAssertions.isAfter(assertionContainer, expected)
 }

@@ -10,19 +10,20 @@ import org.spekframework.spek2.style.specification.describe
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import java.time.chrono.ChronoZonedDateTime
 
 abstract class ChronoZonedDateTimeAssertionSpec(
-    isBefore: Fun1<ZonedDateTime, ZonedDateTime>,
-    isBeforeOrEquals: Fun1<ZonedDateTime, ZonedDateTime>,
-    isAfter: Fun1<ZonedDateTime, ZonedDateTime>,
+    isBefore: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isBeforeOrEquals: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isAfter: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val ten = ZonedDateTime.of(2019, 12, 24, 10, 15, 30, 210, ZoneId.of("Europe/Zurich"))
-    val eleven = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 210, ZoneId.of("Europe/Zurich"))
-    val twelve = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+    val ten : ChronoZonedDateTime<*> = ZonedDateTime.of(2019, 12, 24, 10, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+    val eleven : ChronoZonedDateTime<*> = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+    val twelve : ChronoZonedDateTime<*> = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 210, ZoneId.of("Europe/Zurich"))
 
-    include(object : SubjectLessSpec<ZonedDateTime>(
+    include(object : SubjectLessSpec<ChronoZonedDateTime<*>>(
         describePrefix,
         isBefore.forSubjectLess(eleven),
         isBeforeOrEquals.forSubjectLess(eleven),
