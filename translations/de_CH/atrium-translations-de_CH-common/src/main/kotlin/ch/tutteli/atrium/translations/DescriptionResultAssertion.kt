@@ -8,5 +8,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionResultAssertion(override val value: String) : StringBasedTranslatable {
     IS_NOT_SUCCESS("❗❗ ist kein Success"),
-    VALUE("Wert")
+    VALUE("Wert"),
+    IS_NOT_FAILURE("❗❗  ist kein Fehler"),
+    EXCEPTION("Ausnahme")
 }
