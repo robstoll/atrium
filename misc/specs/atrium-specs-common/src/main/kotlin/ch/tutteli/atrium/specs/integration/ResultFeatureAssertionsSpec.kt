@@ -17,7 +17,6 @@ abstract class ResultFeatureAssertionsSpec(
     isSuccessNullableFeature: Feature0<Result<Int?>, Int?>,
     isSuccessNullable: Fun1<Result<Int?>, Expect<Int?>.() -> Unit>,
     isFailureFeature: Feature0<Result<Int>, IllegalArgumentException>,
-    isFailure: Feature1<Result<Int>, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

@@ -11,18 +11,12 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
     feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess),
     fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess),
-    "isFailure" to Companion::isFailureFeature,
-    "isFailure" to Companion::isFailure
+    "isFailure" to Companion::isFailureFeature
 ) {
     companion object {
         private fun isFailureFeature(expect: Expect<Result<Int>>) = expect.isFailure<IllegalArgumentException>()
 
-        private fun isFailure(
-            expect: Expect<out Result<Any>>,
-            assertionCreator: Expect<IllegalArgumentException>.() -> Unit
-        ) = expect.isFailure<IllegalArgumentException> { assertionCreator() }
-
-        @Suppress("unused", "UNUSED_VALUE")
+        @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
         private fun ambiguityTest() {
             var a1: Expect<Result<Int>> = notImplemented()
             var a2: Expect<out Result<Int>> = notImplemented()
