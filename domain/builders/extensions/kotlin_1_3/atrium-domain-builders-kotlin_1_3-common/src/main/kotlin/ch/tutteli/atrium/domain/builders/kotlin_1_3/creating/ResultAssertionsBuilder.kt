@@ -23,7 +23,7 @@ object ResultAssertionsBuilder : ResultAssertions {
     ) :  ExtractedFeaturePostStep<T, E> = resultAssertions.isSuccess(assertionContainer)
 
     override fun <TExpected : Throwable> isFailure(
-        assertionContainer: Expect<out Result<Any?>>,
+        assertionContainer: Expect<out Result<*>>,
         expectedType: KClass<TExpected>
     ) = resultAssertions.isFailure(assertionContainer, expectedType)
 }

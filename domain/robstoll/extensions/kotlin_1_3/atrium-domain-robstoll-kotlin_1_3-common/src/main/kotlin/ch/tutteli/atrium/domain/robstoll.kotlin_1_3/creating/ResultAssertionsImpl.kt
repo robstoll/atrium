@@ -11,7 +11,7 @@ class ResultAssertionsImpl : ResultAssertions {
     override fun <E, T : Result<E>> isSuccess(assertionContainer: Expect<T>) = _isSuccess(assertionContainer)
 
     override fun <TExpected : Throwable> isFailure(
-        assertionContainer: Expect<out Result<Any?>>,
+        assertionContainer: Expect<out Result<*>>,
         expectedType: KClass<TExpected>
     ) = _isFailure(assertionContainer, expectedType)
 }

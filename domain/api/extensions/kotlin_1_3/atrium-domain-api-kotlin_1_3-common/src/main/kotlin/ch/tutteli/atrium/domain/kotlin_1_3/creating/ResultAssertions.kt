@@ -21,7 +21,7 @@ interface ResultAssertions {
     fun <E, T : Result<E>> isSuccess(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
 
     fun <TExpected : Throwable> isFailure(
-        assertionContainer: Expect<out Result<Any?>>,
+        assertionContainer: Expect<out Result<*>>,
         expectedType: KClass<TExpected>
     ): ChangedSubjectPostStep<Throwable?, TExpected>
 }

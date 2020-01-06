@@ -24,7 +24,7 @@ fun <E, T : Result<E>> _isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T
         .build()
 
 fun <TExpected : Throwable> _isFailure(
-    assertionContainer: Expect<out Result<Any?>>,
+    assertionContainer: Expect<out Result<*>>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<Throwable?, TExpected>
 {

@@ -17,6 +17,7 @@ abstract class ResultFeatureAssertionsSpec(
     isSuccessNullableFeature: Feature0<Result<Int?>, Int?>,
     isSuccessNullable: Fun1<Result<Int?>, Expect<Int?>.() -> Unit>,
     isFailureFeature: Feature0<Result<Int>, IllegalArgumentException>,
+    isFailure: Feature1<Result<Int>, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -89,9 +90,9 @@ abstract class ResultFeatureAssertionsSpec(
         }
     }
 
-    describeFun(isSuccess.name, isFailureFeature.name) {
+    describeFun(isSuccess.name, isFailure.name) {
         val isSuccessFun = isSuccess.lambda
-        val isFailureFun = isFailureFeature.lambda
+        val isFailureFun = isFailure.lambda
 
         context("$resultSuccess") {
             it("${isSuccessFeature.name} - can perform sub-assertion which holds") {
@@ -106,7 +107,7 @@ abstract class ResultFeatureAssertionsSpec(
             }
             it("${isFailureFeature.name} - throws AssertionError showing the expected type and the expected message") {
                 expect {
-                    expect(resultSuccess).isFailureFun()
+                    expect(resultSuccess).isFailureFun {}
                 }.toThrow<AssertionError> {
                     messageContains("exception: $isNotFailureDescr",
                         "$isADescr: ${IllegalArgumentException::class.simpleName}")
