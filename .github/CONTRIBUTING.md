@@ -72,12 +72,12 @@ Fantastic, thanks for your effort!
 Following a small guidance how we suggest to start.
  
 1. Fork the repository to your repositories (see [Fork a repo](https://help.github.com/en/articles/fork-a-repo) for help). 
-2. Use an IDE which supports Kotlin and gradle projects
+2. Use an IDE which supports Kotlin and gradle projects.
    We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/)
    and install the following plugins:
    - EditorConfig by JetBrains (might be already activated)
    - Spek Framework by Spek Team
-3. Import the project (import the build.gradle -> import as project, works more reliable)
+3. Import the project (import the build.gradle -> import as project, works more reliably)
 4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gr build` 
    This builds the project (compile, run tests etc) via gradle (notice, we renamed `gradlew` to `gr`, more convenient no?) 
 5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
