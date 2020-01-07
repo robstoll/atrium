@@ -20,13 +20,13 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  */
 interface MapAssertions {
     fun <K, V : Any, T : Map<out K, V?>> contains(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         valueType: KClass<V>,
         keyValuePairs: List<Pair<K, V?>>
     ): Assertion
 
     fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
     ): Assertion
@@ -37,9 +37,9 @@ interface MapAssertions {
     fun isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion
 
-    fun <K, V, T : Map<out K, V>> getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V>
+    fun <K, V, T : Map<out K, V>> getExisting(expect: Expect<T>, key: K): ExtractedFeaturePostStep<T, V>
 
-    fun <T : Map<*, *>> size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int>
+    fun <T : Map<*, *>> size(expect: Expect<T>): ExtractedFeaturePostStep<T, Int>
 
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

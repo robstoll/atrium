@@ -20,8 +20,8 @@ val pairAssertions by lazy { loadSingleService(PairAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface PairAssertions {
-    fun <K, T : Pair<K, *>> first(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, K>
-    fun <V, T : Pair<*, V>> second(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, V>
+    fun <K, T : Pair<K, *>> first(expect: Expect<T>): ExtractedFeaturePostStep<T, K>
+    fun <V, T : Pair<*, V>> second(expect: Expect<T>): ExtractedFeaturePostStep<T, V>
 
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

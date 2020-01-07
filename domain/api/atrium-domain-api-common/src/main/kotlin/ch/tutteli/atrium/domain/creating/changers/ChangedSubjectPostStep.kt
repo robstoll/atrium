@@ -9,14 +9,14 @@ import ch.tutteli.atrium.creating.Expect
  * The purpose of the marker is extensibility, this way you can write a post-final-step which only applies to
  * [ChangedSubjectPostStep] and not to all kind of [PostFinalStep].
  *
- * @param assertionContainer The assertion container which was involved in the building process
+ * @param expect The [Expect] which was involved in the building process
  *   and holds assertion for the initial subject.
  * @param transform The subject transformation which creates and returns a new [Expect] of type [R].
  * @param transformAndApply The subject transformation which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
 class ChangedSubjectPostStep<T, R>(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     transform: Expect<T>.() -> Expect<R>,
     transformAndApply: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>
-) : PostFinalStep<T, R, Expect<R>>(assertionContainer, transform, transformAndApply)
+) : PostFinalStep<T, R, Expect<R>>(expect, transform, transformAndApply)

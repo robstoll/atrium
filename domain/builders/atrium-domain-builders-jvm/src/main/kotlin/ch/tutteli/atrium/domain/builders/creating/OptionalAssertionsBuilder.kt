@@ -19,6 +19,6 @@ import java.util.*
  */
 object OptionalAssertionsBuilder : OptionalAssertions {
 
-    override inline fun <T : Optional<*>> isEmpty(assertionContainer: Expect<T>) =
-        optionalAssertions.isEmpty(assertionContainer)
+    override inline fun <T : Optional<*>> isEmpty(expect: Expect<T>) =
+        optionalAssertions.isEmpty(expect)
 }

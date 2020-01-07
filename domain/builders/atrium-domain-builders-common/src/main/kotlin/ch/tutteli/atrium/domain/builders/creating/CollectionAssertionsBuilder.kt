@@ -23,8 +23,8 @@ object CollectionAssertionsBuilder : CollectionAssertions {
     override inline fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>) =
         collectionAssertions.isNotEmpty(subjectProvider)
 
-    override inline fun <T : Collection<*>> size(assertionContainer: Expect<T>) =
-        collectionAssertions.size(assertionContainer)
+    override inline fun <T : Collection<*>> size(expect: Expect<T>) =
+        collectionAssertions.size(expect)
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 

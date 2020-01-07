@@ -7,6 +7,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._genericFeature
 
 class NewFeatureAssertionsImpl : NewFeatureAssertions {
 
-    override fun <T, R> genericFeature(assertionContainer: Expect<T>, metaFeature: MetaFeature<R>) =
-        _genericFeature(assertionContainer, metaFeature)
+    override fun <T, R> genericFeature(expect: Expect<T>, metaFeature: MetaFeature<R>) =
+        _genericFeature(expect, metaFeature)
 }

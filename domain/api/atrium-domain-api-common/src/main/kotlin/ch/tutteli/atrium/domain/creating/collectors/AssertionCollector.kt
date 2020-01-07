@@ -31,9 +31,9 @@ interface AssertionCollector {
      * See the other overload for more information.
      */
     fun <T> collect(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         assertionCreator: Expect<T>.() -> Unit
-    ): Assertion = collect(assertionContainer.maybeSubject, assertionCreator)
+    ): Assertion = collect(expect.maybeSubject, assertionCreator)
 
     /**
      * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any

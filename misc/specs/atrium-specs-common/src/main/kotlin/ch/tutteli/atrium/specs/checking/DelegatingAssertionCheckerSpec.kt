@@ -51,15 +51,15 @@ abstract class DelegatingAssertionCheckerSpec(
             context(description) {
                 it("adds the assertion(s) to the assertion container") {
                     //arrange
-                    val assertionContainer = mockk<Expect<Int>>()
-                    every { assertionContainer.addAssertion(any()) } returns assertionContainer
+                    val expect = mockk<Expect<Int>>()
+                    every { expect.addAssertion(any()) } returns expect
 
-                    val testee = testeeFactory(assertionContainer)
+                    val testee = testeeFactory(expect)
                     //act
                     testee.check(assertionVerb, 1, assertions)
                     //assert
                     val captor = slot<Assertion>()
-                    verify(exactly = 1) { assertionContainer.addAssertion(assertion = capture(captor)) }
+                    verify(exactly = 1) { expect.addAssertion(assertion = capture(captor)) }
                     expect(captor.captured).isA<AssertionGroup> {
                         feature(AssertionGroup::type).isA<InvisibleAssertionGroupType>()
                         feature(AssertionGroup::assertions) {

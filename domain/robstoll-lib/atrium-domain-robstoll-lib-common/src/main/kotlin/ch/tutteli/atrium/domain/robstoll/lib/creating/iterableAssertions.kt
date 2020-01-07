@@ -34,11 +34,11 @@ fun <E, T : Iterable<E>> _containsNotBuilder(subjectProvider: SubjectProvider<T>
     IterableContainsBuilder(subjectProvider, NotSearchBehaviourImpl())
 
 fun <E : Any, T : Iterable<E?>> _iterableAll(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
-        val list = turnSubjectToList(assertionContainer).maybeSubject.getOrElse { emptyList() }
+        val list = turnSubjectToList(expect).maybeSubject.getOrElse { emptyList() }
         val hasElementAssertion = createHasElementAssertion(list.iterator())
 
         val assertions = ArrayList<Assertion>(2)
@@ -85,28 +85,28 @@ private fun <E : Any> createMismatchAssertions(
         .toList()
 }
 
-fun <E, T : Iterable<E>> _hasNext(assertionContainer: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionBasic.HAS, RawString.create(NEXT_ELEMENT)) {
+fun <E, T : Iterable<E>> _hasNext(expect: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS, RawString.create(NEXT_ELEMENT)) {
         it.iterator().hasNext()
     }
 
-fun <E, T : Iterable<E>> _hasNotNext(assertionContainer: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionBasic.HAS_NOT, RawString.create(NEXT_ELEMENT)) {
+fun <E, T : Iterable<E>> _hasNotNext(expect: Expect<T>): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS_NOT, RawString.create(NEXT_ELEMENT)) {
         !it.iterator().hasNext()
     }
 
-fun <E : Comparable<E>, T : Iterable<E>> _min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
-    collect(assertionContainer, "min", Iterable<E>::min)
+fun <E : Comparable<E>, T : Iterable<E>> _min(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
+    collect(expect, "min", Iterable<E>::min)
 
-fun <E : Comparable<E>, T : Iterable<E>> _max(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
-    collect(assertionContainer, "max", Iterable<E>::max)
+fun <E : Comparable<E>, T : Iterable<E>> _max(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
+    collect(expect, "max", Iterable<E>::max)
 
 private fun <E : Comparable<E>, T : Iterable<E>> collect(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     method: String,
     collect: T.() -> E?
 ): ExtractedFeaturePostStep<T, E> {
-    return ExpectImpl.feature.extractor(assertionContainer)
+    return ExpectImpl.feature.extractor(expect)
         .methodCall(method)
         .withRepresentationForFailure(NO_ELEMENTS)
         .withFeatureExtraction {

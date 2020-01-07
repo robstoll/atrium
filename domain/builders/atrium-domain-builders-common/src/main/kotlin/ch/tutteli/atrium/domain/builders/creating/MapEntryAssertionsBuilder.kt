@@ -18,24 +18,24 @@ import kotlin.reflect.KClass
  */
 object MapEntryAssertionsBuilder : MapEntryAssertions {
     override inline fun <K : Any, V : Any, T : Map.Entry<K, V>> isKeyValue(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         key: K,
         value: V
-    ) = mapEntryAssertions.isKeyValue(assertionContainer, key, value)
+    ) = mapEntryAssertions.isKeyValue(expect, key, value)
 
     override inline fun <K : Any, V : Any, T : Map.Entry<K?, V?>> isKeyValue(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         key: K?,
         value: V?,
         keyType: KClass<K>,
         valueType: KClass<V>
-    ) = mapEntryAssertions.isKeyValue(assertionContainer, key, value, keyType, valueType)
+    ) = mapEntryAssertions.isKeyValue(expect, key, value, keyType, valueType)
 
-    override inline fun <K, T : Map.Entry<K, *>> key(assertionContainer: Expect<T>) =
-        mapEntryAssertions.key(assertionContainer)
+    override inline fun <K, T : Map.Entry<K, *>> key(expect: Expect<T>) =
+        mapEntryAssertions.key(expect)
 
-    override inline fun <V, T : Map.Entry<*, V>> value(assertionContainer: Expect<T>) =
-        mapEntryAssertions.value(assertionContainer)
+    override inline fun <V, T : Map.Entry<*, V>> value(expect: Expect<T>) =
+        mapEntryAssertions.value(expect)
 
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")

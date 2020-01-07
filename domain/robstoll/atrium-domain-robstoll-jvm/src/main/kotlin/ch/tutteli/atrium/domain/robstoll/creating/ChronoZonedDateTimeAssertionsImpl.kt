@@ -14,17 +14,17 @@ import java.time.chrono.ChronoZonedDateTime
 class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
 
     override fun <T : ChronoZonedDateTime<*>> isBefore(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
-    ): Assertion = _isBefore(assertionContainer, expected)
+    ): Assertion = _isBefore(expect, expected)
 
     override fun <T : ChronoZonedDateTime<*>> isBeforeOrEquals(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
-    ): Assertion = _isBeforeOrEquals(assertionContainer, expected)
+    ): Assertion = _isBeforeOrEquals(expect, expected)
 
     override fun <T : ChronoZonedDateTime<*>> isAfter(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
-    ): Assertion = _isAfter(assertionContainer, expected)
+    ): Assertion = _isAfter(expect, expected)
 }

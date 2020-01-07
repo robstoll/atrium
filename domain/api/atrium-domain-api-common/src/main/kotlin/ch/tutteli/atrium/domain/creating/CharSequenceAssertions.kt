@@ -31,6 +31,7 @@ interface CharSequenceAssertions {
     fun isEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion
     fun isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion
-    fun <T : CharSequence> matches(assertionContainer: Expect<T>, expected: Regex): Assertion
-    fun <T : CharSequence> mismatches(assertionContainer: Expect<T>, expected: Regex): Assertion
+
+    fun <T : CharSequence> matches(expect: Expect<T>, expected: Regex): Assertion
+    fun <T : CharSequence> mismatches(expect: Expect<T>, expected: Regex): Assertion
 }

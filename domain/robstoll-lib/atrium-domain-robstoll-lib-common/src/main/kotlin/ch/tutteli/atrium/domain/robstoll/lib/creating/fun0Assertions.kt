@@ -14,11 +14,11 @@ import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
 fun <TExpected : Throwable> _isThrowing(
-    assertionContainer: Expect<out () -> Any?>,
+    expect: Expect<out () -> Any?>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<*, TExpected> =
     ExpectImpl.feature
-        .manualFeature(assertionContainer, THROWN_EXCEPTION_WHEN_CALLED) {
+        .manualFeature(expect, THROWN_EXCEPTION_WHEN_CALLED) {
             catchAndAdjustThrowable(this).fold(
                 { it },
                 {
@@ -40,13 +40,13 @@ private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, 
     try {
         Right(act())
     } catch (throwable: Throwable) {
-        //TODO should be taken from current assertionContainer once it is configured this way
+        //TODO should be taken from current expect once it is configured this way
         reporter.atriumErrorAdjuster.adjust(throwable)
         Left(throwable)
     }
 
-fun <R, T : () -> R> _isNotThrowing(assertionContainer: Expect<T>): ChangedSubjectPostStep<*, R> {
-    return ExpectImpl.changeSubject(assertionContainer)
+fun <R, T : () -> R> _isNotThrowing(expect: Expect<T>): ChangedSubjectPostStep<*, R> {
+    return ExpectImpl.changeSubject(expect)
         .unreported {
             catchAndAdjustThrowable(it)
         }

@@ -50,7 +50,7 @@ abstract class CollectingAssertionContainerSpec(
     }
 
     describeFun(CollectingAssertionContainer<Int>::addAssertionsCreatedBy.name) {
-        it("adds a failing assertion in case an empty assertionContainer lambda is passed") {
+        it("adds a failing assertion in case an empty assertionCreator-lambda is passed") {
             val testee = testeeFactory(Some(1))
             testee.addAssertionsCreatedBy { }
             expect(testee.getAssertions()).containsExactly {

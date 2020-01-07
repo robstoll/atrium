@@ -16,10 +16,10 @@ import kotlin.reflect.KClass
 object Fun0AssertionsBuilder : Fun0Assertions {
 
     override inline fun <TExpected : Throwable> isThrowing(
-        assertionContainer: Expect<out () -> Any?>,
+        expect: Expect<out () -> Any?>,
         expectedType: KClass<TExpected>
-    ) = fun0Assertions.isThrowing(assertionContainer, expectedType)
+    ) = fun0Assertions.isThrowing(expect, expectedType)
 
-    override inline fun <R, T : () -> R> isNotThrowing(assertionContainer: Expect<T>) =
-        fun0Assertions.isNotThrowing(assertionContainer)
+    override inline fun <R, T : () -> R> isNotThrowing(expect: Expect<T>) =
+        fun0Assertions.isNotThrowing(expect)
 }

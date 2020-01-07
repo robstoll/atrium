@@ -17,5 +17,5 @@ fun _isEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion =
 fun _isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
-fun <T : Collection<*>> _size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
-    ExpectImpl.feature.manualFeature(assertionContainer, DescriptionCollectionAssertion.SIZE) { size }
+fun <T : Collection<*>> _size(expect: Expect<T>): ExtractedFeaturePostStep<T, Int> =
+    ExpectImpl.feature.manualFeature(expect, DescriptionCollectionAssertion.SIZE) { size }

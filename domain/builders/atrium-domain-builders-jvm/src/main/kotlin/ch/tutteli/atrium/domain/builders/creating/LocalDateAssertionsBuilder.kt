@@ -18,15 +18,15 @@ import java.time.LocalDate
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object LocalDateAssertionsBuilder : LocalDateAssertions {
-    override inline fun <T : LocalDate> year(assertionContainer: Expect<T>) =
-        localDateAssertions.year(assertionContainer)
+    override inline fun <T : LocalDate> year(expect: Expect<T>) =
+        localDateAssertions.year(expect)
 
-    override inline fun <T : LocalDate> month(assertionContainer: Expect<T>) =
-        localDateAssertions.month(assertionContainer)
+    override inline fun <T : LocalDate> month(expect: Expect<T>) =
+        localDateAssertions.month(expect)
 
-    override inline fun <T : LocalDate> day(assertionContainer: Expect<T>) =
-        localDateAssertions.day(assertionContainer)
+    override inline fun <T : LocalDate> day(expect: Expect<T>) =
+        localDateAssertions.day(expect)
 
-    override inline fun <T : LocalDate> dayOfWeek(assertionContainer: Expect<T>) =
-        localDateAssertions.dayOfWeek(assertionContainer)
+    override inline fun <T : LocalDate> dayOfWeek(expect: Expect<T>) =
+        localDateAssertions.dayOfWeek(expect)
 }

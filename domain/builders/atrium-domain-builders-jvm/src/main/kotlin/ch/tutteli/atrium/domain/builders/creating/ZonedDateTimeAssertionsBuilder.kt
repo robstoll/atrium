@@ -18,15 +18,15 @@ import java.time.ZonedDateTime
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ZonedDateTimeAssertionsBuilder : ZonedDateTimeAssertions {
-    override inline fun <T : ZonedDateTime> year(assertionContainer: Expect<T>) =
-        zonedDateTimeAssertions.year(assertionContainer)
+    override inline fun <T : ZonedDateTime> year(expect: Expect<T>) =
+        zonedDateTimeAssertions.year(expect)
 
-    override inline fun <T : ZonedDateTime> month(assertionContainer: Expect<T>) =
-        zonedDateTimeAssertions.month(assertionContainer)
+    override inline fun <T : ZonedDateTime> month(expect: Expect<T>) =
+        zonedDateTimeAssertions.month(expect)
 
-    override inline fun <T : ZonedDateTime> day(assertionContainer: Expect<T>) =
-        zonedDateTimeAssertions.day(assertionContainer)
+    override inline fun <T : ZonedDateTime> day(expect: Expect<T>) =
+        zonedDateTimeAssertions.day(expect)
 
-    override inline fun <T : ZonedDateTime> dayOfWeek(assertionContainer: Expect<T>) =
-        zonedDateTimeAssertions.dayOfWeek(assertionContainer)
+    override inline fun <T : ZonedDateTime> dayOfWeek(expect: Expect<T>) =
+        zonedDateTimeAssertions.dayOfWeek(expect)
 }

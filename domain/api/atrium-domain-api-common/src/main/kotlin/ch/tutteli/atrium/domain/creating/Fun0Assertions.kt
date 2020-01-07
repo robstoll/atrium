@@ -21,9 +21,9 @@ val fun0Assertions by lazy { loadSingleService(Fun0Assertions::class) }
 interface Fun0Assertions {
 
     fun <TExpected : Throwable> isThrowing(
-        assertionContainer: Expect<out () -> Any?>,
+        expect: Expect<out () -> Any?>,
         expectedType: KClass<TExpected>
     ): ChangedSubjectPostStep<*, TExpected>
 
-    fun <R, T : () -> R> isNotThrowing(assertionContainer: Expect<T>): ChangedSubjectPostStep<*, R>
+    fun <R, T : () -> R> isNotThrowing(expect: Expect<T>): ChangedSubjectPostStep<*, R>
 }

@@ -10,9 +10,9 @@ import kotlin.reflect.KClass
 class Fun0AssertionsImpl : Fun0Assertions {
 
     override fun <TExpected : Throwable> isThrowing(
-        assertionContainer: Expect<out () -> Any?>,
+        expect: Expect<out () -> Any?>,
         expectedType: KClass<TExpected>
-    ) = _isThrowing(assertionContainer, expectedType)
+    ) = _isThrowing(expect, expectedType)
 
-    override fun <R, T : () -> R> isNotThrowing(assertionContainer: Expect<T>) = _isNotThrowing(assertionContainer)
+    override fun <R, T : () -> R> isNotThrowing(expect: Expect<T>) = _isNotThrowing(expect)
 }

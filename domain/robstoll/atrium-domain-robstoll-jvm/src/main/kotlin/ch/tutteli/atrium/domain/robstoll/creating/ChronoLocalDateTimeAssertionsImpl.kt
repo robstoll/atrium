@@ -14,17 +14,17 @@ import java.time.chrono.ChronoLocalDateTime
 class ChronoLocalDateTimeAssertionsImpl : ChronoLocalDateTimeAssertions {
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = _isBefore(assertionContainer, expected)
+    ): Assertion = _isBefore(expect, expected)
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = _isBeforeOrEquals(assertionContainer, expected)
+    ): Assertion = _isBeforeOrEquals(expect, expected)
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = _isAfter(assertionContainer, expected)
+    ): Assertion = _isAfter(expect, expected)
 }

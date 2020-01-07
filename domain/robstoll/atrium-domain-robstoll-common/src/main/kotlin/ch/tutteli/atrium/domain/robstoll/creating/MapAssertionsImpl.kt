@@ -10,16 +10,16 @@ import kotlin.reflect.KClass
 class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
 
     override fun <K, V : Any, T : Map<out K, V?>> contains(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         valueType: KClass<V>,
         keyValuePairs: List<Pair<K, V?>>
-    ) = _contains(assertionContainer, valueType, keyValuePairs)
+    ) = _contains(expect, valueType, keyValuePairs)
 
     override fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
-    ) = _containsKeyWithValueAssertion(assertionContainer, valueType, keyValues)
+    ) = _containsKeyWithValueAssertion(expect, valueType, keyValues)
 
     override fun <K> containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K) =
         _containsKey(subjectProvider, key)
@@ -32,9 +32,9 @@ class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
     override fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>) = _isNotEmpty(subjectProvider)
 
     override fun <K, V, T : Map<out K, V>> getExisting(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         key: K
-    ): ExtractedFeaturePostStep<T, V> = _getExisting(assertionContainer, key)
+    ): ExtractedFeaturePostStep<T, V> = _getExisting(expect, key)
 
-    override fun <T : Map<*, *>> size(assertionContainer: Expect<T>) = _size(assertionContainer)
+    override fun <T : Map<*, *>> size(expect: Expect<T>) = _size(expect)
 }

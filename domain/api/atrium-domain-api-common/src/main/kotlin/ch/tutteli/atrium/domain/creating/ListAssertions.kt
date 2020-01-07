@@ -21,7 +21,7 @@ val listAssertions by lazy { loadSingleService(ListAssertions::class) }
 interface ListAssertions {
 
     fun <E, T : List<E>> get(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         index: Int
     ): ExtractedFeaturePostStep<T, E>
 

@@ -8,31 +8,31 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.nio.file.Path
 
 class PathAssertionsImpl : PathAssertions {
-    override fun <T : Path> startsWith(assertionContainer: Expect<T>, expected: Path) =
-        _startsWith(assertionContainer, expected)
+    override fun <T : Path> startsWith(expect: Expect<T>, expected: Path) =
+        _startsWith(expect, expected)
 
-    override fun <T : Path> startsNotWith(assertionContainer: Expect<T>, expected: Path) =
-        _startsNotWith(assertionContainer, expected)
+    override fun <T : Path> startsNotWith(expect: Expect<T>, expected: Path) =
+        _startsNotWith(expect, expected)
 
-    override fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path) =
-        _endsWith(assertionContainer, expected)
+    override fun <T : Path> endsWith(expect: Expect<T>, expected: Path) =
+        _endsWith(expect, expected)
 
-    override fun <T : Path> endsNotWith(assertionContainer: Expect<T>, expected: Path) =
-        _endsNotWith(assertionContainer, expected)
+    override fun <T : Path> endsNotWith(expect: Expect<T>, expected: Path) =
+        _endsNotWith(expect, expected)
 
-    override fun <T : Path> exists(assertionContainer: Expect<T>) = _exists(assertionContainer)
+    override fun <T : Path> exists(expect: Expect<T>) = _exists(expect)
 
-    override fun <T : Path> existsNot(assertionContainer: Expect<T>) = _existsNot(assertionContainer)
+    override fun <T : Path> existsNot(expect: Expect<T>) = _existsNot(expect)
 
-    override fun <T : Path> fileName(assertionContainer: Expect<T>) = _fileName(assertionContainer)
-    override fun <T : Path> extension(assertionContainer: Expect<T>) = _extension(assertionContainer)
-    override fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =
-        _fileNameWithoutExtension(assertionContainer)
+    override fun <T : Path> fileName(expect: Expect<T>) = _fileName(expect)
+    override fun <T : Path> extension(expect: Expect<T>) = _extension(expect)
+    override fun <T : Path> fileNameWithoutExtension(expect: Expect<T>) =
+        _fileNameWithoutExtension(expect)
 
-    override fun <T : Path> parent(assertionContainer: Expect<T>) = _parent(assertionContainer)
+    override fun <T : Path> parent(expect: Expect<T>) = _parent(expect)
 
-    override fun <T : Path> isReadable(assertionContainer: Expect<T>) = _isReadable(assertionContainer)
-    override fun <T : Path> isWritable(assertionContainer: Expect<T>) = _isWritable(assertionContainer)
-    override fun <T : Path> isRegularFile(assertionContainer: Expect<T>) = _isRegularFile(assertionContainer)
-    override fun <T : Path> isDirectory(assertionContainer: Expect<T>) = _isDirectory(assertionContainer)
+    override fun <T : Path> isReadable(expect: Expect<T>) = _isReadable(expect)
+    override fun <T : Path> isWritable(expect: Expect<T>) = _isWritable(expect)
+    override fun <T : Path> isRegularFile(expect: Expect<T>) = _isRegularFile(expect)
+    override fun <T : Path> isDirectory(expect: Expect<T>) = _isDirectory(expect)
 }

@@ -27,13 +27,13 @@ val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class
 interface NewFeatureAssertions {
 
     /**
-     * Extracts a feature from [assertionContainer] based on the given [MetaFeature] and creates a
+     * Extracts a feature from [expect] based on the given [MetaFeature] and creates a
      * [ExtractedFeaturePostStep] based on it.
      *
      * @return The newly created [ExtractedFeaturePostStep].
      */
     fun <T, R> genericFeature(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         metaFeature: MetaFeature<R>
     ): ExtractedFeaturePostStep<T, R>
 }

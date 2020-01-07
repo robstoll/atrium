@@ -21,17 +21,17 @@ val mapEntryAssertions by lazy { loadSingleService(MapEntryAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapEntryAssertions {
-    fun <K : Any, V : Any, T : Map.Entry<K, V>> isKeyValue(assertionContainer: Expect<T>, key: K, value: V): Assertion
+    fun <K : Any, V : Any, T : Map.Entry<K, V>> isKeyValue(expect: Expect<T>, key: K, value: V): Assertion
     fun <K : Any, V : Any, T : Map.Entry<K?, V?>> isKeyValue(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         key: K?,
         value: V?,
         keyType: KClass<K>,
         valueType: KClass<V>
     ): Assertion
 
-    fun <K, T : Map.Entry<K, *>> key(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, K>
-    fun <V, T : Map.Entry<*, V>> value(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, V>
+    fun <K, T : Map.Entry<K, *>> key(expect: Expect<T>): ExtractedFeaturePostStep<T, K>
+    fun <V, T : Map.Entry<*, V>> value(expect: Expect<T>): ExtractedFeaturePostStep<T, V>
 
 
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

@@ -11,8 +11,8 @@ import ch.tutteli.atrium.translations.DescriptionListAssertion
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
-fun <E, T : List<E>> _get(assertionContainer: Expect<T>, index: Int): ExtractedFeaturePostStep<T, E> =
-    ExpectImpl.feature.extractor(assertionContainer)
+fun <E, T : List<E>> _get(expect: Expect<T>, index: Int): ExtractedFeaturePostStep<T, E> =
+    ExpectImpl.feature.extractor(expect)
         .methodCall("get", index)
         .withRepresentationForFailure(DescriptionListAssertion.INDEX_OUT_OF_BOUNDS)
         .withFeatureExtraction {

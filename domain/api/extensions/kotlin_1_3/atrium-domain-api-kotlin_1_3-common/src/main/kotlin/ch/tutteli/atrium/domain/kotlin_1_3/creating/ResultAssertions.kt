@@ -16,5 +16,5 @@ val resultAssertions by lazy { loadSingleService(ResultAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ResultAssertions {
-    fun <E, T : Result<E>> isSuccess(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E>
+    fun <E, T : Result<E>> isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T, E>
 }

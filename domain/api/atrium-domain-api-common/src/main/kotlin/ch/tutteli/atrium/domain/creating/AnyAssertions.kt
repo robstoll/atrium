@@ -31,13 +31,13 @@ interface AnyAssertions {
     fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>): Assertion
 
     fun <T : Any> toBeNullable(
-        assertionContainer: Expect<T?>,
+        expect: Expect<T?>,
         type: KClass<T>,
         expectedOrNull: T?
     ): Assertion
 
     fun <T : Any> toBeNullIfNullGivenElse(
-        assertionContainer: Expect<T?>,
+        expect: Expect<T?>,
         type: KClass<T>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
@@ -45,12 +45,12 @@ interface AnyAssertions {
     /**
      * Convenience method for nullable-types which delegates to [isA].
      */
-    fun <T : Any> notToBeNull(assertionContainer: Expect<T?>, subType: KClass<T>) =
-        isA(assertionContainer, subType)
+    fun <T : Any> notToBeNull(expect: Expect<T?>, subType: KClass<T>) =
+        isA(expect, subType)
 
     //TODO restrict TSub with T once type parameter for upper bounds are supported:
     // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-    fun <T, TSub : Any> isA(assertionContainer: Expect<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
+    fun <T, TSub : Any> isA(expect: Expect<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
 
 
     @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")

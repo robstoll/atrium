@@ -23,22 +23,22 @@ import kotlin.jvm.JvmName
 import kotlin.reflect.KClass
 
 fun <K, V : Any, T : Map<out K, V?>> _contains(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     valueType: KClass<V>,
     pairs: List<Pair<K, V?>>
-): Assertion = _containsKeyWithValueAssertion(assertionContainer, valueType, pairs.map {
+): Assertion = _containsKeyWithValueAssertion(expect, valueType, pairs.map {
     it.first to it.second?.let { expected -> subExpect<V> { toBe(expected) } }
 })
 
 fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     valueType: KClass<V>,
     keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
 ): Assertion {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via Expect
     val methodCallFormatter = coreFactory.newMethodCallFormatter()
 
-    val assertion = ExpectImpl.collector.collect(assertionContainer) {
+    val assertion = ExpectImpl.collector.collect(expect) {
         keyValues.map { (key, assertionCreatorOrNull) ->
             ExpectImpl.feature.extractor(this)
                 .withDescription(TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key)))
@@ -70,8 +70,8 @@ fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
 
-fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
-    ExpectImpl.feature.extractor(assertionContainer)
+fun <K, V, T : Map<out K, V>> _getExisting(expect: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
+    ExpectImpl.feature.extractor(expect)
         .methodCall("get", key)
         .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
         .withFeatureExtraction {
@@ -94,5 +94,5 @@ fun <K, V, T : Map<out K, V>> _getExisting(assertionContainer: Expect<T>, key: K
         .withoutOptions()
         .build()
 
-fun <T : Map<*, *>> _size(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Int> =
-    ExpectImpl.feature.manualFeature(assertionContainer, SIZE) { size }
+fun <T : Map<*, *>> _size(expect: Expect<T>): ExtractedFeaturePostStep<T, Int> =
+    ExpectImpl.feature.manualFeature(expect, SIZE) { size }

@@ -12,8 +12,8 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._second
 
 
 class PairAssertionsImpl : PairAssertions {
-    override fun <K, T : Pair<K, *>> first(assertionContainer: Expect<T>) = _first(assertionContainer)
-    override fun <V, T : Pair<*, V>> second(assertionContainer: Expect<T>) = _second(assertionContainer)
+    override fun <K, T : Pair<K, *>> first(expect: Expect<T>) = _first(expect)
+    override fun <V, T : Pair<*, V>> second(expect: Expect<T>) = _second(expect)
 
 
     override fun <K : Any> first(

@@ -11,11 +11,11 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._year
 import java.time.LocalDateTime
 
 class LocalDateTimeAssertionsImpl : LocalDateTimeAssertions {
-    override fun <T : LocalDateTime> year(assertionContainer: Expect<T>) = _year(assertionContainer)
+    override fun <T : LocalDateTime> year(expect: Expect<T>) = _year(expect)
 
-    override fun <T : LocalDateTime> month(assertionContainer: Expect<T>) = _month(assertionContainer)
+    override fun <T : LocalDateTime> month(expect: Expect<T>) = _month(expect)
 
-    override fun <T : LocalDateTime> day(assertionContainer: Expect<T>) = _day(assertionContainer)
+    override fun <T : LocalDateTime> day(expect: Expect<T>) = _day(expect)
 
-    override fun <T : LocalDateTime> dayOfWeek(assertionContainer: Expect<T>) = _dayOfWeek(assertionContainer)
+    override fun <T : LocalDateTime> dayOfWeek(expect: Expect<T>) = _dayOfWeek(expect)
 }

@@ -30,8 +30,8 @@ fun Expect<Int>.isEven() =
 
 fun Expect<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 
-fun _isMultipleOf(assertionContainer: Expect<Int>, base: Int): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
+fun _isMultipleOf(expect: Expect<Int>, base: Int): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
         it % base == 0
     }
 
