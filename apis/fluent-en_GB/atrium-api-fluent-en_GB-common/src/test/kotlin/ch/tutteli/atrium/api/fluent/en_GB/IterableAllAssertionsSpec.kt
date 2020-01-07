@@ -12,21 +12,16 @@ object IterableAllAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableA
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<Iterable<Double>> = notImplemented()
-        var a2: Expect<out Iterable<Double>> = notImplemented()
         var a1b: Expect<Iterable<Double?>> = notImplemented()
-        var a2b: Expect<out Iterable<Double?>> = notImplemented()
 
-        var a3: Expect<out Iterable<*>> = notImplemented()
+        var star: Expect<Iterable<*>> = notImplemented()
 
         a1 = a1.all {}
-        a2 = a2.all {}
 
         a1b = a1b.all {}
-        a2b = a2b.all {}
         a1b = a1b.all(null)
-        a2b = a2b.all(null)
 
-        a3 = a3.all {}
+        star = star.all {}
     }
 }
 

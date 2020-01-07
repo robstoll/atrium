@@ -93,28 +93,19 @@ class IterableAnyAssertionsSpec : Spek({
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<Iterable<Double>> = notImplemented()
-        var a2: Expect<out Iterable<Double>> = notImplemented()
         var a1b: Expect<Iterable<Double?>> = notImplemented()
-        var a2b: Expect<out Iterable<Double?>> = notImplemented()
 
-        var a3: Expect<out Iterable<*>> = notImplemented()
+        var star: Expect<Iterable<*>> = notImplemented()
 
         a1 = a1.any {}
-        a2 = a2.any {}
         a1 = a1.contains {}
-        a2 = a2.contains {}
 
         a1b = a1b.any {}
-        a2b = a2b.any {}
         a1b = a1b.any(null)
-        a2b = a2b.any(null)
         a1b = a1b.contains {}
-        a2b = a2b.contains {}
         a1b = a1b.contains(null)
-        a2b = a2b.contains(null)
 
-
-        a3 = a3.any {}
-        a3 = a3.contains {}
+        star = star.any {}
+        star = star.contains {}
     }
 }

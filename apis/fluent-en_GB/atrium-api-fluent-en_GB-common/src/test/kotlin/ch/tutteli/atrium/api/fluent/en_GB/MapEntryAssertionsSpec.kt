@@ -14,17 +14,18 @@ object MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAsse
         val a2: Expect<Map.Entry<String?, Int>> = notImplemented()
         val a3: Expect<Map.Entry<String, Int?>> = notImplemented()
         val a4: Expect<Map.Entry<String?, Int?>> = notImplemented()
-        val a5: Expect<Map.Entry<*, *>> = notImplemented()
+
+        val star: Expect<Map.Entry<*, *>> = notImplemented()
 
         a1.isKeyValue("a", 1)
         a2.isKeyValue("a", 1)
         a3.isKeyValue("a", 1)
         a4.isKeyValue("a", 1)
-        a5.isKeyValue("a", 1)
+        star.isKeyValue("a", 1)
 
         a2.isKeyValue(null, 1)
         a3.isKeyValue("a", null)
         a4.isKeyValue(null, null)
-        a5.isKeyValue(null, null)
+        star.isKeyValue(null, null)
     }
 }

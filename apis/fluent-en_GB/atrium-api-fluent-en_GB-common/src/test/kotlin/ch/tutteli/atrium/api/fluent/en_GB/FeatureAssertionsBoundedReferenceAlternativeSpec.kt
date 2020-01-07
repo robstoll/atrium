@@ -106,23 +106,17 @@ class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Collection<Int>> = notImplemented()
-        val a2: Expect<out Collection<Int>> = notImplemented()
         val a1b: Expect<Collection<Int?>> = notImplemented()
-        val a2b: Expect<out Collection<Int?>> = notImplemented()
 
-        val a3: Expect<out Collection<*>> = notImplemented()
+        val star: Expect<Collection<*>> = notImplemented()
 
         a1.feature { p(it::size) }
-        a2.feature { p(it::size) }
         a1.feature({ p(it::size) }) {}
-        a2.feature({ p(it::size) }) {}
 
         a1b.feature { p(it::size) }
-        a2b.feature { p(it::size) }
         a1b.feature({ p(it::size) }) {}
-        a2b.feature({ p(it::size) }) {}
 
-        a3.feature { p(it::size) }
-        a3.feature({ p(it::size) }) {}
+        star.feature { p(it::size) }
+        star.feature({ p(it::size) }) {}
     }
 }

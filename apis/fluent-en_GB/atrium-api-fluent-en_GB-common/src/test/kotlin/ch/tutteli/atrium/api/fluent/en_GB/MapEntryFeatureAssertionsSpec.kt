@@ -18,37 +18,33 @@ class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEnt
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var m1: Expect<Map.Entry<CharSequence, Number>> = notImplemented()
-        var m2: Expect<Map.Entry<CharSequence?, Number>> = notImplemented()
-        var m3: Expect<Map.Entry<CharSequence, Number?>> = notImplemented()
-        var m4: Expect<Map.Entry<CharSequence?, Number?>> = notImplemented()
-        var m5: Expect<out Map.Entry<CharSequence?, Number?>> = notImplemented()
-        var m6: Expect<out Map.Entry<*, *>> = notImplemented()
+        var a1: Expect<Map.Entry<CharSequence, Number>> = notImplemented()
+        var a2: Expect<Map.Entry<CharSequence?, Number>> = notImplemented()
+        var a3: Expect<Map.Entry<CharSequence, Number?>> = notImplemented()
+        var a4: Expect<Map.Entry<CharSequence?, Number?>> = notImplemented()
 
-        m1.key
-        m2.key
-        m3.key
-        m4.key
-        m5.key
-        m6.key
-        m1 = m1.key { }
-        m2 = m2.key { }
-        m3 = m3.key { }
-        m4 = m4.key { }
-        m5 = m5.key { }
-        m6 = m6.key { }
+        var star: Expect<Map.Entry<*, *>> = notImplemented()
 
-        m1.value
-        m2.value
-        m3.value
-        m4.value
-        m5.value
-        m6.value
-        m1 = m1.value { }
-        m2 = m2.value { }
-        m3 = m3.value { }
-        m4 = m4.value { }
-        m5 = m5.value { }
-        m6 = m6.value { }
+        a1.key
+        a2.key
+        a3.key
+        a4.key
+        star.key
+        a1 = a1.key { }
+        a2 = a2.key { }
+        a3 = a3.key { }
+        a4 = a4.key { }
+        star = star.key { }
+
+        a1.value
+        a2.value
+        a3.value
+        a4.value
+        star.value
+        a1 = a1.value { }
+        a2 = a2.value { }
+        a3 = a3.value { }
+        a4 = a4.value { }
+        star = star.value { }
     }
 }

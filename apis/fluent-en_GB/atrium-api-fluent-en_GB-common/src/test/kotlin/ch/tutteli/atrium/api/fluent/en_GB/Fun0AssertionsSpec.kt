@@ -21,19 +21,19 @@ class Fun0AssertionsSpec : ch.tutteli.atrium.specs.integration.Fun0AssertionsSpe
 
     @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
     private fun ambiguityTest() {
-        val a1: Expect<out () -> Any?> = notImplemented()
+        val a1: Expect<() -> Any?> = notImplemented()
         val a2: Expect<out () -> Int> = notImplemented()
 
-        a1.toThrow<IllegalArgumentException>()
-        a2.toThrow<IllegalArgumentException>()
+        val r1: Expect<IllegalArgumentException> = a1.toThrow<IllegalArgumentException>()
+        val r2: Expect<IllegalArgumentException> = a2.toThrow<IllegalArgumentException>()
 
-        val r1: Expect<IllegalArgumentException> = a1.toThrow<IllegalArgumentException> {}
-        val r2: Expect<IllegalArgumentException> = a2.toThrow<IllegalArgumentException> {}
+        val r3: Expect<IllegalArgumentException> = a1.toThrow<IllegalArgumentException> {}
+        val r4: Expect<IllegalArgumentException> = a2.toThrow<IllegalArgumentException> {}
 
-        val r3: Expect<Any?> = a1.notToThrow()
-        val r4: Expect<Int> = a2.notToThrow()
+        val r5: Expect<Any?> = a1.notToThrow()
+        val r6: Expect<Int> = a2.notToThrow()
 
-        val r5: Expect<Any?> = a1.notToThrow {}
-        val r6: Expect<Int> = a2.notToThrow {}
+        val r7: Expect<Any?> = a1.notToThrow {}
+        val r8: Expect<Int> = a2.notToThrow {}
     }
 }
