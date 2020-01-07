@@ -25,37 +25,27 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
         @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
         private fun ambiguityTest() {
             var a1: Expect<Result<Int>> = notImplemented()
-            var a2: Expect<out Result<Int>> = notImplemented()
             var a1b: Expect<Result<Int?>> = notImplemented()
-            var a2b: Expect<out Result<Int?>> = notImplemented()
 
-            var a3: Expect<Result<*>> = notImplemented()
+            var star: Expect<Result<*>> = notImplemented()
 
             a1.isSuccess()
-            a2.isSuccess()
             a1 = a1.isSuccess { }
-            a2 = a2.isSuccess { }
 
             a1.isFailure<IllegalArgumentException>()
-            a2.isFailure<IllegalArgumentException>()
-            val r1: Expect<IllegalArgumentException> = a1.isFailure<IllegalArgumentException> {  }
-            val r2: Expect<IllegalArgumentException> = a2.isFailure<IllegalArgumentException> {  }
+            val r1: Expect<IllegalArgumentException> = a1.isFailure<IllegalArgumentException> { }
 
             a1b.isSuccess()
-            a2b.isSuccess()
             a1b = a1b.isSuccess { }
-            a2b = a2b.isSuccess { }
 
             a1b.isFailure<IllegalArgumentException>()
-            a2b.isFailure<IllegalArgumentException>()
-            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException> {  }
-            val r2b: Expect<IllegalArgumentException> = a2b.isFailure<IllegalArgumentException> {  }
+            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException> { }
 
-            a3.isSuccess()
-            a3 = a3.isSuccess { }
+            star.isSuccess()
+            star = star.isSuccess { }
 
-            a3.isFailure<IllegalArgumentException>()
-            val r3: Expect<IllegalArgumentException> = a3.isFailure<IllegalArgumentException> { }
+            star.isFailure<IllegalArgumentException>()
+            val r3: Expect<IllegalArgumentException> = star.isFailure<IllegalArgumentException> { }
         }
     }
 }
