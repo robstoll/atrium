@@ -36,6 +36,7 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
  *
  * @return The newly created [Expect] for the transformed subject.
  */
+@JvmName("asListEOut")
 fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
     apply { asList().addAssertionsCreatedBy(assertionCreator) }
 
