@@ -4,10 +4,12 @@ package ch.tutteli.atrium.domain.builders.kotlin_1_3.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.changers.PostFinalStep
 import ch.tutteli.atrium.domain.kotlin_1_3.creating.resultAssertions
 import ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions
+import kotlin.reflect.KClass
 
 /**
  * Delegates inter alia to the implementation of [ResultAssertions].
@@ -17,6 +19,11 @@ import ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions
 object ResultAssertionsBuilder : ResultAssertions {
 
     override inline fun <E, T : Result<E>> isSuccess(
-        expect: Expect<T>
-    ) :  ExtractedFeaturePostStep<T, E> = resultAssertions.isSuccess(expect)
+        assertionContainer: Expect<T>
+    ) :  ExtractedFeaturePostStep<T, E> = resultAssertions.isSuccess(assertionContainer)
+
+    override fun <TExpected : Throwable> isFailure(
+        assertionContainer: Expect<out Result<*>>,
+        expectedType: KClass<TExpected>
+    ) = resultAssertions.isFailure(assertionContainer, expectedType)
 }
