@@ -48,8 +48,8 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
 
             a1b.isFailure<IllegalArgumentException>()
             a2b.isFailure<IllegalArgumentException>()
-            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException>()
-            val r2b: Expect<IllegalArgumentException> = a2b.isFailure<IllegalArgumentException>()
+            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException> {  }
+            val r2b: Expect<IllegalArgumentException> = a2b.isFailure<IllegalArgumentException> {  }
 
             a3.isSuccess()
             a3 = a3.isSuccess { }

@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 import ch.tutteli.atrium.translations.DescriptionResultAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -24,7 +24,9 @@ abstract class ResultFeatureAssertionsSpec(
     include(object : SubjectLessSpec<Result<Int>>(
         describePrefix,
         isSuccessFeature.forSubjectLess().adjustName { "$it feature" },
-        isSuccess.forSubjectLess { toBe(1) }
+        isSuccess.forSubjectLess { toBe(1) },
+        isFailureFeature.forSubjectLess().adjustName { "$it feature" },
+        isFailure.forSubjectLess { messageContains("message") }
     ) {})
     include(object : SubjectLessSpec<Result<Int?>>(
         describePrefix,
@@ -40,6 +42,15 @@ abstract class ResultFeatureAssertionsSpec(
         describePrefix, Result.success(2),
         isSuccessNullable.forAssertionCreatorSpec("$toBeDescr: 2") { toBe(2) }
     ) {})
+    include(object : AssertionCreatorSpec<Result<Int>>(
+        describePrefix, Result.failure(IllegalArgumentException("oh no...")),
+        assertionCreatorSpecTriple(
+            isFailure.name,
+            "${VALUE.getDefault()}: \"oh no...\"",
+            { apply { isFailure.invoke(this) { messageContains("oh no...") } } },
+            { apply { isFailure.invoke(this) {} } }
+        )
+    ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
@@ -52,6 +63,7 @@ abstract class ResultFeatureAssertionsSpec(
 
     val isNotSuccessDescr = DescriptionResultAssertion.IS_NOT_SUCCESS.getDefault()
     val isNotFailureDescr = DescriptionResultAssertion.IS_NOT_FAILURE.getDefault()
+    val exceptionDescr = DescriptionResultAssertion.EXCEPTION.getDefault()
     val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
     describeFun("${isSuccessFeature.name} feature" ,"${isFailureFeature.name} feature") {
@@ -80,11 +92,25 @@ abstract class ResultFeatureAssertionsSpec(
         }
 
         context("$resultFailure") {
-            it("${isSuccessFeature.name} throws AssertionError") {
+            it("${isSuccessFeature.name} - throws AssertionError") {
                 expect {
                     expect(resultFailure).isSuccessFun().toBe(1)
                 }.toThrow<AssertionError> {
                     messageContains("value: $isNotSuccessDescr")
+                }
+            }
+            it("${isFailureFeature.name} - does not throw AssertionError") {
+                expect(resultFailure).isFailureFun()
+            }
+            it("${isFailureFeature.name} - can perform sub-assertion which holds") {
+                expect(resultFailure).isFailureFun().messageContains("oh no...")
+            }
+            it("${isFailureFeature.name} - can perform sub-assertion which fails, throws AssertionError") {
+                expect {
+                    expect(resultFailure).isFailureFun().messageContains("oh yes...")
+                }.toThrow<AssertionError> {
+                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.qualifiedName}",
+                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
                 }
             }
         }
@@ -107,10 +133,11 @@ abstract class ResultFeatureAssertionsSpec(
             }
             it("${isFailureFeature.name} - throws AssertionError showing the expected type and the expected message") {
                 expect {
-                    expect(resultSuccess).isFailureFun {}
+                    expect(resultSuccess).isFailureFun { messageContains("oh yes...") }
                 }.toThrow<AssertionError> {
                     messageContains("exception: $isNotFailureDescr",
-                        "$isADescr: ${IllegalArgumentException::class.simpleName}")
+                        "$isADescr: ${IllegalArgumentException::class.simpleName}",
+                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
                 }
             }
         }
@@ -121,6 +148,17 @@ abstract class ResultFeatureAssertionsSpec(
                     expect(resultFailure).isSuccessFun { toBe(1) }
                 }.toThrow<AssertionError> {
                     messageContains("value: $isNotSuccessDescr", "$toBeDescr: 1")
+                }
+            }
+            it("${isFailure.name} - can perform sub-assertion which holds") {
+                expect(resultFailure).isFailureFun { messageContains("oh no...") }
+            }
+            it("${isFailure.name} - can perform sub-assertion which fails, throws AssertionError") {
+                expect {
+                    expect(resultFailure).isFailureFun { messageContains("oh yes...") }
+                }.toThrow<AssertionError> {
+                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.qualifiedName}",
+                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
                 }
             }
         }
