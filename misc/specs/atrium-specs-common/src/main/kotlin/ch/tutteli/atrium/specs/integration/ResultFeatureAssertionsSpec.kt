@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -109,7 +110,7 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultFailure).isFailureFun().messageContains("oh yes...")
                 }.toThrow<AssertionError> {
-                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.qualifiedName}",
+                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.fullName}",
                         CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
                 }
             }
@@ -157,7 +158,7 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultFailure).isFailureFun { messageContains("oh yes...") }
                 }.toThrow<AssertionError> {
-                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.qualifiedName}",
+                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.fullName}",
                         CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
                 }
             }
