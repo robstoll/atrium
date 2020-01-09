@@ -18,3 +18,9 @@ fun <T : ChronoLocalDate> _isBeforeOrEquals(expect: Expect<T>, expected: ChronoL
 
 fun <T : ChronoLocalDate> _isAfter(expect: Expect<T>, expected: ChronoLocalDate): Assertion =
     ExpectImpl.builder.createDescriptive(expect, IS_AFTER, expected) { it.isAfter(expected) }
+
+fun <T : ChronoLocalDate> _isAfterOrEquals(expect: Expect<T>, expected: ChronoLocalDate): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, IS_AFTER_OR_EQUALS, expected) {
+        it.isAfter(expected) || it.isEqual(expected)
+    }
+
