@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ChronoLocalDateTimeAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfter
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfterOrEquals
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isBefore
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isBeforeOrEquals
 import java.time.chrono.ChronoLocalDate
@@ -27,4 +28,9 @@ class ChronoLocalDateTimeAssertionsImpl : ChronoLocalDateTimeAssertions {
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
     ): Assertion = _isAfter(expect, expected)
+
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion = _isAfterOrEquals(expect, expected)
 }

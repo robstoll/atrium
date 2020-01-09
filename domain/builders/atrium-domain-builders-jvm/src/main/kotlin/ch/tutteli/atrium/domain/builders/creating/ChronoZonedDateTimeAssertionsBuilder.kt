@@ -34,4 +34,9 @@ object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ) = chronoZonedDateTimeAssertions.isAfter(expect, expected)
+
+    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
+    ) = chronoZonedDateTimeAssertions.isAfterOrEquals(expect, expected)
 }

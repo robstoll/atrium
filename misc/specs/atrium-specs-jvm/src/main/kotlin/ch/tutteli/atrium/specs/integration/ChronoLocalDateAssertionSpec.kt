@@ -15,6 +15,7 @@ abstract class ChronoLocalDateAssertionSpec(
     isBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isBeforeOrEquals: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isAfterOrEquals: Fun1<ChronoLocalDate, ChronoLocalDate>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -26,12 +27,15 @@ abstract class ChronoLocalDateAssertionSpec(
         describePrefix,
         isBefore.forSubjectLess(december23),
         isBeforeOrEquals.forSubjectLess(december23),
-        isAfter.forSubjectLess(december23)
+        isAfter.forSubjectLess(december23),
+        isAfterOrEquals.forSubjectLess(december23)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
     val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS.getDefault()
+
 
     listOf<ChronoLocalDate>(
         december23,
@@ -87,6 +91,21 @@ abstract class ChronoLocalDateAssertionSpec(
                     expect {
                         fluent.isAfterFun(LocalDate.of(2019, 12, 24))
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $december24") }
+                }
+            }
+            describe("${isBeforeOrEquals.name} ...") {
+                val isAfterOrEqualsFun = isAfterOrEquals.lambda
+
+                it("... $december22 does not throw") {
+                    fluent.isAfterOrEqualsFun(LocalDate.of(2019, 12, 22))
+                }
+                it("... $december23 does not throw") {
+                    fluent.isAfterOrEqualsFun(LocalDate.of(2019, 12, 23))
+                }
+                it("... $december24 throws an AssertionError") {
+                    expect {
+                        fluent.isAfterOrEqualsFun(LocalDate.of(2019, 12, 24))
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualsDescr: $december24") }
                 }
             }
         }

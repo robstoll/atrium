@@ -338,11 +338,11 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
             doLast {
                 services.write("""\
                 @file:Suppress("DEPRECATION")
-                
+
                 package $packageName
-    
+
                 import ch.tutteli.atrium.core.polyfills.registerService
-                
+
                 @Suppress("unused" /* here in order that the code is executed when module is loaded */)
                 private val register = run {
             """.stripIndent())

@@ -43,3 +43,16 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEquals(ex
  */
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(expected: ChronoLocalDateTime<*>): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDateTime.isAfter(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is after or equals the [expected] [ChronoLocalDateTime].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEquals(expected: ChronoLocalDateTime<*>): Expect<T> =
+    addAssertion(ExpectImpl.chronoLocalDateTime.isAfterOrEquals(this, expected))
+
