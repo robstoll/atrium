@@ -25,18 +25,18 @@ object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
         expected: ChronoZonedDateTime<*>
     ) = chronoZonedDateTimeAssertions.isBefore(expect, expected)
 
-    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEquals(
+    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEqual(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
-    ) = chronoZonedDateTimeAssertions.isBeforeOrEquals(expect, expected)
+    ) = chronoZonedDateTimeAssertions.isBeforeOrEqual(expect, expected)
 
     override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfter(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ) = chronoZonedDateTimeAssertions.isAfter(expect, expected)
 
-    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEquals(
+    override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEqual(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
-    ) = chronoZonedDateTimeAssertions.isAfterOrEquals(expect, expected)
+    ) = chronoZonedDateTimeAssertions.isAfterOrEqual(expect, expected)
 }

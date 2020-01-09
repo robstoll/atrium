@@ -9,7 +9,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfter
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfterOrEquals
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isBefore
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isBeforeOrEquals
-import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
 class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
@@ -19,7 +18,7 @@ class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
         expected: ChronoZonedDateTime<*>
     ): Assertion = _isBefore(expect, expected)
 
-    override fun <T : ChronoZonedDateTime<*>> isBeforeOrEquals(
+    override fun <T : ChronoZonedDateTime<*>> isBeforeOrEqual(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ): Assertion = _isBeforeOrEquals(expect, expected)
@@ -29,7 +28,7 @@ class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
         expected: ChronoZonedDateTime<*>
     ): Assertion = _isAfter(expect, expected)
 
-    override fun <T : ChronoZonedDateTime<*>> isAfterOrEquals(
+    override fun <T : ChronoZonedDateTime<*>> isAfterOrEqual(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ): Assertion = _isAfterOrEquals(expect, expected)

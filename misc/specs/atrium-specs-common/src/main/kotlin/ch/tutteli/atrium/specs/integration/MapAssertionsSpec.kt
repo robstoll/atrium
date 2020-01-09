@@ -41,7 +41,7 @@ abstract class MapAssertionsSpec(
         contains.forSubjectLess("key" to 1, arrayOf()),
         containsKeyWithValueAssertions.forSubjectLess(
             keyValue("a") { toBe(1) },
-            arrayOf(keyValue("a") { isLessOrEquals(2) })
+            arrayOf(keyValue("a") { isLessThanOrEqual(2) })
         ),
         containsKey.forSubjectLess("a").unchecked1(),
         containsNotKey.forSubjectLess("a").unchecked1(),

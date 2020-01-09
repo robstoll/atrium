@@ -1809,7 +1809,7 @@ Say you want to build a `isBetween` assertion function for `java.util.Date`, you
 
 ```kotlin
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
+    isGreaterThanOrEqual(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
 ```
 </code-own-compose-1>
 
@@ -1824,7 +1824,7 @@ if you want that both are evaluated:
 ```kotlin
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     addAssertionsCreatedBy {
-        isGreaterOrEquals(lowerBoundInclusive)
+        isGreaterThanOrEqual(lowerBoundInclusive)
         isLessThan(upperBoundExclusive)
     }
 ```
@@ -1908,7 +1908,7 @@ Another example: assert the person has children which are all adults (assuming 1
 ```kotlin
 fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
     feature(Person::children) {
-        all { feature(Person::age).isGreaterOrEquals(18) }
+        all { feature(Person::age).isGreaterThanOrEqual(18) }
     }
 }
 ```
