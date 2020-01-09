@@ -26,7 +26,7 @@ abstract class MapAsEntriesAssertionsSpec(
         it("transformation can be applied and an assertion made") {
             expect(mapOf("a" to 1, "b" to 2)).(asEntriesFeature.lambda)().contains.inAnyOrder.only.entries(
                 { isKeyValue("b", 2) },
-                { key { startsWith("a") }.and.value.isGreaterOrEquals(1) }
+                { key { startsWith("a") }.and.value.isGreaterThanOrEqual(1) }
             )
         }
     }
@@ -38,7 +38,7 @@ abstract class MapAsEntriesAssertionsSpec(
                     { isKeyValue("b", 2) },
                     {
                         key { startsWith("a") }
-                        value.isGreaterOrEquals(1)
+                        value.isGreaterThanOrEqual(1)
                     }
                 )
             }

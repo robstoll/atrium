@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessOrEquals
+import ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
@@ -23,8 +23,6 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.MonthDay
 import java.time.ZonedDateTime
 
 abstract class ZonedDateTimeFeatureAssertionsSpec(
@@ -45,9 +43,9 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
         monthFeature.forSubjectLess().adjustName { "$it feature" },
         month.forSubjectLess { isLessThan(12) },
         dayFeature.forSubjectLess().adjustName { "$it feature" },
-        day.forSubjectLess { isLessOrEquals(20) },
+        day.forSubjectLess { isLessThanOrEqual(20) },
         dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
-        dayOfWeek.forSubjectLess { isLessOrEquals(DayOfWeek.SUNDAY) }
+        dayOfWeek.forSubjectLess { isLessThanOrEqual(DayOfWeek.SUNDAY) }
     ) {})
 
     include(object : AssertionCreatorSpec<ZonedDateTime>(
