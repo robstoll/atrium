@@ -93,7 +93,7 @@ abstract class ChronoLocalDateAssertionSpec(
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $december24") }
                 }
             }
-            describe("${isBeforeOrEquals.name} ...") {
+            describe("${isAfterOrEquals.name} ...") {
                 val isAfterOrEqualsFun = isAfterOrEquals.lambda
 
                 it("... $december22 does not throw") {
