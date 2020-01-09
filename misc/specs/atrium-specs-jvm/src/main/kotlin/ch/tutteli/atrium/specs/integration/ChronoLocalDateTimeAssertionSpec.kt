@@ -16,6 +16,7 @@ abstract class ChronoLocalDateTimeAssertionSpec(
     isBefore: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     isBeforeOrEquals: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     isAfter: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
+    isAfterOrEquals: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -33,6 +34,7 @@ abstract class ChronoLocalDateTimeAssertionSpec(
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
     val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS.getDefault()
 
     listOf<ChronoLocalDateTime<*>>(
         eleven,
@@ -89,6 +91,22 @@ abstract class ChronoLocalDateTimeAssertionSpec(
                     expect {
                         fluent.isAfterFun(twelve)
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $twelve") }
+                }
+            }
+
+            describe("${isAfterOrEquals.name} ...") {
+                val isAfterOrEqualsFun = isAfterOrEquals.lambda
+
+                it("$ten does not throw") {
+                    fluent.isAfterOrEqualsFun(ten)
+                }
+                it("$eleven does not throw") {
+                    fluent.isAfterOrEqualsFun(eleven)
+                }
+                it("$twelve throws an AssertionError") {
+                    expect {
+                        fluent.isAfterOrEqualsFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualsDescr: $twelve") }
                 }
             }
         }

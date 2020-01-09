@@ -16,6 +16,7 @@ abstract class ChronoZonedDateTimeAssertionSpec(
     isBefore: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     isBeforeOrEquals: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     isAfter: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isAfterOrEquals: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -27,12 +28,14 @@ abstract class ChronoZonedDateTimeAssertionSpec(
         describePrefix,
         isBefore.forSubjectLess(eleven),
         isBeforeOrEquals.forSubjectLess(eleven),
-        isAfter.forSubjectLess(eleven)
+        isAfter.forSubjectLess(eleven),
+        isAfterOrEquals.forSubjectLess(eleven)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
     val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS.getDefault()
 
 
     listOf<ChronoZonedDateTime<*>>(
@@ -90,6 +93,21 @@ abstract class ChronoZonedDateTimeAssertionSpec(
                     expect {
                         fluent.isAfterFun(twelve)
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $twelve") }
+                }
+            }
+            describe("${isAfterOrEquals.name} ...") {
+                val isAfterOrEqualsFun = isAfterOrEquals.lambda
+
+                it("$ten does not throw") {
+                    fluent.isAfterOrEqualsFun(ten)
+                }
+                it("$eleven does not throw") {
+                    fluent.isAfterOrEqualsFun(eleven)
+                }
+                it("$twelve throws an AssertionError") {
+                    expect {
+                        fluent.isAfterOrEqualsFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualsDescr: $twelve") }
                 }
             }
         }

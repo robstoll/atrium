@@ -34,4 +34,9 @@ interface ChronoZonedDateTimeAssertions {
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ): Assertion
+
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
+    ): Assertion
 }
