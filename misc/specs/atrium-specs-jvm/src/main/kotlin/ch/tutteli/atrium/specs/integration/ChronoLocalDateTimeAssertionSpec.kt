@@ -14,9 +14,9 @@ import java.time.chrono.JapaneseDate
 
 abstract class ChronoLocalDateTimeAssertionSpec(
     isBefore: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
-    isBeforeOrEquals: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
+    isBeforeOrEqual: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     isAfter: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
-    isAfterOrEquals: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
+    isAfterOrEqual: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -27,14 +27,15 @@ abstract class ChronoLocalDateTimeAssertionSpec(
     include(object : SubjectLessSpec<ChronoLocalDateTime<*>>(
         describePrefix,
         isBefore.forSubjectLess(eleven),
-        isBeforeOrEquals.forSubjectLess(eleven),
-        isAfter.forSubjectLess(eleven)
+        isBeforeOrEqual.forSubjectLess(eleven),
+        isAfter.forSubjectLess(eleven),
+        isAfterOrEqual.forSubjectLess(eleven)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
-    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isBeforeOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
-    val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS.getDefault()
+    val isAfterOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
 
     listOf<ChronoLocalDateTime<*>>(
         eleven,
@@ -60,19 +61,19 @@ abstract class ChronoLocalDateTimeAssertionSpec(
                     fluent.isBeforeFun(twelve)
                 }
             }
-            describe("${isBeforeOrEquals.name} ...") {
-                val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+            describe("${isBeforeOrEqual.name} ...") {
+                val isBeforeOrEqualFun = isBeforeOrEqual.lambda
 
                 it("$ten throws an AssertionError") {
                     expect {
-                        fluent.isBeforeOrEqualsFun(ten)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: $ten") }
+                        fluent.isBeforeOrEqualFun(ten)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualDescr: $ten") }
                 }
                 it("$eleven does not throw") {
-                    fluent.isBeforeOrEqualsFun(eleven)
+                    fluent.isBeforeOrEqualFun(eleven)
                 }
                 it("$twelve does not throw") {
-                    fluent.isBeforeOrEqualsFun(twelve)
+                    fluent.isBeforeOrEqualFun(twelve)
                 }
             }
 
@@ -94,19 +95,19 @@ abstract class ChronoLocalDateTimeAssertionSpec(
                 }
             }
 
-            describe("${isAfterOrEquals.name} ...") {
-                val isAfterOrEqualsFun = isAfterOrEquals.lambda
+            describe("${isAfterOrEqual.name} ...") {
+                val isAfterOrEqualFun = isAfterOrEqual.lambda
 
                 it("$ten does not throw") {
-                    fluent.isAfterOrEqualsFun(ten)
+                    fluent.isAfterOrEqualFun(ten)
                 }
                 it("$eleven does not throw") {
-                    fluent.isAfterOrEqualsFun(eleven)
+                    fluent.isAfterOrEqualFun(eleven)
                 }
                 it("$twelve throws an AssertionError") {
                     expect {
-                        fluent.isAfterOrEqualsFun(twelve)
-                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualsDescr: $twelve") }
+                        fluent.isAfterOrEqualFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $twelve") }
                 }
             }
         }

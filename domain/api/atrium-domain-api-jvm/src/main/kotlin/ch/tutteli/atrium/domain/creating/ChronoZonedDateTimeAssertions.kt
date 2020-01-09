@@ -25,7 +25,7 @@ interface ChronoZonedDateTimeAssertions {
         expected: ChronoZonedDateTime<*>
     ): Assertion
 
-    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEquals(
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEqual(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ): Assertion
@@ -35,7 +35,7 @@ interface ChronoZonedDateTimeAssertions {
         expected: ChronoZonedDateTime<*>
     ): Assertion
 
-    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEquals(
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEqual(
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ): Assertion

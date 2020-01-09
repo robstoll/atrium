@@ -13,9 +13,9 @@ import java.time.chrono.JapaneseDate
 
 abstract class ChronoLocalDateAssertionSpec(
     isBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isBeforeOrEquals: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isBeforeOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isAfterOrEquals: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isAfterOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -26,15 +26,15 @@ abstract class ChronoLocalDateAssertionSpec(
     include(object : SubjectLessSpec<ChronoLocalDate>(
         describePrefix,
         isBefore.forSubjectLess(december23),
-        isBeforeOrEquals.forSubjectLess(december23),
+        isBeforeOrEqual.forSubjectLess(december23),
         isAfter.forSubjectLess(december23),
-        isAfterOrEquals.forSubjectLess(december23)
+        isAfterOrEqual.forSubjectLess(december23)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
-    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isBeforeOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
-    val isAfterOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUALS.getDefault()
+    val isAfterOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
 
 
     listOf<ChronoLocalDate>(
@@ -61,19 +61,19 @@ abstract class ChronoLocalDateAssertionSpec(
                     fluent.isBeforeFun(december24)
                 }
             }
-            describe("${isBeforeOrEquals.name} ...") {
-                val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+            describe("${isBeforeOrEqual.name} ...") {
+                val isBeforeOrEqualFun = isBeforeOrEqual.lambda
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.isBeforeOrEqualsFun(december22)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: $december22") }
+                        fluent.isBeforeOrEqualFun(december22)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
-                    fluent.isBeforeOrEqualsFun(december23)
+                    fluent.isBeforeOrEqualFun(december23)
                 }
                 it("... $december24 does not throw") {
-                    fluent.isBeforeOrEqualsFun(december24)
+                    fluent.isBeforeOrEqualFun(december24)
                 }
             }
             describe("${isAfter.name} ...") {
@@ -93,19 +93,19 @@ abstract class ChronoLocalDateAssertionSpec(
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $december24") }
                 }
             }
-            describe("${isAfterOrEquals.name} ...") {
-                val isAfterOrEqualsFun = isAfterOrEquals.lambda
+            describe("${isAfterOrEqual.name} ...") {
+                val isAfterOrEqualFun = isAfterOrEqual.lambda
 
                 it("... $december22 does not throw") {
-                    fluent.isAfterOrEqualsFun(december22)
+                    fluent.isAfterOrEqualFun(december22)
                 }
                 it("... $december23 does not throw") {
-                    fluent.isAfterOrEqualsFun(december23)
+                    fluent.isAfterOrEqualFun(december23)
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.isAfterOrEqualsFun(december24)
-                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualsDescr: $december24") }
+                        fluent.isAfterOrEqualFun(december24)
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $december24") }
                 }
             }
         }
