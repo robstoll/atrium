@@ -3,7 +3,6 @@
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
@@ -33,15 +32,6 @@ fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
 
 fun <T : Any?> _toBeNull(subjectProvider: SubjectProvider<T>) =
     ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, RawString.NULL) { it == null }
-
-fun <T : Any> _toBeNullable(
-    expect: Expect<T?>,
-    type: KClass<T>,
-    expectedOrNull: T?
-): Assertion = when (expectedOrNull) {
-    null -> ExpectImpl.any.toBeNull(expect)
-    else -> notToBeNull(expect, type) { toBe(expectedOrNull) }
-}
 
 fun <T : Any> _toBeNullIfNullGivenElse(
     expect: Expect<T?>,

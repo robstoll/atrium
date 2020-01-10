@@ -17,19 +17,11 @@ import kotlin.reflect.KClass
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object MapEntryAssertionsBuilder : MapEntryAssertions {
-    override inline fun <K : Any, V : Any, T : Map.Entry<K, V>> isKeyValue(
+    override inline fun <K, V, T : Map.Entry<K, V>> isKeyValue(
         expect: Expect<T>,
         key: K,
         value: V
     ) = mapEntryAssertions.isKeyValue(expect, key, value)
-
-    override inline fun <K : Any, V : Any, T : Map.Entry<K?, V?>> isKeyValue(
-        expect: Expect<T>,
-        key: K?,
-        value: V?,
-        keyType: KClass<K>,
-        valueType: KClass<V>
-    ) = mapEntryAssertions.isKeyValue(expect, key, value, keyType, valueType)
 
     override inline fun <K, T : Map.Entry<K, *>> key(expect: Expect<T>) =
         mapEntryAssertions.key(expect)

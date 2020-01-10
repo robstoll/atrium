@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
@@ -67,7 +69,7 @@ abstract class ResultFeatureAssertionsSpec(
     val exceptionDescr = DescriptionResultAssertion.EXCEPTION.getDefault()
     val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
-    describeFun("${isSuccessFeature.name} feature" ,"${isFailureFeature.name} feature") {
+    describeFun("${isSuccessFeature.name} feature", "${isFailureFeature.name} feature") {
         val isSuccessFun = isSuccessFeature.lambda
         val isFailureFun = isFailureFeature.lambda
 
@@ -86,8 +88,10 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultSuccess).isFailureFun()
                 }.toThrow<AssertionError> {
-                    messageContains("exception: $isNotFailureDescr",
-                        "$isADescr: ${IllegalArgumentException::class.simpleName}")
+                    messageContains(
+                        "exception: $isNotFailureDescr",
+                        "$isADescr: ${IllegalArgumentException::class.simpleName}"
+                    )
                 }
             }
         }
@@ -110,8 +114,10 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultFailure).isFailureFun().messageContains("oh yes...")
                 }.toThrow<AssertionError> {
-                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.fullName}",
-                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
+                    messageContains(
+                        "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
+                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\""
+                    )
                 }
             }
         }
@@ -136,9 +142,11 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultSuccess).isFailureFun { messageContains("oh yes...") }
                 }.toThrow<AssertionError> {
-                    messageContains("exception: $isNotFailureDescr",
+                    messageContains(
+                        "exception: $isNotFailureDescr",
                         "$isADescr: ${IllegalArgumentException::class.simpleName}",
-                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
+                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\""
+                    )
                 }
             }
         }
@@ -158,8 +166,10 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultFailure).isFailureFun { messageContains("oh yes...") }
                 }.toThrow<AssertionError> {
-                    messageContains("$exceptionDescr: ${IllegalArgumentException::class.fullName}",
-                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\"")
+                    messageContains(
+                        "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
+                        CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\""
+                    )
                 }
             }
         }
@@ -188,7 +198,7 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultNullSuccess).isSuccessFun().toBe(2)
                 }.toThrow<AssertionError> {
-                    messageContains("value: null", "$toBeDescr: 2", "${DescriptionAnyAssertion.IS_A.getDefault()}: Int")
+                    messageContains("value: null", "$toBeDescr: 2")
                 }
             }
         }
@@ -227,7 +237,7 @@ abstract class ResultFeatureAssertionsSpec(
                 expect {
                     expect(resultNullSuccess).isSuccessFun { toBe(2) }
                 }.toThrow<AssertionError> {
-                    messageContains("value: null", "$toBeDescr: 2", "${DescriptionAnyAssertion.IS_A.getDefault()}: Int")
+                    messageContains("value: null", "$toBeDescr: 2")
                 }
             }
         }

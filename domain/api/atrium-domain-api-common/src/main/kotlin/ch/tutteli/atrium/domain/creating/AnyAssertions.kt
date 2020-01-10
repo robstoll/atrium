@@ -23,18 +23,12 @@ val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
  */
 interface AnyAssertions {
 
-    fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
+    fun <T> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion
     fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T): Assertion
 
     fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>): Assertion
-
-    fun <T : Any> toBeNullable(
-        expect: Expect<T?>,
-        type: KClass<T>,
-        expectedOrNull: T?
-    ): Assertion
 
     fun <T : Any> toBeNullIfNullGivenElse(
         expect: Expect<T?>,
