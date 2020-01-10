@@ -12,7 +12,7 @@ dependencies {
     testImplementation prefixedProject('api-fluent-en_GB-jvm')
     testImplementation prefixedProject('specs-jvm')
 
-    //TODO remove with 1.0.0
+    //TODO remove with 0.10.0
     testImplementation prefixedProject('spec')
 }
 

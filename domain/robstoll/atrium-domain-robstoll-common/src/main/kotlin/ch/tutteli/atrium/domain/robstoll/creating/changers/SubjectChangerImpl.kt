@@ -62,7 +62,7 @@ class SubjectChangerImpl : SubjectChanger {
         )
     }
 
-    //TODO remove with 1.0.0
+    //TODO remove with 0.10.0
     private fun createDelegatingAssertionCheckerAndVerb(originalPlant: AssertionHolder): Pair<AssertionChecker, Untranslatable> {
         val assertionChecker = coreFactory.newDelegatingAssertionChecker(originalPlant)
         return assertionChecker to SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE

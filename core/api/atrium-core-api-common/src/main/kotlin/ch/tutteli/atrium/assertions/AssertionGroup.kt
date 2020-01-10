@@ -15,7 +15,7 @@ interface AssertionGroup : Assertion {
      */
     val description: Translatable
 
-    @Deprecated("Use description; will be removed with 1.0.0", ReplaceWith("description"))
+    @Deprecated("Use description; will be removed with 0.10.0", ReplaceWith("description"))
     val name
         get() = description
 
@@ -34,7 +34,7 @@ interface AssertionGroup : Assertion {
      */
     val representation: Any
 
-    @Deprecated("Use representation; will be removed with 1.0.0", ReplaceWith("representation"))
+    @Deprecated("Use representation; will be removed with 0.10.0", ReplaceWith("representation"))
     val subject
         get() = representation
 
@@ -51,11 +51,11 @@ interface AssertionGroup : Assertion {
      */
     override fun holds() = assertions.all(Assertion::holds)
 
-    @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
+    @Deprecated("Use AssertImpl.builder instead; will be removed with 0.10.0")
     object Builder {
         @Suppress("DEPRECATION")
         @Deprecated(
-            "Use AssertImpl.builder.root instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.root instead; will be removed with 0.10.0",
             ReplaceWith(
                 "AssertImpl.builder.root",
                 "ch.tutteli.atrium.domain.builders.AssertImpl",
@@ -66,35 +66,35 @@ interface AssertionGroup : Assertion {
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "Use AssertImpl.builder.list instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.list instead; will be removed with 0.10.0",
             ReplaceWith("AssertImpl.builder.list", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "Use AssertImpl.builder.feature instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.feature instead; will be removed with 0.10.0",
             ReplaceWith("AssertImpl.builder.feature", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "Use AssertImpl.builder.summary instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.summary instead; will be removed with 0.10.0",
             ReplaceWith("AssertImpl.builder.summary", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "Use AssertImpl.builder.explanatoryGroup instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.explanatoryGroup instead; will be removed with 0.10.0",
             ReplaceWith("AssertImpl.builder.explanatoryGroup", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val explanatory = ExplanatoryAssertionGroupOption()
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "Use AssertImpl.builder.invisible instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.invisible instead; will be removed with 0.10.0",
             ReplaceWith(
                 "AssertImpl.builder.invisibleGroup",
                 "ch.tutteli.atrium.domain.builders.AssertImpl",
@@ -113,7 +113,7 @@ interface AssertionGroup : Assertion {
         )
         fun withType(groupType: AssertionGroupType) = BasicAssertionGroupBuilder(groupType)
 
-        @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
+        @Deprecated("Use AssertImpl.builder instead; will be removed with 0.10.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(name: Translatable, subject: Any, assertion: Assertion): AssertionGroup =
                 assertionBuilder.customType(groupType)
@@ -129,7 +129,7 @@ interface AssertionGroup : Assertion {
         }
 
         @Suppress("DEPRECATION")
-        @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
+        @Deprecated("Use AssertImpl.builder instead; will be removed with 0.10.0")
         class ExplanatoryAssertionGroupOption {
             val withDefault = ExplanatoryAssertionGroupBuilder(DefaultExplanatoryAssertionGroupType)
             val withWarning = ExplanatoryAssertionGroupBuilder(WarningAssertionGroupType)
@@ -137,7 +137,7 @@ interface AssertionGroup : Assertion {
         }
 
         @Suppress("DEPRECATION")
-        @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
+        @Deprecated("Use AssertImpl.builder instead; will be removed with 0.10.0")
         class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
             fun create(assertion: Assertion): ExplanatoryAssertionGroup = create(assertion)
 
@@ -145,7 +145,7 @@ interface AssertionGroup : Assertion {
                 ExplanatoryAssertionGroup(groupType, assertions)
         }
 
-        @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")
+        @Deprecated("Use AssertImpl.builder instead; will be removed with 0.10.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup =
                 AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)

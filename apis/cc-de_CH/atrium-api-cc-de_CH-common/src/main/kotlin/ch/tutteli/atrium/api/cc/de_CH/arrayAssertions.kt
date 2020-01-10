@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
@@ -14,7 +14,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
@@ -28,7 +28,7 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -41,7 +41,7 @@ fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.()
  *
  * @return The newly created [Assert] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
 fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
@@ -83,7 +83,7 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("charArrAsIterable")
 fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> Unit): Assert<Iterable<Char>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -97,7 +97,7 @@ fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> 
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
 fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
@@ -112,7 +112,7 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("shortArrAsIterable")
 fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -> Unit): Assert<Iterable<Short>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -126,7 +126,7 @@ fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
 fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
@@ -141,7 +141,7 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("intArrAsIterable")
 fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Unit): Assert<Iterable<Int>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -155,7 +155,7 @@ fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Un
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
 fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
@@ -170,7 +170,7 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("longArrAsIterable")
 fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> Unit): Assert<Iterable<Long>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -184,7 +184,7 @@ fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> 
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
 fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
@@ -199,7 +199,7 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("floatArrAsIterable")
 fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -> Unit): Assert<Iterable<Float>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -213,7 +213,7 @@ fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
 fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
@@ -228,7 +228,7 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("doubleArrAsIterable")
 fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.() -> Unit): Assert<Iterable<Double>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
@@ -242,7 +242,7 @@ fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.()
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
 fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
@@ -257,7 +257,7 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @JvmName("boolArrAsIterable")
 fun Assert<BooleanArray>.asIterable(assertionCreator: Assert<Iterable<Boolean>>.() -> Unit): Assert<Iterable<Boolean>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)

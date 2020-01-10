@@ -10,10 +10,10 @@ package ch.tutteli.atrium.reporting.translating
 class Untranslatable(representation: String) : Translatable {
 
     @Suppress("DEPRECATION")
-    @Deprecated("Use the overload which expects String; will be removed with 1.0.0")
+    @Deprecated("Use the overload which expects String; will be removed with 0.10.0")
     constructor(representation: CharSequence) : this({ representation.toString() })
 
-    @Deprecated("Use the overload which expects String; will be removed with 1.0.0")
+    @Deprecated("Use the overload which expects String; will be removed with 0.10.0")
     constructor(representation: () -> String) : this(representation())
 
     override val name: String = representation

@@ -56,7 +56,7 @@ abstract class IterableAnyAssertionsSpec(
                     )
                 }
             }
-            //TODO remove with 1.0.0
+            //TODO remove with 0.10.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
                     fluentEmpty.anyFun {

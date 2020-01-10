@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders
 
 
@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated(
-    "Use the builder from the package creating; will be removed with 1.0.0",
+    "Use the builder from the package creating; will be removed with 0.10.0",
     ReplaceWith(
         "AtMostCheckerOption",
         "ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders.AtMostCheckerOption"

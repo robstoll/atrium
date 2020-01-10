@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 
 package ch.tutteli.atrium.creating
 
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * @param A A subtype of [BaseAssertionPlant] -- has to correspond to `A` in [C]
  * @param C A subtype of [BaseCollectingAssertionPlant] which is used in the fluent style API and as self type.
  */
-@Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+@Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
 interface BaseCollectingAssertionPlant<
     out T,
     out A : BaseAssertionPlant<T, A>,

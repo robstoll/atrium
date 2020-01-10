@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 @file:JvmMultifileClass
 @file:JvmName("IterableAssertionsKt")
 package ch.tutteli.atrium.api.cc.en_GB
@@ -22,7 +22,7 @@ import kotlin.jvm.JvmName
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().contains",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -39,7 +39,7 @@ val <E, T : Iterable<E>> Assert<T>.contains: IterableContains.Builder<E, T, NoOp
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().containsNot",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -69,7 +69,7 @@ val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, NotSearch
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().contains(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -95,7 +95,7 @@ fun <E, T: Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().contains(asSubExpect(assertionCreatorOrNull)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -125,7 +125,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull: (Assert
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().contains(\n" +
             "asSubExpect(assertionCreatorOrNull),\n" +
@@ -150,7 +150,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull: (Assert
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().containsExactly(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -176,7 +176,7 @@ fun <E, T : Iterable<E>> Assert<T>.containsExactly(expected: E, vararg otherExpe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().containsExactly(asSubExpect(assertionCreatorOrNull)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -206,7 +206,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreatorOrNull
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().containsExactly(\n" +
             "asSubExpect(assertionCreatorOrNull),\n" +
@@ -232,7 +232,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreatorOrNull
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().containsNot(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -255,7 +255,7 @@ fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().any(asSubExpect(assertionCreatorOrNull)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -279,7 +279,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.any(assertionCreatorOrNull: (Assert<E>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().none(asSubExpect(assertionCreatorOrNull)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -301,7 +301,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.none(assertionCreatorOrNull: (Assert<E
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().all(asSubExpect(assertionCreatorOrNull)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.entries
@@ -115,7 +115,7 @@ abstract class IterableContainsSpecBase {
             Values(1, null),
             Values(null, null)
         )
-        
+
         assert(listOf(1)) to contain inGiven order and only grouped entries within group inAny Order(
             Entry {},
             Entry(null),

@@ -23,7 +23,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * might add additional methods.
  *
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
- * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
+ * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 0.10.0
  */
 expect interface CoreFactory : CoreFactoryCommon
 
@@ -66,7 +66,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith(
             "ExpectImpl\n" +
                 ".assertionVerbBuilder(\n" +
@@ -160,7 +160,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith(
             "this.newReportingAssertionContainer(\n" +
                 "assertionVerb,\n" +
@@ -227,7 +227,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
     )
     fun <T : Any> newReportingPlant(
@@ -259,7 +259,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith(
             "ExpectImpl\n" +
                 ".assertionVerbBuilder(\n" +
@@ -294,7 +294,7 @@ interface CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith("this.newReportingAssertionContainer(commonFields)")
     )
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
@@ -309,7 +309,7 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch from Assert to Expect and use newCollectingAssertionContainer instead, there is no CheckingAssertionContainer, you can use `getAsssertions.holds()`; will be removed with 1.0.0",
+        "Switch from Assert to Expect and use newCollectingAssertionContainer instead, there is no CheckingAssertionContainer, you can use `getAsssertions.holds()`; will be removed with 0.10.0",
         ReplaceWith(
             "this.newCollectingAssertionContainer(\n" +
                 "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
@@ -347,7 +347,7 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith(
             "this.newCollectingAssertionContainer(\n" +
                 "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
@@ -374,7 +374,7 @@ interface CoreFactoryCommon {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0",
+        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 0.10.0",
         ReplaceWith(
             "this.newCollectingAssertionContainer(\n" +
                 "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
@@ -751,7 +751,7 @@ interface CoreFactoryCommon {
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
     ReplaceWith(
         "ExpectImpl\n" +
             ".assertionVerbBuilder(\n" +
@@ -794,7 +794,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0",
+    "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0",
     ReplaceWith(
         "this.newReportingAssertionContainer(\n" +
             "assertionVerb,\n" +

@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
@@ -12,11 +12,11 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
  *
  * @return The newly created builder.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.inAnyOrder"))
+@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.inAnyOrder"))
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
-@Deprecated("Use the extension fun `inAnyOrder` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.inAnyOrder"))
+@Deprecated("Use the extension fun `inAnyOrder` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.inAnyOrder"))
 fun <E, T : Iterable<E>> getInAnyOrder(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>): IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>
     = IterableContainsBuilder(builder.subjectProvider, builder.inAnyOrder.searchBehaviour)
 
@@ -28,11 +28,11 @@ fun <E, T : Iterable<E>> getInAnyOrder(builder: IterableContainsBuilder<E, T, No
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>.only
-    @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.only"))
+    @Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.only"))
     @JvmName("butOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
-@Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.only"))
+@Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>): IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.subjectProvider, builder.only.searchBehaviour)
 
@@ -43,11 +43,11 @@ fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, I
  *
  * @return The newly created builder.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.inOrder"))
+@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.inOrder"))
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
-@Deprecated("Use the extension fun `inOrder` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.inOrder"))
+@Deprecated("Use the extension fun `inOrder` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.inOrder"))
 fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>): IterableContainsBuilder<E, T, InOrderSearchBehaviour>
     = IterableContainsBuilder(builder.subjectProvider, builder.inOrder.searchBehaviour)
 
@@ -59,10 +59,10 @@ fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, NoOpS
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.only
-    @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.only"))
+    @Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.only"))
     @JvmName("andOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
-@Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.only"))
+@Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, InOrderSearchBehaviour>): IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.subjectProvider, builder.only.searchBehaviour)

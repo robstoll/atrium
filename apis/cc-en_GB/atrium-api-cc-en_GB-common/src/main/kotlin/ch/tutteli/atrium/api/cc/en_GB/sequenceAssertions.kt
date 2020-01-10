@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().asIterable()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

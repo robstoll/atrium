@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 @file:JvmMultifileClass
 @file:JvmName("ThrowableAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Does not add enough to be a valid alternative to the overload with assertionCreator; will be removed with 1.0.0", ReplaceWith("wirft {}"))
+@Deprecated("Does not add enough to be a valid alternative to the overload with assertionCreator; will be removed with 0.10.0", ReplaceWith("wirft {}"))
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft() {
     wirft<TExpected> {}
 }

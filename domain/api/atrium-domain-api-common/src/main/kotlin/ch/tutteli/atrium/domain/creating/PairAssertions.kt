@@ -24,19 +24,19 @@ interface PairAssertions {
     fun <V, T : Pair<*, V>> second(expect: Expect<T>): ExtractedFeaturePostStep<T, V>
 
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     fun <K : Any> first(plant: AssertionPlant<Pair<K, *>>, assertionCreator: AssertionPlant<K>.() -> Unit): Assertion
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     fun <V : Any> second(plant: AssertionPlant<Pair<*, V>>, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     fun <K> nullableFirst(
         plant: AssertionPlant<Pair<K, *>>,
         assertionCreator: AssertionPlantNullable<K>.() -> Unit
     ): Assertion
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     fun <V> nullableSecond(
         plant: AssertionPlant<Pair<*, V>>,
         assertionCreator: AssertionPlantNullable<V>.() -> Unit

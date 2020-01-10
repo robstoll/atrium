@@ -15,7 +15,7 @@ dependencies {
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
 
-    //TODO remove with 1.0.0
+    //TODO remove with 0.10.0
     implementation prefixedProject('api-cc-en_GB-jvm')
 
     testImplementation prefixedProject('verbs-internal-jvm')
