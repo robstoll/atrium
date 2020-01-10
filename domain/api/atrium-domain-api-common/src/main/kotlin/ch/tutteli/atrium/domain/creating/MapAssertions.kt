@@ -19,10 +19,9 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
-    fun <K, V : Any, T : Map<out K, V?>> contains(
+    fun <K, V, T : Map<out K, V>> contains(
         expect: Expect<T>,
-        valueType: KClass<V>,
-        keyValuePairs: List<Pair<K, V?>>
+        keyValuePairs: List<Pair<K, V>>
     ): Assertion
 
     fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
