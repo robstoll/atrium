@@ -16,8 +16,8 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
-            -   name: Build with Gradle
-                run: ./gr jvmBuild
+            -   name: Build buildNonDeprecatedJvm
+                run: ./gr buildNonDeprecatedJvm
 
             -   name: build sample atrium+spek project
                 run: samples\jvm\spek\gradlew -p samples\jvm\spek build
