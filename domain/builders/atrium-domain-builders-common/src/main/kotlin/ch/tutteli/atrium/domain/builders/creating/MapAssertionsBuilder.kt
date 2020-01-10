@@ -24,11 +24,10 @@ object MapAssertionsBuilder : MapAssertions {
      */
     inline val entry get() : MapEntryAssertionsBuilder = MapEntryAssertionsBuilder
 
-    override inline fun <K, V : Any, T : Map<out K, V?>> contains(
+    override inline fun <K, V, T : Map<out K, V>> contains(
         expect: Expect<T>,
-        valueType: KClass<V>,
-        keyValuePairs: List<Pair<K, V?>>
-    ) = mapAssertions.contains(expect, valueType, keyValuePairs)
+        keyValuePairs: List<Pair<K, V>>
+    ) = mapAssertions.contains(expect, keyValuePairs)
 
     override inline fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
         expect: Expect<T>,

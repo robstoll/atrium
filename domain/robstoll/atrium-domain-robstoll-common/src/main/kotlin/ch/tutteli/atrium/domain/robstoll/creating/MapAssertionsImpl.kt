@@ -9,11 +9,10 @@ import kotlin.reflect.KClass
 
 class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
 
-    override fun <K, V : Any, T : Map<out K, V?>> contains(
+    override fun <K, V, T : Map<out K, V>> contains(
         expect: Expect<T>,
-        valueType: KClass<V>,
-        keyValuePairs: List<Pair<K, V?>>
-    ) = _contains(expect, valueType, keyValuePairs)
+        keyValuePairs: List<Pair<K, V>>
+    ) = _contains(expect, keyValuePairs)
 
     override fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
         expect: Expect<T>,

@@ -173,24 +173,24 @@ abstract class MapAssertionsSpec(
         val containsKeyWithValueAssertionsFun = containsKeyWithValueAssertions.lambda
         context("map $map") {
             listOf(
-                "a{ toBe(1) }" to listOf(keyValue("a") { toBe(1) }),
-                "b{ toBe(2) }" to listOf(keyValue("b") { toBe(2) }),
-                "a{ toBe(1) }, b{ toBe(2) }" to listOf(keyValue("a") { toBe(1) }, keyValue("b") { toBe(2) }),
-                "b{ toBe(2) }, a{ toBe(1) }" to listOf(keyValue("b") { toBe(2) }, keyValue("a") { toBe(1) })
+                "a { toBe(1) }" to listOf(keyValue("a") { toBe(1) }),
+                "b { toBe(2) }" to listOf(keyValue("b") { toBe(2) }),
+                "a { toBe(1) }, b { toBe(2) }" to listOf(keyValue("a") { toBe(1) }, keyValue("b") { toBe(2) }),
+                "b { toBe(2) }, a { toBe(1) }" to listOf(keyValue("b") { toBe(2) }, keyValue("a") { toBe(1) })
             ).forEach { (description, keyValues) ->
                 it("$description does not throw") {
                     fluent.containsKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
                 }
             }
 
-            it("a{ isLessThan(2) } and a{ isGreaterThan(0) } does not throw (no unique match)") {
+            it("a { isLessThan(2) } and a { isGreaterThan(0) } does not throw (no unique match)") {
                 fluent.containsKeyWithValueAssertionsFun(
                     keyValue("a") { isLessThan(2) },
                     arrayOf(keyValue("a") { isGreaterThan(0) })
                 )
             }
 
-            it("a{ isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
+            it("a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
                     fluent.containsKeyWithValueAssertionsFun(
                         keyValue("a") { isLessThan(3) },
@@ -217,22 +217,22 @@ abstract class MapAssertionsSpec(
             listOf(
                 "(a, null)" to
                     listOf(keyNullableValue("a", null)),
-                "a{ toBe(1) }" to
+                "a { toBe(1) }" to
                     listOf(keyNullableValue(null) { toBe(1) }),
-                "b{ toBe(2) }" to
+                "b { toBe(2) }" to
                     listOf(keyNullableValue("b") { toBe(2) }),
                 "(a, null), b{ toBe(2) }" to
                     listOf(keyNullableValue("a", null), keyNullableValue("b") { toBe(2) }),
-                "null{ toBe(1) }, b{ toBe(2) }" to
+                "null { toBe(1) }, b{ toBe(2) }" to
                     listOf(keyNullableValue(null) { toBe(1) }, keyNullableValue("b") { toBe(2) }),
-                "null{ toBe(1) }, (a, null)" to
+                "null { toBe(1) }, (a, null)" to
                     listOf(keyNullableValue(null) { toBe(1) }, keyNullableValue("a", null)),
-                "null{ toBe(1) }, (a, null), b{ toBe(2) }" to
+                "null { toBe(1) }, (a, null), b{ toBe(2) }" to
                     listOf(
                         keyNullableValue(null) { toBe(1) },
                         keyNullableValue("a", null),
                         keyNullableValue("b") { toBe(2) }),
-                "b{ toBe(2) }, null{ toBe(1) }, (a, null)" to
+                "b { toBe(2) }, null{ toBe(1) }, (a, null)" to
                     listOf(
                         keyNullableValue("b") { toBe(2) },
                         keyNullableValue(null) { toBe(1) },
@@ -247,7 +247,7 @@ abstract class MapAssertionsSpec(
                 }
             }
 
-            it("b{ isLessThan(3) } and b{ isGreaterThan(0) } does not throw (no unique match)") {
+            it("b { isLessThan(3) } and b { isGreaterThan(0) } does not throw (no unique match)") {
                 nullableFluent.containsKeyWithNullableValueAssertionsFun(
                     keyNullableValue("b") { isLessThan(3) },
                     arrayOf(keyNullableValue("b") { isGreaterThan(0) })
