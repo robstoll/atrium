@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
  */
 object AnyAssertionsBuilder : AnyAssertions {
 
-    override inline fun <T : Any> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion =
+    override inline fun <T> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion =
         anyAssertions.toBe(subjectProvider, expected)
 
     override inline fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T) =
@@ -36,12 +36,6 @@ object AnyAssertionsBuilder : AnyAssertions {
 
     override inline fun <T> toBeNull(subjectProvider: SubjectProvider<T>) =
         anyAssertions.toBeNull(subjectProvider)
-
-    override inline fun <T : Any> toBeNullable(
-        expect: Expect<T?>,
-        type: KClass<T>,
-        expectedOrNull: T?
-    ) = anyAssertions.toBeNullable(expect, type, expectedOrNull)
 
     override inline fun <T : Any> toBeNullIfNullGivenElse(
         expect: Expect<T?>,

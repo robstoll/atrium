@@ -4,8 +4,6 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
-import kotlin.js.JsName
-import kotlin.jvm.JvmName
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -13,25 +11,7 @@ import kotlin.jvm.JvmName
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
-
-/**
- * Expects that the subject of the assertion is (equal to) [expected].
- *
- * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@JvmName("toBeNullable")
-@JsName("toBeNullable")
-@Suppress(
-    //TODO remove ignoredDontPassSomething with 1.0.0
-    //  in case https://youtrack.jetbrains.com/issue/KT-33294 is fixed by then
-    "UNUSED_PARAMETER"
-)
-inline fun <reified T : Any> Expect<T?>.toBe(
-    expected: T?,
-    ignoredDontPassSomething: Nothing? = null
-): Expect<T?> = addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
+fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].

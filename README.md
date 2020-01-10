@@ -833,8 +833,7 @@ expect(slogan2).toBe("postulating assertions made easy")
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L232)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-  » to be: "postulating assertions made easy"        <1234789>
+◆ to be: "postulating assertions made easy"        <1234789>
 ```
 </ex-nullable-2>
 

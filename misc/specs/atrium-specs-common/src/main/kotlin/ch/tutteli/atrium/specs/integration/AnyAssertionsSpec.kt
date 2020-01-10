@@ -230,8 +230,7 @@ abstract class AnyAssertionsSpec(
         notToBe: Fun1<T?, T?>,
         isSame: Fun1<T?, T?>,
         isNotSame: Fun1<T?, T?>,
-        value: T,
-        type: String
+        value: T
     ) {
 
         val toBeFun = toBe.lambda
@@ -264,10 +263,7 @@ abstract class AnyAssertionsSpec(
                     expect {
                         expect(null as T?).toBeFun(value)
                     }.toThrow<AssertionError> {
-                        messageContains(
-                            TO_BE.getDefault(),
-                            DescriptionAnyAssertion.IS_A.getDefault() + ": $type"
-                        )
+                        messageContains(TO_BE.getDefault())
                     }
                 }
                 it("${notToBe.name} does not throw") {
@@ -322,8 +318,7 @@ abstract class AnyAssertionsSpec(
             notToBeNullableInt,
             isSameNullableInt,
             isNotSameNullableInt,
-            2,
-            "Int (kotlin.Int)"
+            2
         )
         checkNull(
             "null as DataClass?",
@@ -331,8 +326,7 @@ abstract class AnyAssertionsSpec(
             notToBeNullableDataClass,
             isSameNullableDataClass,
             isNotSameNullableDataClass,
-            subject,
-            "DataClass"
+            subject
         )
     }
 

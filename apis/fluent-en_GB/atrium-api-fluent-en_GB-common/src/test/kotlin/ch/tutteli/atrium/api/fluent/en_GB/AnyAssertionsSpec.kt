@@ -2,19 +2,14 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.name
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1<Int, Int>(Expect<Int>::toBe),
     fun1<DataClass, DataClass>(Expect<DataClass>::toBe),
-    fun2<Int?, Int?, Nothing?>(Expect<Int?>::toBe, suffix = " nullable").name to Companion::toBeNullableInt,
-    fun2<DataClass?, DataClass?, Nothing?>(
-        Expect<DataClass?>::toBe,
-        suffix = " nullable"
-    ).name to Companion::toBeNullableDataClass,
+    fun1<Int?, Int?>(Expect<Int?>::toBe),
+    fun1<DataClass?, DataClass?>(Expect<DataClass?>::toBe),
     fun1(Expect<Int>::notToBe),
     fun1(Expect<DataClass>::notToBe),
     fun1(Expect<Int?>::notToBe, suffix = " nullable"),
@@ -46,12 +41,6 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 ) {
 
     companion object {
-        private fun toBeNullableInt(expect: Expect<Int?>, a: Int?): Expect<Int?> =
-            expect.toBe(a)
-
-        private fun toBeNullableDataClass(expect: Expect<DataClass?>, a: DataClass?): Expect<DataClass?> =
-            expect.toBe(a)
-
         private fun toBeNull(expect: Expect<Int?>) = expect.toBe(null)
 
         private fun isAFeature(expect: Expect<Int?>): Expect<Int> = expect.isA()
@@ -95,4 +84,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
                 isLessThan(upperBound)
             }
     }
+
+    //regression for #298, should compile without the need for E : Any or List<E?>
+    @Suppress("unused")
+    fun <E> Expect<List<E>>.firstIs(value: E) = get(0) { toBe(value) }
 }
