@@ -23,7 +23,14 @@ interface ThrowableAssertions {
      * Turns the given [assertionVerb] into an [Untranslatable] and delegates to the other overload.
      */
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    @Deprecated("Use Expect instead; will be removed with 1.0.0")
+    @Deprecated(
+        "Use Expect instead; will be removed with 1.0.0",
+        ReplaceWith(
+            "this.thrownBuilder(\n" +
+                "// !!!! in case you define an assertion verb function, remove it entirely, this is no longer required !!!!\n" +
+                ")"
+        )
+    )
     fun thrownBuilder(
         assertionVerb: String,
         act: () -> Unit,
@@ -32,7 +39,14 @@ interface ThrowableAssertions {
         thrownBuilder(Untranslatable(assertionVerb), act, reporter)
 
     @Suppress("DEPRECATION")
-    @Deprecated("Use Expect instead; will be removed with 1.0.0")
+    @Deprecated(
+        "Use Expect instead; will be removed with 1.0.0",
+        ReplaceWith(
+            "this.thrownBuilder(\n" +
+                "// !!!! in case you define an assertion verb function, remove it entirely, this is no longer required !!!!\n" +
+                ")"
+        )
+    )
     fun thrownBuilder(
         assertionVerb: Translatable,
         act: () -> Unit,
