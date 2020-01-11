@@ -44,7 +44,8 @@ actual class DetailedObjectFormatter actual constructor(
      * - [StringBasedRawString] is represented as [StringBasedRawString.string]
      * - [TranslatableBasedRawString] is represented as result of its translation (by [translator])
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
-     * - [KClass] is represented as "[Class.getSimpleName] ([Class.getName])"
+     * - [KClass] is represented as "[KClass.simpleName] ([KClass.qualifiedName])" unless the [KClass.qualifiedName]
+     *   differs from [Class.getName] in which case, "-- Class: [Class.getName]" is appended in addition
      * - [Enum] is represented as "[toString] ([Class.getName])
      * - [Throwable] is represented as "[Class.getName]"
      * - All other objects are represented as "[toString] ([Class.getName] <[System.identityHashCode]>)"
@@ -65,7 +66,7 @@ actual class DetailedObjectFormatter actual constructor(
         return when {
             kClass.qualifiedName == kClass.java.name -> kotlinClass
             kClass.java.isPrimitive -> "$kotlinClass -- Class: ${kClass.java.simpleName}"
-            else -> "$kotlinClass -- Class: ${format(kClass.java)}"
+            else -> "$kotlinClass -- Class: ${kClass.java.name}"
         }
     }
 
