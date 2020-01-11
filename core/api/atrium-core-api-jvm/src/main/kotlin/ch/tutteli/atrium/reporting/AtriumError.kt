@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
  *
  * To create such an error you need to use the [AtriumError.Companion.create][Companion.create] function.
  */
-actual class AtriumError internal actual constructor(message: String) : AssertionError(message) {
+actual class AtriumError internal actual constructor(message: String) : AssertionError(message, null) {
 
     actual companion object {
         /**
