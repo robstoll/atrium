@@ -382,7 +382,7 @@ expect {
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$5$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+        ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-toThrow2>
 
@@ -402,7 +402,7 @@ expect {
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$6$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+        ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
           » starts with: "firstName"        <1234789>
 ```
 </ex-toThrow3>
@@ -853,7 +853,7 @@ expect(slogan2)     // subject has type String?
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L237)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
 
@@ -869,7 +869,7 @@ expect(slogan2).notToBeNull { startsWith("atrium") }
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L242)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
   » starts with: "atrium"        <1234789>
 ```
 </ex-nullable-4>
@@ -1205,7 +1205,7 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » is instance of type: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
+        » is instance of type: Int (kotlin.Int) -- Class: java.lang.Integer
         » to be: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is greater than: 2        (kotlin.Int <1234789>)
@@ -1479,7 +1479,7 @@ expect("calling myNullableFun with ...") {
 ```text
 expect: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
-    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+    ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
       » contains: 
         ⚬ value: "min"        <1234789>
           ⚬ ▶ number of occurrences: -1
@@ -1610,7 +1610,7 @@ expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
-            » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+            » is instance of type: String (kotlin.String) -- Class: java.lang.String
             » contains: 
               ⚬ value: "no no no"        <1234789>
                 ⚬ ▶ number of occurrences: -1
