@@ -63,16 +63,16 @@ actual interface CoreFactory : CoreFactoryCommon {
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
         ReplaceWith(
-            "ExpectImpl\n" +
-                ".assertionVerbBuilder(\n" +
+            "ExpectBuilder.forSubject(\n" +
+                "// !!!! in case you define an assertion verb function, remove it entirely, this is no longer required !!!! otherwise:\n" +
                 "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
                 "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
                 "subjectProvider()\n" +
                 ")\n" +
                 ".withVerb(assertionVerb)\n" +
-                ".withCustomReporter(reporter)\n" +
+                ".withOptions { withReporter(reporter) }\n" +
                 ".build()",
-            "ch.tutteli.atrium.domain.builders.ExpectImpl"
+            "ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder"
         )
     )
     fun <T : Any?> newReportingPlantNullable(
