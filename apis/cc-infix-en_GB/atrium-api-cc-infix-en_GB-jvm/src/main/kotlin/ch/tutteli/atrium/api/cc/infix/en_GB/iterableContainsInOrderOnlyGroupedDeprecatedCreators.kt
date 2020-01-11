@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
 package ch.tutteli.atrium.api.cc.infix.en_GB
@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
 
 @Deprecated(
-    "Use the extension function which expects Group instead; will be removed with 1.0.0",
+    "Use the extension function which expects Group instead; will be removed with 0.10.0",
     ReplaceWith("builder inAny order")
 )
 @JvmName("inAnyOrderNullableValues")
@@ -20,7 +20,7 @@ fun <E, T : Iterable<E>> inAny(
 ): AssertionPlant<T> = builder inAny order
 
 @Deprecated(
-    "Use the extension function which expects Group instead; will be removed with 1.0.0",
+    "Use the extension function which expects Group instead; will be removed with 0.10.0",
     ReplaceWith(" builder inAny order")
 )
 @JvmName("inAnyOrderNullableEntries")

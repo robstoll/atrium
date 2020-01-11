@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionThrowableAssertion(override val value: String) : StringBasedTranslatable {
     @Deprecated(
-        "use DescriptionAnyAssertion.IS_A; will be removed with 1.0.0",
+        "use DescriptionAnyAssertion.IS_A; will be removed with 0.10.0",
         ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_A")
     )
     IS_A("is a"),

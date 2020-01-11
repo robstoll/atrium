@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Iterable].
  */
 @Deprecated(
-    "Use the description from package translations; will be removed with 1.0.0",
+    "Use the description from package translations; will be removed with 0.10.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionIterableAssertion")
 )
 enum class DescriptionIterableAssertion(override val value: String) : StringBasedTranslatable {

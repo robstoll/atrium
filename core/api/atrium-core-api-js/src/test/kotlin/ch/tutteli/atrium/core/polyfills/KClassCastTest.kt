@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
 
 package ch.tutteli.atrium.core.polyfills
 

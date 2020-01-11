@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().hasSize(size).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -34,7 +34,7 @@ fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().isEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -52,7 +52,7 @@ fun <T : Collection<*>> Assert<T>.isEmpty()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().isNotEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -73,7 +73,7 @@ fun <T : Collection<*>> Assert<T>.isNotEmpty()
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().size",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -92,7 +92,7 @@ val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 0.10.0",
     ReplaceWith(
         "this.asExpect().size.asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

@@ -93,7 +93,7 @@ interface AssertionCollector {
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T : Any> collect(
         plant: AssertionPlant<T>,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
@@ -122,7 +122,7 @@ interface AssertionCollector {
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T : Any> collect(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlant<T>.() -> Unit
@@ -154,7 +154,7 @@ interface AssertionCollector {
      *   assertion, did not pass it to the [CollectingAssertionPlantNullable] respectively.
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T> collectNullable(
         plant: AssertionPlantNullable<T>,
         assertionCreator: CollectingAssertionPlantNullable<T>.() -> Unit
@@ -185,7 +185,7 @@ interface AssertionCollector {
      *   assertion, did not pass it to the [CollectingAssertionPlantNullable] respectively.
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T> collectNullable(
         subjectProvider: () -> T,
         assertionCreator: CollectingAssertionPlantNullable<T>.() -> Unit
@@ -218,7 +218,7 @@ interface AssertionCollector {
      *   assertion, did not pass it to the [BaseCollectingAssertionPlant] respectively.
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         subjectProvider: () -> T,
         collectingPlantFactory: (() -> T) -> C,
@@ -240,7 +240,7 @@ interface AssertionCollector {
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the [CollectingAssertionPlant].
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T : Any> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
@@ -262,7 +262,7 @@ interface AssertionCollector {
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the [CollectingAssertionPlant].
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T : Any> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
@@ -288,7 +288,7 @@ interface AssertionCollector {
      *   [CollectingAssertionPlantNullable].
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T> collectNullableOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
@@ -313,7 +313,7 @@ interface AssertionCollector {
      *   [CollectingAssertionPlantNullable].
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T> collectNullableOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,
@@ -338,7 +338,7 @@ interface AssertionCollector {
      *   end up creating a sub assertion plant which delegates created [Assertion]s to the [BaseCollectingAssertionPlant].
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
     fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collectOrExplain(
         safeToCollect: Boolean,
         warningCannotEvaluate: Translatable,

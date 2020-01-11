@@ -90,7 +90,7 @@ You should not rely on them on and move to the suggested predecessor:
 - **atrium-core-robstoll-deprecated** contains the deprecated AtriumFactory => use 
   [coreFactory](./ch.tutteli.atrium.core/core-factory.html) instead
 - **atrium-assertions** is `deprecated` and you should not longer rely on it. 
-  It will be removed with 1.0.0. 
+  It will be removed with 0.10.0. 
   Use the replacements suggested in the `@Deprecated` annotations.
 
 
@@ -102,16 +102,16 @@ Contains the deprecated [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/i
 `@Deprecated` API use [ch.tutteli.atrium.api.fluent.de_CH] instead.
 
 # Package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `fluent.de_CH`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `fluent.de_CH`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `fluent.de_CH`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `fluent.de_CH`; will all be removed with 0.10.0
 
 
 # Package ch.tutteli.atrium.api.fluent.de_CH
@@ -131,10 +131,10 @@ assertions for Iterable.
 `@Deprecated` API use [ch.tutteli.atrium.api.fluent.en_GB] instead.
 
 # Package ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `fluent.en_GB`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `fluent.en_GB`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `fluent.en_GB`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `fluent.en_GB`; will all be removed with 0.10.0
 
 
 # Package ch.tutteli.atrium.api.fluent.en_GB
@@ -157,33 +157,33 @@ Contains an API for types introduced with jdk8
 `@Depreacted` API use  [ch.tutteli.atrium.api.fluent.en_GB] instead.
 
 # Package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 0.10.0
 
 
 # Package ch.tutteli.atrium.api.cc.infix.en_GB
 `@Depreacted` API use  [ch.tutteli.atrium.api.infix.en_GB] instead.
 
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders
-Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders
-Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders
-Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders
-Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.keywords
-Contains `@Deprecated` pseudo keywords, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+Contains `@Deprecated` pseudo keywords, switch from package `cc.infix` to `infix`; will all be removed with 0.10.0
 
 
 # Package ch.tutteli.atrium.api.infix.en_GB
@@ -212,16 +212,16 @@ Contains pseudo keywords such as [order](./ch.tutteli.atrium.api.cc.infix.en_-g-
 `@Depreacted` API use  [ch.tutteli.atrium.api.infix.en_GB] instead.
 
 # Package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders
-Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders
-Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
+Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 0.10.0
 
 
 # Package ch.tutteli.atrium.api.verbs
@@ -236,54 +236,54 @@ Use with care, no backward compatibility guarantees and reporting might change.
 # Package ch.tutteli.atrium.assertions
 Contains different types of [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html),  
 e.g. [DescriptiveAssertion](./ch.tutteli.atrium.assertions/-descriptive-assertion/index.html).
-Currently it contains also `@Deprecated` impl-functions which will be removed with 1.0.0
+Currently it contains also `@Deprecated` impl-functions which will be removed with 0.10.0
 
 # Package ch.tutteli.atrium.assertions.any.typetransformation
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.basic.contains
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.basic.contains.builders
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.basic.contains.checkers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.basic.contains.creators
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.assertions.builders
 The [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) 
 and other builders to ease the creation of Assertions.
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.charsequence.contains.builders
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.charsequence.contains.checkers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.charsequence.contains.creators
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.assertions.iterable.contains
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.iterable.contains.builders
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.iterable.contains.checkers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.iterable.contains.creators
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.throwable.thrown
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.throwable.thrown.builders
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.throwable.thrown.creators
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 # Package ch.tutteli.atrium.assertions.throwable.thrown.providers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 0.10.0
 
 
 # Package ch.tutteli.atrium.checking
@@ -355,13 +355,13 @@ Contains utility functions for APIs.
 Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.
 
 # Package ch.tutteli.atrium.domain.creating.any.typetransformation
-Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 1.0.0
+Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.domain.creating.any.typetransformation.creators
-Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 1.0.0
+Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers
-Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 1.0.0
+Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 0.10.0
 
 # Package ch.tutteli.atrium.domain.creating.basic.contains
 Contains the basic contract for contains assertion builders 
@@ -456,13 +456,13 @@ Contains the `@Deprecated` [out-of-the-box Assertion Verbs](https://github.com/r
 for `Assert` which is itself `@Deprecated`.
  
 # Package ch.tutteli.atrium.verbs.assert
-The `@Deprecated` version of the assertion verb `assert`; will be removed with 1.0.0
+The `@Deprecated` version of the assertion verb `assert`; will be removed with 0.10.0
 
 # Package ch.tutteli.atrium.verbs.assertthat
-The `@Deprecated` version of the assertion verb `assertThat`; will be removed with 1.0.0
+The `@Deprecated` version of the assertion verb `assertThat`; will be removed with 0.10.0
 
 # Package ch.tutteli.atrium.verbs.expect
-The `@Deprecated` version of the assertion verb `expect`; will be removed with 1.0.0
+The `@Deprecated` version of the assertion verb `expect`; will be removed with 0.10.0
 
 # Package ch.tutteli.atrium.verbs.internal
-Contains the `@Deprecated` assertion verbs Atrium used internally for `Assert`; will all be removed with 1.0.0.
+Contains the `@Deprecated` assertion verbs Atrium used internally for `Assert`; will all be removed with 0.10.0.

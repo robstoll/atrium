@@ -26,20 +26,20 @@ interface ListAssertions {
     ): ExtractedFeaturePostStep<T, E>
 
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T>
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     fun <T : Any> get(
         plant: AssertionPlant<List<T>>,
         index: Int,
         assertionCreator: AssertionPlant<T>.() -> Unit
     ): Assertion
 
-    @Deprecated("Switch from Assert to Expect and use `get` instead; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use `get` instead; will be removed with 0.10.0")
     fun <T> getNullable(plant: AssertionPlant<List<T>>, index: Int): AssertionPlantNullable<T>
 
-    @Deprecated("Switch from Assert to Expect and use `get` instead; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect and use `get` instead; will be removed with 0.10.0")
     fun <T> getNullable(
         plant: AssertionPlant<List<T>>,
         index: Int,

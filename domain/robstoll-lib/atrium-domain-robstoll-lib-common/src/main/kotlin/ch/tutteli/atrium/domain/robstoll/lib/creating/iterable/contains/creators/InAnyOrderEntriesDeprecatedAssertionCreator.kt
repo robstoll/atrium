@@ -36,7 +36,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
-@Deprecated("Switch from Assert to Expect and use InAnyOrderEntriesAssertionCreator; will be removed with 1.0.0")
+@Deprecated("Switch from Assert to Expect and use InAnyOrderEntriesAssertionCreator; will be removed with 0.10.0")
 class InAnyOrderEntriesDeprecatedAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
