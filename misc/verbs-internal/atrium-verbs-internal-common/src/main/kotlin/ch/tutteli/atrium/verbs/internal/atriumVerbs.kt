@@ -10,7 +10,8 @@ import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
-@Suppress("DEPRECATION")
+// ------------------------------------------------------------
+// @Jetbrains -> try to apply the replacement, the import is not added
 fun <T : Any> assert(subject: T) = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
 @Suppress("DEPRECATION")
