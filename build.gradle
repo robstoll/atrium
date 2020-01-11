@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.9.0-beta-SNAPSHOT'
+    rootProject.version = '0.9.0-alpha2'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -40,7 +40,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/master"
+        dokka_sourceMapping = "tree/v0.9.0-alpha2"
 
 
         sampleProjects = sampleProjectsFun
@@ -499,8 +499,8 @@ Release & deploy a commit
 1. change rootProject.version in build.gradle to X.Y.Z
 2. update master:
     a) point to the tag
-        1) search for old version and replace with new (gradle, maven and section own assertion verb in README.md)
-        2) search for branch/master and replace with branch/vX.Y.Z  (build status and coverage in README.md)
+        1) search for old version and replace with new, except for samples (gradle, maven and section own assertion verb in README.md)
+        2) search for branch/master and replace with branch/vX.Y.Z  (coverage in README.md)
         3) adjust branch=master manually, use tag=vX.Y.Z except for travis where you need to use branch=vX.Y.Z
         4) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         5) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
@@ -526,11 +526,12 @@ Prepare next dev cycle
 1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/v0.9.0-alpha2`
    c) search for `X.Y.Z/doc` and replace with `latest#/doc`
 3. update README
    a) place the warning about taking a sneak peek back into README
    b) update version in the warning to X.Y.Z and update the link as well
-4. commit & push changes
-5. establish backward compatibility tests for the previous version
+4. Use new version in samples (search again for the old-version and replace with new)
+5. commit & push changes
+6. establish backward compatibility tests for the previous version
 */

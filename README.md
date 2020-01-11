@@ -1,9 +1,9 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/atrium/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/atrium/_latestVersion "Download from Bintray")
 [![EUPL](https://img.shields.io/badge/%E2%9A%96-EUPL%201.2-%230b45a6)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12 "License")
 [![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/C887ZKGCQ "See invitation link under section FAQ")
-[![Build Status Travis](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
+[![Build Status Travis](https://travis-ci.org/robstoll/atrium.svg?tag=vv0.9.0-alpha22)](https://travis-ci.org/robstoll/atrium/branches)
 [![Build Status GitHub Actions](https://github.com/robstoll/atrium/workflows/Windows/badge.svg)](https://github.com/robstoll/atrium/actions/)
-[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master)
+[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/v0.9.0-alpha2/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/v0.9.0-alpha2)
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
@@ -19,13 +19,6 @@ or even replace core components with your own implementation in an easy way.
 Atrium currently provides two [API Styles](#api-styles):
 pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
-
-----
-❗ You are taking a *sneak peek* at the next version. 
-Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [README of v0.9.0-alpha](https://github.com/robstoll/atrium/tree/v0.9.0-alpha/README.md).
-
-----
 
 Attention please 😉
 
@@ -80,17 +73,19 @@ unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137
 # Installation
 
 ## JVM
-Atrium is linked to [jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
+Atrium is linked to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium), 
+[jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
 but can also be retrieved directly from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium). 
 
 *gradle*: 
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='v0.9.0-alpha2' }
 }
 repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
+    mavenCentral()
+    // either use mavenCentral() or one of the two lines below
+    // jcenter()
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
@@ -104,11 +99,11 @@ which provides a pure fluent API (in en_GB) for the JVM platform.
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API is not yet available in 0.9.0-alpha. 
+The new infix API is not yet available in v0.9.0-alpha2. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
-In bringing the new infix API forward is appreciated.
+in bringing the new infix API forward is appreciated.
 
-Please use the old API in the meantime. Following an example:
+Please use the old API in the meantime (not available on mavenCentral). Following an example:
 
 ```
 buildscript {
@@ -129,9 +124,9 @@ dependencies {
 
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
-a [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
+a [settings.xml](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/misc/maven/settings.xml) 
 is provided to set up the repository as well as an 
-[example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
+[example pom.xml](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
@@ -141,11 +136,12 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='v0.9.0-alpha2' }
 }
 repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
+    mavenCentral()
+    // either use mavenCentral() or one of the two lines below
+    // jcenter()
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
@@ -159,32 +155,39 @@ which provides a pure fluent API (in en_GB) for the JS platform.
 You need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
 This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compilerf or JS.
 An example of how to setup Atrium in combination with the testing framework mocha is given in 
-[samples/js/mocha](https://github.com/robstoll/atrium/tree/master/samples/js/mocha).
+[samples/js/mocha](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/js/mocha).
 It also includes an automated way of establishing the dependency to Atrium.
 
 Atrium itself is using mocha as well 
-(see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/master/build.gradle#L290))
+(see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/build.gradle#L290))
 and has tests written in JS modules 
-(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/ch/tutteli/atrium/core/robstoll/lib/reporting/AdjustStackTest.kt))
-as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/src/test/kotlin/SmokeTest.kt))
+(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/ch/tutteli/atrium/core/robstoll/lib/reporting/AdjustStackTest.kt))
+as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/fluent-en_GB/atrium-fluent-en_GB-common/src/test/kotlin/SmokeTest.kt))
 which are executed on the JS platform as well 
 (actually on all platforms -> JVM uses JUnit for this purpose, see 
-[build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/master/build.gradle#L342)).
+[build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/build.gradle#L342)).
 
 Further examples for other test frameworks can be found in the
 [kotlin-examples repo](https://github.com/JetBrains/kotlin-examples/blob/master/gradle/js-tests).
 Notice though, that they do not include the automated setup of a dependency to a bundle of Atrium.
 Or in other words, you should at least create a gradle task similar to 
-[establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L85)
-or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L80))
+[establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/js/mocha/build.gradle#L85)
+or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/js/mocha/build.gradle#L80))
 file in your test sources.
 
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
+
+The new infix API is not yet available in v0.9.0-alpha2. 
+[Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
+in bringing the new infix API forward is appreciated.
+
+Please use the old API in the meantime (not available on mavenCentral). Following an example:
+
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='0.8.0' }
 }
 repositories {
     jcenter()
@@ -192,7 +195,7 @@ repositories {
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version"
 }
 ```
 <hr/>
@@ -217,11 +220,11 @@ Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setu
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+[atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
 Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+[apis/differences.md](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/apis/differences.md)
 to see how the infix API looks like, how they differ respectively.
 
 ## Your First Assertion
@@ -236,7 +239,7 @@ import ch.tutteli.atrium.api.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L47)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L47)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ to be: 9        (kotlin.Int <1234789>)
@@ -252,7 +255,7 @@ expect: 10        (kotlin.Int <934275857>)
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
 
-We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 and we have used the predefined assertion verb `expect` in the above example. 
 Thus the corresponding imports at the beginning of the file.
 We will omit the `import` statements in the remaining examples for brevity. 
@@ -281,7 +284,7 @@ The next section shows how you can define multiple assertions for the same subje
 // two single assertions, only first evaluated
 expect(4 + 6).isLessThan(5).isGreaterThan(10)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L54)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L54)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -312,7 +315,7 @@ expect(4 + 6) {
     isGreaterThan(10)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L59)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L59)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
@@ -342,7 +345,7 @@ expect {
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L67)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L67)</sub> ↓ <sub>Output</sub>
 ```text
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$4$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
@@ -377,7 +380,7 @@ expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L74)</sub> ↓ <sub>Output</sub>
 ```text
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$5$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
@@ -397,7 +400,7 @@ expect {
     message { startsWith("firstName") }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L80)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L80)</sub> ↓ <sub>Output</sub>
 ```text
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$6$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
@@ -420,7 +423,7 @@ expect {
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L88)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L88)</sub> ↓ <sub>Output</sub>
 ```text
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$7$1 <1234789>)
 ◆ does not: throw when called
@@ -473,7 +476,7 @@ expect(myPerson)
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
     .startsWith("rob")                            // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L107)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L107)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
@@ -524,7 +527,7 @@ Feature assertions follow the common pattern of having two overloads:
       feature { f(it::lastName) }.toBe("Dummy")
   }
   ```
-  ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L116)</sub> ↓ <sub>Output</sub>
+  ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L116)</sub> ↓ <sub>Output</sub>
   ```text
   expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
   ◆ ▶ firstName: "Robert"        <1234789>
@@ -574,7 +577,7 @@ expect(myPerson)
     .toBe("Robert aka. Stoll")  // fails
     .startsWith("llotS")         // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L130)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L130)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ nickname(false): "Mr. Robert"        <1234789>
@@ -604,7 +607,7 @@ in case you miss a shortcut.
 <summary>💬 Write own feature assertion functions with additional checks.</summary>
 
 Atrium provides a feature extractor which allows to make feature assertions in a safe way in case they are only valid for certain input.
-See `ExpectImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
+See `ExpectImpl.feature.extractor`. It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt)
 
 </details>
 
@@ -626,7 +629,7 @@ expect(myFamily)
     .feature("first member's name") { members.first().name }    // subject narrowed to String
     .toBe("Peter")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L147)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L147)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Family(members=[FamilyMember(name=Robert)])        (readme.examples.ReadmeSpec$1$Family <1234789>)
 ◆ ▶ first member's name: "Robert"        <1234789>
@@ -672,7 +675,7 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
     firstToBe(1)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L163)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L163)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
@@ -758,7 +761,7 @@ expect(x).isA<SubType1>()
     .feature { f(it::number) }
     .toBe(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L196)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L196)</sub> ↓ <sub>Output</sub>
 ```text
 expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ is instance of type: SubType1 (readme.examples.SubType1)
@@ -779,7 +782,7 @@ expect(x).isA<SubType2> {
     feature { f(it::flag) }.toBe(false)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L202)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L202)</sub> ↓ <sub>Output</sub>
 ```text
 expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ ▶ word: "hello"        <1234789>
@@ -804,7 +807,7 @@ There are two `isA` overloads:
 Atrium provides the possibility to make arbitrary subject transformations 
 as long as you can provide a checking function which can tell whether the transformation is safe or not 
 and a transformation function which performs the transformation as such.
-For an example, have a look at the [EitherSpec](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/test/kotlin/ch/tutteli/atrium/domain/builders/creating/EitherSpec.kt).
+For an example, have a look at the [EitherSpec](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/builders/atrium-domain-builders-common/src/test/kotlin/ch/tutteli/atrium/domain/builders/creating/EitherSpec.kt).
 
 </details>
 
@@ -817,7 +820,7 @@ Let us look at the case where the subject of the assertion has a [nullable type]
 val slogan1: String? = "postulating assertions made easy"
 expect(slogan1).toBe(null)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L228)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L228)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "postulating assertions made easy"        <1234789>
 ◆ to be: null
@@ -830,7 +833,7 @@ expect: "postulating assertions made easy"        <1234789>
 val slogan2: String? = null
 expect(slogan2).toBe("postulating assertions made easy")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L232)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L232)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
 ◆ to be: "postulating assertions made easy"        <1234789>
@@ -850,7 +853,7 @@ expect(slogan2)     // subject has type String?
     .notToBeNull()  // subject narrowed to String
     .startsWith("atrium")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L237)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L237)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
 ◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
@@ -866,7 +869,7 @@ one without (example above) and one with `assertionCreator`-lambda (example belo
 ```kotlin
 expect(slogan2).notToBeNull { startsWith("atrium") }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L242)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L242)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
 ◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
@@ -901,7 +904,7 @@ The following sub sections show both use cases by examples.
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains(2, 3)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L246)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L246)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -941,7 +944,7 @@ expect(listOf(1, 2, 2, 4)).contains(
     { isGreaterThan(2).isLessThan(4) }
 )
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L250)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L250)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -979,7 +982,7 @@ Following each in action:
 ```kotlin
 expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L257)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L257)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -995,7 +998,7 @@ expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L260)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L260)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ does not contain: 
@@ -1013,7 +1016,7 @@ expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L263)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L263)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ all entries: 
@@ -1042,7 +1045,7 @@ Following on the last section we will start with an `inOrder` example:
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L267)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L267)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
@@ -1092,7 +1095,7 @@ and we happily answer your question there.
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L270)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L270)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
@@ -1116,7 +1119,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L273)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L273)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
@@ -1132,7 +1135,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L276)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L276)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
@@ -1152,7 +1155,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L279)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L279)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
@@ -1174,7 +1177,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L283)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L283)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
@@ -1200,7 +1203,7 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
     KeyValue("b") { isLessThan(2) }
 )
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L286)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L286)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
@@ -1231,7 +1234,7 @@ expect(mapOf("bernstein" to bernstein))
         feature { f(it::firstName) }.toBe("Albert")
     }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L298)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L298)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
 ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.ReadmeSpec2$1$Person <1234789>)
@@ -1250,7 +1253,7 @@ expect(mapOf("a" to 1, "b" to 2)) {
     values { none { isGreaterThan(1) } }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L310)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L310)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
@@ -1286,7 +1289,7 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
     }
 )
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L316)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L316)</sub> ↓ <sub>Output</sub>
 ```text
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
@@ -1327,7 +1330,7 @@ For example, `exists` will explain which entry was the first one missing:
 ```kotlin
 expect(Paths.get("/usr/bin/noprogram")).exists()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L326)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L326)</sub> ↓ <sub>Output</sub>
 ```text
 expect: /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
 ◆ to: exist
@@ -1342,7 +1345,7 @@ Atrium will give details about why something cannot be accessed, for example whe
 ```kotlin
 expect(Paths.get("/root/.ssh/config")).isWritable()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L330)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L330)</sub> ↓ <sub>Output</sub>
 ```text
 expect: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
 ◆ to be: writable
@@ -1364,7 +1367,7 @@ val filePointer = Files.createSymbolicLink(directory.resolve("directory"), file)
 
 expect(filePointer.resolve("subfolder/file")).isRegularFile()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
 ```text
 expect: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
 ◆ to be: a file
@@ -1401,7 +1404,7 @@ expect("calling myFun with...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L348)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L348)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "calling myFun with..."        <1234789>
 ◆ ▶ myFun(1): 'b'
@@ -1435,7 +1438,7 @@ expect("calling myFun with ...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L362)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L362)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "calling myFun with ..."        <1234789>
 ◆ ▶ myFun(3): 'd'
@@ -1475,7 +1478,7 @@ expect("calling myNullableFun with ...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L380)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L380)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
@@ -1493,11 +1496,11 @@ expect: "calling myNullableFun with ..."        <1234789>
 
 Atrium supports further assertion builders (e.g, for `CharSequence`) 
 as well as assertion functions which have not been shown in the examples.
-Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md) for a few more examples.
+Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/apis/differences.md) for a few more examples.
 This site contains also a list of all APIs with links to their assertion function catalogs.
 
 You can also have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/master/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs) 
+[specifications](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs) 
 for more examples.
 
 # How is Atrium different from other Assertion Libraries
@@ -1604,7 +1607,7 @@ expect {
     }
 }.toThrow<IllegalStateException> { messageContains("no no no") }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L404)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L404)</sub> ↓ <sub>Output</sub>
 ```text
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
@@ -1646,7 +1649,7 @@ then Atrium reminds us of the possible pitfall. For instance:
 ```kotlin
 expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L414)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L414)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (java.math.BigDecimal <1234789>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
@@ -1663,7 +1666,7 @@ For instance:
 ```kotlin
 expect(listOf(1)).get(0) {}
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L417)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L417)</sub> ↓ <sub>Output</sub>
 ```text
 expect: [1]        (java.util.Collections.SingletonList <1234789>)
 ◆ ▶ get(0): 1        (kotlin.Int <1234789>)
@@ -1739,7 +1742,7 @@ and its usage:
 ```kotlin
 expect(12).isMultipleOf(5)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L429)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L429)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 12        (kotlin.Int <1234789>)
 ◆ is multiple of: 5        (kotlin.Int <1234789>)
@@ -1788,7 +1791,7 @@ Its usage looks then as follows:
 ```kotlin
 expect(13).isEven()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L440)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L440)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 13        (kotlin.Int <1234789>)
 ◆ is: an even number
@@ -1890,7 +1893,7 @@ Its usage is then as follows:
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasNumberOfChildren(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L479)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L479)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
@@ -1922,7 +1925,7 @@ but we don't have to, as `all` already checks that there is at least one element
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasAdultChildren()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L494)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L494)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
@@ -1964,7 +1967,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
     .children // using the val -> subsequent assertions are about children and fail fast
     .hasSize(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L504)</sub> ↓ <sub>Output</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L504)</sub> ↓ <sub>Output</sub>
 ```text
 expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
 ◆ ▶ children: [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
@@ -2044,12 +2047,12 @@ Following a quick overview what it provides:
 was the API level) so that you can reuse and compose them in other ways.
 - `ExpectImpl.builder` to create different kinds of assertions (see [AssertionBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information).
 - `ExpectImpl.changeSubject` which allows to change the subject either:
-   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asIterable()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/master/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/arrayAssertions.kt#L17))
-   - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `isA` uses it, see [anyAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/anyAssertions.kt#L62))
-- `ExpectImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions (see [mapAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/mapAssertions.kt#L41))
-- `ExpectImpl.feature.extractor` for feature assertions which are not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt))   
+   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asIterable()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/arrayAssertions.kt#L17))
+   - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `isA` uses it, see [anyAssertions](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/anyAssertions.kt#L62))
+- `ExpectImpl.collector` which allows to collect assertions - especially helpful in creating explanatory assertions (see [mapAssertions](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/mapAssertions.kt#L41))
+- `ExpectImpl.feature.extractor` for feature assertions which are not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/listAssertions.kt))   
 
-You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
+You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
 Unfortunately we do not have the time to cover all cases, so let me know  if you want to know more
@@ -2061,7 +2064,7 @@ Unfortunately we do not have the time to cover all cases, so let me know  if you
 Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
 Great, we do not provide hands on documentation yet (had only one question about it so far). 
 Therefore, please have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
-[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
+[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization-1).
 
 We are willing to provide more documentation if you need it (please open an issue). 
@@ -2075,7 +2078,7 @@ Atrium offers three assertion verbs out of the box: `expect`, `assert` and `asse
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content 
     -- notice that you can also use a `String` for the assertion verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
@@ -2119,7 +2122,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt)
+Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -2151,8 +2154,8 @@ It does not matter if you use your [own assertion verb](#use-own-assertion-verbs
 You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
 This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
 and by calling `registerService` on JS where the call has to be before your tests run.  
-An example for JVM is given in [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt).
-An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
+An example for JVM is given in [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt).
+An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
 
 # Internationalization
 
@@ -2182,10 +2185,10 @@ enum class DescriptionIntAssertion(override val value: String) : StringBasedTran
 Typically you would put `DescriptionIntAssertion` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
+[atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
 uses `atrium-translations-en_GB-common` whereas 
 tests of 
-[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 uses `atrium-translations-de_CH-common`.  
 
 <details>
@@ -2324,11 +2327,11 @@ However, this is more intended for advanced user with special requirements.
 Atrium provides bundle modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
-- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
+- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
 
 Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+[apis/differences.md](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/apis/differences.md)
 for more information and to see how the API styles differ.
  
 
@@ -2343,15 +2346,15 @@ Therefore you want to turn the platform type into the nullable version.
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with type parameters. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
-- [`nullable`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
+- [`nullable`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
   turns a type into a nullable type.
-- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#40)
+- [`nullableContainer`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#40)
   turns an `Iterable` into an iterable with nullable element type, likewise it does the same for `Array`.
-- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
+- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)
   turns a `Map` into a map with a nullable value type.
-- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
+- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
   turns a `Map` into a map with a nullable key and nullable value type. 
     
  
@@ -2471,19 +2474,21 @@ We plan that Atrium is going to support certain features in the future. Followin
 A more detailed backlog can be found at [atrium-roadmap](https://github.com/robstoll/atrium-roadmap) -- you are invited to take part in the discussions related to design decisions, upcoming features and more.
 
 ## 0.9.0
+- ❗❗ drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
 - introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
-- optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
-- ❗❗ drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
+- introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
+- introduce Kotlin 1.3 specific assertion functions (compatiblity with 1.2 will stay until 1.0.0)
 
 ## 0.10.0
-- add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
-- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
-- refactor core and domain architecture - most likely we are going to move away from ServiceLoader and replace `-robstoll` and `-robstoll-lib` modules with one `-impl` module
+- refactor core and domain architecture:
+  - most likely we are going to move away from ServiceLoader and fuse api, `-robstoll` and `-robstoll-lib` modules into one
+  - we will remove all deprecated functionality (including the old API's en_UK, cc-en_GB, cc-infix-en_GB and cc-de_CH)
 - fix verbosity issues in conjunction with feature assertions and explanatory groups.
 - provide an easy way to create failure hints.
 
 ## 0.11.0
+- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
 - Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
   
 ## 0.12.0  
@@ -2520,7 +2525,7 @@ You are more than welcome to contribute as well:
   if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
 
 Please have a look at 
-[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/v0.9.0-alpha2/.github/CONTRIBUTING.md)
 for further suggestions and guidelines.
 
 # Sponsors
