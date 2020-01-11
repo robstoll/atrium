@@ -5,7 +5,6 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.ThrowableAssertions
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.throwableThrownAssertions
@@ -22,7 +21,14 @@ import kotlin.reflect.KClass
  */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
 
-    @Suppress("KDocMissingDocumentation")
+    @Deprecated(
+        "Use Expect instead; will be removed with 1.0.0",
+        ReplaceWith(
+            "this.thrownBuilder(\n" +
+                "// !!!! in case you define an assertion verb, remove it entirely, this is no longer required !!!!\n" +
+                ")"
+        )
+    )
     override inline fun thrownBuilder(
         assertionVerb: Translatable,
         noinline act: () -> Unit,
@@ -34,7 +40,8 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
      * which inter alia delegates to the implementation of [ThrowableThrownAssertions].
      */
     @Deprecated("Will be removed with 0.10.0")
-    inline val thrown get() = ThrowableThrownAssertionsBuilder
+    inline val thrown
+        get() = ThrowableThrownAssertionsBuilder
 }
 
 /**
