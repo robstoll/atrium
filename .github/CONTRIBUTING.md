@@ -96,9 +96,9 @@ Please write a comment such as `I am working on this` in the issue,
 this way we can assign the task to you (so that others know there is already someone working on the issue)
 and it gives us the chance to have a look at the description again and revise if necessary.
 
-When working on an issue, we recommend you do the following on git:
+Dealing with Git for the first time? Here are some recommendations for how to set up Git when working on an issue: 
 - create a new branch for the issue using `git checkout -b <branch-name>` (preferrably, the branch name
-  should be descriptive of the issue or the change being made, e.g `#200-add-feature`.) Working
+  should be descriptive of the issue or the change being made, e.g `#108-path-exists`.) Working
   on a new branch makes it easier to make more than one pull request.
 - add this repository as a remote repository using
  `git remote add upstream https://github.com/robstoll/atrium.git`. You will use this to
@@ -107,6 +107,8 @@ When working on an issue, we recommend you do the following on git:
   upstream/master using `git rebase upstream/master` or `git pull -r upstream master`.
   This will add all new changes in this repository into your branch and place your
   local unpushed changes at the top of the branch.
+
+You can read more on Git [here](https://git-scm.com/book/).
 
 Contact us on
 [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ/)
