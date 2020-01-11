@@ -27,6 +27,7 @@ abstract class IterableContainsSpecBase {
     protected val inAnyOrderElementsOf = IterableContains.CheckerOption<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::elementsOf.name
     protected val inAnyOrderOnlyValues = IterableContains.Builder<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::values.name
     protected val inAnyOrderOnlyEntries = IterableContains.Builder<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::entries.name
+    protected val inAnyOrderOnlyElementsOf = IterableContains.Builder<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::elementsOf.name
     protected val inOrder = IterableContains.Builder<*, *, NoOpSearchBehaviour>::inOrder.name
     protected val only = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::only.name
     protected val inOrderOnlyValues = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::values.name
