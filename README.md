@@ -276,13 +276,9 @@ expect: 10        (kotlin.Int <1234789>)
 </ex-first>
 
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
-Since this is false, an `AssertionError` is thrown with the following message:
-```text
-expect: 10        (kotlin.Int <934275857>)
-◆ to be: 9        (kotlin.Int <1364913072>)
-```
+Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output.
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
-The examples in the following sections include the error message (the output) in the code example itself as comments.
+In this sense the report can be read as `I expect that it holds that the subject of the assertion, which is 10, to be 9`.
 
 We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 and we have used the predefined assertion verb `expect` in the above example. 
