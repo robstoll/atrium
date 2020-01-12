@@ -102,6 +102,18 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
+We currently provide the following extensions for the JS platform: 
+- jdk8: assertion functions for JDK 8 specific types (e.g. for Path)
+- kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
+
+You can add them as follows:
+```
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
+}
+```
+
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
@@ -181,6 +193,16 @@ Or in other words, you should at least create a gradle task similar to
 [establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L85)
 or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L80))
 file in your test sources.
+
+We currently provide the following extensions for the JS platform: 
+ - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
+
+You can add them as follows:
+```
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
+}
+```
 
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
