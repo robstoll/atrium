@@ -387,8 +387,8 @@ expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$4$1 <1234789>)
 ```
 </ex-toThrow1>
 
-You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
-(`IllegalStateException` in the example above). 
+You can also pass a lambda to `expect` and then use `toThrow` to make the assertion that 
+invoking the lambda throws a certain exception (`IllegalStateException` in the example above).
 
 As with all narrowing functions, there are two overloads:
 - the first is parameterless and turns only the subject into the expected type; 
@@ -437,8 +437,8 @@ expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$6$1 <1234789>)
 ```
 </ex-toThrow3>
 
-Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, which creates a feature assertion (see next section) 
-about `Throwable::message`.  
+Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, 
+which creates a feature assertion (see next section) about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
 
@@ -524,7 +524,7 @@ Have a look at [Ambiguity Problems](#ambiguity-problems) in case the compiler is
 
 In the above example we created two assertions, one for the property `isStudent` of `myPerson` 
 and a second one for the return value of calling `fullName()` on `myPerson`.
-A feature assertion is indicated as follows in reporting. 
+A feature assertion is indicated as follows in reporting: 
 It starts with a `▶` followed by the feature's name and its actual value.
 So the above output can be read as "I expect, Person's property `isStudent` (which is actually `false`) to be `true`. 
 The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups) 
