@@ -276,7 +276,7 @@ expect: 10        (kotlin.Int <1234789>)
 </ex-first>
 
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
-Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output.
+Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 In this sense the report can be read as `I expect that it holds that the subject of the assertion, which is 10, to be 9`.
 
@@ -327,7 +327,8 @@ expect(4 + 6).isGreaterThan(10)
 ``` 
 
 Correspondingly, the first `expect` statement (which does not hold) throws an `AssertionError`. 
-In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all.
+In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all 
+and correspondingly not reported.
 
 If you want that both assertions are evaluated together, then use the assertion group syntax as follows:
  
@@ -349,6 +350,7 @@ expect: 10        (kotlin.Int <1234789>)
 </ex-group>
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
+The reporting can be read as `I expect that the subject of the assertion, which is 10, is less than 5 and is greater than 10`
 
 You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
