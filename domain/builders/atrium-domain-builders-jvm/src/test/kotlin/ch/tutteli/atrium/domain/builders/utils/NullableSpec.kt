@@ -103,7 +103,7 @@ object NullableSpec : Spek({
         it("throws if the value was actually null") {
             expect {
                 expect(nullableKeyMap(testee.numbersWithString)).getExisting(1).toBe("a")
-            }.toThrow<AssertionError> { messageContains("get(1): null", "to be: \"a\"") }
+            }.toThrow<AssertionError> { messageContains("get(1): null", "is equal to: \"a\"") }
         }
         it("can pass `null` as key") {
             expect(nullableKeyMap(testee.numbersWithString)[null]).toBe("tada")
