@@ -108,7 +108,10 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                         @Suppress("DEPRECATION")
                         asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     })
-                }.toThrow<AssertionError> { messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault()) }
+                }.toThrow<AssertionError> {
+                    @Suppress("DEPRECATION")
+                    messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault())
+                }
             }
         }
 

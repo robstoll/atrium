@@ -18,6 +18,8 @@ enum class DescriptionThrowableAssertion(override val value: String) : StringBas
     OCCURRED_EXCEPTION_MESSAGE("message"),
     OCCURRED_EXCEPTION_STACKTRACE("stacktrace"),
     OCCURRED_EXCEPTION_SUPPRESSED("suppressed"),
+    @Deprecated("Will be removed with 0.10.0")
     IS_NOT_THROWN_1("wird"),
+    @Deprecated("Will be removed with 0.10.0")
     IS_NOT_THROWN_2("nicht geworfen"),
 }

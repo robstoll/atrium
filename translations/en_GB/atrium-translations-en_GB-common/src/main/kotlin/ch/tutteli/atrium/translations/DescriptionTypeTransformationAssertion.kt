@@ -16,5 +16,6 @@ enum class DescriptionTypeTransformationAssertion(override val value: String) : 
         ReplaceWith("DescriptionAnyAssertion.IS_A", "ch.tutteli.atrium.translations.DescriptionAnyAssertion")
     )
     IS_A("is type or sub-type of"),
+    @Deprecated("Will be removed with 0.10.0")
     WARNING_DOWN_CAST_FAILED("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- the down-cast to %s failed.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
 }

@@ -44,6 +44,7 @@ fun <T> _collectForComposition(
 
         collectedAssertions
     } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
+        @Suppress("DEPRECATION")
         listOf(
             AssertImpl.builder.explanatoryGroup
                 .withWarningType
