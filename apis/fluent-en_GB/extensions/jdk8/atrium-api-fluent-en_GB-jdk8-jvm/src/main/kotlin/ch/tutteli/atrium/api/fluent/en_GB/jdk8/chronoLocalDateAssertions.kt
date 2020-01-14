@@ -55,3 +55,15 @@ fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T
  */
 fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isAfterOrEquals(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDate])
+ * is equal to the [expected] [ChronoLocalDate].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Expect<T> =
+    addAssertion(ExpectImpl.chronoLocalDate.isEqual(this, expected))

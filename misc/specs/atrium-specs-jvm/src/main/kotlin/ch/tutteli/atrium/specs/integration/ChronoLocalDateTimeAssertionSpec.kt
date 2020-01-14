@@ -17,6 +17,7 @@ abstract class ChronoLocalDateTimeAssertionSpec(
     isBeforeOrEqual: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     isAfter: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     isAfterOrEqual: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
+    isEqual: Fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -29,13 +30,15 @@ abstract class ChronoLocalDateTimeAssertionSpec(
         isBefore.forSubjectLess(eleven),
         isBeforeOrEqual.forSubjectLess(eleven),
         isAfter.forSubjectLess(eleven),
-        isAfterOrEqual.forSubjectLess(eleven)
+        isAfterOrEqual.forSubjectLess(eleven),
+        isEqual.forSubjectLess(eleven)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
     val isBeforeOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
     val isAfterOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
+    val isEqualDescr = DescriptionDateTimeLikeAssertion.IS_EQUAL_TO.getDefault()
 
     listOf<ChronoLocalDateTime<*>>(
         eleven,
@@ -108,6 +111,24 @@ abstract class ChronoLocalDateTimeAssertionSpec(
                     expect {
                         fluent.isAfterOrEqualFun(twelve)
                     }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $twelve") }
+                }
+            }
+
+            describe("${isEqual.name} ...") {
+                val isEqualFun = isEqual.lambda
+
+                it("$ten throws an AssertionError") {
+                    expect {
+                        fluent.isEqualFun(ten)
+                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $ten") }
+                }
+                it("$eleven does not throw") {
+                    fluent.isEqualFun(eleven)
+                }
+                it("$twelve throws an AssertionError") {
+                    expect {
+                        fluent.isEqualFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $twelve") }
                 }
             }
         }

@@ -5,10 +5,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfter
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfterOrEquals
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isBefore
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isBeforeOrEquals
+import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.time.chrono.ChronoZonedDateTime
 
 class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
@@ -32,4 +29,9 @@ class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
         expect: Expect<T>,
         expected: ChronoZonedDateTime<*>
     ): Assertion = _isAfterOrEquals(expect, expected)
+
+    override fun <T : ChronoZonedDateTime<*>> isEqual(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
+    ): Assertion = _isEqual(expect, expected)
 }

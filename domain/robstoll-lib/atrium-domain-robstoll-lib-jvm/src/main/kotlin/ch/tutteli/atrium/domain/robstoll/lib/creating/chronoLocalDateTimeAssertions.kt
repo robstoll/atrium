@@ -31,3 +31,10 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
 ): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER_OR_EQUAL, expected) {
     it.isAfter(expected) || it.isEqual(expected)
 }
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isEqual(
+    expect: Expect<T>,
+    expected: ChronoLocalDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_EQUAL_TO, expected) {
+    it.isEqual(expected)
+}

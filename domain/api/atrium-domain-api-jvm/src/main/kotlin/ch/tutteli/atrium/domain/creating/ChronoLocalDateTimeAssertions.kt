@@ -39,4 +39,9 @@ interface ChronoLocalDateTimeAssertions {
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
     ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion
 }
