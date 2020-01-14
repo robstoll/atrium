@@ -271,7 +271,7 @@ expect(x).toBe(9)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L47)</sub> ↓ <sub>Output</sub>
 ```text
 expect: 10        (kotlin.Int <1234789>)
-◆ to be: 9        (kotlin.Int <1234789>)
+◆ equals: 9        (kotlin.Int <1234789>)
 ```
 </ex-first>
 
@@ -507,7 +507,7 @@ expect(myPerson)
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
-    ◾ to be: true
+    ◾ equals: true
 ```
 </ex-property-methods-single>
 
@@ -561,7 +561,7 @@ Feature assertions follow the common pattern of having two overloads:
       ◾ starts with: "Pe"        <1234789>
       ◾ ends with: "er"        <1234789>
   ◆ ▶ lastName: "Stoll"        <1234789>
-      ◾ to be: "Dummy"        <1234789>
+      ◾ equals: "Dummy"        <1234789>
   ```
   </ex-property-methods-group>
 
@@ -608,7 +608,7 @@ expect(myPerson)
 ```text
 expect: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.ReadmeSpec$1$Person <1234789>)
 ◆ ▶ nickname(false): "Mr. Robert"        <1234789>
-    ◾ to be: "Robert aka. Stoll"        <1234789>
+    ◾ equals: "Robert aka. Stoll"        <1234789>
 ```
 </ex-methods-args>
 
@@ -660,7 +660,7 @@ expect(myFamily)
 ```text
 expect: Family(members=[FamilyMember(name=Robert)])        (readme.examples.ReadmeSpec$1$Family <1234789>)
 ◆ ▶ first member's name: "Robert"        <1234789>
-    ◾ to be: "Peter"        <1234789>
+    ◾ equals: "Peter"        <1234789>
 ```
 </ex-arbitrary-features>
 
@@ -707,9 +707,9 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 expect: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
       » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
-            » to be: 1        (kotlin.Int <1234789>)
+            » equals: 1        (kotlin.Int <1234789>)
       » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
-            » to be: 1        (kotlin.Int <1234789>)
+            » equals: 1        (kotlin.Int <1234789>)
 ```
 </ex-within-assertion-functions>
 
@@ -813,9 +813,9 @@ expect(x).isA<SubType2> {
 ```text
 expect: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ ▶ word: "hello"        <1234789>
-    ◾ to be: "goodbye"        <1234789>
+    ◾ equals: "goodbye"        <1234789>
 ◆ ▶ flag: true
-    ◾ to be: false
+    ◾ equals: false
 ```
 </ex-type-assertions-2>
 
@@ -850,7 +850,7 @@ expect(slogan1).toBe(null)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L228)</sub> ↓ <sub>Output</sub>
 ```text
 expect: "postulating assertions made easy"        <1234789>
-◆ to be: null
+◆ equals: null
 ```
 </ex-nullable-1>
 
@@ -863,7 +863,7 @@ expect(slogan2).toBe("postulating assertions made easy")
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L232)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ to be: "postulating assertions made easy"        <1234789>
+◆ equals: "postulating assertions made easy"        <1234789>
 ```
 </ex-nullable-2>
 
@@ -1083,7 +1083,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
       ◾ an entry which: 
           » is less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ size: 4        (kotlin.Int <1234789>)
-      ◾ to be: 2        (kotlin.Int <1234789>)
+      ◾ equals: 2        (kotlin.Int <1234789>)
         ❗❗ additional entries detected: 
            ⚬ entry 2: 2        (kotlin.Int <1234789>)
            ⚬ entry 3: 4        (kotlin.Int <1234789>)
@@ -1127,17 +1127,17 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
-      ◾ to be: 1        (kotlin.Int <1234789>)
+      ◾ equals: 1        (kotlin.Int <1234789>)
   ✔ ▶ entry 1: 2        (kotlin.Int <1234789>)
-      ◾ to be: 2        (kotlin.Int <1234789>)
+      ◾ equals: 2        (kotlin.Int <1234789>)
   ✔ ▶ entry 2: 2        (kotlin.Int <1234789>)
-      ◾ to be: 2        (kotlin.Int <1234789>)
+      ◾ equals: 2        (kotlin.Int <1234789>)
   ✘ ▶ entry 3: 4        (kotlin.Int <1234789>)
-      ◾ to be: 3        (kotlin.Int <1234789>)
+      ◾ equals: 3        (kotlin.Int <1234789>)
   ✘ ▶ entry 4: ❗❗ hasNext() returned false
-      ◾ to be: 4        (kotlin.Int <1234789>)
+      ◾ equals: 4        (kotlin.Int <1234789>)
   ✘ ▶ size: 4        (kotlin.Int <1234789>)
-      ◾ to be: 5        (kotlin.Int <1234789>)
+      ◾ equals: 5        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-2>
 <hr/>
@@ -1171,7 +1171,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
   ✘ an entry which is: 3        (kotlin.Int <1234789>)
   ✔ an entry which is: 4        (kotlin.Int <1234789>)
   ✔ ▶ size: 4
-      ◾ to be: 4
+      ◾ equals: 4
   ❗❗ following entries were mismatched: 
      ⚬ 2        (kotlin.Int <1234789>)
 ```
@@ -1192,7 +1192,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
   ✔ an entry which is: 2        (kotlin.Int <1234789>)
   ✔ an entry which is: 1        (kotlin.Int <1234789>)
   ✘ ▶ size: 4
-      ◾ to be: 5
+      ◾ equals: 5
 ```
 </ex-collection-builder-5>
 
@@ -1209,9 +1209,9 @@ expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » to be: 2        (kotlin.Int <1234789>)
+        » equals: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
-      ◾ to be: 1        (kotlin.Int <1234789>)
+      ◾ equals: 1        (kotlin.Int <1234789>)
 ```
 </ex-map-1>
  
@@ -1236,7 +1236,7 @@ expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
         » is instance of type: Int (kotlin.Int) -- Class: java.lang.Integer
-        » to be: 2        (kotlin.Int <1234789>)
+        » equals: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is greater than: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
@@ -1266,7 +1266,7 @@ expect(mapOf("bernstein" to bernstein))
 expect: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
 ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.ReadmeSpec2$1$Person <1234789>)
     ◾ ▶ age: 50        (kotlin.Int <1234789>)
-        ◾ to be: 60        (kotlin.Int <1234789>)
+        ◾ equals: 60        (kotlin.Int <1234789>)
 ```
 </ex-map-3>
 
@@ -1323,9 +1323,9 @@ expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
   ✔ ▶ entry 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ an entry which: 
           » ▶ key: "a"        <1234789>
-              ◾ to be: "a"        <1234789>
+              ◾ equals: "a"        <1234789>
           » ▶ value: 1        (kotlin.Int <1234789>)
-              ◾ to be: 1        (kotlin.Int <1234789>)
+              ◾ equals: 1        (kotlin.Int <1234789>)
   ✘ ▶ entry 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ an entry which: 
           » ▶ key: "a"        <1234789>
@@ -1333,7 +1333,7 @@ expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
           » ▶ value: 1        (kotlin.Int <1234789>)
               ◾ is greater than: 2        (kotlin.Int <1234789>)
   ✔ ▶ size: 2        (kotlin.Int <1234789>)
-      ◾ to be: 2        (kotlin.Int <1234789>)
+      ◾ equals: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-5>
 
@@ -1375,7 +1375,7 @@ expect(Paths.get("/root/.ssh/config")).isWritable()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L330)</sub> ↓ <sub>Output</sub>
 ```text
 expect: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
-◆ to be: writable
+◆ equals: writable
     » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
       » access was denied
       » the owner is root, the group is root
@@ -1397,7 +1397,7 @@ expect(filePointer.resolve("subfolder/file")).isRegularFile()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
 ```text
 expect: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
-◆ to be: a file
+◆ equals: a file
     » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
     » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
       » was a file instead of a directory
@@ -1435,9 +1435,9 @@ expect("calling myFun with...") {
 ```text
 expect: "calling myFun with..."        <1234789>
 ◆ ▶ myFun(1): 'b'
-    ◾ to be: 'a'
+    ◾ equals: 'a'
 ◆ ▶ myFun(3): 'd'
-    ◾ to be: 'e'
+    ◾ equals: 'e'
 ```
 </ex-data-driven-1>
 
@@ -1515,7 +1515,7 @@ expect: "calling myNullableFun with ..."        <1234789>
           ⚬ ▶ number of occurrences: -1
               ◾ is at least: 1
 ◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
-    ◾ to be: "max"        <1234789>
+    ◾ equals: "max"        <1234789>
 ```
 </ex-data-driven-3>
 
@@ -1585,11 +1585,11 @@ also states which entries were additionally contained in the list:
 expect: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
-      ◾ to be: 1        (kotlin.Int <1234789>)
+      ◾ equals: 1        (kotlin.Int <1234789>)
   ✘ ▶ entry 1: 2        (kotlin.Int <1234789>)
-      ◾ to be: 3        (kotlin.Int <1234789>)
+      ◾ equals: 3        (kotlin.Int <1234789>)
   ✘ ▶ size: 3        (kotlin.Int <1234789>)
-      ◾ to be: 2        (kotlin.Int <1234789>)
+      ◾ equals: 2        (kotlin.Int <1234789>)
         ❗❗ additional entries detected: 
            ⚬ entry 2: 3        (kotlin.Int <1234789>)
 ```
@@ -1925,7 +1925,7 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ ▶ size: 0        (kotlin.Int <1234789>)
-        ◾ to be: 2        (kotlin.Int <1234789>)
+        ◾ equals: 2        (kotlin.Int <1234789>)
 ```
 </ex-own-compose-3>
 
@@ -1999,7 +1999,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
 expect: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
 ◆ ▶ children: [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
     ◾ ▶ size: 1        (kotlin.Int <1234789>)
-        ◾ to be: 2        (kotlin.Int <1234789>)
+        ◾ equals: 2        (kotlin.Int <1234789>)
 ```
 </ex-own-compose-5>
 
