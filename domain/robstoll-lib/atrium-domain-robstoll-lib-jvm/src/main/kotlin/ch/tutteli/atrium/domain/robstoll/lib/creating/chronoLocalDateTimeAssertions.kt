@@ -9,16 +9,32 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
-fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> _isBefore(assertionContainer: Expect<T>, expected: T): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE, expected) { it.isBefore(expected) }
+fun <T : ChronoLocalDateTime<*>> _isBefore(expect: Expect<T>, expected: ChronoLocalDateTime<*>): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, IS_BEFORE, expected) { it.isBefore(expected) }
 
-fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> _isBeforeOrEquals(
-    assertionContainer: Expect<T>,
-    expected: T
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
+    expect: Expect<T>,
+    expected: ChronoLocalDateTime<*>
 ): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE_OR_EQUALS, expected) {
+    ExpectImpl.builder.createDescriptive(expect, IS_BEFORE_OR_EQUAL, expected) {
         it.isBefore(expected) || it.isEqual(expected)
     }
 
-fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> _isAfter(assertionContainer: Expect<T>, expected: T): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_AFTER, expected) { it.isAfter(expected) }
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfter(
+    expect: Expect<T>,
+    expected: ChronoLocalDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER, expected) { it.isAfter(expected) }
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
+    expect: Expect<T>,
+    expected: ChronoLocalDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER_OR_EQUAL, expected) {
+    it.isAfter(expected) || it.isEqual(expected)
+}
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isEqual(
+    expect: Expect<T>,
+    expected: ChronoLocalDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_EQUAL_TO, expected) {
+    it.isEqual(expected)
+}

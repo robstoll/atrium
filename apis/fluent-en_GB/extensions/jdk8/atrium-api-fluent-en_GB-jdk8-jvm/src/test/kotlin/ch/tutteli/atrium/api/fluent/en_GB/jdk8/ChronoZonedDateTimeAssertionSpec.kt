@@ -9,11 +9,13 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
 class ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAssertionSpec(
-    fun1(Expect<ZonedDateTime>::isBefore),
-    fun1(Expect<ZonedDateTime>::isBeforeOrEquals),
-    fun1(Expect<ZonedDateTime>::isAfter)
+    fun1(Expect<ChronoZonedDateTime<*>>::isBefore),
+    fun1(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+    fun1(Expect<ChronoZonedDateTime<*>>::isAfter),
+    fun1(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+    fun1(Expect<ChronoZonedDateTime<*>>::isEqual)
 ) {
-    @Suppress("unused", "UNUSED_VALUE", /* TODO #289 remove again => */ "UNUSED_VARIABLE")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val chronoZonedDateTime: ChronoZonedDateTime<*> = notImplemented()
         var a1: Expect<ChronoZonedDateTime<ChronoLocalDate>> = notImplemented()
@@ -21,39 +23,54 @@ class ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.Chr
         var a3: Expect<ChronoZonedDateTime<*>> = notImplemented()
         var a4: Expect<ZonedDateTime> = notImplemented()
 
-        //TODO #289 we need to change the signature, it should not accept T but ChronoZonedDateTime<*>
-//        a1 = a1.isBefore(ZonedDateTime.now())
-//        a1 = a1.isBeforeOrEquals(ZonedDateTime.now())
-//        a1 = a1.isAfter(ZonedDateTime.now())
+
+        a1 = a1.isBefore(ZonedDateTime.now())
+        a1 = a1.isBeforeOrEqual(ZonedDateTime.now())
+        a1 = a1.isAfter(ZonedDateTime.now())
+        a1 = a1.isAfterOrEqual(ZonedDateTime.now())
+        a1 = a1.isEqual(ZonedDateTime.now())
 
         a2 = a2.isBefore(ZonedDateTime.now())
-        a2 = a2.isBeforeOrEquals(ZonedDateTime.now())
+        a2 = a2.isBeforeOrEqual(ZonedDateTime.now())
         a2 = a2.isAfter(ZonedDateTime.now())
+        a2 = a2.isAfterOrEqual(ZonedDateTime.now())
+        a2 = a2.isEqual(ZonedDateTime.now())
 
-        //TODO #289 we need to change the signature, it should not accept T but ChronoZonedDateTime<*>
-//        a3 = a3.isBefore(ZonedDateTime.now())
-//        a3 = a3.isBeforeOrEquals(ZonedDateTime.now())
-//        a3 = a3.isAfter(ZonedDateTime.now())
+        a3 = a3.isBefore(ZonedDateTime.now())
+        a3 = a3.isBeforeOrEqual(ZonedDateTime.now())
+        a3 = a3.isAfter(ZonedDateTime.now())
+        a3 = a3.isAfterOrEqual(ZonedDateTime.now())
+        a3 = a3.isEqual(ZonedDateTime.now())
 
         a4 = a4.isBefore(ZonedDateTime.now())
-        a4 = a4.isBeforeOrEquals(ZonedDateTime.now())
+        a4 = a4.isBeforeOrEqual(ZonedDateTime.now())
         a4 = a4.isAfter(ZonedDateTime.now())
+        a4 = a4.isAfterOrEqual(ZonedDateTime.now())
+        a4 = a4.isEqual(ZonedDateTime.now())
 
-        //TODO #289 this should actually be supported
-//        a1 = a1.isBefore(chronoZonedDateTime)
-//        a1 = a1.isBeforeOrEquals(chronoZonedDateTime)
-//        a1 = a1.isAfter(chronoZonedDateTime)
-//
-//        a2 = a2.isBefore(chronoZonedDateTime)
-//        a2 = a2.isBeforeOrEquals(chronoZonedDateTime)
-//        a2 = a2.isAfter(chronoZonedDateTime)
-//
-//        a3 = a3.isBefore(chronoZonedDateTime)
-//        a3 = a3.isBeforeOrEquals(chronoZonedDateTime)
-//        a3 = a3.isAfter(chronoZonedDateTime)
 
-//        a4 = a4.isBefore(chronoZonedDateTime)
-//        a4 = a4.isBeforeOrEquals(chronoZonedDateTime)
-//        a4 = a4.isAfter(chronoZonedDateTime)
+        a1 = a1.isBefore(chronoZonedDateTime)
+        a1 = a1.isBeforeOrEqual(chronoZonedDateTime)
+        a1 = a1.isAfter(chronoZonedDateTime)
+        a1 = a1.isAfterOrEqual(chronoZonedDateTime)
+        a1 = a1.isEqual(chronoZonedDateTime)
+
+        a2 = a2.isBefore(chronoZonedDateTime)
+        a2 = a2.isBeforeOrEqual(chronoZonedDateTime)
+        a2 = a2.isAfter(chronoZonedDateTime)
+        a2 = a2.isAfterOrEqual(chronoZonedDateTime)
+        a2 = a2.isEqual(chronoZonedDateTime)
+
+        a3 = a3.isBefore(chronoZonedDateTime)
+        a3 = a3.isBeforeOrEqual(chronoZonedDateTime)
+        a3 = a3.isAfter(chronoZonedDateTime)
+        a3 = a3.isAfterOrEqual(chronoZonedDateTime)
+        a3 = a3.isEqual(chronoZonedDateTime)
+
+        a4 = a4.isBefore(chronoZonedDateTime)
+        a4 = a4.isBeforeOrEqual(chronoZonedDateTime)
+        a4 = a4.isAfter(chronoZonedDateTime)
+        a4 = a4.isAfterOrEqual(chronoZonedDateTime)
+        a4 = a4.isEqual(chronoZonedDateTime)
     }
 }

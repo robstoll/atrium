@@ -20,18 +20,28 @@ import java.time.chrono.ChronoLocalDateTime
  */
 object ChronoLocalDateTimeAssertionsBuilder : ChronoLocalDateTimeAssertions {
 
-    override inline fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isBefore(
-        assertionContainer: Expect<T>,
-        expected: T
-    ) = chronoLocalDateTimeAssertions.isBefore(assertionContainer, expected)
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isBefore(expect, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isBeforeOrEquals(
-        assertionContainer: Expect<T>,
-        expected: T
-    ) = chronoLocalDateTimeAssertions.isBeforeOrEquals(assertionContainer, expected)
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isBeforeOrEquals(expect, expected)
 
-    override inline fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isAfter(
-        assertionContainer: Expect<T>,
-        expected: T
-    ) = chronoLocalDateTimeAssertions.isAfter(assertionContainer, expected)
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isAfter(expect, expected)
+
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isAfterOrEquals(expect, expected)
+
+    override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isEqual(expect, expected)
 }

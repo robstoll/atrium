@@ -10,11 +10,14 @@ import org.spekframework.spek2.style.specification.describe
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import java.time.chrono.ChronoZonedDateTime
 
 abstract class ChronoZonedDateTimeAssertionSpec(
-    isBefore: Fun1<ZonedDateTime, ZonedDateTime>,
-    isBeforeOrEquals: Fun1<ZonedDateTime, ZonedDateTime>,
-    isAfter: Fun1<ZonedDateTime, ZonedDateTime>,
+    isBefore: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isBeforeOrEqual: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isAfter: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isAfterOrEqual: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
+    isEqual: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -22,19 +25,23 @@ abstract class ChronoZonedDateTimeAssertionSpec(
     val eleven = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 210, ZoneId.of("Europe/Zurich"))
     val twelve = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 210, ZoneId.of("Europe/Zurich"))
 
-    include(object : SubjectLessSpec<ZonedDateTime>(
+    include(object : SubjectLessSpec<ChronoZonedDateTime<*>>(
         describePrefix,
         isBefore.forSubjectLess(eleven),
-        isBeforeOrEquals.forSubjectLess(eleven),
-        isAfter.forSubjectLess(eleven)
+        isBeforeOrEqual.forSubjectLess(eleven),
+        isAfter.forSubjectLess(eleven),
+        isAfterOrEqual.forSubjectLess(eleven),
+        isEqual.forSubjectLess(eleven)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
-    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isBeforeOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val isAfterOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
+    val isEqualDescr = DescriptionDateTimeLikeAssertion.IS_EQUAL_TO.getDefault()
 
 
-    listOf(
+    listOf<ChronoZonedDateTime<*>>(
         eleven,
         eleven.withZoneSameInstant(ZoneOffset.UTC)
     ).forEach { subject ->
@@ -59,19 +66,19 @@ abstract class ChronoZonedDateTimeAssertionSpec(
                     fluent.isBeforeFun(twelve)
                 }
             }
-            describe("${isBeforeOrEquals.name} ...") {
-                val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+            describe("${isBeforeOrEqual.name} ...") {
+                val isBeforeOrEqualFun = isBeforeOrEqual.lambda
 
                 it("$ten throws an AssertionError") {
                     expect {
-                        fluent.isBeforeOrEqualsFun(ten)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: $ten") }
+                        fluent.isBeforeOrEqualFun(ten)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualDescr: $ten") }
                 }
                 it("$eleven does not throw") {
-                    fluent.isBeforeOrEqualsFun(eleven)
+                    fluent.isBeforeOrEqualFun(eleven)
                 }
                 it("$twelve does not throw") {
-                    fluent.isBeforeOrEqualsFun(twelve)
+                    fluent.isBeforeOrEqualFun(twelve)
                 }
             }
             describe("${isAfter.name} ...") {
@@ -89,6 +96,38 @@ abstract class ChronoZonedDateTimeAssertionSpec(
                     expect {
                         fluent.isAfterFun(twelve)
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $twelve") }
+                }
+            }
+            describe("${isAfterOrEqual.name} ...") {
+                val isAfterOrEqualFun = isAfterOrEqual.lambda
+
+                it("$ten does not throw") {
+                    fluent.isAfterOrEqualFun(ten)
+                }
+                it("$eleven does not throw") {
+                    fluent.isAfterOrEqualFun(eleven)
+                }
+                it("$twelve throws an AssertionError") {
+                    expect {
+                        fluent.isAfterOrEqualFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $twelve") }
+                }
+            }
+            describe("${isEqual.name} ...") {
+                val isEqualFun = isEqual.lambda
+
+                it("$ten throws an AssertionError") {
+                    expect {
+                        fluent.isEqualFun(ten)
+                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $ten") }
+                }
+                it("$eleven does not throw") {
+                    fluent.isEqualFun(eleven)
+                }
+                it("$twelve throws an AssertionError") {
+                    expect {
+                        fluent.isEqualFun(twelve)
+                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $twelve") }
                 }
             }
         }

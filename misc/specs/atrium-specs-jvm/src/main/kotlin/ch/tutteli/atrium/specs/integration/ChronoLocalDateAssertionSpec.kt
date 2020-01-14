@@ -13,8 +13,10 @@ import java.time.chrono.JapaneseDate
 
 abstract class ChronoLocalDateAssertionSpec(
     isBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isBeforeOrEquals: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isBeforeOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isAfterOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    isEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -25,17 +27,21 @@ abstract class ChronoLocalDateAssertionSpec(
     include(object : SubjectLessSpec<ChronoLocalDate>(
         describePrefix,
         isBefore.forSubjectLess(december23),
-        isBeforeOrEquals.forSubjectLess(december23),
-        isAfter.forSubjectLess(december23)
+        isBeforeOrEqual.forSubjectLess(december23),
+        isAfter.forSubjectLess(december23),
+        isAfterOrEqual.forSubjectLess(december23),
+        isEqual.forSubjectLess(december23)
     ) {})
 
     val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
-    val isBeforeOrEqualsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUALS.getDefault()
+    val isBeforeOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
     val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val isAfterOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
+    val isEqualDescr = DescriptionDateTimeLikeAssertion.SAME_DAY.getDefault()
 
-    listOf(
-        //TODO #289 cast should not be necessary
-        december23 as ChronoLocalDate,
+
+    listOf<ChronoLocalDate>(
+        december23,
         JapaneseDate.of(2019, 12, 23)
     ).forEach { subject ->
         val fluent = expect(subject)
@@ -46,7 +52,7 @@ abstract class ChronoLocalDateAssertionSpec(
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.isBeforeFun(LocalDate.of(2019, 12, 22))
+                        fluent.isBeforeFun(december22)
                     }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $december22") }
                 }
                 it("... $december23 throws an AssertionError") {
@@ -55,29 +61,29 @@ abstract class ChronoLocalDateAssertionSpec(
                     }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $december23") }
                 }
                 it("... $december24 does not throw") {
-                    fluent.isBeforeFun(LocalDate.of(2019, 12, 24))
+                    fluent.isBeforeFun(december24)
                 }
             }
-            describe("${isBeforeOrEquals.name} ...") {
-                val isBeforeOrEqualsFun = isBeforeOrEquals.lambda
+            describe("${isBeforeOrEqual.name} ...") {
+                val isBeforeOrEqualFun = isBeforeOrEqual.lambda
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.isBeforeOrEqualsFun(LocalDate.of(2019, 12, 22))
-                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualsDescr: $december22") }
+                        fluent.isBeforeOrEqualFun(december22)
+                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
-                    fluent.isBeforeOrEqualsFun(december23)
+                    fluent.isBeforeOrEqualFun(december23)
                 }
                 it("... $december24 does not throw") {
-                    fluent.isBeforeOrEqualsFun(LocalDate.of(2019, 12, 24))
+                    fluent.isBeforeOrEqualFun(december24)
                 }
             }
             describe("${isAfter.name} ...") {
                 val isAfterFun = isAfter.lambda
 
                 it("... $december22 does not throw") {
-                    fluent.isAfterFun(LocalDate.of(2019, 12, 22))
+                    fluent.isAfterFun(december22)
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
@@ -86,8 +92,40 @@ abstract class ChronoLocalDateAssertionSpec(
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.isAfterFun(LocalDate.of(2019, 12, 24))
+                        fluent.isAfterFun(december24)
                     }.toThrow<AssertionError> { messageContains("$isAfterDescr: $december24") }
+                }
+            }
+            describe("${isAfterOrEqual.name} ...") {
+                val isAfterOrEqualFun = isAfterOrEqual.lambda
+
+                it("... $december22 does not throw") {
+                    fluent.isAfterOrEqualFun(december22)
+                }
+                it("... $december23 does not throw") {
+                    fluent.isAfterOrEqualFun(december23)
+                }
+                it("... $december24 throws an AssertionError") {
+                    expect {
+                        fluent.isAfterOrEqualFun(december24)
+                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $december24") }
+                }
+            }
+            describe("${isEqual.name} ...") {
+                val isEqualFun = isEqual.lambda
+
+                it("... $december22 throws an AssertionError") {
+                    expect {
+                        fluent.isEqualFun(december22)
+                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $december22") }
+                }
+                it("... $december23 does not throw") {
+                    fluent.isEqualFun(december23)
+                }
+                it("... $december24 throws an AssertionError") {
+                    expect {
+                        fluent.isEqualFun(december24)
+                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $december24") }
                 }
             }
         }

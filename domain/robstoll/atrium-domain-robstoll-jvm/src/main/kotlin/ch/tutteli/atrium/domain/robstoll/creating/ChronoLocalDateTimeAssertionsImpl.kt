@@ -5,26 +5,34 @@ package ch.tutteli.atrium.domain.robstoll.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ChronoLocalDateTimeAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isAfter
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isBefore
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isBeforeOrEquals
+import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
 class ChronoLocalDateTimeAssertionsImpl : ChronoLocalDateTimeAssertions {
 
-    override fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isBefore(
-        assertionContainer: Expect<T>,
-        expected: T
-    ): Assertion = _isBefore(assertionContainer, expected)
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion = _isBefore(expect, expected)
 
-    override fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isBeforeOrEquals(
-        assertionContainer: Expect<T>,
-        expected: T
-    ): Assertion = _isBeforeOrEquals(assertionContainer, expected)
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion = _isBeforeOrEquals(expect, expected)
 
-    override fun <D : ChronoLocalDate, T : ChronoLocalDateTime<D>> isAfter(
-        assertionContainer: Expect<T>,
-        expected: T
-    ): Assertion = _isAfter(assertionContainer, expected)
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion = _isAfter(expect, expected)
+
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion = _isAfterOrEquals(expect, expected)
+
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion = _isEqual(expect, expected)
 }

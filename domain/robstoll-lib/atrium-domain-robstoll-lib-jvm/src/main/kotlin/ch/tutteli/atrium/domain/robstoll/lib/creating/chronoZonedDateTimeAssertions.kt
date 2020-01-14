@@ -9,16 +9,34 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
-fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> _isBefore(assertionContainer: Expect<T>, expected: T): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE, expected) { it.isBefore(expected) }
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> _isBefore(
+    expect: Expect<T>,
+    expected: ChronoZonedDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_BEFORE, expected) { it.isBefore(expected) }
 
-fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> _isBeforeOrEquals(
-    assertionContainer: Expect<T>,
-    expected: T
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
+    expect: Expect<T>,
+    expected: ChronoZonedDateTime<*>
 ): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_BEFORE_OR_EQUALS, expected) {
+    ExpectImpl.builder.createDescriptive(expect, IS_BEFORE_OR_EQUAL, expected) {
         it.isBefore(expected) || it.isEqual(expected)
     }
 
-fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> _isAfter(assertionContainer: Expect<T>, expected: T): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, IS_AFTER, expected) { it.isAfter(expected) }
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> _isAfter(
+    expect: Expect<T>,
+    expected: ChronoZonedDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER, expected) { it.isAfter(expected) }
+
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> _isAfterOrEquals(
+    expect: Expect<T>,
+    expected: ChronoZonedDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER_OR_EQUAL, expected) {
+    it.isAfter(expected) || it.isEqual(expected)
+}
+
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> _isEqual(
+    expect: Expect<T>,
+    expected: ChronoZonedDateTime<*>
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_EQUAL_TO, expected) {
+    it.isEqual(expected)
+}
