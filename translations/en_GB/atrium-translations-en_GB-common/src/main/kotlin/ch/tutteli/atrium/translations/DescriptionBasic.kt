@@ -10,8 +10,8 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {
     TO("to"),
     NOT_TO("not to"),
-    TO_BE("is equal to"),
-    NOT_TO_BE("is not equal to"),
+    TO_BE("equals"),
+    NOT_TO_BE("does not equal"),
     IS("is"),
     IS_NOT("is not"),
     HAS("has"),
