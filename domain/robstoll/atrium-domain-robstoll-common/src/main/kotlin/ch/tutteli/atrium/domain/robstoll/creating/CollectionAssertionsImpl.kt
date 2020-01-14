@@ -13,5 +13,5 @@ class CollectionAssertionsImpl : CollectionAssertions, CollectionAssertionsDepre
 
     override fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>) = _isNotEmpty(subjectProvider)
 
-    override fun <T : Collection<*>> size(assertionContainer: Expect<T>) = _size(assertionContainer)
+    override fun <T : Collection<*>> size(expect: Expect<T>) = _size(expect)
 }

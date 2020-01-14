@@ -20,26 +20,17 @@ class LocalDateTimeFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.L
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<LocalDateTime> = notImplemented()
-        var a2: Expect<out LocalDateTime> = notImplemented()
 
         a1.year
         a1 = a1.year { }
-        a2.year
-        a2 = a2.year { }
 
         a1.month
         a1 = a1.month { }
-        a2.month
-        a2 = a2.month { }
 
         a1.day
         a1 = a1.day { }
-        a2.day
-        a2 = a2.day { }
 
         a1.dayOfWeek
         a1 = a1.dayOfWeek { }
-        a2.dayOfWeek
-        a2 = a2.dayOfWeek { }
     }
 }

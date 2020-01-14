@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessOrEquals
+import ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
@@ -43,9 +43,9 @@ abstract class LocalDateTimeFeatureAssertionsSpec(
         monthFeature.forSubjectLess().adjustName { "$it feature" },
         month.forSubjectLess { isLessThan(12) },
         dayFeature.forSubjectLess().adjustName { "$it feature" },
-        day.forSubjectLess { isLessOrEquals(20) },
+        day.forSubjectLess { isLessThanOrEqual(20) },
         dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
-        dayOfWeek.forSubjectLess { isLessOrEquals(DayOfWeek.SUNDAY) }
+        dayOfWeek.forSubjectLess { isLessThanOrEqual(DayOfWeek.SUNDAY) }
     ) {})
 
     include(object : AssertionCreatorSpec<LocalDateTime>(

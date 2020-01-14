@@ -22,33 +22,28 @@ class PairFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PairFeatur
         var a2: Expect<Pair<String?, Int>> = notImplemented()
         var a3: Expect<Pair<String, Int?>> = notImplemented()
         var a4: Expect<Pair<String?, Int?>> = notImplemented()
-        var a5: Expect<Pair<String?, Int?>> = notImplemented()
-        var a6: Expect<Pair<*, *>> = notImplemented()
+        var star: Expect<Pair<*, *>> = notImplemented()
 
         a1.first
         a2.first
         a3.first
         a4.first
-        a5.first
-        a6.first
+        star.first
         a1 = a1.first { }
         a2 = a2.first { }
         a3 = a3.first { }
         a4 = a4.first { }
-        a5 = a5.first { }
-        a6 = a6.first { }
+        star = star.first { }
 
         a1.second
         a2.second
         a3.second
         a4.second
-        a5.second
-        a6.second
+        star.second
         a1 = a1.second { }
         a2 = a2.second { }
         a3 = a3.second { }
         a4 = a4.second { }
-        a5 = a5.second { }
-        a6 = a6.second { }
+        star = star.second { }
     }
 }

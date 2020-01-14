@@ -9,7 +9,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -17,7 +17,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 /**
- * Showcase for using ExpectImpl.changeSubject
+ * Showcase for using ExpectImpl.feature.extractor
  */
 object EitherSpec : Spek({
 
@@ -32,7 +32,7 @@ object EitherSpec : Spek({
                 expect(either).isRight { isLessThan(2) }
             }.toThrow<AssertionError> {
                 messageContains(
-                    "is a: ${Right::class.simpleName}",
+                    "value of Right: ❗❗ is not a Right",
                     "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
                 )
             }
@@ -47,7 +47,7 @@ object EitherSpec : Spek({
                 expect(either).isLeft { startsWith("h") }
             }.toThrow<AssertionError> {
                 messageContains(
-                    "is a: ${Left::class.simpleName}",
+                    "value of Left: ❗❗ is not a Left",
                     "${DescriptionCharSequenceAssertion.STARTS_WITH.getDefault()}: \"h\""
                 )
             }
@@ -62,27 +62,29 @@ fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = changeToLeft().getExpectOf
 fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
     changeToLeft().addToInitial(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ChangedSubjectPostStep<Either<A, B>, A> {
-    return ExpectImpl.changeSubject(this).reportBuilder()
-        .withDescriptionAndRepresentation("is a", RawString.create("Left"))
-        .withTransformation {
+private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
+    ExpectImpl.feature.extractor(this)
+        .withDescription("value of Left")
+        .withRepresentationForFailure(RawString.create("❗❗ is not a Left"))
+        .withFeatureExtraction {
             if (it is Left) Some(it.a) else None
         }
+        .withoutOptions()
         .build()
-}
 
 fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = changeToRight().getExpectOfFeature()
 fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
     changeToRight().addToInitial(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.changeToRight(): ChangedSubjectPostStep<Either<A, B>, B> {
-    return ExpectImpl.changeSubject(this).reportBuilder()
-        .withDescriptionAndRepresentation("is a", RawString.create("Right"))
-        .withTransformation {
+private fun <A, B> Expect<Either<A, B>>.changeToRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
+    ExpectImpl.feature.extractor(this)
+        .withDescription("value of Right")
+        .withRepresentationForFailure(RawString.create("❗❗ is not a Right"))
+        .withFeatureExtraction {
             if (it is Right) Some(it.b) else None
         }
+        .withoutOptions()
         .build()
-}
 
 /** copied and simplified from
  *  https://github.com/arrow-kt/arrow/blob/master/arrow-core/src/main/kotlin/arrow/core/Either.kt

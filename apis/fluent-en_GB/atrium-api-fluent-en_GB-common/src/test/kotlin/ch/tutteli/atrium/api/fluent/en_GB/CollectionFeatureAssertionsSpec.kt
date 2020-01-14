@@ -12,23 +12,17 @@ object CollectionFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.Col
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<Collection<Int>> = notImplemented()
-        var a2: Expect<out Collection<Int>> = notImplemented()
         var a1b: Expect<Collection<Int?>> = notImplemented()
-        var a2b: Expect<out Collection<Int?>> = notImplemented()
 
-        var a3: Expect<out Collection<*>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
         a1.size
-        a2.size
         a1 = a1.size { }
-        a2 = a2.size { }
 
         a1b.size
-        a2b.size
         a1b = a1b.size { }
-        a2b = a2b.size { }
 
-        a3.size
-        a3 = a3.size { }
+        star.size
+        star = star.size { }
     }
 }

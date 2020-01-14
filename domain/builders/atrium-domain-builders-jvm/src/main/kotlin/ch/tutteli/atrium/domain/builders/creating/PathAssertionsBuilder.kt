@@ -18,45 +18,45 @@ import java.nio.file.Path
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object PathAssertionsBuilder : PathAssertions {
-    override inline fun <T : Path> startsWith(assertionContainer: Expect<T>, expected: Path) =
-        pathAssertions.startsWith(assertionContainer, expected)
+    override inline fun <T : Path> startsWith(expect: Expect<T>, expected: Path) =
+        pathAssertions.startsWith(expect, expected)
 
-    override inline fun <T : Path> startsNotWith(assertionContainer: Expect<T>, expected: Path) =
-        pathAssertions.startsNotWith(assertionContainer, expected)
+    override inline fun <T : Path> startsNotWith(expect: Expect<T>, expected: Path) =
+        pathAssertions.startsNotWith(expect, expected)
 
-    override inline fun <T : Path> endsWith(assertionContainer: Expect<T>, expected: Path) =
-        pathAssertions.endsWith(assertionContainer, expected)
+    override inline fun <T : Path> endsWith(expect: Expect<T>, expected: Path) =
+        pathAssertions.endsWith(expect, expected)
 
-    override inline fun <T : Path> endsNotWith(assertionContainer: Expect<T>, expected: Path) =
-        pathAssertions.endsNotWith(assertionContainer, expected)
+    override inline fun <T : Path> endsNotWith(expect: Expect<T>, expected: Path) =
+        pathAssertions.endsNotWith(expect, expected)
 
-    override inline fun <T : Path> exists(assertionContainer: Expect<T>) =
-        pathAssertions.exists(assertionContainer)
+    override inline fun <T : Path> exists(expect: Expect<T>) =
+        pathAssertions.exists(expect)
 
-    override inline fun <T : Path> existsNot(assertionContainer: Expect<T>) =
-        pathAssertions.existsNot(assertionContainer)
+    override inline fun <T : Path> existsNot(expect: Expect<T>) =
+        pathAssertions.existsNot(expect)
 
-    override inline fun <T : Path> fileName(assertionContainer: Expect<T>) =
-        pathAssertions.fileName(assertionContainer)
+    override inline fun <T : Path> fileName(expect: Expect<T>) =
+        pathAssertions.fileName(expect)
 
-    override inline fun <T : Path> extension(assertionContainer: Expect<T>) =
-        pathAssertions.extension(assertionContainer)
+    override inline fun <T : Path> extension(expect: Expect<T>) =
+        pathAssertions.extension(expect)
 
-    override inline fun <T : Path> fileNameWithoutExtension(assertionContainer: Expect<T>) =
-        pathAssertions.fileNameWithoutExtension(assertionContainer)
+    override inline fun <T : Path> fileNameWithoutExtension(expect: Expect<T>) =
+        pathAssertions.fileNameWithoutExtension(expect)
 
-    override inline fun <T : Path> parent(assertionContainer: Expect<T>) =
-        pathAssertions.parent(assertionContainer)
+    override inline fun <T : Path> parent(expect: Expect<T>) =
+        pathAssertions.parent(expect)
 
-    override inline fun <T : Path> isReadable(assertionContainer: Expect<T>) =
-        pathAssertions.isReadable(assertionContainer)
+    override inline fun <T : Path> isReadable(expect: Expect<T>) =
+        pathAssertions.isReadable(expect)
 
-    override inline fun <T : Path> isWritable(assertionContainer: Expect<T>) =
-        pathAssertions.isWritable(assertionContainer)
+    override inline fun <T : Path> isWritable(expect: Expect<T>) =
+        pathAssertions.isWritable(expect)
 
-    override fun <T : Path> isRegularFile(assertionContainer: Expect<T>) =
-        pathAssertions.isRegularFile(assertionContainer)
+    override fun <T : Path> isRegularFile(expect: Expect<T>) =
+        pathAssertions.isRegularFile(expect)
 
-    override fun <T : Path> isDirectory(assertionContainer: Expect<T>) =
-        pathAssertions.isDirectory(assertionContainer)
+    override fun <T : Path> isDirectory(expect: Expect<T>) =
+        pathAssertions.isDirectory(expect)
 }

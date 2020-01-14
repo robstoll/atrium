@@ -30,7 +30,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     @Deprecated(
-        "Use the overload which expects an AtriumErrorAdjuster in addition; will be removed with 1.0.0",
+        "Use the overload which expects an AtriumErrorAdjuster in addition; will be removed with 0.10.0",
         ReplaceWith("this.newOnlyFailureReporter(assertionFormatterFacade, this.newNoOpAtriumErrorAdjuster())")
     )
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
@@ -38,7 +38,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     // we need to define the following methods here so that we can retain binary backward compatibility
     // => Kotlin generates an object called CoreFactory$DefaultImpls due to the optional parameters
     // hence we need to place the methods here and cannot move them to CoreFactoryCommon as well
-    // => will be change with 1.0.0
+    // => will be change with 0.10.0
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -49,7 +49,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
-     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
+     * Notice, this method will be moved to [CoreFactoryCommon] with 0.10.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -61,18 +61,18 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
         ReplaceWith(
-            "ExpectImpl\n" +
-                ".assertionVerbBuilder(\n" +
+            "ExpectBuilder.forSubject(\n" +
+                "// !!!! in case you define an assertion verb function, remove it entirely, this is no longer required !!!! otherwise:\n" +
                 "// define the subject here instead of subjectProvider(), for instance just `subject` instead of `{ subject }`\n" +
                 "// in case you have a transformation from an existing subject, then use this.maybeSubject.map { transform(it) }\n" +
                 "subjectProvider()\n" +
                 ")\n" +
                 ".withVerb(assertionVerb)\n" +
-                ".withCustomReporter(reporter)\n" +
+                ".withOptions { withReporter(reporter) }\n" +
                 ".build()",
-            "ch.tutteli.atrium.domain.builders.ExpectImpl"
+            "ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder"
         )
     )
     fun <T : Any?> newReportingPlantNullable(
@@ -93,7 +93,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
-     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
+     * Notice, this method will be moved to [CoreFactoryCommon] with 0.10.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -106,7 +106,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
         ReplaceWith(
             "this.newReportingAssertionContainer(\n" +
                 "assertionVerb,\n" +

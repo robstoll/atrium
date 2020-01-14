@@ -446,7 +446,7 @@ object ReadmeSpec2 : Spek({
 object Between1 : Spek({
     test("code-own-compose-1") {
         fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-            isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
+            isGreaterThanOrEqual(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
     }
 })
 
@@ -454,7 +454,7 @@ object Between2 : Spek({
     test("code-own-compose-2") {
         fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
             addAssertionsCreatedBy {
-                isGreaterOrEquals(lowerBoundInclusive)
+                isGreaterThanOrEqual(lowerBoundInclusive)
                 isLessThan(upperBoundExclusive)
             }
     }
@@ -484,7 +484,7 @@ object OwnPerson : Spek({
     //snippet-own-compose-4-start
     fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
         feature(Person::children) {
-            all { feature(Person::age).isGreaterOrEquals(18) }
+            all { feature(Person::age).isGreaterThanOrEqual(18) }
         }
     }
     //snippet-own-compose-4-end

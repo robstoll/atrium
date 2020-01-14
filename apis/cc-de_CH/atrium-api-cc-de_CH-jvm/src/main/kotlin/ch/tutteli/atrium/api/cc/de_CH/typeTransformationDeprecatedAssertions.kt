@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 @file:JvmMultifileClass
 @file:JvmName("TypeTransformationAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `ist(expected)` without adding enough to be a legit alternative.", ReplaceWith("ist(expected)"))
+@Deprecated("Will be removed with 0.10.0 because it is redundant in terms of `ist(expected)` without adding enough to be a legit alternative.", ReplaceWith("ist(expected)"))
 inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNullAber(expected: T) {
     istNichtNull { ist(expected) }
 }

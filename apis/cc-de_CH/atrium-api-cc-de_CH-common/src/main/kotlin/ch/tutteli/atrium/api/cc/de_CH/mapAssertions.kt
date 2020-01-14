@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -23,7 +23,7 @@ import kotlin.js.JsName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
     = addAssertion(AssertImpl.map.contains(this, entry glue otherEntries))
@@ -42,7 +42,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.enthaelt(entry: Pair<K, V>, vararg otherE
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V : Any, T: Map<out K, V?>> Assert<T>.enthaelt(
     keyValue: KeyValue<K, V>,
@@ -56,7 +56,7 @@ fun <K, V : Any, T: Map<out K, V?>> Assert<T>.enthaelt(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 fun <K> Assert<Map<out K, *>>.enthaeltKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
@@ -66,7 +66,7 @@ fun <K> Assert<Map<out K, *>>.enthaeltKey(key: K)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
@@ -78,7 +78,7 @@ fun <K> Assert<Map<out K, *>>.enthaeltNichtKey(key: K)
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 @JsName("getExistierend")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
@@ -93,7 +93,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K): Assert<V>
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
@@ -106,7 +106,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExistierend(key: K, assertionCrea
  * @return The newly created plant for the feature
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNullable<V>
     = AssertImpl.map.getExistingNullable(this, key)
@@ -118,7 +118,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.getExistierend(key: K): AssertionPlantNul
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <T : Map<*, *>> Assert<T>.hatDieGroesse(size: Int)
     = addAssertion(AssertImpl.map.hasSize(this, size))
@@ -129,7 +129,7 @@ fun <T : Map<*, *>> Assert<T>.hatDieGroesse(size: Int)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 fun <T : Map<*, *>> Assert<T>.istLeer()
     = addAssertion(AssertImpl.map.isEmpty(this))
 
@@ -139,7 +139,7 @@ fun <T : Map<*, *>> Assert<T>.istLeer()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 fun <T : Map<*, *>> Assert<T>.istNichtLeer()
     = addAssertion(AssertImpl.map.isNotEmpty(this))
 
@@ -152,7 +152,7 @@ fun <T : Map<*, *>> Assert<T>.istNichtLeer()
  *
  * @return The newly created [AssertionPlant].
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out K, V>::keys)
 
 /**
@@ -163,7 +163,7 @@ val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out 
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
@@ -177,7 +177,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() 
  *
  * @return The newly created [AssertionPlant].
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property(Map<out K, V>::values)
 
 /**
@@ -188,7 +188,7 @@ val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
@@ -201,7 +201,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.values(assertionCreator: Assert<Collectio
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
 @Suppress("DEPRECATION")
 fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = ExpectImpl.changeSubject(this).unreported { it.entries }

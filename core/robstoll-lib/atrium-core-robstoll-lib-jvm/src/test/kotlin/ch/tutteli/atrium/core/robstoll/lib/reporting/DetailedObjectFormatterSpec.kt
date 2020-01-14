@@ -145,9 +145,9 @@ object DetailedObjectFormatterSpec : Spek({
 
             context("a non primitive Kotlin class (java Class is not the same)") {
                 val result = testee.format(CharSequence::class)
-                it("returns the simpleName and qualified in parenthesis including java's simpleName and name") {
+                it("returns the simpleName and qualified in parenthesis including java's name") {
                     val clazz = CharSequence::class
-                    expect(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.simpleName} (${clazz.java.name})")
+                    expect(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.name}")
                 }
             }
         }

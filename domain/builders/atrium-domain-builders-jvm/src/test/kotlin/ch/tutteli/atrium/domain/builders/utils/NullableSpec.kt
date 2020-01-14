@@ -124,7 +124,6 @@ object NullableSpec : Spek({
             }.toThrow<AssertionError> {
                 messageContains(
                     "get(1): null",
-                    DescriptionAnyAssertion.IS_A.getDefault() + ": String",
                     "$toBeDescr: \"test\""
                 )
             }
@@ -145,7 +144,6 @@ object NullableSpec : Spek({
             }.toThrow<AssertionError> {
                 messageContains(
                     "get(1): null",
-                    DescriptionAnyAssertion.IS_A.getDefault() + ": String",
                     "$toBeDescr: \"hello\""
                 )
             }

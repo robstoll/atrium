@@ -20,19 +20,24 @@ val chronoZonedDateTimeAssertions by lazy { loadSingleService(ChronoZonedDateTim
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ChronoZonedDateTimeAssertions {
-    fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBefore(
-        assertionContainer: Expect<T>,
-        expected: T
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
     ): Assertion
 
-    fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isBeforeOrEquals(
-        assertionContainer: Expect<T>,
-        expected: T
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEqual(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
     ): Assertion
 
-    fun <D : ChronoLocalDate, T : ChronoZonedDateTime<D>> isAfter(
-        assertionContainer: Expect<T>,
-        expected: T
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfter(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
+    ): Assertion
+
+    fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEqual(
+        expect: Expect<T>,
+        expected: ChronoZonedDateTime<*>
     ): Assertion
 
     fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isEqual(

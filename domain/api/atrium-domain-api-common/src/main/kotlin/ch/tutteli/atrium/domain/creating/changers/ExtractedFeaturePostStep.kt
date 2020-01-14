@@ -10,14 +10,14 @@ import ch.tutteli.atrium.creating.FeatureExpect
  * The purpose of the marker is extensibility, this way you can write a post-final-step which only applies to
  * [ExtractedFeaturePostStep] and not to all kind of [PostFinalStep].
  *
- * @param assertionContainer The assertion container which was involved in the building process
+ * @param expect The [Expect] which was involved in the building process
  *   and holds assertion for the initial subject.
  * @param extract The extraction of the feature which creates and returns a new [Expect] of type [R].
  * @param extractAndApply The extraction of the feature which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
 class ExtractedFeaturePostStep<T, R>(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     extract: Expect<T>.() -> FeatureExpect<T, R>,
     extractAndApply: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>
-) : PostFinalStep<T, R, FeatureExpect<T, R>>(assertionContainer, extract, extractAndApply)
+) : PostFinalStep<T, R, FeatureExpect<T, R>>(expect, extract, extractAndApply)

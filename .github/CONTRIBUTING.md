@@ -1,6 +1,6 @@
 # Contributing to Atrium
 
-Thank you very much that you take your time to contribute to Atrium :smiley:
+Thank you very much for taking your time to contribute to Atrium :smiley:
 
 Following a few guidelines so that others can quickly benefit from your contribution.
 
@@ -31,9 +31,9 @@ By participating, you are expected to uphold this code. Please report unacceptab
 - Missing a feature?  
   [Create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
   
-- You would like to write an assertion function but have trouble to start?  
+- You would like to write an assertion function but you're having trouble starting?
   Please read the section [Your First Code Contribution](#your-first-code-contribution). 
-  If you still have trouble to start, then contact us on 
+  If you still have trouble starting, then contact us on
   [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/) 
   ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet)
   and we will try to give you some additional hints.
@@ -69,15 +69,15 @@ and we will figure it out together :smile:
 ## Your First Code Contribution
 Fantastic, thanks for your effort! 
  
-Following a small guidance how we suggest to start.
+The following are a few guidelines on how we suggest you start.
  
 1. Fork the repository to your repositories (see [Fork a repo](https://help.github.com/en/articles/fork-a-repo) for help). 
-2. Use an IDE which supports Kotlin and gradle projects
+2. Use an IDE which supports Kotlin and gradle projects.
    We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/)
    and install the following plugins:
    - EditorConfig by JetBrains (might be already activated)
    - Spek Framework by Spek Team
-3. Import the project (import the build.gradle -> import as project, works more reliable)
+3. Import the project (import the build.gradle -> import as project, works more reliably)
 4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gr build` 
    This builds the project (compile, run tests etc) via gradle (notice, we renamed `gradlew` to `gr`, more convenient no?) 
 5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
@@ -92,9 +92,23 @@ Perfect, you are setup and ready to go.
 Have a look at [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 where [good first issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 are easier to start with.
-Please write a comment such like `I am working on this` into the issue, 
+Please write a comment such as `I am working on this` in the issue,
 this way we can assign the task to you (so that others know there is already someone working on the issue)
 and it gives us the chance to have a look at the description again and revise if necessary.
+
+Dealing with Git for the first time? Here are some recommendations for how to set up Git when working on an issue: 
+- create a new branch for the issue using `git checkout -b <branch-name>` (preferrably, the branch name
+  should be descriptive of the issue or the change being made, e.g `#108-path-exists`.) Working
+  on a new branch makes it easier to make more than one pull request.
+- add this repository as a remote repository using
+ `git remote add upstream https://github.com/robstoll/atrium.git`. You will use this to
+ fetch changes made in this repository
+- to ensure your branch is up-to-date, rebase your work on
+  upstream/master using `git rebase upstream/master` or `git pull -r upstream master`.
+  This will add all new changes in this repository into your branch and place your
+  local unpushed changes at the top of the branch.
+
+You can read more on Git [here](https://git-scm.com/book/).
 
 Contact us on
 [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ/)

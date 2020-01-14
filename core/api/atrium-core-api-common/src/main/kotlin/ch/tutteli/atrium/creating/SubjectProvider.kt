@@ -9,13 +9,13 @@ import ch.tutteli.atrium.core.Some
  * Provides the subject of an [Assertion].
  *
  * Notice, this interface has its mere purpose to facilitate the transition from [Assert] to [Expect].
- * It might well be that we are going to remove it with 1.0.0 without previous notice.
+ * It might well be that we are going to remove it with 0.10.0 without previous notice.
  * Hence, to be on the safe side, you should use [Expect] instead.
  */
 interface SubjectProvider<out T> : AssertionHolder {
 
     /**
-     * The subject of an [Assertion] -- deprecated, will be removed with 1.0.0.
+     * The subject of an [Assertion] -- deprecated, will be removed with 0.10.0.
      *
      * Accessing the subject in places which are not safe for reporting breaks reporting and can hinder
      * that all assertions can be evaluated. For instance:
@@ -115,7 +115,7 @@ interface SubjectProvider<out T> : AssertionHolder {
      *    same same but different for `assert` and `assertThat`
      */
     @Deprecated(
-        "Switch from Assert to Expect and do no longer access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
+        "Switch from Assert to Expect and do no longer access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 0.10.0",
         ReplaceWith("it")
     )
     val subject: T

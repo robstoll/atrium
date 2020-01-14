@@ -10,30 +10,42 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
     feature0<Result<Int>, Int>(Expect<Result<Int>>::isSuccess),
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
     feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess),
-    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess)
+    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess),
+    "isFailure" to Companion::isFailureFeature,
+    "isFailure" to Companion::isFailure
 ) {
     companion object {
-        @Suppress("unused", "UNUSED_VALUE")
+        private fun isFailureFeature(expect: Expect<Result<Int>>) = expect.isFailure<IllegalArgumentException>()
+
+        private fun isFailure(
+            expect: Expect<out Result<*>>,
+            assertionCreator: Expect<IllegalArgumentException>.() -> Unit
+        ) = expect.isFailure<IllegalArgumentException> { assertionCreator() }
+
+        @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
         private fun ambiguityTest() {
             var a1: Expect<Result<Int>> = notImplemented()
-            var a2: Expect<out Result<Int>> = notImplemented()
-            var a1b: Expect<Result<Int>> = notImplemented()
-            var a2b: Expect<out Result<Int>> = notImplemented()
+            var a1b: Expect<Result<Int?>> = notImplemented()
 
-            var a3: Expect<Result<*>> = notImplemented()
+            var star: Expect<Result<*>> = notImplemented()
 
             a1.isSuccess()
             a1 = a1.isSuccess { }
-            a2.isSuccess()
-            a2 = a2.isSuccess { }
+
+            a1.isFailure<IllegalArgumentException>()
+            val r1: Expect<IllegalArgumentException> = a1.isFailure<IllegalArgumentException> { }
 
             a1b.isSuccess()
             a1b = a1b.isSuccess { }
-            a2b.isSuccess()
-            a2b = a2b.isSuccess { }
 
-            a3.isSuccess()
-            a3 = a3.isSuccess { }
+            a1b.isFailure<IllegalArgumentException>()
+            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException> { }
+
+            star.isSuccess()
+            star = star.isSuccess { }
+
+            star.isFailure<IllegalArgumentException>()
+            val r3: Expect<IllegalArgumentException> = star.isFailure<IllegalArgumentException> { }
         }
     }
 }

@@ -36,36 +36,9 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
  *
  * @return The newly created [Expect] for the transformed subject.
  */
-@JvmName("asListArrayOut")
-fun <E> Expect<out Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<out Array<E>> =
-    apply { asList().addAssertionsCreatedBy(assertionCreator) }
-
-/**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
- * the subject as [List].
- *
- * The transformation as such is not reflected in reporting.
- * Use `feature(Array<out E>::asList, assertionCreator)` if you want to show the transformation in reporting.
- *
- * @return The newly created [Expect] for the transformed subject.
- */
 @JvmName("asListEOut")
 fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
     apply { asList().addAssertionsCreatedBy(assertionCreator) }
-
-/**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
- * the subject as [List].
- *
- * The transformation as such is not reflected in reporting.
- * Use `feature(Array<out E>::asList, assertionCreator)` if you want to show the transformation in reporting.
- *
- * @return The newly created [Expect] for the transformed subject.
- */
-@JvmName("asListArrayAndEOut")
-fun <E> Expect<out Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<out Array<out E>> =
-    apply { asList().addAssertionsCreatedBy(assertionCreator) }
-
 
 /**
  * Turns `Expect<CharArray>` into `Expect<List<Byte>>`.

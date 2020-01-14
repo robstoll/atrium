@@ -29,9 +29,9 @@ object IterableAssertionsBuilder : IterableAssertions {
         iterableAssertions.containsNotBuilder(subjectProvider)
 
     override inline fun <E : Any, T : Iterable<E?>> all(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         noinline assertionCreator: (Expect<E>.() -> Unit)?
-    ): Assertion = iterableAssertions.all(assertionContainer, assertionCreator)
+    ): Assertion = iterableAssertions.all(expect, assertionCreator)
 
 
     override inline fun <E, T : Iterable<E>> hasNext(expect: Expect<T>): Assertion =
@@ -40,11 +40,11 @@ object IterableAssertionsBuilder : IterableAssertions {
     override inline fun <E, T : Iterable<E>> hasNotNext(expect: Expect<T>): Assertion =
         iterableAssertions.hasNotNext(expect)
 
-    override inline fun <E : Comparable<E>, T : Iterable<E>> min(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, E> =
-        iterableAssertions.min(assertionContainer)
+    override inline fun <E : Comparable<E>, T : Iterable<E>> min(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
+        iterableAssertions.min(expect)
 
-    override inline fun <E : Comparable<E>, T : Iterable<E>> max(assertionContainer: Expect<T>) =
-        iterableAssertions.max(assertionContainer)
+    override inline fun <E : Comparable<E>, T : Iterable<E>> max(expect: Expect<T>) =
+        iterableAssertions.max(expect)
 
     /**
      * Returns [IterableContainsAssertionsBuilder]

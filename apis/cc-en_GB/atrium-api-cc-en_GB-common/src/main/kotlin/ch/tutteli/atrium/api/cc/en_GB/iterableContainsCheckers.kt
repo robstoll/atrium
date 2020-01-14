@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.*
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
     ReplaceWith(
         "this.atLeast(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.atLeast"
@@ -43,7 +43,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  *   `at least` restriction; use the [exactly] restriction instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
     ReplaceWith(
         "this.butAtMost(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.butAtMost"

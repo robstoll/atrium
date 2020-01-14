@@ -18,23 +18,18 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
     private fun ambiguityTest() {
         var a1: Expect<Map<String, Int>> = notImplemented()
         var a2: Expect<Map<out String, Int>> = notImplemented()
-        var a3: Expect<out Map<String, Int>> = notImplemented()
-        var a4: Expect<out Map<out String, Int>> = notImplemented()
-        var a5: Expect<out Map<out String?, Int?>> = notImplemented()
-        var a6: Expect<out Map<*, *>> = notImplemented()
+        var a3: Expect<Map<String?, Int?>> = notImplemented()
+        var star: Expect<Map<*, *>> = notImplemented()
 
-        a1.getExisting("a")
-        a2.getExisting("a")
-        a3.getExisting("a")
-        a4.getExisting("a")
-        a5.getExisting("a")
-        a6.getExisting("a")
+        //TODO ideally this would not work as the map has not defined the key to be out
+        a1.getExisting(1)
+        a2.getExisting(1)
+        a3.getExisting(null)
+        star.getExisting("a")
 
         a1 = a1.getExisting("a") { }
-        a2 = a2.getExisting("a") { }
-        a3 = a3.getExisting("a") { }
-        a4 = a4.getExisting("a") { }
-        a5 = a5.getExisting("a") { }
-        a6 = a6.getExisting("a") { }
+        a2 = a2.getExisting(1) { }
+        a3 = a3.getExisting(null) { }
+        star = star.getExisting("a") { }
     }
 }

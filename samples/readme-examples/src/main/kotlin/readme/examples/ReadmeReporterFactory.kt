@@ -1,5 +1,6 @@
 package readme.examples
 
+import ch.tutteli.atrium.core.robstoll.lib.reporting.AbstractDetailedObjectFormatter
 import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatterCommon
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
@@ -27,26 +28,11 @@ class ReadmeReporterFactory : ReporterFactory {
     }
 
     companion object {
-        const val ID = "ReadmeReporter"
+        const val ID: String = "ReadmeReporter"
     }
 }
 
-class ReadmeObjectFormatter(translator: Translator) : DetailedObjectFormatterCommon(translator) {
-    override fun format(value: Any?): String = when (value) {
-        is Class<*> -> format(value)
-        else -> super.format(value)
-    }
-
-    private fun format(clazz: Class<*>) = "${clazz.simpleName} (${clazz.name})"
-
-    override fun format(kClass: KClass<*>): String {
-        val kotlinClass = "${kClass.simpleName} (${kClass.qualifiedName})"
-        return when {
-            kClass.qualifiedName == kClass.java.name -> kotlinClass
-            kClass.java.isPrimitive -> "$kotlinClass -- Class: ${kClass.java.simpleName}"
-            else -> "$kotlinClass -- Class: ${format(kClass.java)}"
-        }
-    }
+class ReadmeObjectFormatter(translator: Translator) : AbstractDetailedObjectFormatter(translator) {
 
     override fun identityHash(indent: String, any: Any): String =
         "$indent<1234789>" // dummy hash so it does not change all the time

@@ -60,11 +60,11 @@ interface AssertionBuilder {
      * reporting (a [Reporter] has to neglect whether the [Assertion.holds] or not). Use it to provide explanations.
      * It is inter alia used in [Iterable] `contains entries` assertions to describe the identification lambda you used.
      *
-     * Notice, return type will change to [ExplanatoryGroup.GroupTypeOption] with 1.0.0.
+     * Notice, return type will change to [ExplanatoryGroup.GroupTypeOption] with 0.10.0.
      */
     @Suppress(
         "DEPRECATION"
-        /** TODO change to ExplanatoryGroup.GroupTypeOption with 1.0.0 */
+        /** TODO change to ExplanatoryGroup.GroupTypeOption with 0.10.0 */
     )
     val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
 
@@ -169,7 +169,7 @@ interface AssertionBuilder {
      *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
      *   possible that [AssertionPlant.maybeSubject] is [None].
      */
-    //TODO remove @throws with 1.0.0
+    //TODO remove @throws with 0.10.0
     fun <T> createDescriptive(
         subjectProvider: SubjectProvider<T>,
         description: String,
@@ -201,7 +201,7 @@ interface AssertionBuilder {
      *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
      *   possible that [AssertionPlant.maybeSubject] is [None].
      */
-    //TODO remove @throws with 1.0.0
+    //TODO remove @throws with 0.10.0
     fun <T> createDescriptive(
         subjectProvider: SubjectProvider<T>,
         description: Translatable,

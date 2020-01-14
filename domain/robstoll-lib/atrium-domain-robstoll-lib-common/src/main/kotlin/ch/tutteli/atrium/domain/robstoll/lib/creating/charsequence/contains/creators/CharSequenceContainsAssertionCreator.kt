@@ -41,7 +41,7 @@ class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC : Any, S :
 
     override fun getAssertionGroupType(): AssertionGroupType = DefaultListAssertionGroupType
 
-    @Suppress("DEPRECATION" /* switch to Expect and remove this annotation with 1.0.0 */)
+    @Suppress("DEPRECATION" /* switch to Expect and remove this annotation with 0.10.0 */)
     override fun makeSubjectMultipleTimesConsumable(subjectProvider: SubjectProvider<T>): SubjectProvider<String> =
         ExpectImpl.changeSubject(subjectProvider).unreported { it.toString() }
 

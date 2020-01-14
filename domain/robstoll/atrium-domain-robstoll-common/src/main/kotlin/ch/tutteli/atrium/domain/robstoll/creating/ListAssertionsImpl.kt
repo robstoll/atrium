@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._get
 class ListAssertionsImpl : ListAssertions, ListAssertionsDeprecatedImpl() {
 
     override fun <E, T : List<E>> get(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         index: Int
-    ) = _get(assertionContainer, index)
+    ) = _get(expect, index)
 }

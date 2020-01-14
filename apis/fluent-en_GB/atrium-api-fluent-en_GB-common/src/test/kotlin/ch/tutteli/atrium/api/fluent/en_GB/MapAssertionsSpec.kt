@@ -9,7 +9,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction3
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
-    containsFun.name to Companion::contains,
+    fun2<Map<out String, Int>, Pair<String, Int>, Array<out Pair<String, Int>>>(Expect<Map<out String, Int>>::contains),
     fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>(Expect<Map<out String?, Int?>>::contains),
     "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyValue,
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsNullable,
@@ -22,16 +22,9 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 ) {
     companion object {
         //@formatter:off
-        private val containsFun : KFunction3<Expect<Map<out String, Int>>, Pair<String, Int>, Array<out Pair<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
         private val containsKeyWithValueAssertionsFun : KFunction3<Expect<Map<out String, Int>>, KeyValue<String, Int>, Array<out KeyValue<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
         private val containsKeyWithNullableValueAssertionsFun : KFunction3<Expect<Map<out String?, Int?>>, KeyValue<String?, Int>, Array<out KeyValue<String?, Int>>, Expect<Map<out String?, Int?>>> = Expect<Map<out String?, Int?>>::contains
         //@formatter:on
-
-        fun contains(
-            expect: Expect<Map<out String, Int>>,
-            keyValuePair: Pair<String, Int>,
-            otherKeyValuePairs: Array<out Pair<String, Int>>
-        ) = expect.contains(keyValuePair, *otherKeyValuePairs)
 
         fun containsKeyValue(
             expect: Expect<Map<out String, Int>>,
@@ -50,15 +43,15 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         }
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val map: Expect<Map<Number, CharSequence>> = notImplemented()
-        val subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()
-        val nullableKeyMap: Expect<Map<Number?, CharSequence>> = notImplemented()
-        val nullableValueMap: Expect<Map<Number, CharSequence?>> = notImplemented()
-        val nullableKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
-        val readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
-        val starMap: Expect<Map<*, *>> = notImplemented()
+        var map: Expect<Map<Number, CharSequence>> = notImplemented()
+        var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()
+        var nullableKeyMap: Expect<Map<Number?, CharSequence>> = notImplemented()
+        var nullableValueMap: Expect<Map<Number, CharSequence?>> = notImplemented()
+        var nullableKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
+        var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
+        var starMap: Expect<Map<*, *>> = notImplemented()
 
         map.contains(1 to "a")
         map.contains(1 to "a", 2 to "b")
@@ -196,15 +189,22 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap.containsNotKey(1)
         readOnlyNullableKeyValueMap.containsNotKey(1f)
 
-        map.isEmpty()
-        map.isNotEmpty()
-        subMap.isEmpty()
-        subMap.isNotEmpty()
-        nullableKeyMap.isEmpty()
-        nullableKeyMap.isNotEmpty()
-        readOnlyNullableKeyValueMap.isEmpty()
-        readOnlyNullableKeyValueMap.isNotEmpty()
-        starMap.isEmpty()
-        starMap.isNotEmpty()
+
+        map = map.isEmpty()
+        subMap = subMap.isEmpty()
+        nullableKeyMap = nullableKeyMap.isEmpty()
+        nullableValueMap = nullableValueMap.isEmpty()
+        nullableKeyValueMap = nullableKeyValueMap.isEmpty()
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.isEmpty()
+        starMap = starMap.isEmpty()
+
+        map = map.isNotEmpty()
+        subMap = subMap.isNotEmpty()
+        nullableKeyMap = nullableKeyMap.isNotEmpty()
+        nullableValueMap = nullableValueMap.isNotEmpty()
+        nullableKeyValueMap = nullableKeyValueMap.isNotEmpty()
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.isNotEmpty()
+        starMap = starMap.isNotEmpty()
+
     }
 }

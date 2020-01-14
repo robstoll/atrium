@@ -38,14 +38,20 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepla
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
-fun Expect<out BigDecimal?>.toBe(expected: BigDecimal?): Nothing = throw PleaseUseReplacementException(
+fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseReplacementException(
     "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
         "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
 )
 
-@JvmName("toBeNullable")
-inline fun <reified T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
-    addAssertion(ExpectImpl.any.toBeNullable(this, T::class, expected))
+/**
+ * Expects that the subject of the assertion (a [BigDecimal]) is `null`.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("toBeNull")
+fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
+    addAssertion(ExpectImpl.any.toBe(this, expected))
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -70,7 +76,7 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseRe
 )
 
 /**
- * Expects that the subject of the assertion is numerically equal to [expected].
+ * Expects that the subject of the assertion (a [BigDecimal]) is numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) == 0`)
@@ -88,7 +94,7 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
     addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
- * Expects that the subject of the assertion is not numerically equal to [expected].
+ * Expects that the subject of the assertion (a [BigDecimal]) is not numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) != 0`)
@@ -107,7 +113,7 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
 
 
 /**
- * Expects that the subject of the assertion is equal to [expected] including [BigDecimal.scale].
+ * Expects that the subject of the assertion (a [BigDecimal]) is equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.
@@ -122,7 +128,7 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
     addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
- * Expects that the subject of the assertion is not equal to [expected] including [BigDecimal.scale].
+ * Expects that the subject of the assertion (a [BigDecimal]) is not equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.

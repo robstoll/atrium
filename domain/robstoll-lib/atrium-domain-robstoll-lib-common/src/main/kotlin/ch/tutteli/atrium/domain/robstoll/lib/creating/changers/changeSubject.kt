@@ -27,7 +27,7 @@ fun <T, R> _changeSubject(
     maybeAssertionCreator: Option<Expect<R>.() -> Unit>
 ): Expect<R> {
 
-    val assertionContainer = coreFactory.newDelegatingReportingAssertionContainer(
+    val expect = coreFactory.newDelegatingReportingAssertionContainer(
         originalAssertionContainer,
         // TODO wrap transformation with error handling. Could be interesting to see the exception in the context of the assertion
         originalAssertionContainer.maybeSubject.flatMap(transformation)
@@ -35,7 +35,7 @@ fun <T, R> _changeSubject(
     // we can transform if maybeSubject is None as we have to be in an explaining like context in such a case,
     // even if the transformation cannot be carried out
     val shallTransform =
-        originalAssertionContainer.maybeSubject.fold(trueProvider, { assertionContainer.maybeSubject.isDefined() })
+        originalAssertionContainer.maybeSubject.fold(trueProvider, { expect.maybeSubject.isDefined() })
 
     val descriptiveAssertion = AssertImpl.builder.descriptive
         .withTest { shallTransform }
@@ -43,15 +43,15 @@ fun <T, R> _changeSubject(
         .build()
 
     if (shallTransform) {
-        assertionContainer.addAssertion(descriptiveAssertion)
+        expect.addAssertion(descriptiveAssertion)
         maybeAssertionCreator.fold({ /*nothing to do */ }) { assertionCreator ->
-            assertionContainer.addAssertionsCreatedBy(assertionCreator)
+            expect.addAssertionsCreatedBy(assertionCreator)
         }
     } else {
         val assertion = failureHandler.createAssertion(
             originalAssertionContainer, descriptiveAssertion, maybeAssertionCreator
         )
-        assertionContainer.addAssertion(assertion)
+        expect.addAssertion(assertion)
     }
-    return assertionContainer
+    return expect
 }

@@ -1,11 +1,11 @@
 @file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
@@ -34,20 +34,20 @@ import java.util.*
 
 private const val IO_EXCEPTION_STACK_TRACE_LENGTH = 15
 
-fun <T : Path> _startsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_WITH, expected) { it.startsWith(expected) }
+fun <T : Path> _startsWith(expect: Expect<T>, expected: Path): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, STARTS_WITH, expected) { it.startsWith(expected) }
 
-fun <T : Path> _startsNotWith(assertionContainer: Expect<T>, expected: Path): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
+fun <T : Path> _startsNotWith(expect: Expect<T>, expected: Path): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
 
-fun <T : Path> _endsWith(assertionContainer: Expect<T>, expected: Path): Assertion =
-    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_WITH, expected) { it.endsWith(expected) }
+fun <T : Path> _endsWith(expect: Expect<T>, expected: Path): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, ENDS_WITH, expected) { it.endsWith(expected) }
 
-fun <T : Path> _endsNotWith(assertionContainer: Expect<T>, expected: Path) =
-    ExpectImpl.builder.createDescriptive(assertionContainer, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
+fun <T : Path> _endsNotWith(expect: Expect<T>, expected: Path) =
+    ExpectImpl.builder.createDescriptive(expect, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
-fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
-    changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
+fun <T : Path> _exists(expect: Expect<T>): Assertion =
+    changeSubjectToFileAttributes(expect) { fileAttributesAssertionContainer ->
         ExpectImpl.builder.descriptive
             .withTest(fileAttributesAssertionContainer) { it is Success }
             .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result ->
@@ -66,8 +66,8 @@ fun <T : Path> _exists(assertionContainer: Expect<T>): Assertion =
             .build()
     }
 
-fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
-    changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
+fun <T : Path> _existsNot(expect: Expect<T>): Assertion =
+    changeSubjectToFileAttributes(expect) { fileAttributesAssertionContainer ->
         ExpectImpl.builder.descriptive
             .withTest(fileAttributesAssertionContainer) { it is Failure && it.exception is NoSuchFileException }
             .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result ->
@@ -82,23 +82,23 @@ fun <T : Path> _existsNot(assertionContainer: Expect<T>): Assertion =
             .build()
     }
 
-fun <T : Path> _isReadable(assertionContainer: Expect<T>): Assertion =
-    filePermissionAssertion(assertionContainer, READABLE, AccessMode.READ)
+fun <T : Path> _isReadable(expect: Expect<T>): Assertion =
+    filePermissionAssertion(expect, READABLE, AccessMode.READ)
 
-fun <T : Path> _isWritable(assertionContainer: Expect<T>): Assertion =
-    filePermissionAssertion(assertionContainer, WRITABLE, AccessMode.WRITE)
+fun <T : Path> _isWritable(expect: Expect<T>): Assertion =
+    filePermissionAssertion(expect, WRITABLE, AccessMode.WRITE)
 
-fun <T : Path> _isRegularFile(assertionContainer: Expect<T>): Assertion =
-    fileTypeAssertion(assertionContainer, A_FILE) { it.isRegularFile }
+fun <T : Path> _isRegularFile(expect: Expect<T>): Assertion =
+    fileTypeAssertion(expect, A_FILE) { it.isRegularFile }
 
-fun <T : Path> _isDirectory(assertionContainer: Expect<T>): Assertion =
-    fileTypeAssertion(assertionContainer, A_DIRECTORY) { it.isDirectory }
+fun <T : Path> _isDirectory(expect: Expect<T>): Assertion =
+    fileTypeAssertion(expect, A_DIRECTORY) { it.isDirectory }
 
 private fun <T : Path> filePermissionAssertion(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     permissionName: Translatable,
     accessMode: AccessMode
-) = ExpectImpl.changeSubject(assertionContainer).unreported {
+) = ExpectImpl.changeSubject(expect).unreported {
     it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
 }.let { checkAccessResultContainer ->
     ExpectImpl.builder.descriptive
@@ -123,10 +123,10 @@ private fun <T : Path> filePermissionAssertion(
 }
 
 private inline fun <T : Path> fileTypeAssertion(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     typeName: Translatable,
     crossinline typeTest: (BasicFileAttributes) -> Boolean
-) = changeSubjectToFileAttributes(assertionContainer) { fileAttributesAssertionContainer ->
+) = changeSubjectToFileAttributes(expect) { fileAttributesAssertionContainer ->
     ExpectImpl.builder.descriptive
         .withTest(fileAttributesAssertionContainer) { it is Success && typeTest(it.value) }
         .withFailureHintBasedOnDefinedSubject(fileAttributesAssertionContainer) { result ->
@@ -142,9 +142,9 @@ private inline fun <T : Path> fileTypeAssertion(
 }
 
 private inline fun <T : Path, R> changeSubjectToFileAttributes(
-    assertionContainer: Expect<T>,
+    expect: Expect<T>,
     block: (Expect<IoResult<BasicFileAttributes>>) -> R
-): R = ExpectImpl.changeSubject(assertionContainer).unreported {
+): R = ExpectImpl.changeSubject(expect).unreported {
     it.runCatchingIo { readAttributes<BasicFileAttributes>() }
 }.let(block)
 
@@ -378,22 +378,22 @@ private val BasicFileAttributes.fileType: Translatable
         else -> A_UNKNOWN_FILE_TYPE
     }
 
-fun <T : Path> _fileName(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME) { fileName.toString() }
+fun <T : Path> _fileName(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(expect, FILE_NAME) { fileName.toString() }
 
-fun <T : Path> _fileNameWithoutExtension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
+fun <T : Path> _fileNameWithoutExtension(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(expect, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
 
-fun <T : Path> _parent(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, Path> =
-    ExpectImpl.feature.extractor(assertionContainer)
+fun <T : Path> _parent(expect: Expect<T>): ExtractedFeaturePostStep<T, Path> =
+    ExpectImpl.feature.extractor(expect)
         .withDescription(PARENT)
         .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
         .withFeatureExtraction {
             val parent: Path? = it.parent
-            if(parent != null) Some(parent) else None
+            if (parent != null) Some(parent) else None
         }
         .withoutOptions()
         .build()
 
-fun <T : Path> _extension(assertionContainer: Expect<T>): ExtractedFeaturePostStep<T, String> =
-    ExpectImpl.feature.manualFeature(assertionContainer, EXTENSION) { extension }
+fun <T : Path> _extension(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
+    ExpectImpl.feature.manualFeature(expect, EXTENSION) { extension }

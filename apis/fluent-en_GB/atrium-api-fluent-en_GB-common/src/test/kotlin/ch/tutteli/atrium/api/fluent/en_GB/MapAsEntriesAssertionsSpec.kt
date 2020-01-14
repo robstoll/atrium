@@ -20,6 +20,7 @@ object MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEnt
         var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
 
         var starKeyMap: Expect<Map<*, CharSequence?>> = notImplemented()
+        var starValueMap: Expect<Map<String, *>> = notImplemented()
 
         map.asEntries()
         subMap.asEntries()
@@ -36,5 +37,6 @@ object MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEnt
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.asEntries {}
 
         starKeyMap = starKeyMap.asEntries {}
+        starValueMap = starValueMap.asEntries {}
     }
 }

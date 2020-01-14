@@ -32,7 +32,7 @@ fun <T : Comparable<T>> Assert<T>.isLessThan(expected: T)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isLessOrEquals(expected).asAssert()",
+        "this.asExpect().isLessThanOrEqual(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isLessOrEquals"
@@ -68,7 +68,7 @@ fun <T : Comparable<T>> Assert<T>.isGreaterThan(expected: T)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().isGreaterOrEquals(expected).asAssert()",
+        "this.asExpect().isGreaterThanOrEqual(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.fluent.en_GB.isGreaterOrEquals"

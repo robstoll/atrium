@@ -24,17 +24,16 @@ object MapAssertionsBuilder : MapAssertions {
      */
     inline val entry get() : MapEntryAssertionsBuilder = MapEntryAssertionsBuilder
 
-    override inline fun <K, V : Any, T : Map<out K, V?>> contains(
-        assertionContainer: Expect<T>,
-        valueType: KClass<V>,
-        keyValuePairs: List<Pair<K, V?>>
-    ) = mapAssertions.contains(assertionContainer, valueType, keyValuePairs)
+    override inline fun <K, V, T : Map<out K, V>> contains(
+        expect: Expect<T>,
+        keyValuePairs: List<Pair<K, V>>
+    ) = mapAssertions.contains(expect, keyValuePairs)
 
     override inline fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
-    ) = mapAssertions.containsKeyWithValueAssertions(assertionContainer, valueType, keyValues)
+    ) = mapAssertions.containsKeyWithValueAssertions(expect, valueType, keyValues)
 
 
     override inline fun <K> containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K) =
@@ -48,14 +47,14 @@ object MapAssertionsBuilder : MapAssertions {
         mapAssertions.isEmpty(subjectProvider)
 
     override inline fun <K, V, T : Map<out K, V>> getExisting(
-        assertionContainer: Expect<T>,
+        expect: Expect<T>,
         key: K
-    ): ExtractedFeaturePostStep<T, V> = mapAssertions.getExisting(assertionContainer, key)
+    ): ExtractedFeaturePostStep<T, V> = mapAssertions.getExisting(expect, key)
 
     override inline fun isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>) =
         mapAssertions.isNotEmpty(subjectProvider)
 
-    override inline fun <T : Map<*, *>> size(assertionContainer: Expect<T>) = mapAssertions.size(assertionContainer)
+    override inline fun <T : Map<*, *>> size(expect: Expect<T>) = mapAssertions.size(expect)
 
     // everything below is deprecated functionality and will be removed with 1.0.0
 

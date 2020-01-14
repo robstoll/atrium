@@ -17,11 +17,11 @@ import ch.tutteli.atrium.domain.creating.pairAssertions
  */
 object PairAssertionsBuilder : PairAssertions {
 
-    override inline fun <K, T : Pair<K, *>> first(assertionContainer: Expect<T>) =
-        pairAssertions.first(assertionContainer)
+    override inline fun <K, T : Pair<K, *>> first(expect: Expect<T>) =
+        pairAssertions.first(expect)
 
-    override inline fun <V, T : Pair<*, V>> second(assertionContainer: Expect<T>) =
-        pairAssertions.second(assertionContainer)
+    override inline fun <V, T : Pair<*, V>> second(expect: Expect<T>) =
+        pairAssertions.second(expect)
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
     @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")

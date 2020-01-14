@@ -1,11 +1,10 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION" /* will be removed with 1.0.0 */)
+@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION" /* will be removed with 0.10.0 */)
 
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.ThrowableAssertions
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.throwableThrownAssertions
@@ -22,7 +21,14 @@ import kotlin.reflect.KClass
  */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
 
-    @Suppress("KDocMissingDocumentation")
+    @Deprecated(
+        "Use Expect instead; will be removed with 1.0.0",
+        ReplaceWith(
+            "this.thrownBuilder(\n" +
+                "// !!!! in case you define an assertion verb, remove it entirely, this is no longer required !!!!\n" +
+                ")"
+        )
+    )
     override inline fun thrownBuilder(
         assertionVerb: Translatable,
         noinline act: () -> Unit,
@@ -33,8 +39,9 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
      * Returns [ThrowableThrownAssertionsBuilder]
      * which inter alia delegates to the implementation of [ThrowableThrownAssertions].
      */
-    @Deprecated("Will be removed with 1.0.0")
-    inline val thrown get() = ThrowableThrownAssertionsBuilder
+    @Deprecated("Will be removed with 0.10.0")
+    inline val thrown
+        get() = ThrowableThrownAssertionsBuilder
 }
 
 /**
@@ -42,11 +49,11 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
  * In detail, it implements [ThrowableThrownAssertions] by delegating to [throwableThrownAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-@Deprecated("Will be removed with 1.0.0")
+@Deprecated("Will be removed with 0.10.0")
 object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     override inline fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
@@ -54,7 +61,7 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
     ) = throwableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
     override inline fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder) =
         throwableThrownAssertions.nothingThrown(throwableThrownBuilder)
 
@@ -63,7 +70,7 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
      * which inter alia delegates to the implementation of [ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory].
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Will be removed with 1.0.0")
+    @Deprecated("Will be removed with 0.10.0")
     inline val providers
         get() = AbsentThrowableMessageProviderFactoryBuilder
 }
@@ -74,7 +81,7 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
  * which in turn delegates to the implementation via [loadSingleService].
  */
 @Suppress("DEPRECATION")
-@Deprecated("Will be removed with 1.0.0")
+@Deprecated("Will be removed with 0.10.0")
 object AbsentThrowableMessageProviderFactoryBuilder :
     ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory {
 

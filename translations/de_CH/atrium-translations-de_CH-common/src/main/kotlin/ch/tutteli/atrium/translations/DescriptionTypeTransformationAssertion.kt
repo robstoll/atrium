@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * [AssertionPlant.subject][SubjectProvider.subject] of type `T` can be transformed (usually down-casting or unboxing) to `TSub`.
  */
 @Suppress("DEPRECATION")
-@Deprecated("Use DescriptionAnyAssertion instead; will be removed with 1.0.0")
+@Deprecated("Use DescriptionAnyAssertion instead; will be removed with 0.10.0")
 enum class DescriptionTypeTransformationAssertion(override val value: String) : StringBasedTranslatable {
     @Deprecated(
         "Use DescriptionAnyAssertion",

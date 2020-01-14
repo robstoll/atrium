@@ -14,8 +14,6 @@ import kotlin.jvm.JvmName
  * the [secondGroup] and optionally [otherExpectedGroups] of values need to be contained in [Iterable]
  * as only elements and in the specified order whereas the values within the groups can occur in any order.
  *
- * This function will be renamed on a JVM level to `inAnyOrder` with v1.0.0
- *
  * @param firstGroup A group of values which have to appear at first within the [Iterable].
  * @param secondGroup A group of values which have to appear after the values of the [firstGroup] within the [Iterable].
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
@@ -24,7 +22,6 @@ import kotlin.jvm.JvmName
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderNullableValues")
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<E>,
     secondGroup: Group<E>,
@@ -45,8 +42,6 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * An identification lambda can also be defined as `null` in which case it matches an entry which is `null` as well.
  * Have a look at [entries] for more information about identification lambdas.
  *
- * This function will be renamed on a JVM level to `inAnyOrderEntries` with v1.0.0
- *
  * @param firstGroup A group of identification lambdas which have to appear at first within the [Iterable].
  * @param secondGroup A group of identification lambdas which have to appear after the values of the [firstGroup]
  *   within the [Iterable].
@@ -56,7 +51,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderNullableEntries")
+@JvmName("inAnyOrderEntries")
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<(Expect<E>.() -> Unit)?>,
     secondGroup: Group<(Expect<E>.() -> Unit)?>,

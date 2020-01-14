@@ -14,7 +14,7 @@ interface ListGetStep<E, T : List<E>> {
     /**
      * The [Expect] for which this assertion is created
      */
-    val assertionContainer: Expect<T>
+    val expect: Expect<T>
 
     /**
      * The given index which will be used to perform the [List.get].
@@ -25,7 +25,7 @@ interface ListGetStep<E, T : List<E>> {
      * Makes the assertion that the given [index] is within the bounds of [Expect.subject] and that
      * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
      *
-     * @return This assertionContainer to support a fluent API.
+     * @return This [Expect] to support a fluent API.
      * @throws AssertionError Might throw an [AssertionError] if a created [Expect]s (by calling [assertionCreator])
      *   does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
@@ -33,8 +33,8 @@ interface ListGetStep<E, T : List<E>> {
     infix fun assertIt(assertionCreator: Expect<E>.() -> Unit): Expect<T>
 
     companion object {
-        fun <E, T : List<E>> create(assertionContainer: Expect<T>, index: Int): ListGetStep<E, T> =
-            ListGetStepImpl(assertionContainer, index)
+        fun <E, T : List<E>> create(expect: Expect<T>, index: Int): ListGetStep<E, T> =
+            ListGetStepImpl(expect, index)
     }
 }
 

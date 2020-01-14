@@ -17,10 +17,10 @@ import ch.tutteli.kbox.glue
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
-    keyValuePair: Pair<K, V?>,
-    vararg otherPairs: Pair<K, V?>
-) = addAssertion(ExpectImpl.map.contains(this, V::class, keyValuePair glue otherPairs))
+fun <K, V, T : Map<out K, V>> Expect<T>.contains(
+    keyValuePair: Pair<K, V>,
+    vararg otherPairs: Pair<K, V>
+) = addAssertion(ExpectImpl.map.contains(this, keyValuePair glue otherPairs))
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]

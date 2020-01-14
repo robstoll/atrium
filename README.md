@@ -23,7 +23,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 ----
 ❗ You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [README of v0.9.0-alpha](https://github.com/robstoll/atrium/tree/v0.9.0-alpha/README.md).
+For instance, the [README of v0.9.0-alpha2](https://github.com/robstoll/atrium/tree/master/README.md).
 
 ----
 
@@ -80,17 +80,19 @@ unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137
 # Installation
 
 ## JVM
-Atrium is linked to [jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
+Atrium is linked to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium), 
+[jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
 but can also be retrieved directly from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium). 
 
 *gradle*: 
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='v0.9.0-alpha2' }
 }
 repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
+    mavenCentral()
+    // either use mavenCentral() or one of the two lines below
+    // jcenter()
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
@@ -100,15 +102,27 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
+We currently provide the following extensions for the JS platform: 
+- jdk8: assertion functions for JDK 8 specific types (e.g. for Path)
+- kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
+
+You can add them as follows:
+```
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
+}
+```
+
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API is not yet available in 0.9.0-alpha. 
+The new infix API is not yet available in v0.9.0-alpha2. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
-In bringing the new infix API forward is appreciated.
+in bringing the new infix API forward is appreciated.
 
-Please use the old API in the meantime. Following an example:
+Please use the old API in the meantime (not available on mavenCentral). Following an example:
 
 ```
 buildscript {
@@ -141,11 +155,12 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='v0.9.0-alpha2' }
 }
 repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
+    mavenCentral()
+    // either use mavenCentral() or one of the two lines below
+    // jcenter()
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
@@ -179,12 +194,29 @@ Or in other words, you should at least create a gradle task similar to
 or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L80))
 file in your test sources.
 
+We currently provide the following extensions for the JS platform: 
+ - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
+
+You can add them as follows:
+```
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
+}
+```
+
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
+
+The new infix API is not yet available in v0.9.0-alpha2. 
+[Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
+in bringing the new infix API forward is appreciated.
+
+Please use the old API in the meantime (not available on mavenCentral). Following an example:
+
 ```
 buildscript {
-    ext { atrium_version='0.9.0-alpha' }
+    ext { atrium_version='0.8.0' }
 }
 repositories {
     jcenter()
@@ -192,7 +224,7 @@ repositories {
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version"
 }
 ```
 <hr/>
@@ -244,13 +276,9 @@ expect: 10        (kotlin.Int <1234789>)
 </ex-first>
 
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
-Since this is false, an `AssertionError` is thrown with the following message:
-```text
-expect: 10        (kotlin.Int <934275857>)
-◆ to be: 9        (kotlin.Int <1364913072>)
-```
+Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
-The examples in the following sections include the error message (the output) in the code example itself as comments.
+In this sense the report can be read as `I expect that it holds that the subject of the assertion, which is 10, to be 9`.
 
 We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 and we have used the predefined assertion verb `expect` in the above example. 
@@ -299,7 +327,8 @@ expect(4 + 6).isGreaterThan(10)
 ``` 
 
 Correspondingly, the first `expect` statement (which does not hold) throws an `AssertionError`. 
-In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all.
+In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all 
+and correspondingly not reported.
 
 If you want that both assertions are evaluated together, then use the assertion group syntax as follows:
  
@@ -321,6 +350,7 @@ expect: 10        (kotlin.Int <1234789>)
 </ex-group>
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
+The reporting can be read as `I expect that the subject of the assertion, which is 10, is less than 5 and is greater than 10`
 
 You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
@@ -357,8 +387,8 @@ expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$4$1 <1234789>)
 ```
 </ex-toThrow1>
 
-You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
-(`IllegalStateException` in the example above). 
+You can also pass a lambda to `expect` and then use `toThrow` to make the assertion that 
+invoking the lambda throws a certain exception (`IllegalStateException` in the example above).
 
 As with all narrowing functions, there are two overloads:
 - the first is parameterless and turns only the subject into the expected type; 
@@ -382,7 +412,7 @@ expect {
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$5$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+        ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-toThrow2>
 
@@ -402,13 +432,13 @@ expect {
 expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$6$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+        ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
           » starts with: "firstName"        <1234789>
 ```
 </ex-toThrow3>
 
-Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, which creates a feature assertion (see next section) 
-about `Throwable::message`.  
+Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, 
+which creates a feature assertion (see next section) about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
 
@@ -494,7 +524,7 @@ Have a look at [Ambiguity Problems](#ambiguity-problems) in case the compiler is
 
 In the above example we created two assertions, one for the property `isStudent` of `myPerson` 
 and a second one for the return value of calling `fullName()` on `myPerson`.
-A feature assertion is indicated as follows in reporting. 
+A feature assertion is indicated as follows in reporting: 
 It starts with a `▶` followed by the feature's name and its actual value.
 So the above output can be read as "I expect, Person's property `isStudent` (which is actually `false`) to be `true`. 
 The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups) 
@@ -833,8 +863,7 @@ expect(slogan2).toBe("postulating assertions made easy")
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L232)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
-  » to be: "postulating assertions made easy"        <1234789>
+◆ to be: "postulating assertions made easy"        <1234789>
 ```
 </ex-nullable-2>
 
@@ -854,7 +883,7 @@ expect(slogan2)     // subject has type String?
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L237)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
 
@@ -870,7 +899,7 @@ expect(slogan2).notToBeNull { startsWith("atrium") }
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L242)</sub> ↓ <sub>Output</sub>
 ```text
 expect: null
-◆ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
   » starts with: "atrium"        <1234789>
 ```
 </ex-nullable-4>
@@ -1180,7 +1209,6 @@ expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » is instance of type: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
         » to be: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
       ◾ to be: 1        (kotlin.Int <1234789>)
@@ -1207,7 +1235,7 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
 expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » is instance of type: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
+        » is instance of type: Int (kotlin.Int) -- Class: java.lang.Integer
         » to be: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is greater than: 2        (kotlin.Int <1234789>)
@@ -1481,7 +1509,7 @@ expect("calling myNullableFun with ...") {
 ```text
 expect: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
-    ◾ is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+    ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
       » contains: 
         ⚬ value: "min"        <1234789>
           ⚬ ▶ number of occurrences: -1
@@ -1612,7 +1640,7 @@ expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
-            » is instance of type: String (kotlin.String) -- Class: String (java.lang.String)
+            » is instance of type: String (kotlin.String) -- Class: java.lang.String
             » contains: 
               ⚬ value: "no no no"        <1234789>
                 ⚬ ▶ number of occurrences: -1
@@ -1809,7 +1837,7 @@ Say you want to build a `isBetween` assertion function for `java.util.Date`, you
 
 ```kotlin
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    isGreaterOrEquals(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
+    isGreaterThanOrEqual(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
 ```
 </code-own-compose-1>
 
@@ -1824,7 +1852,7 @@ if you want that both are evaluated:
 ```kotlin
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     addAssertionsCreatedBy {
-        isGreaterOrEquals(lowerBoundInclusive)
+        isGreaterThanOrEqual(lowerBoundInclusive)
         isLessThan(upperBoundExclusive)
     }
 ```
@@ -1908,7 +1936,7 @@ Another example: assert the person has children which are all adults (assuming 1
 ```kotlin
 fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
     feature(Person::children) {
-        all { feature(Person::age).isGreaterOrEquals(18) }
+        all { feature(Person::age).isGreaterThanOrEqual(18) }
     }
 }
 ```
@@ -2077,7 +2105,7 @@ Atrium offers three assertion verbs out of the box: `expect`, `assert` and `asse
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/api/verbs/internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content 
     -- notice that you can also use a `String` for the assertion verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
@@ -2455,7 +2483,7 @@ Please upvote them (especially if you encounter them yourself):
 - [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
 - [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
 - [ReplaceWith does not add type parameter](https://youtrack.jetbrains.com/issue/KT-33685)
-- [Wrong warning about predermined type parameter](https://youtrack.jetbrains.com/issue/KT-34257)
+- [Wrong warning about predetermined type parameter](https://youtrack.jetbrains.com/issue/KT-34257)
 
 And some features which would be handy
 - [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
@@ -2473,19 +2501,21 @@ We plan that Atrium is going to support certain features in the future. Followin
 A more detailed backlog can be found at [atrium-roadmap](https://github.com/robstoll/atrium-roadmap) -- you are invited to take part in the discussions related to design decisions, upcoming features and more.
 
 ## 0.9.0
+- ❗❗ drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
 - introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
-- optionally, introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
-- ❗❗ drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
+- introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
+- introduce Kotlin 1.3 specific assertion functions (compatiblity with 1.2 will stay until 1.0.0)
 
 ## 0.10.0
-- add assertion functions specific to Kotlin 1.3 in a separate API modules (compatiblity with 1.2 will stay until 1.0.0)
-- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
-- refactor core and domain architecture - most likely we are going to move away from ServiceLoader and replace `-robstoll` and `-robstoll-lib` modules with one `-impl` module
+- refactor core and domain architecture:
+  - most likely we are going to move away from ServiceLoader and fuse api, `-robstoll` and `-robstoll-lib` modules into one
+  - we will remove all deprecated functionality (including the old API's en_UK, cc-en_GB, cc-infix-en_GB and cc-de_CH)
 - fix verbosity issues in conjunction with feature assertions and explanatory groups.
 - provide an easy way to create failure hints.
 
 ## 0.11.0
+- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
 - Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
   
 ## 0.12.0  

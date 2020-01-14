@@ -17,23 +17,17 @@ class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionA
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Collection<Int>> = notImplemented()
-        val a2: Expect<out Collection<Int>> = notImplemented()
         val a1b: Expect<Collection<Int?>> = notImplemented()
-        val a2b: Expect<out Collection<Int?>> = notImplemented()
 
-        val a3: Expect<out Collection<*>> = notImplemented()
+        val star: Expect<Collection<*>> = notImplemented()
 
         a1 toBe Empty
-        a2 toBe Empty
         a1 notToBe Empty
-        a2 notToBe Empty
 
         a1b toBe Empty
-        a2b toBe Empty
         a1b notToBe Empty
-        a2b notToBe Empty
 
-        a3 toBe Empty
-        a3 notToBe Empty
+        star toBe Empty
+        star notToBe Empty
     }
 }

@@ -22,24 +22,12 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Path> = notImplemented()
-        val a2: Expect<out Path> = notImplemented()
 
         a1.exists()
-        a2.exists()
-
-        a2.existsNot()
-        a2.existsNot()
-
+        a1.existsNot()
         a1.startsWith(Paths.get("a"))
-        a2.startsWith(Paths.get("a"))
-
         a1.startsNotWith(Paths.get("a"))
-        a2.startsNotWith(Paths.get("a"))
-
         a1.endsWith(Paths.get("a"))
-        a2.endsWith(Paths.get("a"))
-
         a1.endsNotWith(Paths.get("a"))
-        a2.endsNotWith(Paths.get("a"))
     }
 }

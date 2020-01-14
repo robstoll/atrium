@@ -89,3 +89,25 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
         assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
     )
 )
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements in
+ * [expectedIterable] need to be contained in [Iterable] where it does not matter in which order but only as
+ * many entries should be returned by the [Iterable] as values defined.
+ *
+ * Delegates to [values]
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable]
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.9.0
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed" }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}

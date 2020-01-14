@@ -29,9 +29,9 @@ abstract class FeatureAssertionCheckerSpec(
     })
     val assertionVerb = AssertionVerb.VERB
     val valueUnderTest = 1
-    val assertionContainer = mockk<Expect<Int>>()
-    every { assertionContainer.addAssertion(any()) } returns assertionContainer
-    val testee = testeeFactory(assertionContainer)
+    val expect = mockk<Expect<Int>>()
+    every { expect.addAssertion(any()) } returns expect
+    val testee = testeeFactory(expect)
 
 
     describeFun("check") {
@@ -40,8 +40,8 @@ abstract class FeatureAssertionCheckerSpec(
             val captured by memoized(mode = CachingMode.SCOPE) {
                 testee.check(assertionVerb, valueUnderTest, assertions)
                 val slot = slot<Assertion>()
-                verify(exactly = 1) { assertionContainer.addAssertion(capture(slot)) }
-                confirmVerified(assertionContainer)
+                verify(exactly = 1) { expect.addAssertion(capture(slot)) }
+                confirmVerified(expect)
                 slot.captured
             }
 
