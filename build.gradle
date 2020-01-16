@@ -27,7 +27,11 @@ buildscript {
         mockito_kotlin_version = '2.2.0'
         mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
-        //gh-pages.gradle
+        // project setup
+        tutteli_plugins_version = '0.31.2'
+        node_plugin_version = '1.3.1'
+
+        // gh-pages.gradle
         docProjects = subprojects.findAll {
             !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
@@ -44,7 +48,7 @@ buildscript {
 
 
         sampleProjects = sampleProjectsFun
-        //jacoco-multi-project.gradle
+        // jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
@@ -103,13 +107,13 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version"
-        classpath 'com.moowork.gradle:gradle-node-plugin:1.3.1'
+        classpath "ch.tutteli:tutteli-gradle-dokka:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
+        classpath "com.moowork.gradle:gradle-node-plugin:$node_plugin_version"
     }
 }
 
