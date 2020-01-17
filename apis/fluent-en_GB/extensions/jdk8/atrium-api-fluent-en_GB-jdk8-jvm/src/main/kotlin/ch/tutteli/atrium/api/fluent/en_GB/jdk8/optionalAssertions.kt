@@ -19,3 +19,29 @@ import java.util.*
  * @since 0.9.0
  */
 fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.optional.isEmpty(this))
+
+/**
+ * Expects that the subject of the assertion (an [Optional]) is present
+ * and returns an [Expect] for the inner type [E].
+ *
+ * Shortcut for more or less something like `feature(Optional<T>::get)` but with error handling; yet it
+ * depends on the underlying implementation though.
+ *
+ * @return The newly created [Expect] if the given assertion is success
+ * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
+ *
+ * @since 0.9.0
+ */
+fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> = ExpectImpl.optional.isPresent(this).getExpectOfFeature()
+
+/**
+ * Expects that the subject of the assertion (an [Optional]) is present and
+ * that it holds all assertions the given [assertionCreator] creates.
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
+ *
+ * @since 0.9.0
+ */
+fun <E, T : Optional<E>> Expect<T>.isPresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.optional.isPresent(this).addToInitial(assertionCreator)

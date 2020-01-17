@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.util.*
 
 /**
@@ -20,4 +21,5 @@ val optionalAssertions by lazy { loadSingleService(OptionalAssertions::class) }
  */
 interface OptionalAssertions {
     fun <T : Optional<*>> isEmpty(expect: Expect<T>): Assertion
+    fun <E, T : Optional<E>> isPresent(expect: Expect<T>): ExtractedFeaturePostStep<T, E>
 }

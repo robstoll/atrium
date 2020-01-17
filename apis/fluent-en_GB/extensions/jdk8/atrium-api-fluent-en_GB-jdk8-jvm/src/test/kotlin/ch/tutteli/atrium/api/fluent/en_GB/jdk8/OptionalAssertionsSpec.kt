@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.fun0
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.OptionalAssertionsSpec
-import ch.tutteli.atrium.specs.notImplemented
 import java.util.*
 
 class OptionalAssertionsSpec : OptionalAssertionsSpec(
-    isEmpty = fun0(Expect<Optional<Any>>::isEmpty)
+    isEmpty = fun0(Expect<Optional<Int>>::isEmpty),
+    isPresentFeature = feature0<Optional<Int>, Int>(Expect<Optional<Int>>::isPresent),
+    isPresent = fun1<Optional<Int>, Expect<Int>.() -> Unit>(Expect<Optional<Int>>::isPresent)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

@@ -9,6 +9,7 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.OptionalAssertions
+import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.optionalAssertions
 import java.util.*
 
@@ -21,4 +22,7 @@ object OptionalAssertionsBuilder : OptionalAssertions {
 
     override inline fun <T : Optional<*>> isEmpty(expect: Expect<T>) =
         optionalAssertions.isEmpty(expect)
+
+    override inline fun <E, T : Optional<E>> isPresent(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
+        optionalAssertions.isPresent(expect)
 }
