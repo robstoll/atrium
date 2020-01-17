@@ -6,22 +6,24 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.translations.DescriptionBasic
+import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
 import kotlin.reflect.KProperty1
 
-typealias Fun<T> = Pair<String, T>
+typealias SpecPair<T> = Pair<String, T>
 
-inline val Fun<out Any?>.name get(): String = this.first
-inline val <T> Fun<T>.lambda get(): T = this.second
-inline fun <T> Fun<T>.adjustName(f: (String) -> String): Fun<T> = f(name) to lambda
+inline val SpecPair<out Any?>.name get(): String = this.first
+inline val <T> SpecPair<T>.lambda get(): T = this.second
+inline fun <T> SpecPair<T>.withFeatureSuffix(): SpecPair<T> = "$name (feature)" to lambda
+inline fun <T> SpecPair<T>.adjustName(f: (String) -> String): SpecPair<T> = f(name) to lambda
 
-typealias Feature0<T, R> = Fun<Expect<T>.() -> Expect<R>>
-typealias Feature1<T, A1, R> = Fun<Expect<T>.(A1) -> Expect<R>>
-typealias Feature2<T, A1, A2, R> = Fun<Expect<T>.(A1, A2) -> Expect<R>>
-typealias Feature3<T, A1, A2, A3, R> = Fun<Expect<T>.(A1, A2, A3) -> Expect<R>>
-typealias Feature4<T, A1, A2, A3, A4, R> = Fun<Expect<T>.(A1, A2, A3, A4) -> Expect<R>>
+typealias Feature0<T, R> = SpecPair<Expect<T>.() -> Expect<R>>
+typealias Feature1<T, A1, R> = SpecPair<Expect<T>.(A1) -> Expect<R>>
+typealias Feature2<T, A1, A2, R> = SpecPair<Expect<T>.(A1, A2) -> Expect<R>>
+typealias Feature3<T, A1, A2, A3, R> = SpecPair<Expect<T>.(A1, A2, A3) -> Expect<R>>
+typealias Feature4<T, A1, A2, A3, A4, R> = SpecPair<Expect<T>.(A1, A2, A3, A4) -> Expect<R>>
 
 typealias Fun0<T> = Feature0<T, T>
 typealias Fun1<T, A1> = Feature1<T, A1, T>
@@ -105,12 +107,88 @@ inline fun <T, R> Fun2<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>>
         )
     )
 
+fun <T, R> unifySignatures(
+    f0: Feature0<T, R>,
+    f1: Fun1<T, Expect<R>.() -> Unit>
+): List<Triple<String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<T>, Boolean>> =
+    listOf(
+        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f1.name, f1.lambda, true)
+    )
+
+@JvmName("unifySignatures1")
+fun <T, A1, R> unifySignatures(
+    f0: Feature1<T, A1, R>,
+    f1: Fun2<T, A1, Expect<R>.() -> Unit>
+): List<Triple<String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<T>, Boolean>> =
+    listOf(
+        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f1.name, f1.lambda, true)
+    )
+
+@JvmName("unifySignatures2")
+fun <T, A1, A2, R> unifySignatures(
+    f0: Feature2<T, A1, A2, R>,
+    f1: Fun3<T, A1, A2, Expect<R>.() -> Unit>
+): List<Triple<String, Expect<T>.(A1, A2, Expect<R>.() -> Unit) -> Expect<T>, Boolean>> =
+    listOf(
+        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f1.name, f1.lambda, true)
+    )
+
+@JvmName("unifySignatures0Feature")
+fun <T, R> unifySignatures(
+    f0: Feature0<T, R>,
+    f1: Feature1<T, Expect<R>.() -> Unit, R>
+): List<Triple<String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>, Boolean>> {
+    val f0WithSubAssertion: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R> =
+        { f: Expect<R>.() -> Unit -> (f0.lambda)().apply(f) }
+    return listOf(
+        Triple(f0.name, f0WithSubAssertion, false),
+        Triple(f1.name, f1.lambda, true)
+    )
+}
+
+@JvmName("unifySignatures1Feature")
+fun <T, A1, R> unifySignatures(
+    f0: Feature1<T, A1, R>,
+    f1: Feature2<T, A1, Expect<R>.() -> Unit, R>
+): List<Triple<String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R>, Boolean>> {
+    val f0WithSubAssertion: Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R> =
+        { a1, f: Expect<R>.() -> Unit -> (f0.lambda)(a1).apply(f) }
+    return listOf(
+        Triple(f0.name, f0WithSubAssertion, false),
+        Triple(f1.name, f1.lambda, true)
+    )
+}
+
+
+internal inline fun <T, R> Feature0<T, R>.withSubAssertion(): Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
+    { f: Expect<R>.() -> Unit -> apply { (lambda)().f() } }
+
+@JvmName("withSubAssertion1")
+internal inline fun <T, R, A1> Feature1<T, A1, R>.withSubAssertion()
+    : Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<T> =
+    { a1, f: Expect<R>.() -> Unit -> apply { (lambda)(a1).f() } }
+
+@JvmName("withSubAssertion2")
+internal inline fun <T, R, A1, A2> Feature2<T, A1, A2, R>.withSubAssertion():
+    Expect<T>.(A1, A2, Expect<R>.() -> Unit) -> Expect<T> =
+    { a1, a2, f: Expect<R>.() -> Unit -> apply { (lambda)(a1, a2).f() } }
+
+@JvmName("withSubAssertion3")
+internal inline fun <T, R, A1, A2, A3> Feature3<T, A1, A2, A3, R>.withSubAssertion():
+    Expect<T>.(A1, A2, A3, Expect<R>.() -> Unit) -> Expect<T> =
+    { a1, a2, a3, f: Expect<R>.() -> Unit -> apply { (lambda)(a1, a2, a3).f() } }
 
 //@formatter:off
-inline fun <T, R> property(f: KProperty1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
-inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>, suffix: String = ""): Feature0<T, R> = f.name + suffix to f
-inline fun <T, A1, R> feature1(f: KFunction2<Expect<T>, A1, Expect<R>>, suffix: String = ""): Feature1<T, A1, R> = f.name + suffix to f
-inline fun <T, A1, A2, R> feature2(f: KFunction3<Expect<T>, A1, A2, Expect<R>>, suffix: String = ""): Feature2<T, A1, A2, R> = f.name + suffix to f
+inline fun <T, R> property(f: KProperty1<Expect<T>, Expect<R>>): Feature0<T, R> = (f.name to f).withFeatureSuffix()
+//TODO simplify further instead of adjustName { "$it nullable" } once https://youtrack.jetbrains.com/issue/KT-35992 is fixed
+//@JvmName("feature0Nullable")
+//inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>): Feature0<T, R> = "${f.name} (nullable feature)" to f
+inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>): Feature0<T, R> = (f.name to f).withFeatureSuffix()
+inline fun <T, A1, R> feature1(f: KFunction2<Expect<T>, A1, Expect<R>>): Feature1<T, A1, R> = (f.name to f).withFeatureSuffix()
+inline fun <T, A1, A2, R> feature2(f: KFunction3<Expect<T>, A1, A2, Expect<R>>): Feature2<T, A1, A2, R> = (f.name to f).withFeatureSuffix()
 
 inline fun <T> fun0(f: KFunction1<Expect<T>, Expect<T>>, suffix: String = ""): Fun0<T> = f.name + suffix to f
 inline fun <T, A1> fun1(f: KFunction2<Expect<T>, A1, Expect<T>>, suffix: String = ""): Fun1<T, A1> = f.name + suffix to f
