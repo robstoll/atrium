@@ -119,6 +119,7 @@ abstract class ResultFeatureAssertionsSpec(
                     }
                 }
             }
+
             failureFunctions.forEach { (name, isFailureFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
                     expect(resultFailure).isFailureFun { messageContains("oh no...") }
