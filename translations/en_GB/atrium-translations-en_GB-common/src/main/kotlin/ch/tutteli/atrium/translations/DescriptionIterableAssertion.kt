@@ -24,7 +24,7 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     IN_ORDER_ONLY_GROUPED("%s only, in order, grouped"),
     INDEX("index %s"),
     INDEX_FROM_TO("index %s..%s"),
-    NUMBER_OF_OCCURRENCES("number of occurrences"),
+    NUMBER_OF_OCCURRENCES("number of such entries"),
     SIZE_EXCEEDED("❗❗ hasNext() returned false"),
     @Deprecated("Will be removed with 0.10.0")
     CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
