@@ -936,7 +936,7 @@ expect(listOf(1, 2, 2, 4)).contains(2, 3)
 expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an entry which is: 3        (kotlin.Int <1234789>)
-    ⚬ ▶ number of occurrences: 0
+    ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
 ```
 </ex-collection-short-1>
@@ -977,12 +977,12 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an entry which: 
       » is less than: 0        (kotlin.Int <1234789>)
-    ⚬ ▶ number of occurrences: 0
+    ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
   ⚬ an entry which: 
       » is greater than: 2        (kotlin.Int <1234789>)
       » is less than: 4        (kotlin.Int <1234789>)
-    ⚬ ▶ number of occurrences: 0
+    ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
 ```
 </ex-collection-short-2>
@@ -1015,7 +1015,7 @@ expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an entry which: 
       » is less than: 0        (kotlin.Int <1234789>)
-    ⚬ ▶ number of occurrences: 0
+    ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
 ```
 </ex-collection-any>
@@ -1031,7 +1031,7 @@ expect: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ does not contain: 
   ⚬ an entry which: 
       » is greater than: 2        (kotlin.Int <1234789>)
-    ✘ ▶ number of occurrences: 2
+    ✘ ▶ number of such entries: 2
         ◾ is: 0        (kotlin.Int <1234789>)
     ✔ ▶ has at least one element: true
         ◾ is: true
@@ -1152,7 +1152,7 @@ expect: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an entry which: 
       » is less than: 3        (kotlin.Int <1234789>)
-    ⚬ ▶ number of occurrences: 3
+    ⚬ ▶ number of such entries: 3
         ◾ is at most: 2
 ```
 </ex-collection-builder-3>
@@ -1292,7 +1292,7 @@ expect: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
     ◾ does not contain: 
       ⚬ an entry which: 
           » is greater than: 1        (kotlin.Int <1234789>)
-        ✘ ▶ number of occurrences: 1
+        ✘ ▶ number of such entries: 1
             ◾ is: 0        (kotlin.Int <1234789>)
         ✔ ▶ has at least one element: true
             ◾ is: true
@@ -1512,7 +1512,7 @@ expect: "calling myNullableFun with ..."        <1234789>
     ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
       » contains: 
         ⚬ value: "min"        <1234789>
-          ⚬ ▶ number of occurrences: -1
+          ⚬ ▶ number of matches: -1
               ◾ is at least: 1
 ◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
     ◾ equals: "max"        <1234789>
@@ -1643,7 +1643,7 @@ expect: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789
             » is instance of type: String (kotlin.String) -- Class: java.lang.String
             » contains: 
               ⚬ value: "no no no"        <1234789>
-                ⚬ ▶ number of occurrences: -1
+                ⚬ ▶ number of matches: -1
                     ◾ is at least: 1
       » Properties of the unexpected IllegalArgumentException
         » message: "no no no..."        <1234789>
