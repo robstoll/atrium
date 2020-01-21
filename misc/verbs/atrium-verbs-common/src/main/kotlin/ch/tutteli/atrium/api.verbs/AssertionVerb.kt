@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The [Translatable]s for the assertion functions [assert], [assertThat] and [expect].
  */
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
-    ASSERT("assert"),
-    ASSERT_THAT("assert that"),
-    EXPECT("expect"),
+    ASSERT("asserted that subject"),
+    ASSERT_THAT("asserted that subject"),
+    EXPECT("expected that subject"),
 }
