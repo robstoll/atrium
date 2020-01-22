@@ -4,32 +4,28 @@ plugins {
 repositories {
     mavenCentral()
 }
-group 'com.example'
+group 'com.atrium'
 version '0.0.1'
 
 apply plugin: 'maven-publish'
 
 kotlin {
     jvm()
-    js {
-        browser {
-        }
-        nodejs {
-        }
-    }
-    // For ARM, should be changed to iosArm32 or iosArm64
-    // For Linux, should be changed to e.g. linuxX64
-    // For MacOS, should be changed to e.g. macosX64
-    // For Windows, should be changed to e.g. mingwX64
-    mingwX64("windows")
+    js()
     sourceSets {
-
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+                implementation ('ch.tutteli.atrium:atrium-fluent-en_GB-common:0.9.0-alpha2')
+            }
+        }
         jvmTest {
             dependencies {
                 //implementation kotlin('test')
                 //implementation kotlin('test-junit')
                 implementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB-jvm:0.9.0-alpha2")
+                implementation("ch.tutteli.atrium:atrium-fluent-en_GB:0.9.0-alpha2")
             }
         }
         jsTest {
