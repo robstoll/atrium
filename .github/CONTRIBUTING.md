@@ -96,6 +96,7 @@ Please write a comment such as `I am working on this` in the issue,
 this way we can assign the task to you (so that others know there is already someone working on the issue)
 and it gives us the chance to have a look at the description again and revise if necessary.
 
+<a name="git"></a>
 Dealing with Git for the first time? Here are some recommendations for how to set up Git when working on an issue: 
 - create a new branch for the issue using `git checkout -b <branch-name>` (preferrably, the branch name
   should be descriptive of the issue or the change being made, e.g `#108-path-exists`.) Working
