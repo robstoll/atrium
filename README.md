@@ -2505,7 +2505,7 @@ A more detailed backlog can be found at [atrium-roadmap](https://github.com/robs
 - introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
 - introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
 - introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
-- introduce Kotlin 1.3 specific assertion functions (compatiblity with 1.2 will stay until 1.0.0)
+- introduce Kotlin 1.3 specific assertion functions (compatibility with 1.2 will stay until Kotlin 1.4 is out)
 
 ## 0.10.0
 - refactor core and domain architecture:
@@ -2513,10 +2513,13 @@ A more detailed backlog can be found at [atrium-roadmap](https://github.com/robs
   - we will remove all deprecated functionality (including the old API's en_UK, cc-en_GB, cc-infix-en_GB and cc-de_CH)
 - fix verbosity issues in conjunction with feature assertions and explanatory groups.
 - provide an easy way to create failure hints.
-
+- in case Kotlin 1.4 is out and allows us to provide a better API (especially in the area of feature assertions), then we drop the support for Kotlin 1.2 and Kotlin 1.3 -- i.e. we require Kotlin 1.4 to work correctly
+  - include assertion functions specific to Kotlin 1.3 into normal API
+  
 ## 0.11.0
 - move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
 - Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
+- drop support for Kotlin 1.2 and 1.3 (see 0.10.0 for more information)
   
 ## 0.12.0  
 - see if we can further improve error reporting in the IDE with the help of opentest4j exceptions.
@@ -2524,8 +2527,8 @@ A more detailed backlog can be found at [atrium-roadmap](https://github.com/robs
   - generate multiple reports in the same test run. 
   
 ## 1.0.0
-- drop support for Kotlin 1.2
-- include assertion functions specific to Kotlin 1.3 into normal API
+- we might drop support for jdk6, jdk7 and include jdk8 specific features directly into the API 
+
   
 ## Sometime in the future
 - extension for Spek so that reporting includes the `describe`, `it` etc.
