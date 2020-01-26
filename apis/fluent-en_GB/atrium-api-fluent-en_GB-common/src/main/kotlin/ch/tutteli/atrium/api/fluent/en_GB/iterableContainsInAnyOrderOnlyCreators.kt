@@ -58,7 +58,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case
+ * [Iterable] which holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case
  * [assertionCreatorOrNull] is defined as `null` -- likewise an entry for each
  * [otherAssertionCreatorsOrNulls] needs to be contained in the [Iterable] where it does not matter in which order the
  * entries appear but only as many entries should be returned by the [Iterable] as assertion creators are defined.

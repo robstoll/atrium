@@ -48,7 +48,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case [assertionCreatorOrNull]
+ * holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
  * Delegates to `entries(assertionCreatorOrNull)`.
@@ -66,7 +66,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case
+ * holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case
  * [assertionCreatorOrNull] is defined as `null` -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreatorsOrNulls].
  *
