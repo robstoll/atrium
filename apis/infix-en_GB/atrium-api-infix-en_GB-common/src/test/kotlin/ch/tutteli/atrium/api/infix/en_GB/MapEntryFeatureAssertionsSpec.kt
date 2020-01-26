@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
@@ -15,6 +16,8 @@ class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEnt
     property<Map.Entry<String?, Int?>, Int?>(Expect<Map.Entry<String?, Int?>>::value),
     fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::value)
 ) {
+    companion object : WithAsciiReporter()
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<Map.Entry<CharSequence, Number>> = notImplemented()

@@ -9,6 +9,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 enum class DescriptionFunLikeAssertion(override val value: String) : StringBasedTranslatable {
     IS_NOT_THROWING_1("does not"),
     IS_NOT_THROWING_2("throw when called"),
-    NO_EXCEPTION_OCCURRED("no exception occurred"),
+    NO_EXCEPTION_OCCURRED("❗❗ no exception occurred"),
     THROWN_EXCEPTION_WHEN_CALLED("thrown exception when called"),
 }

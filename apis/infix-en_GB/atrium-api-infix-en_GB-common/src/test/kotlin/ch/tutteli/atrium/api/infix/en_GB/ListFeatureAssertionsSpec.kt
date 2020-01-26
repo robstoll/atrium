@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders.ListGetStep
+import ch.tutteli.atrium.api.infix.en_GB.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.name
@@ -14,7 +15,7 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
     getIndexNullablePair()
 ) {
 
-    companion object {
+    companion object : WithAsciiReporter() {
         fun get(expect: Expect<List<Int>>, index: Int) = expect get index
         fun getNullable(expect: Expect<List<Int?>>, index: Int) = expect get index
 
