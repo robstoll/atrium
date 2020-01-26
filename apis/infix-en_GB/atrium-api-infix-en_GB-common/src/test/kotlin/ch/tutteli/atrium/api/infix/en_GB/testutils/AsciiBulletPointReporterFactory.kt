@@ -31,3 +31,10 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
             .build()
     }
 }
+
+abstract class WithAsciiReporter {
+    init {
+        ReporterFactory.specifyFactory("ascii")
+    }
+}
+
