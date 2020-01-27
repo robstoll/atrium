@@ -78,8 +78,8 @@ The following are a few guidelines on how we suggest you start.
    - EditorConfig by JetBrains (might be already activated)
    - Spek Framework by Spek Team
 3. Import the project (import the build.gradle -> import as project, works more reliably)
-4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gr build` 
-   This builds the project (compile, run tests etc) via gradle (notice, we renamed `gradlew` to `gr`, more convenient no?) 
+4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gradlew build` 
+   This builds the project (compile, run tests etc) via gradle
 5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
 
 Note: IntelliJ requires a few workarounds.

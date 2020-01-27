@@ -17,7 +17,7 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
             -   name: Build buildNonDeprecatedJvm
-                run: ./gr buildNonDeprecatedJvm
+                run: ./gradlew buildNonDeprecatedJvm
 
             -   name: build sample atrium+spek project
                 run: samples\jvm\spek\gradlew -p samples\jvm\spek build

@@ -4,30 +4,28 @@ language: java
 jdk:
   - openjdk11
 
-before_install: chmod +x gr
-
 install: skip
 
 jobs:
     include:
       - env: MODE=current_11
-        script: ./gr buildAllWithoutJs
+        script: ./gradlew buildAllWithoutJs
         after_success: bash <(curl -s https://codecov.io/bash) -F current
 
       - env: MODE=current_8
         jdk: oraclejdk8
-        script: ./gr buildNonDeprecatedJvm buildAllAndroid
+        script: ./gradlew buildNonDeprecatedJvm buildAllAndroid
         after_success: bash <(curl -s https://codecov.io/bash) -F current
 
       - env: MODE=js
-        script: ./gr buildAllJs
+        script: ./gradlew buildAllJs
 
       - env: MODE=bbc
-        script: ./gr bbcTests
+        script: ./gradlew bbcTests
         after_success: bash <(curl -s https://codecov.io/bash) -F bbc
 
       - env: MODE=bc
-        script: ./gr bcTests
+        script: ./gradlew bcTests
         after_success: bash <(curl -s https://codecov.io/bash) -F bc
 
       - env: MODE=samples
