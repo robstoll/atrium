@@ -8,13 +8,13 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath 'com.github.node-gradle:gradle-node-plugin:2.2.0'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.71'
     }
 }
 
 apply plugin: 'kotlin2js'
-apply plugin: 'com.moowork.node'
+apply plugin: 'com.github.node-gradle.node'
 
 repositories {
     jcenter()
@@ -70,14 +70,6 @@ node {
     nodeModulesDir = nodeModulesParentDir
 }
 
-task installMocha(type: NpmTask) {
-    // note, without the '--prefer-offline' it works only if you are online,
-    // with '--prefer-offline' it works also offline if you have already as well in case you have already downloaded mocha once
-    args = ['install', 'mocha', '--prefer-offline']
-}
-
-task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])
-
 //either you use this task or create a testSetup.kt in your src/test with the following content
 //
 // // adopt to the api you use
@@ -94,8 +86,8 @@ task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
         srcFile.write(newContent, 'UTF-8')
     }
 }
-task runMocha(type: NodeTask, group: 'Verification', dependsOn: [prepareMocha, test, establishDependencyToAtrium]) {
-    script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
+task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotlin2Js, populateNodeModules, test, establishDependencyToAtrium]) {
+    command = "mocha"
     args = [compileTestKotlin2Js.outputFile]
 }
 check.dependsOn runMocha
@@ -154,8 +146,8 @@ task establishDependencyFromCurrentToAtrium(dependsOn: [compileTestKotlin2Js]) {
         srcFile.write(newContent, 'UTF-8')
     }
 }
-task runMochaForCurrent(type: NodeTask, group: 'Verification', dependsOn: [compileCurrentKotlin2Js, populateCurrentNodeModules, installMocha, establishDependencyFromCurrentToAtrium]) {
-    script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
+task runMochaForCurrent(type: NpxTask, group: 'Verification', dependsOn: [compileCurrentKotlin2Js, populateCurrentNodeModules, establishDependencyFromCurrentToAtrium]) {
+    command = "mocha"
     args = [compileCurrentKotlin2Js.outputFile]
 }
 
