@@ -467,7 +467,7 @@ createJsTestTask(
 def useJupiter(String... projectNames) {
     configure(projectNamesToProject(projectNames)) {
         dependencies {
-            testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+            testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
         }
         test {
             options {
