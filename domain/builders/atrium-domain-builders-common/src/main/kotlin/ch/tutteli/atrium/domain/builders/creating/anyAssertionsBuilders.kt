@@ -37,6 +37,9 @@ object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T> toBeNull(subjectProvider: SubjectProvider<T>) =
         anyAssertions.toBeNull(subjectProvider)
 
+    override fun <T> isNotIn(subjectProvider: SubjectProvider<T>, expected: List<T>) =
+        anyAssertions.isNotIn(subjectProvider, expected)
+
     override inline fun <T : Any> toBeNullIfNullGivenElse(
         expect: Expect<T?>,
         type: KClass<T>,

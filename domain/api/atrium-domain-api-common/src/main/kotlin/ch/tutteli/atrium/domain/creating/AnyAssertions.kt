@@ -30,6 +30,9 @@ interface AnyAssertions {
 
     fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>): Assertion
 
+    fun <T> isNotIn(subjectProvider: SubjectProvider<T>, expected: List<T>): Assertion
+
+
     fun <T : Any> toBeNullIfNullGivenElse(
         expect: Expect<T?>,
         type: KClass<T>,

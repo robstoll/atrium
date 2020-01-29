@@ -14,6 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NONE_OF
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
+import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT_IN
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.jvm.JvmMultifileClass
@@ -31,6 +32,9 @@ fun <T> _isSame(subjectProvider: SubjectProvider<T>, expected: T) =
 
 fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_SAME, expected) { it !== expected }
+
+fun <T> _isNotIn(subjectProvider: SubjectProvider<T>, expected: List<T>) =
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_IN, expected) { it !== expected }
 
 private fun <T> _isNoneOf(
     expected: List<T>,
