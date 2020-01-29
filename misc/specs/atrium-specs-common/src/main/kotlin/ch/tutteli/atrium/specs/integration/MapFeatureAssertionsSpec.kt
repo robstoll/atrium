@@ -65,7 +65,7 @@ abstract class MapFeatureAssertionsSpec(
                 it("$name - hasSize(2) holds") {
                     fluent.keysFun { hasSize(2) }
                 }
-                it("$name - hasSize(1) fails") {
+                it("$name - hasSize(1) throws AssertionError") {
                     expect {
                         fluent.keysFun { hasSize(1) }
                     }.toThrow<AssertionError> {
@@ -77,7 +77,7 @@ abstract class MapFeatureAssertionsSpec(
                 it("$name - hasSize(2) holds") {
                     fluent.valuesFun { hasSize(2) }
                 }
-                it("$name - hasSize(1) fails") {
+                it("$name - hasSize(1) throws AssertionError") {
                     expect {
                         fluent.valuesFun { hasSize(1) }
                     }.toThrow<AssertionError> {
