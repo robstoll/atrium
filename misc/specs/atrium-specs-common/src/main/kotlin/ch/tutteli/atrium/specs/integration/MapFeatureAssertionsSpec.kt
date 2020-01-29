@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -24,14 +25,14 @@ abstract class MapFeatureAssertionsSpec(
     val mapNullable = mapOf("a" to 1, "b" to null, null to 3)
 
     include(object : SubjectLessSpec<Map<String, Int>>(describePrefix,
-        keysFeature.forSubjectLess().adjustName { "$it feature" },
+        keysFeature.forSubjectLess(),
         keys.forSubjectLess { isEmpty() },
-        valuesFeature.forSubjectLess().adjustName { "$it feature" },
+        valuesFeature.forSubjectLess(),
         values.forSubjectLess { isEmpty() },
         getExistingFeature.forSubjectLess("a"),
         getExisting.forSubjectLess("a") { isGreaterThan(1) }
     ) {})
-    include(object : SubjectLessSpec<Map<String?, Int?>>("$describePrefix[nullable Key] ",
+    include(object : SubjectLessSpec<Map<String?, Int?>>("$describePrefix[nullable] ",
         getExistingNullableFeature.forSubjectLess("a"),
         getExistingNullable.forSubjectLess("a") { toBe(null) }
     ) {})
@@ -43,161 +44,91 @@ abstract class MapFeatureAssertionsSpec(
         getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(2) }
     ) {})
     include(object : AssertionCreatorSpec<Map<String?, Int?>>(
-        "$describePrefix[nullable Element] ", mapNullable,
+        "$describePrefix[nullable] ", mapNullable,
         getExistingNullable.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(null) }
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val fluent = expect(map)
     val fluentNullable = expect(mapNullable)
 
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
 
-    describeFun("${keysFeature.name} feature") {
-        val keysVal = keysFeature.lambda
+    describeFun(keysFeature, keys, valuesFeature, values) {
+        val keysFunctions = unifySignatures(keysFeature, keys)
+        val valuesFunctions = unifySignatures(valuesFeature, values)
 
         context("map with two entries") {
-            it("hasSize(2) holds") {
-                fluent.keysVal().hasSize(2)
+            keysFunctions.forEach { (name, keysFun, _) ->
+                it("$name - hasSize(2) holds") {
+                    fluent.keysFun { hasSize(2) }
+                }
+                it("$name - hasSize(1) fails") {
+                    expect {
+                        fluent.keysFun { hasSize(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains("keys: [a, b]")
+                    }
+                }
             }
-            it("hasSize(1) fails") {
-                expect {
-                    fluent.keysVal().hasSize(1)
-                }.toThrow<AssertionError> {
-                    messageContains("keys: [a, b]")
+            valuesFunctions.forEach { (name, valuesFun, _) ->
+                it("$name - hasSize(2) holds") {
+                    fluent.valuesFun { hasSize(2) }
+                }
+                it("$name - hasSize(1) fails") {
+                    expect {
+                        fluent.valuesFun { hasSize(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains("values: [1, 2]")
+                    }
                 }
             }
         }
     }
 
-    describeFun(keys.name) {
-        val keysFun = keys.lambda
-
-        context("map with two entries") {
-            it("hasSize(2) holds") {
-                fluent.keysFun { hasSize(2) }
-            }
-            it("hasSize(1) fails") {
-                expect {
-                    fluent.keysFun { hasSize(1) }
-                }.toThrow<AssertionError> {
-                    messageContains("keys: [a, b]")
-                }
-            }
-        }
-    }
-
-
-    describeFun("${valuesFeature.name} feature") {
-        val valuesVal = valuesFeature.lambda
-
-        context("map with two entries") {
-            it("hasSize(2) holds") {
-                fluent.valuesVal().hasSize(2)
-            }
-            it("hasSize(1) fails") {
-                expect {
-                    fluent.valuesVal().hasSize(1)
-                }.toThrow<AssertionError> {
-                    messageContains("values: [1, 2]")
-                }
-            }
-        }
-    }
-
-    describeFun(values.name) {
-        val valuesFun = values.lambda
-
-        context("map with two entries") {
-            it("hasSize(2) holds") {
-                fluent.valuesFun { hasSize(2) }
-            }
-            it("hasSize(1) fails") {
-                expect {
-                    fluent.valuesFun { hasSize(1) }
-                }.toThrow<AssertionError> {
-                    messageContains("values: [1, 2]")
-                }
-            }
-        }
-    }
-
-    describeFun("${getExistingFeature.name} feature") {
-        val getExistingFun = getExistingFeature.lambda
-        context("map $map") {
-            it("can perform sub-assertion on existing key") {
-                fluent.getExistingFun("a").toBe(1)
-            }
-            it("non-existing key throws") {
-                expect {
-                    fluent.getExistingFun("c").toBe(1)
-                }.toThrow<AssertionError> {
-                    messageContains("get(\"c\"): $keyDoesNotExist")
-                }
-            }
-        }
-    }
-
-    describeFun(getExisting.name) {
-        val getExistingFun = getExisting.lambda
+    describeFun(getExistingFeature, getExisting) {
+        val getExistingFunctions = unifySignatures(getExistingFeature, getExisting)
 
         context("map $map") {
-            it("can perform sub-assertion on existing key") {
-                fluent.getExistingFun("a") { toBe(1) }
-            }
-            it("non-existing key throws but shows intended sub-assertion") {
-                expect {
-                    fluent.getExistingFun("c") { toBe(3) }
-                }.toThrow<AssertionError> {
-                    messageContains("get(\"c\"): $keyDoesNotExist", "$toBeDescr: 3")
+            getExistingFunctions.forEach { (name, getExistingFun, hasExtraHint) ->
+                it("$name - can perform sub-assertion on existing key") {
+                    fluent.getExistingFun("a") { toBe(1) }
+                }
+                it("$name - non-existing key throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                    expect {
+                        fluent.getExistingFun("c") { toBe(3) }
+                    }.toThrow<AssertionError> {
+                        messageContains("get(\"c\"): $keyDoesNotExist")
+                        if (hasExtraHint) messageContains("$toBeDescr: 3")
+                    }
                 }
             }
         }
     }
 
-    describeFun("${getExistingNullableFeature.name} nullable feature") {
-        val getExistingNullableFun = getExistingNullableFeature.lambda
+    describeFun(getExistingNullableFeature, getExistingNullable) {
 
+        val getExistingFunctions = unifySignatures(getExistingNullableFeature, getExistingNullable)
         context("map $mapNullable") {
-            it("can perform sub-assertion on existing key") {
-                fluentNullable.getExistingNullableFun("a").toBe(1)
-            }
-            it("can perform sub-assertion on existing key which is null") {
-                fluentNullable.getExistingNullableFun(null).toBe(3)
-            }
-            it("can perform sub-assertion on existing key whose value is null") {
-                fluentNullable.getExistingNullableFun("b").toBe(null)
-            }
-            it("non-existing key throws") {
-                expect {
-                    fluentNullable.getExistingNullableFun("c").toBe(null)
-                }.toThrow<AssertionError> {
-                    messageContains("get(\"c\"): $keyDoesNotExist")
+            getExistingFunctions.forEach { (name, getExistingFun, hasExtraHint) ->
+                it("$name - can perform sub-assertion on existing key") {
+                    fluentNullable.getExistingFun("a") { toBe(1) }
                 }
-            }
-        }
-    }
-
-    describeFun("$getExistingNullable for nullable") {
-        val getExistingNullableFun = getExistingNullable.lambda
-
-        context("map $mapNullable") {
-            it("can perform sub-assertion on existing key") {
-                fluentNullable.getExistingNullableFun("a") { toBe(1) }
-            }
-            it("can perform sub-assertion on existing key which is null") {
-                fluentNullable.getExistingNullableFun(null) { toBe(3) }
-            }
-            it("can perform sub-assertion on existing key whose value is null") {
-                fluentNullable.getExistingNullableFun("b") { toBe(null) }
-            }
-            it("non-existing key throws but shows intended sub-assertion") {
-                expect {
-                    fluentNullable.getExistingNullableFun("c") { toBe(null) }
-                }.toThrow<AssertionError> {
-                    messageContains("get(\"c\"): $keyDoesNotExist", "$toBeDescr: null")
+                it("$name - can perform sub-assertion on existing key which is null") {
+                    fluentNullable.getExistingFun(null) { toBe(3) }
+                }
+                it("$name - can perform sub-assertion on existing key whose value is null") {
+                    fluentNullable.getExistingFun("b") { toBe(null) }
+                }
+                it("$name - non-existing key throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                    expect {
+                        fluentNullable.getExistingFun("c") { toBe(null) }
+                    }.toThrow<AssertionError> {
+                        messageContains("get(\"c\"): $keyDoesNotExist")
+                        if (hasExtraHint) messageContains("$toBeDescr: null")
+                    }
                 }
             }
         }
