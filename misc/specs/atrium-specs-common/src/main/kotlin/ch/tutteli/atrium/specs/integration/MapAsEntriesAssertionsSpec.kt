@@ -15,32 +15,27 @@ abstract class MapAsEntriesAssertionsSpec(
 
     include(object : SubjectLessSpec<Map<String, Int>>(
         describePrefix,
-        asEntriesFeature.forSubjectLess().adjustName { "$it feature" },
+        asEntriesFeature.forSubjectLess(),
         asEntries.forSubjectLess { contains("a" to 1) }
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    describeFun(asEntriesFeature.name + " feature") {
-        it("transformation can be applied and an assertion made") {
-            expect(mapOf("a" to 1, "b" to 2)).(asEntriesFeature.lambda)().contains.inAnyOrder.only.entries(
-                { isKeyValue("b", 2) },
-                { key { startsWith("a") }.and.value.isGreaterThanOrEqual(1) }
-            )
-        }
-    }
+    describeFun(asEntriesFeature, asEntries) {
+        val asEntriesFunctions = unifySignatures(asEntriesFeature, asEntries)
 
-    describeFun(asEntries.name) {
-        it("transformation can be applied and an assertion made") {
-            expect(mapOf("a" to 1, "b" to 2)).(asEntries.lambda){
-                contains.inAnyOrder.only.entries(
-                    { isKeyValue("b", 2) },
-                    {
-                        key { startsWith("a") }
-                        value.isGreaterThanOrEqual(1)
-                    }
-                )
+        asEntriesFunctions.forEach{ (name, asEntriesFun, _) ->
+            it("$name - transformation can be applied and an assertion made") {
+                expect(mapOf("a" to 1, "b" to 2)).asEntriesFun {
+                    contains.inAnyOrder.only.entries(
+                        { isKeyValue("b", 2) },
+                        {
+                            key { startsWith("a") }
+                            value.isGreaterThanOrEqual(1)
+                        }
+                    )
+                }
             }
         }
     }
