@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.adjustName
 import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
@@ -8,8 +9,8 @@ import ch.tutteli.atrium.specs.notImplemented
 object ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
     feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
     fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Expect<List<Int>>::get),
-    feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get),
-    fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::get)
+    feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).adjustName { "$it nullable" },
+    fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::get).adjustName { "$it nullable" }
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
