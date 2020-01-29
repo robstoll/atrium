@@ -19,5 +19,6 @@ enum class DescriptionAnyAssertion(override val value: String) : StringBasedTran
     NOT_TO_BE(DescriptionBasic.NOT_TO_BE.value),
     IS_A("is instance of type"),
     IS_SAME("is the same instance as"),
-    IS_NOT_SAME("is not the same instance as")
+    IS_NOT_SAME("is not the same instance as"),
+    IS_NONE_OF("is none of"),
 }

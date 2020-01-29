@@ -4,11 +4,14 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NONE_OF
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
@@ -29,6 +32,20 @@ fun <T> _isSame(subjectProvider: SubjectProvider<T>, expected: T) =
 fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_SAME, expected) { it !== expected }
 
+private fun <T> _isNoneOf(
+    expected: List<T>,
+    warning: DescriptionAnyAssertion
+): AssertionGroup {
+    val assertions = expected.map{ ExpectImpl.builder.representationOnly}
+    val additionalEntries = ExpectImpl.builder.list
+        .withDescriptionAndEmptyRepresentation(warning)
+        .withAssertions(assertions)
+        .build()
+    return ExpectImpl.builder.explanatoryGroup
+        .withWarningType
+        .withAssertion(additionalEntries)
+        .build()
+}
 
 fun <T : Any?> _toBeNull(subjectProvider: SubjectProvider<T>) =
     ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, RawString.NULL) { it == null }
