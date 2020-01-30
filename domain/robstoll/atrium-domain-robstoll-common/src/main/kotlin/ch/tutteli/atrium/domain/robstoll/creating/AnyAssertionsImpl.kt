@@ -13,7 +13,7 @@ class AnyAssertionsImpl : AnyAssertions, AnyAssertionsDeprecatedImpl() {
     override fun <T> notToBe(subjectProvider: SubjectProvider<T>, expected: T) = _notToBe(subjectProvider, expected)
     override fun <T> isSame(subjectProvider: SubjectProvider<T>, expected: T) = _isSame(subjectProvider, expected)
     override fun <T> isNotSame(subjectProvider: SubjectProvider<T>, expected: T) = _isNotSame(subjectProvider, expected)
-    override fun <T> isNotIn(subjectProvider: SubjectProvider<T>, expected: List<T>) = _isNotIn(subjectProvider, expected)
+    override fun <T> isNotIn(expect: Expect<T>, expected: List<T>) = _isNotIn(expect, expected)
 
     override fun <T : Any?> toBeNull(subjectProvider: SubjectProvider<T>) = _toBeNull(subjectProvider)
 

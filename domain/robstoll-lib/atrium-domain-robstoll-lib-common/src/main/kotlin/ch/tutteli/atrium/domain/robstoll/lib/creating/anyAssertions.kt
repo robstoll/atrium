@@ -34,20 +34,16 @@ fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_SAME, expected) { it !== expected }
 
 fun <T> _isNotIn(subjectProvider: SubjectProvider<T>, expected: List<T>) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_IN, expected) { it !== expected }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT_IN, expected) { it !== expected}
 
 private fun <T> _isNoneOf(
     expected: List<T>,
     warning: DescriptionAnyAssertion
 ): AssertionGroup {
-    val assertions = expected.map{ ExpectImpl.builder.representationOnly}
-    val additionalEntries = ExpectImpl.builder.list
+    val assertion = expected.map{ ExpectImpl.builder.representationOnly.failing.withRepresentation(IS_NONE_OF).build()}
+    return ExpectImpl.builder.list
         .withDescriptionAndEmptyRepresentation(warning)
-        .withAssertions(assertions)
-        .build()
-    return ExpectImpl.builder.explanatoryGroup
-        .withWarningType
-        .withAssertion(additionalEntries)
+        .withAssertions(assertion)
         .build()
 }
 
