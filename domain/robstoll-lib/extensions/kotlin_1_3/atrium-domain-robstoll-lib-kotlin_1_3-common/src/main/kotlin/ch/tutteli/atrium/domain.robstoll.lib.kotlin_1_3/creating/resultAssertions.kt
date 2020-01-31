@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.kotlin_1_3.creating
 
+import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
 import ch.tutteli.atrium.api.fluent.en_GB.withOptions
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.Expect
@@ -23,6 +24,7 @@ fun <E, T : Result<E>> _isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T
         .withoutOptions()
         .build()
 
+@UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isFailure(
     assertionContainer: Expect<out Result<*>>,
     expectedType: KClass<TExpected>

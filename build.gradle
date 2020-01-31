@@ -300,6 +300,17 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     }
 }
 
+configure(subprojects - sampleProjects) {
+    sourceSets {
+        all {
+            languageSettings {
+                useExperimentalAnnotation('kotlin.Experimental')
+            }
+        }
+    }
+}
+
+
 apply from: 'gradle/scripts/gh-pages.gradle'
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 

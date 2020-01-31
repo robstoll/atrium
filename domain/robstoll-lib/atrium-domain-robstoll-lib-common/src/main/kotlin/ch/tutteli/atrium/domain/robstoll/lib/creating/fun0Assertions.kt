@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
+import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
 import ch.tutteli.atrium.api.fluent.en_GB.withOptions
 import ch.tutteli.atrium.core.Either
 import ch.tutteli.atrium.core.Left
@@ -13,6 +14,7 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
+@UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isThrowing(
     expect: Expect<out () -> Any?>,
     expectedType: KClass<TExpected>
