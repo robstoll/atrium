@@ -95,6 +95,7 @@ dokka {
     [
         "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
         "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl",
+        "ch.tutteli.atrium.assertions.builders.impl",
         "ch.tutteli.atrium.domain.builders.reporting.impl",
         "ch.tutteli.atrium.domain.builders.creating.changers.impl",
     ].each { pkg ->

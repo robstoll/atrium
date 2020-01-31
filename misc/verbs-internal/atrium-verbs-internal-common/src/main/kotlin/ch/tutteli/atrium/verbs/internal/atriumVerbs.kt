@@ -31,6 +31,9 @@ fun expect(act: () -> Unit) = AssertImpl.throwable.thrownBuilder(AssertionVerb.E
 
 @Deprecated("Switch to api.verbs.internal.AssertionVerb; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
+/**
+ * Deprecated, switch to api.verbs.internal.AssertionVerb; will be removed with 1.0.0
+ */
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),
     EXPECT_THROWN("expect the thrown exception"),
