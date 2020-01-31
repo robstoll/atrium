@@ -6,4 +6,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 enum class DescriptionOptionalAssertion(override val value: String) : StringBasedTranslatable {
     EMPTY("leer"),
+    GET("get()"),
+    IS_NOT_PRESENT("!! ist nicht definiert")
 }
