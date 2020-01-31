@@ -12,6 +12,7 @@ class ReportingAssertionContainerImpl<T>(
 ) : MutableListBasedAssertionContainer<T>(assertionCheckerDecorator.maybeSubject),
     ReportingAssertionContainer<T> {
 
+    @UseExperimental(ExperimentalExpectConfig::class)
     override val config: RootExpectConfig =
         RootExpectConfig.create(
             assertionCheckerDecorator.assertionVerb,

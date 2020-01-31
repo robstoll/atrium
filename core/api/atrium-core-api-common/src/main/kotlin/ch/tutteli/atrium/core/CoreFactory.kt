@@ -207,6 +207,7 @@ interface CoreFactoryCommon {
 
 
     //TODO #280 add KDoc
+    @UseExperimental(ExperimentalExpectConfig::class)
     fun <T, R> newFeatureExpect(
         previousExpect: Expect<T>,
         maybeSubject: Option<R>,

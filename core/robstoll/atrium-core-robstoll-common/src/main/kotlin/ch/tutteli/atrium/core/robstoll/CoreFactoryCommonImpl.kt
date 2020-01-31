@@ -34,6 +34,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T, R> newFeatureExpect(
         previousExpect: Expect<T>,
         maybeSubject: Option<R>,
+        @UseExperimental(ExperimentalExpectConfig::class)
         featureConfig: FeatureExpectConfig,
         assertions: List<Assertion>
     ): FeatureExpect<T, R> = FeatureExpectImpl(

@@ -36,6 +36,7 @@ fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser.()
  * Uses the given [options] to override (parts) of the existing configuration.
  */
 @ExperimentalWithOptions
+@UseExperimental(ExperimentalExpectConfig::class)
 fun <T> RootExpect<T>.withOptions(options: ExpectOptions): Expect<T> = coreFactory.newReportingAssertionContainer(
     ReportingAssertionContainer.AssertionCheckerDecorator.create(
         options.assertionVerb ?: this.config.description,
@@ -66,6 +67,7 @@ fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractorBuilde
  * Uses the given [options] to override (parts) of the existing configuration.
  */
 @ExperimentalWithOptions
+@UseExperimental(ExperimentalExpectConfig::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureOptions<R>): Expect<R> =
     coreFactory.newFeatureExpect(
         previousExpect,

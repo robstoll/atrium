@@ -17,6 +17,7 @@ interface RootExpect<T> : Expect<T> {
     /**
      * The chosen [RootExpectConfig].
      */
+    @UseExperimental(ExperimentalExpectConfig::class)
     val config: RootExpectConfig
 }
 
@@ -38,6 +39,7 @@ interface FeatureExpect<T, R> : Expect<R> {
     /**
      * The chosen [FeatureExpectConfig].
      */
+    @UseExperimental(ExperimentalExpectConfig::class)
     val config: FeatureExpectConfig
 
     /**
