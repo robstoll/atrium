@@ -43,7 +43,7 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * Might be removed at any time without previous notice or the behaviour could change etc.
  */
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
-    EXPECT("expect"),
+    EXPECT("expected that subject"),
     ;
 
     init {

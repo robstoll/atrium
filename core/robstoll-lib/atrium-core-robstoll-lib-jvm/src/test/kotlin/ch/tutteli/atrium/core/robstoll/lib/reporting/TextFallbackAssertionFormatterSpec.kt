@@ -65,7 +65,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()).toBe(
-                    "expect: subject$separator" +
+                    "${EXPECT.getDefault()}: subject$separator" +
                         "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
                         "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
                 )
