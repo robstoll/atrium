@@ -270,14 +270,15 @@ expected that subject: 10        (kotlin.Int <1234789>)
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
-In this sense the report can be read as `I expect that it holds that the subject of the assertion, which is 10, to be 9`.
+In this sense the report can be read as `I expected that the subject of the assertion, which is 10, equals 9` 
+-- and needless to say, this assertion is wrong and thus the thrown error.
 
-We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
-and we have used the predefined assertion verb `expect` in the above example. 
-Thus the corresponding imports at the beginning of the file.
+We are using the bundle [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+and the predefined assertion verb `expect` in the examples. 
+Thus the corresponding `import`s at the beginning of the file in the above example.
 We will omit the `import` statements in the remaining examples for brevity. 
 
-**You want to run the example yourself?**
+**You want to run the examples yourself?**
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
 
 👓 _&lt;- this icon signifies additional information, worth reading IMO but if you are only after code examples,
@@ -342,7 +343,7 @@ expected that subject: 10        (kotlin.Int <1234789>)
 </ex-group>
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
-The reporting can be read as `I expect that the subject of the assertion, which is 10, is less than 5 and is greater than 10`
+The reporting can be read as `I expected that the subject of the assertion, which is 10, is less than 5 and is greater than 10`
 
 You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
@@ -385,8 +386,8 @@ invoking the lambda throws a certain exception (`IllegalStateException` in the e
 As with all narrowing functions, there are two overloads:
 - the first is parameterless and turns only the subject into the expected type; 
   failing to do so cannot include additional information in error reporting though.
-- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups). 
+- the second expects an `assertionCreator`-lambda in which you can define sub-assertions. 
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups). 
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   showing some additional context in case of a failure.
 
@@ -429,7 +430,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1
 ```
 </ex-toThrow3>
 
-Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, 
+As side notice, `message` is a shortcut for `feature(Throwable::message).notToBeNull`, 
 which creates a feature assertion (see next section) about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
@@ -505,7 +506,8 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
-Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way.</sub>
+Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way -- 
+we hope we can provide a better API once Kotlin 1.4 is out (the new type inference respectively).</sub>
 
 `feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
 Creating a `MetaFeature` is done via the function `f` by passing in a 
@@ -518,7 +520,7 @@ In the above example we created two assertions, one for the property `isStudent`
 and a second one for the return value of calling `fullName()` on `myPerson`.
 A feature assertion is indicated as follows in reporting: 
 It starts with a `▶` followed by the feature's name and its actual value.
-So the above output can be read as "I expect, Person's property `isStudent` (which is actually `false`) to be `true`. 
+So the above output can be read as "I expected that the subject of the assertion, which is actually the Person(...), respectively its property `isStudent`, which is actually `false`, equals `true`. 
 The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups) 
 which have fail-fast semantic.
 
@@ -527,8 +529,8 @@ Feature assertions follow the common pattern of having two overloads:
   This overload narrows the subject to the feature, 
   meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
   
-- the second expects an `assertionCreator` lambda in addition, in which you can define sub-assertions for the feature.
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+- the second expects an `assertionCreator`-lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   Moreover, the subject stays the same so that subsequent calls are still about the same subject.
   
@@ -617,8 +619,8 @@ then we suggest that you [write a specific assertion function](#write-own-assert
 </details>
 
 
-Atrium provides shortcuts for commonly used methods - so far only: `List.get` and `Map.getExisting` 
-where both include some additional checking (index bound and existence of the key within the map)
+Atrium provides shortcuts for commonly used methods, e.g. `List.get`, `Map.getExisting`, `Optional.isPresent` or `Result.isSuccess` 
+where all fo them include some additional checking (index bound, existence of the key within the map etc.)
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
 in case you miss a shortcut. 
 
@@ -661,8 +663,8 @@ Also this version of `feature` provides two different kind of overloads:
   This overload narrows the subject to the feature, 
   meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
   
-- the second expects an `assertionCreator` lambda in addition, in which you can define sub-assertions for the feature.
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+- the second expects an `assertionCreator`-lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   Moreover, the subject stays the same so that subsequent calls are still about the same subject.
 
@@ -814,21 +816,11 @@ expected that subject: SubType2(word=hello, flag=true)        (readme.examples.S
 There are two `isA` overloads: 
 - the first (shown in the first example) is parameterless and turns only the subject into the expected type; 
   failing to do so cannot include additional information in error reporting though.
-- the second (shown in the second example) expects an `assertionCreator` lambda in which you can define sub-assertions. 
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
+- the second (shown in the second example) expects an `assertionCreator`-lambda in which you can define sub-assertions. 
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
   -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   showing some additional context in case of a failure.
-
-<details>
-<summary>💬 How to make arbitrary type transformations?</summary>
-
-Atrium provides the possibility to make arbitrary subject transformations 
-as long as you can provide a checking function which can tell whether the transformation is safe or not 
-and a transformation function which performs the transformation as such.
-For an example, have a look at the [EitherSpec](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/test/kotlin/ch/tutteli/atrium/domain/builders/creating/EitherSpec.kt).
-
-</details>
 
 ## Nullable Types
 Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
@@ -935,7 +927,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
  
 The assertion function `contains(2, 3)` is a shortcut for using a 
 [Sophisticated Assertion Builder](#sophisticated-assertion-builders) -- it actually calls `contains.inAnyOrder.atLeast(1).values(2, 3)`. 
-This is reflected in the output, which tells us that we expected that the `number of occurrences` of `3` (which is actually `0`) `is at least: 1`.
+This is reflected in the output, which tells us that we expected that the `number of such entries`, which is actually `0`, `is at least: 1`.
 
 <details>
 <summary>👓 and what about expected value 2?</summary>
@@ -951,7 +943,7 @@ Back to the shortcut functions.
  
 Next to expecting that certain values are contained in or rather returned by an `Iterable`, 
 Atrium allows us to use an `assertionCreator`-lambda to identify an entry
-(`assertionCreator`-lambda can also be thought of as matcher / predicate in this context).
+(an `assertionCreator`-lambda can also be thought of as matcher / predicate in this context).
 An entry is considered as identified, if it holds all specified assertions.
 Following an example:
 
@@ -985,11 +977,12 @@ Another `contains` shortcut function which Atrium provides for `Iterable<T>` is 
 the opposite of `inAnyOrder.atLeast(1)` and is named `containsExactly`.
 Again, Atrium provides two overloads for it, one for values,
 e.g. `containsExactly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` 
-and a second one which expects one or more `assertionCreator`-lambda or `null`, 
+and a second one which expects one or more `assertionCreator`-lambda, 
 e.g. `containsExactly({ isLessThan(0) }, { isGreaterThan(5) })` 
-and effectively calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
+which calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
 We will spare the examples here and show them in the following sections.
-Notice that passing `null` to `containsExactly` makes only sense if your `Iterable` contains nullable entries.
+Notice that you can pass `null` to `containsExactly` instead of an `assertionCreator`-lambda to match `null`.
+This makes of course only sense if your `Iterable` contains nullable entries.
 
 Atrium provides also a `containsNot` shortcut function. 
 Furthermore, it provides aliases for `contains` and `containsNot` named `any` and `none`,  which might be a better 
@@ -1341,7 +1334,7 @@ in case you want this shortcut function as well.
 
 ## Path Assertions
 
-Atrium’s assertions for paths give detailed explanations about what is going on on the file system.
+Atrium’s assertions for paths give detailed failure hints explaining what happened on the file system.
 For example, `exists` will explain which entry was the first one missing:
 
 <ex-path-exsits>
@@ -1437,7 +1430,7 @@ Depending on the chosen [reporting style](#reporterbuilder) it will only show th
 This is also the reason why the call of `myFun(2)` is not listed (as the result is `c` as expected).
 
 Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
-if you want to see a summary, meaning also successful assertions --we happily add more functionality if it is of use for someone.
+if you want to see a summary, meaning also successful assertions -- we happily add more functionality if it is of use for someone.
 
 Following another example which involves an assertion creator lambda and not only a simple `toBe` check. 
 We are going to reuse the `myFun` from above
@@ -1469,13 +1462,13 @@ The example should be self explanatory.
 One detail to note though is the usage of `subExpect`. 
 It is a helper function which circumvents certain [Kotlin type inference bugs](#kotlin-bugs) (upvote them please).
 Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
-involved in a Pair is not (yet) inferred correctly.
+involved in a `Pair` is not (yet) inferred correctly by Kotlin.
 
 There is one last function worth mentioning here which comes in handy in data-driven testing in case the subject has a 
 [nullable type]((https://kotlinlang.org/docs/reference/null-safety.html).)
 
 If you wish to make sub-assertions on the non-nullable type of the subject, then you can use
-`toBeNullIfNullGivenElse` which accepts an assertion creator or `null`.
+`toBeNullIfNullGivenElse` which accepts an `assertionCreator`-lambda or `null`.
 It is short for `if (assertionCreatorOrNull == null) toBe(null) else notToBeNull(assertionCreatorOrNull)`. 
 Following another fictional example which illustrates `toBeNullIfNullGivenElse` (we are reusing `myFun` from above):
 
