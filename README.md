@@ -27,14 +27,6 @@ For instance, the [README of v0.9.0-alpha2](https://github.com/robstoll/atrium/t
 
 ----
 
-Attention please 😉
-
-----
-❗❗ de_CH API users, I drop maintenance for the `cc-de_CH` API with 0.9.0, not introduce `fluent-de_CH` respectively
-unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137) in which case I might continue in 0.10.0
-
-----
-
 **Table of Content**
 - [Installation](#installation)
   - [JVM](#jvm)
