@@ -5,7 +5,7 @@ package ch.tutteli.atrium.creating
  *
  * It provides a method [get] where one can get the underlying subject (if [Present]).
  **/
-@Deprecated("Use something like ch.tutteli.atrium.core.Option instead; will be removed with 0.10.0")
+@Deprecated("Use something like ch.tutteli.atrium.core.Option instead; will be removed with 1.0.0")
 sealed class MaybeSubject<out T> {
 
     /**
@@ -17,7 +17,7 @@ sealed class MaybeSubject<out T> {
      * Represents an absent subject.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use something like ch.tutteli.atrium.core.None instead; will be removed with 0.10.0")
+    @Deprecated("Use something like ch.tutteli.atrium.core.None instead; will be removed with 1.0.0")
     object Absent : MaybeSubject<Nothing>() {
         /**
          * Throws a [PlantHasNoSubjectException].
@@ -32,7 +32,7 @@ sealed class MaybeSubject<out T> {
      * @property subject The underlying subject.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use something like ch.tutteli.atrium.core.Some instead; will be removed with 0.10.0")
+    @Deprecated("Use something like ch.tutteli.atrium.core.Some instead; will be removed with 1.0.0")
     data class Present<T>(val subject: T) : MaybeSubject<T>() {
         /**
          * Returns the [subject].

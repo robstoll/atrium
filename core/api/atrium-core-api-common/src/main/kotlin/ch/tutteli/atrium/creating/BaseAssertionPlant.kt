@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.creating
 
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.core.Some
  * @param T The type of the [subject] of this [BaseAssertionPlant].
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API and as self type.
  */
-@Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
 interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> : SubjectProvider<T> {
 
     /**

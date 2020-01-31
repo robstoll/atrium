@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import kotlin.reflect.KClass
 
 //TODO remove with 0.10.0 - no need to migrate to spek2
-@Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 0.10.0")
+@Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 abstract class TextIndentAssertionGroupFormatterSpec(
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "

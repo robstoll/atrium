@@ -10,12 +10,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * `Deprecated`, do not use this class, it is only here to retain binary compatibility.
  */
-@Deprecated("Do not use this class, it is only here to retain binary compatibility (file was renamed to charSequenceContainsCreators); will be removed with 0.10.0")
+@Deprecated("Do not use this class, it is only here to retain binary compatibility (file was renamed to charSequenceContainsCreators); will be removed with 1.0.0")
 object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `value` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `value` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.value(expected)")
     )
     fun <T : CharSequence> value(
@@ -25,7 +25,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `the` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `the` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.values(expected, *otherExpected)")
     )
     fun <T : CharSequence> values(
@@ -37,7 +37,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `value` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `value` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.value(expected)")
     )
     fun <T : CharSequence> valueIgnoringCase(
@@ -47,7 +47,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `values` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `values` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.values(expected, *otherExpected)")
     )
     fun <T : CharSequence> valuesIgnoringCase(
@@ -59,7 +59,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `defaultTranslationOf` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `defaultTranslationOf` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.defaultTranslationOf(expected, *otherExpected)")
     )
     fun <T : CharSequence> defaultTranslationOf(
@@ -70,7 +70,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `defaultTranslationOf` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `defaultTranslationOf` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.defaultTranslationOf(expected, *otherExpected)")
     )
     fun <T : CharSequence> defaultTranslationOfIgnoringCase(
@@ -82,7 +82,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `regex` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `regex` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.regex(pattern, *otherPatterns)")
     )
     fun <T : CharSequence> regex(
@@ -93,7 +93,7 @@ object CharSequenceContainsSearchersKt {
 
     @JvmStatic
     @Deprecated(
-        "Use the extension fun `regex` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0",
+        "Use the extension fun `regex` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0",
         ReplaceWith("checkerBuilder.regex(pattern, *otherPatterns)")
     )
     fun <T : CharSequence> regexIgnoringCase(

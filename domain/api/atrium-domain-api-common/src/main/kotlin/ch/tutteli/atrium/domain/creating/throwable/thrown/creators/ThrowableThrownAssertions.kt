@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.creating.throwable.thrown.creators
 
@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
  *
  * It loads the implementation lazily via [loadSingleService].
  */
-@Deprecated("Use fun0Assertions instead; will be removed with 0.10.0")
+@Deprecated("Use fun0Assertions instead; will be removed with 1.0.0")
 val throwableThrownAssertions by lazy { loadSingleService(ThrowableThrownAssertions::class) }
 
 
@@ -20,16 +20,16 @@ val throwableThrownAssertions by lazy { loadSingleService(ThrowableThrownAsserti
  * Defines the minimum set of "a [Throwable] was `thrown`"-assertion functions,
  * which an implementation of the domain of Atrium has to provide.
  */
-@Deprecated("Use Fun0Assertions instead; will be removed with 0.10.0")
+@Deprecated("Use Fun0Assertions instead; will be removed with 1.0.0")
 interface ThrowableThrownAssertions {
 
-    @Deprecated("Switch from Assert to Expect and use Fun0Assertions  instead; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use Fun0Assertions  instead; will be removed with 1.0.0")
     fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit
     )
 
-    @Deprecated("Switch from Assert to Expect and use Fun0Assertions instead; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use Fun0Assertions instead; will be removed with 1.0.0")
     fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
 }

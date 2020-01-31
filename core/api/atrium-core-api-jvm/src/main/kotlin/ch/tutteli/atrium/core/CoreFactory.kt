@@ -30,7 +30,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     @Deprecated(
-        "Use the overload which expects an AtriumErrorAdjuster in addition; will be removed with 0.10.0",
+        "Use the overload which expects an AtriumErrorAdjuster in addition; will be removed with 1.0.0",
         ReplaceWith("this.newOnlyFailureReporter(assertionFormatterFacade, this.newNoOpAtriumErrorAdjuster())")
     )
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
@@ -61,7 +61,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
             "ExpectBuilder.forSubject(\n" +
                 "// !!!! in case you define an assertion verb function, remove it entirely, this is no longer required !!!! otherwise:\n" +
@@ -106,7 +106,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
             "this.newReportingAssertionContainer(\n" +
                 "assertionVerb,\n" +

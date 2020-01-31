@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("TypeTransformationAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH

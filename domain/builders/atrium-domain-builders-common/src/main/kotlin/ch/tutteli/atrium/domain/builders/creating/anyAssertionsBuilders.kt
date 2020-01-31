@@ -47,16 +47,16 @@ object AnyAssertionsBuilder : AnyAssertions {
         anyAssertions.isA(expect, subType)
 
 
-    // everything below is deprecated functionality and will be removed with 0.10.0
+    // everything below is deprecated functionality and will be removed with 1.0.0
 
     @Suppress("DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")
     override inline fun <T : Any> isNullable(plant: AssertionPlantNullable<T?>, type: KClass<T>, expectedOrNull: T?) =
         anyAssertions.isNullable(plant, type, expectedOrNull)
 
 
     @Suppress("DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")
     override inline fun <T : Any> isNotNull(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
@@ -64,12 +64,12 @@ object AnyAssertionsBuilder : AnyAssertions {
     ) = anyAssertions.isNotNull(plant, type, assertionCreator)
 
     @Suppress("DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")
     override inline fun <T : Any> isNotNullBut(plant: AssertionPlantNullable<T?>, type: KClass<T>, expected: T) =
         anyAssertions.isNotNullBut(plant, type, expected)
 
     @Suppress("DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use toBeNullable; will be removed with 1.0.0")
     override inline fun <T : Any> isNullIfNullGivenElse(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
@@ -82,7 +82,7 @@ object AnyAssertionsBuilder : AnyAssertions {
      * which inter alia delegates to the implementation of [AnyTypeTransformationAssertions].
      */
     @Suppress("DeprecatedCallableAddReplaceWith")
-    @Deprecated("Switch from `Assert` to `Expect` use `ExpectImpl.changeSubject` or `ExpectImpl.feature.extract` instead; will be removed with 0.10.0")
+    @Deprecated("Switch from `Assert` to `Expect` use `ExpectImpl.changeSubject` or `ExpectImpl.feature.extract` instead; will be removed with 1.0.0")
     inline val typeTransformation
         get() = AnyTypeTransformationAssertionsBuilder
 }
@@ -93,7 +93,7 @@ object AnyAssertionsBuilder : AnyAssertions {
  * which in turn delegates to the implementation via [loadSingleService].
  */
 @Suppress("DEPRECATION")
-@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 0.10.0")
+@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 1.0.0")
 object AnyTypeTransformationAssertionsBuilder : AnyTypeTransformationAssertions {
 
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
@@ -143,7 +143,7 @@ object AnyTypeTransformationAssertionsBuilder : AnyTypeTransformationAssertions 
  * which in turn delegates to the implementation via [loadSingleService].
  */
 @Suppress("DEPRECATION")
-@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 0.10.0")
+@Deprecated("Switch from `Assert` to `Expect` and use `ExpectImpl` instead; will be removed with 1.0.0")
 object AnyTypeTransformationFailureHandlerFactoryBuilder : FailureHandlerFactory {
 
     override inline fun <S : Any, T : Any> newExplanatory() = failureHandlerFactory.newExplanatory<S, T>()

@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.NotCheckerOption
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().contains",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -35,7 +35,7 @@ val <T : CharSequence> Assert<T>.contains: CharSequenceContains.Builder<T, NoOpS
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().containsNot",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -72,7 +72,7 @@ val <T : CharSequence> Assert<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  *   [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().contains(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -96,7 +96,7 @@ fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: A
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().containsNot(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -132,7 +132,7 @@ fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().containsRegex(pattern, *otherPatterns).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -150,7 +150,7 @@ fun <T : CharSequence> Assert<T>.containsRegex(pattern: String, vararg otherPatt
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().startsWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -168,7 +168,7 @@ fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().startsNotWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -187,7 +187,7 @@ fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().endsWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -205,7 +205,7 @@ fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().endsNotWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -224,7 +224,7 @@ fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().isEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -241,7 +241,7 @@ fun <T : CharSequence> Assert<T>.isEmpty() = addAssertion(AssertImpl.charSequenc
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().isNotEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -258,7 +258,7 @@ fun <T : CharSequence> Assert<T>.isNotEmpty() = addAssertion(AssertImpl.charSequ
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().isNotBlank().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

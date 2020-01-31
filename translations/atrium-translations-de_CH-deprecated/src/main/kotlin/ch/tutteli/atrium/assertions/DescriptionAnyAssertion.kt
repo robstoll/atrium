@@ -8,7 +8,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Any].
  */
 @Deprecated(
-    "Use the description from package translations; will be removed with 0.10.0",
+    "Use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion")
 )
 enum class DescriptionAnyAssertion(override val value: String) : StringBasedTranslatable {

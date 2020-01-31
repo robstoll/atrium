@@ -10,7 +10,7 @@ import  ch.tutteli.atrium.reporting.ObjectFormatter
  * As it is a child of an [AssertionGroup] with an [ExplanatoryAssertionGroupType], it is not of importance
  * whether the assertions holds or not; thus it overrides [holds] which always returns `true`.
  *
- * This assertion will be turned into a `Reportable` with 0.10.0 and eventually be removed with 0.10.0
+ * This assertion will be turned into a `Reportable` with 0.10.0 and eventually be removed with 1.0.0
  * See https://github.com/robstoll/atrium-roadmap/issues/1 for more information.
  */
 interface ExplanatoryAssertion : Assertion {

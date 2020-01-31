@@ -12,7 +12,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders.NotCheckerOption"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders.NotCheckerOption"))
 interface NotCheckerOption<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
     : IterableContains.CheckerOption<E, T, S>
 

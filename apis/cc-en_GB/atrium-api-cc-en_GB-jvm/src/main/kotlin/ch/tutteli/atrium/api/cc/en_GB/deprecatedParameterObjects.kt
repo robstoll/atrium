@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("ParameterObjectsKt")
 package ch.tutteli.atrium.api.cc.en_GB
@@ -7,12 +7,12 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.kbox.glue
 
-@Deprecated("Use Value instead, it was opened up to Any? in 0.8.0; will be removed with 0.10.0", ReplaceWith("Value(expected)"))
+@Deprecated("Use Value instead, it was opened up to Any? in 0.8.0; will be removed with 1.0.0", ReplaceWith("Value(expected)"))
 data class NullableValue<T : Any?>(val expected: T) : GroupWithNullableEntries<T> {
     override fun toList() = listOf(expected)
 }
 
-@Deprecated("Use Values instead, it was opened up to Any? in 0.8.0; will be removed with 0.10.0", ReplaceWith("Values(expected, *otherExpected)"))
+@Deprecated("Use Values instead, it was opened up to Any? in 0.8.0; will be removed with 1.0.0", ReplaceWith("Values(expected, *otherExpected)"))
 class NullableValues<T : Any?>(private val expected: T, vararg val otherExpected: T) : GroupWithNullableEntries<T>{
     override fun toList() = listOf(expected, *otherExpected)
 }

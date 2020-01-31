@@ -9,6 +9,6 @@ package ch.tutteli.atrium.assertions
  * @param assertions The assertions of this group.
  */
 @Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
-@Deprecated("So far indentation was achieved by grouping (which is the solution to go). See AssertImpl.builder for different groups. Will be removed with 0.10.0")
+@Deprecated("So far indentation was achieved by grouping (which is the solution to go). See AssertImpl.builder for different groups. Will be removed with 1.0.0")
 class IndentAssertionGroup(assertions: List<Assertion>) :
     EmptyNameAndRepresentationAssertionGroup(DefaultIndentAssertionGroupType, assertions)

@@ -1,4 +1,4 @@
-description = 'A deprecated module, you should not longer rely on it; will be removed with 0.10.0\nLook at the suggested replacements'
+description = 'A deprecated module, you should not longer rely on it; will be removed with 1.0.0\nLook at the suggested replacements'
 
 dependencies {
     api prefixedProject('domain-api-jvm')

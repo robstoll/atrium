@@ -22,7 +22,7 @@ interface AssertionChecker {
     fun check(assertionVerb: Translatable, representation: Any?, assertions: List<Assertion>)
 
     @Deprecated(
-        "Use the overload which expects a representation instead of a representationProvider, use LazyRepresentation if needed; will be removed with 0.10.0",
+        "Use the overload which expects a representation instead of a representationProvider, use LazyRepresentation if needed; will be removed with 1.0.0",
         ReplaceWith("check(assertionVerb, LazyRepresentation(representationProvider), assertions)")
     )
     fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) =

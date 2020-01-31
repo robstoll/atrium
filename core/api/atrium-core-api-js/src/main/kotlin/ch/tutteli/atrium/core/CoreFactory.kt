@@ -36,7 +36,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
             "ExpectImpl\n" +
                 ".assertionVerbBuilder(\n" +
@@ -81,7 +81,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
             "this.newReportingAssertionContainer(\n" +
                 "assertionVerb,\n" +

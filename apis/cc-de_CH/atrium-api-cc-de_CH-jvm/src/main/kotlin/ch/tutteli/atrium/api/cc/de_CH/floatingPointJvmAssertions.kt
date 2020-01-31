@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("FloatingPointAssertionsKt")
 
@@ -22,6 +22,6 @@ import java.math.BigDecimal
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 0.10.0")
+@Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")
 fun <T : BigDecimal> Assert<T>.istMitFehlerToleranz(expected: T, tolerance: T)
     = addAssertion(AssertImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))

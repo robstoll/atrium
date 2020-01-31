@@ -26,11 +26,11 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.atLeast(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.atLeast(times)"))
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
-@Deprecated("Use the extension fun `atLeast`. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.atLeast(times)"))
+@Deprecated("Use the extension fun `atLeast`. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.atLeast(times)"))
 fun <T : CharSequence, S : SearchBehaviour> atLeast(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedAtLeastCheckerBuilder<T, S>
     = DeprecatedAtLeastCheckerBuilder(times, builder)
 
@@ -50,11 +50,11 @@ fun <T : CharSequence, S : SearchBehaviour> atLeast(builder: DeprecatedBuilder<T
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.butAtMost(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.butAtMost(times)"))
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
-@Deprecated("Use the extension fun `butAtMost`. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("checkerBuilder.butAtMost(times)"))
+@Deprecated("Use the extension fun `butAtMost`. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.butAtMost(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> butAtMost(checkerBuilder: DeprecatedAtLeastCheckerBuilder<T, S>, times: Int): DeprecatedButAtMostCheckerBuilder<T, S>
     = DeprecatedButAtMostCheckerBuilder(times, checkerBuilder, checkerBuilder.containsBuilder)
 
@@ -70,11 +70,11 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> butAtMost(checkerBuilder: 
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.exactly(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.exactly(times)"))
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
-@Deprecated("Use the extension fun `exactly`. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.exactly(times)"))
+@Deprecated("Use the extension fun `exactly`. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.exactly(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> exactly(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedExactlyCheckerBuilder<T, S>
     = DeprecatedExactlyCheckerBuilder(times, builder)
 
@@ -95,11 +95,11 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> exactly(builder: Deprecate
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.atMost(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.atMost(times)"))
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
-@Deprecated("Use the extension fun `atMost`. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.atMost(times)"))
+@Deprecated("Use the extension fun `atMost`. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.atMost(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> atMost(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedAtMostCheckerBuilder<T, S>
     = DeprecatedAtMostCheckerBuilder(times, builder)
 
@@ -115,10 +115,10 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> atMost(builder: Deprecated
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.notOrAtMost(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.notOrAtMost(times)"))
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)
 
-@Deprecated("Use the extension fun `notOrAtMost`. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder.notOrAtMost(times)"))
+@Deprecated("Use the extension fun `notOrAtMost`. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.notOrAtMost(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> notOrAtMost(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedNotOrAtMostCheckerBuilder<T, S>
     = DeprecatedNotOrAtMostCheckerBuilder(times, builder)

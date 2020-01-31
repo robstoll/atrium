@@ -26,9 +26,9 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     INDEX_FROM_TO("Index %s..%s"),
     NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
     SIZE_EXCEEDED("❗❗ hasNext() hat `false` zurückgegeben"),
-    @Deprecated("Will be removed with 0.10.0")
+    @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt keinen nächsten Eintrag zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    @Deprecated("Will be removed with 0.10.0")
+    @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt nur `null` zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     WARNING_ADDITIONAL_ENTRIES("zusätzliche Einträge entdeckt"),
     WARNING_MISMATCHES("folgende Einträge erfüllten keine Aussage (Diskrepanzen)"),
