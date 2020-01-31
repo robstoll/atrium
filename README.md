@@ -94,11 +94,11 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
-We currently provide the following extensions for the JS platform: 
-- jdk8: assertion functions for JDK 8 specific types (e.g. for Path)
+We currently provide the following extensions for the JVM platform: 
+- jdk8: assertion functions for JDK 8 specific types (e.g. for `Path`)
 - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
 
-You can add them as follows:
+You can enable them as follows:
 ```
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
@@ -110,7 +110,7 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API is not yet available in v0.9.0-alpha2. 
+The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.9.0-alpha2. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
 in bringing the new infix API forward is appreciated.
 
@@ -137,7 +137,7 @@ dependencies {
 Because maven is a bit more verbose than gradle, the example is not listed here but 
 a [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
 is provided to set up the repository as well as an 
-[example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
+[example-pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
@@ -164,7 +164,7 @@ We have defined a dependency to the bundle `atrium-fluent-en_GB-robstoll` in the
 which provides a pure fluent API (in en_GB) for the JS platform.
 
 You need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
-This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compilerf or JS.
+This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler for JS.
 An example of how to setup Atrium in combination with the testing framework mocha is given in 
 [samples/js/mocha](https://github.com/robstoll/atrium/tree/master/samples/js/mocha).
 It also includes an automated way of establishing the dependency to Atrium.
@@ -189,7 +189,7 @@ file in your test sources.
 We currently provide the following extensions for the JS platform: 
  - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
 
-You can add them as follows:
+You can enable them as follows:
 ```
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
@@ -200,7 +200,7 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API is not yet available in v0.9.0-alpha2. 
+The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.9.0-alpha2. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
 in bringing the new infix API forward is appreciated.
 
