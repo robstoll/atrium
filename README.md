@@ -713,7 +713,7 @@ expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234
 ```
 </ex-within-assertion-functions>
 
-Also this version of `feature` provides to kind of overloads, one without and and with `assertionCreator`-lambda.
+Also this version of `feature` provides to kind of overloads, one without and one with `assertionCreator`-lambda.
 (see for instance [Arbitrary Features](#arbitrary-features) for more information).
 
 ### Ambiguity Problems
