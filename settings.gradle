@@ -62,7 +62,8 @@ include {
 
     apis('api-') {
         apiWithExtensions(delegate, 'fluent-en_GB')
-        apiWithExtensions(delegate, 'infix-en_GB')
+        //TODO re-activate with 0.10.0
+//        apiWithExtensions(delegate, 'infix-en_GB')
     }
 
     domain('domain-') {
