@@ -1,12 +1,9 @@
 buildscript {
-    rootProject.version = '0.9.1'
+    rootProject.version = '0.10.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
         it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
-    }
-    def toolProjectsFun = subprojects.findAll {
-        it.projectDir.path.contains('/misc/tools/') || it.projectDir.path.contains('\\misc\\tools\\')
     }
     ext {
         // main
@@ -45,7 +42,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.9.1"
+        dokka_sourceMapping = "tree/master"
 
 
         sampleProjects = sampleProjectsFun
