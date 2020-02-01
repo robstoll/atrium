@@ -20,21 +20,6 @@ Atrium currently provides two [API Styles](#api-styles):
 pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
-----
-❗ You are taking a *sneak peek* at the next version. 
-Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [README of v0.9.0-alpha2](https://github.com/robstoll/atrium/tree/master/README.md).
-
-----
-
-Attention please 😉
-
-----
-❗❗ de_CH API users, I drop maintenance for the `cc-de_CH` API with 0.9.0, not introduce `fluent-de_CH` respectively
-unless there are voters for [#137](https://github.com/robstoll/atrium/issues/137) in which case I might continue in 0.10.0
-
-----
-
 **Table of Content**
 - [Installation](#installation)
   - [JVM](#jvm)
@@ -102,11 +87,11 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
-We currently provide the following extensions for the JS platform: 
-- jdk8: assertion functions for JDK 8 specific types (e.g. for Path)
+We currently provide the following extensions for the JVM platform: 
+- jdk8: assertion functions for JDK 8 specific types (e.g. for `Path`)
 - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
 
-You can add them as follows:
+You can enable them as follows:
 ```
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
@@ -118,7 +103,7 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API is not yet available in v0.9.0-alpha2. 
+The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.9.0-alpha2. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
 in bringing the new infix API forward is appreciated.
 
@@ -145,7 +130,7 @@ dependencies {
 Because maven is a bit more verbose than gradle, the example is not listed here but 
 a [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
 is provided to set up the repository as well as an 
-[example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
+[example-pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
@@ -172,7 +157,7 @@ We have defined a dependency to the bundle `atrium-fluent-en_GB-robstoll` in the
 which provides a pure fluent API (in en_GB) for the JS platform.
 
 You need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
-This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compilerf or JS.
+This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler for JS.
 An example of how to setup Atrium in combination with the testing framework mocha is given in 
 [samples/js/mocha](https://github.com/robstoll/atrium/tree/master/samples/js/mocha).
 It also includes an automated way of establishing the dependency to Atrium.
@@ -197,7 +182,7 @@ file in your test sources.
 We currently provide the following extensions for the JS platform: 
  - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
 
-You can add them as follows:
+You can enable them as follows:
 ```
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
@@ -208,7 +193,7 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API is not yet available in v0.9.0-alpha2. 
+The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.9.0-alpha2. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
 in bringing the new infix API forward is appreciated.
 
@@ -278,14 +263,15 @@ expected that subject: 10        (kotlin.Int <1234789>)
 The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
 Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
-In this sense the report can be read as `I expect that it holds that the subject of the assertion, which is 10, to be 9`.
+In this sense the report can be read as `I expected that the subject of the assertion, which is 10, equals 9` 
+-- and needless to say, this assertion is wrong and thus the thrown error.
 
-We are using the API [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
-and we have used the predefined assertion verb `expect` in the above example. 
-Thus the corresponding imports at the beginning of the file.
+We are using the bundle [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+and the predefined assertion verb `expect` in the examples. 
+Thus the corresponding `import`s at the beginning of the file in the above example.
 We will omit the `import` statements in the remaining examples for brevity. 
 
-**You want to run the example yourself?**
+**You want to run the examples yourself?**
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
 
 👓 _&lt;- this icon signifies additional information, worth reading IMO but if you are only after code examples,
@@ -350,7 +336,7 @@ expected that subject: 10        (kotlin.Int <1234789>)
 </ex-group>
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
-The reporting can be read as `I expect that the subject of the assertion, which is 10, is less than 5 and is greater than 10`
+The reporting can be read as `I expected that the subject of the assertion, which is 10, is less than 5 and is greater than 10`
 
 You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
@@ -393,8 +379,8 @@ invoking the lambda throws a certain exception (`IllegalStateException` in the e
 As with all narrowing functions, there are two overloads:
 - the first is parameterless and turns only the subject into the expected type; 
   failing to do so cannot include additional information in error reporting though.
-- the second expects an `assertionCreator` lambda in which you can define sub-assertions. 
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups). 
+- the second expects an `assertionCreator`-lambda in which you can define sub-assertions. 
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups). 
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   showing some additional context in case of a failure.
 
@@ -437,7 +423,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1
 ```
 </ex-toThrow3>
 
-Notice `message` is a shortcut for `feature(Throwable::message).notToBeNull`, 
+As side notice, `message` is a shortcut for `feature(Throwable::message).notToBeNull`, 
 which creates a feature assertion (see next section) about `Throwable::message`.  
 
 There is also the counterpart to `toThrow` named `notToThrow`:
@@ -513,7 +499,8 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
-Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way.</sub>
+Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way -- 
+we hope we can provide a better API once Kotlin 1.4 is out (the new type inference respectively).</sub>
 
 `feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
 Creating a `MetaFeature` is done via the function `f` by passing in a 
@@ -526,7 +513,7 @@ In the above example we created two assertions, one for the property `isStudent`
 and a second one for the return value of calling `fullName()` on `myPerson`.
 A feature assertion is indicated as follows in reporting: 
 It starts with a `▶` followed by the feature's name and its actual value.
-So the above output can be read as "I expect, Person's property `isStudent` (which is actually `false`) to be `true`. 
+So the above output can be read as "I expected that the subject of the assertion, which is actually the Person(...), respectively its property `isStudent`, which is actually `false`, equals `true`. 
 The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups) 
 which have fail-fast semantic.
 
@@ -535,8 +522,8 @@ Feature assertions follow the common pattern of having two overloads:
   This overload narrows the subject to the feature, 
   meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
   
-- the second expects an `assertionCreator` lambda in addition, in which you can define sub-assertions for the feature.
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+- the second expects an `assertionCreator`-lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   Moreover, the subject stays the same so that subsequent calls are still about the same subject.
   
@@ -625,8 +612,8 @@ then we suggest that you [write a specific assertion function](#write-own-assert
 </details>
 
 
-Atrium provides shortcuts for commonly used methods - so far only: `List.get` and `Map.getExisting` 
-where both include some additional checking (index bound and existence of the key within the map)
+Atrium provides shortcuts for commonly used methods, e.g. `List.get`, `Map.getExisting`, `Optional.isPresent` or `Result.isSuccess` 
+where all fo them include some additional checking (index bound, existence of the key within the map etc.)
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
 in case you miss a shortcut. 
 
@@ -669,8 +656,8 @@ Also this version of `feature` provides two different kind of overloads:
   This overload narrows the subject to the feature, 
   meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
   
-- the second expects an `assertionCreator` lambda in addition, in which you can define sub-assertions for the feature.
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+- the second expects an `assertionCreator`-lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   Moreover, the subject stays the same so that subsequent calls are still about the same subject.
 
@@ -822,21 +809,11 @@ expected that subject: SubType2(word=hello, flag=true)        (readme.examples.S
 There are two `isA` overloads: 
 - the first (shown in the first example) is parameterless and turns only the subject into the expected type; 
   failing to do so cannot include additional information in error reporting though.
-- the second (shown in the second example) expects an `assertionCreator` lambda in which you can define sub-assertions. 
-  An `assertionCreator` lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
+- the second (shown in the second example) expects an `assertionCreator`-lambda in which you can define sub-assertions. 
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) 
   -- as a recapitulation, assertions in an assertion group block are all evaluated and failures are reported at the end of the block.
   It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
   showing some additional context in case of a failure.
-
-<details>
-<summary>💬 How to make arbitrary type transformations?</summary>
-
-Atrium provides the possibility to make arbitrary subject transformations 
-as long as you can provide a checking function which can tell whether the transformation is safe or not 
-and a transformation function which performs the transformation as such.
-For an example, have a look at the [EitherSpec](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/test/kotlin/ch/tutteli/atrium/domain/builders/creating/EitherSpec.kt).
-
-</details>
 
 ## Nullable Types
 Let us look at the case where the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
@@ -943,7 +920,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
  
 The assertion function `contains(2, 3)` is a shortcut for using a 
 [Sophisticated Assertion Builder](#sophisticated-assertion-builders) -- it actually calls `contains.inAnyOrder.atLeast(1).values(2, 3)`. 
-This is reflected in the output, which tells us that we expected that the `number of occurrences` of `3` (which is actually `0`) `is at least: 1`.
+This is reflected in the output, which tells us that we expected that the `number of such entries`, which is actually `0`, `is at least: 1`.
 
 <details>
 <summary>👓 and what about expected value 2?</summary>
@@ -959,7 +936,7 @@ Back to the shortcut functions.
  
 Next to expecting that certain values are contained in or rather returned by an `Iterable`, 
 Atrium allows us to use an `assertionCreator`-lambda to identify an entry
-(`assertionCreator`-lambda can also be thought of as matcher / predicate in this context).
+(an `assertionCreator`-lambda can also be thought of as matcher / predicate in this context).
 An entry is considered as identified, if it holds all specified assertions.
 Following an example:
 
@@ -993,11 +970,12 @@ Another `contains` shortcut function which Atrium provides for `Iterable<T>` is 
 the opposite of `inAnyOrder.atLeast(1)` and is named `containsExactly`.
 Again, Atrium provides two overloads for it, one for values,
 e.g. `containsExactly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` 
-and a second one which expects one or more `assertionCreator`-lambda or `null`, 
+and a second one which expects one or more `assertionCreator`-lambda, 
 e.g. `containsExactly({ isLessThan(0) }, { isGreaterThan(5) })` 
-and effectively calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
+which calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
 We will spare the examples here and show them in the following sections.
-Notice that passing `null` to `containsExactly` makes only sense if your `Iterable` contains nullable entries.
+Notice that you can pass `null` to `containsExactly` instead of an `assertionCreator`-lambda to match `null`.
+This makes of course only sense if your `Iterable` contains nullable entries.
 
 Atrium provides also a `containsNot` shortcut function. 
 Furthermore, it provides aliases for `contains` and `containsNot` named `any` and `none`,  which might be a better 
@@ -1103,8 +1081,8 @@ Please star Atrium if you like using it.
 <summary>💬 too verbose?</summary>
 
 As side notice, in case you are dealing with large `Iterable` and do not want such a verbose output, 
-then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
-So far the verbose output was always handy for me but you might have other test cases than me.
+then let use know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
+So far the verbose output was always handy for us but you might have other test cases than we have.
 Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
 If you have to, then please open a feature request as well. In the meantime, you can of course `take(100)` or the like.
 <hr/>
@@ -1349,7 +1327,7 @@ in case you want this shortcut function as well.
 
 ## Path Assertions
 
-Atrium’s assertions for paths give detailed explanations about what is going on on the file system.
+Atrium’s assertions for paths give detailed failure hints explaining what happened on the file system.
 For example, `exists` will explain which entry was the first one missing:
 
 <ex-path-exsits>
@@ -1445,7 +1423,7 @@ Depending on the chosen [reporting style](#reporterbuilder) it will only show th
 This is also the reason why the call of `myFun(2)` is not listed (as the result is `c` as expected).
 
 Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
-if you want to see a summary, meaning also successful assertions --we happily add more functionality if it is of use for someone.
+if you want to see a summary, meaning also successful assertions -- we happily add more functionality if it is of use for someone.
 
 Following another example which involves an assertion creator lambda and not only a simple `toBe` check. 
 We are going to reuse the `myFun` from above
@@ -1477,13 +1455,13 @@ The example should be self explanatory.
 One detail to note though is the usage of `subExpect`. 
 It is a helper function which circumvents certain [Kotlin type inference bugs](#kotlin-bugs) (upvote them please).
 Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
-involved in a Pair is not (yet) inferred correctly.
+involved in a `Pair` is not (yet) inferred correctly by Kotlin.
 
 There is one last function worth mentioning here which comes in handy in data-driven testing in case the subject has a 
 [nullable type]((https://kotlinlang.org/docs/reference/null-safety.html).)
 
 If you wish to make sub-assertions on the non-nullable type of the subject, then you can use
-`toBeNullIfNullGivenElse` which accepts an assertion creator or `null`.
+`toBeNullIfNullGivenElse` which accepts an `assertionCreator`-lambda or `null`.
 It is short for `if (assertionCreatorOrNull == null) toBe(null) else notToBeNull(assertionCreatorOrNull)`. 
 Following another fictional example which illustrates `toBeNullIfNullGivenElse` (we are reusing `myFun` from above):
 
@@ -1827,7 +1805,7 @@ expected that subject: 13        (kotlin.Int <1234789>)
 
 ## Compose Assertion Functions
 
-So far we ran quickly into the situation where we wanted to compose functions or
+So far, we core contributors ran quickly into the situation where we wanted to compose functions or
 reuse existing functions but with different arguments. 
 We will show both use cases here, starting off by composing functions. 
 
@@ -1864,8 +1842,8 @@ Still simple enough.
 <summary>💬 Why is a type parameter used in the above examples?</summary>
 
 That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
-You should always do this unless your type is final (not `open`) and does not have type parameters itself. 
-This way the assertion function is also available for subtypes. This is because `Expect` is invariant. 
+You should always do this unless your type is final (not `open`) and does not have type parameters itself - but to have a simpler rule, just do it. 
+This way the assertion function is also available for sub types. This is because `Expect` is [invariant](https://kotlinlang.org/docs/reference/generics.html#variance). 
 Following an example:
 ```kotlin
 interface A { val foo get() = 1 }
@@ -1874,9 +1852,6 @@ val Expect<A>.foo get() = feature(A::foo)
 
 expect(B()).foo // does not compile as foo is only available for `Expect<A>`
 ```
-
-In case your assertion function should also be available for an `Expect<out MyClass>` where `MyClass` is a final class
-then you have to use a type parameter as well -- thus easiest way, always use a type parameter.
     
 </details>
 
@@ -1910,7 +1885,7 @@ fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> = apply {
 Three things to notice here: 
 1. we make use of a [feature assertion with class reference](#within-assertion-functions)
 2. We use `apply` so that subsequent assertions are still made on `Person` and not on `children` 
-   (you could also a block and `return this` instead of `apply`)
+   (you could also use a block and `return this` instead of `apply`)
  
 Its usage is then as follows:
 
@@ -1944,7 +1919,7 @@ fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
 
 We also use `apply` here for the same reason as above.
 We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
-but we don't have to, as `all` already checks that there is at least one element. 
+but we do not have to, as `all` already checks that there is at least one element. 
 
 <ex-own-compose-4>
 
@@ -1961,8 +1936,7 @@ expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, child
 ```
 </ex-own-compose-4>
 
-If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function
-(assuming the API of Person is stable enough).
+If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function.
 
 <code-own-compose-5>
 
@@ -2007,7 +1981,7 @@ expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, child
 
 Enough of feature assertions. Let's move on to an example where we want to reuse an existing function but with different
 arguments. Say we have a function which returns a list of first name / last name `Pair`s. 
-We want to assert that the pairs contain only the first name / last name pairs of certain `Person` in any order.
+We want to assert that the pairs contain only the first name / last name pairs of certain `Person`s in any order.
 [Collection Assertions](#collection-assertions) will help us with this. 
 However, `contains.inAnyOrder.values` expects `Pair`s.
 So we have to map from `Person` to `Pair` upfront.
@@ -2082,7 +2056,7 @@ was the API level) so that you can reuse and compose them in other ways.
 You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
-Unfortunately we do not have the time to cover all cases, so let me know  if you want to know more
+Unfortunately we do not have the time to cover all cases, so let us know if you want to know more
 -- either by opening an issue or via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](https://slack.kotlinlang.org/)).
 
@@ -2110,7 +2084,7 @@ In order to create an own assertion verb it is sufficient to:
     -- notice that you can also use a `String` for the assertion verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
-    Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
+    Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
     ```
     dependencies {
         testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
@@ -2118,9 +2092,6 @@ In order to create an own assertion verb it is sufficient to:
         }
     }
     ```
-
-You could also choose to have different verbs for the three functions.
-For instance, you could use `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions.
 
 What are the benefits of creating own assertion verbs:
 - you can limit the set of available assertion verbs. <br/>
@@ -2173,7 +2144,7 @@ expect: 10        (kotlin.Int <934275857>)
 ```
 
 You prefer another reporting style but Atrium does not yet support it? 
-Please let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
+Please let us know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 
 There are more options to choose from. 
@@ -2235,7 +2206,7 @@ Notice though, that we plan to move away from the `ResourceBundle`-inspired appr
 
 Notice, Atrium does not yet support the generation of multiple reports in the same test run. 
 This might become handy if you want to generate an HTML report in different languages.   
-However, Atrium is designed to support this use case -- if you need this feature, then please let me know it by writing a 
+However, Atrium is designed to support this use case -- if you need this feature, then please let us know it by writing a 
 [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 <hr/>
@@ -2355,7 +2326,7 @@ Atrium provides bundle modules which bundle API, translation, domain and core as
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+- [atrium-cc-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/build.gradle)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
@@ -2393,12 +2364,7 @@ The code documentation is generated with dokka and is hosted on github-pages:
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
 library does not yet offer a lot of out-of-the-box assertion functions. 
 More functions will follow but only if they are used somewhere by someone. 
-So, let me know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
-Some assertion functions which we miss ourselfs will follow in the next version. 
-They are listed in the [Roadmap](#roadmap) below.
-
-Atrium does especially not support (yet):
-- specific JSON assertion functions (yet, everything is there as soon as you parse the JSON into a Map/Object)
+So, let us know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 # FAQ
 You find frequently asked questions below.
@@ -2441,12 +2407,12 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
+- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 Deprecated APIs:
 - [atrium-api-cc-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
+- [atrium-api-cc-en_UK](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
 - [atrium-api-cc-de_CH](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-d-e/index.html)
-- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 ## Problems in conjunction with `feature`
 
@@ -2497,46 +2463,16 @@ And some features which would be handy
 
 # Roadmap
 
-We plan that Atrium is going to support certain features in the future. Following a rough plan (no guarantees).
-A more detailed backlog can be found at [atrium-roadmap](https://github.com/robstoll/atrium-roadmap) -- you are invited to take part in the discussions related to design decisions, upcoming features and more.
+The roadmap is maintained at [atrium-roadmap](https://github.com/robstoll/atrium-roadmap).
+The milestones give you an overview of the planned (breaking) changes
+-- e.g. the changes for the next major version [1.0.0](https://github.com/robstoll/atrium-roadmap/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A1.0.0+)
 
-## 0.9.0
-- ❗❗ drop the `de_CH` API, I might take it up again if there are votes for [#137](https://github.com/robstoll/atrium/issues/137)
-- introduce `Expect<T>` with an invariant `T` (see [#56](https://github.com/robstoll/atrium/issues/56), the current solution with `Assert<out T>` will be deprecated and removed with 1.0.0) 
-- introduce `feature` instead of `property` and `returnValueOf` (see [#40](https://github.com/robstoll/atrium/issues/40))
-- introduce jdk8 specific assertion functions, e.g. for `Optional` or `Path`
-- introduce Kotlin 1.3 specific assertion functions (compatibility with 1.2 will stay until Kotlin 1.4 is out)
-
-## 0.10.0
-- refactor core and domain architecture:
-  - most likely we are going to move away from ServiceLoader and fuse api, `-robstoll` and `-robstoll-lib` modules into one
-  - we will remove all deprecated functionality (including the old API's en_UK, cc-en_GB, cc-infix-en_GB and cc-de_CH)
-- fix verbosity issues in conjunction with feature assertions and explanatory groups.
-- provide an easy way to create failure hints.
-- in case Kotlin 1.4 is out and allows us to provide a better API (especially in the area of feature assertions), then we drop the support for Kotlin 1.2 and Kotlin 1.3 -- i.e. we require Kotlin 1.4 to work correctly
-  - include assertion functions specific to Kotlin 1.3 into normal API
+You are invited to take part in the discussions related to design decisions, upcoming features and more.
+Bring in your own wishes and ideas into this process.
   
-## 0.11.0
-- move away from ResourceBundle/Properties-based translation to something more MPP friendly (e.g. gettext).
-- Json assertions (state your wishes in [#45](https://github.com/robstoll/atrium/issues/45))
-- drop support for Kotlin 1.2 and 1.3 (see 0.10.0 for more information)
-  
-## 0.12.0  
-- see if we can further improve error reporting in the IDE with the help of opentest4j exceptions.
-- Generating testing reports in html.
-  - generate multiple reports in the same test run. 
-  
-## 1.0.0
-- we might drop support for jdk6, jdk7 and include jdk8 specific features directly into the API 
-
-  
-## Sometime in the future
-- extension for Spek so that reporting includes the `describe`, `it` etc.
-- Inclusion of mockk's verify (so that it appears in the report as well).
-    
-Are you missing something else? 
-[Feature Requests](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
-are very welcome.
+In case you are missing a particular assertion function in Atrium, then please open a 
+[Feature Request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
+in this repository.
 
 # Contributors and contribute
 
@@ -2552,7 +2488,7 @@ You are more than welcome to contribute as well:
 - write a blog post about Atrium (e.g. about a feature you like) or a tutorial (let us know we happily link to your page)
 - share your assertion functions with the rest of us by creating a pull request (no need for i18n support or the like, we can augment your pull request).
 - have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
-  if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
+  if you would like to code (ping us on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
 
 Please have a look at 
 [CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
