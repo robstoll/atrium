@@ -20,13 +20,6 @@ Atrium currently provides two [API Styles](#api-styles):
 pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
-----
-❗ You are taking a *sneak peek* at the next version. 
-Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [README of v0.9.0-alpha2](https://github.com/robstoll/atrium/tree/master/README.md).
-
-----
-
 **Table of Content**
 - [Installation](#installation)
   - [JVM](#jvm)
@@ -1088,8 +1081,8 @@ Please star Atrium if you like using it.
 <summary>💬 too verbose?</summary>
 
 As side notice, in case you are dealing with large `Iterable` and do not want such a verbose output, 
-then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
-So far the verbose output was always handy for me but you might have other test cases than me.
+then let use know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
+So far the verbose output was always handy for us but you might have other test cases than we have.
 Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
 If you have to, then please open a feature request as well. In the meantime, you can of course `take(100)` or the like.
 <hr/>
@@ -2063,7 +2056,7 @@ was the API level) so that you can reuse and compose them in other ways.
 You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/master/domain/robstoll-lib/atrium-domain-robstoll-lib-common/src/main/kotlin/ch/tutteli/atrium/domain/robstoll/lib/creating/floatingPointAssertions.kt#L33)
 which makes use of explanatory assertions as well as providing a failure hint.
 
-Unfortunately we do not have the time to cover all cases, so let me know  if you want to know more
+Unfortunately we do not have the time to cover all cases, so let us know if you want to know more
 -- either by opening an issue or via the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](https://slack.kotlinlang.org/)).
 
@@ -2091,7 +2084,7 @@ In order to create an own assertion verb it is sufficient to:
     -- notice that you can also use a `String` for the assertion verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
-    Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
+    Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
     ```
     dependencies {
         testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
@@ -2099,9 +2092,6 @@ In order to create an own assertion verb it is sufficient to:
         }
     }
     ```
-
-You could also choose to have different verbs for the three functions.
-For instance, you could use `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions.
 
 What are the benefits of creating own assertion verbs:
 - you can limit the set of available assertion verbs. <br/>
@@ -2154,7 +2144,7 @@ expect: 10        (kotlin.Int <934275857>)
 ```
 
 You prefer another reporting style but Atrium does not yet support it? 
-Please let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
+Please let us know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 
 There are more options to choose from. 
@@ -2216,7 +2206,7 @@ Notice though, that we plan to move away from the `ResourceBundle`-inspired appr
 
 Notice, Atrium does not yet support the generation of multiple reports in the same test run. 
 This might become handy if you want to generate an HTML report in different languages.   
-However, Atrium is designed to support this use case -- if you need this feature, then please let me know it by writing a 
+However, Atrium is designed to support this use case -- if you need this feature, then please let us know it by writing a 
 [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 <hr/>
@@ -2336,7 +2326,7 @@ Atrium provides bundle modules which bundle API, translation, domain and core as
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+- [atrium-cc-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/build.gradle)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
@@ -2374,12 +2364,7 @@ The code documentation is generated with dokka and is hosted on github-pages:
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
 library does not yet offer a lot of out-of-the-box assertion functions. 
 More functions will follow but only if they are used somewhere by someone. 
-So, let me know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
-Some assertion functions which we miss ourselfs will follow in the next version. 
-They are listed in the [Roadmap](#roadmap) below.
-
-Atrium does especially not support (yet):
-- specific JSON assertion functions (yet, everything is there as soon as you parse the JSON into a Map/Object)
+So, let us know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 # FAQ
 You find frequently asked questions below.
@@ -2422,12 +2407,12 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
+- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 Deprecated APIs:
 - [atrium-api-cc-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
+- [atrium-api-cc-en_UK](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
 - [atrium-api-cc-de_CH](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-d-e/index.html)
-- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 ## Problems in conjunction with `feature`
 
@@ -2503,7 +2488,7 @@ You are more than welcome to contribute as well:
 - write a blog post about Atrium (e.g. about a feature you like) or a tutorial (let us know we happily link to your page)
 - share your assertion functions with the rest of us by creating a pull request (no need for i18n support or the like, we can augment your pull request).
 - have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
-  if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
+  if you would like to code (ping us on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
 
 Please have a look at 
 [CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
