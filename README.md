@@ -1812,7 +1812,7 @@ expected that subject: 13        (kotlin.Int <1234789>)
 
 ## Compose Assertion Functions
 
-So far we ran quickly into the situation where we wanted to compose functions or
+So far, we core contributors ran quickly into the situation where we wanted to compose functions or
 reuse existing functions but with different arguments. 
 We will show both use cases here, starting off by composing functions. 
 
@@ -1849,8 +1849,8 @@ Still simple enough.
 <summary>💬 Why is a type parameter used in the above examples?</summary>
 
 That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
-You should always do this unless your type is final (not `open`) and does not have type parameters itself. 
-This way the assertion function is also available for subtypes. This is because `Expect` is invariant. 
+You should always do this unless your type is final (not `open`) and does not have type parameters itself - but to have a simpler rule, just do it. 
+This way the assertion function is also available for sub types. This is because `Expect` is [invariant](https://kotlinlang.org/docs/reference/generics.html#variance). 
 Following an example:
 ```kotlin
 interface A { val foo get() = 1 }
@@ -1859,9 +1859,6 @@ val Expect<A>.foo get() = feature(A::foo)
 
 expect(B()).foo // does not compile as foo is only available for `Expect<A>`
 ```
-
-In case your assertion function should also be available for an `Expect<out MyClass>` where `MyClass` is a final class
-then you have to use a type parameter as well -- thus easiest way, always use a type parameter.
     
 </details>
 
@@ -1895,7 +1892,7 @@ fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> = apply {
 Three things to notice here: 
 1. we make use of a [feature assertion with class reference](#within-assertion-functions)
 2. We use `apply` so that subsequent assertions are still made on `Person` and not on `children` 
-   (you could also a block and `return this` instead of `apply`)
+   (you could also use a block and `return this` instead of `apply`)
  
 Its usage is then as follows:
 
@@ -1929,7 +1926,7 @@ fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
 
 We also use `apply` here for the same reason as above.
 We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
-but we don't have to, as `all` already checks that there is at least one element. 
+but we do not have to, as `all` already checks that there is at least one element. 
 
 <ex-own-compose-4>
 
@@ -1946,8 +1943,7 @@ expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, child
 ```
 </ex-own-compose-4>
 
-If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function
-(assuming the API of Person is stable enough).
+If we keep adding assertion functions involving `children` it might be best to provide a shortcut property and function.
 
 <code-own-compose-5>
 
@@ -1992,7 +1988,7 @@ expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, child
 
 Enough of feature assertions. Let's move on to an example where we want to reuse an existing function but with different
 arguments. Say we have a function which returns a list of first name / last name `Pair`s. 
-We want to assert that the pairs contain only the first name / last name pairs of certain `Person` in any order.
+We want to assert that the pairs contain only the first name / last name pairs of certain `Person`s in any order.
 [Collection Assertions](#collection-assertions) will help us with this. 
 However, `contains.inAnyOrder.values` expects `Pair`s.
 So we have to map from `Person` to `Pair` upfront.
