@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.9.0-beta-SNAPSHOT'
+    rootProject.version = '0.9.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -44,7 +44,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/master"
+        dokka_sourceMapping = "tree/v0.9.0"
 
 
         sampleProjects = sampleProjectsFun
@@ -528,7 +528,7 @@ Release & deploy a commit
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 4. deploy to bintray:
-    // export CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
+    // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
     a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check that there are 926 artifacts and publish them
     c) synchronise to maven central
