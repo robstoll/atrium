@@ -12,7 +12,7 @@ dependencies {
     runtimeOnly prefixedProject('domain-robstoll-android')
     runtimeOnly prefixedProject('core-robstoll-android')
 
-    //TODO remove with 0.10.0
+    //TODO remove with 1.0.0
     implementation prefixedProject('assertions')
     api prefixedProject('core-api-deprecated')
     implementation prefixedProject('core-robstoll-deprecated')

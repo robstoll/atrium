@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionThrowableAssertion(override val value: String) : StringBasedTranslatable {
     @Deprecated(
-        "use DescriptionAnyAssertion.IS_A; will be removed with 0.10.0",
+        "use DescriptionAnyAssertion.IS_A; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_A")
     )
     IS_A("ist eine"),
@@ -18,8 +18,8 @@ enum class DescriptionThrowableAssertion(override val value: String) : StringBas
     OCCURRED_EXCEPTION_MESSAGE("message"),
     OCCURRED_EXCEPTION_STACKTRACE("stacktrace"),
     OCCURRED_EXCEPTION_SUPPRESSED("suppressed"),
-    @Deprecated("Will be removed with 0.10.0")
+    @Deprecated("Will be removed with 1.0.0")
     IS_NOT_THROWN_1("wird"),
-    @Deprecated("Will be removed with 0.10.0")
+    @Deprecated("Will be removed with 1.0.0")
     IS_NOT_THROWN_2("nicht geworfen"),
 }

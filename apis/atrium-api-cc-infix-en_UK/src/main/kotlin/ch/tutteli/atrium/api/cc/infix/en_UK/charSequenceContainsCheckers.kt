@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.*
@@ -24,11 +24,11 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.atLeast(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.atLeast(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
-@Deprecated("Use the extension fun `atLeast` instead. This fun is only here to retain binary compatibility; will be removed with 0.10.0", ReplaceWith("builder atLeast times"))
+@Deprecated("Use the extension fun `atLeast` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder atLeast times"))
 fun <T : CharSequence, S : SearchBehaviour> atLeast(builder:  DeprecatedBuilder<T, S>, times: Int): DeprecatedAtLeastCheckerBuilder<T, S>
     = DeprecatedAtLeastCheckerBuilder(times, builder)
 
@@ -48,7 +48,7 @@ fun <T : CharSequence, S : SearchBehaviour> atLeast(builder:  DeprecatedBuilder<
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 0.10.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.butAtMost(times)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.butAtMost(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 

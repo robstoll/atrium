@@ -23,7 +23,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
-     * Notice, this method will be moved to [CoreFactoryCommon] with 0.10.0.
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -36,7 +36,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
             "ExpectImpl\n" +
                 ".assertionVerbBuilder(\n" +
@@ -68,7 +68,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
-     * Notice, this method will be moved to [CoreFactoryCommon] with 0.10.0.
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -81,7 +81,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      */
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 0.10.0\"",
+        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead; will be removed with 1.0.0\"",
         ReplaceWith(
             "this.newReportingAssertionContainer(\n" +
                 "assertionVerb,\n" +

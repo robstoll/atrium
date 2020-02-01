@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -24,7 +24,7 @@ import kotlin.js.JsName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().contains(keyValuePair, *otherPairs).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -50,7 +50,7 @@ fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().contains(keyValue, *otherKeyValues).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -70,7 +70,7 @@ fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().containsKey(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -88,7 +88,7 @@ fun <K> Assert<Map<out K, *>>.containsKey(key: K)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().containsNotKey(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -109,7 +109,7 @@ fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().getExisting(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -131,7 +131,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().apply { getExisting(key).asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -151,7 +151,7 @@ fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K, assertionCreator
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().getExisting(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -169,7 +169,7 @@ fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlant
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().hasSize(size).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -187,7 +187,7 @@ fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().isEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -205,7 +205,7 @@ fun <T : Map<*, *>> Assert<T>.isEmpty()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().isNotEmpty().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -227,7 +227,7 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().keys",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -246,7 +246,7 @@ val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().apply { keys.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -267,7 +267,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().values",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -286,7 +286,7 @@ val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*,
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().apply { values.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -306,7 +306,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().asEntries().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -327,7 +327,7 @@ fun <K, V> Assert<Map<out K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().apply { asEntries().asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

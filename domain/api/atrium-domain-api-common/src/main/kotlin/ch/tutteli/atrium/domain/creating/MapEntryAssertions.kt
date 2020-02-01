@@ -26,25 +26,25 @@ interface MapEntryAssertions {
     fun <V, T : Map.Entry<*, V>> value(expect: Expect<T>): ExtractedFeaturePostStep<T, V>
 
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K : Any, V : Any> isKeyValue(plant: AssertionPlant<Map.Entry<K, V>>, key: K, value: V): Assertion
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <K : Any> key(plant: AssertionPlant<Map.Entry<K, *>>, assertionCreator: AssertionPlant<K>.() -> Unit): Assertion
 
-    @Deprecated("Switch from Assert to Expect; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect; will be removed with 1.0.0")
     fun <V : Any> value(
         plant: AssertionPlant<Map.Entry<*, V>>,
         assertionCreator: AssertionPlant<V>.() -> Unit
     ): Assertion
 
-    @Deprecated("Switch from Assert to Expect and use key; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use key; will be removed with 1.0.0")
     fun <K> nullableKey(
         plant: AssertionPlant<Map.Entry<K, *>>,
         assertionCreator: AssertionPlantNullable<K>.() -> Unit
     ): Assertion
 
-    @Deprecated("Switch from Assert to Expect and use value; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use value; will be removed with 1.0.0")
     fun <V> nullableValue(
         plant: AssertionPlant<Map.Entry<*, V>>,
         assertionCreator: AssertionPlantNullable<V>.() -> Unit

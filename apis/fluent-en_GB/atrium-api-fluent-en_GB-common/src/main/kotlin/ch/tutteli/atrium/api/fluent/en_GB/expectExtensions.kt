@@ -9,10 +9,16 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.reporter
 
+@Experimental
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.FUNCTION)
+annotation class ExperimentalWithOptions
+
 /**
  * Uses the given [textRepresentation] as representation of the subject instead of the current representation
  * (which defaults to the subject itself).
  */
+@ExperimentalWithOptions
 fun <T> RootExpect<T>.withOptions(textRepresentation: String): Expect<T> =
     withOptions(ExpectOptions(representation = RawString.create(textRepresentation)))
 
@@ -20,6 +26,7 @@ fun <T> RootExpect<T>.withOptions(textRepresentation: String): Expect<T> =
  * Uses the given [configuration]-lambda to create an [ExpectOptions] which in turn is used
  * to override (parts) of the existing configuration.
  */
+@ExperimentalWithOptions
 fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser.() -> Unit): Expect<T> =
     withOptions(ExpectBuilder.OptionsChooser.createAndBuild(configuration))
 
@@ -28,6 +35,8 @@ fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser.()
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
  */
+@ExperimentalWithOptions
+@UseExperimental(ExperimentalExpectConfig::class)
 fun <T> RootExpect<T>.withOptions(options: ExpectOptions): Expect<T> = coreFactory.newReportingAssertionContainer(
     ReportingAssertionContainer.AssertionCheckerDecorator.create(
         options.assertionVerb ?: this.config.description,
@@ -42,6 +51,7 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions): Expect<T> = coreFacto
  * Uses the given [textRepresentation] as representation of the subject instead of the current representation
  * (which defaults to the subject itself).
  */
+@ExperimentalWithOptions
 fun <T, R> FeatureExpect<T, R>.withOptions(textRepresentation: String): Expect<R> =
     withOptions { withTextRepresentation(textRepresentation) }
 
@@ -49,12 +59,15 @@ fun <T, R> FeatureExpect<T, R>.withOptions(textRepresentation: String): Expect<R
  * Uses the given [configuration]-lambda to create an [ExpectOptions] which in turn is used
  * to override (parts) of the existing configuration.
  */
+@ExperimentalWithOptions
 fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractorBuilder.OptionsChooser<R>.() -> Unit): Expect<R> =
     withOptions(FeatureExtractorBuilder.OptionsChooser.createAndBuild(configuration))
 
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
  */
+@ExperimentalWithOptions
+@UseExperimental(ExperimentalExpectConfig::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureOptions<R>): Expect<R> =
     coreFactory.newFeatureExpect(
         previousExpect,

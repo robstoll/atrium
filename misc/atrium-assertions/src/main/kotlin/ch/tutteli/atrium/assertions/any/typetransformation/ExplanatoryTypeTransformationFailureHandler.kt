@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 
 package ch.tutteli.atrium.assertions.any.typetransformation
 
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  * @param T The type to which the [AssertionPlant.subject][SubjectProvider.subject] should have been down-casted.
  */
-@Deprecated("Use AssertImpl.any.typeTransformation.failureHandlers.newExplanatory; will be removed with 0.10.0")
+@Deprecated("Use AssertImpl.any.typeTransformation.failureHandlers.newExplanatory; will be removed with 1.0.0")
 class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
     AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub> {
     /**

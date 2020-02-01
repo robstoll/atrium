@@ -15,7 +15,7 @@ interface DescriptiveAssertion : Assertion {
      */
     val representation: Any
 
-    @Deprecated("Use representation; will be removed with 0.10.0", ReplaceWith("representation"))
+    @Deprecated("Use representation; will be removed with 1.0.0", ReplaceWith("representation"))
     val expected
         get() = representation
 

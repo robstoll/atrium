@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.creating.SubjectProvider
@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * [AssertionPlant.subject][SubjectProvider.subject] of type `T` can be transformed (usually down-casting or unboxing) to `TSub`.
  */
 @Deprecated(
-    "Use the description from package translations; will be removed with 0.10.0",
+    "Use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion")
 )
 enum class DescriptionTypeTransformationAssertion(override val value: String) : StringBasedTranslatable {

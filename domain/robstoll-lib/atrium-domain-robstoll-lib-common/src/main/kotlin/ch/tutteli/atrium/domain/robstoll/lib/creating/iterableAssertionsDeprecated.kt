@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 

@@ -5,24 +5,37 @@
     <artifactId>com.example.artifactId</artifactId>
 
     <properties>
-        <atrium.version>v0.9.0-alpha2</atrium.version>
+        <atrium.version>v0.9.0</atrium.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>ch.tutteli.atrium</groupId>
             <artifactId>atrium-fluent-en_GB</artifactId>
-            <!--<artifactId>atrium-infix-en_GB</artifactId>-->
-            <!--<artifactId>atrium-fluent-de_CH</artifactId>-->
+<!--            <artifactId>atrium-infix-en_GB</artifactId>-->
             <version>${atrium.version}</version>
             <scope>test</scope>
 
             <!-- use the following to exclude pre-defined assertion verbs -->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>ch.tutteli.atrium</groupId>-->
-                    <!--<artifactId>atrium-verbs</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>ch.tutteli.atrium</groupId>-->
+<!--                    <artifactId>atrium-verbs</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
+
+        <!-- add the dependencies below to activate the corresponding extensions -->
+<!--        <dependency>-->
+<!--            <groupId>ch.tutteli.atrium</groupId>-->
+<!--            <artifactId>atrium-fluent-en_GB-jdk8</artifactId>-->
+<!--            <version>${atrium.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ch.tutteli.atrium</groupId>-->
+<!--            <artifactId>atrium-fluent-en_GB-kotlin_1_3</artifactId>-->
+<!--            <version>${atrium.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

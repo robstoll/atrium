@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Responsible to collect assertions made in a sub-[AssertionPlant] and intended for explanation.
  */
-@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead; will be removed with 1.0.0")
 interface AssertionCollectorForExplanation {
 
     /**
@@ -32,7 +32,7 @@ interface AssertionCollectorForExplanation {
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T : Any> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -57,7 +57,7 @@ interface AssertionCollectorForExplanation {
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T> collectNullable(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -88,7 +88,7 @@ interface AssertionCollectorForExplanation {
      *   (e.g. ThrowingAssertionCollectorForExplanation does).
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 0.10.0")
+    @Deprecated("Switch from Assert to Expect and use the other overload; will be removed with 1.0.0")
     fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
@@ -103,7 +103,7 @@ interface AssertionCollectorForExplanation {
  *
  * It loads the implementation lazily via [loadSingleService].
  */
-@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorForExplanation by lazy {
     loadSingleService(NonThrowingAssertionCollectorForExplanation::class)
@@ -113,7 +113,7 @@ val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorFo
  * Represents an assertion collector meant for explanation which does *not* throw in case not a single [Assertion]
  * was collected.
  */
-@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 interface NonThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation
 
@@ -123,7 +123,7 @@ interface NonThrowingAssertionCollectorForExplanation : AssertionCollectorForExp
  *
  * It loads the implementation lazily via [loadSingleService].
  */
-@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExplanation by lazy {
     loadSingleService(ThrowingAssertionCollectorForExplanation::class)
@@ -132,6 +132,6 @@ val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExpla
 /**
  * Represents an assertion collector meant for explanation which throws in case not a single [Assertion] was collected.
  */
-@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use AssertionCollector.collectForComposition instead -- adds a failing assertion instead of throwing; this interface will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 interface ThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation

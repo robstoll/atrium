@@ -13,7 +13,7 @@ import kotlin.jvm.JvmName
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
  * using a non disjoint search.
  *
- * Delegates to `values(expected)`.
+ * Delegates to [values].
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).

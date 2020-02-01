@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.ListGetNullableOption
@@ -24,7 +24,7 @@ class ListFeatureAssertionsSpec : Spek({
         test("throws if no assertion is made for index not within bound") {
             expect {
                 ch.tutteli.atrium.verbs.internal.assert(listOf(null as String?, "hello")) get Index(2) assertIt {}
-                //TODO change to IllegalStateException in v0.10.0
+                //TODO change to IllegalStateException in v1.0.0
             }.toThrow<IllegalArgumentException> { messageContains("There was not any assertion created") }
         }
     }

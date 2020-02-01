@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().get(index).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -36,7 +36,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int): Assert<E>
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().apply { get(index).assAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -55,7 +55,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.(
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 0.10.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
         "this.asExpect().get(index).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

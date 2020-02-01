@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.spec.integration
 
@@ -16,7 +16,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 import java.math.BigDecimal
 
-@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class BigDecimalAssertionsSpec(
     verbs: AssertionVerbFactory,
     toBePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,

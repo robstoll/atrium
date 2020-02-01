@@ -27,7 +27,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 @Suppress("DEPRECATION")
-@Deprecated("Switch from Assert to Expect and use InOrderOnlyAssertionCreator; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use InOrderOnlyAssertionCreator; will be removed with 1.0.0")
 abstract class InOrderOnlyDeprecatedAssertionCreator<E, in T : Iterable<E>, SC>(
     private val searchBehaviour: InOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, SC>,

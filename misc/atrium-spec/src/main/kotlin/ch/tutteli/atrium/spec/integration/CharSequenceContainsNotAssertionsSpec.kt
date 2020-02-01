@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
@@ -12,7 +12,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
-@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
 abstract class CharSequenceContainsNotAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsNotTriple: Triple<String, (String) -> String, Assert<CharSequence>.(Any, Array<out Any>) -> Assert<CharSequence>>,

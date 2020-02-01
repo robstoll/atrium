@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * a two different assertion functions.
  */
 @Deprecated(
-    "Use the description from package translations; will be removed with 0.10.0",
+    "Use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionBasic")
 )
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {

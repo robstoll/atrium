@@ -33,7 +33,7 @@ interface SubjectChangerBuilder {
          */
         fun <T> create(originalAssertionContainer: Expect<T>): KindStep<T> = KindStepImpl(originalAssertionContainer)
 
-        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 0.10.0")
+        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
         fun <T> create(
             originalPlant: SubjectProvider<T>
@@ -45,7 +45,7 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 0.10.0")
+    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     interface DeprecatedKindStep<T> {
         /**
          * The previously specified assertion plant to which the new [Assert] will delegate assertion checking.
@@ -53,13 +53,13 @@ interface SubjectChangerBuilder {
         @Suppress("DEPRECATION")
         val originalPlant: SubjectProvider<T>
 
-        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 0.10.0")
+        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
         fun <R : Any> unreported(
             transformation: (T) -> R
         ): Assert<R> = subjectChanger.unreportedToAssert(originalPlant, transformation)
 
-        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 0.10.0")
+        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
         fun <R> unreportedNullable(
             transformation: (T) -> R

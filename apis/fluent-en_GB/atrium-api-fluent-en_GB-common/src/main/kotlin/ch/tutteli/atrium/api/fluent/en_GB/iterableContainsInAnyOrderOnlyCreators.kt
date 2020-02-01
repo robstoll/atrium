@@ -11,7 +11,11 @@ import ch.tutteli.kbox.glue
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected] value.
  *
- * Delegates to `values(expected)`.
+ * Delegates to [values].
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
@@ -26,6 +30,10 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeha
  * value as well as the [otherExpected] values (if given) need to be
  * contained in [Iterable] where it does not matter in which order but only as
  * many entries should be returned by the [Iterable] as values defined.
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -43,7 +51,11 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeha
  * entry which holds all assertions created by the given [assertionCreatorOrNull] or is `null` in case
  * [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `entries(assertionCreatorOrNull)`.
+ * Delegates to [entries].
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -71,6 +83,10 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
@@ -95,7 +111,11 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  * [expectedIterable] need to be contained in [Iterable] where it does not matter in which order but only as
  * many entries should be returned by the [Iterable] as values defined.
  *
- * Delegates to [values]
+ * Delegates to [values].
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable]
  *

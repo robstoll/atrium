@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.api.cc.en_GB
 
@@ -31,7 +31,7 @@ import kotlin.jvm.JvmName
  */
 
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
     ReplaceWith(
         "this.value(expected)",
         "ch.tutteli.atrium.api.fluent.en_GB.value"
@@ -68,7 +68,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  */
 
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
     ReplaceWith(
         "this.values(expected, *otherExpected)",
         "ch.tutteli.atrium.api.fluent.en_GB.values"

@@ -19,7 +19,7 @@ abstract class TextExplanatoryBasedAssertionGroupFormatterSpec<T : ExplanatoryAs
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    @Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
+    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     include(object : TextIndentBasedAssertionGroupFormatterSpec<T>(
         testeeFactory,
         assertionGroupTypeClass,

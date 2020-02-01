@@ -1,5 +1,5 @@
 description = 'Represents a deprecated convenience module which merely bundles dependencies. ' +
-    'Use atrium-cc-en_GB-robstoll once you have migrated all deprecated entities, this module will be removed with 0.10.0'
+    'Use atrium-cc-en_GB-robstoll once you have migrated all deprecated entities, this module will be removed with 1.0.0'
 
 dependencies {
     api prefixedProject('verbs-jvm')
@@ -12,7 +12,7 @@ dependencies {
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
-    //TODO remove with 0.10.0
+    //TODO remove with 1.0.0
     api prefixedProject('api-cc-en_GB-jvm')
     api prefixedProject('api-cc-en_UK')
     implementation prefixedProject('assertions')

@@ -7,12 +7,14 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalExpectConfig
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectConfig
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+@UseExperimental(ExperimentalExpectConfig::class)
 fun <T, R> _extractFeature(
     originalAssertionContainer: Expect<T>,
     description: Translatable,

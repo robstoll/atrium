@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.creating
 
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [AssertionPlant.subject][SubjectProvider.subject].
  */
-@Deprecated("Switch from Assert to Expect, use ReportingAssertionContainer.AssertionCheckerDecorator instead; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect, use ReportingAssertionContainer.AssertionCheckerDecorator instead; will be removed with 1.0.0")
 interface AssertionPlantWithCommonFields<out T> {
 
     /**
@@ -53,7 +53,7 @@ interface AssertionPlantWithCommonFields<out T> {
         }
 
         @Deprecated(
-            "Use the overload with a subject provider instead. This constructor will be removed with 0.10.0",
+            "Use the overload with a subject provider instead. This constructor will be removed with 1.0.0",
             ReplaceWith("this.CommonFields(assertionVerb, { subject }.evalOnce(), { subject }.evalOnce() /* better assign to a variable than duplicating it, also this way subject gets called twice */, assertionChecker, nullRepresentation)")
         )
         constructor(

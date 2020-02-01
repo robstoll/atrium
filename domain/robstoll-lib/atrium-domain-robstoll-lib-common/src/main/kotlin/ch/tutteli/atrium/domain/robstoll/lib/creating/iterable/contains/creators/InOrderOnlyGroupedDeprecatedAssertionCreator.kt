@@ -17,7 +17,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.ifWithinBound
 
 @Suppress("DEPRECATION")
-@Deprecated("Switch from Assert to Expect and use InOrderOnlyGroupedAssertionCreator; will be removed with 0.10.0")
+@Deprecated("Switch from Assert to Expect and use InOrderOnlyGroupedAssertionCreator; will be removed with 1.0.0")
 abstract class InOrderOnlyGroupedDeprecatedAssertionCreator<E, in T : Iterable<E>, SC>(
     private val searchBehaviour: InOrderOnlyGroupedSearchBehaviour
 ) : IterableContains.Creator<T, List<SC>>,

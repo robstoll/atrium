@@ -53,7 +53,7 @@ interface Explanatory {
 
 
         @Deprecated(
-            "use withExplanation instead; will be removed with 0.10.0",
+            "use withExplanation instead; will be removed with 1.0.0",
             ReplaceWith("this.withExplanation(translatable, arg, *otherArgs)")
         )
         fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep =
@@ -61,13 +61,13 @@ interface Explanatory {
 
 
         @Deprecated(
-            "use withExplanation instead; will be removed with 0.10.0",
+            "use withExplanation instead; will be removed with 1.0.0",
             ReplaceWith("this.withExplanation(translatable)")
         )
         fun withDescription(translatable: Translatable): FinalStep = withExplanation(translatable)
 
         @Deprecated(
-            "use withExplanation instead; will be removed with 0.10.0",
+            "use withExplanation instead; will be removed with 1.0.0",
             ReplaceWith("this.withExplanation(explanation)")
         )
         fun withDescription(explanation: Any?): FinalStep = withExplanation(explanation)

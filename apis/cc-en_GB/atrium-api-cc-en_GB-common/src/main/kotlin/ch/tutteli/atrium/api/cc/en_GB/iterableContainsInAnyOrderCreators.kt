@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* will be removed with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInAnyOrderCreatorsKt")
 package ch.tutteli.atrium.api.cc.en_GB
@@ -28,7 +28,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
     ReplaceWith(
         "this.value(expected)",
         "ch.tutteli.atrium.api.fluent.en_GB.value"
@@ -58,7 +58,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
     ReplaceWith(
         "this.values(expected, *otherExpected)",
         "ch.tutteli.atrium.api.fluent.en_GB.values"
@@ -82,7 +82,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
     ReplaceWith(
         "this.entry(asSubExpect(assertionCreatorOrNull))",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -109,7 +109,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 0.10.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
     ReplaceWith(
         "this.entries(\n" +
             "asSubExpect(assertionCreatorOrNull),\n" +
