@@ -23,7 +23,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * might add additional methods.
  *
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
- * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 0.10.0
+ * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
 expect interface CoreFactory : CoreFactoryCommon
 

@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.NotCheckerOptionBase
@@ -27,7 +27,7 @@ interface NotCheckerOption<out T : CharSequence, out S : CharSequenceContains.Se
  *   `contains` assertion for [CharSequence].
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
-@Deprecated("Do not rely on this type; will be made internal with 0.10.0", ReplaceWith("NotCheckerOption"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("NotCheckerOption"))
 open class NotCheckerOptionImpl<out T : CharSequence, out S : SearchBehaviour>(
     containsBuilder: CharSequenceContains.Builder<T, S>
 ) : NotCheckerOptionBase<T, S>(containsBuilder), NotCheckerOption<T, S>

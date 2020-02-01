@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.atLeast
@@ -33,7 +33,7 @@ interface ButAtMostCheckerOption<out T : CharSequence, out S : CharSequenceConta
  *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
-@Deprecated("Do not rely on this type; will be made internal with 0.10.0", ReplaceWith("ButAtMostCheckerOption"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("ButAtMostCheckerOption"))
 open class ButAtMostCheckerOptionImpl<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     atLeastBuilder: AtLeastCheckerOption<T, S>,

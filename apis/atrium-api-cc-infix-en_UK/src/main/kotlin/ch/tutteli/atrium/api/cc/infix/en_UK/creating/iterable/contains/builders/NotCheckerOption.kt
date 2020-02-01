@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0*/)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.NotCheckerOptionBase
@@ -27,7 +27,7 @@ interface NotCheckerOption<out E, out T : Iterable<E>, out S : IterableContains.
  *   `contains not` assertion for [Iterable].
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
-@Deprecated("Do not rely on this type; will be made internal with 0.10.0", ReplaceWith("NotCheckerOption"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("NotCheckerOption"))
 open class NotCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     containsBuilder: IterableContains.Builder<E, T, S>
 ) : NotCheckerOptionBase<E, T, S>(containsBuilder), NotCheckerOption<E, T, S>

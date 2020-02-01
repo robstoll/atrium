@@ -18,7 +18,7 @@ dependencies {
 
     implementation prefixedProject('api-fluent-en_GB-js')
 
-    //TODO 0.10.0 remove, only needed for returnValueOf test
+    //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-js')
 }
 

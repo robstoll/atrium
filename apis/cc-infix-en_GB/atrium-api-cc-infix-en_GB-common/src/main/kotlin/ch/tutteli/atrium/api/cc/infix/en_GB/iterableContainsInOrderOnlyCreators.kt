@@ -60,7 +60,7 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
  * [entries].[otherAssertionCreatorsOrNulls][Entries.otherExpected]
  * (if given) whereas the entries have to appear in the specified order.
  *
- * This function will be renamed on the JVM level to `the` with 0.10.0;
+ * This function will be renamed on the JVM level to `the` with 1.0.0;
  *
  * @param entries The parameter object containing the identification lambdas.
  *

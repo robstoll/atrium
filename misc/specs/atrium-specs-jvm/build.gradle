@@ -18,7 +18,7 @@ dependencies {
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('domain-robstoll-kotlin_1_3-jvm')
 
-    //TODO 0.10.0 remove, only needed for returnValueOf test
+    //TODO 1.0.0 remove, only needed for returnValueOf test
     implementation prefixedProject('api-cc-en_GB-jvm')
 }
 

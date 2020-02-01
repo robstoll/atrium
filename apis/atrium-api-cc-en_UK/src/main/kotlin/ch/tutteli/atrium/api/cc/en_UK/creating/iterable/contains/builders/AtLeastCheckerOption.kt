@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 0.10.0 */)
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.atLeast
@@ -30,7 +30,7 @@ interface AtLeastCheckerOption<out E, out T : Iterable<E>, out S : IterableConta
  *   found in the [Iterable].
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
-@Deprecated("Do not rely on this type; will be made internal with 0.10.0", ReplaceWith("AtLeastCheckerOption"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("AtLeastCheckerOption"))
 open class AtLeastCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
     containsBuilder: IterableContains.Builder<E, T, S>

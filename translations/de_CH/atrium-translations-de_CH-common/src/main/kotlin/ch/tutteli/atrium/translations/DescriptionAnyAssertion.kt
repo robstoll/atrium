@@ -8,12 +8,12 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionAnyAssertion(override val value: String) : StringBasedTranslatable {
     @Deprecated(
-        "Will be removed in version 0.10.0.",
+        "Will be removed in version 1.0.0.",
         ReplaceWith("DescriptionBasic.TO_BE", imports = ["ch.tutteli.atrium.translations.DescriptionBasic"])
     )
     TO_BE(DescriptionBasic.TO_BE.value),
     @Deprecated(
-        "Will be removed in version 0.10.0.",
+        "Will be removed in version 1.0.0.",
         ReplaceWith("DescriptionBasic.NOT_TO_BE", imports = ["ch.tutteli.atrium.translations.DescriptionBasic"])
     )
     NOT_TO_BE(DescriptionBasic.NOT_TO_BE.value),

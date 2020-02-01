@@ -37,7 +37,7 @@ interface Descriptive {
         /**
          * Uses the given [test] as [DescriptiveAssertion.holds] based on the subject provided by [subjectProvider].
          *
-         * Notice, this function might change its signature with 0.10.0 to something like
+         * Notice, this function might change its signature with 1.0.0 to something like
          * ```
          * fun <T> withTest(expect: Expect, test: (T) -> Boolean): DescriptionOption<FinalStep>
          * ```

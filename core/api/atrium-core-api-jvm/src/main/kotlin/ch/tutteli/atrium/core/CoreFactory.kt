@@ -38,7 +38,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     // we need to define the following methods here so that we can retain binary backward compatibility
     // => Kotlin generates an object called CoreFactory$DefaultImpls due to the optional parameters
     // hence we need to place the methods here and cannot move them to CoreFactoryCommon as well
-    // => will be change with 0.10.0
+    // => will be change with 1.0.0
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -49,7 +49,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
-     * Notice, this method will be moved to [CoreFactoryCommon] with 0.10.0.
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -93,7 +93,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
-     * Notice, this method will be moved to [CoreFactoryCommon] with 0.10.0.
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.assertionVerb]).

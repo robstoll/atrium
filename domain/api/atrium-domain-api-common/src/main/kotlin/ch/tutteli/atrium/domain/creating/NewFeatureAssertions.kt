@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *
  * It loads the implementation lazily via [loadSingleService].
  *
- * Will be renamed to featureAssertions with 0.10.0
+ * Will be renamed to featureAssertions with 1.0.0
  */
 val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class) }
 
@@ -22,7 +22,7 @@ val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class
  * Defines the minimum set of assertion functions -- used to create feature assertions --
  * which an implementation of the domain of Atrium has to provide.
  *
- * Will be renamed to FeatureAssertions with 0.10.0
+ * Will be renamed to FeatureAssertions with 1.0.0
  */
 interface NewFeatureAssertions {
 

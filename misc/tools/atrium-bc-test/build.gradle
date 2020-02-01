@@ -36,7 +36,7 @@ def bcTests = task("bcTests", group: 'Verification') {
     dependsOn build
 }
 
-['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB' /* TODO remove with 0.10.0 => */, 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
+['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB' /* TODO remove with 1.0.0 => */, 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
     task("bcBbc-$apiName", group: 'Verification') {
         description = "runs all backward compatibility and binary backward compatibility tests for $apiName"
         dependsOn build

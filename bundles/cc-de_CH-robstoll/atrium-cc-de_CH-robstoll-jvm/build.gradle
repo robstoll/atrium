@@ -12,7 +12,7 @@ dependencies {
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
-    //TODO remove with 0.10.0
+    //TODO remove with 1.0.0
     implementation prefixedProject('assertions')
     api prefixedProject('core-api-deprecated')
     api prefixedProject('core-robstoll-deprecated')
