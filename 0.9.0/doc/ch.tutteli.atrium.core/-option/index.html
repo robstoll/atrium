@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Option - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="./index.html">Option</a><br/>
+<br/>
+<h1>Option</h1>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">Option</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents an optional value with <a href="map.html">map</a>, <a href="flat-map.html">flatMap</a>, <a href="fold.html">fold</a> and <a href="../get-or-else.html">getOrElse</a> to transform it.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="filter.html">filter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">filter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Option$filter(kotlin.Function1((ch.tutteli.atrium.core.Option.T, kotlin.Boolean)))/predicate">predicate</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="flat-map.html">flatMap</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">flatMap</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Option$flatMap(kotlin.Function1((ch.tutteli.atrium.core.Option.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.Option.flatMap.R)))))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="flat-map.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="flat-map.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="fold.html">fold</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">fold</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Option$fold(kotlin.Function0((ch.tutteli.atrium.core.Option.fold.R)), kotlin.Function1((ch.tutteli.atrium.core.Option.T, ch.tutteli.atrium.core.Option.fold.R)))/default">default</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="fold.html#R"><span class="identifier">R</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.Option$fold(kotlin.Function0((ch.tutteli.atrium.core.Option.fold.R)), kotlin.Function1((ch.tutteli.atrium.core.Option.T, ch.tutteli.atrium.core.Option.fold.R)))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="fold.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="fold.html#R"><span class="identifier">R</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-defined.html">isDefined</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isDefined</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="map.html">map</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">map</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Option$map(kotlin.Function1((ch.tutteli.atrium.core.Option.T, ch.tutteli.atrium.core.Option.map.R)))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="map.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="map.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="some-if.html">someIf</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">someIf</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Option.Companion$someIf(kotlin.Boolean, kotlin.Function0((ch.tutteli.atrium.core.Option.Companion.someIf.T)))/predicate">predicate</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.Option.Companion$someIf(kotlin.Boolean, kotlin.Function0((ch.tutteli.atrium.core.Option.Companion.someIf.T)))/provider">provider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="some-if.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="some-if.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../get-or-else.html">getOrElse</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="../get-or-else.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getOrElse</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core$getOrElse(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.getOrElse.T)), kotlin.Function0((ch.tutteli.atrium.core.getOrElse.T)))/default">default</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../get-or-else.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../get-or-else.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-none.html">None</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">None</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-some/index.html">Some</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Some</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="../-some/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -11,12 +11,13 @@ It is licences under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl
 
 
 You are very welcome to contribute:
-- [open an issue or create a feature request](https://github.com/robstoll/atrium/issues/new)
-- [fork the repository](https://github.com/robstoll/atrium#fork-destination-box) and make a pull request
-- Have a lookt at [CONTRIBUTING](https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md) for more ideas
+- star [Atrium](https://github.com/robstoll/atrium) if you like it
+- [open a bug](https://github.com/robstoll/atrium/issues/new?template=bug_report.md) or [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
+- Have a lookt at [CONTRIBUTING](https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md) for more ideas.
 
 ## Versions
 
+- [0.9.0](0.9.0)
 - [0.8.0](0.8.0)
 - [0.7.0](0.7.0)
 - [0.6.0](0.6.0)

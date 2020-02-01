@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>messageContains - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./message-contains.html">messageContains</a><br/>
+<br/>
+<h1>messageContains</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$messageContains(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.messageContains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="message-contains.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">messageContains</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$messageContains(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.messageContains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$messageContains(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.messageContains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="message-contains.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">Throwable.message</a> of the subject of the assertion is not null and contains
+<a href="message-contains.html#ch.tutteli.atrium.api.fluent.en_GB$messageContains(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.messageContains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html">toString</a> representation and the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html">toString</a> representation of the <a href="message-contains.html#ch.tutteli.atrium.api.fluent.en_GB$messageContains(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.messageContains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</a> (if given),
+using a non disjoint search.</p>
+<p>It is more or less a shortcut for <code>message { contains.atLeast(1).values(expected, otherExpected) }</code>, depending on
+the implementation though.</p>
+<p>Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> are passed
+(this function expects <code>Any</code> for your convenience, so that you can mix <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> for instance).</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This assertion container to support a fluent API.</p>
+</BODY>
+</HTML>

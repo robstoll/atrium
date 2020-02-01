@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isKeyValue - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.en_GB</a>&nbsp;/&nbsp;<a href="./is-key-value.html">isKeyValue</a><br/>
+<br/>
+<h1>isKeyValue</h1>
+<a name="ch.tutteli.atrium.api.cc.en_GB$isKeyValue(ch.tutteli.atrium.creating.AssertionPlant((kotlin.collections.Map.Entry((ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)))), ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/index.html"><span class="identifier">Entry</span></a><span class="symbol">&lt;</span><a href="is-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="is-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">isKeyValue</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_GB$isKeyValue(ch.tutteli.atrium.creating.AssertionPlant((kotlin.collections.Map.Entry((ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)))), ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)/key">key</span><span class="symbol">:</span>&nbsp;<a href="is-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_GB$isKeyValue(ch.tutteli.atrium.creating.AssertionPlant((kotlin.collections.Map.Entry((ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)))), ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)/value">value</span><span class="symbol">:</span>&nbsp;<a href="is-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/index.html"><span class="identifier">Entry</span></a><span class="symbol">&lt;</span><a href="is-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="is-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect; will be removed with 1.0.0<br/>
+<br/>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/key.html">Map.Entry.key</a> is (equal to) the given <a href="is-key-value.html#ch.tutteli.atrium.api.cc.en_GB$isKeyValue(ch.tutteli.atrium.creating.AssertionPlant((kotlin.collections.Map.Entry((ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)))), ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)/key">key</a> and
+<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/value.html">Map.Entry.value</a> is <a href="is-key-value.html#ch.tutteli.atrium.api.cc.en_GB$isKeyValue(ch.tutteli.atrium.creating.AssertionPlant((kotlin.collections.Map.Entry((ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)))), ch.tutteli.atrium.api.cc.en_GB.isKeyValue.K, ch.tutteli.atrium.api.cc.en_GB.isKeyValue.V)/value">value</a>.</p>
+<p>Kind of a shortcut for <code>key { toBe(key) }.and.value { toBe(value) }</code> but should be evaluated in
+an assertion group block -- which has the effect that the assertion about the value is still evaluated even
+if the assertion about the key fails. Moreover, it might be that reporting differs compared to using the long form.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectProvider.subject - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">SubjectProvider</a>&nbsp;/&nbsp;<a href="./subject.html">subject</a><br/>
+<br/>
+<h1>subject</h1>
+<a name="ch.tutteli.atrium.creating.SubjectProvider$subject"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><s><span class="identifier">subject</span></s><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect and do no longer access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0<br/>
+<br/>
+<p>The subject of an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> -- deprecated, will be removed with 1.0.0.</p>
+<p>Accessing the subject in places which are not safe for reporting breaks reporting and can hinder
+that all assertions can be evaluated. For instance:</p>
+<pre><code>expect(person).isA&lt;Student&gt; { // is not a student -&gt; subject is now undefined, throws PlantHasNoSubjectException if accessed
+  property(subject::firstName).toBe("Robert")
+  property(Person::lastName).toBe("Stoll") // is not evaluated as subject one line above already threw PlantHasNoSubjectException
+}
+</code></pre>
+<p>For this reason we refactored our design and now pass subject as arguments in places where you need it and
+where it is safe to use it.</p>
+<p>It's best if you switch entirely from <a href="../-assert.html">Assert</a> to <a href="../-expect/index.html">Expect</a> and from <code>AssertImpl</code> to <code>ExpectImpl</code>.
+Have a look at the migration guide given in <a href="https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration">https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration</a>
+for a fast way to migrate everything.</p>
+<p>In case you want to migrate part by part then the following, non-exhaustive list, tries to explain
+how you need to migrate to use the new design:</p>
+<ol><li>   <pre><code> fun Assert&lt;Int&gt;.isEven() = createAndAddAssertion(IS, RawString.create("even")) { subject % 2 == 0 }  // old
+    fun Expect&lt;Int&gt;.isEven() = createAndAddAssertion(IS, RawString.create("even")) { it % 2 == 0 }       // new
+</code></pre>   
+<p> notice the switch from <code>Assert</code> to <code>Expect</code></p>
+</li>
+
+<li>   <pre><code> AssertImpl.builder.createDescriptive(TO_BE, expected) { subject == expected }   // old
+    AssertImpl.builder.createDescriptive(this, TO_BE, expected) { it == expected }  // new
+</code></pre></li>
+
+<li>   <pre><code> AssertImpl.builder.descriptive.withTest { subject == expected }   // old
+    AssertImpl.builder.descriptive.withTest(this) { it == expected }  // new - `this` refers to Assert or Expect
+</code></pre></li>
+
+<li>   <pre><code> AssertImpl.builder.descriptive.withTest(...).withFailureHint { ...  subject ... }   // old
+    AssertImpl.builder.descriptive.withTest(...).withFailureHint(this) { ... it ... }  // new - `this` refers to Assert or Expect
+</code></pre></li>
+
+<li>   <pre><code> AssertImpl.builder.descriptive.withTest(...).withFailureHint(...).showOnlyIf { ... subject ... }   // old
+    AssertImpl.builder.descriptive.withTest(...).withFailureHint(...).showOnlyIf(this) { ... it ... }  // new - `this` refers to Assert or Expect
+</code></pre></li>
+
+<li>   <pre><code> AssertImpl.changeSubject(this) { subject.asIterable() }        // old
+    ExpectImpl.changeSubject(this).unreported { it.asIterable() }  // new
+</code></pre>   
+<p> notice the switch from <code>AssertImpl</code> to <code>ExpectImpl</code></p>
+</li>
+
+<li>
+<p>Feature assertions
+    Those are not straight forward and require that you migrate to Expect first or that you use <code>asExpect</code></p>
+   <pre><code> import ch.tutteli.atrium.verbs.expect
+    expect(person) {
+      property(subject::firstName).startsWith("hello")
+      returnValueOf(subject::myFun, "arg1").toBe(42)
+    } and {
+      property(subject::lastName).toBe("world")
+    }
+
+    // using asExpect
+
+    expect(person).asExpect { // everything within the brackets is in the Expect world
+      feature { f(it::firstName) }.startsWith("hello")
+      feature { f(it::myFun, "arg1") }.toBe(42)
+    }    // back to the Assert world
+    .and {
+      asExpect() // switch to Expect world, all subsequent calls in Expect world
+        .feature{ f(subject::lastName) }
+        .toBe("world")
+    }
+</code></pre>   
+<p> Have a look at the migration guides if you want to switch entirely to Expect as there is a fast
+    search &amp; replace strategy.</p>
+</li>
+
+<li>
+<p>nested <code>expect</code>, <code>assert </code>or <code>assertThat</code></p>
+   <pre><code> //old
+    expect(1 to 2) {
+      expect(subject.second).toBe(2)
+    }
+
+    //new
+    expect(1 to 2) {
+      feature { f(it::second) }.toBe(2)
+    }
+</code></pre>   
+<p> same same but different for <code>assert</code> and <code>assertThat</code></p>
+</li>
+</ol>
+</BODY>
+</HTML>

@@ -1,0 +1,957 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>doc</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="./index.html">doc</a><br/>
+<br/>
+<h2>KDoc of Atrium</h2>
+<p>Atrium is built up by different modules, each available for different platforms.</p>
+<p>The packages shown below contain classes etc. 
+of all modules excluding the one of 
+<em>atrium-core-robstoll</em>, <em>atrium-core-robstoll-lib</em>, <em>atrium-domain-robstoll</em> and <em>atrium-domain-robstoll-lib</em>.</p>
+<p>The following names do not include the platform specific suffixes which are <code>-common</code>, <code>-jvm</code>, <code>-js</code> and <code>-android</code>. </p>
+<p>Bundle modules:</p>
+<ul><li><strong>atrium-fluent-en&#95;GB</strong>  defines to have a dependency on
+  atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll</li>
+<li><strong>atrium-cc-infix-en&#95;GB-robstoll</strong> defines to have a dependency on
+  atrium-api-cc-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll</li>
+</ul>
+  
+<p>API modules:  </p>
+<ul><li>
+<p><strong>atrium-api-fluent-en&#95;GB</strong> provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is a pure fluent API.
+  extensions:</p>
+  <ul><li><strong>atrium-api-fluent-en&#95;GB-jdk8</strong> provides additional assertion functions for types introduced with JDK 8 (e.g. for <code>Path</code>)</li>
+  <li><strong>atrium-api-fluent-en&#95;GB-kotlin_1_3</strong> provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for <code>Result</code>)</li>
+</ul>
+</li>
+  <li><strong>atrium-api-cc-infix-en&#95;GB</strong> provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is an infix API. </li>
+</ul>
+  
+<p>Domain modules:</p>
+<ul><li><strong>atrium-domain-api</strong> defines the contracts of the domain of Atrium 
+  (contracts for impl-functions and sophisticated assertion builders). </li>
+<li><strong>atrium-domain-robstoll</strong> provides the different domain services like 
+  <a href="./ch.tutteli.atrium.domain.creating/-char-sequence-assertions/index.html">CharSequenceAssertions</a>
+  which use the implementations of <em>atrium-domain-robstoll-lib</em></li>
+<li><strong>atrium-domain-robstoll-lib</strong> <a href="https://github.com/robstoll">robstoll</a>'s implementation of the domain of Atrium.</li>
+<li><strong>atrium-domain-builders</strong> contains <a href="./ch.tutteli.atrium.domain.builders/-assert-impl/index.html">AssertImpl</a>,
+  the <a href="./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html">ReporterBuilder</a>
+  and last but not least provides base classes of sophisticated assertion builders for the API modules.</li>
+</ul>
+<p>Core modules:</p>
+<ul><li><strong>atrium-core-api</strong> defines the contracts of the core of Atrium.</li>
+
+<li><strong>atrium-core-robstoll</strong> provides an implementation for 
+  <a href="./ch.tutteli.atrium.core/-core-factory/index.html">CoreFactory</a> which uses the implementations 
+  of <em>atrium-core-robstoll-lib</em></li>
+<li><strong>atrium-core-robstoll-lib</strong> <a href="https://github.com/robstoll">robstoll</a>'s implementation of the core of Atrium.</li>
+</ul>
+<p>Translation modules:</p>
+<ul><li><strong>atrium-translations-de&#95;CH</strong> provides translations in German for 
+  <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s used in assertion functions. </li>
+<li><strong>atrium-translations-en&#95;GB</strong> provides translations in English for 
+  <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s used in assertion functions. </li>
+</ul>
+<p>Misc modules:</p>
+<ul><li><strong>atrium-spec</strong> contains <a href="https://spekframework.org/">Spek</a> specifications for interfaces (defined in 
+  <em>atrium-core-api</em>) and assertion functions. The specifications can be reused by implementation of the core of Atrium 
+  as well as by API implementations to assure they fulfill the specifications.  </li>
+<li><strong>atrium-verbs</strong> contains out of the box assertion verbs </li>
+<li><strong>atrium-verbs-internal</strong> contains the assertion verbs Atrium uses internally - use with care, 
+  no backward compatibility guarantees.</li>
+</ul>
+<p>Atrium has currently several modules to retain backward compatibility. 
+You should not rely on them and move to the suggested predecessor:</p>
+<ul><li><strong>atrium-cc-de&#95;CH-robstoll</strong> use <code>atrium-fluent-de_CH</code> instead. This bundle defines to have a dependency on 
+  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH, atrium-domain-robstoll and atrium-core-robstoll</li>
+<li><strong>atrium-cc-en&#95;GB-robstoll</strong> use <code>atrium-fluent-en_GB</code> instead. This bundle defines to have a dependency on
+  atrium-api-cc-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll</li>
+<li><strong>atrium-cc-en&#95;UK-robstoll</strong> use <code>atrium-cc-en_GB-robstoll</code> instead. This bundle defines to have a dependency on
+  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK, atrium-domain-robstoll, atrium-core-robstoll 
+  and some deprecated modules</li>
+<li><strong>atrium-cc-infix-en&#95;UK-robstoll</strong> use <code>atrium-cc-infix-en_GB-robstoll</code> instead. 
+  This bundle defines to have a dependency on atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK,
+  atrium-domain-robstoll, atrium-core-robstoll and some deprecated modules</li>
+    <li><strong>atrium-api-cc-de&#95;CH</strong> use <code>atrium-api-fluent-de_CH</code> instead.</li>
+<li><strong>atrium-api-cc-en&#95;GB</strong> use <code>atrium-api-fluent-en_GB</code> instead.</li>
+<li><strong>atrium-api-cc-infix-en&#95;GB</strong> use <code>atrium-api-infix-en_GB</code> instead.</li>
+<li><strong>atrium-api-cc-en&#95;UK</strong> use <code>atrium-api-cc-en_GB</code> instead.</li>
+  <li><strong>atrium-domain-api-deprecated</strong> contains deprecated domain-api code</li>
+<li><strong>atrium-core-robstoll-deprecated</strong> contains the deprecated AtriumFactory =&gt; use 
+  <a href="./ch.tutteli.atrium.core/core-factory.html">coreFactory</a> instead</li>
+<li><strong>atrium-assertions</strong> is <code>deprecated</code> and you should not longer rely on it. 
+  It will be removed with 1.0.0. 
+  Use the replacements suggested in the <code>@Deprecated</code> annotations.</li>
+</ul>
+<h3>Packages</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium/index.html">ch.tutteli.atrium</a></p>
+</td>
+<td>
+<p>Contains the <code>@Deprecated</code> <a href="./ch.tutteli.atrium/-i-atrium-factory/index.html">IAtriumFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h/index.html">ch.tutteli.atrium.api.cc.de_CH</a></p>
+</td>
+<td>
+<p><code>@Deprecated</code> API use <a href="#">ch.tutteli.atrium.api.fluent.de_CH</a> instead.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>fluent.de_CH</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>fluent.de_CH</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-g-b/index.html">ch.tutteli.atrium.api.cc.en_GB</a></p>
+</td>
+<td>
+<p><code>@Deprecated</code> API use <a href="ch.tutteli.atrium.api.fluent.en_-g-b/index.html">ch.tutteli.atrium.api.fluent.en_GB</a> instead.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-g-b.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>fluent.en_GB</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-g-b.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>fluent.en_GB</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k/index.html">ch.tutteli.atrium.api.cc.en_UK</a></p>
+</td>
+<td>
+<p><code>@Depreacted</code> API use  <a href="ch.tutteli.atrium.api.fluent.en_-g-b/index.html">ch.tutteli.atrium.api.fluent.en_GB</a> instead.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>en_GB</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>en_GB</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html">ch.tutteli.atrium.api.cc.infix.en_GB</a></p>
+</td>
+<td>
+<p><code>@Depreacted</code> API use  <a href="#">ch.tutteli.atrium.api.infix.en_GB</a> instead.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, switch from package <code>cc.infix</code> to <code>infix</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, switch from package <code>cc.infix</code> to <code>infix</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.list.get.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, switch from package <code>cc.infix</code> to <code>infix</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.map.get.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, switch from package <code>cc.infix</code> to <code>infix</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-g-b.keywords/index.html">ch.tutteli.atrium.api.cc.infix.en_GB.keywords</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> pseudo keywords, switch from package <code>cc.infix</code> to <code>infix</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html">ch.tutteli.atrium.api.cc.infix.en_UK</a></p>
+</td>
+<td>
+<p><code>@Depreacted</code> API use  <a href="#">ch.tutteli.atrium.api.infix.en_GB</a> instead.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>en_GB</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> builders, use the builders from package <code>en_GB</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b/index.html">ch.tutteli.atrium.api.fluent.en_GB</a></p>
+</td>
+<td>
+<p>Contains API which provides a pure fluent API in English and which has its design focus on usability 
+in conjunction with code completion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for CharSequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for Iterable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b.jdk8/index.html">ch.tutteli.atrium.api.fluent.en_GB.jdk8</a></p>
+</td>
+<td>
+<p>Contains an API for types introduced with JDK 8</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b.kotlin_1_3/index.html">ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3</a></p>
+</td>
+<td>
+<p>Contains an API for types introduced with Kotlin 1.3</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.verbs/index.html">ch.tutteli.atrium.api.verbs</a></p>
+</td>
+<td>
+<p>Contains the  <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">out-of-the-box Assertion Verbs</a>
+such as <a href="./ch.tutteli.atrium.api.verbs/expect.html">expect</a>, <a href="./ch.tutteli.atrium.api.verbs/assert.html">assert</a>
+and <a href="./ch.tutteli.atrium.api.verbs/assert-that.html">assertThat</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.verbs.internal/index.html">ch.tutteli.atrium.api.verbs.internal</a></p>
+</td>
+<td>
+<p>Contains the assertion verbs Atrium uses internally. 
+Use with care, no backward compatibility guarantees and reporting might change.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions/index.html">ch.tutteli.atrium.assertions</a></p>
+</td>
+<td>
+<p>Contains different types of <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>,
+e.g. <a href="./ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a>.
+Currently it contains also <code>@Deprecated</code> impl-functions which will be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.any.typetransformation/index.html">ch.tutteli.atrium.assertions.any.typetransformation</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains/index.html">ch.tutteli.atrium.assertions.basic.contains</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains.builders/index.html">ch.tutteli.atrium.assertions.basic.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains.checkers/index.html">ch.tutteli.atrium.assertions.basic.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains.creators/index.html">ch.tutteli.atrium.assertions.basic.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.builders/index.html">ch.tutteli.atrium.assertions.builders</a></p>
+</td>
+<td>
+<p>The <a href="./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a> 
+and other builders to ease the creation of Assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.builders.common/index.html">ch.tutteli.atrium.assertions.builders.common</a></p>
+</td>
+<td>
+<p>Package containing/defining common steps for builders. </p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains/index.html">ch.tutteli.atrium.assertions.charsequence.contains</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.checkers/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.creators/index.html">ch.tutteli.atrium.assertions.charsequence.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.searchers/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchers</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains/index.html">ch.tutteli.atrium.assertions.iterable.contains</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.checkers/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.creators/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown/index.html">ch.tutteli.atrium.assertions.throwable.thrown</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown.builders/index.html">ch.tutteli.atrium.assertions.throwable.thrown.builders</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown.creators/index.html">ch.tutteli.atrium.assertions.throwable.thrown.creators</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown.providers/index.html">ch.tutteli.atrium.assertions.throwable.thrown.providers</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> classes/interfaces/functions, use the ones from package <code>creating</code>; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.checking/index.html">ch.tutteli.atrium.checking</a></p>
+</td>
+<td>
+<p>Everything involved in checking <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.core/index.html">ch.tutteli.atrium.core</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium.core/-core-factory/index.html">CoreFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.core.migration/index.html">ch.tutteli.atrium.core.migration</a></p>
+</td>
+<td>
+<p>Contains helper functions which shall ease the migration to a newer version of Atrium. 
+For instance, it contains <a href="./ch.tutteli.atrium.core.migration/java.util.-locale/to-atrium-locale.html">toAtriumLocale</a>
+to convert a Java <code>Locale</code> to an Atrium specific and platform independent representation of an <code>Locale</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.core.polyfills/index.html">ch.tutteli.atrium.core.polyfills</a></p>
+</td>
+<td>
+<p>Contains polyfills for functionality which is missing on certain platforms so that they can be used in a common way.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.creating/index.html">ch.tutteli.atrium.creating</a></p>
+</td>
+<td>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.assertions.composers/index.html">ch.tutteli.atrium.domain.assertions.composers</a></p>
+</td>
+<td>
+<p>The <a href="./ch.tutteli.atrium.domain.assertions.composers/-assertion-composer/index.html">AssertionComposer</a> 
+which delegates to an implementation which composes different assertions to new 
+<a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders/index.html">ch.tutteli.atrium.domain.builders</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.builders/-expect-impl/index.html">ExpectImpl</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating/index.html">ch.tutteli.atrium.domain.builders.creating</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating.basic.contains/index.html">ch.tutteli.atrium.domain.builders.creating.basic.contains</a></p>
+</td>
+<td>
+<p>Contains helper functions for 
+<a href="./ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/index.html">Contains.Builder</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating.changers/index.html">ch.tutteli.atrium.domain.builders.creating.changers</a></p>
+</td>
+<td>
+<p>Contains builders for <a href="ch.tutteli.atrium.domain.creating.changers/index.html">ch.tutteli.atrium.domain.creating.changers</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders/index.html">ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains base classes for 
+<a href="./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html">CharSequenceContains.CheckerOption</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating.collectors/index.html">ch.tutteli.atrium.domain.builders.creating.collectors</a></p>
+</td>
+<td>
+<p>Contains the builder behind 
+<a href="./ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html">ExpectImpl.collector</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders/index.html">ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains base classes for 
+<a href="./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html">IterableContains.CheckerOption</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.kotlin_1_3/index.html">ch.tutteli.atrium.domain.builders.kotlin_1_3</a></p>
+</td>
+<td>
+<p>Builders involved in delegating to assertion implementations.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.kotlin_1_3.creating/index.html">ch.tutteli.atrium.domain.builders.kotlin_1_3.creating</a></p>
+</td>
+<td>
+<p>Builders involved in creating <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.migration/index.html">ch.tutteli.atrium.domain.builders.migration</a></p>
+</td>
+<td>
+<p>Contains helper functions such as <a href="./ch.tutteli.atrium.domain.builders.migration/as-expect.html">asExpect</a> 
+to ease the migration from deprecated functionality to new functionality</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.reporting/index.html">ch.tutteli.atrium.domain.builders.reporting</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html">ReporterBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.utils/index.html">ch.tutteli.atrium.domain.builders.utils</a></p>
+</td>
+<td>
+<p>Contains utility functions for APIs.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating/index.html">ch.tutteli.atrium.domain.creating</a></p>
+</td>
+<td>
+<p>Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.any.typetransformation/index.html">ch.tutteli.atrium.domain.creating.any.typetransformation</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> functionality in conjunction with <code>Assert</code> and type transformations; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.any.typetransformation.creators/index.html">ch.tutteli.atrium.domain.creating.any.typetransformation.creators</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> functionality in conjunction with <code>Assert</code> and type transformations; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers/index.html">ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers</a></p>
+</td>
+<td>
+<p>Contains <code>@Deprecated</code> functionality in conjunction with <code>Assert</code> and type transformations; will all be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.basic.contains/index.html">ch.tutteli.atrium.domain.creating.basic.contains</a></p>
+</td>
+<td>
+<p>Contains the basic contract for contains assertion builders 
+-- <a href="./ch.tutteli.atrium.domain.creating.basic.contains/-contains/index.html">Contains</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.changers/index.html">ch.tutteli.atrium.domain.creating.changers</a></p>
+</td>
+<td>
+<p>Contains contracts for subject-change related functionality such as 
+<a href="./ch.tutteli.atrium.domain.creating.changers/-subject-changer/index.html">SubjectChanger</a>
+and <a href="./ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html">ExtractedFeaturePostStep</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.charsequence.contains/index.html">ch.tutteli.atrium.domain.creating.charsequence.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated CharSequence <code>contains</code> assertions 
+-- <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/index.html">CharSequenceContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.charsequence.contains.checkers/index.html">ch.tutteli.atrium.domain.creating.charsequence.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains.checkers/-checker-factory/index.html">CheckerFactory</a> 
+which defines the minimum set of <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a>
+an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.charsequence.contains.creators/index.html">ch.tutteli.atrium.domain.creating.charsequence.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains.creators/-char-sequence-contains-assertions/index.html">CharSequenceContainsAssertions</a>
+which defines the minimum set of <code>CharSequence contains</code> assertion functions (on level domain) an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/index.html">ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-search-behaviour-factory/index.html">SearchBehaviourFactory</a>
+which defines the minimum set of <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html">CharSequenceContains.SearchBehaviour</a>
+an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.collectors/index.html">ch.tutteli.atrium.domain.creating.collectors</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html">AssertionCollector</a>. </p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.feature.extract/index.html">ch.tutteli.atrium.domain.creating.feature.extract</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated feature extraction assertions
+-- <a href="./ch.tutteli.atrium.domain.creating.feature.extract/-feature-extractor/index.html">FeatureExtractor</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.feature.extract.creators/index.html">ch.tutteli.atrium.domain.creating.feature.extract.creators</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium.domain.creating.feature.extract.creators/-feature-extractor-creator-factory/index.html">FeatureExtractorCreatorFactory</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.iterable.contains/index.html">ch.tutteli.atrium.domain.creating.iterable.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated Iterable <code>contains</code> assertions 
+-- <a href="./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/index.html">IterableContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.iterable.contains.checkers/index.html">ch.tutteli.atrium.domain.creating.iterable.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.iterable.contains.checkers/-checker-factory/index.html">CheckerFactory</a> 
+which defines the minimum set of <a href="./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>
+an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.iterable.contains.creators/index.html">ch.tutteli.atrium.domain.creating.iterable.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.iterable.contains.creators/-iterable-contains-assertions/index.html">IterableContainsAssertions</a>
+which defines the minimum set of <code>Iterable contains</code> assertion functions (on level domain) an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/index.html">ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-search-behaviour-factory/index.html">SearchBehaviourFactory</a>
+which defines the minimum set of <a href="./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html">IterableContains.SearchBehaviour</a>
+an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.throwable.thrown/index.html">ch.tutteli.atrium.domain.creating.throwable.thrown</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated a Throwable was thrown assertions 
+-- <a href="./ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/index.html">ThrowableThrown</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.throwable.thrown.creators/index.html">ch.tutteli.atrium.domain.creating.throwable.thrown.creators</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.throwable.thrown.creators/-throwable-thrown-assertions/index.html">IterableContainsAssertions</a>
+which defines the minimum set of <code>a Throwable was thrown</code> assertion functions (on level domain) an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.throwable.thrown.providers/index.html">ch.tutteli.atrium.domain.creating.throwable.thrown.providers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.throwable.thrown.providers/-absent-throwable-message-provider-factory/index.html">AbsentThrowableMessageProviderFactory</a>
+which defines the minimum set of <a href="./ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-absent-throwable-message-provider/index.html">IterableContains.AbsentThrowableMessageProvider</a>
+an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.kotlin_1_3.creating/index.html">ch.tutteli.atrium.domain.kotlin_1_3.creating</a></p>
+</td>
+<td>
+<p>Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation 
+has to provide for the Kotlin 1.3 extension.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting/index.html">ch.tutteli.atrium.reporting</a></p>
+</td>
+<td>
+<p>Everything involved in reporting <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.translating/index.html">ch.tutteli.atrium.reporting.translating</a></p>
+</td>
+<td>
+<p>Everything involved in translating <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.translations/index.html">ch.tutteli.atrium.translations</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs/index.html">ch.tutteli.atrium.verbs</a></p>
+</td>
+<td>
+<p>Contains the <code>@Deprecated</code> <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">out-of-the-box Assertion Verbs</a>
+for <code>Assert</code> which is itself <code>@Deprecated</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.assert/index.html">ch.tutteli.atrium.verbs.assert</a></p>
+</td>
+<td>
+<p>The <code>@Deprecated</code> version of the assertion verb <code>assert</code>; will be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.assertthat/index.html">ch.tutteli.atrium.verbs.assertthat</a></p>
+</td>
+<td>
+<p>The <code>@Deprecated</code> version of the assertion verb <code>assertThat</code>; will be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.expect/index.html">ch.tutteli.atrium.verbs.expect</a></p>
+</td>
+<td>
+<p>The <code>@Deprecated</code> version of the assertion verb <code>expect</code>; will be removed with 1.0.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.internal/index.html">ch.tutteli.atrium.verbs.internal</a></p>
+</td>
+<td>
+<p>Contains the <code>@Deprecated</code> assertion verbs Atrium used internally for <code>Assert</code>; will all be removed with 1.0.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Index</h3>
+<a href="alltypes/index.html">All Types</a>
+</BODY>
+</HTML>

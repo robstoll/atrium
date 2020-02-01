@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.builders.creating.collectors - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.builders.creating.collectors</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.builders.creating.collectors</h2>
+<p>Contains the builder behind 
+<a href="./ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html">ExpectImpl.collector</a></p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-collector-builder/index.html">AssertionCollectorBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">AssertionCollectorBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html"><span class="identifier">AssertionCollector</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html">AssertionCollector</a>.
+In detail, it implements <a href="../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html">AssertionCollector</a> by delegating to <a href="../ch.tutteli.atrium.domain.creating.collectors/assertion-collector.html">assertionCollector</a>
+which in turn delegates to the implementation via <a href="../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explaining-assertion-collector-option/index.html">ExplainingAssertionCollectorOption</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">ExplainingAssertionCollectorOption</span></s></code>
+<p>Delegates inter alia to the implementation of <a href="../ch.tutteli.atrium.domain.creating.collectors/-throwing-assertion-collector-for-explanation.html">ThrowingAssertionCollectorForExplanation</a> and
+<a href="../ch.tutteli.atrium.domain.creating.collectors/-non-throwing-assertion-collector-for-explanation.html">NonThrowingAssertionCollectorForExplanation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="collect-assertions.html">collectAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">G</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.assertions.builders/-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="collect-assertions.html#G"><span class="identifier">G</span></a><span class="symbol">,</span>&nbsp;<a href="collect-assertions.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collectAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.collectors$collectAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.G, ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.R)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Unit)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-assertions.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.collectors$collectAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.G, ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.R)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-assertions.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="collect-assertions.html#R"><span class="identifier">R</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">G</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.assertions.builders/-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="collect-assertions.html#G"><span class="identifier">G</span></a><span class="symbol">,</span>&nbsp;<a href="collect-assertions.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collectAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.collectors$collectAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.G, ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.R)), ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="collect-assertions.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.collectors$collectAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.G, ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.R)), ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-assertions.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="collect-assertions.html#R"><span class="identifier">R</span></a></code>
+<p>Collects the assertions <a href="collect-assertions.html#ch.tutteli.atrium.domain.builders.creating.collectors$collectAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.G, ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.R)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates and uses them as <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

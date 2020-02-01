@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReporterBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">ReporterBuilder</a><br/>
+<br/>
+<h1>ReporterBuilder</h1>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">ReporterBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-reporter-builder-common/index.html"><span class="identifier">ReporterBuilderCommon</span></a></code>
+<p>Provides options to create a <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> or <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> -- the platform specific
+interface might provide further options.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="without-translations.html">withoutTranslations</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><s><span class="identifier">withoutTranslations</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder$withoutTranslations(java.util.Locale)/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a>&nbsp;<span class="symbol">=</span>&nbsp;java.util.Locale.getDefault()<span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">UsingDefaultTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where the given <a href="without-translations.html#ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder$withoutTranslations(java.util.Locale)/primaryLocale">primaryLocale</a> is used to format arguments
+of <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-reporter-builder-common/with-default-translation-supplier.html">withDefaultTranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDefaultTranslationSupplier</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-locale-order-decider-option/index.html"><span class="identifier">LocaleOrderDeciderOption</span></a></code>
+<p>Uses a predefined method to create a <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> -- see platform specific interface
+for further information.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-reporter-builder-common/without-translations.html">withoutTranslations</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withoutTranslations</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withoutTranslations(ch.tutteli.atrium.reporting.translating.Locale)/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">UsingDefaultTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where the given <a href="../-reporter-builder-common/without-translations.html#ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withoutTranslations(ch.tutteli.atrium.reporting.translating.Locale)/primaryLocale">primaryLocale</a> is used to format arguments
+of <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-reporter-builder-common/without-translations-use-default-locale.html">withoutTranslationsUseDefaultLocale</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withoutTranslationsUseDefaultLocale</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">UsingDefaultTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where <a href="../../ch.tutteli.atrium.reporting.translating/get-default-locale.html">getDefaultLocale</a> is used to format arguments
+of <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-reporter-builder-common/with-translation-supplier.html">withTranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withTranslationSupplier</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withTranslationSupplier(ch.tutteli.atrium.reporting.translating.TranslationSupplier)/translationSupplier">translationSupplier</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-locale-order-decider-option/index.html"><span class="identifier">LocaleOrderDeciderOption</span></a></code>
+<p>Uses the given <a href="../-reporter-builder-common/with-translation-supplier.html#ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withTranslationSupplier(ch.tutteli.atrium.reporting.translating.TranslationSupplier)/translationSupplier">translationSupplier</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-reporter-builder-common/with-translator.html">withTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code>
+<p>Uses the given <a href="../-reporter-builder-common/with-translator.html#ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> skipping the options for <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> and
+<a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a> assuming the given <a href="../-reporter-builder-common/with-translator.html#ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</a> is implemented differently -- use
+<a href="../-reporter-builder-common/with-default-translation-supplier.html">withDefaultTranslationSupplier</a> or <a href="../-reporter-builder-common/with-translation-supplier.html">withTranslationSupplier</a> in case the given <a href="../-reporter-builder-common/with-translator.html#ch.tutteli.atrium.domain.builders.reporting.ReporterBuilderCommon$withTranslator(ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</a> requires
+a <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> or a <a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ReporterBuilder</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

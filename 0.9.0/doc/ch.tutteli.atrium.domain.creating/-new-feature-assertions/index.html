@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NewFeatureAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating</a>&nbsp;/&nbsp;<a href="./index.html">NewFeatureAssertions</a><br/>
+<br/>
+<h1>NewFeatureAssertions</h1>
+<code><span class="keyword">interface </span><span class="identifier">NewFeatureAssertions</span></code>
+<p>Defines the minimum set of assertion functions -- used to create feature assertions --
+which an implementation of the domain of Atrium has to provide.</p>
+<p>Will be renamed to FeatureAssertions with 1.0.0</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="generic-feature.html">genericFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">genericFeature</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.NewFeatureAssertions$genericFeature(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.NewFeatureAssertions.genericFeature.T)), ch.tutteli.atrium.domain.creating.MetaFeature((ch.tutteli.atrium.domain.creating.NewFeatureAssertions.genericFeature.R)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="generic-feature.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.NewFeatureAssertions$genericFeature(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.NewFeatureAssertions.genericFeature.T)), ch.tutteli.atrium.domain.creating.MetaFeature((ch.tutteli.atrium.domain.creating.NewFeatureAssertions.genericFeature.R)))/metaFeature">metaFeature</span><span class="symbol">:</span>&nbsp;<a href="../-meta-feature/index.html"><span class="identifier">MetaFeature</span></a><span class="symbol">&lt;</span><a href="generic-feature.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="generic-feature.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="generic-feature.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Extracts a feature from <a href="generic-feature.html#ch.tutteli.atrium.domain.creating.NewFeatureAssertions$genericFeature(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.NewFeatureAssertions.genericFeature.T)), ch.tutteli.atrium.domain.creating.MetaFeature((ch.tutteli.atrium.domain.creating.NewFeatureAssertions.genericFeature.R)))/expect">expect</a> based on the given <a href="../-meta-feature/index.html">MetaFeature</a> and creates a
+<a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html">ExtractedFeaturePostStep</a> based on it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating/-new-feature-assertions-builder/index.html">NewFeatureAssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">NewFeatureAssertionsBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NewFeatureAssertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="./index.html">NewFeatureAssertions</a>.
+In detail, it implements <a href="./index.html">NewFeatureAssertions</a> by delegating to <a href="../new-feature-assertions.html">newFeatureAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RepresentationOnlyAssertion - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">RepresentationOnlyAssertion</a><br/>
+<br/>
+<h1>RepresentationOnlyAssertion</h1>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationOnlyAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>The base interface for <a href="../-assertion/index.html">Assertion</a>s which only consist of a <a href="representation.html">representation</a> (next to <a href="../-assertion/holds.html">holds</a>).</p>
+<p>This assertion is typically used within an <a href="../-assertion-group/index.html">AssertionGroup</a> where the description of the group gives enough context
+so that it is enough if the assertion consists only of a representation of an instance.</p>
+<p>For instance, representing <code>isNoneOf(1, 2, 3)</code> can be achieved with an assertion group and inner
+<a href="./index.html">RepresentationOnlyAssertion</a>s.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span></code>
+<p>The representation of an instance such as <code>1</code>, <code>null</code> etc.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assertion/holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether the assertion holds or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
