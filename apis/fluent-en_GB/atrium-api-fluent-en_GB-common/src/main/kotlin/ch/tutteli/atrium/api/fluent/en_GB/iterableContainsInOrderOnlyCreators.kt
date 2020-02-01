@@ -11,7 +11,11 @@ import ch.tutteli.kbox.glue
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected] value.
  *
- * Delegates to `values(expected)`.
+ * Delegates to [values].
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
@@ -26,6 +30,10 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * [expected] value as well as the [otherExpected] values
  * (if given) in the specified order.
  *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
@@ -38,31 +46,15 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched within the [Iterable]
- * (if given) in the specified order.
- *
- * @param expected The value which is expected to be contained within the [Iterable].
- * @param otherExpected Additional values which are expected to be contained within [Iterable].
- *
- * @return The [Expect] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.9.0
- */
-inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<E>
-): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
-}
-
-/**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
  * single entry which holds all assertions created by the given [assertionCreatorOrNull] or needs to be `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `entries(assertionCreatorOrNull)`.
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -80,6 +72,10 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
  * entry which holds all assertions [assertionCreatorOrNull] creates or is `null` in case [assertionCreatorOrNull]
  * is defined as `null` and likewise a further entry for each
  * [otherAssertionCreatorsOrNulls] (if given) whereas the entries have to appear in the specified order.
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -99,3 +95,29 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
         assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
     )
 )
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched within the [Iterable]
+ * (if given) in the specified order.
+ *
+ * Delegates to [values].
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.9.0
+ */
+inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> {
+    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
+    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+}

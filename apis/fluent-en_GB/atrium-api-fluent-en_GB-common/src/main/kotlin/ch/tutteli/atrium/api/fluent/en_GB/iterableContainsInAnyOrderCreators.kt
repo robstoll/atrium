@@ -11,7 +11,7 @@ import ch.tutteli.kbox.glue
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
  * value shall be searched within the [Iterable].
  *
- * Delegates to `values(expected)`.
+ * Delegates to [values].
  *
  * @param expected The value which is expected to be contained within this [Iterable].
  *
@@ -51,7 +51,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * Delegates to `entries(assertionCreatorOrNull)`.
+ * Delegates to [entries].
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
