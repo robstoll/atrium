@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.9.0'
+    rootProject.version = '0.10.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -44,7 +44,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.9.0"
+        dokka_sourceMapping = "tree/master"
 
 
         sampleProjects = sampleProjectsFun
