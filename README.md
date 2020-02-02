@@ -72,7 +72,7 @@ but can also be retrieved directly from [bintray](https://bintray.com/robstoll/t
 *gradle*: 
 ```
 buildscript {
-    ext { atrium_version='v0.9.0' }
+    ext { atrium_version='0.9.0' }
 }
 repositories {
     mavenCentral()
@@ -140,7 +140,7 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ```
 buildscript {
-    ext { atrium_version='v0.9.0' }
+    ext { atrium_version='0.9.0' }
 }
 repositories {
     mavenCentral()
