@@ -243,7 +243,12 @@ configure(subprojects.findAll { it.name.endsWith('-kotlin_1_3-jvm') }) {
 }
 
 
-def apiProjects = subprojects.findAll { it.name.startsWith("${rootProject.name}-api") && it.name.endsWith("-jvm") }
+def apiProjects = subprojects.findAll {
+    it.name.startsWith("${rootProject.name}-api") &&
+        (it.name.endsWith("-jvm") ||
+            (it.name.endsWith("-common") && (it.name.contains("api-fluent-") || it.name.contains("api-infix-")))
+        )
+}
 configure(apiProjects) { apiProject ->
     createTestJarTask(apiProject)
     createTestSourcesJarTask(apiProject)
