@@ -167,7 +167,8 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
                 }
             }
         } else {
-            //TODO add as soon as we publish testsources of common as well
+            //TODO tests are now mostly in the common module. However, we cannot unzip this to the jvm project but
+            // require a common module for it. Probably easiest to introduce a second bc-test which is an MPP project
 //            add(testJarSources, "$groupId:atrium-api-$apiName-common:$oldVersion:testsources") {
 //                exclude group: '*'
 //            }
