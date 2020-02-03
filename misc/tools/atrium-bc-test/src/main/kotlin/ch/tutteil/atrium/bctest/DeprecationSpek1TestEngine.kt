@@ -22,10 +22,10 @@ import java.lang.reflect.InvocationTargetException
  *
  * Moreover, the engine fails if no tests were discovered or if an error occurs during discovery.
  */
-class DeprecationTestEngine : TestEngine {
+class DeprecationSpek1TestEngine : TestEngine {
     private val spek = SpekTestEngine()
 
-    override fun getId() = "spek-deprecation"
+    override fun getId() = "spek1-deprecation"
     override fun execute(request: ExecutionRequest) = spek.execute(request)
 
     override fun discover(discoveryRequest: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {

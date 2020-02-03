@@ -14,6 +14,14 @@ configurations {
 }
 
 dependencies {
+    //spek2
+    common "org.junit.platform:junit-platform-console-standalone:$junit_platform_version"
+    common "org.spekframework.spek2:spek-dsl-jvm:$spek2_version"
+    common "org.spekframework.spek2:spek-runner-junit5:$spek2_version"
+    common "org.spekframework.spek2:spek-runtime-jvm:$spek2_version"
+    common "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    //spek1
     common "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
     common "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
     common "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
@@ -36,7 +44,7 @@ def bcTests = task("bcTests", group: 'Verification') {
     dependsOn build
 }
 
-['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB' /* TODO remove with 1.0.0 => */, 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
+['fluent-en_GB', /* TODO remove with 1.0.0 => */ 'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB', 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
     task("bcBbc-$apiName", group: 'Verification') {
         description = "runs all backward compatibility and binary backward compatibility tests for $apiName"
         dependsOn build
@@ -128,6 +136,8 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         create(testJarSources)
     }
 
+    def isFluentOrInfix = apiName.startsWith("fluent") || apiName.startsWith("infix")
+
     dependencies {
         def groupId = oldVersion == '0.6.0' ? 'ch.tutteli' : 'ch.tutteli.atrium'
         add(testJar, "$groupId:atrium-api-$apiName:$oldVersion:tests") {
@@ -137,14 +147,17 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             exclude group: '*'
         }
 
-        add(confCommon, "$groupId:atrium-spec:$oldVersion") {
-            exclude group: '*'
-        }
         if (oldVersion == '0.6.0') {
+            add(confCommon, "$groupId:atrium-spec:$oldVersion") {
+                exclude group: '*'
+            }
             add(confCommon, prefixedProject("api-cc-en_UK")) { //required by atrium-spec
                 exclude group: '*'
             }
-        } else {
+        } else if (oldVersion == '0.7.0' || oldVersion == '0.8.0') {
+            add(confCommon, "$groupId:atrium-spec:$oldVersion") {
+                exclude group: '*'
+            }
             add(confCommon, prefixedProject("api-cc-en_GB-jvm")) {  //required by atrium-spec
                 exclude group: '*'
             }
@@ -153,8 +166,26 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
                     exclude group: '*'
                 }
             }
+        } else {
+            //TODO tests are now mostly in the common module. However, we cannot unzip this to the jvm project but
+            // require a common module for it. Probably easiest to introduce a second bc-test which is an MPP project
+//            add(testJarSources, "$groupId:atrium-api-$apiName-common:$oldVersion:testsources") {
+//                exclude group: '*'
+//            }
+            add(confCommon, "$groupId:atrium-specs:$oldVersion") {
+                exclude group: '*'
+            }
+            add(confCommon, prefixedProject("api-fluent-en_GB-jvm")) {  //required by atrium-specs
+                exclude group: '*'
+            }
+            add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by specs in the APIs
+                exclude group: '*'
+            }
         }
-        if (!apiName.endsWith('en_UK')) {
+
+        if (isFluentOrInfix) {
+            add(confCommon, prefixedProject("$apiName-jvm"))
+        } else if (!apiName.endsWith('en_UK')) {
             add(confCommon, prefixedProject("$apiName-robstoll-jvm"))
         } else {
             add(confCommon, prefixedProject("$apiName-robstoll"))
@@ -167,7 +198,9 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
     def getArgs = { String scanClassPath ->
         return [
             '--scan-class-path', scanClassPath,
-            '--include-engine', 'spek-deprecation',
+            '--disable-banner',
+            '--fail-if-no-tests',
+            '--include-engine', isFluentOrInfix ? 'spek2-deprecation' : 'spek1-deprecation',
             '--config', forgive,
             '--details', 'summary'
         ]
@@ -335,6 +368,10 @@ createBcAndBbcTasksForApis('0.8.0',
         '(CharSequenceContainsRegexAssertionsSpec.*(16 times throws AssertionError|(roberto?.*once throws AssertionError)).*)' +
     ')',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
+)
+createBcAndBbcTasksForApis('0.9.0',
+    'forgive=^$',
+    'fluent-en_GB'
 )
 //@formatter:on
 
