@@ -30,7 +30,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<Path> = notImplemented()
+        val a1: Expect<DummyPath> = notImplemented()
 
         a1 does exist
         a1 doesNot exist
@@ -52,3 +52,5 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1 toBe aDirectory
     }
 }
+
+class DummyPath(path: Path) : Path by path
