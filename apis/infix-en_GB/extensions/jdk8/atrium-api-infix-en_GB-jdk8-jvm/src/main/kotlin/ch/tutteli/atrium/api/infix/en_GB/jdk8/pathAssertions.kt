@@ -13,7 +13,7 @@ import java.nio.file.Path
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.startsWith(this, expected))
@@ -24,7 +24,7 @@ infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.startsNotWith(this, expected))
@@ -35,7 +35,7 @@ infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.endsWith(this, expected))
@@ -47,7 +47,7 @@ infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.endsNotWith(this, expected))
@@ -62,7 +62,7 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.does(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
     addAssertion(ExpectImpl.path.exists(this))
@@ -77,7 +77,7 @@ infix fun <T : Path> Expect<T>.does(@Suppress("UNUSED_PARAMETER") exist: exist):
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.doesNot(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
     addAssertion(ExpectImpl.path.existsNot(this))
@@ -89,7 +89,7 @@ infix fun <T : Path> Expect<T>.doesNot(@Suppress("UNUSED_PARAMETER") exist: exis
  *
  * @return The newly created [Expect].
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 val <T : Path> Expect<T>.fileName: Expect<String>
     get() = ExpectImpl.path.fileName(this).getExpectOfFeature()
@@ -102,7 +102,7 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
@@ -115,7 +115,7 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
  * @return The newly created [Expect].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
     get() = ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
@@ -129,7 +129,7 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileNameWithoutExtension(this).addToInitial(assertionCreator)
@@ -141,7 +141,7 @@ infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect
  * @return The newly created [Expect].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 val <T : Path> Expect<T>.parent: Expect<Path>
     get() = ExpectImpl.path.parent(this).getExpectOfFeature()
@@ -153,7 +153,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
@@ -175,7 +175,7 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
     addAssertion(ExpectImpl.path.isReadable(this))
@@ -192,7 +192,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
     addAssertion(ExpectImpl.path.isWritable(this))
@@ -212,7 +212,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: aRegularFile): Expect<T> =
     addAssertion(ExpectImpl.path.isRegularFile(this))
@@ -232,7 +232,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
     addAssertion(ExpectImpl.path.isDirectory(this))
@@ -244,7 +244,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  *
  * @return The newly created [Expect].
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 val <T : Path> Expect<T>.extension: Expect<String>
     get() = ExpectImpl.path.extension(this).getExpectOfFeature()
@@ -257,7 +257,7 @@ val <T : Path> Expect<T>.extension: Expect<String>
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 1.0.0
+ * @since 0.10.0
  */
 infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.extension(this).addToInitial(assertionCreator)
