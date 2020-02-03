@@ -64,7 +64,8 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  *
  * @since 1.0.0
  */
-fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exists(this))
+infix fun <T : Path> Expect<T>.does(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
+    addAssertion(ExpectImpl.path.exists(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) does not exist;
@@ -78,7 +79,8 @@ fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exis
  *
  * @since 1.0.0
  */
-fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.existsNot(this))
+infix fun <T : Path> Expect<T>.doesNot(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
+    addAssertion(ExpectImpl.path.existsNot(this))
 
 /**
  * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
@@ -175,7 +177,8 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  *
  * @since 1.0.0
  */
-fun <T : Path> Expect<T>.isReadable(): Expect<T> = addAssertion(ExpectImpl.path.isReadable(this))
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
+    addAssertion(ExpectImpl.path.isReadable(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) is writable;
@@ -191,7 +194,8 @@ fun <T : Path> Expect<T>.isReadable(): Expect<T> = addAssertion(ExpectImpl.path.
  *
  * @since 1.0.0
  */
-fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.isWritable(this))
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
+    addAssertion(ExpectImpl.path.isWritable(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) is a file;
@@ -210,7 +214,8 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.
  *
  * @since 1.0.0
  */
-fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.path.isRegularFile(this))
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: aRegularFile): Expect<T> =
+    addAssertion(ExpectImpl.path.isRegularFile(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) is a directory;
@@ -229,7 +234,8 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.pa
  *
  * @since 1.0.0
  */
-fun <T : Path> Expect<T>.isDirectory(): Expect<T> = addAssertion(ExpectImpl.path.isDirectory(this))
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
+    addAssertion(ExpectImpl.path.isDirectory(this))
 
 /**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
