@@ -8,8 +8,8 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpec(
-    fun1<Path, exist>(Expect<Path>::does).name to ::exists,
-    fun1<Path, exist>(Expect<Path>::doesNot).name to ::existsNot,
+    fun1<Path, exist>(Expect<Path>::to).name to ::exists,
+    fun1<Path, exist>(Expect<Path>::toNot).name to ::existsNot,
     fun1(Expect<Path>::startsWith),
     fun1(Expect<Path>::startsNotWith),
     fun1(Expect<Path>::endsWith),
@@ -20,8 +20,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1<Path, aDirectory>(Expect<Path>::toBe).name to ::isDirectory
 ) {
     companion object {
-        fun exists(expect: Expect<Path>) = expect does exist
-        fun existsNot(expect: Expect<Path>) = expect doesNot exist
+        fun exists(expect: Expect<Path>) = expect to exist
+        fun existsNot(expect: Expect<Path>) = expect toNot exist
         fun isReadable(expect: Expect<Path>) = expect toBe readable
         fun isWritable(expect: Expect<Path>) = expect toBe writable
         fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
@@ -32,8 +32,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     private fun ambiguityTest() {
         val a1: Expect<DummyPath> = notImplemented()
 
-        a1 does exist
-        a1 doesNot exist
+        a1 to exist
+        a1 toNot exist
         a1 startsWith Paths.get("a")
         a1 startsNotWith Paths.get("a")
         a1 endsWith Paths.get("a")

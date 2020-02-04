@@ -64,7 +64,7 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  *
  * @since 0.10.0
  */
-infix fun <T : Path> Expect<T>.does(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
+infix fun <T : Path> Expect<T>.to(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
     addAssertion(ExpectImpl.path.exists(this))
 
 /**
@@ -79,7 +79,7 @@ infix fun <T : Path> Expect<T>.does(@Suppress("UNUSED_PARAMETER") exist: exist):
  *
  * @since 0.10.0
  */
-infix fun <T : Path> Expect<T>.doesNot(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
+infix fun <T : Path> Expect<T>.toNot(@Suppress("UNUSED_PARAMETER") exist: exist): Expect<T> =
     addAssertion(ExpectImpl.path.existsNot(this))
 
 /**
