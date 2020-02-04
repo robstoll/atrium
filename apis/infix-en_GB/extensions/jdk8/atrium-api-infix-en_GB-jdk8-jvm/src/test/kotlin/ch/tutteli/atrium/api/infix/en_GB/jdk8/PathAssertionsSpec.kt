@@ -38,14 +38,6 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1 startsNotWith Paths.get("a")
         a1 endsWith Paths.get("a")
         a1 endsNotWith Paths.get("a")
-        a1.fileName
-        a1 fileName {}
-        a1.fileNameWithoutExtension
-        a1 fileNameWithoutExtension {}
-        a1.extension
-        a1 extension {}
-        a1.parent
-        a1 parent {}
         a1 toBe readable
         a1 toBe writable
         a1 toBe aRegularFile
