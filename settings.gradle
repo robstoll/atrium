@@ -1,7 +1,7 @@
 rootProject.name = 'atrium'
 
 buildscript {
-    gradle.ext.tutteli_plugins_version = '0.31.2'
+    gradle.ext.tutteli_plugins_version = '0.32.2'
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -35,7 +35,7 @@ def bundleWithExtensionsAndSmokeTest = { self, String apiName ->
     if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
         self.folder(apiName) {
             _ "$apiName-smoke-test"
-            folder("extensions"){
+            folder("extensions") {
                 _ "$apiName-smoke-test-jdk8"
                 _ "$apiName-smoke-test-kotlin_1_3"
             }
