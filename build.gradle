@@ -226,6 +226,9 @@ configure(subprojects - commonProjects - jsProjects - sampleProjects) {
             allWarningsAsErrors = false
         }
     }
+
+    sourceCompatibility=8
+    targetCompatibility=8
 }
 
 //allow kotlin 1.3 for kotlin_1_3 modules
