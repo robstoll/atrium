@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.10.0-SNAPSHOT'
+    rootProject.version = '0.9.1'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -45,7 +45,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/master"
+        dokka_sourceMapping = "tree/v0.9.1"
 
 
         sampleProjects = sampleProjectsFun
@@ -526,11 +526,10 @@ Release & deploy a commit
 2. update master:
     a) point to the tag
         1) search for old version and replace with new, except for samples (gradle, maven and section own assertion verb in README.md)
-        2) search for branch/master and replace with branch/vX.Y.Z  (coverage in README.md)
-        3) adjust branch=master manually, use tag=vX.Y.Z except for travis where you need to use branch=vX.Y.Z
-        4) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
-        5) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
-        6) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
+        2) adjust branch=master manually, use tag=vX.Y.Z except for travis where you need to use branch=vX.Y.Z
+        3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
+        4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
+        5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
     b) Update README -> Use own Assertion Verbs -> link to atriumVerbs if it changed
     c) commit & push (modified build.gradle, README.md and differences.md)
 3. update github pages:
@@ -540,7 +539,7 @@ Release & deploy a commit
     d) commit & push changes
 4. deploy to bintray:
     // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"11" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check that there are 926 artifacts and publish them
     c) synchronise to maven central
 5. create release on github
