@@ -5,6 +5,9 @@ buildscript {
     def sampleProjectsFun = subprojects.findAll {
         it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
     }
+    def toolProjectsFun = subprojects.findAll {
+        it.projectDir.path.contains('/misc/tools/') || it.projectDir.path.contains('\\misc\\tools\\')
+    }
     ext {
         // main
         kbox_version = '0.14.3'
