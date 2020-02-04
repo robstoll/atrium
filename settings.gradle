@@ -62,7 +62,7 @@ include {
 
     apis('api-') {
         apiWithExtensions(delegate, 'fluent-en_GB')
-        apiWithExtensions(delegate, 'infix-en_GB')
+//        apiWithExtensions(delegate, 'infix-en_GB')
     }
 
     domain('domain-') {
