@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
-    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::toBe).name to ::isEmpty,
-    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::notToBe).name to ::isNotEmpty
+    "toBe ${Empty::class.simpleName}" to ::isEmpty,
+    "toBe ${Empty::class.simpleName}" to ::isNotEmpty
 ) {
     companion object : WithAsciiReporter()
 
