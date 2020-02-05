@@ -1,7 +1,5 @@
 package ch.tutteli
 
-import org.junit.jupiter.api.*;
-
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
@@ -10,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
+import kotlin.test.Test
 
 class SmokeTest {
     @Test

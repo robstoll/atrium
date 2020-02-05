@@ -1,6 +1,6 @@
 package ch.tutteli
 
-import ch.tutteli.atrium.api.fluent.en_GB-js.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
@@ -12,13 +12,18 @@ import kotlin.test.Test
 
 class SmokeTest {
     @Test
-    fun toBe_canBeUsed() {
+    fun isLessThan_canBeUsed() {
         assertThat(1).isLessThan(2)
     }
 
     @Test
+    fun toBe_canBeUsed() {
+        assertThat(1).toBe(1)
+    }
+
+    @Test
     fun assertionFunctionWithoutI18nCanBeUsed() {
-        assertThat(2).isEven()
+        assertThat(4).isEven()
     }
 
     @Test
