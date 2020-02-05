@@ -6,9 +6,9 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 
 class IterableFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableFeatureAssertionsSpec(
-    feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::min, "min"),
+    feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::min),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
-    feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::max, "max"),
+    feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::max),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max)
 ) {
     @Suppress("unused", "UNUSED_VALUE")

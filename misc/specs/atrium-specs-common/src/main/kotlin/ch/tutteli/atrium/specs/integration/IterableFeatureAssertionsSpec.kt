@@ -7,17 +7,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.AssertionCreatorSpec
-import ch.tutteli.atrium.specs.Feature0
-import ch.tutteli.atrium.specs.Fun1
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.adjustName
-import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.forAssertionCreatorSpec
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.lambda
-import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.specs.toBeDescr
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -31,9 +21,9 @@ abstract class IterableFeatureAssertionsSpec(
 ) : Spek({
 
     include(object : SubjectLessSpec<Iterable<Int>>(describePrefix,
-        minFeature.forSubjectLess().adjustName { "$it feature" },
+        minFeature.forSubjectLess(),
         min.forSubjectLess { isGreaterThan(-100) },
-        maxFeature.forSubjectLess().adjustName { "$it feature" },
+        maxFeature.forSubjectLess(),
         max.forSubjectLess { toBe(1) }
     ) {})
 
@@ -43,93 +33,63 @@ abstract class IterableFeatureAssertionsSpec(
         max.forAssertionCreatorSpec("$toBeDescr: 20") { toBe(20) }
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val fluent = expect(listOf(4, 3) as Iterable<Int>)
-    val empty = expect (emptyList<Int>() as Iterable<Int>)
-
-    describeFun("val ${minFeature.name}") {
-        val minVal = minFeature.lambda
+    describeFun(minFeature, min, maxFeature, max) {
+        val minFunctions = unifySignatures(minFeature, min)
+        val maxFunctions = unifySignatures(maxFeature, max)
 
         context("list with 4 and 3") {
-            it("toBe(3) holds") {
-                fluent.minVal().toBe(3)
+            val fluent = expect(listOf(4, 3) as Iterable<Int>)
+            minFunctions.forEach { (name, minFun, _) ->
+                it("$name - is greater than 2 holds") {
+                    fluent.minFun { isGreaterThan(2) }
+                }
+                it("$name - is less than 2 fails") {
+                    expect {
+                        fluent.minFun { isLessThan(2) }
+                    }.toThrow<AssertionError> {
+                        messageContains("min(): 3")
+                    }
+                }
             }
-            it("toBe(5) fails") {
-                expect {
-                    fluent.minVal().toBe(5)
-                }.toThrow<AssertionError> {
-                    messageContains("min(): 3")
+            maxFunctions.forEach { (name, maxFun, _) ->
+                it("$name - toBe(4) holds") {
+                    fluent.maxFun { toBe(4) }
+                }
+                it("$name - toBe(3) fails") {
+                    expect {
+                        fluent.maxFun { toBe(3) }
+                    }.toThrow<AssertionError> {
+                        messageContains("max(): 4")
+                    }
                 }
             }
         }
 
         context("empty list") {
-            it("toBe(3) fails") {
-                expect {
-                    empty.minVal().toBe(3)
-                }.toThrow<AssertionError> {
-                    messageContains(DescriptionIterableAssertion.NO_ELEMENTS.getDefault())
+            val emptyIterable = expect(emptyList<Int>() as Iterable<Int>)
+            val noElementsDescr = DescriptionIterableAssertion.NO_ELEMENTS.getDefault()
+
+            minFunctions.forEach { (name, minFun, _) ->
+                it("$name - fails warning about empty iterable") {
+                    expect {
+                        emptyIterable.minFun { toBe(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains(noElementsDescr)
+                    }
+                }
+            }
+            maxFunctions.forEach { (name, maxFun, _) ->
+                it("$name - fails warning about empty iterable") {
+                    expect {
+                        emptyIterable.maxFun { toBe(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains(noElementsDescr)
+                    }
                 }
             }
         }
-    }
-
-    describeFun("fun ${min.name}") {
-        val minFun = min.lambda
-
-        context("list with two entries") {
-            it("is greater than 2 holds") {
-                fluent.minFun { isGreaterThan(2) }
-            }
-            it("is less than 2 fails") {
-                expect {
-                    fluent.minFun { isLessThan(2) }
-                }.toThrow<AssertionError> {
-                    messageContains("min(): 3")
-                }
-            }
-        }
-    }
-
-    describeFun("val ${maxFeature.name}") {
-        val maxVal = max.lambda
-        checkMax { assertion -> maxVal(assertion) }
-    }
-
-    describeFun("fun ${max.name}") {
-        val maxFun = maxFeature.lambda
-        checkMax { assert -> maxFun().assert() }
     }
 })
-
-
-private fun Suite.checkMax(testMax: Expect<Iterable<Int>>.(Expect<Int>.() -> Unit) -> Unit) {
-    val emptyIterable = expect(emptyList<Int>() as Iterable<Int>)
-
-    val filledIterable = expect(listOf(1, 2) as Iterable<Int>)
-
-    context("list with 1 and 2") {
-        it("toBe(2) holds") {
-            filledIterable.testMax { toBe(2) }
-        }
-        it("toBe(1) fails") {
-            expect {
-                filledIterable.testMax { toBe(1) }
-            }.toThrow<AssertionError> {
-                messageContains("max(): 2")
-            }
-        }
-    }
-
-    context("empty list") {
-        it("fails warning about empty iterable") {
-            expect {
-                emptyIterable.testMax { toBe(1) }
-            }.toThrow<AssertionError> {
-                messageContains(DescriptionIterableAssertion.NO_ELEMENTS.getDefault())
-            }
-        }
-    }
-}
