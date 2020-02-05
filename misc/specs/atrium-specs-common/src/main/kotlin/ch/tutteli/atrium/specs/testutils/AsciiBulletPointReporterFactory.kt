@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.infix.en_GB.testutils
+package ch.tutteli.atrium.specs.testutils
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
 
 class AsciiBulletPointReporterFactory : ReporterFactory {
-    override val id = "ascii"
+    override val id: String = "ascii"
 
     override fun create(): Reporter {
         return ReporterBuilder.create()

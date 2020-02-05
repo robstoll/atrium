@@ -1,41 +1,20 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders.ListGetStep
-import ch.tutteli.atrium.api.infix.en_GB.testutils.WithAsciiReporter
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature1
-import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
 
 class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
-    feature1<List<Int>, Int, Int>(Expect<List<Int>>::get).name to Companion::get,
+    feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
     getIndexPair(),
-    feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).name to Companion::getNullable,
+    feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
     getIndexNullablePair()
 ) {
-
-    companion object : WithAsciiReporter() {
-        fun get(expect: Expect<List<Int>>, index: Int) = expect get index
-        fun getNullable(expect: Expect<List<Int?>>, index: Int) = expect get index
-
-        fun getIndexPair() = getIndexFun.name to ::getIndex
-        private val getIndexFun: KFunction2<Expect<List<Int>>, Index, ListGetStep<Int, List<Int>>> =
-            Expect<List<Int>>::get
-
-        private fun getIndex(expect: Expect<List<Int>>, index: Int, assertionCreator: Expect<Int>.() -> Unit) =
-            expect get Index(index) assertIt { assertionCreator() }
-
-        fun getIndexNullablePair() = getIndexNullableFun.name to ::getIndexNullable
-        private val getIndexNullableFun: KFunction2<Expect<List<Int?>>, Index, ListGetStep<Int?, List<Int?>>> =
-            Expect<List<Int?>>::get
-
-        private fun getIndexNullable(
-            expect: Expect<List<Int?>>,
-            index: Int,
-            assertionCreator: Expect<Int?>.() -> Unit
-        ) = expect get Index(index) assertIt { assertionCreator() }
-    }
+    companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -54,3 +33,20 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
         star = star get Index(1) assertIt { }
     }
 }
+
+private val getIndexFun: KFunction2<Expect<List<Int>>, Index, ListGetStep<Int, List<Int>>> = Expect<List<Int>>::get
+private fun getIndexPair() = getIndexFun.name to ::getIndex
+
+private fun getIndex(expect: Expect<List<Int>>, index: Int, assertionCreator: Expect<Int>.() -> Unit) =
+    expect get Index(index) assertIt { assertionCreator() }
+
+private val getIndexNullableFun: KFunction2<Expect<List<Int?>>, Index, ListGetStep<Int?, List<Int?>>> =
+    Expect<List<Int?>>::get
+
+private fun getIndexNullablePair() = getIndexNullableFun.name to ::getIndexNullable
+
+private fun getIndexNullable(
+    expect: Expect<List<Int?>>,
+    index: Int,
+    assertionCreator: Expect<Int?>.() -> Unit
+) = expect get Index(index) assertIt { assertionCreator() }
