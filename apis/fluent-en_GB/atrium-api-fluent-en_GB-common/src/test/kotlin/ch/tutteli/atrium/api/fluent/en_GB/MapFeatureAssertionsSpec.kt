@@ -10,8 +10,8 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
     fun1<Map<String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<String, Int>>::values),
     feature1<Map<String, Int>, String, Int>(Expect<Map<String, Int>>::getExisting),
     fun2<Map<String, Int>, String, Expect<Int>.() -> Unit>(Expect<Map<String, Int>>::getExisting),
-    feature1<Map<String?, Int?>, String?, Int?>(Expect<Map<String?, Int?>>::getExisting).adjustName { "$it nullable" },
-    fun2<Map<String?, Int?>, String?, Expect<Int?>.() -> Unit>(Expect<Map<String?, Int?>>::getExisting).adjustName { "$it nullable" }
+    feature1<Map<String?, Int?>, String?, Int?>(Expect<Map<String?, Int?>>::getExisting).withNullableSuffix(),
+    fun2<Map<String?, Int?>, String?, Expect<Int?>.() -> Unit>(Expect<Map<String?, Int?>>::getExisting).withNullableSuffix()
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")

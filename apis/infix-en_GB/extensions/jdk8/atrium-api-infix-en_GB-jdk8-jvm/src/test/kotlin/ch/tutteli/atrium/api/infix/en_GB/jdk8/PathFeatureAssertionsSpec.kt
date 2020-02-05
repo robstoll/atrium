@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.file.Path
 
 class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatureAssertionsSpec(
@@ -16,6 +17,8 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, String>(Expect<Path>::extension),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
+    companion object : WithAsciiReporter()
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<DummyPath> = notImplemented()

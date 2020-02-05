@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
@@ -12,16 +13,16 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1<DataClass?, DataClass?>(Expect<DataClass?>::toBe),
     fun1(Expect<Int>::notToBe),
     fun1(Expect<DataClass>::notToBe),
-    fun1(Expect<Int?>::notToBe, suffix = " nullable"),
-    fun1(Expect<DataClass?>::notToBe, suffix = " nullable"),
+    fun1(Expect<Int?>::notToBe).withNullableSuffix(),
+    fun1(Expect<DataClass?>::notToBe).withNullableSuffix(),
     fun1(Expect<Int>::isSameAs),
     fun1(Expect<DataClass>::isSameAs),
-    fun1(Expect<Int?>::isSameAs, suffix = " nullable"),
-    fun1(Expect<DataClass?>::isSameAs, suffix = " nullable"),
+    fun1(Expect<Int?>::isSameAs).withNullableSuffix(),
+    fun1(Expect<DataClass?>::isSameAs).withNullableSuffix(),
     fun1(Expect<Int>::isNotSameAs),
     fun1(Expect<DataClass>::isNotSameAs),
-    fun1(Expect<Int?>::isNotSameAs, suffix = " nullable"),
-    fun1(Expect<DataClass?>::isNotSameAs, suffix = " nullable"),
+    fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
+    fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -43,7 +44,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     companion object {
         private fun toBeNull(expect: Expect<Int?>) = expect.toBe(null)
 
-        private fun isAFeature(expect: Expect<Int?>): Expect<Int> = expect.isA()
+        @Suppress("RemoveExplicitTypeArguments")
+        private fun isAFeature(expect: Expect<Int?>): Expect<Int> = expect.isA<Int>()
 
         private val andImmediate: KProperty1<Expect<Int>, Expect<Int>> = Expect<Int>::and
         fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> = andImmediate.name to Expect<Int>::and

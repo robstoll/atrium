@@ -7,8 +7,8 @@ import ch.tutteli.atrium.specs.integration.ResultFeatureAssertionsSpec
 class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
     feature0<Result<Int>, Int>(Expect<Result<Int>>::isSuccess),
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
-    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess).adjustName { "$it nullable" },
-    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess).adjustName { "$it nullable" },
+    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
+    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
     ("isFailure" to Companion::isFailureFeature).withFeatureSuffix(),
     "isFailure" to Companion::isFailure
 ) {

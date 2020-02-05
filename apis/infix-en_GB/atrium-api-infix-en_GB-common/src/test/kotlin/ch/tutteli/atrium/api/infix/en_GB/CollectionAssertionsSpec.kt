@@ -1,22 +1,16 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.testutils.WithAsciiReporter
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
 
-
 class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
-    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::toBe).name to Companion::isEmpty,
-    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::notToBe).name to Companion::isNotEmpty
+    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::toBe).name to ::isEmpty,
+    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::notToBe).name to ::isNotEmpty
 ) {
-    companion object : WithAsciiReporter() {
-
-        fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
-        fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
-    }
+    companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -35,3 +29,6 @@ class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionA
         star notToBe Empty
     }
 }
+
+fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
+fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
