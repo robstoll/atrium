@@ -13,12 +13,17 @@ import kotlin.test.Test
 class SmokeTest {
     @Test
     fun toBe_canBeUsed() {
-        assertThat(1).isLessThan(2)
+        assertThat(1).isLessThan(0)
+    }
+
+    @Test
+    fun toBe_canBeUsed()() {
+        assertThat(1).toBe(2)
     }
 
     @Test
     fun assertionFunctionWithoutI18nCanBeUsed() {
-        assertThat(2).isEven()
+        assertThat(5).isEven()
     }
 
     @Test

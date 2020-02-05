@@ -12,7 +12,7 @@ object CalculatorTestBySpek : Spek({
         val calculator by memoized { Calculator() }
 
         it("1 + 2 = 3") {
-            val sum = 3
+            val sum = 2
             expect(calculator.add(1, 2)).toBe(sum)
         }
 
