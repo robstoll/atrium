@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
@@ -71,13 +72,13 @@ interface ExpectBuilder {
          *
          * The function usually start with `with...` and are sometimes overloaded to ease the configuration.
          */
-        fun withOptions(configuration: OptionsChooser.() -> Unit): FinalStep<T> =
+        fun withOptions(configuration: OptionsChooser<T>.() -> Unit): FinalStep<T> =
             withOptions(ExpectOptions(configuration))
 
         /**
          * Uses the given [expectOptions].
          */
-        fun withOptions(expectOptions: ExpectOptions): FinalStep<T>
+        fun withOptions(expectOptions: ExpectOptions<T>): FinalStep<T>
 
         /**
          * States explicitly that no optional [ExpectOptions] are defined, which means, `build` will create
@@ -102,7 +103,7 @@ interface ExpectBuilder {
      *
      * Calling multiple times the same method overrides the previously defined value.
      */
-    interface OptionsChooser {
+    interface OptionsChooser<T> {
 
         /**
          * Wraps the given [verb] into an [Untranslatable] and passes it to the overload
@@ -120,29 +121,27 @@ interface ExpectBuilder {
         fun withVerb(verb: Translatable)
 
         /**
-         * Wraps the given [representation] into a [RawString] and uses it as representation of the subject
-         * instead of the so far defined representation (which defaults to the subject as such).
+         * Wraps the given [textRepresentation] into a [RawString] and uses it as representation of the subject
+         * instead of the representation that has been defined so far (which defaults to the subject itself).
+         *
+         * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
          */
-        @Suppress("PublicApiImplicitType" /* fine withRepresentation defines it */)
-        fun withTextRepresentation(representation: String) = withRepresentation(RawString.create(representation))
+        fun withRepresentation(textRepresentation: String): Unit =
+            withRepresentation { RawString.create(textRepresentation) }
 
         /**
-         * Uses the given [representation] as representation of the subject instead of using the subject as such to
-         * represent itself.
+         * Uses the given [representationProvider] to retrieve a representation which can be based on the current
+         * subject where it is used as new representation of the subject
+         * instead of the representation that has been defined so far (which defaults to the subject itself).
          *
          * Notice, if you want to use text (e.g. a [String]) as representation,
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
-         */
-        fun withRepresentation(representation: Any)
-
-        /**
-         * Use the given [representation] as custom representation for `null`.
+         * If your text does not include the current subject, then we recommend to use the other overload which expects
+         * a `String` and does the wrapping for you.
          *
-         * Notice, if you want to use text (e.g. a [String]) as representation,
-         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
          */
-        //TODO #279 remove
-        fun withNullRepresentation(representation: Any)
+        fun withRepresentation(representationProvider: (T) -> Any)
 
         /**
          * Uses the given [reporter] instead of the default reporter.
@@ -150,8 +149,8 @@ interface ExpectBuilder {
         fun withReporter(reporter: Reporter)
 
         companion object {
-            fun createAndBuild(configuration: OptionsChooser.() -> Unit): ExpectOptions =
-                OptionsChooserImpl().apply(configuration).build()
+            fun <T> createAndBuild(configuration: OptionsChooser<T>.() -> Unit): ExpectOptions<T> =
+                OptionsChooserImpl<T>().apply(configuration).build()
         }
     }
 
@@ -174,7 +173,7 @@ interface ExpectBuilder {
         /**
          * Either the previously specified [ExpectOptions] or `null`.
          */
-        val options: ExpectOptions?
+        val options: ExpectOptions<T>?
 
         /**
          * Creates a new [Expect] based on the previously defined maybeOptions.
@@ -185,7 +184,7 @@ interface ExpectBuilder {
             fun <T> create(
                 maybeSubject: Option<T>,
                 assertionVerb: Translatable,
-                options: ExpectOptions?
+                options: ExpectOptions<T>?
             ): FinalStep<T> = FinalStepImpl(maybeSubject, assertionVerb, options)
         }
     }
@@ -195,29 +194,30 @@ interface ExpectBuilder {
  * Additional (non-mandatory) options for the [ExpectBuilder] to create an [Expect].
  *
  * @property assertionVerb Defines a custom assertion verb if not null.
- * @property representation Defines a custom representation for the subject if not null.
+ * @property representationInsteadOfSubject Defines a custom representation based on a present subject if not null.
  * @property reporter Defines a custom reporter if not null.
  */
-data class ExpectOptions(
+data class ExpectOptions<T>(
     val assertionVerb: Translatable? = null,
-    val representation: Any? = null,
+    val representationInsteadOfSubject: ((T) -> Any)? = null,
     val reporter: Reporter? = null
 ) {
     /**
      * Merges the given [options] with this object creating a new [ExpectOptions]
      * where defined properties in [options] will have precedence over properties defined in this instance.
      *
-     * For instance, this object has defined [representation] (meaning it is [Some]) and the given [options] as well,
-     * then the resulting [ExpectOptions] will have the [representation] of [options].
+     * For instance, this object has defined [representationInsteadOfSubject] (meaning it is not `null`) and
+     * the given [options] as well, then the resulting [ExpectOptions] will have the
+     * [representationInsteadOfSubject] of [options].
      */
-    fun merge(options: ExpectOptions): ExpectOptions =
+    fun merge(options: ExpectOptions<T>): ExpectOptions<T> =
         ExpectOptions(
             options.assertionVerb ?: assertionVerb,
-            options.representation ?: representation,
+            options.representationInsteadOfSubject ?: representationInsteadOfSubject,
             options.reporter ?: reporter
         )
 }
 
 @Suppress("FunctionName")
-fun ExpectOptions(configuration: ExpectBuilder.OptionsChooser.() -> Unit): ExpectOptions =
+fun <T> ExpectOptions(configuration: ExpectBuilder.OptionsChooser<T>.() -> Unit): ExpectOptions<T> =
     ExpectBuilder.OptionsChooser.createAndBuild(configuration)

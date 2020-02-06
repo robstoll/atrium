@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.kotlin_1_3.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
-import ch.tutteli.atrium.api.fluent.en_GB.withOptions
+import ch.tutteli.atrium.api.fluent.en_GB.withRepresentation
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -33,7 +33,7 @@ fun <TExpected : Throwable> _isFailure(
     val throwableExpect = ExpectImpl.feature
         .manualFeature(assertionContainer, EXCEPTION) { exceptionOrNull() }
         .getExpectOfFeature()
-        .withOptions { withSubjectBasedRepresentation { it ?: RawString.create(IS_NOT_FAILURE) } }
+        .withRepresentation { it ?: RawString.create(IS_NOT_FAILURE) }
 
     return ExpectImpl.changeSubject(throwableExpect).reportBuilder()
         .downCastTo(expectedType)

@@ -18,8 +18,8 @@ class DeprecationSpek2ExecutionListener(
     }
 
     private fun handleFailure(result: ExecutionResult.Failure, test: TestScopeImpl) {
-        if (forgiveRegex.matches(test.id.name)) {
-            println("forgiving $test")
+        if (forgiveRegex.matches(test.path.toString())) {
+            println("forgiving ${test.path}")
             listener.testExecutionFinish(test, ExecutionResult.Success)
         } else {
             listener.testExecutionFinish(test, result)

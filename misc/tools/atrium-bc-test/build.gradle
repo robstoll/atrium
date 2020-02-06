@@ -370,7 +370,7 @@ createBcAndBbcTasksForApis('0.8.0',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 createBcAndBbcTasksForApis('0.9.1',
-    'forgive=^$',
+    'forgive=^.* assertion function can be used in an AssertionGroup with an ExplanatoryAssertionGroupType.*$',
     'fluent-en_GB'
 )
 //@formatter:on
