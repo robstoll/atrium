@@ -24,3 +24,6 @@ jobs:
 
             -   name: Build sample atrium+junit5 project
                 run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
+
+            -   name: Build sample atrium+mpp kotlin project
+                run: samples\multiplatform\gradlew -p samples\multiplatform build

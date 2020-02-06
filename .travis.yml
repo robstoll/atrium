@@ -34,6 +34,7 @@ jobs:
         script:
             - samples/jvm/spek/gradlew -p ./samples/jvm/spek build
             - samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
+            - samples/multiplatform/gradlew -p ./samples/multiplatform/ build
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
