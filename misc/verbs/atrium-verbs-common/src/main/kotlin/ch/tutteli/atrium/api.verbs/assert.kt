@@ -3,6 +3,8 @@ package ch.tutteli.atrium.api.verbs
 import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
@@ -15,7 +17,7 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
-fun <T> assert(subject: T): Expect<T> =
+fun <T> assert(subject: T): RootExpect<T> =
     ExpectBuilder.forSubject(subject)
         .withVerb(ASSERT)
         .withoutOptions()
@@ -41,5 +43,5 @@ fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
         "ch.tutteli.atrium.api.fluent.en_GB.feature"
     )
 )
-fun <T, R> Expect<T>.assert(newSubject: R): Expect<R> =
+fun <T, R> Expect<T>.assert(newSubject: R): FeatureExpect<T, R> =
     ExpectImpl.feature.manualFeature(this, ASSERT) { newSubject }.getExpectOfFeature()
