@@ -20,7 +20,7 @@ kotlin {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation('ch.tutteli.atrium:atrium-fluent-en_GB-common:0.9.0')
+                implementation('ch.tutteli.atrium:atrium-fluent-en_GB-common:0.9.1')
             }
         }
         jvmTest {
@@ -28,13 +28,13 @@ kotlin {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
                 implementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB:0.9.0")
+                implementation("ch.tutteli.atrium:atrium-fluent-en_GB:0.9.1")
             }
         }
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:0.9.0")
+                implementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:0.9.1")
             }
         }
     }
