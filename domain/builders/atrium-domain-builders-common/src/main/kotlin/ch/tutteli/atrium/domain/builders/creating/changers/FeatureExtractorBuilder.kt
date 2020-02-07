@@ -239,31 +239,27 @@ interface FeatureExtractorBuilder {
         fun withDescription(description: Translatable)
 
         /**
-         * Wraps the given [representation] into a [RawString] and uses it as representation of the subject
-         * instead of the so far defined representation (which defaults to the subject as such).
-         */
-        @Suppress("PublicApiImplicitType" /* fine withSubjectBasedRepresentation defines it */)
-        fun withTextRepresentation(representation: String) = withRepresentation(RawString.create(representation))
-
-        /**
-         * Uses the given [representation] as representation of the subject in case the is defined instead of
-         * the so far defined representation (which defaults to the subject as such).
+         * Wraps the given [textRepresentation] into a [RawString] and uses it as representation of the subject
+         * instead of the representation that has been defined so far (which defaults to the subject itself).
          *
-         * Notice, if you want to use text (e.g. a [String]) as representation,
-         * then use [withTextRepresentation] instead.
+         * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
          */
-        @Suppress("PublicApiImplicitType" /* fine withSubjectBasedRepresentation defines it */)
-        fun withRepresentation(representation: Any) = withSubjectBasedRepresentation { representation }
-
+        fun withRepresentation(textRepresentation: String): Unit =
+            withRepresentation { RawString.create(textRepresentation) }
 
         /**
-         * Uses the given [representationProvider] which provides the representation for a given subject wrapped in
-         * [Option] instead of the so far defined representation (which defaults to the subject as such).
+         * Uses the given [representationProvider] to retrieve a representation which can be based on the current
+         * subject where this provided representation is used as new representation of the subject
+         * instead of the representation that has been defined so far (which defaults to the subject itself).
          *
          * Notice, if you want to use text (e.g. a [String]) as representation,
          * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         * If your text does not include the current subject, then we recommend to use the other overload which expects
+         * a `String` and does the wrapping for you.
+         *
+         * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
          */
-        fun withSubjectBasedRepresentation(representationProvider: (R) -> Any)
+        fun withRepresentation(representationProvider: (R) -> Any)
 
         companion object {
             fun <R> createAndBuild(configuration: OptionsChooser<R>.() -> Unit): FeatureOptions<R> =

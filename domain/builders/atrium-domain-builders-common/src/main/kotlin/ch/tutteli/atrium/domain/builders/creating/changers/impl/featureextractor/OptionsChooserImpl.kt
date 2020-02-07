@@ -12,7 +12,7 @@ class OptionsChooserImpl<R> : FeatureExtractorBuilder.OptionsChooser<R> {
         this.description = description
     }
 
-    override fun withSubjectBasedRepresentation(representationProvider: (R) -> Any) {
+    override fun withRepresentation(representationProvider: (R) -> Any) {
         this.representationInsteadOfFeature = representationProvider
     }
 

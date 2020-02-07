@@ -53,7 +53,6 @@ abstract class IterableAllAssertionsSpec(
 
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
-                println("////////////////////////")
                 expect {
                     fluentEmpty.allFun { isLessThan(1.0) }
                 }.toThrow<AssertionError> {
