@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.10.0-SNAPSHOT'
+    rootProject.version = '0.9.2'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -519,45 +519,51 @@ configure(subprojects - getJsProjects()) { subproject ->
 }
 
 /*
-
 Release & deploy a commit
 --------------------------------
-1. change rootProject.version in build.gradle to X.Y.Z
-2. update master:
-    a) point to the tag
-        1) search for old version and replace with new, except for samples (gradle, maven and section own assertion verb in README.md)
-        2) adjust branch=master manually, use tag=vX.Y.Z except for travis where you need to use branch=vX.Y.Z
-        3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
-        4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
-        5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
-    b) Update README -> Use own Assertion Verbs -> link to atriumVerbs if it changed
-    c) commit & push (modified build.gradle, README.md and differences.md)
-3. update github pages:
+1. update master:
+    a) change rootProject.version in build.gradle and in example-pom.xml to X.Y.Z
+    b) search for old version in README.md and replace with new
+    c) search for `tree/master` in all .md files and replace it with `tree/vX.Y.Z`
+    d) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
+    e) use the release badges in README (comment out the ones for master and uncomment the ones for the release)
+    f) comment out the warning in README.md about taking a sneak peak
+    g) commit & push (modified build.gradle, README.md, differences.md and example-pom.xml)
+
+2. update github pages:
+assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
     a) gr ghPages
     b) change version number in atrium-gh-pages/latest/index.html
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
-4. deploy to bintray:
+
+3. deploy to bintray:
     // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
     a) java -version 2>&1 | grep "version \"11" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check that there are 926 artifacts and publish them
     c) synchronise to maven central
-5. create release on github
+
+4. create release on github
     a) git tag vX.Y.Z
     b) git push origin vX.Y.Z
     c) Log in to github and create release
 
 Prepare next dev cycle
 -----------------------
-1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
-2. point to master
-   a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
-   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
-3. update README
-   a) place the warning about taking a sneak peek back into README
-   b) update version in the warning to X.Y.Z and update the link as well
-4. Use new version in samples (search again for the old-version and replace with new)
-5. commit & push changes
-6. establish backward compatibility tests for the previous version
+1. update samples
+   a) use newly released version in samples (search again for the old-version and replace with new)
+   b) commit & push changes
+
+2. update master:
+   a) search for `tree/vX.Y.Z` and replace it with `tree/master`
+   b) search for `X.Y.Z/doc` and replace with `latest#/doc`
+   c) use the master badges in README (uncomment them in README and comment out release badges)
+   d) uncomment the warning about taking a sneak peek in README
+   e) update version in the warning to X.Y.Z and update the link as well
+   f) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
+   g) commit & push changes
+
+3. establish backward compatibility tests for the previous version
+   a) add new version at the end of atrium-bc-test/build.gradle
+   b) commit & push changes
 */
