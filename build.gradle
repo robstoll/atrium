@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.9.2'
+    rootProject.version = '0.10.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -555,11 +555,11 @@ Prepare next dev cycle
    b) commit & push changes
 
 2. update master:
-   a) search for `tree/vX.Y.Z` and replace it with `tree/master`
-   b) search for `X.Y.Z/doc` and replace with `latest#/doc`
+   a) search for `tree/vX.Y.Z` in all .md files and replace it with `tree/master`
+   b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
    c) use the master badges in README (uncomment them in README and comment out release badges)
    d) uncomment the warning about taking a sneak peek in README
-   e) update version in the warning to X.Y.Z and update the link as well
+   e) update version in the warning to X.Y.Z and update the link as well (if not already correct)
    f) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
    g) commit & push changes
 
