@@ -10,31 +10,31 @@ version '0.0.1'
 apply plugin: 'maven-publish'
 
 kotlin {
+    def atrium_version = '0.9.2'
     jvm()
     js {
-        nodejs {
-        }
+        nodejs {}
     }
     sourceSets {
         commonTest {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation('ch.tutteli.atrium:atrium-fluent-en_GB-common:0.9.1')
+                implementation 'ch.tutteli.atrium:atrium-fluent-en_GB-common:$atrium_version'
             }
         }
         jvmTest {
             dependencies {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
-                implementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB:0.9.1")
+                implementation "org.junit.jupiter:junit-jupiter-api:5.3.1"
+                implementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
             }
         }
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:0.9.1")
+                implementation "ch.tutteli.atrium:atrium-fluent-en_GB-js:$atrium_version"
             }
         }
     }
