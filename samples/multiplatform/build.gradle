@@ -20,7 +20,7 @@ kotlin {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation 'ch.tutteli.atrium:atrium-fluent-en_GB-common:$atrium_version'
+                implementation "ch.tutteli.atrium:atrium-fluent-en_GB-common:$atrium_version"
             }
         }
         jvmTest {
