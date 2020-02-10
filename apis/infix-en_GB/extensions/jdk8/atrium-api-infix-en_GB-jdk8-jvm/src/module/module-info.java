@@ -5,5 +5,5 @@ module ch.tutteli.atrium.api.infix.en_GB.jdk8 {
     requires kotlin.stdlib;
     requires java.base;
 
-//    exports ch.tutteli.atrium.api.infix.en_GB.jdk8;
+    exports ch.tutteli.atrium.api.infix.en_GB.jdk8;
 }
