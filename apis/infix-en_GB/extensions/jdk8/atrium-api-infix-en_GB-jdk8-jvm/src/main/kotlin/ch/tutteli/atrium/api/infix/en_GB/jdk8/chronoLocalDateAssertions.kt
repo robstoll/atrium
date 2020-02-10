@@ -14,7 +14,7 @@ import java.time.chrono.ChronoLocalDate
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.9.0
+ * @since 0.10.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBefore(this, expected))
@@ -26,7 +26,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): E
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.9.0
+ * @since 0.10.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBeforeOrEquals(this, expected))
@@ -39,7 +39,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalD
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.9.0
+ * @since 0.10.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isAfter(this, expected))
@@ -51,7 +51,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Ex
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.9.0
+ * @since 0.10.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isAfterOrEquals(this, expected))
@@ -63,7 +63,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDa
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.9.0
+ * @since 0.10.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isEqual(this, expected))
