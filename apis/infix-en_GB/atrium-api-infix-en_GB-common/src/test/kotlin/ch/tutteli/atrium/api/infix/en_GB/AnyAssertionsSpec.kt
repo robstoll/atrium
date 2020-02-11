@@ -76,12 +76,12 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1b notToBeNull {}
 
         a1 and o toBe 1
-        a1 and { o toBe 1 }
+        a1 and { it toBe 1 }
     }
 
     //regression for #298, should compile without the need for E : Any or List<E?>
     @Suppress("unused")
-    fun <E> Expect<List<E>>.firstIs(value: E) = o get Index(0) assertIt { o toBe value }
+    fun <E> Expect<List<E>>.firstIs(value: E) = it get Index(0) assertIt { it toBe value }
 }
 
 private fun toBeNull(expect: Expect<Int?>) = expect toBe null
@@ -115,7 +115,7 @@ private fun isASubType(expect: Expect<*>, assertionCreator: Expect<AnyAssertions
     isA(expect, assertionCreator)
 
 private fun isAIntLess(expect: Expect<Number>, number: Int) =
-    expect.isA<Int> { o isLessThan number }
+    expect.isA<Int> { it isLessThan number }
 
 private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
     expect notToBeNull assertionCreator
@@ -125,6 +125,6 @@ private fun notToBeNullLess(expect: Expect<Int?>, number: Int) =
 
 private fun notToBeNullGreaterAndLess(expect: Expect<Int?>, lowerBound: Int, upperBound: Int) =
     expect.notToBeNull {
-        o isGreaterThan lowerBound
-        o isLessThan upperBound
+        it isGreaterThan lowerBound
+        it isLessThan upperBound
     }
