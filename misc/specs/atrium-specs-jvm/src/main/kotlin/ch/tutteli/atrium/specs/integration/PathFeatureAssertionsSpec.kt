@@ -16,6 +16,8 @@ import java.nio.file.Paths
 abstract class PathFeatureAssertionsSpec(
     parentFeature: Feature0<Path, Path>,
     parent: Fun1<Path, Expect<Path>.() -> Unit>,
+    resolveFeature: Feature1<Path, String, Path>,
+    resolve: Fun2<Path, String, Expect<Path>.() -> Unit>,
     fileNameFeature: Feature0<Path, String>,
     fileName: Fun1<Path, Expect<String>.() -> Unit>,
     fileNameWithoutExtensionFeature: Feature0<Path, String>,
@@ -30,6 +32,8 @@ abstract class PathFeatureAssertionsSpec(
     include(object : SubjectLessSpec<Path>(describePrefix,
         parentFeature.forSubjectLess().adjustName { "$it feature" },
         parent.forSubjectLess { },
+        resolveFeature.forSubjectLess("test").adjustName { "$it feature" },
+        resolve.forSubjectLess("test") { toBe(Paths.get("a/my.txt")) },
         fileNameFeature.forSubjectLess().adjustName { "$it feature" },
         fileName.forSubjectLess { },
         fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
@@ -104,6 +108,49 @@ abstract class PathFeatureAssertionsSpec(
             }
         }
     }
+
+    describeFun("val ${resolveFeature.name}") {
+        val resolveVal = resolveFeature.lambda
+
+        context("Folder resolved from root") {
+            it("toBe(folder.resolve) holds") {
+                val resolvedFolder = tempFolder.newDirectory("resolve")
+                val rootFolder = resolvedFolder.parent
+                expect(rootFolder).resolveVal("resolve").toBe(resolvedFolder)
+            }
+            it("toBe(folder) fails") {
+                expect {
+                    val resolvedFolder = tempFolder.newDirectory("resolve")
+                    val rootFolder = resolvedFolder.parent
+                    expect(rootFolder).resolveVal("notResolved").toBe(resolvedFolder)
+                }.toThrow<AssertionError> {
+                    messageContains("notResolved")
+                }
+            }
+        }
+    }
+
+    describeFun("fun ${resolve.name}") {
+        val resolveFun = resolve.lambda
+
+        context("Folder resolved from root") {
+            it("toBe(folder.resolve) holds") {
+                val resolvedFolder = tempFolder.newDirectory("resolve")
+                val rootFolder = resolvedFolder.parent
+                expect(rootFolder).resolveFun("resolve") { toBe(resolvedFolder) }
+            }
+            it("toBe(folder) fails") {
+                expect {
+                    val resolvedFolder = tempFolder.newDirectory("resolve")
+                    val rootFolder = resolvedFolder.parent
+                    expect(rootFolder).resolveFun("notResolved"){ toBe(resolvedFolder) }
+                }.toThrow<AssertionError> {
+                    messageContains("notResolved")
+                }
+            }
+        }
+    }
+
 
     describeFun("val ${fileNameFeature.name}") {
         val fileNameVal = fileNameFeature.lambda

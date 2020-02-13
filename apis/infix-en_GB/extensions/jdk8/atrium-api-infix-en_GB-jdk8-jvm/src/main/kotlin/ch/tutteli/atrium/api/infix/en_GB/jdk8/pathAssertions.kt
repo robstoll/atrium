@@ -158,6 +158,17 @@ val <T : Path> Expect<T>.parent: Expect<Path>
 infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
 
+/**
+ * Expects that [other] resolve against this [Path] and creates an [Expect] for the resolved [Path]
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect].
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.10.0
+ */
+infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
+    ExpectImpl.path.resolve(this, other).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Path]) is readable;

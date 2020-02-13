@@ -48,6 +48,9 @@ object PathAssertionsBuilder : PathAssertions {
     override inline fun <T : Path> parent(expect: Expect<T>) =
         pathAssertions.parent(expect)
 
+    override inline fun <T : Path> resolve(expect: Expect<T>, other: String) =
+        pathAssertions.resolve<T>(expect, other)
+
     override inline fun <T : Path> isReadable(expect: Expect<T>) =
         pathAssertions.isReadable(expect)
 
