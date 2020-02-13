@@ -17,8 +17,9 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @since 0.9.0
  */
-fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: ChronoZonedDateTime<*>): Expect<T> =
-    addAssertion(ExpectImpl.chronoZonedDateTime.isBefore(this, expected))
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
+    expected: ChronoZonedDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isBefore(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -29,8 +30,9 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: 
  *
  * @since 0.9.0
  */
-fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(expected: ChronoZonedDateTime<*>): Expect<T> =
-    addAssertion(ExpectImpl.chronoZonedDateTime.isBeforeOrEqual(this, expected))
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
+    expected: ChronoZonedDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isBeforeOrEqual(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -41,8 +43,9 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(exp
  *
  * @since 0.9.0
  */
-fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(expected: ChronoZonedDateTime<*>): Expect<T> =
-    addAssertion(ExpectImpl.chronoZonedDateTime.isAfter(this, expected))
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
+    expected: ChronoZonedDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isAfter(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -53,8 +56,9 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(expected: C
  *
  * @since 0.9.0
  */
-fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(expected: ChronoZonedDateTime<*>): Expect<T> =
-    addAssertion(ExpectImpl.chronoZonedDateTime.isAfterOrEqual(this, expected))
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
+    expected: ChronoZonedDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isAfterOrEqual(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -65,5 +69,6 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(expe
  *
  * @since 0.9.0
  */
-fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(expected: ChronoZonedDateTime<*>): Expect<T> =
-    addAssertion(ExpectImpl.chronoZonedDateTime.isEqual(this, expected))
+fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
+    expected: ChronoZonedDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isEqual(this, expected))
