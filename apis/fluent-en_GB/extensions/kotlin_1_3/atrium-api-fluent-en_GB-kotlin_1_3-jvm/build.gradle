@@ -12,6 +12,8 @@ dependencies {
     api prefixedProject('api-fluent-en_GB-jvm')
     api prefixedProject('domain-builders-kotlin_1_3-jvm')
 
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+
     testImplementation prefixedProject('specs-jvm')
 }
 
