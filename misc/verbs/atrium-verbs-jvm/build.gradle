@@ -4,10 +4,21 @@ dependencies {
     api prefixedProject('domain-builders-jvm')
     api prefixedProject('core-api-jvm')
 
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+
+
     testImplementation prefixedProject('specs-jvm')
     testRuntime prefixedProject('domain-robstoll-jvm')
     testRuntime prefixedProject('core-robstoll-jvm')
 
     //TODO remove with 1.0.0
     testImplementation prefixedProject('spec')
+}
+
+
+compileKotlin {
+    kotlinOptions {
+        apiVersion = "1.3"
+        languageVersion = "1.3"
+    }
 }
