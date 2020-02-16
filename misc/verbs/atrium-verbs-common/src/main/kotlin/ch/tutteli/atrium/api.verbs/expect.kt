@@ -1,3 +1,5 @@
+@file:JvmMultifileClass
+@file:JvmName("ExpectKt")
 package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
@@ -7,6 +9,8 @@ import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Creates an [Expect] for the given [subject].

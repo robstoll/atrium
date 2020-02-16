@@ -1,7 +1,9 @@
 package custom
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -22,7 +24,27 @@ object SmokeSpec : Spek({
     test("see if own assertion function with i18n can be used") {
         assertThat(4).isMultipleOf(2)
     }
+
+    test("try out toThrow for normal function and suspend function") {
+        expect {
+            bar()
+        }.toThrow<IllegalStateException>()
+
+        expect {
+            foo()
+        }.toThrow<IllegalStateException>()
+    }
 })
+
+
+suspend fun foo() {
+    throw IllegalStateException("asdf")
+}
+
+fun bar() {
+    throw IllegalStateException("asdf")
+}
+
 
 @Suppress("DEPRECATION")
 fun Expect<Int>.isEven() =
