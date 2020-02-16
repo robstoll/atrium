@@ -1,3 +1,4 @@
+@file:JvmName("CorountineExpect")
 package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.creating.RootExpect

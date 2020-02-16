@@ -8,6 +8,7 @@ dependencies {
 
 
     testImplementation prefixedProject('specs-jvm')
+    testImplementation prefixedProject('api-fluent-en_GB-jvm')
     testRuntime prefixedProject('domain-robstoll-jvm')
     testRuntime prefixedProject('core-robstoll-jvm')
 
