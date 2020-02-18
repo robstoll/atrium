@@ -159,7 +159,7 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
 
 /**
- * Expects that [other] resolve against this [Path] and creates an [Expect] for the resolved [Path]
+ * Expects that [other] resolves against this [Path] and creates an [Expect] for the resolved [Path]
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].

@@ -157,7 +157,7 @@ fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expe
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
 
 /**
- * Expects that [other] resolve against this [Path] and creates an [Expect] for the resolved [Path]
+ * Expects that [other] resolves against this [Path] and creates an [Expect] for the resolved [Path]
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect].
@@ -169,7 +169,7 @@ fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     ExpectImpl.path.resolve(this, other).getExpectOfFeature()
 
 /**
- * Expect that [other] resolve against this [Path] and that the resolved [Path] holds all assertions the
+ * Expects that [other] resolves against this [Path] and that the resolved [Path] holds all assertions the
  * given [assertionCreator] creates for it and returns this assertion container.
  *
  * @return This assertion container to support a fluent API.
