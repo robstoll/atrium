@@ -261,8 +261,10 @@ configure(apiProjects) { apiProject ->
 }
 
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
+//TODO new infix API: remove once we are ready to publish the new API
+def newInfixApiModules = subprojects.findAll { it.name.contains('-api-infix') }
 
-configure(subprojects - bundleSmokeTests - sampleProjects - toolProjects) { subproject ->
+configure(subprojects - bundleSmokeTests - sampleProjects - toolProjects - newInfixApiModules) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {
