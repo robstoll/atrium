@@ -24,6 +24,7 @@ interface PathAssertions {
     fun <T : Path> extension(expect: Expect<T>): ExtractedFeaturePostStep<T, String>
     fun <T : Path> fileNameWithoutExtension(expect: Expect<T>): ExtractedFeaturePostStep<T, String>
     fun <T : Path> parent(expect: Expect<T>): ExtractedFeaturePostStep<T, Path>
+    fun <T : Path> resolve(expect: Expect<T>, other: String): ExtractedFeaturePostStep<T, Path>
 
     fun <T : Path> startsWith(expect: Expect<T>, expected: Path): Assertion
     fun <T : Path> startsNotWith(expect: Expect<T>, expected: Path): Assertion
@@ -37,4 +38,5 @@ interface PathAssertions {
     fun <T : Path> isWritable(expect: Expect<T>): Assertion
     fun <T : Path> isRegularFile(expect: Expect<T>): Assertion
     fun <T : Path> isDirectory(expect: Expect<T>): Assertion
+
 }
