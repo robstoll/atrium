@@ -10,6 +10,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -17,6 +18,10 @@ abstract class ThrowableAssertionsSpec(
     messageFeature: Feature0<Throwable, String>,
     message: Fun1<Throwable, Expect<String>.() -> Unit>,
     messageContains: Fun2<Throwable, Any, Array<out Any>>,
+
+    causeFeature: Feature0<Throwable, IllegalArgumentException>,
+    cause: Feature1<Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
+
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -144,6 +149,7 @@ abstract class ThrowableAssertionsSpec(
             it("${messageContains.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
             }
+
         }
 
         it("${messageContains.name} - throws an IllegalArgumentException if an object is passed") {
@@ -152,5 +158,63 @@ abstract class ThrowableAssertionsSpec(
                 expect(throwable).messageContainsFun(Pair(1, 2), arrayOf())
             }.toThrow<IllegalArgumentException>()
         }
+    }
+
+    describeFun(causeFeature, cause) {
+        val causeFunctions = unifySignatures(causeFeature, cause)
+
+        context("Throwable.cause is not null") {
+            val cause = IllegalArgumentException("Hello from the Cause")
+            val throwable: Throwable =
+                RuntimeException("Outer exception message", cause)
+
+            causeFunctions.forEach { (name, causeFun) ->
+                it("$name - does not throw if the assertion holds") {
+                    expect(throwable).causeFun() { toBe(cause) }
+                    expect(throwable).cause<IllegalArgumentException> {
+                        messageContains("Cause")
+                        feature(Throwable::cause).toBe(null)
+                    }
+                }
+                it("$name - throws an AssertionError") {
+                    expect {
+                        expect(throwable).causeFun() { messageContains("WRONG message") }
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
+                            VALUE.getDefault() + ": \"WRONG message\""
+                        )
+                    }
+                }
+
+                // to manage users' expectations and demonstrate the flaw caused by KT-27826, and also present in the "asA"
+                it("$name (as KT-27826 is not fixed) - doesn't throws if incorrect type is expected") {
+                    val throwableWithDifferentCauseType: Throwable =
+                        RuntimeException(
+                            "Outer exception message",
+                            NumberFormatException("Cause exception: NUMBER FORMAT")
+                        )
+                    expect(throwableWithDifferentCauseType).causeFun() { messageContains("Cause exception") }
+                }
+            }
+
+        }
+
+        context("Throwable.cause is null") {
+            val throwable: Throwable = RuntimeException("Outer exception message")
+            causeFunctions.forEach { (name, causeFun) ->
+                it("$name - throws an AssertionError") {
+                    expect {
+                        expect(throwable).causeFun() { messageContains("Hello") }
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault(),
+                            IllegalArgumentException::class.fullName
+                        )
+                    }
+                }
+            }
+        }
+
     }
 })

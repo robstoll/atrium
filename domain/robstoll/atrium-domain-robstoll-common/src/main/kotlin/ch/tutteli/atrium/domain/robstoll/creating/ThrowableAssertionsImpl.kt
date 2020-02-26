@@ -1,11 +1,22 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ThrowableAssertions
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.robstoll.lib.creating._cause
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
+import kotlin.reflect.KClass
 
 //TODO remove with 1.0.0 if there aren't any non-deprecated functions added
 class ThrowableAssertionsImpl : ThrowableAssertions {
+
+    override fun <TExpected : Throwable> cause(
+        expect: Expect<Throwable>,
+        expectedType: KClass<TExpected>
+    ): ChangedSubjectPostStep<*, TExpected> =
+        _cause(expect, expectedType)
+
 
     @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     override fun thrownBuilder(

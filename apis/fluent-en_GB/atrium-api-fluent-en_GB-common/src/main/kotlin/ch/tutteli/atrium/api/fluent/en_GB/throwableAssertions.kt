@@ -38,3 +38,20 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  */
 fun <T : Throwable> Expect<T>.messageContains(expected: Any, vararg otherExpected: Any): Expect<T> =
     message { contains(expected, *otherExpected) }
+
+
+/**
+ * @since 0.10.0
+ */
+@Suppress("RemoveExplicitTypeArguments")
+inline fun <reified TExpected : Throwable> Expect<Throwable>.cause(): Expect<TExpected> =
+    feature(Throwable::cause).isA<TExpected>()
+
+/**
+ * @since 0.10.0
+ */
+@Suppress("RemoveExplicitTypeArguments")
+inline fun <reified TExpected : Throwable> Expect<Throwable>.cause(
+    noinline assertionCreator: Expect<TExpected>.() -> Unit
+): Expect<TExpected> =
+    feature(Throwable::cause).isA<TExpected>(assertionCreator)

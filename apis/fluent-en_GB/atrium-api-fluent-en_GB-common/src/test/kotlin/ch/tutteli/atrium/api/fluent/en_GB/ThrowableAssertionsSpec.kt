@@ -9,8 +9,20 @@ import ch.tutteli.atrium.specs.property
 class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
-    fun2(Expect<Throwable>::messageContains)
+    fun2(Expect<Throwable>::messageContains),
+    "cause" to Companion::causeFeature,
+    "cause" to Companion::cause
 ) {
+
+    companion object {
+
+        @Suppress("RemoveExplicitTypeArguments")
+        private fun causeFeature(expect: Expect<Throwable>): Expect<IllegalArgumentException> = expect.cause<IllegalArgumentException>()
+
+        @Suppress("RemoveExplicitTypeArguments")
+        private fun cause(expect: Expect<Throwable>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
+            expect.cause<IllegalArgumentException>(assertionCreator)
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
