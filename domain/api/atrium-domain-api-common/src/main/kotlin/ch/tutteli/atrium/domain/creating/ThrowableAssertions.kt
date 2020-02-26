@@ -1,9 +1,12 @@
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
+import kotlin.reflect.KClass
 
 /**
  * The access point to an implementation of [ThrowableAssertions].
@@ -18,6 +21,11 @@ val throwableAssertions by lazy { loadSingleService(ThrowableAssertions::class) 
  */
 //TODO remove with 1.0.0 if there aren't any non-deprecated functions added
 interface ThrowableAssertions {
+
+    fun <TExpected : Throwable> cause(
+        expect: Expect<out Throwable>,
+        expectedType: KClass<TExpected>
+    ): ChangedSubjectPostStep<Throwable?, TExpected>
 
     /**
      * Turns the given [assertionVerb] into an [Untranslatable] and delegates to the other overload.
