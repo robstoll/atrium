@@ -21,7 +21,7 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
  * The transformation as such is not reflected in reporting.
  * Use `feature(Sequence::asIterable, assertionCreator)` if you want to show the transformation in reporting.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
     apply { asIterable().addAssertionsCreatedBy(assertionCreator) }

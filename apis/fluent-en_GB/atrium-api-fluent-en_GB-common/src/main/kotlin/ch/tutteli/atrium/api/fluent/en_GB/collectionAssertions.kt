@@ -6,7 +6,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.collection.isEmpty(this))
@@ -14,7 +14,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.collection
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.collection.isNotEmpty(this))
@@ -24,7 +24,7 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.collect
  *
  * Shortcut for `expected.toBe(expectedSize)`.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(expected) }
@@ -40,9 +40,9 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =

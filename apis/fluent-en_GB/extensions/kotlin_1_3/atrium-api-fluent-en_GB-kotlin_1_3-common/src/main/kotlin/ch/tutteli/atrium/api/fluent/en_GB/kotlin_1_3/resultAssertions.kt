@@ -19,7 +19,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSu
  * Expects that the subject of the assertion (a [Result]) is a Success and
  * that it holds all assertions the given [assertionCreator] creates.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
  * @since 0.9.0

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.Reporter
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
@@ -16,7 +16,7 @@ fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, exp
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(this, expected))
@@ -24,7 +24,7 @@ fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(thi
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(this, expected))
@@ -32,7 +32,7 @@ fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(thi
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSame(this, expected))
@@ -47,7 +47,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSa
  * else notToBeNull(assertionCreatorOrNull)
  * ```
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
@@ -152,7 +152,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<
  * asserts that 1 is greater than 0. If the first assertion fails, then usually (depending on the configured
  * [AssertionChecker]) the second assertion is not evaluated.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  */
 inline val <T> Expect<T>.and: Expect<T> get() = this
 
@@ -164,6 +164,6 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)

@@ -37,7 +37,7 @@ interface Expect<T> : SubjectProvider<T> {
      *
      * @param assertionCreator The receiver function which should create and add assertions to this container.
      *
-     * @return This assertion container to support a fluent API.
+     * @return This [Expect] to support a fluent API.
      * @throws AssertionError Might throw an [AssertionError] depending on the concrete implementation.
      */
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
@@ -47,7 +47,7 @@ interface Expect<T> : SubjectProvider<T> {
      *
      * @param assertion The assertion which will be added to this container.
      *
-     * @return This assertion container to support a fluent API.
+     * @return This [Expect] to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
@@ -63,7 +63,7 @@ interface Expect<T> : SubjectProvider<T> {
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
-     * @return This assertion container to support a fluent API.
+     * @return This [Expect] to support a fluent API.
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */
@@ -78,7 +78,7 @@ interface Expect<T> : SubjectProvider<T> {
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
-     * @return This assertion container to support a fluent API.
+     * @return This [Expect] to support a fluent API.
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *   evaluated (see [ReportingAssertionContainer]).
      */

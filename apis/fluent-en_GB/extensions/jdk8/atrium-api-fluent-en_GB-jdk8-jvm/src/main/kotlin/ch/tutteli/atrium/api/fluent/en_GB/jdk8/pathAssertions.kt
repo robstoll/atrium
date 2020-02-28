@@ -10,7 +10,7 @@ import java.nio.file.Path
 /**
  * Expects that the subject of the assertion (a [Path]) starts with the [expected] [Path].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -21,7 +21,7 @@ fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
 /**
  * Expects that the subject of the assertion (a [Path]) does not start with the [expected] [Path].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -32,7 +32,7 @@ fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
 /**
  * Expects that the subject of the assertion (a [Path]) ends with the expected [Path].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -44,7 +44,7 @@ fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) does not end with the expected [Path];
  *
  * @param expected The [Path] provided to the assertion
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -59,7 +59,7 @@ fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  * This matcher _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
  * then the search will continue at that location.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -73,7 +73,7 @@ fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exis
  * This matcher _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
  * then the search will continue at that location.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -95,9 +95,9 @@ val <T : Path> Expect<T>.fileName: Expect<String>
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -122,9 +122,9 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
  * (provided via [niok](https://github.com/robstoll/niok))
  * of the subject of the assertion holds all assertions the given [assertionCreator] creates for it
- * and returns this assertion container.
+ * and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -146,9 +146,9 @@ val <T : Path> Expect<T>.parent: Expect<Path>
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and that the parent holds all assertions the
- * given [assertionCreator] creates for it and returns this assertion container.
+ * given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -170,9 +170,9 @@ fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
 
 /**
  * Expects that [other] resolves against this [Path] and that the resolved [Path] holds all assertions the
- * given [assertionCreator] creates for it and returns this assertion container.
+ * given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
@@ -193,7 +193,7 @@ fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.(
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -209,7 +209,7 @@ fun <T : Path> Expect<T>.isReadable(): Expect<T> = addAssertion(ExpectImpl.path.
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -228,7 +228,7 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -247,7 +247,7 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.pa
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -269,9 +269,9 @@ val <T : Path> Expect<T>.extension: Expect<String>
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return This [Expect] to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
