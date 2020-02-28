@@ -178,6 +178,9 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
 infix fun <T> Expect<T>.it(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     addAssertionsCreatedBy(assertionCreator)
 
+infix operator fun <T, R> FeatureExpect<T, R>.invoke(assertionCreator: Expect<R>.() -> Unit): Expect<R> =
+    addAssertionsCreatedBy(assertionCreator)
+
 /**
  * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
  *

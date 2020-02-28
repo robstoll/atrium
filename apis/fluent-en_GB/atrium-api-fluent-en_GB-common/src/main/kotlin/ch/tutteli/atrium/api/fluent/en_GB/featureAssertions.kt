@@ -38,11 +38,11 @@ fun <T, R> Expect<T>.feature(
 
 
 /**
- * Extracts the value which is returned when calling [f] on the current subject of the assertion,
+ * Extracts the value which is returned when calling the method [f] on the current subject of the assertion,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return An [Expect] for the return value of calling the method  [f] on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -50,7 +50,7 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.f0(this, f).getExpectOfFeature()
 
 /**
- * Extracts the value which is returned when calling [f] on the current subject of the assertion,
+ * Extracts the value which is returned when calling the method [f] on the current subject of the assertion,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.

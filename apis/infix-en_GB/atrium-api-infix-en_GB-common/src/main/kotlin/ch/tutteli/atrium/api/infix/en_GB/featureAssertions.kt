@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureStep
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
@@ -8,7 +7,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import kotlin.reflect.*
-
 
 /**
  * Extracts the [property] out of the current subject of the assertion,
@@ -22,42 +20,37 @@ import kotlin.reflect.*
 infix fun <T, R> Expect<T>.feature(property: KProperty1<T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.property(this, property).getExpectOfFeature()
 
-//infix fun <T, R> Expect<T>.feature(property: P<T, R>): FeatureExpect<T, R> =
-//    ExpectImpl.feature.property(this, property.property).getExpectOfFeature()
-
 /**
- * Extracts the property defined by [withAssertionCreator].[value][WithAssertionCreator.value]
- * out of the current subject of the assertion,
- * creates a new [Expect] for it,
- * applies an assertion group based on the given [WithAssertionCreator.assertionCreator] for the feature and
- * returns the initial [Expect] with the current subject.
- *
- * @return The current [Expect].
- * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
- *
- * @since 0.10.0
- */
-infix fun <T, R> Expect<T>.feature(withAssertionCreator: WithAssertionCreator<KProperty1<T, R>, R>): Expect<T> =
-    ExpectImpl.feature.property(this, withAssertionCreator.value).addToInitial(withAssertionCreator.assertionCreator)
-
-/**
- * Extracts the value which is returned when calling [f] on the current subject of the assertion,
+ * Extracts the value which is returned when calling the method [f] on the current subject of the assertion,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * Use `feature of(...)` in case the method requires parameters or in case you want to define
+ * an assertion group block for it.
+ *
+ * @return An [Expect] for the return value of calling the method [f] on the current subject of the assertion.
  *
  * @since 0.10.0
  */
 infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.f0(this, f).getExpectOfFeature()
 
+/**
+ * Extracts a feature out of the current subject of the assertion using the given [Feature.extractor],
+ * creates a new [Expect] for it and
+ * returns it so that subsequent calls are based on the feature.
+ *
+ * @return An [Expect] for the new extracted feature.
+ *
+ * @since 0.10.0
+ */
+infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
+    ExpectImpl.feature.manualFeature(this, of.description, of.extractor).getExpectOfFeature()
 
 /**
- * Extracts the property defined by [withAssertionCreator].[value][WithAssertionCreator.value]
- * out of the current subject of the assertion,
+ * Extracts a feature out of the current subject of the assertion using the given [FeatureWithCreator.extractor],
  * creates a new [Expect] for it,
- * applies an assertion group based on the given [WithAssertionCreator.assertionCreator] for the feature and
+ * applies an assertion group based on the given [FeatureWithCreator.assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
  * @return The current [Expect].
@@ -65,74 +58,15 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  *
  * @since 0.10.0
  */
-infix fun <T, R> Expect<T>.feature(withAssertionCreator: WithAssertionCreator<KFunction1<T, R>, R>): Expect<T> =
-    ExpectImpl.feature.f0(this, withAssertionCreator.value).addToInitial(withAssertionCreator.assertionCreator)
-
-
-/**
- * Represents a [description] of a feature together with an [extractor] which extract the feature as such of type [R]
- * out of the subject of the assertion with type [T].
- *
- * Use one of the [withArgs] overload to create this representation.
- *
- * @property description The description of the feature.
- * @property extractor The extractor which extracts the feature out of the subject of the assertion.
- *
- * @since 0.10.0
- */
-data class DescriptionWithProvider<T, R>(val description: String, val extractor: (T) -> R)
-
-/**
- * Extracts a feature using the given [DescriptionWithProvider.extractor] out of the current subject of the assertion,
- * creates a new [Expect] for it and
- * returns it so that subsequent calls are based on the feature.
- *
- * @since 0.10.0
- */
-infix fun <T, R> Expect<T>.feature(withArgs: DescriptionWithProvider<T, R>): FeatureExpect<T, R> =
-//    FeatureStep(ExpectImpl.feature.manualFeature(this, withArgs.description, withArgs.extractor))
-    ExpectImpl.feature.manualFeature(this, withArgs.description, withArgs.extractor).getExpectOfFeature()
-
-///**
-// * Extracts a feature using the given [DescriptionWithProvider.extractor] out of the current subject of the assertion,
-// * creates a new [Expect] for it and
-// * returns it so that subsequent calls are based on the feature.
-// *
-// * @since 0.10.0
-// */
-//infix fun <T, R> Expect<T>.feature(withArgs: WithAssertionCreator<DescriptionWithProvider<T, R>, R>): Expect<T> =
-//    ExpectImpl.feature.manualFeature(
-//        this,
-//        withArgs.value.description,
-//        withArgs.value.extractor
-//    ).addToInitial(withArgs.assertionCreator)
-
-
-//@formatter:off
-fun <T, A1, R> withArgs(p: KFunction2<T, A1, R>, a1: A1): DescriptionWithProvider<T, R> =
-    DescriptionWithProvider(p.name) { p.invoke(it, a1) }
-
-fun <T, A1, R> withArgs(p: KFunction2<T, A1, R>, a1: A1, assertionCreator: Expect<R>.() -> Unit): DescriptionWithProvider<T, R> =
-    DescriptionWithProvider(p.name) { p.invoke(it, a1) }
-
-fun <T, A1, A2, R> withArgs(p: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): DescriptionWithProvider<T, R> =
-    DescriptionWithProvider(p.name) { p.invoke(it, a1, a2) }
-
-fun <T, A1, A2, A3, R> withArgs(p: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): DescriptionWithProvider<T, R> =
-    DescriptionWithProvider(p.name) { p.invoke(it, a1, a2, a3) }
-
-fun <T, A1, A2, A3, A4, R> withArgs(p: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): DescriptionWithProvider<T, R> =
-    DescriptionWithProvider(p.name) { p.invoke(it, a1, a2, a3, a4) }
-
-fun <T, A1, A2, A3, A4, A5, R> withArgs(p: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): DescriptionWithProvider<T, R> =
-    DescriptionWithProvider(p.name) { p.invoke(it, a1, a2, a3, a4, a5) }
-//@formatter:on
+infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<T, R>): Expect<T> =
+    ExpectImpl.feature.manualFeature(this, of.description, of.extractor).addToInitial(of.assertionCreator)
 
 
 /**
  * Extracts a feature out of the current subject of the assertion,
- * based on the given [provider] and
- * creates a [FeatureStep] which allows to define what should be done with it.
+ * based on the given [provider],
+ * creates a new [Expect] for it and
+ * returns it so that subsequent calls are based on the feature.
  *
  * @param provider Creates a [MetaFeature] where the subject of the assertion is available via
  *   implicit parameter `it`. Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
@@ -143,29 +77,50 @@ fun <T, A1, A2, A3, A4, A5, R> withArgs(p: KFunction6<T, A1, A2, A3, A4, A5, R>,
  * @since 0.10.0
  */
 infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
-//    FeatureStep(ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) })
     ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }.getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion,
- * based on the given [provider] and
- * creates a [FeatureStep] which allows to define what should be done with it.
+ * based on the given [MetaFeatureOptionWithCreator]
+ * creates a new [Expect] for it,
+ * applies an assertion group based on the given [MetaFeatureOptionWithCreator.assertionCreator] for the feature and
+ * returns the initial [Expect] with the current subject.
  *
- * @param provider Creates a [MetaFeature] where the subject of the assertion is available via
- *   implicit parameter `it`. Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
- *   e.g. `feature { f(it::size) }`
+ * Note that you need to enable the new type inference of Kotlin (or use Kotlin 1.4 and above) that Kotlin is able to
+ * infer the types. As workaround you can use the overload which expects `MetaFeatureOption<T>.(T) -> MetaFeature<R>`
+ * and use `it` after the call (import from the package workaround). For instance:
  *
- * @return An [Expect] for the extracted feature.
+ * ```
+ * // use
+ * expect(person) feature { f(it::age) } it { o toBe 20 }
+ *
+ * // instead of (which causes problems with Kotlin < 1.4)
+ * expect(person) feature of({ f(it::age) }) { o toBe 20 }
+ * ```
+ *
+ * @param of Use the function `of({ ... }) { ... }` to create the [MetaFeatureOptionWithCreator] where the first
+ *   argument is a lambda with a [MetaFeatureOption] as receiver which has to create a [MetaFeature]
+ *   where the subject of the assertion is available via implicit parameter `it`.
+ *   Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
+ *   e.g. `feature of({ f(it::size) }) { o toBe 3 }`
  *
  * @since 0.10.0
  */
-//infix fun <T, R> Expect<T>.feature(provider: WithAssertionCreator<MetaFeatureOption<T>.(T) -> MetaFeature<R>, R>): Expect<T> =
-//    ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).(provider.value)(it) }
-//        .addToInitial(provider.assertionCreator)
-
+infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expect<T> =
+    ExpectImpl.feature.genericSubjectBasedFeature(this) {
+        MetaFeatureOption(this).(of.option)(it)
+    }.addToInitial(of.assertionCreator)
 
 /**
  * Creates a [MetaFeature] using the given [provider] and [description].
+ *
+ * This can be used to create complex features with a custom description or as workaround where Kotlin is not able to
+ * infer the types properly.
+ *
+ * For instance:
+ * ```
+ * expect(person) feature { f("first underage child", it.children.first { it < 18 }) }
+ * ```
  *
  * @return The newly created [MetaFeature]
  */
@@ -174,66 +129,76 @@ fun <T, R> MetaFeatureOption<T>.f(description: String, provider: R): MetaFeature
     MetaFeature(description, provider)
 
 
-fun <T> notImplemented(): Expect<T> = TODO()
+//@formatter:off
+/**
+ * Helper function to create a [Feature] based on a [KProperty1].
+ */
+fun <T, R> of(property: KProperty1<T, R>): Feature<T, R> = TODO()
 
-data class Person(val name: String, val firstName: String, val age: Int) {
-    fun foo(int: Int) = "a"
-    fun bar() = "b"
-}
+/**
+ * Helper function to create a [Feature] based on a [KFunction1].
+ */
+fun <T, R> of(f: KFunction1<T, R>): Feature<T, R> = TODO()
 
-data class P<T, R>(val property: KProperty1<T, R>, val maybeAssertionCreator: (Expect<R>.() -> Unit)?) {
-    constructor(property: KProperty1<T, R>) : this(property, null)
-}
+/**
+ * Helper function to create a [Feature] based on a [KFunction2] + arguments.
+ */
+fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1): Feature<T, R> = TODO()
+
+/**
+ * Helper function to create a [Feature] based on a [KFunction3] + arguments.
+ */
+fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): Feature<T, R> = TODO()
+
+/**
+ * Helper function to create a [Feature] based on a [KFunction4] + arguments.
+ */
+fun <T, A1, A2, A3, R> of(f:  KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): Feature<T, R> = TODO()
+
+/**
+ * Helper function to create a [Feature] based on a [KFunction5] + arguments.
+ */
+fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): Feature<T, R> = TODO()
 
 
 
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KProperty1] + [assertionCreator].
+ */
+fun <T, R> of(property: KProperty1<T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> = TODO()
 
-@ExperimentalWithOptions
-fun test() {
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KFunction1] + [assertionCreator].
+ */
+fun <T, R> of(f: KFunction1<T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> = TODO()
 
-    val l: Expect<List<Int>> = notImplemented()
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KFunction2] + arguments + [assertionCreator].
+ */
+fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> = TODO()
 
-    val p: Expect<Pair<String, Int>> = notImplemented()
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KFunction3] + arguments + [assertionCreator].
+ */
+fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> = TODO()
 
-    l get 1 toBe 2
-    l get 1 { o toBe 1 } get 2 { o toBe 2 }
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KFunction4] + arguments + [assertionCreator].
+ */
+fun <T, A1, A2, A3, R> of(f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> = TODO()
+
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KFunction5] + arguments + [assertionCreator].
+ */
+fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> = TODO()
+//@formatter:on
 
 
-
-
-    p first o toBe "hello"
-    p second o toBe 1
-    p and {
-        first {
-            o feature String::length toBe 1
-        }
-        first withRepresentation "name" toBe "robert"
-        second toBe 1
-    }
-
-    val e: Expect<Person> = notImplemented()
-
-    e feature Person::name withRepresentation "first name" toBe "robert"
-    e feature Person::name toBe "robert"
-    e feature Person::name { o toBe "robert" }
-
-    e feature withArgs(Person::foo, 1) toBe "a"
-    e feature withArgs(Person::foo, 1) { o toBe "a" }
-
-    e feature Person::bar toBe "a"
-    e feature Person::bar { o toBe "a" }
-
-    e feature { f(it::age) } toBe 20
-    e feature { f(it::foo, 1) } toBe "hello"
-    e feature { f(it::bar) } toBe "hello"
-
-    e feature { f(it::age) } it { o toBe 1 }
-    e feature { f("bla", it.age) } toBe 1
-    e feature { f("bla", it.age) } it { o toBe 1 }
-
-//    e feature { manual("age") { it.age } } it o isGreaterThan 2
-}
-
-// uncomment and `l get 1` above fails
-//infix operator fun Int.invoke(assertionCreator: Expect<Int>.() -> Unit): String = "a"
-
+/**
+ * Helper function to create a [MetaFeatureOptionWithCreator] based on a lambda with
+ * [MetaFeatureOption] receiver (has to return a [MetaFeature])  and an [assertionCreator].
+ */
+fun <T, R> of(
+    provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
+    assertionCreator: Expect<R>.() -> Unit
+): MetaFeatureOptionWithCreator<T, R> = TODO()
