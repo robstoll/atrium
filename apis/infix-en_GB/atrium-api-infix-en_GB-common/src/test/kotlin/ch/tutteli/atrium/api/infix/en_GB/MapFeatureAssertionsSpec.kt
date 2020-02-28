@@ -15,18 +15,16 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
 ) {
     companion object {
         private fun getExisting(
-            plant: Expect<Map<String, Int>>,
+            expect: Expect<Map<String, Int>>,
             key: String,
             assertionCreator: Expect<Int>.() -> Unit
-        ): Expect<Map<String, Int>>
-            = plant getExisting Key(key) assertIt { assertionCreator() }
+        ): Expect<Map<String, Int>> = expect getExisting Key(key) assertIt { assertionCreator() }
 
         private fun getExistingNullable(
-            plant: Expect<Map<String?, Int?>>,
+            expect: Expect<Map<String?, Int?>>,
             key: String?,
             assertionCreator: Expect<Int?>.() -> Unit
-        ): Expect<Map<String?, Int?>>
-            = plant getExisting Key(key) assertIt { assertionCreator() }
+        ): Expect<Map<String?, Int?>> = expect getExisting Key(key) assertIt { assertionCreator() }
     }
 
     @Suppress("unused", "UNUSED_VALUE")
