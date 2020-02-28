@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureStep
 import ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders.ListGetStep
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
@@ -9,8 +10,8 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
 
 class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
-    feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
-    getIndexPair(),
+    getFeaturePair(),
+    getPair(),
     feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
     getIndexNullablePair()
 ) {
@@ -34,8 +35,12 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
     }
 }
 
-private val getIndexFun: KFunction2<Expect<List<Int>>, Index, ListGetStep<Int, List<Int>>> = Expect<List<Int>>::get
-private fun getIndexPair() = getIndexFun.name to ::getIndex
+private val getIndexFun: KFunction2<Expect<List<Int>>, Int, FeatureStep<List<Int>, Int>> = Expect<List<Int>>::get
+private fun getFeaturePair() = getIndexFun.name to ::getIndex
+private fun getPair() = getIndexFun.name to ::getIndex
+
+private fun getIndex(expect: Expect<List<Int>>, index: Int) =
+    expect get index it o
 
 private fun getIndex(expect: Expect<List<Int>>, index: Int, assertionCreator: Expect<Int>.() -> Unit) =
     expect get Index(index) assertIt { assertionCreator() }

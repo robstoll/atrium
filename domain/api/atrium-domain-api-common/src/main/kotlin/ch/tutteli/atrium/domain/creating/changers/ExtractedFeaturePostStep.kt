@@ -19,5 +19,5 @@ import ch.tutteli.atrium.creating.FeatureExpect
 class ExtractedFeaturePostStep<T, R>(
     expect: Expect<T>,
     extract: Expect<T>.() -> FeatureExpect<T, R>,
-    extractAndApply: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>
+    extractAndApply: Expect<T>.(Expect<R>.() -> Unit) -> FeatureExpect<T, R>
 ) : PostFinalStep<T, R, FeatureExpect<T, R>>(expect, extract, extractAndApply)

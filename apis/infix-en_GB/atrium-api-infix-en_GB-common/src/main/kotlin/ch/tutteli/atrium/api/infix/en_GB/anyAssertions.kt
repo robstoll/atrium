@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
 
@@ -171,10 +172,14 @@ inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T
  *
  * @return This assertion container to support a fluent API.
  */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)
+infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    addAssertionsCreatedBy(assertionCreator)
+
+infix fun <T> Expect<T>.it(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    addAssertionsCreatedBy(assertionCreator)
 
 /**
- * Inline property referring actually to `this` and allows to write nicer sub-assertions.
+ * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
  *
  * For instance, instead of:
  * ```
