@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 import ch.tutteli.atrium.specs.*
 
-class MapExpectionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
+class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     fun2(Companion::contains),
     fun2(Companion::contains).name to Companion::containsNullable,
     "${fun2(Companion::contains).name} ${KeyValue::class.simpleName}" to Companion::containsKeyWithValueAssertions,
