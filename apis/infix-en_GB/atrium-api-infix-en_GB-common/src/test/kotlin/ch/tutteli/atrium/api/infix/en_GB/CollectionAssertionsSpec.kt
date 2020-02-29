@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
     "toBe ${Empty::class.simpleName}" to ::isEmpty,
-    "toBe ${Empty::class.simpleName}" to ::isNotEmpty
+    "notToBe ${Empty::class.simpleName}" to ::isNotEmpty
 ) {
     companion object : WithAsciiReporter()
 
@@ -28,5 +28,5 @@ class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionA
     }
 }
 
-fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
-fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
+private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
+private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty

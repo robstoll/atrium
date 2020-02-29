@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.map.get.builders.MapGetOption
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -87,12 +88,23 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     ExpectImpl.map.getExisting(this, key).getExpectOfFeature()
 
 /**
- * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
+ * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
+ * the corresponding value holds all assertions the given [KeyWithCreator.assertionCreator] creates for it.
  *
- * @return A fluent builder to finish the assertion.
- * */
-infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: Key<K>): MapGetOption<K, V, T> =
-    MapGetOption.create(this, key.key)
+ * @param key Use the function `key(...) { ... }` to create a [KeyWithCreator] where the first parameter corresponds
+ *  to the key and the second is the `assertionCreator`-lambda
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] the given [key] does not exist or
+ *   if the assertion made is not correct.
+ */
+infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
+    ExpectImpl.map.getExisting(this, key.key).addToInitial(key.assertionCreator)
+
+/**
+ * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
+ */
+fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit) = KeyWithCreator(key, assertionCreator)
 
 
 /**
@@ -178,3 +190,4 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries().addAssertionsCreatedBy(assertionCreator) }
+

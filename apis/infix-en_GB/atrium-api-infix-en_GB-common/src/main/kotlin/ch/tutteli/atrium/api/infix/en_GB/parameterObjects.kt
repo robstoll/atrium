@@ -9,14 +9,7 @@ import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
 class All<out T>(override val expected: T, override vararg val otherExpected: T) : VarArgHelper<T>
 
 /**
- * Wrapper for a single index -- can be used as distinguishable type for an overload where Int is already in use.
- */
-data class Index(val index: Int)
-
-data class Key<out K>(val key: K)
-
-/**
- * Parameter object to express a key/value [Pair] whose value type is a lambda with an
+ * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
  * [Expect] receiver, which means one can either pass a lambda or `null`.
  */
 data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?) {
@@ -24,8 +17,6 @@ data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull:
     override fun toString(): String =
         "KeyValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) "null" else "lambda"})"
 }
-
-
 
 /**
  * Parameter object to express `Pair<K, V>, vararg Pair<K, V>`.

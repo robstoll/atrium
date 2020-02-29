@@ -1,18 +1,18 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders.ListGetStep
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature1
+import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withNullableSuffix
-import kotlin.reflect.KFunction2
+import kotlin.jvm.JvmName
 
 class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
     feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
-    getIndexPair(),
+    fun2<List<Int>, Int, Expect<Int>.() -> Unit>(::get),
     feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
-    getIndexNullablePair()
+    fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(::get).withNullableSuffix()
 ) {
     companion object : WithAsciiReporter()
 
@@ -24,29 +24,22 @@ class ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatur
         var star: Expect<out List<*>> = notImplemented()
 
         a1 get 1
-        a1 = a1 get Index(1) assertIt { }
+        a1 = a1 get index(1) { }
 
         a1b get 1
-        a1b = a1b get Index(1) assertIt { }
+        a1b = a1b get index(1) { }
 
         star get 1
-        star = star get Index(1) assertIt { }
+        star = star get index(1) { }
     }
 }
 
-private val getIndexFun: KFunction2<Expect<List<Int>>, Index, ListGetStep<Int, List<Int>>> = Expect<List<Int>>::get
-private fun getIndexPair() = getIndexFun.name to ::getIndex
+private fun get(expect: Expect<List<Int>>, index: Int, assertionCreator: Expect<Int>.() -> Unit) =
+    expect get index(index) { assertionCreator() }
 
-private fun getIndex(expect: Expect<List<Int>>, index: Int, assertionCreator: Expect<Int>.() -> Unit) =
-    expect get Index(index) assertIt { assertionCreator() }
-
-private val getIndexNullableFun: KFunction2<Expect<List<Int?>>, Index, ListGetStep<Int?, List<Int?>>> =
-    Expect<List<Int?>>::get
-
-private fun getIndexNullablePair() = getIndexNullableFun.name to ::getIndexNullable
-
-private fun getIndexNullable(
+@JvmName("getNullable")
+private fun get(
     expect: Expect<List<Int?>>,
     index: Int,
     assertionCreator: Expect<Int?>.() -> Unit
-) = expect get Index(index) assertIt { assertionCreator() }
+) = expect get index(index) { assertionCreator() }

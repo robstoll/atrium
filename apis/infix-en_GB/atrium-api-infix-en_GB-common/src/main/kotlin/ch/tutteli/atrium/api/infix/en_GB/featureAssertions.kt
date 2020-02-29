@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.Feature
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.MetaFeatureOptionWithCreator
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
@@ -41,8 +44,11 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * Use `of(K..., ...)` to create this representation where the first argument is the extractor in form of a
- * [KProperty1] or a `KFunctionX` and potentially the required arguments for a `KFunctionX` where `X` > 1.
+ * Use `of(K..., ...)` to create a [Feature] where the first argument is the extractor in form of a
+ *   [KProperty1] or a `KFunctionX` and potentially the required arguments for a `KFunctionX` where `X` > 1.
+ *
+ * @param of Use `of(K..., ...)` to create a [Feature] where the first argument is the extractor in form of a
+ *   [KProperty1] or a `KFunctionX` and potentially the required arguments for a `KFunctionX` where `X` > 1.
  *
  * @return The newly created [Expect] for the extracted feature.
  *
@@ -57,9 +63,13 @@ infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
  * applies an assertion group based on the given [FeatureWithCreator.assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * Use `of(K..., ...) { ... }` to create this representation where the first argument is the extractor in form of a
- * [KProperty1] or a `KFunctionX`, the last an `assertionCreator`-lambda and the remaining arguments in-between the
- * required arguments in case of a `KFunctionX` where `X` > 1.
+ * Use `of(K..., ...) { ... }` to create a [FeatureWithCreator] where the first argument is the extractor in
+ *   form of a [KProperty1] or a `KFunctionX`, the last an `assertionCreator`-lambda and the remaining arguments
+ *   in-between the required arguments in case of a `KFunctionX` where `X` > 1.
+ *
+ * @param of Use `of(K..., ...) { ... }` to create a [FeatureWithCreator] where the first argument is the extractor in
+ *   form of a [KProperty1] or a `KFunctionX`, the last an `assertionCreator`-lambda and the remaining arguments
+ *   in-between the required arguments in case of a `KFunctionX` where `X` > 1.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
@@ -138,43 +148,6 @@ infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expe
 fun <T, R> MetaFeatureOption<T>.f(description: String, provider: R): MetaFeature<R> =
     MetaFeature(description, provider)
 
-/**
- * Parameter object which contains a [description] of a feature along with an [extractor]
- * which actually extracts the feature out of a subject of an assertion.
- *
- * Use `of(K..., ...) { ... }` to create this representation where the first argument is the extractor in form of a
- * [KProperty1] or a `KFunctionX` and the remaining arguments are the required arguments in case of a `KFunctionX`
- * where `X` > 1.
- *
- * @property description The description of the feature.
- * @property extractor The extractor which extracts the feature out of the subject of the assertion.
-
- * @since 0.10.0
- */
-data class Feature<T, R>(val description: String, val extractor: (T) -> R)
-
-/**
- * Parameter object which contains a [description] of a feature along with an [extractor]
- * which actually extracts the feature out of a subject of an assertion + an [assertionCreator]
- * which defines assertions for the feature.
- *
- * Use `of(K..., ...) { ... }` to create this representation where the first argument is the extractor in form of a
- * [KProperty1] or a `KFunctionX`, the last an [assertionCreator]-lambda and the remaining arguments in-between the
- * required arguments in case of a `KFunctionX` where `X` > 1.
- *
- * @property description The description of the feature.
- * @property extractor The extractor which extracts the feature out of the subject of the assertion.
- * @property assertionCreator The `assertionCreator`-lambda which defines assertions for the feature.
- *
- * @since 0.10.0
- */
-data class FeatureWithCreator<T, R>(
-    val description: String,
-    val extractor: (T) -> R,
-    val assertionCreator: Expect<R>.() -> Unit
-)
-
-
 //@formatter:off
 /**
  * Helper function to create a [Feature] based on a [KFunction2] + arguments.
@@ -245,27 +218,14 @@ fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A
 
 
 /**
- * Parameter object which combines a lambda with a [MetaFeatureOption] receiver (called [provider])
- * and an [assertionCreator].
- *
- * Use the function `of({ ... }) { ... }` to create this representation where the first
- * argument is a lambda with a [MetaFeatureOption] as receiver which has to create a [MetaFeature]
- * where the subject of the assertion is available via implicit parameter `it`.
- * Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
- * e.g. `feature of({ f(it::size) }) { o toBe 3 }`
- *
- * @since 0.10.0
- */
-data class MetaFeatureOptionWithCreator<T, R>(
-    val provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
-    val assertionCreator: Expect<R>.() -> Unit
-)
-
-/**
  * Helper function to create a [MetaFeatureOptionWithCreator] based on a lambda with
  * [MetaFeatureOption] receiver (has to return a [MetaFeature])  and an [assertionCreator].
  */
 fun <T, R> of(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     assertionCreator: Expect<R>.() -> Unit
-): MetaFeatureOptionWithCreator<T, R> = MetaFeatureOptionWithCreator(provider, assertionCreator)
+): MetaFeatureOptionWithCreator<T, R> =
+    MetaFeatureOptionWithCreator(
+        provider,
+        assertionCreator
+    )

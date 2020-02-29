@@ -19,7 +19,7 @@ interface VarArgHelper<out T> {
     /**
      * Creates an [ArgumentMapperBuilder] which allows to map [expected] and [otherExpected].
      */
-    val mapArguments get() = ArgumentMapperBuilder(expected, otherExpected)
+    val mapArguments: ArgumentMapperBuilder<T> get() = ArgumentMapperBuilder(expected, otherExpected)
 
     /**
      * Returns the arguments as [List].
