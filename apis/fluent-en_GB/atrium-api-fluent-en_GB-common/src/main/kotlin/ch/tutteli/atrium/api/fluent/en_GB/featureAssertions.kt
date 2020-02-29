@@ -42,7 +42,8 @@ fun <T, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return The newly created [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -72,7 +73,8 @@ fun <T, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return The newly created [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -106,7 +108,8 @@ fun <T, A1, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return The newly created [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -140,7 +143,8 @@ fun <T, A1, A2, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return The newly created [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -174,7 +178,8 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return The newly created [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
