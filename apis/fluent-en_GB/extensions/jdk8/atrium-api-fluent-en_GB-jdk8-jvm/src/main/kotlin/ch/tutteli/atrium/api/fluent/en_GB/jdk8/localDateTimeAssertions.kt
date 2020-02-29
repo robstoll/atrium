@@ -15,7 +15,7 @@ import java.time.LocalDateTime
  * Creates an [Expect] for the property [LocalDateTime.year][[LocalDateTime.getYear] of the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect].
+ * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.9.0
  */
@@ -24,9 +24,9 @@ val <T : LocalDateTime> Expect<T>.year: Expect<Int>
 
 /**
  * Expects that the property [LocalDateTime.year][LocalDateTime.getYear] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -38,7 +38,7 @@ fun <T : LocalDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit)
  * Creates an [Expect] for the property [LocalDateTime.monthValue][LocalDateTime.getMonthValue]
  * of the subject of the assertion, so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect].
+ * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.9.0
  */
@@ -47,9 +47,9 @@ val <T : LocalDateTime> Expect<T>.month: Expect<Int>
 
 /**
  * Expects that the property [LocalDateTime.monthValue][LocalDateTime.getMonthValue]of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -61,7 +61,7 @@ fun <T : LocalDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
  * Creates an [Expect] for the property [LocalDateTime.dayOfWeek][LocalDateTime.getDayOfWeek]
  * of the subject of the assertion, so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect].
+ * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.9.0
  */
@@ -70,9 +70,9 @@ val <T : LocalDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
 
 /**
  * Expects that the property [LocalDateTime.dayOfWeek][LocalDateTime.getDayOfWeek]of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -84,7 +84,7 @@ fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.
  * Creates an [Expect] for the property [LocalDateTime.dayOfMonth][LocalDateTime.getDayOfMonth]
  * of the subject of the assertion, so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect].
+ * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.9.0
  */
@@ -93,9 +93,9 @@ val <T : LocalDateTime> Expect<T>.day: Expect<Int>
 
 /**
  * Expects that the property [LocalDateTime.dayOfMonth][LocalDateTime.getDayOfMonth] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0

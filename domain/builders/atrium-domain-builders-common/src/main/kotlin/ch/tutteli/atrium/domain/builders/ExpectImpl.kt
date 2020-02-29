@@ -35,8 +35,8 @@ object ExpectImpl {
      * into another representation (e.g. down-cast `Person` to `Student`) then you should use
      * [feature.extractor][NewFeatureAssertionsBuilder.extractor] instead.
      */
-    inline fun <T> changeSubject(originalAssertionContainer: Expect<T>) =
-        SubjectChangerBuilder.create(originalAssertionContainer)
+    inline fun <T> changeSubject(originalExpect: Expect<T>) =
+        SubjectChangerBuilder.create(originalExpect)
 
     @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
     @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")

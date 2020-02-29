@@ -13,11 +13,11 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class KindStepImpl<T>(
-    override val originalAssertionContainer: Expect<T>
+    override val originalExpect: Expect<T>
 ) : SubjectChangerBuilder.KindStep<T> {
 
     override fun reportBuilder(): SubjectChangerBuilder.DescriptionRepresentationStep<T> =
-        SubjectChangerBuilder.DescriptionRepresentationStep.create(originalAssertionContainer)
+        SubjectChangerBuilder.DescriptionRepresentationStep.create(originalExpect)
 }
 
 @Suppress("DEPRECATION")
@@ -26,21 +26,21 @@ class DeprecatedKindStepImpl<T>(
 ) : SubjectChangerBuilder.DeprecatedKindStep<T>
 
 class DescriptionRepresentationStepImpl<T>(
-    override val originalAssertionContainer: Expect<T>
+    override val originalExpect: Expect<T>
 ) : SubjectChangerBuilder.DescriptionRepresentationStep<T> {
 
     override fun withDescriptionAndRepresentation(
         description: Translatable,
         representation: Any?
     ): SubjectChangerBuilder.TransformationStep<T> = SubjectChangerBuilder.TransformationStep.create(
-        originalAssertionContainer,
+        originalExpect,
         description,
         representation ?: RawString.NULL
     )
 }
 
 class TransformationStepImpl<T>(
-    override val originalAssertionContainer: Expect<T>,
+    override val originalExpect: Expect<T>,
     override val description: Translatable,
     override val representation: Any
 ) : SubjectChangerBuilder.TransformationStep<T> {
@@ -72,7 +72,7 @@ class FinalStepImpl<T, R>(
 ) : SubjectChangerBuilder.FinalStep<T, R> {
 
     override fun build(): ChangedSubjectPostStep<T, R> =
-        ChangedSubjectPostStep(transformationStep.originalAssertionContainer,
+        ChangedSubjectPostStep(transformationStep.originalExpect,
             transform = { transformIt(this, None) },
             transformAndApply = { assertionCreator -> transformIt(this, Some(assertionCreator)) }
         )

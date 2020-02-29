@@ -27,7 +27,7 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  * The transformation as such is not reflected in reporting.
  * Use `feature(File::toPath, assertionCreator)` if you want to show the transformation in reporting.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  *
  * @since 0.10.0
  */

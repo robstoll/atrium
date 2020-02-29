@@ -25,7 +25,7 @@ interface ListGetStep<E, T : List<E>> {
      * Makes the assertion that the given [index] is within the bounds of [Expect.subject] and that
      * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
      *
-     * @return This [Expect] to support a fluent API.
+     * @return An [Expect] for the current subject of the assertion.
      * @throws AssertionError Might throw an [AssertionError] if a created [Expect]s (by calling [assertionCreator])
      *   does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.

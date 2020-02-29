@@ -31,7 +31,7 @@ interface SubjectChangerBuilder {
         /**
          * Entry point to use the [SubjectChangerBuilder].
          */
-        fun <T> create(originalAssertionContainer: Expect<T>): KindStep<T> = KindStepImpl(originalAssertionContainer)
+        fun <T> create(expect: Expect<T>): KindStep<T> = KindStepImpl(expect)
 
         @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
         @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
@@ -75,7 +75,7 @@ interface SubjectChangerBuilder {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
-        val originalAssertionContainer: Expect<T>
+        val originalExpect: Expect<T>
 
 
         /**
@@ -85,7 +85,7 @@ interface SubjectChangerBuilder {
          * @return The newly created [Expect] for the new subject.
          */
         fun <R> unreported(transformation: (T) -> R): Expect<R> =
-            subjectChanger.unreported(originalAssertionContainer, transformation)
+            subjectChanger.unreported(originalExpect, transformation)
 
         /**
          * Entry point of the building process to not only change the subject but also report the change in reporting.
@@ -107,11 +107,11 @@ interface SubjectChangerBuilder {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
-        val originalAssertionContainer: Expect<T>
+        val originalExpect: Expect<T>
 
         /**
          * Uses [DescriptionAnyAssertion.IS_A] as description of the change,
-         * the given [subType] as representation and tries to perform a down-cast of [originalAssertionContainer]'s
+         * the given [subType] as representation and tries to perform a down-cast of [originalExpect]'s
          * [Expect.maybeSubject] to the given type [TSub]
          */
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter next to `: Any` we should restrict TSub : T & Any
@@ -161,7 +161,7 @@ interface SubjectChangerBuilder {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
-        val originalAssertionContainer: Expect<T>
+        val originalExpect: Expect<T>
 
         /**
          * The previously specified description which describes the kind of subject change.

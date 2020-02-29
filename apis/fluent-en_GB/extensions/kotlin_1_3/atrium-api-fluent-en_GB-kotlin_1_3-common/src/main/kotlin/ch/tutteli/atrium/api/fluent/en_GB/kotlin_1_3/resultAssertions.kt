@@ -19,7 +19,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSu
  * Expects that the subject of the assertion (a [Result]) is a Success and
  * that it holds all assertions the given [assertionCreator] creates.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
  * @since 0.9.0
@@ -31,7 +31,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Uni
  * Expects that the subject of the assertion (a [Result]) is a Failure and
  * that it encapsulates an exception of type [TExpected].
  *
- * @return An assertion container with the new type [TExpected]
+ * @return An [Expect] with the new type [TExpected]
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -44,7 +44,7 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  * it encapsulates an exception of type [TExpected] and that the exception
  * holds all assertions the given [assertionCreator] creates.
  *
- * @return An assertion container with the new type [TExpected]
+ * @return An [Expect] with the new type [TExpected]
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
