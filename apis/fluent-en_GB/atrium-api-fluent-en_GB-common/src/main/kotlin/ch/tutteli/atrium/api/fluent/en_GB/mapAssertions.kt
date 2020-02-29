@@ -14,7 +14,7 @@ import ch.tutteli.kbox.glue
  * defined as `'a' to 1` and one of the [otherPairs] is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.contains(
@@ -33,7 +33,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
  * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
  * , then both match, even though they match the same entry.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
@@ -46,7 +46,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImpl.map.containsKey(this, key))
@@ -54,7 +54,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectIm
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(ExpectImpl.map.containsNotKey(this, key))
@@ -63,7 +63,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(Expec
 /**
  * Expects that the subject of the assertion (a [Map]) is an empty [Map].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Map<*, *>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.map.isEmpty(this))
@@ -71,7 +71,7 @@ fun <T : Map<*, *>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.map.isEmpty(th
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEmpty(this))
@@ -82,7 +82,7 @@ fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEm
  * creates an [Expect] for the corresponding value and returns the newly created assertion container,
  * so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect] for the feature.
+ * @return The newly created [Expect] for the extracted feature.
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
@@ -92,7 +92,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
  * the corresponding value holds all assertions the given [assertionCreator] creates for it.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
@@ -103,16 +103,16 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  * Creates an [Expect] for the property [Map.keys] of the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect] for the feature.
+ * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = keys(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
@@ -124,16 +124,16 @@ private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.prope
  * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
- * @return The newly created [Expect] for the feature.
+ * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = values().getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =

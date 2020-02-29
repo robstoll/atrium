@@ -18,7 +18,7 @@ import kotlin.jvm.JvmName
  *
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
@@ -34,7 +34,7 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
  *
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double) =

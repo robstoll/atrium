@@ -11,7 +11,7 @@ import java.time.chrono.ChronoLocalDate
  * Expects that the subject of the assertion (a [ChronoLocalDate])
  * is before the [expected] [ChronoLocalDate].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
@@ -23,7 +23,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): E
  * Expects that the subject of the assertion (a [ChronoLocalDate])
  * is before or equal the [expected] [ChronoLocalDate].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
@@ -36,7 +36,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalD
  * Expects that the subject of the assertion (a [ChronoLocalDate])
  * is after the [expected] [ChronoLocalDate].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
@@ -48,7 +48,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Ex
  * Expects that the subject of the assertion (a [ChronoLocalDate])
  * is after or equal the [expected] [ChronoLocalDate].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
@@ -60,7 +60,7 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDa
  * Expects that the subject of the assertion (a [ChronoLocalDate])
  * is equal to the [expected] [ChronoLocalDate].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0

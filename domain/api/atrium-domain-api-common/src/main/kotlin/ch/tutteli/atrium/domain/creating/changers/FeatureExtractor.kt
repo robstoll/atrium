@@ -50,7 +50,7 @@ interface FeatureExtractor {
      *   if you want a different representation, then use this parameter where passing `null` still means use the
      *   feature.
      *
-     * @return The newly created [Expect].
+     * @return The newly created [Expect] for the extracted feature.
      */
     fun <T, R> extract(
         originalAssertionContainer: Expect<T>,

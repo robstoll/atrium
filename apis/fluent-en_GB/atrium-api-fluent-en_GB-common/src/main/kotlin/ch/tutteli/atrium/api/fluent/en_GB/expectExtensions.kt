@@ -20,6 +20,8 @@ annotation class ExperimentalWithOptions
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> =
@@ -36,6 +38,8 @@ fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> 
  * a `String` and does the wrapping for you.
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> Any): Expect<T> =
@@ -44,6 +48,8 @@ fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> Any): Ex
 /**
  * Uses the given [configuration]-lambda to create an [ExpectOptions] which in turn is used
  * to override (parts) of the existing configuration.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser<T>.() -> Unit): Expect<T> =
@@ -53,6 +59,8 @@ fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser<T>
 //in the same go we should get rid of  ReportingAssertionContainer.AssertionCheckerDecorator, rename it respectively.
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 @UseExperimental(ExperimentalExpectConfig::class)
@@ -73,6 +81,8 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> = coreFa
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): Expect<R> =
@@ -89,6 +99,8 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): E
  * a `String` and does the wrapping for you.
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) -> Any): Expect<R> =
@@ -97,6 +109,8 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) ->
 /**
  * Uses the given [configuration]-lambda to create an [ExpectOptions] which in turn is used
  * to override (parts) of the existing configuration.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractorBuilder.OptionsChooser<R>.() -> Unit): Expect<R> =
@@ -104,6 +118,8 @@ fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractorBuilde
 
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 @UseExperimental(ExperimentalExpectConfig::class)

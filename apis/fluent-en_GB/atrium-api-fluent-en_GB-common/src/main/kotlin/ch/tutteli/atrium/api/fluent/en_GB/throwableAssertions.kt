@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
  * Expects that the property [Throwable.message] of the subject of the assertion is not null,
  * creates an [Expect] for it and returns it.
  *
- * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion
+ * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
@@ -14,9 +14,9 @@ val <T : Throwable> Expect<T>.message: Expect<String>
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
@@ -33,7 +33,7 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
  * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Throwable> Expect<T>.messageContains(expected: Any, vararg otherExpected: Any): Expect<T> =
