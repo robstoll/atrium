@@ -3,86 +3,27 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
+import kotlin.jvm.JvmName
+import kotlin.reflect.KFunction3
+
+private fun <K, V, T> mfun2(
+    f: KFunction3<Expect<Map<out K, V>>, Pair<K, T>, Array<out Pair<K, T>>, Expect<Map<out K, V>>>
+) = fun2(f)
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
-    fun2(Companion::contains),
-    fun2(Companion::contains).name to Companion::containsNullable,
-    "${fun2(Companion::contains).name} ${KeyValue::class.simpleName}" to Companion::containsKeyWithValueAssertions,
-    "${fun2(Companion::contains).name} ${KeyValue::class.simpleName}" to Companion::containsKeyWithNullableValueAssertions,
-    fun1(Companion::containsKey),
-    fun1(Companion::containsNullableKey),
-    fun1(Companion::containsNotKey),
-    fun1(Companion::containsNotNullableKey),
-    /* string toBe, notToBe to avoid ambiguity error */
-    "toBe ${Empty::class.simpleName}" to Companion::isEmpty,
-    "notToBe ${Empty::class.simpleName}" to Companion::isNotEmpty
+    mfun2<String, Int, Int>(::contains),
+    mfun2<String?, Int?, Int?>(::contains).withNullableSuffix(),
+    mfun2<String, Int, Expect<Int>.() -> Unit>(::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
+    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(::contains).adjustName { "$it ${KeyValue::class.simpleName}" }.withNullableSuffix(),
+    fun1<Map<out String, *>, String>(::containsKey),
+    fun1<Map<out String?, *>, String?>(::containsKey).withNullableSuffix(),
+    fun1<Map<out String, *>, String>(::containsNotKey),
+    fun1<Map<out String?, *>, String?>(::containsNotKey).withNullableSuffix(),
+    "toBe ${Empty::class.simpleName}" to ::isEmpty,
+    "notToBe ${Empty::class.simpleName}" to ::isNotEmpty
 ) {
-    companion object {
-        private fun contains(
-            expect: Expect<Map<out String, Int>>,
-            pair: Pair<String, Int>,
-            otherPairs: Array<out Pair<String, Int>>
-        ): Expect<Map<out String, Int>> {
-            return if (otherPairs.isEmpty()) {
-                expect contains (pair.first to pair.second)
-            } else {
-                expect contains Pairs(pair, *otherPairs)
-            }
-        }
-
-        private fun containsNullable(
-            expect: Expect<Map<out String?, Int?>>,
-            pair: Pair<String?, Int?>,
-            otherPairs: Array<out Pair<String?, Int?>>
-        ): Expect<Map<out String?, Int?>> {
-            return if (otherPairs.isEmpty()) {
-                expect contains (pair.first to pair.second)
-            } else {
-                expect contains Pairs(pair, *otherPairs)
-            }
-        }
-
-        private fun containsKeyWithValueAssertions(
-            expect: Expect<Map<out String, Int>>,
-            keyValue: Pair<String, Expect<Int>.() -> Unit>,
-            otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
-        ): Expect<Map<out String, Int>> {
-            return if (otherKeyValues.isEmpty()) {
-                expect contains KeyValue(keyValue.first, keyValue.second)
-            } else {
-                mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
-                    expect contains All(first, *others)
-                }
-            }
-        }
-
-        private fun containsKeyWithNullableValueAssertions(
-            expect: Expect<Map<out String?, Int?>>,
-            keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
-            otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
-        ): Expect<Map<out String?, Int?>> {
-            return if (otherKeyValues.isEmpty()) {
-                expect contains KeyValue(keyValue.first, keyValue.second)
-            } else {
-                mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
-                    expect contains All(first, *others)
-                }
-            }
-        }
-
-        private fun containsKey(expect: Expect<Map<out String, *>>, key: String) = expect containsKey key
-
-        private fun containsNullableKey(expect: Expect<Map<out String?, *>>, key: String?) = expect containsKey key
-
-        private fun containsNotKey(expect: Expect<Map<out String, *>>, key: String) = expect containsNotKey key
-
-        private fun containsNotNullableKey(expect: Expect<Map<out String?, *>>, key: String?) =
-            expect containsNotKey key
-
-        private fun isEmpty(expect: Expect<Map<*, *>>) = expect toBe Empty
-
-        private fun isNotEmpty(expect: Expect<Map<*, *>>) = expect notToBe Empty
-    }
+    companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -249,3 +190,76 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
     }
 }
+
+private fun contains(
+    expect: Expect<Map<out String, Int>>,
+    pair: Pair<String, Int>,
+    otherPairs: Array<out Pair<String, Int>>
+): Expect<Map<out String, Int>> {
+    return if (otherPairs.isEmpty()) {
+        expect contains (pair.first to pair.second)
+    } else {
+        expect contains Pairs(pair, *otherPairs)
+    }
+}
+
+@JvmName("containsNullable")
+private fun contains(
+    expect: Expect<Map<out String?, Int?>>,
+    pair: Pair<String?, Int?>,
+    otherPairs: Array<out Pair<String?, Int?>>
+): Expect<Map<out String?, Int?>> {
+    return if (otherPairs.isEmpty()) {
+        expect contains (pair.first to pair.second)
+    } else {
+        expect contains Pairs(pair, *otherPairs)
+    }
+}
+
+@JvmName("containsKeyWithValueAssertions")
+private fun contains(
+    expect: Expect<Map<out String, Int>>,
+    keyValue: Pair<String, Expect<Int>.() -> Unit>,
+    otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
+): Expect<Map<out String, Int>> {
+    return if (otherKeyValues.isEmpty()) {
+        expect contains KeyValue(keyValue.first, keyValue.second)
+    } else {
+        mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
+            expect contains All(first, *others)
+        }
+    }
+}
+
+@JvmName("containsKeyWithNullableValueAssertions")
+private fun contains(
+    expect: Expect<Map<out String?, Int?>>,
+    keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
+    otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
+): Expect<Map<out String?, Int?>> {
+    return if (otherKeyValues.isEmpty()) {
+        expect contains KeyValue(keyValue.first, keyValue.second)
+    } else {
+        mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
+            expect contains All(first, *others)
+        }
+    }
+}
+
+private fun containsKey(expect: Expect<Map<out String, *>>, key: String) =
+    expect containsKey key
+
+@JvmName("containsKeyNullable")
+private fun containsKey(expect: Expect<Map<out String?, *>>, key: String?) =
+    expect containsKey key
+
+private fun containsNotKey(expect: Expect<Map<out String, *>>, key: String) =
+    expect containsNotKey key
+
+@JvmName("containsNotKeyNullable")
+private fun containsNotKey(expect: Expect<Map<out String?, *>>, key: String?) =
+    expect containsNotKey key
+
+private fun isEmpty(expect: Expect<Map<*, *>>) = expect toBe Empty
+
+private fun isNotEmpty(expect: Expect<Map<*, *>>) = expect notToBe Empty
