@@ -40,7 +40,8 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

@@ -95,7 +95,8 @@ val <T : Path> Expect<T>.fileName: Expect<String>
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -122,7 +123,7 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
  * (provided via [niok](https://github.com/robstoll/niok))
  * of the subject of the assertion holds all assertions the given [assertionCreator] creates for it
- * and returns this [Expect].
+ * and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -146,7 +147,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and that the parent holds all assertions the
- * given [assertionCreator] creates for it and returns this [Expect].
+ * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -170,7 +171,7 @@ fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
 
 /**
  * Expects that [other] resolves against this [Path] and that the resolved [Path] holds all assertions the
- * given [assertionCreator] creates for it and returns this [Expect].
+ * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -269,7 +270,8 @@ val <T : Path> Expect<T>.extension: Expect<String>
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

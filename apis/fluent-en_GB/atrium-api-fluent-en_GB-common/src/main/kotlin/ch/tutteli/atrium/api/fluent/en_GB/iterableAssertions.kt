@@ -27,44 +27,53 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearch
     get() = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
 
 /**
- * Expects that the property min of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
+    ExpectImpl.iterable.min(this).getExpectOfFeature()
+
+/**
+ * Expects that the result of calling `min()` on the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.iterable.min(this).addToInitial(assertionCreator)
 
+
 /**
- * Creates an [Expect] for the property min of the subject of the assertion,
+ * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
  * @since 0.9.0
  */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> = ExpectImpl.iterable.min(this).getExpectOfFeature()
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
+    ExpectImpl.iterable.max(this).getExpectOfFeature()
 
 /**
- * Expects that the property max of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * Expects that the result of calling `max()` on  the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.iterable.max(this).addToInitial(assertionCreator)
-
-/**
- * Creates an [Expect] for the property max of the subject of the assertion,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> = ExpectImpl.iterable.max(this).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the

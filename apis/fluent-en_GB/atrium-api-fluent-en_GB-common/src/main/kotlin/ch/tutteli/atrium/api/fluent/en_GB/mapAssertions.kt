@@ -106,19 +106,18 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
-    get() = keys(this).getExpectOfFeature()
+    get() = ExpectImpl.feature.property(this, Map<out K, *>::keys).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
-    keys(this).addToInitial(assertionCreator)
-
-private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.property(e, Map<out K, *>::keys)
+    ExpectImpl.feature.property(this, Map<out K, *>::keys).addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
@@ -127,19 +126,18 @@ private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.prope
  * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
-    get() = values().getExpectOfFeature()
+    get() = ExpectImpl.feature.property(this, Map<out Any?, V>::values).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
-    values().addToInitial(assertionCreator)
-
-private fun <K, V, T : Map<out K, V>> Expect<T>.values() = ExpectImpl.feature.property(this, Map<out K, V>::values)
+    ExpectImpl.feature.property(this, Map<out K, V>::values).addToInitial(assertionCreator)
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
@@ -154,12 +152,12 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
- * [assertionCreator] creates.
+ * [assertionCreator] creates for it.
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
- * @return The newly created [Expect] for the transformed subject.
+ * @return An [Expect] for the current subject of the assertion.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit

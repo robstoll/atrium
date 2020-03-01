@@ -19,12 +19,12 @@ val comparableAssertions by lazy { loadSingleService(ComparableAssertions::class
 interface ComparableAssertions {
     fun <T1 : Comparable<T2>, T2 : Any?> isLessThan(subjectProvider: SubjectProvider<T1>, expected: T2): Assertion
 
-    //TODO rename to isLessThanOrEqual with 0.1.0
+    //TODO rename to isLessThanOrEqual with 1.0.0
     fun <T1 : Comparable<T2>, T2 : Any?> isLessOrEquals(subjectProvider: SubjectProvider<T1>, expected: T2): Assertion
 
     fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThan(subjectProvider: SubjectProvider<T1>, expected: T2): Assertion
 
-    //TODO rename to isGreaterThanOrEqual with 0.1.0
+    //TODO rename to isGreaterThanOrEqual with 1.0.0
     fun <T1 : Comparable<T2>, T2 : Any?> isGreaterOrEquals(
         subjectProvider: SubjectProvider<T1>,
         expected: T2

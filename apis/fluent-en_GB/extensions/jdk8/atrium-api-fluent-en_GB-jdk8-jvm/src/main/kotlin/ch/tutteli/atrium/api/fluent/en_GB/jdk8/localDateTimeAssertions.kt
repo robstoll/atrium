@@ -24,7 +24,8 @@ val <T : LocalDateTime> Expect<T>.year: Expect<Int>
 
 /**
  * Expects that the property [LocalDateTime.year][LocalDateTime.getYear] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -47,7 +48,8 @@ val <T : LocalDateTime> Expect<T>.month: Expect<Int>
 
 /**
  * Expects that the property [LocalDateTime.monthValue][LocalDateTime.getMonthValue]of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -70,7 +72,8 @@ val <T : LocalDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
 
 /**
  * Expects that the property [LocalDateTime.dayOfWeek][LocalDateTime.getDayOfWeek]of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -93,7 +96,8 @@ val <T : LocalDateTime> Expect<T>.day: Expect<Int>
 
 /**
  * Expects that the property [LocalDateTime.dayOfMonth][LocalDateTime.getDayOfMonth] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

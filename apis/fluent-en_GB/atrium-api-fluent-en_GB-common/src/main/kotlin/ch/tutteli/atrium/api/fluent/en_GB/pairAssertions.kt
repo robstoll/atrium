@@ -9,12 +9,13 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @return The newly created [Expect] for the extracted feature.
  */
-val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
-    get() = ExpectImpl.pair.first(this).getExpectOfFeature()
+val <K, T : Pair<K, *>> Expect<T>.first
+    get() : Expect<K> = ExpectImpl.pair.first(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Pair.first] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -28,12 +29,13 @@ fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Uni
  *
  * @return The newly created [Expect] for the extracted feature.
  */
-val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
-    get() = ExpectImpl.pair.second(this).getExpectOfFeature()
+val <V, T : Pair<*, V>> Expect<T>.second
+    get() : Expect<V> = ExpectImpl.pair.second(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Pair.second] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
