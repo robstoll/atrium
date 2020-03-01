@@ -28,7 +28,8 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
 
 /**
  * Expects that the property [Map.Entry.key] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -47,7 +48,8 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
 
 /**
  * Expects that the property [Map.Entry.value] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

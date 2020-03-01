@@ -14,7 +14,8 @@ val <T : Throwable> Expect<T>.message: Expect<String>
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

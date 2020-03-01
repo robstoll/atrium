@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -114,19 +113,18 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit) = KeyWithCreator(
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
-    get() = keys(this).getExpectOfFeature()
+    get() = ExpectImpl.feature.property(this, Map<out K, *>::keys).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
-    keys(this).addToInitial(assertionCreator)
-
-private fun <K, T : Map<out K, *>> keys(e: Expect<T>) = ExpectImpl.feature.property(e, Map<out K, *>::keys)
+    ExpectImpl.feature.property(this, Map<out K, *>::keys).addToInitial(assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Map]) is an empty [Map].
@@ -153,19 +151,18 @@ infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty:
  * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
-    get() = values().getExpectOfFeature()
+    get() = ExpectImpl.feature.property(this, Map<out Any?, V>::values).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and returns this [Expect].
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
-    values().addToInitial(assertionCreator)
-
-private fun <K, V, T : Map<out K, V>> Expect<T>.values() = ExpectImpl.feature.property(this, Map<out K, V>::values)
+    ExpectImpl.feature.property(this, Map<out K, V>::values).addToInitial(assertionCreator)
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
@@ -180,12 +177,12 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
- * [assertionCreator] creates.
+ * [assertionCreator] creates for it.
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
- * @return The newly created [Expect] for the transformed subject.
+ * @return An [Expect] for the current subject of the assertion.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit

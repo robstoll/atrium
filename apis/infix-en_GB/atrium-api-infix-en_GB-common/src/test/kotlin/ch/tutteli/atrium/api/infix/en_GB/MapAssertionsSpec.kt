@@ -37,25 +37,25 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
         map contains (1 to "a")
         map contains Pairs(1 to "a", 2 to "b")
-        map contains (KeyValue(1) {})
+        map contains KeyValue(1) {}
         map contains All(KeyValue(1) {}, KeyValue(2) {})
         map contains Pairs(1.0 to StringBuilder("a"))
         map contains Pairs(12f to "a", 2L to StringBuilder("b"))
-        map contains (KeyValue(1) {})
+        map contains KeyValue(1) {}
         map contains All(KeyValue(1) {}, KeyValue(2) {})
 
         subMap contains (1 to "a")
         subMap contains Pairs(1 to "a", 2 to "b")
-        subMap contains (KeyValue(1) {})
+        subMap contains KeyValue(1) {}
         subMap contains All(KeyValue(1) {}, KeyValue(2) {})
         subMap contains (1.0 to StringBuilder("a"))
         subMap contains Pairs(12f to "a", 2L to StringBuilder("b"))
-        subMap contains (KeyValue(1) {})
+        subMap contains KeyValue(1) {}
         subMap contains All(KeyValue(1) {}, KeyValue(2) {})
 
         nullableKeyMap contains (1 to "a")
         nullableKeyMap contains Pairs(1 to "a", 2 to "b")
-        nullableKeyMap contains (KeyValue(1) {})
+        nullableKeyMap contains KeyValue(1) {}
         nullableKeyMap contains All(KeyValue(1) {}, KeyValue(2) {})
         nullableKeyMap contains (null to "a")
         nullableKeyMap contains Pairs(null to "a", null to "b")
@@ -66,7 +66,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
         nullableValueMap contains (1 to "a")
         nullableValueMap contains Pairs(1 to "a", 2 to "b")
-        nullableValueMap contains (KeyValue(1) {})
+        nullableValueMap contains KeyValue(1) {}
         nullableValueMap contains All(KeyValue(1) {}, KeyValue(2) {})
         nullableValueMap contains (1 to null)
         nullableValueMap contains Pairs(1 to null, 2 to null)
@@ -77,7 +77,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
         nullableKeyValueMap contains (1 to "a")
         nullableKeyValueMap contains Pairs(1 to "a", 2 to "b")
-        nullableKeyValueMap contains (KeyValue(1) {})
+        nullableKeyValueMap contains KeyValue(1) {}
         nullableKeyValueMap contains All(KeyValue(1) {}, KeyValue(2) {})
 
         nullableKeyValueMap contains (null to "a")
@@ -103,7 +103,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
         readOnlyNullableKeyValueMap contains (1 to "a")
         readOnlyNullableKeyValueMap contains Pairs(1 to "a", 2 to "b")
-        readOnlyNullableKeyValueMap contains (KeyValue(1) {})
+        readOnlyNullableKeyValueMap contains KeyValue(1) {}
         readOnlyNullableKeyValueMap contains All(KeyValue(1) {}, KeyValue(2) {})
 
         readOnlyNullableKeyValueMap contains (null to "a")
@@ -129,7 +129,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
         readOnlyNullableKeyValueMap contains (1 to "a")
         readOnlyNullableKeyValueMap contains Pairs(1 to "a", 2 to "b")
-        readOnlyNullableKeyValueMap contains (KeyValue(1) {})
+        readOnlyNullableKeyValueMap contains KeyValue(1) {}
         readOnlyNullableKeyValueMap contains All(KeyValue(1) {}, KeyValue(2) {})
 
         starMap contains (null to "a")
