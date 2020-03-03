@@ -6,6 +6,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.name
+import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction3
 import kotlin.reflect.KProperty
 
@@ -28,4 +29,31 @@ abstract class CharSequenceContainsSpecBase {
         > = CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>::regex
     protected val regex = regexKFun.name
     protected val ignoringCase = CharSequenceContains.Builder<*, NoOpSearchBehaviour>::ignoringCase.name
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        val a1: Expect<CharSequence> = notImplemented()
+
+        a1.contains.atLeast(1).value(1)
+        a1.contains.atMost(2).values("a", 1)
+        a1.contains.notOrAtMost(2).regex("h|b")
+        a1.contains.exactly(2).regex("h|b", "b")
+        a1.contains.atLeast(2).regex(Regex("bla"))
+        a1.contains.atLeast(2).regex(Regex("bla"), Regex("b"))
+        a1.contains.atLeast(2).elementsOf(listOf("a", 2))
+
+        a1.contains.ignoringCase.atLeast(1).value("a")
+        a1.contains.ignoringCase.atLeast(1).values("a", 'b')
+        a1.contains.ignoringCase.atLeast(1).regex("a")
+        a1.contains.ignoringCase.atLeast(1).regex("a", "bl")
+        a1.contains.ignoringCase.atLeast(1).elementsOf(listOf(1, 2))
+
+        // skip atLeast
+        a1.contains.ignoringCase.value("a")
+        a1.contains.ignoringCase.values("a", 'b')
+        a1.contains.ignoringCase.regex("a")
+        a1.contains.ignoringCase.regex("a", "bl")
+        //TODO add to infix as well as fluent
+//        a1.contains.ignoringCase.elementsOf(listOf(1, 2))("a", "bl")
+    }
 }

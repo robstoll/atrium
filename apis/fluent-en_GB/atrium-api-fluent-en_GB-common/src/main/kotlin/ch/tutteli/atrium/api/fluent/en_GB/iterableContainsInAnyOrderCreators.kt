@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
+import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.kbox.glue
@@ -107,6 +108,6 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
 inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
 }
