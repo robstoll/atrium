@@ -11,10 +11,10 @@ import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import kotlin.reflect.KClass
 
 @UseExperimental(ExperimentalWithOptions::class)
-inline fun <TExpected : Throwable> _cause(
-    expect: Expect<Throwable>,
+inline fun <T: Throwable, TExpected : Throwable> _cause(
+    expect: Expect<T>,
     expectedType: KClass<TExpected>
-): ChangedSubjectPostStep<*, TExpected> =
+): ChangedSubjectPostStep<Throwable?, TExpected> =
     ExpectImpl.feature.manualFeature(expect, DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE) { cause }
         .getExpectOfFeature()
         .withRepresentation { it ?: RawString.create(DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED) }

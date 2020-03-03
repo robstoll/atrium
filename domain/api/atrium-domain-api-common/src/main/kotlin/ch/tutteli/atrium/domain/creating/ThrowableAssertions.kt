@@ -23,9 +23,9 @@ val throwableAssertions by lazy { loadSingleService(ThrowableAssertions::class) 
 interface ThrowableAssertions {
 
     fun <TExpected : Throwable> cause(
-        expect: Expect<Throwable>,
+        expect: Expect<out Throwable>,
         expectedType: KClass<TExpected>
-    ): ChangedSubjectPostStep<*, TExpected>
+    ): ChangedSubjectPostStep<Throwable?, TExpected>
 
     /**
      * Turns the given [assertionVerb] into an [Untranslatable] and delegates to the other overload.

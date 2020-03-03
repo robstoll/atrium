@@ -12,9 +12,9 @@ import kotlin.reflect.KClass
 class ThrowableAssertionsImpl : ThrowableAssertions {
 
     override fun <TExpected : Throwable> cause(
-        expect: Expect<Throwable>,
+        expect: Expect<out Throwable>,
         expectedType: KClass<TExpected>
-    ): ChangedSubjectPostStep<*, TExpected> =
+    ): ChangedSubjectPostStep<Throwable?, TExpected> =
         _cause(expect, expectedType)
 
 

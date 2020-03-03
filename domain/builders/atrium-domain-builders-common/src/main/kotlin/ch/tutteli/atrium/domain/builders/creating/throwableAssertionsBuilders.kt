@@ -24,10 +24,10 @@ import kotlin.reflect.KClass
  */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
 
-    override fun <TExpected : Throwable> cause(
-        expect: Expect<Throwable>,
+    override inline fun <TExpected : Throwable> cause(
+        expect: Expect<out Throwable>,
         expectedType: KClass<TExpected>
-    ): ChangedSubjectPostStep<*, TExpected> =
+    ): ChangedSubjectPostStep<Throwable?, TExpected> =
         throwableAssertions.cause(expect,  expectedType)
 
 

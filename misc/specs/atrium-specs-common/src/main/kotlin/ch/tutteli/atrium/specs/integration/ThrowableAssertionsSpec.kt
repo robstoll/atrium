@@ -19,8 +19,8 @@ abstract class ThrowableAssertionsSpec(
     message: Fun1<Throwable, Expect<String>.() -> Unit>,
     messageContains: Fun2<Throwable, Any, Array<out Any>>,
 
-    causeFeature: Feature0<Throwable, IllegalArgumentException>,
-    cause: Feature1<Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
+    causeFeature: Feature0<out Throwable, IllegalArgumentException>,
+    cause: Feature1<out Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
 
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -161,24 +161,21 @@ abstract class ThrowableAssertionsSpec(
     }
 
     describeFun(causeFeature, cause) {
-        val causeFunctions = unifySignatures(causeFeature, cause)
+        val causeFunctions= unifySignatures<Throwable, IllegalArgumentException>(causeFeature, cause)
 
         context("Throwable.cause is not null") {
-            val cause = IllegalArgumentException("Hello from the Cause")
+            val exceptionCause = IllegalArgumentException("Hello from the Cause")
             val throwable: Throwable =
-                RuntimeException("Outer exception message", cause)
+                RuntimeException("Outer exception message", exceptionCause)
 
             causeFunctions.forEach { (name, causeFun) ->
                 it("$name - does not throw if the assertion holds") {
-                    expect(throwable).causeFun() { toBe(cause) }
-                    expect(throwable).cause<IllegalArgumentException> {
-                        messageContains("Cause")
-                        feature(Throwable::cause).toBe(null)
-                    }
+                    expect(throwable).causeFun { toBe(exceptionCause) }
                 }
+
                 it("$name - throws an AssertionError") {
                     expect {
-                        expect(throwable).causeFun() { messageContains("WRONG message") }
+                        expect(throwable).causeFun { messageContains("WRONG message") }
                     }.toThrow<AssertionError> {
                         messageContains(
                             DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
@@ -187,15 +184,33 @@ abstract class ThrowableAssertionsSpec(
                     }
                 }
 
-                // to manage users' expectations and demonstrate the flaw caused by KT-27826, and also present in the "asA"
-                it("$name (as KT-27826 is not fixed) - doesn't throws if incorrect type is expected") {
+                it("$name  - throws if wrong type is expected") {
                     val throwableWithDifferentCauseType: Throwable =
                         RuntimeException(
                             "Outer exception message",
-                            NumberFormatException("Cause exception: NUMBER FORMAT")
+                            UnsupportedOperationException("Cause exception: UNSUPPORTED OPERATION")
                         )
-                    expect(throwableWithDifferentCauseType).causeFun() { messageContains("Cause exception") }
+                    expect {
+                        expect(throwableWithDifferentCauseType).causeFun { messageContains("Cause exception") }
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            String.format(
+                                DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES.getDefault(),
+                                UnsupportedOperationException::class.simpleName!!
+                            )
+                        )
+                    }
                 }
+            }
+
+            it("${causeFeature.name}(feature) on Throwable's subtype - does not throw if the assertion holds") {
+                val exception = IllegalStateException("Outer (IllegalStateException)", exceptionCause)
+                expect(exception).(causeFeature.lambda)().toBe(exceptionCause)
+            }
+
+            it("${cause.name} on Throwable's subtype - does not throw if the assertion holds") {
+                val exception = IllegalStateException("Outer (IllegalStateException)", exceptionCause)
+                expect(exception).(cause.lambda) { toBe(exceptionCause) }
             }
 
         }
@@ -205,10 +220,10 @@ abstract class ThrowableAssertionsSpec(
             causeFunctions.forEach { (name, causeFun) ->
                 it("$name - throws an AssertionError") {
                     expect {
-                        expect(throwable).causeFun() { messageContains("Hello") }
+                        expect(throwable).causeFun { messageContains("Hello") }
                     }.toThrow<AssertionError> {
                         messageContains(
-                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault(),
+                            DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
                             IllegalArgumentException::class.fullName
                         )
                     }

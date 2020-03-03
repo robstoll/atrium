@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null,
@@ -41,17 +42,33 @@ fun <T : Throwable> Expect<T>.messageContains(expected: Any, vararg otherExpecte
 
 
 /**
+ * Expects that the property [Throwable.cause] of the subject *is a* [TSub] (the same type or a sub-type),
+ * creates an [Expect] of the [TSub] type for it and returns it.
+ *
+ * @return The newly created [Expect] for the property [Throwable.cause] of the subject of the assertion
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
  * @since 0.10.0
  */
 @Suppress("RemoveExplicitTypeArguments")
-inline fun <reified TExpected : Throwable> Expect<Throwable>.cause(): Expect<TExpected> =
-    feature(Throwable::cause).isA<TExpected>()
+inline fun <reified TSub : Throwable> Expect<out Throwable>.cause(): Expect<TSub> =
+    ExpectImpl.throwable.cause(this, TSub::class).getExpectOfFeature()
 
 /**
+ *
+ * Expects that the property [Throwable.cause] of the subject *is a* [TSub] (the same type or a sub-type) and
+ * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ *
+ * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
+ * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TSub].
+ *
+ * @return This assertion container to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
  * @since 0.10.0
  */
 @Suppress("RemoveExplicitTypeArguments")
-inline fun <reified TExpected : Throwable> Expect<Throwable>.cause(
-    noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> =
-    feature(Throwable::cause).isA<TExpected>(assertionCreator)
+inline fun <reified TSub : Throwable> Expect<out Throwable>.cause(
+    noinline assertionCreator: Expect<TSub>.() -> Unit
+): Expect<TSub> =
+    ExpectImpl.throwable.cause(this, TSub::class).addToFeature(assertionCreator)

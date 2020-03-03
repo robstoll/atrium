@@ -17,10 +17,10 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
     companion object {
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun causeFeature(expect: Expect<Throwable>): Expect<IllegalArgumentException> = expect.cause<IllegalArgumentException>()
+        private fun causeFeature(expect: Expect<out Throwable>): Expect<IllegalArgumentException> = expect.cause<IllegalArgumentException>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun cause(expect: Expect<Throwable>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
+        private fun cause(expect: Expect<out Throwable>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
             expect.cause<IllegalArgumentException>(assertionCreator)
     }
 
@@ -31,5 +31,9 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
         a1.message
         a1 = a1.message {}
         a1 = a1.messageContains("asdf")
+
+        var a2: Expect<ClassCastException> = notImplemented()
+        a2.cause<ClassCastException>().message { }
+        a2.cause<ClassCastException> {  message {  }}
     }
 }
