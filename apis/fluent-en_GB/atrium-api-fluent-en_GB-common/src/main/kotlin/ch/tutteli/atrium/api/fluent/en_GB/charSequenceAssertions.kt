@@ -229,6 +229,8 @@ fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequ
 /**
  * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
  *
+ * In contrast to [containsRegex] it does not look for a partial match but for an entire match.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
@@ -239,6 +241,8 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
+ *
+ * In contrast to `containsNot.regex` it does not look for a partial match but for an entire match.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

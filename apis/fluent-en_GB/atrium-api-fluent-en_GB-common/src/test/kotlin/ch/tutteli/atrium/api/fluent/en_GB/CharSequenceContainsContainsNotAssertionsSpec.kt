@@ -1,28 +1,21 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import kotlin.reflect.KFunction3
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.notImplemented
 
 class CharSequenceContainsContainsNotAssertionsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotAssertionsSpec(
-        getContainsPair(),
-        getContainsNotPair(),
+        fun2<CharSequence, String, Array<out String>>(Expect<CharSequence>::contains),
+        fun2<CharSequence, String, Array<out String>>(Expect<CharSequence>::containsNot),
         "◆ ", "⚬ ", "▶ "
     ) {
-    companion object : CharSequenceContainsSpecBase() {
-        private val containsFun: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
-            Expect<CharSequence>::contains
 
-        fun getContainsPair() = containsFun.name to Companion::containsShortcut
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        val a1: Expect<String> = notImplemented()
 
-        private fun containsShortcut(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) = expect.contains(a, *aX)
-
-        private val containsNotFun: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
-            Expect<CharSequence>::containsNot
-
-        private fun getContainsNotPair() = containsNotFun.name to Companion::containsNotShortcut
-
-        private fun containsNotShortcut(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            expect.containsNot(a, *aX)
+        a1.contains(1, "a", 'c')
+        a1.containsNot(1, "a", 'c')
     }
 }

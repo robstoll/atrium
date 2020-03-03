@@ -20,7 +20,7 @@ import kotlin.reflect.*
  *
  * @since 0.10.0
  */
-infix fun <T, R> Expect<T>.feature(property: KProperty1<T, R>): FeatureExpect<T, R> =
+infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.property(this, property).getExpectOfFeature()
 
 /**
@@ -47,6 +47,8 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  * Use `of(K..., ...)` to create a [Feature] where the first argument is the extractor in form of a
  *   [KProperty1] or a `KFunctionX` and potentially the required arguments for a `KFunctionX` where `X` > 1.
  *
+ * Note, [Feature] will be made invariant once Kotlin 1.4 is out and Atrium depends on it (most likely with 1.0.0)
+ *
  * @param of Use `of(K..., ...)` to create a [Feature] where the first argument is the extractor in form of a
  *   [KProperty1] or a `KFunctionX` and potentially the required arguments for a `KFunctionX` where `X` > 1.
  *
@@ -54,7 +56,8 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  *
  * @since 0.10.0
  */
-infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
+//TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
+infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.manualFeature(this, of.description, of.extractor).getExpectOfFeature()
 
 /**
@@ -67,6 +70,8 @@ infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
  *   form of a [KProperty1] or a `KFunctionX`, the last an `assertionCreator`-lambda and the remaining arguments
  *   in-between the required arguments in case of a `KFunctionX` where `X` > 1.
  *
+ * Note, [FeatureWithCreator] will be made invariant once Kotlin 1.4 is out and Atrium depends on it (most likely with 1.0.0)
+ *
  * @param of Use `of(K..., ...) { ... }` to create a [FeatureWithCreator] where the first argument is the extractor in
  *   form of a [KProperty1] or a `KFunctionX`, the last an `assertionCreator`-lambda and the remaining arguments
  *   in-between the required arguments in case of a `KFunctionX` where `X` > 1.
@@ -76,7 +81,8 @@ infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
  *
  * @since 0.10.0
  */
-infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<T, R>): Expect<T> =
+//TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
+infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
     ExpectImpl.feature.manualFeature(this, of.description, of.extractor).addToInitial(of.assertionCreator)
 
 
@@ -182,7 +188,7 @@ fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A
 /**
  * Helper function to create a [FeatureWithCreator] based on a [KProperty1] + [assertionCreator].
  */
-fun <T, R> of(property: KProperty1<T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
+fun <T, R> of(property: KProperty1<in T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
     FeatureWithCreator(property.name, { property.invoke(it) }, assertionCreator)
 
 /**
