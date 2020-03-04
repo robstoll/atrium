@@ -19,8 +19,8 @@ abstract class ThrowableAssertionsSpec(
     message: Fun1<Throwable, Expect<String>.() -> Unit>,
     messageContains: Fun2<Throwable, Any, Array<out Any>>,
 
-    causeFeature: Feature0<out Throwable, IllegalArgumentException>,
-    cause: Feature1<out Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
+    causeFeature: Feature0<Throwable, IllegalArgumentException>,
+    cause: Feature1<Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
 
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -201,16 +201,6 @@ abstract class ThrowableAssertionsSpec(
                         )
                     }
                 }
-            }
-
-            it("${causeFeature.name}(feature) on Throwable's subtype - does not throw if the assertion holds") {
-                val exception = IllegalStateException("Outer (IllegalStateException)", exceptionCause)
-                expect(exception).(causeFeature.lambda)().toBe(exceptionCause)
-            }
-
-            it("${cause.name} on Throwable's subtype - does not throw if the assertion holds") {
-                val exception = IllegalStateException("Outer (IllegalStateException)", exceptionCause)
-                expect(exception).(cause.lambda) { toBe(exceptionCause) }
             }
 
         }
