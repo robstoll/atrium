@@ -3,7 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.builders.utils.toVarArg
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.kbox.glue
@@ -26,7 +27,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
     values(expected)
 
 /**
@@ -55,7 +56,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
@@ -79,7 +80,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
     expected: Any
 ): Expect<T> = values(expected)
 
@@ -110,7 +111,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  *   [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
@@ -120,7 +121,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * (ignoring case), using a non disjoint search where it needs to be contained at least once.
  *
- * Delegates to `atLeast(1).values(expected)`.
+ * Delegates to `atLeast(1).value(expected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
@@ -133,7 +134,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
     atLeast(1).value(expected)
 
 /**
@@ -159,7 +160,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.values(
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
 ): Expect<T> = atLeast(1).values(expected, *otherExpected)
@@ -185,13 +186,13 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
@@ -213,7 +214,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+//TODO rename to `matchFor` with 1.0.0
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
@@ -240,7 +242,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
@@ -269,7 +271,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = atLeast(1).regex(pattern, *otherPatterns)
@@ -292,13 +294,14 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
+ *
  * @since 0.9.0
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
 }
 
 /**
@@ -319,12 +322,13 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
+ *
  * @since 0.9.0
  */
 @JvmName("elementsOfIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
 }

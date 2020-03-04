@@ -73,7 +73,6 @@ For instance, the [README of v0.9.2](https://github.com/robstoll/atrium/tree/mas
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
 - [FAQ](#faq)
-- [Kotlin Bugs](#kotlin-bugs)
 - [Roadmap](#roadmap)
 - [Contributors and contribute](#contributors-and-contribute)
 - [Sponsors](#sponsors)
@@ -516,7 +515,7 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
-Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way -- 
+Yet, it is due to many [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) standing in the way -- 
 we hope we can provide a better API once Kotlin 1.4 is out (the new type inference respectively).</sub>
 
 `feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
@@ -591,7 +590,7 @@ if the property as such is renamed (e.g., as part of an IDE refactoring).
 As you can see, you would need to keep the property name and the name of the assertion function in sync to be meaningful 
 (otherwise one gets quickly confused or has to remember two names for the same thing). 
 
-Writing assertion functions for methods is a different story though, especially due to [overload bugs in Kotlin](#kotlin-bugs).
+Writing assertion functions for methods is a different story though, especially due to [overload bugs in Kotlin](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features).
 Also, code completion is not yet as good as it should be when it comes to methods. 
 Last but not least, in case it is not always safe to call a method (e.g. `List.get` => IndexOutOfBound) then it makes
 sense to wrap it into an assertion function and use `ExpectImpl.feature.extractor` instead.
@@ -722,7 +721,7 @@ Also this version of `feature` provides to kind of overloads, one without and on
 
 ### Ambiguity Problems
 Unfortunately there are several Kotlin bugs when it comes to overloading, especially in conjunction with `KFunction`
-(see [Kotlin Bugs](#kotlin-bugs) and upvote in case you run into one).
+(see [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) and upvote in case you run into one).
 However, Atrium provides alternative functions next to `f` within the `MetaFeature`-provider-lambda to disambiguate the situation.
 Use `p` for properties and `f0` to `f5` for methods. 
 Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
@@ -1470,7 +1469,7 @@ expected that subject: "calling myFun with ..."        <1234789>
 
 The example should be self explanatory.
 One detail to note though is the usage of `subExpect`. 
-It is a helper function which circumvents certain [Kotlin type inference bugs](#kotlin-bugs) (upvote them please).
+It is a helper function which circumvents certain [Kotlin type inference bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) (upvote them please).
 Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
 involved in a `Pair` is not (yet) inferred correctly by Kotlin.
 
@@ -2434,49 +2433,6 @@ Deprecated APIs:
 ## Problems in conjunction with `feature`
 
 See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
-
-# Kotlin Bugs
-The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
-Please upvote them (especially if you encounter them yourself):
-- [Symbol is declared in unnamed module](https://youtrack.jetbrains.com/issue/KT-35343)
-- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
-- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
-- [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects.
-- [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
-- [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
-- [Type inference KFunction overload bug 1](https://youtrack.jetbrains.com/issue/KT-17340)
-- [Type inference KFunction overload bug 2](https://youtrack.jetbrains.com/issue/KT-19884)
-- [Type inference KProperty/KFunction ambiguity bug](https://youtrack.jetbrains.com/issue/KT-17341)
-- [Type inference fails to infer T of KFunction0 for most types](https://youtrack.jetbrains.com/issue/KT-29515)
-- [Type inference type parameter bug](https://youtrack.jetbrains.com/issue/KT-12963)
-- [Type inference return type bug](https://youtrack.jetbrains.com/issue/KT-24918)
-- [Type inference out type parameter bug](https://youtrack.jetbrains.com/issue/KT-18401)
-- [Type inference explicit type and overloads](https://youtrack.jetbrains.com/issue/KT-23791)
-- [Type inference Pair with receiver type](https://youtrack.jetbrains.com/issue/KT-29129)
-- [Type inference unable to infer primitive type](https://youtrack.jetbrains.com/issue/KT-33290)
-- [Overload resolution null bug](https://youtrack.jetbrains.com/issue/KT-6591) (reason why you need to specify what type `null` is in the infix API when using `assert(listOf(...)) contains null`)
-- [Extension resolution null as receiver bug](https://youtrack.jetbrains.com/issue/KT-30496) (reason why you need to define that `null to null` is a Pair in the infix API)
-- [Overload resolution nullable bug](https://youtrack.jetbrains.com/issue/KT-23768)
-- [Overload resolution primitive type bug](https://youtrack.jetbrains.com/issue/KT-24230)
-- [Overload resolution function type bug](https://youtrack.jetbrains.com/issue/KT-23883)
-- [Overload resolution generic upper bound bug](https://youtrack.jetbrains.com/issue/KT-30235)
-- [Overload ambiguity between val and fun](https://youtrack.jetbrains.com/issue/KT-32958)
-- [false positive: remove explicit type arguments](https://youtrack.jetbrains.com/issue/KT-32869)
-- [Wrong JS generated in case of name clash](https://youtrack.jetbrains.com/issue/KT-33294)
-- [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
-- [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
-- [ReplaceWith does not add type parameter](https://youtrack.jetbrains.com/issue/KT-33685)
-- [Wrong warning about predetermined type parameter](https://youtrack.jetbrains.com/issue/KT-34257)
-
-And some features which would be handy
-- [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
-- [Method reference without `this`](https://youtrack.jetbrains.com/issue/KT-22920)
-- [Infix function call with type parameters](https://youtrack.jetbrains.com/issue/KT-21593)
-- [Extensibility for infix API](https://youtrack.jetbrains.com/issue/KT-27659)
-- [Summarising overloads in code completion](https://youtrack.jetbrains.com/issue/KT-25079) 
-- [vararg for lambdas](https://youtrack.jetbrains.com/issue/KT-24287)
-- [delegate with inline modifier](https://youtrack.jetbrains.com/issue/KT-23241)
-
 
 # Roadmap
 

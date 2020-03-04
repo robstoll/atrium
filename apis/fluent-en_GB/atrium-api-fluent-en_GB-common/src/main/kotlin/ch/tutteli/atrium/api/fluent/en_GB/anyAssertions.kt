@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.Reporter
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
@@ -16,7 +16,7 @@ fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, exp
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(this, expected))
@@ -24,7 +24,7 @@ fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(thi
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(this, expected))
@@ -32,7 +32,7 @@ fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(thi
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSame(this, expected))
@@ -47,7 +47,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSa
  * else notToBeNull(assertionCreatorOrNull)
  * ```
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
@@ -59,7 +59,7 @@ inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * It delegates to [isA] with [T] as type.
  *
- * @return An assertion container with the non-nullable type [T] (was `T?` before).
+ * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
@@ -71,7 +71,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> = isA<T>()
  *
  * It delegates to [isA] with [T] as type.
  *
- * @return An assertion container with the non-nullable type [T] (was `T?` before)
+ * @return An [Expect] with the non-nullable type [T] (was `T?` before)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
@@ -94,7 +94,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * the element type is actually `String`. Or in other words
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
- * @return An assertion container with the new type [TSub].
+ * @return An [Expect] with the new type [TSub].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
@@ -138,7 +138,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * the element type is actually `String`. Or in other words
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
- * @return An assertion container with the new type [TSub].
+ * @return An [Expect] with the new type [TSub].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
@@ -152,7 +152,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<
  * asserts that 1 is greater than 0. If the first assertion fails, then usually (depending on the configured
  * [AssertionChecker]) the second assertion is not evaluated.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  */
 inline val <T> Expect<T>.and: Expect<T> get() = this
 
@@ -164,6 +164,6 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)

@@ -66,55 +66,55 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
 
     describeFun(containsRegex) {
         context("throws an ${IllegalArgumentException::class.simpleName}") {
-            it("if an erroneous pattern is passed to `$containsAtLeast` as first argument") {
+            it("if an erroneous pattern is passed to `${containsAtLeast.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).containsAtLeastFun(1, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
-            it("if an erroneous pattern is passed to `$containsAtLeast` as second argument") {
+            it("if an erroneous pattern is passed to `${containsAtLeast.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).containsAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
-            it("if an erroneous pattern is passed to `$containsAtLeastIgnoringCase` as first argument") {
+            it("if an erroneous pattern is passed to `${containsAtLeastIgnoringCase.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).containsAtLeastIgnoringCaseFun(1, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
-            it("if an erroneous pattern is passed to `$containsAtLeastIgnoringCase` as second argument") {
+            it("if an erroneous pattern is passed to `${containsAtLeastIgnoringCase.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).containsAtLeastIgnoringCaseFun(1, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
 
-            it("if an erroneous pattern is passed to `$containsShortcut` as first argument") {
+            it("if an erroneous pattern is passed to `${containsShortcut.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).containsShortcutFun("notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
-            it("if an erroneous pattern is passed to `$containsShortcut` as second argument") {
+            it("if an erroneous pattern is passed to `${containsShortcut.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).containsShortcutFun("h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
 
-            it("if an erroneous pattern is passed to `$containsAtMost` as first argument") {
+            it("if an erroneous pattern is passed to `${containsAtMost.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).containsAtMostFun(2, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
-            it("if an erroneous pattern is passed to `$containsAtMost` as second argument") {
+            it("if an erroneous pattern is passed to `${containsAtMost.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).containsAtMostFun(2, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
 
-            it("if an erroneous pattern is passed to `$containsAtMostIgnoringCase` as first argument") {
+            it("if an erroneous pattern is passed to `${containsAtMostIgnoringCase.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).containsAtMostIgnoringCaseFun(2, "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()
             }
-            it("if an erroneous pattern is passed to `$containsAtMostIgnoringCase` as second argument") {
+            it("if an erroneous pattern is passed to `${containsAtMostIgnoringCase.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).containsAtMostIgnoringCaseFun(2, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<IllegalArgumentException>()

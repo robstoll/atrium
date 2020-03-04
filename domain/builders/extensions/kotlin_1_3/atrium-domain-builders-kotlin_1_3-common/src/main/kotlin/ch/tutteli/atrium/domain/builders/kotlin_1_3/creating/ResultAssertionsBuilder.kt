@@ -16,12 +16,9 @@ import kotlin.reflect.KClass
  */
 object ResultAssertionsBuilder : ResultAssertions {
 
-    override inline fun <E, T : Result<E>> isSuccess(
-        assertionContainer: Expect<T>
-    ): ExtractedFeaturePostStep<T, E> = resultAssertions.isSuccess(assertionContainer)
+    override inline fun <E, T : Result<E>> isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
+        resultAssertions.isSuccess(expect)
 
-    override fun <TExpected : Throwable> isFailure(
-        assertionContainer: Expect<out Result<*>>,
-        expectedType: KClass<TExpected>
-    ) = resultAssertions.isFailure(assertionContainer, expectedType)
+    override fun <TExpected : Throwable> isFailure(expect: Expect<out Result<*>>, expectedType: KClass<TExpected>) =
+        resultAssertions.isFailure(expect, expectedType)
 }

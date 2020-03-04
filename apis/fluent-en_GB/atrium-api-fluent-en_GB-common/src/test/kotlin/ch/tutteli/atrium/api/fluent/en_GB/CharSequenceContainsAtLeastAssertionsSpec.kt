@@ -155,7 +155,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ) = expect.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).elementsOf(listOf(a, *aX))
 
-        private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
+        private fun getContainsNotPair() = containsNot to ::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $atLeast($times)"
 

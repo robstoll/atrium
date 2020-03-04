@@ -395,5 +395,8 @@ fun <T : Path> _parent(expect: Expect<T>): ExtractedFeaturePostStep<T, Path> =
         .withoutOptions()
         .build()
 
+fun <T : Path> _resolve(expect: Expect<T>, other: String): ExtractedFeaturePostStep<T, Path> =
+    ExpectImpl.feature.f1<T, String, Path>(expect, Path::resolve, other)
+
 fun <T : Path> _extension(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
     ExpectImpl.feature.manualFeature(expect, EXTENSION) { extension }

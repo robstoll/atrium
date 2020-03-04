@@ -80,22 +80,15 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
         description: Translatable,
         provider: T.() -> R
     ): ExtractedFeaturePostStep<T, R> =
-        genericFeature(expect, createMetaFeature(expect, description, provider))
+        genericFeature(expect, ExpectImpl.feature.meta.create(expect, description, provider))
 
     fun <T, R> genericSubjectBasedFeature(
         expect: Expect<T>,
         provider: (T) -> MetaFeature<R>
     ): ExtractedFeaturePostStep<T, R> = ExpectImpl.feature.genericFeature(
         expect,
-        expect.maybeSubject.fold(this::createFeatureSubjectNotDefined) { provider(it) }
+        ExpectImpl.feature.meta.createSubjectBased(expect, provider)
     )
-
-    private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
-        MetaFeature(
-            ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT,
-            RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
-            None
-        )
 
     override inline fun <T, R> genericFeature(
         expect: Expect<T>,
@@ -107,30 +100,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
         description: String,
         provider: (T) -> R
     ): ExtractedFeaturePostStep<T, R> =
-        genericFeature(expect, createMetaFeature(expect, description, provider))
-
-    private fun <T, R> createMetaFeature(
-        expect: Expect<T>,
-        description: String,
-        provider: (T) -> R
-    ): MetaFeature<R> = createMetaFeature(expect, Untranslatable(description), provider)
-
-    private fun <T, R> createMetaFeature(
-        expect: Expect<T>,
-        description: Translatable,
-        provider: (T) -> R
-    ): MetaFeature<R> {
-        return expect.maybeSubject.fold({
-            MetaFeature(
-                description,
-                RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
-                None
-            )
-        }) {
-            val prop = provider(it)
-            MetaFeature(description, prop, Some(prop))
-        }
-    }
+        genericFeature(expect, ExpectImpl.feature.meta.create(expect, description, provider))
 
     /**
      * Returns [MetaFeatureBuilder] which helps to create a [MetaFeature].
@@ -143,6 +113,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
  * into an overload ambiguity, then either [p] (for property) or one of the `fN` functions (e.g. [f2] for
  * a function which expects 2 arguments).
  */
+//TODO move to API, this could potentially be different per API
 class MetaFeatureOption<T>(private val expect: Expect<T>) {
 
     /**
@@ -338,4 +309,43 @@ object MetaFeatureBuilder {
     fun <A1, A2, A3, A4, A5, R> f5(expect: Expect<*>, f: KFunction5<A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) =
         MetaFeature(coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf(a1, a2, a3, a4, a5)), f.invoke(a1, a2, a3, a4, a5))
     //@formatter:on
+
+    /**
+     * creates a [MetaFeature] which is entirely based on the subject (i.e. also the description).
+     */
+    fun <T, R> createSubjectBased(
+        expect: Expect<T>,
+        provider: (T) -> MetaFeature<R>
+    ): MetaFeature<R> = expect.maybeSubject.fold(this::createFeatureSubjectNotDefined) { provider(it) }
+
+    private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
+        MetaFeature(
+            ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT,
+            RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
+            None
+        )
+
+    fun <T, R> create(
+        expect: Expect<T>,
+        description: String,
+        provider: (T) -> R
+    ): MetaFeature<R> = create(expect, Untranslatable(description), provider)
+
+    fun <T, R> create(
+        expect: Expect<T>,
+        description: Translatable,
+        provider: (T) -> R
+    ): MetaFeature<R> {
+        return expect.maybeSubject.fold({
+            MetaFeature(
+                description,
+                RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
+                None
+            )
+        }) {
+            val feature = provider(it)
+            MetaFeature(description, feature, Some(feature))
+        }
+    }
+
 }

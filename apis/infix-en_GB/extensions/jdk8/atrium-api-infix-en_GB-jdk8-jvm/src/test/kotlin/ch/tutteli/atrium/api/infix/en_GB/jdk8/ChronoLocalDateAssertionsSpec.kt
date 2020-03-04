@@ -1,4 +1,4 @@
-package kotlin.ch.tutteli.atrium.api.infix.en_GB.jdk8
+package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1

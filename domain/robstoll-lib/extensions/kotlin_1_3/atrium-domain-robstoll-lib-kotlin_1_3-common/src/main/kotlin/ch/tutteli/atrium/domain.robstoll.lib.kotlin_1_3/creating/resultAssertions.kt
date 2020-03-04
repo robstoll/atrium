@@ -26,12 +26,12 @@ fun <E, T : Result<E>> _isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T
 
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isFailure(
-    assertionContainer: Expect<out Result<*>>,
+    expect: Expect<out Result<*>>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<Throwable?, TExpected>
 {
     val throwableExpect = ExpectImpl.feature
-        .manualFeature(assertionContainer, EXCEPTION) { exceptionOrNull() }
+        .manualFeature(expect, EXCEPTION) { exceptionOrNull() }
         .getExpectOfFeature()
         .withRepresentation { it ?: RawString.create(IS_NOT_FAILURE) }
 

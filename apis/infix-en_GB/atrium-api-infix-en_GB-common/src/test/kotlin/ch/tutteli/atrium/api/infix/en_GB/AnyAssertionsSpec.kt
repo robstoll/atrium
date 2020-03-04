@@ -81,7 +81,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
     //regression for #298, should compile without the need for E : Any or List<E?>
     @Suppress("unused")
-    fun <E> Expect<List<E>>.firstIs(value: E) = o get Index(0) assertIt { o toBe value }
+    fun <E> Expect<List<E>>.firstIs(value: E) = o get index(0) { o toBe value }
 }
 
 private fun toBeNull(expect: Expect<Int?>) = expect toBe null

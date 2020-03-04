@@ -30,6 +30,7 @@ class PathAssertionsImpl : PathAssertions {
         _fileNameWithoutExtension(expect)
 
     override fun <T : Path> parent(expect: Expect<T>) = _parent(expect)
+    override fun <T : Path> resolve(expect: Expect<T>, other: String) = _resolve(expect, other)
 
     override fun <T : Path> isReadable(expect: Expect<T>) = _isReadable(expect)
     override fun <T : Path> isWritable(expect: Expect<T>) = _isWritable(expect)

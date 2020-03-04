@@ -44,7 +44,7 @@ interface SubjectChanger {
      *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param transformation Provides the subject.
      *
-     * @return The newly created [Expect].
+     * @return The newly created [Expect] for the extracted feature.
      */
     fun <T, R> unreported(
         originalAssertionContainer: Expect<T>,
@@ -80,7 +80,7 @@ interface SubjectChanger {
      *   change fails since we can then already show to you (in error reporting) what you wanted to assert about
      *   the new subject (which gives you more context to the error).
      *
-     * @return The newly created [Expect].
+     * @return The newly created [Expect] for the extracted feature.
      */
     fun <T, R> reported(
         originalAssertionContainer: Expect<T>,

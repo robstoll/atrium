@@ -4,6 +4,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
@@ -68,13 +69,13 @@ class FinalStepImpl<T, R>(
             extractAndApply = { assertionCreator -> extractIt(this, Some(assertionCreator)) }
         )
 
-    private fun extractIt(expect: Expect<T>, subAssertions: Option<Expect<R>.() -> Unit>) =
+    private fun extractIt(expect: Expect<T>, maybeSubAssertions: Option<Expect<R>.() -> Unit>): FeatureExpect<T, R> =
         featureExtractor.extract(
             expect,
             featureOptions?.description ?: featureExtractionStep.description,
             featureExtractionStep.representationForFailure,
             featureExtraction,
-            subAssertions,
+            maybeSubAssertions,
             featureOptions?.representationInsteadOfFeature
         )
 }
