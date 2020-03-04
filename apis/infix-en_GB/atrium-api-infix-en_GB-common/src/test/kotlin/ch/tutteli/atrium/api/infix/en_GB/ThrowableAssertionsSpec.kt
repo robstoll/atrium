@@ -9,8 +9,20 @@ import ch.tutteli.atrium.specs.property
 class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
-    fun2(::messageContains)
+    fun2(::messageContains),
+    "cause" to Companion::causeFeature,
+    "cause" to Companion::cause
 ) {
+
+    companion object {
+
+        @Suppress("RemoveExplicitTypeArguments")
+        private fun causeFeature(expect: Expect<out Throwable>): Expect<IllegalArgumentException> = expect.cause<IllegalArgumentException>()
+
+        @Suppress("RemoveExplicitTypeArguments")
+        private fun cause(expect: Expect<out Throwable>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
+            expect.cause<IllegalArgumentException>(assertionCreator)
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -21,6 +33,10 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
         a1 = a1 messageContains "a"
         a1 = a1 messageContains 'a'
         a1 = a1 messageContains Values("a", 1, 'b')
+
+        var a2: Expect<ClassCastException> = notImplemented()
+        a2.cause<ClassCastException>()
+        a2.cause<ClassCastException> {  message {  }}
     }
 }
 
