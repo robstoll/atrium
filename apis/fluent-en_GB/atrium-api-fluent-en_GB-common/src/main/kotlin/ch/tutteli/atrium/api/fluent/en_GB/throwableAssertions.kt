@@ -63,7 +63,7 @@ inline fun <reified TSub : Throwable> Expect<out Throwable>.cause(): Expect<TSub
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TSub].
  *
- * @return This assertion container to support a fluent API.
+  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
