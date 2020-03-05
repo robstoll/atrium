@@ -11,7 +11,7 @@ import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import kotlin.reflect.KClass
 
 @UseExperimental(ExperimentalWithOptions::class)
-inline fun <T: Throwable, TExpected : Throwable> _cause(
+fun <T: Throwable, TExpected : Throwable> _cause(
     expect: Expect<T>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<Throwable?, TExpected> =
