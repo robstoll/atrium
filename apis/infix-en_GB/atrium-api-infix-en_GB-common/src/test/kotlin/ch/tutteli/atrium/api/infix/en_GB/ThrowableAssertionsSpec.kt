@@ -5,12 +5,13 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
+import ch.tutteli.atrium.specs.withFeatureSuffix
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
     fun2(::messageContains),
-    "cause" to Companion::causeFeature,
+    ("cause" to Companion::causeFeature).withFeatureSuffix(),
     "cause" to Companion::cause
 ) {
 
