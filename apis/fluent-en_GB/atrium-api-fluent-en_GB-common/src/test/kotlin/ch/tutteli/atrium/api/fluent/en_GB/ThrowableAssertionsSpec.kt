@@ -27,14 +27,13 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<Throwable> = notImplemented()
+        var a1: Expect<ClassCastException> = notImplemented()
 
         a1.message
         a1 = a1.message {}
         a1 = a1.messageContains("asdf")
 
-        var a2: Expect<ClassCastException> = notImplemented()
-        a2.cause<ClassCastException>().message { }
-        a2.cause<ClassCastException> {  message {  }}
+        a1.cause<ClassCastException>().message { }
+        a1.cause<ClassCastException> {  message {  }}
     }
 }
