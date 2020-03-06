@@ -108,8 +108,7 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 adjuster.adjust(throwable)
                 expect(throwable.suppressed).asList().all {
-                    //TODO #31 replace with shortcut fun
-                    feature { f(it::cause) }.notToBeNull {
+                    cause<UnsupportedOperationException> {
                         feature { f(it::stackBacktrace) }
                             .containsNot.entries(containsNotFirst, *containsNotRest)
                             .contains(containsFirst, *containsRest)

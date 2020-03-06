@@ -4,7 +4,10 @@ package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.ThrowableAssertions
+import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.domain.creating.listAssertions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.throwableThrownAssertions
@@ -20,6 +23,13 @@ import kotlin.reflect.KClass
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
+
+    override inline fun <TExpected : Throwable> cause(
+        expect: Expect<out Throwable>,
+        expectedType: KClass<TExpected>
+    ): ChangedSubjectPostStep<Throwable?, TExpected> =
+        throwableAssertions.cause(expect,  expectedType)
+
 
     @Deprecated(
         "Use Expect instead; will be removed with 1.0.0",

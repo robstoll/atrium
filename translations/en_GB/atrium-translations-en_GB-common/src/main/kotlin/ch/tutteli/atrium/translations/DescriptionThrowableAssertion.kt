@@ -13,6 +13,8 @@ enum class DescriptionThrowableAssertion(override val value: String) : StringBas
     )
     IS_A("is a"),
     NO_EXCEPTION_OCCURRED("no exception occurred"),
+    NOT_CAUSED("❗❗ not caused by another exception"),
+    //TODO rename to CAUSE with 1.0.0
     OCCURRED_EXCEPTION_CAUSE("cause"),
     OCCURRED_EXCEPTION_PROPERTIES("Properties of the unexpected %s"),
     OCCURRED_EXCEPTION_MESSAGE("message"),
