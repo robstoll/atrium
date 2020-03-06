@@ -149,7 +149,6 @@ abstract class ThrowableAssertionsSpec(
             it("${messageContains.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
             }
-
         }
 
         it("${messageContains.name} - throws an IllegalArgumentException if an object is passed") {
@@ -161,10 +160,10 @@ abstract class ThrowableAssertionsSpec(
     }
 
     describeFun(causeFeature, cause) {
-        val causeFunctions= unifySignatures<Throwable, IllegalArgumentException>(causeFeature, cause)
+        val causeFunctions = unifySignatures<Throwable, IllegalArgumentException>(causeFeature, cause)
 
         context("Throwable.cause is not null") {
-            val exceptionCause = IllegalArgumentException("Hello from the Cause")
+            val exceptionCause = IllegalArgumentException("Hello from the Clause")
             val throwable: Throwable =
                 RuntimeException("Outer exception message", exceptionCause)
 
@@ -213,7 +212,7 @@ abstract class ThrowableAssertionsSpec(
                         expect(throwable).causeFun { messageContains("Hello") }
                     }.toThrow<AssertionError> {
                         messageContains(
-                            DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                            DescriptionThrowableAssertion.NOT_CAUSED.getDefault(),
                             IllegalArgumentException::class.fullName
                         )
                     }

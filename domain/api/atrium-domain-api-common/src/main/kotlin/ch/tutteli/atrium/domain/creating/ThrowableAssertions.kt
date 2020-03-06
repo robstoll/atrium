@@ -19,7 +19,6 @@ val throwableAssertions by lazy { loadSingleService(ThrowableAssertions::class) 
  * Defines the minimum set of assertion functions and builders applicable to [Throwable],
  * which an implementation of the domain of Atrium has to provide.
  */
-//TODO remove with 1.0.0 if there aren't any non-deprecated functions added
 interface ThrowableAssertions {
 
     fun <TExpected : Throwable> cause(

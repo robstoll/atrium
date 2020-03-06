@@ -17,7 +17,7 @@ fun <T: Throwable, TExpected : Throwable> _cause(
 ): ChangedSubjectPostStep<Throwable?, TExpected> =
     ExpectImpl.feature.manualFeature(expect, DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE) { cause }
         .getExpectOfFeature()
-        .withRepresentation { it ?: RawString.create(DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED) }
+        .withRepresentation { it ?: RawString.create(DescriptionThrowableAssertion.NOT_CAUSED) }
         .let {
             ExpectImpl.changeSubject(it).reportBuilder()
                 .downCastTo(expectedType)

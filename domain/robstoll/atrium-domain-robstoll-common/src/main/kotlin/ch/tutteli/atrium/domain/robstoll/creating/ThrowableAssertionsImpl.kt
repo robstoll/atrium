@@ -8,7 +8,6 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-//TODO remove with 1.0.0 if there aren't any non-deprecated functions added
 class ThrowableAssertionsImpl : ThrowableAssertions {
 
     override fun <TExpected : Throwable> cause(
