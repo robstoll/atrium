@@ -43,33 +43,31 @@ fun <T : Throwable> Expect<T>.messageContains(expected: Any, vararg otherExpecte
 
 
 /**
- * Expects that the property [Throwable.cause] of the subject *is a* [TSub] (the same type or a sub-type),
- * creates an [Expect] of the [TSub] type for it and returns it.
+ * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type),
+ * creates an [Expect] of the [TExpected] type for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of the assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
  */
-@Suppress("RemoveExplicitTypeArguments")
-inline fun <reified TSub : Throwable> Expect<out Throwable>.cause(): Expect<TSub> =
-    ExpectImpl.throwable.cause(this, TSub::class).getExpectOfFeature()
+inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
+    ExpectImpl.throwable.cause(this, TExpected::class).getExpectOfFeature()
 
 /**
  *
- * Expects that the property [Throwable.cause] of the subject *is a* [TSub] (the same type or a sub-type) and
+ * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type) and
  * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
- * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TSub].
+ * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
  *
   * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
  */
-@Suppress("RemoveExplicitTypeArguments")
-inline fun <reified TSub : Throwable> Expect<out Throwable>.cause(
-    noinline assertionCreator: Expect<TSub>.() -> Unit
-): Expect<TSub> =
-    ExpectImpl.throwable.cause(this, TSub::class).addToFeature(assertionCreator)
+inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
+    noinline assertionCreator: Expect<TExpected>.() -> Unit
+): Expect<TExpected> =
+    ExpectImpl.throwable.cause(this, TExpected::class).addToFeature(assertionCreator)
