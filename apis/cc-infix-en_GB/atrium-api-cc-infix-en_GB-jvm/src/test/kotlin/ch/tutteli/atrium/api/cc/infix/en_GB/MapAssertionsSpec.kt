@@ -8,6 +8,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.verbs.internal.assert
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     AssertionVerbFactory,
     containsFun.name to Companion::contains,

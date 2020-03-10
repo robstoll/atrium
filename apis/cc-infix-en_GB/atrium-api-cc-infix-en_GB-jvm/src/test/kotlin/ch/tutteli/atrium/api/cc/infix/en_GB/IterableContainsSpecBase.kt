@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.verbs.internal.assert
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 abstract class IterableContainsSpecBase {
     protected val Values = Values::class.simpleName
     private val Entries = Entries::class.simpleName

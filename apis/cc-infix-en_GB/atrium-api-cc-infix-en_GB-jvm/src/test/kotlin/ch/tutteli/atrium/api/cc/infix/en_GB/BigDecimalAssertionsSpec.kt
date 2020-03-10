@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 import java.math.BigDecimal
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.integration.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
     toBePair(),
