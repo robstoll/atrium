@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.feature.Feature
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.MetaFeatureOptionWithCreator
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -159,31 +160,31 @@ fun <T, R> MetaFeatureOption<T>.f(description: String, provider: R): MetaFeature
  * Helper function to create a [Feature] based on a [KFunction2] + arguments.
  */
 fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1): Feature<T, R> =
-    Feature(f.name) { f.invoke(it, a1) }
+    Feature(formatMethodCall(f, a1)) { f.invoke(it, a1) }
 
 /**
  * Helper function to create a [Feature] based on a [KFunction3] + arguments.
  */
 fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): Feature<T, R> =
-     Feature(f.name) { f.invoke(it, a1, a2) }
+     Feature(formatMethodCall(f, a1, a2)) { f.invoke(it, a1, a2) }
 
 /**
  * Helper function to create a [Feature] based on a [KFunction4] + arguments.
  */
 fun <T, A1, A2, A3, R> of(f:  KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): Feature<T, R> =
-     Feature(f.name) { f.invoke(it, a1, a2, a3) }
+     Feature(formatMethodCall(f, a1, a2, a3)) { f.invoke(it, a1, a2, a3) }
 
 /**
  * Helper function to create a [Feature] based on a [KFunction5] + arguments.
  */
 fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): Feature<T, R> =
-     Feature(f.name) { f.invoke(it, a1, a2, a3, a4) }
+     Feature(formatMethodCall(f, a1, a2, a3, a4)) { f.invoke(it, a1, a2, a3, a4) }
 
 /**
- * Helper function to create a [Feature] based on a [KFunction5] + arguments.
+ * Helper function to create a [Feature] based on a [KFunction6] + arguments.
  */
 fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): Feature<T, R> =
-    Feature(f.name) { f.invoke(it, a1, a2, a3, a4, a5) }
+    Feature(formatMethodCall(f, a1, a2, a3, a4, a5)) { f.invoke(it, a1, a2, a3, a4, a5) }
 
 /**
  * Helper function to create a [FeatureWithCreator] based on a [KProperty1] + [assertionCreator].
@@ -195,33 +196,41 @@ fun <T, R> of(property: KProperty1<in T, R>, assertionCreator: Expect<R>.() -> U
  * Helper function to create a [FeatureWithCreator] based on a [KFunction1] + [assertionCreator].
  */
 fun <T, R> of(f: KFunction1<T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
-    FeatureWithCreator(f.name, { f.invoke(it) }, assertionCreator)
+    FeatureWithCreator(formatMethodCall(f), { f.invoke(it) }, assertionCreator)
 
 /**
  * Helper function to create a [FeatureWithCreator] based on a [KFunction2] + arguments + [assertionCreator].
  */
 fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
-    FeatureWithCreator(f.name, { f.invoke(it, a1) }, assertionCreator)
+    FeatureWithCreator(formatMethodCall(f, a1), { f.invoke(it, a1) }, assertionCreator)
 
 /**
  * Helper function to create a [FeatureWithCreator] based on a [KFunction3] + arguments + [assertionCreator].
  */
 fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
-     FeatureWithCreator(f.name, { f.invoke(it, a1, a2) }, assertionCreator)
+     FeatureWithCreator(formatMethodCall(f, a1, a2), { f.invoke(it, a1, a2) }, assertionCreator)
 
 /**
  * Helper function to create a [FeatureWithCreator] based on a [KFunction4] + arguments + [assertionCreator].
  */
 fun <T, A1, A2, A3, R> of(f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
-     FeatureWithCreator(f.name, { f.invoke(it, a1, a2, a3) }, assertionCreator)
+     FeatureWithCreator(formatMethodCall(f, a1, a2, a3), { f.invoke(it, a1, a2, a3) }, assertionCreator)
 
 /**
  * Helper function to create a [FeatureWithCreator] based on a [KFunction5] + arguments + [assertionCreator].
  */
 fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
-     FeatureWithCreator(f.name, { f.invoke(it, a1, a2, a3, a4) }, assertionCreator)
+     FeatureWithCreator(formatMethodCall(f, a1, a2, a3, a4), { f.invoke(it, a1, a2, a3, a4) }, assertionCreator)
+
+/**
+ * Helper function to create a [FeatureWithCreator] based on a [KFunction6] + arguments + [assertionCreator].
+ */
+fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
+    FeatureWithCreator(formatMethodCall(f, a1, a2, a3, a4, a5), { f.invoke(it, a1, a2, a3, a4, a5) }, assertionCreator)
 //@formatter:on
 
+private fun formatMethodCall(k: KCallable<*>, vararg args: Any?) =
+    coreFactory.newMethodCallFormatter().formatCall(k.name, args)
 
 /**
  * Helper function to create a [MetaFeatureOptionWithCreator] based on a lambda with
