@@ -26,9 +26,6 @@ apply plugin: 'kotlin'
 repositories {
     // atrium jvm installation: more info here -> https://github.com/robstoll/atrium#jvm
     jcenter()
-
-    // dependencies for spek
-    mavenLocal()
 }
 
 // setup the test task

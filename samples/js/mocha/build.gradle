@@ -18,7 +18,6 @@ apply plugin: 'com.moowork.node'
 
 repositories {
     jcenter()
-    mavenLocal()
     // either use jcenter or the repository on the next line
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
