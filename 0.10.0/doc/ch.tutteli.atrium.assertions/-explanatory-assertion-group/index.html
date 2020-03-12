@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplanatoryAssertionGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">ExplanatoryAssertionGroup</a><br/>
+<br/>
+<h1>ExplanatoryAssertionGroup</h1>
+<code><span class="keyword">class </span><s><span class="identifier">ExplanatoryAssertionGroup</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-empty-name-and-representation-assertion-group/index.html"><span class="identifier">EmptyNameAndRepresentationAssertionGroup</span></a></code><br/>
+<strong>Deprecated:</strong> Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0<br/>
+<br/>
+<p>Represents an <a href="../-assertion-group/index.html">AssertionGroup</a> with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>, which means a <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> should not
+show whether the <a href="../-empty-name-and-representation-assertion-group/assertions.html">assertions</a> hold or not -- moreover <a href="holds.html">holds</a> always returns <code>true</code>.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/-e-m-p-t-y.html">Untranslatable.EMPTY</a> -- an empty string as <a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p><a href="../../ch.tutteli.atrium.reporting/-raw-string/-e-m-p-t-y.html">RawString.EMPTY</a> -- an empty string as <a href="../../ch.tutteli.atrium.reporting/-raw-string/index.html">RawString</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Holds if all its <a href="../-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

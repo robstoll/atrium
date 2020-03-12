@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableContains.SearchBehaviour - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.iterable.contains</a>&nbsp;/&nbsp;<a href="index.html">IterableContains</a>&nbsp;/&nbsp;<a href="./-search-behaviour.html">SearchBehaviour</a><br/>
+<br/>
+<h1>SearchBehaviour</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">SearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-search-behaviour.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a></code><br/>
+<strong>Deprecated:</strong> Use the interface from package domain.creating; will be removed with 1.0.0<br/>
+<br/>
+<p>Represents a search behaviour but leaves it up to the <a href="-creator.html">Creator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-any-order-only-search-behaviour/index.html">IterableContainsInAnyOrderOnlySearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">IterableContainsInAnyOrderOnlySearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-in-any-order-only-search-behaviour.html"><span class="identifier">InAnyOrderOnlySearchBehaviour</span></a></code>
+<p>Represents the <em>deprecated</em> search behaviour that expected entries might appear in any order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but that
+the resulting assertion should not hold if there are less entries than expected or more.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-any-order-search-behaviour/index.html">IterableContainsInAnyOrderSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">IterableContainsInAnyOrderSearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-in-any-order-search-behaviour.html"><span class="identifier">InAnyOrderSearchBehaviour</span></a></code>
+<p>Represents the <em>deprecated</em> search behaviour that expected entries might appear in any order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-order-only-search-behaviour/index.html">IterableContainsInOrderOnlySearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">IterableContainsInOrderOnlySearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-in-order-only-search-behaviour.html"><span class="identifier">InOrderOnlySearchBehaviour</span></a></code>
+<p>Represents the <em>deprecated</em> search behaviour that expected entries have to appear in the given order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> and
+that the resulting assertion should not hold if there are less entries than expected or more.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-order-search-behaviour/index.html">IterableContainsInOrderSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">IterableContainsInOrderSearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-in-order-search-behaviour.html"><span class="identifier">InOrderSearchBehaviour</span></a></code>
+<p>Represents the <em>deprecated</em> search behaviour that expected entries have to appear in the given order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-no-op-search-behaviour/index.html">IterableContainsNoOpSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">IterableContainsNoOpSearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a></code>
+<p>Represents the <em>deprecated</em> default search behaviour or rather does not define a search behaviour at all.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectChangerBuilder.KindStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.creating.changers</a>&nbsp;/&nbsp;<a href="../index.html">SubjectChangerBuilder</a>&nbsp;/&nbsp;<a href="./index.html">KindStep</a><br/>
+<br/>
+<h1>KindStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">KindStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step where one has to decide the kind of subject change.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - the type of the current subject.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="original-expect.html">originalExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">originalExpect</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified assertion container to which the new <a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> will delegate assertion checking.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="report-builder.html">reportBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">reportBuilder</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-description-representation-step/index.html"><span class="identifier">SubjectChangerBuilder.DescriptionRepresentationStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point of the building process to not only change the subject but also report the change in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="unreported.html">unreported</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">unreported</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.KindStep$unreported(kotlin.Function1((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.KindStep.T, ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.KindStep.unreported.R)))/transformation">transformation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="unreported.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="unreported.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>First and final step in the change-subject-process -- changes the subject without showing the change as
+such in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

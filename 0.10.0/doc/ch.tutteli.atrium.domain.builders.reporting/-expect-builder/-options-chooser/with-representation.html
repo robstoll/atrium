@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExpectBuilder.OptionsChooser.withRepresentation - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="../index.html">ExpectBuilder</a>&nbsp;/&nbsp;<a href="index.html">OptionsChooser</a>&nbsp;/&nbsp;<a href="./with-representation.html">withRepresentation</a><br/>
+<br/>
+<h1>withRepresentation</h1>
+<a name="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser$withRepresentation(kotlin.String)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser$withRepresentation(kotlin.String)/textRepresentation">textRepresentation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wraps the given <a href="with-representation.html#ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser$withRepresentation(kotlin.String)/textRepresentation">textRepresentation</a> into a <a href="../../../ch.tutteli.atrium.reporting/-raw-string/index.html">RawString</a> and uses it as representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+<p>In case <a href="../../../ch.tutteli.atrium.creating/-subject-provider/maybe-subject.html">Expect.maybeSubject</a> is not defined i.e. <a href="../../../ch.tutteli.atrium.core/-none.html">None</a>, then the previous representation is used.</p>
+<a name="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser.T, kotlin.Any)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser.T, kotlin.Any)))/representationProvider">representationProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Uses the given <a href="with-representation.html#ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser.T, kotlin.Any)))/representationProvider">representationProvider</a> to retrieve a representation which can be based on the current
+subject where it is used as new representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+<p>Notice, if you want to use text (e.g. a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>) as representation,
+then wrap it into a <a href="../../../ch.tutteli.atrium.reporting/-raw-string/index.html">RawString</a> via <a href="../../../ch.tutteli.atrium.reporting/-raw-string/create.html">RawString.create</a> and pass the <a href="../../../ch.tutteli.atrium.reporting/-raw-string/index.html">RawString</a> instead.
+If your text does not include the current subject, then we recommend to use the other overload which expects
+a <code>String</code> and does the wrapping for you.</p>
+<p>In case <a href="../../../ch.tutteli.atrium.creating/-subject-provider/maybe-subject.html">Expect.maybeSubject</a> is not defined i.e. <a href="../../../ch.tutteli.atrium.core/-none.html">None</a>, then the previous representation is used.</p>
+</BODY>
+</HTML>

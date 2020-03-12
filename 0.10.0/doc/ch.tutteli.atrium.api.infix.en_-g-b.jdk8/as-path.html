@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>asPath - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB.jdk8</a>&nbsp;/&nbsp;<a href="./as-path.html">asPath</a><br/>
+<br/>
+<h1>asPath</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB.jdk8$asPath(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.asPath.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="as-path.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asPath</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;File&gt;</code> into <code>Expect&lt;Path&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(File::toPath)</code> if you want to show the transformation in reporting.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB.jdk8$asPath(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.asPath.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="as-path.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asPath</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.jdk8$asPath(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.asPath.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="as-path.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-path.html#ch.tutteli.atrium.api.infix.en_GB.jdk8$asPath(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.asPath.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(File::toPath, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+</BODY>
+</HTML>

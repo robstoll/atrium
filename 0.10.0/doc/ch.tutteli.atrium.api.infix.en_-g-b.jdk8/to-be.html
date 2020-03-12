@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBe - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB.jdk8</a>&nbsp;/&nbsp;<a href="./to-be.html">toBe</a><br/>
+<br/>
+<h1>toBe</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.readable)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.readable)/readable">readable</span><span class="symbol">:</span>&nbsp;<a href="readable.html"><span class="identifier">readable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is readable;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and
+that the current thread has the permission to read from it.</p>
+<p>This matcher <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to,
+search will continue at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.writable)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.writable)/writable">writable</span><span class="symbol">:</span>&nbsp;<a href="writable.html"><span class="identifier">writable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is writable;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and
+that the current thread has the permission to write to it.</p>
+<p>This matcher <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to, search will continue
+at the location the link points at.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.aRegularFile)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.aRegularFile)/aRegularFile">aRegularFile</span><span class="symbol">:</span>&nbsp;<a href="a-regular-file.html"><span class="identifier">aRegularFile</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is a file;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and that is a regular file.</p>
+<p>This matcher <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to, search will continue
+at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.aDirectory)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.jdk8$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.jdk8.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.jdk8.aDirectory)/aDirectory">aDirectory</span><span class="symbol">:</span>&nbsp;<a href="a-directory.html"><span class="identifier">aDirectory</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is a directory;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and that is a directory.</p>
+<p>This matcher <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to, search will continue
+at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+</BODY>
+</HTML>

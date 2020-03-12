@@ -1,0 +1,234 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.builders.reporting - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.builders.reporting</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.builders.reporting</h2>
+<p>Contains the <a href="./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html">ReporterBuilder</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-formatter-chosen-options/index.html">AssertionFormatterChosenOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">AssertionFormatterChosenOptions</span></code>
+<p>Represents the so far chosen options which are relevant to create <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-controller-option/index.html">AssertionFormatterControllerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterControllerOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-facade-option/index.html">AssertionFormatterFacadeOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterFacadeOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-pair-formatter-option/index.html">AssertionPairFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionPairFormatterOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html">AssertionPairFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-atrium-error-adjuster-common-option/index.html">AtriumErrorAdjusterCommonOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtriumErrorAdjusterCommonOption</span><span class="symbol">&lt;</span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>Provides common options to create an <a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-atrium-error-adjuster-option/index.html">AtriumErrorAdjusterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtriumErrorAdjusterOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-atrium-error-adjuster-common-option/index.html"><span class="identifier">AtriumErrorAdjusterCommonOption</span></a><span class="symbol">&lt;</span><a href="-reporter-option/index.html"><span class="identifier">ReporterOption</span></a><span class="symbol">&gt;</span></code>
+<p>Provides options to create an <a href="-atrium-error-adjuster-option/index.html">AtriumErrorAdjusterOption</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect-builder/index.html">ExpectBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExpectBuilder</span></code>
+<p>Defines the contract to create custom assertion verbs, <code>Expect&lt;T&gt;</code> respectively.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect-options/index.html">ExpectOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ExpectOptions</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Additional (non-mandatory) options for the <a href="-expect-builder/index.html">ExpectBuilder</a> to create an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-locale-order-decider-option/index.html">LocaleOrderDeciderOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">LocaleOrderDeciderOption</span></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-multiple-adjusters-option/index.html">MultipleAdjustersOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MultipleAdjustersOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-atrium-error-adjuster-common-option/index.html"><span class="identifier">AtriumErrorAdjusterCommonOption</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span></code>
+<p>Provides options to combine multiple <a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-object-formatter-option/index.html">ObjectFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ObjectFormatterOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder/index.html">ReporterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">ReporterBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-reporter-builder-common/index.html"><span class="identifier">ReporterBuilderCommon</span></a></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> or <a href="../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> -- the platform specific
+interface might provide further options.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder-common/index.html">ReporterBuilderCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterBuilderCommon</span></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> or <a href="../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> -- those options
+have to be provided on all platforms.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder-final-step/index.html">ReporterBuilderFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterBuilderFinalStep</span></code>
+<p>Final step in the <a href="-reporter-builder/index.html">ReporterBuilder</a> process, creates the desired <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-option/index.html">ReporterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterOption</span></code>
+<p>Provides options to finalise the building process, which means creating a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-assertion-formatter-option/index.html">TextAssertionFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">TextAssertionFormatterOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-text-assertion-formatter-option-common/index.html"><span class="identifier">TextAssertionFormatterOptionCommon</span></a></code>
+<p>Provides options to register <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s to the chosen <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a> -- the platform
+specific interface might provide further options.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-assertion-formatter-option-common/index.html">TextAssertionFormatterOptionCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TextAssertionFormatterOptionCommon</span></code>
+<p>Provides options to register <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s to the chosen <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a> -- those options
+have to be provided on all platforms.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-translator-option/index.html">TranslatorOption</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">TranslatorOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-translator-option-common/index.html"><span class="identifier">TranslatorOptionCommon</span></a></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> -- the platform specific interface might provide further options.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-translator-option-common/index.html">TranslatorOptionCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TranslatorOptionCommon</span></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> -- those options have to be provided on all platforms.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Annotations</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-multiple-adjusters-option-marker/index.html">MultipleAdjustersOptionMarker</a></p>
+</td>
+<td>
+<code><span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">MultipleAdjustersOptionMarker</span></code>
+<p>DSL Marker for <a href="-multiple-adjusters-option/index.html">MultipleAdjustersOption</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="reporter-builder.html">reporterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><s><span class="identifier">reporterBuilder</span></s><span class="symbol">: </span><a href="-reporter-builder/index.html"><span class="identifier">ReporterBuilder</span></a></code>
+<p>Entry point to build a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>
+-- the first step provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> or a <a href="../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-expect-options.html">ExpectOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">ExpectOptions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting$ExpectOptions(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsChooser((ch.tutteli.atrium.domain.builders.reporting.ExpectOptions.T)), kotlin.Unit)))/configuration">configuration</span><span class="symbol">:</span>&nbsp;<a href="-expect-builder/-options-chooser/index.html"><span class="identifier">ExpectBuilder.OptionsChooser</span></a><span class="symbol">&lt;</span><a href="-expect-options.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-expect-options/index.html"><span class="identifier">ExpectOptions</span></a><span class="symbol">&lt;</span><a href="-expect-options.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

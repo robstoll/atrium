@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RepresentationOnly.FinalStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">RepresentationOnly</a>&nbsp;/&nbsp;<a href="./index.html">FinalStep</a><br/>
+<br/>
+<h1>FinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/index.html"><span class="identifier">RepresentationOnlyAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/index.html">RepresentationOnlyAssertion</a> based on the previously defined <a href="representation.html">representation</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/representation.html">RepresentationOnlyAssertion.representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="test.html">test</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">test</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>The previously defined test which is used to determine <a href="../../../ch.tutteli.atrium.assertions/-assertion/holds.html">DescriptiveAssertion.holds</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-assertion-builder-final-step/build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-assertion-builder-final-step/index.html#T"><span class="identifier">T</span></a></code>
+<p>Creates and returns the new <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of type <a href="../../-assertion-builder-final-step/index.html#T">T</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.RepresentationOnly.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Any)/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.RepresentationOnly.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">RepresentationOnly.FinalStep</span></a></code>
+<p>Factory method to create the <a href="./index.html">FinalStep</a> in the building process of a <a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/index.html">RepresentationOnlyAssertion</a>
+based on the given <a href="create.html#ch.tutteli.atrium.assertions.builders.RepresentationOnly.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Any)/test">test</a> and <a href="create.html#ch.tutteli.atrium.assertions.builders.RepresentationOnly.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Any)/representation">representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

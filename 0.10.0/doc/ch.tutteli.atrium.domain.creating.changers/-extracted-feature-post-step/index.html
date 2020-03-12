@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExtractedFeaturePostStep - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.changers</a>&nbsp;/&nbsp;<a href="./index.html">ExtractedFeaturePostStep</a><br/>
+<br/>
+<h1>ExtractedFeaturePostStep</h1>
+<code><span class="keyword">class </span><span class="identifier">ExtractedFeaturePostStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-post-final-step/index.html"><span class="identifier">PostFinalStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to decide what should be done with the extracted feature of type <a href="index.html#R">R</a>.</p>
+<p>Notice, this class does not add any functionality to <a href="../-post-final-step/index.html">PostFinalStep</a> and is more like a marker.
+The purpose of the marker is extensibility, this way you can write a post-final-step which only applies to
+<a href="./index.html">ExtractedFeaturePostStep</a> and not to all kind of <a href="../-post-final-step/index.html">PostFinalStep</a>.</p>
+<h3>Parameters</h3>
+<p><a name="expect"></a>
+<code>expect</code> - The <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> which was involved in the building process
+and holds assertion for the initial subject.</p>
+<p><a name="extract"></a>
+<code>extract</code> - The extraction of the feature which creates and returns a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of type <a href="index.html#R">R</a>.</p>
+<p><a name="extractAndApply"></a>
+<code>extractAndApply</code> - The extraction of the feature which not only creates and
+returns a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of type <a href="index.html#R">R</a> but also applies a given assertionCreator lambda.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ExtractedFeaturePostStep</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep$<init>(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), ch.tutteli.atrium.creating.FeatureExpect((, ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.R)))), kotlin.Function2((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.R)), kotlin.Unit)), )))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep$<init>(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), ch.tutteli.atrium.creating.FeatureExpect((, ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.R)))), kotlin.Function2((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.R)), kotlin.Unit)), )))/extract">extract</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep$<init>(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), ch.tutteli.atrium.creating.FeatureExpect((, ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.R)))), kotlin.Function2((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep.R)), kotlin.Unit)), )))/extractAndApply">extractAndApply</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Option step which allows to decide what should be done with the extracted feature of type <a href="index.html#R">R</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-post-final-step/action.html">action</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">action</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-post-final-step/index.html#E"><span class="identifier">E</span></a></code>
+<p>An action such as transform, extract etc. which creates and returns a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of type <a href="../-post-final-step/index.html#R">R</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-post-final-step/action-and-apply.html">actionAndApply</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">actionAndApply</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>An action such as transform, extract etc. which not only creates and
+returns a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of type <a href="../-post-final-step/index.html#R">R</a> but also applies a given assertionCreator lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-post-final-step/expect.html">expect</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">expect</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p><a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> which was involved in the building process
+and holds assertion for the initial subject.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-post-final-step/add-to-feature.html">addToFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addToFeature</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.PostFinalStep$addToFeature(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.PostFinalStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the feature, adds all assertions the given <a href="../-post-final-step/add-to-feature.html#ch.tutteli.atrium.domain.creating.changers.PostFinalStep$addToFeature(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.PostFinalStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it
+and returns the new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-post-final-step/add-to-initial.html">addToInitial</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addToInitial</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.PostFinalStep$addToInitial(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.PostFinalStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the feature, adds all assertions the given <a href="../-post-final-step/add-to-initial.html#ch.tutteli.atrium.domain.creating.changers.PostFinalStep$addToInitial(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.PostFinalStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it
+and returns the initial <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-post-final-step/collect.html">collect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">collect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.PostFinalStep$collect(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.PostFinalStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Collects the assertions the given <a href="../-post-final-step/collect.html#ch.tutteli.atrium.domain.creating.changers.PostFinalStep$collect(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.PostFinalStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> might create for the new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the feature
+and returns them as a single <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-post-final-step/get-expect-of-feature.html">getExpectOfFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getExpectOfFeature</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-post-final-step/index.html#E"><span class="identifier">E</span></a></code>
+<p>Returns the newly created <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

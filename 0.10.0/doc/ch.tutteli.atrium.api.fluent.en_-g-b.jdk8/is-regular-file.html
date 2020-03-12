@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isRegularFile - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB.jdk8</a>&nbsp;/&nbsp;<a href="./is-regular-file.html">isRegularFile</a><br/>
+<br/>
+<h1>isRegularFile</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.jdk8$isRegularFile(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.jdk8.isRegularFile.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-regular-file.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isRegularFile</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-regular-file.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is a file;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and that is a regular file.</p>
+<p>This matcher <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to, search will continue
+at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+</BODY>
+</HTML>

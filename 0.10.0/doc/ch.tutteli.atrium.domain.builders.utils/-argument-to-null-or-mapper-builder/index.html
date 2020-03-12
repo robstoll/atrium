@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ArgumentToNullOrMapperBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.utils</a>&nbsp;/&nbsp;<a href="./index.html">ArgumentToNullOrMapperBuilder</a><br/>
+<br/>
+<h1>ArgumentToNullOrMapperBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">ArgumentToNullOrMapperBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to map variable length arguments formulated as <code>(first: T, vararg others : T)</code> to something else.</p>
+<p>Its usage is intended to turn the nullable argument type of the given <a href="argument-mapper-builder.html">argumentMapperBuilder</a> into its non-nullable
+type if the argument is not null in order that the non-nullable type can be used/passed to function which expect
+a non-nullable type.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ArgumentToNullOrMapperBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder$<init>(ch.tutteli.atrium.domain.builders.utils.ArgumentMapperBuilder((ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.T)))/argumentMapperBuilder">argumentMapperBuilder</span><span class="symbol">:</span>&nbsp;<a href="../-argument-mapper-builder/index.html"><span class="identifier">ArgumentMapperBuilder</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Builder to map variable length arguments formulated as <code>(first: T, vararg others : T)</code> to something else.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="argument-mapper-builder.html">argumentMapperBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">argumentMapperBuilder</span><span class="symbol">: </span><a href="../-argument-mapper-builder/index.html"><span class="identifier">ArgumentMapperBuilder</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="to-assert.html">toAssert</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">toAssert</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder$toAssert(kotlin.Function2((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.toAssert.R)), ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.T, kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="to-assert.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="to-assert.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="to-assert.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Maps each argument to <code>null</code> if it is already <code>null</code> and if not, then to an <a href="../../ch.tutteli.atrium.creating/-assertion-plant-nullable.html">AssertionPlantNullable</a>&lt;<a href="to-assert.html#R">R</a>&gt;
+lambda with receiver by using the given <a href="to-assert.html#ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder$toAssert(kotlin.Function2((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.toAssert.R)), ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.T, kotlin.Unit)))/assertionCreator">assertionCreator</a> (passing in the argument).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="to-expect.html">toExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">toExpect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder$toExpect(kotlin.Function2((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.toExpect.R)), ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.T, kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-expect.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-expect.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-expect.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Maps each argument to <code>null</code> if it is already <code>null</code> and if not, then to an <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>&lt;<a href="to-expect.html#R">R</a>&gt;
+lambda with receiver by using the given <a href="to-expect.html#ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder$toExpect(kotlin.Function2((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.toExpect.R)), ch.tutteli.atrium.domain.builders.utils.ArgumentToNullOrMapperBuilder.T, kotlin.Unit)))/assertionCreator">assertionCreator</a> (passing in the argument).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

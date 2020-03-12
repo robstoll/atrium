@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>message - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.infix.en_GB</a>&nbsp;/&nbsp;<a href="./message.html">message</a><br/>
+<br/>
+<h1>message</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$message(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.String)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="message.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">message</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$message(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.String)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-assertion-plant-nullable.html">AssertionPlantNullable</a> for the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">message</a> of the plant's
+<a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">subject</a> (which is a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>) and makes the assertion that the message ought
+<a href="not-to-be-null.html">notToBeNull</a> and uses <a href="message.html#ch.tutteli.atrium.api.cc.infix.en_GB$message(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.String)), kotlin.Unit)))/assertionCreator">assertionCreator</a> which might create further <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which are lazily evaluated at the end.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> in case <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">message</a> is <code>null</code>
+or if an additionally created <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s (by calling <a href="message.html#ch.tutteli.atrium.api.cc.infix.en_GB$message(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.String)), kotlin.Unit)))/assertionCreator">assertionCreator</a>) does not hold.</p>
+<p><strong>Return</strong><br/>
+Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+assertion <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">message</a> is not null) holds or not.
+Define subsequent assertions via the <a href="message.html#ch.tutteli.atrium.api.cc.infix.en_GB$message(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((kotlin.String)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda.</p>
+</BODY>
+</HTML>
