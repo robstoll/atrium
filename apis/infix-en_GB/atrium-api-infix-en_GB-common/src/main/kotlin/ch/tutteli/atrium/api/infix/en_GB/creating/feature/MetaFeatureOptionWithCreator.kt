@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.creating.MetaFeature
  * Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
  * e.g. `feature of({ f(it::size) }) { o toBe 3 }`
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 data class MetaFeatureOptionWithCreator<T, R>(
     val provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,

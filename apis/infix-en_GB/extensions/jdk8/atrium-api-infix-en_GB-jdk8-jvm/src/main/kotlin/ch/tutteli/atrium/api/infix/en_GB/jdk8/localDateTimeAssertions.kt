@@ -17,7 +17,7 @@ import java.time.LocalDateTime
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDateTime> Expect<T>.year: Expect<Int>
     get() = ExpectImpl.localDateTime.year(this).getExpectOfFeature()
@@ -30,7 +30,7 @@ val <T : LocalDateTime> Expect<T>.year: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDateTime.year(this).addToInitial(assertionCreator)
@@ -41,7 +41,7 @@ infix fun <T : LocalDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() ->
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDateTime> Expect<T>.month: Expect<Int>
     get() = ExpectImpl.localDateTime.month(this).getExpectOfFeature()
@@ -54,7 +54,7 @@ val <T : LocalDateTime> Expect<T>.month: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDateTime.month(this).addToInitial(assertionCreator)
@@ -65,7 +65,7 @@ infix fun <T : LocalDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
     get() = ExpectImpl.localDateTime.dayOfWeek(this).getExpectOfFeature()
@@ -78,7 +78,7 @@ val <T : LocalDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.localDateTime.dayOfWeek(this).addToInitial(assertionCreator)
@@ -89,7 +89,7 @@ infix fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOf
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDateTime> Expect<T>.day: Expect<Int>
     get() = ExpectImpl.localDateTime.day(this).getExpectOfFeature()
@@ -102,7 +102,7 @@ val <T : LocalDateTime> Expect<T>.day: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDateTime> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDateTime.day(this).addToInitial(assertionCreator)

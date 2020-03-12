@@ -19,7 +19,7 @@ import kotlin.reflect.*
  *
  * @return The newly created [Expect] for the given [property].
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.property(this, property).getExpectOfFeature()
@@ -35,7 +35,7 @@ infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of the assertion.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
     ExpectImpl.feature.f0(this, f).getExpectOfFeature()
@@ -55,7 +55,7 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 //TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
@@ -80,7 +80,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 //TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
@@ -99,7 +99,7 @@ infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
     ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }.getExpectOfFeature()
@@ -132,7 +132,7 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  *   e.g. `feature of({ f(it::size) }) { o toBe 3 }`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expect<T> =
     ExpectImpl.feature.genericSubjectBasedFeature(this) {

@@ -56,7 +56,7 @@ object group : Keyword
  * Represents the pseudo keyword `not` as in [contains] `not`.
  * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 object not : Keyword
 
@@ -67,7 +67,7 @@ object not : Keyword
  *
  * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 object o : Keyword
 
@@ -77,7 +77,7 @@ object o : Keyword
  * In case you want to refer to the pseudo-keyword `o` inside an [Expect] context,
  * then you can use this type alias instead to circumvent the bug.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 typealias O = o
 
