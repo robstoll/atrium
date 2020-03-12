@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.10.0-SNAPSHOT'
+    rootProject.version = '0.10.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -530,7 +530,7 @@ Release & deploy a commit
     d) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
     e) use the release badges in README (comment out the ones for master and uncomment the ones for the release)
     f) comment out the warning in README.md about taking a sneak peak
-    g) commit & push (modified build.gradle, README.md, differences.md and example-pom.xml)
+    g) commit & push (modified CONTRIBUTING.md, differences.md, example-pom.xml, build.gradle and README.md)
 
 2. update github pages:
 assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
