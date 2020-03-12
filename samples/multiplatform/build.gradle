@@ -3,6 +3,7 @@ plugins {
 }
 repositories {
     mavenCentral()
+    jcenter()
 }
 group 'com.atrium'
 version '0.0.1'
