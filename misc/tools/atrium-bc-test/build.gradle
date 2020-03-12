@@ -6,6 +6,7 @@
 description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
 
 repositories {
+    mavenLocal()
     maven { url "https://dl.bintray.com/jetbrains/spek" }
 }
 
@@ -370,6 +371,10 @@ createBcAndBbcTasksForApis('0.8.0',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 createBcAndBbcTasksForApis('0.9.2',
+    'forgive=^$',
+    'fluent-en_GB'
+)
+createBcAndBbcTasksForApis('0.10.0',
     'forgive=^$',
     'fluent-en_GB'
 )
