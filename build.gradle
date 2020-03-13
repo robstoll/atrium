@@ -367,8 +367,10 @@ configure(bundleSmokeTests) {
             spekDep(delegate)
         }
         //TODO remove once all specs are with spek2 where they are set via spek plugin
-        project(":$bundleUnderTest-android").dependencies {
-            spekDep(delegate)
+        if(!it.name.contains("-cc-")) {
+            project(":$bundleUnderTest-android").dependencies {
+                spekDep(delegate)
+            }
         }
     } else {
         //TODO remove once all specs are with spek2 where they are set via spek plugin
