@@ -260,7 +260,7 @@ configure(apiProjects) { apiProject ->
     createTestSourcesJarTask(apiProject)
 }
 
-def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
+def bundleSmokeTests = subprojects.findAll { it.name.contains('-smoke-test') }
 //TODO new infix API: remove once we are ready to publish the new API
 def newInfixApiModules = subprojects.findAll { it.name.contains('-api-infix') }
 
@@ -328,25 +328,49 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
 configure(bundleSmokeTests) {
-    def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
-    Project bundle = project(":$bundleUnderTest-jvm")
 
-    description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
-
-    sourceCompatibility = JavaVersion.current()
-    targetCompatibility = JavaVersion.current()
-
-    ext.jacoco_additional = [bundle]
-
-    sourceSets {
-        // we are reusing the source from the bundle, so that we do not have to re-invent the spec
-        test { kotlin { srcDirs += ["${bundle.projectDir}/src/test/kotlin"] } }
+    //TODO dependencies no longer required once all specs are with spek2 where they are set via spek plugin
+    def spekDep = { closure ->
+        delegate = closure
+        testRuntimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+        testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
+        testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
     }
 
-    dependencies {
-        //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
-        testImplementation bundle
-        testImplementation prefixedProject('verbs-jvm')
+    def suffix = "-smoke-test"
+    def isABundleAndNotExtensionSmokeTest = it.name.endsWith(suffix)
+    if (isABundleAndNotExtensionSmokeTest) {
+        def bundleUnderTest = it.name.substring(0, it.name.indexOf(suffix))
+        Project bundle = project(":$bundleUnderTest-jvm")
+
+        description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
+
+        sourceCompatibility = JavaVersion.current()
+        targetCompatibility = JavaVersion.current()
+
+        ext.jacoco_additional = [bundle]
+
+        sourceSets {
+            // we are reusing the source from the bundle, so that we do not have to re-invent the spec
+            test { kotlin { srcDirs += ["${bundle.projectDir}/src/test/kotlin"] } }
+        }
+
+        dependencies {
+            //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
+            testImplementation bundle
+            //TODO remove once all specs are with spek2 where they are set via spek plugin
+            spekDep(delegate)
+        }
+        //TODO remove once all specs are with spek2 where they are set via spek plugin
+        bundle.dependencies {
+            spekDep(delegate)
+        }
+    } else {
+        //TODO remove once all specs are with spek2 where they are set via spek plugin
+        dependencies {
+            spekDep(delegate)
+        }
     }
 }
 
