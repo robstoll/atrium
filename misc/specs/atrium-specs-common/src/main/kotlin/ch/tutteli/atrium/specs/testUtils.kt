@@ -163,6 +163,9 @@ fun <T, A1, R> unifySignatures(
     )
 }
 
+@Suppress("UNCHECKED_CAST")
+fun <F> uncheckedToNonNullable(f: F, fNullable: Any): List<F> = listOf(f, fNullable as F)
+
 
 internal inline fun <T, R> Feature0<T, R>.withSubAssertion(): Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
     { f: Expect<R>.() -> Unit -> apply { (lambda)().f() } }
