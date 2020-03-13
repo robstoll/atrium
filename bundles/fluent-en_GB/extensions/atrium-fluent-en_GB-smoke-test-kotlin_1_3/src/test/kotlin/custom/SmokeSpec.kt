@@ -12,23 +12,21 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 object SmokeSpec : Spek({
-    describe("Smoke tests") {
-        it("see if `toBe` can be used") {
-            expect(1).toBe(1)
-        }
+    test("see if `toBe` can be used") {
+        expect(1).toBe(1)
+    }
 
-        it("see if `Result.isSuccess` can be used") {
-            //TODO activate after isSuccess is implemented
-            //expect(Result.success(1)).isSuccess { toBe(1) }
-        }
+    test("see if `Result.isSuccess` can be used") {
+        //TODO activate after isSuccess is implemented
+        //expect(Result.success(1)).isSuccess { toBe(1) }
+    }
 
-        it("see if own assertion function without i18n can be used") {
-            expect(2).isEven()
-        }
+    test("see if own assertion function without i18n can be used") {
+        expect(2).isEven()
+    }
 
-        it("see if own assertion function with i18n can be used") {
-            expect(4).isMultipleOf(2)
-        }
+    test("see if own assertion function with i18n can be used") {
+        expect(4).isMultipleOf(2)
     }
 })
 

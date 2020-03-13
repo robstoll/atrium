@@ -14,22 +14,20 @@ import org.spekframework.spek2.style.specification.describe
 import java.nio.file.Paths
 
 object SmokeSpec : Spek({
-    describe("Smoke tests") {
-        it("see if `toBe` can be used") {
-            assert(1).toBe(1)
-        }
+    test("see if `toBe` can be used") {
+        assert(1).toBe(1)
+    }
 
-        it("see if `Path.existsNot` can be used") {
-            assert(Paths.get("nonExisting")).existsNot()
-        }
+    test("see if `Path.existsNot` can be used") {
+        assert(Paths.get("nonExisting")).existsNot()
+    }
 
-        it("see if own assertion function without i18n can be used") {
-            assert(2).isEven()
-        }
+    test("see if own assertion function without i18n can be used") {
+        assert(2).isEven()
+    }
 
-        it("see if own assertion function with i18n can be used") {
-            assert(4).isMultipleOf(2)
-        }
+    test("see if own assertion function with i18n can be used") {
+        assert(4).isMultipleOf(2)
     }
 })
 
