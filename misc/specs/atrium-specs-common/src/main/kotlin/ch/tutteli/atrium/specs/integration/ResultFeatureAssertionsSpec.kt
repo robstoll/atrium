@@ -17,7 +17,7 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class ResultFeatureAssertionsSpec(
     isSuccessFeature: Feature0<Result<Int>, Int>,
     isSuccess: Fun1<Result<Int>, Expect<Int>.() -> Unit>,
-    isSuccessNullableFeature: Feature0<Result<Int?>, Int?>,
+    isSuccessFeatureNullable: Feature0<Result<Int?>, Int?>,
     isSuccessNullable: Fun1<Result<Int?>, Expect<Int?>.() -> Unit>,
     isFailureFeature: Feature0<Result<Int>, IllegalArgumentException>,
     isFailure: Feature1<Result<Int>, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
@@ -33,7 +33,7 @@ abstract class ResultFeatureAssertionsSpec(
     ) {})
     include(object : SubjectLessSpec<Result<Int?>>(
         "$describePrefix[nullable] ",
-        isSuccessNullableFeature.forSubjectLess(),
+        isSuccessFeatureNullable.forSubjectLess(),
         isSuccessNullable.forSubjectLess { toBe(1) }
     ) {})
 
@@ -61,7 +61,6 @@ abstract class ResultFeatureAssertionsSpec(
 
     val resultSuccess = Result.success(1)
     val resultFailure = Result.failure<Int>(IllegalArgumentException("oh no..."))
-    val resultNullableSuccess = Result.success(1 as Int?)
     val resultNullSuccess = Result.success(null as Int?)
     val resultNullableFailure = Result.failure<Int?>(IllegalArgumentException("oh no..."))
 
@@ -70,8 +69,11 @@ abstract class ResultFeatureAssertionsSpec(
     val exceptionDescr = DescriptionResultAssertion.EXCEPTION.getDefault()
     val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
-    describeFun(isSuccessFeature, isSuccess, isFailureFeature, isFailure) {
-        val successFunctions = unifySignatures(isSuccessFeature, isSuccess)
+    describeFun(isSuccessFeature, isSuccess, isSuccessFeatureNullable, isSuccessNullable, isFailureFeature, isFailure) {
+        val successFunctions = uncheckedToNonNullable(
+            unifySignatures(isSuccessFeature, isSuccess),
+            unifySignatures(isSuccessFeatureNullable, isSuccessNullable)
+        )
         val failureFunctions = unifySignatures(isFailureFeature, isFailure)
 
         context("subject is $resultSuccess") {
@@ -138,24 +140,11 @@ abstract class ResultFeatureAssertionsSpec(
         }
     }
 
-
-    describeFun(isSuccessNullableFeature, isSuccessNullable) {
-        val successFunctions = unifySignatures(isSuccessNullableFeature, isSuccessNullable)
+    describeFun(isSuccessFeatureNullable, isSuccessNullable) {
+        val successFunctions = unifySignatures(isSuccessFeatureNullable, isSuccessNullable)
 
         successFunctions.forEach { (name, isSuccessFun, hasExtraHint) ->
-            context("$resultNullableSuccess") {
-                it("$name - can perform sub-assertion which holds") {
-                    expect(resultNullableSuccess).isSuccessFun { toBe(1) }
-                }
-                it("$name - can perform sub-assertion which fails, throws AssertionError") {
-                    expect {
-                        expect(resultNullableSuccess).isSuccessFun { toBe(2) }
-                    }.toThrow<AssertionError> {
-                        messageContains("value: 1", "$toBeDescr: 2")
-                    }
-                }
-            }
-            context("$resultNullSuccess") {
+            context("subject is $resultNullSuccess") {
                 it("$name - can perform sub-assertion which holds") {
                     expect(resultNullSuccess).isSuccessFun { toBe(null) }
                 }
@@ -168,7 +157,7 @@ abstract class ResultFeatureAssertionsSpec(
                 }
             }
 
-            context("$resultNullableFailure") {
+            context("subject is $resultNullableFailure") {
                 it("${isSuccessFeature.name} throws AssertionError" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
                     expect {
                         expect(resultNullableFailure).isSuccessFun { toBe(1) }

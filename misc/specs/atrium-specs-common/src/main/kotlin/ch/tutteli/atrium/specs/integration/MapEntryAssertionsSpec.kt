@@ -28,7 +28,6 @@ abstract class MapEntryAssertionsSpec(
     val fluent = expect(mapEntry)
 
     describeFun(isKeyValue, isKeyValueNullable) {
-
         val isKeyValueFunctions = uncheckedToNonNullable(isKeyValue, isKeyValueNullable)
 
         context("map $mapEntry") {

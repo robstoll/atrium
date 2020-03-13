@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
@@ -162,6 +163,9 @@ fun <T, A1, R> unifySignatures(
         Triple(f1.name, f1.lambda, true)
     )
 }
+
+@Suppress("UNCHECKED_CAST")
+fun <F> uncheckedToNonNullable(f: List<F>, fNullable: List<Any>): List<F> = f + (fNullable as List<F>)
 
 @Suppress("UNCHECKED_CAST")
 fun <F> uncheckedToNonNullable(f: F, fNullable: Any): List<F> = listOf(f, fNullable as F)
