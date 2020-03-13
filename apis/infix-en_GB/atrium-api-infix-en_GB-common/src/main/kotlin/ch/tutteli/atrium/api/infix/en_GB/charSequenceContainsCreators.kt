@@ -179,7 +179,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(pattern
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(
     pattern: Regex
@@ -230,7 +230,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(patterns:
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(patterns: All<Regex>): Expect<T> =
     addAssertion(ExpectImpl.charSequence.contains.regex(this, patterns.toList()))
@@ -336,7 +336,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(pattern
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
@@ -365,7 +365,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 @JvmName("elementsOfIgnoringCase")
 infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(

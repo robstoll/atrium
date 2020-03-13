@@ -4,6 +4,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class ComparableAssertionsSpec : ch.tutteli.atrium.spec.integration.ComparableAssertionsSpec(
     AssertionVerbFactory,
     Assert<Int>::isLessThan.name to Companion::isLessThan,

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class CollectionFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.CollectionFeatureAssertionsSpec(
     AssertionVerbFactory,
     sizeVal.name to sizeVal,

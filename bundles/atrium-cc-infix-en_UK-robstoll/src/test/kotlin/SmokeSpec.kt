@@ -9,6 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.verbs.expect
 import org.jetbrains.spek.api.Spek
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 object SmokeSpec : Spek({
     test("see if `toBe` can be used") {
         @Suppress("DEPRECATION")

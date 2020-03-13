@@ -5,6 +5,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.creating.Assert
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class CollectionAssertionsSpec : ch.tutteli.atrium.spec.integration.CollectionAssertionsSpec(
     AssertionVerbFactory,
     Assert<Collection<Int>>::hasSize.name to Companion::hasSize,

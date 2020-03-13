@@ -8,6 +8,7 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction2
 
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.TypeTransformationAssertionsSpec(
     AssertionVerbFactory,
     getNotToBeNullPair(),

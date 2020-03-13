@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @property extractor The extractor which extracts the feature out of the subject of the assertion.
  * @property assertionCreator The `assertionCreator`-lambda which defines assertions for the feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 data class FeatureWithCreator<T, R>(
     val description: String,

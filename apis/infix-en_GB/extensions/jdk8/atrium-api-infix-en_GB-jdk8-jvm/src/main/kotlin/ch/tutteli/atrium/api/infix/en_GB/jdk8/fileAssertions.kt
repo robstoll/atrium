@@ -15,7 +15,7 @@ import java.nio.file.Path
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 fun <T : File> Expect<T>.asPath(): Expect<Path> =
     ExpectImpl.changeSubject(this).unreported { it.toPath() }
@@ -29,7 +29,7 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : File> Expect<T>.asPath(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     apply { asPath().addAssertionsCreatedBy(assertionCreator) }

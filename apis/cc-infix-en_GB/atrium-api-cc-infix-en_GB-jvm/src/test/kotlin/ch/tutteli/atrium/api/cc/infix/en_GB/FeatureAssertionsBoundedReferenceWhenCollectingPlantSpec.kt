@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.spec.integration.TestData
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class FeatureAssertionsBoundedReferenceWhenCollectingPlantSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsBoundedReferenceWhenCollectingPlantSpec(
     AssertionVerbFactory,
     propertyImmediate,

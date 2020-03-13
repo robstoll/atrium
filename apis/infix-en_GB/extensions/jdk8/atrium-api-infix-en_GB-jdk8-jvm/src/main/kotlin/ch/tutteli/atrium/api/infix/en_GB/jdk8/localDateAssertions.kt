@@ -17,7 +17,7 @@ import java.time.LocalDate
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDate> Expect<T>.year: Expect<Int>
     get() = ExpectImpl.localDate.year(this).getExpectOfFeature()
@@ -30,7 +30,7 @@ val <T : LocalDate> Expect<T>.year: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.year(this).addToInitial(assertionCreator)
@@ -41,7 +41,7 @@ infix fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Uni
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDate> Expect<T>.month: Expect<Int>
     get() = ExpectImpl.localDate.month(this).getExpectOfFeature()
@@ -54,7 +54,7 @@ val <T : LocalDate> Expect<T>.month: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.month(this).addToInitial(assertionCreator)
@@ -65,7 +65,7 @@ infix fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Un
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDate> Expect<T>.dayOfWeek: Expect<DayOfWeek>
     get() = ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
@@ -78,7 +78,7 @@ val <T : LocalDate> Expect<T>.dayOfWeek: Expect<DayOfWeek>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.dayOfWeek(this).addToInitial(assertionCreator)
@@ -90,7 +90,7 @@ infix fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 val <T : LocalDate> Expect<T>.day: Expect<Int>
     get() = ExpectImpl.localDate.day(this).getExpectOfFeature()
@@ -103,7 +103,7 @@ val <T : LocalDate> Expect<T>.day: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : LocalDate> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.day(this).addToInitial(assertionCreator)

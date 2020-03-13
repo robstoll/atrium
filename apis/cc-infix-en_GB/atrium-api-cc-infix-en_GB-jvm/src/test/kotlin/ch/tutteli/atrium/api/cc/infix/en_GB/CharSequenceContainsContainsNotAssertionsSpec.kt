@@ -5,6 +5,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsContainsNotAssertionsSpec(
     AssertionVerbFactory,
     getContainsPair(),

@@ -7,6 +7,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapEntryFeatureAssertionsSpec(
     AssertionVerbFactory,
     keyVal.name to keyVal,

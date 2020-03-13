@@ -199,7 +199,7 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
     o startsWith expected.toString()
@@ -219,7 +219,7 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
     o startsNotWith expected.toString()
@@ -240,7 +240,7 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
     o endsWith expected.toString()
@@ -260,7 +260,7 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
     o endsNotWith expected.toString()
@@ -305,7 +305,7 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Bla
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
     addAssertion(ExpectImpl.charSequence.matches(this, expected))
@@ -318,7 +318,7 @@ infix fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) =
     addAssertion(ExpectImpl.charSequence.mismatches(this, expected))

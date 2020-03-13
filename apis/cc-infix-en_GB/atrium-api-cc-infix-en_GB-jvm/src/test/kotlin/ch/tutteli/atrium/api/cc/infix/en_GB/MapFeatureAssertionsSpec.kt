@@ -15,6 +15,7 @@ import kotlin.reflect.KProperty1
 import ch.tutteli.atrium.verbs.internal.assert
 import java.lang.IllegalArgumentException
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class MapFeatureAssertionsSpec : Spek({
 
     include(AtriumMapFeatureAssertionsSpec)

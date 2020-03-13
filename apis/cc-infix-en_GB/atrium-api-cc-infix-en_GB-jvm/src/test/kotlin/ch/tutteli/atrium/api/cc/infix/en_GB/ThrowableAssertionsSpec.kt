@@ -5,6 +5,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
     getToThrowTriple(),
