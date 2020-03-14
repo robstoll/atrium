@@ -4,6 +4,6 @@
     "repository": "https://github.com/robstoll/atrium",
     "devDependencies": {
         "jasmine": "^3.5.0",
-        "mocha": "^5.2.0"
+        "mocha": "^7.1.0"
     }
 }
