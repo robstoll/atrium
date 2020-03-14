@@ -14,8 +14,8 @@ Yet with a few optimizations and adaptations:
  
 This sample project defines a dependency on the bundle module `atrium-fluent-en_GB-robstoll-js`.
 It does so by using a project dependency (this way CI builds it as well and we can be sure that we provide you a working example).
-Therefore you need to delete line 28,29 in [build.gradle](https://github.com/robstoll/atrium/tree/naster/samples/js/mocha/build.gradle#L28)
+Therefore you need to delete line 28,29 in [build.gradle](https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L28)
 and uncomment line 30.
 
-Change line 4 in [build.gradle](https://github.com/robstoll/atrium/tree/naster/samples/js/mocha/build.gradle#L4)
+Change line 4 in [build.gradle](https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L4)
 to `infix-en_GB-robstoll` in case you want to use the infix API.   
