@@ -99,6 +99,16 @@ buildscript {
                 }
             }
         }
+
+        //TODO dependencies no longer required once all specs are with spek2 where they are set via spek plugin
+        spekDep = { closure ->
+            delegate = closure
+            testRuntimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+            testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+            testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
+            testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
+        }
+
     }
 
     repositories {
@@ -329,15 +339,6 @@ apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
 configure(bundleSmokeTests) {
 
-    //TODO dependencies no longer required once all specs are with spek2 where they are set via spek plugin
-    def spekDep = { closure ->
-        delegate = closure
-        testRuntimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-        testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-        testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
-        testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
-    }
-
     def suffix = "-smoke-test"
     def isABundleAndNotExtensionSmokeTest = it.name.endsWith(suffix)
     if (isABundleAndNotExtensionSmokeTest) {
@@ -361,16 +362,6 @@ configure(bundleSmokeTests) {
             testImplementation bundle
             //TODO remove once all specs are with spek2 where they are set via spek plugin
             spekDep(delegate)
-        }
-        //TODO remove once all specs are with spek2 where they are set via spek plugin
-        bundle.dependencies {
-            spekDep(delegate)
-        }
-        //TODO remove once all specs are with spek2 where they are set via spek plugin
-        if (!it.name.contains("-cc-") && System.getenv('CI')) {
-            project(":$bundleUnderTest-android").dependencies {
-                spekDep(delegate)
-            }
         }
     } else {
         //TODO remove once all specs are with spek2 where they are set via spek plugin

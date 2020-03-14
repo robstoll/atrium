@@ -10,4 +10,7 @@ dependencies {
 
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
+
+    //TODO remove once all specs are with spek2 where they are set via spek plugin
+    spekDep(delegate)
 }
