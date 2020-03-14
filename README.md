@@ -112,6 +112,7 @@ You can enable them as follows:
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
+    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
 }
 ```
 
@@ -202,6 +203,7 @@ You can enable them as follows:
 ```
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
+    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3-js:$atrium_version"
 }
 ```
 
