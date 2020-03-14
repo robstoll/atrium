@@ -6,5 +6,5 @@ module ch.tutteli.atrium.fluent.en_GB.jdk8.smoke {
     requires ch.tutteli.atrium.fluent.en_GB;
     requires ch.tutteli.atrium.api.fluent.en_GB.jdk8;
     requires kotlin.stdlib;
-    requires spek.api;
+    requires spek.dsl.jvm;
 }
