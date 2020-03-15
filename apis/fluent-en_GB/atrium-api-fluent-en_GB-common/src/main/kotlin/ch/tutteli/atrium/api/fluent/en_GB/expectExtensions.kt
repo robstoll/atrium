@@ -10,6 +10,7 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.reporter
 
+@Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @Experimental
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION)
@@ -63,6 +64,7 @@ fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser<T>
  * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalExpectConfig::class)
 fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> = coreFactory.newReportingAssertionContainer(
     ReportingAssertionContainer.AssertionCheckerDecorator.create(
@@ -122,6 +124,7 @@ fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractorBuilde
  * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalExpectConfig::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureOptions<R>): Expect<R> =
     coreFactory.newFeatureExpect(
