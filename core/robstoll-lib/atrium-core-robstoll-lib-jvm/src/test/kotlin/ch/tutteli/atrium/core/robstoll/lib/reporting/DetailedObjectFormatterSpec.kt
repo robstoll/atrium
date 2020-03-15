@@ -11,18 +11,16 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
-import org.jetbrains.spek.api.include
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
+//import org.jetbrains.spek.api.dsl.on
+//import ch.tutteli.atrium.specs.include
 import kotlin.reflect.KClass
 
 //TODO #116 migrate spek1 to spek2 - move to common module
 object DetailedObjectFormatterSpec : Spek({
-    include(AtriumsObjectFormatterSpec)
+    include(object: AtriumsObjectFormatterSpec)
 
     val testee = DetailedObjectFormatter(UsingDefaultTranslator())
 
