@@ -34,6 +34,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T, R> newFeatureExpect(
         previousExpect: Expect<T>,
         maybeSubject: Option<R>,
+        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
         @UseExperimental(ExperimentalExpectConfig::class)
         featureConfig: FeatureExpectConfig,
         assertions: List<Assertion>

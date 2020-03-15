@@ -14,6 +14,7 @@ import ch.tutteli.atrium.creating.FeatureExpectConfig
 class FeatureExpectImpl<T, R>(
     override val previousExpect: Expect<T>,
     override val maybeSubject: Option<R>,
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalExpectConfig::class)
     override val config: FeatureExpectConfig,
     private val assertionChecker: AssertionChecker,
@@ -45,6 +46,7 @@ class FeatureExpectImpl<T, R>(
         return this
     }
 
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalExpectConfig::class)
     private fun checkAndClearAssertions(): Expect<R> {
         try {
@@ -54,8 +56,7 @@ class FeatureExpectImpl<T, R>(
         } finally {
             clearAssertions()
         }
-        return this
-    }
+        return this    }
 
     override fun getAssertions(): List<Assertion> = getCopyOfAssertions()
 }

@@ -17,6 +17,7 @@ interface RootExpect<T> : Expect<T> {
     /**
      * The chosen [RootExpectConfig].
      */
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalExpectConfig::class)
     val config: RootExpectConfig
 }
@@ -39,6 +40,7 @@ interface FeatureExpect<T, R> : Expect<R> {
     /**
      * The chosen [FeatureExpectConfig].
      */
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalExpectConfig::class)
     val config: FeatureExpectConfig
 

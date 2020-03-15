@@ -14,6 +14,7 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isThrowing(
     expect: Expect<out () -> Any?>,
