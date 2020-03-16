@@ -11,7 +11,7 @@ class ReportingAssertionContainerImpl<T>(
     private val assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
 ) : MutableListBasedAssertionContainer<T>(assertionCheckerDecorator.maybeSubject),
     ReportingAssertionContainer<T> {
-
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalExpectConfig::class)
     override val config: RootExpectConfig =
         RootExpectConfig.create(
