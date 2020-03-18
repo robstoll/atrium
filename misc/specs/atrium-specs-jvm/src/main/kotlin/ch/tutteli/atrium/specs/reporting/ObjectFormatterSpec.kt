@@ -19,7 +19,7 @@ abstract class ObjectFormatterSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFunTemplate(vararg funName: String, body: Suite.() -> Unit) =
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
     val translatable = AssertionVerb.ASSERT
@@ -29,7 +29,7 @@ abstract class ObjectFormatterSpec(
     }
     val testee = testeeFactory(translator)
 
-    describeFunTemplate(testee::format.name) {
+    describeFun(testee::format.name) {
 
         context("`null`") {
             val i: Int? = null
