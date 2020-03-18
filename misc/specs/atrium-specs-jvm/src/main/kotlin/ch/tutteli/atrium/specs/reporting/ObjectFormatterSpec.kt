@@ -9,28 +9,23 @@ import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.describeFun
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class ObjectFormatterSpec(
     testeeFactory: (Translator) -> ObjectFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val translatable = AssertionVerb.ASSERT
     val translatedText = "es gilt"
-    val translator = mock<Translator> {
-        on { translate(any()) } doReturn (translatedText)
+    val translator = mockk<Translator> {
+        every { translate(any()) } returns (translatedText)
     }
     val testee = testeeFactory(translator)
 

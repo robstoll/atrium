@@ -10,17 +10,11 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
-import org.jetbrains.spek.api.include
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
 
-//TODO #116 migrate spek1 to spek2 - move to common module
 object DetailedObjectFormatterSpec : Spek({
     include(AtriumsObjectFormatterSpec)
 
@@ -28,21 +22,21 @@ object DetailedObjectFormatterSpec : Spek({
 
     describe("format") {
 
-        on("a ${Char::class.simpleName}") {
+        context("a ${Char::class.simpleName}") {
             val result = testee.format('a')
             it("returns the ${Char::class.simpleName} in apostrophes") {
                 expect(result).toBe("'a'")
             }
         }
 
-        on("a ${Boolean::class.simpleName}") {
+        context("a ${Boolean::class.simpleName}") {
             it("returns the toString representation of the ${Boolean::class.simpleName}") {
                 expect(testee.format(true)).toBe("true")
                 expect(testee.format(false)).toBe("false")
             }
         }
 
-        on("a ${String::class.simpleName}") {
+        context("a ${String::class.simpleName}") {
             it("returns two quotes including identity hash if empty ${String::class.simpleName}") {
                 val string = ""
                 val result = testee.format(string)
@@ -62,7 +56,7 @@ object DetailedObjectFormatterSpec : Spek({
 
         val typeNameAndHash = "including type name and identity hash"
 
-        on("a ${CharSequence::class.simpleName} besides ${String::class.simpleName}") {
+        context("a ${CharSequence::class.simpleName} besides ${String::class.simpleName}") {
             it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.simpleName}") {
                 val value = StringBuilder("")
                 val result = testee.format(value)
@@ -81,18 +75,17 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-
-        on("a ${StringBasedRawString::class.simpleName}") {
+        context("a ${StringBasedRawString::class.simpleName}") {
             val result = testee.format(RawString.create("hello"))
             it("returns the containing string") {
                 expect(result).toBe("hello")
             }
         }
 
-        on("a ${TranslatableBasedRawString::class.simpleName}") {
+        context("a ${TranslatableBasedRawString::class.simpleName}") {
             val translation = "es gilt"
-            val translator = mock<Translator> {
-                on { translate(AssertionVerb.EXPECT) } doReturn translation
+            val translator = mockk<Translator> {
+                every { translate(AssertionVerb.EXPECT) } returns translation
             }
             val testeeWithMockedTranslation = DetailedObjectFormatter(translator)
             val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.EXPECT))
@@ -101,7 +94,7 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("an enum") {
+        context("an enum") {
             val enum = AssertionVerb.EXPECT
             val result = testee.format(enum)
             it("returns its toString representation together with its Class.name but without System.identityHash") {
@@ -109,14 +102,14 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("a Throwable") {
+        context("a Throwable") {
             val result = testee.format(AssertionError("blablabla"))
             it("returns only its Class.name") {
                 expect(result).toBe(AssertionError::class.java.name)
             }
         }
 
-        on("a ${Class::class.simpleName}") {
+        context("a ${Class::class.simpleName}") {
             val result = testee.format(DetailedObjectFormatterSpec::class.java)
             it("returns its simpleName and name in parenthesis") {
                 val clazz = DetailedObjectFormatterSpec::class.java
@@ -124,7 +117,7 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        group("on a ${KClass::class.simpleName}") {
+        context("on a ${KClass::class.simpleName}") {
 
             context("java Class is the same (no special Kotlin class)") {
                 val result = testee.format(DetailedObjectFormatterSpec::class)
@@ -160,7 +153,7 @@ object DetailedObjectFormatterSpec : Spek({
             java.lang.Float::class.java.simpleName to 1.0f,
             java.lang.Double::class.java.simpleName to 1.0
         ).forEach { (typeName, value) ->
-            on(typeName) {
+            context(typeName) {
                 val result = testee.format(value)
                 it("returns subject's toString() $typeNameAndHash") {
                     expect(result).toBe(
@@ -171,7 +164,7 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("an anonymous class") {
+        context("an anonymous class") {
             val anonymous = object : Any() {
                 override fun toString(): String = "anonymous type"
             }
