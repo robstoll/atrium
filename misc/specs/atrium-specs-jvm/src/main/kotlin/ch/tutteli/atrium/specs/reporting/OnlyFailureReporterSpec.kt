@@ -20,16 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
-// import com.nhaarman.mockitokotlin2.any
-// import com.nhaarman.mockitokotlin2.eq
-// import com.nhaarman.mockitokotlin2.mock
-// import com.nhaarman.mockitokotlin2.verify
-// import org.jetbrains.spek.api.Spek
-// import org.jetbrains.spek.api.dsl.SpecBody
-// import org.jetbrains.spek.api.dsl.context
-// import org.jetbrains.spek.api.dsl.it
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class OnlyFailureReporterSpec(
     testeeFactory: (AssertionFormatterFacade, AtriumErrorAdjuster) -> Reporter,
     describePrefix: String = "[Atrium] "
@@ -87,7 +78,6 @@ abstract class OnlyFailureReporterSpec(
 
         context("dependencies") {
             val assertionFormatterFacade = mockk<AssertionFormatterFacade>()
-            //val assertionFormatterFacade = mockk<AssertionFormatterFacade>(relaxed = true)
             every { assertionFormatterFacade.format(any(), any(), any()) } just Runs
 
             val testeeWithMockedFacade = testeeFactory(
