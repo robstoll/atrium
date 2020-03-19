@@ -15,24 +15,19 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFun
+import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class OnlyFailureReporterSpec(
     testeeFactory: (AssertionFormatterFacade, AtriumErrorAdjuster) -> Reporter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val translator = UsingDefaultTranslator()
     val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
@@ -82,14 +77,16 @@ abstract class OnlyFailureReporterSpec(
         }
 
         context("dependencies") {
-            val assertionFormatterFacade = mock<AssertionFormatterFacade>()
+            val assertionFormatterFacade = mockk<AssertionFormatterFacade>()
+            every { assertionFormatterFacade.format(any(), any(), any()) } just Runs
+
             val testeeWithMockedFacade = testeeFactory(
                 assertionFormatterFacade, coreFactory.newNoOpAtriumErrorAdjuster()
             )
 
             it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {
                 testeeWithMockedFacade.format(basicAssertion, sb)
-                verify(assertionFormatterFacade).format(eq(basicAssertion), eq(sb), any())
+                verify { assertionFormatterFacade.format(eq(basicAssertion), eq(sb), any()) }
             }
         }
     }
