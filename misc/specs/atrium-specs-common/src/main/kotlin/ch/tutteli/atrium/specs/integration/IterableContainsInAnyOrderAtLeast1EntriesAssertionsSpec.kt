@@ -60,7 +60,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).values(
@@ -75,7 +75,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             }
             it("$isLessThanFun(1.0) and $isGreaterThanFun(2.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(2).values(
@@ -94,7 +94,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmpty.containsEntriesFun({
+                    expect(fluentEmpty()).containsEntriesFun({
                         @Suppress("DEPRECATION")
                         asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     })
@@ -143,7 +143,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${containsInAnyOrderNullableEntries.name} for nullable") {
+        describeFun(containsInAnyOrderNullableEntries) {
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {

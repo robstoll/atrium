@@ -3,10 +3,8 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
-import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.format
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
@@ -48,35 +46,31 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val atLeast = DescriptionIterableAssertion.AT_LEAST.getDefault()
         val atMost = DescriptionIterableAssertion.AT_MOST.getDefault()
 
-        val fluentEmpty = expect(setOf<Double>() as Iterable<Double>)
+        val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeperator
 
         fun Expect<String>.containsSize(actual: Int, expected: Int) =
             contains.exactly(1).regex("size: $actual[^:]+: $expected")
 
-        fun Suite.describeFun(funName: String, body: Suite.() -> Unit) = context("fun `$funName`", body = body)
+        fun Suite.describeFun(spec: SpecPair<*>, body: Suite.() -> Unit) = describeFun(spec.name, body)
+        private fun Suite.describeFun(funName: String, body: Suite.() -> Unit) = context("fun `$funName`", body = body)
 
         fun Root.nullableCases(describePrefix: String, body: Suite.() -> Unit) {
-            describe("$describePrefix describe nullable cases", body = body)
+            describe("$describePrefix nullable cases", body = body)
         }
 
-        fun Root.nonNullableCases(
+        fun <F> Root.nonNullableCases(
             describePrefix: String,
-            containsPair: Pair<String, Expect<Iterable<Double>>.(Double, Array<out Double>) -> Expect<Iterable<Double>>>,
-            containsNullablePair: Pair<String, Expect<Iterable<Double?>>.(Double?, Array<out Double?>) -> Expect<Iterable<Double?>>>,
-            action: Suite.(Expect<Iterable<Double>>.(Double, Array<out Double>) -> Any) -> Unit
+            nonNullableFun: SpecPair<F>,
+            nullableFun: Any,
+            action: Suite.(F) -> Unit
         ) {
-            describe("$describePrefix describe non-nullable cases") {
-                mapOf<String, Expect<Iterable<Double>>.(Double, Array<out Double>) -> Any>(
-                    containsPair.first to { a, aX -> containsPair.second(this, a, aX) },
-                    containsNullablePair.first to { a, aX ->
-                        @Suppress("UNCHECKED_CAST")
-                        containsNullablePair.second(this as Expect<Iterable<Double?>>, a, aX)
-                    }
-                ).forEach { (describe, containsEntriesFunArr) ->
-                    describeFun(describe) {
-                        action(containsEntriesFunArr)
+            describe("$describePrefix non-nullable cases") {
+                val functions = uncheckedToNonNullable(nonNullableFun, nullableFun)
+                functions.forEach { (name, funArr) ->
+                    describeFun(name) {
+                        action(funArr)
                     }
                 }
             }

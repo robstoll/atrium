@@ -9,12 +9,20 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
+import kotlin.reflect.KFunction3
+
+typealias MFun2<K, V, T> = Fun2<Map<out K, V>, Pair<K, T>, Array<out Pair<K, T>>>
+
+fun <K, V, T> mfun2(
+    f: KFunction3<Expect<Map<out K, V>>, Pair<K, T>, Array<out Pair<K, T>>, Expect<Map<out K, V>>>
+) = fun2(f)
+
 
 abstract class MapAssertionsSpec(
-    contains: Fun2<Map<out String, Int>, Pair<String, Int>, Array<out Pair<String, Int>>>,
-    containsNullable: Fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>,
-    containsKeyWithValueAssertions: Fun2<Map<out String, Int>, Pair<String, Expect<Int>.() -> Unit>, Array<out Pair<String, Expect<Int>.() -> Unit>>>,
-    containsKeyWithNullableValueAssertions: Fun2<Map<out String?, Int?>, Pair<String?, (Expect<Int>.() -> Unit)?>, Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>>,
+    contains: MFun2<String, Int, Int>,
+    containsNullable: MFun2<String?, Int?, Int?>,
+    containsKeyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
+    containsKeyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
     containsKey: Fun1<Map<out String, *>, String>,
     containsKeyNullable: Fun1<Map<out String?, *>, String?>,
     containsNotKey: Fun1<Map<out String, *>, String>,

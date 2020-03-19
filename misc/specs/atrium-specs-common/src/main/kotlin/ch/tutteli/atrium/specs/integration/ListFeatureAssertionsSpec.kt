@@ -75,7 +75,7 @@ abstract class ListFeatureAssertionsSpec(
     describeFun(getFeatureNullable, getNullable) {
         val getFunctions = unifySignatures(getFeatureNullable, getNullable)
         context("list $listNullable") {
-            getFunctions.forEach { (name, getFun, hasExtraHint) ->
+            getFunctions.forEach { (name, getFun, _) ->
                 it("$name - can perform sub-assertion on existing index with value null") {
                     fluentNullable.getFun(1) { toBe(null) }
                 }

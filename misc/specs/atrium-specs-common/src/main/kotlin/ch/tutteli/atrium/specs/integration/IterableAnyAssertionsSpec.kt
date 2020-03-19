@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.ErrorMessages
 
 abstract class IterableAnyAssertionsSpec(
@@ -15,7 +16,7 @@ abstract class IterableAnyAssertionsSpec(
     anyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterablePredicateSpecBase({
+) : IterableContainsEntriesSpecBase({
 
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
 
@@ -43,9 +44,9 @@ abstract class IterableAnyAssertionsSpec(
     ) { anyFun ->
 
         context("empty collection") {
-            it("$isLessThanFun(1.0) throws AssertionError") {
+            it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    fluentEmpty.anyFun { isLessThan(1.0) }
+                    expect(fluentEmpty()).anyFun { isLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -54,12 +55,13 @@ abstract class IterableAnyAssertionsSpec(
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
+
                 }
             }
             //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmpty.anyFun {
+                    expect(fluentEmpty()).anyFun {
                         @Suppress("DEPRECATION")
                         asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     }
@@ -98,7 +100,7 @@ abstract class IterableAnyAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${anyNullable.name} for nullable") {
+        describeFun(anyNullable) {
             val anyNullableFun = anyNullable.lambda
 
             context("iterable ${oneToSevenNullable().toList()}") {

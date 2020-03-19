@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
@@ -16,28 +17,28 @@ class IterableAnyAssertionsSpec : Spek({
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         fun1(Expect<Iterable<Double>>::any),
-        fun1(Expect<Iterable<Double?>>::any),
+        fun1(Expect<Iterable<Double?>>::any).withNullableSuffix(),
         "◆ ",
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         getContainsPair(),
-        getContainsNullablePair(),
+        getContainsNullablePair().withNullableSuffix(),
         "◆ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         getContainsShortcutPair(),
-        getContainsNullableShortcutPair(),
+        getContainsNullableShortcutPair().withNullableSuffix(),
         "◆ ",
         "[Atrium][Shortcut] "
     )
 
     object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         getContainsSequencePair(),
-        getContainsNullableSequencePair(),
+        getContainsNullableSequencePair().withNullableSuffix(),
         "◆ ",
         "[Atrium][Sequence] "
     )
