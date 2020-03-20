@@ -35,14 +35,7 @@ fun GroupBody.prefixedDescribeTemplate(
     body: Suite.() -> Unit
 ): Unit = describe("${prefix}describe$suffix $description", body = body)
 
-fun <T : Any> Suite.checkNarrowingAssertion(
-    description: String,
-    act: (Expect<T>.() -> Unit) -> Unit,
-    lazy: (Expect<T>.() -> Unit),
-    vararg otherMethods: Pair<String, (Expect<T>.() -> Unit)>
-) {
-    checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
-}
+
 
 fun <T> Suite.checkGenericNarrowingAssertion(
     description: String,

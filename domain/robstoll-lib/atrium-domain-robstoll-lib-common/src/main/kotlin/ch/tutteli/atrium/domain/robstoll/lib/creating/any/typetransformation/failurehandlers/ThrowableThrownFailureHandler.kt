@@ -24,7 +24,7 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
             showHint = { throwable != null && !expectedType.isInstance(throwable) },
             failureHintFactory = {
                 //cannot/shouldn't be null since we checked it in showHint (or it needs to be checked on the outside)
-                propertiesOfException(throwable!!, maxStackTrace = 7)
+                propertiesOfException(throwable!!, maxStackTrace = 100)
             }
         ).createFailingAssertion(description, representation)
     }

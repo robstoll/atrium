@@ -35,7 +35,7 @@ fun <TExpected : Throwable> _isThrowing(
         .let {
             ExpectImpl.changeSubject(it).reportBuilder()
                 .downCastTo(expectedType)
-                .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 7))
+                .withFailureHandler(ThrowableThrownFailureHandler(maxStackTrace = 100))
                 .build()
         }
 
@@ -57,7 +57,7 @@ fun <R, T : () -> R> _isNotThrowing(expect: Expect<T>): ChangedSubjectPostStep<*
             ExpectImpl.changeSubject(eitherContainer).reportBuilder()
                 .withDescriptionAndRepresentation(IS_NOT_THROWING_1, RawString.create(IS_NOT_THROWING_2))
                 .withTransformation { either -> either.toOption() }
-                .withFailureHandlerAdapter(ThrowableThrownFailureHandler(maxStackTrace = 15)) {
+                .withFailureHandlerAdapter(ThrowableThrownFailureHandler(maxStackTrace = 100)) {
                     // must be left as otherwise the failure handler would not kick in.
                     (it as Left).l
                 }

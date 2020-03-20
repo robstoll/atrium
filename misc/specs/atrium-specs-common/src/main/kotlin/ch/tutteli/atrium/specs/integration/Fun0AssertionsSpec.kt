@@ -21,6 +21,9 @@ abstract class Fun0AssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    @Suppress("NAME_SHADOWING")
+    val notToThrow = notToThrow.adjustName { it.substringBefore(" feature") }
+
     include(object : SubjectLessSpec<() -> Any?>(describePrefix,
         toThrowFeature.forSubjectLess().adjustName { "$it feature" },
         toThrow.forSubjectLess { messageContains("bla") }
@@ -51,8 +54,8 @@ abstract class Fun0AssertionsSpec(
         )
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Suite.checkToThrow(
         description: String,
@@ -88,7 +91,29 @@ abstract class Fun0AssertionsSpec(
             "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
             "\\s+\\Q$listBulletPoint\\E${Fun0AssertionsSpec::class.fullName}"
 
-    describeFun("${toThrowFeature.name} feature and ${toThrow.name}") {
+    describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
+        val toThrowFunctions = unifySignatures(toThrowFeature, toThrow)
+        val notToThrowFunctions = unifySignatures(notToThrowFeature, notToThrow)
+
+        context("no exception occurs") {
+            toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                it("$name - throws an AssertionError") {
+                    expect {
+                        expect { /* no exception occurs */ 1 as Any? }.toThrowFun { toBe(IllegalArgumentException("what")) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).regex(
+                                "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
+                                    DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                                "$isADescr: ${IllegalArgumentException::class.simpleName}"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+
         val toThrowFeatureFun = toThrowFeature.lambda
         val toThrowFun = toThrow.lambda
 
@@ -163,7 +188,7 @@ abstract class Fun0AssertionsSpec(
         }
     }
 
-    describeFun("${notToThrowFeature.name} feature") {
+    describeFun(notToThrowFeature) {
         val notToThrowFeatureFun = notToThrowFeature.lambda
 
         context("no exception occurs") {
@@ -214,7 +239,7 @@ abstract class Fun0AssertionsSpec(
         }
     }
 
-    describeFun(notToThrow.name) {
+    describeFun(notToThrow) {
         val notToThrowFun = notToThrow.lambda
 
         context("no exception occurs") {

@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.feature0
-import ch.tutteli.atrium.specs.feature1
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
-import ch.tutteli.atrium.specs.withFeatureSuffix
 
 class Fun0AssertionsSpec : ch.tutteli.atrium.specs.integration.Fun0AssertionsSpec(
     ("toThrow" to ::toThrowFeature).withFeatureSuffix(),
