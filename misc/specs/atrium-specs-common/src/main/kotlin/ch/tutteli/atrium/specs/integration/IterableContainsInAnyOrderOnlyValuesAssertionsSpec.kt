@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.forSubjectLess
+import ch.tutteli.atrium.specs.invoke
 
 abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     containsInAnyOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
@@ -28,9 +29,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
         containsInAnyOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf())
     ) {})
 
-    val (containsInOrderNullableValues, containsInOrderNullableValuesFunArr) = containsInAnyOrderOnlyNullableValues
-    fun Expect<Iterable<Double?>>.containsInOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
-        containsInOrderNullableValuesFunArr(t, tX)
+    fun Expect<Iterable<Double?>>.containsInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
+        containsInAnyOrderOnlyNullableValues(this, t, tX)
 
     nonNullableCases(
         describePrefix,
@@ -44,7 +44,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
         context("empty collection") {
             it("1.0 throws AssertionError") {
                 expect {
-                    fluentEmpty.containsFun(1.0)
+                    expect(fluentEmpty()).containsFun(1.0)
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -58,7 +58,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
             }
             it("1.0 and 4.0 throws AssertionError") {
                 expect {
-                    fluentEmpty.containsFun(1.0, 4.0)
+                    expect(fluentEmpty()).containsFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).values(
@@ -200,30 +200,30 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
 
 
     nullableCases(describePrefix) {
-        describeFun("$containsInOrderNullableValues for nullable") {
+        describeFun(containsInAnyOrderOnlyValues) {
 
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {
                 context("happy cases (do not throw)") {
                     it("null, 1.0, null, 3.0") {
-                        expect(null1null3()).containsInOrderNullableValuesFun(null, 1.0, null, 3.0)
+                        expect(null1null3()).containsInAnyOrderNullableValuesFun(null, 1.0, null, 3.0)
                     }
                     it("1.0, null, null, 3.0") {
-                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, null, null, 3.0)
+                        expect(null1null3()).containsInAnyOrderNullableValuesFun(1.0, null, null, 3.0)
                     }
                     it("1.0, null, 3.0, null") {
-                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, null, 3.0, null)
+                        expect(null1null3()).containsInAnyOrderNullableValuesFun(1.0, null, 3.0, null)
                     }
                     it("1.0, 3.0, null, null") {
-                        expect(null1null3()).containsInOrderNullableValuesFun(1.0, 3.0, null, null)
+                        expect(null1null3()).containsInAnyOrderNullableValuesFun(1.0, 3.0, null, null)
                     }
                 }
 
                 context("failing cases") {
                     it("null, 1.0, 3.0 -- null was missing") {
                         expect {
-                            expect(null1null3()).containsInOrderNullableValuesFun(null, 1.0, 3.0)
+                            expect(null1null3()).containsInAnyOrderNullableValuesFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(

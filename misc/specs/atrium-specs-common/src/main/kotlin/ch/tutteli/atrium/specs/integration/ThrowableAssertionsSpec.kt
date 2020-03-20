@@ -160,7 +160,7 @@ abstract class ThrowableAssertionsSpec(
     }
 
     describeFun(causeFeature, cause) {
-        val causeFunctions = unifySignatures<Throwable, IllegalArgumentException>(causeFeature, cause)
+        val causeFunctions = unifySignatures(causeFeature, cause)
 
         context("Throwable.cause is not null") {
             val exceptionCause = IllegalArgumentException("Hello from the Clause")

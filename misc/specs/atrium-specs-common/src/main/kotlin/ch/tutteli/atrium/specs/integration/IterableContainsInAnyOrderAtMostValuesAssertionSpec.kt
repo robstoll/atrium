@@ -21,8 +21,8 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
         containsAtMost.forSubjectLess(2, 2.3, arrayOf())
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Expect<Iterable<Double>>.containsAtMostFun(atLeast: Int, a: Double, vararg aX: Double) =
         containsAtMost(this, atLeast, a, aX.toTypedArray())
@@ -30,7 +30,7 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describeFun(containsAtMost.name) {
+    describeFun(containsAtMost) {
 
         context("throws an $illegalArgumentException") {
             it("for at most -1 -- only positive numbers") {

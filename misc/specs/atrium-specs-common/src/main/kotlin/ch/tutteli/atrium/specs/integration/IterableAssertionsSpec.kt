@@ -3,12 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.specs.Fun0
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.lambda
-import ch.tutteli.atrium.specs.name
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
@@ -25,15 +20,14 @@ abstract class IterableAssertionsSpec(
         hasNext.forSubjectLess()
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
 
-    describeFun(hasNext.name) {
+    describeFun(hasNext) {
         val hasNextFun = hasNext.lambda
 
         it("does not throw if an iterable has next") {
@@ -47,7 +41,7 @@ abstract class IterableAssertionsSpec(
         }
     }
 
-    describeFun(hasNotNext.name) {
+    describeFun(hasNotNext) {
         val hasNotNextFun = hasNotNext.lambda
 
         it("does not throw if an iterable has not next") {

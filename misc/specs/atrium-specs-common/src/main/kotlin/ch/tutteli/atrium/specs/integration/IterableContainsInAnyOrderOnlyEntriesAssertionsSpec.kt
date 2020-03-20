@@ -73,7 +73,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -87,7 +87,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
             }
             it("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).values(
@@ -104,7 +104,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
             //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmpty.containsEntriesFun({
+                    expect(fluentEmpty()).containsEntriesFun({
                         @Suppress("DEPRECATION")
                         asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     })
@@ -292,7 +292,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${containsInAnyOrderOnlyNullableEntries.name} for nullable") {
+        describeFun(containsInAnyOrderOnlyNullableEntries) {
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {

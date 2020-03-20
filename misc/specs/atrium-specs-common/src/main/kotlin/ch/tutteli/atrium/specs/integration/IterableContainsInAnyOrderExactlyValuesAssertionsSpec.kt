@@ -21,8 +21,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
         containsExactly.forSubjectLess(2, 2.3, arrayOf())
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Expect<Iterable<Double>>.containsExactlyFun(atLeast: Int, a: Double, vararg aX: Double) =
         containsExactly.invoke(this, atLeast, a, aX.toTypedArray())
@@ -31,7 +31,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
 
     val exactly = EXACTLY.getDefault()
 
-    describeFun(containsExactly.name) {
+    describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
             it("for exactly -1 -- only positive numbers") {
                 expect {

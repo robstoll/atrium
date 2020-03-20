@@ -3,12 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.mfun2
 import kotlin.jvm.JvmName
-import kotlin.reflect.KFunction3
-
-private fun <K, V, T> mfun2(
-    f: KFunction3<Expect<Map<out K, V>>, Pair<K, T>, Array<out Pair<K, T>>, Expect<Map<out K, V>>>
-) = fun2(f)
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     mfun2<String, Int, Int>(Expect<Map<out String, Int>>::contains),
