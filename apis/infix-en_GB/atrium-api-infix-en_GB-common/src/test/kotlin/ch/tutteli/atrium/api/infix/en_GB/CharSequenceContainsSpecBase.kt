@@ -33,7 +33,7 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<CharSequence> = notImplemented()
+        val a1: Expect<String> = notImplemented()
 
         a1 contains o atLeast 1 value 1
         a1 contains o atMost 2 the Values("a", 1)

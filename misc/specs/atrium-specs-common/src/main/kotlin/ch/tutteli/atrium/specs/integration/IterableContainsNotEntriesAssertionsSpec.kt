@@ -47,10 +47,6 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         )
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
-
     fun Expect<Iterable<Double?>>.containsNotNullableFun(
         a: (Expect<Double>.() -> Unit)?,
         vararg aX: (Expect<Double>.() -> Unit)?
@@ -177,7 +173,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun("${containsNotNullableEntries.name} for nullable") {
+        describeFun(containsNotNullableEntries) {
             context("iterable ${oneToSeven().toList()}") {
                 it("null does not throw") {
                     expect(oneToSeven() as Iterable<Double?>).containsNotNullableFun(null)

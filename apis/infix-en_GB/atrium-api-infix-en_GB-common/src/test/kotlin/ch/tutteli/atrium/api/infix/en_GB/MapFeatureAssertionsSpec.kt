@@ -11,11 +11,26 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
     property<Map<String, Int>, Collection<Int>>(Expect<Map<String, Int>>::values),
     fun1<Map<String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<String, Int>>::values),
     feature1<Map<String, Int>, String, Int>(Expect<Map<String, Int>>::getExisting),
-    fun2<Map<String, Int>, String, Expect<Int>.() -> Unit>(::getExisting),
+    fun2<Map<String, Int>, String, Expect<Int>.() -> Unit>(Companion::getExisting),
     feature1<Map<String?, Int?>, String?, Int?>(Expect<Map<String?, Int?>>::getExisting).withNullableSuffix(),
-    fun2<Map<String?, Int?>, String?, Expect<Int?>.() -> Unit>(::getExisting).withNullableSuffix()
+    fun2<Map<String?, Int?>, String?, Expect<Int?>.() -> Unit>(Companion::getExisting).withNullableSuffix()
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+
+        private fun getExisting(
+            expect: Expect<Map<String, Int>>,
+            key: String,
+            assertionCreator: Expect<Int>.() -> Unit
+        ): Expect<Map<String, Int>> = expect getExisting key(key) { assertionCreator() }
+
+        @JvmName("getExistingNullable")
+        private fun getExisting(
+            expect: Expect<Map<String?, Int?>>,
+            key: String?,
+            assertionCreator: Expect<Int?>.() -> Unit
+        ): Expect<Map<String?, Int?>> = expect getExisting key(key) { assertionCreator() }
+
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -36,16 +51,3 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapFeatureA
         star = star getExisting key("a") { }
     }
 }
-
-private fun getExisting(
-    expect: Expect<Map<String, Int>>,
-    key: String,
-    assertionCreator: Expect<Int>.() -> Unit
-): Expect<Map<String, Int>> = expect getExisting key(key) { assertionCreator() }
-
-@JvmName("getExistingNullable")
-private fun getExisting(
-    expect: Expect<Map<String?, Int?>>,
-    key: String?,
-    assertionCreator: Expect<Int?>.() -> Unit
-): Expect<Map<String?, Int?>> = expect getExisting key(key) { assertionCreator() }

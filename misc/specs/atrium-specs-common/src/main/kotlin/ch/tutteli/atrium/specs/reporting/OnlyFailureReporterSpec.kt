@@ -14,6 +14,10 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
+<<<<<<< HEAD:misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs/reporting/OnlyFailureReporterSpec.kt
+=======
+import ch.tutteli.atrium.specs.describeFun
+>>>>>>> master:misc/specs/atrium-specs-jvm/src/main/kotlin/ch/tutteli/atrium/specs/reporting/OnlyFailureReporterSpec.kt
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import io.mockk.*

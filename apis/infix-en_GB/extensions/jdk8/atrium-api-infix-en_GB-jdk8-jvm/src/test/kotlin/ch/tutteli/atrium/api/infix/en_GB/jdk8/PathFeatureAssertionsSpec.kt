@@ -9,7 +9,7 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, Path>(Expect<Path>::parent),
     fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
     feature1<Path, String, Path>(Expect<Path>::resolve),
-    "resolve with assertionCreator not implemented in this API" to ::resolve,
+    fun2(Companion::resolve),
     property<Path, String>(Expect<Path>::fileName),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileName),
     property<Path, String>(Expect<Path>::fileNameWithoutExtension),
@@ -17,7 +17,14 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, String>(Expect<Path>::extension),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+
+        private fun resolve(
+            expect: Expect<Path>,
+            other: String,
+            assertionCreator: Expect<Path>.() -> Unit
+        ): Expect<Path> = expect resolve path(other) { assertionCreator() }
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -36,8 +43,7 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
         a1 parent {}
 
         a1 resolve "test"
+        a1 resolve path("test") {}
     }
 }
 
-private fun resolve(expect: Expect<Path>, other: String, assertionCreator: Expect<Path>.() -> Unit): Expect<Path> =
-    (expect resolve other).addAssertionsCreatedBy(assertionCreator)

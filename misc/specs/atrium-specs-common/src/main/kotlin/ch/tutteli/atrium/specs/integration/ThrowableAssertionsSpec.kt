@@ -48,7 +48,7 @@ abstract class ThrowableAssertionsSpec(
             val throwable: Throwable = IllegalArgumentException()
 
             messageFunctions.forEach { (name, messageFun, hasExtraHint) ->
-                it("$name - throws an AssertionError" + if (hasExtraHint) " which shows intended sub assertion" else "") {
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         expect(throwable).messageFun { toBe("hello") }
                     }.toThrow<AssertionError> {
@@ -160,7 +160,7 @@ abstract class ThrowableAssertionsSpec(
     }
 
     describeFun(causeFeature, cause) {
-        val causeFunctions = unifySignatures<Throwable, IllegalArgumentException>(causeFeature, cause)
+        val causeFunctions = unifySignatures(causeFeature, cause)
 
         context("Throwable.cause is not null") {
             val exceptionCause = IllegalArgumentException("Hello from the Clause")

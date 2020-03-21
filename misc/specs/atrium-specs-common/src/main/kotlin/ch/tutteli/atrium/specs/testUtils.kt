@@ -5,6 +5,7 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
@@ -163,6 +164,12 @@ fun <T, A1, R> unifySignatures(
     )
 }
 
+@Suppress("UNCHECKED_CAST")
+fun <F> uncheckedToNonNullable(f: List<F>, fNullable: List<Any>): List<F> = f + (fNullable as List<F>)
+
+@Suppress("UNCHECKED_CAST")
+fun <F> uncheckedToNonNullable(f: F, fNullable: Any): List<F> = listOf(f, fNullable as F)
+
 
 internal inline fun <T, R> Feature0<T, R>.withSubAssertion(): Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
     { f: Expect<R>.() -> Unit -> apply { (lambda)().f() } }
@@ -204,5 +211,8 @@ fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): St
 val toBeDescr = DescriptionBasic.TO_BE.getDefault()
 val isDescr = DescriptionBasic.IS.getDefault()
 val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
 expect val lineSeperator: String
+
+fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""

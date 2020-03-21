@@ -6,9 +6,9 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CharSequenceAssertionsSpec : ch.tutteli.atrium.specs.integration.CharSequenceAssertionsSpec(
-    "toBe ${Empty::class.simpleName}" to ::toBeEmpty,
-    "notToBe ${Empty::class.simpleName}" to ::notToBeEmpty,
-    "notToBe ${Blank::class.simpleName}" to ::notToBeBlank,
+    "toBe ${Empty::class.simpleName}" to Companion::toBeEmpty,
+    "notToBe ${Empty::class.simpleName}" to Companion::notToBeEmpty,
+    "notToBe ${Blank::class.simpleName}" to Companion::notToBeBlank,
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::startsWith),
     fun1<CharSequence, Char>(Expect<CharSequence>::startsWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::startsNotWith),
@@ -20,7 +20,11 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.specs.integration.CharSeque
     fun1<CharSequence, Regex>(Expect<CharSequence>::matches),
     fun1<CharSequence, Regex>(Expect<CharSequence>::mismatches)
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter(){
+        private fun toBeEmpty(expect: Expect<CharSequence>) = expect toBe Empty
+        private fun notToBeEmpty(expect: Expect<CharSequence>) = expect notToBe Empty
+        private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe Blank
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -44,7 +48,3 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.specs.integration.CharSeque
         a1 mismatches Regex("a")
     }
 }
-
-private fun toBeEmpty(expect: Expect<CharSequence>) = expect toBe Empty
-private fun notToBeEmpty(expect: Expect<CharSequence>) = expect notToBe Empty
-private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe Blank

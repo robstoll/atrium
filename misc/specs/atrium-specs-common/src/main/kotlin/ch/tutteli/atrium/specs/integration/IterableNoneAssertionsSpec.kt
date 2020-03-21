@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableNoneAssertionsSpec(
     none: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -18,7 +17,7 @@ abstract class IterableNoneAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterablePredicateSpecBase({
+) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         none.forSubjectLess { toBe(2.3) }
@@ -35,10 +34,6 @@ abstract class IterableNoneAssertionsSpec(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
         noneNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
     ) {})
-
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
@@ -62,6 +57,16 @@ abstract class IterableNoneAssertionsSpec(
         none,
         noneNullable
     ) { noneFun ->
+
+        context("empty collection") {
+            it("throws AssertionError as there needs to be at least one element") {
+                expect {
+                    expect(fluentEmpty()).noneFun { isLessThan(1.0) }
+                }.toThrow<AssertionError> {
+                    messageContains("$featureArrow$hasElement: false")
+                }
+            }
+        }
 
         context("iterable ${oneToSeven().toList()}") {
             context("happy case") {
@@ -93,9 +98,8 @@ abstract class IterableNoneAssertionsSpec(
             }
         }
     }
-
     nullableCases(describePrefix) {
-        describeFun("${noneNullable.name} for nullable") {
+        describeFun(noneNullable) {
             val noneFun = noneNullable.lambda
 
             context("iterable ${oneToSeven().toList()}") {

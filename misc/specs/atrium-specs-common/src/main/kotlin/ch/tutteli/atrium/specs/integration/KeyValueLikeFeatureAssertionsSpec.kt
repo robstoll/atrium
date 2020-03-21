@@ -18,10 +18,10 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     key: Fun1<T, Expect<String>.() -> Unit>,
     valueFeature: Feature0<T, Int>,
     value: Fun1<T, Expect<Int>.() -> Unit>,
-    nullableKeyFeature: Feature0<TNullable, String?>,
-    nullableKey: Fun1<TNullable, Expect<String?>.() -> Unit>,
-    nullableValueFeature: Feature0<TNullable, Int?>,
-    nullableValue: Fun1<TNullable, Expect<Int?>.() -> Unit>,
+    keyFeatureNullable: Feature0<TNullable, String?>,
+    keyNullable: Fun1<TNullable, Expect<String?>.() -> Unit>,
+    valueFeatureNullable: Feature0<TNullable, Int?>,
+    valueNullable: Fun1<TNullable, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -36,10 +36,10 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     ) {})
     include(object : SubjectLessSpec<TNullable>(
         "$describePrefix[nullable] ",
-        nullableKeyFeature.forSubjectLess(),
-        nullableKey.forSubjectLess { toBe(null) },
-        nullableValueFeature.forSubjectLess(),
-        nullableValue.forSubjectLess { toBe(null) }
+        keyFeatureNullable.forSubjectLess(),
+        keyNullable.forSubjectLess { toBe(null) },
+        valueFeatureNullable.forSubjectLess(),
+        valueNullable.forSubjectLess { toBe(null) }
     ) {})
 
     include(object : AssertionCreatorSpec<T>(
@@ -49,8 +49,8 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     ) {})
     include(object : AssertionCreatorSpec<TNullable>(
         "$describePrefix[nullable]", nullMapEntry,
-        nullableKey.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) },
-        nullableValue.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) }
+        keyNullable.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) },
+        valueNullable.forAssertionCreatorSpec("$toBeDescr: null") { toBe(null) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -62,8 +62,12 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     val nullableFluent = expect(nullableMapEntry)
     val nullFluent = expect(nullMapEntry)
 
-    describeFun(keyFeature, key, valueFeature, value) {
-        val keyFunctions = unifySignatures(keyFeature, key)
+    describeFun(keyFeature, key, keyFeatureNullable, keyNullable, valueFeature, value, valueFeature, valueNullable) {
+        val keyFunctions = uncheckedToNonNullable(
+            unifySignatures(keyFeature, key),
+            unifySignatures(keyFeatureNullable, keyNullable)
+        )
+
         val valueFunctions = unifySignatures(valueFeature, value)
         context("$mapEntry") {
             keyFunctions.forEach { (name, keyFun, _) ->
@@ -101,9 +105,9 @@ abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
     }
 
 
-    describeFun(nullableKeyFeature, nullableKey, nullableValueFeature, nullableValue) {
-        val keyFunctions = unifySignatures(nullableKeyFeature, nullableKey)
-        val valueFunctions = unifySignatures(nullableValueFeature, nullableValue)
+    describeFun(keyFeatureNullable, keyNullable, valueFeatureNullable, valueNullable) {
+        val keyFunctions = unifySignatures(keyFeatureNullable, keyNullable)
+        val valueFunctions = unifySignatures(valueFeatureNullable, valueNullable)
 
         context("$nullableMapEntry") {
             keyFunctions.forEach { (name, nullableKeyFun, _) ->

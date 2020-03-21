@@ -71,7 +71,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
         context("empty collection") {
             it("1.0 throws AssertionError") {
                 expect {
-                    fluentEmpty.containsFun(1.0)
+                    expect(fluentEmpty()).containsFun(1.0)
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
@@ -83,7 +83,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
             }
             it("1.0 and 4.0 throws AssertionError") {
                 expect {
-                    fluentEmpty.containsFun(1.0, 4.0)
+                    expect(fluentEmpty()).containsFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
@@ -199,7 +199,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${containsInOrderOnlyNullableValues.name} for nullable") {
+        describeFun(containsInOrderOnlyNullableValues) {
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {

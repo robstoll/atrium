@@ -2,6 +2,7 @@
 
 package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
+import ch.tutteli.atrium.api.infix.en_GB.jdk8.creating.path.PathWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.path
@@ -148,7 +149,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
     get() = ExpectImpl.path.parent(this).getExpectOfFeature()
 
 /**
- * Expects that this [Path] has a [parent][Path.getParent] and that the parent holds all assertions the
+ * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
  * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -170,6 +171,26 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  */
 infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     ExpectImpl.path.resolve(this, other).getExpectOfFeature()
+
+/**
+ * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
+ * given [PathWithCreator.assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
+ *
+ *  Use the function `path(String) { ... }` to create a [PathWithCreator].
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.11.0
+ */
+infix fun <T : Path> Expect<T>.resolve(path: PathWithCreator<Path>): Expect<T> =
+    ExpectImpl.path.resolve(this, path.path).addToInitial(path.assertionCreator)
+
+/**
+ * Helper function to create an [PathWithCreator] based on the given [path] and [assertionCreator].
+ */
+fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit) = PathWithCreator(path, assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Path]) is readable;

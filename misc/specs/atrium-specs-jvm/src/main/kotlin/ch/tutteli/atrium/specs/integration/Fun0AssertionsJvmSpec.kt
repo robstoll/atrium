@@ -2,10 +2,7 @@
 
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsRegex
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
@@ -25,30 +22,14 @@ abstract class Fun0AssertionsJvmSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    @Suppress("NAME_SHADOWING")
+    val toThrow = toThrow.adjustName { it.substringBefore(" (feature)") }
 
-    fun Suite.checkToThrow(
-        description: String,
-        act: (Expect<out () -> Any?>.() -> Unit) -> Unit,
-        lazy: (Expect<out () -> Any?>.() -> Unit),
-        immediate: (Expect<out () -> Any?>.() -> Unit)
-    ) {
-        checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
-    }
+    @Suppress("NAME_SHADOWING")
+    val notToThrow = notToThrow.adjustName { it.substringBefore(" (feature)") }
 
-    fun <R> expectThrowsAssertionErrorAndMessageContainsRegex(
-        toThrowFun: Expect<() -> R>.() -> Unit,
-        throwable: Throwable,
-        pattern: String, vararg otherPatterns: String
-    ) {
-        expect {
-            val act: () -> R = { throw throwable }
-            expect(act).toThrowFun()
-        }.toThrow<AssertionError> {
-            message { containsRegex(pattern, *otherPatterns) }
-        }
-    }
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val messageDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE.getDefault()
     val stackTraceDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
@@ -63,97 +44,96 @@ abstract class Fun0AssertionsJvmSpec(
             "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
             "\\s+\\Q$listBulletPoint\\E${Fun0AssertionsJvmSpec::class.fullName}"
 
-    describeFun("${toThrowFeature.name} feature and ${toThrow.name}") {
-        val toThrowFeatureFun = toThrowFeature.lambda
-        val toThrowFun = toThrow.lambda
+    describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
+        val toThrowFunctions = unifySignatures(toThrowFeature, toThrow)
+        val notToThrowFunctions = unifySignatures(notToThrowFeature, notToThrow)
 
         context("wrong exception with suppressed") {
+            val exceptionWithSuppressed = UnsupportedOperationException("not supported")
+            exceptionWithSuppressed.addSuppressed(IllegalStateException("not good"))
+            exceptionWithSuppressed.addSuppressed(IllegalArgumentException(errMessage))
 
-            checkToThrow("shows all suppressed as extra hint", { doToThrow ->
-                val ex = UnsupportedOperationException("not supported")
-                ex.addSuppressed(IllegalStateException("not good"))
-                ex.addSuppressed(IllegalArgumentException(errMessage))
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    doToThrow,
-                    ex,
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
-                        messageAndStackTrace("not good"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
-                        messageAndStackTrace(errMessage)
-                )
-            }, { toThrowFun { message { toBe("hello") } } }, { toThrowFeatureFun() })
-        }
-    }
+            fun Expect<AssertionError>.expectSuppressedInReporting() =
+                message {
+                    containsRegex(
+                        UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
+                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
+                            messageAndStackTrace("not good"),
+                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
+                            messageAndStackTrace(errMessage)
+                    )
+                }
 
-    describeFun("${notToThrowFeature.name} feature") {
-        val notToThrowFeatureFun = notToThrowFeature.lambda
+            toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                it("$name - shows all suppressed as extra hint" + showsSubAssertionIf(hasExtraHint)) {
 
-        context("exception is thrown with suppressed") {
-            val notThrown: Expect<() -> Int>.() -> Unit = { notToThrowFeatureFun().toBe(1) }
-
-            it("shows all suppressed as extra hint") {
-                val ex = UnsupportedOperationException("not supported")
-                ex.addSuppressed(IllegalStateException("not good"))
-                ex.addSuppressed(IllegalArgumentException(errMessage))
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    notThrown,
-                    ex,
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
-                        messageAndStackTrace("not good"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
-                        messageAndStackTrace(errMessage)
-                )
+                    expect {
+                        expect<() -> Any?> {
+                            throw exceptionWithSuppressed
+                        }.toThrowFun { message.toBe("hello") }
+                    }.toThrow<AssertionError> {
+                        expectSuppressedInReporting()
+                        if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                    }
+                }
             }
-            it("with nested cause, shows both causes as extra hint") {
-                val ex = UnsupportedOperationException("not supported")
-                ex.addSuppressed(IOException("io", IllegalStateException(errMessage)))
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    notThrown,
-                    ex,
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
-                        messageAndStackTrace("io"),
-                    "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                        messageAndStackTrace(errMessage)
-                )
+
+            notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
+                it("$name - shows all suppressed as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        expect<() -> Int> {
+                            throw exceptionWithSuppressed
+                        }.notToThrowFun { toBe(2) }
+                    }.toThrow<AssertionError> {
+                        expectSuppressedInReporting()
+                        if (hasExtraHint) messageContains("$toBeDescr: 2")
+                    }
+                }
             }
-        }
-    }
 
-    describeFun(notToThrow.name) {
-        val notToThrowFun = notToThrow.lambda
 
-        context("exception is thrown with suppressed") {
-            val notThrown: Expect<() -> Int>.() -> Unit = { notToThrowFun { toBe(1) } }
+            context("with nested cause") {
+                val exceptionWithSuppressedWhichHasCause = UnsupportedOperationException("not supported")
+                exceptionWithSuppressedWhichHasCause.addSuppressed(IOException("io", IllegalStateException(errMessage)))
 
-            it("shows all suppressed as extra hint") {
-                val ex = UnsupportedOperationException("not supported")
-                ex.addSuppressed(IllegalStateException("not good"))
-                ex.addSuppressed(IllegalArgumentException(errMessage))
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    notThrown,
-                    ex,
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
-                        messageAndStackTrace("not good"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
-                        messageAndStackTrace(errMessage)
-                )
-            }
-            it("with nested cause, shows both causes as extra hint") {
-                val ex = UnsupportedOperationException("not supported")
-                ex.addSuppressed(IOException("io", IllegalStateException(errMessage)))
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    notThrown,
-                    ex,
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                    "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
-                        messageAndStackTrace("io"),
-                    "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                        messageAndStackTrace(errMessage)
-                )
+                fun Expect<AssertionError>.expectSuppressedAndCauseInReporting() =
+                    message {
+                        containsRegex(
+                            UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
+                            "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
+                                messageAndStackTrace("io"),
+                            "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
+                                messageAndStackTrace(errMessage)
+                        )
+
+                    }
+
+                toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                    it("$name -shows suppressed including cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+
+                        expect {
+                            expect<() -> Any?> {
+                                throw exceptionWithSuppressedWhichHasCause
+                            }.toThrowFun { message.toBe("hello") }
+                        }.toThrow<AssertionError> {
+                            expectSuppressedAndCauseInReporting()
+                            if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                        }
+                    }
+                }
+
+                notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
+                    it("$name - shows suppressed including cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                        expect {
+                            expect<() -> Int> {
+                                throw exceptionWithSuppressedWhichHasCause
+                            }.notToThrowFun { toBe(2) }
+                        }.toThrow<AssertionError> {
+                            expectSuppressedAndCauseInReporting()
+                            if (hasExtraHint) messageContains("$toBeDescr: 2")
+                        }
+                    }
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class ListFeatureAssertionsSpec(
     getFeature: Feature1<List<Int>, Int, Int>,
     get: Fun2<List<Int>, Int, Expect<Int>.() -> Unit>,
-    getNullableFeature: Feature1<List<Int?>, Int, Int?>,
+    getFeatureNullable: Feature1<List<Int?>, Int, Int?>,
     getNullable: Fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -25,7 +25,7 @@ abstract class ListFeatureAssertionsSpec(
         get.forSubjectLess(1) { toBe(1) }
     ) {})
     include(object : SubjectLessSpec<List<Int?>>("$describePrefix[nullable Element] ",
-        getNullableFeature.forSubjectLess(1),
+        getFeatureNullable.forSubjectLess(1),
         getNullable.forSubjectLess(1) { toBe(null) }
     ) {})
 
@@ -47,14 +47,18 @@ abstract class ListFeatureAssertionsSpec(
 
     val indexOutOfBounds = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS.getDefault()
 
-    describeFun(getFeature, get) {
-        val getFunctions = unifySignatures(getFeature, get)
+    describeFun(getFeature, get, getFeatureNullable, getNullable) {
+        val getFunctions = uncheckedToNonNullable(
+            unifySignatures(getFeature, get),
+            unifySignatures(getFeatureNullable, getNullable)
+        )
+
         context("list $list") {
             getFunctions.forEach { (name, getFun, hasExtraHint) ->
                 it("$name - can perform sub-assertion on existing index") {
                     fluent.getFun(0) { toBe(1) }
                 }
-                it("$name - non-existing index throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                it("$name - non-existing index throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         fluent.getFun(4) { toBe(3) }
                     }.toThrow<AssertionError> {
@@ -68,44 +72,12 @@ abstract class ListFeatureAssertionsSpec(
         }
     }
 
-    describeFun(getNullableFeature) {
-        val getFun = getNullableFeature.lambda
+    describeFun(getFeatureNullable, getNullable) {
+        val getFunctions = unifySignatures(getFeatureNullable, getNullable)
         context("list $listNullable") {
-            it("can perform sub-assertion on existing key") {
-                fluentNullable.getFun(0).toBe(1)
-            }
-            it("can perform sub-assertion on existing key with value null") {
-                fluentNullable.getFun(1).toBe(null)
-            }
-
-            it("non-existing key throws") {
-                expect {
-                    fluentNullable.getFun(4).toBe(null)
-                }.toThrow<AssertionError> {
-                    messageContains("get(4): $indexOutOfBounds")
-                }
-            }
-        }
-    }
-
-    describeFun(getNullableFeature, getNullable) {
-        val getFunctions = unifySignatures(getNullableFeature, getNullable)
-        context("list $listNullable") {
-            getFunctions.forEach { (name, getFun, hasExtraHint) ->
-                it("$name - can perform sub-assertion on existing key") {
-                    fluentNullable.getFun(0) { toBe(1) }
-                }
-                it("$name - can perform sub-assertion on existing key with value null") {
+            getFunctions.forEach { (name, getFun, _) ->
+                it("$name - can perform sub-assertion on existing index with value null") {
                     fluentNullable.getFun(1) { toBe(null) }
-                }
-
-                it("$name - non-existing key throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
-                    expect {
-                        fluentNullable.getFun(4) { toBe(null) }
-                    }.toThrow<AssertionError> {
-                        messageContains("get(4): $indexOutOfBounds")
-                        if (hasExtraHint) messageContains("$toBeDescr: null")
-                    }
                 }
             }
         }

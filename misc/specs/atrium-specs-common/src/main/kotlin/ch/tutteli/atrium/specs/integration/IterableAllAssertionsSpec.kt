@@ -16,7 +16,7 @@ abstract class IterableAllAssertionsSpec(
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterablePredicateSpecBase({
+) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         all.first to expectLambda { all.second(this) { toBe(2.5) } }
@@ -52,9 +52,9 @@ abstract class IterableAllAssertionsSpec(
     ) { allFun ->
 
         context("empty collection") {
-            it("$isLessThanFun(1.0) throws AssertionError") {
+            it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    fluentEmpty.allFun { isLessThan(1.0) }
+                    expect(fluentEmpty()).allFun { isLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$featureArrow$hasElement: false$separator" +
@@ -95,7 +95,7 @@ abstract class IterableAllAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${allNullable.name} for nullable") {
+        describeFun(allNullable) {
             val allNullableFun = allNullable.lambda
 
             val iterableOfNulls = { sequenceOf<Double?>(null, null).constrainOnce().asIterable() }

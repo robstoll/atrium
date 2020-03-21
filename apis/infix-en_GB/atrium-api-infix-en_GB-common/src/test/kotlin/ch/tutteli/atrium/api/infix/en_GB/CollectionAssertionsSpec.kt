@@ -5,15 +5,19 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
-    "toBe ${Empty::class.simpleName}" to ::isEmpty,
-    "notToBe ${Empty::class.simpleName}" to ::isNotEmpty
+    "toBe ${Empty::class.simpleName}" to Companion::isEmpty,
+    "notToBe ${Empty::class.simpleName}" to Companion::isNotEmpty
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+        private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
+        private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
+
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<Collection<Int>> = notImplemented()
-        val a1b: Expect<Collection<Int?>> = notImplemented()
+        val a1: Expect<List<Int>> = notImplemented()
+        val a1b: Expect<Set<Int?>> = notImplemented()
 
         val star: Expect<Collection<*>> = notImplemented()
 
@@ -28,5 +32,3 @@ class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionA
     }
 }
 
-private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
-private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
