@@ -14,7 +14,6 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import io.mockk.*
