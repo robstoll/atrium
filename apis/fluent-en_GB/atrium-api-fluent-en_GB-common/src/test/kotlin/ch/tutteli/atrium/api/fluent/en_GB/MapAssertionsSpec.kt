@@ -9,8 +9,9 @@ import kotlin.jvm.JvmName
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     mfun2<String, Int, Int>(Expect<Map<out String, Int>>::contains),
     mfun2<String?, Int?, Int?>(Expect<Map<out String?, Int?>>::contains).withNullableSuffix(),
-    mfun2<String, Int, Expect<Int>.() -> Unit>(::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
-    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(::contains).adjustName { "$it ${KeyValue::class.simpleName}" }.withNullableSuffix(),
+    mfun2<String, Int, Expect<Int>.() -> Unit>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
+    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" }
+        .withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsKey),
     fun1(Expect<Map<out String?, *>>::containsKey).withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsNotKey),
@@ -18,6 +19,26 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     fun0(Expect<Map<*, *>>::isEmpty),
     fun0(Expect<Map<*, *>>::isNotEmpty)
 ) {
+
+    companion object {
+        private fun contains(
+            expect: Expect<Map<out String, Int>>,
+            keyValue: Pair<String, Expect<Int>.() -> Unit>,
+            otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
+        ) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
+            expect.contains(first, *others)
+        }
+
+        @JvmName("containsNullable")
+        private fun contains(
+            expect: Expect<Map<out String?, Int?>>,
+            keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
+            otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
+        ) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
+            expect.contains(first, *others)
+        }
+
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -183,21 +204,4 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         starMap = starMap.isNotEmpty()
 
     }
-}
-
-private fun contains(
-    expect: Expect<Map<out String, Int>>,
-    keyValue: Pair<String, Expect<Int>.() -> Unit>,
-    otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
-) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
-    expect.contains(first, *others)
-}
-
-@JvmName("containsNullable")
-private fun contains(
-    expect: Expect<Map<out String?, Int?>>,
-    keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
-    otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
-) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
-    expect.contains(first, *others)
 }

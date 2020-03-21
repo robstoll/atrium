@@ -8,10 +8,17 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withNullableSuffix
 
 class MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAssertionsSpec(
-    fun1(Expect<Map.Entry<String, Int>>::isKeyValue).name to ::isKeyValue,
-    (fun1(Expect<Map.Entry<String?, Int?>>::isKeyValue).name to ::isKeyValueNullable).withNullableSuffix()
+    fun1(Expect<Map.Entry<String, Int>>::isKeyValue).name to Companion::isKeyValue,
+    (fun1(Expect<Map.Entry<String?, Int?>>::isKeyValue).name to Companion::isKeyValueNullable).withNullableSuffix()
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+
+        private fun isKeyValue(expect: Expect<Map.Entry<String, Int>>, key: String, value: Int) =
+            expect isKeyValue (key to value)
+
+        private fun isKeyValueNullable(expect: Expect<Map.Entry<String?, Int?>>, key: String?, value: Int?) =
+            expect isKeyValue (key to value)
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -34,9 +41,3 @@ class MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAsser
         star isKeyValue (null to null)
     }
 }
-
-private fun isKeyValue(expect: Expect<Map.Entry<String, Int>>, key: String, value: Int) =
-    expect isKeyValue (key to value)
-
-private fun isKeyValueNullable(expect: Expect<Map.Entry<String?, Int?>>, key: String?, value: Int?) =
-    expect isKeyValue (key to value)
