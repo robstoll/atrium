@@ -76,7 +76,6 @@ abstract class Fun0AssertionsSpec(
         }
     }
 
-    val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
     val messageDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE.getDefault()
     val stackTraceDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
     val causeDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault()

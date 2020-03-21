@@ -67,7 +67,6 @@ abstract class ResultFeatureAssertionsSpec(
     val isNotSuccessDescr = DescriptionResultAssertion.IS_NOT_SUCCESS.getDefault()
     val isNotFailureDescr = DescriptionResultAssertion.IS_NOT_FAILURE.getDefault()
     val exceptionDescr = DescriptionResultAssertion.EXCEPTION.getDefault()
-    val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
     describeFun(isSuccessFeature, isSuccess, isSuccessFeatureNullable, isSuccessNullable, isFailureFeature, isFailure) {
         val successFunctions = uncheckedToNonNullable(
