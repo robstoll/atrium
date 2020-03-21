@@ -3,6 +3,6 @@ description = 'API of the core of Atrium for the JS platform.'
 dependencies {
     api "ch.tutteli.kbox:kbox-js:$kbox_version", excludeKotlin
 
-    testImplementation prefixedProject('cc-infix-en_GB-robstoll-js')
+    testImplementation prefixedProject('api-cc-infix-en_GB-js')
     testImplementation prefixedProject('specs-js')
 }

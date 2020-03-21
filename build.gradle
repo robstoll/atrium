@@ -472,11 +472,11 @@ def createJsTestTask(String... subprojectNames) {
         }
 
         task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])
-        task runMocha(type: NodeTask, dependsOn: [prepareMocha, test]) {
+        task runMocha(type: NodeTask, dependsOn: [prepareMocha]) {
             script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
             args = [compileTestKotlin2Js.outputFile]
         }
-        check.dependsOn runMocha
+        test.dependsOn runMocha
     }
 }
 
