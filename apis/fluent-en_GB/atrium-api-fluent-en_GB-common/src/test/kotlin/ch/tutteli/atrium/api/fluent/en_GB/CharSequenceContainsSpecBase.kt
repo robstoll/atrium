@@ -32,7 +32,7 @@ abstract class CharSequenceContainsSpecBase {
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<CharSequence> = notImplemented()
+        val a1: Expect<String> = notImplemented()
 
         a1.contains.atLeast(1).value(1)
         a1.contains.atMost(2).values("a", 1)
@@ -53,7 +53,7 @@ abstract class CharSequenceContainsSpecBase {
         a1.contains.ignoringCase.values("a", 'b')
         a1.contains.ignoringCase.regex("a")
         a1.contains.ignoringCase.regex("a", "bl")
-        //TODO add to infix as well as fluent
+        //TODO add (also to infix API)
 //        a1.contains.ignoringCase.elementsOf(listOf(1, 2))("a", "bl")
     }
 }

@@ -15,8 +15,8 @@ class IterableAllAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAl
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<Iterable<Double>> = notImplemented()
-        var a1b: Expect<Iterable<Double?>> = notImplemented()
+        var a1: Expect<List<Double>> = notImplemented()
+        var a1b: Expect<Set<Double?>> = notImplemented()
 
         var star: Expect<Iterable<*>> = notImplemented()
 

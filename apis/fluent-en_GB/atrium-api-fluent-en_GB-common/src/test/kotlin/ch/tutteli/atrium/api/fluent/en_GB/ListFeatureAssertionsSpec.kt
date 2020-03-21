@@ -11,8 +11,8 @@ object ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatu
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<List<Int>> = notImplemented()
-        var a1b: Expect<List<Int?>> = notImplemented()
+        var a1: Expect<AbstractList<Int>> = notImplemented()
+        var a1b: Expect<MutableList<Int?>> = notImplemented()
 
         var star: Expect<List<*>> = notImplemented()
 

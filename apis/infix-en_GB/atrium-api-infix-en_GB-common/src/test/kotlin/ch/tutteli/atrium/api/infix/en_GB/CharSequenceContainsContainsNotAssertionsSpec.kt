@@ -7,11 +7,21 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CharSequenceContainsContainsNotAssertionsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotAssertionsSpec(
-        fun2<CharSequence, String, Array<out String>>(::contains),
-        fun2<CharSequence, String, Array<out String>>(::containsNot),
+        fun2<CharSequence, String, Array<out String>>(Companion::contains),
+        fun2<CharSequence, String, Array<out String>>(Companion::containsNot),
         "* ", "- ", ">> "
     ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+
+        private fun contains(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect contains a
+            else expect contains Values(a, *aX)
+
+        private fun containsNot(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect containsNot a
+            else expect containsNot Values(a, *aX)
+
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -21,11 +31,3 @@ class CharSequenceContainsContainsNotAssertionsSpec :
         a1 containsNot Values(1, "a", 'c')
     }
 }
-
-private fun contains(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-    if (aX.isEmpty()) expect contains a
-    else expect contains Values(a, *aX)
-
-private fun containsNot(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-    if (aX.isEmpty()) expect containsNot a
-    else expect containsNot Values(a, *aX)

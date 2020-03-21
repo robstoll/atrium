@@ -8,13 +8,21 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withFeatureSuffix
 
 class Fun0AssertionsSpec : ch.tutteli.atrium.specs.integration.Fun0AssertionsSpec(
-    ("toThrow" to ::toThrowFeature).withFeatureSuffix(),
-    "toThrow" to ::toThrow,
+    ("toThrow" to Companion::toThrowFeature).withFeatureSuffix(),
+    "toThrow" to Companion::toThrow,
     feature0<() -> Int, Int>(Expect<() -> Int>::notToThrow),
     feature1<() -> Int, Expect<Int>.() -> Unit, Int>(Expect<() -> Int>::notToThrow),
     "- ", "» "
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+        private fun toThrowFeature(expect: Expect<out () -> Any?>) =
+            expect.toThrow<IllegalArgumentException>()
+
+        private fun toThrow(
+            expect: Expect<out () -> Any?>,
+            assertionCreator: Expect<IllegalArgumentException>.() -> Unit
+        ) = expect.toThrow<IllegalArgumentException> { assertionCreator() }
+    }
 
     @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
     private fun ambiguityTest() {
@@ -35,8 +43,3 @@ class Fun0AssertionsSpec : ch.tutteli.atrium.specs.integration.Fun0AssertionsSpe
     }
 }
 
-private fun toThrowFeature(expect: Expect<out () -> Any?>) =
-    expect.toThrow<IllegalArgumentException>()
-
-private fun toThrow(expect: Expect<out () -> Any?>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
-    expect.toThrow<IllegalArgumentException> { assertionCreator() }

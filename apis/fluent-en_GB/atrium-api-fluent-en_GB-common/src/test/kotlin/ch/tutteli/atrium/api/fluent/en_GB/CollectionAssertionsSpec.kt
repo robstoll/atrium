@@ -10,8 +10,8 @@ object CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.Collection
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<Collection<Int>> = notImplemented()
-        val a1b: Expect<Collection<Int?>> = notImplemented()
+        val a1: Expect<List<Int>> = notImplemented()
+        val a1b: Expect<Set<Int?>> = notImplemented()
 
         val star: Expect<Collection<*>> = notImplemented()
 

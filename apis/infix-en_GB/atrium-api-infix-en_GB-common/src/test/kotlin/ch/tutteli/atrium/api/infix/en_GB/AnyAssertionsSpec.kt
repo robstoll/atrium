@@ -26,24 +26,69 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
 
-    "${Expect<Int?>::toBe.name}(null)" to ::toBeNull,
+    "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
-    "isA" to ::isAFeature,
-    "isA" to ::isAStringToInt,
-    "isA" to ::isAStringToInt,
-    "isA" to ::isAString,
-    "isA" to ::isACharSequence,
-    "isA" to ::isASubType,
-    "isA" to ::isAIntLess,
-    "notToBeNull" to ::notToBeNull,
-    ::notToBeNullLess,
-    ::notToBeNullGreaterAndLess,
+    "isA" to Companion::isAFeature,
+    "isA" to Companion::isAStringToInt,
+    "isA" to Companion::isAStringToInt,
+    "isA" to Companion::isAString,
+    "isA" to Companion::isACharSequence,
+    "isA" to Companion::isASubType,
+    "isA" to Companion::isAIntLess,
+    "notToBeNull" to Companion::notToBeNull,
+    Companion::notToBeNullLess,
+    Companion::notToBeNullGreaterAndLess,
 
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
 
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter(){
+        private fun toBeNull(expect: Expect<Int?>) = expect toBe null
+
+        @Suppress("RemoveExplicitTypeArguments")
+        private fun isAFeature(expect: Expect<Int?>): Expect<Int> = expect.isA<Int>()
+
+        private fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> =
+            "non existing in infix" to { e: Expect<Int> -> e }
+
+        private val andLazyName: KFunction2<Expect<Int>, Expect<Int>.() -> Unit, Expect<Int>> = Expect<Int>::and
+        private fun getAndLazyPair(): Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>> =
+            andLazyName.name to Expect<Int>::and
+
+        private inline fun <reified TSub : Any> isA(
+            expect: Expect<*>,
+            noinline assertionCreator: Expect<TSub>.() -> Unit
+        ) = expect.isA(assertionCreator)
+
+        //TODO get rid of different overloads as soon as https://youtrack.jetbrains.com/issue/KT-19884 is fixed
+        private fun isAStringToInt(expect: Expect<*>, assertionCreator: Expect<Int>.() -> Unit) =
+            isA(expect, assertionCreator)
+
+        private fun isAString(expect: Expect<*>, assertionCreator: Expect<String>.() -> Unit) =
+            isA(expect, assertionCreator)
+
+        private fun isACharSequence(expect: Expect<*>, assertionCreator: Expect<CharSequence>.() -> Unit) =
+            isA(expect, assertionCreator)
+
+        private fun isASubType(expect: Expect<*>, assertionCreator: Expect<AnyAssertionsSpec.SubType>.() -> Unit) =
+            isA(expect, assertionCreator)
+
+        private fun isAIntLess(expect: Expect<Number>, number: Int) =
+            expect.isA<Int> { o isLessThan number }
+
+        private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
+            expect notToBeNull assertionCreator
+
+        private fun notToBeNullLess(expect: Expect<Int?>, number: Int) =
+            expect.notToBeNull { isLessThan(number) }
+
+        private fun notToBeNullGreaterAndLess(expect: Expect<Int?>, lowerBound: Int, upperBound: Int) =
+            expect.notToBeNull {
+                o isGreaterThan lowerBound
+                o isLessThan upperBound
+            }
+    }
 
     @Suppress("unused")
     fun ambiguityTest() {
@@ -83,48 +128,3 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     @Suppress("unused")
     fun <E> Expect<List<E>>.firstIs(value: E) = o get index(0) { o toBe value }
 }
-
-private fun toBeNull(expect: Expect<Int?>) = expect toBe null
-
-@Suppress("RemoveExplicitTypeArguments")
-private fun isAFeature(expect: Expect<Int?>): Expect<Int> = expect.isA<Int>()
-
-private fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> =
-    "non existing in infix" to { e: Expect<Int> -> e }
-
-private val andLazyName: KFunction2<Expect<Int>, Expect<Int>.() -> Unit, Expect<Int>> = Expect<Int>::and
-private fun getAndLazyPair(): Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>> =
-    andLazyName.name to Expect<Int>::and
-
-private inline fun <reified TSub : Any> isA(
-    expect: Expect<*>,
-    noinline assertionCreator: Expect<TSub>.() -> Unit
-) = expect.isA(assertionCreator)
-
-//TODO get rid of different overloads as soon as https://youtrack.jetbrains.com/issue/KT-19884 is fixed
-private fun isAStringToInt(expect: Expect<*>, assertionCreator: Expect<Int>.() -> Unit) =
-    isA(expect, assertionCreator)
-
-private fun isAString(expect: Expect<*>, assertionCreator: Expect<String>.() -> Unit) =
-    isA(expect, assertionCreator)
-
-private fun isACharSequence(expect: Expect<*>, assertionCreator: Expect<CharSequence>.() -> Unit) =
-    isA(expect, assertionCreator)
-
-private fun isASubType(expect: Expect<*>, assertionCreator: Expect<AnyAssertionsSpec.SubType>.() -> Unit) =
-    isA(expect, assertionCreator)
-
-private fun isAIntLess(expect: Expect<Number>, number: Int) =
-    expect.isA<Int> { o isLessThan number }
-
-private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
-    expect notToBeNull assertionCreator
-
-private fun notToBeNullLess(expect: Expect<Int?>, number: Int) =
-    expect.notToBeNull { isLessThan(number) }
-
-private fun notToBeNullGreaterAndLess(expect: Expect<Int?>, lowerBound: Int, upperBound: Int) =
-    expect.notToBeNull {
-        o isGreaterThan lowerBound
-        o isLessThan upperBound
-    }

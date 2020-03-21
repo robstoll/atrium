@@ -1,7 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.feature1
+import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.property
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.file.Path
 
@@ -9,7 +12,7 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, Path>(Expect<Path>::parent),
     fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
     feature1<Path, String, Path>(Expect<Path>::resolve),
-    "resolve with assertionCreator not implemented in this API" to ::resolve,
+    "resolve with assertionCreator not implemented in this API" to Companion::resolve,
     property<Path, String>(Expect<Path>::fileName),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileName),
     property<Path, String>(Expect<Path>::fileNameWithoutExtension),
@@ -17,7 +20,14 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     property<Path, String>(Expect<Path>::extension),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
-    companion object : WithAsciiReporter()
+    companion object : WithAsciiReporter() {
+
+        private fun resolve(
+            expect: Expect<Path>,
+            other: String,
+            assertionCreator: Expect<Path>.() -> Unit
+        ): Expect<Path> = (expect resolve other).addAssertionsCreatedBy(assertionCreator)
+    }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -39,5 +49,3 @@ class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatur
     }
 }
 
-private fun resolve(expect: Expect<Path>, other: String, assertionCreator: Expect<Path>.() -> Unit): Expect<Path> =
-    (expect resolve other).addAssertionsCreatedBy(assertionCreator)
