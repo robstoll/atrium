@@ -10,7 +10,18 @@ import kotlin.reflect.full.cast as kotlinCast
  * (e.g. `int` vs. `Integer`) and returns also a name for anonymous classes.
  */
 actual val KClass<*>.fullName: String
-    get() = if (!java.isPrimitive) qualifiedName ?: java.name else java.name
+    get() {
+        return if (!java.isPrimitive) {
+            try {
+                qualifiedName
+            } catch (_: Throwable) {
+                // workaround for https://youtrack.jetbrains.com/issue/KT-37656 there are cases where Kotlin does not
+                // find the class it defined, java.name works though
+                null
+            } ?: java.name
+        } else java.name
+    }
+
 
 /**
  * Returns [KClass.java].[name][Class.name].

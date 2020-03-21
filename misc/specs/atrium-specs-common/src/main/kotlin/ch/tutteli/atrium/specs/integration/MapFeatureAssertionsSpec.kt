@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -96,7 +95,7 @@ abstract class MapFeatureAssertionsSpec(
                 it("$name - can perform sub-assertion on existing key") {
                     fluent.getExistingFun("a") { toBe(1) }
                 }
-                it("$name - non-existing key throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         fluent.getExistingFun("c") { toBe(3) }
                     }.toThrow<AssertionError> {
@@ -122,7 +121,7 @@ abstract class MapFeatureAssertionsSpec(
                 it("$name - can perform sub-assertion on existing key whose value is null") {
                     fluentNullable.getExistingFun("b") { toBe(null) }
                 }
-                it("$name - non-existing key throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         fluentNullable.getExistingFun("c") { toBe(null) }
                     }.toThrow<AssertionError> {

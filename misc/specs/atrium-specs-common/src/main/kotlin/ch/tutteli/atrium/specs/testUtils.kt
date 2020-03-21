@@ -5,6 +5,7 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
@@ -210,5 +211,8 @@ fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): St
 val toBeDescr = DescriptionBasic.TO_BE.getDefault()
 val isDescr = DescriptionBasic.IS.getDefault()
 val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
 expect val lineSeperator: String
+
+fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
