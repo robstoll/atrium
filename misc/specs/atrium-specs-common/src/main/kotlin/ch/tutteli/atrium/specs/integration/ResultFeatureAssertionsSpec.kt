@@ -111,7 +111,7 @@ abstract class ResultFeatureAssertionsSpec(
 
         context("subject is $resultFailure") {
             successFunctions.forEach { (name, isSuccessFun, hasExtraHint) ->
-                it("$name throws AssertionError" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                it("$name throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         expect(resultFailure).isSuccessFun { toBe(1) }
                     }.toThrow<AssertionError> {
@@ -157,7 +157,7 @@ abstract class ResultFeatureAssertionsSpec(
             }
 
             context("subject is $resultNullableFailure") {
-                it("${isSuccessFeature.name} throws AssertionError" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                it("${isSuccessFeature.name} throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         expect(resultNullableFailure).isSuccessFun { toBe(1) }
                     }.toThrow<AssertionError> {

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
@@ -21,7 +22,14 @@ abstract class Fun0AssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<() -> Any?>(describePrefix,
+    @Suppress("NAME_SHADOWING")
+    val toThrow = toThrow.adjustName { it.substringBefore(" (feature)") }
+
+    @Suppress("NAME_SHADOWING")
+    val notToThrow = notToThrow.adjustName { it.substringBefore(" (feature)") }
+
+    include(object : SubjectLessSpec<() -> Any?>(
+        "$describePrefix[toThrow] ",
         toThrowFeature.forSubjectLess().adjustName { "$it feature" },
         toThrow.forSubjectLess { messageContains("bla") }
     ) {})
@@ -32,7 +40,7 @@ abstract class Fun0AssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<() -> Any?>(
-        describePrefix, { throw IllegalArgumentException("bla") },
+        "$describePrefix[toThrow] ", { throw IllegalArgumentException("bla") },
         assertionCreatorSpecTriple(
             toThrow.name,
             "bla",
@@ -51,30 +59,8 @@ abstract class Fun0AssertionsSpec(
         )
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
-    fun Suite.checkToThrow(
-        description: String,
-        act: (Expect<out () -> Any?>.() -> Unit) -> Unit,
-        lazy: (Expect<out () -> Any?>.() -> Unit),
-        immediate: (Expect<out () -> Any?>.() -> Unit)
-    ) {
-        checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
-    }
-
-    fun <R> expectThrowsAssertionErrorAndMessageContainsRegex(
-        toThrowFun: Expect<() -> R>.() -> Unit,
-        throwable: Throwable,
-        pattern: String, vararg otherPatterns: String
-    ) {
-        expect {
-            val act: () -> R = { throw throwable }
-            expect(act).toThrowFun()
-        }.toThrow<AssertionError> {
-            message { containsRegex(pattern, *otherPatterns) }
-        }
-    }
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val messageDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE.getDefault()
     val stackTraceDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
@@ -87,179 +73,179 @@ abstract class Fun0AssertionsSpec(
             "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
             "\\s+\\Q$listBulletPoint\\E${Fun0AssertionsSpec::class.fullName}"
 
-    describeFun("${toThrowFeature.name} feature and ${toThrow.name}") {
-        val toThrowFeatureFun = toThrowFeature.lambda
-        val toThrowFun = toThrow.lambda
+    describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
+        val toThrowFunctions = unifySignatures(toThrowFeature, toThrow)
+        val notToThrowFunctions = unifySignatures(notToThrowFeature, notToThrow)
 
-        checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
-            expect {
-                expect { /* no exception occurs */ 1 }.doToThrow()
-            }.toThrow<AssertionError> {
-                message {
-                    contains.exactly(1).regex(
-                        "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
-                            DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
-                        "$isADescr: ${IllegalArgumentException::class.simpleName}"
-                    )
+        context("no exception occurs") {
+            toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        expect<() -> Any?> { /* no exception occurs */ 1 }.toThrowFun { toBe(IllegalArgumentException("what")) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).regex(
+                                "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
+                                    DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                                "$isADescr: ${IllegalArgumentException::class.simpleName}"
+                            )
+                            if (hasExtraHint) contains("$toBeDescr: ${IllegalArgumentException::class.fullName}")
+                        }
+                    }
                 }
             }
-        }, { toThrowFun { toBe(IllegalArgumentException("what")) } }, { toThrowFeatureFun() })
 
+            notToThrowFunctions.forEach { (name, notToThrowFun, _) ->
+                it("$name - does not throw, allows to make a sub assertion") {
+                    expect { 1 }.notToThrowFun { toBe(1) }
+                }
+            }
+        }
 
-        checkToThrow(
-            "it allows to define assertions for the Throwable if the correct exception is thrown",
-            { toThrowWithCheck ->
-                expect {
-                    throw IllegalArgumentException("hello")
-                }.toThrowWithCheck()
-            },
-            { toThrowFun { message { toBe("hello") } } }, { toThrowFeatureFun().message.toBe("hello") })
+        context("exception is thrown") {
 
-        context("wrong exception") {
+            val wrongException = UnsupportedOperationException(errMessage)
 
-            checkToThrow("it throws an AssertionError and shows message and stacktrace as extra hint", { doToThrow ->
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    doToThrow,
-                    UnsupportedOperationException(errMessage),
-                    "$isADescr:.+" + IllegalArgumentException::class.fullName,
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace(errMessage)
-                )
-            }, { toThrowFun { message { toBe("hello") } } }, { toThrowFeatureFun().message.toBe("hello") })
+            toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                it("$name - allows to define assertions for the Throwable if the correct exception is thrown") {
+                    expect<() -> Any?> {
+                        throw IllegalArgumentException("hello")
+                    }.toThrowFun { message.toBe("hello") }
+                }
+
+                it(
+                    "$name - throws an AssertionError in case of a wrong exception and shows message and stacktrace as extra hint" +
+                        showsSubAssertionIf(hasExtraHint)
+                ) {
+                    expect {
+                        expect<() -> Any?> {
+                            throw wrongException
+                        }.toThrowFun { message.toBe("hello") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsRegex(
+                                "$isADescr:.+" + IllegalArgumentException::class.fullName,
+                                UnsupportedOperationException::class.simpleName + separator +
+                                    messageAndStackTrace(errMessage)
+                            )
+                            if (hasExtraHint) contains("$toBeDescr: \"hello\"")
+                        }
+                    }
+                }
+            }
+
+            notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
+                it(
+                    "$name - throws an AssertionError and shows message and stacktrace as extra hint" +
+                        showsSubAssertionIf(hasExtraHint)
+                ) {
+                    expect {
+                        expect<() -> Int> {
+                            throw wrongException
+                        }.notToThrowFun { toBe(2) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsRegex(
+                                "${DescriptionFunLikeAssertion.IS_NOT_THROWING_1.getDefault()}: "+
+                                    DescriptionFunLikeAssertion.IS_NOT_THROWING_2.getDefault(),
+                                UnsupportedOperationException::class.simpleName + separator +
+                                    messageAndStackTrace(errMessage)
+                            )
+                            if (hasExtraHint) contains("$toBeDescr: 2")
+                        }
+                    }
+                }
+            }
 
             context("with a cause") {
 
-                checkToThrow("shows cause as extra hint", { doToThrow ->
-                    expectThrowsAssertionErrorAndMessageContainsRegex(
-                        doToThrow,
-                        UnsupportedOperationException("not supported", IllegalStateException(errMessage)),
-                        UnsupportedOperationException::class.simpleName + separator +
-                            messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
-                    )
-                }, { toThrowFun { message { toBe("hello") } } }, { toThrowFeatureFun() })
+                val exceptionWithCause =
+                    UnsupportedOperationException("not supported", IllegalStateException(errMessage))
 
-                checkToThrow(
-                    "with nested cause, shows both causes as extra hint",
-                    { doToThrow ->
-                        expectThrowsAssertionErrorAndMessageContainsRegex(
-                            doToThrow,
-                            UnsupportedOperationException(
-                                "not supported",
-                                RuntimeException("io", IllegalStateException(errMessage))
-                            ),
+                fun Expect<AssertionError>.expectCauseInReporting() =
+                    message {
+                        containsRegex(
                             UnsupportedOperationException::class.simpleName + separator +
                                 messageAndStackTrace("not supported"),
-                            "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" +
-                                messageAndStackTrace("io"),
                             "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
                                 messageAndStackTrace(errMessage)
                         )
-                    },
-                    { toThrowFun { message { toBe("hello") } } },
-                    { toThrowFeatureFun().message.toBe("hello") })
-            }
-        }
-    }
 
-    describeFun("${notToThrowFeature.name} feature") {
-        val notToThrowFeatureFun = notToThrowFeature.lambda
+                    }
 
-        context("no exception occurs") {
-            it("does not throw, allows to make a sub assertion") {
-                expect { 1 }.notToThrowFeatureFun().toBe(1)
-            }
-        }
-        context("exception is thrown") {
-            val notThrown: Expect<() -> Int>.() -> Unit = { notToThrowFeatureFun().toBe(1) }
-
-            it("throws an AssertionError and shows message and stackTrace as well as intended sub assertion") {
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    notThrown,
-                    UnsupportedOperationException(errMessage),
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace(errMessage),
-                    "..."
-                )
-            }
-
-            context("with a cause") {
-                it("shows cause as extra hint") {
-                    expectThrowsAssertionErrorAndMessageContainsRegex(
-                        notThrown,
-                        UnsupportedOperationException("not supported", IllegalStateException(errMessage)),
-                        UnsupportedOperationException::class.simpleName + separator +
-                            messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
-                    )
+                toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                    it(
+                        "$name - shows cause as extra hint in case of a wrong exception" +
+                            showsSubAssertionIf(hasExtraHint)
+                    ) {
+                        expect {
+                            expect<() -> Any?> {
+                                throw exceptionWithCause
+                            }.toThrowFun { message.toBe("hello") }
+                        }.toThrow<AssertionError> {
+                            expectCauseInReporting()
+                            if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                        }
+                    }
                 }
 
-                it("with nested cause, shows both causes as extra hint") {
-                    expectThrowsAssertionErrorAndMessageContainsRegex(
-                        notThrown,
-                        UnsupportedOperationException(
-                            "not supported",
-                            RuntimeException("io", IllegalStateException(errMessage))
-                        ),
-                        UnsupportedOperationException::class.simpleName + separator +
-                            messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" +
-                            messageAndStackTrace("io"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
-                    )
-                }
-            }
-        }
-    }
-
-    describeFun(notToThrow.name) {
-        val notToThrowFun = notToThrow.lambda
-
-        context("no exception occurs") {
-            it("does not throw, allows to make a sub assertion") {
-                expect { 1 }.notToThrowFun { toBe(1) }
-            }
-        }
-        context("exception is thrown") {
-            val notThrown: Expect<() -> Int>.() -> Unit = { notToThrowFun { toBe(1) } }
-
-            it("throws an AssertionError and shows message and stackTrace as well as intended sub assertion") {
-                expectThrowsAssertionErrorAndMessageContainsRegex(
-                    notThrown,
-                    UnsupportedOperationException(errMessage),
-                    UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace(errMessage),
-                    "...",
-                    "$toBeDescr: 1"
-                )
-            }
-
-            context("with a cause") {
-                it("shows cause as extra hint") {
-                    expectThrowsAssertionErrorAndMessageContainsRegex(
-                        notThrown,
-                        UnsupportedOperationException("not supported", IllegalStateException(errMessage)),
-                        UnsupportedOperationException::class.simpleName + separator +
-                            messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
-                    )
+                notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
+                    it("$name - shows cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                        expect {
+                            expect<() -> Int> {
+                                throw exceptionWithCause
+                            }.notToThrowFun { toBe(2) }
+                        }.toThrow<AssertionError> {
+                            expectCauseInReporting()
+                            if (hasExtraHint) messageContains("$toBeDescr: 2")
+                        }
+                    }
                 }
 
-                it("with nested cause, shows both causes as extra hint") {
-                    expectThrowsAssertionErrorAndMessageContainsRegex(
-                        notThrown,
-                        UnsupportedOperationException(
-                            "not supported",
-                            RuntimeException("io", IllegalStateException(errMessage))
-                        ),
-                        UnsupportedOperationException::class.simpleName + separator +
-                            messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" +
-                            messageAndStackTrace("io"),
-                        "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
+                context("with nested cause") {
+                    val exceptionWithNestedCause = UnsupportedOperationException(
+                        "not supported",
+                        RuntimeException("io", IllegalStateException(errMessage))
                     )
+
+                    fun Expect<AssertionError>.expectCauseAndNestedInReporting() =
+                        message {
+                            containsRegex(
+                                UnsupportedOperationException::class.simpleName + separator +
+                                    messageAndStackTrace("not supported"),
+                                "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" +
+                                    messageAndStackTrace("io"),
+                                "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
+                                    messageAndStackTrace(errMessage)
+                            )
+                        }
+
+
+                    toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
+                        it("$name - shows both causes as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                            expect {
+                                expect<() -> Any?> {
+                                    throw exceptionWithNestedCause
+                                }.toThrowFun { message.toBe("hello") }
+                            }.toThrow<AssertionError> {
+                                expectCauseAndNestedInReporting()
+                                if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                            }
+                        }
+                    }
+
+                    notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
+                        it("$name - shows both causes as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                            expect {
+                                expect<() -> Int> {
+                                    throw exceptionWithNestedCause
+                                }.notToThrowFun { toBe(2) }
+                            }.toThrow<AssertionError> {
+                                expectCauseAndNestedInReporting()
+                                if (hasExtraHint) messageContains("$toBeDescr: 2")
+                            }
+                        }
+                    }
                 }
             }
         }

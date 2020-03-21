@@ -58,7 +58,7 @@ abstract class ListFeatureAssertionsSpec(
                 it("$name - can perform sub-assertion on existing index") {
                     fluent.getFun(0) { toBe(1) }
                 }
-                it("$name - non-existing index throws" + if (hasExtraHint) " but shows intended sub-assertion" else "") {
+                it("$name - non-existing index throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         fluent.getFun(4) { toBe(3) }
                     }.toThrow<AssertionError> {
