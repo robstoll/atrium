@@ -146,7 +146,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
     get() = ExpectImpl.path.parent(this).getExpectOfFeature()
 
 /**
- * Expects that this [Path] has a [parent][Path.getParent] and that the parent holds all assertions the
+ * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
  * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -170,7 +170,7 @@ fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     ExpectImpl.path.resolve(this, other).getExpectOfFeature()
 
 /**
- * Expects that [other] resolves against this [Path] and that the resolved [Path] holds all assertions the
+ * Expects that [other] resolves against this [Path], that the resolved [Path] holds all assertions the
  * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
