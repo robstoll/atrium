@@ -8,16 +8,15 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFun
+import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to common module
 class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) = describeFun("", funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) = describeFunTemplate("", funName, body = body)
 
     val testee = TextNextLineAssertionPairFormatter(
         ToStringObjectFormatter,

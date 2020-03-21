@@ -11,14 +11,11 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.specs.describeFun
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroupType>(
     testeeFactory: (AssertionFormatterController) -> AssertionFormatter,
     assertionGroupClass: KClass<T>,
@@ -27,8 +24,8 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val testee = testeeFactory(coreFactory.newAssertionFormatterController())
 
