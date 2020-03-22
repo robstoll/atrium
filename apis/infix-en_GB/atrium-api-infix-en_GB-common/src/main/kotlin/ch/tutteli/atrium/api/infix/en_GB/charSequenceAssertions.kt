@@ -28,8 +28,8 @@ infix fun <T : CharSequence> Expect<T>.contains(
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Expect<T>.contains(
-    @Suppress("UNUSED_PARAMETER") not: not
+infix fun <T : CharSequence> Expect<T>.containsNot(
+    @Suppress("UNUSED_PARAMETER") o: o
 ): NotCheckerOption<T, NotSearchBehaviour> = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
 
 
@@ -90,7 +90,7 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<Any>): Expect<T> 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
-    this contains not value expected
+    this containsNot O value expected
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not contain the [toString] representation
@@ -105,7 +105,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<Any>) =
-    this contains not the values
+    this containsNot O the values
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
