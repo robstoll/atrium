@@ -8,8 +8,8 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceContainsContainsNotAssertionsSpec(
-    contains: Fun2<CharSequence, String, Array<out String>>,
-    containsNot: Fun2<CharSequence, String, Array<out String>>,
+    contains: Fun2<CharSequence, Any, Array<out Any>>,
+    containsNot: Fun2<CharSequence, Any, Array<out Any>>,
     rootBulletPoint: String,
     listBulletPoint: String,
     featureArrow: String,
