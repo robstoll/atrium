@@ -64,14 +64,12 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
         //TODO add to infix as well as fluent
         //a1 contains o ignoring case elementsOf listOf(1, 2)
 
-
-
-        a1 and { o contains O atLeast 1 value 1 }
-        a1 and { o contains O atMost 2 the Values("a", 1) }
-        a1 and { o contains O notOrAtMost 2 regex "h|b" }
-        a1 and { o contains O exactly 2 the RegexPatterns("h|b", "b") }
-        a1 and { o contains O atLeast 2 matchFor Regex("bla") }
-        a1 and { o contains O atLeast 2 matchFor All(Regex("bla"), Regex("b")) }
-        a1 and { o contains O atLeast 2 elementsOf listOf(1, 2) }
+        a1 and { it contains o atLeast 1 value 1 }
+        a1 and { it contains o atMost 2 the Values("a", 1) }
+        a1 and { it contains o notOrAtMost 2 regex "h|b" }
+        a1 and { it contains o exactly 2 the RegexPatterns("h|b", "b") }
+        a1 and { it contains o atLeast 2 matchFor Regex("bla") }
+        a1 and { it contains o atLeast 2 matchFor All(Regex("bla"), Regex("b")) }
+        a1 and { it contains o atLeast 2 elementsOf listOf(1, 2) }
     }
 }

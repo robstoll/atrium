@@ -72,16 +72,6 @@ object not : Keyword
 object o : Keyword
 
 /**
- * Workaround for https://youtrack.jetbrains.com/issue/KT-36624, extension property takes precedence over object.
- *
- * In case you want to refer to the pseudo-keyword `o` inside an [Expect] context,
- * then you can use this type alias instead to circumvent the bug.
- *
- * @since 0.11.0
- */
-typealias O = o
-
-/**
  * Represents the pseudo keyword `only` as in [and] `only`.
  * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
  */

@@ -54,56 +54,56 @@ class FeatureAssertionsClassReferenceSpec : ch.tutteli.atrium.specs.integration.
     //TODO remove type parameters for `of` with Kotiln 1.4 including parentheses (make the calls infix again
     companion object : WithAsciiReporter() {
         //@formatter:off
-        val propertyImmediate: F = { o feature TestData::nonNullValue contains "hello" }
-        val propertyLazy: F = { o feature of(TestData::nonNullValue) { o contains "hello" } }
-        val return0ValueImmediate: F = { o feature TestData::return0 contains "hello" }
-        val return1ValueImmediate: F = { o feature of(TestData::return1, "a") contains "hello" }
-        val return2ValueImmediate: F = { o feature of(TestData::return2, "a", 1) contains "hello" }
-        val return3ValueImmediate: F = { o feature of(TestData::return3, "a", 1, true) contains "hello" }
-        val return4ValueImmediate: F = { o feature of(TestData::return4, "a", 1, true, 1.2) contains "hello" }
-        val return5ValueImmediate: F = { o feature of(TestData::return5, "a", 1, true, 1.2, 'b') contains "hello" }
-        val return0ValueLazy: F = { o feature of(TestData::return0) { contains("hello") } }
-        val return1ValueLazy: F = { o feature of(TestData::return1, "a") { contains("hello") } }
-        val return2ValueLazy: F = { o feature of(TestData::return2, "a", 1) { contains("hello") } }
-        val return3ValueLazy: F = { o feature of(TestData::return3, "a", 1, true) { contains("hello") } }
-        val return4ValueLazy: F = { o feature of(TestData::return4, "a", 1, true, 1.2) { contains("hello") } }
-        val return5ValueLazy: F = { o feature of(TestData::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
+        val propertyImmediate: F = { it feature TestData::nonNullValue contains "hello" }
+        val propertyLazy: F = { it feature of(TestData::nonNullValue) { it contains "hello" } }
+        val return0ValueImmediate: F = { it feature TestData::return0 contains "hello" }
+        val return1ValueImmediate: F = { it feature of(TestData::return1, "a") contains "hello" }
+        val return2ValueImmediate: F = { it feature of(TestData::return2, "a", 1) contains "hello" }
+        val return3ValueImmediate: F = { it feature of(TestData::return3, "a", 1, true) contains "hello" }
+        val return4ValueImmediate: F = { it feature of(TestData::return4, "a", 1, true, 1.2) contains "hello" }
+        val return5ValueImmediate: F = { it feature of(TestData::return5, "a", 1, true, 1.2, 'b') contains "hello" }
+        val return0ValueLazy: F = { it feature of(TestData::return0) { contains("hello") } }
+        val return1ValueLazy: F = { it feature of(TestData::return1, "a") { contains("hello") } }
+        val return2ValueLazy: F = { it feature of(TestData::return2, "a", 1) { contains("hello") } }
+        val return3ValueLazy: F = { it feature of(TestData::return3, "a", 1, true) { contains("hello") } }
+        val return4ValueLazy: F = { it feature of(TestData::return4, "a", 1, true, 1.2) { contains("hello") } }
+        val return5ValueLazy: F = { it feature of(TestData::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
-        val propertyNullableDoesNotHold: F = { o feature TestData::nullableValue toBe null }
-        val return0ValueNullableDoesNotHold: F = { o feature TestData::returnNullable0 toBe null }
-        val return1ValueNullableDoesNotHold: F = { o feature of(TestData::returnNullable1, "a") toBe null  }
-        val return2ValueNullableDoesNotHold: F = { o feature of(TestData::returnNullable2, "a", 1) toBe null  }
-        val return3ValueNullableDoesNotHold: F = { o feature of(TestData::returnNullable3, "a", 1, true) toBe null  }
-        val return4ValueNullableDoesNotHold: F = { o feature of(TestData::returnNullable4, "a", 1, true, 1.2) toBe null  }
-        val return5ValueNullableDoesNotHold: F = { o feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') toBe null  }
+        val propertyNullableDoesNotHold: F = { it feature TestData::nullableValue toBe null }
+        val return0ValueNullableDoesNotHold: F = { it feature TestData::returnNullable0 toBe null }
+        val return1ValueNullableDoesNotHold: F = { it feature of(TestData::returnNullable1, "a") toBe null  }
+        val return2ValueNullableDoesNotHold: F = { it feature of(TestData::returnNullable2, "a", 1) toBe null  }
+        val return3ValueNullableDoesNotHold: F = { it feature of(TestData::returnNullable3, "a", 1, true) toBe null  }
+        val return4ValueNullableDoesNotHold: F = { it feature of(TestData::returnNullable4, "a", 1, true, 1.2) toBe null  }
+        val return5ValueNullableDoesNotHold: F = { it feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') toBe null  }
 
-        val propertyNullableHolds: F = { o feature TestData::nullableValue notToBeNull { o toBe 1 } }
-        val return0ValueNullableHolds: F = { o feature TestData::returnNullable0 notToBeNull { o toBe 1 } }
-        val return1ValueNullableHolds: F = { o feature of(TestData::returnNullable1, "a") notToBeNull { o toBe 1 } }
-        val return2ValueNullableHolds: F = { o feature of(TestData::returnNullable2, "a", 1) notToBeNull { o toBe 1 } }
-        val return3ValueNullableHolds: F = { o feature of(TestData::returnNullable3, "a", 1, true) notToBeNull { o toBe 1 } }
-        val return4ValueNullableHolds: F = { o feature of(TestData::returnNullable4, "a", 1, true, 1.2) notToBeNull { o toBe 1 } }
-        val return5ValueNullableHolds: F = { o feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') notToBeNull { o toBe 1 } }
+        val propertyNullableHolds: F = { it feature TestData::nullableValue notToBeNull { it toBe 1 } }
+        val return0ValueNullableHolds: F = { it feature TestData::returnNullable0 notToBeNull { it toBe 1 } }
+        val return1ValueNullableHolds: F = { it feature of(TestData::returnNullable1, "a") notToBeNull { it toBe 1 } }
+        val return2ValueNullableHolds: F = { it feature of(TestData::returnNullable2, "a", 1) notToBeNull { it toBe 1 } }
+        val return3ValueNullableHolds: F = { it feature of(TestData::returnNullable3, "a", 1, true) notToBeNull { it toBe 1 } }
+        val return4ValueNullableHolds: F = { it feature of(TestData::returnNullable4, "a", 1, true, 1.2) notToBeNull { it toBe 1 } }
+        val return5ValueNullableHolds: F = { it feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') notToBeNull { it toBe 1 } }
         //@formatter:on
 
         val propertyLazyWithNestedImmediate: F = {
-            o feature of(TestData::nonNullValue) {
-                o feature String::length toBe 12
+            it feature of(TestData::nonNullValue) {
+                it feature String::length toBe 12
             }
         }
         val propertyLazyWithNestedLazy: F = {
-            o feature of(TestData::nonNullValue) {
-                o feature of(String::length) { o toBe (12) }
+            it feature of(TestData::nonNullValue) {
+                it feature of(String::length) { it toBe (12) }
             }
         }
 
-        val propertyEmptyAssertionCreator: F = { o feature of(TestData::nonNullValue) {} }
-        val f0EmptyAssertionCreator: F = { o feature of(TestData::return0) {} }
-        val f1EmptyAssertionCreator: F = { o feature of(TestData::return1, "a") {} }
-        val f2EmptyAssertionCreator: F = { o feature of(TestData::return2, "a", 1) {} }
-        val f3EmptyAssertionCreator: F = { o feature of(TestData::return3, "a", 1, true) {} }
-        val f4EmptyAssertionCreator: F = { o feature of(TestData::return4, "a", 1, true, 1.2) {} }
-        val f5EmptyAssertionCreator: F = { o feature of(TestData::return5, "a", 1, true, 1.2, 'b') {} }
+        val propertyEmptyAssertionCreator: F = { it feature of(TestData::nonNullValue) {} }
+        val f0EmptyAssertionCreator: F = { it feature of(TestData::return0) {} }
+        val f1EmptyAssertionCreator: F = { it feature of(TestData::return1, "a") {} }
+        val f2EmptyAssertionCreator: F = { it feature of(TestData::return2, "a", 1) {} }
+        val f3EmptyAssertionCreator: F = { it feature of(TestData::return3, "a", 1, true) {} }
+        val f4EmptyAssertionCreator: F = { it feature of(TestData::return4, "a", 1, true, 1.2) {} }
+        val f5EmptyAssertionCreator: F = { it feature of(TestData::return5, "a", 1, true, 1.2, 'b') {} }
     }
 
     @Suppress("unused", "UNUSED_VALUE")

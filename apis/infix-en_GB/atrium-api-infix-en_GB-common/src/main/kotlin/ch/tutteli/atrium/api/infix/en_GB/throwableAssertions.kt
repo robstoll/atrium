@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
-    get() = o feature Throwable::message notToBeNull O
+    get() = it feature Throwable::message notToBeNull o
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and
@@ -22,7 +22,7 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    o feature of(Throwable::message) { o notToBeNull assertionCreator }
+    it feature of(Throwable::message) { it notToBeNull assertionCreator }
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and contains
