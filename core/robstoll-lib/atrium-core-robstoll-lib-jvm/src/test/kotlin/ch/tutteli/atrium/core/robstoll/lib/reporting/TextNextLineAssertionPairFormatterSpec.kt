@@ -7,7 +7,6 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter

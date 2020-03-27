@@ -4,30 +4,33 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.translating.*
-import ch.tutteli.atrium.specs.describeFun
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
+import org.spekframework.spek2.style.specification.describe
+import org.spekframework.spek2.dsl.ScopeBody
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslationSupplierBasedTranslatorSpec(
     testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: List<Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: TranslationSupplier, locale: Locale, vararg fallbackLocals: Locale) =
         testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale, fallbackLocals.toList())
 
-    fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String): TranslationSupplier {
-        return mock {
-            on { get(translatable, locale) }.doReturn(translation)
+    fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String?): TranslationSupplier {
+        val localeSlot = slot<Locale>()
+        val translatableSlot = slot<Translatable>()
+        return mockk {
+            every { get(capture(translatableSlot), capture(localeSlot)) } answers {
+                // println("translatableSlot.captured.value:" + (translatableSlot.captured as StringBasedTranslatable).value);
+                // println("translatable.value:" + (translatable as StringBasedTranslatable).value);
+                if ((localeSlot.captured != locale) || ((translatableSlot.captured as StringBasedTranslatable).value != (translatable as StringBasedTranslatable).value)) null else translation 
+            }
         }
     }
 
@@ -46,27 +49,29 @@ abstract class TranslationSupplierBasedTranslatorSpec(
     }
 
     @Suppress("unused")
-    fun SpecBody.checkUsesDefaultOfTranslatable(testee: Translator) {
-        it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
-            val result = testee.translate(translatableHello)
-            expect(result).toBe(translatableHello.value)
+    fun ScopeBody.checkUsesDefaultOfTranslatable(testee: Translator) {
+        describe("checkUsesDefaultOfTranslatable") {
+            it("uses ${Translatable::class.simpleName}'s 111 ${Translatable::getDefault.name}") {
+                val result = testee.translate(translatableHello)
+                expect(result).toBe(translatableHello.value)
+            }
         }
     }
 
     @Suppress("unused")
-    fun SpecBody.checkTranslationSuccessfulForDesiredTranslatable(
+    fun ScopeBody.checkTranslationSuccessfulForDesiredTranslatable(
         testee: Translator,
         translation: String,
         locale: Locale
     ) {
-        context("but for the wrong ${Translatable::class.simpleName}") {
+        describe("but for the wrong ${Translatable::class.simpleName}") {
             it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
                 val result = testee.translate(translatableTest)
                 expect(result).toBe(translatableTest.value)
             }
         }
 
-        context("for the desired ${Translatable::class.simpleName}") {
+        describe("for the desired ${Translatable::class.simpleName}") {
             it("uses the translation of Locale $locale") {
                 val result = testee.translate(translatableHello)
                 expect(result).toBe(translation)
@@ -91,7 +96,9 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         describe("translating a ${Translatable::class.simpleName} to $greatBritain without fallbacks") {
 
             context("no translations provided at all") {
-                val testee = testeeFactory(mock(), greatBritain)
+                val testee = testeeFactory(mockk {
+                    every { get(any(), any()) } returns null
+                }, greatBritain)
                 checkUsesDefaultOfTranslatable(testee)
             }
 

@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.include
+// import org.jetbrains.spek.api.Spek
+// import org.jetbrains.spek.api.include
+import org.spekframework.spek2.Spek
 
 //cannot be easily migrated to specs-common/spek2 as it depends on JVM resources => need to find a solution first
 object ResourceBundleBasedTranslatorSpec : Spek({
