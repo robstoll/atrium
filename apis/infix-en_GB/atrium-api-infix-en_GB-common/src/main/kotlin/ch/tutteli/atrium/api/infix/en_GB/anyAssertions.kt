@@ -60,6 +60,8 @@ inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * It delegates to [isA] with [T] as type.
  *
+ * @param o The filler object [o].
+ *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -154,6 +156,8 @@ inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: E
  * asserts that 1 is greater than 0. If the first assertion fails, then usually (depending on the configured
  * [AssertionChecker]) the second assertion is not evaluated.
  *
+ * @param o The filler object [o].
+ *
  * @return An [Expect] for the current subject of the assertion.
  *
  * @since 0.11.0
@@ -194,4 +198,4 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @return `this`
  */
-inline val <T> Expect<T>.o get() : Expect<T> = this
+inline val <T> Expect<T>.it get() : Expect<T> = this

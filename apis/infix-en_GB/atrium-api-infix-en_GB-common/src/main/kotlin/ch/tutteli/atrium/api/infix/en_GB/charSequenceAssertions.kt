@@ -13,8 +13,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
  * a sophisticated `contains` assertion.
  *
- * @param o The filler object [o]; use [O] in case you are in an [Expect] context due to a Kotlin bug
- *   (see type alias for more information)
+ * @param o The filler object [o].
  *
  * @return The newly created builder.
  */
@@ -26,10 +25,12 @@ infix fun <T : CharSequence> Expect<T>.contains(
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
  * more sophisticated `contains not` assertion.
  *
+ * @param o The filler object [o].
+ *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Expect<T>.contains(
-    @Suppress("UNUSED_PARAMETER") not: not
+infix fun <T : CharSequence> Expect<T>.containsNot(
+    @Suppress("UNUSED_PARAMETER") o: o
 ): NotCheckerOption<T, NotSearchBehaviour> = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
 
 
@@ -47,7 +48,7 @@ infix fun <T : CharSequence> Expect<T>.contains(
  *   [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> Expect<T>.contains(expected: Any): Expect<T> =
-    this contains O atLeast 1 value expected
+    this contains o atLeast 1 value expected
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains the [toString] representation of the
@@ -76,7 +77,7 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: Any): Expect<T> =
  *   [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> Expect<T>.contains(values: Values<Any>): Expect<T> =
-    this contains O atLeast 1 the values
+    this contains o atLeast 1 the values
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not contain [expected]'s [toString] representation.
@@ -90,7 +91,7 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<Any>): Expect<T> 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
-    this contains not value expected
+    this containsNot o value expected
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not contain the [toString] representation
@@ -105,7 +106,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<Any>) =
-    this contains not the values
+    this containsNot o the values
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
@@ -119,7 +120,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<Any>) =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T> =
-    this contains O atLeast 1 regex pattern
+    this contains o atLeast 1 regex pattern
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
@@ -133,7 +134,7 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
-    this contains O atLeast 1 matchFor pattern
+    this contains o atLeast 1 matchFor pattern
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
@@ -158,7 +159,7 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsRegex(patterns: RegexPatterns): Expect<T> =
-    this contains O atLeast 1 the patterns
+    this contains o atLeast 1 the patterns
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
@@ -183,7 +184,7 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(patterns: RegexPatterns): E
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T> =
-    this contains O atLeast 1 matchFor patterns
+    this contains o atLeast 1 matchFor patterns
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
@@ -202,7 +203,7 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
  * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
-    o startsWith expected.toString()
+    it startsWith expected.toString()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
@@ -222,7 +223,7 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
  * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
-    o startsNotWith expected.toString()
+    it startsNotWith expected.toString()
 
 
 /**
@@ -243,7 +244,7 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
  * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
-    o endsWith expected.toString()
+    it endsWith expected.toString()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -263,7 +264,7 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
  * @since 0.11.0
  */
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
-    o endsNotWith expected.toString()
+    it endsNotWith expected.toString()
 
 
 /**
