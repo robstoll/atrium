@@ -23,6 +23,12 @@ internal const val ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED =
 object Empty : Keyword
 
 /**
+ * Represents a helper construct which allows to express presence.
+ * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
+ */
+object Present : Keyword
+
+/**
  * Represents a helper construct which allows to express blankness.
  * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
  */
