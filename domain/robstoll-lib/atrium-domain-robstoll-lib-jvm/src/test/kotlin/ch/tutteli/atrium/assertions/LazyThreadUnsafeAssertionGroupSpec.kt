@@ -5,10 +5,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
@@ -26,15 +24,19 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 .withAssertion(assertion)
                 .build()
         }
-        test("does not evaluate anything") {
+        it("does not evaluate anything") {
             expect(callingCount).toBe(0)
         }
-        test("adding it to a list does not evaluate anything") {
+        it("adding it to a list does not evaluate anything") {
             listOf(testee)
             expect(callingCount).toBe(0)
         }
-        on("invoking ${testee::holds.name}") {
-            val resultHolds = testee.holds()
+        context("invoking ${testee::holds.name}") {
+            var resultHolds = true
+
+            it("execute it") {
+                resultHolds = testee.holds()
+            }
 
             it("evaluates it") {
                 expect(callingCount).toBe(1)
@@ -45,9 +47,12 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             }
         }
 
-        on("invoking ${testee::holds.name} and then ${testee::assertions.name}") {
-            val resultHolds = testee.holds()
-            val resultAssertions = testee.assertions
+        context("invoking ${testee::holds.name} and then ${testee::assertions.name}") {
+            var resultHolds = true
+
+            it("execute it") {
+                resultHolds = testee.holds()
+            }
 
             it("evaluates it only once") {
                 expect(callingCount).toBe(1)
@@ -58,7 +63,7 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             }
 
             it("returns the ${AssertionGroup::assertions.name} of the underlying ${AssertionGroup::class.simpleName}") {
-                expect(resultAssertions).containsExactly(assertion)
+                expect(testee.assertions).containsExactly(assertion)
             }
         }
     }
