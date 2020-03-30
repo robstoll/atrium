@@ -9,8 +9,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionOptionalAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
-import java.lang.AssertionError
-import java.util.Optional
+import java.util.*
 
 abstract class OptionalAssertionsSpec(
     isEmpty: Fun0<Optional<Int>>,
@@ -30,37 +29,44 @@ abstract class OptionalAssertionsSpec(
         isPresent.forAssertionCreatorSpec("$toBeDescr: 2") { toBe(2) }
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
 
-    describeFun(isEmpty.name, isPresent.name) {
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+
+    describeFun(isEmpty, isPresentFeature, isPresent) {
         val isEmptyFun = isEmpty.lambda
-        val isPresentFun = isPresentFeature.lambda
+        val isPresentFunctions = unifySignatures(isPresentFeature, isPresent)
 
         val emptyValue = Optional.empty<Int>()
         context("$emptyValue") {
             it("${isEmpty.name} - does not throw") {
                 expect(emptyValue).isEmptyFun()
             }
-            it("${isPresent.name} - throws an AssertionError") {
-                expect {
-                    expect(emptyValue).isPresentFun()
-                }.toThrow<AssertionError> {
-                    messageContains(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
+            isPresentFunctions.forEach { (name, isPresentFun, hasExtraHint) ->
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        expect(emptyValue).isPresentFun { toBe(2) }
+                    }.toThrow<AssertionError> {
+                        messageContains(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
+                        if (hasExtraHint) messageContains("$toBeDescr: 2")
+                    }
                 }
             }
         }
 
         val presentValue: Optional<Int> = Optional.of(2)
         context("$presentValue") {
-            it("${isPresent.name} - can perform sub-assertion which holds") {
-                expect(presentValue).isPresentFun()
-            }
             it("${isEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(presentValue).isEmptyFun()
                 }.toThrow<AssertionError> {
                     messageContains("$isDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
+                }
+            }
+
+            isPresentFunctions.forEach { (name, isPresentFun, hasExtraHint) ->
+                it("$name - can perform sub-assertion which holds") {
+                    expect(presentValue).isPresentFun { toBe(2) }
                 }
             }
         }
