@@ -27,8 +27,6 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         val translatableSlot = slot<Translatable>()
         return mockk {
             every { get(capture(translatableSlot), capture(localeSlot)) } answers {
-                // println("translatableSlot.captured.value:" + (translatableSlot.captured as StringBasedTranslatable).value);
-                // println("translatable.value:" + (translatable as StringBasedTranslatable).value);
                 if ((localeSlot.captured != locale) || ((translatableSlot.captured as StringBasedTranslatable).value != (translatable as StringBasedTranslatable).value)) null else translation 
             }
         }
@@ -51,7 +49,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
     @Suppress("unused")
     fun ScopeBody.checkUsesDefaultOfTranslatable(testee: Translator) {
         describe("checkUsesDefaultOfTranslatable") {
-            it("uses ${Translatable::class.simpleName}'s 111 ${Translatable::getDefault.name}") {
+            it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
                 val result = testee.translate(translatableHello)
                 expect(result).toBe(translatableHello.value)
             }
