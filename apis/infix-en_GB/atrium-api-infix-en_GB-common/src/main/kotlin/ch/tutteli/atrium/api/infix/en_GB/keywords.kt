@@ -83,3 +83,9 @@ object only : Keyword
  */
 object order : Keyword
 
+/**
+ * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
+ *
+ * @since 0.11.0
+ */
+object success : Keyword

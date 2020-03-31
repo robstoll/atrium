@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.creating.result.SuccessWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
  * @return The newly created [Expect] if the given assertion is success
  * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") success: success): Expect<E> =
     ExpectImpl.result.isSuccess(this).getExpectOfFeature()
@@ -21,12 +22,12 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") succes
  * Expects that the subject of the assertion (a [Result]]) is a Success and
  * that it holds all assertions the given [SuccessWithCreator.assertionCreator] creates.
  *
- * Use the function `success { ... }` to create an [SuccessWithCreator].
+ * Use the function `success { ... }` to create a [SuccessWithCreator].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Expect<T> =
     ExpectImpl.result.isSuccess(this).addToInitial(success.assertionCreator)
@@ -38,7 +39,7 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Exp
  * @return An [Expect] with the new type [TExpected]
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Expect<TExpected> =
     ExpectImpl.result.isFailure(this, TExpected::class).getExpectOfFeature()
@@ -51,7 +52,7 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  * @return An [Expect] with the new type [TExpected]
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.10.0
+ * @since 0.11.0
  */
 inline infix fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
