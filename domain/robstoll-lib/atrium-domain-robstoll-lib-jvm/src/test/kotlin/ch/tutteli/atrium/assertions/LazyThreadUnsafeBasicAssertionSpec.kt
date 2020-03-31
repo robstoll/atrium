@@ -4,10 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeBasicAssertion
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object LazyThreadUnsafeBasicAssertionSpec : Spek({
 
@@ -17,15 +15,18 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             ++callingCount
             AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation("a", 2).build()
         }
-        test("does not evaluate anything") {
+        it("does not evaluate anything") {
             expect(callingCount).toBe(0)
         }
-        test("adding it to a list does not evaluate anything") {
+        it("adding it to a list does not evaluate anything") {
             listOf(testee)
             expect(callingCount).toBe(0)
         }
-        on("invoking ${testee::holds.name}") {
-            val resultHolds = testee.holds()
+        context("invoking ${testee::holds.name}") {
+            var resultHolds = true
+            it("execute it") {
+                resultHolds = testee.holds()
+            }
 
             it("evaluates it") {
                 expect(callingCount).toBe(1)
@@ -36,9 +37,12 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             }
         }
 
-        on("invoking ${testee::holds.name} and then ${testee::representation.name}") {
-            val resultHolds = testee.holds()
-            val resultExpected = testee.representation
+        context("invoking ${testee::holds.name} and then ${testee::representation.name}") {
+            var resultHolds = true
+
+            it("execute it") {
+                resultHolds = testee.holds()
+            }
 
             it("evaluates it only once") {
                 expect(callingCount).toBe(1)
@@ -49,7 +53,7 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             }
 
             it("returns ${DescriptiveAssertion::representation.name} of the underlying ${DescriptiveAssertion::class.simpleName}") {
-                expect(resultExpected).toBe(2)
+                expect(testee.representation).toBe(2)
             }
         }
     }
