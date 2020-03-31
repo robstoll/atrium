@@ -9,7 +9,6 @@ import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
-import org.spekframework.spek2.dsl.ScopeBody
 
 abstract class TranslationSupplierBasedTranslatorSpec(
     testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: List<Locale>) -> Translator,
@@ -23,12 +22,9 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale, fallbackLocals.toList())
 
     fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String?): TranslationSupplier {
-        val localeSlot = slot<Locale>()
-        val translatableSlot = slot<Translatable>()
         return mockk {
-            every { get(capture(translatableSlot), capture(localeSlot)) } answers {
-                if ((localeSlot.captured != locale) || ((translatableSlot.captured as StringBasedTranslatable).value != (translatable as StringBasedTranslatable).value)) null else translation 
-            }
+            every { get(any(), any()) } returns null
+            every { get(translatable, locale) } returns translation
         }
     }
 
@@ -47,17 +43,15 @@ abstract class TranslationSupplierBasedTranslatorSpec(
     }
 
     @Suppress("unused")
-    fun ScopeBody.checkUsesDefaultOfTranslatable(testee: Translator) {
-        describe("checkUsesDefaultOfTranslatable") {
-            it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
-                val result = testee.translate(translatableHello)
-                expect(result).toBe(translatableHello.value)
-            }
+    fun Suite.checkUsesDefaultOfTranslatable(testee: Translator) {
+        it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
+            val result = testee.translate(translatableHello)
+            expect(result).toBe(translatableHello.value)
         }
     }
 
     @Suppress("unused")
-    fun ScopeBody.checkTranslationSuccessfulForDesiredTranslatable(
+    fun Suite.checkTranslationSuccessfulForDesiredTranslatable(
         testee: Translator,
         translation: String,
         locale: Locale
