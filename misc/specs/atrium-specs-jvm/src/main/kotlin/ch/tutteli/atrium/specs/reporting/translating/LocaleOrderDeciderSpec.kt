@@ -4,22 +4,18 @@ import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.specs.prefixedDescribe
+import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.kbox.joinToString
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class LocaleOrderDeciderSpec(
     testeeFactory: () -> LocaleOrderDecider,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) =
-        prefixedDescribe(describePrefix, description, body)
+    fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
+        prefixedDescribeTemplate(describePrefix, description, body)
 
     val testee = testeeFactory()
 

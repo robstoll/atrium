@@ -9,30 +9,28 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.describeFun
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import io.mockk.*
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class ThrowingAssertionCheckerSpec(
     testeeFactory: (Reporter) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
-    //TODO #116 use mockk instead of mockito-kotlin
-    val reporter = mock<Reporter> {
-        on { format(any(), @Suppress("RemoveExplicitTypeArguments") any<StringBuilder>()) }.thenAnswer {
-            (it.arguments[1] as StringBuilder).append(reporterResponse)
+    val strbldSlot = slot<StringBuilder>()
+
+    val reporter = mockk<Reporter> {
+        every { format(any(), @Suppress("RemoveExplicitTypeArguments") capture(strbldSlot)) } answers {
+            (strbldSlot.captured).append(reporterResponse)
         }
-        on { atriumErrorAdjuster }.thenReturn(coreFactory.newNoOpAtriumErrorAdjuster())
+        every { atriumErrorAdjuster } returns (coreFactory.newNoOpAtriumErrorAdjuster())
     }
     val testee = testeeFactory(reporter)
     val assertionWhichHolds = object : Assertion {

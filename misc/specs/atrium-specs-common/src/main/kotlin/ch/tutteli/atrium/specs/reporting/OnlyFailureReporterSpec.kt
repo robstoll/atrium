@@ -14,7 +14,6 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.describeFun
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import io.mockk.*
@@ -84,7 +83,7 @@ abstract class OnlyFailureReporterSpec(
                 assertionFormatterFacade, coreFactory.newNoOpAtriumErrorAdjuster()
             )
 
-            it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {
+            it("delegates to ${assertionFormatterFacade::class.simpleName}") {
                 testeeWithMockedFacade.format(basicAssertion, sb)
                 verify { assertionFormatterFacade.format(eq(basicAssertion), eq(sb), any()) }
             }
