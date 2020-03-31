@@ -4,13 +4,13 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.value
 import ch.tutteli.atrium.api.verbs.internal.expect
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object CharSequenceContainsIndexSearcherSpec : Spek({
 
-    context("text 'aaaa'") {
-        test("search for 'aa' finds 3 hits since we want non disjoint matches") {
+    describe("text 'aaaa'") {
+        it("search for 'aa' finds 3 hits since we want non disjoint matches") {
             expect("aaaa").contains.exactly(3).value("aa")
         }
     }
