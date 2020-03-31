@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
@@ -59,7 +60,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
                 expect(sb) {
                     contains("false")
-                    contains("Unsupported type ${unsupportedAssertion::class.java.name}")
+                    contains("Unsupported type ${unsupportedAssertion::class.fullName}")
                 }
             }
         }
@@ -150,7 +151,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                             "$bulletPoint inner group: subject of inner group$separator" +
                             "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$separator" +
                             "$indentBulletPoint$bulletPoint ${TO_BE.getDefault()}: d",
-                        "$bulletPoint Unsupported type ${unsupportedAssertion::class.java.name}"
+                        "$bulletPoint Unsupported type ${unsupportedAssertion::class.fullName}"
                     )
                 }
             }

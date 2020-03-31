@@ -8,7 +8,6 @@ import ch.tutteli.atrium.specs.describeFunTemplate
 import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
-import org.spekframework.spek2.style.specification.describe
 
 abstract class TranslationSupplierBasedTranslatorSpec(
     testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: List<Locale>) -> Translator,
