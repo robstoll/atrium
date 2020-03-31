@@ -21,7 +21,7 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") succes
  * Expects that the subject of the assertion (a [Result]]) is a Success and
  * that it holds all assertions the given [SuccessWithCreator.assertionCreator] creates.
  *
- *  Use the function `success { ... }` to create an [SuccessWithCreator].
+ * Use the function `success { ... }` to create an [SuccessWithCreator].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
