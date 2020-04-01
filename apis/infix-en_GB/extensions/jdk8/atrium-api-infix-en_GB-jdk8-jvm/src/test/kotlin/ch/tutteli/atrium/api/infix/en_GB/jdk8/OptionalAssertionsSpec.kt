@@ -35,7 +35,11 @@ class OptionalAssertionsSpec : OptionalAssertionsSpec(
         star = star toBe Empty
         o1 toBe Present
         o1b toBe Present
+        // following is not supported on purpose as we don't know what type the element is in this case
+        //star toBe Present
         o1 toBe present {}
         o1b toBe present {}
+        // following is not supported on purpose as we don't know what type the element is in this case
+        //star toBe present {}
     }
 }
