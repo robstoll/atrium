@@ -1,10 +1,8 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.core.coreFactory
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.include
+import org.spekframework.spek2.Spek
 
-//TODO #116 migrate spek1 to spek2 - move to common module
 object TranslationSupplierBasedTranslatorSpec : Spek({
     include(AtriumsTranslationSupplierBasedTranslatorSpec)
     include(AtriumsTranslatorErrorCaseSpec)

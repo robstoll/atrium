@@ -8,16 +8,13 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.prefixedDescribe
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
+import org.spekframework.spek2.style.specification.Suite
 import java.text.SimpleDateFormat
 
 /**
@@ -97,7 +94,6 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class TranslatorIntSpec(
     reporterFactory: (Locale, Array<out Locale>) -> Reporter,
     //TODO Remove as soon as https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
@@ -105,9 +101,8 @@ abstract class TranslatorIntSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
+        prefixedDescribeTemplate(describePrefix, description, body)
 
     val reporterDeChFallbackFr = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
     fun <T : Any> assertWithDeCh_Fr(subject: T) =
@@ -138,7 +133,7 @@ abstract class TranslatorIntSpec(
         context("properties file for $descriptionAnyAssertion is provided for 'de_CH'") {
 
             describe("translation for $descriptionAnyAssertion.$toBe is provided for 'de_CH'") {
-                test("a failing assertion contains 'ist' instead of 'to be' in the error message") {
+                it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).toBe(2)
                     }.toThrow<AssertionError> { messageContains("ist: 2") }
@@ -147,7 +142,7 @@ abstract class TranslatorIntSpec(
 
             describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'de'") {
                 val text = "ist nicht"
-                test("a failing assertion contains '$text' instead of 'not to be' in the error message") {
+                it("a failing assertion contains '$text' instead of 'not to be' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).notToBe(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
@@ -156,7 +151,7 @@ abstract class TranslatorIntSpec(
 
             describe("translation for $descriptionAnyAssertion.$isNotSame is provided 'fr'") {
                 val text = "n'est pas la même instance que"
-                test("a failing assertion contains '$text' instead of 'assert' in the error message") {
+                it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).isNotSameAs(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
@@ -167,7 +162,7 @@ abstract class TranslatorIntSpec(
         context("properties file for ${AssertionVerb::class.simpleName} is not provided for 'de_CH' nor one of its parents") {
             describe("translation for ${AssertionVerb::class.simpleName}.${AssertionVerb.ASSERT} is provided for 'fr'") {
                 val text = "il applique que"
-                test("a failing assertion contains '$text' instead of 'assert' in the error message") {
+                it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).toBe(2)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
@@ -284,14 +279,14 @@ abstract class TranslatorIntSpec(
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {
                     describe("translation for $descriptionAnyAssertion.$toBe is provided for 'zh_$country' and for ${zhWithScript}_$country") {
-                        test("a failing assertion contains '$toBe ${zhWithScript}_$country' instead of 'to be' in the error message") {
+                        it("a failing assertion contains '$toBe ${zhWithScript}_$country' instead of 'to be' in the error message") {
                             expect {
                                 assert.toBe(2)
                             }.toThrow<AssertionError> { messageContains("$toBe ${zhWithScript}_$country: 2") }
                         }
                     }
                     describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'zh_$country' and for $zhWithScript") {
-                        test("a failing assertion contains '$notToBe $zhWithScript' instead of 'to be' in the error message") {
+                        it("a failing assertion contains '$notToBe $zhWithScript' instead of 'to be' in the error message") {
                             expect {
                                 assert.notToBe(1)
                             }.toThrow<AssertionError> { messageContains("$notToBe $zhWithScript: 1") }
@@ -299,14 +294,14 @@ abstract class TranslatorIntSpec(
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isNotSame is provided for 'zh_$country' and zh") {
-                    test("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
+                    it("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
                         expect {
                             assert.isNotSameAs(1)
                         }.toThrow<AssertionError> { messageContains("$isNotSame zh_$country: 1") }
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isSame is not provided for 'zh_$country' but for zh") {
-                    test("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
+                    it("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
                         expect {
                             assert.isSameAs(2)
                         }.toThrow<AssertionError> { messageContains("$isSame zh: 2") }

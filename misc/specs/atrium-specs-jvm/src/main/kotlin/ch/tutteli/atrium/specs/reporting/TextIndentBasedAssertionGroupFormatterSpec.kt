@@ -9,14 +9,11 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.describeFun
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
-//TODO remove with 1.0.0 - no need to migrate to spek2
-@Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     assertionGroupTypeClass: KClass<T>,
@@ -25,8 +22,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val indentBulletPoint = " +"
     val indentIndentBulletPoint = " ".repeat(indentBulletPoint.length + 1)

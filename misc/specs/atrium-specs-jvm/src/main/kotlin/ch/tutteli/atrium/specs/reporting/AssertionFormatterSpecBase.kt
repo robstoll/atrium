@@ -5,14 +5,12 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.Spec
-import org.jetbrains.spek.api.include
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.dsl.Root
 import kotlin.reflect.KClass
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
-abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
-    include(wrap(spec))
+abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
+    include(object: Spek(spec) {})
 
     afterEachTest {
         sb = StringBuilder()

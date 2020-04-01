@@ -3,21 +3,18 @@ package ch.tutteli.atrium.specs.reporting
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.MethodCallFormatter
-import ch.tutteli.atrium.specs.describeFun
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 @Suppress("UNUSED_PARAMETER")
 abstract class TextMethodCallFormatterSpec(
     testeeFactory: () -> MethodCallFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val testee = testeeFactory()
 
