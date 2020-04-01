@@ -12,15 +12,15 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.util.*
 
 class OptionalAssertionsSpec : OptionalAssertionsSpec(
-    isEmpty = fun0(Companion::toBeEmpty),
-    isPresentFeature = feature0(Companion::toBePresent),
-    isPresent = fun1(Companion::isPresentFeature)
+    fun0(Companion::toBeEmpty),
+    feature0(Companion::toBePresentFeature),
+    fun1(Companion::toBePresent)
 ) {
     companion object : WithAsciiReporter() {
         private fun toBeEmpty(expect: Expect<Optional<Int>>) = expect toBe Empty
-        private fun isPresentFeature(expect: Expect<Optional<Int>>, assertionCreator: Expect<Int>.() -> Unit) = expect toBe present(assertionCreator)
-        private fun toBePresent(expect: Expect<Optional<Int>>) = expect toBe Present
-
+        private fun toBePresent(expect: Expect<Optional<Int>>, assertionCreator: Expect<Int>.() -> Unit) =
+            expect toBe present(assertionCreator)
+        private fun toBePresentFeature(expect: Expect<Optional<Int>>) = expect toBe Present
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -33,5 +33,9 @@ class OptionalAssertionsSpec : OptionalAssertionsSpec(
         o1 = o1 toBe Empty
         o1b = o1b toBe Empty
         star = star toBe Empty
+        o1 toBe Present
+        o1b toBe Present
+        o1 toBe present {}
+        o1b toBe present {}
     }
 }

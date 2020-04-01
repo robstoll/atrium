@@ -21,7 +21,8 @@ import java.util.*
  *
  * @since 0.11.0
  */
-infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) = addAssertion(ExpectImpl.optional.isEmpty(this))
+infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: Empty) =
+    addAssertion(ExpectImpl.optional.isEmpty(this))
 
 /**
  * Expects that the subject of the assertion (an [Optional]) is present
@@ -35,11 +36,12 @@ infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: 
  *
  * @since 0.11.0
  */
-infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Present: Present) = ExpectImpl.optional.isPresent(this).getExpectOfFeature()
+infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") present: Present) =
+    ExpectImpl.optional.isPresent(this).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (an [Optional]) is present and
- * that it holds all assertions the given [present] creates.
+ * that it holds all assertions the given [PresentWithCreator.assertionCreator] creates.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
@@ -50,7 +52,6 @@ infix fun <E, T : Optional<E>> Expect<T>.toBe(present: PresentWithCreator<E>): E
     ExpectImpl.optional.isPresent(this).addToInitial(present.assertionCreator)
 
 /**
- * Helper function to create an [PresentWithCreator] based on the given [assertionCreator].
+ * Helper function to create a [PresentWithCreator] based on the given [assertionCreator].
  */
-fun <E> present(assertionCreator: Expect<E>.() -> Unit) =
-    PresentWithCreator(assertionCreator)
+fun <E> present(assertionCreator: Expect<E>.() -> Unit) = PresentWithCreator(assertionCreator)
