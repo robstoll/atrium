@@ -20,5 +20,13 @@ class OptionalAssertionsSpec : OptionalAssertionsSpec(
         o1 = o1.isEmpty()
         o1b = o1b.isEmpty()
         star = star.isEmpty()
+        o1.isPresent()
+        o1b.isPresent()
+        // following is not supported on purpose as we don't know what type the element is in this case
+        // star.isPresent()
+        o1.isPresent {}
+        o1b.isPresent {}
+        // following is not supported on purpose as we don't know what type the element is in this case
+        // star.isPresent {}
     }
 }
