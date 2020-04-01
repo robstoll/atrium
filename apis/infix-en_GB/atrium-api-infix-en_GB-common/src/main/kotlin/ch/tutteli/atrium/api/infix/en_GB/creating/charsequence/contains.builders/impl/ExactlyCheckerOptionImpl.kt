@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.ExactlyCheckerOption
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.api.infix.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.ExactlyCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -24,6 +25,6 @@ internal class ExactlyCheckerOptionImpl<out T : CharSequence, out S : CharSequen
 ) : ExactlyCheckerOptionBase<T, S>(
     times,
     containsBuilder,
-    nameContainsNotValuesFun(),
+    nameContainsNotValuesFun,
     { "`${containsBuilder::exactly.name} $it`" }
 ), ExactlyCheckerOption<T, S>

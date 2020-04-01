@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builder
 
 import ch.tutteli.atrium.api.infix.en_GB.atLeast
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.AtLeastCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
@@ -24,6 +25,6 @@ internal class AtLeastCheckerOptionImpl<out T : CharSequence, out S : CharSequen
 ) : AtLeastCheckerOptionBase<T, S>(
     times,
     containsBuilder,
-    nameContainsNotValuesFun(),
+    nameContainsNotValuesFun,
     { "`${containsBuilder::atLeast.name} $it`" }
 ), AtLeastCheckerOption<T, S>

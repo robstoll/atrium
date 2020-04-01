@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.CheckerOption
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.kbox.glue
 
@@ -19,7 +19,7 @@ import ch.tutteli.kbox.glue
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -42,7 +42,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(
+fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
@@ -61,7 +61,7 @@ fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBe
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
+fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -80,7 +80,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = addAssertion(
@@ -105,7 +105,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrder
  *
  * @since 0.9.0
  */
-inline fun <reified E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+inline fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)

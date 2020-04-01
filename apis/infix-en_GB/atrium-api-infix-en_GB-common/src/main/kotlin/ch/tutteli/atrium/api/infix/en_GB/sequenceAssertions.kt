@@ -11,6 +11,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject
  *
  * @return The newly created [Expect] for the transformed subject.
  */
+//TODO #63 use parameter o
 fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
     changeSubject(this).unreported { it.asIterable() }
 
