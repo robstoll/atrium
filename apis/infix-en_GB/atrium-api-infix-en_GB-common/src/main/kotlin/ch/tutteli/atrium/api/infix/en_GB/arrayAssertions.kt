@@ -8,9 +8,11 @@ import kotlin.jvm.JvmName
  * Turns `Expect<Array<E>>` into `Expect<List<E>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(Array<out E>::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<E>> =
     ExpectImpl.changeSubject(this).unreported { it.asList() }
@@ -20,9 +22,11 @@ infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(Array<out E>::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<E>> =
     apply { asList(o).addAssertionsCreatedBy(assertionCreator) }
@@ -32,9 +36,11 @@ infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Un
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(Array<out E>::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("asListEOut")
 infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
@@ -44,9 +50,11 @@ infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -
  * Turns `Expect<CharArray>` into `Expect<List<Byte>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(ByteArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("byteArrAsList")
 infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Byte>> =
@@ -57,9 +65,11 @@ infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(ByteArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("byteArrAsList")
 infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): Expect<ByteArray> =
@@ -70,9 +80,11 @@ infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Un
  * Turns `Expect<CharArray>` into `Expect<List<Char>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(CharArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("charArrAsList")
 infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Char>> =
@@ -83,9 +95,11 @@ infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(CharArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("charArrAsList")
 infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): Expect<CharArray> =
@@ -96,9 +110,11 @@ infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Un
  * Turns `Expect<ShortArray>` into `Expect<List<Short>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(ShortArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("shortArrAsList")
 infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Short>> =
@@ -109,9 +125,11 @@ infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(ShortArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("shortArrAsList")
 infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit): Expect<ShortArray> =
@@ -122,9 +140,11 @@ infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> 
  * Turns `Expect<IntArray>` into `Expect<List<Int>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(IntArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("intArrAsList")
 infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Int>> = ExpectImpl.changeSubject(this).unreported { it.asList() }
@@ -134,9 +154,11 @@ infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<Li
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(IntArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("intArrAsList")
 infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Expect<IntArray> =
@@ -147,9 +169,11 @@ infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit
  * Turns `Expect<LongArray>` into `Expect<List<Double>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(LongArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("longArrAsList")
 infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Long>> =
@@ -160,9 +184,11 @@ infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(LongArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("longArrAsList")
 infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): Expect<LongArray> =
@@ -173,9 +199,11 @@ infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Un
  * Turns `Expect<FloatArray>` into `Expect<List<Float>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(FloatArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("floatArrAsList")
 infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Float>> =
@@ -186,9 +214,11 @@ infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(FloatArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("floatArrAsList")
 infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit): Expect<FloatArray> =
@@ -199,9 +229,11 @@ infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> 
  * Turns `Expect<DoubleArray>` into `Expect<List<Double>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(DoubleArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("doubleArrAsList")
 infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Double>> =
@@ -212,9 +244,11 @@ infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(DoubleArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("doubleArrAsList")
 infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit): Expect<DoubleArray> =
@@ -225,9 +259,11 @@ infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -
  * Turns `Expect<BooleanArray>` into `Expect<List<Boolean>>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(BooleanArray::asList)` if you want to show the transformation in reporting.
+ * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("boolArrAsList")
 infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Boolean>> =
@@ -238,9 +274,11 @@ infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expec
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature(BooleanArray::asList, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.11.0
  */
 @JvmName("boolArrAsList")
 infix fun Expect<BooleanArray>.asList(assertionCreator: Expect<List<Boolean>>.() -> Unit): Expect<BooleanArray> =
