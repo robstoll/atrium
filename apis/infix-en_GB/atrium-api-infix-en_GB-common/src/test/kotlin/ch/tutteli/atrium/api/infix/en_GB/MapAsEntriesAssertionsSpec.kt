@@ -1,14 +1,24 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.feature0
+import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-object MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesAssertionsSpec(
-    feature0<Map<String, Int>, Set<Map.Entry<String, Int>>>(Expect<Map<String, Int>>::asEntries),
+class MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesAssertionsSpec(
+    asEntriesPair(),
     fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>(Expect<Map<String, Int>>::asEntries)
 ) {
+
+    companion object : WithAsciiReporter() {
+        fun asEntriesPair() =
+            feature1<Map<String, Int>, o, Set<Map.Entry<String, Int>>>(Expect<Map<String, Int>>::asEntries).name to ::asEntriesFeature
+
+        fun asEntriesFeature(expect: Expect<Map<String, Int>>) = expect asEntries o
+    }
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var map: Expect<Map<Number, CharSequence>> = notImplemented()
@@ -21,12 +31,12 @@ object MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEnt
         var starKeyMap: Expect<Map<*, CharSequence?>> = notImplemented()
         var starValueMap: Expect<Map<String, *>> = notImplemented()
 
-        map asEntries {}
-        subMap asEntries {}
-        nullableKeyMap asEntries {}
-        nullableValueMap asEntries {}
-        nullableKeyValueMap asEntries {}
-        readOnlyNullableKeyValueMap asEntries {}
+        map asEntries o
+        subMap asEntries o
+        nullableKeyMap asEntries o
+        nullableValueMap asEntries o
+        nullableKeyValueMap asEntries o
+        readOnlyNullableKeyValueMap asEntries o
 
         map = map asEntries {}
         subMap = subMap asEntries {}

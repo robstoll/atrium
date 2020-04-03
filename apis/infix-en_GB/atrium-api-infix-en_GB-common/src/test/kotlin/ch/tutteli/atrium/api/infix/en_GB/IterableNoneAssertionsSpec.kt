@@ -49,10 +49,10 @@ class IterableNoneAssertionsSpec : Spek({
         a1 = a1.none {}
         a1 = a1 containsNot o entry {}
 
-        a1b = a1b.none {}
-        a1b = a1b.none(null)
+        a1b = a1b none {}
+        a1b = a1b none null
         a1b = a1b containsNot o entry {}
-        a1b = a1b containsNot o entry (null)
+        a1b = a1b containsNot o entry null
 
         star = star.none {}
         star = star containsNot o entry {}
