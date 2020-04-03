@@ -2,6 +2,9 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.infix.en_GB.creating.All
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.RegexPatterns
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -42,34 +45,87 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
         val a1: Expect<String> = notImplemented()
 
         a1 contains o atLeast 1 value 1
-        a1 contains o atMost 2 the Values("a", 1)
+        a1 contains o atMost 2 the Values(
+            "a",
+            1
+        )
         a1 contains o notOrAtMost 2 regex "h|b"
-        a1 contains o exactly 2 the RegexPatterns("h|b", "b")
+        a1 contains o exactly 2 the RegexPatterns(
+            "h|b",
+            "b"
+        )
         a1 contains o atLeast 2 matchFor Regex("bla")
-        a1 contains o atLeast 2 matchFor All(Regex("bla"), Regex("b"))
+        a1 contains o atLeast 2 matchFor All(
+            Regex("bla"),
+            Regex("b")
+        )
         a1 contains o atLeast 2 elementsOf listOf(1, 2)
-        a1 containsNot o
+
+        a1 containsNot o value "a"
+        a1 containsNot o the Values("a", 'b')
+        a1 containsNot o regex "a"
+        a1 containsNot o the RegexPatterns(
+            "a",
+            "bl"
+        )
+        a1 containsNot o elementsOf listOf(1, 2)
 
         a1 contains o ignoring case atLeast 1 value "a"
-        a1 contains o ignoring case atLeast 1 the Values("a", 'b')
+        a1 contains o ignoring case atLeast 1 the Values(
+            "a",
+            'b'
+        )
         a1 contains o ignoring case atLeast 1 regex "a"
-        a1 contains o ignoring case atLeast 1 the RegexPatterns("a", "bl")
+        a1 contains o ignoring case atLeast 1 the RegexPatterns(
+            "a",
+            "bl"
+        )
         a1 contains o ignoring case atLeast 1 elementsOf listOf(1, 2)
+
+        a1 containsNot o ignoring case value "a"
+        a1 containsNot o ignoring case the Values(
+            "a",
+            'b'
+        )
+        a1 containsNot o ignoring case regex "a"
+        a1 containsNot o ignoring case the RegexPatterns(
+            "a",
+            "bl"
+        )
+        a1 containsNot o ignoring case elementsOf listOf(1, 2)
 
         // skip atLeast
         a1 contains o ignoring case value "a"
-        a1 contains o ignoring case the Values("a", 'b')
+        a1 contains o ignoring case the Values(
+            "a",
+            'b'
+        )
         a1 contains o ignoring case regex "a"
-        a1 contains o ignoring case the RegexPatterns("a", "bl")
-        //TODO add to infix as well as fluent
-        //a1 contains o ignoring case elementsOf listOf(1, 2)
+        a1 contains o ignoring case the RegexPatterns(
+            "a",
+            "bl"
+        )
+        //TODO #422 uncomment
+        //a1 contains o ignoring case elementsOf listOf("a", 2)
 
         a1 and { it contains o atLeast 1 value 1 }
-        a1 and { it contains o atMost 2 the Values("a", 1) }
+        a1 and { it contains o atMost 2 the Values(
+            "a",
+            1
+        )
+        }
         a1 and { it contains o notOrAtMost 2 regex "h|b" }
-        a1 and { it contains o exactly 2 the RegexPatterns("h|b", "b") }
+        a1 and { it contains o exactly 2 the RegexPatterns(
+            "h|b",
+            "b"
+        )
+        }
         a1 and { it contains o atLeast 2 matchFor Regex("bla") }
-        a1 and { it contains o atLeast 2 matchFor All(Regex("bla"), Regex("b")) }
+        a1 and { it contains o atLeast 2 matchFor All(
+            Regex("bla"),
+            Regex("b")
+        )
+        }
         a1 and { it contains o atLeast 2 elementsOf listOf(1, 2) }
     }
 }

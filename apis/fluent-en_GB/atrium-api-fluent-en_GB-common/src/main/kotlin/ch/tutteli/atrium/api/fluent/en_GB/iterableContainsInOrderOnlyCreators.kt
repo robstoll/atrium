@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
 
@@ -23,7 +23,7 @@ import ch.tutteli.kbox.glue
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -41,7 +41,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(
+fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
@@ -64,7 +64,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entry(
+fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -87,7 +87,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = addAssertion(
@@ -116,7 +116,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
  *
  * @since 0.9.0
  */
-inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
+inline fun <reified E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)

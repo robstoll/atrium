@@ -2,6 +2,9 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
+import ch.tutteli.atrium.api.infix.en_GB.creating.All
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.RegexPatterns
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains

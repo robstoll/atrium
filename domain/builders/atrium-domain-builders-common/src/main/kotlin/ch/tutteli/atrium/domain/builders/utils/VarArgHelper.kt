@@ -11,6 +11,7 @@ interface VarArgHelper<out T> {
      * The first argument in the argument list `T, vararg T`
      */
     val expected: T
+
     /**
      * The second argument in the argument list `T, vararg T`
      */

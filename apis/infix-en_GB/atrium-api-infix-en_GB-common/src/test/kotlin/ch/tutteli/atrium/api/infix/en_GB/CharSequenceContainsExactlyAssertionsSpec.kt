@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceContainsExactlyAssertionsSpec :
@@ -18,7 +19,10 @@ class CharSequenceContainsExactlyAssertionsSpec :
 
         private fun containsExactly(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect contains o exactly exactly value a
-            else expect contains o exactly exactly the Values(a, *aX)
+            else expect contains o exactly exactly the Values(
+                a,
+                *aX
+            )
 
         private fun getExactlyIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $exactly $times" } to
@@ -32,7 +36,10 @@ class CharSequenceContainsExactlyAssertionsSpec :
             aX: Array<out Any>
         ) =
             if (aX.isEmpty()) expect contains o ignoring case exactly exactly value a
-            else expect contains o ignoring case exactly exactly the Values(a, *aX)
+            else expect contains o ignoring case exactly exactly the Values(
+                a,
+                *aX
+            )
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
         private fun getErrorMsgContainsNot(times: Int) = "use `$containsNotValues` instead of `$exactly $times`"

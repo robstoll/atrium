@@ -59,12 +59,12 @@ object entries : Keyword
 object group : Keyword
 
 /**
- * Represents the pseudo keyword `not` as in [contains] `not`.
+ * Represents the pseudo keyword `next` as in [has] `next`.
  * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.11.0
  */
-object not : Keyword
+object next : Keyword
 
 /**
  * Represents a filler, a pseudo keyword where there isn't really a good keyword.

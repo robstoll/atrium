@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.All
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValue
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -172,8 +175,9 @@ infix fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collec
  *
  * @return The newly created [Expect] for the transformed subject.
  */
-fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
-    ExpectImpl.changeSubject(this).unreported { it.entries }
+infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
+    @Suppress("UNUSED_PARAMETER") o: o
+): Expect<Set<Map.Entry<K, V>>> = ExpectImpl.changeSubject(this).unreported { it.entries }
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
@@ -186,5 +190,5 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
-): Expect<T> = apply { asEntries().addAssertionsCreatedBy(assertionCreator) }
+): Expect<T> = apply { asEntries(o).addAssertionsCreatedBy(assertionCreator) }
 

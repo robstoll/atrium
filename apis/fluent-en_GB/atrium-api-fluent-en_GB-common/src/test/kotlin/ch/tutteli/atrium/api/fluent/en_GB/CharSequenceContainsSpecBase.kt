@@ -53,7 +53,7 @@ abstract class CharSequenceContainsSpecBase {
         a1.contains.ignoringCase.values("a", 'b')
         a1.contains.ignoringCase.regex("a")
         a1.contains.ignoringCase.regex("a", "bl")
-        //TODO add (also to infix API)
-//        a1.contains.ignoringCase.elementsOf(listOf(1, 2))("a", "bl")
+        //TODO #422 uncomment
+        //a1.contains.ignoringCase.elementsOf(listOf("a", 2))
     }
 }
