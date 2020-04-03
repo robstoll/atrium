@@ -49,7 +49,6 @@ infix fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseU
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
  */
 @JvmName("toBeNull")
 infix fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
@@ -92,7 +91,6 @@ infix fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw Pleas
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
  */
 infix fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
     addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
@@ -112,7 +110,6 @@ infix fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
  */
 infix fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
     addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
@@ -130,7 +127,6 @@ infix fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
  */
 infix fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
     addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
@@ -147,7 +143,6 @@ infix fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
  */
 infix fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T) =
     addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))
