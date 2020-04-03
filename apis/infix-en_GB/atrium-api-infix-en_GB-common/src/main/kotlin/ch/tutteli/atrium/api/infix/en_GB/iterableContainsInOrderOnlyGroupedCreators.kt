@@ -15,7 +15,9 @@ import kotlin.jvm.JvmName
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of values need to be
  * contained in [Iterable] in the specified order whereas the values within the groups can occur in any order.
  *
- * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
+ * @param order A parameter object containing the different groups which have to appear in order in the [Iterable]
+ *   -- use `order(group, group, ...)` to create an [Order] where group is either `value(e)` or `values(e, ...)`;
+ *   so a call could look as follows: `inAny order(values(1, 2), value(2), values(3, 2))
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -30,6 +32,15 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehav
 )
 
 /**
+ * Helper function to create an [Order] based on the given [firstGroup], [secondGroup] and [otherExpectedGroups].
+ */
+fun <E> order(
+    firstGroup: Group<E>,
+    secondGroup: Group<E>,
+    vararg otherExpectedGroups: Group<E>
+): Order<E, Group<E>> = Order(firstGroup, secondGroup, otherExpectedGroups)
+
+/**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of identification lambdas, identifying an entry,
  * need to be contained in [Iterable] in the specified order whereas the identification lambdas within the groups
@@ -37,7 +48,15 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehav
  *
  * An identification lambda can also be defined as `null` in which case it matches an entry which is `null` as well.
  *
- * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
+ * @param order A parameter object containing the different groups which have to appear in order in the [Iterable]
+ *   -- use `order(group, group, ...)` to create an [Order] where group is either `entry { ... }` or
+ *   `entries({ ... }, ...)`; so a call could look as follows:
+ *   ```
+ *   inAny order(
+ *     entry { it toBe 1 },
+ *     entries({ it lessThan 2 }, {it toBe 3 })
+ *   )
+ *   ```
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

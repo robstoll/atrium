@@ -35,17 +35,17 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
- * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
+ * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use the property `contains` to create a more sophisticated `contains`
  * assertion where you can use options such as [atLeast], [atMost] and [exactly] to control the number of occurrences
  * you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).value('a')`
+ *   `contains.exactly(2).value("a")`
  * instead of:
- *   `contains('a', 'a')`
+ *   `contains("a", "a")`
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -76,9 +76,9 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -102,9 +102,9 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *

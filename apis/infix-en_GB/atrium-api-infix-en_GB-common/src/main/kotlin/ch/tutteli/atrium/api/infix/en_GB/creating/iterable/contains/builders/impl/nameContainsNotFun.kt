@@ -19,5 +19,5 @@ internal object StaticName {
         Values<Double>,
         Expect<Iterable<Double>>
         > = IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::the
-    val nameContainsNotValuesFun = "`${f.name} ${o::class.simpleName} ${fThe.name} ${Values::class.simpleName}`"
+    val nameContainsNotValuesFun = "`${f.name} ${o::class.simpleName} ${fThe.name} values`"
 }

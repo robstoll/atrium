@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
-import ch.tutteli.atrium.api.infix.en_GB.creating.Value
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 
@@ -23,24 +21,16 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             a1: Group<Double>,
             a2: Group<Double>,
             aX: Array<out Group<Double>>
-        ): Expect<Iterable<Double>> {
-            return expect contains o inGiven order and only grouped entries within group inAny Order(
-                a1,
-                a2,
-                *aX
-            )
-        }
+        ): Expect<Iterable<Double>> =
+            expect contains o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
             when (groups.size) {
                 0 -> object : Group<Double> {
                     override fun toList() = listOf<Double>()
                 }
-                1 -> Value(groups[0])
-                else -> ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                    groups[0],
-                    *groups.drop(1).toTypedArray()
-                )
+                1 -> value(groups[0])
+                else -> values(groups[0], *groups.drop(1).toTypedArray())
             }
 
 
@@ -52,24 +42,16 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             a1: Group<Double?>,
             a2: Group<Double?>,
             aX: Array<out Group<Double?>>
-        ): Expect<Iterable<Double?>> {
-            return expect contains o inGiven order and only grouped entries within group inAny Order(
-                a1,
-                a2,
-                *aX
-            )
-        }
+        ): Expect<Iterable<Double?>> =
+            expect contains o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
 
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =
             when (groups.size) {
                 0 -> object : Group<Double?> {
                     override fun toList() = listOf<Double>()
                 }
-                1 -> Value(groups[0])
-                else -> ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                    groups[0],
-                    *groups.drop(1).toTypedArray()
-                )
+                1 -> value(groups[0])
+                else -> values(groups[0], *groups.drop(1).toTypedArray())
             }
     }
 }

@@ -7,6 +7,8 @@ import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 
 /**
  * Represents a [Group] with a single value.
+ *
+ * Use the function `value(t)` to create this representation.
  */
 data class Value<T>(val expected: T) : GroupWithNullableEntries<T>,
     GroupWithoutNullableEntries<T> {

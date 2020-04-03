@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsNotAssertionsSpec(
@@ -17,10 +16,7 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.specs.integratio
 
         private fun containsNotFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect containsNot o value a
-            else expect containsNot o the Values(
-                a,
-                *aX
-            )
+            else expect containsNot o the values(a, *aX)
 
         private fun getContainsNotIgnoringCaseTriple() =
             { what: String -> "$containsNotValues $ignoringCase $what" } to
@@ -28,9 +24,6 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.specs.integratio
 
         private fun containsNotIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect containsNot o ignoring case value a
-            else expect containsNot o ignoring case the Values(
-                a,
-                *aX
-            )
+            else expect containsNot o ignoring case the values(a, *aX)
     }
 }

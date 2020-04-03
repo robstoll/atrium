@@ -8,5 +8,5 @@ import kotlin.reflect.KFunction2
 internal object StaticName {
     private val f: KFunction2<Expect<CharSequence>, Values<Any>, Expect<CharSequence>> =
         Expect<CharSequence>::containsNot
-    val nameContainsNotValuesFun = "`${f.name} ${Values::class.simpleName}`"
+    val nameContainsNotValuesFun = "`${f.name} values`"
 }

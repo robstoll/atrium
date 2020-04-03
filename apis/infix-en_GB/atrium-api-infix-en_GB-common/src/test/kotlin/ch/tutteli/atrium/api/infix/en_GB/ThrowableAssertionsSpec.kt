@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
@@ -21,7 +20,7 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
             vararg otherExpected: Any
         ): Expect<Throwable> =
             if (otherExpected.isEmpty()) expect messageContains expected
-            else expect messageContains Values(
+            else expect messageContains values(
                 expected,
                 *otherExpected
             )
@@ -45,7 +44,7 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
         a1 = a1 message {}
         a1 = a1 messageContains "a"
         a1 = a1 messageContains 'a'
-        a1 = a1 messageContains Values(
+        a1 = a1 messageContains values(
             "a",
             1,
             'b'

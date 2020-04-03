@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.Entry
-import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 
@@ -22,22 +20,15 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec :
             a2: Group<(Expect<Double>.() -> Unit)?>,
             aX: Array<out Group<(Expect<Double>.() -> Unit)?>>
         ): Expect<Iterable<Double?>> =
-            expect contains o inGiven order and only grouped entries within group inAny Order(
-                a1,
-                a2,
-                *aX
-            )
+            expect contains o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out (Expect<Double>.() -> Unit)?>) =
             when (groups.size) {
                 0 -> object : Group<(Expect<Double>.() -> Unit)?> {
                     override fun toList() = listOf<Expect<Double>.() -> Unit>()
                 }
-                1 -> Entry(groups[0])
-                else -> ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                    groups[0],
-                    *groups.drop(1).toTypedArray()
-                )
+                1 -> entry(groups[0])
+                else -> entries(groups[0], *groups.drop(1).toTypedArray())
             }
     }
 }

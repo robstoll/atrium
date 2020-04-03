@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected] value.
  *
- * Delegates to [values].
+ * Delegates to `the values(expected)`.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
@@ -26,7 +26,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
-    this the Values(expected)
+    this the values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -36,7 +36,8 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.value(e
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @param values The nullable values which are expected to be contained within the [Iterable].
+ * @param values The values which are expected to be contained within the [Iterable]
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -49,7 +50,7 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.the(val
  * single entry which holds all assertions created by the given [assertionCreatorOrNull] or needs to be `null`
  * in case [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `entries(assertionCreatorOrNull)`.
+ * Delegates to `the entries(assertionCreatorOrNull)`.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
@@ -64,9 +65,7 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.the(val
  */
 infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
-): Expect<T> = this the Entries(
-    assertionCreatorOrNull
-)
+): Expect<T> = this the entries(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
@@ -80,7 +79,8 @@ infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @param entries The parameter object containing the identification lambdas.
+ * @param entries The entries which are expected to be contained within the [Iterable]
+ *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return The [Expect] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -112,5 +112,5 @@ inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBeh
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
-    return this the Values(first, *rest)
+    return this the Values(first, rest)
 }

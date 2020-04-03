@@ -10,12 +10,14 @@ import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
 /**
  * Represents a [Group] of multiple values.
  *
+ * Use the function `values(t, ...)` to create this representation.
+ *
  * Note, [Values] will be made invariant once Kotlin 1.4 is out and Atrium depends on it (most likely with 1.0.0)
  */
 //TODO remove `out` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 class Values<out T>(
     override val expected: T,
-    override vararg val otherExpected: T
+    override val otherExpected: Array<out T>
 ) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T> {
-    override fun toList() = listOf(expected, *otherExpected)
+    override fun toList(): List<T> = super.toList()
 }

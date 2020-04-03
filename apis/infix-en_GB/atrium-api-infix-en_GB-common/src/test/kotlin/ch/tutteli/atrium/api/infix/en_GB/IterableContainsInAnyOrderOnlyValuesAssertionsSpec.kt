@@ -18,10 +18,7 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec :
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains o inAny order but only value a
-            else expect contains o inAny order but only the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inAny order but only the values(a, *aX)
 
 
         fun getContainsNullablePair() =
@@ -33,10 +30,7 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec :
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect contains o inAny order but only value a
-            else expect contains o inAny order but only the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inAny order but only the values(a, *aX)
 
     }
 }

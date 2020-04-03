@@ -34,10 +34,7 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains o inGiven order and only entry a
-            else expect contains o inGiven order and only the ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                a,
-                *aX
-            )
+            else expect contains o inGiven order and only the entries(a, *aX)
 
         fun getContainsNullablePair() =
             "$contains $filler $inOrder $andOnly $inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
@@ -48,10 +45,7 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect contains o inGiven order and only entry a
-            else expect contains o inGiven order and only the ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                a,
-                *aX
-            )
+            else expect contains o inGiven order and only the entries(a, *aX)
 
         private val containsShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsExactly
@@ -64,10 +58,7 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect containsExactly { a() }
-            else expect containsExactly ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                a,
-                *aX
-            )
+            else expect containsExactly entries(a, *aX)
 
         private val containsNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsExactly
@@ -85,10 +76,7 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
                 if (a == null) expect containsExactly a as Double?
                 else expect containsExactly { a() }
             } else {
-                expect containsExactly ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                    a,
-                    *aX
-                )
+                expect containsExactly entries(a, *aX)
             }
     }
 }

@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
@@ -102,18 +101,20 @@ infix fun <E, T : Iterable<E>> Expect<T>.contains(expected: E) =
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the expected [values].
  *
- * It is a shortcut for `contains o inAny order atLeast 1 the Values(...)`
+ * It is a shortcut for `contains o inAny order atLeast 1 the values(...)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
- * [values].[expected][Values.expected] is defined as `'a'` and
- * one [values].[otherExpected][Values.otherExpected] is defined as `'a'` as well, then both match,
- * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
- * number of occurrences you expect.
+ * [Values] is defined as `values("a", "a")`, then both match,
+ * even though they match the same sequence in the input of the search.
+ * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *    contains o inAny order exactly 2 value 'a'`
  * instead of:
- *   `contains Values('a', 'a')`
+ *   `contains values('a', 'a')`
+ *
+ * @param values The values which are expected to be contained within the [Iterable]
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -139,20 +140,22 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull:
     it contains o inAny order atLeast 1 entry assertionCreatorOrNull
 
 /**
- * Makes the assertion that the [Assert.subject][SubjectProvider.subject] contains an entry holding the
+ *  Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
  * assertions created by [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] or an entry
  * which is `null` in case [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of the
  * [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].
  *
- * It is a shortcut for `contains o inAny order atLeast 1 the Entries(...)`
+ * It is a shortcut for `contains o inAny order atLeast 1 the entries({ ... }, ...)`
+ *
+ * @param entries The entries which are expected to be contained within the [Iterable]
+ *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
-    entries: Entries<E>
-): Expect<T> = it contains o inAny order atLeast 1 the entries
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.contains(entries: Entries<E>): Expect<T> =
+    it contains o inAny order atLeast 1 the entries
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains only
@@ -175,6 +178,9 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E): Expect<T>
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
+ * @param values The values which are expected to be contained within the [Iterable]
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -200,8 +206,9 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsExactly(values: Values<E>): Exp
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    it contains o inGiven order and only entry assertionCreatorOrNull
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+): Expect<T> = it contains o inGiven order and only entry assertionCreatorOrNull
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
@@ -216,6 +223,9 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreator
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
+ * @param entries The entries which are expected to be contained within the [Iterable]
+ *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -237,7 +247,10 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E): Expect<T> =
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not contain the expected [values].
  *
- *  It is a shortcut for `containsNot o the Values(...)`
+ *  It is a shortcut for `containsNot o the values(...)`
+ *
+ * @param values The values which should not be contained within the [Iterable]
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

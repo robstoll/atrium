@@ -22,10 +22,7 @@ class IterableContainsInAnyOrderExactlyValuesAssertionsSpec :
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains o inAny order exactly exactly value a
-            else expect contains o inAny order exactly exactly the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inAny order exactly exactly the values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 
