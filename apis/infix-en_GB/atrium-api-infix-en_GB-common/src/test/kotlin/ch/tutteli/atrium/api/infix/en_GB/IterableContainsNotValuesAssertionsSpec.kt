@@ -35,7 +35,10 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect containsNot o value a
-            else expect containsNot o the Values(a, *aX)
+            else expect containsNot o the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
 
         private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
@@ -45,7 +48,10 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect containsNot o value a
-            else expect containsNot o the Values(a, *aX)
+            else expect containsNot o the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
 
         private val containsNotShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsNot
@@ -54,6 +60,9 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotShortcut(expect: Expect<Iterable<Double>>, a: Double, aX: Array<out Double>) =
             if (aX.isEmpty()) expect containsNot a
-            else expect containsNot Values(a, *aX)
+            else expect containsNot ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
     }
 }

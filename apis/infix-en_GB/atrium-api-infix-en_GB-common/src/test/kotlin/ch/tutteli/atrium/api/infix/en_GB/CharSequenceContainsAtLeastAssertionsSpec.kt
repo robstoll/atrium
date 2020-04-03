@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
@@ -59,7 +60,10 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ): Expect<CharSequence> =
             if (aX.isEmpty()) expect contains o atLeast atLeast value a
-            else expect contains o atLeast atLeast the Values(a, *aX)
+            else expect contains o atLeast atLeast the Values(
+                a,
+                *aX
+            )
 
         internal fun getAtLeastElementsOfTriple() =
             atLeastDescr to ("$contains o $atLeast" to Companion::containsAtLeastElementsOf)
@@ -88,8 +92,14 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
                 if (atLeast == 1) expect contains o ignoring case value a
                 else expect contains o ignoring case atLeast atLeast value a
             } else {
-                if (atLeast == 1) expect contains o ignoring case the Values(a, *aX)
-                else expect contains o ignoring case atLeast atLeast the Values(a, *aX)
+                if (atLeast == 1) expect contains o ignoring case the Values(
+                    a,
+                    *aX
+                )
+                else expect contains o ignoring case atLeast atLeast the Values(
+                    a,
+                    *aX
+                )
             }
 
         private fun getAtLeastIgnoringCaseElementsOfTriple() =
@@ -129,7 +139,10 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ) =
             if (aX.isEmpty()) expect contains o atLeast atLeast butAtMost butAtMost value a
-            else expect contains o atLeast atLeast butAtMost butAtMost the Values(a, *aX)
+            else expect contains o atLeast atLeast butAtMost butAtMost the Values(
+                a,
+                *aX
+            )
 
         private val atLeastButAtMostIgnoringCaseDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
             "$contains $ignoringCase $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
@@ -146,7 +159,10 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ) =
             if (aX.isEmpty()) expect contains o ignoring case atLeast atLeast butAtMost butAtMost value a
-            else expect contains o ignoring case atLeast atLeast butAtMost butAtMost the Values(a, *aX)
+            else expect contains o ignoring case atLeast atLeast butAtMost butAtMost the Values(
+                a,
+                *aX
+            )
 
         private fun getAtLeastButAtMostIgnoringCaseElementsOfTriple() =
             atLeastButAtMostIgnoringCaseDescr to ("$contains o $ignoringCase $atLeast $butAtMost" to Companion::containsAtLeastButAtMostIgnoringCaseElementsOf)

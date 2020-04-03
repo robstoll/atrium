@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
@@ -62,7 +64,9 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(
  */
 infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
-): Expect<T> = this the Entries(assertionCreatorOrNull)
+): Expect<T> = this the Entries(
+    assertionCreatorOrNull
+)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the

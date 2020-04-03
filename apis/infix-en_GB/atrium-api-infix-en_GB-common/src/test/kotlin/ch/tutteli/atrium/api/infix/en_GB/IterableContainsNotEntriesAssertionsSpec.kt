@@ -20,7 +20,10 @@ class IterableContainsNotEntriesAssertionsSpec :
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect containsNot o entry a
-            else expect containsNot o the Entries(a, *aX)
+            else expect containsNot o the ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
+                a,
+                *aX
+            )
 
         private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
@@ -30,6 +33,9 @@ class IterableContainsNotEntriesAssertionsSpec :
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect containsNot o entry a
-            else expect containsNot o the Entries(a, *aX)
+            else expect containsNot o the ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
+                a,
+                *aX
+            )
     }
 }

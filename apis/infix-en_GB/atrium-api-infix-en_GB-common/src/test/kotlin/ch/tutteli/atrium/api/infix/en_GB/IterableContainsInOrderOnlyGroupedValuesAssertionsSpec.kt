@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
+import ch.tutteli.atrium.api.infix.en_GB.creating.Value
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 
@@ -22,7 +24,11 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             a2: Group<Double>,
             aX: Array<out Group<Double>>
         ): Expect<Iterable<Double>> {
-            return expect contains o inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
+            return expect contains o inGiven order and only grouped entries within group inAny Order(
+                a1,
+                a2,
+                *aX
+            )
         }
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
@@ -31,7 +37,10 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
                     override fun toList() = listOf<Double>()
                 }
                 1 -> Value(groups[0])
-                else -> Values(groups[0], *groups.drop(1).toTypedArray())
+                else -> ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                    groups[0],
+                    *groups.drop(1).toTypedArray()
+                )
             }
 
 
@@ -44,7 +53,11 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             a2: Group<Double?>,
             aX: Array<out Group<Double?>>
         ): Expect<Iterable<Double?>> {
-            return expect contains o inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
+            return expect contains o inGiven order and only grouped entries within group inAny Order(
+                a1,
+                a2,
+                *aX
+            )
         }
 
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =
@@ -53,7 +66,10 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
                     override fun toList() = listOf<Double>()
                 }
                 1 -> Value(groups[0])
-                else -> Values(groups[0], *groups.drop(1).toTypedArray())
+                else -> ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                    groups[0],
+                    *groups.drop(1).toTypedArray()
+                )
             }
     }
 }

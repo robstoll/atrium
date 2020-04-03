@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.All
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValue
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 

@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -61,7 +63,9 @@ infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.th
  */
 infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
-): Expect<T> = this the Entries(assertionCreatorOrNull)
+): Expect<T> = this the Entries(
+    assertionCreatorOrNull
+)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either

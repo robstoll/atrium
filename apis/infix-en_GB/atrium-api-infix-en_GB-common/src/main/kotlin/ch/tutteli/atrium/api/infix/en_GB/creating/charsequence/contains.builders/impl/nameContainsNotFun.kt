@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl
 
-import ch.tutteli.atrium.api.infix.en_GB.Values
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.containsNot
 import ch.tutteli.atrium.creating.Expect
 import kotlin.reflect.KFunction2

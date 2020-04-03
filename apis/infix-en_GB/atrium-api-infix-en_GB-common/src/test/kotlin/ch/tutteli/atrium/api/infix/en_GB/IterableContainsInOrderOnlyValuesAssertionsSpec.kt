@@ -33,7 +33,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains o inGiven order and only value a
-            else expect contains o inGiven order and only the Values(a, *aX)
+            else expect contains o inGiven order and only the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
 
         fun getContainsNullablePair() =
             "$contains $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::containsInOrderOnlyNullableValues
@@ -44,7 +47,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect contains o inGiven order and only value a
-            else expect contains o inGiven order and only the Values(a, *aX)
+            else expect contains o inGiven order and only the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
 
         private val containsShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsExactly
@@ -57,7 +63,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect containsExactly a
-            else expect containsExactly Values(a, *aX)
+            else expect containsExactly ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
 
         private val containsNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Double?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsExactly
@@ -71,7 +80,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect containsExactly a
-            else expect containsExactly Values(a, *aX)
+            else expect containsExactly ch.tutteli.atrium.api.infix.en_GB.creating.Values(
+                a,
+                *aX
+            )
     }
 }
 
