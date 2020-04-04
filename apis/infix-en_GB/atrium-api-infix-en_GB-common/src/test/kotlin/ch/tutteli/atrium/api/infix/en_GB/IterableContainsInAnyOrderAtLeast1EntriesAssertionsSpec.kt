@@ -32,10 +32,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains o inAny order atLeast 1 entry a
-            else expect contains o inAny order atLeast 1 the ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                a,
-                *aX
-            )
+            else expect contains o inAny order atLeast 1 the entries(a, *aX)
 
         fun getContainsNullablePair() =
             "$contains $filler $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsNullableEntries
@@ -46,10 +43,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect contains o inAny order atLeast 1 entry a
-            else expect contains o inAny order atLeast 1 the ch.tutteli.atrium.api.infix.en_GB.creating.Entries(
-                a,
-                *aX
-            )
+            else expect contains o inAny order atLeast 1 the entries(a, *aX)
 
 
         private val containsShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
@@ -63,7 +57,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains a
-            else expect contains ch.tutteli.atrium.api.infix.en_GB.creating.Entries(a, *aX)
+            else expect contains entries(a, *aX)
 
         private val containsEntriesFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::contains
@@ -76,6 +70,6 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect contains a
-            else expect contains ch.tutteli.atrium.api.infix.en_GB.creating.Entries(a, *aX)
+            else expect contains entries(a, *aX)
     }
 }

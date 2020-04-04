@@ -21,9 +21,7 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             a1: Group<Double>,
             a2: Group<Double>,
             aX: Array<out Group<Double>>
-        ): Expect<Iterable<Double>> {
-            return expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
-        }
+        ): Expect<Iterable<Double>> = expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
             when (groups.size) {
@@ -43,9 +41,7 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
             a1: Group<Double?>,
             a2: Group<Double?>,
             aX: Array<out Group<Double?>>
-        ): Expect<Iterable<Double?>> {
-            return expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
-        }
+        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
 
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =
             when (groups.size) {

@@ -1,10 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.creating.All
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.RegexPatterns
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -24,7 +22,7 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
     protected val containsNot = containsNotProp.name
 
     private val containsNotFun: KFunction2<Expect<String>, Any, Expect<String>> = Expect<String>::containsNot
-    protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
+    protected val containsNotValues = "${containsNotFun.name} values"
     protected val containsRegex = fun1<String, String>(Expect<String>::containsRegex).name
     protected val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
     protected val butAtMost = AtLeastCheckerOption<*, *>::butAtMost.name
@@ -45,87 +43,59 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
         val a1: Expect<String> = notImplemented()
 
         a1 contains o atLeast 1 value 1
-        a1 contains o atMost 2 the Values(
-            "a",
-            1
-        )
+        a1 contains o atMost 2 the values("a", 1)
         a1 contains o notOrAtMost 2 regex "h|b"
-        a1 contains o exactly 2 the RegexPatterns(
-            "h|b",
-            "b"
-        )
+        a1 contains o exactly 2 the regexPatterns("h|b", "b")
         a1 contains o atLeast 2 matchFor Regex("bla")
-        a1 contains o atLeast 2 matchFor All(
-            Regex("bla"),
-            Regex("b")
-        )
+        a1 contains o atLeast 2 matchFor all(Regex("bla"), Regex("b"))
         a1 contains o atLeast 2 elementsOf listOf(1, 2)
 
         a1 containsNot o value "a"
-        a1 containsNot o the Values("a", 'b')
+        a1 containsNot o the values("a", 'b')
         a1 containsNot o regex "a"
-        a1 containsNot o the RegexPatterns(
-            "a",
-            "bl"
-        )
+        a1 containsNot o the regexPatterns("a", "bl")
+        a1 containsNot o matchFor Regex("a")
+        a1 containsNot o matchFor all(Regex("a"), Regex("bl"))
         a1 containsNot o elementsOf listOf(1, 2)
 
         a1 contains o ignoring case atLeast 1 value "a"
-        a1 contains o ignoring case atLeast 1 the Values(
-            "a",
-            'b'
-        )
+        a1 contains o ignoring case atLeast 1 the values("a", 'b')
         a1 contains o ignoring case atLeast 1 regex "a"
-        a1 contains o ignoring case atLeast 1 the RegexPatterns(
-            "a",
-            "bl"
-        )
+        a1 contains o ignoring case atLeast 1 the regexPatterns("a", "bl")
+        // not supported on purpose as one can specify an ignore case flag for Regex
+        // and hence these would be a second way to do the same thing
+        //a1 contains o ignoring case atLeast 1 matchFor Regex("a")
+        //a1 contains o ignoring case atLeast 1 matchFor all(Regex("a"), Regex("bl"))
         a1 contains o ignoring case atLeast 1 elementsOf listOf(1, 2)
 
         a1 containsNot o ignoring case value "a"
-        a1 containsNot o ignoring case the Values(
-            "a",
-            'b'
-        )
+        a1 containsNot o ignoring case the values("a", 'b')
         a1 containsNot o ignoring case regex "a"
-        a1 containsNot o ignoring case the RegexPatterns(
-            "a",
-            "bl"
-        )
+        a1 containsNot o ignoring case the regexPatterns("a", "bl")
+        // not supported on purpose as one can specify an ignore case flag for Regex
+        // and hence these would be a second way to do the same thing
+        //a1 containsNot o ignoring case matchFor Regex("a")
+        //a1 containsNot o ignoring case matchFor all(Regex("a"), Regex("bl"))
         a1 containsNot o ignoring case elementsOf listOf(1, 2)
 
         // skip atLeast
         a1 contains o ignoring case value "a"
-        a1 contains o ignoring case the Values(
-            "a",
-            'b'
-        )
+        a1 contains o ignoring case the values("a", 'b')
         a1 contains o ignoring case regex "a"
-        a1 contains o ignoring case the RegexPatterns(
-            "a",
-            "bl"
-        )
+        a1 contains o ignoring case the regexPatterns("a", "bl")
+        // not supported on purpose as one can specify an ignore case flag for Regex
+        // and hence these would be a second way to do the same thing
+        //a1 contains o ignoring case matchFor Regex("a")
+        //a1 contains o ignoring case matchFor all(Regex("a"), Regex("bl"))
         //TODO #422 uncomment
         //a1 contains o ignoring case elementsOf listOf("a", 2)
 
         a1 and { it contains o atLeast 1 value 1 }
-        a1 and { it contains o atMost 2 the Values(
-            "a",
-            1
-        )
-        }
+        a1 and { it contains o atMost 2 the values("a", 1) }
         a1 and { it contains o notOrAtMost 2 regex "h|b" }
-        a1 and { it contains o exactly 2 the RegexPatterns(
-            "h|b",
-            "b"
-        )
-        }
+        a1 and { it contains o exactly 2 the regexPatterns("h|b", "b") }
         a1 and { it contains o atLeast 2 matchFor Regex("bla") }
-        a1 and { it contains o atLeast 2 matchFor All(
-            Regex("bla"),
-            Regex("b")
-        )
-        }
+        a1 and { it contains o atLeast 2 matchFor all(Regex("bla"), Regex("b")) }
         a1 and { it contains o atLeast 2 elementsOf listOf(1, 2) }
     }
 }

@@ -57,22 +57,24 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: Any): Expect<T> =
  * Expects that the subject of the assertion (a [CharSequence]) contains the [toString] representation of the
  * given [values] using a non disjoint search.
  *
- * It is a shortcut for `contains o atLeast 1 the Values(expected, *otherExpected)`.
+ * It is a shortcut for `contains o atLeast 1 the values(expected, *otherExpected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and
- * [Values.expected] is defined as `'a'` and one [Values.otherExpected] is defined as `'a'` as well, then both match,
- * even though they match the same sequence in the input of the search. Use the property `contains` to create
- * a more sophisticated `contains` assertion where you can use options such as [atLeast], [atMost] and [exactly]
- * to control the number of occurrences you expect.
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
+ * [Values] is defined as `values("a", "a")`, then both match,
+ * even though they match the same sequence in the input of the search.
+ * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains o exactly 2 value 'a'`
+ *   `contains o exactly 2 value "a"`
  * instead of:
- *   `contains Values('a', 'a')`
+ *   `contains values("a", "a")`
+ *
+ * @param values The values which are expected to be contained within the input of the search
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -100,10 +102,12 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
  * Expects that the subject of the assertion (a [CharSequence]) does not contain the [toString] representation
  * of the given [values].
  *
- * It is a shortcut for `contains not the Values(expected, *otherExpected)`.
+ * It is a shortcut for `contains not the values(expected, *otherExpected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
+ * @param values The values which should not be found -- use the function `values(t, ...)` to create a [Values].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -129,7 +133,7 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T>
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern].
  *
- * It is a shortcut for `contains o atLeast 1 regex pattern`.
+ * It is a shortcut for `contains o atLeast 1 matchFor pattern`.
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
@@ -143,20 +147,21 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
  * regular expression [patterns], using a non disjoint search.
  *
- * It is a shortcut for `contains o atLeast 1 the RegexPatterns(pattern, *otherPatterns)`.
+ * It is a shortcut for `contains o atLeast 1 the regexPatterns(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
- * [RegexPatterns.expected] is defined as `'a(b)?'` and one of the [RegexPatterns.otherExpected] is defined
- * as `'a(b)?'` as well, then both match, even though they match the same sequence in the input of the search.
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
+ * [RegexPatterns] is defined as `regexPatterns("a(b)?", "a(b)?")` as well, then both match,
+ * even though they match the same sequence in the input of the search.
  * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `contains o exactly 2 regex "a(b)?"`
  * instead of:
- *   `contains o atLeast 1 the RegexPatterns("a(b)?", "a(b)?")`
+ *   `contains o atLeast 1 the regexPatterns("a(b)?", "a(b)?")`
  *
- * @param patterns The patterns which are expected to have a match against the input of the search.
+ * @param patterns The patterns which are expected to have a match against the input of the search --
+ *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -165,23 +170,30 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(patterns: RegexPatterns): E
     this contains o atLeast 1 the patterns
 
 /**
+ * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
+ * -- allows to express `String, vararg String`.
+ */
+fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns = RegexPatterns(pattern, otherPatterns)
+
+/**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
  * regular expression [patterns], using a non disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 regex All(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
- * [RegexPatterns.expected] is defined as `'a(b)?'` and one of the [RegexPatterns.otherExpected] is defined
- * as `'a(b)?'` as well, then both match, even though they match the same sequence in the input of the search.
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
+ * [All] is defined as `all(Regex("a(b)?"), Regex("a(b)?"))` as well, then both match,
+ * even though they match the same sequence in the input of the search.
  * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `contains o exactly 2 regex "a(b)?"`
  * instead of:
- *   `contains o atLeast 1 the RegexPatterns("a(b)?", "a(b)?")`
+ *   `contains o atLeast 1 the all(Regex("a(b)?"), Regex("a(b)?"))`
  *
- * @param patterns The patterns which are expected to have a match against the input of the search.
+ * @param patterns The patterns which are expected to have a match against the input of the search --
+ *   use the function `all(Regex(...), ...)` to create a [All].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

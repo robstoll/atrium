@@ -18,10 +18,7 @@ class IterableContainsInAnyOrderAtMostValuesAssertionsSpec :
 
         private fun containsAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
             if(aX.isEmpty()) expect contains o inAny order atMost atMost value a
-            else expect contains o inAny order atMost atMost the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inAny order atMost atMost the values(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

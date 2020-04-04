@@ -4,6 +4,7 @@ import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
 
 /**
  * Parameter object to express `T, vararg T`.
+ *
+ * Use the function `all(t, ...)` to create this representation.
  */
-class All<out T>(override val expected: T, override vararg val otherExpected: T) :
-    VarArgHelper<T>
+class All<out T>(override val expected: T, override val otherExpected: Array<out T>) : VarArgHelper<T>

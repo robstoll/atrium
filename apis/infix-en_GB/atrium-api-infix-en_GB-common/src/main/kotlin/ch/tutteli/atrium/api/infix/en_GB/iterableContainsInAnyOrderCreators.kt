@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
  * value shall be searched within the [Iterable].
  *
- * Delegates to [values].
+ * Delegates to `the values(expected)`.
  *
  * @param expected The value which is expected to be contained within this [Iterable].
  *
@@ -22,24 +22,24 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
-    this the Values(expected)
+    this the values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
  * shall be searched within the [Iterable].
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
- * [values].[expected][Values.expected] is defined as `'a'` and one
- * [values].[otherExpected][Values.otherExpected] is defined as `'a'` as well, then both match,
- * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
- * number of occurrences you expect.
+ * [Values] is defined as `values("a", "a")`, then both match,
+ * even though they match the same sequence in the input of the search.
+ * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `to contain inAny order exactly 2 value 'a'`
  * instead of:
- *   `to contain inAny order exactly 1 the Values('a', 'a')`
+ *   `to contain inAny order exactly 1 the values('a', 'a')`
  *
- * @param values The values which are expected to be contained within the [Iterable].
+ * @param values The values which are expected to be contained within the [Iterable]
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -52,7 +52,7 @@ infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.th
  * holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
- * Delegates to [entries].
+ * Delegates to `the entries(assertionCreatorOrNull)`
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -63,9 +63,7 @@ infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.th
  */
 infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
-): Expect<T> = this the Entries(
-    assertionCreatorOrNull
-)
+): Expect<T> = this the entries(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -74,7 +72,8 @@ infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehav
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of
  * the [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].
  *
- * @param entries The parameter object which contains the identification lambdas.
+ * @param entries The entries which are expected to be contained within the [Iterable]
+ *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -102,5 +101,5 @@ inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSear
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
-    return this the Values(first, *rest)
+    return this the Values(first, rest)
 }

@@ -25,7 +25,8 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() = "$contains $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::containsInOrderOnlyValues
+        fun getContainsPair() =
+            "$contains $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::containsInOrderOnlyValues
 
         private fun containsInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
@@ -33,10 +34,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect contains o inGiven order and only value a
-            else expect contains o inGiven order and only the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inGiven order and only the values(a, *aX)
 
         fun getContainsNullablePair() =
             "$contains $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::containsInOrderOnlyNullableValues
@@ -47,10 +45,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect contains o inGiven order and only value a
-            else expect contains o inGiven order and only the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inGiven order and only the values(a, *aX)
 
         private val containsShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsExactly
@@ -63,10 +58,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect containsExactly a
-            else expect containsExactly ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect containsExactly values(a, *aX)
 
         private val containsNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Double?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsExactly
@@ -80,10 +72,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect containsExactly a
-            else expect containsExactly ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect containsExactly values(a, *aX)
     }
 }
 

@@ -13,13 +13,16 @@ import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
  * In case `null` is used for the identification lambda then it is expected that the corresponding entry
  * is `null` as well.
  *
+ * Use the function `entry { ... }` to create this representation.
+ *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
  *   to be identified if it holds all [Assertion]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
-class Entry<T : Any>(
+data class Entry<T : Any>(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>,
     GroupWithNullableEntries<(Expect<T>.() -> Unit)?> {
+
     override fun toList(): List<(Expect<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
 }

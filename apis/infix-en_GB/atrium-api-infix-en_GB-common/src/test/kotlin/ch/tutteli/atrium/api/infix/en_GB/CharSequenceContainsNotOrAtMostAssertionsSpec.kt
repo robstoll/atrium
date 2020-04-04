@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceContainsNotOrAtMostAssertionsSpec :
@@ -19,10 +18,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec :
 
         private fun containsNotOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect contains o notOrAtMost atMost value a
-            else expect contains o notOrAtMost atMost the Values(
-                a,
-                *aX
-            )
+            else expect contains o notOrAtMost atMost the values(a, *aX)
 
         private fun getNotOrAtMostIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" } to
@@ -35,10 +31,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec :
             aX: Array<out Any>
         ) =
             if (aX.isEmpty()) expect contains o ignoring case notOrAtMost atMost value a
-            else expect contains o ignoring case notOrAtMost atMost the Values(
-                a,
-                *aX
-            )
+            else expect contains o ignoring case notOrAtMost atMost the values(a, *aX)
 
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot

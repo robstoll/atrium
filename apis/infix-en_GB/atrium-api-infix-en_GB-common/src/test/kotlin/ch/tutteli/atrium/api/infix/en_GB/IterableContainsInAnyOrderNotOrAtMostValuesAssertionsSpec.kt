@@ -22,10 +22,7 @@ class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec :
             aX: Array<out Double>
         ) =
             if (aX.isEmpty()) expect contains o inAny order notOrAtMost atMost value a
-            else expect contains o inAny order notOrAtMost atMost the ch.tutteli.atrium.api.infix.en_GB.creating.Values(
-                a,
-                *aX
-            )
+            else expect contains o inAny order notOrAtMost atMost the values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

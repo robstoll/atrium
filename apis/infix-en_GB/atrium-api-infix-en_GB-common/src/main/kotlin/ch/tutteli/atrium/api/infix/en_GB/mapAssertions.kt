@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
-import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValue
-import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>) =
-    contains(Pairs(keyValuePair))
+    it contains pairs(keyValuePair)
 
 /**
  * Expects the subject of the assertion (a [Map]) contains for each entry in [keyValuePairs],
@@ -27,6 +27,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>)
  * in [keyValuePairs] is defined as `'a' to 1` and another one is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
+ * @param keyValuePairs The key-value [Pairs] expected to be contained within this [Map]
+ *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -34,31 +37,43 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V
     addAssertion(ExpectImpl.map.contains(this, keyValuePairs.toList()))
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
+ * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
- * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
- * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
+ * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
+ * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
+ *
+ * @param keyValue The [KeyWithValueCreator] whose key is expected to be contained within this [Map] and
+ *   where the corresponding value holds all assertions the  [KeyWithValueCreator.valueAssertionCreatorOrNull] creates
+ *   or needs to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
+ *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValue: KeyValue<K, V>): Expect<T> =
-    contains(All(keyValue))
+inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
+    it contains all(keyValue)
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains for each [KeyValue] in [keyValues],
- * a key as defined by [KeyValue.key] with a corresponding value which either holds all
- * assertions [KeyValue]'s [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
- * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
+ * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
+ * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ */
+fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?): KeyWithValueCreator<K, V> =
+    KeyWithValueCreator(key, valueAssertionCreatorOrNull)
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains for each [KeyWithValueCreator] in [keyValues],
+ * a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
+ * assertions [KeyWithValueCreator]'s [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
+ * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one [KeyValue] in
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one [KeyWithValueCreator] in
  * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
  * , then both match, even though they match the same entry.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValues: All<KeyValue<K, V>>) =
+inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValues: All<KeyWithValueCreator<K, V>>) =
     addAssertion(ExpectImpl.map.containsKeyWithValueAssertions(this, V::class, keyValues.toList().map { it.toPair() }))
 
 /**
