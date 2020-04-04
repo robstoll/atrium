@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
  *   to be identified if it holds all [Assertion]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
-data class Entry<T : Any>(
+data class Entry<T : Any> internal constructor(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>,
     GroupWithNullableEntries<(Expect<T>.() -> Unit)?> {

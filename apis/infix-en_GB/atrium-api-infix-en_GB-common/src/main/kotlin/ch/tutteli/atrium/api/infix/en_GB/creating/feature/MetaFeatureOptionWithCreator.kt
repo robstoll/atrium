@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.creating.MetaFeature
  *
  * @since 0.11.0
  */
-data class MetaFeatureOptionWithCreator<T, R>(
+data class MetaFeatureOptionWithCreator<T, R> internal constructor(
     val provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     val assertionCreator: Expect<R>.() -> Unit
 )

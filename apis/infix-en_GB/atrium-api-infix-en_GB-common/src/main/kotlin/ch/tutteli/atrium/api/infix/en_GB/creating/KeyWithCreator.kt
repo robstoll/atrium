@@ -11,4 +11,4 @@ import ch.tutteli.atrium.creating.Expect
  *
  *  @since 0.11.0
  */
-data class KeyWithCreator<out K, V>(val key: K, val assertionCreator: Expect<V>.() -> Unit)
+data class KeyWithCreator<out K, V> internal constructor(val key: K, val assertionCreator: Expect<V>.() -> Unit)

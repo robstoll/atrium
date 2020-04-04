@@ -10,4 +10,4 @@ import ch.tutteli.atrium.creating.Expect
  *
  *  @since 0.11.0
  */
-data class PresentWithCreator<E>(val assertionCreator: Expect<E>.() -> Unit)
+data class PresentWithCreator<E> internal constructor(val assertionCreator: Expect<E>.() -> Unit)

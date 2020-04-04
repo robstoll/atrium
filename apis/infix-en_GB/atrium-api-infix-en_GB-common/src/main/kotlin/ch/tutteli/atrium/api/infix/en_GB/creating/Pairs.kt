@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
  *
  * Use the function `pairs(x to y, ...)` to create this representation.
  */
-class Pairs<out K, out V>(
+class Pairs<out K, out V> internal constructor(
     override val expected: Pair<K, V>,
     override val otherExpected: Array<out Pair<K, V>>
 ) : VarArgHelper<Pair<K, V>>

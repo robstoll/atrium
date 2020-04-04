@@ -101,5 +101,5 @@ inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSear
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
-    return this the Values(first, rest)
+    return this the values(first, *rest)
 }

@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION" /* TODO remove suppress with 1.0.0 */)
+
 package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -24,7 +25,7 @@ import ch.tutteli.kbox.glue
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
-class Entries<T>(
+class Entries<T> internal constructor(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?,
     val otherAssertionCreatorsOrNulls: Array<out (Expect<T>.() -> Unit)?>
 ) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>,

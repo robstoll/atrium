@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
  *
  * Use the function `regexPatterns("pattern", ...)` to create this representation.
  */
-class RegexPatterns(pattern: String, otherPatterns: Array<out String>) :
+class RegexPatterns internal constructor(pattern: String, otherPatterns: Array<out String>) :
     VarArgHelper<String> {
     override val expected = pattern
     override val otherExpected = otherPatterns

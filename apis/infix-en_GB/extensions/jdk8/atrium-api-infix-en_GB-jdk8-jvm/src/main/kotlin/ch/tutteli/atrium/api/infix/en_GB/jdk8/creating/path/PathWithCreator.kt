@@ -12,4 +12,4 @@ import ch.tutteli.atrium.creating.Expect
  *
  *  @since 0.11.0
  */
-data class PathWithCreator<E>(val path: String, val assertionCreator: Expect<E>.() -> Unit)
+data class PathWithCreator<E> internal constructor(val path: String, val assertionCreator: Expect<E>.() -> Unit)

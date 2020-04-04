@@ -112,5 +112,5 @@ inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBeh
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
-    return this the Values(first, rest)
+    return this the values(first, *rest)
 }
