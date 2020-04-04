@@ -20,7 +20,7 @@ import ch.tutteli.kbox.glue
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
@@ -38,7 +38,7 @@ fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.value(expecte
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.values(
@@ -61,7 +61,7 @@ fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.values(
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entry(
@@ -84,7 +84,7 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entry
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entries(
@@ -110,7 +110,7 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entri
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *

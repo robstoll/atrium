@@ -19,7 +19,7 @@ import kotlin.jvm.JvmName
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
@@ -48,7 +48,7 @@ fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderEntries")

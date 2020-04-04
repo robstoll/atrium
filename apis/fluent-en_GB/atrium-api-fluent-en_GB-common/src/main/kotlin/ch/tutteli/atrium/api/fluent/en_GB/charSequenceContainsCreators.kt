@@ -23,7 +23,7 @@ import kotlin.jvm.JvmName
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
@@ -51,7 +51,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -75,7 +75,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
@@ -105,7 +105,7 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -130,7 +130,7 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
@@ -155,7 +155,7 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: A
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -183,7 +183,7 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.values(
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
@@ -209,7 +209,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -238,7 +238,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
@@ -268,7 +268,7 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
@@ -290,7 +290,7 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
@@ -318,7 +318,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
