@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
+import ch.tutteli.atrium.api.infix.en_GB.o
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
@@ -14,7 +15,7 @@ class FileAsPathAssertionsSpec : ch.tutteli.atrium.specs.integration.FileAsPathA
     private fun ambiguityTest() {
         var a1: Expect<File> = notImplemented()
 
-        a1.asPath()
+        a1 asPath o
         a1 = a1 asPath { }
     }
 }

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.list.IndexWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -31,4 +31,5 @@ infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> 
 /**
  * Helper function to create an [IndexWithCreator] based on the given [index] and [assertionCreator].
  */
-fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit) = IndexWithCreator(index, assertionCreator)
+fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit) =
+    IndexWithCreator(index, assertionCreator)

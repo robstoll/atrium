@@ -18,8 +18,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     fun1<Map<out String?, *>, String?>(Companion::containsKey).withNullableSuffix(),
     fun1<Map<out String, *>, String>(Companion::containsNotKey),
     fun1<Map<out String?, *>, String?>(Companion::containsNotKey).withNullableSuffix(),
-    "toBe ${Empty::class.simpleName}" to Companion::isEmpty,
-    "notToBe ${Empty::class.simpleName}" to Companion::isNotEmpty
+    "toBe ${empty::class.simpleName}" to Companion::isEmpty,
+    "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty
 ) {
     companion object : WithAsciiReporter() {
 
@@ -76,9 +76,9 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         private fun containsNotKey(expect: Expect<Map<out String?, *>>, key: String?) =
             expect containsNotKey key
 
-        private fun isEmpty(expect: Expect<Map<*, *>>) = expect toBe Empty
+        private fun isEmpty(expect: Expect<Map<*, *>>) = expect toBe empty
 
-        private fun isNotEmpty(expect: Expect<Map<*, *>>) = expect notToBe Empty
+        private fun isNotEmpty(expect: Expect<Map<*, *>>) = expect notToBe empty
 
     }
 
@@ -227,21 +227,21 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap containsNotKey 1f
 
 
-        map = map toBe Empty
-        subMap = subMap toBe Empty
-        nullableKeyMap = nullableKeyMap toBe Empty
-        nullableValueMap = nullableValueMap toBe Empty
-        nullableKeyValueMap = nullableKeyValueMap toBe Empty
-        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap toBe Empty
-        starMap = starMap toBe Empty
+        map = map toBe empty
+        subMap = subMap toBe empty
+        nullableKeyMap = nullableKeyMap toBe empty
+        nullableValueMap = nullableValueMap toBe empty
+        nullableKeyValueMap = nullableKeyValueMap toBe empty
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap toBe empty
+        starMap = starMap toBe empty
 
-        map = map notToBe Empty
-        subMap = subMap notToBe Empty
-        nullableKeyMap = nullableKeyMap notToBe Empty
-        nullableValueMap = nullableValueMap notToBe Empty
-        nullableKeyValueMap = nullableKeyValueMap notToBe Empty
-        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap notToBe Empty
-        starMap = starMap notToBe Empty
+        map = map notToBe empty
+        subMap = subMap notToBe empty
+        nullableKeyMap = nullableKeyMap notToBe empty
+        nullableValueMap = nullableValueMap notToBe empty
+        nullableKeyValueMap = nullableKeyValueMap notToBe empty
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap notToBe empty
+        starMap = starMap notToBe empty
 
     }
 }

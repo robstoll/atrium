@@ -6,19 +6,23 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
  *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.collection.isEmpty(this))
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
  *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.collection.isNotEmpty(this))
 
 /**

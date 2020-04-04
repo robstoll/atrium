@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
-import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -121,7 +121,8 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K,
 /**
  * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
  */
-fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit) = KeyWithCreator(key, assertionCreator)
+fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit) =
+    KeyWithCreator(key, assertionCreator)
 
 
 /**
@@ -147,19 +148,23 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<
 /**
  * Expects that the subject of the assertion (a [Map]) is an empty [Map].
  *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.map.isEmpty(this))
 
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
  *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.map.isNotEmpty(this))
 
 /**
