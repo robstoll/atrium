@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
  *
  * Use the function `value(t)` to create this representation.
  */
-data class Value<T>(val expected: T) : GroupWithNullableEntries<T>,
+data class Value<T> internal constructor(val expected: T) : GroupWithNullableEntries<T>,
     GroupWithoutNullableEntries<T> {
     override fun toList() = listOf(expected)
 }

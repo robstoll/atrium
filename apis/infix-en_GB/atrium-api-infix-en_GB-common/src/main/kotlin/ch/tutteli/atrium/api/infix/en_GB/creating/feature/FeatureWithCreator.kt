@@ -18,7 +18,7 @@ import kotlin.reflect.KProperty1
  *
  * @since 0.11.0
  */
-data class FeatureWithCreator<T, R>(
+data class FeatureWithCreator<T, R> internal constructor(
     val description: String,
     val extractor: (T) -> R,
     val assertionCreator: Expect<R>.() -> Unit

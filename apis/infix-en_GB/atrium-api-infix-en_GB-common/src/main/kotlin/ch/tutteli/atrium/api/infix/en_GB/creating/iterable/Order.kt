@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.builders.utils.Group
  *
  * Notice, most probably the type parameter G will be removed in the future, will be fixed to [Group].
  */
-class Order<out T, out G : Group<T>>(
+class Order<out T, out G : Group<T>> internal constructor(
     val firstGroup: G,
     val secondGroup: G,
     val otherExpectedGroups: Array<out G>

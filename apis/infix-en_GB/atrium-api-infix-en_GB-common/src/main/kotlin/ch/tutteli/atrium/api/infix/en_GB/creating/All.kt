@@ -7,4 +7,7 @@ import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
  *
  * Use the function `all(t, ...)` to create this representation.
  */
-class All<out T>(override val expected: T, override val otherExpected: Array<out T>) : VarArgHelper<T>
+class All<out T> internal constructor(
+    override val expected: T,
+    override val otherExpected: Array<out T>
+) : VarArgHelper<T>

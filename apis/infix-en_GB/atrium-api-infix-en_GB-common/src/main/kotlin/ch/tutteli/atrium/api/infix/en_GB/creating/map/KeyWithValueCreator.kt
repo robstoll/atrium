@@ -8,7 +8,10 @@ import ch.tutteli.atrium.creating.Expect
  *
  * Use the function `keyValue(x) { ... }` to create this representation.
  */
-data class KeyWithValueCreator<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?) {
+data class KeyWithValueCreator<out K, V : Any> internal constructor(
+    val key: K,
+    val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?
+) {
     fun toPair(): Pair<K, (Expect<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
     override fun toString(): String =
         "KeyValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) "null" else "lambda"})"

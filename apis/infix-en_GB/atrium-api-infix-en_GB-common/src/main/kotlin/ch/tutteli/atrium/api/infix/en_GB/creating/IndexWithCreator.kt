@@ -11,4 +11,4 @@ import ch.tutteli.atrium.creating.Expect
  *
  *  @since 0.11.0
  */
-data class IndexWithCreator<E>(val index: Int, val assertionCreator: Expect<E>.() -> Unit)
+data class IndexWithCreator<E> internal constructor(val index: Int, val assertionCreator: Expect<E>.() -> Unit)
