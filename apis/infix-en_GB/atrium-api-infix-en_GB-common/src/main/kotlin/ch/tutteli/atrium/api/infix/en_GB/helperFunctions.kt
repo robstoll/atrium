@@ -40,6 +40,18 @@ fun <T : Any> entries(
 fun <K, V> pairs(pair: Pair<K, V>, vararg otherPairs: Pair<K, V>): Pairs<K, V> = Pairs(pair, otherPairs)
 
 /**
+ * Helper function to create a [PresentWithCreator] based on the given [assertionCreator].
+ */
+fun <E> present(assertionCreator: Expect<E>.() -> Unit) =
+    PresentWithCreator(assertionCreator)
+
+/**
+ * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
+ */
+fun <E> success(assertionCreator: Expect<E>.() -> Unit) =
+    SuccessWithCreator(assertionCreator)
+
+/**
  * Helper function to create a [Value] based on the given [value].
  */
 fun <T> value(value: T): Value<T> = Value(value)
@@ -49,3 +61,4 @@ fun <T> value(value: T): Value<T> = Value(value)
  * -- allows to express `T, vararg T`.
  */
 fun <T> values(value: T, vararg otherValues: T): Values<T> = Values(value, otherValues)
+

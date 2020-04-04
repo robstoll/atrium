@@ -5,12 +5,12 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
-    "toBe ${Empty::class.simpleName}" to Companion::isEmpty,
-    "notToBe ${Empty::class.simpleName}" to Companion::isNotEmpty
+    "toBe ${empty::class.simpleName}" to Companion::isEmpty,
+    "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty
 ) {
     companion object : WithAsciiReporter() {
-        private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
-        private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
+        private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe empty
+        private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe empty
 
     }
 
@@ -21,14 +21,14 @@ class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionA
 
         val star: Expect<Collection<*>> = notImplemented()
 
-        a1 toBe Empty
-        a1 notToBe Empty
+        a1 toBe empty
+        a1 notToBe empty
 
-        a1b toBe Empty
-        a1b notToBe Empty
+        a1b toBe empty
+        a1b notToBe empty
 
-        star toBe Empty
-        star notToBe Empty
+        star toBe empty
+        star notToBe empty
     }
 }
 

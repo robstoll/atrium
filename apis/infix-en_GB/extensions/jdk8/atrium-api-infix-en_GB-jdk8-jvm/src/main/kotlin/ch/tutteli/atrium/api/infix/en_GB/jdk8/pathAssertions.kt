@@ -2,6 +2,7 @@
 
 package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.infix.en_GB.jdk8.creating.path.PathWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -188,7 +189,7 @@ infix fun <T : Path> Expect<T>.resolve(path: PathWithCreator<Path>): Expect<T> =
     ExpectImpl.path.resolve(this, path.path).addToInitial(path.assertionCreator)
 
 /**
- * Helper function to create an [PathWithCreator] based on the given [path] and [assertionCreator].
+ * Helper function to create a [PathWithCreator] based on the given [path] and [assertionCreator].
  */
 fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit) = PathWithCreator(path, assertionCreator)
 

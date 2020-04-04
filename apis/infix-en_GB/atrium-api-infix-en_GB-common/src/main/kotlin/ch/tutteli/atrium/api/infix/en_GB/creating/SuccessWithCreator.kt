@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.creating.result
+package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.creating.Expect
 

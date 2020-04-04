@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.infix.en_GB.creating.map
+package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.creating.Expect
 
@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.Expect
  *  a resulting feature of type [V].
  *
  *  Use the function `key(...) { ... }` to create this representation where the first parameter corresponds
- *  to the [key] and the second is the [assertionCreator]
+ *  to the [key] and the second is the [assertionCreator].
  *
  *  @since 0.11.0
  */

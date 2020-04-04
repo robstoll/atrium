@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
-import ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.creating.result.SuccessWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -57,8 +57,3 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
 inline infix fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = ExpectImpl.result.isFailure(this, TExpected::class).addToFeature(assertionCreator)
-
-/**
- * Helper function to create an [SuccessWithCreator] based on the given [assertionCreator].
- */
-fun <E> success(assertionCreator: Expect<E>.() -> Unit) = SuccessWithCreator(assertionCreator)

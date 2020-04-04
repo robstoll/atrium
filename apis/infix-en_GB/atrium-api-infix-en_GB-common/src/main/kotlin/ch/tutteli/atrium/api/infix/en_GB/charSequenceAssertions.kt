@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.RegexPatterns
+import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -173,7 +173,8 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(patterns: RegexPatterns): E
  * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
  * -- allows to express `String, vararg String`.
  */
-fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns = RegexPatterns(pattern, otherPatterns)
+fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
+    RegexPatterns(pattern, otherPatterns)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
@@ -285,32 +286,34 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
  *
- * @param Empty Has to be `Empty`.
+ * @param empty Use the pseudo-keyword `empty`.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.charSequence.isEmpty(this))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
  *
- * @param Empty Has to be `Empty`.
+ * @param empty Use the pseudo-keyword `empty`.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty) =
+infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
  *
+ * @param blank Use the pseudo-keyword `blank`.
+ *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") Blank: Blank) =
+infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank) =
     addAssertion(ExpectImpl.charSequence.isNotBlank(this))
 
 /**

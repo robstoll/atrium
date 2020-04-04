@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence
+package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
 
