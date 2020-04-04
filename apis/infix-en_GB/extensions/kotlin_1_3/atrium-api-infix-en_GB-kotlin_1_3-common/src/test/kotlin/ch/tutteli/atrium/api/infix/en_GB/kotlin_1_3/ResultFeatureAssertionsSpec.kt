@@ -1,14 +1,17 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.ResultFeatureAssertionsSpec
 import ch.tutteli.atrium.api.infix.en_GB.success
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.ResultFeatureAssertionsSpec
+import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withFeatureSuffix
+import ch.tutteli.atrium.specs.withNullableSuffix
 
 class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
     ("toBe ${success::class::simpleName}" to (Companion::toBeSuccessFeature)).withFeatureSuffix(),
     "toBe ${success::class::simpleName}" to Companion::toBeSuccess,
-    ("toBe ${success::class::simpleName}" to (Companion::toBeSuccessFeatureNullable)).withFeatureSuffix().withNullableSuffix(),
+    ("toBe ${success::class::simpleName}" to (Companion::toBeSuccessFeatureNullable)).withFeatureSuffix()
+        .withNullableSuffix(),
     ("toBe ${success::class::simpleName}" to (Companion::toBeSuccessNullable)).withNullableSuffix(),
     ("isFailure" to Companion::isFailureFeature).withFeatureSuffix(),
     "isFailure" to Companion::isFailure
@@ -28,6 +31,7 @@ class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
             expect: Expect<Result<Int>>,
             assertionCreator: Expect<Int>.() -> Unit
         ) = expect toBe success { assertionCreator() }
+
         private fun isFailure(
             expect: Expect<out Result<*>>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit

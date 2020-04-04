@@ -15,4 +15,4 @@ import kotlin.reflect.KProperty1
 
  * @since 0.11.0
  */
-data class Feature<T, R>(val description: String, val extractor: (T) -> R)
+data class Feature<T, R> internal constructor(val description: String, val extractor: (T) -> R)

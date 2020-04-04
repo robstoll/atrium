@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.creating.result
+package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.creating.Expect
 
@@ -9,4 +9,4 @@ import ch.tutteli.atrium.creating.Expect
  *
  * @since 0.11.0
  */
-data class SuccessWithCreator<E>(val assertionCreator: Expect<E>.() -> Unit);
+data class SuccessWithCreator<E> internal constructor(val assertionCreator: Expect<E>.() -> Unit);

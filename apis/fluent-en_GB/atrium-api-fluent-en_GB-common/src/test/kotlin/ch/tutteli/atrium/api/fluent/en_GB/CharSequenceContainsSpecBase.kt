@@ -42,18 +42,43 @@ abstract class CharSequenceContainsSpecBase {
         a1.contains.atLeast(2).regex(Regex("bla"), Regex("b"))
         a1.contains.atLeast(2).elementsOf(listOf("a", 2))
 
+        a1.containsNot.value(1)
+        a1.containsNot.values("a", 1)
+        a1.containsNot.regex("h|b", "b")
+        a1.containsNot.regex(Regex("bla"))
+        a1.containsNot.regex(Regex("bla"), Regex("b"))
+        a1.containsNot.elementsOf(listOf("a", 2))
+
         a1.contains.ignoringCase.atLeast(1).value("a")
         a1.contains.ignoringCase.atLeast(1).values("a", 'b')
         a1.contains.ignoringCase.atLeast(1).regex("a")
         a1.contains.ignoringCase.atLeast(1).regex("a", "bl")
+        // not supported on purpose as one can specify an ignore case flag for Regex
+        // and hence these would be a second way to do the same thing
+        //a1.contains.ignoringCase.atLeast(1).regex(Regex("a"))
+        //a1.contains.ignoringCase.atLeast(1).regex(Regex("a"), Regex("bl"))
         a1.contains.ignoringCase.atLeast(1).elementsOf(listOf(1, 2))
+
+        a1.containsNot.ignoringCase.value("a")
+        a1.containsNot.ignoringCase.values("a", 'b')
+        a1.containsNot.ignoringCase.regex("a")
+        a1.containsNot.ignoringCase.regex("a", "bl")
+        // not supported on purpose as one can specify an ignore case flag for Regex
+        // and hence these would be a second way to do the same thing
+        //a1.containsNot.ignoringCase.regex(Regex("a"))
+        //a1.containsNot.ignoringCase.regex(Regex("a"), Regex("bl"))
+        a1.containsNot.ignoringCase.elementsOf(listOf(1, 2))
 
         // skip atLeast
         a1.contains.ignoringCase.value("a")
         a1.contains.ignoringCase.values("a", 'b')
         a1.contains.ignoringCase.regex("a")
         a1.contains.ignoringCase.regex("a", "bl")
-        //TODO add (also to infix API)
-//        a1.contains.ignoringCase.elementsOf(listOf(1, 2))("a", "bl")
+        // not supported on purpose as one can specify an ignore case flag for Regex
+        // and hence these would be a second way to do the same thing
+        //a1.contains.ignoringCase.regex(Regex("a"))
+        //a1.contains.ignoringCase.regex(Regex("a"), Regex("bl"))
+        //TODO #422 uncomment
+        //a1.contains.ignoringCase.elementsOf(listOf("a", 2))
     }
 }

@@ -20,7 +20,10 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
             vararg otherExpected: Any
         ): Expect<Throwable> =
             if (otherExpected.isEmpty()) expect messageContains expected
-            else expect messageContains Values(expected, *otherExpected)
+            else expect messageContains values(
+                expected,
+                *otherExpected
+            )
 
         @Suppress("RemoveExplicitTypeArguments")
         private fun causeFeature(expect: Expect<out Throwable>): Expect<IllegalArgumentException> =
@@ -41,7 +44,11 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAss
         a1 = a1 message {}
         a1 = a1 messageContains "a"
         a1 = a1 messageContains 'a'
-        a1 = a1 messageContains Values("a", 1, 'b')
+        a1 = a1 messageContains values(
+            "a",
+            1,
+            'b'
+        )
 
         a1.cause<ClassCastException>()
         a1.cause<ClassCastException> { message { } }

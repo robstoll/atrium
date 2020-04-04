@@ -43,30 +43,69 @@ abstract class IterableContainsSpecBase {
     @Suppress("unused")
     private fun ambiguityTest() {
         val list: Expect<List<Number>> = notImplemented()
-        val nullableList: Expect<List<Number?>> = notImplemented()
+        val nullableList: Expect<Set<Number?>> = notImplemented()
         val subList: Expect<ArrayList<out Number>> = notImplemented()
+        val star: Expect<Collection<*>> = notImplemented()
 
         list.contains(1)
         list.contains(1f)
-        list.contains(1, 2)
         list.contains(1, 2f)
         list.contains {}
         list.contains({}, {})
+        list.containsNot(1)
+        list.containsNot(1f)
+        list.containsNot(1, 2f)
+        list.containsNot.entry {}
+        list.containsNot.entries({}, {})
+
         subList.contains(1)
         subList.contains(1f)
-        subList.contains(1, 2)
         subList.contains(1, 2f)
         subList.contains {}
         subList.contains({}, {})
+        subList.containsNot(1)
+        subList.containsNot(1f)
+        subList.containsNot(1, 2f)
+        subList.containsNot.entry {}
+        subList.containsNot.entries({}, {})
+
         nullableList.contains(1)
         nullableList.contains(1f)
-        nullableList.contains(1, 2)
         nullableList.contains(1, 2f)
         nullableList.contains {}
+        nullableList.contains({}, {})
+        nullableList.containsNot(1)
+        nullableList.containsNot(1f)
+        nullableList.containsNot(1, 2f)
+        nullableList.containsNot.entry {}
+        nullableList.containsNot.entries({}, {})
         nullableList.contains(null)
         nullableList.contains({}, null)
-        nullableList.contains({}, {})
         nullableList.contains(null, {})
+        nullableList.contains(null, null)
+        nullableList.containsNot(null)
+        nullableList.containsNot.entries({}, null)
+        nullableList.containsNot.entries(null, {})
+        nullableList.containsNot.entries(null, null)
+
+        star.contains(1)
+        star.contains(1f)
+        star.contains(1, 2f)
+        star.contains {}
+        star.contains({}, {})
+        star.containsNot(1)
+        star.containsNot(1f)
+        star.containsNot(1, 2f)
+        star.containsNot.entry {}
+        star.containsNot.entries({}, {})
+        star.contains(null)
+        star.contains({}, null)
+        star.contains(null, {})
+        star.contains(null, null)
+        star.containsNot(null)
+        star.containsNot.entries({}, null)
+        star.containsNot.entries(null, {})
+        star.containsNot.entries(null, null)
 
         list.containsExactly(1)
         list.containsExactly(1, 2f)
@@ -85,67 +124,162 @@ abstract class IterableContainsSpecBase {
         nullableList.containsExactly(null, {})
 
         list.contains.inAnyOrder.atLeast(1).value(1)
-        list.contains.inAnyOrder.atLeast(1).value(null)
+        list.contains.inAnyOrder.atLeast(1).values(2, 1)
         list.contains.inAnyOrder.atLeast(1).entry {}
-        list.contains.inAnyOrder.atLeast(1).entry(null)
+        list.contains.inAnyOrder.atLeast(1).entries({}, {})
+        list.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1, 2))
         subList.contains.inAnyOrder.atLeast(1).value(1)
-        subList.contains.inAnyOrder.atLeast(1).value(null)
+        subList.contains.inAnyOrder.atLeast(1).values(2, 1)
         subList.contains.inAnyOrder.atLeast(1).entry {}
-        subList.contains.inAnyOrder.atLeast(1).entry(null)
+        subList.contains.inAnyOrder.atLeast(1).entries({}, {})
+        subList.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1, 2))
+        nullableList.contains.inAnyOrder.atLeast(1).value(1)
+        nullableList.contains.inAnyOrder.atLeast(1).values(2, 1)
+        nullableList.contains.inAnyOrder.atLeast(1).entry {}
+        nullableList.contains.inAnyOrder.atLeast(1).entries({}, {})
+        nullableList.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1, 2))
+        nullableList.contains.inAnyOrder.atLeast(1).value(null)
+        nullableList.contains.inAnyOrder.atLeast(1).values(null, 1)
+        nullableList.contains.inAnyOrder.atLeast(1).values(2, null)
+        nullableList.contains.inAnyOrder.atLeast(1).values(null, null)
+        nullableList.contains.inAnyOrder.atLeast(1).entry(null)
+        nullableList.contains.inAnyOrder.atLeast(1).entries(null, {})
+        nullableList.contains.inAnyOrder.atLeast(1).entries({}, null)
+        nullableList.contains.inAnyOrder.atLeast(1).entries(null, null)
+        star.contains.inAnyOrder.atLeast(1).value(1)
+        star.contains.inAnyOrder.atLeast(1).values(2, 1)
+        star.contains.inAnyOrder.atLeast(1).entry {}
+        star.contains.inAnyOrder.atLeast(1).entries({}, {})
+        star.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1, 2))
+        star.contains.inAnyOrder.atLeast(1).value(null)
+        star.contains.inAnyOrder.atLeast(1).values(null, 1)
+        star.contains.inAnyOrder.atLeast(1).values(2, null)
+        star.contains.inAnyOrder.atLeast(1).values(null, null)
+        star.contains.inAnyOrder.atLeast(1).entry(null)
+        star.contains.inAnyOrder.atLeast(1).entries(null, {})
+        star.contains.inAnyOrder.atLeast(1).entries({}, null)
+        star.contains.inAnyOrder.atLeast(1).entries(null, null)
 
         list.contains.inAnyOrder.only.value(1)
-        list.contains.inAnyOrder.only.value(null)
+        list.contains.inAnyOrder.only.values(2, 1)
         list.contains.inAnyOrder.only.entry {}
-        list.contains.inAnyOrder.only.entry(null)
+        list.contains.inAnyOrder.only.entries({}, {})
+        list.contains.inAnyOrder.only.elementsOf(listOf(1, 2))
         subList.contains.inAnyOrder.only.value(1)
-        subList.contains.inAnyOrder.only.value(null)
+        subList.contains.inAnyOrder.only.values(2, 1)
         subList.contains.inAnyOrder.only.entry {}
-        subList.contains.inAnyOrder.only.entry(null)
+        subList.contains.inAnyOrder.only.entries({}, {})
+        subList.contains.inAnyOrder.only.elementsOf(listOf(1, 2))
+        nullableList.contains.inAnyOrder.only.value(1)
+        nullableList.contains.inAnyOrder.only.values(2, 1)
+        nullableList.contains.inAnyOrder.only.entry {}
+        nullableList.contains.inAnyOrder.only.entries({}, {})
+        nullableList.contains.inAnyOrder.only.elementsOf(listOf(1, 2))
+        nullableList.contains.inAnyOrder.only.value(null)
+        nullableList.contains.inAnyOrder.only.values(null, 1)
+        nullableList.contains.inAnyOrder.only.values(2, null)
+        nullableList.contains.inAnyOrder.only.values(null, null)
+        nullableList.contains.inAnyOrder.only.entry(null)
+        nullableList.contains.inAnyOrder.only.entries(null, {})
+        nullableList.contains.inAnyOrder.only.entries({}, null)
+        nullableList.contains.inAnyOrder.only.entries(null, null)
+        star.contains.inAnyOrder.only.value(1)
+        star.contains.inAnyOrder.only.values(2, 1)
+        star.contains.inAnyOrder.only.entry {}
+        star.contains.inAnyOrder.only.entries({}, {})
+        star.contains.inAnyOrder.only.elementsOf(listOf(1, 2))
+        star.contains.inAnyOrder.only.value(null)
+        star.contains.inAnyOrder.only.values(null, 1)
+        star.contains.inAnyOrder.only.values(2, null)
+        star.contains.inAnyOrder.only.values(null, null)
+        star.contains.inAnyOrder.only.entry(null)
+        star.contains.inAnyOrder.only.entries(null, {})
+        star.contains.inAnyOrder.only.entries({}, null)
+        star.contains.inAnyOrder.only.entries(null, null)
 
         list.contains.inOrder.only.value(1)
-        list.contains.inOrder.only.value(null)
+        list.contains.inOrder.only.values(2, 1)
         list.contains.inOrder.only.entry {}
-        list.contains.inOrder.only.entry(null)
+        list.contains.inOrder.only.entries({}, {})
+        list.contains.inOrder.only.elementsOf(listOf(1, 2))
         subList.contains.inOrder.only.value(1)
-        subList.contains.inOrder.only.value(null)
+        subList.contains.inOrder.only.values(2, 1)
         subList.contains.inOrder.only.entry {}
-        subList.contains.inOrder.only.entry(null)
-
+        subList.contains.inOrder.only.entries({}, {})
+        subList.contains.inOrder.only.elementsOf(listOf(1, 2))
+        nullableList.contains.inOrder.only.value(1)
+        nullableList.contains.inOrder.only.values(2, 1)
+        nullableList.contains.inOrder.only.entry {}
+        nullableList.contains.inOrder.only.entries({}, {})
+        nullableList.contains.inOrder.only.elementsOf(listOf(1, 2))
+        nullableList.contains.inOrder.only.value(null)
+        nullableList.contains.inOrder.only.values(null, 1)
+        nullableList.contains.inOrder.only.values(2, null)
+        nullableList.contains.inOrder.only.values(null, null)
+        nullableList.contains.inOrder.only.entry(null)
+        nullableList.contains.inOrder.only.entries(null, {})
+        nullableList.contains.inOrder.only.entries({}, null)
+        nullableList.contains.inOrder.only.entries(null, null)
+        star.contains.inOrder.only.value(1)
+        star.contains.inOrder.only.values(2, 1)
+        star.contains.inOrder.only.entry {}
+        star.contains.inOrder.only.entries({}, {})
+        star.contains.inOrder.only.elementsOf(listOf(1, 2))
+        star.contains.inOrder.only.value(null)
+        star.contains.inOrder.only.values(null, 1)
+        star.contains.inOrder.only.values(2, null)
+        star.contains.inOrder.only.values(null, null)
+        star.contains.inOrder.only.entry(null)
+        star.contains.inOrder.only.entries(null, {})
+        star.contains.inOrder.only.entries({}, null)
+        star.contains.inOrder.only.entries(null, null)
 
         list.contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
-            Value(null),
             Values(1f),
-            Values(null),
-            Values(1f, 1),
-            Values(1, null),
-            Values(null, null)
+            Values(1f, 1)
         )
         subList.contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
-            Value(null),
             Values(1f),
+            Values(1f, 1)
+        )
+        nullableList.contains.inOrder.only.grouped.within.inAnyOrder(
+            Value(null),
             Values(null),
-            Values(1f, 1),
+            Values(null, 2),
+            Values(1, null),
+            Values(null, null)
+        )
+        star.contains.inOrder.only.grouped.within.inAnyOrder(
+            Value(null),
+            Values(null),
+            Values(null, 2),
             Values(1, null),
             Values(null, null)
         )
 
         list.contains.inOrder.only.grouped.within.inAnyOrder(
             Entry {},
-            Entry(null),
             Entries({}),
+            Entries({}, {})
+        )
+        subList.contains.inOrder.only.grouped.within.inAnyOrder(
+            Entry {},
+            Entries({}),
+            Entries({}, {})
+        )
+        nullableList.contains.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null),
             Entries(null),
-            Entries({}, {}),
+            Entries(null, {}),
             Entries({}, null),
             Entries(null, null)
         )
-        subList.contains.inOrder.only.grouped.within.inAnyOrder(
-            Entry {},
+        star.contains.inOrder.only.grouped.within.inAnyOrder(
             Entry(null),
-            Entries({}),
             Entries(null),
-            Entries({}, {}),
+            Entries(null, {}),
             Entries({}, null),
             Entries(null, null)
         )

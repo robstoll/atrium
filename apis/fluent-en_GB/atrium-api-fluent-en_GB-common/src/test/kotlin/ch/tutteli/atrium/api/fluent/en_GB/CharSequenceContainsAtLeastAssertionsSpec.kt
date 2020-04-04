@@ -29,14 +29,14 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     ) {})
 
     include(object : Spek({
-        describe("elementsOf") {
+        describe("atLeast(1).elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.atLeast(1).elementsOf(emptyList())
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
-        describe("elementsOf ignoring case") {
+        describe("ignoringCase.atLeast(1).elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.ignoringCase.atLeast(1).elementsOf(emptyList())

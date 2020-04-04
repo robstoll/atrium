@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 
@@ -35,7 +36,7 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Throwable> Expect<T>.messageContains(expected: Any): Expect<T> =
-    this messageContains Values(expected)
+    this messageContains values(expected)
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and contains
@@ -43,6 +44,9 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: Any): Expect<T> =
  **
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
  * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
+ * @param values The values which are expected to be contained within [Throwable.message]
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -59,7 +63,6 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  *
  * @since 0.11.0
  */
-@Suppress("RemoveExplicitTypeArguments")
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
     ExpectImpl.throwable.cause(this, TExpected::class).getExpectOfFeature()
 
@@ -76,7 +79,6 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  *
  * @since 0.11.0
  */
-@Suppress("RemoveExplicitTypeArguments")
 inline infix fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> =
