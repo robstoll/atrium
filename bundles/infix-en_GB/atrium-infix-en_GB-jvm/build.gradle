@@ -1,0 +1,16 @@
+description = 'Represents a convenience module which merely bundles dependencies for the JVM platform.'
+
+dependencies {
+    api prefixedProject('verbs-jvm')
+    api prefixedProject('api-infix-en_GB-jvm')
+    api prefixedProject('translations-en_GB-jvm')
+    api prefixedProject('domain-builders-jvm')
+    api prefixedProject('domain-api-jvm')
+    api prefixedProject('core-api-jvm')
+
+    runtimeOnly prefixedProject('domain-robstoll-jvm')
+    runtimeOnly prefixedProject('core-robstoll-jvm')
+
+    //TODO remove once all specs are with spek2 where they are set via spek plugin
+    spekDep(delegate)
+}
