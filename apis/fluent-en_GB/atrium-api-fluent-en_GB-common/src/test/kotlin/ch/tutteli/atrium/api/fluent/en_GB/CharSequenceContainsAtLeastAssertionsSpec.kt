@@ -101,7 +101,12 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             a: Any,
             aX: Array<out Any>
         ): Expect<CharSequence> =
-            expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a, *aX))
+            if (aX.isEmpty()) {
+                expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a))
+            } else {
+                expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a, *aX))
+            }
+
 
         private val atLeastButAtMostDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
             "$contains $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
