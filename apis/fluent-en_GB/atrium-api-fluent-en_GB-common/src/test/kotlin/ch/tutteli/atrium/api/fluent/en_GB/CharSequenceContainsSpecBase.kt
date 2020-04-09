@@ -78,7 +78,6 @@ abstract class CharSequenceContainsSpecBase {
         // and hence these would be a second way to do the same thing
         //a1.contains.ignoringCase.regex(Regex("a"))
         //a1.contains.ignoringCase.regex(Regex("a"), Regex("bl"))
-        //TODO #422 uncomment
-        //a1.contains.ignoringCase.elementsOf(listOf("a", 2))
+        a1.contains.ignoringCase.elementsOf(listOf("a", 2))
     }
 }
