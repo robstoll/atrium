@@ -36,10 +36,10 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
-        describe("ignoringCase.atLeast(1).elementsOf") {
+        describe("ignoringCase.elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
-                    expect("test").contains.ignoringCase.atLeast(1).elementsOf(emptyList())
+                    expect("test").contains.ignoringCase.elementsOf(emptyList())
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
@@ -102,11 +102,12 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ): Expect<CharSequence> =
             if (aX.isEmpty()) {
-                expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a))
+                if (atLeast == 1) expect.contains.ignoringCase.elementsOf(listOf(a))
+                else expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a))
             } else {
-                expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a, *aX))
+                if (atLeast == 1) expect.contains.ignoringCase.elementsOf(listOf(a, *aX))
+                else expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a, *aX))
             }
-
 
         private val atLeastButAtMostDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
             "$contains $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
