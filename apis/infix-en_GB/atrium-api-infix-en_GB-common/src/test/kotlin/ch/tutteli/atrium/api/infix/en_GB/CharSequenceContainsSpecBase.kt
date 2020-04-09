@@ -87,8 +87,7 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
         // and hence these would be a second way to do the same thing
         //a1 contains o ignoring case matchFor Regex("a")
         //a1 contains o ignoring case matchFor all(Regex("a"), Regex("bl"))
-        //TODO #422 uncomment
-        //a1 contains o ignoring case elementsOf listOf("a", 2)
+        a1 contains o ignoring case elementsOf listOf("a", 2)
 
         a1 and { it contains o atLeast 1 value 1 }
         a1 and { it contains o atMost 2 the values("a", 1) }
