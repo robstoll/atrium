@@ -17,10 +17,10 @@ import kotlin.jvm.JvmName
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>> =
@@ -38,10 +38,10 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>> =
@@ -59,10 +59,10 @@ fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.()
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("byteArrAsIterable")
@@ -81,10 +81,10 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("byteArrAsIterable")
@@ -103,10 +103,10 @@ fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> 
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("charArrAsIterable")
@@ -125,10 +125,10 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("charArrAsIterable")
@@ -147,10 +147,10 @@ fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> 
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("shortArrAsIterable")
@@ -169,10 +169,10 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("shortArrAsIterable")
@@ -191,10 +191,10 @@ fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("intArrAsIterable")
@@ -212,10 +212,10 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>> = ExpectImpl.changeSubj
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("intArrAsIterable")
@@ -234,10 +234,10 @@ fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Un
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("longArrAsIterable")
@@ -256,10 +256,10 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("longArrAsIterable")
@@ -278,10 +278,10 @@ fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> 
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("floatArrAsIterable")
@@ -300,10 +300,10 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("floatArrAsIterable")
@@ -322,10 +322,10 @@ fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("doubleArrAsIterable")
@@ -344,10 +344,10 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("doubleArrAsIterable")
@@ -366,10 +366,10 @@ fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.()
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert()",
+        "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("boolArrAsIterable")
@@ -388,10 +388,10 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>> =
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asIterable().asAssert(assertionCreator)",
+        "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.asIterable"
+        "ch.tutteli.atrium.api.fluent.en_GB.asList"
     )
 )
 @JvmName("boolArrAsIterable")
