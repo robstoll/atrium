@@ -7,6 +7,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
@@ -35,7 +36,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
                 .withAssertions(listOf())
                 .build()
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
-            expect(sb.toString()).toBe("$name:$separator$indentBulletPoint$subject")
+            expect(sb.toString()).toBe("$name:$lineSeperator$indentBulletPoint$subject")
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
@@ -53,7 +54,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         context("current indent 0, no prefix") {
             it("puts the representation on the next line without indent") {
                 testee.format(parameterObject, Untranslatable(name), subject)
-                expect(sb.toString()).toBe("$name:$separator$subject")
+                expect(sb.toString()).toBe("$name:$lineSeperator$subject")
             }
         }
 
@@ -61,7 +62,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
             it("puts the representation on the next line with 2 indent") {
                 val newParameterObject = parameterObject.createChildWithNewPrefix("==")
                 testee.format(newParameterObject, Untranslatable(name), subject)
-                expect(sb.toString()).toBe("$name:$separator  $subject")
+                expect(sb.toString()).toBe("$name:$lineSeperator  $subject")
             }
         }
 
