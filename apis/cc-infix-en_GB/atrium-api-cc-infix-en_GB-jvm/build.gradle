@@ -13,6 +13,7 @@ dependencies {
     api prefixedProject('domain-builders-jvm')
 
     testImplementation prefixedProject('verbs-internal-jvm')
+    testImplementation prefixedProject('api-infix-en_GB-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124

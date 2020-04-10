@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* remove once we have migrated to new infix API */)
 package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.Values

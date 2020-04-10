@@ -10,4 +10,7 @@ dependencies {
 
     runtimeOnly prefixedProject('domain-robstoll-android')
     runtimeOnly prefixedProject('core-robstoll-android')
+
+    // here to ease migration; so that ReplaceWith of @Deprecated works
+    api prefixedProject('api-infix-en_GB-android')
 }

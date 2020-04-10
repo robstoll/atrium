@@ -11,4 +11,7 @@ dependencies {
     //TODO should be runtimeOnly but due to https://youtrack.jetbrains.com/issue/KT-27797 it cannot be
     implementation prefixedProject('domain-robstoll-js')
     implementation prefixedProject('core-robstoll-js')
+
+    // here to ease migration; so that ReplaceWith of @Deprecated works
+    api prefixedProject('api-infix-en_GB-js')
 }
