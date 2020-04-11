@@ -168,15 +168,6 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGive
  *
  * @return This plant to support a fluent API.
  */
-@Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
-    ReplaceWith(
-        "this.asExpect().and(assertionCreator).asAssert()",
-        "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.and"
-    )
-)
 infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
 
