@@ -9,7 +9,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
-import org.jetbrains.spek.api.Spek
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import java.nio.file.Paths
 
 object SmokeSpec : Spek({

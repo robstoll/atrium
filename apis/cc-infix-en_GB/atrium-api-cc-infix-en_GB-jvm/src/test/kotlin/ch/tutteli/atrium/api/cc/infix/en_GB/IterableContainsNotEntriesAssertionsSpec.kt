@@ -5,6 +5,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsNotEntriesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotEntriesAssertionsSpec(
     AssertionVerbFactory,
     getContainsNotPair(),

@@ -30,9 +30,10 @@ class TranslationSupplierBasedTranslator(
     fallbackLocales: List<Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
-    override fun translateWithoutArgs(translatable: Translatable): String =
-        localeOrderDecider.determineOrder(primaryLocale, fallbackLocales)
+    override fun translateWithoutArgs(translatable: Translatable): String {
+        return localeOrderDecider.determineOrder(primaryLocale, fallbackLocales)
             .map { translationSupplier.get(translatable, it) }
             .firstOrNull { it != null }
             ?: translatable.getDefault()
+    }
 }

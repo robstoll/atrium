@@ -3,7 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.builders.utils.toVarArg
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
 
@@ -19,10 +20,10 @@ import ch.tutteli.kbox.glue
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -38,10 +39,10 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeha
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
+fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
 ): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrderOnly(this, expected glue otherExpected))
@@ -61,10 +62,10 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeha
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(
+fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -93,10 +94,10 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = addAssertion(
@@ -119,15 +120,15 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable]
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
  * @since 0.9.0
  */
-inline fun <reified E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+inline fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed" }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
 }

@@ -5,6 +5,7 @@ dependencies {
     api prefixedProject('domain-builders-android')
 
     testImplementation prefixedProject('verbs-internal-android')
+    testImplementation prefixedProject('api-infix-en_GB-android')
 }
 
 srcAndResourcesFromJvmProject(project)

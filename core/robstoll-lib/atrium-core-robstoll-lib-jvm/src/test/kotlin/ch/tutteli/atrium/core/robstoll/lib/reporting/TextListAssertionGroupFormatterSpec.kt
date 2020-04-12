@@ -6,11 +6,9 @@ import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.include
+import org.spekframework.spek2.Spek
 import kotlin.reflect.KClass
 
-//TODO #116 migrate spek1 to spek2 - move to common module
 class TextListAssertionGroupFormatterSpec : Spek({
 
     include(AtriumsTextListAssertionFormatterSpec)

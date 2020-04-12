@@ -2,31 +2,26 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
-import ch.tutteli.atrium.specs.fun0
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.notImplemented
-import kotlin.reflect.KFunction3
+import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.mfun2
+import kotlin.jvm.JvmName
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
-    fun2<Map<out String, Int>, Pair<String, Int>, Array<out Pair<String, Int>>>(Expect<Map<out String, Int>>::contains),
-    fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>(Expect<Map<out String?, Int?>>::contains),
-    "${containsKeyWithValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsKeyValue,
-    "${containsKeyWithNullableValueAssertionsFun.name} ${KeyValue::class.simpleName}" to Companion::containsNullable,
+    mfun2<String, Int, Int>(Expect<Map<out String, Int>>::contains),
+    mfun2<String?, Int?, Int?>(Expect<Map<out String?, Int?>>::contains).withNullableSuffix(),
+    mfun2<String, Int, Expect<Int>.() -> Unit>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
+    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" }
+        .withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsKey),
-    fun1(Expect<Map<out String?, *>>::containsKey),
+    fun1(Expect<Map<out String?, *>>::containsKey).withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsNotKey),
-    fun1(Expect<Map<out String?, *>>::containsNotKey),
+    fun1(Expect<Map<out String?, *>>::containsNotKey).withNullableSuffix(),
     fun0(Expect<Map<*, *>>::isEmpty),
     fun0(Expect<Map<*, *>>::isNotEmpty)
 ) {
-    companion object {
-        //@formatter:off
-        private val containsKeyWithValueAssertionsFun : KFunction3<Expect<Map<out String, Int>>, KeyValue<String, Int>, Array<out KeyValue<String, Int>>, Expect<Map<out String, Int>>> = Expect<Map<out String, Int>>::contains
-        private val containsKeyWithNullableValueAssertionsFun : KFunction3<Expect<Map<out String?, Int?>>, KeyValue<String?, Int>, Array<out KeyValue<String?, Int>>, Expect<Map<out String?, Int?>>> = Expect<Map<out String?, Int?>>::contains
-        //@formatter:on
 
-        fun containsKeyValue(
+    companion object {
+        private fun contains(
             expect: Expect<Map<out String, Int>>,
             keyValue: Pair<String, Expect<Int>.() -> Unit>,
             otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
@@ -34,13 +29,15 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
             expect.contains(first, *others)
         }
 
-        fun containsNullable(
+        @JvmName("containsNullable")
+        private fun contains(
             expect: Expect<Map<out String?, Int?>>,
             keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
             otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
         ) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
             expect.contains(first, *others)
         }
+
     }
 
     @Suppress("unused", "UNUSED_VALUE")

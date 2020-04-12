@@ -4,7 +4,8 @@ dependencies {
     api kbox(), excludeKotlin
     api kotlinReflect()
 
-    testImplementation prefixedProject('cc-infix-en_GB-robstoll-android')
+    testImplementation prefixedProject('api-infix-en_GB-android')
+    testImplementation prefixedProject('api-cc-infix-en_GB-android')
     testImplementation prefixedProject('specs-android')
 }
 

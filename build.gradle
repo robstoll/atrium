@@ -1,9 +1,12 @@
 buildscript {
-    rootProject.version = '0.10.0-SNAPSHOT'
+    rootProject.version = '0.11.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
         it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
+    }
+    def toolProjectsFun = subprojects.findAll {
+        it.projectDir.path.contains('/misc/tools/') || it.projectDir.path.contains('\\misc\\tools\\')
     }
     ext {
         // main
@@ -11,14 +14,14 @@ buildscript {
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         niok_version = '1.3.4'
         niok = { "ch.tutteli.niok:niok:$niok_version" }
-        kotlin_version = '1.3.61'
+        kotlin_version = '1.3.71'
 
         // test
         jacoco_tool_version = '0.8.5'
-        junit_platform_version = '1.6.0'
-        jupiter_version = '5.6.0'
+        junit_platform_version = '1.6.1'
+        jupiter_version = '5.6.1'
         spek_version = '1.1.5'
-        spek2_version = '2.0.8'
+        spek2_version = '2.0.10'
         spekExtensions_version = '1.1.0'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.9.3'
@@ -32,14 +35,12 @@ buildscript {
         node_plugin_version = '2.2.0'
 
         // gh-pages.gradle
-        docProjects = subprojects.findAll {
+        docProjects = (subprojects - sampleProjectsFun - toolProjectsFun).findAll {
             !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
-                !it.name.startsWith("${rootProject.name}-specs") &&
-                !(it.projectDir.path.contains("/samples/") || it.projectDir.path.contains("\\samples\\")) &&
-                !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\"))
+                !it.name.startsWith("${rootProject.name}-specs")
         }
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
@@ -48,11 +49,13 @@ buildscript {
 
 
         sampleProjects = sampleProjectsFun
+        toolProjects = toolProjectsFun
+
         // jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
-                (subprojects - deprecatedProjects - sampleProjectsFun).findAll {
+                (subprojects - deprecatedProjects - sampleProjectsFun - toolProjectsFun).findAll {
                     !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
                         // would have two classes with the same name if we add it as project as well,
@@ -60,13 +63,11 @@ buildscript {
                         it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec" &&
-                        !it.name.startsWith("${rootProject.name}-specs") &&
-                        !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\"))
+                        !it.name.startsWith("${rootProject.name}-specs")
                 },
             jacocoProjects:
-                (subprojects - deprecatedProjects - sampleProjectsFun).findAll {
+                (subprojects - deprecatedProjects - sampleProjectsFun - toolProjectsFun).findAll {
                     !(it.projectDir.path.contains("/translations/") || it.projectDir.path.contains("\\translations\\")) &&
-                        !(it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\")) &&
                         !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
@@ -98,6 +99,16 @@ buildscript {
                 }
             }
         }
+
+        //TODO dependencies no longer required once all specs are with spek2 where they are set via spek plugin
+        spekDep = { closure ->
+            delegate = closure
+            testRuntimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+            testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+            testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
+            testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
+        }
+
     }
 
     repositories {
@@ -211,14 +222,16 @@ configure(jsProjects) { subProject ->
     }
 }
 
-
-configure(subprojects - commonProjects - jsProjects - sampleProjects) {
+def nonCommonJsAndSampleProjects = subprojects - commonProjects - jsProjects - sampleProjects
+configure(nonCommonJsAndSampleProjects - toolProjects) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
     dokka {
         logging.setLevel(LogLevel.QUIET)
     }
+}
+configure(nonCommonJsAndSampleProjects) {
     compileKotlin {
         kotlinOptions {
             languageVersion = '1.2'
@@ -257,9 +270,11 @@ configure(apiProjects) { apiProject ->
     createTestSourcesJarTask(apiProject)
 }
 
-def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
+def bundleSmokeTests = subprojects.findAll { it.name.contains('-smoke-test') }
+//TODO new infix API: remove once we are ready to publish the new API
+def newInfixApiModules = subprojects.findAll { it.name.contains('-api-infix') }
 
-configure(subprojects - bundleSmokeTests - sampleProjects) { subproject ->
+configure(subprojects - bundleSmokeTests - sampleProjects - toolProjects - newInfixApiModules) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {
@@ -308,7 +323,7 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     }
 }
 
-configure(subprojects - sampleProjects) {
+configure(subprojects - sampleProjects - toolProjects) {
     sourceSets {
         all {
             languageSettings {
@@ -323,25 +338,36 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
 configure(bundleSmokeTests) {
-    def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
-    Project bundle = project(":$bundleUnderTest-jvm")
 
-    description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
+    def suffix = "-smoke-test"
+    def isABundleAndNotExtensionSmokeTest = it.name.endsWith(suffix)
+    if (isABundleAndNotExtensionSmokeTest) {
+        def bundleUnderTest = it.name.substring(0, it.name.indexOf(suffix))
+        Project bundle = project(":$bundleUnderTest-jvm")
 
-    sourceCompatibility = JavaVersion.current()
-    targetCompatibility = JavaVersion.current()
+        description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
 
-    ext.jacoco_additional = [bundle]
+        sourceCompatibility = JavaVersion.current()
+        targetCompatibility = JavaVersion.current()
 
-    sourceSets {
-        // we are reusing the source from the bundle, so that we do not have to re-invent the spec
-        test { kotlin { srcDirs += ["${bundle.projectDir}/src/test/kotlin"] } }
-    }
+        ext.jacoco_additional = [bundle]
 
-    dependencies {
-        //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
-        testImplementation bundle
-        testImplementation prefixedProject('verbs-jvm')
+        sourceSets {
+            // we are reusing the source from the bundle, so that we do not have to re-invent the spec
+            test { kotlin { srcDirs += ["${bundle.projectDir}/src/test/kotlin"] } }
+        }
+
+        dependencies {
+            //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
+            testImplementation bundle
+            //TODO remove once all specs are with spek2 where they are set via spek plugin
+            spekDep(delegate)
+        }
+    } else {
+        //TODO remove once all specs are with spek2 where they are set via spek plugin
+        dependencies {
+            spekDep(delegate)
+        }
     }
 }
 
@@ -445,7 +471,7 @@ def createJsTestTask(String... subprojectNames) {
             command = "mocha"
             args = [compileTestKotlin2Js.outputFile]
         }
-        check.dependsOn runMocha
+        test.dependsOn runMocha
     }
 }
 
@@ -511,46 +537,50 @@ configure(subprojects - getJsProjects()) { subproject ->
 }
 
 /*
-
 Release & deploy a commit
 --------------------------------
-1. change rootProject.version in build.gradle to X.Y.Z
-2. update master:
-    a) point to the tag
-        1) search for old version and replace with new, except for samples (gradle, maven and section own assertion verb in README.md)
-        2) search for branch/master and replace with branch/vX.Y.Z  (coverage in README.md)
-        3) adjust branch=master manually, use tag=vX.Y.Z except for travis where you need to use branch=vX.Y.Z
-        4) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
-        5) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
-        6) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
-    b) Update README -> Use own Assertion Verbs -> link to atriumVerbs if it changed
-    c) commit & push (modified build.gradle, README.md and differences.md)
-3. update github pages:
+1. update master:
+    a) change rootProject.version in build.gradle and in example-pom.xml to X.Y.Z
+    b) search for old version in README.md and replace with new
+    c) search for `tree/master` in all .md files and replace it with `tree/vX.Y.Z`
+    d) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
+    e) use the release badges in README (comment out the ones for master and uncomment the ones for the release)
+    f) comment out the warning in README.md about taking a sneak peak
+    g) commit & push (modified CONTRIBUTING.md, differences.md, example-pom.xml, build.gradle and README.md)
+
+2. update github pages:
+assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
     a) gr ghPages
     b) change version number in atrium-gh-pages/latest/index.html
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
-4. deploy to bintray:
+
+3. deploy to bintray:
     // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gradlew clean publishToBintray
+    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check that there are 926 artifacts and publish them
     c) synchronise to maven central
-5. create release on github
+
+4. create release on github
     a) git tag vX.Y.Z
     b) git push origin vX.Y.Z
     c) Log in to github and create release
 
 Prepare next dev cycle
 -----------------------
-1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
-2. point to master
-   a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
-   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
-3. update README
-   a) place the warning about taking a sneak peek back into README
-   b) update version in the warning to X.Y.Z and update the link as well
-4. Use new version in samples (search again for the old-version and replace with new)
-5. commit & push changes
-6. establish backward compatibility tests for the previous version
+1. update samples
+   a) use newly released version in samples (search again for the old-version and replace with new)
+   b) commit & push changes
+
+2. update master:
+   a) search for `tree/vX.Y.Z` in all .md files and replace it with `tree/master`
+   b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
+   c) use the master badges in README (uncomment them in README and comment out release badges)
+   d) uncomment the warning about taking a sneak peek in README and revert `tree/master` still point to the tag
+   e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
+   f) commit & push changes
+
+3. establish backward compatibility tests for the previous version
+   a) add new version at the end of atrium-bc-test/build.gradle
+   b) commit & push changes
 */

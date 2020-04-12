@@ -1,0 +1,42 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '1.3.61'
+}
+repositories {
+    mavenCentral()
+    jcenter()
+}
+group 'com.atrium'
+version '0.0.1'
+
+apply plugin: 'maven-publish'
+
+kotlin {
+    def atrium_version = '0.10.0'
+    jvm()
+    js {
+        nodejs {}
+    }
+    sourceSets {
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+                implementation "ch.tutteli.atrium:atrium-fluent-en_GB-common:$atrium_version"
+            }
+        }
+        jvmTest {
+            dependencies {
+                implementation kotlin('test')
+                implementation kotlin('test-junit')
+                implementation "org.junit.jupiter:junit-jupiter-api:5.3.1"
+                implementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
+            }
+        }
+        jsTest {
+            dependencies {
+                implementation kotlin('test-js')
+                implementation "ch.tutteli.atrium:atrium-fluent-en_GB-js:$atrium_version"
+            }
+        }
+    }
+}

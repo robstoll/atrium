@@ -35,19 +35,19 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
- * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
+ * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use the property `contains` to create a more sophisticated `contains`
  * assertion where you can use options such as [atLeast], [atMost] and [exactly] to control the number of occurrences
  * you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).value('a')`
+ *   `contains.exactly(2).value("a")`
  * instead of:
- *   `contains('a', 'a')`
+ *   `contains("a", "a")`
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
@@ -64,7 +64,7 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected: Any) =
@@ -76,9 +76,9 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -90,7 +90,7 @@ fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatterns: String): Expect<T> =
@@ -102,9 +102,9 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -116,7 +116,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -127,7 +127,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
@@ -136,7 +136,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -146,7 +146,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char) = startsWith(expecte
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
@@ -155,7 +155,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -166,7 +166,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) = startsNotWith(e
 /**
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
@@ -175,7 +175,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
 /**
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -185,7 +185,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char) = endsWith(expected.to
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
@@ -194,7 +194,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -205,7 +205,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) = endsNotWith(expec
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequence.isEmpty(this))
@@ -213,7 +213,7 @@ fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequenc
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
@@ -221,7 +221,7 @@ fun <T : CharSequence> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.charSequ
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
  *
- * @return This assertion container to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequence.isNotBlank(this))
@@ -229,7 +229,9 @@ fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequ
 /**
  * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
  *
- * @return This assertion container to support a fluent API.
+ * In contrast to [containsRegex] it does not look for a partial match but for an entire match.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
@@ -240,7 +242,9 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
  *
- * @return This assertion container to support a fluent API.
+ * In contrast to `containsNot.regex` it does not look for a partial match but for an entire match.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0

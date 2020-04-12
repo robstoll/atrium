@@ -7,6 +7,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableAllAssertionsSpec: Spek({
     include(PredicateSpec)
 }) {

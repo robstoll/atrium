@@ -11,6 +11,7 @@ interface VarArgHelper<out T> {
      * The first argument in the argument list `T, vararg T`
      */
     val expected: T
+
     /**
      * The second argument in the argument list `T, vararg T`
      */
@@ -19,10 +20,21 @@ interface VarArgHelper<out T> {
     /**
      * Creates an [ArgumentMapperBuilder] which allows to map [expected] and [otherExpected].
      */
-    val mapArguments get() = ArgumentMapperBuilder(expected, otherExpected)
+    val mapArguments: ArgumentMapperBuilder<T> get() = ArgumentMapperBuilder(expected, otherExpected)
 
     /**
      * Returns the arguments as [List].
      */
     fun toList(): List<T> = expected glue otherExpected
+}
+
+/**
+ * Transforms the given [iterable] to `Pair<T, Array<out T>>` with the intend that it can be easily used for a function
+ * requiring `T, vararg T`
+ *
+ * @throws IllegalArgumentException in case the iterable is empty.
+ */
+inline fun <reified T> toVarArg(iterable: Iterable<T>): Pair<T, Array<out T>> {
+    require(iterable.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
+    return iterable.first() to iterable.drop(1).toTypedArray()
 }

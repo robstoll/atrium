@@ -1,19 +1,17 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.property
+import ch.tutteli.atrium.specs.*
 
 class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryFeatureAssertionsSpec(
     property<Map.Entry<String, Int>, String>(Expect<Map.Entry<String, Int>>::key),
     fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>(Expect<Map.Entry<String, Int>>::key),
     property<Map.Entry<String, Int>, Int>(Expect<Map.Entry<String, Int>>::value),
     fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>(Expect<Map.Entry<String, Int>>::value),
-    property<Map.Entry<String?, Int?>, String?>(Expect<Map.Entry<String?, Int?>>::key),
-    fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::key),
-    property<Map.Entry<String?, Int?>, Int?>(Expect<Map.Entry<String?, Int?>>::value),
-    fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::value)
+    property<Map.Entry<String?, Int?>, String?>(Expect<Map.Entry<String?, Int?>>::key).withNullableSuffix(),
+    fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::key).withNullableSuffix(),
+    property<Map.Entry<String?, Int?>, Int?>(Expect<Map.Entry<String?, Int?>>::value).withNullableSuffix(),
+    fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::value).withNullableSuffix()
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")

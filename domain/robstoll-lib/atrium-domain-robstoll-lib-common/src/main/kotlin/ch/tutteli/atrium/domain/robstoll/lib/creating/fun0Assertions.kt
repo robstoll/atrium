@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
-import ch.tutteli.atrium.api.fluent.en_GB.withOptions
+import ch.tutteli.atrium.api.fluent.en_GB.withRepresentation
 import ch.tutteli.atrium.core.Either
 import ch.tutteli.atrium.core.Left
 import ch.tutteli.atrium.core.Right
@@ -14,6 +14,7 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isThrowing(
     expect: Expect<out () -> Any?>,
@@ -30,7 +31,7 @@ fun <TExpected : Throwable> _isThrowing(
             )
         }
         .getExpectOfFeature()
-        .withOptions { withSubjectBasedRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) } }
+        .withRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) }
         .let {
             ExpectImpl.changeSubject(it).reportBuilder()
                 .downCastTo(expectedType)

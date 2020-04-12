@@ -49,9 +49,6 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
         )
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
     fun Expect<Iterable<Double?>>.containsInOrderOnlyNullableEntriesFun(
         t: (Expect<Double>.() -> Unit)?,
         vararg tX: (Expect<Double>.() -> Unit)?
@@ -103,7 +100,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
@@ -115,7 +112,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
             }
             it("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -129,7 +126,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
             //TODO remove with 1.0.0
             it("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmpty.containsEntriesFun({
+                    expect(fluentEmpty()).containsEntriesFun({
                         @Suppress("DEPRECATION")
                         asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
                     })
@@ -271,7 +268,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${containsInOrderOnlyNullableEntries.name} for nullable") {
+        describeFun(containsInOrderOnlyNullableEntries) {
 
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 

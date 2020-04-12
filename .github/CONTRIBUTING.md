@@ -96,7 +96,16 @@ Please write a comment such as `I am working on this` in the issue,
 this way we can assign the task to you (so that others know there is already someone working on the issue)
 and it gives us the chance to have a look at the description again and revise if necessary.
 
+*Architecture*
+
+The following diagram illustrates the current architecture of Atrium and what it meant to add a shortcut for `Throwable.cause`. Many times, especially in [good first issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) we refer to this names and they are also reflected in the directory structure of the project.
+
+![Component diagram](https://raw.githubusercontent.com/robstoll/atrium/gh-pages/components.png?sanitize=true6)
+
+
 <a name="git"></a>
+*Git*  
+
 Dealing with Git for the first time? Here are some recommendations for how to set up Git when working on an issue: 
 - create a new branch for the issue using `git checkout -b <branch-name>` (preferrably, the branch name
   should be descriptive of the issue or the change being made, e.g `#108-path-exists`.) Working

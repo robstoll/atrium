@@ -37,7 +37,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         context("empty collection") {
             it("1.0 throws AssertionError") {
                 expect {
-                    fluentEmpty.containsFun(1.0)
+                    expect(fluentEmpty()).containsFun(1.0)
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -113,7 +113,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun("${containsInAnyOrderNullableValues.name} for nullable") {
+        describeFun(containsInAnyOrderNullableValues) {
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 listOf(

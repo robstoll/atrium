@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.kotlin_1_3.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
-import ch.tutteli.atrium.api.fluent.en_GB.withOptions
+import ch.tutteli.atrium.api.fluent.en_GB.withRepresentation
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -24,16 +24,17 @@ fun <E, T : Result<E>> _isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T
         .withoutOptions()
         .build()
 
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isFailure(
-    assertionContainer: Expect<out Result<*>>,
+    expect: Expect<out Result<*>>,
     expectedType: KClass<TExpected>
 ): ChangedSubjectPostStep<Throwable?, TExpected>
 {
     val throwableExpect = ExpectImpl.feature
-        .manualFeature(assertionContainer, EXCEPTION) { exceptionOrNull() }
+        .manualFeature(expect, EXCEPTION) { exceptionOrNull() }
         .getExpectOfFeature()
-        .withOptions { withSubjectBasedRepresentation { it ?: RawString.create(IS_NOT_FAILURE) } }
+        .withRepresentation { it ?: RawString.create(IS_NOT_FAILURE) }
 
     return ExpectImpl.changeSubject(throwableExpect).reportBuilder()
         .downCastTo(expectedType)

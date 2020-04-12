@@ -3,7 +3,7 @@ description = 'Represents a deprecated convenience module which merely bundles d
 
 dependencies {
     api prefixedProject('verbs-jvm')
-    api prefixedProject('api-cc-infix-en_GB-jvm')
+    api prefixedProject('api-infix-en_GB-jvm')
     api prefixedProject('translations-en_GB-jvm')
     api prefixedProject('domain-builders-jvm')
     api prefixedProject('domain-api-jvm')
@@ -13,6 +13,7 @@ dependencies {
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
     //TODO remove with 1.0.0
+    api prefixedProject('api-cc-infix-en_GB-jvm')
     api prefixedProject('api-cc-infix-en_UK')
     implementation prefixedProject('assertions')
     api prefixedProject('core-api-deprecated')

@@ -1,10 +1,20 @@
+<!-- for master -->
+
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/atrium/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/atrium/_latestVersion "Download from Bintray")
 [![EUPL](https://img.shields.io/badge/%E2%9A%96-EUPL%201.2-%230b45a6)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12 "License")
 [![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/C887ZKGCQ "See invitation link under section FAQ")
 [![Build Status Travis](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
 [![Build Status GitHub Actions](https://github.com/robstoll/atrium/workflows/Windows/badge.svg)](https://github.com/robstoll/atrium/actions/)
-[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master)
+[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master) 
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
+
+<!-- for a specific release -->
+<!--
+[![Download](https://img.shields.io/badge/Download-0.10.0-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/atrium/0.10.0 "Download 0.10.0 from Bintray")
+[![EUPL](https://img.shields.io/badge/%E2%9A%96-EUPL%201.2-%230b45a6)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12 "License")
+[![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/C887ZKGCQ "See invitation link under section FAQ")
+[![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
+-->
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform assertion library for Kotlin with support for JVM, JS and Android.
@@ -20,10 +30,10 @@ Atrium currently provides two [API Styles](#api-styles):
 pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
-----
+---
 ❗ You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [README of v0.9.0](https://github.com/robstoll/atrium/tree/v0.9.0/README.md).
+For instance, the [README of v0.10.0](https://github.com/robstoll/atrium/tree/v0.10.0/README.md).
 
 ----
 
@@ -63,7 +73,6 @@ For instance, the [README of v0.9.0](https://github.com/robstoll/atrium/tree/v0.
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
 - [FAQ](#faq)
-- [Kotlin Bugs](#kotlin-bugs)
 - [Roadmap](#roadmap)
 - [Contributors and contribute](#contributors-and-contribute)
 - [Sponsors](#sponsors)
@@ -79,7 +88,7 @@ but can also be retrieved directly from [bintray](https://bintray.com/robstoll/t
 *gradle*: 
 ```
 buildscript {
-    ext { atrium_version='0.9.0' }
+    ext { atrium_version='0.10.0' }
 }
 repositories {
     mavenCentral()
@@ -103,6 +112,7 @@ You can enable them as follows:
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
+    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
 }
 ```
 
@@ -110,7 +120,7 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.9.0. 
+The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.10.0. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
 in bringing the new infix API forward is appreciated.
 
@@ -147,7 +157,7 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ```
 buildscript {
-    ext { atrium_version='0.9.0' }
+    ext { atrium_version='0.10.0' }
 }
 repositories {
     mavenCentral()
@@ -193,6 +203,7 @@ You can enable them as follows:
 ```
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
+    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3-js:$atrium_version"
 }
 ```
 
@@ -200,7 +211,7 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 
-The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.9.0. 
+The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.10.0. 
 [Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
 in bringing the new infix API forward is appreciated.
 
@@ -506,7 +517,7 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
-Yet, it is due to many [Kotlin Bugs](#kotlin-bugs) standing in the way -- 
+Yet, it is due to many [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) standing in the way -- 
 we hope we can provide a better API once Kotlin 1.4 is out (the new type inference respectively).</sub>
 
 `feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
@@ -581,7 +592,7 @@ if the property as such is renamed (e.g., as part of an IDE refactoring).
 As you can see, you would need to keep the property name and the name of the assertion function in sync to be meaningful 
 (otherwise one gets quickly confused or has to remember two names for the same thing). 
 
-Writing assertion functions for methods is a different story though, especially due to [overload bugs in Kotlin](#kotlin-bugs).
+Writing assertion functions for methods is a different story though, especially due to [overload bugs in Kotlin](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features).
 Also, code completion is not yet as good as it should be when it comes to methods. 
 Last but not least, in case it is not always safe to call a method (e.g. `List.get` => IndexOutOfBound) then it makes
 sense to wrap it into an assertion function and use `ExpectImpl.feature.extractor` instead.
@@ -712,7 +723,7 @@ Also this version of `feature` provides to kind of overloads, one without and on
 
 ### Ambiguity Problems
 Unfortunately there are several Kotlin bugs when it comes to overloading, especially in conjunction with `KFunction`
-(see [Kotlin Bugs](#kotlin-bugs) and upvote in case you run into one).
+(see [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) and upvote in case you run into one).
 However, Atrium provides alternative functions next to `f` within the `MetaFeature`-provider-lambda to disambiguate the situation.
 Use `p` for properties and `f0` to `f5` for methods. 
 Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
@@ -1460,7 +1471,7 @@ expected that subject: "calling myFun with ..."        <1234789>
 
 The example should be self explanatory.
 One detail to note though is the usage of `subExpect`. 
-It is a helper function which circumvents certain [Kotlin type inference bugs](#kotlin-bugs) (upvote them please).
+It is a helper function which circumvents certain [Kotlin type inference bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) (upvote them please).
 Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
 involved in a `Pair` is not (yet) inferred correctly by Kotlin.
 
@@ -2424,49 +2435,6 @@ Deprecated APIs:
 ## Problems in conjunction with `feature`
 
 See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
-
-# Kotlin Bugs
-The following issues hinder Atrium to progress in certain areas or they are the reason that we cannot use Atrium as intended in all cases. 
-Please upvote them (especially if you encounter them yourself):
-- [Symbol is declared in unnamed module](https://youtrack.jetbrains.com/issue/KT-35343)
-- [Gradle runtimeOnly bug](https://youtrack.jetbrains.com/issue/KT-21685) (reason that you see functions from package cc.en_GB when using cc.infix.en_GB)
-- [navigate to source or show KDoc for overloaded extension function](https://youtrack.jetbrains.com/issue/KT-24836)
-- [Lower bounds](https://youtrack.jetbrains.com/issue/KT-209), i.a. that functions intended for nullable subject do not show up on non-nullable subjects.
-- [CTRL+P shows extension functions of unrelated type](https://youtrack.jetbrains.com/issue/KT-29133)
-- [Expose @OnlyInputTypes to restrict e.g. toBe](https://youtrack.jetbrains.com/issue/KT-13198)
-- [Type inference KFunction overload bug 1](https://youtrack.jetbrains.com/issue/KT-17340)
-- [Type inference KFunction overload bug 2](https://youtrack.jetbrains.com/issue/KT-19884)
-- [Type inference KProperty/KFunction ambiguity bug](https://youtrack.jetbrains.com/issue/KT-17341)
-- [Type inference fails to infer T of KFunction0 for most types](https://youtrack.jetbrains.com/issue/KT-29515)
-- [Type inference type parameter bug](https://youtrack.jetbrains.com/issue/KT-12963)
-- [Type inference return type bug](https://youtrack.jetbrains.com/issue/KT-24918)
-- [Type inference out type parameter bug](https://youtrack.jetbrains.com/issue/KT-18401)
-- [Type inference explicit type and overloads](https://youtrack.jetbrains.com/issue/KT-23791)
-- [Type inference Pair with receiver type](https://youtrack.jetbrains.com/issue/KT-29129)
-- [Type inference unable to infer primitive type](https://youtrack.jetbrains.com/issue/KT-33290)
-- [Overload resolution null bug](https://youtrack.jetbrains.com/issue/KT-6591) (reason why you need to specify what type `null` is in the infix API when using `assert(listOf(...)) contains null`)
-- [Extension resolution null as receiver bug](https://youtrack.jetbrains.com/issue/KT-30496) (reason why you need to define that `null to null` is a Pair in the infix API)
-- [Overload resolution nullable bug](https://youtrack.jetbrains.com/issue/KT-23768)
-- [Overload resolution primitive type bug](https://youtrack.jetbrains.com/issue/KT-24230)
-- [Overload resolution function type bug](https://youtrack.jetbrains.com/issue/KT-23883)
-- [Overload resolution generic upper bound bug](https://youtrack.jetbrains.com/issue/KT-30235)
-- [Overload ambiguity between val and fun](https://youtrack.jetbrains.com/issue/KT-32958)
-- [false positive: remove explicit type arguments](https://youtrack.jetbrains.com/issue/KT-32869)
-- [Wrong JS generated in case of name clash](https://youtrack.jetbrains.com/issue/KT-33294)
-- [forbid function types as substitute of reified types ](https://youtrack.jetbrains.com/issue/KT-27846)
-- [forbid parameterised types as substitute of reified types](https://youtrack.jetbrains.com/issue/KT-27826)
-- [ReplaceWith does not add type parameter](https://youtrack.jetbrains.com/issue/KT-33685)
-- [Wrong warning about predetermined type parameter](https://youtrack.jetbrains.com/issue/KT-34257)
-
-And some features which would be handy
-- [hide function with deprecation level error in code completion](https://youtrack.jetbrains.com/issue/KT-25263)
-- [Method reference without `this`](https://youtrack.jetbrains.com/issue/KT-22920)
-- [Infix function call with type parameters](https://youtrack.jetbrains.com/issue/KT-21593)
-- [Extensibility for infix API](https://youtrack.jetbrains.com/issue/KT-27659)
-- [Summarising overloads in code completion](https://youtrack.jetbrains.com/issue/KT-25079) 
-- [vararg for lambdas](https://youtrack.jetbrains.com/issue/KT-24287)
-- [delegate with inline modifier](https://youtrack.jetbrains.com/issue/KT-23241)
-
 
 # Roadmap
 

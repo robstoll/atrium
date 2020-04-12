@@ -11,6 +11,8 @@ import kotlin.jvm.JvmName
  * Use `feature(Array<out E>::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
     ExpectImpl.changeSubject(this).unreported { it.asList() }
@@ -23,6 +25,8 @@ fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
  * Use `feature(Array<out E>::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<E>> =
     apply { asList().addAssertionsCreatedBy(assertionCreator) }
@@ -35,6 +39,8 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
  * Use `feature(Array<out E>::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("asListEOut")
 fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
@@ -47,6 +53,8 @@ fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit
  * Use `feature(ByteArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("byteArrAsList")
 fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
@@ -60,6 +68,8 @@ fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
  * Use `feature(ByteArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("byteArrAsList")
 fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): Expect<ByteArray> =
@@ -73,6 +83,8 @@ fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): E
  * Use `feature(CharArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("charArrAsList")
 fun Expect<CharArray>.asList(): Expect<List<Char>> =
@@ -86,6 +98,8 @@ fun Expect<CharArray>.asList(): Expect<List<Char>> =
  * Use `feature(CharArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("charArrAsList")
 fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): Expect<CharArray> =
@@ -99,6 +113,8 @@ fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): E
  * Use `feature(ShortArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("shortArrAsList")
 fun Expect<ShortArray>.asList(): Expect<List<Short>> =
@@ -112,6 +128,8 @@ fun Expect<ShortArray>.asList(): Expect<List<Short>> =
  * Use `feature(ShortArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("shortArrAsList")
 fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit): Expect<ShortArray> =
@@ -125,6 +143,8 @@ fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit):
  * Use `feature(IntArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("intArrAsList")
 fun Expect<IntArray>.asList(): Expect<List<Int>> = ExpectImpl.changeSubject(this).unreported { it.asList() }
@@ -137,6 +157,8 @@ fun Expect<IntArray>.asList(): Expect<List<Int>> = ExpectImpl.changeSubject(this
  * Use `feature(IntArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("intArrAsList")
 fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Expect<IntArray> =
@@ -150,6 +172,8 @@ fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Exp
  * Use `feature(LongArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("longArrAsList")
 fun Expect<LongArray>.asList(): Expect<List<Long>> =
@@ -163,6 +187,8 @@ fun Expect<LongArray>.asList(): Expect<List<Long>> =
  * Use `feature(LongArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("longArrAsList")
 fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): Expect<LongArray> =
@@ -176,6 +202,8 @@ fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): E
  * Use `feature(FloatArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("floatArrAsList")
 fun Expect<FloatArray>.asList(): Expect<List<Float>> =
@@ -189,6 +217,8 @@ fun Expect<FloatArray>.asList(): Expect<List<Float>> =
  * Use `feature(FloatArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("floatArrAsList")
 fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit): Expect<FloatArray> =
@@ -202,6 +232,8 @@ fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit):
  * Use `feature(DoubleArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("doubleArrAsList")
 fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
@@ -215,6 +247,8 @@ fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
  * Use `feature(DoubleArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("doubleArrAsList")
 fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit): Expect<DoubleArray> =
@@ -228,6 +262,8 @@ fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit
  * Use `feature(BooleanArray::asList)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("boolArrAsList")
 fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
@@ -241,6 +277,8 @@ fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
  * Use `feature(BooleanArray::asList, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @since 0.9.0
  */
 @JvmName("boolArrAsList")
 fun Expect<BooleanArray>.asList(assertionCreator: Expect<List<Boolean>>.() -> Unit): Expect<BooleanArray> =

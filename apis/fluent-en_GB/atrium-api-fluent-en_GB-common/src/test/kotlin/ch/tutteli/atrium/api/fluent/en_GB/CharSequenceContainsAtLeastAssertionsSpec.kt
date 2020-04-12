@@ -29,17 +29,24 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     ) {})
 
     include(object : Spek({
-        describe("elementsOf") {
+        describe("atLeast(1).elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.atLeast(1).elementsOf(emptyList())
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
-        describe("elementsOf ignoring case") {
+        describe("ignoringCase.atLeast(1).elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.ignoringCase.atLeast(1).elementsOf(emptyList())
+                }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+            }
+        }
+        describe("ignoringCase.elementsOf") {
+            it("passing an empty iterable throws an IllegalArgumentException") {
+                expect {
+                    expect("test").contains.ignoringCase.elementsOf(emptyList())
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
@@ -101,7 +108,13 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             a: Any,
             aX: Array<out Any>
         ): Expect<CharSequence> =
-            expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a, *aX))
+            if (aX.isEmpty()) {
+                if (atLeast == 1) expect.contains.ignoringCase.elementsOf(listOf(a))
+                else expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a))
+            } else {
+                if (atLeast == 1) expect.contains.ignoringCase.elementsOf(listOf(a, *aX))
+                else expect.contains.ignoringCase.atLeast(atLeast).elementsOf(listOf(a, *aX))
+            }
 
         private val atLeastButAtMostDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
             "$contains $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
@@ -155,7 +168,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
             aX: Array<out Any>
         ) = expect.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).elementsOf(listOf(a, *aX))
 
-        private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
+        private fun getContainsNotPair() = containsNot to ::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $atLeast($times)"
 

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 
 class IterableNoneAssertionsSpec : Spek({
@@ -13,14 +14,14 @@ class IterableNoneAssertionsSpec : Spek({
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
         fun1(Expect<Iterable<Double>>::none),
-        fun1(Expect<Iterable<Double?>>::none),
+        fun1(Expect<Iterable<Double?>>::none).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
         getContainsNotPair(),
-        getContainsNotNullablePair(),
+        getContainsNotNullablePair().withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
@@ -40,10 +41,10 @@ class IterableNoneAssertionsSpec : Spek({
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<Iterable<Double>> = notImplemented()
-        var a1b: Expect<Iterable<Double?>> = notImplemented()
+        var a1: Expect<List<Double>> = notImplemented()
+        var a1b: Expect<Set<Double?>> = notImplemented()
 
-        var star: Expect<Iterable<*>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
         a1 = a1.none {}
         a1 = a1.containsNot.entry {}

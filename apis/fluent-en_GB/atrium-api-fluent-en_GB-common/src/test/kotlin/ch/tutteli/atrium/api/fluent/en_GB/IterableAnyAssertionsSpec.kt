@@ -4,9 +4,9 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
 
 class IterableAnyAssertionsSpec : Spek({
     include(PredicateSpec)
@@ -16,75 +16,75 @@ class IterableAnyAssertionsSpec : Spek({
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         fun1(Expect<Iterable<Double>>::any),
-        fun1(Expect<Iterable<Double?>>::any),
+        fun1(Expect<Iterable<Double?>>::any).withNullableSuffix(),
         "◆ ",
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         getContainsPair(),
-        getContainsNullablePair(),
+        getContainsNullablePair().withNullableSuffix(),
         "◆ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         getContainsShortcutPair(),
-        getContainsNullableShortcutPair(),
+        getContainsNullableShortcutPair().withNullableSuffix(),
         "◆ ",
         "[Atrium][Shortcut] "
     )
 
     object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
         getContainsSequencePair(),
-        getContainsNullableSequencePair(),
+        getContainsNullableSequencePair().withNullableSuffix(),
         "◆ ",
         "[Atrium][Sequence] "
     )
 
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
+            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntry
 
-        private fun containsInAnyOrderEntries(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+        private fun containsInAnyOrderEntry(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
             expect.contains.inAnyOrder.atLeast(1).entry(a)
 
         fun getContainsNullablePair() =
-            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntries
+            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsNullableEntry
 
-        private fun containsNullableEntries(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+        private fun containsNullableEntry(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
             expect.contains.inAnyOrder.atLeast(1).entry(a)
 
-        private val containsShortcutFun: KFunction3<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, Expect<Iterable<Double>>> =
+        private val containsShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::contains
 
-        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
+        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntryShortcut
 
-        private fun containsInAnyOrderEntriesShortcut(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+        private fun containsInAnyOrderEntryShortcut(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
             expect.contains(a)
 
         private val containsShortcutNullableFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::contains
 
         fun getContainsNullableShortcutPair() =
-            containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
+            containsShortcutNullableFun.name to Companion::containsNullableEntryShortcut
 
-        private fun containsNullableEntriesShortcut(
+        private fun containsNullableEntryShortcut(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
         ) = expect.contains(a)
 
 
         private fun getContainsSequencePair() =
-            "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
+            "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntrySequence
 
-        private fun containsInAnyOrderEntriesSequence(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+        private fun containsInAnyOrderEntrySequence(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
             ExpectImpl.changeSubject(expect).unreported { it.asSequence() }.asIterable().contains(a)
 
         fun getContainsNullableSequencePair() =
-            "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
+            "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntrySequence
 
-        private fun containsNullableEntriesSequence(
+        private fun containsNullableEntrySequence(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
         ) = ExpectImpl.changeSubject(expect).unreported { it.asSequence() }.asIterable().contains(a)
@@ -92,10 +92,10 @@ class IterableAnyAssertionsSpec : Spek({
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<Iterable<Double>> = notImplemented()
-        var a1b: Expect<Iterable<Double?>> = notImplemented()
+        var a1: Expect<List<Double>> = notImplemented()
+        var a1b: Expect<Set<Double?>> = notImplemented()
 
-        var star: Expect<Iterable<*>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
         a1 = a1.any {}
         a1 = a1.contains {}

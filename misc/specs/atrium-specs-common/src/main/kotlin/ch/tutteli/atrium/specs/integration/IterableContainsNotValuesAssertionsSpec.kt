@@ -31,10 +31,6 @@ abstract class IterableContainsNotValuesAssertionsSpec(
         containsNotNullableValues.forSubjectLess(2.3, arrayOf())
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
-
     fun Expect<Iterable<Double?>>.containsNotNullableFun(a: Double?, vararg aX: Double?) =
         containsNotNullableValues(this, a, aX)
 
@@ -69,7 +65,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
 
             it("4.0 throws AssertionError") {
                 expect {
-                    fluentEmpty.containsNotFun(4.0)
+                    expect(fluentEmpty()).containsNotFun(4.0)
                 }.toThrow<AssertionError> {
                     message {
                         containsRegex(
@@ -164,7 +160,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun("${containsNotNullableValues.name} for nullable") {
+        describeFun(containsNotNullableValues) {
             context("iterable ${oneToSeven().toList()}") {
                 it("null does not throw") {
                     expect(oneToSeven() as Iterable<Double?>).containsNotNullableFun(null)

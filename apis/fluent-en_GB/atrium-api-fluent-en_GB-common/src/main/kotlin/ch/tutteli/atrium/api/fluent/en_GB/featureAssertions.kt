@@ -13,7 +13,7 @@ import kotlin.reflect.*
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the given [property].
+ * @return The newly created [Expect] for the given [property].
  *
  * @since 0.9.0
  */
@@ -26,7 +26,7 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R>
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -42,7 +42,8 @@ fun <T, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -55,7 +56,7 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -72,7 +73,8 @@ fun <T, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -88,7 +90,7 @@ fun <T, A1, R> Expect<T>.feature(
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -106,7 +108,8 @@ fun <T, A1, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -122,7 +125,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -140,7 +143,8 @@ fun <T, A1, A2, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -156,7 +160,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -174,7 +178,8 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly created [Expect] for the return value of calling the method [f]
+ *   on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -190,7 +195,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -208,7 +213,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return An [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly [Expect] for the return value of calling [f] on the current subject of the assertion.
  *
  * @since 0.9.0
  */
@@ -224,7 +229,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -245,7 +250,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * @param provider Extracts the feature where the subject of the assertion is available via
  *   implicit parameter `it`.
  *
- * @return An [Expect] for the extracted feature.
+ * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.9.0
  */
@@ -262,7 +267,7 @@ fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureE
  * @param provider Extracts the feature where the subject of the assertion is available via
  *   implicit parameter `it`.
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0
@@ -284,7 +289,7 @@ fun <T, R> Expect<T>.feature(
  *   implicit parameter `it`. Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
  *   e.g. `feature { f(it::size) }`
  *
- * @return An [Expect] for the extracted feature.
+ * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.9.0
  */
@@ -301,7 +306,7 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
  * @param provider You need to create a [MetaFeature] where the subject of the assertion is available via
  *   implicit parameter `it`. Usually you use [MetaFeatureOption.f] to create a [MetaFeature], e.g. `f(it::size)`
  *
- * @return The current [Expect].
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.9.0

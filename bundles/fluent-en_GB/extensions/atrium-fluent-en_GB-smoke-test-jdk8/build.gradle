@@ -7,5 +7,4 @@ dependencies {
     //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
     testImplementation prefixedProject('fluent-en_GB-jvm')
     testImplementation prefixedProject('api-fluent-en_GB-jdk8-jvm')
-    testImplementation prefixedProject('verbs-jvm')
 }

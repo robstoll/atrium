@@ -20,15 +20,15 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
         containsNotOrAtMost.forSubjectLess(2, 2.3, arrayOf())
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Expect<Iterable<Double>>.containsNotOrAtMostFun(atLeast: Int, a: Double, vararg aX: Double) =
         containsNotOrAtMost(this, atLeast, a, aX.toTypedArray())
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
-    describeFun(containsNotOrAtMost.name) {
+    describeFun(containsNotOrAtMost) {
 
         context("throws an $illegalArgumentException") {
             it("for not at all or at most -1 -- only positive numbers") {

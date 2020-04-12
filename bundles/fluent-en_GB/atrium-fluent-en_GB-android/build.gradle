@@ -10,6 +10,9 @@ dependencies {
 
     runtimeOnly prefixedProject('domain-robstoll-android')
     runtimeOnly prefixedProject('core-robstoll-android')
+
+    //TODO remove once all specs are with spek2 where they are set via spek plugin
+    spekDep(delegate)
 }
 
 srcAndResourcesFromJvmProject(project)

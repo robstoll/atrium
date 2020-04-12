@@ -1,37 +1,34 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.ReporterFactory
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
-
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
-    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::toBe).name to Companion::isEmpty,
-    fun1<Collection<Int>, Empty>(Expect<Collection<Int>>::notToBe).name to Companion::isNotEmpty
+    "toBe ${empty::class.simpleName}" to Companion::isEmpty,
+    "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty
 ) {
     companion object : WithAsciiReporter() {
+        private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe empty
+        private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe empty
 
-        fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe Empty
-        fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe Empty
     }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<Collection<Int>> = notImplemented()
-        val a1b: Expect<Collection<Int?>> = notImplemented()
+        val a1: Expect<List<Int>> = notImplemented()
+        val a1b: Expect<Set<Int?>> = notImplemented()
 
         val star: Expect<Collection<*>> = notImplemented()
 
-        a1 toBe Empty
-        a1 notToBe Empty
+        a1 toBe empty
+        a1 notToBe empty
 
-        a1b toBe Empty
-        a1b notToBe Empty
+        a1b toBe empty
+        a1b notToBe empty
 
-        star toBe Empty
-        star notToBe Empty
+        star toBe empty
+        star notToBe empty
     }
 }
+

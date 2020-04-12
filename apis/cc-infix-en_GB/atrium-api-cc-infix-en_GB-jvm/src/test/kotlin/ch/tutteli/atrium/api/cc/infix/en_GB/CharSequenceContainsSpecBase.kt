@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import kotlin.reflect.KFunction2
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 abstract class CharSequenceContainsSpecBase {
     private val containsNotFun: KFunction2<Assert<String>, Any, Assert<String>> = Assert<String>::containsNot
     protected val toContain = "${Assert<String>::to.name} ${contain::class.simpleName}"

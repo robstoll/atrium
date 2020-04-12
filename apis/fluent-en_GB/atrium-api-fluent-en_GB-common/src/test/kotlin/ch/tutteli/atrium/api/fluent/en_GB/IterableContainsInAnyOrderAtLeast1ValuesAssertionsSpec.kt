@@ -59,7 +59,7 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
             else expect.contains(a, *aX)
 
 
-        private val containsNullableFun: KFunction3<Expect<Iterable<Double?>>, Double, Array<out Double?>, Expect<Iterable<Double?>>> =
+        private val containsNullableFun: KFunction3<Expect<Iterable<Double?>>, Double?, Array<out Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::contains
 
         fun getContainsNullableShortcutPair() = containsNullableFun.name to Companion::containsNullableValuesShortcut

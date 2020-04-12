@@ -5,6 +5,7 @@ import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.spec.integration.TestData
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
+//TODO remove with 1.0.0, no need to migrate to Spek 2
 class FeatureAssertionsClassReferenceSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,

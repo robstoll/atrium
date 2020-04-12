@@ -2,7 +2,7 @@ buildscript {
     ext {
         kotlin_version= '1.3.41'
         atrium_api= 'atrium-fluent-en_GB'
-        atrium_version='0.9.0'
+        atrium_version='0.10.0'
         junit_version= '5.3.1'
     }
 

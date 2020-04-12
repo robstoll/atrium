@@ -3,7 +3,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
+import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.kbox.glue
@@ -18,15 +20,15 @@ import kotlin.jvm.JvmName
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
     values(expected)
 
 /**
@@ -36,26 +38,26 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
- * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
+ * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).value('a')`
+ *   `contains.exactly(2).value("a")`
  * instead of:
- *   `contains.atLeast(1).values('a', 'a')`
+ *   `contains.atLeast(1).values("a", "a")`
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
@@ -70,16 +72,16 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
     expected: Any
 ): Expect<T> = values(expected)
 
@@ -90,27 +92,27 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
- * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
+ * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).value('a')`
+ *   `contains.ignoringCase.exactly(2).value("a")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).values('a', 'a')`
+ *   `contains.ignoringCase.atLeast(1).values("a", "a")`
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
@@ -120,20 +122,20 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * (ignoring case), using a non disjoint search where it needs to be contained at least once.
  *
- * Delegates to `atLeast(1).values(expected)`.
+ * Delegates to `atLeast(1).value(expected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
     atLeast(1).value(expected)
 
 /**
@@ -146,20 +148,20 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
- * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
+ * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.values(
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.values(
     expected: Any,
     vararg otherExpected: Any
 ): Expect<T> = atLeast(1).values(expected, *otherExpected)
@@ -168,9 +170,9 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -182,21 +184,21 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -208,12 +210,13 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(
+//TODO rename to `matchFor` with 1.0.0
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
@@ -222,25 +225,25 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to have a match (ignoring case), using a non disjoint search.
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).regex('a(b)?')`
+ *   `contains.ignoringCase.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
@@ -252,24 +255,24 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  *
  * Delegates to `atLeast(1).regex(pattern, otherPatterns)`
  *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
- * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly]
  * to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).regex('a(b)?')`
+ *   `contains.ignoringCase.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.regex(
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = atLeast(1).regex(pattern, *otherPatterns)
@@ -284,21 +287,22 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
+ *
  * @since 0.9.0
  */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
 }
 
 /**
@@ -311,20 +315,29 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
- * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
- * @return The [Expect] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
+ *
  * @since 0.9.0
  */
 @JvmName("elementsOfIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<Any>
 ): Expect<T> {
-    require(expectedIterable.iterator().hasNext()) { "Iterable without elements are not allowed." }
-    return values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
+}
+
+@JvmName("elementsOfIgnoringCase")
+fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<Any>
+): Expect<T> {
+    val (first, rest) = toVarArg(expectedIterable)
+    return values(first, *rest)
 }

@@ -1,20 +1,22 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.testutils.WithAsciiReporter
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
+import ch.tutteli.atrium.specs.withNullableSuffix
 
 class MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAssertionsSpec(
     fun1(Expect<Map.Entry<String, Int>>::isKeyValue).name to Companion::isKeyValue,
-    fun1(Expect<Map.Entry<String?, Int?>>::isKeyValue).name to Companion::isKeyValueNullable
+    (fun1(Expect<Map.Entry<String?, Int?>>::isKeyValue).name to Companion::isKeyValueNullable).withNullableSuffix()
 ) {
     companion object : WithAsciiReporter() {
-        fun isKeyValue(expect: Expect<Map.Entry<String, Int>>, key: String, value: Int) =
+
+        private fun isKeyValue(expect: Expect<Map.Entry<String, Int>>, key: String, value: Int) =
             expect isKeyValue (key to value)
 
-        fun isKeyValueNullable(expect: Expect<Map.Entry<String?, Int?>>, key: String?, value: Int?) =
+        private fun isKeyValueNullable(expect: Expect<Map.Entry<String?, Int?>>, key: String?, value: Int?) =
             expect isKeyValue (key to value)
     }
 

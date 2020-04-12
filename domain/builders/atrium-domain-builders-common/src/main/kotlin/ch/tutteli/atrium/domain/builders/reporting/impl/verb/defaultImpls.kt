@@ -22,17 +22,17 @@ class OptionsStepImpl<T>(
     override val assertionVerb: Translatable
 ) : ExpectBuilder.OptionsStep<T> {
 
-    override fun withOptions(expectOptions: ExpectOptions): ExpectBuilder.FinalStep<T> = toFinalStep(expectOptions)
+    override fun withOptions(expectOptions: ExpectOptions<T>): ExpectBuilder.FinalStep<T> = toFinalStep(expectOptions)
     override fun withoutOptions(): ExpectBuilder.FinalStep<T> = toFinalStep(null)
 
-    private fun toFinalStep(expectOptions: ExpectOptions?) =
+    private fun toFinalStep(expectOptions: ExpectOptions<T>?) =
         ExpectBuilder.FinalStep.create(maybeSubject, assertionVerb, expectOptions)
 }
 
 class FinalStepImpl<T>(
     override val maybeSubject: Option<T>,
     override val assertionVerb: Translatable,
-    override val options: ExpectOptions?
+    override val options: ExpectOptions<T>?
 ) : ExpectBuilder.FinalStep<T> {
 
     override fun build(): RootExpect<T> =
@@ -40,7 +40,10 @@ class FinalStepImpl<T>(
             ReportingAssertionContainer.AssertionCheckerDecorator.create(
                 options?.assertionVerb ?: assertionVerb,
                 maybeSubject,
-                options?.representation ?: maybeSubject.getOrElse {
+                options?.representationInsteadOfSubject?.let { provider ->
+                    this.maybeSubject.fold({ null }) { provider(it) }
+                } ?: maybeSubject.getOrElse {
+                    // a RootExpect without a defined subject is almost certain a bug
                     RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
                 },
                 coreFactory.newThrowingAssertionChecker(options?.reporter ?: reporter)

@@ -1,17 +1,15 @@
 package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.feature0
-import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.ResultFeatureAssertionsSpec
-import ch.tutteli.atrium.specs.notImplemented
 
 class ResultFeatureAssertionsSpec : ResultFeatureAssertionsSpec(
     feature0<Result<Int>, Int>(Expect<Result<Int>>::isSuccess),
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
-    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess),
-    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess),
-    "isFailure" to Companion::isFailureFeature,
+    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
+    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
+    ("isFailure" to Companion::isFailureFeature).withFeatureSuffix(),
     "isFailure" to Companion::isFailure
 ) {
     companion object {

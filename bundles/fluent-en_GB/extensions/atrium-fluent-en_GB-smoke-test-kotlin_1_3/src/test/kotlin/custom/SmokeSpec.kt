@@ -1,5 +1,8 @@
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+
 package custom
 
+import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -8,7 +11,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
-import org.jetbrains.spek.api.Spek
+import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
     test("see if `toBe` can be used") {
@@ -16,8 +19,7 @@ object SmokeSpec : Spek({
     }
 
     test("see if `Result.isSuccess` can be used") {
-        //TODO activate after isSuccess is implemented
-        //expect(Result.success(1)).isSuccess { toBe(1) }
+        expect(Result.success(1)).isSuccess { toBe(1) }
     }
 
     test("see if own assertion function without i18n can be used") {

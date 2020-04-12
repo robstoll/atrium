@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * For instance `toThrow<MyException<String>>` would only check if the subject is a `MyException` without checking if
  * the element type is actually `String`.
  *
- * @return An assertion container with the new type [TExpected].
+ * @return An [Expect] with the new type [TExpected].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
@@ -46,7 +46,7 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Exp
  * For instance `toThrow<MyException<String>>` would only check if the subject is a `MyException` without checking if
  * the element type is actually `String`.
  *
- * @return An assertion container with the new type [TExpected].
+ * @return An [Expect] with the new type [TExpected].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
@@ -58,6 +58,7 @@ inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
  * and changes the subject of the assertion to the return value of type [R].
  *
+ * @return An [Expect] with the new type [R].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> = ExpectImpl.fun0.isNotThrowing(this).getExpectOfFeature()
@@ -66,6 +67,7 @@ fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> = ExpectImpl.fun0.isNotTh
  * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
  * and that the corresponding return value holds all assertions the given [assertionCreator] creates.
  *
+ * @return An [Expect] with the new type [R].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <R, T : () -> R> Expect<T>.notToThrow(

@@ -9,16 +9,24 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
+import kotlin.reflect.KFunction3
+
+typealias MFun2<K, V, T> = Fun2<Map<out K, V>, Pair<K, T>, Array<out Pair<K, T>>>
+
+fun <K, V, T> mfun2(
+    f: KFunction3<Expect<Map<out K, V>>, Pair<K, T>, Array<out Pair<K, T>>, Expect<Map<out K, V>>>
+) = fun2(f)
+
 
 abstract class MapAssertionsSpec(
-    contains: Fun2<Map<out String, Int>, Pair<String, Int>, Array<out Pair<String, Int>>>,
-    containsNullable: Fun2<Map<out String?, Int?>, Pair<String?, Int?>, Array<out Pair<String?, Int?>>>,
-    containsKeyWithValueAssertions: Fun2<Map<out String, Int>, Pair<String, Expect<Int>.() -> Unit>, Array<out Pair<String, Expect<Int>.() -> Unit>>>,
-    containsKeyWithNullableValueAssertions: Fun2<Map<out String?, Int?>, Pair<String?, (Expect<Int>.() -> Unit)?>, Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>>,
+    contains: MFun2<String, Int, Int>,
+    containsNullable: MFun2<String?, Int?, Int?>,
+    containsKeyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
+    containsKeyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
     containsKey: Fun1<Map<out String, *>, String>,
-    containsNullableKey: Fun1<Map<out String?, *>, String?>,
+    containsKeyNullable: Fun1<Map<out String?, *>, String?>,
     containsNotKey: Fun1<Map<out String, *>, String>,
-    containsNotNullableKey: Fun1<Map<out String?, *>, String?>,
+    containsNotKeyNullable: Fun1<Map<out String?, *>, String?>,
     isEmpty: Fun0<Map<*, *>>,
     isNotEmpty: Fun0<Map<*, *>>,
     describePrefix: String = "[Atrium] "
@@ -55,8 +63,8 @@ abstract class MapAssertionsSpec(
             keyNullableValue(null) { toBe(1) },
             arrayOf(keyNullableValue("a", null))
         ),
-        containsNullableKey.forSubjectLess(null).unchecked1(),
-        containsNotNullableKey.forSubjectLess(null).unchecked1()
+        containsKeyNullable.forSubjectLess(null).unchecked1(),
+        containsNotKeyNullable.forSubjectLess(null).unchecked1()
     ) {})
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
@@ -75,8 +83,9 @@ abstract class MapAssertionsSpec(
     ) {})
 
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+
 
     val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
     val fluent = expect(map)
@@ -93,43 +102,46 @@ abstract class MapAssertionsSpec(
 
     fun entry(key: String, value: Any): String = entry(key) + ": " + value
 
-    describeFun(contains.name) {
-        val containsFun = contains.lambda
+    describeFun(contains, containsNullable) {
+        val containsFunctions = uncheckedToNonNullable(contains, containsNullable)
+
         context("map $map") {
-            listOf(
-                listOf("a" to 1),
-                listOf("b" to 2),
-                listOf("a" to 1, "b" to 2),
-                listOf("b" to 2, "a" to 1)
-            ).forEach {
-                it("$it does not throw") {
-                    fluent.containsFun(it.first(), it.drop(1).toTypedArray())
+            containsFunctions.forEach { (name, containsFun) ->
+                listOf(
+                    listOf("a" to 1),
+                    listOf("b" to 2),
+                    listOf("a" to 1, "b" to 2),
+                    listOf("b" to 2, "a" to 1)
+                ).forEach {
+                    it("$name - $it does not throw") {
+                        fluent.containsFun(it.first(), it.drop(1).toTypedArray())
+                    }
                 }
-            }
 
-            it("a to 1 and a to 1 does not throw (no unique match)") {
-                fluent.containsFun("a" to 1, arrayOf("a" to 1))
-            }
+                it("$name - a to 1 and a to 1 does not throw (no unique match)") {
+                    fluent.containsFun("a" to 1, arrayOf("a" to 1))
+                }
 
-            it("{a to 1, b to 3, c to 4} throws AssertionError, reports b and c") {
-                expect {
-                    fluent.containsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
-                }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            entry("b", 2),
-                            "$toBeDescr: 3",
-                            entry("c", keyDoesNotExist),
-                            "$toBeDescr: 4"
-                        )
-                        containsNot(entry("a"))
+                it("$name - {a to 1, b to 3, c to 4} throws AssertionError, reports b and c") {
+                    expect {
+                        fluent.containsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                entry("b", 2),
+                                "$toBeDescr: 3",
+                                entry("c", keyDoesNotExist),
+                                "$toBeDescr: 4"
+                            )
+                            containsNot(entry("a"))
+                        }
                     }
                 }
             }
         }
     }
 
-    describeFun("${containsNullable.name} for nullable") {
+    describeFun(containsNullable) {
         val containsNullableFun = containsNullable.lambda
         context("map $nullableMap") {
             listOf(
@@ -169,49 +181,55 @@ abstract class MapAssertionsSpec(
         }
     }
 
-    describeFun(containsKeyWithValueAssertions.name) {
-        val containsKeyWithValueAssertionsFun = containsKeyWithValueAssertions.lambda
+    describeFun(containsKeyWithValueAssertions, containsKeyWithNullableValueAssertions) {
+        val containsKeyWithValueAssertionsFunctions = uncheckedToNonNullable(
+            containsKeyWithValueAssertions,
+            containsKeyWithNullableValueAssertions
+        )
+
         context("map $map") {
-            listOf(
-                "a { toBe(1) }" to listOf(keyValue("a") { toBe(1) }),
-                "b { toBe(2) }" to listOf(keyValue("b") { toBe(2) }),
-                "a { toBe(1) }, b { toBe(2) }" to listOf(keyValue("a") { toBe(1) }, keyValue("b") { toBe(2) }),
-                "b { toBe(2) }, a { toBe(1) }" to listOf(keyValue("b") { toBe(2) }, keyValue("a") { toBe(1) })
-            ).forEach { (description, keyValues) ->
-                it("$description does not throw") {
-                    fluent.containsKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
+            containsKeyWithValueAssertionsFunctions.forEach { (name, containsKeyWithValueAssertionsFun) ->
+                listOf(
+                    "a { toBe(1) }" to listOf(keyValue("a") { toBe(1) }),
+                    "b { toBe(2) }" to listOf(keyValue("b") { toBe(2) }),
+                    "a { toBe(1) }, b { toBe(2) }" to listOf(keyValue("a") { toBe(1) }, keyValue("b") { toBe(2) }),
+                    "b { toBe(2) }, a { toBe(1) }" to listOf(keyValue("b") { toBe(2) }, keyValue("a") { toBe(1) })
+                ).forEach { (description, keyValues) ->
+                    it("$name - $description does not throw") {
+                        fluent.containsKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
+                    }
                 }
-            }
 
-            it("a { isLessThan(2) } and a { isGreaterThan(0) } does not throw (no unique match)") {
-                fluent.containsKeyWithValueAssertionsFun(
-                    keyValue("a") { isLessThan(2) },
-                    arrayOf(keyValue("a") { isGreaterThan(0) })
-                )
-            }
-
-            it("a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
-                expect {
+                it("$name - a { isLessThan(2) } and a { isGreaterThan(0) } does not throw (no unique match)") {
                     fluent.containsKeyWithValueAssertionsFun(
-                        keyValue("a") { isLessThan(3) },
-                        arrayOf(keyValue("b") { isLessThan(2) }, keyValue("c") { isLessThan(1) })
+                        keyValue("a") { isLessThan(2) },
+                        arrayOf(keyValue("a") { isGreaterThan(0) })
                     )
-                }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            entry("b", 2),
-                            "$lessThanDescr: 2",
-                            entry("c", keyDoesNotExist),
-                            "$lessThanDescr: 1"
+                }
+
+                it("$name - a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
+                    expect {
+                        fluent.containsKeyWithValueAssertionsFun(
+                            keyValue("a") { isLessThan(3) },
+                            arrayOf(keyValue("b") { isLessThan(2) }, keyValue("c") { isLessThan(1) })
                         )
-                        containsNot(entry("a"))
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                entry("b", 2),
+                                "$lessThanDescr: 2",
+                                entry("c", keyDoesNotExist),
+                                "$lessThanDescr: 1"
+                            )
+                            containsNot(entry("a"))
+                        }
                     }
                 }
             }
         }
     }
 
-    describeFun("${containsKeyWithNullableValueAssertions.name} for nullable") {
+    describeFun(containsKeyWithNullableValueAssertions) {
         val containsKeyWithNullableValueAssertionsFun = containsKeyWithNullableValueAssertions.lambda
         context("map $nullableMap") {
             listOf(
@@ -247,13 +265,6 @@ abstract class MapAssertionsSpec(
                 }
             }
 
-            it("b { isLessThan(3) } and b { isGreaterThan(0) } does not throw (no unique match)") {
-                nullableFluent.containsKeyWithNullableValueAssertionsFun(
-                    keyNullableValue("b") { isLessThan(3) },
-                    arrayOf(keyNullableValue("b") { isGreaterThan(0) })
-                )
-            }
-
             it("(a, null), b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
                     nullableFluent.containsKeyWithNullableValueAssertionsFun(
@@ -277,99 +288,99 @@ abstract class MapAssertionsSpec(
         }
     }
 
-    describeFun(containsKey.name) {
-        val containsKeyFun = containsKey.lambda
+    describeFun(containsKey, containsKeyNullable, containsNotKey, containsNotKeyNullable) {
+        val containsKeyFunctions = uncheckedToNonNullable(containsKey, containsKeyNullable)
+        val containsNotKeyFunctions = uncheckedToNonNullable(containsNotKey, containsNotKeyNullable)
+
         val fluent2 = expect(map as Map<out String, *>)
 
-        it("does not throw if the map contains the key") {
-            fluent2.containsKeyFun("a")
-        }
+        context("$map") {
+            containsKeyFunctions.forEach { (name, containsKeyFun) ->
+                it("$name - does not throw if the map contains the key") {
+                    fluent2.containsKeyFun("a")
+                }
 
-        it("throws an AssertionError if the map does not contain the key") {
-            expect {
-                fluent2.containsKeyFun("c")
-            }.toThrow<AssertionError> { messageContains("$containsKeyDescr: \"c\"") }
-        }
+                it("$name - throws an AssertionError if the map does not contain the key") {
+                    expect {
+                        fluent2.containsKeyFun("c")
+                    }.toThrow<AssertionError> { messageContains("$containsKeyDescr: \"c\"") }
+                }
 
-        it("does not throw if null is passed and the map contains null as key") {
-            fluent2.containsKeyFun("a")
+                it("$name - does not throw if null is passed and the map contains null as key") {
+                    fluent2.containsKeyFun("a")
+                }
+            }
+
+            containsNotKeyFunctions.forEach { (name, containsNotKeyFun) ->
+                it("$name - does not throw if the map does not contain the key") {
+                    fluent2.containsNotKeyFun("c")
+                }
+
+                it("$name - throws an AssertionError if the map contains the key") {
+                    expect {
+                        fluent2.containsNotKeyFun("a")
+                    }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: \"a\"") }
+                }
+            }
         }
     }
 
-    describeFun("$containsNullableKey for nullable key type") {
-        val containsNullableKeyFun = containsNullableKey.lambda
-        it("does not throw if the map contains the key") {
-            val map2: Map<out String?, *> = mapOf("a" to 1, null to 2)
-            expect(map2).containsNullableKeyFun(null)
-        }
+    describeFun(containsKeyNullable, containsNotKeyNullable) {
+        val containsNullableKeyFun = containsKeyNullable.lambda
+        val containsNotNullableKeyFun = containsNotKeyNullable.lambda
 
-        it("throws an AssertionError if the map does not contain the key") {
-            expect {
-                val map2: Map<out String?, *> = mapOf("a" to 1, "b" to 2)
+        val map2: Map<out String?, *> = mapOf("a" to 1, null to 2)
+        context("$map2") {
+            it("${containsKeyNullable.name} - does not throw if the map contains the key") {
                 expect(map2).containsNullableKeyFun(null)
-            }.toThrow<AssertionError> { messageContains("$containsKeyDescr: null") }
+            }
+
+            it("${containsNotKeyNullable.name} - throws an AssertionError if the map contains the key") {
+                expect {
+                    expect(map2).containsNotNullableKeyFun(null)
+                }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: null") }
+            }
+        }
+
+        val map3: Map<out String?, *> = mapOf("a" to 1, "b" to 2)
+        context("$map3") {
+            it("${containsKeyNullable.name} - throws an AssertionError if the map does not contain the key") {
+                expect {
+                    expect(map3).containsNullableKeyFun(null)
+                }.toThrow<AssertionError> { messageContains("$containsKeyDescr: null") }
+            }
+
+            it("${containsNotKeyNullable.name} - does not throw if the map does not contain the key") {
+                expect(map3).containsNotNullableKeyFun(null)
+            }
         }
     }
 
-    describeFun(containsNotKey.name) {
-        val containsNotKeyFun = containsNotKey.lambda
-        val fluent2 = expect(map as Map<out String, *>)
-
-        it("does not throw if the map does not contain the key") {
-            fluent2.containsNotKeyFun("c")
-        }
-
-        it("throws an AssertionError if the map contains the key") {
-            expect {
-                fluent2.containsNotKeyFun("a")
-            }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: \"a\"") }
-        }
-    }
-
-    describeFun("${containsNotNullableKey.name} for nullable key type") {
-        val containsNotNullableKeyFun = containsNotNullableKey.lambda
-
-        it("does not throw if the map does not contain the key") {
-            val map2: Map<out String?, *> = mapOf("a" to 1, "b" to 2)
-            expect(map2).containsNotNullableKeyFun(null)
-        }
-
-        it("throws an AssertionError if the map contains the key") {
-            expect {
-                val map2: Map<out String?, *> = mapOf("a" to 1, null to 2)
-                expect(map2).containsNotNullableKeyFun(null)
-            }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: null") }
-        }
-    }
-
-
-    describeFun(isEmpty.name) {
+    describeFun(isEmpty, isNotEmpty) {
         val isEmptyFun = isEmpty.lambda
-
-        it("does not throw if a map is empty") {
-            val map2: Map<*, *> = mapOf<String, Int>()
-            expect(map2).isEmptyFun()
-        }
-
-        it("throws an AssertionError if a map is not empty") {
-            expect {
-                expect(map as Map<*, *>).isEmptyFun()
-            }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
-        }
-    }
-
-    describeFun(isNotEmpty.name) {
         val isNotEmptyFun = isNotEmpty.lambda
 
-        it("does not throw if a map is not empty") {
-            expect(map as Map<*, *>).isNotEmptyFun()
-        }
+        val map2: Map<*, *> = mapOf<String, Int>()
+        context("empty Map") {
+            it("${isEmpty.name} - does not throw") {
+                expect(map2).isEmptyFun()
+            }
 
-        it("throws an AssertionError if a map is empty") {
-            expect {
-                val map2: Map<*, *> = mapOf<String, Int>()
-                expect(map2).isNotEmptyFun()
-            }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+            it("${isNotEmpty.name} - throws an AssertionError") {
+                expect {
+                    expect(map2).isNotEmptyFun()
+                }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+            }
+        }
+        context("$map") {
+            it("${isEmpty.name} - throws an AssertionError") {
+                expect {
+                    expect(map as Map<*, *>).isEmptyFun()
+                }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
+            }
+            it("${isNotEmpty.name} - does not throw") {
+                expect(map as Map<*, *>).isNotEmptyFun()
+            }
         }
     }
 })

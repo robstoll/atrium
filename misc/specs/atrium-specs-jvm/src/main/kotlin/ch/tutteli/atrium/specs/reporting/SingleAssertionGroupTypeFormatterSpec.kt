@@ -18,13 +18,11 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.describeFun
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.it
+import ch.tutteli.atrium.specs.describeFunTemplate
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
-//TODO #116 migrate spek1 to spek2 - move to specs-common
 abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>(
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     supportedAssertionGroupTypeClass: KClass<T>,
@@ -33,8 +31,8 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
-        describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, funName, body = body)
 
     val testee = testeeFactory(
         mapOf(), coreFactory.newAssertionFormatterController(),
