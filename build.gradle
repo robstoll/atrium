@@ -467,7 +467,7 @@ def createJsTestTask(String... subprojectNames) {
             nodeModulesDir = nodeModulesParentDir
         }
 
-        task runMocha(type: NpxTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, test]) {
+        task runMocha(type: NpxTask, dependsOn: [compileTestKotlin2Js, populateNodeModules]) {
             command = "mocha"
             args = [compileTestKotlin2Js.outputFile]
         }

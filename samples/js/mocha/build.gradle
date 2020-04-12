@@ -85,7 +85,7 @@ task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
         srcFile.write(newContent, 'UTF-8')
     }
 }
-task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotlin2Js, populateNodeModules, test, establishDependencyToAtrium]) {
+task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotlin2Js, populateNodeModules, establishDependencyToAtrium]) {
     command = "mocha"
     args = [compileTestKotlin2Js.outputFile]
 }
