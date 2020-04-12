@@ -73,8 +73,9 @@ The following are a few guidelines on how we suggest you start.
  
 1. Fork the repository to your repositories (see [Fork a repo](https://help.github.com/en/articles/fork-a-repo) for help). 
 2. Use an IDE which supports Kotlin and gradle projects.
-   We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/)
-   and install the following plugins:
+   We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/).
+   Because of [IDEA-228368](https://youtrack.jetbrains.com/issue/IDEA-228368) you will need at least IntelliJ 2020.1, or the Gradle import will fail.
+   Install the following plugins:
    - EditorConfig by JetBrains (might be already activated)
    - Spek Framework by Spek Team
 3. Import the project (import the build.gradle -> import as project, works more reliably)
