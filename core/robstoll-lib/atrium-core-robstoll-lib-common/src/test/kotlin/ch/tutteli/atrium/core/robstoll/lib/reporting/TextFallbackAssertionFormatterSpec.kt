@@ -45,7 +45,6 @@ class TextFallbackAssertionFormatterSpec : Spek({
     afterEachTest {
         sb = StringBuilder()
     }
-    val separator = lineSeperator
 
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
@@ -61,8 +60,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()).toBe(
-                    "${EXPECT.getDefault()}: subject$separator" +
-                        "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
+                    "${EXPECT.getDefault()}: subject$lineSeperator" +
+                        "$squarePoint ${TO_BE.getDefault()}: bli$lineSeperator" +
                         "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
                 )
             }

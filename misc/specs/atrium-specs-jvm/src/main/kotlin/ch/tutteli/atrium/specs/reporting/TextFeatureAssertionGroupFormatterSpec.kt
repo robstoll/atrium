@@ -14,6 +14,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec
@@ -87,9 +88,9 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
                     expect(sb.toString()).toBe(
-                        separator
-                            + "$arrow placeholder %s: 2$separator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        lineSeperator
+                            + "$arrow placeholder %s: 2$lineSeperator"
+                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
                             + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
@@ -114,11 +115,11 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
                     expect(sb.toString()).toBe(
-                        separator
-                            + "${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                            + "$listBulletPoint $arrow placeholder %s: 2$separator"
-                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        lineSeperator
+                            + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeperator"
+                            + "$listBulletPoint $arrow placeholder %s: 2$lineSeperator"
+                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
+                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
                             + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20"
                     )
                 }
@@ -146,12 +147,12 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
                     expect(sb.toString()).toBe(
-                        separator
-                            + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
-                            + "$indentArrow$featureBulletPoint $arrow placeholder %s: 2$separator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        lineSeperator
+                            + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$lineSeperator"
+                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator"
+                            + "$indentArrow$featureBulletPoint $arrow placeholder %s: 2$lineSeperator"
+                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
+                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
                             + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30"
                     )
                 }
