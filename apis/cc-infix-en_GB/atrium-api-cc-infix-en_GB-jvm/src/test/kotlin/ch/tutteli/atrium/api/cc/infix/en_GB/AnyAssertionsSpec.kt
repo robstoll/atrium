@@ -1,12 +1,11 @@
-//@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.isNotSameAs
-import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
-import ch.tutteli.atrium.api.fluent.en_GB.notToBe
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.infix.en_GB.isNotSameAs
+import ch.tutteli.atrium.api.infix.en_GB.isSameAs
+import ch.tutteli.atrium.api.infix.en_GB.notToBe
+import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -55,7 +54,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
         }
 
         private fun toBeNullable(plant: AssertionPlantNullable<Int?>, expected: Int?)
-            = plant.asExpect().toBe(expected).asAssert()
+            = plant toBe expected
 
         private fun toBeNullIfNullGivenElse(plant: AssertionPlantNullable<Int?>, assertionCreator: (Assert<Int>.() -> Unit)?)
             = plant toBeNullIfNullGivenElse assertionCreator
