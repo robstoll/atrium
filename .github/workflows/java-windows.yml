@@ -17,7 +17,7 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
             -   name: Build buildNonDeprecatedJvm
-                run: ./gr buildNonDeprecatedJvm
+                run: ./gradlew buildNonDeprecatedJvm
                 env:
                   CI: true
 

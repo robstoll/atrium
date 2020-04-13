@@ -32,7 +32,7 @@ buildscript {
 
         // project setup
         tutteli_plugins_version = '0.32.2'
-        node_plugin_version = '1.3.1'
+        node_plugin_version = '2.2.0'
 
         // gh-pages.gradle
         docProjects = (subprojects - sampleProjectsFun - toolProjectsFun).findAll {
@@ -124,7 +124,7 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-project-utils:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
-        classpath "com.moowork.gradle:gradle-node-plugin:$node_plugin_version"
+        classpath "com.github.node-gradle:gradle-node-plugin:$node_plugin_version"
     }
 }
 
@@ -438,7 +438,7 @@ List<Project> projectNamesToProject(String[] names) {
 
 def createJsTestTask(String... subprojectNames) {
     configure(projectNamesToProject(subprojectNames)) {
-        apply plugin: 'com.moowork.node'
+        apply plugin: 'com.github.node-gradle.node'
 
         compileTestKotlin2Js.configure {
             kotlinOptions.moduleKind = "commonjs"
@@ -467,13 +467,8 @@ def createJsTestTask(String... subprojectNames) {
             nodeModulesDir = nodeModulesParentDir
         }
 
-        task installMocha(type: NpmTask) {
-            args = ['install', 'mocha', '--prefer-offline']
-        }
-
-        task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])
-        task runMocha(type: NodeTask, dependsOn: [prepareMocha]) {
-            script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
+        task runMocha(type: NpxTask, dependsOn: [compileTestKotlin2Js, populateNodeModules]) {
+            command = "mocha"
             args = [compileTestKotlin2Js.outputFile]
         }
         test.dependsOn runMocha
@@ -493,7 +488,7 @@ createJsTestTask(
 def useJupiter(String... projectNames) {
     configure(projectNamesToProject(projectNames)) {
         dependencies {
-            testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+            testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
         }
         test {
             options {
@@ -562,7 +557,7 @@ assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 
 3. deploy to bintray:
     // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
-    a) java -version 2>&1 | grep "version \"11" && CI=true ./gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check that there are 926 artifacts and publish them
     c) synchronise to maven central
 

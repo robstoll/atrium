@@ -32,7 +32,7 @@ import java.util.*
  * The tests and error message are written here and automatically placed into the README via generation.
  * The generation is done during the project built. To trigger it manually, you have to use:
  * ```
- * ./gr :readme-examples:build
+ * ./gradlew :readme-examples:build
  * ```
  *
  * There are currently three kind of tags supported:

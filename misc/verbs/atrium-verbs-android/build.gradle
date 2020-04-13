@@ -5,8 +5,8 @@ dependencies {
     api prefixedProject('core-api-android')
 
     testImplementation prefixedProject('specs-android')
-    testRuntime prefixedProject('domain-robstoll-android')
-    testRuntime prefixedProject('core-robstoll-android')
+    testRuntimeOnly prefixedProject('domain-robstoll-android')
+    testRuntimeOnly prefixedProject('core-robstoll-android')
 
     //TODO remove with 1.0.0
     testImplementation prefixedProject('spec')

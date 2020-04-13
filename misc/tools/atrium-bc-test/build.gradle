@@ -192,7 +192,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         }
         add(confCommon, sourceSets.main.runtimeClasspath)
 
-        owner."${srcName}Compile" configurations[confCommon].dependencies
+        owner."${srcName}Implementation" configurations[confCommon].dependencies
     }
 
     def getArgs = { String scanClassPath ->

@@ -73,13 +73,14 @@ The following are a few guidelines on how we suggest you start.
  
 1. Fork the repository to your repositories (see [Fork a repo](https://help.github.com/en/articles/fork-a-repo) for help). 
 2. Use an IDE which supports Kotlin and gradle projects.
-   We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/)
-   and install the following plugins:
+   We suggest [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/).
+   Because of [IDEA-228368](https://youtrack.jetbrains.com/issue/IDEA-228368) you will need at least IntelliJ 2020.1, or the Gradle import will fail.
+   Install the following plugins:
    - EditorConfig by JetBrains (might be already activated)
    - Spek Framework by Spek Team
 3. Import the project (import the build.gradle -> import as project, works more reliably)
-4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gr build` 
-   This builds the project (compile, run tests etc) via gradle (notice, we renamed `gradlew` to `gr`, more convenient no?) 
+4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gradlew build` 
+   This builds the project (compile, run tests etc) via gradle
 5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
 
 Note: IntelliJ requires a few workarounds.

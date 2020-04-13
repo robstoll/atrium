@@ -5,8 +5,8 @@ dependencies {
     api prefixedProject('core-api-jvm')
 
     testImplementation prefixedProject('specs-jvm')
-    testRuntime prefixedProject('domain-robstoll-jvm')
-    testRuntime prefixedProject('core-robstoll-jvm')
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
 
     //TODO remove with 1.0.0
     testImplementation prefixedProject('spec')
