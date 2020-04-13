@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove this suppression with 1.0.0 */)
+
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
