@@ -1,0 +1,17 @@
+rootProject.name = "samples-composite"
+
+includeBuild('../../../') {
+    dependencySubstitution {
+        gradle.includedBuild('atrium').getAvailableModules().collect { pair -> pair.right.projectName }
+            .findAll { it.endsWith("-jvm") }
+            .forEach { projectName ->
+                def withoutSuffix = projectName.substring(0, projectName.length() - 4)
+                substitute module("ch.tutteli.atrium:$withoutSuffix") with project(":$projectName")
+            }
+    }
+}
+includeBuild '../../../samples/jvm/junit5'
+includeBuild '../../../samples/jvm/spek'
+includeBuild '../../../samples/multiplatform'
+includeBuild '../../../samples/js/jasmine'
+includeBuild '../../../samples/js/mocha'

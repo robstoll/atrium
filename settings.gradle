@@ -121,10 +121,7 @@ include {
     }
 
     samples {
-        js {
-            project('mocha')
-            project('jasmine')
-        }
+        project('readme-examples')
     }
 
 

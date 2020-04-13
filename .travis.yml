@@ -30,9 +30,7 @@ jobs:
 
       - env: MODE=samples
         script:
-            - samples/jvm/spek/gradlew -p ./samples/jvm/spek build
-            - samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
-            - samples/multiplatform/gradlew -p ./samples/multiplatform/ build
+            - misc/tools/atrium-samples-test/gradlew -p ./misc/tools/atrium-samples-test build
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
