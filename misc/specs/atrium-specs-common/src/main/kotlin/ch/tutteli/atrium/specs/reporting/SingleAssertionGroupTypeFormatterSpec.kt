@@ -10,6 +10,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
@@ -113,7 +114,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException") {
             expect {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.qualifiedName!!) }
+            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
             expect(sb).isEmpty()
         }
     }
@@ -124,7 +125,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             expect {
                 testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.qualifiedName!!) }
+            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
             expect(sb).isEmpty()
         }
 

@@ -21,7 +21,6 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
     }
 }) {
     companion object {
-        val separator = System.getProperty("line.separator")!!
         var sb: StringBuilder = StringBuilder()
         var parameterObject = AssertionFormatterParameterObject.new(
             sb,
