@@ -24,41 +24,26 @@ abstract class CollectionFeatureAssertionsSpec(
         size.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val fluent = expect(listOf("a", "b") as Collection<String>)
     val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
 
-    describeFun("val ${sizeFeature.name}") {
-        val sizeVal = sizeFeature.lambda
+    describeFun(sizeFeature, size) {
+        val sizeFunctions = unifySignatures(sizeFeature, size)
 
         context("list with two entries") {
-            it("toBe(2) holds") {
-                fluent.sizeVal().toBe(2)
-            }
-            it("toBe(1) fails") {
-                expect {
-                    fluent.sizeVal().toBe(1)
-                }.toThrow<AssertionError> {
-                    messageContains("$sizeDescr: 2")
+            sizeFunctions.forEach { (name, sizeFun, _) ->
+                it("$name - is greater than 1 holds") {
+                    fluent.sizeFun { isGreaterThan(1) }
                 }
-            }
-        }
-    }
-
-    describeFun("fun ${size.name}") {
-        val sizeFun = size.lambda
-
-        context("map with two entries") {
-            it("is greater than 1 holds") {
-                fluent.sizeFun { isGreaterThan(1) }
-            }
-            it("is less than 1 fails") {
-                expect {
-                    fluent.sizeFun { isLessThan(1) }
-                }.toThrow<AssertionError> {
-                    messageContains("$sizeDescr: 2")
+                it("$name - is less than 1 fails") {
+                    expect {
+                        fluent.sizeFun { isLessThan(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains("$sizeDescr: 2")
+                    }
                 }
             }
         }
