@@ -2,14 +2,17 @@
 
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.toBe
+import ch.tutteli.atrium.api.infix.en_GB.f
+import ch.tutteli.atrium.api.infix.en_GB.feature
+import ch.tutteli.atrium.api.infix.en_GB.it
+import ch.tutteli.atrium.api.infix.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
-import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.verbs.internal.assert
+import kotlin.math.exp
 import kotlin.reflect.KClass
 import kotlin.test.Test
 
@@ -19,7 +22,7 @@ class KClassFullNameTest {
 
     @Test
     fun property_primitive() {
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 'a'::class to "BoxedChar",
                 true::class to "Boolean",
@@ -51,7 +54,7 @@ class KClassFullNameTest {
 
     @Test
     fun property_classObjectInterface() {
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 "string"::class to "String",
                 RootAssertionGroupType::class to "${RootAssertionGroupType::class.simpleName}",
@@ -67,7 +70,7 @@ class KClassFullNameTest {
 
     @Test
     fun fun_classObject() {
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 "string" to "String",
                 RootAssertionGroupType to "${RootAssertionGroupType::class.simpleName}",
@@ -76,7 +79,7 @@ class KClassFullNameTest {
                 listOf<Int>() to "EmptyList",
                 listOf(1, 2) to "ArrayList"
             ).forEach { (value, expected) ->
-                AssertImpl.feature.returnValueOf0(this, { value::class.fullName(value) }, "fullName") toBe expected
+                it feature { f("fullname", value::class.fullName(value)) } toBe expected
             }
         }
     }
@@ -86,7 +89,7 @@ class KClassFullNameTest {
         val f0: () -> Int = { 1 }
         val f1: (Int) -> Int = { 1 }
         val f2: (Int, String) -> Int = { _, _ -> 1 }
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 type<() -> Unit>() to "Function0",
                 type<(Int) -> Unit>() to "Function1",
@@ -103,20 +106,20 @@ class KClassFullNameTest {
         val f0: () -> Int = { 1 }
         val f1: (Int) -> Int = { 1 }
         val f2: (Int, String) -> Int = { _, _ -> 1 }
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 f0 to "Function0 (js: KClassFullNameTest\$fun_functionTypes\$lambda)",
                 f1 to "Function1 (js: KClassFullNameTest\$fun_functionTypes\$lambda_0)",
                 f2 to "Function2 (js: KClassFullNameTest\$fun_functionTypes\$lambda_1)"
             ).forEach { (value, expected) ->
-                AssertImpl.feature.returnValueOf0(this, { value::class.fullName(value) }, "fullName") toBe expected
+                it feature { f("fullName",  value::class.fullName(value)) } toBe expected
             }
         }
     }
 
-    private fun Assert<String>.fullNameIsExpected(): (Pair<KClass<*>, String>) -> Unit {
+    private fun Expect<String>.fullNameIsExpected(): (Pair<KClass<*>, String>) -> Unit {
         return { (kClass, expected) ->
-            AssertImpl.feature.property(this, { kClass.fullName }, Untranslatable("fullName")) toBe expected
+            it feature { f("fullName", kClass.fullName) } toBe expected
         }
     }
 }
