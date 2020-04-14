@@ -21,39 +21,37 @@ abstract class CollectionAssertionsSpec(
         isNotEmpty.forSubjectLess()
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val isDescr = DescriptionBasic.IS.getDefault()
     val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
 
-    describeFun(isEmpty.name) {
+    describeFun(isEmpty, isNotEmpty) {
         val isEmptyFun = isEmpty.lambda
-
-        it("does not throw if a collection is empty") {
-            expect(listOf<Int>() as Collection<Int>).isEmptyFun()
-        }
-
-        it("throws an AssertionError if a collection is not empty") {
-            expect {
-                expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
-            }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
-        }
-    }
-
-    describeFun(isNotEmpty.name) {
         val isNotEmptyFun = isNotEmpty.lambda
 
-        it("does not throw if a collection is not empty") {
-            expect(listOf(1) as Collection<Int>).isNotEmptyFun()
+        context("collection is empty") {
+            it("${isEmpty.name} - does not throw") {
+                expect(listOf<Int>() as Collection<Int>).isEmptyFun()
+            }
+            it("${isNotEmpty.name} - throws an AssertionError") {
+                expect {
+                    expect(listOf<Int>() as Collection<Int>).isNotEmptyFun()
+                }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+            }
         }
 
-        it("throws an AssertionError if a collection is empty") {
-            expect {
-                expect(listOf<Int>() as Collection<Int>).isNotEmptyFun()
-            }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+        context("collection is not empty") {
+            it("${isEmpty.name} - throws an AssertionError") {
+                expect {
+                    expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
+                }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
+            }
+            it("${isNotEmpty.name} - does not throw") {
+                expect(listOf(1) as Collection<Int>).isNotEmptyFun()
+            }
         }
     }
 })

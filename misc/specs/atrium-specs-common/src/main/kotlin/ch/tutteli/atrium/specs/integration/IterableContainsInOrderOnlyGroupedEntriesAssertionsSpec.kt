@@ -50,9 +50,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     ) {})
     //@formatter:on
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Expect<Iterable<Double?>>.containsInOrderOnlyGroupedEntriesFun(
         t1: Group<(Expect<Double>.() -> Unit)?>,
@@ -156,11 +155,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         )
     }
 
-
-
-
-    describeFun(containsInOrderOnlyGroupedEntries.name) {
-        context("$describePrefix describe non-nullable cases") {
+    describeFun(containsInOrderOnlyGroupedEntries) {
+        context("describe non-nullable cases") {
 
             context("throws an $illegalArgumentException") {
                 it("if an empty group is given as first parameter") {
@@ -410,7 +406,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         }
     }
     nullableCases(describePrefix) {
-        describeFun("$containsInOrderOnlyGroupedEntries for nullable") {
+        describeFun(containsInOrderOnlyGroupedEntries) {
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {
