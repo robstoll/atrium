@@ -1,9 +1,16 @@
 @file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.isNotSameAs
+import ch.tutteli.atrium.api.infix.en_GB.isSameAs
+import ch.tutteli.atrium.api.infix.en_GB.notToBe
+import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import kotlin.reflect.KFunction2
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
@@ -22,10 +29,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     getAndLazyPair()
 ) {
     class AnyAssertionsSpecFunFactory<T : Any> : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
-        override val toBeFun: Assert<T>.(T) -> Assert<T> = { o toBe it }
-        override val notToBeFun: Assert<T>.(T) -> Assert<T> = { o notToBe it }
-        override val isSameFun: Assert<T>.(T) -> Assert<T> = { o isSameAs it }
-        override val isNotSameFun: Assert<T>.(T) -> Assert<T> = { o isNotSameAs it }
+        override val toBeFun: Assert<T>.(T) -> Assert<T> = { o.asExpect().toBe(it).asAssert() }
+        override val notToBeFun: Assert<T>.(T) -> Assert<T> = { o.asExpect().notToBe(it).asAssert() }
+        override val isSameFun: Assert<T>.(T) -> Assert<T> = { o.asExpect().isSameAs(it).asAssert() }
+        override val isNotSameFun: Assert<T>.(T) -> Assert<T> = { o.asExpect().isNotSameAs(it).asAssert() }
     }
 
     companion object {
