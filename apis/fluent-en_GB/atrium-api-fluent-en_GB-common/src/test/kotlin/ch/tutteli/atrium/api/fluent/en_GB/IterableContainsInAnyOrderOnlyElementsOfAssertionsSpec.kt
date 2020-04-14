@@ -8,7 +8,7 @@ import org.spekframework.spek2.style.specification.describe
 class IterableContainsInAnyOrderOnlyElementsOfAssertionSpec : Spek({
     include(BuilderSpec)
 
-    describe("elementsOf") {
+    describe("contains.inAnyOrder.only.elementsOf") {
         it("passing an empty iterable throws an IllegalArgumentException") {
             expect {
                 expect(listOf(1, 2)).contains.inAnyOrder.only.elementsOf(listOf())
