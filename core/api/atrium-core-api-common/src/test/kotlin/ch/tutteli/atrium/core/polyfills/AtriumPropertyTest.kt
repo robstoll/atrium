@@ -1,15 +1,14 @@
-@file:Suppress("DEPRECATION" /* remove once we have migrated to new infix API */)
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.toBe
-import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
 class AtriumPropertyTest {
 
     @Test
     fun get_undefined_returnsNull() {
-        assert(getAtriumProperty("notYetDefined")) toBe null
+        expect(getAtriumProperty("notYetDefined")) toBe null
     }
 
     @Test
@@ -17,7 +16,7 @@ class AtriumPropertyTest {
         //arrange
         setAtriumProperty("a", "b")
         //act & assert
-        assert(getAtriumProperty("a")) toBe "b"
+        expect(getAtriumProperty("a")) toBe "b"
     }
 
     @Test
@@ -25,7 +24,7 @@ class AtriumPropertyTest {
         //act
         setAtriumProperty("a", "b")
         //assert
-        assert(getAtriumProperty("a")) toBe "b"
+        expect(getAtriumProperty("a")) toBe "b"
     }
 
     @Test
@@ -35,6 +34,6 @@ class AtriumPropertyTest {
         //act
         setAtriumProperty("a", "c")
         //assert
-        assert(getAtriumProperty("a")) toBe "c"
+        expect(getAtriumProperty("a")) toBe "c"
     }
 }
