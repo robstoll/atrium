@@ -24,6 +24,15 @@ import kotlin.jvm.JvmName
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toBe(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.toBe"
+    )
+)
 infix fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
@@ -41,6 +50,15 @@ infix fun <T: Any> Assert<T>.toBe(keyword: Keyword): Nothing
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().notToBe(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.notToBe"
+    )
+)
 infix fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
@@ -58,6 +76,15 @@ infix fun <T: Any> Assert<T>.notToBe(keyword: Keyword): Nothing
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isSameAs(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix-en_GB.isSameAs"
+    )
+)
 infix fun <T : Any> Assert<T>.isSameAs(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -70,6 +97,15 @@ infix fun <T : Any> Assert<T>.isSameAs(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().isNotSameAs(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix-en_GB.isNotSameAs"
+    )
+)
 infix fun <T : Any> Assert<T>.isNotSameAs(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
@@ -80,6 +116,15 @@ infix fun <T : Any> Assert<T>.isNotSameAs(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toBe(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.toBe"
+    )
+)
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?) {
     addAssertion(AssertImpl.any.isNullable(this, T::class, expected))
 }
@@ -100,6 +145,15 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBe(expected: T?)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().toBeNullIfNullGivenElse(assertionCreatorOrNull).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.toBeNullIfNullGivenElse"
+    )
+)
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullGivenElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
     addAssertion(AssertImpl.any.isNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 }

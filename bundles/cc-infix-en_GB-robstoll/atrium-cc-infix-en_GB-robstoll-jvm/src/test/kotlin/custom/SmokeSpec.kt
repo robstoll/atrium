@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+
 package custom
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.toBe

@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.specs
 
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.kbox.joinToString
-import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.GroupBody
-import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
 

@@ -12,7 +12,8 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-import ch.tutteli.atrium.translations.ErrorMessages
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_THAN
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -37,18 +38,16 @@ abstract class AnyAssertionsSpec(
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
 
-    isAFeature: Feature0<Int?, Int>,
-    isA: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
+    isAIntFeature: Feature0<out Any?, Int>,
+    isAInt: Feature1<out Any?, Expect<Int>.() -> Unit, Int>,
 
-    isAIntFun: Feature1<String, Expect<Int>.() -> Unit, Int>,
-    isAStringFun: Feature1<String, Expect<String>.() -> Unit, String>,
-    isACharSequenceFun: Feature1<String, Expect<CharSequence>.() -> Unit, CharSequence>,
-    isASubTypeFun: Feature1<SuperType, Expect<SubType>.() -> Unit, SubType>,
-    isAIntLessThan: Feature1<Number, Int, Int>,
+    isASuperTypeFeature: Feature0<out Any?, SuperType>,
+    isASuperType: Feature1<out Any?, Expect<SuperType>.() -> Unit, SuperType>,
+    isASubTypeFeature: Feature0<out Any?, SubType>,
+    isASubType: Feature1<out Any?, Expect<SubType>.() -> Unit, SubType>,
 
+    notToBeNullFeature: Feature0<Int?, Int>,
     notToBeNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
-    notToBeNullLessThanFun: Expect<Int?>.(Int) -> Expect<Int>,
-    notToBeNullGreaterAndLessThanFun: Expect<Int?>.(Int, Int) -> Expect<Int>,
 
     andPair: Fun0<Int>,
     andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
@@ -72,8 +71,9 @@ abstract class AnyAssertionsSpec(
         isSameNullableInt.forSubjectLess(1),
         isNotSameNullableInt.forSubjectLess(1),
         toBeNull.forSubjectLess(),
-        isAFeature.forSubjectLess(),
-        isA.forSubjectLess { toBe(1) },
+        isAIntFeature.forSubjectLess(),
+        isAInt.forSubjectLess { toBe(1) },
+        notToBeNullFeature.forSubjectLess(),
         notToBeNull.forSubjectLess { toBe(1) }
     ) {})
 
@@ -85,17 +85,23 @@ abstract class AnyAssertionsSpec(
         "$describePrefix[nullable Element] ", 1,
         toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
         assertionCreatorSpecTriple(
-            isA.name,
+            isAInt.name,
             "$toBeDescr: 1",
-            { apply { isA.invoke(this) { toBe(1) } } },
-            { apply { isA.invoke(this) {} } })
+            { apply { isAInt.invoke(this) { toBe(1) } } },
+            { apply { isAInt.invoke(this) {} } }),
+        assertionCreatorSpecTriple(
+            notToBeNull.name,
+            "$toBeDescr: 1",
+            { apply { notToBeNull.invoke(this) { toBe(1) } } },
+            { apply { notToBeNull.invoke(this) {} } })
+
     ) {})
 
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
         prefixedDescribeTemplate(describePrefix, description, body)
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun <T : Int?> Suite.checkInt(
         description: String,
@@ -281,7 +287,7 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(toBeInt.name, notToBeInt.name, isSameInt.name, isNotSameInt.name) {
+    describeFun(toBeInt, notToBeInt, isSameInt, isNotSameInt) {
         checkInt("primitive", expect(1), toBeInt, notToBeInt, isSameInt, isNotSameInt)
         checkInt(
             "nullable primitive",
@@ -330,7 +336,7 @@ abstract class AnyAssertionsSpec(
         )
     }
 
-    describeFun(toBeNull.name) {
+    describeFun(toBeNull) {
 
         val toBeNullFun = toBeNull.lambda
         context("subject is null") {
@@ -362,7 +368,7 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(toBeNullableInt.name) {
+    describeFun(toBeNullableInt) {
         val toBeNullableFun = toBeNullableInt.lambda
 
         context("subject is null") {
@@ -401,7 +407,7 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(toBeNullIfNullGivenElse.name) {
+    describeFun(toBeNullIfNullGivenElse) {
         val toBeNullIfNullElseFun = toBeNullIfNullGivenElse.lambda
         context("subject is null") {
             val subject: Int? = null
@@ -426,7 +432,7 @@ abstract class AnyAssertionsSpec(
                 expect {
                     expect(subject).toBeNullIfNullElseFun { isGreaterThan(1) }
                 }.toThrow<AssertionError> {
-                    messageContains(": 1", "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 1")
+                    messageContains(": 1", "${IS_GREATER_THAN.getDefault()}: 1")
                 }
             }
             it("throws an AssertionError if null is passed") {
@@ -440,31 +446,17 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-
-    describeFun(notToBeNull.name) {
-
-        val notToBeNullFun = notToBeNull.lambda
+    describeFun(notToBeNullFeature, notToBeNull) {
+        val notToBeNullFunctions = unifySignatures(notToBeNullFeature, notToBeNull)
 
         context("subject is null") {
-            it("throws an AssertionError") {
-                expect {
-                    val i: Int? = null
-                    expect(i).notToBeNullFun { toBe(1) }
-                }.toThrow<AssertionError> {
-                    messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
-                }
-            }
-
-            context("it still allows to define assertion on the subject even if it is null") {
-                it("throws an AssertionError and contains the additional assertion as explanation") {
+            notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        val i: Int? = null
-                        expect(i).notToBeNullLessThanFun(2)
+                        expect(null as Int?).notToBeNullFun { toBe(1) }
                     }.toThrow<AssertionError> {
-                        messageContains(
-                            IS_A.getDefault() + ": Int (kotlin.Int)",
-                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-                        )
+                        messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
+                        if (hasExtraHint) messageContains("$toBeDescr: 1")
                     }
                 }
             }
@@ -472,168 +464,118 @@ abstract class AnyAssertionsSpec(
 
         context("subject is not null") {
 
-            it("does not throw") {
-                val i: Int? = 1
-                expect(i).notToBeNullFun { toBe(1) }
-            }
 
             context("it allows to define an assertion for the subject") {
-                it("does not throw if the assertion holds") {
-                    val i: Int? = 1
-                    expect(i).notToBeNullLessThanFun(2)
-                }
+                notToBeNullFunctions.forEach { (name, notToBeNullFun, _) ->
 
-                it("throws an AssertionError if the assertion does not hold") {
-                    expect {
-                        val i: Int? = 1
-                        expect(i).notToBeNullLessThanFun(0)
-                    }.toThrow<AssertionError>()
-                }
-            }
-            context("it allows to define multiple assertions for the subject") {
-                it("does not throw if the assertions hold") {
-                    val i: Int? = 1
-                    expect(i).notToBeNullGreaterAndLessThanFun(0, 2)
-                }
+                    it("$name - does not throw if the assertion holds") {
+                        expect(1 as Int?).notToBeNullFun { isLessThan(2) }
+                    }
 
-                it("throws an AssertionError if one assertion does not hold") {
-                    expect {
-                        val i: Int? = 1
-                        expect(i).notToBeNullGreaterAndLessThanFun(2, 5)
-                    }.toThrow<AssertionError> {
-                        message {
-                            contains(DescriptionComparableAssertion.IS_GREATER_THAN.getDefault())
-                            containsNot(DescriptionComparableAssertion.IS_LESS_THAN.getDefault())
+                    it("$name - throws an AssertionError if the assertion does not hold") {
+                        expect {
+                            expect(1 as Int?).notToBeNullFun { isLessThan(0) }
+                        }.toThrow<AssertionError> {
+                            messageContains("${IS_LESS_THAN.getDefault()}: 0")
                         }
                     }
                 }
+            }
+            context("it allows to define multiple assertions for the subject") {
+                notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+                    it("$name - does not throw if the assertions hold") {
+                        expect(1 as Int?).notToBeNullFun { isGreaterThan(0); isLessThan(2) }
+                    }
 
-                it("throws an AssertionError if both assertions do not hold and contains both messages") {
-                    expect {
-                        val i: Int? = 1
-                        expect(i).notToBeNullGreaterAndLessThanFun(2, 0)
-                    }.toThrow<AssertionError> {
-                        messageContains(
-                            DescriptionComparableAssertion.IS_GREATER_THAN.getDefault(),
-                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-                        )
+                    it("$name - throws an AssertionError if one assertion does not hold") {
+                        expect {
+                            val i: Int? = 1
+                            expect(i).notToBeNullFun { isGreaterThan(2); isLessThan(5) }
+                        }.toThrow<AssertionError> {
+                            message {
+                                contains(IS_GREATER_THAN.getDefault())
+                                containsNot(IS_LESS_THAN.getDefault())
+                            }
+                        }
+                    }
+
+                    it("$name - throws an AssertionError if both assertions do not hold " + (if (hasExtraHint) "and contains both messages" else "and contains only first message")) {
+                        expect {
+                            val i: Int? = 1
+                            expect(i).notToBeNullFun { isGreaterThan(2); isLessThan(0) }
+                        }.toThrow<AssertionError> {
+                            messageContains(IS_GREATER_THAN.getDefault())
+                            if(hasExtraHint) messageContains(IS_LESS_THAN.getDefault())
+                        }
                     }
                 }
             }
         }
 
         context("in a feature assertion and subject is null") {
-            it("throws an AssertionError") {
-                class A(val i: Int? = null)
-                expect {
-                    expect(A()).feature(A::i).notToBeNullFun { toBe(1) }
-                }.toThrow<AssertionError> {
-                    messageContains(
-                        A::class.simpleName!!,
-                        IS_A.getDefault() + ": Int (kotlin.Int)",
-                        TO_BE.getDefault() + ": 1"
-                    )
+            notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                    class A(val i: Int? = null)
+                    expect {
+                        expect(A()).feature(A::i).notToBeNullFun { toBe(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            A::class.simpleName!!,
+                            IS_A.getDefault() + ": Int (kotlin.Int)"
+                        )
+                        if (hasExtraHint) messageContains(TO_BE.getDefault() + ": 1")
+                    }
                 }
-            }
 
-            it("throws an AssertionError which contains subsequent assertions") {
-                class A(val i: Int? = null)
-                expect {
-                    expect(A()).feature(A::i).notToBeNullLessThanFun(1)
-                }.toThrow<AssertionError> {
-                    messageContains(
-                        A::class.simpleName!!,
-                        IS_A.getDefault() + ": Int (kotlin.Int)",
-                        DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+                it("$name - throws an AssertionError which contains subsequent assertions") {
+                    class A(val i: Int? = null)
+                    expect {
+                        expect(A()).feature(A::i).notToBeNull { isLessThan(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            A::class.simpleName!!,
+                            IS_A.getDefault() + ": Int (kotlin.Int)",
+                            IS_LESS_THAN.getDefault()
 
-                    )
+                        )
+                    }
                 }
             }
         }
     }
 
-
-    describeFun("${isAFeature.name} feature") {
-        val isAFun = isAFeature.lambda
+    describeFun(isAIntFeature, isAInt) {
+        val isAIntFunctions = unifySignatures<Any?, Int>(isAIntFeature, isAInt)
 
         context("subject is not in type hierarchy") {
-            it("throws an AssertionError") {
-                expect {
-                    expect(null as Int?).isAFun().toBe(1)
-                }.toThrow<AssertionError> {
-                    message {
-                        contains(IS_A.getDefault() + ": Int (kotlin.Int)")
-                        containsNot(TO_BE.getDefault() + ": 1")
+            isAIntFunctions.forEach { (name, isAInt, hasExtraHint) ->
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        expect("hello" as Any?).isAInt { toBe(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
+                        if (hasExtraHint) messageContains(TO_BE.getDefault() + ": 1")
                     }
                 }
             }
         }
 
-        context("subject is the same type") {
-            it("does not throw an AssertionError") {
-                expect(1 as Int?).isAFun()
-            }
-            context("it allows to perform an assertion specific for the subtype...") {
 
-                it("... which holds -- does not throw") {
-                    expect(1 as Int?).isAFun().isLessThan(2)
-                }
-                it("... which fails -- throws an AssertionError") {
+        context("subject is the same type") {
+            context("it allows to perform sub assertions") {
+                isAIntFunctions.forEach { (name, isAInt, _) ->
+                    it("$name - does not throw if it holds") {
+                        expect(1 as Any?).isAInt { isLessThan(2) }
+                    }
+
                     val expectedLessThan = 2
-                    val actualValue: Number = 5
-                    expect {
-                        expect(actualValue as Int?).isAFun().isLessThan(expectedLessThan)
-                    }.toThrow<AssertionError> {
-                        messageContains(
-                            actualValue,
-                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
-                            expectedLessThan
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    describeFun(isA.name) {
-
-        context("subject is not in type hierarchy") {
-            it("throws an AssertionError") {
-                expect {
-                    expect("hello").(isAIntFun.lambda) { toBe(1) }
-                }.toThrow<AssertionError> {
-                    messageContains(
-                        IS_A.getDefault() + ": Int (kotlin.Int)",
-                        TO_BE.getDefault() + ": 1"
-                    )
-                }
-            }
-        }
-
-        val isAIntLessThanFun = isAIntLessThan.lambda
-
-        context("subject is the same type") {
-            it("does not throw an AssertionError") {
-                expect("hello").(isAStringFun.lambda) { toBe("hello") }
-            }
-
-            context("it allows to perform an assertion specific for the subtype...") {
-
-                it("... which holds -- does not throw") {
-                    expect(1 as Number).isAIntLessThanFun(2)
-                }
-
-                val expectedLessThan = 2
-                val actualValue: Number = 5
-                it("... which fails -- throws an AssertionError") {
-                    expect {
-                        expect(actualValue).isAIntLessThanFun(expectedLessThan)
-                    }.toThrow<AssertionError> {
-                        messageContains(
-                            actualValue,
-                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
-                            expectedLessThan
-                        )
+                    val actualValue: Any? = 5
+                    it("$name - throws if it does not hold") {
+                        expect {
+                            expect(actualValue).isAInt { isLessThan(expectedLessThan) }
+                        }.toThrow<AssertionError> {
+                            messageContains(actualValue as Any, IS_LESS_THAN.getDefault(), expectedLessThan)
+                        }
                     }
                 }
             }
@@ -641,72 +583,42 @@ abstract class AnyAssertionsSpec(
 
         context("subject is a subtype") {
 
-            it("does not throw an AssertionError if the subject is a subtype") {
-                expect("hello").(isACharSequenceFun.lambda) { isNotEmpty() }
-            }
+            val isASuperTypeFunctions = unifySignatures<Any?, SuperType>(isASuperTypeFeature, isASuperType)
 
-            context("it allows to perform an assertion specific for the subtype...") {
+            context("it allows to perform sub assertions") {
+                isASuperTypeFunctions.forEach { (name, isASuperType, _) ->
+                    it("$name - does not throw if it holds") {
+                        val subject = SubType()
+                        expect(subject as Any?).isASuperType { isSameAs(subject) }
+                    }
 
-                it("... which holds -- does not throw") {
-                    expect(1 as Number).isAIntLessThanFun(2)
-                }
-
-                val expectedLessThan = 2
-                val actualValue: Number = 5
-                it("... which fails -- throws an AssertionError") {
-                    expect {
-                        expect(actualValue).isAIntLessThanFun(expectedLessThan)
-                    }.toThrow<AssertionError> {
-                        messageContains(
-                            actualValue,
-                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
-                            expectedLessThan
-                        )
+                    it("$name - throws if it does not hold") {
+                        val subject = SubType()
+                        val otherSubType = SubType()
+                        expect {
+                            expect(subject as Any?).isASuperType { isSameAs(otherSubType) }
+                        }.toThrow<AssertionError> {
+                            messageContains(subject.toString(), IS_SAME.getDefault(), otherSubType.toString())
+                        }
                     }
                 }
             }
         }
 
         context("subject is a supertype") {
-            it("throws an AssertionError") {
-                expect {
-                    expect(SuperType()).(isASubTypeFun.lambda) { isSameAs(SubType()) }
-                }.toThrow<AssertionError> {
-                    messageContains(
-                        SuperType::class.fullName,
-                        IS_A.getDefault(),
-                        SubType::class.fullName,
-                        DescriptionAnyAssertion.IS_SAME.getDefault()
-                    )
-                }
-            }
-        }
+            val isASubTypeFunctions = unifySignatures<Any?, SubType>(isASubTypeFeature, isASubType)
+            isASubTypeFunctions.forEach { (name, isASubType, hasExtraHint) ->
+                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
 
-        context("empty assertionCreator lambda") {
-            it("is the expected type, throws nonetheless") {
-                expect {
-                    expect("hello").(isACharSequenceFun.lambda) {}
-                }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
-                            ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
-                            ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
+                    expect {
+                        expect(SuperType() as Any?).isASubType { isSameAs(SubType()) }
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            SuperType::class.fullName,
+                            IS_A.getDefault(), SubType::class.fullName
                         )
-                        containsNot("${DescriptionAnyAssertion.IS_A.getDefault()}: CharSequence")
+                        if (hasExtraHint) messageContains(IS_SAME.getDefault())
                     }
-                }
-            }
-            it("is not the expected type, contains the error as well") {
-                expect {
-                    expect("hello").(isAIntFun.lambda) {}
-                }.toThrow<AssertionError> {
-                    messageContains(
-                        ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
-                        ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
-                        ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault(),
-                        "${DescriptionAnyAssertion.IS_A.getDefault()}: Int"
-                    )
                 }
             }
         }

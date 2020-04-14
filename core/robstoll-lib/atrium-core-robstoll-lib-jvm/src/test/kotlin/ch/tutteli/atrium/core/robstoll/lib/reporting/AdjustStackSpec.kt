@@ -131,7 +131,7 @@ class AdjustStackSpec : Spek({
                 coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
                 listOf()
             ),
-        "combine noop ajdust, remove atrium adjuster and remove runner adjuster" to
+        "combine noop adjust, remove atrium adjuster and remove runner adjuster" to
             coreFactory.newMultiAtriumErrorAdjuster(
                 coreFactory.newNoOpAtriumErrorAdjuster(),
                 coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
