@@ -198,6 +198,21 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = contains.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
+/**
+ * Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterable].
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.11.0
+ */
+inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIterable: Iterable<E>): Expect<T> =
+    contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not contain the [expected] value
