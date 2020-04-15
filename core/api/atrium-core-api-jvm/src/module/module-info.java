@@ -1,6 +1,7 @@
 module ch.tutteli.atrium.core.api {
     requires transitive ch.tutteli.kbox;
     requires            kotlin.stdlib;
+    requires            org.opentest4j;
 
     exports ch.tutteli.atrium.assertions;
     exports ch.tutteli.atrium.assertions.builders;

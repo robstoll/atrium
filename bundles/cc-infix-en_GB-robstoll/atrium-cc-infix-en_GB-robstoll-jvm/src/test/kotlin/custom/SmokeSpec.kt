@@ -4,14 +4,41 @@ package custom
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.reporting.AssertionFailedError
+import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.verbs.expect
 import org.jetbrains.spek.api.Spek
+import kotlin.test.assertEquals
+import kotlin.test.Test
+
+class Test {
+    @Test
+    fun atrium(){
+        expect(1) toBe 2
+    }
+
+    @Test
+    fun opentest4j_directly(){
+        throw AssertionFailedError("oh no", 1, 2)
+    }
+
+    @Test
+    fun mimic_kotlinTestErrorMessage(){
+        throw AtriumError.create("expected: <1> but was: <2>", coreFactory.newNoOpAtriumErrorAdjuster())
+    }
+
+    @Test
+    fun kotlinTest(){
+        assertEquals(1, 2, "bla")
+    }
+}
 
 //TODO remove with 1.0.0 - no need to migrate to Spek2
 object SmokeSpec : Spek({

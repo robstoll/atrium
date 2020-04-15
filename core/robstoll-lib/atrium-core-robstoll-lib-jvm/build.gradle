@@ -5,6 +5,7 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 
 dependencies {
     api prefixedProject('core-api-jvm')
+    implementation 'org.opentest4j:opentest4j:1.2.0'
 
     // it is up to the consumer of atrium-core-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')

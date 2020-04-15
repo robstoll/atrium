@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.reporting
 
+actual open class AssertionFailedError(message: String) : AssertionError(message)
+
 /**
  * Indicates that an assertion made by Atrium failed.
  *
@@ -11,7 +13,7 @@ package ch.tutteli.atrium.reporting
  *
  * To create such an error you need to use the [AtriumError.Companion.create][Companion.create] function.
  */
-actual class AtriumError internal actual constructor(message: String) : AssertionError(message) {
+actual class AtriumError internal actual constructor(message: String) : AssertionFailedError(message) {
 
     actual companion object {
         /**

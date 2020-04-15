@@ -3,6 +3,7 @@ description = 'API of the core of Atrium for the JVM platform.'
 dependencies {
     api kbox(), excludeKotlin
     api kotlinReflect()
+    implementation 'org.opentest4j:opentest4j:1.2.0'
 
     testImplementation prefixedProject('api-infix-en_GB-jvm')
     testImplementation prefixedProject('api-cc-infix-en_GB-jvm')
