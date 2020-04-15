@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.kbox.glue
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction2
@@ -19,7 +18,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
         }
     }
 
-    describe("contains all Elements at Least Once") {
+    describe("containsElementsOf") {
         it("passing an empty iterable throws an IllegalArgumentException") {
             expect {
                 expect(listOf(1, 2)) containsElementsOf listOf()
@@ -60,8 +59,8 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> = expect contains o inAny order atLeast 1 elementsOf listOf(a, *aX)
 
-        private val containsElementsOfShortcutFun: KFunction2<Expect<Iterable<Long>>, Iterable<Long>, Expect<Iterable<Long>>> =
-            Expect<Iterable<Long>>::containsElementsOf
+        private val containsElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::containsElementsOf
 
         private fun getContainsShortcutPair() = containsElementsOfShortcutFun.name to Companion::containsInAnyOrderShortcut
 
@@ -69,7 +68,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect containsElementsOf(a glue aX)
+        ): Expect<Iterable<Double>> = expect containsElementsOf listOf(a, *aX)
 
         private val containsElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsElementsOf
@@ -80,7 +79,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect containsElementsOf(a glue aX)
+        ): Expect<Iterable<Double?>> = expect containsElementsOf listOf(a, *aX)
 
     }
 }
