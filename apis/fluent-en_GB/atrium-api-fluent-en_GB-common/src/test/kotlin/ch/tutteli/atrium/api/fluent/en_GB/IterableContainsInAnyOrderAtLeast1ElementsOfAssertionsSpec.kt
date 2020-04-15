@@ -59,8 +59,8 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> = expect.contains.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
 
-        private val containsElementsOfShortcutFun: KFunction2<Expect<Iterable<Long>>, Iterable<Long>, Expect<Iterable<Long>>> =
-            Expect<Iterable<Long>>::containsElementsOf
+        private val containsElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::containsElementsOf
 
         private fun getContainsShortcutPair() = containsElementsOfShortcutFun.name to Companion::containsInAnyOrderShortcut
 
@@ -68,7 +68,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.containsElementsOf(a glue aX)
+        ): Expect<Iterable<Double>> = expect.containsElementsOf(listOf(a, *aX))
 
         private val containsElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsElementsOf
@@ -79,7 +79,6 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.containsElementsOf(a glue aX)
-
+        ): Expect<Iterable<Double?>> = expect.containsElementsOf(listOf(a, *aX))
     }
 }
