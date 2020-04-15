@@ -234,7 +234,21 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(entries: Entries
     it contains o inGiven order and only the entries
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterable].
+ * Expects that the subject of the assertion (an [Iterable]) contains only elements of [expectedIterable]
+ * in same order
+ *
+ * It is a shortcut for 'contains.inOrder.only.elementsOf(anotherList)'
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.11.0
+ */
+inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
+    expectedIterable: Iterable<E>
+): Expect<T> = it contains o inGiven order and only elementsOf (expectedIterable)
+
+/** Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterable].
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
  *
