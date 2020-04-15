@@ -64,7 +64,7 @@ abstract class OptionalAssertionsSpec(
                 }
             }
 
-            isPresentFunctions.forEach { (name, isPresentFun, hasExtraHint) ->
+            isPresentFunctions.forEach { (name, isPresentFun, @Suppress("UNUSED_DESTRUCTURED_PARAMETER_ENTRY") hasExtraHint) ->
                 it("$name - can perform sub-assertion which holds") {
                     expect(presentValue).isPresentFun { toBe(2) }
                 }
