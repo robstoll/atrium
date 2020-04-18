@@ -17,8 +17,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-    = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
+infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>    = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
 /**
  * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
