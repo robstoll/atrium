@@ -6,7 +6,11 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.atLeast
+import ch.tutteli.atrium.api.infix.en_GB.butAtMost
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsAtLeastAssertionsSpec(
@@ -31,9 +35,9 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integra
 
         private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant to contain atLeast atLeast value a
+                (plant.asExpect().contains(o)).atLeast(atLeast) value a
             } else {
-                plant to contain atLeast atLeast the Values(a, *aX)
+                (plant.asExpect().contains(o) atLeast atLeast).the(Values(a, *aX))
             }
         }
 
@@ -45,11 +49,11 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integra
 
         private fun containsAtLeastIgnoringCase(plant: Assert<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                if(atLeast == 1) plant to contain ignoring case value a
-                else plant to contain ignoring case atLeast atLeast value a
+                if(atLeast == 1) (plant.asExpect().contains(o) ignoring case).value(a)
+                else (plant.asExpect().contains(o) ignoring case atLeast atLeast).value(a)
             } else {
-                if(atLeast == 1) plant to contain ignoring case the Values(a, *aX)
-                else plant to contain ignoring case atLeast atLeast the Values(a, *aX)
+                if(atLeast == 1) (plant.asExpect().contains(o) ignoring case).the(Values(a, *aX))
+                else (plant.asExpect().contains(o) ignoring case atLeast atLeast).the(Values(a, *aX))
             }
         }
 
@@ -69,7 +73,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integra
         )
 
         private fun containsAtLeastButAtMostIgnoringCase(plant: Assert<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
-            = plant to contain ignoring case atLeast atLeast butAtMost butAtMost the Values(a, *aX)
+            = (plant.asExpect().contains(o) ignoring case atLeast atLeast butAtMost butAtMost).the(Values(a, *aX))
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 

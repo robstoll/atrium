@@ -17,6 +17,13 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.atLeast(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.atLeast"
+    )
+)
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -35,6 +42,13 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [genau] restriction instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.butAtMost(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.butAtMost"
+    )
+)
 infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -49,6 +63,13 @@ infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.but
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.exactly(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.exactly"
+    )
+)
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -68,6 +89,13 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.atMost(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.atMost"
+    )
+)
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -82,5 +110,12 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.notOrAtMost(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.notOrAtMost"
+    )
+)
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)

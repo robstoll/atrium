@@ -4,9 +4,10 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsNotAssertionsSpec(
@@ -26,9 +27,9 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration
 
         private fun containsNotFun(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant notTo contain value a
+                plant.asExpect().containsNot(o) value a
             } else {
-                plant notTo contain the Values(a, *aX)
+                plant.asExpect().containsNot(o) the Values(a, *aX)
             }
         }
 
@@ -40,9 +41,9 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration
 
         private fun containsNotIgnoringCase(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant notTo contain ignoring case value a
+                plant.asExpect().containsNot(o) ignoring case value a
             } else {
-                plant notTo contain ignoring case the Values(a, *aX)
+                plant.asExpect().containsNot(o) ignoring case the Values(a, *aX)
             }
         }
     }
