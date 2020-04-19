@@ -2,8 +2,13 @@
 
 package ch.tutteli.atrium.translations
 
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
+import java.nio.file.Path
 
+/**
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Path].
+ */
 enum class DescriptionPathAssertion(override val value: String) : StringBasedTranslatable {
     DOES_NOT_HAVE_PARENT("hat keinen Elternpfad"),
     ENDS_NOT_WITH("endet nicht mit"),
