@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isKeyValue(key, value).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -41,7 +41,7 @@ fun <K : Any, V : Any> Assert<Map.Entry<K, V>>.isKeyValue(key: K, value: V): Ass
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().key",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -61,7 +61,7 @@ val <K : Any> Assert<Map.Entry<K, *>>.key get() : Assert<K> = property(Map.Entry
  */
 //TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
 //@Deprecated(
-//    "Switch from Assert to Expect; will be removed with 1.0.0",
+//    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
 //    ReplaceWith(
 //        "this.asExpect().key",
 //        "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -80,7 +80,7 @@ val <K> Assert<Map.Entry<K, *>>.key get() : AssertionPlantNullable<K> = property
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { key.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -101,7 +101,7 @@ fun <K : Any, V> Assert<Map.Entry<K, V>>.key(assertionCreator: Assert<K>.() -> U
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().value",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -121,7 +121,7 @@ val <V : Any> Assert<Map.Entry<*, V>>.value get() : Assert<V> = property(Map.Ent
  */
 //TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
 //@Deprecated(
-//    "Switch from Assert to Expect; will be removed with 1.0.0",
+//    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
 //    ReplaceWith(
 //        "this.asExpect().value",
 //        "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -140,7 +140,7 @@ val <V> Assert<Map.Entry<*, V>>.value get() : AssertionPlantNullable<V> = proper
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { value.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

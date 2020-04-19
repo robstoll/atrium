@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.atLeast(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.atLeast"
@@ -43,7 +43,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  *   `at least` restriction; use the [exactly] restriction instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.butAtMost(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.butAtMost"
@@ -64,7 +64,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.exactly(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.exactly"
@@ -90,7 +90,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.atMost(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.atMost"
@@ -111,7 +111,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.notOrAtMost(times)",
         "ch.tutteli.atrium.api.fluent.en_GB.notOrAtMost"

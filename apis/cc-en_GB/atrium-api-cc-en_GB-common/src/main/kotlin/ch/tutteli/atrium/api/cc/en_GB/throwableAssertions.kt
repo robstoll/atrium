@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.toThrow<TExpected>().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
@@ -39,7 +39,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.notToThrow()",
         "ch.tutteli.atrium.api.fluent.en_GB.notToThrow"
@@ -62,7 +62,7 @@ fun ThrowableThrown.Builder.notToThrow(){
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().message.asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -90,7 +90,7 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
  *   or does not contain [expected] or [otherExpected].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().messageContains(expected, *otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

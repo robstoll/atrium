@@ -29,7 +29,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)",
         "ch.tutteli.atrium.api.fluent.en_GB.inAnyOrder"
@@ -67,7 +67,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder(firstGroup /* might need further adaptions, check if overload with Group<(Expect<E>.() -> Unit)?> is chosen */, secondGroup, *otherExpectedGroups)",
         "ch.tutteli.atrium.api.fluent.en_GB.inAnyOrder"

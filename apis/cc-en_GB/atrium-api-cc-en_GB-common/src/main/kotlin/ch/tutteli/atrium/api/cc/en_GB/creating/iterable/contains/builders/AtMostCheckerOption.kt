@@ -10,6 +10,6 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.")
 interface AtMostCheckerOption<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
     : WithTimesCheckerOption<E, T, S>

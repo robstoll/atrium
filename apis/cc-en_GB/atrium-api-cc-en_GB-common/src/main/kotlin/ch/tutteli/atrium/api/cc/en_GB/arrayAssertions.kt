@@ -15,7 +15,7 @@ import kotlin.jvm.JvmName
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -36,7 +36,7 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -57,7 +57,7 @@ fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.()
  * @return The newly created [Assert] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -79,7 +79,7 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>> =
  * @return The newly created [Assert] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -101,7 +101,7 @@ fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> 
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -123,7 +123,7 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -145,7 +145,7 @@ fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> 
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -167,7 +167,7 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -189,7 +189,7 @@ fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -210,7 +210,7 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>> = ExpectImpl.changeSubj
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -232,7 +232,7 @@ fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Un
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -254,7 +254,7 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -276,7 +276,7 @@ fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> 
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -298,7 +298,7 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -320,7 +320,7 @@ fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -342,7 +342,7 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -364,7 +364,7 @@ fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.()
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -386,7 +386,7 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>> =
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList().asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

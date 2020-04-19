@@ -52,7 +52,7 @@ fun <T : BigDecimal> AssertionPlantNullable<T?>.notToBeNullBut(expected: T): Not
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isNumericallyEqualTo(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -79,7 +79,7 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isNotNumericallyEqualTo(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -104,7 +104,7 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isEqualIncludingScale(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -128,7 +128,7 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isNotEqualIncludingScale(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

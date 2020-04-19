@@ -28,7 +28,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.value(expected)",
         "ch.tutteli.atrium.api.fluent.en_GB.value"
@@ -50,7 +50,7 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeh
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.values(expected, *otherExpected)",
         "ch.tutteli.atrium.api.fluent.en_GB.values"
@@ -74,7 +74,7 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeh
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.entry(asSubExpect(assertionCreatorOrNull))",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -110,7 +110,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.entries(\n" +
             "asSubExpect(assertionCreatorOrNull),\n" +

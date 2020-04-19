@@ -13,7 +13,7 @@ import kotlin.jvm.JvmName
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder",
         "ch.tutteli.atrium.api.fluent.en_GB.inAnyOrder"
@@ -29,7 +29,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inA
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder",
         "ch.tutteli.atrium.api.fluent.en_GB.only"
@@ -47,7 +47,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder",
         "ch.tutteli.atrium.api.fluent.en_GB.inOrder"
@@ -64,7 +64,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inO
  */
 //TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
 //@Deprecated(
-//    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+//    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
 //    ReplaceWith(
 //        "this.inAnyOrder",
 //        "ch.tutteli.atrium.api.fluent.en_GB.only"
@@ -81,7 +81,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder",
         "ch.tutteli.atrium.api.fluent.en_GB.grouped"
@@ -96,7 +96,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavio
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAnyOrder",
         "ch.tutteli.atrium.api.fluent.en_GB.within"

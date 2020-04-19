@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().first",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -38,7 +38,7 @@ val <K : Any> Assert<Pair<K, *>>.first get() : Assert<K> = property(Pair<K, *>::
  */
 //TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
 //@Deprecated(
-//    "Switch from Assert to Expect; will be removed with 1.0.0",
+//    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
 //    ReplaceWith(
 //        "this.asExpect().first",
 //        "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -58,7 +58,7 @@ val <K> Assert<Pair<K, *>>.first get() : AssertionPlantNullable<K> = property(Pa
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { first.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -79,7 +79,7 @@ fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -> Unit
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().second",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -99,7 +99,7 @@ val <V : Any> Assert<Pair<*, V>>.second get() : Assert<V> = property(Pair<*, V>:
  */
 //TODO deprecate as soon as https://youtrack.jetbrains.com/issue/KT-33398 is fixed
 //@Deprecated(
-//    "Switch from Assert to Expect; will be removed with 1.0.0",
+//    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
 //    ReplaceWith(
 //        "this.asExpect().second",
 //        "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -119,7 +119,7 @@ val <V> Assert<Pair<*, V>>.second get() : AssertionPlantNullable<V> = property(P
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { second.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

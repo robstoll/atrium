@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asIterable()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

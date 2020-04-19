@@ -12,7 +12,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
 
 
 @Deprecated(
-    "Use the extension function which expects Group instead; will be removed with 1.0.0",
+    "Use the extension function which expects Group instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith("builder.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)")
 )
 fun <E : Any, T : Iterable<E>> inAnyOrder(
@@ -23,7 +23,7 @@ fun <E : Any, T : Iterable<E>> inAnyOrder(
 ): AssertionPlant<T> = builder.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)
 
 @Deprecated(
-    "Use the extension function which expects Group instead; will be removed with 1.0.0",
+    "Use the extension function which expects Group instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith("builder.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)")
 )
 fun <E, T : Iterable<E>> inAnyOrder(
@@ -34,7 +34,7 @@ fun <E, T : Iterable<E>> inAnyOrder(
 ): AssertionPlant<T> = builder.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)
 
 @Deprecated(
-    "Use the extension function which expects Group instead; will be removed with 1.0.0",
+    "Use the extension function which expects Group instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith("builder.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)")
 )
 @JvmName("inAnyOrderEntries")
@@ -47,7 +47,7 @@ fun <E : Any, T : Iterable<E>> inAnyOrder(
 
 
 @Deprecated(
-    "Use the extension function which expects Group instead; will be removed with 1.0.0",
+    "Use the extension function which expects Group instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith("builder.inAnyOrder(firstGroup, secondGroup, *otherExpectedGroups)")
 )
 @JvmName("inAnyOrderNullableEntries")

@@ -31,7 +31,7 @@ import kotlin.jvm.JvmName
  */
 
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.value(expected)",
         "ch.tutteli.atrium.api.fluent.en_GB.value"
@@ -68,7 +68,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  */
 
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.values(expected, *otherExpected)",
         "ch.tutteli.atrium.api.fluent.en_GB.values"
@@ -98,7 +98,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.value(expected)",
         "ch.tutteli.atrium.api.fluent.en_GB.value"
@@ -135,7 +135,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  *   [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.values(expected, *otherExpected)",
         "ch.tutteli.atrium.api.fluent.en_GB.values"
@@ -167,7 +167,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.value(expected)",
         "ch.tutteli.atrium.api.fluent.en_GB.value"
@@ -200,7 +200,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  *   [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.values(expected, *otherExpected)",
         "ch.tutteli.atrium.api.fluent.en_GB.values"
@@ -233,7 +233,7 @@ fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehavio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.regex(pattern, *otherPatterns)",
         "ch.tutteli.atrium.api.fluent.en_GB.regex"
@@ -267,7 +267,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  */
 @JvmName("regexIgnoringCase")
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.regex(pattern, *otherPatterns)",
         "ch.tutteli.atrium.api.fluent.en_GB.regex"
@@ -304,7 +304,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.regex(pattern, *otherPatterns)",
         "ch.tutteli.atrium.api.fluent.en_GB.regex"

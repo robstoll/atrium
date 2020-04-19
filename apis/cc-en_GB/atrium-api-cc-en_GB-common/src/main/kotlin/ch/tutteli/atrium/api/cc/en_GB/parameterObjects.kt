@@ -21,7 +21,7 @@ In case `null` is used for the identification lambda then it is expected that th
  *   to be identified if it holds all [Assertion]s the lambda might create.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
-@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.")
 class Entry<in T: Any>(
     val assertionCreatorOrNull: (Assert<T>.() -> Unit)?
 ): GroupWithoutNullableEntries<(Assert<T>.() -> Unit)?>, GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
@@ -39,7 +39,7 @@ class Entry<in T: Any>(
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
-@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.")
 class Entries<in T : Any>(
     val assertionCreatorOrNull: (Assert<T>.() -> Unit)?,
     vararg val otherAssertionCreatorsOrNulls: (Assert<T>.() -> Unit)?
@@ -55,7 +55,7 @@ class Entries<in T : Any>(
  * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
  * [Assert][AssertionPlant] receiver, which means one can either pass a lambda or `null`.
  */
-@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.")
 data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Assert<V>.() -> Unit)?) {
     fun toPair(): Pair<K, (Assert<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
     override fun toString(): String
@@ -65,7 +65,7 @@ data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull:
 /**
  * Represents a [Group] with a single value.
  */
-@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.")
 data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
     override fun toList() = listOf(expected)
 }
@@ -73,7 +73,7 @@ data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWit
 /**
  * Represents a [Group] of multiple values.
  */
-@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0")
+@Deprecated("Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.")
 class Values<out T>(
     override val expected: T,
     override vararg val otherExpected: T

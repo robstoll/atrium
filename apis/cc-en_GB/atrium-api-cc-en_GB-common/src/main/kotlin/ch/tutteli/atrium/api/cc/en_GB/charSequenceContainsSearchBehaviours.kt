@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.ignoringCase",
         "ch.tutteli.atrium.api.fluent.en_GB.ignoringCase"
@@ -31,7 +31,7 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0",
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.ignoringCase",
         "ch.tutteli.atrium.api.fluent.en_GB.ignoringCase"
