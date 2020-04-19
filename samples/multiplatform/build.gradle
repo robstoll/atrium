@@ -11,7 +11,7 @@ version '0.0.1'
 apply plugin: 'maven-publish'
 
 kotlin {
-    def atrium_version = '0.10.0'
+    def atrium_version = '0.11.0'
     jvm()
     js {
         nodejs {}
