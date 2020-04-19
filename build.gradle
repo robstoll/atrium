@@ -36,11 +36,15 @@ buildscript {
 
         // gh-pages.gradle
         docProjects = (subprojects - sampleProjectsFun - toolProjectsFun).findAll {
-            !it.name.endsWith("-js") &&
+            //TODO new infix API: remove once we are ready to publish the new API
+            !it.name.contains("api-infix-") &&
+                !it.name.startsWith("atrium-infix-") &&
+                !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
                 !it.name.startsWith("${rootProject.name}-specs")
+
         }
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
