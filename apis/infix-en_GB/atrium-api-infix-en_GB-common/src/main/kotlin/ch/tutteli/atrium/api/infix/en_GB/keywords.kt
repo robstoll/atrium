@@ -66,7 +66,7 @@ object group : Keyword
  * Represents the pseudo keyword `next` as in [has] `next`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 object next : Keyword
 
@@ -77,7 +77,7 @@ object next : Keyword
  *
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 object o : Keyword
 
@@ -110,7 +110,7 @@ object readable : Keyword
  * Represents the pseudo keyword `success` as in [toBe] `success.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 object success : Keyword
 

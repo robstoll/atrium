@@ -61,7 +61,7 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of the assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
     ExpectImpl.throwable.cause(this, TExpected::class).getExpectOfFeature()
@@ -77,7 +77,7 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 inline infix fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit

@@ -12,7 +12,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<E>> =
     ExpectImpl.changeSubject(this).unreported { it.asList() }
@@ -26,7 +26,7 @@ infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<E>> =
     apply { asList(o).addAssertionsCreatedBy(assertionCreator) }
@@ -40,7 +40,7 @@ infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("asListEOut")
 infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
@@ -54,7 +54,7 @@ infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("byteArrAsList")
 infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Byte>> =
@@ -69,7 +69,7 @@ infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("byteArrAsList")
 infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): Expect<ByteArray> =
@@ -84,7 +84,7 @@ infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("charArrAsList")
 infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Char>> =
@@ -99,7 +99,7 @@ infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("charArrAsList")
 infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): Expect<CharArray> =
@@ -114,7 +114,7 @@ infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("shortArrAsList")
 infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Short>> =
@@ -129,7 +129,7 @@ infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("shortArrAsList")
 infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit): Expect<ShortArray> =
@@ -144,7 +144,7 @@ infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> 
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("intArrAsList")
 infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Int>> = ExpectImpl.changeSubject(this).unreported { it.asList() }
@@ -158,7 +158,7 @@ infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<Li
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("intArrAsList")
 infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Expect<IntArray> =
@@ -173,7 +173,7 @@ infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("longArrAsList")
 infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Long>> =
@@ -188,7 +188,7 @@ infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("longArrAsList")
 infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): Expect<LongArray> =
@@ -203,7 +203,7 @@ infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("floatArrAsList")
 infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Float>> =
@@ -218,7 +218,7 @@ infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("floatArrAsList")
 infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit): Expect<FloatArray> =
@@ -233,7 +233,7 @@ infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> 
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("doubleArrAsList")
 infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Double>> =
@@ -248,7 +248,7 @@ infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("doubleArrAsList")
 infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit): Expect<DoubleArray> =
@@ -263,7 +263,7 @@ infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("boolArrAsList")
 infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Boolean>> =
@@ -278,7 +278,7 @@ infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expec
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @JvmName("boolArrAsList")
 infix fun Expect<BooleanArray>.asList(assertionCreator: Expect<List<Boolean>>.() -> Unit): Expect<BooleanArray> =

@@ -19,7 +19,7 @@ import java.util.*
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
     addAssertion(ExpectImpl.optional.isEmpty(this))
@@ -34,7 +34,7 @@ infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: 
  * @return The newly created [Expect] for the inner type [E].
  * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") present: present) =
     ExpectImpl.optional.isPresent(this).getExpectOfFeature()
@@ -46,7 +46,7 @@ infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") pres
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E, T : Optional<E>> Expect<T>.toBe(present: PresentWithCreator<E>): Expect<T> =
     ExpectImpl.optional.isPresent(this).addToInitial(present.assertionCreator)

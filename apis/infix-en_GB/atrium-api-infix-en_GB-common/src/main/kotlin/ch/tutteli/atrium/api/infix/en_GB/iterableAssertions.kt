@@ -42,7 +42,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
     ExpectImpl.iterable.min(this).getExpectOfFeature()
@@ -55,7 +55,7 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_P
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.iterable.min(this).addToInitial(assertionCreator)
@@ -69,7 +69,7 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: E
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
     ExpectImpl.iterable.max(this).getExpectOfFeature()
@@ -82,7 +82,7 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_P
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.iterable.max(this).addToInitial(assertionCreator)
@@ -242,7 +242,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(entries: Entries
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
     expectedIterable: Iterable<E>
@@ -258,7 +258,7 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsO
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIterable: Iterable<E>): Expect<T> =
     it contains o inAny order atLeast 1 elementsOf  expectedIterable
@@ -333,7 +333,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Exp
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next) =
     addAssertion(ExpectImpl.iterable.hasNext(this))
@@ -344,7 +344,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next) =
     addAssertion(ExpectImpl.iterable.hasNotNext(this))

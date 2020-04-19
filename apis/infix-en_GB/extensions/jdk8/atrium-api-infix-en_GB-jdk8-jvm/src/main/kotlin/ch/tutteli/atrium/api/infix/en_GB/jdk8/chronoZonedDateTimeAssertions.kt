@@ -15,7 +15,7 @@ import java.time.chrono.ChronoZonedDateTime
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: ChronoZonedDateTime<*>
@@ -28,7 +28,7 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoZonedDateTime<*>
@@ -41,7 +41,7 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoZonedDateTime<*>
@@ -54,7 +54,7 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoZonedDateTime<*>
@@ -67,7 +67,7 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoZonedDateTime<*>

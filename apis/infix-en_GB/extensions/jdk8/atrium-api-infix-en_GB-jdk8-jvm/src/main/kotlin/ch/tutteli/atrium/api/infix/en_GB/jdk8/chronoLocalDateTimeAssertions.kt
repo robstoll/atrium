@@ -15,7 +15,7 @@ import java.time.chrono.ChronoLocalDateTime
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: ChronoLocalDateTime<*>): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDateTime.isBefore(this, expected))
@@ -27,7 +27,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expe
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoLocalDateTime<*>
@@ -40,7 +40,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoLocalDateTime<*>
@@ -53,7 +53,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoLocalDateTime<*>
@@ -66,7 +66,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoLocalDateTime<*>

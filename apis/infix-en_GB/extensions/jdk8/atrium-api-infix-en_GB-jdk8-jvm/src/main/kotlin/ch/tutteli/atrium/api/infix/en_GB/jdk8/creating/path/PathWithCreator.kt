@@ -10,6 +10,6 @@ import ch.tutteli.atrium.creating.Expect
  *
  *  Use the function `path(String) { ... }` to create this representation.
  *
- *  @since 0.11.0
+ *  @since 0.12.0
  */
 data class PathWithCreator<E> internal constructor(val path: String, val assertionCreator: Expect<E>.() -> Unit)

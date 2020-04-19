@@ -16,7 +16,7 @@ import java.nio.file.Path
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : File> Expect<T>.asPath(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -31,7 +31,7 @@ infix fun <T : File> Expect<T>.asPath(
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 infix fun <T : File> Expect<T>.asPath(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     apply { asPath(o).addAssertionsCreatedBy(assertionCreator) }

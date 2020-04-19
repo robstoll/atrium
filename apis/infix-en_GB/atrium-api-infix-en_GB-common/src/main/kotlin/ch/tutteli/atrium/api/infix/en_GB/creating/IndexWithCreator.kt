@@ -9,6 +9,6 @@ import ch.tutteli.atrium.creating.Expect
  *
  *  Use the function `index(Int) { ... }` to create this representation.
  *
- *  @since 0.11.0
+ *  @since 0.12.0
  */
 data class IndexWithCreator<E> internal constructor(val index: Int, val assertionCreator: Expect<E>.() -> Unit)

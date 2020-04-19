@@ -13,6 +13,6 @@ import kotlin.reflect.KProperty1
  * @property description The description of the feature.
  * @property extractor The extractor which extracts the feature out of the subject of the assertion.
 
- * @since 0.11.0
+ * @since 0.12.0
  */
 data class Feature<T, R> internal constructor(val description: String, val extractor: (T) -> R)

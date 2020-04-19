@@ -7,6 +7,6 @@ import ch.tutteli.atrium.creating.Expect
  *
  * Use the function `success { ... }` to create a [SuccessWithCreator].
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 data class SuccessWithCreator<E> internal constructor(val assertionCreator: Expect<E>.() -> Unit);

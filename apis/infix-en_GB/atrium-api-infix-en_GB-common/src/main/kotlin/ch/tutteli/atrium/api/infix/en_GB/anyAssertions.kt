@@ -160,7 +160,7 @@ inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: E
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @since 0.11.0
+ * @since 0.12.0
  */
 @Suppress("NOTHING_TO_INLINE")
 inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = this
