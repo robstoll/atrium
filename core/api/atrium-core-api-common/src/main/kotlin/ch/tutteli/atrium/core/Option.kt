@@ -26,5 +26,12 @@ sealed class Option<out T> {
 
 inline fun <T> Option<T>.getOrElse(default: () -> T): T = fold(default) { it }
 
+/**
+ * Represents a present value in terms of [Option].
+ */
 data class Some<T>(val value: T) : Option<T>()
+
+/**
+ * Represents an absent value in terms of [Option].
+ */
 object None : Option<Nothing>()

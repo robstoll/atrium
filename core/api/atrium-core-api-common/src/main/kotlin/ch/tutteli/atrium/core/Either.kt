@@ -19,5 +19,11 @@ sealed class Either<out L, out R> {
 
 inline fun <L, R, T> Either<L, R>.flatMap(f: (R) -> Either<L, T>): Either<L, T> = fold({ Left(it) }, f)
 
+/**
+ * The left case of an [Either].
+ */
 data class Left<L>(val l: L) : Either<L, Nothing>()
+/**
+ * The right case of an [Either].
+ */
 data class Right<R>(val r: R) : Either<Nothing, R>()
