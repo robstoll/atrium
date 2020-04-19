@@ -24,7 +24,7 @@ jobs:
                 uses: codecov/codecov-action@v1
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
-                    flags: current-windows
+                    flags: current_windows
                     fail_ci_if_error: true
 
             -   name: build sample atrium+spek project
