@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>regex - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.infix.en_UK</a>&nbsp;/&nbsp;<a href="./regex.html">regex</a><br/>
+<br/>
+<h1>regex</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_UK$regex(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.regex.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour)), kotlin.String)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CharSequenceContains.CheckerOption</span></a><span class="symbol">&lt;</span><a href="regex.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">regex</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$regex(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.regex.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour)), kotlin.String)/pattern">pattern</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="regex.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/apis/atrium-api-cc-infix-en_UK/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_UK/charSequenceContainsCreators.kt#L208">(source)</a><br/>
+<strong>Deprecated:</strong> Use pendant from package en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Finishes the specification of the sophisticated <code>contains</code> assertion where the given regular expression <a href="regex.html#ch.tutteli.atrium.api.cc.infix.en_UK$regex(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.regex.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour)), kotlin.String)/pattern">pattern</a>
+is expected to have a match, using a non disjoint search.</p>
+<p>Delegates to <code>the RegexPatterns(pattern)</code>.</p>
+<h3>Parameters</h3>
+<p><a name="pattern"></a>
+<code>pattern</code> - The pattern which is expected to have a match against the input of the search.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+The <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for which the assertion was built to support a fluent API.</p>
+<a name="ch.tutteli.atrium.api.cc.infix.en_UK$regex(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.regex.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour)), kotlin.String)"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"regexIgnoringCase"<span class="symbol">)</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CharSequenceContains.CheckerOption</span></a><span class="symbol">&lt;</span><a href="regex.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour.html"><span class="identifier">IgnoringCaseSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">regex</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$regex(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.regex.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour)), kotlin.String)/pattern">pattern</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="regex.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/apis/atrium-api-cc-infix-en_UK/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_UK/charSequenceContainsCreators.kt#L249">(source)</a><br/>
+<strong>Deprecated:</strong> Use pendant from package en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Finishes the specification of the sophisticated <code>contains</code> assertion where the given regular expression <a href="regex.html#ch.tutteli.atrium.api.cc.infix.en_UK$regex(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.api.cc.infix.en_UK.regex.T, ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour)), kotlin.String)/pattern">pattern</a>
+is expected to have a match (ignoring case), using a non disjoint search.</p>
+<p>Delegates to <code>the RegexPatterns(pattern)</code>.</p>
+<h3>Parameters</h3>
+<p><a name="pattern"></a>
+<code>pattern</code> - The patterns which is expected to have a match against the input of the search.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+The <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for which the assertion was built to support a fluent API.</p>
+</BODY>
+</HTML>

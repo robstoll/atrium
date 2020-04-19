@@ -1,0 +1,481 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.creating - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.creating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.creating</h2>
+<p>Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-any-assertions/index.html">AnyAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AnyAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a> type,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-big-decimal-assertions/index.html">BigDecimalAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">BigDecimalAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html">BigDecimal</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-char-sequence-assertions/index.html">CharSequenceAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CharSequenceAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-chrono-local-date-assertions/index.html">ChronoLocalDateAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ChronoLocalDateAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html">ChronoLocalDate</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-chrono-local-date-time-assertions/index.html">ChronoLocalDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ChronoLocalDateTimeAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDateTime.html">ChronoLocalDateTime</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-chrono-zoned-date-time-assertions/index.html">ChronoZonedDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ChronoZonedDateTimeAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoZonedDateTime.html">ChronoZonedDateTime</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-collection-assertions/index.html">CollectionAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CollectionAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-comparable-assertions/index.html">ComparableAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ComparableAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html">Comparable</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-assertions/index.html">FeatureAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">FeatureAssertions</span></s></code>
+<p>Defines the minimum set of assertion functions -- used to create feature assertions --
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-floating-point-assertions/index.html">FloatingPointAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">FloatingPointAssertions</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-floating-point-assertions-common/index.html"><span class="identifier">FloatingPointAssertionsCommon</span></a></code>
+<p>Defines the minimum set of assertion functions and builders applicable to floating points,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-floating-point-assertions-common/index.html">FloatingPointAssertionsCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FloatingPointAssertionsCommon</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to floating points (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a>),
+which an implementation of the domain of Atrium has to provide for any platform.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fun0-assertions/index.html">Fun0Assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Fun0Assertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to lambdas with arity 0
+(i.e. a lambda with 0 arguments or in other words <code>() -&gt; R</code>),
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-iterable-assertions/index.html">IterableAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IterableAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-list-assertions/index.html">ListAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ListAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-local-date-assertions/index.html">LocalDateAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">LocalDateAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html">LocalDate</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-local-date-time-assertions/index.html">LocalDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">LocalDateTimeAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html">LocalDateTime</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-map-assertions/index.html">MapAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MapAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-map-entry-assertions/index.html">MapEntryAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MapEntryAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-meta-feature/index.html">MetaFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">MetaFeature</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents an extracted feature of type <a href="-meta-feature/index.html#T">T</a> defined by the given <a href="-meta-feature/maybe-subject.html">maybeSubject</a> including a <a href="-meta-feature/description.html">description</a>
+and a <a href="-meta-feature/representation.html">representation</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-new-feature-assertions/index.html">NewFeatureAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">NewFeatureAssertions</span></code>
+<p>Defines the minimum set of assertion functions -- used to create feature assertions --
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-optional-assertions/index.html">OptionalAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionalAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">Optional</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-pair-assertions/index.html">PairAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">PairAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-path-assertions/index.html">PathAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">PathAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-throwable-assertions/index.html">ThrowableAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ThrowableAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-zoned-date-time-assertions/index.html">ZonedDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ZonedDateTimeAssertions</span></code>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html">ZonedDateTime</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="any-assertions.html">anyAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">anyAssertions</span><span class="symbol">: </span><a href="-any-assertions/index.html"><span class="identifier">AnyAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-any-assertions/index.html">AnyAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="big-decimal-assertions.html">bigDecimalAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">bigDecimalAssertions</span><span class="symbol">: </span><a href="-big-decimal-assertions/index.html"><span class="identifier">BigDecimalAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-big-decimal-assertions/index.html">BigDecimalAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="char-sequence-assertions.html">charSequenceAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">charSequenceAssertions</span><span class="symbol">: </span><a href="-char-sequence-assertions/index.html"><span class="identifier">CharSequenceAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-char-sequence-assertions/index.html">CharSequenceAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="chrono-local-date-assertions.html">chronoLocalDateAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">chronoLocalDateAssertions</span><span class="symbol">: </span><a href="-chrono-local-date-assertions/index.html"><span class="identifier">ChronoLocalDateAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-chrono-local-date-assertions/index.html">ChronoLocalDateAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="chrono-local-date-time-assertions.html">chronoLocalDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">chronoLocalDateTimeAssertions</span><span class="symbol">: </span><a href="-chrono-local-date-time-assertions/index.html"><span class="identifier">ChronoLocalDateTimeAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-chrono-local-date-time-assertions/index.html">ChronoLocalDateTimeAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="chrono-zoned-date-time-assertions.html">chronoZonedDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">chronoZonedDateTimeAssertions</span><span class="symbol">: </span><a href="-chrono-zoned-date-time-assertions/index.html"><span class="identifier">ChronoZonedDateTimeAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-chrono-zoned-date-time-assertions/index.html">ChronoZonedDateTimeAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="collection-assertions.html">collectionAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">collectionAssertions</span><span class="symbol">: </span><a href="-collection-assertions/index.html"><span class="identifier">CollectionAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-collection-assertions/index.html">CollectionAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="comparable-assertions.html">comparableAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">comparableAssertions</span><span class="symbol">: </span><a href="-comparable-assertions/index.html"><span class="identifier">ComparableAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-comparable-assertions/index.html">ComparableAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="feature-assertions.html">featureAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><s><span class="identifier">featureAssertions</span></s><span class="symbol">: </span><a href="-feature-assertions/index.html"><span class="identifier">FeatureAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-feature-assertions/index.html">FeatureAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="floating-point-assertions.html">floatingPointAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">floatingPointAssertions</span><span class="symbol">: </span><a href="-floating-point-assertions/index.html"><span class="identifier">FloatingPointAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-floating-point-assertions/index.html">FloatingPointAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="fun0-assertions.html">fun0Assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">fun0Assertions</span><span class="symbol">: </span><a href="-fun0-assertions/index.html"><span class="identifier">Fun0Assertions</span></a></code>
+<p>The access point to an implementation of <a href="-fun0-assertions/index.html">Fun0Assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="iterable-assertions.html">iterableAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">iterableAssertions</span><span class="symbol">: </span><a href="-iterable-assertions/index.html"><span class="identifier">IterableAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-iterable-assertions/index.html">IterableAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="list-assertions.html">listAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">listAssertions</span><span class="symbol">: </span><a href="-list-assertions/index.html"><span class="identifier">ListAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-list-assertions/index.html">ListAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="local-date-assertions.html">localDateAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">localDateAssertions</span><span class="symbol">: </span><a href="-local-date-assertions/index.html"><span class="identifier">LocalDateAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-local-date-assertions/index.html">LocalDateAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="local-date-time-assertions.html">localDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">localDateTimeAssertions</span><span class="symbol">: </span><a href="-local-date-time-assertions/index.html"><span class="identifier">LocalDateTimeAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-local-date-time-assertions/index.html">LocalDateTimeAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="map-assertions.html">mapAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">mapAssertions</span><span class="symbol">: </span><a href="-map-assertions/index.html"><span class="identifier">MapAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-map-assertions/index.html">MapAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="map-entry-assertions.html">mapEntryAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">mapEntryAssertions</span><span class="symbol">: </span><a href="-map-entry-assertions/index.html"><span class="identifier">MapEntryAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-map-assertions/index.html">MapAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="new-feature-assertions.html">newFeatureAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">newFeatureAssertions</span><span class="symbol">: </span><a href="-new-feature-assertions/index.html"><span class="identifier">NewFeatureAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-feature-assertions/index.html">FeatureAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="optional-assertions.html">optionalAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">optionalAssertions</span><span class="symbol">: </span><a href="-optional-assertions/index.html"><span class="identifier">OptionalAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-optional-assertions/index.html">OptionalAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pair-assertions.html">pairAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pairAssertions</span><span class="symbol">: </span><a href="-pair-assertions/index.html"><span class="identifier">PairAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-pair-assertions/index.html">PairAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="path-assertions.html">pathAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pathAssertions</span><span class="symbol">: </span><a href="-path-assertions/index.html"><span class="identifier">PathAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-path-assertions/index.html">PathAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="throwable-assertions.html">throwableAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">throwableAssertions</span><span class="symbol">: </span><a href="-throwable-assertions/index.html"><span class="identifier">ThrowableAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-throwable-assertions/index.html">ThrowableAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="zoned-date-time-assertions.html">zonedDateTimeAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">zonedDateTimeAssertions</span><span class="symbol">: </span><a href="-zoned-date-time-assertions/index.html"><span class="identifier">ZonedDateTimeAssertions</span></a></code>
+<p>The access point to an implementation of <a href="-zoned-date-time-assertions/index.html">ZonedDateTimeAssertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractorBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating.changers</a>&nbsp;/&nbsp;<a href="./index.html">FeatureExtractorBuilder</a><br/>
+<br/>
+<h1>FeatureExtractorBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractorBuilder</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/changers/FeatureExtractorBuilder.kt#L23">(source)</a>
+<p>Defines the contract for sophisticated <code>safe feature extractions</code> including assertion creation for the feature.</p>
+<p>It is similar to <a href="../../ch.tutteli.atrium.domain.creating/-new-feature-assertions/index.html">NewFeatureAssertions</a> but differs in the intended usage.
+<a href="../../ch.tutteli.atrium.domain.creating/-new-feature-assertions/index.html">NewFeatureAssertions</a> are intended to make assertions about a return value of a method call or a property,
+assuming that the call as such always succeeds (no exception is thrown).
+The <a href="./index.html">FeatureExtractorBuilder</a> on the other hand should be used if it is already known,
+that the call/access fails depending on given arguments.
+For instance, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html">List.get</a> is a good example where it fails if the given index is out of bounds.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-description-step/index.html">DescriptionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to specify the description which will be used to describe the feature.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-extraction-step/index.html">FeatureExtractionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step to define the feature extraction as such where a one can include a check by returning <a href="../../ch.tutteli.atrium.core/-none.html">None</a> in case the
+extraction should not be carried out.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Final step in the extract-feature-process, creates a <a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html">ExtractedFeaturePostStep</a>
+based on the previously specified options.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-chooser/index.html">OptionsChooser</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsChooser</span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Helper lambda to specify <a href="../-feature-options/index.html">FeatureOptions</a> via convenience methods.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-step/index.html">OptionsStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to override previously defined properties -- such as use a different description -- but
+also allows to define options where usually a default value is used, such as use the subject itself as
+representation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-representation-in-case-of-failure-step/index.html">RepresentationInCaseOfFailureStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationInCaseOfFailureStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to to define the representation which shall be used
+in case the extraction cannot be performed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.Companion$create(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.Companion.create.T)))/originalAssertionContainer">originalAssertionContainer</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-description-step/index.html"><span class="identifier">FeatureExtractorBuilder.DescriptionStep</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="./index.html">FeatureExtractorBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

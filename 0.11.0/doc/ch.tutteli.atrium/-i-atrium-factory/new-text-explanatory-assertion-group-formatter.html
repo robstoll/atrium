@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAtriumFactory.newTextExplanatoryAssertionGroupFormatter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">IAtriumFactory</a>&nbsp;/&nbsp;<a href="./new-text-explanatory-assertion-group-formatter.html">newTextExplanatoryAssertionGroupFormatter</a><br/>
+<br/>
+<h1>newTextExplanatoryAssertionGroupFormatter</h1>
+<a name="ch.tutteli.atrium.IAtriumFactory$newTextExplanatoryAssertionGroupFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">newTextExplanatoryAssertionGroupFormatter</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTextExplanatoryAssertionGroupFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController)/bulletPoints">bulletPoints</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTextExplanatoryAssertionGroupFormatter(kotlin.collections.Map((java.lang.Class((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController)/assertionFormatterController">assertionFormatterController</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/core/atrium-core-api-deprecated/src/main/kotlin/ch/tutteli/atrium/IAtriumFactory.kt#L526">(source)</a><br/>
+<strong>Deprecated:</strong> Use AssertImpl.coreFactory instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which is intended for text output (e.g. for the console) and
+formats <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s of type <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> by creating an
+<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> which indicates that formatting its <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> happens within
+an explanatory assertion group.</p>
+<h3>Parameters</h3>
+<p><a name="bulletPoints"></a>
+<code>bulletPoints</code> - The bullet points used in reporting; will typically use the bullet point registered
+for <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> as prefix for each <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> in <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+<p><a name="assertionFormatterController"></a>
+<code>assertionFormatterController</code> - The controller used to steer the flow of the reporting.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion formatter.</p>
+</BODY>
+</HTML>

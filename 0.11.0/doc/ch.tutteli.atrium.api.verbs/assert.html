@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>assert - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.verbs</a>&nbsp;/&nbsp;<a href="./assert.html">assert</a><br/>
+<br/>
+<h1>assert</h1>
+<a name="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">assert</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-root-expect/index.html"><span class="identifier">RootExpect</span></a><span class="symbol">&lt;</span><a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/misc/verbs/atrium-verbs-common/src/main/kotlin/ch/tutteli/atrium/api.verbs/assert.kt#L20">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="assert.html#ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T)/subject">subject</a>.</p>
+<h3>Parameters</h3>
+<p><a name="subject"></a>
+<code>subject</code> - The subject for which we are going to postulate assertions.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - in case an assertion does not hold.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion container.</p>
+<a name="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">assert</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), kotlin.Unit)))/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/misc/verbs/atrium-verbs-common/src/main/kotlin/ch/tutteli/atrium/api.verbs/assert.kt#L35">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="assert.html#ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), kotlin.Unit)))/subject">subject</a> and <a href="../ch.tutteli.atrium.creating/-expect/add-assertions-created-by.html">Expect.addAssertionsCreatedBy</a> the
+given <a href="assert.html#ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.api.verbs.assert.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a>-lambda where the created <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are added as a group and reported as a whole.</p>
+<h3>Parameters</h3>
+<p><a name="subject"></a>
+<code>subject</code> - The subject for which we are going to postulate assertions.</p>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - Assertion group block with a non-fail fast behaviour.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - in case an assertion does not hold.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion container.</p>
+<a name="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), ch.tutteli.atrium.api.verbs.assert.R)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">assert</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.verbs$assert(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.assert.T)), ch.tutteli.atrium.api.verbs.assert.R)/newSubject">newSubject</span><span class="symbol">:</span>&nbsp;<a href="assert.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="assert.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="assert.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/misc/verbs/atrium-verbs-common/src/main/kotlin/ch/tutteli/atrium/api.verbs/assert.kt#L46">(source)</a><br/>
+<strong>Deprecated:</strong> `assert` should not be nested, use `feature` instead.<br/>
+<br/>
+</BODY>
+</HTML>

@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isEmpty - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB.jdk8</a>&nbsp;/&nbsp;<a href="./is-empty.html">isEmpty</a><br/>
+<br/>
+<h1>isEmpty</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.jdk8$isEmpty(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.jdk8.isEmpty.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html"><span class="identifier">Optional</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-empty.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-empty.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/apis/fluent-en_GB/extensions/jdk8/atrium-api-fluent-en_GB-jdk8-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/jdk8/optionalAssertions.kt#L21">(source)</a>
+<p>Expects that the subject of the assertion (an <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">Optional</a>) is empty (not present).</p>
+<p>Shortcut for more or less something like <code>feature(Optional&lt;T&gt;::isEmpty) { toBe(true) }</code>
+depends on the underlying implementation though.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MaybeSubject - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="./index.html">MaybeSubject</a><br/>
+<br/>
+<h1>MaybeSubject</h1>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><s><span class="identifier">MaybeSubject</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/MaybeSubject.kt#L9">(source)</a><br/>
+<strong>Deprecated:</strong> Use something like ch.tutteli.atrium.core.Option instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Represents a subject of an assertion which might be <a href="-present/index.html">Present</a> or <a href="-absent/index.html">Absent</a>.</p>
+<p>It provides a method <a href="get.html">get</a> where one can get the underlying subject (if <a href="-present/index.html">Present</a>).</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-absent/index.html">Absent</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">Absent</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">MaybeSubject</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an absent subject.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-present/index.html">Present</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">Present</span></s><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">MaybeSubject</span></a><span class="symbol">&lt;</span><a href="-present/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a present subject.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code>
+<p>Returns the underlying subject or throws a <a href="../-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a> if it is <a href="-absent/index.html">Absent</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.MaybeSubject.Companion$invoke(ch.tutteli.atrium.creating.MaybeSubject.Companion.invoke.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">MaybeSubject</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-absent/index.html">Absent</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">Absent</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">MaybeSubject</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an absent subject.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-present/index.html">Present</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">Present</span></s><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">MaybeSubject</span></a><span class="symbol">&lt;</span><a href="-present/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a present subject.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

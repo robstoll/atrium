@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>LocaleOrderDecider.determineOrder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="index.html">LocaleOrderDecider</a>&nbsp;/&nbsp;<a href="./determine-order.html">determineOrder</a><br/>
+<br/>
+<h1>determineOrder</h1>
+<a name="ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">determineOrder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/LocaleOrderDecider.kt#L31">(source)</a>
+<p>Defines the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a> of <a href="../-locale/index.html">Locale</a>s which should be used in <a href="../-translator/translate.html">Translator.translate</a>.</p>
+<p>The first <a href="../-locale/index.html">Locale</a> of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a> is the given <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</a>, then secondary alternatives follow
+as defined by Java's <code>ResourceBundle.Control.getCandidateLocales</code>  and finally the given <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</a>
+(in the given order) are used as fallback for the <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</a>, which means the process starts over again.</p>
+<h3>Parameters</h3>
+<p><a name="primaryLocale"></a>
+<code>primaryLocale</code> - The primary <a href="../-locale/index.html">Locale</a> which should be the first element of the returned <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a>.</p>
+<p><a name="fallbackLocales"></a>
+<code>fallbackLocales</code> - The fallback <a href="../-locale/index.html">Locale</a>'s which should be used in case no translation could be found for
+the <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.LocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</a> and its secondary alternatives.</p>
+<p><strong>Return</strong><br/>
+A <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a> of <a href="../-locale/index.html">Locale</a>s which defines the order in which translations should be searched for.</p>
+</BODY>
+</HTML>

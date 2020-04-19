@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionBuilder.summary - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="index.html">AssertionBuilder</a>&nbsp;/&nbsp;<a href="./summary.html">summary</a><br/>
+<br/>
+<h1>summary</h1>
+<a name="ch.tutteli.atrium.assertions.builders.AssertionBuilder$summary"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">summary</span><span class="symbol">: </span><a href="../-assertion-group-description-and-empty-representation-option/index.html"><span class="identifier">AssertionGroupDescriptionAndEmptyRepresentationOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="../-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="../-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/AssertionBuilder.kt#L56">(source)</a>
+<p>Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a> -- use it if it is essential that also
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which hold are shown to a user in reporting. This kind is inter alia used for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>
+<code>contains.inAnyOrder.only</code> assertions where it quickly gets confusing if you do not see the assertions which
+hold.</p>
+<p>For example, hamcrest has this problem; if you write the following using hamcrest:</p>
+<p><code>assertThat(listOf(1,1), IsIterableContainingInOrder.contains(1))</code></p>
+<p>it will complain that you expected <code>1</code> but it did not match <code>1</code>. If you could see that it actually matched the
+first <code>1</code> and only did not match the second <code>1</code>, then it would be clear from the beginning.</p>
+</BODY>
+</HTML>

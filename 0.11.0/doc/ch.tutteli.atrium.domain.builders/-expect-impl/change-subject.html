@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExpectImpl.changeSubject - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders</a>&nbsp;/&nbsp;<a href="index.html">ExpectImpl</a>&nbsp;/&nbsp;<a href="./change-subject.html">changeSubject</a><br/>
+<br/>
+<h1>changeSubject</h1>
+<a name="ch.tutteli.atrium.domain.builders.ExpectImpl$changeSubject(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject.T)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">changeSubject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.ExpectImpl$changeSubject(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject.T)))/originalExpect">originalExpect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating.changers/-subject-changer-builder/-kind-step/index.html"><span class="identifier">SubjectChangerBuilder.KindStep</span></a><span class="symbol">&lt;</span><a href="change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/ExpectImpl.kt#L38">(source)</a>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating.changers/-subject-changer-builder/index.html">SubjectChangerBuilder</a> - helping you to change the subject of the assertion.
+In detail, its an <code>inline</code> property which returns <a href="../../ch.tutteli.atrium.domain.builders.creating.changers/-subject-changer-builder/index.html">SubjectChangerBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating.changers/-subject-changer/index.html">SubjectChanger</a>.</p>
+<p>In case you want to extract a feature (e.g. get the first element of a <code>List</code>) instead of changing the subject
+into another representation (e.g. down-cast <code>Person</code> to <code>Student</code>) then you should use
+<a href="../../ch.tutteli.atrium.domain.builders.creating/-new-feature-assertions-builder/extractor.html">feature.extractor</a> instead.</p>
+<a name="ch.tutteli.atrium.domain.builders.ExpectImpl$changeSubject(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject.T)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">changeSubject</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.ExpectImpl$changeSubject(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject.T)))/originalAssertionContainer">originalAssertionContainer</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating.changers/-subject-changer-builder/-deprecated-kind-step/index.html"><span class="identifier">SubjectChangerBuilder.DeprecatedKindStep</span></a><span class="symbol">&lt;</span><a href="change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/ExpectImpl.kt#L43">(source)</a><br/>
+<strong>Deprecated:</strong> Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0<br/>
+<br/>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplanatoryGroup.FinalStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">ExplanatoryGroup</a>&nbsp;/&nbsp;<a href="./index.html">FinalStep</a><br/>
+<br/>
+<h1>FinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../-explanatory-assertion-group-final-step/index.html"><span class="identifier">ExplanatoryAssertionGroupFinalStep</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/explanatoryGroup.kt#L49">(source)</a>
+<p>Final step which creates an <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> based on the previously
+defined <a href="group-type.html">groupType</a> and the <a href="explanatory-assertions.html">explanatoryAssertions</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="explanatory-assertions.html">explanatoryAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">explanatoryAssertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="group-type.html">groupType</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">groupType</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-assertion-builder-final-step/build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-assertion-builder-final-step/index.html#T"><span class="identifier">T</span></a></code>
+<p>Creates and returns the new <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of type <a href="../../-assertion-builder-final-step/index.html#T">T</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.ExplanatoryGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/groupType">groupType</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.ExplanatoryGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/explanatoryAssertions">explanatoryAssertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ExplanatoryGroup.FinalStep</span></a></code>
+<p>Factory method to create the <a href="./index.html">FinalStep</a> in the building process of <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an
+<a href="../../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> (specified by the given <a href="create.html#ch.tutteli.atrium.assertions.builders.ExplanatoryGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/groupType">groupType</a>) and <a href="create.html#ch.tutteli.atrium.assertions.builders.ExplanatoryGroup.FinalStep.Companion$create(ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/explanatoryAssertions">explanatoryAssertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

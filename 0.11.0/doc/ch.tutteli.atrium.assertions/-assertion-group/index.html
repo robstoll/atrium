@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">AssertionGroup</a><br/>
+<br/>
+<h1>AssertionGroup</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion/index.html"><span class="identifier">Assertion</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/AssertionGroup.kt#L11">(source)</a>
+<p>The base interface for <a href="../-assertion/index.html">Assertion</a> groups, providing a default implementation for <a href="../-assertion/holds.html">Assertion.holds</a>
+which returns <code>true</code> if all its <a href="assertions.html">assertions</a> hold.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">Builder</span></s></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group, which are defined for the subject represented by <a href="representation.html">representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The description of the group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><s><span class="identifier">name</span></s><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>A complementing representation to the description -- typically the subject for which the <a href="assertions.html">assertions</a>
+are defined.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><s><span class="identifier">subject</span></s><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-root-assertion-group-type.html">RootAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Holds if all its <a href="assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-basic-assertion-group/index.html">BasicAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">BasicAssertionGroup</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionGroup</span></a></code>
+<p>A default implementation for <a href="./index.html">AssertionGroup</a> -- it has a certain <a href="../-basic-assertion-group/type.html">type</a>, a <a href="../-basic-assertion-group/description.html">description</a>, a <a href="../-basic-assertion-group/representation.html">representation</a>
+and of course <a href="../-basic-assertion-group/assertions.html">assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-representation-assertion-group/index.html">EmptyNameAndRepresentationAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">EmptyNameAndRepresentationAssertionGroup</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionGroup</span></a></code>
+<p>Represents a base class for <a href="./index.html">AssertionGroup</a>s which have an empty <a href="../-empty-name-and-representation-assertion-group/description.html">description</a> and <a href="../-empty-name-and-representation-assertion-group/representation.html">representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

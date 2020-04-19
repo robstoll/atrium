@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectChangerBuilder.FinalStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.creating.changers</a>&nbsp;/&nbsp;<a href="../index.html">SubjectChangerBuilder</a>&nbsp;/&nbsp;<a href="./index.html">FinalStep</a><br/>
+<br/>
+<h1>FinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/changers/SubjectChangerBuilder.kt#L257">(source)</a>
+<p>Final step in the change-subject-process, creates a <a href="../../../ch.tutteli.atrium.domain.creating.changers/-changed-subject-post-step/index.html">ChangedSubjectPostStep</a>
+ased on the previously specified options.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - the type of the current subject.</p>
+<p><a name="R"></a>
+<code>R</code> - the type of the new subject.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="failure-handler.html">failureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">failureHandler</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.domain.creating.changers/-subject-changer/-failure-handler/index.html"><span class="identifier">SubjectChanger.FailureHandler</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified <a href="../../../ch.tutteli.atrium.domain.creating.changers/-subject-changer/-failure-handler/index.html">SubjectChanger.FailureHandler</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="transformation.html">transformation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">transformation</span><span class="symbol">: </span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified new subject.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="transformation-step.html">transformationStep</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">transformationStep</span><span class="symbol">: </span><a href="../-transformation-step/index.html"><span class="identifier">SubjectChangerBuilder.TransformationStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The so far chosen options up to the <a href="../-transformation-step/index.html">TransformationStep</a> step.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.domain.creating.changers/-changed-subject-post-step/index.html"><span class="identifier">ChangedSubjectPostStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Finishes the <code>reported subject change</code>-process by building a new <a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> taking the previously chosen
+options into account.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion$create(ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.TransformationStep((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.R)))), ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T, ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.R)))/transformationStep">transformationStep</span><span class="symbol">:</span>&nbsp;<a href="../-transformation-step/index.html"><span class="identifier">SubjectChangerBuilder.TransformationStep</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion$create(ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.TransformationStep((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.R)))), ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T, ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.R)))/transformation">transformation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="create.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion$create(ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.TransformationStep((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.R)))), ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler((ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.T, ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder.FinalStep.Companion.create.R)))/failureHandler">failureHandler</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.changers/-subject-changer/-failure-handler/index.html"><span class="identifier">SubjectChanger.FailureHandler</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="create.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">SubjectChangerBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="create.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Creates the <a href="./index.html">FinalStep</a> in the context of the <a href="../index.html">SubjectChangerBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

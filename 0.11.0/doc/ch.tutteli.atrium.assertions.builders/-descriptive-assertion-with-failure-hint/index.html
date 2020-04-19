@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DescriptiveAssertionWithFailureHint - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">DescriptiveAssertionWithFailureHint</a><br/>
+<br/>
+<h1>DescriptiveAssertionWithFailureHint</h1>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionWithFailureHint</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/descriptiveWithFailureHint.kt#L75">(source)</a>
+<p>Defines the contract to build a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> like assertion with an additional hint
+which might be shown if the <a href="../-descriptive/-description-option/test.html">Descriptive.DescriptionOption.test</a> fails.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-failure-hint-subject-absent-option/index.html">FailureHintSubjectAbsentOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FailureHintSubjectAbsentOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-subject-based-option/-absent-option/index.html"><span class="identifier">SubjectBasedOption.AbsentOption</span></a><span class="symbol">&lt;</span><a href="-failure-hint-subject-absent-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Sub Option step to define a failure hint in case the subject of the assertion is not defined.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-failure-hint-subject-defined-option/index.html">FailureHintSubjectDefinedOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FailureHintSubjectDefinedOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-subject-based-option/-defined-option/index.html"><span class="identifier">SubjectBasedOption.DefinedOption</span></a><span class="symbol">&lt;</span><a href="-failure-hint-subject-defined-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">,</span>&nbsp;<a href="-failure-hint-subject-absent-option/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FailureHintSubjectAbsentOption</span></a><span class="symbol">&lt;</span><a href="-failure-hint-subject-defined-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Sub Option step to define a failure hint based on a defined subject of the assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> if the <a href="-final-step/test.html">test</a> holds or an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which includes
+additionally a failure hint created by the given <a href="-final-step/failure-hint-factory.html">failureHintFactory</a> in case <a href="-final-step/show-hint.html">showHint</a> evaluates to <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-show-option/index.html">ShowOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ShowOption</span></code>
+<p>Option which allows to specify in which situations the failure hint should be shown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-show-subject-absent-option/index.html">ShowSubjectAbsentOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ShowSubjectAbsentOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-subject-based-option/-absent-option/index.html"><span class="identifier">SubjectBasedOption.AbsentOption</span></a><span class="symbol">&lt;</span><a href="-show-subject-absent-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code>
+<p>Sub Option step to define a failure hint in case the subject of the assertion is not defined.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-show-subject-defined-option/index.html">ShowSubjectDefinedOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ShowSubjectDefinedOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-subject-based-option/-defined-option/index.html"><span class="identifier">SubjectBasedOption.DefinedOption</span></a><span class="symbol">&lt;</span><a href="-show-subject-defined-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">,</span>&nbsp;<a href="-show-subject-absent-option/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.ShowSubjectAbsentOption</span></a><span class="symbol">&lt;</span><a href="-show-subject-defined-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Sub Option step to define a failure hint based on a defined subject of the assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

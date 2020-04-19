@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExpectBuilder.FinalStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="../index.html">ExpectBuilder</a>&nbsp;/&nbsp;<a href="./index.html">FinalStep</a><br/>
+<br/>
+<h1>FinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/ExpectBuilder.kt#L162">(source)</a>
+<p>Final step in the assertion verb building process, creates a new <a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> based on the so far specified options.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - the type of the subject.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-verb.html">assertionVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionVerb</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously defined assertion verb.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="maybe-subject.html">maybeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">maybeSubject</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified subject of the assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="options.html">options</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">options</span><span class="symbol">: </span><a href="../../-expect-options/index.html"><span class="identifier">ExpectOptions</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Either the previously specified <a href="../../-expect-options/index.html">ExpectOptions</a> or <code>null</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-root-expect/index.html"><span class="identifier">RootExpect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a new <a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> based on the previously defined maybeOptions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion$create(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion.create.T)), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.domain.builders.reporting.ExpectOptions((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion.create.T)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion$create(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion.create.T)), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.domain.builders.reporting.ExpectOptions((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion.create.T)))/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion$create(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion.create.T)), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.domain.builders.reporting.ExpectOptions((ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.FinalStep.Companion.create.T)))/options">options</span><span class="symbol">:</span>&nbsp;<a href="../../-expect-options/index.html"><span class="identifier">ExpectOptions</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ExpectBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

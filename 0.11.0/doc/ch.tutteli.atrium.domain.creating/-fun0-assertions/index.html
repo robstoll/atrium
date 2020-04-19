@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Fun0Assertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating</a>&nbsp;/&nbsp;<a href="./index.html">Fun0Assertions</a><br/>
+<br/>
+<h1>Fun0Assertions</h1>
+<code><span class="keyword">interface </span><span class="identifier">Fun0Assertions</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/Fun0Assertions.kt#L21">(source)</a>
+<p>Defines the minimum set of assertion functions and builders applicable to lambdas with arity 0
+(i.e. a lambda with 0 arguments or in other words <code>() -&gt; R</code>),
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-not-throwing.html">isNotThrowing</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="is-not-throwing.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span> <span class="identifier">isNotThrowing</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.Fun0Assertions$isNotThrowing(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.Fun0Assertions.isNotThrowing.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-not-throwing.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-changed-subject-post-step/index.html"><span class="identifier">ChangedSubjectPostStep</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="is-not-throwing.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-throwing.html">isThrowing</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">isThrowing</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.Fun0Assertions$isThrowing(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))), kotlin.reflect.KClass((ch.tutteli.atrium.domain.creating.Fun0Assertions.isThrowing.TExpected)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.Fun0Assertions$isThrowing(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))), kotlin.reflect.KClass((ch.tutteli.atrium.domain.creating.Fun0Assertions.isThrowing.TExpected)))/expectedType">expectedType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="is-throwing.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-changed-subject-post-step/index.html"><span class="identifier">ChangedSubjectPostStep</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="is-throwing.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating/-fun0-assertions-builder/index.html">Fun0AssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Fun0AssertionsBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Fun0Assertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="./index.html">Fun0Assertions</a>.
+In detail, it implements <a href="./index.html">Fun0Assertions</a> by delegating to <a href="../fun0-assertions.html">fun0Assertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

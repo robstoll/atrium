@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnyTypeTransformation.FailureHandler.createAndAddAssertionToPlant - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.any.typetransformation</a>&nbsp;/&nbsp;<a href="../index.html">AnyTypeTransformation</a>&nbsp;/&nbsp;<a href="index.html">FailureHandler</a>&nbsp;/&nbsp;<a href="./create-and-add-assertion-to-plant.html">createAndAddAssertionToPlant</a><br/>
+<br/>
+<h1>createAndAddAssertionToPlant</h1>
+<a name="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createAndAddAssertionToPlant(ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler.S, ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertionToPlant</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler$createAndAddAssertionToPlant(ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler.S, ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.FailureHandler.T)))/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-parameter-object/index.html"><span class="identifier">AnyTypeTransformation.ParameterObject</span></a><span class="symbol">&lt;</span><a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/any/typetransformation/AnyTypeTransformation.kt#L72">(source)</a>
+<p>Creates the failing assertion and adds it to the <a href="../-parameter-object/subject-plant.html">ParameterObject.subjectPlant</a>.</p>
+<p>Typically it uses <a href="create-failing-assertion.html">createFailingAssertion</a> to create the failing assertion and augments it with
+collected assertions or such.</p>
+<h3>Parameters</h3>
+<p><a name="parameterObject"></a>
+<code>parameterObject</code> - The <a href="../-parameter-object/index.html">ParameterObject</a> containing inter alia <a href="../-parameter-object/assertion-creator.html">ParameterObject.assertionCreator</a>, the
+lambda which could have created subsequent assertions for the transformed <a href="../../../ch.tutteli.atrium.creating/-subject-provider/subject.html">AssertionPlant.subject</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> depending on the <a href="../-parameter-object/subject-plant.html">ParameterObject.subjectPlant</a>.</p>
+</BODY>
+</HTML>

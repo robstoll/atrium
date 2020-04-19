@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ChronoLocalDateAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating</a>&nbsp;/&nbsp;<a href="./index.html">ChronoLocalDateAssertions</a><br/>
+<br/>
+<h1>ChronoLocalDateAssertions</h1>
+<code><span class="keyword">interface </span><span class="identifier">ChronoLocalDateAssertions</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-jvm/src/main/kotlin/ch/tutteli/atrium/domain/creating/ChronoLocalDateAssertions.kt#L21">(source)</a>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html">ChronoLocalDate</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-after.html">isAfter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">&gt;</span> <span class="identifier">isAfter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isAfter(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isAfter.T)), java.time.chrono.ChronoLocalDate)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-after.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isAfter(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isAfter.T)), java.time.chrono.ChronoLocalDate)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-after-or-equals.html">isAfterOrEquals</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">&gt;</span> <span class="identifier">isAfterOrEquals</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isAfterOrEquals(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isAfterOrEquals.T)), java.time.chrono.ChronoLocalDate)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-after-or-equals.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isAfterOrEquals(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isAfterOrEquals.T)), java.time.chrono.ChronoLocalDate)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-before.html">isBefore</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">&gt;</span> <span class="identifier">isBefore</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isBefore(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isBefore.T)), java.time.chrono.ChronoLocalDate)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-before.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isBefore(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isBefore.T)), java.time.chrono.ChronoLocalDate)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-before-or-equals.html">isBeforeOrEquals</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">&gt;</span> <span class="identifier">isBeforeOrEquals</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isBeforeOrEquals(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isBeforeOrEquals.T)), java.time.chrono.ChronoLocalDate)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-before-or-equals.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isBeforeOrEquals(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isBeforeOrEquals.T)), java.time.chrono.ChronoLocalDate)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-equal.html">isEqual</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">&gt;</span> <span class="identifier">isEqual</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isEqual.T)), java.time.chrono.ChronoLocalDate)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions$isEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions.isEqual.T)), java.time.chrono.ChronoLocalDate)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/time/chrono/ChronoLocalDate.html"><span class="identifier">ChronoLocalDate</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating/-chrono-local-date-assertions-builder/index.html">ChronoLocalDateAssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">ChronoLocalDateAssertionsBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ChronoLocalDateAssertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="../../ch.tutteli.atrium.domain.builders.creating/-chrono-local-date-assertions-builder/index.html">ChronoLocalDateAssertionsBuilder</a>.
+In detail, it implements <a href="./index.html">ChronoLocalDateAssertions</a> by delegating to <a href="../chrono-local-date-assertions.html">chronoLocalDateAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

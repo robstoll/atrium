@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractor.Creator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.feature.extract</a>&nbsp;/&nbsp;<a href="index.html">FeatureExtractor</a>&nbsp;/&nbsp;<a href="./-creator.html">Creator</a><br/>
+<br/>
+<h1>Creator</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">Creator</span></s><span class="symbol">&lt;</span><span class="identifier">TSubject</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-creator-like/index.html"><span class="identifier">FeatureExtractor.CreatorLike</span></a><span class="symbol">&lt;</span><a href="-creator.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html"><span class="identifier">CollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/feature/extract/FeatureExtractor.kt#L142">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Final step of the sophisticated <code>safe feature extraction</code> where one can define <a href="-creator-like/extract-and-assert-it.html">extractAndAssertIt</a>
+for the extracted feature or use <a href="-creator-like/extract.html">extract</a> to get a feature <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a>.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-creator-like/feature-representation.html">featureRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">featureRepresentation</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously chosen feature representation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator-like/parameter-object.html">parameterObject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">parameterObject</span><span class="symbol">: </span><a href="-parameter-object/index.html"><span class="identifier">FeatureExtractor.ParameterObject</span></a><span class="symbol">&lt;</span><a href="-creator-like/index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="-creator-like/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The previously created <a href="-parameter-object/index.html">ParameterObject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-creator-like/extract.html">extract</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">extract</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-creator-like/index.html#A"><span class="identifier">A</span></a></code>
+<p>Extracts a feature with the help of the specified
+<a href="-creator-like/parameter-object.html">parameterObject</a>.<a href="-parameter-object/feature-extraction.html">featureExtraction</a> if it
+<a href="-creator-like/parameter-object.html">parameterObject</a>.<a href="-parameter-object/can-be-extracted.html">canBeExtracted</a> and returns an assertion plant for it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator-like/extract-and-assert-it.html">extractAndAssertIt</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">extractAndAssertIt</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="-creator-like/index.html#C"><span class="identifier">C</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Extracts a feature with the help of the specified
+<a href="-creator-like/parameter-object.html">parameterObject</a>.<a href="-parameter-object/feature-extraction.html">featureExtraction</a> if it
+<a href="-creator-like/parameter-object.html">parameterObject</a>.<a href="-parameter-object/can-be-extracted.html">canBeExtracted</a> and uses the given <a href="-creator-like/extract-and-assert-it.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike$extractAndAssertIt(kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.CreatorLike.C, kotlin.Unit)))/assertionCreator">assertionCreator</a>
+to create feature assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

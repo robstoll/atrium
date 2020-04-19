@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newMultiAtriumErrorAdjuster - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-multi-atrium-error-adjuster.html">newMultiAtriumErrorAdjuster</a><br/>
+<br/>
+<h1>newMultiAtriumErrorAdjuster</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">newMultiAtriumErrorAdjuster</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/firstAdjuster">firstAdjuster</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/secondAdjuster">secondAdjuster</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/otherAdjusters">otherAdjusters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/CoreFactory.kt#L728">(source)</a>
+<p>An <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which delegates adjustment to the given <a href="new-multi-atrium-error-adjuster.html#ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/firstAdjuster">firstAdjuster</a>, <a href="new-multi-atrium-error-adjuster.html#ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/secondAdjuster">secondAdjuster</a>
+and optionally <a href="new-multi-atrium-error-adjuster.html#ch.tutteli.atrium.core.CoreFactoryCommon$newMultiAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/otherAdjusters">otherAdjusters</a>.</p>
+<h3>Parameters</h3>
+<p><a name="firstAdjuster"></a>
+<code>firstAdjuster</code> - The first adjuster to which is delegated.</p>
+<p><a name="secondAdjuster"></a>
+<code>secondAdjuster</code> - The second adjuster to which is delegated.</p>
+<p><a name="otherAdjusters"></a>
+<code>otherAdjusters</code> - Optionally further <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which shall be involved in adjusting.</p>
+<p><strong>Return</strong><br/>
+The newly created adjuster.</p>
+</BODY>
+</HTML>

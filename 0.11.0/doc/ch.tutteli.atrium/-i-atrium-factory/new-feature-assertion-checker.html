@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAtriumFactory.newFeatureAssertionChecker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">IAtriumFactory</a>&nbsp;/&nbsp;<a href="./new-feature-assertion-checker.html">newFeatureAssertionChecker</a><br/>
+<br/>
+<h1>newFeatureAssertionChecker</h1>
+<a name="ch.tutteli.atrium.IAtriumFactory$newFeatureAssertionChecker(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.IAtriumFactory.newFeatureAssertionChecker.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">newFeatureAssertionChecker</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newFeatureAssertionChecker(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.IAtriumFactory.newFeatureAssertionChecker.T)))/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="new-feature-assertion-checker.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/core/atrium-core-api-deprecated/src/main/kotlin/ch/tutteli/atrium/IAtriumFactory.kt#L261">(source)</a><br/>
+<strong>Deprecated:</strong> Use AssertImpl.coreFactory instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates an <a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a> which creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a>
+<a href="../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> instead of checking assertions and delegates this task to the given
+<a href="new-feature-assertion-checker.html#ch.tutteli.atrium.IAtriumFactory$newFeatureAssertionChecker(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.IAtriumFactory.newFeatureAssertionChecker.T)))/subjectPlant">subjectPlant</a> by adding (see <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">AssertionPlant.addAssertion</a>) the created assertion group to it.</p>
+<h3>Parameters</h3>
+<p><a name="subjectPlant"></a>
+<code>subjectPlant</code> - The assertion plant to which the created <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a>
+<a href="../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> will be <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">added</a>.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion checker.</p>
+</BODY>
+</HTML>

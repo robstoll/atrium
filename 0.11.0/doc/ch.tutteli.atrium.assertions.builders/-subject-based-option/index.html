@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectBasedOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">SubjectBasedOption</a><br/>
+<br/>
+<h1>SubjectBasedOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">SubjectBasedOption</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/SubjectBasedOption.kt#L8">(source)</a>
+<p>Contract for sub option steps which are based on a defined or absent subject of the assertion.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-absent-option/index.html">AbsentOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AbsentOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Sub option step in case the subject is absent</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-defined-option/index.html">DefinedOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DefinedOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">AO</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-absent-option/index.html"><span class="identifier">SubjectBasedOption.AbsentOption</span></a><span class="symbol">&lt;</span><a href="-defined-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-defined-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Sub option step in case the subject is defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">PO</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-defined-option/index.html"><span class="identifier">SubjectBasedOption.DefinedOption</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion$invoke(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.PO, kotlin.Pair((kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.R)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.T, )))))), kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.PO)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion$invoke(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.PO, kotlin.Pair((kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.R)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.T, )))))), kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.PO)))/subStep">subStep</span><span class="symbol">:</span>&nbsp;<a href="invoke.html#PO"><span class="identifier">PO</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion$invoke(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.PO, kotlin.Pair((kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.R)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.T, )))))), kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.Companion.invoke.PO)))/presentOptionFactory">presentOptionFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="invoke.html#PO"><span class="identifier">PO</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="invoke.html#R"><span class="identifier">R</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

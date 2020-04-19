@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnyTypeTransformation - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.any.typetransformation</a>&nbsp;/&nbsp;<a href="./index.html">AnyTypeTransformation</a><br/>
+<br/>
+<h1>AnyTypeTransformation</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">AnyTypeTransformation</span></s></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/any/typetransformation/AnyTypeTransformation.kt#L18">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Defines the contract for sophisticated <code>type transformation</code> assertion builders.</p>
+<p>The assertion is created by a <a href="-creator/index.html">AnyTypeTransformation.Creator</a> which itself uses a
+<a href="-failure-handler/index.html">AnyTypeTransformation.FailureHandler</a> to report a failing transformation.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-creator/index.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">Creator</span></s><span class="symbol">&lt;</span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>type transformation</code> assertion builder which creates the
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-failure-handler/index.html">FailureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">FailureHandler</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>A handler which is responsible to create the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of a failed type transformation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-parameter-object/index.html">ParameterObject</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">ParameterObject</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>A parameter object which contains all necessary information to report a failure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

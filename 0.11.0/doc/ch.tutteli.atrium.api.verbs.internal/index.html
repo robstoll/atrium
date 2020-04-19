@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.api.verbs.internal - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.api.verbs.internal</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.api.verbs.internal</h2>
+<p>Contains the assertion verbs Atrium uses internally. 
+Use with care, no backward compatibility guarantees and reporting might change.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-verb/index.html">AssertionVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">AssertionVerb</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-string-based-translatable/index.html"><span class="identifier">StringBasedTranslatable</span></a></code>
+<p>Defines the translation used for the assertion verbs used for internal purposes.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-no-adjusting-reporter-factory/index.html">NoAdjustingReporterFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">NoAdjustingReporterFactory</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-reporter-factory/index.html"><span class="identifier">ReporterFactory</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="expect.html">expect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">expect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.verbs.internal$expect(ch.tutteli.atrium.api.verbs.internal.expect.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="expect.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-root-expect/index.html"><span class="identifier">RootExpect</span></a><span class="symbol">&lt;</span><a href="expect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="expect.html#ch.tutteli.atrium.api.verbs.internal$expect(ch.tutteli.atrium.api.verbs.internal.expect.T)/subject">subject</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">expect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.verbs.internal$expect(ch.tutteli.atrium.api.verbs.internal.expect.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.internal.expect.T)), kotlin.Unit)))/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="expect.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.verbs.internal$expect(ch.tutteli.atrium.api.verbs.internal.expect.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.internal.expect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="expect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="expect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="expect.html#ch.tutteli.atrium.api.verbs.internal$expect(ch.tutteli.atrium.api.verbs.internal.expect.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.internal.expect.T)), kotlin.Unit)))/subject">subject</a> and <a href="../ch.tutteli.atrium.creating/-expect/add-assertions-created-by.html">Expect.addAssertionsCreatedBy</a> the
+given <a href="expect.html#ch.tutteli.atrium.api.verbs.internal$expect(ch.tutteli.atrium.api.verbs.internal.expect.T, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.verbs.internal.expect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a>-lambda where the created <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are added as a group and reported as a whole.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newCollectingAssertionContainer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-collecting-assertion-container.html">newCollectingAssertionContainer</a><br/>
+<br/>
+<h1>newCollectingAssertionContainer</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newCollectingAssertionContainer(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newCollectingAssertionContainer.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">newCollectingAssertionContainer</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newCollectingAssertionContainer(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newCollectingAssertionContainer.T)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="new-collecting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-collecting-assertion-container/index.html"><span class="identifier">CollectingAssertionContainer</span></a><span class="symbol">&lt;</span><a href="new-collecting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/CoreFactory.kt#L334">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-container/index.html">CollectingAssertionContainer</a> which is intended to be used as receiver object in lambdas so that it
+can collect <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s created inside the lambda.</p>
+<h3>Parameters</h3>
+<p><a name="maybeSubject"></a>
+<code>maybeSubject</code> - Either <a href="../-some/index.html">Some</a> wrapping the subject of the current assertion or
+<a href="../-none.html">None</a> in case a previous subject change was not successful.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion container.</p>
+</BODY>
+</HTML>

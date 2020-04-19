@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExpectBuilder.OptionsStep.withoutOptions - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="../index.html">ExpectBuilder</a>&nbsp;/&nbsp;<a href="index.html">OptionsStep</a>&nbsp;/&nbsp;<a href="./without-options.html">withoutOptions</a><br/>
+<br/>
+<h1>withoutOptions</h1>
+<a name="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.OptionsStep$withoutOptions()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withoutOptions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-final-step/index.html"><span class="identifier">ExpectBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/ExpectBuilder.kt#L91">(source)</a>
+<p>States explicitly that no optional <a href="../../-expect-options/index.html">ExpectOptions</a> are defined, which means, <code>build</code> will create
+a new <a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> based on the previously defined mandatory options but without any optional options or
+in other words, the default values are used for the optional options.</p>
+<p>Use <a href="with-options.html">withOptions</a> if you want to define optional <a href="../../-expect-options/index.html">ExpectOptions</a> such as, override the
+verb, define an own representation or use an own <a href="../../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</BODY>
+</HTML>

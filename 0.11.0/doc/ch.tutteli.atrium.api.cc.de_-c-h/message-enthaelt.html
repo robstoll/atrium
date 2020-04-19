@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>messageEnthaelt - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.de_CH</a>&nbsp;/&nbsp;<a href="./message-enthaelt.html">messageEnthaelt</a><br/>
+<br/>
+<h1>messageEnthaelt</h1>
+<a name="ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="message-enthaelt.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">messageEnthaelt</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/apis/cc-de_CH/atrium-api-cc-de_CH-common/src/main/kotlin/ch/tutteli/atrium/api/cc/de_CH/throwableAssertions.kt#L80">(source)</a><br/>
+<strong>Deprecated:</strong> api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates the assertion that the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">message</a> is not null (see <a href="message.html">message</a>) contains
+<a href="message-enthaelt.html#ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html">toString</a> representation and the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html">toString</a> representation of the <a href="message-enthaelt.html#ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</a> (if given),
+using a non disjoint search.</p>
+<p>It is a shortcut for <code>message { enthaelt.zumindest(1).werte(expected, otherExpected) }</code></p>
+<p>Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> are passed
+(this function expects <code>Any</code> for your convenience, so that you can mix <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> for instance).</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> in case <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">message</a> is <code>null</code>
+or does not contain <a href="message-enthaelt.html#ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</a> or <a href="message-enthaelt.html#ch.tutteli.atrium.api.cc.de_CH$messageEnthaelt(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.messageEnthaelt.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</a>.</p>
+<p><strong>Return</strong><br/>
+Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+assertion <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/message.html">message</a> is not null) holds or not.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Reporter.format - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">Reporter</a>&nbsp;/&nbsp;<a href="./format.html">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/sb">sb</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-string-builder/index.html"><span class="identifier">StringBuilder</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/Reporter.kt#L25">(source)</a>
+<p>Reports about the given <a href="format.html#ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/assertion">assertion</a>, using the given <a href="format.html#ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/sb">sb</a> where the actual
+implementation will decide whether the given <a href="format.html#ch.tutteli.atrium.reporting.Reporter$format(ch.tutteli.atrium.assertions.Assertion, java.lang.StringBuilder)/assertion">assertion</a> is noteworthy to be reported.</p>
+<p>For instance, <a href="../../ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html">CoreFactory.newOnlyFailureReporter</a> will only report failing <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<h3>Parameters</h3>
+<p><a name="sb"></a>
+<code>sb</code> - The <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-string-builder/index.html">StringBuilder</a> which can be used for reporting.</p>
+<p><a name="assertion"></a>
+<code>assertion</code> - The assertion which should be considered for reporting.</p>
+</BODY>
+</HTML>

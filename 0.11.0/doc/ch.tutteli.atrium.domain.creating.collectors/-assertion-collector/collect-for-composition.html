@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionCollector.collectForComposition - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.collectors</a>&nbsp;/&nbsp;<a href="index.html">AssertionCollector</a>&nbsp;/&nbsp;<a href="./collect-for-composition.html">collectForComposition</a><br/>
+<br/>
+<h1>collectForComposition</h1>
+<a name="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">collectForComposition</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/collectors/AssertionCollector.kt#L70">(source)</a>
+<p>Use this function if you want to collect <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and use it as part of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+<h3>Parameters</h3>
+<p><a name="maybeSubject"></a>
+<code>maybeSubject</code> - Either <a href="../../ch.tutteli.atrium.core/-some/index.html">Some</a> wrapping the subject of the current assertion or
+<a href="../../ch.tutteli.atrium.core/-none.html">None</a> in case a previous subject change was not successful - used as subject for the given <a href="collect-for-composition.html#ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a>.</p>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - A lambda which defines the assertions for the feature.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the given <a href="collect-for-composition.html#ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> did not create a single
+assertion.</p>
+<p><strong>Return</strong><br/>
+The collected assertions as an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a>.</p>
+</BODY>
+</HTML>

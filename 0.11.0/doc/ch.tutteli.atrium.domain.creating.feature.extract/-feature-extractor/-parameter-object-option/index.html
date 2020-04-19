@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractor.ParameterObjectOption - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.feature.extract</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractor</a>&nbsp;/&nbsp;<a href="./index.html">ParameterObjectOption</a><br/>
+<br/>
+<h1>ParameterObjectOption</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">ParameterObjectOption</span></s></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/feature/extract/FeatureExtractor.kt#L63">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Option step to define the <a href="../-parameter-object/index.html">ParameterObject</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="feature-description.html">featureDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">featureDescription</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously chosen feature description.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-parameter-object.html">withParameterObject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TSubject</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">withParameterObject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption$withParameterObject(ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObject.T)))/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-parameter-object/index.html"><span class="identifier">FeatureExtractor.ParameterObject</span></a><span class="symbol">&lt;</span><a href="with-parameter-object.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="with-parameter-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-creator.html"><span class="identifier">FeatureExtractor.Creator</span></a><span class="symbol">&lt;</span><a href="with-parameter-object.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="with-parameter-object.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="with-parameter-object.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption$withParameterObject(ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObject.T)))/parameterObject">parameterObject</a> where a non-nullable feature is extracted by
+<a href="../-parameter-object/feature-extraction.html">ParameterObject.featureExtraction</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-parameter-object-nullable.html">withParameterObjectNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TSubject</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">withParameterObjectNullable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption$withParameterObjectNullable(ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObjectNullable.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObjectNullable.T)))/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-parameter-object/index.html"><span class="identifier">FeatureExtractor.ParameterObject</span></a><span class="symbol">&lt;</span><a href="with-parameter-object-nullable.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="with-parameter-object-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-creator-nullable.html"><span class="identifier">FeatureExtractor.CreatorNullable</span></a><span class="symbol">&lt;</span><a href="with-parameter-object-nullable.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<a href="with-parameter-object-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="with-parameter-object-nullable.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption$withParameterObjectNullable(ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObjectNullable.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObjectOption.withParameterObjectNullable.T)))/parameterObject">parameterObject</a> where a nullable feature is extracted by
+<a href="../-parameter-object/feature-extraction.html">ParameterObject.featureExtraction</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

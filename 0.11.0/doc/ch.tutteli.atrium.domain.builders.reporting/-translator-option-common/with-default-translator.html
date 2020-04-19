@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TranslatorOptionCommon.withDefaultTranslator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="index.html">TranslatorOptionCommon</a>&nbsp;/&nbsp;<a href="./with-default-translator.html">withDefaultTranslator</a><br/>
+<br/>
+<h1>withDefaultTranslator</h1>
+<a name="ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDefaultTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/TranslatorOption.kt#L36">(source)</a>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory-common/new-translator.html">CoreFactory.newTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where the specified <a href="translation-supplier.html">translationSupplier</a> is used to
+retrieve translations, the specified <a href="locale-order-decider.html">localeOrderDecider</a> to determine candidate <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s and
+<a href="with-default-translator.html#ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</a> is used as primary <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> and the optional <a href="with-default-translator.html#ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</a> as fallback <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s.</p>
+<h3>Parameters</h3>
+<p><a name="primaryLocale"></a>
+<code>primaryLocale</code> - The <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> for which the <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> will first search translations --
+it will also be used to format arguments of <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+<p><a name="fallbackLocales"></a>
+<code>fallbackLocales</code> - One <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> after another (in the given order) will be considered as primary Locale
+in case no translation was found the previous primary Locale.</p>
+</BODY>
+</HTML>

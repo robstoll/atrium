@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FixedClaimGroup.HoldsOption - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">FixedClaimGroup</a>&nbsp;/&nbsp;<a href="./index.html">HoldsOption</a><br/>
+<br/>
+<h1>HoldsOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">HoldsOption</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-fixed-claim-like-group/-holds-option/index.html"><span class="identifier">FixedClaimLikeGroup.HoldsOption</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-final-step/index.html"><span class="identifier">FixedClaimGroup.FinalStep</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/fixedClaimGroup.kt#L41">(source)</a>
+<p>Option step which allows to specify the <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> or another fixed part involved
+in calculating <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a>.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-fixed-claim-like-group/-holds-option/failing.html">failing</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">failing</span><span class="symbol">: </span><a href="../../-assertion-group-description-and-representation-option/index.html"><span class="identifier">AssertionGroupDescriptionAndRepresentationOption</span></a><span class="symbol">&lt;</span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-fixed-claim-like-group/-holds-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Defines the <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> (or the fixed part) does not hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-fixed-claim-like-group/-holds-option/group-type.html">groupType</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">groupType</span><span class="symbol">: </span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-fixed-claim-like-group/-holds-option/holding.html">holding</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">holding</span><span class="symbol">: </span><a href="../../-assertion-group-description-and-representation-option/index.html"><span class="identifier">AssertionGroupDescriptionAndRepresentationOption</span></a><span class="symbol">&lt;</span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-fixed-claim-like-group/-holds-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Defines the <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> (or the fixed part) holds</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-fixed-claim-like-group/-holds-option/with-claim.html">withClaim</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withClaim</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.FixedClaimLikeGroup.HoldsOption$withClaim(kotlin.Boolean)/holds">holds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-assertion-group-description-and-representation-option/index.html"><span class="identifier">AssertionGroupDescriptionAndRepresentationOption</span></a><span class="symbol">&lt;</span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../../-fixed-claim-like-group/-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-fixed-claim-like-group/-holds-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="../../-fixed-claim-like-group/-holds-option/with-claim.html#ch.tutteli.atrium.assertions.builders.FixedClaimLikeGroup.HoldsOption$withClaim(kotlin.Boolean)/holds">holds</a> as <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> (or for the fixed part).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.FixedClaimGroup.HoldsOption.Companion$create(ch.tutteli.atrium.assertions.builders.FixedClaimGroup.HoldsOption.Companion.create.T)/groupType">groupType</span><span class="symbol">:</span>&nbsp;<a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">FixedClaimGroup.HoldsOption</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

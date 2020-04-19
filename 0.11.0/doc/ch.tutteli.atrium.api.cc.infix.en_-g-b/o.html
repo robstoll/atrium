@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>o - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.infix.en_GB</a>&nbsp;/&nbsp;<a href="./o.html">o</a><br/>
+<br/>
+<h1>o</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$o#ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.o.T))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="o.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">o</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="o.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/anyAssertions.kt#L192">(source)</a>
+<p>Inline property referring actually to <code>this</code> and allows to write nicer sub-assertions.</p>
+<p>For instance, instead of:</p>
+<pre><code>assert("hello world"){
+  this startsWith "hello"
+  this ends with "world"
+}
+</code></pre>
+<p>You can write</p>
+<pre><code>assert("hello world"){
+  o startsWith "hello"
+  o ends with "world"
+}
+</code></pre>
+</BODY>
+</HTML>
