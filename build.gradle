@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.11.0-SNAPSHOT'
+    rootProject.version = '0.11.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def sampleProjectsFun = subprojects.findAll {
@@ -561,8 +561,9 @@ assumes you have a atrium-gh-pages folder on the same level as atrium where the 
     d) commit & push changes
 
 3. deploy to bintray:
+(assumes you have an alias named gr pointing to ./gradlew)
     // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"9" && CI=true gr clean publishToBintray
     b) Log in to bintray, check that there are 926 artifacts and publish them
     c) synchronise to maven central
 

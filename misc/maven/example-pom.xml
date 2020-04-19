@@ -5,7 +5,7 @@
     <artifactId>com.example.artifactId</artifactId>
 
     <properties>
-        <atrium.version>0.10.0</atrium.version>
+        <atrium.version>0.11.0</atrium.version>
     </properties>
     <dependencies>
         <dependency>
@@ -36,6 +36,12 @@
 <!--            <artifactId>atrium-fluent-en_GB-kotlin_1_3</artifactId>-->
 <!--            <version>${atrium.version}</version>-->
 <!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ch.tutteli.atrium</groupId>-->
+<!--            <artifactId>atrium-domain-robstoll-kotlin_1_3</artifactId>-->
+<!--            <version>${atrium.version}</version>-->
+<!--            <scope>runtime</scope>-->
 <!--        </dependency>-->
     </dependencies>
 </project>
