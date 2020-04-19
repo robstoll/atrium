@@ -314,7 +314,7 @@ Contains [ExpectImpl](./ch.tutteli.atrium.domain.builders/-expect-impl/index.htm
 Contains extension functions for the 
 [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html).
 
-# ch.tutteli.atrium.domain.builders.creating 
+# ch.tutteli.atrium.domain.builders.creating
 Builders involved in delegating to assertion implementations.
 
 # ch.tutteli.atrium.domain.builders.creating.basic.contains
