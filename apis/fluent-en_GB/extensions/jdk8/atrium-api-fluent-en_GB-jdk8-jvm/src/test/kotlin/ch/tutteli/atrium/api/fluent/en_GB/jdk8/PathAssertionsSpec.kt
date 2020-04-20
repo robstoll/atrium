@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -17,7 +18,9 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun0(Expect<Path>::isReadable),
     fun0(Expect<Path>::isWritable),
     fun0(Expect<Path>::isRegularFile),
-    fun0(Expect<Path>::isDirectory)
+    fun0(Expect<Path>::isDirectory),
+    fun1(Expect<Path>::hasSameBinaryContentAs),
+    fun3(Expect<Path>::hasSameTextualContentAs)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -33,6 +36,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1.isWritable()
         a1.isRegularFile()
         a1.isDirectory()
+        a1.hasSameBinaryContentAs(Paths.get("a"))
+        a1.hasSameTextualContentAs(Paths.get("a"))
     }
 }
 

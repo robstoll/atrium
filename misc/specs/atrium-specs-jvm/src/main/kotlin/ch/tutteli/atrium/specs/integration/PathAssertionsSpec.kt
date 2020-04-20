@@ -1,12 +1,55 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.contains
+import ch.tutteli.atrium.api.fluent.en_GB.containsRegex
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic.*
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
-import ch.tutteli.niok.*
+import ch.tutteli.atrium.specs.Fun0
+import ch.tutteli.atrium.specs.Fun1
+import ch.tutteli.atrium.specs.Fun3
+import ch.tutteli.atrium.specs.SubjectLessSpec
+import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.fileSystemSupportsAcls
+import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
+import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
+import ch.tutteli.atrium.specs.forSubjectLess
+import ch.tutteli.atrium.specs.format
+import ch.tutteli.atrium.specs.lambda
+import ch.tutteli.atrium.specs.name
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
+import ch.tutteli.atrium.translations.DescriptionBasic.TO
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.WAS
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.A_DIRECTORY
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.A_FILE
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.ENDS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.ENDS_WITH
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.EXIST
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_ACCESS_DENIED
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_ACCESS_EXCEPTION
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_NO_SUCH_FILE
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_PARENT
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_WRONG_FILE_TYPE
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_ACTUAL_ACL_PERMISSIONS
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_ACTUAL_POSIX_PERMISSIONS
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_CLOSEST_EXISTING_PARENT_DIRECTORY
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_OWNER
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_OWNER_AND_GROUP
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.READABLE
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.STARTS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.STARTS_WITH
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.WRITABLE
+import ch.tutteli.niok.createSymbolicLink
+import ch.tutteli.niok.getFileAttributeView
+import ch.tutteli.niok.posixFilePersmissions
+import ch.tutteli.niok.readAttributes
+import ch.tutteli.niok.setPosixFilePermissions
 import ch.tutteli.spek.extensions.MemoizedTempFolder
 import ch.tutteli.spek.extensions.memoizedTempFolder
 import io.mockk.every
@@ -18,15 +61,27 @@ import org.spekframework.spek2.dsl.Skip.Yes
 import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
+import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.nio.file.attribute.*
+import java.nio.file.attribute.AclEntry
+import java.nio.file.attribute.AclEntryPermission
 import java.nio.file.attribute.AclEntryPermission.READ_DATA
 import java.nio.file.attribute.AclEntryPermission.WRITE_DATA
+import java.nio.file.attribute.AclEntryType
 import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
-import java.nio.file.attribute.PosixFilePermission.*
+import java.nio.file.attribute.AclFileAttributeView
+import java.nio.file.attribute.BasicFileAttributes
+import java.nio.file.attribute.PosixFileAttributes
+import java.nio.file.attribute.PosixFilePermission
+import java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE
+import java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE
+import java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE
+import java.nio.file.attribute.PosixFilePermission.OWNER_READ
+import java.nio.file.attribute.PosixFilePermission.OWNER_WRITE
+import java.nio.file.attribute.UserPrincipal
 import java.util.regex.Pattern.quote
 
 abstract class PathAssertionsSpec(
@@ -40,6 +95,8 @@ abstract class PathAssertionsSpec(
     isWritable: Fun0<Path>,
     isRegularFile: Fun0<Path>,
     isDirectory: Fun0<Path>,
+    hasSameBinaryContentAs: Fun1<Path, Path>,
+    hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -54,7 +111,9 @@ abstract class PathAssertionsSpec(
         isReadable.forSubjectLess(),
         isWritable.forSubjectLess(),
         isRegularFile.forSubjectLess(),
-        isDirectory.forSubjectLess()
+        isDirectory.forSubjectLess(),
+        hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
+        hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1)
     ) {})
 
     val tempFolder by memoizedTempFolder()
@@ -689,6 +748,35 @@ abstract class PathAssertionsSpec(
             expect(folder).isDirectoryFun()
         }
     }
+
+    describeFun(hasSameBinaryContentAs.name) {
+        val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
+
+        context("hasSameBinaryContentAs") {
+            it("do not throw assertion error when have same binary content") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
+                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+                expect {
+                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+                }
+            }
+        }
+    }
+
+    describeFun(hasSameTextualContentAs.name) {
+        val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
+
+        context("hasSameTextualContent") {
+            it("do not throw assertion error when have same textual content") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
+                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
+                }
+            }
+        }
+    }
+
 })
 
 private const val TEST_IO_EXCEPTION_MESSAGE = "unknown test error"

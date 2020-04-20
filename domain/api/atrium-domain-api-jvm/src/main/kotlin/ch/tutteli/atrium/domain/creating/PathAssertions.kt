@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import java.nio.charset.Charset
 import java.nio.file.Path
 
 /**
@@ -39,4 +40,6 @@ interface PathAssertions {
     fun <T : Path> isRegularFile(expect: Expect<T>): Assertion
     fun <T : Path> isDirectory(expect: Expect<T>): Assertion
 
+    fun <T : Path> hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Assertion
+    fun <T : Path> hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path): Assertion
 }

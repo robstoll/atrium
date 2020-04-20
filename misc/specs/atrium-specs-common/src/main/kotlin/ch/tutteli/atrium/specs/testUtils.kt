@@ -11,6 +11,7 @@ import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
+import kotlin.reflect.KFunction4
 import kotlin.reflect.KProperty1
 
 typealias SpecPair<T> = Pair<String, T>
@@ -201,6 +202,7 @@ inline fun <T, A1, A2, R> feature2(f: KFunction3<Expect<T>, A1, A2, Expect<R>>):
 inline fun <T> fun0(f: KFunction1<Expect<T>, Expect<T>>): Fun0<T> = f.name to f
 inline fun <T, A1> fun1(f: KFunction2<Expect<T>, A1, Expect<T>>): Fun1<T, A1> = f.name to f
 inline fun <T, A1, A2> fun2(f: KFunction3<Expect<T>, A1, A2, Expect<T>>): Fun2<T, A1, A2> = f.name to f
+inline fun <T, A1, A2, A3> fun3(f: KFunction4<Expect<T>, A1, A2, A3, Expect<T>>): Fun3<T, A1, A2, A3> = f.name to f
 //@formatter:on
 
 fun <T> notImplemented(): T = throw NotImplementedError()
