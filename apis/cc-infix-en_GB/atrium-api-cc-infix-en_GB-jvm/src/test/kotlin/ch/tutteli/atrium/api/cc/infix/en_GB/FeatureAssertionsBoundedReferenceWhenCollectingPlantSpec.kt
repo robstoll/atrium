@@ -32,7 +32,6 @@ class FeatureAssertionsBoundedReferenceWhenCollectingPlantSpec : ch.tutteli.atri
     return5ValueNullableHolds
 ) {
 
-    @Suppress("DEPRECATION" /* TODO #40 creating feature assertions will change anyway, thus not fixing the usages of `subject` */)
     companion object {
         val propertyImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { property(subject::description) contains "hello" }
         val propertyLazy: CollectingAssertionPlant<TestData>.() -> Unit = { property(subject::description) { o contains "hello" } }

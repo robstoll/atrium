@@ -189,4 +189,12 @@ infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit
  * }
  * ```
  */
+@Deprecated(
+    "Switch from Assert to Expect and use `it` instead; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().it.asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.it"
+    )
+)
 inline val <T: Any> Assert<T>.o get() : Assert<T> = this
