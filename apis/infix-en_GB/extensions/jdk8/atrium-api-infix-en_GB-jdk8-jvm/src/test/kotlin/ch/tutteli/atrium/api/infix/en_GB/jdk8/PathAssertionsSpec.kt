@@ -2,13 +2,10 @@ package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.path
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
-import java.io.File
 import java.nio.charset.Charset
 import java.nio.file.Path
 import java.nio.file.Paths
