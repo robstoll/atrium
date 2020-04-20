@@ -18,10 +18,11 @@ import kotlin.jvm.JvmName
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
@@ -39,10 +40,11 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>>
@@ -62,7 +64,7 @@ infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -84,7 +86,7 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -107,7 +109,7 @@ infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -129,7 +131,7 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -152,7 +154,7 @@ infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -174,7 +176,7 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -197,7 +199,7 @@ infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -219,7 +221,7 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -242,7 +244,7 @@ infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.()
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -264,7 +266,7 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -287,7 +289,7 @@ infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -309,7 +311,7 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -332,7 +334,7 @@ infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -354,7 +356,7 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -377,7 +379,7 @@ infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Doubl
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert()",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
@@ -399,7 +401,7 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0",
     ReplaceWith(
-        "this.asExpect().asList().asAssert(assertionCreator)",
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.asList"
