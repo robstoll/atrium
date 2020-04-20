@@ -20,6 +20,12 @@ jobs:
                 run: ./gradlew buildNonDeprecatedJvm
                 env:
                   CI: true
+            -   name: Upload windows build code coverage
+                uses: codecov/codecov-action@v1
+                with:
+                    token: ${{ secrets.CODECOV_TOKEN }}
+                    flags: current_windows
+                    fail_ci_if_error: true
 
             -   name: build sample atrium+spek project
                 run: samples\jvm\spek\gradlew -p samples\jvm\spek build
