@@ -64,6 +64,8 @@ inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.12.0
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = isA<T>()
@@ -191,11 +193,13 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * You can write
  * ```
  * expect("hello world") {
- *   o startsWith "hello"
- *   o ends with "world"
+ *   it startsWith "hello"
+ *   it ends with "world"
  * }
  * ```
  *
  * @return `this`
+ *
+ * @since 0.12.0
  */
 inline val <T> Expect<T>.it get() : Expect<T> = this
