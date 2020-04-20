@@ -32,9 +32,11 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isWritable(expect: Expect<Path>) = expect toBe writable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
+        @Suppress("UNUSED_PARAMETER")
         private fun hasSameTextualContentAs(expect: Expect<Path>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Expect<Path> {
             return expect
         }
+        @Suppress("UNUSED_PARAMETER")
         private fun hasSameBinaryContentAs(expect: Expect<Path>, targetPath: Path): Expect<Path> {
             return expect
         }
