@@ -377,6 +377,10 @@ createBcAndBbcTasksForApis('0.10.0',
     'forgive=^$',
     'fluent-en_GB'
 )
+createBcAndBbcTasksForApis('0.11.0',
+    'forgive=^$',
+    'fluent-en_GB'
+)
 //@formatter:on
 
 def apis = ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB']
