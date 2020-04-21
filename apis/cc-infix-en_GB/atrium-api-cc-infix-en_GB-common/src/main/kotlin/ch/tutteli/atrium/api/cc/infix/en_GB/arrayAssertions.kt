@@ -67,7 +67,8 @@ infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
@@ -89,7 +90,8 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> Unit): Assert<Iterable<Byte>>
@@ -112,7 +114,8 @@ infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
@@ -134,7 +137,8 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> Unit): Assert<Iterable<Char>>
@@ -157,7 +161,8 @@ infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
@@ -179,7 +184,8 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -> Unit): Assert<Iterable<Short>>
@@ -202,7 +208,8 @@ infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
@@ -224,7 +231,8 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Unit): Assert<Iterable<Int>>
@@ -247,7 +255,8 @@ infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.()
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
@@ -269,7 +278,8 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> Unit): Assert<Iterable<Long>>
@@ -292,7 +302,8 @@ infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
@@ -314,7 +325,8 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -> Unit): Assert<Iterable<Float>>
@@ -337,7 +349,8 @@ infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
@@ -359,7 +372,8 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.() -> Unit): Assert<Iterable<Double>>
@@ -382,7 +396,8 @@ infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Doubl
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
@@ -404,7 +419,8 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.asList"
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
     )
 )
 infix fun Assert<BooleanArray>.asIterable(assertionCreator: Assert<Iterable<Boolean>>.() -> Unit): Assert<Iterable<Boolean>>
