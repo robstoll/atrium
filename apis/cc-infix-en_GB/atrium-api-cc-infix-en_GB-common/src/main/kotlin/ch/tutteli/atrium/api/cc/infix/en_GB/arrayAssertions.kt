@@ -15,6 +15,16 @@ import kotlin.jvm.JvmName
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -27,6 +37,16 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<E>>.() -> Unit): Assert<Iterable<E>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -41,6 +61,16 @@ infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<
  */
 @Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -54,6 +84,16 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
  * @return The newly created [Assert] for the transformed subject.
  */
 @JvmName("byteArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.() -> Unit): Assert<Iterable<Byte>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -68,6 +108,16 @@ infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.
  */
 @Suppress("DEPRECATION")
 @JvmName("charArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -81,6 +131,16 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("charArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.() -> Unit): Assert<Iterable<Char>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -95,6 +155,16 @@ infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.
  */
 @Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -108,6 +178,16 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("shortArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>>.() -> Unit): Assert<Iterable<Short>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -122,6 +202,16 @@ infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>
  */
 @Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -135,6 +225,16 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("intArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.() -> Unit): Assert<Iterable<Int>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -149,6 +249,16 @@ infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.()
  */
 @Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -162,6 +272,16 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("longArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.() -> Unit): Assert<Iterable<Long>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -176,6 +296,16 @@ infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.
  */
 @Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -189,6 +319,16 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("floatArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>>.() -> Unit): Assert<Iterable<Float>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -203,6 +343,16 @@ infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>
  */
 @Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -216,6 +366,16 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("doubleArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Double>>.() -> Unit): Assert<Iterable<Double>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
 
@@ -230,6 +390,16 @@ infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Doubl
  */
 @Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
     = ExpectImpl.changeSubject(this).unreported { it.asIterable() }
 
@@ -243,5 +413,15 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("boolArrAsIterable")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith(
+        "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.asList",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun Assert<BooleanArray>.asIterable(assertionCreator: Assert<Iterable<Boolean>>.() -> Unit): Assert<Iterable<Boolean>>
     = asIterable().addAssertionsCreatedBy(assertionCreator)
