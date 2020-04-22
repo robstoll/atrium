@@ -1,10 +1,11 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+//@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsAtLeastAssertionsSpec(
@@ -29,7 +30,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integra
 
         private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant to contain atLeast atLeast value a
+                plant.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.o) atLeast atLeast value a
             } else {
                 plant to contain atLeast atLeast the Values(a, *aX)
             }

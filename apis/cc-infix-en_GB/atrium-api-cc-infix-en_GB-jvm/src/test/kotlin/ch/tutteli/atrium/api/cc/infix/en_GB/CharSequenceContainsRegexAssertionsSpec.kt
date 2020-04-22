@@ -4,7 +4,13 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.containsRegex
+import ch.tutteli.atrium.api.infix.en_GB.atLeast
+import ch.tutteli.atrium.api.infix.en_GB.atMost
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsRegexAssertionsSpec(
@@ -30,9 +36,9 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
 
         private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: String, aX: Array<out String>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant to contain atLeast atLeast regex a
+                (plant to contain) atLeast atLeast regex a
             } else {
-                plant to contain atLeast atLeast the RegexPatterns(a, *aX)
+                (plant to contain).atLeast(atLeast) the RegexPatterns(a, *aX)
             }
         }
 
@@ -60,9 +66,9 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
 
         private fun containsShortcut(plant: Assert<CharSequence>, a: String, aX: Array<out String>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant containsRegex a
+                plant.asExpect().containsRegex(a).asAssert()
             } else {
-                plant contains RegexPatterns(a, *aX)
+                plant.asExpect().contains(RegexPatterns(a, *aX)).asAssert()
             }
         }
 
@@ -85,7 +91,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost regex a
             } else {
-                plant to contain ignoring case atMost atMost the RegexPatterns(a, *aX)
+                (plant to contain ignoring case).atMost(atMost) the RegexPatterns(a, *aX)
             }
         }
     }
