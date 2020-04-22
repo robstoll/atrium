@@ -22,7 +22,9 @@ import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.extension
 import ch.tutteli.niok.fileNameWithoutExtension
 import ch.tutteli.niok.getFileAttributeView
+import ch.tutteli.niok.readAllBytes
 import ch.tutteli.niok.readAttributes
+import ch.tutteli.niok.readText
 import java.io.IOException
 import java.nio.charset.Charset
 import java.nio.file.AccessDeniedException
@@ -49,16 +51,12 @@ fun <T : Path> _endsNotWith(expect: Expect<T>, expected: Path) =
 
 fun <T : Path> _hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
     ExpectImpl.builder.createDescriptive(expect, HAS_SAME_TEXTUAL_CONTENT, targetPath) {
-        val sourceFileText = it.toFile().readText(sourceCharset)
-        val targetFileText = targetPath.toFile().readText(targetCharset)
-        return@createDescriptive sourceFileText == targetFileText
+        it.readText(sourceCharset) == targetPath.readText(targetCharset)
     }
 
 fun <T : Path> _hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path) =
     ExpectImpl.builder.createDescriptive(expect, HAS_SAME_BINARY_CONTENT, targetPath) {
-        val sourceFileBytes: ByteArray = it.toFile().readBytes()
-        val targetFileBytes: ByteArray = targetPath.toFile().readBytes()
-        return@createDescriptive sourceFileBytes.contentEquals(targetFileBytes)
+        it.readAllBytes().contentEquals(targetPath.readAllBytes())
     }
 
 fun <T : Path> _exists(expect: Expect<T>): Assertion =

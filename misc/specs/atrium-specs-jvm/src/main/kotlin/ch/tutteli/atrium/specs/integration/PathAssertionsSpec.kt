@@ -1,50 +1,11 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.containsRegex
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.Fun0
-import ch.tutteli.atrium.specs.Fun1
-import ch.tutteli.atrium.specs.Fun3
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.fileSystemSupportsAcls
-import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
-import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.format
-import ch.tutteli.atrium.specs.lambda
-import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO
-import ch.tutteli.atrium.translations.DescriptionBasic.TO
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import ch.tutteli.atrium.translations.DescriptionBasic.WAS
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.A_DIRECTORY
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.A_FILE
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.ENDS_NOT_WITH
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.ENDS_WITH
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.EXIST
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_ACCESS_DENIED
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_ACCESS_EXCEPTION
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_NO_SUCH_FILE
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_PARENT
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_WRONG_FILE_TYPE
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_ACTUAL_ACL_PERMISSIONS
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_ACTUAL_POSIX_PERMISSIONS
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_CLOSEST_EXISTING_PARENT_DIRECTORY
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_OWNER
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_OWNER_AND_GROUP
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.READABLE
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.STARTS_NOT_WITH
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.STARTS_WITH
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.WRITABLE
+import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionBasic.*
+import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.createSymbolicLink
 import ch.tutteli.niok.getFileAttributeView
 import ch.tutteli.niok.posixFilePersmissions
@@ -749,11 +710,12 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(hasSameBinaryContentAs.name) {
+    describeFun(hasSameBinaryContentAs.name, hasSameTextualContentAs.name) {
         val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
+        val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
 
-        context("hasSameBinaryContentAs") {
-            it("do not throw assertion error when have same binary content") withAndWithoutSymlink { maybeLink ->
+        context("has same binary content") {
+            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
                 val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
                 val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
                 expect {
@@ -761,13 +723,19 @@ abstract class PathAssertionsSpec(
                 }
             }
         }
-    }
 
-    describeFun(hasSameTextualContentAs.name) {
-        val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
+        context("has same textual content") {
+            it("${hasSameTextualContentAs.name} - does not throw  if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
+                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+                }
+            }
+        }
 
-        context("hasSameTextualContent") {
-            it("do not throw assertion error when have same textual content") withAndWithoutSymlink { maybeLink ->
+        context("has same textual content") {
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
                 val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
                 val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
                 expect {
@@ -775,6 +743,17 @@ abstract class PathAssertionsSpec(
                 }
             }
         }
+
+        context("has same textual content") {
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
+                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+                }
+            }
+        }
+
     }
 
 })

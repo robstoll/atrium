@@ -33,5 +33,7 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     FAILURE_DUE_TO_WRONG_FILE_TYPE("war %s anstatt %s"),
     FAILURE_DUE_TO_LINK_LOOP("Zykel von symbolischen Verknüpfungen gefunden: %s"),
     HINT_CLOSEST_EXISTING_PARENT_DIRECTORY("das nächste, existierende Elternverzeichnis ist %s"),
-    HINT_FOLLOWED_SYMBOLIC_LINK("folgte der symbolischen Verknüpfung %s nach %s")
+    HINT_FOLLOWED_SYMBOLIC_LINK("folgte der symbolischen Verknüpfung %s nach %s"),
+    HAS_SAME_TEXTUAL_CONTENT("hat denselben textlichen Inhalt"),
+    HAS_SAME_BINARY_CONTENT("hat denselben binären Inhalt")
 }

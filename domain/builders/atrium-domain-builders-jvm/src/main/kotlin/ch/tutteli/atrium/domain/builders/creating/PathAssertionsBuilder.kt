@@ -58,15 +58,15 @@ object PathAssertionsBuilder : PathAssertions {
     override inline fun <T : Path> isWritable(expect: Expect<T>) =
         pathAssertions.isWritable(expect)
 
-    override fun <T : Path> isRegularFile(expect: Expect<T>) =
+    override inline fun <T : Path> isRegularFile(expect: Expect<T>) =
         pathAssertions.isRegularFile(expect)
 
-    override fun <T : Path> isDirectory(expect: Expect<T>) =
+    override inline fun <T : Path> isDirectory(expect: Expect<T>) =
         pathAssertions.isDirectory(expect)
 
-    override fun <T : Path> hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
+    override inline fun <T : Path> hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
         pathAssertions.hasSameTextualContentAs(expect, targetPath, sourceCharset, targetCharset)
 
-    override fun <T : Path> hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path) =
+    override inline fun <T : Path> hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path) =
         pathAssertions.hasSameBinaryContentAs(expect, targetPath)
 }
