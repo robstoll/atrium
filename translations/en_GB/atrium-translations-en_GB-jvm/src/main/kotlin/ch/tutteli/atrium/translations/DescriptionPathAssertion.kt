@@ -34,6 +34,6 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     FAILURE_DUE_TO_LINK_LOOP("found a symbolic link loop: %s"),
     HINT_CLOSEST_EXISTING_PARENT_DIRECTORY("the closest existing parent directory is %s"),
     HINT_FOLLOWED_SYMBOLIC_LINK("followed the symbolic link %s to %s"),
-    HAS_SAME_TEXTUAL_CONTENT("has same textual content"),
+    HAS_SAME_TEXTUAL_CONTENT("has same textual content with encoding %s, %s"),
     HAS_SAME_BINARY_CONTENT("has same binary content"),
 }

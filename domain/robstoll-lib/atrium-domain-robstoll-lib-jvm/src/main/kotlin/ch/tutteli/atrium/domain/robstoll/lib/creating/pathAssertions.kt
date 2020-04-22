@@ -16,6 +16,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -50,7 +51,7 @@ fun <T : Path> _endsNotWith(expect: Expect<T>, expected: Path) =
     ExpectImpl.builder.createDescriptive(expect, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
 fun <T : Path> _hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
-    ExpectImpl.builder.createDescriptive(expect, HAS_SAME_TEXTUAL_CONTENT, targetPath) {
+    ExpectImpl.builder.createDescriptive(expect, TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceCharset, targetCharset), targetPath) {
         it.readText(sourceCharset) == targetPath.readText(targetCharset)
     }
 

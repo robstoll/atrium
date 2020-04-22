@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -780,6 +781,7 @@ abstract class PathAssertionsSpec(
 
         context("has different textual content") {
             it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-16 is used") {
+                val expectedMessage = TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, Charsets.UTF_8, Charsets.UTF_16).getDefault()
                 val sourcePath = tempFolder.newFile("text11")
                 val targetPath = tempFolder.newFile("text12")
                 sourcePath.toFile().writeText("sourcePath")
@@ -787,11 +789,12 @@ abstract class PathAssertionsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
                 }.toThrow<AssertionError>().message {
-                    contains(HAS_SAME_TEXTUAL_CONTENT.getDefault())
+                    contains(expectedMessage)
                 }
             }
 
             it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") {
+                val expectedMessage = TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, Charsets.UTF_8, Charsets.UTF_8).getDefault()
                 val sourcePath = tempFolder.newFile("text13")
                 val targetPath = tempFolder.newFile("text14")
                 sourcePath.toFile().writeText("sourcePath")
@@ -799,7 +802,7 @@ abstract class PathAssertionsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    contains(HAS_SAME_TEXTUAL_CONTENT.getDefault())
+                    contains(expectedMessage)
                 }
             }
         }
