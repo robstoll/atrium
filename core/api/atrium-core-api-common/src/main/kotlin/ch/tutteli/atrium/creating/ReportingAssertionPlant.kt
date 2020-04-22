@@ -12,5 +12,5 @@ import ch.tutteli.atrium.assertions.Assertion
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
-@Deprecated("Switch from ReportingAssertionPlant to ReportingAssertionContainer; will be removed with 1.0.0")
+@Deprecated("Switch from ReportingAssertionPlant to ReportingAssertionContainer; will be removed with 1.0.0", ReplaceWith("ReportingAssertionContainer"))
 interface ReportingAssertionPlant<out T : Any> : AssertionPlant<T>, BaseReportingAssertionPlant<T, AssertionPlant<T>>

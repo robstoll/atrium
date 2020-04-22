@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.Assertion
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
-@Deprecated("Switch from CollectingAssertionPlant to CollectingAssertionContainer; will be removed with 1.0.0")
+@Deprecated("Switch from CollectingAssertionPlant to CollectingAssertionContainer; will be removed with 1.0.0", ReplaceWith("CollectingAssertionContainer"))
 interface CollectingAssertionPlant<out T : Any> : AssertionPlant<T>,
     BaseCollectingAssertionPlant<T, AssertionPlant<T>, CollectingAssertionPlant<T>> {
 

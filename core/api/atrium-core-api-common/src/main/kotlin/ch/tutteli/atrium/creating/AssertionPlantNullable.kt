@@ -11,5 +11,5 @@ package ch.tutteli.atrium.creating
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
-@Deprecated("Switch from AssertionPlantNullable to Expect; will be removed with 1.0.0")
+@Deprecated("Switch from AssertionPlantNullable to Expect; will be removed with 1.0.0", ReplaceWith("Expect"))
 interface AssertionPlantNullable<out T : Any?> : BaseAssertionPlant<T, AssertionPlantNullable<T>>
