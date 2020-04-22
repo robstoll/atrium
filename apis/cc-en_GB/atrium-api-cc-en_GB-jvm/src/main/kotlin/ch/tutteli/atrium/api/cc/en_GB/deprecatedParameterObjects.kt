@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 @file:JvmMultifileClass
 @file:JvmName("ParameterObjectsKt")
 package ch.tutteli.atrium.api.cc.en_GB

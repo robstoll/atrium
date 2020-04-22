@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 
 package ch.tutteli.atrium.spec.integration
 
@@ -51,16 +52,19 @@ abstract class AnyAssertionsSpec(
         andLazyPair.first to mapToCreateAssertion { andLazyPair.second }
     ) {})
 
-    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Int>(verbs, describePrefix,
+    include(@Suppress("DEPRECATION") object : CheckingAssertionSpec<Int>(
+        verbs, describePrefix,
         checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0),
         checkingTriple(notToBe, { funInt.notToBeFun(this, 1) }, 0, 1),
         checkingTriple(isSame, { funInt.isSameFun(this, 1) }, 1, 0),
         checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) = prefixedDescribe(describePrefix, description, body)
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) =
+        prefixedDescribe(describePrefix, description, body)
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assert: (Int) -> Assert<Int> = verbs::checkImmediately

@@ -3,7 +3,6 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
 import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
@@ -167,7 +166,7 @@ interface AssertionBuilder {
      *
      * @throws ch.tutteli.atrium.creating.PlantHasNoSubjectException in case [test] is called in a context where it
      *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
-     *   possible that [AssertionPlant.maybeSubject] is [None].
+     *   possible that [Expect.maybeSubject] is [None].
      */
     //TODO remove @throws with 1.0.0
     fun <T> createDescriptive(
@@ -199,7 +198,7 @@ interface AssertionBuilder {
      *
      * @throws ch.tutteli.atrium.creating.PlantHasNoSubjectException in case [test] is called in a context where it
      *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
-     *   possible that [AssertionPlant.maybeSubject] is [None].
+     *   possible that [Expect.maybeSubject] is [None].
      */
     //TODO remove @throws with 1.0.0
     fun <T> createDescriptive(

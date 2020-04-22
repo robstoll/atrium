@@ -1,3 +1,5 @@
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package custom
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe

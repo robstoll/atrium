@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [subject] of this [AssertionPlant].
  */
 @AssertMarker
+@Deprecated("Switch from AssertionPlant to Expect; will be removed with 1.0.0")
 interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>> {
 
     /**

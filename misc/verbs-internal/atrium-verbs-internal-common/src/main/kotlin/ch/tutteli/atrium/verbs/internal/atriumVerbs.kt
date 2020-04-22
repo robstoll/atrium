@@ -1,4 +1,6 @@
-//TODO remove with 1.0.0
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
+
 package ch.tutteli.atrium.verbs.internal
 
 import ch.tutteli.atrium.core.newReportingPlantNullable

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove file with 1.0.0 */)
+
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,6 +13,7 @@ import ch.tutteli.atrium.assertions.Assertion
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
+@Deprecated("Switch from CheckingAssertionPlant to Expect; will be removed with 1.0.0")
 interface CheckingAssertionPlant<out T : Any> : AssertionPlant<T> {
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): CheckingAssertionPlant<T>

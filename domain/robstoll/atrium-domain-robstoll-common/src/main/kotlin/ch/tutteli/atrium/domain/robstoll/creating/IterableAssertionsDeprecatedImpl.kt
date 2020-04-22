@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.assertions.Assertion

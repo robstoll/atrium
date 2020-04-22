@@ -64,6 +64,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         commonFields: AssertionPlantWithCommonFields.CommonFields<T>
     ): ReportingAssertionPlantNullable<T> = ReportingAssertionPlantNullableImpl(commonFields)
 
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
         ReplaceWith(
@@ -80,6 +81,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         maybeSubject: Option<T>
     ): CollectingAssertionContainer<T> = CollectingAssertionContainerImpl(maybeSubject)
 
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
         ReplaceWith(
@@ -91,6 +93,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         subjectProvider: () -> T
     ): CollectingAssertionPlant<T> = CollectingAssertionPlantImpl(subjectProvider)
 
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
         ReplaceWith(

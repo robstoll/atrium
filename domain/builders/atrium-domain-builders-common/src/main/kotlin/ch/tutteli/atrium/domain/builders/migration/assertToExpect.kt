@@ -1,3 +1,6 @@
+// TODO remove file with 1.0.0
+@file:Suppress("TYPEALIAS_EXPANSION_DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.migration
 
 import ch.tutteli.atrium.core.coreFactory
