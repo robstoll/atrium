@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.checkers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
@@ -46,5 +46,5 @@ abstract class ContainsChecker(
      * @return The newly created [DescriptiveAssertion].
      */
     protected fun createDescriptiveAssertion(description: Translatable, check: () -> Boolean): DescriptiveAssertion =
-        AssertImpl.builder.createDescriptive(description, RawString.create(times.toString()), check)
+        assertionBuilder.createDescriptive(description, RawString.create(times.toString()), check)
 }

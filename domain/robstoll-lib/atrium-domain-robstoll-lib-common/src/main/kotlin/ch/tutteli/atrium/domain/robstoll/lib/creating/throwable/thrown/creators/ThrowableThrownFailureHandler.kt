@@ -9,7 +9,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.reporting.RawString
@@ -28,7 +28,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
         val assertions = mutableListOf(descriptiveAssertion)
         maybeAssertionCreator.fold({ /* nothing to do */ }) { assertionCreator ->
             assertions.add(
-                AssertImpl.builder.explanatoryGroup
+                ExpectImpl.builder.explanatoryGroup
                     .withDefaultType
                     .collectAssertions(None, assertionCreator)
                     .build()
@@ -40,7 +40,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
                 if (it != null) assertions.add(propertiesOfThrowable(it, maxStackTrace))
             }
         )
-        return AssertImpl.builder.invisibleGroup
+        return ExpectImpl.builder.invisibleGroup
             .withAssertions(assertions.toList())
             .build()
     }
@@ -56,7 +56,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             maxStackTrace: Int,
             explanation: Assertion = createExplanation(throwable)
         ): AssertionGroup {
-            return AssertImpl.builder.explanatoryGroup
+            return ExpectImpl.builder.explanatoryGroup
                 .withDefaultType
                 .withAssertions(
                     explanation,
@@ -66,7 +66,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
         }
 
         private fun createExplanation(throwable: Throwable) =
-            AssertImpl.builder.explanatory
+            ExpectImpl.builder.explanatory
                 .withExplanation(
                     DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
                     throwable::class.simpleName ?: throwable::class.fullName
@@ -89,14 +89,14 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             assertions.addAll(createAdditionalHints(throwable, maxStackTrace))
             createCauseHint(throwable, maxStackTrace)?.let { assertions.add(it) }
 
-            return AssertImpl.builder.explanatoryGroup
+            return ExpectImpl.builder.explanatoryGroup
                 .withDefaultType
                 .withAssertions(assertions.toList())
                 .build()
         }
 
         private fun createMessageHint(throwable: Throwable) =
-            AssertImpl.builder.descriptive
+            ExpectImpl.builder.descriptive
                 .holding
                 .withDescriptionAndRepresentation(
                     DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
@@ -117,17 +117,17 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             val assertions = stackTrace.asSequence()
                 .take(maxStackTrace)
                 .map {
-                    AssertImpl.builder.explanatory.withExplanation(RawString.create(it)).build()
+                    ExpectImpl.builder.explanatory.withExplanation(RawString.create(it)).build()
                 }
                 .let {
                     if (stackTrace.size > maxStackTrace) {
-                        it.plus(AssertImpl.builder.explanatory.withExplanation(RawString.create("...")).build())
+                        it.plus(ExpectImpl.builder.explanatory.withExplanation(RawString.create("...")).build())
                     } else {
                         it
                     }
                 }.toList()
 
-            return AssertImpl.builder.list
+            return ExpectImpl.builder.list
                 .withDescriptionAndEmptyRepresentation(DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE)
                 .withAssertions(assertions)
                 .build()
@@ -155,7 +155,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             maxStackTrace: Int
         ): AssertionGroup {
             val secondStackTrace = if (throwable.stackBacktrace.size > 1) throwable.stackBacktrace[1] else null
-            return AssertImpl.builder.list
+            return ExpectImpl.builder.list
                 .withDescriptionAndRepresentation(childDescription, child)
                 .withAssertion(
                     createHints(

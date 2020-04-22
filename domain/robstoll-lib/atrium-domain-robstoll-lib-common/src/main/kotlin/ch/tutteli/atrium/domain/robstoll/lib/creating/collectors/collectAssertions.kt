@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.ErrorMessages
@@ -16,11 +16,11 @@ fun <T> _collect(
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
 ): Assertion {
-    val collectedAssertions = AssertImpl.coreFactory.newCollectingAssertionContainer(maybeSubject)
+    val collectedAssertions = coreFactory.newCollectingAssertionContainer(maybeSubject)
         .addAssertionsCreatedBy(assertionCreator)
         .getAssertions()
     return if (collectedAssertions.size > 1) {
-        AssertImpl.builder.invisibleGroup.withAssertions(collectedAssertions).build()
+        ExpectImpl.builder.invisibleGroup.withAssertions(collectedAssertions).build()
     } else {
         collectedAssertions[0]
     }
@@ -46,7 +46,7 @@ fun <T> _collectForComposition(
     } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
         @Suppress("DEPRECATION")
         listOf(
-            AssertImpl.builder.explanatoryGroup
+            ExpectImpl.builder.explanatoryGroup
                 .withWarningType
                 .withExplanatoryAssertion(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY)
                 .build()
@@ -64,7 +64,7 @@ private fun <T> collectAssertions(
             .addAssertionsCreatedBy(assertionCreatorOrNull)
             .getAssertions()
     } else {
-        listOf(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL) {
+        listOf(ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL) {
             maybeSubject.isDefined()
         })
     }

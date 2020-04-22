@@ -1,3 +1,6 @@
+//TODO remove this file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -26,7 +29,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-@Suppress("DEPRECATION")
 @Deprecated("Switch from Assert to Expect and use InOrderOnlyAssertionCreator; will be removed with 1.0.0")
 abstract class InOrderOnlyDeprecatedAssertionCreator<E, in T : Iterable<E>, SC>(
     private val searchBehaviour: InOrderOnlySearchBehaviour

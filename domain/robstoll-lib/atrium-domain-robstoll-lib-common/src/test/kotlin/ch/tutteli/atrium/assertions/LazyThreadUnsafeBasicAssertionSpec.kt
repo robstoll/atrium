@@ -1,28 +1,19 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeBasicAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-object LazyThreadUnsafeAssertionGroupSpec : Spek({
+object LazyThreadUnsafeBasicAssertionSpec : Spek({
 
     describe("creating it") {
         var callingCount = 0
-        val assertion = AssertImpl.builder.descriptive
-            .failing
-            .withDescriptionAndRepresentation("b", 3)
-            .build()
-
-        val testee = LazyThreadUnsafeAssertionGroup {
+        val testee = LazyThreadUnsafeBasicAssertion {
             ++callingCount
-            AssertImpl.builder.feature
-                .withDescriptionAndRepresentation("a", 2)
-                .withAssertion(assertion)
-                .build()
+            ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation("a", 2).build()
         }
         it("does not evaluate anything") {
             expect(callingCount).toBe(0)
@@ -33,7 +24,6 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
         }
         context("invoking ${testee::holds.name}") {
             var resultHolds = true
-
             it("execute it") {
                 resultHolds = testee.holds()
             }
@@ -42,12 +32,12 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 expect(callingCount).toBe(1)
             }
 
-            it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
+            it("returns holds() of the underlying ${DescriptiveAssertion::class.simpleName}") {
                 expect(resultHolds).toBe(false)
             }
         }
 
-        context("invoking ${testee::holds.name} and then ${testee::assertions.name}") {
+        context("invoking ${testee::holds.name} and then ${testee::representation.name}") {
             var resultHolds = true
 
             it("execute it") {
@@ -58,12 +48,12 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 expect(callingCount).toBe(1)
             }
 
-            it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
+            it("returns ${DescriptiveAssertion::holds.name}() of the underlying ${DescriptiveAssertion::class.simpleName}") {
                 expect(resultHolds).toBe(false)
             }
 
-            it("returns the ${AssertionGroup::assertions.name} of the underlying ${AssertionGroup::class.simpleName}") {
-                expect(testee.assertions).containsExactly(assertion)
+            it("returns ${DescriptiveAssertion::representation.name} of the underlying ${DescriptiveAssertion::class.simpleName}") {
+                expect(testee.representation).toBe(2)
             }
         }
     }

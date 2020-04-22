@@ -3,8 +3,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -39,7 +39,7 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, TT : Any, in SC, S : 
         val count = search(subjectProvider, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
-        return AssertImpl.builder.customType(getAssertionGroupType())
+        return assertionBuilder.customType(getAssertionGroupType())
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
             .withAssertions(decorateAssertion(subjectProvider, featureAssertion))
             .build()

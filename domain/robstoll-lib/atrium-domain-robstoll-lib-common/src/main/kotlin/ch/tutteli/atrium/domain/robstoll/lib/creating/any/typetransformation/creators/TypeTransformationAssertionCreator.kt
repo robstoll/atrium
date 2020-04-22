@@ -21,7 +21,7 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
             .fold({
                 failureHandler.createAndAddAssertionToPlant(parameterObject)
             }) {
-                @Suppress("DEPRECATION") val plant = AssertImpl.changeSubject(subjectPlant) { transform(it as S) }
+                val plant = AssertImpl.changeSubject(subjectPlant) { transform(it as S) }
                 plant.addAssertion(
                     AssertImpl.builder.descriptive
                         .holding
