@@ -716,40 +716,82 @@ abstract class PathAssertionsSpec(
 
         context("has same binary content") {
             it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
-                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+                val sourcePath = maybeLink.create(tempFolder.newFile("text1"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text2"))
+                expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+            }
+        }
+
+        context("has different binary content") {
+            it("${hasSameBinaryContentAs.name} - throws AssertionError") {
+                val sourcePath = tempFolder.newFile("text3")
+                val targetPath = tempFolder.newFile("text4")
+                sourcePath.toFile().writeText("sourcePath")
+                targetPath.toFile().writeText("targetPath")
                 expect {
                     expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
                 }
             }
-        }
 
-        context("has same textual content") {
-            it("${hasSameTextualContentAs.name} - does not throw  if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
-                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+            it("${hasSameBinaryContentAs.name} - throws AssertionError if have same textual content but UTF-8, UTF-16 is used") {
+                val sourcePath = tempFolder.newFile("text3")
+                val targetPath = tempFolder.newFile("text4")
+                sourcePath.toFile().writeText("same")
+                targetPath.toFile().writeText("same", Charsets.UTF_16)
                 expect {
-                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
                 }
             }
         }
 
         context("has same textual content") {
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+            }
+
             it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
-                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
-                expect {
-                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
-                }
+                val sourcePath = maybeLink.create(tempFolder.newFile("text7"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text8"))
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
             }
         }
 
-        context("has same textual content") {
+        context("same text but UTF-8 and UTF-16 encoding") {
             it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.tmpDir.resolve("text1"))
-                val targetPath = maybeLink.create(tempFolder.tmpDir.resolve("text2"))
+                val sourcePath = maybeLink.create(tempFolder.newFile("text9"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text10"))
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+            }
+        }
+
+        context("has different textual content") {
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-16 is used") {
+                val sourcePath = tempFolder.newFile("text11")
+                val targetPath = tempFolder.newFile("text12")
+                sourcePath.toFile().writeText("sourcePath")
+                targetPath.toFile().writeText("targetPath", Charsets.UTF_16)
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_TEXTUAL_CONTENT.getDefault())
+                }
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") {
+                val sourcePath = tempFolder.newFile("text13")
+                val targetPath = tempFolder.newFile("text14")
+                sourcePath.toFile().writeText("sourcePath")
+                targetPath.toFile().writeText("targetPath")
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_TEXTUAL_CONTENT.getDefault())
                 }
             }
         }
