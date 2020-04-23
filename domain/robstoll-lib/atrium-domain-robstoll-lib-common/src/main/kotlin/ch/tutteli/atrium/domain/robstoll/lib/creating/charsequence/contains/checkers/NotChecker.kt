@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.translations.DescriptionBasic
 
@@ -11,5 +11,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class NotChecker : CharSequenceContains.Checker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        AssertImpl.builder.createDescriptive(DescriptionBasic.IS, 0) { foundNumberOfTimes == 0 }
+        ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, 0) { foundNumberOfTimes == 0 }
 }

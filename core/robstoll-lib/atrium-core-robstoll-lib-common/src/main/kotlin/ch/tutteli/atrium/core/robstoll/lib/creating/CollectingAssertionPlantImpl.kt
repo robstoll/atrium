@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove file with 1.0.0 */)
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant

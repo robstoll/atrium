@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerOption
@@ -149,7 +150,7 @@ fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Trans
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsRegex(expected, *otherExpected)"))

@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 @file:JvmMultifileClass
 @file:JvmName("IterableContainsInOrderOnlyGroupedCreatorsKt")
 
@@ -21,7 +22,7 @@ import kotlin.jvm.JvmName
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
@@ -43,7 +44,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")

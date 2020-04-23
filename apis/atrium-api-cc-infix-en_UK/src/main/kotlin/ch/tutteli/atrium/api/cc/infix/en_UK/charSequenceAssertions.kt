@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOption
@@ -139,7 +140,7 @@ infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTra
  *
  * It is a shortcut for `to contain atLeast 1 regex pattern`.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.containsRegex(pattern)"))
@@ -165,7 +166,7 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(patterns)"))

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
@@ -41,7 +40,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     // => will be change with 1.0.0
 
     /**
-     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates a [ch.tutteli.atrium.creating.ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
      * uses [subjectProvider] as [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
@@ -80,12 +79,12 @@ actual interface CoreFactory : CoreFactoryCommon {
         subjectProvider: () -> T,
         reporter: Reporter,
         nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
+    ): ch.tutteli.atrium.creating.ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
         assertionVerb, subjectProvider, reporter, nullRepresentation
     )
 
     /**
-     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates a [ch.tutteli.atrium.creating.ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the given [assertionChecker] for assertion checking, uses [subjectProvider] as
      * [ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
@@ -125,7 +124,7 @@ actual interface CoreFactory : CoreFactoryCommon {
         subjectProvider: () -> T,
         assertionChecker: AssertionChecker,
         nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
+    ): ch.tutteli.atrium.creating.ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
         assertionVerb, subjectProvider, assertionChecker, nullRepresentation
     )
 }

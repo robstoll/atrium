@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -19,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.value(expected)"))
@@ -39,7 +40,7 @@ fun <E, T : Iterable<E>> value(builder: IterableContainsBuilder<E, T, InAnyOrder
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(values)"))
@@ -76,7 +77,7 @@ fun <E, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InAnyOrderOn
  *
  * @param assertionCreator The identification lambda.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.entry(assertionCreator)"))
@@ -103,7 +104,7 @@ fun <E : Any, T : Iterable<E>> entry(builder: IterableContainsBuilder<E, T, InAn
  *
  * @param entries The parameter object containing the identification lambdas.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(entries)"))
@@ -123,7 +124,7 @@ fun <E : Any, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InAnyO
  *
  * @param assertionCreator The identification lambda.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.entry(assertionCreator)"))
@@ -151,7 +152,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(builder: IterableContainsBuilder<E
  *
  * @param entries The parameter object containing the identification lambdas.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(entries)"))

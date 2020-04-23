@@ -3,11 +3,10 @@ package ch.tutteli.atrium.core.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.Expect
 
 /**
- * A base class for [Assert]ion container which are based on a mutable list, it provides [getCopyOfAssertions] to get
+ * A base class for assertion containers which are based on a mutable list, it provides [getCopyOfAssertions] to get
  * so far added assertions as well as [clearAssertions] to reset them -- this class is intentionally not thread-safe
  * and thus not intended for multi-thread usage.
  */

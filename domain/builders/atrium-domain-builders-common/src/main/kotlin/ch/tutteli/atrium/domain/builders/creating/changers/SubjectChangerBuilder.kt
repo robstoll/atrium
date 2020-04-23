@@ -1,4 +1,7 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress(
+/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION", "DEPRECATION",
+    "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE"
+)
 
 package ch.tutteli.atrium.domain.builders.creating.changers
 

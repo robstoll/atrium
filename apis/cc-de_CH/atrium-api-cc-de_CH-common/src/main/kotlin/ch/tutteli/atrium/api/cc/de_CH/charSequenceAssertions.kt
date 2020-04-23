@@ -1,4 +1,6 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
+
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
@@ -101,7 +103,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0")

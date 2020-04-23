@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -17,7 +18,6 @@ import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
@@ -49,8 +49,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${AssertionGroup::description.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
-                val assertionGroup = with(AssertImpl.builder) {
-                    root.withDescriptionAndRepresentation(EXPECT, "subject")
+                val assertionGroup = with(assertionBuilder) {
+                    assertionBuilder.root.withDescriptionAndRepresentation(EXPECT, "subject")
                         .withAssertions(
                             descriptive.failing.withDescriptionAndRepresentation(TO_BE, "bli").build(),
                             descriptive.failing.withDescriptionAndRepresentation(NOT_TO_BE, "bye").build()

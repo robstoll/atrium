@@ -1,5 +1,7 @@
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)package ch.tutteli.atrium.api.cc.de_CH
+package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup

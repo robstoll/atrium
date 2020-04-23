@@ -36,7 +36,9 @@ class SubjectChangerImpl : SubjectChanger {
         maybeSubAssertions
     )
 
-    @Suppress("DEPRECATION", "KDocMissingDocumentation", "OverridingDeprecatedMember")
+    @Suppress("DEPRECATION", "KDocMissingDocumentation", "OverridingDeprecatedMember",
+        "TYPEALIAS_EXPANSION_DEPRECATION"
+    )
     override fun <T, R : Any> unreportedToAssert(
         originalPlant: SubjectProvider<T>,
         transformation: (T) -> R

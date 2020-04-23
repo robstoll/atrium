@@ -9,7 +9,6 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
@@ -359,7 +358,7 @@ private fun hintForOtherIoException(exception: IOException) =
     ThrowableThrownFailureHandler.propertiesOfThrowable(
         exception,
         maxStackTrace = IO_EXCEPTION_STACK_TRACE_LENGTH,
-        explanation = AssertImpl.builder.explanatory
+        explanation = ExpectImpl.builder.explanatory
             .withExplanation(
                 FAILURE_DUE_TO_ACCESS_EXCEPTION,
                 exception::class.simpleName ?: exception::class.fullName

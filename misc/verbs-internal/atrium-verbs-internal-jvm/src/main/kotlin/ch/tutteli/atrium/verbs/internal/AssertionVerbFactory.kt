@@ -1,5 +1,5 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
-//TODO remove file with 1.0.0
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package ch.tutteli.atrium.verbs.internal
 
 import ch.tutteli.atrium.creating.Assert

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -848,7 +849,7 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
     }
 
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {
-        expect.contains(String.format(HINT_FOLLOWED_SYMBOLIC_LINK.getDefault(), link!!, path!!))
+        expect.contains(TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link!!, path!!).getDefault())
     }
 }
 

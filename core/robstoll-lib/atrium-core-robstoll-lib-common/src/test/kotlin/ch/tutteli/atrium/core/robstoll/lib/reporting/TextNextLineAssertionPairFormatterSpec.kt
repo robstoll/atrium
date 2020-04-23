@@ -3,15 +3,14 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.builders.root
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
-import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
@@ -31,7 +30,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     describeFun(testee::formatGroupHeader.name) {
         it("puts the representation on the next line indented as the bullet point used for newParameterObject") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
-            val assertionGroup = AssertImpl.builder.root
+            val assertionGroup = ExpectImpl.builder.root
                 .withDescriptionAndRepresentation(name, subject)
                 .withAssertions(listOf())
                 .build()
@@ -40,7 +39,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
-            val assertionGroup = AssertImpl.builder.root
+            val assertionGroup = ExpectImpl.builder.root
                 .withDescriptionAndEmptyRepresentation(name)
                 .withAssertions(listOf())
                 .build()

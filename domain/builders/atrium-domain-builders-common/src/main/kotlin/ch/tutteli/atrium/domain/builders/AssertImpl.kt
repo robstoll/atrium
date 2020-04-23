@@ -22,12 +22,14 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
  * to give users of Atrium a fluent API as well.
  */
 @Suppress("OVERRIDE_BY_INLINE")
+@Deprecated("Switch from AssertImpl to ExpectImpl (as well as from Assert to Expect); will be removed with 1.0.0", ReplaceWith("ExpectImpl"))
 object AssertImpl : AssertImplCommon {
 
     override inline val builder get() = assertionBuilder
 
     override inline val collector get() = AssertionCollectorBuilder
 
+    @Deprecated("Switch from AssertImpl.coreFactory to coreFactory; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.core.coreFactory", "ch.tutteli.atrium.core.coreFactory"))
     override inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
 
 
@@ -57,6 +59,7 @@ object AssertImpl : AssertImplCommon {
     override inline val throwable get() = ThrowableAssertionsBuilder
 }
 
+@Deprecated("Switch from AssertImplCommon to ExpectImplCommon (as well as from Assert to Expect); will be removed with 1.0.0")
 interface AssertImplCommon {
 
     /**

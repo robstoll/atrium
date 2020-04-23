@@ -1,3 +1,8 @@
+@file:Suppress(
+/* TODO remove annotation with 1.0.0 */ "DEPRECATION",
+/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
+)
+
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Assert

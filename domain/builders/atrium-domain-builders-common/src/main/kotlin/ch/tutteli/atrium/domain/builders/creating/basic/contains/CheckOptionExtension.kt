@@ -1,3 +1,5 @@
+@file:Suppress(/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION", "DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating.basic.contains
 
 import ch.tutteli.atrium.assertions.Assertion

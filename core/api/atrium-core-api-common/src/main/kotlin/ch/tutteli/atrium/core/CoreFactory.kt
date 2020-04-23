@@ -309,6 +309,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch from Assert to Expect and use newCollectingAssertionContainer instead, there is no CheckingAssertionContainer, you can use `getAsssertions.holds()`; will be removed with 1.0.0",
         ReplaceWith(
@@ -347,6 +348,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(
@@ -374,6 +376,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion plant.
      */
+    @Suppress("DEPRECATION")
     @Deprecated(
         "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0",
         ReplaceWith(

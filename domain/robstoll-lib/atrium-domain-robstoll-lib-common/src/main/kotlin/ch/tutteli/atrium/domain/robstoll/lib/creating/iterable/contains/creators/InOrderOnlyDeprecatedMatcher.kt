@@ -1,3 +1,6 @@
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,6 +14,7 @@ interface InOrderOnlyDeprecatedMatcher<E, SC> {
 
     fun entryAssertionCreator(subjectProvider: () -> List<E>, searchCriterion: SC): (() -> Boolean) -> Assertion
 
+    @Suppress("DEPRECATION")
     fun CollectingAssertionPlant<List<E>>.createSingleEntryAssertion(
         currentIndex: Int,
         searchCriterion: SC,

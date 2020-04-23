@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
@@ -41,7 +41,7 @@ abstract class ContainsAssertionCreator<in T : Any, TT : Any, in SC, C : Contain
             }
         }
         val description = searchBehaviour.decorateDescription(descriptionContains)
-        return AssertImpl.builder.list
+        return assertionBuilder.list
             .withDescriptionAndEmptyRepresentation(description)
             .withAssertions(assertions)
             .build()
@@ -73,7 +73,7 @@ abstract class ContainsAssertionCreator<in T : Any, TT : Any, in SC, C : Contain
 
     private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
-        return AssertImpl.builder.feature
+        return assertionBuilder.feature
             .withDescriptionAndRepresentation(numberOfOccurrences, RawString.create(count.toString()))
             .withAssertions(assertions)
             .build()

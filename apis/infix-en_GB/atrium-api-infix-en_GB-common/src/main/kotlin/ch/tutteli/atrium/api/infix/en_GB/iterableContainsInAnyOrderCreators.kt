@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
@@ -41,7 +40,7 @@ infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.va
  * @param values The values which are expected to be contained within the [Iterable]
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): Expect<T> =
@@ -75,7 +74,7 @@ infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehav
  * @param entries The entries which are expected to be contained within the [Iterable]
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(

@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
-import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -37,7 +36,7 @@ fun <T, R> _changeSubject(
     val shallTransform =
         originalAssertionContainer.maybeSubject.fold(trueProvider, { expect.maybeSubject.isDefined() })
 
-    val descriptiveAssertion = AssertImpl.builder.descriptive
+    val descriptiveAssertion = assertionBuilder.descriptive
         .withTest { shallTransform }
         .withDescriptionAndRepresentation(description, representation)
         .build()
