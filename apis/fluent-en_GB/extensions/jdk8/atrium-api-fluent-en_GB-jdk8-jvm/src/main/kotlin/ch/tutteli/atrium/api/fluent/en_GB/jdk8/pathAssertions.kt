@@ -5,6 +5,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.path
+import java.nio.charset.Charset
 import java.nio.file.Path
 
 /**
@@ -280,3 +281,30 @@ val <T : Path> Expect<T>.extension: Expect<String>
  */
 fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.extension(this).addToInitial(assertionCreator)
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * as [targetPath].
+ *
+ * @param sourceCharset source file encoding - UTF-8 per default.
+ * @param targetCharset target file encoding - UTF-8 per default.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.12.0
+ */
+fun <T : Path> Expect<T>.hasSameTextualContentAs(targetPath: Path, sourceCharset: Charset = Charsets.UTF_8, targetCharset: Charset = Charsets.UTF_8): Expect<T> =
+    addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, targetPath, sourceCharset, targetCharset))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same binary content
+ * as [targetPath].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.12.0
+ */
+fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
+    addAssertion(ExpectImpl.path.hasSameBinaryContentAs(this, targetPath))

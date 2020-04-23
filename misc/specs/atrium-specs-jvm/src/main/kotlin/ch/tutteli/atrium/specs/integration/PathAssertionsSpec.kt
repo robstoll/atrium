@@ -7,7 +7,11 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
-import ch.tutteli.niok.*
+import ch.tutteli.niok.createSymbolicLink
+import ch.tutteli.niok.getFileAttributeView
+import ch.tutteli.niok.posixFilePersmissions
+import ch.tutteli.niok.readAttributes
+import ch.tutteli.niok.setPosixFilePermissions
 import ch.tutteli.spek.extensions.MemoizedTempFolder
 import ch.tutteli.spek.extensions.memoizedTempFolder
 import io.mockk.every
@@ -19,15 +23,27 @@ import org.spekframework.spek2.dsl.Skip.Yes
 import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
+import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.nio.file.attribute.*
+import java.nio.file.attribute.AclEntry
+import java.nio.file.attribute.AclEntryPermission
 import java.nio.file.attribute.AclEntryPermission.READ_DATA
 import java.nio.file.attribute.AclEntryPermission.WRITE_DATA
+import java.nio.file.attribute.AclEntryType
 import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
-import java.nio.file.attribute.PosixFilePermission.*
+import java.nio.file.attribute.AclFileAttributeView
+import java.nio.file.attribute.BasicFileAttributes
+import java.nio.file.attribute.PosixFileAttributes
+import java.nio.file.attribute.PosixFilePermission
+import java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE
+import java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE
+import java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE
+import java.nio.file.attribute.PosixFilePermission.OWNER_READ
+import java.nio.file.attribute.PosixFilePermission.OWNER_WRITE
+import java.nio.file.attribute.UserPrincipal
 import java.util.regex.Pattern.quote
 
 abstract class PathAssertionsSpec(
@@ -41,6 +57,8 @@ abstract class PathAssertionsSpec(
     isWritable: Fun0<Path>,
     isRegularFile: Fun0<Path>,
     isDirectory: Fun0<Path>,
+    hasSameBinaryContentAs: Fun1<Path, Path>,
+    hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -55,7 +73,9 @@ abstract class PathAssertionsSpec(
         isReadable.forSubjectLess(),
         isWritable.forSubjectLess(),
         isRegularFile.forSubjectLess(),
-        isDirectory.forSubjectLess()
+        isDirectory.forSubjectLess(),
+        hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
+        hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1)
     ) {})
 
     val tempFolder by memoizedTempFolder()
@@ -690,6 +710,131 @@ abstract class PathAssertionsSpec(
             expect(folder).isDirectoryFun()
         }
     }
+
+    describeFun(hasSameBinaryContentAs.name, hasSameTextualContentAs.name) {
+        val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
+        val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
+
+        context("has same binary content") {
+            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text1"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text2"))
+                sourcePath.toFile().writeText("same")
+                targetPath.toFile().writeText("same")
+                expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+            }
+        }
+
+        context("has different binary content") {
+            it("${hasSameBinaryContentAs.name} - throws AssertionError") {
+                val sourcePath = tempFolder.newFile("text3")
+                val targetPath = tempFolder.newFile("text4")
+                sourcePath.toFile().writeText("sourcePath")
+                targetPath.toFile().writeText("targetPath")
+                expect {
+                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
+                }
+            }
+
+            it("${hasSameBinaryContentAs.name} - throws AssertionError if have same textual content but UTF-8, UTF-16 is used") {
+                val sourcePath = tempFolder.newFile("text3")
+                val targetPath = tempFolder.newFile("text4")
+                sourcePath.toFile().writeText("same")
+                targetPath.toFile().writeText("same", Charsets.UTF_16)
+                expect {
+                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
+                }
+            }
+        }
+
+        context("has same textual content") {
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
+                sourcePath.toFile().writeText("same")
+                targetPath.toFile().writeText("same")
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text7"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text8"))
+                sourcePath.toFile().writeText("same", Charsets.UTF_16)
+                targetPath.toFile().writeText("same", Charsets.UTF_16)
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
+            }
+        }
+
+        context("same text but UTF-8 and UTF-16 encoding") {
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text9"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text10"))
+                sourcePath.toFile().writeText("same")
+                targetPath.toFile().writeText("same", Charsets.UTF_16)
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+            }
+        }
+
+        context("has different textual content") {
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-16 is used") {
+                val expectedMessage = TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, Charsets.UTF_8, Charsets.UTF_16).getDefault()
+                val sourcePath = tempFolder.newFile("text11")
+                val targetPath = tempFolder.newFile("text12")
+                sourcePath.toFile().writeText("sourcePath")
+                targetPath.toFile().writeText("targetPath", Charsets.UTF_16)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+                }.toThrow<AssertionError>().message {
+                    contains(expectedMessage)
+                }
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") {
+                val expectedMessage = TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, Charsets.UTF_8, Charsets.UTF_8).getDefault()
+                val sourcePath = tempFolder.newFile("text13")
+                val targetPath = tempFolder.newFile("text14")
+                sourcePath.toFile().writeText("sourcePath")
+                targetPath.toFile().writeText("targetPath")
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+                }.toThrow<AssertionError>().message {
+                    contains(expectedMessage)
+                }
+            }
+        }
+
+        context("empty context") {
+            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text1"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text2"))
+                expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text7"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text8"))
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val sourcePath = maybeLink.create(tempFolder.newFile("text9"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text10"))
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+            }
+        }
+
+    }
+
 })
 
 private const val TEST_IO_EXCEPTION_MESSAGE = "unknown test error"

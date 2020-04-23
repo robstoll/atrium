@@ -2,10 +2,13 @@ package ch.tutteli.atrium.api.infix.en_GB.jdk8
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.path
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
+import java.nio.charset.Charset
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -19,7 +22,9 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1<Path, readable>(Expect<Path>::toBe).name to Companion::isReadable,
     fun1<Path, writable>(Expect<Path>::toBe).name to Companion::isWritable,
     fun1<Path, aRegularFile>(Expect<Path>::toBe).name to Companion::isRegularFile,
-    fun1<Path, aDirectory>(Expect<Path>::toBe).name to Companion::isDirectory
+    fun1<Path, aDirectory>(Expect<Path>::toBe).name to Companion::isDirectory,
+    "not supported in this API - hasSameBinaryContentAs" to Companion::hasSameBinaryContentAs,
+    "not supported in this API - hasSameTextualContentAs" to Companion::hasSameTextualContentAs
 ) {
     companion object : WithAsciiReporter() {
 
@@ -29,6 +34,12 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isWritable(expect: Expect<Path>) = expect toBe writable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
+
+        private fun hasSameTextualContentAs(expect: Expect<Path>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Expect<Path> =
+            expect.addAssertion(ExpectImpl.path.hasSameTextualContentAs(expect, targetPath, sourceCharset, targetCharset))
+
+        private fun hasSameBinaryContentAs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
+            expect.addAssertion(ExpectImpl.path.hasSameBinaryContentAs(expect, targetPath))
     }
 
     @Suppress("unused", "UNUSED_VALUE")

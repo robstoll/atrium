@@ -5,6 +5,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.PathAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
+import java.nio.charset.Charset
 import java.nio.file.Path
 
 class PathAssertionsImpl : PathAssertions {
@@ -36,4 +37,10 @@ class PathAssertionsImpl : PathAssertions {
     override fun <T : Path> isWritable(expect: Expect<T>) = _isWritable(expect)
     override fun <T : Path> isRegularFile(expect: Expect<T>) = _isRegularFile(expect)
     override fun <T : Path> isDirectory(expect: Expect<T>) = _isDirectory(expect)
+
+    override fun <T : Path> hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
+        _hasSameTextualContentAs(expect, targetPath, sourceCharset, targetCharset)
+
+    override fun <T : Path> hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path) =
+        _hasSameBinaryContentAs(expect, targetPath)
 }

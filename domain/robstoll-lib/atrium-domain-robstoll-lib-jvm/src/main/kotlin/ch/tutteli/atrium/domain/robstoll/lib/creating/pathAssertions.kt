@@ -15,14 +15,18 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.extension
 import ch.tutteli.niok.fileNameWithoutExtension
 import ch.tutteli.niok.getFileAttributeView
+import ch.tutteli.niok.readAllBytes
 import ch.tutteli.niok.readAttributes
+import ch.tutteli.niok.readText
 import java.io.IOException
+import java.nio.charset.Charset
 import java.nio.file.AccessDeniedException
 import java.nio.file.AccessMode
 import java.nio.file.NoSuchFileException
@@ -44,6 +48,16 @@ fun <T : Path> _endsWith(expect: Expect<T>, expected: Path): Assertion =
 
 fun <T : Path> _endsNotWith(expect: Expect<T>, expected: Path) =
     ExpectImpl.builder.createDescriptive(expect, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
+
+fun <T : Path> _hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
+    ExpectImpl.builder.createDescriptive(expect, TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceCharset, targetCharset), targetPath) {
+        it.readText(sourceCharset) == targetPath.readText(targetCharset)
+    }
+
+fun <T : Path> _hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path) =
+    ExpectImpl.builder.createDescriptive(expect, HAS_SAME_BINARY_CONTENT, targetPath) {
+        it.readAllBytes().contentEquals(targetPath.readAllBytes())
+    }
 
 fun <T : Path> _exists(expect: Expect<T>): Assertion =
     changeSubjectToFileAttributes(expect) { fileAttributesAssertionContainer ->
