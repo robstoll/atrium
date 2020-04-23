@@ -53,7 +53,16 @@ data class TranslatableWithArgs constructor(val translatable: Translatable, val 
             "No arguments specified, do not wrap the translatable into an ${TranslatableWithArgs::class.simpleName} if not needed." +
                 "\nTranslatable: $translatable"
         }
+        require(isArgumentsCountMatchedWithTranslatable()) {
+            "arguments count do not match number of placeholders in [${translatable.getDefault()}]." +
+                "\nexpected count = ${arguments.size}, actual count = ${getPlaceHoldersCount()}" +
+                "\nspecify exact number of placeholders before wrapping translatable into an ${TranslatableWithArgs::class.simpleName}."
+        }
     }
+
+    private fun isArgumentsCountMatchedWithTranslatable() = arguments.size == getPlaceHoldersCount()
+
+    private fun getPlaceHoldersCount() = translatable.getDefault().count { it == '%' }
 
     override val name get() = translatable.name
     override fun getDefault() = translatable.getDefault().format(arguments[0], *arguments.drop(1).toTypedArray())
