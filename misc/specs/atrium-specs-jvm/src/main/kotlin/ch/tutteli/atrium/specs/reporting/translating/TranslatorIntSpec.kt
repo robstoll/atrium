@@ -33,7 +33,7 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE = n'est pas
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
- * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_KNOWN = %tD était %<tA
+ * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_KNOWN = %tD était %tA
  * ch.tutteli.atrium.spec.reporting.translating.TranslatioIntSpec.TestTranslatable-PLACEHOLDER = Caractère de remplacement %s
  *
  * the Locale it:
@@ -184,6 +184,7 @@ abstract class TranslatorIntSpec(
                         assertWithDeCh_Fr(1).createAndAddAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
+                                firstOfFeb2017,
                                 firstOfFeb2017
                             ), 1
                         ) { false }
@@ -240,6 +241,7 @@ abstract class TranslatorIntSpec(
                         assertWithDeCh_Fr_It(1).createAndAddAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
+                                firstOfFeb2017,
                                 firstOfFeb2017
                             ), 1
                         ) { false }
@@ -315,7 +317,7 @@ abstract class TranslatorIntSpec(
      * Contains [StringBasedTranslatable]s which are used in [TranslatorIntSpec].
      */
     enum class TestTranslatable(override val value: String) : StringBasedTranslatable {
-        DATE_KNOWN("%tD is a %<tA"),
+        DATE_KNOWN("%tD is a %tA"),
         DATE_UNKNOWN("only %tA"),
         PLACEHOLDER("placeholder %s")
     }
