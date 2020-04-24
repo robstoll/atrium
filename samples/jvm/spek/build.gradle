@@ -1,3 +1,5 @@
+// Atrium JVM installation: more info here -> https://github.com/robstoll/atrium#jvm
+
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 buildscript {
@@ -20,17 +22,28 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
 }
 
-group 'com.atrium.spek'
-version '1.0-SNAPSHOT'
-
 apply plugin: 'kotlin'
 
 repositories {
-    // atrium jvm installation: more info here -> https://github.com/robstoll/atrium#jvm
     jcenter()
 }
 
-// setup the test task
+dependencies {
+    //spek requires jdk8, define dependency to stdlib-jdk at least in test
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // setup for Atrium:
+    // for infix-api -> change artifact-id to 'atrium-infix-en_GB'
+    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
+
+    // setup for 'spek', for some kotlin-version
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version"
+    testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek_version"
+
+    // spek requires kotlin-reflect, can be omitted if already in the classpath
+    testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+}
+
 test {
     useJUnitPlatform {
         includeEngines 'spek2'
@@ -41,18 +54,4 @@ test {
         showCauses true
         showStackTraces true
     }
-}
-
-dependencies {
-    // setup for atrium:
-    // for infix-api -> change artifact-id to 'atrium-infix-en_GB'
-    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
-
-    // setup for 'spek', for some kotlin-version
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version"
-    testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek_version"
-
-    // spek requires kotlin-reflect, can be omitted if already in the classpath
-    testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
