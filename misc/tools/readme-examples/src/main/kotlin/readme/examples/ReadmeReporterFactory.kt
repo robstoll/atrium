@@ -1,12 +1,10 @@
 package readme.examples
 
 import ch.tutteli.atrium.core.robstoll.lib.reporting.AbstractDetailedObjectFormatter
-import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatterCommon
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.translating.Translator
-import kotlin.reflect.KClass
 
 class ReadmeReporterFactory : ReporterFactory {
     override val id: String = ID

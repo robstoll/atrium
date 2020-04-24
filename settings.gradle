@@ -116,6 +116,7 @@ include {
 
         tools {
             _ 'bc-test'
+            project('readme-examples')
         }
     }
 
@@ -124,7 +125,6 @@ include {
             project('mocha')
             project('jasmine')
         }
-        project('readme-examples')
     }
 
 

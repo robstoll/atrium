@@ -267,7 +267,7 @@ class ReadmeTestEngine : TestEngine {
     }
 
     companion object {
-        private const val readmeStringPath = "../../README.md"
+        private const val readmeStringPath = "../../../README.md"
     }
 }
 
