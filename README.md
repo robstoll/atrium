@@ -59,6 +59,7 @@ For instance, the [README of v0.11.0](https://github.com/robstoll/atrium/tree/v0
   - [Path Assertions](#path-assertions)    
   - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)  
+  - [Sample Projects](#sample-projects)
 - [How is Atrium different from other Assertion Libraries](#how-is-atrium-different-from-other-assertion-libraries)
 - [Write own Assertion Functions](#write-own-assertion-functions)
     - [Boolean based Assertions](#boolean-based-assertions)
@@ -1525,6 +1526,16 @@ This site contains also a list of all APIs with links to their assertion functio
 You can also have a look at the 
 [specifications](https://github.com/robstoll/atrium/tree/master/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs) 
 for more examples.
+
+# Sample Projects
+
+Have a look into the [samples](https://github.com/robstoll/atrium/tree/master/samples)
+folder, it currently contains sample projects for 
+ [jvm](https://github.com/robstoll/atrium/tree/master/samples/jvm/),
+ [js](https://github.com/robstoll/atrium/tree/master/samples/js/)
+ as well as a [multiplatform project](https://github.com/robstoll/atrium/tree/master/samples/multiplatform/).
+ 
+ Are you using a different runner? A PR would be appreciated 😊.
 
 # How is Atrium different from other Assertion Libraries
 
