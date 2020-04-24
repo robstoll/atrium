@@ -146,7 +146,7 @@ dependencies {
 
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
-a [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
+a [settings.xml](https://github.com/robstoll/atrium/tree/master/samples/maven/settings.xml) 
 is provided to set up the repository as well as an 
 [example-pom.xml](https://github.com/robstoll/atrium/tree/master/samples/maven/example-pom.xml)
 which includes the necessary dependencies.
