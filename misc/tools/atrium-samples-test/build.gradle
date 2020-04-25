@@ -1,7 +1,17 @@
+def samples = ['jasmine', 'mocha', 'junit5', 'spek', 'multiplatform']
+
 task build {
-    dependsOn gradle.includedBuild('junit5').task(':build')
-    dependsOn gradle.includedBuild('spek').task(':build')
-    dependsOn gradle.includedBuild('multiplatform').task(':build')
-    dependsOn gradle.includedBuild('jasmine').task(':build')
-    dependsOn gradle.includedBuild('mocha').task(':build')
+    samples.forEach { projectName ->
+        dependsOn gradle.includedBuild(projectName).task(':build')
+    }
+}
+
+task clean {
+    samples.forEach { projectName ->
+        dependsOn gradle.includedBuild(projectName).task(':clean')
+    }
+}
+
+task cleanAtrium {
+    dependsOn gradle.includedBuild('atrium').task(':clean')
 }
