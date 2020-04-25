@@ -25,7 +25,23 @@ jobs:
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
                     flags: current_windows
-                    fail_ci_if_error: true
+                    # too many timeout errors, let's not fail at the moment
+                    #fail_ci_if_error: true
 
-            -   name: build sample atrium tests project
+            -   name: build jasmine sample
+                run: samples\js\jasmine\gradlew -p samples\js\jasmine build
+
+            -   name: build mocha sample
+                run: samples\js\mocha\gradlew -p samples\js\mocha build
+
+            -   name: build Spek sample
+                run: samples\jvm\spek\gradlew -p samples\jvm\spek build
+
+            -   name: build Junit5 sample
+                run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
+
+            -   name: build MPP sample
+                run: samples\multiplatform\gradlew -p samples\multiplatform build
+
+            -   name: composite build atrium-samples
                 run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build
