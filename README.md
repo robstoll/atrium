@@ -104,6 +104,8 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
+Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup.
+
 We currently provide the following extensions for the JVM platform: 
 - jdk8: assertion functions for JDK 8 specific types (e.g. for `Path`)
 - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
@@ -171,14 +173,13 @@ dependencies {
 }
 ```
 
-We have defined a dependency to the bundle `atrium-fluent-en_GB-robstoll` in the above example 
+We have defined a dependency to the bundle `atrium-fluent-en_GB-js` in the above example 
 which provides a pure fluent API (in en_GB) for the JS platform.
 
-You need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
+Have a look at the [JS sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup.
+
+Otherwise, you need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
 This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler for JS.
-An example of how to setup Atrium in combination with the testing framework mocha is given in 
-[samples/js/mocha](https://github.com/robstoll/atrium/tree/master/samples/js/mocha).
-It also includes an automated way of establishing the dependency to Atrium.
 
 Atrium itself is using mocha as well 
 (see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/master/build.gradle#L290))
@@ -188,14 +189,6 @@ as well as tests written in common modules (e.g. [SmokeTest](https://github.com/
 which are executed on the JS platform as well 
 (actually on all platforms -> JVM uses JUnit for this purpose, see 
 [build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/master/build.gradle#L342)).
-
-Further examples for other test frameworks can be found in the
-[kotlin-examples repo](https://github.com/JetBrains/kotlin-examples/blob/master/gradle/js-tests).
-Notice though, that they do not include the automated setup of a dependency to a bundle of Atrium.
-Or in other words, you should at least create a gradle task similar to 
-[establishDependencyToAtrium](https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L85)
-or include a [testSetup.kt]((https://github.com/robstoll/atrium/tree/master/samples/js/mocha/build.gradle#L80))
-file in your test sources.
 
 We currently provide the following extensions for the JS platform: 
  - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
@@ -249,7 +242,8 @@ The setup for using Atrium in a common module of a multiplatform project is basi
 For instance `atrium-fluent-en_GB-common` instead of `atrium-fluent-en_GB`.
 
 Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setup of a specific platform has to be done.
-
+You might want to have a look at the [Multiplatform sample project](https://github.com/robstoll/atrium/tree/master/samples/multiplatform)
+as well for a quick setup.
 
 # Examples
 We are using the API provided by the bundle module 
