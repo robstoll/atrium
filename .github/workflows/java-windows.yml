@@ -27,11 +27,5 @@ jobs:
                     flags: current_windows
                     fail_ci_if_error: true
 
-            -   name: build sample atrium+spek project
-                run: samples\jvm\spek\gradlew -p samples\jvm\spek build
-
-            -   name: Build sample atrium+junit5 project
-                run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
-
-            -   name: Build sample atrium+mpp kotlin project
-                run: samples\multiplatform\gradlew -p samples\multiplatform build
+            -   name: build sample atrium tests project
+                run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build

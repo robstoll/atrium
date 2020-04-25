@@ -120,14 +120,6 @@ include {
         }
     }
 
-    samples {
-        js {
-            project('mocha')
-            project('jasmine')
-        }
-    }
-
-
     //TODO remove all below with 1.0.0
     bundles {
         _ 'cc-en_UK-robstoll'
