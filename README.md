@@ -2408,7 +2408,9 @@ expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
 ```
 </code-faq-1>
 
-Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<Iterable<E>>`.
+Likewise you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<List<E>>` with `asList`.
+
+Feel free vote for [first class support for Array and Sequence in api-fluent](https://github.com/robstoll/atrium/issues/459).
 
 <details>
 <summary>💬 why do I not see anything about the transformation in reporting?</summary>
