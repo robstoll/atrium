@@ -1,13 +1,11 @@
-package org.spekframework.spek2
+package org.atriumlib.samples.spek
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import org.spekframework.spek2.style.specification.describe
 import java.lang.IllegalArgumentException
 
-object CalculatorTestBySpek : Spek({
+object CalculatorSpec : Spek({
     describe("Calculator") {
         val calculator by memoized { Calculator() }
 

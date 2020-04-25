@@ -1,4 +1,4 @@
-package org.spekframework.spek2
+package org.atriumlib.samples.spek
 
 class Calculator {
     val type = "fancy"

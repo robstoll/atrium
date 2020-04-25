@@ -1,6 +1,9 @@
-// example project to show how to use Atrium in combination with mocha
+// Example project to show how to use Atrium in combination with mocha
+// For more information on how to setup Atrium for a JS project -> https://github.com/robstoll/atrium#js
+
 buildscript {
     ext {
+        // for infix-api -> change to 'atrium-infix-en_GB-js'
         atrium_api = 'atrium-fluent-en_GB-js'
         atrium_version = '0.11.0'
     }
@@ -16,18 +19,21 @@ buildscript {
 apply plugin: 'kotlin2js'
 apply plugin: 'com.github.node-gradle.node'
 
+group 'org.atriumlib.samples'
+version '0.0.1'
+
 repositories {
     jcenter()
-    // either use jcenter or the repository on the next line
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
 
-    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+    // setup for Atrium:
     testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
-    //TODO remove with the release of 0.9.0-beta
-    testImplementation("ch.tutteli.atrium:atrium-domain-api-js:$atrium_version")
+
+    // setup for mocha:
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
 }
 
 // we only configure compileTestKotlin2Js and not compileKotlin2Js as well
@@ -87,6 +93,6 @@ task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
 }
 task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotlin2Js, populateNodeModules, establishDependencyToAtrium]) {
     command = "mocha"
-    args = [compileTestKotlin2Js.outputFile]
+    args = [compileTestKotlin2Js.outputFile, '--full-trace']
 }
 check.dependsOn runMocha

@@ -1,21 +1,21 @@
-package ch.tutteli
+package org.atriumlib.samples.mpp
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import isEven
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import kotlin.test.Test
 
-class SampleJvmTest {
+class SampleTest {
+
     @Test
     fun toBe() {
         expect(1).toBe(1)
     }
 
     @Test
-    fun assertAnExceptionOccurred() {
+    fun expectAnExceptionOccurred() {
         expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
@@ -23,7 +23,7 @@ class SampleJvmTest {
 
 
     @Test
-    fun assertAnExceptionWithAMessageOccurred() {
+    fun expectAnExceptionWithAMessageOccurred() {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
@@ -33,7 +33,9 @@ class SampleJvmTest {
 
     @Test
     fun useOwnFunction() {
-        // isEven is defined in the common module
-        assertThat(2).isEven()
+        expect(2).isEven()
     }
 }
+
+
+fun Expect<Int>.isEven() = createAndAddAssertion(IS, RawString.create("an even number")) { it % 2 == 0 }
