@@ -169,12 +169,6 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
 infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): Expect<T> =
     this contains o atLeast 1 the regexPatterns
 
-/**
- * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
- * -- allows to express `String, vararg String` which are treated as regex patterns.
- */
-fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
-    RegexPatterns(pattern, otherPatterns)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
