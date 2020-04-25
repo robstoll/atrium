@@ -16,7 +16,7 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
-            -   name: Build buildNonDeprecatedJvm
+            -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm
                 env:
                   CI: true
