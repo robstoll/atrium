@@ -1,21 +1,17 @@
-package ch.tutteli
+package org.atriumlib.samples.mpp
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import isEven
 import kotlin.test.Test
 
-class SampleJsTest {
+class SampleJvmTest {
     @Test
     fun toBe() {
         expect(1).toBe(1)
     }
 
     @Test
-    fun assertAnExceptionOccurred() {
+    fun expectAnExceptionOccurred() {
         expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
@@ -23,7 +19,7 @@ class SampleJsTest {
 
 
     @Test
-    fun assertAnExceptionWithAMessageOccurred() {
+    fun expectAnExceptionWithAMessageOccurred() {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
@@ -33,7 +29,7 @@ class SampleJsTest {
 
     @Test
     fun useOwnFunction() {
-        // isEven is defined in the common module
-        assertThat(2).isEven()
+        // isEven is defined in commonTest
+        expect(2).isEven()
     }
 }

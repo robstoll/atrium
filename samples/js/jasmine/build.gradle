@@ -1,6 +1,10 @@
-// example project to show how to use Atrium in combination with jasmine
+// Example project to show how to use Atrium in combination with jasmine
+// For more information on how to setup Atrium for a JS project -> https://github.com/robstoll/atrium#js
+
 buildscript {
     ext {
+        kotlin_version = '1.3.72'
+        // for infix-api -> change to 'atrium-infix-en_GB-js'
         atrium_api = 'atrium-fluent-en_GB-js'
         atrium_version = '0.11.0'
     }
@@ -9,25 +13,28 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.node-gradle:gradle-node-plugin:2.2.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 apply plugin: 'kotlin2js'
 apply plugin: 'com.github.node-gradle.node'
 
+group 'org.atriumlib.samples'
+version '0.0.1'
+
 repositories {
     jcenter()
-    // either use jcenter or the repository on the next line
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
 
-    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+    // setup for Atrium:
     testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
-    //TODO remove with the release of 0.9.0-beta
-    testImplementation("ch.tutteli.atrium:atrium-domain-api-js:$atrium_version")
+
+    // setup for jasmine:
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
 }
 
 // we only configure compileTestKotlin2Js and not compileKotlin2Js as well
