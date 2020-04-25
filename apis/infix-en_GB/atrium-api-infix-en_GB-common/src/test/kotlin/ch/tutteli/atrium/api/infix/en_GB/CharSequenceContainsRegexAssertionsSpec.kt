@@ -86,7 +86,7 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
             aX: Array<out String>
         ) =
             if (aX.isEmpty()) expect containsRegex a
-            else expect containsRegex regexPatterns(a, *aX)
+            else expect contains regexPatterns(a, *aX)
 
         private fun containsShortcutRegex(
             expect: Expect<CharSequence>,
