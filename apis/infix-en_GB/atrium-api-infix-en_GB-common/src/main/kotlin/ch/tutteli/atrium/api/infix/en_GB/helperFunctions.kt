@@ -46,6 +46,13 @@ fun <E> present(assertionCreator: Expect<E>.() -> Unit) =
     PresentWithCreator(assertionCreator)
 
 /**
+ * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
+ * -- allows to express `String, vararg String` which are treated as regex patterns.
+ */
+fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
+    RegexPatterns(pattern, otherPatterns)
+
+/**
  * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
  */
 fun <E> success(assertionCreator: Expect<E>.() -> Unit) =

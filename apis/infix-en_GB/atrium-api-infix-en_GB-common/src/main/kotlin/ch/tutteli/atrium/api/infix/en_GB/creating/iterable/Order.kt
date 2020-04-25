@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.iterable
 import ch.tutteli.atrium.domain.builders.utils.Group
 
 /**
- * Parameter object to express `Group<T>, Group<T>, vararg Group<T>` in the infix-api.
+ * Parameter object to express `Group<T>, Group<T>, vararg Group<T>`.
  *
  * Use the function `order(group, group, ...)` to create this representation.
  *

@@ -145,7 +145,7 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
- * regular expression [patterns], using a non disjoint search.
+ * regular expression [regexPatterns], using a non disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 the regexPatterns(pattern, *otherPatterns)`.
  *
@@ -160,21 +160,15 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
  * instead of:
  *   `contains o atLeast 1 the regexPatterns("a(b)?", "a(b)?")`
  *
- * @param patterns The patterns which are expected to have a match against the input of the search --
+ * @param regexPatterns The patterns which are expected to have a match against the input of the search --
  *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.containsRegex(patterns: RegexPatterns): Expect<T> =
-    this contains o atLeast 1 the patterns
+infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): Expect<T> =
+    this contains o atLeast 1 the regexPatterns
 
-/**
- * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
- * -- allows to express `String, vararg String`.
- */
-fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
-    RegexPatterns(pattern, otherPatterns)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
