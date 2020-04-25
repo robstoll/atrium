@@ -120,11 +120,6 @@ include {
         }
     }
 
-    samples {
-        project('readme-examples')
-    }
-
-
     //TODO remove all below with 1.0.0
     bundles {
         _ 'cc-en_UK-robstoll'
