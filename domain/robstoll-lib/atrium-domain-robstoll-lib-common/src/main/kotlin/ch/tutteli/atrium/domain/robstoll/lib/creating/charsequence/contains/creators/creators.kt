@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchers.IgnoringCaseIndexSearcher
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchers.IgnoringCaseRegexSearcher
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchers.IndexSearcher
@@ -14,19 +15,19 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 
 fun <T : CharSequence> _containsValues(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-    expected: List<Any>
+    expected: List<CharSequenceOrNumberOrChar>
 ): AssertionGroup = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-    expected: List<Any>
+    expected: List<CharSequenceOrNumberOrChar>
 ): AssertionGroup =
     checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
-    searcher: CharSequenceContains.Searcher<S, Any>,
-    expected: List<Any>
+    searcher: CharSequenceContains.Searcher<S, CharSequenceOrNumberOrChar>,
+    expected: List<CharSequenceOrNumberOrChar>
 ): AssertionGroup {
     require(expected.isNotEmpty()) {
         "You have to specify at least one search criterion for a CharSequence contains assertion"
@@ -34,7 +35,7 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
     expected.forEach {
         require(it is CharSequence || it is Number || it is Char) {
             "Only values of type CharSequence, Number and Char are allowed\nGiven: $it\n" +
-                "We provide an API with Any for convenience (so that you can mix String and Int for instance).\n" +
+                "We provide an API with CharSequenceOrNumberOrChar (typealias for Any) for convenience (so that you can mix String and Int for instance).\n" +
                 "Use toString() if you really want to search for its toString()-representation."
         }
         require(it != "") {
@@ -72,7 +73,7 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
     STRING_MATCHING_REGEX
 )
 
-private fun <T : CharSequence, SC : Any, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
+private fun <T : CharSequence, SC : CharSequenceOrNumberOrChar, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
     searcher: CharSequenceContains.Searcher<S, SC>,
     expected: List<SC>,

@@ -7,11 +7,11 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Builder
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import kotlin.jvm.JvmName
 
 /**
@@ -21,7 +21,8 @@ import kotlin.jvm.JvmName
  * Delegates to `the values(expected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -31,15 +32,17 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
-    this the values(expected)
+infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(
+    expected: CharSequenceOrNumberOrChar
+): Expect<T> = this the values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given [values]
  * shall be searched, using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -59,8 +62,9 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expecte
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(values: Values<Any>): Expect<T> =
-    addAssertion(ExpectImpl.charSequence.contains.values(this, values.toList()))
+infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(
+    values: Values<CharSequenceOrNumberOrChar>
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, values.toList()))
 
 
 /**
@@ -70,7 +74,8 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(values: V
  * Delegates to `the values(expected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -81,15 +86,17 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(values: V
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
-    this the values(expected)
+infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
+    expected: CharSequenceOrNumberOrChar
+): Expect<T> = this the values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [values]
  * shall be searched (ignoring case), using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -110,8 +117,9 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): Expect<T> =
-    addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, values.toList()))
+infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(
+    values: Values<CharSequenceOrNumberOrChar>
+): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, values.toList()))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -120,7 +128,8 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(v
  * Delegates to `atLeast 1 value expected`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -130,15 +139,20 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(v
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
-    this atLeast 1 value expected
+infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(
+    expected: CharSequenceOrNumberOrChar
+): Expect<T> = this atLeast 1 value expected
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [values]
  * shall be searched (ignoring case), using a non disjoint search
  * where each need to be contained at least once.
  *
- * Delegates to `atLeast 1 the value`
+ * Delegates to `atLeast 1 the value`.
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -158,8 +172,9 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expec
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): Expect<T> =
-    this atLeast 1 the values
+infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(
+    values: Values<CharSequenceOrNumberOrChar>
+): Expect<T> = this atLeast 1 the values
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -241,7 +256,6 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(patterns:
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(patterns: All<Regex>): Expect<T> =
     addAssertion(ExpectImpl.charSequence.contains.regex(this, patterns.toList()))
-
 
 
 /**
@@ -332,7 +346,8 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(pattern
  * (see [the] for more information).
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -346,7 +361,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(pattern
  * @since 0.12.0
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<Any>
+    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
     return this the Values(first, rest)
@@ -361,7 +376,8 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * (see [the] for more information).
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -376,15 +392,37 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  */
 @JvmName("elementsOfIgnoringCase")
 infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<Any>
+    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
     return this the Values(first, rest)
 }
 
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched (ignoring case), using a non disjoint search.
+ *
+ * Delegates to `the values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [the] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
+ *
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
+ * [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.12.0
+ */
 @JvmName("elementsOfIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<Any>
+infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
     return this the Values(first, rest)

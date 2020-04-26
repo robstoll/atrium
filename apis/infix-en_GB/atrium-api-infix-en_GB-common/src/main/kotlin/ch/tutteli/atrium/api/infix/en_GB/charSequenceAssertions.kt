@@ -1,15 +1,16 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 
 
 /**
@@ -36,21 +37,20 @@ infix fun <T : CharSequence> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
 ): NotCheckerOption<T, NotSearchBehaviour> = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
 
-
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains the [expected]'s [toString] representation.
  *
  * It is a shortcut for `contains o atLeast 1 value expected`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expected] is not a
- *   [CharSequence], [Number] or [Char].
+ * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Expect<T>.contains(expected: Any): Expect<T> =
+infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this contains o atLeast 1 value expected
 
 /**
@@ -60,7 +60,8 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: Any): Expect<T> =
  * It is a shortcut for `contains o atLeast 1 the values(expected, *otherExpected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -81,7 +82,7 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: Any): Expect<T> =
  * @throws IllegalArgumentException in case one of the [values] is not a
  *   [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Expect<T>.contains(values: Values<Any>): Expect<T> =
+infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNumberOrChar>): Expect<T> =
     this contains o atLeast 1 the values
 
 /**
@@ -90,12 +91,13 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<Any>): Expect<T> 
  * It is a shortcut for `contains not value expected`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
+infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar) =
     this containsNot o value expected
 
 /**
@@ -105,14 +107,15 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: Any) =
  * It is a shortcut for `contains not the values(expected, *otherExpected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * @param values The values which should not be found -- use the function `values(t, ...)` to create a [Values].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<Any>) =
+infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOrNumberOrChar>) =
     this containsNot o the values
 
 /**

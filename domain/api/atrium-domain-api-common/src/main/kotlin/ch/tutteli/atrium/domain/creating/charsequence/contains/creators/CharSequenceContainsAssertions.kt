@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -23,12 +24,12 @@ interface CharSequenceContainsAssertions {
 
     fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: List<Any>
+        expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup
 
     fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: List<Any>
+        expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup
 
     fun <T : CharSequence> defaultTranslationOf(

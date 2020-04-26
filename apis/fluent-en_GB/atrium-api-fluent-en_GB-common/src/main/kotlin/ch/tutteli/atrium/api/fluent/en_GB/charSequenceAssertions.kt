@@ -7,6 +7,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -33,7 +34,8 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
@@ -52,7 +54,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: Any): Expect<T> =
+fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOrChar, vararg otherExpected: CharSequenceOrNumberOrChar): Expect<T> =
     contains.atLeast(1).values(expected, *otherExpected)
 
 /**
@@ -62,12 +64,13 @@ fun <T : CharSequence> Expect<T>.contains(expected: Any, vararg otherExpected: A
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.containsNot(expected: Any, vararg otherExpected: Any) =
+fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar, vararg otherExpected: CharSequenceOrNumberOrChar) =
     containsNot.values(expected, *otherExpected)
 
 /**

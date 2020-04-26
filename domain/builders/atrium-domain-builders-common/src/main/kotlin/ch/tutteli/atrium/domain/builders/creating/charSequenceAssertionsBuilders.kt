@@ -14,6 +14,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.jvm.JvmName
 
@@ -73,12 +74,12 @@ object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
 
     override inline fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: List<Any>
+        expected: List<CharSequenceOrNumberOrChar>
     ) = charSequenceContainsAssertions.values(checkerOption, expected)
 
     override inline fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: List<Any>
+        expected: List<CharSequenceOrNumberOrChar>
     ) = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected)
 
     override inline fun <T : CharSequence> defaultTranslationOf(
