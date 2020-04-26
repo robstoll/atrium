@@ -36,10 +36,6 @@ buildscript {
 
         // gh-pages.gradle
         docProjects = (subprojects - sampleProjectsFun - toolProjectsFun).findAll {
-            //TODO new infix API: remove once we are ready to publish the new API
-            !it.name.contains("api-infix-") &&
-                //TODO new infix API: remove once we are ready to publish the new API
-                !it.name.startsWith("atrium-infix-") &&
                 !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
@@ -276,10 +272,8 @@ configure(apiProjects) { apiProject ->
 }
 
 def bundleSmokeTests = subprojects.findAll { it.name.contains('-smoke-test') }
-//TODO new infix API: remove once we are ready to publish the new API
-def newInfixApiModules = subprojects.findAll { it.name.contains('-api-infix') || it.name.startsWith("atrium-infix") }
 
-configure(subprojects - bundleSmokeTests - sampleProjects - toolProjects - newInfixApiModules) { subproject ->
+configure(subprojects - bundleSmokeTests - sampleProjects - toolProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {
