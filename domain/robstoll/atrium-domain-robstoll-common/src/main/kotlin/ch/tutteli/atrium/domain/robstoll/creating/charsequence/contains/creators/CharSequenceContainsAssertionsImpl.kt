@@ -5,6 +5,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.creators.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -13,12 +14,12 @@ class CharSequenceContainsAssertionsImpl : CharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: List<Any>
+        expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup = _containsValues(checkerOption, expected)
 
     override fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: List<Any>
+        expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup = _containsValuesIgnoringCase(checkerOption, expected)
 
     override fun <T : CharSequence> defaultTranslationOf(
