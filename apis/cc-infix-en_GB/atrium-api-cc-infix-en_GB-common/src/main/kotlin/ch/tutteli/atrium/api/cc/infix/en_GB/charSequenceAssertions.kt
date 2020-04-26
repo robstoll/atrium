@@ -312,7 +312,8 @@ infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
         "this.asExpect().toBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.toBe"
+        "ch.tutteli.atrium.api.infix.en_GB.toBe",
+        "ch.tutteli.atrium.api.infix.en_GB.empty"
     )
 )
 infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
@@ -332,7 +333,8 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
         "this.asExpect().notToBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.notToBe"
+        "ch.tutteli.atrium.api.infix.en_GB.notToBe",
+        "ch.tutteli.atrium.api.infix.en_GB.toBe"
     )
 )
 infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
@@ -352,7 +354,8 @@ infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Emp
         "this.asExpect().notToBe(blank).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.notToBe"
+        "ch.tutteli.atrium.api.infix.en_GB.notToBe",
+        "ch.tutteli.atrium.api.infix.en_GB.blank"
     )
 )
 infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Blank: Blank)
