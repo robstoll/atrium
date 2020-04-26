@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Blank
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -35,7 +36,8 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
             return if (otherExpected.isEmpty()) {
                 plant.asExpect().contains(expected.getDefault()).asAssert()
             } else {
-                plant.asExpect().contains(Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())).asAssert()
+                val values = Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+                plant.asExpect().contains(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
 
@@ -43,8 +45,10 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
             = "containsNotDefaultTranslationOf no longer in this API" to Companion::containsNotDefaultTranslationOf
 
 
-        private fun containsNotDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>)
-            = plant.asExpect().containsNot(Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())).asAssert()
+        private fun containsNotDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): AssertionPlant<CharSequence> {
+            val values = Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+            return plant.asExpect().containsNot(values(values.expected, *values.otherExpected)).asAssert()
+        }
 
         fun toBeEmpty(plant: Assert<CharSequence>)
             = plant.asExpect().toBe(empty).asAssert()
