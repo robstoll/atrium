@@ -36,7 +36,6 @@ def bundleWithExtensionsAndSmokeTest = { self, String apiName ->
         self.folder(apiName) {
             _ "$apiName-smoke-test"
             folder("extensions") {
-                _ "$apiName-smoke-test-jdk8"
                 _ "$apiName-smoke-test-kotlin_1_3"
             }
         }

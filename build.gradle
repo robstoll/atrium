@@ -37,7 +37,7 @@ buildscript {
 
         // gh-pages.gradle
         docProjects = (subprojects - sampleProjectsFun - toolProjectsFun).findAll {
-            !it.name.endsWith("-js") &&
+                !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&

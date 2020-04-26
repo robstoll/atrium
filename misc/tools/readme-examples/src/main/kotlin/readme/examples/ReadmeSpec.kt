@@ -4,9 +4,9 @@ package readme.examples
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 //snippet-import-end
-import ch.tutteli.atrium.api.fluent.en_GB.jdk8.exists
-import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isRegularFile
-import ch.tutteli.atrium.api.fluent.en_GB.jdk8.isWritable
+import ch.tutteli.atrium.api.fluent.en_GB.exists
+import ch.tutteli.atrium.api.fluent.en_GB.isRegularFile
+import ch.tutteli.atrium.api.fluent.en_GB.isWritable
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl

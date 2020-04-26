@@ -16,6 +16,7 @@ dependencies {
         exclude module: "${rootProject.name}-translations-en_GB-jvm"
     }
     testImplementation prefixedProject('translations-de_CH-jvm')
+    api niok()
 }
 
 
