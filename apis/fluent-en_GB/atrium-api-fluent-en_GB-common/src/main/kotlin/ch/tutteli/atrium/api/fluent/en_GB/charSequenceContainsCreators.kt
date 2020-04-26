@@ -18,7 +18,8 @@ import kotlin.jvm.JvmName
  * Delegates to [values].
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -28,7 +29,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Expect<T> =
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
     values(expected)
 
 /**
@@ -36,7 +37,8 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any
  * the [otherExpected] values shall be searched, using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
@@ -58,8 +60,8 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any
  *   [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
-    expected: Any,
-    vararg otherExpected: Any
+    expected: CharSequenceOrNumberOrChar,
+    vararg otherExpected: CharSequenceOrNumberOrChar
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
 
 
@@ -70,7 +72,8 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
  * Delegates to `values(expected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -82,7 +85,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
  */
 @JvmName("valueIgnoringCase")
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
-    expected: Any
+    expected: CharSequenceOrNumberOrChar
 ): Expect<T> = values(expected)
 
 /**
@@ -90,7 +93,8 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
  * the [otherExpected] values shall be searched (ignoring case), using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
@@ -113,8 +117,8 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
  */
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
-    expected: Any,
-    vararg otherExpected: Any
+    expected: CharSequenceOrNumberOrChar,
+    vararg otherExpected: CharSequenceOrNumberOrChar
 ): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
 
 
@@ -125,7 +129,8 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
  * Delegates to `atLeast(1).value(expected)`.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -135,7 +140,7 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Expect<T> =
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
     atLeast(1).value(expected)
 
 /**
@@ -146,7 +151,8 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: A
  * Delegates to `atLeast(1).values(expected, otherExpected)`
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
@@ -162,8 +168,8 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: A
  *   [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.values(
-    expected: Any,
-    vararg otherExpected: Any
+    expected: CharSequenceOrNumberOrChar,
+    vararg otherExpected: CharSequenceOrNumberOrChar
 ): Expect<T> = atLeast(1).values(expected, *otherExpected)
 
 /**
@@ -285,7 +291,8 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
  * (see [values] for more information).
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -299,7 +306,7 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
  * @since 0.9.0
  */
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<Any>
+    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
     return values(first, *rest)
@@ -313,7 +320,8 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * (see [values] for more information).
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -328,15 +336,37 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  */
 @JvmName("elementsOfIgnoringCase")
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<Any>
+    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
     return values(first, *rest)
 }
 
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
+ * shall be searched (ignoring case), using a non disjoint search.
+ *
+ * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
+ * so that you can mix [String] and [Int] for instance).
+ *
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ *
+ * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
+ * [expectedIterable] does not have elements (is empty).
+ *
+ * @since 0.11.0
+ */
 @JvmName("elementsOfIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<Any>
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
+    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg(expectedIterable)
     return values(first, *rest)
