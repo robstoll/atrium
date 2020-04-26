@@ -122,26 +122,30 @@ dependencies {
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
-
-The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.11.0. 
-[Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
-in bringing the new infix API forward is appreciated.
-
-Please use the old API in the meantime (not available on mavenCentral). Following an example:
-
 ```
 buildscript {
-    ext { atrium_version='0.8.0' }
+    ext { atrium_version='0.11.0' }
 }
 repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
+    mavenCentral()
+    // either use mavenCentral() or one of the two lines below
+    // jcenter()
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
 }
 ```
+
+And for the aforementioned extensions:
+```
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-jdk8:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:$atrium_version"
+    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
+}
+```
+
 <hr/>
 </details>
 <br/>
@@ -204,24 +208,26 @@ dependencies {
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
 
-
-The new infix API which is based on `Expect` and no longer on `Assert` is not yet available in v0.11.0. 
-[Your help](https://github.com/robstoll/atrium/issues?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+issue%22++new+infix)
-in bringing the new infix API forward is appreciated.
-
-Please use the old API in the meantime (not available on mavenCentral). Following an example:
-
 ```
 buildscript {
-    ext { atrium_version='0.8.0' }
+    ext { atrium_version='0.11.0' }
 }
 repositories {
-    jcenter()
-    // either use jcenter or the repository on the next line
+    mavenCentral()
+    // either use mavenCentral() or one of the two lines below
+    // jcenter()
     // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version"
+    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"
+}
+```
+
+and for the aforementioned extensions:
+```
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3-js:$atrium_version"
+    testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3-js:$atrium_version"
 }
 ```
 <hr/>
@@ -2349,7 +2355,7 @@ Atrium provides bundle modules which bundle API, translation, domain and core as
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-cc-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/cc-infix-en_GB-robstoll/atrium-cc-infix-en_GB-robstoll-common/build.gradle)
+- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/infix-en_GB-robstoll/atrium-infix-en_GB-robstoll-common/build.gradle)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
@@ -2432,12 +2438,13 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
+- [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 Deprecated APIs:
 - [atrium-api-cc-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
 - [atrium-api-cc-en_UK](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
 - [atrium-api-cc-de_CH](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-d-e/index.html)
+- [atrium-api-cc-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 ## Problems in conjunction with `feature`
 
