@@ -16,7 +16,7 @@ abstract class CharSequenceContainsSpecBase {
     private val containsNotFun: KFunction2<Assert<String>, Any, Assert<String>> = Assert<String>::containsNot
     protected val toContain = "${Assert<String>::to.name} ${contain::class.simpleName}"
     protected val notToContain = "${Assert<String>::notTo.name} ${contain::class.simpleName}"
-    protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
+    protected val containsNotValues = "${containsNotFun.name} values"
     protected val containsRegex = "${Assert<String>::to.name} ${contain::class.simpleName} ${RegexPatterns::class.simpleName}"
     protected val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
     protected val butAtMost = AtLeastCheckerOption<*, *>::butAtMost.name
