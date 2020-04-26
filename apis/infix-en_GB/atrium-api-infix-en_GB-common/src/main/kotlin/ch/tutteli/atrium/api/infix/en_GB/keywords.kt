@@ -10,10 +10,6 @@ package ch.tutteli.atrium.api.infix.en_GB
  */
 interface Keyword
 
-//TODO not used yet, should be used though
-internal const val ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED =
-    "This call will most probably fail at runtime because the given subject is not a collection as you might have assumed. If you really want to compare the subject against the keyword, then cast the keyword to Any"
-
 /**
  * A helper construct to allow expressing assertions about a path being a regular file.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
