@@ -111,10 +111,11 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.asExpect().contains(values).asAssert()",
+        "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.contains"
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
     )
 )
 infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionPlant<T>
@@ -213,10 +214,11 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.asExpect().containsNot(values).asAssert()",
+        "this.asExpect().containsNot(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.containsNot"
+        "ch.tutteli.atrium.api.infix.en_GB.containsNot",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
     )
 )
 infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
