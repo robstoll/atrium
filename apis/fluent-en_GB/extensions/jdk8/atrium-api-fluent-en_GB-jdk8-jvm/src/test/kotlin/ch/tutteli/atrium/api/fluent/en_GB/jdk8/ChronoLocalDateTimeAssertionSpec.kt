@@ -3,18 +3,33 @@ package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
+import org.spekframework.spek2.Spek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
-class ChronoLocalDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
-    fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
-    fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
-    fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
-    fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
-    fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
-) {
+class ChronoLocalDateTimeAssertionSpec : Spek({
+    include(ChronoLocalDateTimeSpec)
+}) {
+    object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
+        fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
+        fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
+        fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
+        fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
+        fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
+    )
+
+    companion object {
+        fun isBefore(
+            expect: Expect<ChronoLocalDateTime<*>>,
+            expected: ChronoLocalDateTime<*>
+        ): Expect<ChronoLocalDateTime<*>> =
+            //TODO #481 turn into string in ISO format
+            expect.isBefore(expected)
+    }
+
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val chronoLocalDateTime: ChronoLocalDateTime<*> = notImplemented()
