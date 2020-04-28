@@ -18,8 +18,8 @@ expect(
 Following the things you need to do:
 
 
-*lib*
-- [ ] implement _foo in xyAssertions by using the `ExpectImpl.feature.extractor...`
+*domain-robstoll-lib*
+- [ ] implement _foo in xyAssertions.kt by using the `ExpectImpl.feature.extractor...`
 
 *domain*
 - [ ] extend XyAssertions with a function `foo` (see YzAssertions as a guideline)
@@ -29,13 +29,13 @@ Following the things you need to do:
 *api-fluent*
 - [ ] provide a val which returns `Expect<T>` (see yzAssertions.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` (see yzAssertions.kt as a guideline)
-- [ ] add `@since 0.12.0` (adapt to next release version) to KDOC
+- [ ] add `@since 0.12.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyFeatureAssertionsSpec in specs-common (see for instance YzFeatureAssertionsSpec) and extend it in atrium-api-fluent-en_GB-common/src/test
 
 *api-infix*
 - [ ] provide a val which returns `Expect<T>` (see yzAssertions.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` (see yzAssertions.kt as a guideline)
-- [ ] add `@since 0.12.0` (adapt to next release version) to KDOC
+- [ ] add `@since 0.12.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyFeatureAssertionsSpec in specs-common (see for instance YzFeatureAssertionsSpec) and extend it in atrium-api-infix-en_GB-common/src/test
 
 
