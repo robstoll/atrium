@@ -535,6 +535,22 @@ configure(subprojects - getJsProjects()) { subproject ->
     }
 }
 
+def checkDexer = task('checkDexer', description: 'compiles android class files into dex bytecode', dependsOn: compileKotlin) {
+    doFirst {
+        println "printing android projects:"
+        println "  - source projects: ${getAndroidProjects()*.name}"
+        println "========================================="
+    }
+}
+
+// configure(getAndroidProjects()) { project ->
+//     task checkDexer('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode', dependsOn: compileKotlin) {
+//         println project
+//     }
+// }
+
+check.dependsOn(checkDexer)
+
 /*
 Release & deploy a commit
 --------------------------------
