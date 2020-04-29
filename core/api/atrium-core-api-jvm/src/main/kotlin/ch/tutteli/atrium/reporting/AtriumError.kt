@@ -27,6 +27,7 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
         get() {
             val isDoublePrintingTestRunner = Thread.currentThread().stackTrace[2].let {
                 it.className.startsWith("org.jetbrains.spek.tooling.adapter.sm") ||
+                    it.className.startsWith("org.spekframework.ide") ||
                     it.className == "org.gradle.internal.serialize.ExceptionPlaceholder"
             }
             return if (isDoublePrintingTestRunner) {
@@ -44,8 +45,8 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
     /**
      * Returns first [getLocalizedMessage] and then the qualified name of this exception.
      *
-     * Which has the effect that printStackTrace will show first the error message and then stacktrace including
-     * qualified name - resulting in a tidier report 😊
+     * Which has the effect that printStackTrace will show first the error message and then qualified name including
+     * stacktrace - resulting in a tidier report 😊
      *
      * One unwanted effect, we show the qualified name even if someone has chosen the following for the gradle runner
      * showExceptions=true, showStacktrace=false => however, I think that's fine.
