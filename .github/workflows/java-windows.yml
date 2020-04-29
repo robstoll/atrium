@@ -20,6 +20,17 @@ jobs:
                 run: ./gradlew buildNonDeprecatedJvm
                 env:
                   CI: true
+            -   name: check dexer
+                run: |
+                    curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-26/android.jar?raw=true"
+                    $file_sha256 = $(certutil -hashfile android.jar sha256)[1] -replace " ",""
+                    if ($file_sha256 -Ne "cdc1846376a14b0370cc63454a129606b4a52cc50ada75ef0d4cf956b1ad2daa") {
+                        exit -1
+                    }
+                    ./gradlew checkDexer
+                env:
+                    CI: true
+                    ATRIUM_ANDROID_JAR: android.jar
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1
                 with:
@@ -45,3 +56,5 @@ jobs:
 
             -   name: composite build atrium-samples
                 run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build
+                env:
+                    ATRIUM_ANDROID_JAR: ./android.jar

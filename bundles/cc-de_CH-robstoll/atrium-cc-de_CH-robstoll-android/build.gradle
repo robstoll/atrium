@@ -18,3 +18,9 @@ dependencies {
     implementation prefixedProject('core-robstoll-deprecated')
     api prefixedProject('translations-de_CH-deprecated')
 }
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileKotlin.dependsOn(
+    prefixedProject('domain-robstoll-android').jar,
+    prefixedProject('core-robstoll-android').jar
+)
