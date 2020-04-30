@@ -167,10 +167,11 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.asExpect().contains(patterns).asAssert()",
+        "this.asExpect().contains(regexPatterns(patterns.pattern, *patterns.otherPatterns)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.infix.en_GB.contains"
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.api.infix.en_GB.regexPatterns"
     )
 )
 infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): AssertionPlant<T>
