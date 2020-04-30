@@ -7,6 +7,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
@@ -43,7 +44,9 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration
             return if (aX.isEmpty()) {
                 plant.asExpect().containsNot(o) ignoring case value a
             } else {
-                plant.asExpect().containsNot(o) ignoring case the Values(a, *aX)
+                val values = Values(a, *aX)
+                (plant.asExpect().containsNot(o) ignoring case).the(values(values.expected, *values.otherExpected))
+                    .asAssert()
             }
         }
     }
