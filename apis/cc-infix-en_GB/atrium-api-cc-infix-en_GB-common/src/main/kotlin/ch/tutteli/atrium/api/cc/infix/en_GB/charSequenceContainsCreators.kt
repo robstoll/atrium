@@ -247,8 +247,10 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(patterns)",
-        "ch.tutteli.atrium.api.infix.en_GB.the"
+        "this.the(regexPatterns(patterns.pattern, *patterns.otherPatterns))",
+        "ch.tutteli.atrium.api.infix.en_GB.the",
+        "ch.tutteli.atrium.api.infix.en_GB.regexPatterns",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
     )
 )
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
