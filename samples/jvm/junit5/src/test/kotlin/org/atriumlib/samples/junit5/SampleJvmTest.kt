@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test
 
 class SampleJvmTest {
     @Test
-    fun toBe() {
+    fun `to be`() {
         expect(1).toBe(1)
     }
 
     @Test
-    fun expectAnExceptionOccurred() {
+    fun `expect an exception occurred`() {
         expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
@@ -22,7 +22,7 @@ class SampleJvmTest {
 
 
     @Test
-    fun expectAnExceptionWithAMessageOccurred() {
+    fun `expect an exception with a message occurred`() {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
@@ -31,7 +31,7 @@ class SampleJvmTest {
     }
 
     @Test
-    fun useOwnFunction() {
+    fun `use own function`() {
         expect(2).isEven()
     }
 }
