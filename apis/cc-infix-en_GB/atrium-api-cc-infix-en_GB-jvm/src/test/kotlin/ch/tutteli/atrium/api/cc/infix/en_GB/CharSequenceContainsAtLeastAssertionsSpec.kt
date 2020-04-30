@@ -1,5 +1,5 @@
 // TODO remove file with 1.0.0
-//@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
+@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
