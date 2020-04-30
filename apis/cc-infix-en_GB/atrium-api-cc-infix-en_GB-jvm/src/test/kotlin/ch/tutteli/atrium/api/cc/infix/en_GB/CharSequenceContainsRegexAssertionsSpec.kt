@@ -1,5 +1,5 @@
 // TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
+//@file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
@@ -83,7 +83,9 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
             return if (aX.isEmpty()) {
                 plant containsRegex a
             } else {
-                plant.asExpect().contains(regexPatterns(a, *aX)).asAssert()
+                val patterns = RegexPatterns(a, *aX)
+                plant.asExpect().contains(regexPatterns(patterns.expected, *patterns.otherExpected)).asAssert()
+
             }
         }
 
