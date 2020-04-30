@@ -10,6 +10,7 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.infix.en_GB.atLeast
 import ch.tutteli.atrium.api.infix.en_GB.atMost
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 
@@ -39,7 +40,9 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
             return if (aX.isEmpty()) {
                 (plant to contain) atLeast atLeast regex a
             } else {
-                (plant to contain).atLeast(atLeast) the RegexPatterns(a, *aX)
+                val patterns = RegexPatterns(a, *aX)
+                (plant to contain).atLeast(atLeast).the(regexPatterns(patterns.expected, *patterns.otherExpected))
+                    .asAssert()
             }
         }
 
@@ -54,8 +57,19 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
                 if(atLeast == 1) plant to contain ignoring case regex a
                 else plant to contain ignoring case atLeast atLeast regex a
             } else {
-                if(atLeast == 1) plant to contain ignoring case the RegexPatterns(a, *aX)
-                else plant to contain ignoring case atLeast atLeast the RegexPatterns(a, *aX)
+                if(atLeast == 1) {
+                    val patterns = RegexPatterns(a, *aX)
+                    (plant to contain ignoring case).the(regexPatterns(patterns.expected, *patterns.otherExpected)).asAssert()
+                }
+                else {
+                    val patterns = RegexPatterns(a, *aX)
+                    (plant to contain ignoring case atLeast atLeast).the(
+                        regexPatterns(
+                            patterns.expected,
+                            *patterns.otherExpected
+                        )
+                    ).asAssert()
+                }
             }
         }
 
@@ -79,8 +93,11 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: Assert<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
-            = plant to contain atMost atMost the RegexPatterns(a, *aX)
+        private fun containsAtMost(plant: Assert<CharSequence>, atMost: Int, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
+            val patterns = RegexPatterns(a, *aX)
+            return (plant to contain atMost atMost).the(regexPatterns(patterns.expected, *patterns.otherExpected))
+                .asAssert()
+        }
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
             "$toContain $ignoringCase $atMost $regex",
@@ -92,7 +109,9 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost regex a
             } else {
-                (plant to contain ignoring case).atMost(atMost) the RegexPatterns(a, *aX)
+                val patterns = RegexPatterns(a, *aX)
+                (plant to contain ignoring case).atMost(atMost)
+                    .the(regexPatterns(patterns.expected, *patterns.otherExpected)).asAssert()
             }
         }
     }
