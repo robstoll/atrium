@@ -335,7 +335,7 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.api.infix.en_GB.notToBe",
-        "ch.tutteli.atrium.api.infix.en_GB.toBe"
+        "ch.tutteli.atrium.api.infix.en_GB.empty"
     )
 )
 infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
