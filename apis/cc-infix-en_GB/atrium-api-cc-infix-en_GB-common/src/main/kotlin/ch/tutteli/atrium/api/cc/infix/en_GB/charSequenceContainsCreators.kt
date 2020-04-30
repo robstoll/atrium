@@ -66,7 +66,8 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
     ReplaceWith(
         "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
         "ch.tutteli.atrium.api.infix.en_GB.the",
-        "ch.tutteli.atrium.api.infix.en_GB.values"
+        "ch.tutteli.atrium.api.infix.en_GB.values",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
     )
 )
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
@@ -130,7 +131,8 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
     ReplaceWith(
         "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
         "ch.tutteli.atrium.api.infix.en_GB.the",
-        "ch.tutteli.atrium.api.infix.en_GB.values"
+        "ch.tutteli.atrium.api.infix.en_GB.values",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
     )
 )
 @JvmName("valuesIgnoringCase")
@@ -193,7 +195,8 @@ infix fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchB
     ReplaceWith(
         "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
         "ch.tutteli.atrium.api.infix.en_GB.the",
-        "ch.tutteli.atrium.api.infix.en_GB.values"
+        "ch.tutteli.atrium.api.infix.en_GB.values",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
     )
 )
 infix fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
