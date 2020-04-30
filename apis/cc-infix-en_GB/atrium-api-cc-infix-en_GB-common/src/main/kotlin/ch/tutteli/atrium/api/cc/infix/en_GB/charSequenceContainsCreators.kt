@@ -64,8 +64,9 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(values)",
-        "ch.tutteli.atrium.api.infix.en_GB.the"
+        "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "ch.tutteli.atrium.api.infix.en_GB.the",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
     )
 )
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
@@ -127,8 +128,9 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(values)",
-        "ch.tutteli.atrium.api.infix.en_GB.the"
+        "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "ch.tutteli.atrium.api.infix.en_GB.the",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
     )
 )
 @JvmName("valuesIgnoringCase")
@@ -189,8 +191,9 @@ infix fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchB
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(values)",
-        "ch.tutteli.atrium.api.infix.en_GB.the"
+        "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "ch.tutteli.atrium.api.infix.en_GB.the",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
     )
 )
 infix fun <T : CharSequence> CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
