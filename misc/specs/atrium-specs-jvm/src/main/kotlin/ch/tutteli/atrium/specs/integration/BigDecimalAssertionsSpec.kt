@@ -39,10 +39,10 @@ abstract class BigDecimalAssertionsSpec(
         toBeNull.forSubjectLess(null)
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    describeFun(isNumericallyEqualTo.name, isNotNumericallyEqualTo.name) {
+    describeFun(isNumericallyEqualTo, isNotNumericallyEqualTo) {
         val isNumericallyEqualToFun = isNumericallyEqualTo.lambda
         val isNotNumericallyEqualToFun = isNotNumericallyEqualTo.lambda
 
@@ -96,11 +96,11 @@ abstract class BigDecimalAssertionsSpec(
     val assertNullableTen: Expect<BigDecimal?> = expect(BigDecimal.TEN)
     val assertTenAny = expect(BigDecimal.TEN as Any)
     describeFun(
-        toBeDontUse.name,
-        "${toBeNullableDontUse.name} nullable",
-        isEqualIncludingScale.name,
-        notToBe.name,
-        isNotEqualIncludingScale.name
+        toBeDontUse,
+        toBeNullableDontUse,
+        isEqualIncludingScale,
+        notToBe,
+        isNotEqualIncludingScale
     ) {
         val toBeFun = toBeDontUse.lambda
         val toBeNullableFun = toBeNullableDontUse.lambda
@@ -259,7 +259,7 @@ abstract class BigDecimalAssertionsSpec(
         }
     }
 
-    describeFun("${toBeNull.name} null") {
+    describeFun(toBeNull) {
         val toBeFun = toBeNull.lambda
         it("does not throw if subject is null") {
             expect(null as BigDecimal?).toBeFun(null)
