@@ -104,7 +104,8 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
-Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup.
+Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup, or
+[Maven sample project](https://github.com/robstoll/atrium/tree/master/samples/maven) if you prefer Maven to Gradle.
 
 We currently provide the following extensions for the JVM platform: 
 - jdk8: assertion functions for JDK 8 specific types (e.g. for `Path`)
