@@ -1,0 +1,7 @@
+# Ignore Maven build output directory
+target
+
+#ignore .idea stuff
+.idea
+out
+*.iml

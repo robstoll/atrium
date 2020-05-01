@@ -104,7 +104,8 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
-Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup.
+Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup, or
+[Maven sample project](https://github.com/robstoll/atrium/tree/master/samples/maven) if you prefer Maven to Gradle.
 
 We currently provide the following extensions for the JVM platform: 
 - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
