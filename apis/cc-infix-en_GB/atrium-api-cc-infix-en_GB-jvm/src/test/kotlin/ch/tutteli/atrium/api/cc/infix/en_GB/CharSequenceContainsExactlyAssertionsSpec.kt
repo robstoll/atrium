@@ -56,7 +56,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.integra
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            = "use $containsNotValues instead of `$exactly $times`"
+            = "use `$containsNotValues` instead of `$exactly $times`"
 
     }
 }

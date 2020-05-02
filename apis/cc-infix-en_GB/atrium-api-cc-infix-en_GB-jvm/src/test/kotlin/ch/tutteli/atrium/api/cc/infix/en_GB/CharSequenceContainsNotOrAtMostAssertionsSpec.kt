@@ -45,6 +45,6 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.int
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            = "use $containsNotValues instead of `$notOrAtMost $times`"
+            = "use `$containsNotValues` instead of `$notOrAtMost $times`"
     }
 }

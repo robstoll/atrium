@@ -56,7 +56,7 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.integrat
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            = "use $containsNotValues instead of `$atMost $times`"
+            = "use `$containsNotValues` instead of `$atMost $times`"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 
