@@ -95,8 +95,8 @@ abstract class PathAssertionsSpec(
         if (fileSystemSupportsCreatingSymlinks()) No
         else Yes("creating symbolic links is not supported on this file system")
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
         SymlinkTestBuilder({ tempFolder }, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
@@ -208,147 +208,184 @@ abstract class PathAssertionsSpec(
         itPrintsFileAccessExceptionDetails(block)
     }
 
-    describeFun(exists.name) {
+    describeFun(exists, existsNot) {
         val existsFun = exists.lambda
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
-                val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
-                expect {
-                    expect(notExisting).existsFun()
-                }.toThrow<AssertionError>().message {
-                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    containsExplanationFor(maybeLink)
-                }
-            }
-
-            itPrintsFileAccessProblemDetails { testFile ->
-                expect(testFile).existsFun()
-            }
-        }
-
-        context("existing") {
-            it("does not throw for an existing file") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.newFile("test"))
-                expect(file).existsFun()
-            }
-
-            it("does not throw for an existing directory") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.newDirectory("test"))
-                expect(file).existsFun()
-            }
-        }
-    }
-
-    describeFun(existsNot.name) {
         val existsNotFun = existsNot.lambda
+
         context("not accessible") {
-            it("does not throw for a non-existent path") withAndWithoutSymlink { maybeLink ->
-                val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
-                expect(notExisting).existsNotFun()
+            context("non-existent path") {
+                it("${exists.name} - throws an AssertionError") withAndWithoutSymlink { maybeLink ->
+                    val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
+                    expect {
+                        expect(notExisting).existsFun()
+                    }.toThrow<AssertionError>().message {
+                        contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                        containsExplanationFor(maybeLink)
+                    }
+                }
+                it("${existsNot.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                    val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
+                    expect(notExisting).existsNotFun()
+                }
             }
 
-            itPrintsParentAccessDeniedDetails { testFile ->
-                expect(testFile).existsNotFun()
+            context("${exists.name} has failure hints") {
+                itPrintsFileAccessProblemDetails { testFile ->
+                    expect(testFile).existsFun()
+                }
             }
 
-            itPrintsFileAccessExceptionDetails { testFile ->
-                expect(testFile).existsNotFun()
+            context("${existsNot.name} has failure hints") {
+                itPrintsParentAccessDeniedDetails { testFile ->
+                    expect(testFile).existsNotFun()
+                }
+
+                itPrintsFileAccessExceptionDetails { testFile ->
+                    expect(testFile).existsNotFun()
+                }
             }
         }
 
         context("existing") {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val file = maybeLink.create(tempFolder.newFile("exists-though-shouldnt"))
-                expect {
-                    expect(file).existsNotFun()
-                }.toThrow<AssertionError>().message {
-                    contains(
-                        "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
-                        "${WAS.getDefault()}: ${A_FILE.getDefault()}"
-                    )
-                    containsExplanationFor(maybeLink)
+            context("file") {
+                it("${exists.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                    val file = maybeLink.create(tempFolder.newFile("test"))
+                    expect(file).existsFun()
+                }
+                it("${existsNot.name} - throws an AssertionError") withAndWithoutSymlink { maybeLink ->
+                    val file = maybeLink.create(tempFolder.newFile("exists-though-shouldnt"))
+                    expect {
+                        expect(file).existsNotFun()
+                    }.toThrow<AssertionError>().message {
+                        contains(
+                            "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
+                            "${WAS.getDefault()}: ${A_FILE.getDefault()}"
+                        )
+                        containsExplanationFor(maybeLink)
+                    }
                 }
             }
+            context("directory") {
+                it("${exists.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                    val file = maybeLink.create(tempFolder.newDirectory("test"))
+                    expect(file).existsFun()
+                }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val folder = maybeLink.create(tempFolder.newDirectory("exists-though-shouldnt"))
-                expect {
-                    expect(folder).existsNotFun()
-                }.toThrow<AssertionError>().message {
-                    contains(
-                        "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
-                        "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
-                    )
-                    containsExplanationFor(maybeLink)
+                it("${existsNot.name} - throws an AssertionError") withAndWithoutSymlink { maybeLink ->
+                    val folder = maybeLink.create(tempFolder.newDirectory("exists-though-shouldnt"))
+                    expect {
+                        expect(folder).existsNotFun()
+                    }.toThrow<AssertionError>().message {
+                        contains(
+                            "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
+                            "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
+                        )
+                        containsExplanationFor(maybeLink)
+                    }
                 }
             }
         }
     }
 
-    describeFun(startsWith.name, startsNotWith.name, endsWith.name, endsNotWith.name) {
+    describeFun(startsWith, startsNotWith) {
         val startsWithFun = startsWith.lambda
         val startsNotWithFun = startsNotWith.lambda
+
+        val path = "/some/path/for/test"
+        val expectPath = expect(Paths.get(path))
+        context("path '$path'") {
+            mapOf(
+                "/some/pa" to false,
+                "/some/path" to true,
+                "/some/path/" to true,
+                "/some/path/fo" to false,
+                "/some/path/for" to true,
+                "/some/path/for/" to true,
+                "/some/path/for/test" to true,
+                "/some/other" to false,
+                "/some/path/other" to false
+            ).forEach { (path, startsWithHolds) ->
+                context("compare against $path") {
+                    if (startsWithHolds) {
+                        it("${startsWith.name} - does not throw") {
+                            expectPath.startsWithFun(Paths.get(path))
+                        }
+                        it("${startsNotWith.name} - throws an AssertionError") {
+                            expect {
+                                expectPath.startsNotWithFun(Paths.get(path))
+                            }.toThrow<AssertionError> {
+                                messageContains("${STARTS_NOT_WITH.getDefault()}:")
+                            }
+                        }
+                    } else {
+                        it("${startsWith.name} - throws an AssertionError") {
+                            expect {
+                                expectPath.startsWithFun(Paths.get(path))
+                            }.toThrow<AssertionError> {
+                                messageContains("${STARTS_WITH.getDefault()}:")
+                            }
+                        }
+                        it("${startsNotWith.name} - does not throw") {
+                            expectPath.startsNotWithFun(Paths.get(path))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(endsWith, endsNotWith) {
         val endsWithFun = endsWith.lambda
         val endsNotWithFun = endsNotWith.lambda
 
         val path = "/some/path/for/test"
         val expectPath = expect(Paths.get(path))
         context("path '$path'") {
-            it("${startsWith.name} '/some/path/' does not throw") {
-                expectPath.startsWithFun(Paths.get("/some/path/"))
-            }
-
-            it("${startsWith.name} '/other/path' throws an AssertionError") {
-                expect {
-                    expectPath.startsWithFun(Paths.get("/other/path"))
-                }.toThrow<AssertionError> {
-                    messageContains("${STARTS_WITH.getDefault()}:")
+            mapOf(
+                "/some/path/for/test" to true,
+                "some/path/for/test" to true,
+                "me/path/for/test" to false,
+                "/path/for/test" to false,
+                "path/for/test" to true,
+                "th/for/test" to false,
+                "/for/test" to false,
+                "for/test" to true,
+                "or/test" to false,
+                "/test" to false,
+                "test" to true,
+                "other/test" to false,
+                "other/for/test" to false
+            ).forEach { (path, endsWithHolds) ->
+                context("compare against $path") {
+                    if (endsWithHolds) {
+                        it("${endsWith.name} - does not throw") {
+                            expectPath.endsWithFun(Paths.get(path))
+                        }
+                        it("${endsNotWith.name} - throws an AssertionError") {
+                            expect {
+                                expectPath.endsNotWithFun(Paths.get(path))
+                            }.toThrow<AssertionError> {
+                                messageContains("${ENDS_NOT_WITH.getDefault()}:")
+                            }
+                        }
+                    } else {
+                        it("${endsWith.name} - throws an AssertionError") {
+                            expect {
+                                expectPath.endsWithFun(Paths.get(path))
+                            }.toThrow<AssertionError> {
+                                messageContains("${ENDS_WITH.getDefault()}:")
+                            }
+                        }
+                        it("${endsNotWith.name} - does not throw") {
+                            expectPath.endsNotWithFun(Paths.get(path))
+                        }
+                    }
                 }
-            }
-
-            it("${startsNotWith.name} '/other/path' does not throw") {
-                expectPath.startsNotWithFun(Paths.get("/other/path"))
-            }
-
-            it("${startsNotWith.name} '/some/pa' does not match partials") {
-                expectPath.startsNotWithFun(Paths.get("/some/pa"))
-            }
-
-            it("${startsNotWith.name} '/some/path' throws an AssertionError") {
-                expect {
-                    expectPath.startsNotWithFun(Paths.get("/some/path"))
-                }.toThrow<AssertionError> {
-                    messageContains("${STARTS_NOT_WITH.getDefault()}:")
-                }
-            }
-
-            it("${endsWith.name} 'for/test' does not throw") {
-                expectPath.endsWithFun(Paths.get("for/test"))
-            }
-
-            it("${endsWith.name} 'for/another' throws an AssertionError") {
-                expect {
-                    expectPath.endsWithFun(Paths.get("for/another"))
-                }.toThrow<AssertionError> {
-                    messageContains("${ENDS_WITH.getDefault()}:")
-                }
-            }
-
-            it("${endsNotWith.name} 'for/test' throws an AssertionError") {
-                expect {
-                    expectPath.endsNotWithFun(Paths.get("for/test"))
-                }.toThrow<AssertionError> {
-                    messageContains("${ENDS_NOT_WITH.getDefault()}:")
-                }
-            }
-
-            it("${endsNotWith.name} 'for/another' does not throw") {
-                expectPath.endsNotWithFun(Paths.get("for/another"))
             }
         }
     }
 
-    describeFun(isReadable.name) {
+    describeFun(isReadable) {
         val isReadableFun = isReadable.lambda
         val expectedMessage = "${TO_BE.getDefault()}: ${READABLE.getDefault()}"
 
@@ -491,7 +528,7 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(isWritable.name) {
+    describeFun(isWritable) {
         val isWritableFun = isWritable.lambda
         val expectedMessage = "${TO_BE.getDefault()}: ${WRITABLE.getDefault()}"
 
@@ -633,7 +670,7 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(isRegularFile.name) {
+    describeFun(isRegularFile) {
         val isRegularFileFun = isRegularFile.lambda
         val expectedMessage = "${TO_BE.getDefault()}: ${A_FILE.getDefault()}"
 
@@ -675,7 +712,7 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(isDirectory.name) {
+    describeFun(isDirectory) {
         val isDirectoryFun = isDirectory.lambda
         val expectedMessage = "${TO_BE.getDefault()}: ${A_DIRECTORY.getDefault()}"
 
@@ -711,130 +748,167 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(hasSameBinaryContentAs.name, hasSameTextualContentAs.name) {
+    describeFun(hasSameBinaryContentAs, hasSameTextualContentAs) {
         val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
         val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
 
-        context("has same binary content") {
-            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+        fun errorHasSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
+            TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
+
+        context("empty content") {
+            fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
                 val sourcePath = maybeLink.create(tempFolder.newFile("text1"))
                 val targetPath = maybeLink.create(tempFolder.newFile("text2"))
-                sourcePath.toFile().writeText("same")
-                targetPath.toFile().writeText("same")
+                return sourcePath to targetPath
+            }
+
+            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
             }
-        }
 
-        context("has different binary content") {
-            it("${hasSameBinaryContentAs.name} - throws AssertionError") {
-                val sourcePath = tempFolder.newFile("text3")
-                val targetPath = tempFolder.newFile("text4")
-                sourcePath.toFile().writeText("sourcePath")
-                targetPath.toFile().writeText("targetPath")
-                expect {
-                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
-                }.toThrow<AssertionError>().message {
-                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
-                }
+            it("${hasSameTextualContentAs.name} - does not throw if ISO_8859_1, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.ISO_8859_1, Charsets.ISO_8859_1)
             }
 
-            it("${hasSameBinaryContentAs.name} - throws AssertionError if have same textual content but UTF-8, UTF-16 is used") {
-                val sourcePath = tempFolder.newFile("text3")
-                val targetPath = tempFolder.newFile("text4")
-                sourcePath.toFile().writeText("same")
-                targetPath.toFile().writeText("same", Charsets.UTF_16)
-                expect {
-                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
-                }.toThrow<AssertionError>().message {
-                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
-                }
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+            }
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
             }
         }
 
-        context("has same textual content") {
-            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
+        context("has same binary content") {
+            fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
+                val sourcePath = maybeLink.create(tempFolder.newFile("text3"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text4"))
                 sourcePath.toFile().writeText("same")
                 targetPath.toFile().writeText("same")
+                return sourcePath to targetPath
+            }
+
+            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
             }
 
             it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text7"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text8"))
-                sourcePath.toFile().writeText("same", Charsets.UTF_16)
-                targetPath.toFile().writeText("same", Charsets.UTF_16)
+                val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_16))
+                }
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
+                }
             }
         }
 
-        context("same text but UTF-8 and UTF-16 encoding") {
-            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text9"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text10"))
+        context("has same textual content in UTF-8 and UTF-16") {
+            fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
+                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
                 sourcePath.toFile().writeText("same")
                 targetPath.toFile().writeText("same", Charsets.UTF_16)
+                return sourcePath to targetPath
+            }
+
+            it("${hasSameBinaryContentAs.name} - throws AssertionError") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
+                }
+            }
+
+            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                }
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-16, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_8)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_8))
+                }
             }
         }
 
         context("has different textual content") {
-            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-16 is used") {
-                val expectedMessage = TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, Charsets.UTF_8, Charsets.UTF_16).getDefault()
-                val sourcePath = tempFolder.newFile("text11")
-                val targetPath = tempFolder.newFile("text12")
-                sourcePath.toFile().writeText("sourcePath")
-                targetPath.toFile().writeText("targetPath", Charsets.UTF_16)
+            fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
+                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
+                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
+                sourcePath.toFile().writeText("same")
+                targetPath.toFile().writeText("targetPath")
+                return sourcePath to targetPath
+            }
+
+            it("${hasSameBinaryContentAs.name} - throws AssertionError") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
-                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
+                    expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    contains(expectedMessage)
+                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
                 }
             }
 
-            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") {
-                val expectedMessage = TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, Charsets.UTF_8, Charsets.UTF_8).getDefault()
-                val sourcePath = tempFolder.newFile("text13")
-                val targetPath = tempFolder.newFile("text14")
-                sourcePath.toFile().writeText("sourcePath")
-                targetPath.toFile().writeText("targetPath")
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    contains(expectedMessage)
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                }
+            }
+
+            it("${hasSameTextualContentAs.name} - throws AssertionError if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_16))
                 }
             }
         }
-
-        context("empty context") {
-            it("${hasSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text1"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text2"))
-                expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
-            }
-
-            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text6"))
-                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
-            }
-
-            it("${hasSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text7"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text8"))
-                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
-            }
-
-            it("${hasSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
-                val sourcePath = maybeLink.create(tempFolder.newFile("text9"))
-                val targetPath = maybeLink.create(tempFolder.newFile("text10"))
-                expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
-            }
-        }
-
     }
-
 })
 
 private const val TEST_IO_EXCEPTION_MESSAGE = "unknown test error"

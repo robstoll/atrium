@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.BigDecimalAssertionsSpec
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.math.BigDecimal
@@ -11,8 +12,8 @@ import java.math.BigDecimal
 class BigDecimalAssertionsSpec : Spek({
     include(object : BigDecimalAssertionsSpec(
         fun1(Companion::toBeBigDecimal),
-        fun1(Companion::toBeNullable),
-        fun1(Companion::toBeNull),
+        fun1(Companion::toBeNullable).withNullableSuffix(),
+        fun1(Companion::toBeNull).withNullableSuffix(),
         Expect<Any>::toBe,
         fun1(Companion::notToBe),
         Expect<Any>::notToBe,

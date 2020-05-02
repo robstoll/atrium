@@ -166,6 +166,36 @@ fun <T, A1, R> unifySignatures(
     )
 }
 
+@JvmName("unifySignaturesSameReturn0")
+fun <T> unifySignatures(
+    f0: Feature0<T, T>,
+    f1: Fun1<T, Expect<T>.() -> Unit>
+): List<Triple<String, Expect<T>.(Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
+    listOf(
+        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f1.name, f1.lambda, true)
+    )
+
+@JvmName("unifySignaturesSameReturn1")
+fun <T, A1> unifySignatures(
+    f0: Feature1<T, A1, T>,
+    f1: Fun2<T, A1, Expect<T>.() -> Unit>
+): List<Triple<String, Expect<T>.(A1, Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
+    listOf(
+        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f1.name, f1.lambda, true)
+    )
+
+@JvmName("unifySignaturesSameReturn2")
+fun <T, A1, A2> unifySignatures(
+    f0: Feature2<T, A1, A2, T>,
+    f1: Fun3<T, A1, A2, Expect<T>.() -> Unit>
+): List<Triple<String, Expect<T>.(A1, A2, Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
+    listOf(
+        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f1.name, f1.lambda, true)
+    )
+
 @Suppress("UNCHECKED_CAST")
 fun <F> uncheckedToNonNullable(f: List<F>, fNullable: List<Any>): List<F> = f + (fNullable as List<F>)
 

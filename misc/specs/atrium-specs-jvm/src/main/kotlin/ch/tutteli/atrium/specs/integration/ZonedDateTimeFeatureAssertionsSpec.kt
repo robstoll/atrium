@@ -8,17 +8,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.AssertionCreatorSpec
-import ch.tutteli.atrium.specs.Feature0
-import ch.tutteli.atrium.specs.Fun1
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.adjustName
-import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.forAssertionCreatorSpec
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.lambda
-import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.specs.toBeDescr
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -51,13 +41,13 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
     include(object : AssertionCreatorSpec<ZonedDateTime>(
         describePrefix, ZonedDateTime.now().withYear(2040).withDayOfYear(1).withDayOfMonth(15),
         year.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(2040) },
-        month.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(1)},
-        day.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(15)},
-        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") {toBe(DayOfWeek.SUNDAY)}
+        month.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
+        day.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(15) },
+        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(DayOfWeek.SUNDAY) }
     ) {})
 
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val fluent = expect(ZonedDateTime.now().withMonth(5).withYear(2009).withDayOfMonth(15))
     val monthDescr = DescriptionDateTimeLikeAssertion.MONTH.getDefault()
@@ -65,138 +55,78 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
     val dayOfWeekDescr = DescriptionDateTimeLikeAssertion.DAY_OF_WEEK.getDefault()
     val dayDescr = DescriptionDateTimeLikeAssertion.DAY.getDefault()
 
-    describeFun("val ${yearFeature.name}") {
-        val yearVal = yearFeature.lambda
+    describeFun(yearFeature, year) {
+        val yearFunctions = unifySignatures(yearFeature, year)
 
         context("ZonedDateTime with year 2009") {
-            it("toBe(2009) holds") {
-                fluent.yearVal().toBe(2009)
-            }
-            it("toBe(2019) fails") {
-                expect {
-                    fluent.yearVal().toBe(2019)
-                }.toThrow<AssertionError> {
-                    messageContains("$yearDescr: 2009")
+            yearFunctions.forEach { (name, yearFun, _) ->
+                it("$name - is greater than 2009 holds") {
+                    fluent.yearFun { isGreaterThan(2008) }
+                }
+                it("$name - is less than 2009 fails") {
+                    expect {
+                        fluent.yearFun { isLessThan(2009) }
+                    }.toThrow<AssertionError> {
+                        messageContains("$yearDescr: 2009")
+                    }
                 }
             }
         }
     }
 
-    describeFun("fun ${year.name}") {
-        val yearFun = year.lambda
-
-        context("ZonedDateTime with year 2009") {
-            it("is greater than 2009 holds") {
-                fluent.yearFun { isGreaterThan(2008) }
-            }
-            it("is less than 2009 fails") {
-                expect {
-                    fluent.yearFun { isLessThan(2009) }
-                }.toThrow<AssertionError> {
-                    messageContains("$yearDescr: 2009")
-                }
-            }
-        }
-    }
-
-
-    describeFun("val ${monthFeature.name}") {
-        val monthVal = monthFeature.lambda
+    describeFun(monthFeature, month) {
+        val monthFunctions = unifySignatures(monthFeature, month)
 
         context("ZonedDateTime with month May(5)") {
-            it("toBe(May) holds") {
-                fluent.monthVal().toBe(5)
-            }
-            it("toBe(March) fails") {
-                expect {
-                    fluent.monthVal().toBe(3)
-                }.toThrow<AssertionError> {
-                    messageContains("$monthDescr: 5" )
+            monthFunctions.forEach { (name, monthFun, _) ->
+                it("$name - is greater than February(2) holds") {
+                    fluent.monthFun { isGreaterThan(2) }
+                }
+                it("$name - is less than 5 fails") {
+                    expect {
+                        fluent.monthFun { isLessThan(5) }
+                    }.toThrow<AssertionError> {
+                        messageContains("$monthDescr: 5")
+                    }
                 }
             }
         }
     }
 
-    describeFun("fun ${month.name}") {
-        val monthFun = month.lambda
 
-        context(  "ZonedDateTime with month May(5)") {
-            it("is greater than February(2) holds") {
-                fluent.monthFun { isGreaterThan(2) }
-            }
-            it("is less than 5 fails") {
-                expect {
-                    fluent.monthFun { isLessThan(5) }
-                }.toThrow<AssertionError> {
-                    messageContains("$monthDescr: 5")
-                }
-            }
-        }
-    }
-
-    describeFun("val ${dayFeature.name}") {
-        val dayVal = dayFeature.lambda
+    describeFun(dayFeature, day) {
+        val dayFunctions = unifySignatures(dayFeature, day)
 
         context("LocalDate with day of month 15") {
-            it("toBe(15) holds") {
-                fluent.dayVal().toBe(15)
-            }
-            it("toBe(20) fails") {
-                expect {
-                    fluent.dayVal().toBe(20)
-                }.toThrow<AssertionError> {
-                    messageContains("$dayDescr: 15" )
+            dayFunctions.forEach { (name, dayFun, _) ->
+                it("$name - is greater than 5 holds") {
+                    fluent.dayFun { isGreaterThan(5) }
+                }
+                it("$name - is less than 5 fails") {
+                    expect {
+                        fluent.dayFun { isLessThan(5) }
+                    }.toThrow<AssertionError> {
+                        messageContains("$dayDescr: 15")
+                    }
                 }
             }
         }
     }
 
-    describeFun("fun ${day.name}") {
-        val dayOfMonthFun = day.lambda
-
-        context("LocalDate with day of month 15") {
-            it("is greater than 5 holds") {
-                fluent.dayOfMonthFun { isGreaterThan(5) }
-            }
-            it("is less than 5 fails") {
-                expect {
-                    fluent.dayOfMonthFun { isLessThan(5) }
-                }.toThrow<AssertionError> {
-                    messageContains("$dayDescr: 15" )
-                }
-            }
-        }
-    }
-
-    describeFun("val ${dayOfWeekFeature.name}") {
-        val dayOfWeekVal = dayOfWeekFeature.lambda
+    describeFun(dayOfWeekFeature, dayOfWeek) {
+        val dayOfWeekFunctions = unifySignatures(dayOfWeekFeature, dayOfWeek)
 
         context("ZonedDateTime with day of week Friday(5)") {
-            it("toBe(Friday) holds") {
-                fluent.dayOfWeekVal().toBe(DayOfWeek.FRIDAY)
-            }
-            it("toBe(Monday) fails") {
-                expect {
-                    fluent.dayOfWeekVal().toBe(DayOfWeek.MONDAY)
-                }.toThrow<AssertionError> {
-                    messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}" )
+            dayOfWeekFunctions.forEach { (name, dayOfWeekFun, _) ->
+                it("$name - is greater than Monday(1) holds") {
+                    fluent.dayOfWeekFun { isGreaterThan(DayOfWeek.MONDAY) }
                 }
-            }
-        }
-    }
-
-    describeFun("fun ${dayOfWeek.name}") {
-        val dayOfWeekFun = dayOfWeek.lambda
-
-        context(  "ZonedDateTime with day of week Friday(5)") {
-            it("is greater than Monday(1) holds") {
-                fluent.dayOfWeekFun { isGreaterThan(DayOfWeek.MONDAY) }
-            }
-            it("is less than Friday(5) fails") {
-                expect {
-                    fluent.dayOfWeekFun { isLessThan(DayOfWeek.FRIDAY) }
-                }.toThrow<AssertionError> {
-                    messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}" )
+                it("$name - is less than Friday(5) fails") {
+                    expect {
+                        fluent.dayOfWeekFun { isLessThan(DayOfWeek.FRIDAY) }
+                    }.toThrow<AssertionError> {
+                        messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}")
+                    }
                 }
             }
         }
