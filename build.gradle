@@ -15,6 +15,7 @@ buildscript {
         niok_version = '1.3.4'
         niok = { "ch.tutteli.niok:niok:$niok_version" }
         kotlin_version = '1.3.72'
+        d8_version = '1.6.84'
 
         // test
         jacoco_tool_version = '0.8.5'
@@ -136,10 +137,12 @@ kotlinutils.kotlinVersion = kotlin_version
 repositories {
     mavenCentral()
     jcenter()
+    maven { url "https://maven.google.com/" }
 }
 
 configurations {
     dependabot
+    r8
 }
 
 dependencies {
@@ -153,6 +156,9 @@ dependencies {
 
     //TODO remove with 1.0.0
     dependabot "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
+
+    r8 "com.android.tools:r8:$d8_version"
+
 }
 
 subprojects {
@@ -536,20 +542,22 @@ configure(subprojects - getJsProjects()) { subproject ->
 }
 
 def checkDexer = task('checkDexer', description: 'compiles android class files into dex bytecode', dependsOn: compileKotlin) {
-    doFirst {
-        println "printing android projects:"
-        println "  - source projects: ${getAndroidProjects()*.name}"
-        println "========================================="
+    getAndroidProjects().each { p->
+        doLast {
+            javaexec {
+                def nameWithoutSuffix = p.name.substring(p.name.indexOf('-') + 1, p.name.lastIndexOf('-'))
+                def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
+                def jarToTest = "${jvmProject.projectDir}\\build\\libs\\*.jar"
+                mkdir "d8out/atrium-${nameWithoutSuffix}-${rootProject.version}"
+                classpath = configurations.r8
+                main = "com.android.tools.r8.D8"
+                args = ['--output' , "d8out/atrium-${nameWithoutSuffix}-${rootProject.version}", "${jarToTest}"]
+            }
+        }
     }
 }
 
-// configure(getAndroidProjects()) { project ->
-//     task checkDexer('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode', dependsOn: compileKotlin) {
-//         println project
-//     }
-// }
-
-check.dependsOn(checkDexer)
+// check.dependsOn(checkDexer)
 
 /*
 Release & deploy a commit
