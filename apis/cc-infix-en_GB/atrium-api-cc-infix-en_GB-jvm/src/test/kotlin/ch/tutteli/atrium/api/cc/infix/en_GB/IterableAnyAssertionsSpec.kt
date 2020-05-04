@@ -94,7 +94,7 @@ class IterableAnyAssertionsSpec : Spek({
         fun getContainsNullableShortcutPair() = containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant.asExpect().contains(a).asAssert()
+            = plant.asExpect().contains(asSubExpect(a)).asAssert()
 
 
         private fun getContainsSequencePair()

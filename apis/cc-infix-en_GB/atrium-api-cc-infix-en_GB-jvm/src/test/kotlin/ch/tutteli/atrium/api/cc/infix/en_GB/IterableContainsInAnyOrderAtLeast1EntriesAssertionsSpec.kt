@@ -9,6 +9,7 @@ import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.migration.asSubExpect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -63,7 +64,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 
         private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.asExpect().contains<Any?, Iterable<Double>>(a).asAssert()
+                plant.asExpect().contains(asSubExpect(a)).asAssert()
             } else {
                 plant.asExpect().contains<Any?, Iterable<Double>>(Entries(a, *aX)).asAssert()
             }
@@ -74,7 +75,7 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.asExpect().contains(a).asAssert()
+                plant.asExpect().contains(asSubExpect(a)).asAssert()
             } else {
                 plant.asExpect().contains(Entries(a, *aX)).asAssert()
             }
