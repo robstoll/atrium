@@ -3,8 +3,13 @@
 
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.containsNot
+import ch.tutteli.atrium.api.infix.en_GB.values
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import kotlin.reflect.KFunction2
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
@@ -20,9 +25,10 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.int
 
         private fun contains(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant contains a
+                plant.asExpect().contains(a).asAssert()
             } else {
-                plant contains Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect().contains(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
 
@@ -31,9 +37,10 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.int
 
         private fun containsNot(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant containsNot a
+                plant.asExpect().containsNot(a).asAssert()
             } else {
-                plant containsNot Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect().containsNot(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
     }

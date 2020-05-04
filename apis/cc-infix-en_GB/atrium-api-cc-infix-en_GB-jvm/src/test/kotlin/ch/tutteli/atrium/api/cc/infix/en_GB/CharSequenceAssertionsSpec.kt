@@ -5,7 +5,11 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Blank
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
@@ -30,9 +34,10 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
 
         private fun containsDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): Assert<CharSequence> {
             return if (otherExpected.isEmpty()) {
-                plant contains expected.getDefault()
+                plant.asExpect().contains(expected.getDefault()).asAssert()
             } else {
-                plant contains Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+                val values = Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+                plant.asExpect().contains(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
 
@@ -40,28 +45,30 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
             = "containsNotDefaultTranslationOf no longer in this API" to Companion::containsNotDefaultTranslationOf
 
 
-        private fun containsNotDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>)
-            = plant containsNot Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+        private fun containsNotDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): AssertionPlant<CharSequence> {
+            val values = Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+            return plant.asExpect().containsNot(values(values.expected, *values.otherExpected)).asAssert()
+        }
 
         fun toBeEmpty(plant: Assert<CharSequence>)
-            = plant toBe Empty
+            = plant.asExpect().toBe(empty).asAssert()
 
         fun notToBeEmpty(plant: Assert<CharSequence>)
-            = plant notToBe Empty
+            = plant.asExpect().notToBe(empty).asAssert()
 
         fun notToBeBlank(plant: Assert<CharSequence>)
-            = plant notToBe Blank
+            = plant.asExpect().notToBe(blank).asAssert()
 
         fun startsWith(plant: Assert<CharSequence>, expected: CharSequence)
-            = plant startsWith expected
+            = plant.asExpect().startsWith(expected).asAssert()
 
         fun startsNotWith(plant: Assert<CharSequence>, expected: CharSequence)
-            = plant startsNotWith expected
+            = plant.asExpect().startsNotWith(expected).asAssert()
 
         fun endsWith(plant: Assert<CharSequence>, expected: CharSequence)
-            = plant endsWith expected
+            = plant.asExpect().endsWith(expected).asAssert()
 
         fun endsNotWith(plant: Assert<CharSequence>, expected: CharSequence)
-            = plant endsNotWith expected
+            = plant.asExpect().endsNotWith(expected).asAssert()
     }
 }
