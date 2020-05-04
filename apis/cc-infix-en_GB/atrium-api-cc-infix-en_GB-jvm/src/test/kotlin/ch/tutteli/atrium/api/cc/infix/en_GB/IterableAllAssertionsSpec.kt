@@ -3,8 +3,12 @@
 
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.all
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.migration.asSubExpect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -34,6 +38,6 @@ class IterableAllAssertionsSpec: Spek({
         fun getAnyNullablePair() = anyNullableFun.name to Companion::allNullable
 
         private fun allNullable(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?) =
-            plant all a
+            plant.asExpect().all(asSubExpect(a)).asAssert()
     }
 }

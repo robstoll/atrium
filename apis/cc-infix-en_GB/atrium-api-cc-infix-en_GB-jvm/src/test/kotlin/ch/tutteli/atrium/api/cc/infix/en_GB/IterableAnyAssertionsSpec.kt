@@ -5,8 +5,13 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
+import ch.tutteli.atrium.api.infix.en_GB.any
+import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.migration.asSubExpect
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -57,13 +62,13 @@ class IterableAnyAssertionsSpec : Spek({
         fun getAnyPair() = anyFun.name to Companion::any
 
         private fun any(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
-            = plant any a
+            = plant.asExpect().any(asSubExpect(a)).asAssert()
 
         private val anyNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::any
         fun getAnyNullablePair() = anyNullableFun.name to Companion::anyNullable
 
         private fun anyNullable(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant any a
+            = plant.asExpect().any(asSubExpect(a)).asAssert()
 
 
         fun getContainsPair()
@@ -83,13 +88,13 @@ class IterableAnyAssertionsSpec : Spek({
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
         private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
-            = plant contains a
+            = plant.asExpect().contains<Any?, Iterable<Double>>(a).asAssert()
 
         private val containsShortcutNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
         fun getContainsNullableShortcutPair() = containsShortcutNullableFun.name to Companion::containsNullableEntriesShortcut
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant contains a
+            = plant.asExpect().contains(a).asAssert()
 
 
         private fun getContainsSequencePair()

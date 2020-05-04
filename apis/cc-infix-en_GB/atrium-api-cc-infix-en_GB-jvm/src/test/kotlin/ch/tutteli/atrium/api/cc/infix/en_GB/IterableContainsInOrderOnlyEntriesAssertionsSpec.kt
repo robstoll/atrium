@@ -6,7 +6,10 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
+import ch.tutteli.atrium.api.infix.en_GB.containsExactly
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -62,9 +65,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant containsExactly a
+                plant.asExpect().containsExactly<Any?, Iterable<Double>>(a).asAssert()
             } else {
-                plant containsExactly Entries(a, *aX)
+                plant.asExpect().containsExactly<Any?, Iterable<Double>>(Entries(a, *aX)).asAssert()
             }
         }
 
@@ -73,9 +76,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsStrictlyEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant containsExactly a
+                plant.asExpect().containsExactly(a).asAssert()
             } else {
-                plant containsExactly Entries(a, *aX)
+                plant.asExpect().containsExactly(Entries(a, *aX)).asAssert()
             }
         }
     }
