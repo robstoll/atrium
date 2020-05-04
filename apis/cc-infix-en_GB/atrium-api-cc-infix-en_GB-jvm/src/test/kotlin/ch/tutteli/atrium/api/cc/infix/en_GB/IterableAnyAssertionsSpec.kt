@@ -6,6 +6,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.api.infix.en_GB.any
+import ch.tutteli.atrium.api.infix.en_GB.atLeast
 import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -76,7 +77,7 @@ class IterableAnyAssertionsSpec : Spek({
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsInAnyOrderEntries
 
         private fun containsInAnyOrderEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
-            = plant.asExpect().contains(o) inAny order atLeast 1 entry a
+            = (plant.asExpect().contains(o) inAny order).atLeast(1) entry a
 
         fun getContainsNullablePair()
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsNullableEntries

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.notOrAtMost
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.api.infix.en_GB.o
@@ -27,7 +28,7 @@ class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec : ch.tutteli.atr
         )
 
         private fun containsNotOrAtMost(plant: Assert<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
-            = plant.asExpect().contains(o) inAny order notOrAtMost atMost the Values(a, *aX)
+            = (plant.asExpect().contains(o) inAny order).notOrAtMost(atMost) the Values(a, *aX)
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 

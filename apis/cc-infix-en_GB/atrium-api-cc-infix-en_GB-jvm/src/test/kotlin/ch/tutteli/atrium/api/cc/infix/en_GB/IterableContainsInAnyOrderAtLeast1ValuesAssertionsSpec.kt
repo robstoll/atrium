@@ -5,6 +5,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
+import ch.tutteli.atrium.api.infix.en_GB.atLeast
 import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asAssert
@@ -42,7 +43,7 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
 
         private fun containsValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.asExpect().contains(o) inAny order atLeast 1 value a
+                (plant.asExpect().contains(o) inAny order).atLeast(1) value a
             } else {
                 plant.asExpect().contains(o) inAny order atLeast 1 the Values(a, *aX)
             }

@@ -17,6 +17,13 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.atLeast(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.atLeast"
+    )
+)
 infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atLeast(times: Int): AtLeastCheckerOption<E, T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -35,6 +42,13 @@ infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Bu
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.butAtMost(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.butAtMost"
+    )
+)
 infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T, S>.butAtMost(times: Int): ButAtMostCheckerOption<E, T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -49,6 +63,13 @@ infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOptio
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.exactly(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.exactly"
+    )
+)
 infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.exactly(times: Int): ExactlyCheckerOption<E, T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -68,6 +89,13 @@ infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Bu
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.atMost(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.atMost"
+    )
+)
 infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atMost(times: Int): AtMostCheckerOption<E, T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -82,5 +110,12 @@ infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Bu
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.notOrAtMost(times)",
+        "ch.tutteli.atrium.api.infix.en_GB.notOrAtMost"
+    )
+)
 infix fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<E, T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)
