@@ -29,7 +29,6 @@ abstract class OptionalAssertionsSpec(
         isPresent.forAssertionCreatorSpec("$toBeDescr: 2") { toBe(2) }
     ) {})
 
-
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 

@@ -3,6 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.withFeatureSuffix
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.math.BigDecimal
@@ -10,8 +12,8 @@ import java.math.BigDecimal
 class BigDecimalAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.BigDecimalAssertionsSpec(
         @Suppress("DEPRECATION") fun1<BigDecimal, BigDecimal>(Expect<BigDecimal>::toBe),
-        @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toBe),
-        fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toBe),
+        @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toBe).withNullableSuffix(),
+        fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toBe).withNullableSuffix(),
         Expect<Any>::toBe,
         @Suppress("DEPRECATION") Expect<BigDecimal>::notToBe.name to @Suppress("DEPRECATION") Expect<BigDecimal>::notToBe,
         Expect<Any>::notToBe,
