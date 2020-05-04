@@ -5,6 +5,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.api.infix.en_GB.containsNot
+import ch.tutteli.atrium.api.infix.en_GB.values
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asAssert
@@ -26,7 +27,8 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.int
             return if (aX.isEmpty()) {
                 plant.asExpect().contains(a).asAssert()
             } else {
-                plant.asExpect().contains(Values(a, *aX)).asAssert()
+                val values = Values(a, *aX)
+                plant.asExpect().contains(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
 
@@ -37,7 +39,8 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.int
             return if (aX.isEmpty()) {
                 plant.asExpect().containsNot(a).asAssert()
             } else {
-                plant.asExpect().containsNot(Values(a, *aX)).asAssert()
+                val values = Values(a, *aX)
+                plant.asExpect().containsNot(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
     }
