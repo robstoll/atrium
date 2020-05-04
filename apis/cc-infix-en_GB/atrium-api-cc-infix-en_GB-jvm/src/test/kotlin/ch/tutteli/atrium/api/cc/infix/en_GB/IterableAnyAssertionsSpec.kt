@@ -16,6 +16,7 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
+import ch.tutteli.atrium.api.infix.en_GB.o
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableAnyAssertionsSpec : Spek({
@@ -75,13 +76,13 @@ class IterableAnyAssertionsSpec : Spek({
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsInAnyOrderEntries
 
         private fun containsInAnyOrderEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
-            = plant to contain inAny order atLeast 1 entry a
+            = plant.asExpect().contains(o) inAny order atLeast 1 entry a
 
         fun getContainsNullablePair()
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            = plant to contain inAny order atLeast 1 entry a
+            = plant.asExpect().contains(o) inAny order atLeast 1 entry a
 
 
         private val containsShortcutFun : KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains

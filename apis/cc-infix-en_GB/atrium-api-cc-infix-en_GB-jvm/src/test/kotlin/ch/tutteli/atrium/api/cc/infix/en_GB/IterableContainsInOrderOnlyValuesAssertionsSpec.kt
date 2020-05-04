@@ -10,6 +10,7 @@ import ch.tutteli.atrium.api.infix.en_GB.containsExactly
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.api.infix.en_GB.o
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -43,9 +44,9 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inGiven order and only value a
+                plant.asExpect().contains(o) inGiven order and only value a
             } else {
-                plant to contain inGiven order and only the Values(a, *aX)
+                plant.asExpect().contains(o) inGiven order and only the Values(a, *aX)
             }
         }
 
@@ -54,9 +55,9 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant to contain inGiven order and only value a
+                plant.asExpect().contains(o) inGiven order and only value a
             } else {
-                plant to contain inGiven order and only the Values(a, *aX)
+                plant.asExpect().contains(o) inGiven order and only the Values(a, *aX)
             }
         }
 

@@ -26,6 +26,16 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.o)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     = AssertImpl.iterable.containsBuilder(this)
 
@@ -35,6 +45,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contai
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsNot(ch.tutteli.atrium.api.infix.en_GB.o)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.containsNot",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<E, T, NotSearchBehaviour>
     = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
