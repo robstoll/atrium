@@ -4,10 +4,17 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.infix.en_GB.containsNot
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
+import ch.tutteli.atrium.api.infix.en_GB.o
+import ch.tutteli.atrium.api.infix.en_GB.the
+import ch.tutteli.atrium.api.infix.en_GB.value
+import ch.tutteli.atrium.api.infix.en_GB.values
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsNotValuesAssertionsSpec : Spek({
@@ -39,9 +46,10 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant notTo contain value a
+                plant.asExpect().containsNot(o).value(a).asAssert()
             } else {
-                plant notTo contain the Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect().containsNot(o).the(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
 
@@ -49,9 +57,10 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant notTo contain value a
+                plant.asExpect().containsNot(o).value(a).asAssert()
             } else {
-                plant notTo contain the Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect().containsNot(o).the(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
 
@@ -60,9 +69,12 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant containsNot a
+                plant.asExpect().containsNot(a).asAssert()
             } else {
-                plant containsNot Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect()
+                    .containsNot(values(values.expected, *values.otherExpected))
+                    .asAssert()
             }
         }
     }

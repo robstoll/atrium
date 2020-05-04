@@ -5,10 +5,16 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
+import ch.tutteli.atrium.api.infix.en_GB.atLeast
+import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import org.jetbrains.spek.api.Spek
+import ch.tutteli.atrium.api.infix.en_GB.values
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
+import ch.tutteli.atrium.api.infix.en_GB.o
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
@@ -37,9 +43,9 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
 
         private fun containsValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order atLeast 1 value a
+                (plant.asExpect().contains(o) inAny order).atLeast(1) value a
             } else {
-                plant to contain inAny order atLeast 1 the Values(a, *aX)
+                plant.asExpect().contains(o) inAny order atLeast 1 the Values(a, *aX)
             }
         }
 
@@ -48,9 +54,9 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
 
         private fun containsNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order atLeast 1 value a
+                plant.asExpect().contains(o) inAny order atLeast 1 value a
             } else {
-                plant to contain inAny order atLeast 1 the Values(a, *aX)
+                plant.asExpect().contains(o) inAny order atLeast 1 the Values(a, *aX)
             }
         }
 
@@ -60,9 +66,12 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
 
         private fun contains(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant contains a
+                plant.asExpect().contains(a).asAssert()
             } else {
-                plant contains Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect()
+                    .contains(values(values.expected, *values.otherExpected))
+                    .asAssert()
             }
         }
 
@@ -71,9 +80,10 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
 
         private fun containsNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant contains a
+                plant.asExpect().contains(a).asAssert()
             } else {
-                plant contains Values(a, *aX)
+                val values = Values(a, *aX)
+                plant.asExpect().contains(values(values.expected, *values.otherExpected)).asAssert()
             }
         }
     }

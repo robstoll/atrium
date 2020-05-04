@@ -5,7 +5,12 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
+import ch.tutteli.atrium.api.infix.en_GB.atLeast
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.api.infix.en_GB.o
+import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.butAtMost
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
@@ -28,9 +33,9 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.
 
         private fun containsAtLeast(plant: Assert<Iterable<Double>>, atLeast: Int, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order atLeast atLeast value a
+                plant.asExpect().contains(o) inAny order atLeast atLeast value a
             } else {
-                plant to contain inAny order atLeast atLeast the Values(a, *aX)
+                plant.asExpect().contains(o) inAny order atLeast atLeast the Values(a, *aX)
             }
         }
 
@@ -42,16 +47,16 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.
 
         private fun containsAtLeastButAtMost(plant: Assert<Iterable<Double>>, atLeast: Int, butAtMost: Int, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order atLeast atLeast butAtMost butAtMost value a
+                (plant.asExpect().contains(o) inAny order).atLeast(atLeast) butAtMost butAtMost value a
             } else {
-                plant to contain inAny order atLeast atLeast butAtMost butAtMost the Values(a, *aX)
+                plant.asExpect().contains(o) inAny order atLeast atLeast butAtMost butAtMost the Values(a, *aX)
             }
         }
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            = "use $containsNotValues instead of `$atLeast $times`"
+            = "use `$containsNotValues` instead of `$atLeast $times`"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 

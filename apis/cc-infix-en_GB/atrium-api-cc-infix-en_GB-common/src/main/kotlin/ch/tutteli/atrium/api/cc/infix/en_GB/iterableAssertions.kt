@@ -26,6 +26,16 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.o)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     = AssertImpl.iterable.containsBuilder(this)
 
@@ -35,6 +45,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contai
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsNot(ch.tutteli.atrium.api.infix.en_GB.o)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.containsNot",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<E, T, NotSearchBehaviour>
     = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
@@ -46,6 +66,15 @@ infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") con
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().contains(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
     = o to contain inAny order atLeast 1 value expected
 
@@ -68,6 +97,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.api.infix.en_GB.values",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionPlant<T>
     = o to contain inAny order atLeast 1 the values
 
@@ -85,6 +124,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionP
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().contains(asSubExpect(assertionCreatorOrNull)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.contains"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = o to contain inAny order atLeast 1 entry assertionCreatorOrNull
 
@@ -100,6 +149,15 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull:
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().contains(entries).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E>): AssertionPlant<T>
     = o to contain inAny order atLeast 1 the entries
 
@@ -113,6 +171,15 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E>): A
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsExactly(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.containsExactly",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(expected: E): AssertionPlant<T>
     = o to contain inGiven order and only value expected
 
@@ -125,6 +192,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(expected: E): Assertion
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsExactly(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.containsExactly",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>): AssertionPlant<T>
     = o to contain inGiven order and only the values
 
@@ -142,6 +219,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>): Ass
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsExactly(asSubExpect(assertionCreatorOrNull)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.fluent.en_GB.containsExactly"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = o to contain inGiven order and only entry assertionCreatorOrNull
 
@@ -158,6 +245,15 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsExactly(entries).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.containsExactly",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(entries: Entries<E>): AssertionPlant<T>
     = o to contain inGiven order and only the entries
 
@@ -170,6 +266,15 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(entries: Entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsNot(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.containsNot",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlant<T>
     = o notTo contain value expected
 
@@ -181,6 +286,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlan
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().containsNot(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.containsNot",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.values"
+    )
+)
 infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): AssertionPlant<T>
     = o notTo contain the values
 
@@ -195,6 +310,16 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().any(asSubExpect(assertionCreatorOrNull)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.any"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.any(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = o to contain inAny order atLeast 1 entry assertionCreatorOrNull
 
@@ -209,6 +334,16 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.any(assertionCreatorOrNull: (Ass
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().none(asSubExpect(assertionCreatorOrNull)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.none"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.none(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = o notTo contain entry assertionCreatorOrNull
 
@@ -222,5 +357,15 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.none(assertionCreatorOrNull: (As
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().all(asSubExpect(assertionCreatorOrNull)).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.all"
+    )
+)
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.all(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
     = addAssertion(AssertImpl.iterable.all(this, assertionCreatorOrNull))

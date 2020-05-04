@@ -3,9 +3,12 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.*
+import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.infix.en_GB.o
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
@@ -25,7 +28,7 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
             a2: Group<(Assert<Double>.() -> Unit)?>,
             aX: Array<out Group<(Assert<Double>.() -> Unit)?>>
         ): Assert<Iterable<Double?>> {
-            return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
+            return plant.asExpect().contains(o) inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
         }
 
         private fun groupFactory(groups: Array<out (Assert<Double>.() -> Unit)?>): Group<(Assert<Double>.() -> Unit)?> {

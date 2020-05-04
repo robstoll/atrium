@@ -5,7 +5,13 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.infix.en_GB.containsNot
+import ch.tutteli.atrium.api.infix.en_GB.entry
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.api.infix.en_GB.o
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.migration.asSubExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsNotEntriesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotEntriesAssertionsSpec(
@@ -21,9 +27,9 @@ class IterableContainsNotEntriesAssertionsSpec : ch.tutteli.atrium.spec.integrat
 
         private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant notTo contain entry a
+                plant.asExpect().containsNot(o).entry(asSubExpect(a)).asAssert()
             } else {
-                plant notTo contain the Entries(a, *aX)
+                plant.asExpect().containsNot(o) the Entries(a, *aX)
             }
         }
 
@@ -31,9 +37,9 @@ class IterableContainsNotEntriesAssertionsSpec : ch.tutteli.atrium.spec.integrat
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant notTo contain entry  a
+                plant.asExpect().containsNot(o).entry(asSubExpect(a)).asAssert()
             } else {
-                plant notTo contain the Entries(a, *aX)
+                plant.asExpect().containsNot(o) the Entries(a, *aX)
             }
         }
     }
