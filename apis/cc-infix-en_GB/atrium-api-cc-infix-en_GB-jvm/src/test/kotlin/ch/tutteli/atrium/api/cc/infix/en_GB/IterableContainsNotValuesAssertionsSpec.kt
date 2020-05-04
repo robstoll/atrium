@@ -11,6 +11,7 @@ import ch.tutteli.atrium.domain.builders.migration.asExpect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
+import ch.tutteli.atrium.api.infix.en_GB.o
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsNotValuesAssertionsSpec : Spek({
@@ -42,9 +43,9 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant notTo contain value a
+                plant.asExpect().containsNot(o) value a
             } else {
-                plant notTo contain the Values(a, *aX)
+                plant.asExpect().containsNot(o) the Values(a, *aX)
             }
         }
 
@@ -52,9 +53,9 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant notTo contain value a
+                plant.asExpect().containsNot(o) value a
             } else {
-                plant notTo contain the Values(a, *aX)
+                plant.asExpect().containsNot(o) the Values(a, *aX)
             }
         }
 
