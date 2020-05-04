@@ -29,7 +29,7 @@ class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec : ch.tutteli.atr
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            = "use $containsNotValues instead of `$notOrAtMost $times`"
+            = "use `$containsNotValues` instead of `$notOrAtMost $times`"
 
     }
 }
