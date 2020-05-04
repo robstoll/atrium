@@ -541,21 +541,56 @@ configure(subprojects - getJsProjects()) { subproject ->
     }
 }
 
-def checkDexer = task('checkDexer', description: 'compiles android class files into dex bytecode', dependsOn: compileKotlin) {
-    getAndroidProjects().each { p->
-        doLast {
-            javaexec {
-                def nameWithoutSuffix = p.name.substring(p.name.indexOf('-') + 1, p.name.lastIndexOf('-'))
-                def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
-                def jarToTest = "${jvmProject.projectDir}\\build\\libs\\*.jar"
-                mkdir "d8out/atrium-${nameWithoutSuffix}-${rootProject.version}"
-                classpath = configurations.r8
-                main = "com.android.tools.r8.D8"
-                args = ['--output' , "d8out/atrium-${nameWithoutSuffix}-${rootProject.version}", "${jarToTest}"]
+def dexerProjects = getAndroidProjects().findAll {
+    !it.name.contains("-specs-")
+}
+
+configure(dexerProjects) { subproject ->
+    afterEvaluate {
+        def checkDexer = task('checkDexer', type: JavaExec, description: 'compiles android project jar file into dex bytecode', dependsOn: jar) {
+            doFirst {
+                mkdir "${subproject.buildDir}/kotlin/d8"
             }
+
+            classpath = rootProject.configurations.r8
+            main = "com.android.tools.r8.D8"
+            args = ['--output', "${subproject.buildDir}/kotlin/d8", subproject.jar.archiveFile.get().asFile]
+        }
+        subproject.check.dependsOn(checkDexer)
+    }
+}
+
+task('checkDexer',  description: 'executes all checkDexer tasks') {
+
+    doFirst {
+        if (dexerProjects.size() == 0) {
+            throw new GradleException("env variable CI not set and hence no android projects included. Use e.g. `CI=true gradlew checkDexer`")
+        }
+    }
+
+    dexerProjects.forEach { subproject ->
+        subproject.afterEvaluate {
+            dependsOn subproject.tasks.getByName("checkDexer")
         }
     }
 }
+
+// def checkDexer = task('checkDexer', description: 'compiles android projects jar files into dex bytecode', dependsOn: jar) {
+//     getAndroidProjects().each { p->
+//         doLast {
+//             javaexec {
+//                 def nameWithoutSuffix = p.name.substring(p.name.indexOf('-') + 1, p.name.lastIndexOf('-'))
+//                 def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
+//                 def jarToTest = "${jvmProject.projectDir}\\build\\libs\\*.jar"
+//                 //mkdir "d8out/atrium-${nameWithoutSuffix}-${rootProject.version}"
+//                 mkdir "${p.buildDir}/kotlin/d8"
+//                 classpath = configurations.r8
+//                 main = "com.android.tools.r8.D8"
+//                 args = ['--output' , "d8out/atrium-${nameWithoutSuffix}-${rootProject.version}", "${jarToTest}"]
+//             }
+//         }
+//     }
+// }
 
 // check.dependsOn(checkDexer)
 
