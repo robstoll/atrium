@@ -137,12 +137,10 @@ kotlinutils.kotlinVersion = kotlin_version
 repositories {
     mavenCentral()
     jcenter()
-    maven { url "https://maven.google.com/" }
 }
 
 configurations {
     dependabot
-    r8
 }
 
 dependencies {
@@ -156,8 +154,6 @@ dependencies {
 
     //TODO remove with 1.0.0
     dependabot "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
-
-    r8 "com.android.tools:r8:$d8_version"
 
 }
 
@@ -546,11 +542,21 @@ def dexerProjects = getAndroidProjects().findAll {
 }
 
 configure(dexerProjects) { subproject ->
+    repositories {
+        maven { url "https://maven.google.com/" }
+    }
+
+    configurations {
+        r8
+    }
+
+    dependencies {
+        r8 "com.android.tools:r8:$d8_version"
+    }
+
     afterEvaluate {
         def checkDexer = task('checkDexer', type: JavaExec, description: 'compiles android project jar file into dex bytecode', dependsOn: jar) {
-            doFirst {
-                mkdir "${subproject.buildDir}/kotlin/d8"
-            }
+            outputs.dir("${subproject.buildDir}/kotlin/d8")
 
             //accessing subproject.configurations.implementation.asPath failed due to it not being configurable as resolvable
             // following this thread I came up with the solution below to get the paths of each jar dependencies
@@ -570,7 +576,7 @@ configure(dexerProjects) { subproject ->
             //rt.jar is required as classpath for java.lang.* classes
             classPaths += ['--classpath', "${System.getProperty('java.home')}/lib/rt.jar"]
 
-            classpath = rootProject.configurations.r8
+            classpath = configurations.r8
             main = "com.android.tools.r8.D8"
             args = ['--output', "${subproject.buildDir}/kotlin/d8", subproject.jar.archiveFile.get().asFile] + classPaths
         }
