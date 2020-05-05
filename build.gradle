@@ -552,9 +552,27 @@ configure(dexerProjects) { subproject ->
                 mkdir "${subproject.buildDir}/kotlin/d8"
             }
 
+            //accessing subproject.configurations.implementation.asPath failed due to it not being configurable as resolvable
+            // following this thread I came up with the solution below to get the paths of each jar dependencies
+            // https://discuss.gradle.org/t/converting-maven-plugin-to-gradle-plugin/35863/9
+            def classPaths = []
+            subproject.configurations.each { conf ->
+                if (conf.name.endsWith("implementation")) {
+                    def copiedConfiguration = conf.copyRecursive();
+                    copiedConfiguration.setCanBeResolved(true);
+                    copiedConfiguration.asPath.split(';').each { path ->
+                        classPaths += ['--classpath', path]
+                    }
+                }
+            }
+            // classPaths += ['--classpath', "c:/Program Files (x86)/Java/jre1.8.0_241/lib/rt.jar"]
+
+            //rt.jar is required as classpath for java.lang.* classes
+            classPaths += ['--classpath', "${System.getProperty('java.home')}/lib/rt.jar"]
+
             classpath = rootProject.configurations.r8
             main = "com.android.tools.r8.D8"
-            args = ['--output', "${subproject.buildDir}/kotlin/d8", subproject.jar.archiveFile.get().asFile]
+            args = ['--output', "${subproject.buildDir}/kotlin/d8", subproject.jar.archiveFile.get().asFile] + classPaths
         }
         subproject.check.dependsOn(checkDexer)
     }
