@@ -14,6 +14,7 @@ import ch.tutteli.atrium.api.infix.en_GB.o
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
+import ch.tutteli.atrium.api.infix.en_GB.contains
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
