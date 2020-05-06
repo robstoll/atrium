@@ -18,9 +18,9 @@ jobs:
                     java-version: ${{ matrix.java_version }}
             -   name: check dexer
                 run: |
-                    curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-24sha/android.jar?raw=true"
+                    Invoke-WebRequest -Uri "https://github.com/Sable/android-platforms/blob/master/android-24/android.jar?raw=true" -OutFile "./android.jar"
                     $file_sha256 = $(certutil -hashfile android.jar sha256)[1] -replace " ",""
-                    if ($file_sha256 -Eq "4c438bf1b3d4e6104faccc62e1ffe95ef197b88055497b540a871349e93c8685") {
+                    if ($file_sha256 -Ne "4c438bf1b3d4e6104faccc62e1ffe95ef197b88055497b540a871349e93c8685") {
                         exit -1
                     }
                     ./gradlew checkDexer
