@@ -18,18 +18,15 @@ jobs:
                     java-version: ${{ matrix.java_version }}
             -   name: check dexer
                 run: |
-                    Invoke-WebRequest -Uri "https://github.com/Sable/android-platforms/blob/master/android-24/android.jar?raw=true" -OutFile "./android.jar"
+                    curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-24/android.jar?raw=true"
                     $file_sha256 = $(certutil -hashfile android.jar sha256)[1] -replace " ",""
                     if ($file_sha256 -Ne "4c438bf1b3d4e6104faccc62e1ffe95ef197b88055497b540a871349e93c8685") {
                         exit -1
                     }
-                    Write-Host "android.jar downloaded"
-                    ls
                     ./gradlew checkDexer
                 env:
                     CI: true
                     ATRIUM_ANDROID_JAR: android.jar
-                shell: powershell
             -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm
                 env:
