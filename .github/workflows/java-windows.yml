@@ -23,6 +23,8 @@ jobs:
                     if ($file_sha256 -Ne "4c438bf1b3d4e6104faccc62e1ffe95ef197b88055497b540a871349e93c8685") {
                         exit -1
                     }
+                    Write-Host "android.jar downloaded"
+                    ls
                     ./gradlew checkDexer
                 env:
                     CI: true
