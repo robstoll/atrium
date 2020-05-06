@@ -16,6 +16,14 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
+            -   name: check dexer
+                run: |
+                    $client = new-object System.Net.WebClient
+                    $client.DownloadFile("https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true", "./android.jar")
+                    ./gradlew checkDexer
+                env:
+                    CI: true
+                    ATRIUM_ANDROID_JAR: ./android.jar
             -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm
                 env:
@@ -28,15 +36,6 @@ jobs:
                     flags: current_windows
                     # too many timeout errors, let's not fail at the moment
                     #fail_ci_if_error: true
-
-            -   name: check dexer
-                run: |
-                    $client = new-object System.Net.WebClient
-                    $client.DownloadFile("https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true", "android.jar")
-                    ./gradlew checkDexer
-                env:
-                    CI: true
-                    ATRIUM_ANDROID_JAR: ./android.jar
 
             -   name: build jasmine sample
                 run: samples\js\jasmine\gradlew -p samples\js\jasmine build
