@@ -16,6 +16,10 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
+            -   name: buildNonDeprecatedJvm
+                run: ./gradlew buildNonDeprecatedJvm
+                env:
+                  CI: true
             -   name: check dexer
                 run: |
                     curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-26/android.jar?raw=true"
@@ -27,10 +31,6 @@ jobs:
                 env:
                     CI: true
                     ATRIUM_ANDROID_JAR: android.jar
-            -   name: buildNonDeprecatedJvm
-                run: ./gradlew buildNonDeprecatedJvm
-                env:
-                  CI: true
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1
                 with:
