@@ -29,6 +29,15 @@ jobs:
                     # too many timeout errors, let's not fail at the moment
                     #fail_ci_if_error: true
 
+            -   name: check dexer
+                run: |
+                    $client = new-object System.Net.WebClient
+                    $client.DownloadFile("https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true", "android.jar")
+                    ./gradlew checkDexer
+                env:
+                    CI: true
+                    ATRIUM_ANDROID_JAR: ./android.jar
+
             -   name: build jasmine sample
                 run: samples\js\jasmine\gradlew -p samples\js\jasmine build
 
@@ -48,13 +57,3 @@ jobs:
                 run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build
                 env:
                     ATRIUM_ANDROID_JAR: ./android.jar
-
-            -   name: check dexer
-                run: |
-                    wget "https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true" -P "./android.jar"
-                    ./gradlew checkDexer
-                shell: bash
-                env:
-                    CI: true
-                    ATRIUM_ANDROID_JAR: ./android.jar
-
