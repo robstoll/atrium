@@ -540,6 +540,10 @@ configure(subprojects - getJsProjects()) { subproject ->
 def dexerProjects = getAndroidProjects().findAll {
     !it.name.contains("-specs-")
 }
+
+def buildAndroidProjects = task('buildAndroidProjects', group: build, description: 'builds all android projects')
+buildAndroidProjects.dependsOn(dexerProjects.collect { it.build })
+
 configure(dexerProjects) { subproject ->
     configurations {
         r8
