@@ -28,7 +28,7 @@ jobs:
                     ./gradlew checkDexer
                 env:
                     CI: true
-                    ATRIUM_ANDROID_JAR: ./android.jar
+                    ATRIUM_ANDROID_JAR: android.jar
                 shell: powershell
             -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm

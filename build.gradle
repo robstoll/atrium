@@ -568,13 +568,12 @@ configure(dexerProjects) { subproject ->
 
             // ATRIUM_ANDROID_JAR has to point to something like android-sdk-linux/platforms/android-XY/android.jar
             // where Xy is the version we want to support
-            def androidJar = androidJarPath != null ? ['--lib', "${androidJarPath}"] : []
+            def androidJar = androidJarPath != null ? ['--lib', "${rootProject.projectDir}/${androidJarPath}"] : []
 
             args = d8Classpath + androidJar + [
                 '--output', "${subproject.buildDir}/kotlin/d8",
                 jar.archiveFile.get().asFile
             ]
-            println "args: ${args}"
         }
     }
 }
