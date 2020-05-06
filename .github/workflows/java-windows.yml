@@ -20,6 +20,7 @@ jobs:
                 run: ./gradlew buildNonDeprecatedJvm
                 env:
                   CI: true
+                  ATRIUM_ANDROID_JAR: ./android.jar
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1
                 with:
@@ -45,3 +46,13 @@ jobs:
 
             -   name: composite build atrium-samples
                 run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build
+
+            -   name: check dexer
+                run: |
+                    wget "https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true" -P "./android.jar"
+                    ./gradlew checkDexer
+                shell: bash
+                env:
+                    CI: true
+                    ATRIUM_ANDROID_JAR: ./android.jar
+

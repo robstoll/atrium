@@ -540,50 +540,39 @@ configure(subprojects - getJsProjects()) { subproject ->
 def dexerProjects = getAndroidProjects().findAll {
     !it.name.contains("-specs-")
 }
-
 configure(dexerProjects) { subproject ->
-    repositories {
-        maven { url "https://maven.google.com/" }
-    }
-
     configurations {
         r8
+        d8
     }
-
+    repositories{
+        google()
+    }
     dependencies {
         r8 "com.android.tools:r8:$d8_version"
+        d8 subproject
     }
 
     afterEvaluate {
-        def checkDexer = task('checkDexer', type: JavaExec, description: 'compiles android project jar file into dex bytecode', dependsOn: jar) {
+        def checkDexer = task('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode', dependsOn: jar) {
             outputs.dir("${subproject.buildDir}/kotlin/d8")
 
-            //accessing subproject.configurations.implementation.asPath failed due to it not being configurable as resolvable
-            // following this thread I came up with the solution below to get the paths of each jar dependencies
-            // https://discuss.gradle.org/t/converting-maven-plugin-to-gradle-plugin/35863/9
-            def classPaths = []
-            subproject.configurations.each { conf ->
-                if (conf.name.endsWith("implementation")) {
-                    def copiedConfiguration = conf.copyRecursive();
-                    copiedConfiguration.setCanBeResolved(true);
-                    copiedConfiguration.asPath.split(';').each { path ->
-                        classPaths += ['--classpath', path]
-                    }
-                }
-            }
-            // classPaths += ['--classpath', "c:/Program Files (x86)/Java/jre1.8.0_241/lib/rt.jar"]
-
-            //rt.jar is required as classpath for java.lang.* classes
-            classPaths += ['--classpath', "${System.getProperty('java.home')}/lib/rt.jar"]
-
-            classpath = configurations.r8
+            classpath subproject.configurations.r8.asPath
             main = "com.android.tools.r8.D8"
-            args = ['--output', "${subproject.buildDir}/kotlin/d8", subproject.jar.archiveFile.get().asFile] + classPaths
+
+            def d8Classpath = subproject.configurations.d8.files.collect {
+                ["--classpath", it.getAbsolutePath()]
+            }.flatten()
+
+            args = d8Classpath + [
+                // ATRIUM_ANDROID_JAR has to point to something like android-sdk-linux/platforms/android-XY/android.jar where Xy is the version we want to support
+                '--lib', System.getenv('ATRIUM_ANDROID_JAR'),
+                '--output', "${subproject.buildDir}/kotlin/d8",
+                jar.archiveFile.get().asFile
+            ]
         }
-        subproject.check.dependsOn(checkDexer)
     }
 }
-
 task('checkDexer',  description: 'executes all checkDexer tasks') {
 
     doFirst {
