@@ -17,10 +17,8 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
             -   name: check dexer
-                run: |
-                    $client = new-object System.Net.WebClient
-                    $client.DownloadFile("https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true", "./android.jar")
-                    ./gradlew checkDexer
+                run: Invoke-WebRequest -Uri "https://github.com/Sable/android-platforms/blob/master/android-28/android.jar?raw=true" -OutFile "./android.jar"
+                run: ./gradlew checkDexer
                 env:
                     CI: true
                     ATRIUM_ANDROID_JAR: ./android.jar
