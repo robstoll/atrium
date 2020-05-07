@@ -27,7 +27,7 @@ jobs:
                     if ($file_sha256 -Ne "cdc1846376a14b0370cc63454a129606b4a52cc50ada75ef0d4cf956b1ad2daa") {
                         exit -1
                     }
-                    ./gradlew buildAndroidProjects checkDexer
+                    ./gradlew checkDexer
                 env:
                     CI: true
                     ATRIUM_ANDROID_JAR: android.jar
