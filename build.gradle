@@ -541,6 +541,8 @@ def dexerProjects = getAndroidProjects().findAll {
     !it.name.contains("-specs-")
 }
 
+def d8warningFound = false
+
 configure(dexerProjects) { subproject ->
     configurations {
         r8
@@ -575,6 +577,17 @@ configure(dexerProjects) { subproject ->
                 '--output', "${subproject.buildDir}/kotlin/d8",
                 jar.archiveFile.get().asFile
             ]
+
+            errorOutput = new ByteArrayOutputStream()
+            doLast {
+                if (errorOutput.toString() != "") {
+                    println errorOutput.toString()
+                }
+
+                if ((errorOutput.toString() != "") && (!d8warningFound)) {
+                    d8warningFound = true
+                }
+            }
         }
     }
 }
@@ -589,6 +602,12 @@ task('checkDexer',  description: 'executes all checkDexer tasks') {
     dexerProjects.forEach { subproject ->
         subproject.afterEvaluate {
             dependsOn subproject.tasks.getByName("checkDexer")
+        }
+    }
+
+    doLast {
+        if (d8warningFound) {
+            throw new GradleException("checkDexer process failed due to warning during execution")
         }
     }
 }
