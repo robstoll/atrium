@@ -12,3 +12,8 @@ dependencies {
 }
 
 srcAndResourcesFromJvmProject(project)
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').jar
+)

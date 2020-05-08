@@ -560,7 +560,7 @@ configure(dexerProjects) { subproject ->
     }
 
     afterEvaluate {
-        def checkDexer = task('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode', dependsOn: buildAndroidProjects) {
+        def checkDexer = task('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode', dependsOn: jar) {
             outputs.dir("${subproject.buildDir}/kotlin/d8")
 
             classpath subproject.configurations.r8.asPath
