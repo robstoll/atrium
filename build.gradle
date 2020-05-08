@@ -587,11 +587,18 @@ configure(dexerProjects) { subproject ->
 
             args = d8Classpath + androidJar + ['--output', outputPath, jar.archiveFile.get().asFile]
 
-            errorOutput = new ByteArrayOutputStream()
+            def oldStream = errorOutput
+            def outputWritten = false
+            errorOutput = new OutputStream() {
+                @Override
+                void write(int b) {
+                    outputWritten = true
+                    oldStream.write(b)
+                }
+            }
             doLast {
-                def output = errorOutput.toString()
-                if (!output.isEmpty()) {
-                    throw new GradleException("checkDexer failed due to output:\n" + output)
+                if (outputWritten) {
+                    throw new GradleException("checkDexer failed due to output, see above.")
                 }
             }
         }
@@ -600,7 +607,7 @@ configure(dexerProjects) { subproject ->
 def preCheckDexerProjects = task('preCheckDexerProjects', dependsOn: preCheck_ATRIUM_ANDROID_JAR) {
     doFirst {
         if (dexerProjects.size() == 0) {
-            throw new GradleException("env variable CI not set and hence no android projects included. Use e.g. `CI=true gradlew checkDexer`")
+            throw new InvalidUserDataException("env variable CI not set and hence no android projects included. Use e.g. `CI=true gradlew checkDexer`")
         }
     }
 }
