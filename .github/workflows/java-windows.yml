@@ -56,5 +56,3 @@ jobs:
 
             -   name: composite build atrium-samples
                 run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build
-                env:
-                    ATRIUM_ANDROID_JAR: ./android.jar
