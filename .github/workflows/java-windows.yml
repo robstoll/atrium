@@ -31,7 +31,7 @@ jobs:
                     }
 
             -   name: check Atrium's -android.jar can be dexed
-                run: ATRIUM_ANDROID_JAR="android.jar" ./gradlew checkDexer
+                run: ATRIUM_ANDROID_JAR="$PWD/android.jar" ./gradlew checkDexer
                 shell: bash
 
             -   name: Upload windows build code coverage
