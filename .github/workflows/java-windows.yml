@@ -16,10 +16,24 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
+
             -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm
-                env:
-                  CI: true
+
+            -   name: download Android SDK's android.jar
+                run: |
+                    curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-26/android.jar?raw=true"
+                    $file_sha256 = $(certutil -hashfile android.jar sha256)[1] -replace " ",""
+                    if ($file_sha256 -Ne "cdc1846376a14b0370cc63454a129606b4a52cc50ada75ef0d4cf956b1ad2daa") {
+                        echo "wrong sha256 for android.jar: $file_sha256";
+                        echo "                    expected: $expected_sha256";
+                        exit -1
+                    }
+
+            -   name: check Atrium's -android.jar can be dexed
+                run: ATRIUM_ANDROID_JAR="$PWD/android.jar" ./gradlew checkDexer
+                shell: bash
+
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1
                 with:
