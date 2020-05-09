@@ -15,6 +15,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
 import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.value
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
@@ -45,7 +46,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.asExpect().contains(o) inGiven order and only value a
+                (plant.asExpect().contains(o) inGiven order and only).value(a).asAssert()
             } else {
                 plant.asExpect().contains(o) inGiven order and only the Values(a, *aX)
             }
@@ -56,7 +57,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.asExpect().contains(o) inGiven order and only value a
+                (plant.asExpect().contains(o) inGiven order and only).value(a).asAssert()
             } else {
                 plant.asExpect().contains(o) inGiven order and only the Values(a, *aX)
             }
