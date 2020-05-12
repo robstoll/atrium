@@ -24,7 +24,7 @@ import kotlin.jvm.JvmName
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -54,7 +54,7 @@ infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -79,7 +79,7 @@ infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -102,7 +102,7 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
  *
  * @param entries The parameter object which contains the identification lambdas.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")

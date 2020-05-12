@@ -20,7 +20,7 @@ import kotlin.jvm.JvmName
  *
  * @param expected The nullable value which is expected to be contained within the [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -39,7 +39,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  *
  * @param values The nullable values which are expected to be contained within the [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -62,7 +62,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  *
  * @param assertionCreatorOrNull The identification lambda.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -88,7 +88,7 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
  *
  * @param entries The parameter object containing the identification lambdas.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress("DEPRECATION")

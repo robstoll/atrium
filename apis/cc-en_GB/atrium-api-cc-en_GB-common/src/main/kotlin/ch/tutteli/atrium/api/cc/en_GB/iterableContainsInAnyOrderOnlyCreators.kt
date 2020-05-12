@@ -25,7 +25,7 @@ import kotlin.jvm.JvmName
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -47,7 +47,7 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeh
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -71,7 +71,7 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBeh
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -106,7 +106,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(

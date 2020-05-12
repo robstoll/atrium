@@ -26,7 +26,7 @@ import kotlin.jvm.JvmName
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -64,7 +64,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(

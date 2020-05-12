@@ -127,7 +127,7 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionP
  *
  * It is a shortcut for `to contain atLeast 1 regex pattern`.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -161,7 +161,7 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
