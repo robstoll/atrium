@@ -113,9 +113,11 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(entries)",
+        "this.the(entries.mapArguments.to { asSubExpect(it) }.let { (first, rest) -> ch.tutteli.atrium.api.infix.en_GB.entries(first, *rest) }).asAssert()",
         "ch.tutteli.atrium.api.infix.en_GB.the",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.utils.mapArguments",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect"
     )
 )
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>

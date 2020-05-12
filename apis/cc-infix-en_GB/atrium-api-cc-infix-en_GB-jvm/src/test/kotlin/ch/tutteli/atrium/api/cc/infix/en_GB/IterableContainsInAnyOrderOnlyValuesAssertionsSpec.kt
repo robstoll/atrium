@@ -2,16 +2,17 @@
 @file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.api.infix.en_GB.contains
-import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.api.infix.en_GB.o
+import ch.tutteli.atrium.api.infix.en_GB.the
 import ch.tutteli.atrium.api.infix.en_GB.value
+import ch.tutteli.atrium.api.infix.en_GB.values
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
@@ -28,7 +29,13 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spe
             return if (aX.isEmpty()) {
                 (plant.asExpect().contains(o) inAny order but only).value(a).asAssert()
             } else {
-                plant.asExpect().contains(o) inAny order but only the Values(a, *aX)
+                val values = Values(a, *aX)
+                (plant.asExpect().contains(o) inAny order but only).the<Double, Iterable<Double>>(
+                    values(
+                        values.expected,
+                        *values.otherExpected
+                    )
+                ).asAssert()
             }
         }
 
@@ -39,7 +46,9 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spe
             return if (aX.isEmpty()) {
                 (plant.asExpect().contains(o) inAny order but only).value((a)).asAssert()
             } else {
-                plant.asExpect().contains(o) inAny order but only the Values(a, *aX)
+                val values = Values(a, *aX)
+                (plant.asExpect().contains(o) inAny order but only).the(values(values.expected, *values.otherExpected))
+                    .asAssert()
             }
         }
     }

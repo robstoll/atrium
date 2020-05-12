@@ -152,10 +152,12 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreatorOrNull:
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.asExpect().contains(entries).asAssert()",
+        "this.asExpect().contains(entries.mapArguments.to { asSubExpect(it) }.let { (first, rest) -> ch.tutteli.atrium.api.infix.en_GB.entries(first, *rest) }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.api.infix.en_GB.contains",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.utils.mapArguments",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect"
     )
 )
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E>): AssertionPlant<T>
@@ -248,10 +250,12 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(assertionCreator
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.asExpect().containsExactly(entries).asAssert()",
+        "this.asExpect().containsExactly(entries.mapArguments.to { asSubExpect(it) }.let { (first, rest) -> ch.tutteli.atrium.api.infix.en_GB.entries(first, *rest) }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.api.infix.en_GB.containsExactly",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.domain.builders.utils.mapArguments",
+        "ch.tutteli.atrium.domain.builders.migration.asSubExpect"
     )
 )
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(entries: Entries<E>): AssertionPlant<T>

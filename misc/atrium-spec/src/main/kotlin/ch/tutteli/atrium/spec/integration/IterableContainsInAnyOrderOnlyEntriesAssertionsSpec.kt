@@ -90,14 +90,15 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                     }
                 }
             }
-            test("$returnValueOfFun(...) states warning that subject is not set") {
-                expect {
-                    fluentEmpty.containsEntriesFun({
-                        @Suppress("DEPRECATION")
-                        returnValueOf(subject::dec).toBe(1.0)
-                    })
-                }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE.getDefault()) }
-            }
+            // message changed in new infix-API, not going to test it any more (is covered by bc-tests)
+//            test("$returnValueOfFun(...) states warning that subject is not set") {
+//                expect {
+//                    fluentEmpty.containsEntriesFun({
+//                        @Suppress("DEPRECATION")
+//                        returnValueOf(subject::dec).toBe(1.0)
+//                    })
+//                }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE.getDefault()) }
+//            }
         }
 
         val fluent = assert(oneToFour)
@@ -275,13 +276,14 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
             }
         }
 
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalArgumentException::class.simpleName}") {
-                expect {
-                    fluent.containsEntriesFun({})
-                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
-            }
-        }
+        // the new infix throws now an AssertionError instead - not going to test it any more (is covered by bc-tests)
+//        context("search for entry where the lambda does not specify any assertion") {
+//            it("throws an ${IllegalArgumentException::class.simpleName}") {
+//                expect {
+//                    fluent.containsEntriesFun({})
+//                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
+//            }
+//        }
     }
 
     nullableCases(describePrefix) {
@@ -353,13 +355,14 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                 }
             }
 
-            context("search for entry where the lambda does not specify any assertion") {
-                it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    expect {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun({})
-                    }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
-                }
-            }
+            // the new infix throws now an AssertionError instead - not going to test it any more (is covered by bc-tests)
+//            context("search for entry where the lambda does not specify any assertion") {
+//                it("throws an ${IllegalArgumentException::class.simpleName}") {
+//                    expect {
+//                        fluent.containsInAnyOrderOnlyNullableEntriesFun({})
+//                    }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
+//                }
+//            }
         }
     }
 })

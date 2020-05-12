@@ -3,10 +3,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.api.infix.en_GB.atLeast
-import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
@@ -14,7 +13,6 @@ import ch.tutteli.atrium.domain.builders.migration.asSubExpect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
-import ch.tutteli.atrium.api.infix.en_GB.o
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
 class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
@@ -43,9 +41,14 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 
         private fun containsInAnyOrderEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                (plant.asExpect().contains(o) inAny order).atLeast(1) entry a
+                (plant.asExpect().contains(o) inAny order).atLeast(1)
+                    .entry(asSubExpect(a)).asAssert()
             } else {
-                plant.asExpect().contains(o) inAny order atLeast 1 the Entries(a, *aX)
+                (plant.asExpect().contains(o) inAny order atLeast 1).the(Entries(a, *aX).mapArguments.to {
+                    asSubExpect(
+                        it
+                    )
+                }.let { (first, rest) -> entries(first, *rest) }).asAssert()
             }
         }
 
@@ -54,9 +57,13 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 
         private fun containsNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.asExpect().contains(o) inAny order atLeast 1 entry a
+                (plant.asExpect().contains(o) inAny order atLeast 1).entry(asSubExpect(a)).asAssert()
             } else {
-                plant.asExpect().contains(o) inAny order atLeast 1 the Entries(a, *aX)
+                (plant.asExpect().contains(o) inAny order atLeast 1).the(Entries(a, *aX).mapArguments.to {
+                    asSubExpect(
+                        it
+                    )
+                }.let { (first, rest) -> entries(first, *rest) }).asAssert()
             }
         }
 
@@ -79,7 +86,8 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
             return if (aX.isEmpty()) {
                 plant.asExpect().contains(asSubExpect(a)).asAssert()
             } else {
-                plant.asExpect().contains(Entries(a, *aX)).asAssert()
+                plant.asExpect().contains(Entries(a, *aX).mapArguments.to { asSubExpect(it) }
+                    .let { (first, rest) -> entries(first, *rest) }).asAssert()
             }
         }
     }

@@ -9,6 +9,10 @@ import ch.tutteli.atrium.api.infix.en_GB.atMost
 import ch.tutteli.atrium.api.infix.en_GB.contains
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.api.infix.en_GB.o
+import ch.tutteli.atrium.api.infix.en_GB.the
+import ch.tutteli.atrium.api.infix.en_GB.values
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
@@ -28,8 +32,11 @@ class IterableContainsInAnyOrderAtMostValuesAssertionsSpec : ch.tutteli.atrium.s
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: Assert<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
-            = (plant.asExpect().contains(o) inAny order).atMost(atMost) the Values(a, *aX)
+        private fun containsAtMost(plant: Assert<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
+            val values = Values(a, *aX)
+            return (plant.asExpect().contains(o) inAny order).atMost(atMost)
+                .the<Double, Iterable<Double>>(values(values.expected, *values.otherExpected)).asAssert()
+        }
 
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot

@@ -59,7 +59,7 @@ abstract class IterableContainsSpecBase : WithAsciiReporter() {
     protected val contains = containsProp.name
     private val containsNotProp: KFunction2<Expect<Iterable<Int>>, o, NotCheckerOption<Int, Iterable<Int>, NotSearchBehaviour>> =
         Expect<Iterable<Int>>::containsNot
-    protected val containsNot = "${containsNotProp.name} $filler $inAnyOrderValues"
+    protected val containsNot = "${containsNotProp.name} $Values"
 
     @Suppress("unused")
     private fun ambiguityTest() {

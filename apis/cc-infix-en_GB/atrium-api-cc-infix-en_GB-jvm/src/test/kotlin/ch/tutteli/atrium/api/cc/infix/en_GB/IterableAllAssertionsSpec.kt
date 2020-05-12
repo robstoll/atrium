@@ -30,7 +30,8 @@ class IterableAllAssertionsSpec: Spek({
 
         fun getAnyPair() = anyFun.name to Companion::all
 
-        private fun all(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit) = plant all a
+        private fun all(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit) =
+            plant.asExpect().all(asSubExpect(a)).asAssert()
 
         private val anyNullableFun: KFunction2<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Assert<Iterable<Double?>>> =
             Assert<Iterable<Double?>>::any

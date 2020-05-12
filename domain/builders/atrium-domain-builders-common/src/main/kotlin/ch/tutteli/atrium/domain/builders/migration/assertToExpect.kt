@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
 import kotlin.js.JsName
 
@@ -67,7 +68,7 @@ fun <T : Any> Expect<T?>.asAssert(): AssertionPlantNullable<T?> =
 @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 fun <T : Any> asSubExpect(
     assertionCreatorOrNull: (Assert<T>.() -> Unit)?
-): (Expect<T>.() -> Unit)? = { assertionCreatorOrNull?.let { asAssert(it) } }
+): (Expect<T>.() -> Unit)? = assertionCreatorOrNull?.let { subExpect { asAssert(it) } }
 
 /**
  * Turns [Assert] or [AssertionPlantNullable] into an [Expect] so that you can use new functionality
