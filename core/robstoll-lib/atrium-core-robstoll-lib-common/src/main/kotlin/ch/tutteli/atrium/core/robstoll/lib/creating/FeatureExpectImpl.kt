@@ -23,22 +23,23 @@ class FeatureExpectImpl<T, R>(
     FeatureExpect<T, R> {
 
     init {
-        if (assertions.isNotEmpty()) {
-            addAssertions(assertions)
-        }
+        addAssertions(assertions)
     }
 
+    //TODO duplication of ReportingAssertionPlantImpl
     override fun addAssertionsCreatedBy(assertionCreator: Expect<R>.() -> Unit): Expect<R> {
         val assertions = coreFactory.newCollectingAssertionContainer(maybeSubject)
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
-        //TODO I think we could reduce nesting for cases where we do not have an assertion group and
-        // in case it is already an invisible group (in such cases we don't have to wrap it again)
         return addAssertions(assertions)
     }
 
     private fun addAssertions(assertions: List<Assertion>) =
-        addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+        when (assertions.size) {
+            0 -> this
+            1 -> addAssertion(assertions.first())
+            else -> addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+        }
 
     override fun addAssertion(assertion: Assertion): Expect<R> {
         super.addAssertion(assertion)
@@ -56,7 +57,8 @@ class FeatureExpectImpl<T, R>(
         } finally {
             clearAssertions()
         }
-        return this    }
+        return this
+    }
 
     override fun getAssertions(): List<Assertion> = getCopyOfAssertions()
 }
