@@ -73,7 +73,6 @@ fun <E , T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehavi
     "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.entry(asSubExpect(assertionCreatorOrNull))",
-        "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
         "ch.tutteli.atrium.api.fluent.en_GB.entry"
     )
@@ -103,7 +102,6 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
             "asSubExpect(assertionCreatorOrNull),\n" +
             "*otherAssertionCreatorsOrNulls.map { asSubExpect(it) }.toTypedArray()\n" +
             ")",
-        "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
         "ch.tutteli.atrium.api.fluent.en_GB.entries"
     )

@@ -25,6 +25,14 @@ import kotlin.jvm.JvmName
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.inAny(ch.tutteli.atrium.api.infix.en_GB.order(order.firstGroup, order.secondGroup, *order.otherExpectedGroups))",
+        "ch.tutteli.atrium.api.fluent.en_GB.inAny",
+        "ch.tutteli.atrium.api.fluent.en_GB.order"
+    )
+)
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, Group<E>>
 ): AssertionPlant<T> = addAssertion(
@@ -47,7 +55,19 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.inAny(ch.tutteli.atrium.api.infix.en_GB.order(" +
+            "asExpectGroup(order.firstGroup)," +
+            "asExpectGroup(order.secondGroup), " +
+            "*order.otherExpectedGroups.map { asExpectGroup(it) }.toTypedArray())" +
+            ")",
+        "ch.tutteli.atrium.api.fluent.en_GB.inAny",
+        "ch.tutteli.atrium.api.fluent.en_GB.order",
+        "ch.tutteli.atrium.domain.builders.migration.asExpectGroup"
+    )
+)
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Assert<E>.() -> Unit)?, Group<(Assert<E>.() -> Unit)?>>

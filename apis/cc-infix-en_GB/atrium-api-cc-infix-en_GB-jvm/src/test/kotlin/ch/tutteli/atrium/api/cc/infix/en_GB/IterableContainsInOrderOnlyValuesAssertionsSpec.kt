@@ -45,10 +45,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                (plant.asExpect().contains(o) inGiven order and only).value(a).asAssert()
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).value(a).asAssert()
             } else {
                 val values = Values(a, *aX)
-                (plant.asExpect().contains(o) inGiven order and only).the<Double, Iterable<Double>>(
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).the<Double, Iterable<Double>>(
                     values(
                         values.expected,
                         *values.otherExpected
@@ -62,10 +62,10 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                (plant.asExpect().contains(o) inGiven order and only).value(a).asAssert()
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).value(a).asAssert()
             } else {
                 val values = Values(a, *aX)
-                (plant.asExpect().contains(o) inGiven order and only).the(
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).the(
                     values(
                         values.expected,
                         *values.otherExpected

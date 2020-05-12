@@ -3,11 +3,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
-import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.infix.en_GB.notOrAtMost
-import ch.tutteli.atrium.api.infix.en_GB.o
-import ch.tutteli.atrium.api.infix.en_GB.the
-import ch.tutteli.atrium.api.infix.en_GB.values
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.migration.asAssert
@@ -32,7 +29,7 @@ class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec : ch.tutteli.atr
 
         private fun containsNotOrAtMost(plant: Assert<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
             val values = Values(a, *aX)
-            return (plant.asExpect().contains(o) inAny order).notOrAtMost(atMost)
+            return (plant.asExpect().contains(o) inAny ch.tutteli.atrium.api.infix.en_GB.order).notOrAtMost(atMost)
                 .the<Double, Iterable<Double>>(values(values.expected, *values.otherExpected)).asAssert()
         }
 

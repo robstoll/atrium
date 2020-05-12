@@ -43,9 +43,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                (plant.asExpect().contains(o) inGiven order and only).entry(asSubExpect(a)).asAssert()
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).entry(asSubExpect(a)).asAssert()
             } else {
-                (plant.asExpect().contains(o) inGiven order and only).the(Entries(a, *aX).mapArguments.to { asSubExpect(it) }
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).the(Entries(a, *aX).mapArguments.to { asSubExpect(it) }
                     .let { (first, rest) -> entries(first, *rest) }).asAssert()
             }
         }
@@ -55,9 +55,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                (plant.asExpect().contains(o) inGiven order and only).entry(asSubExpect(a)).asAssert()
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).entry(asSubExpect(a)).asAssert()
             } else {
-                (plant.asExpect().contains(o) inGiven order and only).the(Entries(a, *aX).mapArguments.to {
+                ((plant.asExpect().contains(o) inGiven ch.tutteli.atrium.api.infix.en_GB.order).and(ch.tutteli.atrium.api.infix.en_GB.only)).the(Entries(a, *aX).mapArguments.to {
                     asSubExpect(it)
                 }.let { (first, rest) -> entries(first, *rest) }).asAssert()
             }

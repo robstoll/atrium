@@ -26,9 +26,8 @@ import kotlin.jvm.JvmName
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.value(expected).asAssert()",
-        "ch.tutteli.atrium.api.infix.en_GB.value",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+        "this.value(expected)",
+        "ch.tutteli.atrium.api.infix.en_GB.value"
     )
 )
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
@@ -46,10 +45,9 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
+        "this.the(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected))",
         "ch.tutteli.atrium.api.infix.en_GB.the",
-        "ch.tutteli.atrium.api.infix.en_GB.values",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert"
+        "ch.tutteli.atrium.api.infix.en_GB.values"
     )
 )
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
@@ -70,9 +68,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.entry(asSubExpect(assertionCreatorOrNull)).asAssert()",
-        "ch.tutteli.atrium.domain.builders.migration.asExpect",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "this.entry(asSubExpect(assertionCreatorOrNull))",
         "ch.tutteli.atrium.domain.builders.migration.asSubExpect",
         "ch.tutteli.atrium.api.infix.en_GB.entry"
     )
@@ -99,9 +95,8 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
 @Deprecated(
     "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.the(entries.mapArguments.to { asSubExpect(it) }.let { (first, rest) -> ch.tutteli.atrium.api.infix.en_GB.entries(first, *rest) }).asAssert()",
+        "this.the(entries.mapArguments.to { asSubExpect(it) }.let { (first, rest) -> ch.tutteli.atrium.api.infix.en_GB.entries(first, *rest) })",
         "ch.tutteli.atrium.api.infix.en_GB.the",
-        "ch.tutteli.atrium.domain.builders.migration.asAssert",
         "ch.tutteli.atrium.domain.builders.utils.mapArguments",
         "ch.tutteli.atrium.domain.builders.migration.asSubExpect"
     )
