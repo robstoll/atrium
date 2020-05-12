@@ -25,9 +25,11 @@ class ReportingAssertionContainerImpl<T>(
         val assertions = coreFactory.newCollectingAssertionContainer(maybeSubject)
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
-        //TODO I think we could reduce nesting for cases where we do not have an assertion group and
-        // in case it is already an invisible group (in such cases we don't have to wrap it again)
-        return addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+        return when (assertions.size) {
+            0 -> this
+            1 -> addAssertion(assertions.first())
+            else -> addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+        }
     }
 
     override fun addAssertion(assertion: Assertion): Expect<T> {

@@ -32,6 +32,10 @@ class ReportingAssertionPlantImpl<out T : Any>(
         val assertions = coreFactory.newCollectingPlant { subject }
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
-        return addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+        return when(assertions.size){
+            0 -> this
+            1 -> addAssertion(assertions.first())
+            else -> addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+        }
     }
 }
