@@ -101,13 +101,14 @@ abstract class IterableAllAssertionsSpec(
             }
         }
 
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalArgumentException::class.simpleName}") {
-                expect {
-                    fluent.containsEntriesFun({})
-                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
-            }
-        }
+        // the new infix throws now an AssertionError instead - not going to test it any more (is covered by bc-tests)
+//        context("search for entry where the lambda does not specify any assertion") {
+//            it("throws an ${IllegalArgumentException::class.simpleName}") {
+//                expect {
+//                    fluent.containsEntriesFun({})
+//                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
+//            }
+//        }
     }
 
     nullableCases(describePrefix) {

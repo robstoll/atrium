@@ -2,8 +2,11 @@
 @file:Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.*
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.migration.asExpectGroup
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
@@ -25,7 +28,19 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
             a2: Group<(Assert<Double>.() -> Unit)?>,
             aX: Array<out Group<(Assert<Double>.() -> Unit)?>>
         ): Assert<Iterable<Double?>> {
-            return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
+            val order1 = Order(a1, a2, *aX)
+            return (((plant.asExpect().contains(o) inGiven order).and(ch.tutteli.atrium.api.infix.en_GB.only) grouped ch.tutteli.atrium.api.infix.en_GB.entries).within(
+                ch.tutteli.atrium.api.infix.en_GB.group
+            ) inAny order(
+                asExpectGroup(order1.firstGroup),
+                asExpectGroup(order1.secondGroup),
+                *order1.otherExpectedGroups.map {
+                    asExpectGroup(
+                        it
+                    )
+                }
+                    .toTypedArray()
+            )).asAssert()
         }
 
         private fun groupFactory(groups: Array<out (Assert<Double>.() -> Unit)?>): Group<(Assert<Double>.() -> Unit)?> {

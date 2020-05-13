@@ -2,11 +2,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB.keywords
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.and
-import ch.tutteli.atrium.api.cc.infix.en_GB.grouped
 import ch.tutteli.atrium.api.cc.infix.en_GB.ignoring
 import ch.tutteli.atrium.api.cc.infix.en_GB.inAny
 import ch.tutteli.atrium.api.cc.infix.en_GB.to
-import ch.tutteli.atrium.api.cc.infix.en_GB.within
 
 /**
  * Marker interface for keywords.

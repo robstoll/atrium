@@ -16,14 +16,9 @@ internal object StaticName {
     val nameContainsNotValuesFun: String = {
         val containsNotKf: KFunction2<Expect<Iterable<Double>>, o, NotCheckerOption<Double, Iterable<Double>, NotSearchBehaviour>> =
             Expect<Iterable<Double>>::containsNot
-        val theKf: KFunction2<
-            IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>,
-            Values<Double>,
-            Expect<Iterable<Double>>
-            > = IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::the
         //TODO use once  https://youtrack.jetbrains.com/issue/KT-38013 is fixed (there are other places where "values" is hard-coded)
 //        val values : KFunction2<Int, Array<out Int>, Values<Int>> = ::values
 //        "`${f.name} ${o::class.simpleName} ${fThe.name} ${values.name}`"
-        "`${containsNotKf.name} ${o::class.simpleName} ${theKf.name} values`"
+        "`${containsNotKf.name} values`"
     }()
 }

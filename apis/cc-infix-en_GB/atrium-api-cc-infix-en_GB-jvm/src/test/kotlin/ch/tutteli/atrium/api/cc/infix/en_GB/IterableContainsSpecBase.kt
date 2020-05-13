@@ -25,7 +25,7 @@ abstract class IterableContainsSpecBase {
     private val containsNotFun: KFunction2<Assert<Iterable<Int>>, Int, Assert<Iterable<Int>>> = Assert<Iterable<Int>>::containsNot
     protected val toContain = "${Assert<Iterable<*>>::to.name} ${contain::class.simpleName}"
     protected val containsNot = "${Assert<Iterable<*>>::notTo.name} ${contain::class.simpleName}"
-    protected val containsNotValues = "${containsNotFun.name} $Values"
+    protected val containsNotValues = "${containsNotFun.name} values"
     protected val atLeast = IterableContains.Builder<*, Iterable<*>, InAnyOrderSearchBehaviour>::atLeast.name
     protected val butAtMost = AtLeastCheckerOption<*, Iterable<*>, InAnyOrderSearchBehaviour>::butAtMost.name
     protected val exactly = IterableContains.Builder<*, Iterable<*>, InAnyOrderSearchBehaviour>::exactly.name

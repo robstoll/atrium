@@ -26,7 +26,7 @@ import kotlin.jvm.JvmName
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
@@ -64,14 +64,19 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
     "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.inAnyOrder(firstGroup /* might need further adaptions, check if overload with Group<(Expect<E>.() -> Unit)?> is chosen */, secondGroup, *otherExpectedGroups)",
-        "ch.tutteli.atrium.api.fluent.en_GB.inAnyOrder"
+        "this.inAnyOrder(" +
+            "asExpectGroup(order.firstGroup)," +
+            "asExpectGroup(order.secondGroup), " +
+            "*order.otherExpectedGroups.map { asExpectGroup(it) }.toTypedArray())"+
+            ")",
+        "ch.tutteli.atrium.api.fluent.en_GB.inAnyOrder",
+        "ch.tutteli.atrium.domain.builders.migration.asExpectGroup"
     )
 )
 @JvmName("inAnyOrderNullableEntries")
