@@ -1373,7 +1373,8 @@ expected that subject: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
     » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
       » access was denied
       » the owner is root, the group is root	
-      » the permissions are u=rwx g= o=```
+      » the permissions are u=rwx g= o=
+```
 </ex-path-writable>
 
 Even in more complicated scenarios, Atrium explains step by step what happened:
