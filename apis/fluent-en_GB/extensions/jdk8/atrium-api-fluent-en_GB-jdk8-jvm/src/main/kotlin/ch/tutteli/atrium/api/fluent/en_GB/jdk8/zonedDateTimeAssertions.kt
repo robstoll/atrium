@@ -19,7 +19,10 @@ import java.time.ZonedDateTime
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.year"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.year", "ch.tutteli.atrium.api.fluent.en_GB.year")
+)
 val <T : ZonedDateTime> Expect<T>.year: Expect<Int>
     get() = ExpectImpl.zonedDateTime.year(this).getExpectOfFeature()
 
@@ -33,7 +36,10 @@ val <T : ZonedDateTime> Expect<T>.year: Expect<Int>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.year"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.year(assertionCreator)", "ch.tutteli.atrium.api.fluent.en_GB.year")
+)
 fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.zonedDateTime.year(this).addToInitial(assertionCreator)
 
@@ -45,7 +51,10 @@ fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit)
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.month"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.month", "ch.tutteli.atrium.api.fluent.en_GB.month")
+)
 val <T : ZonedDateTime> Expect<T>.month: Expect<Int>
     get() = ExpectImpl.zonedDateTime.month(this).getExpectOfFeature()
 
@@ -59,7 +68,10 @@ val <T : ZonedDateTime> Expect<T>.month: Expect<Int>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.month"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.month(assertionCreator)", "ch.tutteli.atrium.api.fluent.en_GB.month")
+)
 fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.zonedDateTime.month(this).addToInitial(assertionCreator)
 
@@ -71,7 +83,10 @@ fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.dayOfWeek", "ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek")
+)
 val <T : ZonedDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
     get() = ExpectImpl.zonedDateTime.dayOfWeek(this).getExpectOfFeature()
 
@@ -85,7 +100,10 @@ val <T : ZonedDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.dayOfWeek(assertionCreator)", "ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek")
+)
 fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.zonedDateTime.dayOfWeek(this).addToInitial(assertionCreator)
 
@@ -97,7 +115,10 @@ fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.day"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.day", "ch.tutteli.atrium.api.fluent.en_GB.day")
+)
 val <T : ZonedDateTime> Expect<T>.day: Expect<Int>
     get() = ExpectImpl.zonedDateTime.day(this).getExpectOfFeature()
 
@@ -111,6 +132,9 @@ val <T : ZonedDateTime> Expect<T>.day: Expect<Int>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.day"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.day(assertionCreator)", "ch.tutteli.atrium.api.fluent.en_GB.day")
+)
 fun <T : ZonedDateTime> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.zonedDateTime.day(this).addToInitial(assertionCreator)

@@ -19,7 +19,10 @@ import java.time.LocalDate
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.year"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.year","ch.tutteli.atrium.api.fluent.en_GB.year")
+)
 val <T : LocalDate> Expect<T>.year: Expect<Int>
     get() = ExpectImpl.localDate.year(this).getExpectOfFeature()
 
@@ -33,7 +36,10 @@ val <T : LocalDate> Expect<T>.year: Expect<Int>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.year"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.year(assertionCreator)","ch.tutteli.atrium.api.fluent.en_GB.year")
+)
 fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.year(this).addToInitial(assertionCreator)
 
@@ -45,7 +51,10 @@ fun <T : LocalDate> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Ex
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.month"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.month","ch.tutteli.atrium.api.fluent.en_GB.month")
+)
 val <T : LocalDate> Expect<T>.month: Expect<Int>
     get() = ExpectImpl.localDate.month(this).getExpectOfFeature()
 
@@ -59,7 +68,10 @@ val <T : LocalDate> Expect<T>.month: Expect<Int>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.month"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.month(assertionCreator)","ch.tutteli.atrium.api.fluent.en_GB.month")
+)
 fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.month(this).addToInitial(assertionCreator)
 
@@ -71,7 +83,10 @@ fun <T : LocalDate> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): E
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.dayOfWeek","ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek")
+)
 val <T : LocalDate> Expect<T>.dayOfWeek: Expect<DayOfWeek>
     get() = ExpectImpl.localDate.dayOfWeek(this).getExpectOfFeature()
 
@@ -85,7 +100,10 @@ val <T : LocalDate> Expect<T>.dayOfWeek: Expect<DayOfWeek>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.dayOfWeek(assertionCreator)", "ch.tutteli.atrium.api.fluent.en_GB.dayOfWeek")
+)
 fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.dayOfWeek(this).addToInitial(assertionCreator)
 
@@ -98,7 +116,10 @@ fun <T : LocalDate> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.day"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.day", "ch.tutteli.atrium.api.fluent.en_GB.day")
+)
 val <T : LocalDate> Expect<T>.day: Expect<Int>
     get() = ExpectImpl.localDate.day(this).getExpectOfFeature()
 
@@ -112,6 +133,9 @@ val <T : LocalDate> Expect<T>.day: Expect<Int>
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.day"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.day(assertionCreator)","ch.tutteli.atrium.api.fluent.en_GB.day")
+)
 fun <T : LocalDate> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     ExpectImpl.localDate.day(this).addToInitial(assertionCreator)

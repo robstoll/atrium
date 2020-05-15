@@ -18,7 +18,10 @@ import java.util.*
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isEmpty"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isEmpty()","ch.tutteli.atrium.api.fluent.en_GB.isEmpty")
+)
 fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.optional.isEmpty(this))
 
 /**
@@ -33,7 +36,10 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.o
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isPresent"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isPresent()","ch.tutteli.atrium.api.fluent.en_GB.isPresent")
+)
 fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> = ExpectImpl.optional.isPresent(this).getExpectOfFeature()
 
 /**
@@ -45,6 +51,9 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> = ExpectImpl.optional.
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isPresent"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isPresent(assertionCreator)","ch.tutteli.atrium.api.fluent.en_GB.isPresent")
+)
 fun <E, T : Optional<E>> Expect<T>.isPresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     ExpectImpl.optional.isPresent(this).addToInitial(assertionCreator)

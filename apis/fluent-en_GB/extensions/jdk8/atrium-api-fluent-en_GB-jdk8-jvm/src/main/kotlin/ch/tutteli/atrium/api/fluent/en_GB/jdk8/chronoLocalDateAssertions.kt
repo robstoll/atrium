@@ -16,7 +16,10 @@ import java.time.chrono.ChronoLocalDate
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isBefore"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isBefore(expected)", "ch.tutteli.atrium.api.fluent.en_GB.isBefore")
+)
 fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBefore(this, expected))
 
@@ -29,7 +32,10 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isBeforeOrEqual"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isBeforeOrEqual(expected)", "ch.tutteli.atrium.api.fluent.en_GB.isBeforeOrEqual")
+)
 fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isBeforeOrEquals(this, expected))
 
@@ -43,7 +49,10 @@ fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): 
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isAfter"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isAfter(expected)", "ch.tutteli.atrium.api.fluent.en_GB.isAfter")
+)
 fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isAfter(this, expected))
 
@@ -56,7 +65,10 @@ fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isAfterOrEqual"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isAfterOrEqual(expected)", "ch.tutteli.atrium.api.fluent.en_GB.isAfterOrEqual")
+)
 fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isAfterOrEquals(this, expected))
 
@@ -69,6 +81,9 @@ fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): E
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isEqual"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isEqual(expected)", "ch.tutteli.atrium.api.fluent.en_GB.isEqual")
+)
 fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Expect<T> =
     addAssertion(ExpectImpl.chronoLocalDate.isEqual(this, expected))

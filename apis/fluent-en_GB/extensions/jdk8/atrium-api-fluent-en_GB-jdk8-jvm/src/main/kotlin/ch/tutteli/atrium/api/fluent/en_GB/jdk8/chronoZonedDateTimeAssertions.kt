@@ -17,7 +17,10 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isBefore"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isBefore(expected)","ch.tutteli.atrium.api.fluent.en_GB.isBefore")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isBefore(this, expected))
@@ -31,7 +34,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isBeforeOrEqual"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isBeforeOrEqual(expected)","ch.tutteli.atrium.api.fluent.en_GB.isBeforeOrEqual")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isBeforeOrEqual(this, expected))
@@ -45,7 +51,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isAfter"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isAfter(expected)","ch.tutteli.atrium.api.fluent.en_GB.isAfter")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isAfter(this, expected))
@@ -59,7 +68,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isAfterOrEqual"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isAfterOrEqual(expected)","ch.tutteli.atrium.api.fluent.en_GB.isAfterOrEqual")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isAfterOrEqual(this, expected))
@@ -73,7 +85,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
  *
  * @since 0.9.0
  */
-@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isEqual"))
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isEqual(expected)","ch.tutteli.atrium.api.fluent.en_GB.isEqual")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isEqual(this, expected))
