@@ -1,4 +1,7 @@
-package ch.tutteli.atrium.api.fluent.en_GB
+// TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
+package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
