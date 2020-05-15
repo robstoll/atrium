@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.atriumlib.samples</groupId>
-    <artifactId>junit5</artifactId>
+    <artifactId>maven</artifactId>
     <version>0.0.1</version>
 
     <properties>

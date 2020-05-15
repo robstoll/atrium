@@ -54,6 +54,10 @@ jobs:
             -   name: build Junit5 sample
                 run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
 
+            -   name: build maven sample
+                run: (cd samples/maven; ./mvnw)
+                shell: bash
+
             -   name: build MPP sample
                 run: samples\multiplatform\gradlew -p samples\multiplatform build
 

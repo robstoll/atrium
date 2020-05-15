@@ -149,14 +149,11 @@ dependencies {
 <br/>
 
 *maven*:  
-Because maven is a bit more verbose than gradle, the example is not listed here but 
-a [settings.xml](https://github.com/robstoll/atrium/tree/master/samples/maven/settings.xml) 
-is provided to set up the repository as well as an 
-[example-pom.xml](https://github.com/robstoll/atrium/tree/master/samples/maven/example-pom.xml)
-which includes the necessary dependencies.
+Because maven is a bit more verbose than gradle, the example is not listed here but a 
+[sample maven project](https://github.com/robstoll/atrium/tree/master/samples/maven)
+is provided which shows all necessary setup.
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
-
 
 ## JS
 
