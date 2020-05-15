@@ -55,7 +55,7 @@ jobs:
                 run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
 
             -   name: build maven sample
-                run: (cd samples/maven; ./mvnw)
+                run: (cd samples/maven; ./mvnw -B clean test)
                 shell: bash
 
             -   name: build MPP sample
