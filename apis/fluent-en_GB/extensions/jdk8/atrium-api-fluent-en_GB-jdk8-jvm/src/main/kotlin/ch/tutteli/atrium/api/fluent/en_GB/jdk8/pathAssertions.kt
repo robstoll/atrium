@@ -16,6 +16,7 @@ import java.nio.file.Path
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.startsWith"))
 fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.startsWith(this, expected))
 
@@ -27,6 +28,7 @@ fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.startsNotWith"))
 fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.startsNotWith(this, expected))
 
@@ -38,6 +40,7 @@ fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.endsWith"))
 fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.endsWith(this, expected))
 
@@ -50,6 +53,7 @@ fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.endsNotWith"))
 fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     addAssertion(ExpectImpl.path.endsNotWith(this, expected))
 
@@ -65,6 +69,7 @@ fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.exists"))
 fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exists(this))
 
 /**
@@ -79,6 +84,7 @@ fun <T : Path> Expect<T>.exists(): Expect<T> = addAssertion(ExpectImpl.path.exis
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.existsNot"))
 fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.existsNot(this))
 
 /**
@@ -90,6 +96,7 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> = addAssertion(ExpectImpl.path.e
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.fileName"))
 val <T : Path> Expect<T>.fileName: Expect<String>
     get() = ExpectImpl.path.fileName(this).getExpectOfFeature()
 
@@ -104,6 +111,7 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.fileName"))
 fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
 
@@ -117,6 +125,7 @@ fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): 
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.fileNameWithoutExtension"))
 val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
     get() = ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
 
@@ -131,6 +140,7 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.fileNameWithoutExtension"))
 fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.fileNameWithoutExtension(this).addToInitial(assertionCreator)
 
@@ -143,6 +153,7 @@ fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<Strin
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.parent"))
 val <T : Path> Expect<T>.parent: Expect<Path>
     get() = ExpectImpl.path.parent(this).getExpectOfFeature()
 
@@ -155,6 +166,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.parent"))
 fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.parent(this).addToInitial(assertionCreator)
 
@@ -167,6 +179,7 @@ fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expe
  *
  * @since 0.10.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.resolve"))
 fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     ExpectImpl.path.resolve(this, other).getExpectOfFeature()
 
@@ -179,6 +192,7 @@ fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  *
  * @since 0.10.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.resolve"))
 fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     ExpectImpl.path.resolve(this, other).addToInitial(assertionCreator)
 
@@ -200,6 +214,7 @@ fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.(
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isReadable"))
 fun <T : Path> Expect<T>.isReadable(): Expect<T> = addAssertion(ExpectImpl.path.isReadable(this))
 
 /**
@@ -216,6 +231,7 @@ fun <T : Path> Expect<T>.isReadable(): Expect<T> = addAssertion(ExpectImpl.path.
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isWritable"))
 fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.isWritable(this))
 
 /**
@@ -235,6 +251,7 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isRegularFile"))
 fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.path.isRegularFile(this))
 
 /**
@@ -254,6 +271,7 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.pa
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.isDirectory"))
 fun <T : Path> Expect<T>.isDirectory(): Expect<T> = addAssertion(ExpectImpl.path.isDirectory(this))
 
 /**
@@ -265,6 +283,7 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> = addAssertion(ExpectImpl.path
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.extension"))
 val <T : Path> Expect<T>.extension: Expect<String>
     get() = ExpectImpl.path.extension(this).getExpectOfFeature()
 
@@ -279,6 +298,7 @@ val <T : Path> Expect<T>.extension: Expect<String>
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.extension"))
 fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     ExpectImpl.path.extension(this).addToInitial(assertionCreator)
 
@@ -294,6 +314,7 @@ fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit):
  *
  * @since 0.12.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.hasSameTextualContentAs"))
 fun <T : Path> Expect<T>.hasSameTextualContentAs(targetPath: Path, sourceCharset: Charset = Charsets.UTF_8, targetCharset: Charset = Charsets.UTF_8): Expect<T> =
     addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, targetPath, sourceCharset, targetCharset))
 
@@ -306,5 +327,6 @@ fun <T : Path> Expect<T>.hasSameTextualContentAs(targetPath: Path, sourceCharset
  *
  * @since 0.12.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.hasSameBinaryContentAs"))
 fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     addAssertion(ExpectImpl.path.hasSameBinaryContentAs(this, targetPath))

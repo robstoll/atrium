@@ -20,7 +20,6 @@ API modules:
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
   It is a pure fluent API.
   extensions:
-  - **atrium-api-fluent-en&#95;GB-jdk8** provides additional assertion functions for types introduced with JDK 8 (e.g. for `Path`)
   - **atrium-api-fluent-en&#95;GB-kotlin_1_3** provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
   
 - **atrium-api-cc-infix-en&#95;GB** provides an assertion function API in English where the main 
@@ -140,9 +139,6 @@ assertions for CharSequence.
 # ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for Iterable.
-
-# ch.tutteli.atrium.api.fluent.en_GB.jdk8
-Contains an API for types introduced with JDK 8
 
 # ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 Contains an API for types introduced with Kotlin 1.3

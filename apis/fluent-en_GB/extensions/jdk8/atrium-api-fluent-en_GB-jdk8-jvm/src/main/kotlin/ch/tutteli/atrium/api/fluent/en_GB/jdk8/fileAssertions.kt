@@ -17,6 +17,7 @@ import java.nio.file.Path
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.asPath"))
 fun <T : File> Expect<T>.asPath(): Expect<Path> =
     ExpectImpl.changeSubject(this).unreported { it.toPath() }
 
@@ -31,5 +32,6 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.fluent.en_GB.asPath"))
 fun <T : File> Expect<T>.asPath(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     apply { asPath().addAssertionsCreatedBy(assertionCreator) }

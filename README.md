@@ -107,13 +107,11 @@ which provides a pure fluent API (in en_GB) for the JVM platform.
 Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup.
 
 We currently provide the following extensions for the JVM platform: 
-- jdk8: assertion functions for JDK 8 specific types (e.g. for `Path`)
 - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
 
 You can enable them as follows:
 ```
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-jdk8:$atrium_version"
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
     testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
 }
@@ -140,7 +138,6 @@ dependencies {
 And for the aforementioned extensions:
 ```
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-jdk8:$atrium_version"
     testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:$atrium_version"
     testRuntimeOnly    "ch.tutteli.atrium:atrium-domain-robstoll-kotlin_1_3:$atrium_version"
 }

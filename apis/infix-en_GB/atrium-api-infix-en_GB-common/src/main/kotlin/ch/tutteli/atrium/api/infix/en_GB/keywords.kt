@@ -50,7 +50,7 @@ object entries : Keyword
  * A helper construct to allow expressing assertions about path existence.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
-object exist : Keyword
+object existing : Keyword
 
 /**
  * Represents the pseudo keyword `group` as in [within] `group`.
