@@ -58,10 +58,6 @@ jobs:
                 run: ./gradlew build
                 working-directory: samples\jvm\junit5
 
-            -   name: build maven sample
-                run: "./mvnw -B clean verify"
-                working-directory: samples/maven
-
             -   name: build MPP sample
                 run: ./gradlew build
                 working-directory: samples\multiplatform
@@ -69,3 +65,17 @@ jobs:
             -   name: composite build atrium-samples
                 run: ./gradlew build
                 working-directory: misc\tools\atrium-samples-test
+
+    maven-sample:
+        runs-on: windows-latest
+        strategy:
+            fail-fast: true
+        steps:
+            -   uses: actions/checkout@v1
+            -   name: "Set up JDK ${{ matrix.java_version }}"
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 11
+            -   name: build maven sample
+                run: "./mvnw -version && ./mvnw -B clean test"
+                working-directory: samples/maven
