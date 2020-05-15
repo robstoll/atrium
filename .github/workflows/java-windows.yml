@@ -43,23 +43,29 @@ jobs:
                     #fail_ci_if_error: true
 
             -   name: build jasmine sample
-                run: samples\js\jasmine\gradlew -p samples\js\jasmine build
+                run: ./gradlew build
+                working-directory: samples\js\jasmine
 
             -   name: build mocha sample
-                run: samples\js\mocha\gradlew -p samples\js\mocha build
+                run: ./gradlew build
+                working-directory: samples\js\mocha
 
             -   name: build Spek sample
-                run: samples\jvm\spek\gradlew -p samples\jvm\spek build
+                run: ./gradlew build
+                working-directory: samples\jvm\spek
 
             -   name: build Junit5 sample
-                run: samples\jvm\junit5\gradlew -p samples\jvm\junit5 build
+                run: ./gradlew build
+                working-directory: samples\jvm\junit5
 
             -   name: build maven sample
-                run: (cd samples/maven; ./mvnw -B clean test)
-                shell: bash
+                run: "./mvnw -B clean verify"
+                working-directory: samples/maven
 
             -   name: build MPP sample
-                run: samples\multiplatform\gradlew -p samples\multiplatform build
+                run: ./gradlew build
+                working-directory: samples\multiplatform
 
             -   name: composite build atrium-samples
-                run: misc\tools\atrium-samples-test\gradlew -p misc\tools\atrium-samples-test build
+                run: ./gradlew build
+                working-directory: misc\tools\atrium-samples-test
