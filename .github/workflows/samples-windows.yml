@@ -40,7 +40,7 @@ jobs:
                 working-directory: samples\jvm\junit5
 
             -   name: build MPP sample
-                run: ./gradlew build
+                run: ./gradlew build --debug
                 working-directory: samples\multiplatform
 
             # Kotlin does not yet support to generate jdk 14 byte code
