@@ -30,10 +30,13 @@ jobs:
 
       - env: MODE=samples
         script:
+            - set -e
             - samples/js/jasmine/gradlew -p ./samples/js/jasmine build
             - samples/js/mocha/gradlew -p ./samples/js/mocha build
             - samples/jvm/spek/gradlew -p ./samples/jvm/spek build
             - samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
+            # temporarily targetCompatibility 1.8 as there is a travis problem in installing jdk11
+            - cd samples/maven && ./mvnw -B test -Djava.version=1.8 && cd ../..
             - samples/multiplatform/gradlew -p ./samples/multiplatform build
             - misc/tools/atrium-samples-test/gradlew -p ./misc/tools/atrium-samples-test build
 
@@ -45,4 +48,5 @@ cache:
     directories:
         - $HOME/.gradle/wrapper/
         - $HOME/.gradle/caches/
+        - $HOME/.m2
         - ./gradle/node_modules

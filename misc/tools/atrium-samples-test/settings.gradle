@@ -12,6 +12,6 @@ includeBuild('../../../') {
 }
 includeBuild '../../../samples/jvm/junit5'
 includeBuild '../../../samples/jvm/spek'
-includeBuild '../../../samples/multiplatform'
 includeBuild '../../../samples/js/jasmine'
 includeBuild '../../../samples/js/mocha'
+includeBuild '../../../samples/multiplatform'

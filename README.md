@@ -104,7 +104,8 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
-Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup.
+Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/master/samples/jvm) for a quick setup, or
+[Maven sample project](https://github.com/robstoll/atrium/tree/master/samples/maven) if you prefer Maven to Gradle.
 
 We currently provide the following extensions for the JVM platform: 
 - kotlin_1_3: assertion functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
@@ -148,14 +149,11 @@ dependencies {
 <br/>
 
 *maven*:  
-Because maven is a bit more verbose than gradle, the example is not listed here but 
-a [settings.xml](https://github.com/robstoll/atrium/tree/master/samples/maven/settings.xml) 
-is provided to set up the repository as well as an 
-[example-pom.xml](https://github.com/robstoll/atrium/tree/master/samples/maven/example-pom.xml)
-which includes the necessary dependencies.
+Because maven is a bit more verbose than gradle, the example is not listed here but a 
+[sample maven project](https://github.com/robstoll/atrium/tree/master/samples/maven)
+is provided which shows all necessary setup.
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
-
 
 ## JS
 
