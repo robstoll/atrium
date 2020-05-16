@@ -17,7 +17,7 @@ jobs:
                 java_version: [9, 10, 11, 12, 13, 14]
 
         steps:
-            -   uses: actions/checkout@v1
+            -   uses: actions/checkout@v2
             -   name: "Set up JDK ${{ matrix.java_version }}"
                 uses: actions/setup-java@v1
                 with:
