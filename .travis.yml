@@ -48,4 +48,5 @@ cache:
     directories:
         - $HOME/.gradle/wrapper/
         - $HOME/.gradle/caches/
+        - $HOME/.m2
         - ./gradle/node_modules
