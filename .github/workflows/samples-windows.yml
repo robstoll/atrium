@@ -23,6 +23,22 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
+            -   name: Cache gradle dependencies
+                uses: actions/cache@v1
+                with:
+                    path: ~/.gradle/caches
+                    key: samples-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+                    restore-keys: |
+                        samples-${{ runner.os }}-gradle-
+
+            -   name: Cache maven dependencies
+                uses: actions/cache@v1
+                with:
+                    path: ~/.m2/repository
+                    key: samples-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+                    restore-keys: |
+                        samples-${{ runner.os }}-maven-
+
             -   name: build jasmine sample
                 run: ./gradlew build
                 working-directory: samples\js\jasmine
@@ -40,7 +56,7 @@ jobs:
                 working-directory: samples\jvm\junit5
 
             -   name: build MPP sample
-                run: ./gradlew build --debug
+                run: ./gradlew build
                 working-directory: samples\multiplatform
 
             # Kotlin does not yet support to generate jdk 14 byte code
@@ -53,3 +69,6 @@ jobs:
             -   name: build maven sample
                 run: ./mvnw -B clean verify "-Djava.version=${{ env.KOTLIN_TARGET }}"
                 working-directory: samples/maven
+
+            -   name: Stop gradle daemons
+                run: ./gradlew --stop

@@ -19,6 +19,14 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
+            -   name: Cache gradle dependencies
+                uses: actions/cache@v1
+                with:
+                    path: ~/.gradle/caches
+                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+                    restore-keys: |
+                        ${{ runner.os }}-gradle-
+
             -   name: Cache android jar
                 id: android-cache
                 uses: actions/cache@v1
@@ -55,5 +63,8 @@ jobs:
                     #fail_ci_if_error: true
 
             -   name: composite build atrium-samples
-                run: ./gradlew build --scan
+                run: ./gradlew build
                 working-directory: misc\tools\atrium-samples-test
+
+            -   name: Stop gradle daemons
+                run: ./gradlew --stop
