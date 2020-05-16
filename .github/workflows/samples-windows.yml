@@ -1,0 +1,48 @@
+name: Samples
+
+on:
+    push:
+        paths:
+            - 'samples/**'
+    pull_request:
+        paths:
+            - 'samples/**'
+
+jobs:
+    build:
+        runs-on: windows-latest
+        strategy:
+            fail-fast: true
+            matrix:
+                java_version: [9, 10, 11, 12, 13, 14]
+
+        steps:
+            -   uses: actions/checkout@v1
+            -   name: "Set up JDK ${{ matrix.java_version }}"
+                uses: actions/setup-java@v1
+                with:
+                    java-version: ${{ matrix.java_version }}
+
+            -   name: build jasmine sample
+                run: ./gradlew build
+                working-directory: samples\js\jasmine
+
+            -   name: build mocha sample
+                run: ./gradlew build
+                working-directory: samples\js\mocha
+
+            -   name: build Spek sample
+                run: ./gradlew build
+                working-directory: samples\jvm\spek
+
+            -   name: build Junit5 sample
+                run: ./gradlew build
+                working-directory: samples\jvm\junit5
+
+            -   name: build MPP sample
+                run: ./gradlew build
+                working-directory: samples\multiplatform
+
+            -   name: build maven sample
+                run: ./mvnw -B clean verify "-Djava.version=${{ matrix.java_version }}"
+                working-directory: samples/maven

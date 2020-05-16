@@ -42,40 +42,6 @@ jobs:
                     # too many timeout errors, let's not fail at the moment
                     #fail_ci_if_error: true
 
-            -   name: build jasmine sample
-                run: ./gradlew build
-                working-directory: samples\js\jasmine
-
-            -   name: build mocha sample
-                run: ./gradlew build
-                working-directory: samples\js\mocha
-
-            -   name: build Spek sample
-                run: ./gradlew build
-                working-directory: samples\jvm\spek
-
-            -   name: build Junit5 sample
-                run: ./gradlew build
-                working-directory: samples\jvm\junit5
-
-            -   name: build MPP sample
-                run: ./gradlew build
-                working-directory: samples\multiplatform
-
             -   name: composite build atrium-samples
                 run: ./gradlew build
                 working-directory: misc\tools\atrium-samples-test
-
-    maven-sample:
-        runs-on: windows-latest
-        strategy:
-            fail-fast: true
-        steps:
-            -   uses: actions/checkout@v1
-            -   name: "Set up JDK ${{ matrix.java_version }}"
-                uses: actions/setup-java@v1
-                with:
-                    java-version: 11
-            -   name: build maven sample
-                run: "./mvnw -version && ./mvnw -B clean test"
-                working-directory: samples/maven
