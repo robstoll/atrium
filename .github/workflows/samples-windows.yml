@@ -43,6 +43,13 @@ jobs:
                 run: ./gradlew build
                 working-directory: samples\multiplatform
 
+            # Kotlin does not yet support to generate jdk 14 byte code
+            -   name: determine kotlin compile target
+                run: |
+                    export KOTLIN_TARGET=$(if [ "${{ matrix.java_version }}" -eq "14" ]; then echo "13"; else echo "${{ matrix.java_version }}"; fi)
+                    echo "::set-env name=KOTLIN_TARGET::$KOTLIN_TARGET"
+                shell: bash
+
             -   name: build maven sample
-                run: ./mvnw -B clean verify "-Djava.version=${{ matrix.java_version }}"
+                run: ./mvnw -B clean verify "-Djava.version=${{ env.KOTLIN_TARGET }}"
                 working-directory: samples/maven
