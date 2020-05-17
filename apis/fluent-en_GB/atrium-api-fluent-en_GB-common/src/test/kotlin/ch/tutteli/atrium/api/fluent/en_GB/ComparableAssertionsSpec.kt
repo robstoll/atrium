@@ -7,5 +7,6 @@ object ComparableAssertionsSpec : ch.tutteli.atrium.specs.integration.Comparable
     fun1(Expect<Int>::isLessThan),
     fun1(Expect<Int>::isLessThanOrEqual),
     fun1(Expect<Int>::isGreaterThan),
-    fun1(Expect<Int>::isGreaterThanOrEqual)
+    fun1(Expect<Int>::isGreaterThanOrEqual),
+    fun1(Expect<Int>::isEqualComparingTo)
 )

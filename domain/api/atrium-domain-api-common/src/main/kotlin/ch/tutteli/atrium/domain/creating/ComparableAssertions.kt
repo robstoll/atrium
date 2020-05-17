@@ -29,4 +29,9 @@ interface ComparableAssertions {
         subjectProvider: SubjectProvider<T1>,
         expected: T2
     ): Assertion
+
+    fun <T1 : Comparable<T2>, T2 : Any?> isEqualComparingTo(
+        subjectProvider: SubjectProvider<T1>,
+        expected: T2
+    ): Assertion
 }
