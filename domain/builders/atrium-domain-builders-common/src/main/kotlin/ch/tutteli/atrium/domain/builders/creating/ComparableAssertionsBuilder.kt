@@ -35,7 +35,7 @@ object ComparableAssertionsBuilder : ComparableAssertions {
     ) = comparableAssertions.isGreaterOrEquals(subjectProvider, expected)
 
     override inline fun <T1 : Comparable<T2>, T2> isEqualComparingTo(
-        subjectProvider: SubjectProvider<T1>,
+        expect: Expect<T1>,
         expected: T2
-    ) = comparableAssertions.isEqualComparingTo(subjectProvider, expected)
+    ) = comparableAssertions.isEqualComparingTo(expect, expected)
 }
