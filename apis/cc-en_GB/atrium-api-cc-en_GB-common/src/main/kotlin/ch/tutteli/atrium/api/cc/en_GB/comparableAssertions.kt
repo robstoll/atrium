@@ -36,7 +36,7 @@ fun <T : Comparable<T>> Assert<T>.isLessThan(expected: T)
         "this.asExpect().isLessThanOrEqual(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.isLessOrEquals"
+        "ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual"
     )
 )
 fun <T : Comparable<T>> Assert<T>.isLessOrEquals(expected: T)
@@ -72,7 +72,7 @@ fun <T : Comparable<T>> Assert<T>.isGreaterThan(expected: T)
         "this.asExpect().isGreaterThanOrEqual(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.isGreaterOrEquals"
+        "ch.tutteli.atrium.api.fluent.en_GB.isGreaterThanOrEqual"
     )
 )
 fun <T : Comparable<T>> Assert<T>.isGreaterOrEquals(expected: T)
