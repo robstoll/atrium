@@ -23,6 +23,16 @@ import kotlin.jvm.JvmName
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().notToBeNull(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.notToBeNull",
+        "ch.tutteli.atrium.api.infix.en_GB.o"
+    )
+)
 @Suppress("DEPRECATION")
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     addAssertion(AssertImpl.any.isNotNull(this, T::class, assertionCreator))
@@ -50,6 +60,15 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().isA<TSub>().asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.isA"
+    )
+)
 inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     @Suppress("DEPRECATION")
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)

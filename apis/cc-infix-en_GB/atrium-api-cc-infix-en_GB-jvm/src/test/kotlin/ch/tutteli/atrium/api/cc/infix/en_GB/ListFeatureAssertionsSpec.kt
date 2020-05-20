@@ -4,8 +4,11 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.ListGetNullableOption
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.ListGetOption
+import ch.tutteli.atrium.api.infix.en_GB.get
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.verbs.internal.expect
@@ -46,12 +49,14 @@ class ListFeatureAssertionsSpec : Spek({
         val getNullablePlantFun: KFunction2<Assert<List<Int?>>, Int, AssertionPlantNullable<Int?>> = Assert<List<Int?>>::get
         val getNullableFun: KFunction2<Assert<List<Int?>>, Index, ListGetNullableOption<Int?, List<Int?>>> = Assert<List<Int?>>::get
 
-        fun getPlant(plant: Assert<List<Int>>, index: Int) = plant get index
+        fun getPlant(plant: Assert<List<Int>>, index: Int) = plant.asExpect().get(index).asAssert()
 
         fun get(plant: Assert<List<Int>>, index: Int, assertionCreator: Assert<Int>.() -> Unit) =
-            plant get Index(index) assertIt { assertionCreator() }
+            plant.asExpect().get(ch.tutteli.atrium.api.infix.en_GB.index(Index(index).index) {
+                asAssert(assertionCreator)
+            }).asAssert()
 
-        fun getNullablePlant(plant: Assert<List<Int?>>, index: Int) = plant get index
+        fun getNullablePlant(plant: Assert<List<Int?>>, index: Int) = plant.asExpect().get(index).asAssert()
 
         fun getNullable(
             plant: Assert<List<Int?>>,

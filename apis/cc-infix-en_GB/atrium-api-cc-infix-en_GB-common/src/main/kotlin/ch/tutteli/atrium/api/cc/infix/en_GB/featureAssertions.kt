@@ -45,7 +45,7 @@ fun <T : Any, TProperty : Any> CollectingAssertionPlant<T>.property(property: KP
  * @return An [AssertionPlant] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(property).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -68,7 +68,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TPrope
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of<T, TProperty>({ f(property) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -96,7 +96,7 @@ fun <T : Any, TProperty : Any> CollectingAssertionPlant<T>.property(property: KP
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(property, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -139,7 +139,7 @@ fun <T : Any, TProperty : Any?> CollectingAssertionPlant<T>.property(property: K
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(property).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -160,7 +160,7 @@ fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty1<T, TProp
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -184,7 +184,7 @@ fun <T : Any, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFuncti
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(method).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -208,7 +208,7 @@ fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>): Assert
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of({ f(method) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -238,7 +238,7 @@ fun <T : Any, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFuncti
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -259,7 +259,7 @@ fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>, asserti
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -284,7 +284,7 @@ fun <T : Any, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunct
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(method).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -306,7 +306,7 @@ fun <T : Any, R : Any?> Assert<T>.returnValueOf(method: KFunction1<T, R>): Asser
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -331,7 +331,7 @@ fun <T : Any, T1, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFu
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -356,7 +356,7 @@ fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>,
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of({ f(method, arg1) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -386,7 +386,7 @@ fun <T : Any, T1, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFu
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -407,7 +407,7 @@ fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>,
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -432,7 +432,7 @@ fun <T : Any, T1, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KF
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -455,7 +455,7 @@ fun <T : Any, T1, R : Any?> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -480,7 +480,7 @@ fun <T : Any, T1, T2, R : Any> CollectingAssertionPlant<T>.returnValueOf(method:
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -505,7 +505,7 @@ fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1,
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of({ f(method, arg1, arg2) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -535,7 +535,7 @@ fun <T : Any, T1, T2, R : Any> CollectingAssertionPlant<T>.returnValueOf(method:
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -556,7 +556,7 @@ fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1,
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -581,7 +581,7 @@ fun <T : Any, T1, T2, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -604,7 +604,7 @@ fun <T : Any, T1, T2, R : Any?> Assert<T>.returnValueOf(method: KFunction3<T, T1
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2, arg3) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -629,7 +629,7 @@ fun <T : Any, T1, T2, T3, R : Any> CollectingAssertionPlant<T>.returnValueOf(met
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -654,7 +654,7 @@ fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T,
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of({ f(method, arg1, arg2, arg3) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -684,7 +684,7 @@ fun <T : Any, T1, T2, T3, R : Any> CollectingAssertionPlant<T>.returnValueOf(met
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -705,7 +705,7 @@ fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T,
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2, arg3) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -730,7 +730,7 @@ fun <T : Any, T1, T2, T3, R : Any?> CollectingAssertionPlant<T>.returnValueOf(me
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -753,7 +753,7 @@ fun <T : Any, T1, T2, T3, R : Any?> Assert<T>.returnValueOf(method: KFunction4<T
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2, arg3, arg4) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -778,7 +778,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> CollectingAssertionPlant<T>.returnValueOf
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, arg4)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -803,7 +803,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of({ f(method, arg1, arg2, arg3, arg4) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -833,7 +833,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> CollectingAssertionPlant<T>.returnValueOf
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, arg4, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -854,7 +854,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2, arg3, arg4) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -879,7 +879,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any?> CollectingAssertionPlant<T>.returnValueO
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, arg4)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -902,7 +902,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any?> Assert<T>.returnValueOf(method: KFunctio
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2, arg3, arg4, arg5) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -927,7 +927,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> CollectingAssertionPlant<T>.returnVal
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, arg4, arg5)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -952,7 +952,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunc
  *   (by calling [assertionCreator]) does not hold.
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of({ f(method, arg1, arg2, arg3, arg4, arg5) }, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -982,7 +982,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> CollectingAssertionPlant<T>.returnVal
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, arg4, arg5, { asAssert(assertionCreator) })).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -1003,7 +1003,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunc
  * @return An [AssertionPlantNullable] for the given [property].
  */
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature { f(method, arg1, arg2, arg3, arg4, arg5) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -1028,7 +1028,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any?> CollectingAssertionPlant<T>.returnVa
  */
 @JvmName("safeReturnValueOf")
 @Deprecated(
-    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect and use feature instead; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().feature(of(method, arg1, arg2, arg3, arg4, arg5)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

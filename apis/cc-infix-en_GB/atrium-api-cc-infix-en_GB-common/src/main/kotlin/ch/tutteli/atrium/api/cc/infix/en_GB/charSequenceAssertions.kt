@@ -25,7 +25,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.o)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -44,7 +44,7 @@ infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain:
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().containsNot(ch.tutteli.atrium.api.infix.en_GB.o)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -72,7 +72,7 @@ infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") conta
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -109,7 +109,7 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -131,7 +131,7 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionP
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().containsRegex(pattern).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -165,7 +165,7 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(regexPatterns(patterns.expected, *patterns.otherExpected)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -189,7 +189,7 @@ infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): Assert
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().containsNot(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -213,7 +213,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().containsNot(ch.tutteli.atrium.api.infix.en_GB.values(values.expected, *values.otherExpected)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -232,7 +232,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().startsWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -250,7 +250,7 @@ infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().startsNotWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -269,7 +269,7 @@ infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().endsWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -287,7 +287,7 @@ infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().endsNotWith(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -308,7 +308,7 @@ infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().toBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -329,7 +329,7 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().notToBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -350,7 +350,7 @@ infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Emp
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().notToBe(blank).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

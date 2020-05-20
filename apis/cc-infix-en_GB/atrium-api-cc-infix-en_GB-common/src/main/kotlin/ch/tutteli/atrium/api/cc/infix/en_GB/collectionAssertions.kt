@@ -18,6 +18,15 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().hasSize(size).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.hasSize"
+    )
+)
 @Suppress("DEPRECATION")
 infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.collection.hasSize(this, size))
@@ -28,6 +37,16 @@ infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().toBe(empty).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.toBe",
+        "ch.tutteli.atrium.api.infix.en_GB.empty"
+    )
+)
 infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.collection.isEmpty(this))
 
@@ -37,6 +56,16 @@ infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().notToBe(empty).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.notToBe",
+        "ch.tutteli.atrium.api.infix.en_GB.empty"
+    )
+)
 infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.collection.isNotEmpty(this))
 
@@ -50,6 +79,14 @@ infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Em
  *
  * @return The newly created [AssertionPlant].
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().size",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.api.infix.en_GB.size"
+    )
+)
 val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size)
 
 /**
@@ -62,5 +99,14 @@ val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 @Suppress("DEPRECATION")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().size.asAssert(assertionCreator)",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.size"
+    )
+)
 infix fun <E, T: Collection<E>> Assert<T>.size (assertionCreator: Assert<Int>.() -> Unit): Assert<T>
     = addAssertion(AssertImpl.collection.size(this, assertionCreator))

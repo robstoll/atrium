@@ -13,6 +13,15 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().isLessThan(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.isLessThan"
+    )
+)
 infix fun <T : Comparable<T>> Assert<T>.isLessThan(expected: T)
     = addAssertion(AssertImpl.comparable.isLessThan(this, expected))
 
@@ -22,6 +31,15 @@ infix fun <T : Comparable<T>> Assert<T>.isLessThan(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().isLessThanOrEqual(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.isLessThanOrEqual"
+    )
+)
 infix fun <T : Comparable<T>> Assert<T>.isLessOrEquals(expected: T)
     = addAssertion(AssertImpl.comparable.isLessOrEquals(this, expected))
 
@@ -31,6 +49,15 @@ infix fun <T : Comparable<T>> Assert<T>.isLessOrEquals(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().isGreaterThan(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.isGreaterThan"
+    )
+)
 infix fun <T : Comparable<T>> Assert<T>.isGreaterThan(expected: T)
     = addAssertion(AssertImpl.comparable.isGreaterThan(this, expected))
 
@@ -40,6 +67,15 @@ infix fun <T : Comparable<T>> Assert<T>.isGreaterThan(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.asExpect().isGreaterThanOrEqual(expected).asAssert()",
+        "ch.tutteli.atrium.domain.builders.migration.asExpect",
+        "ch.tutteli.atrium.domain.builders.migration.asAssert",
+        "ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual"
+    )
+)
 infix fun <T : Comparable<T>> Assert<T>.isGreaterOrEquals(expected: T)
     = addAssertion(AssertImpl.comparable.isGreaterOrEquals(this, expected))
 
