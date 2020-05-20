@@ -16,6 +16,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
  * @param E The element type of the [List].
  * @param T A subtype of [List].
  */
+@Deprecated("Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.")
 interface ListGetOption<E : Any, T: List<E>> {
     /**
      * The [AssertionPlant] for which this assertion is created

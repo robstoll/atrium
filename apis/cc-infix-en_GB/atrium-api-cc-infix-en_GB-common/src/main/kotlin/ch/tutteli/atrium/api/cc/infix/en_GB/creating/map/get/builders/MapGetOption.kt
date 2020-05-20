@@ -17,6 +17,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
  * @param V the value type of the [Map].
  * @param T A subtype of [Map].
  */
+@Deprecated("Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.")
 interface MapGetOption<K, V : Any, T : Map<out K, V>> {
     /**
      * The [AssertionPlant] for which this assertion is created
