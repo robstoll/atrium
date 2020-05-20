@@ -3,7 +3,11 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.domain.builders.migration.asSubExpect
 import ch.tutteli.atrium.domain.builders.utils.mapArguments
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.verbs.internal.assert
@@ -28,28 +32,37 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
         private val containsFun : KFunction2<Assert<Map<out String, Int>>, Pair<String, Int>, Assert<Map<out String, Int>>> = Assert<Map<out String, Int>>::contains
         private fun contains(plant: Assert<Map<out String, Int>>, pair: Pair<String, Int>, otherPairs: Array<out Pair<String, Int>>): Assert<Map<out String, Int>> {
             return if (otherPairs.isEmpty()) {
-                plant contains (pair.first to pair.second)
+                plant.asExpect().contains((pair.first to pair.second)).asAssert()
             } else {
-                plant contains Pairs(pair, *otherPairs)
+                val keyValuePairs = Pairs(pair, *otherPairs)
+                plant.asExpect().contains(pairs(keyValuePairs.expected, *keyValuePairs.otherExpected)).asAssert()
             }
         }
 
         private val containsNullableFun : KFunction2<Assert<Map<out String?, Int?>>, Pair<String?, Int?>,Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::contains
         private fun containsNullable(plant: Assert<Map<out String?, Int?>>, pair: Pair<String?, Int?>, otherPairs: Array<out Pair<String?, Int?>>): Assert<Map<out String?, Int?>> {
             return if (otherPairs.isEmpty()) {
-                plant contains (pair.first to pair.second)
+                plant.asExpect().contains((pair.first to pair.second)).asAssert()
             } else {
-                plant contains Pairs(pair, *otherPairs)
+                val keyValuePairs = Pairs(pair, *otherPairs)
+                plant.asExpect().contains(pairs(keyValuePairs.expected, *keyValuePairs.otherExpected)).asAssert()
             }
         }
 
         private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<out String, Int>>, KeyValue<String, Int>, Assert<Map<out String, Int>>> = Assert<Map<out String, Int>>::contains
         private fun containsKeyWithValueAssertions(plant: Assert<Map<out String, Int>>, keyValue: Pair<String, Assert<Int>.() -> Unit>, otherKeyValues: Array<out Pair<String, Assert<Int>.() -> Unit>>) : Assert<Map<out String, Int>> {
             return if (otherKeyValues.isEmpty()) {
-                plant contains KeyValue(keyValue.first, keyValue.second)
+                val keyValue1 = KeyValue(keyValue.first, keyValue.second)
+                plant.asExpect().contains(keyValue(keyValue1.key, asSubExpect(keyValue1.valueAssertionCreatorOrNull)))
+                    .asAssert()
             } else {
                 mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let{ (first, others) ->
-                    plant contains All(first, *others)
+                    plant.asExpect().contains(All(first, *others).mapArguments.to { keyValue ->
+                        keyValue(
+                            keyValue.key,
+                            asSubExpect(keyValue.valueAssertionCreatorOrNull)
+                        )
+                    }.let { (first, rest) -> all(first, *rest) }).asAssert()
                 }
             }
         }
@@ -57,19 +70,26 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
         private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<out String?, Int?>>, KeyValue<String, Int>, Assert<Map<out String?, Int?>>> = Assert<Map<out String?, Int?>>::contains
         private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<out String?, Int?>>, keyValue: Pair<String?, (Assert<Int>.() -> Unit)?>, otherKeyValues: Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>): Assert<Map<out String?, Int?>> {
             return if (otherKeyValues.isEmpty()) {
-                plant contains KeyValue(keyValue.first, keyValue.second)
+                val keyValue1 = KeyValue(keyValue.first, keyValue.second)
+                plant.asExpect().contains(keyValue(keyValue1.key, asSubExpect(keyValue1.valueAssertionCreatorOrNull)))
+                    .asAssert()
             } else {
                 mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let{ (first, others) ->
-                    plant contains All(first, *others)
+                    plant.asExpect().contains(All(first, *others).mapArguments.to { keyValue ->
+                        keyValue(
+                            keyValue.key,
+                            asSubExpect(keyValue.valueAssertionCreatorOrNull)
+                        )
+                    }.let { (first, rest) -> all(first, *rest) }).asAssert()
                 }
             }
         }
 
         private fun containsKey(plant: Assert<Map<out String, *>>, key: String)
-            = plant containsKey key
+            = plant.asExpect().containsKey(key).asAssert()
 
         private fun containsNullableKey(plant: Assert<Map<out String?, *>>, key: String?)
-            = plant containsKey key
+            = plant.asExpect().containsKey(key).asAssert()
 
         private fun containsNotKey(plant: Assert<Map<out String, *>>, key: String)
             = plant containsNotKey key
@@ -78,13 +98,13 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
             = plant containsNotKey key
 
         private fun hasSize(plant: Assert<Map<*, *>>, size: Int)
-            = plant hasSize size
+            = plant.asExpect().apply { feature(Map<*, *>::size).toBe(size) }.asAssert()
 
         private fun isEmpty(plant: Assert<Map<*, *>>)
-            = plant toBe Empty
+            = plant.asExpect().toBe(empty).asAssert()
 
         private fun isNotEmpty(plant: Assert<Map<*, *>>)
-            = plant notToBe Empty
+            = plant.asExpect().notToBe(empty).asAssert()
     }
 
     @Suppress("unused")

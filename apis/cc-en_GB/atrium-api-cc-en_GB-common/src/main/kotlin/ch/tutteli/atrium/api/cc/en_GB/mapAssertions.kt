@@ -172,10 +172,10 @@ fun <K, V: Any, T: Map<out K, V?>> Assert<T>.getExisting(key: K): AssertionPlant
 @Deprecated(
     "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
     ReplaceWith(
-        "this.asExpect().hasSize(size).asAssert()",
+        "this.asExpect().apply { feature(Map<*, *>::size).toBe(size) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
         "ch.tutteli.atrium.domain.builders.migration.asAssert",
-        "ch.tutteli.atrium.api.fluent.en_GB.hasSize"
+        "ch.tutteli.atrium.api.fluent.en_GB.feature"
     )
 )
 fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)

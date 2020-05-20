@@ -4,8 +4,11 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.domain.builders.migration.asAssert
+import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.verbs.internal.expect
@@ -57,19 +60,21 @@ class MapFeatureAssertionsSpec : Spek({
         val getExistingNullableFun: KFunction2<Assert<Map<String, Int?>>, Key<String>, MapGetNullableOption<String, Int?, Map<String, Int?>>> = Assert<Map<String, Int?>>::getExisting
 
         fun keys(plant: Assert<Map<String, Int>>, assertionCreator: Assert<Set<String>>.() -> Unit)
-            = plant keys { assertionCreator() }
+            = plant.asExpect().apply { keys.asAssert({ assertionCreator() }) }.asAssert()
 
         fun values(plant: Assert<Map<String, Int>>, assertionCreator: Assert<Collection<Int>>.() -> Unit)
-            = plant values { assertionCreator() }
+            = plant.asExpect().apply { values.asAssert({ assertionCreator() }) }.asAssert()
 
         fun getExistingPlant(plant: Assert<Map<String, Int>>, key: String)
-            = plant getExisting key
+            = plant.asExpect().getExisting(key).asAssert()
 
         fun getExisting(plant: Assert<Map<String, Int>>, key: String, assertionCreator: Assert<Int>.() -> Unit)
-            = plant getExisting Key(key) assertIt { assertionCreator() }
+            = plant.asExpect().getExisting(key(Key(key).key) {
+            asAssert({assertionCreator()})
+        }).asAssert()
 
         fun getExistingNullablePlant(plant: Assert<Map<String, Int?>>, key: String)
-            = plant getExisting key
+            = plant.asExpect().getExisting(key).asAssert()
 
         fun getExistingNullable(plant: Assert<Map<String, Int?>>, key: String, assertionCreator: AssertionPlantNullable<Int?>.() -> Unit)
             = plant getExisting Key(key) assertIt { assertionCreator()  }

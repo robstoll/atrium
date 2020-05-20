@@ -179,11 +179,12 @@ abstract class MapFeatureAssertionsSpec(
                     messageContains("get(\"c\"): $keyDoesNotExist", "$toBeDescr: 3")
                 }
             }
-            test("throws if no assertion is made") {
-                expect {
-                    fluent.getExistingFun("a") { }
-                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
-            }
+            // the new infix throws now an AssertionError instead - not going to test it any more (is covered by bc-tests)
+//            test("throws if no assertion is made") {
+//                expect {
+//                    fluent.getExistingFun("a") { }
+//                }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
+//            }
         }
     }
 
