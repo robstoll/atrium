@@ -112,11 +112,11 @@ Contains API which provides a pure fluent API in German and which has its design
 in conjunction with code completion.
 
 # ch.tutteli.atrium.api.fluent.de_CH.creating.charsequence.contains.builders
-Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
 # ch.tutteli.atrium.api.fluent.de_CH.creating.iterable.contains.builders
-Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for Iterable.
 
 
@@ -135,12 +135,15 @@ Contains API which provides a pure fluent API in English and which has its desig
 in conjunction with code completion.
 
 # ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders
-Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
 # ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders
-Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for Iterable.
+
+# ch.tutteli.atrium.api.fluent.en_GB.jdk8
+Contains an API for types introduced with jdk8 - `@Deprecated` though as it was merged into [ch.tutteli.atrium.api.fluent.en_GB].
 
 # ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 Contains an API for types introduced with Kotlin 1.3
@@ -182,23 +185,35 @@ Contains `@Deprecated` pseudo keywords, switch from package `cc.infix` to `infix
 Contains API which provides an infix API in English and which has its design focus on usability 
 in conjunction with code completion.
 
+# ch.tutteli.atrium.api.infix.en_GB.creating
+Contains parameter objects  .
+
 # ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders
-Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for CharSequence.
+
+# ch.tutteli.atrium.api.infix.en_GB.creating.feature
+Contains parameter objects related to feature assertions.
+
+# ch.tutteli.atrium.api.infix.en_GB.creating.iterable
+Contains parameter objects related to Iterable.
+
 # ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders
-Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for Iterable.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.list.get.builders
-Contains the builders -- necessary to provide an extensible fluent API -- 
-which allow to create sophisticated `get` assertions for `List`.
-# ch.tutteli.atrium.api.infix.en_GB.creating.map.get.builders
-Contains the builders -- necessary to provide an extensible fluent API -- 
-which allow to create sophisticated `get` assertions for `Map`.
+# ch.tutteli.atrium.api.infix.en_GB.creating.map
+Contains parameter objects related to Map.
 
-# ch.tutteli.atrium.api.infix.en_GB.keywords
-Contains pseudo keywords such as [order](./ch.tutteli.atrium.api.cc.infix.en_-g-b.keywords/order.html).
+# ch.tutteli.atrium.api.infix.en_GB.creating.path
+Contains parameter objects related to Path.
 
+# ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
+Contains an API for types introduced with Kotlin 1.3
+
+# ch.tutteli.atrium.api.infix.en_GB.workaround
+Contains functions necessary for the infix API to work due to Kotlin related bugs / or insufficient type 
+inference capabilities .
 
 # ch.tutteli.atrium.api.cc.infix.en_UK
 `@Depreacted` API use  [ch.tutteli.atrium.api.infix.en_GB] instead.
@@ -434,6 +449,9 @@ which defines the minimum set of `a Throwable was thrown` assertion functions (o
 Contains [AbsentThrowableMessageProviderFactory](./ch.tutteli.atrium.domain.creating.throwable.thrown.providers/-absent-throwable-message-provider-factory/index.html)
 which defines the minimum set of [IterableContains.AbsentThrowableMessageProvider](./ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-absent-throwable-message-provider/index.html)
 an implementation has to provide.
+
+# ch.tutteli.atrium.domain.creating.typeutils
+Type aliases to improve the API.
 
 # ch.tutteli.atrium.domain.kotlin_1_3.creating
 Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation 
