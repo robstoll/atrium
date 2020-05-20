@@ -12,8 +12,8 @@ The following names do not include the platform specific suffixes which are `-co
 Bundle modules:
 - **atrium-fluent-en&#95;GB**  defines to have a dependency on   
   atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
-- **atrium-cc-infix-en&#95;GB-robstoll** defines to have a dependency on  
-  atrium-api-cc-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
+- **atrium-infix-en&#95;GB-robstoll** defines to have a dependency on  
+  atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
   
 API modules:  
 - **atrium-api-fluent-en&#95;GB** provides an assertion function API in English where the main 
@@ -65,6 +65,8 @@ You should not rely on them and move to the suggested predecessor:
   atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH, atrium-domain-robstoll and atrium-core-robstoll
 - **atrium-cc-en&#95;GB-robstoll** use `atrium-fluent-en_GB` instead. This bundle defines to have a dependency on   
   atrium-api-cc-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
+- **atrium-cc-infix-en&#95;GB-robstoll** defines to have a dependency on  
+  atrium-api-cc-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll  
 - **atrium-cc-en&#95;UK-robstoll** use `atrium-cc-en_GB-robstoll` instead. This bundle defines to have a dependency on   
   atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK, atrium-domain-robstoll, atrium-core-robstoll 
   and some deprecated modules
