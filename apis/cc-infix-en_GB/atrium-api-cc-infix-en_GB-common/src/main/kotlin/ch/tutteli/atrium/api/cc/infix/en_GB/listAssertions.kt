@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().get(index).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -35,7 +35,7 @@ infix fun <E: Any, T: List<E>> Assert<T>.get(index: Int)
  * @return A fluent builder to finish the assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().get(ch.tutteli.atrium.api.infix.en_GB.index(index.index) { \n/* needs further adjustments, move the lambda passed to assertIt to here and remove assertIt */ \n }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -56,7 +56,7 @@ infix fun <E : Any, T: List<E>> Assert<T>.get(index: Index): ListGetOption<E, T>
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().get(index).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -77,7 +77,7 @@ infix fun <E, T: List<E>> Assert<T>.get(index: Int)
  * @return A fluent builder to finish the assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().get(ch.tutteli.atrium.api.infix.en_GB.index(index.index) { \n/* needs further adjustments, move the lambda passed to assertIt to here and remove assertIt */ \n }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

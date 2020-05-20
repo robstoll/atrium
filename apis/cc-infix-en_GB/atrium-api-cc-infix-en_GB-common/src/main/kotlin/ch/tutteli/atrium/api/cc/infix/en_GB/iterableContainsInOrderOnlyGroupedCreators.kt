@@ -26,7 +26,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAny(ch.tutteli.atrium.api.infix.en_GB.order(order.firstGroup, order.secondGroup, *order.otherExpectedGroups))",
         "ch.tutteli.atrium.api.fluent.en_GB.inAny",
@@ -56,7 +56,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAny(ch.tutteli.atrium.api.infix.en_GB.order(" +
             "asExpectGroup(order.firstGroup)," +

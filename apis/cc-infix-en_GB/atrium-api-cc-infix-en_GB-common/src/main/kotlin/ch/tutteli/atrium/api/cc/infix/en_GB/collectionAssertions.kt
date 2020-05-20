@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().hasSize(size).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -38,7 +38,7 @@ infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().toBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -57,7 +57,7 @@ infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().notToBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -80,7 +80,7 @@ infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Em
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().size",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -100,7 +100,7 @@ val Assert<Collection<*>>.size get(): Assert<Int> = property(Collection<*>::size
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().size.asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

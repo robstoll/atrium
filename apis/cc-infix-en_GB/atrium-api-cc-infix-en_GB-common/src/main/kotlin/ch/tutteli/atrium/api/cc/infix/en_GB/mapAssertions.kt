@@ -24,7 +24,7 @@ import kotlin.js.JsName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(keyValuePair).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -44,7 +44,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>)
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(pairs(keyValuePairs.expected, *keyValuePairs.otherExpected)).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -66,7 +66,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(ch.tutteli.atrium.api.infix.en_GB.keyValue(keyValue.key, asSubExpect(keyValue.valueAssertionCreatorOrNull))).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -93,7 +93,7 @@ infix fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValue: KeyValue<
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().contains(keyValues.mapArguments.to<ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator<K, V>> { keyValue -> ch.tutteli.atrium.api.infix.en_GB.keyValue<K, V>(keyValue.key, asSubExpect(keyValue.valueAssertionCreatorOrNull))}.let { (first, rest) -> ch.tutteli.atrium.api.infix.en_GB.all(first, *rest) }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -115,7 +115,7 @@ infix fun <K, V : Any, T: Map<out K, V?>> Assert<T>.contains(keyValues: All<KeyV
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().containsKey(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -133,7 +133,7 @@ infix fun <K> Assert<Map<out K, *>>.containsKey(key: K)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().containsNotKey(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -155,7 +155,7 @@ infix fun <K> Assert<Map<out K, *>>.containsNotKey(key: K)
 @Suppress("DEPRECATION")
 @JsName("getExisting")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().getExisting(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -172,7 +172,7 @@ infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: K): Assert<V>
  * @return A fluent builder to finish the assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().getExisting(ch.tutteli.atrium.api.infix.en_GB.key(key.key) { \n/* needs further adjustments, move the lambda passed to assertIt to here and remove assertIt */ \n }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -193,7 +193,7 @@ infix fun <K, V: Any, T: Map<out K, V>> Assert<T>.getExisting(key: Key<K>): MapG
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().getExisting(key).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -213,7 +213,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.getExisting(key: K)
  * @return A fluent builder to finish the assertion.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().getExisting(ch.tutteli.atrium.api.infix.en_GB.key(key.key) { \n/* needs further adjustments, move the lambda passed to assertIt to here and remove assertIt */ \n }).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -234,7 +234,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.getExisting(key: Key<K>): MapGetNul
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { feature(Map<*, *>::size).toBe(size) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -252,7 +252,7 @@ infix fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().toBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -271,7 +271,7 @@ infix fun <T : Map<*, *>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Em
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().notToBe(empty).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -294,7 +294,7 @@ infix fun <T : Map<*, *>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty:
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().keys",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -313,7 +313,7 @@ val <K, V> Assert<Map<out K, V>>.keys get() : Assert<Set<K>> = property(Map<out 
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { keys.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -334,7 +334,7 @@ infix fun <K, V, T: Map<out K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K
  * @return The newly created [AssertionPlant].
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().values",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -353,7 +353,7 @@ val <K, V> Assert<Map<out K, V>>.values get() : Assert<Collection<V>> = property
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().apply { values.asAssert(assertionCreator) }.asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

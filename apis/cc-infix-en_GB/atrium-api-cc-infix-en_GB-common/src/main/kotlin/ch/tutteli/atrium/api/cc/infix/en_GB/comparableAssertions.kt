@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isLessThan(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -32,7 +32,7 @@ infix fun <T : Comparable<T>> Assert<T>.isLessThan(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isLessThanOrEqual(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -50,7 +50,7 @@ infix fun <T : Comparable<T>> Assert<T>.isLessOrEquals(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isGreaterThan(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -68,7 +68,7 @@ infix fun <T : Comparable<T>> Assert<T>.isGreaterThan(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().isGreaterThanOrEqual(expected).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",

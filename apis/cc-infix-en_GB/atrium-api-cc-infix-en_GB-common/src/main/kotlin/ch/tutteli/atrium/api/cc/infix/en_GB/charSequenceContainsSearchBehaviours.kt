@@ -17,6 +17,13 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.ignoringCase",
+        "ch.tutteli.atrium.api.infix.en_GB.ignoringCase"
+    )
+)
 infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>    = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
 /**
@@ -26,5 +33,12 @@ infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour
  *
  * @return The newly created builder.
  */
+@Deprecated(
+    "Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
+    ReplaceWith(
+        "this.ignoringCase",
+        "ch.tutteli.atrium.api.infix.en_GB.ignoringCase"
+    )
+)
 infix fun <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder ignoring case)

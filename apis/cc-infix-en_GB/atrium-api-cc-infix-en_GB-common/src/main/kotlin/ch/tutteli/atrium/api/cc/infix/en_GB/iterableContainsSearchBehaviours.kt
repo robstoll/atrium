@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inAny(ch.tutteli.atrium.api.infix.en_GB.order)",
         "ch.tutteli.atrium.api.infix.en_GB.inAny",
@@ -35,7 +35,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviou
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.but(ch.tutteli.atrium.api.infix.en_GB.only)",
         "ch.tutteli.atrium.api.infix.en_GB.but",
@@ -55,7 +55,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBe
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.inGiven(ch.tutteli.atrium.api.infix.en_GB.order)",
         "ch.tutteli.atrium.api.infix.en_GB.inGiven",
@@ -72,7 +72,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviou
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.and(ch.tutteli.atrium.api.infix.en_GB.only)",
         "ch.tutteli.atrium.api.infix.en_GB.and",
@@ -89,7 +89,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehav
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.grouped(ch.tutteli.atrium.api.infix.en_GB.entries)",
         "ch.tutteli.atrium.api.infix.en_GB.grouped",
@@ -106,7 +106,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * @return The newly created builder.
  */
 @Deprecated(
-    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.",
+    "Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.within(ch.tutteli.atrium.api.infix.en_GB.group)",
         "ch.tutteli.atrium.api.infix.en_GB.within",

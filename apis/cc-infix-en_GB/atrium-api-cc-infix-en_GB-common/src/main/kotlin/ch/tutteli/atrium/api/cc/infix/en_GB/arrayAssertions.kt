@@ -18,7 +18,7 @@ import kotlin.jvm.JvmName
  */
 @Suppress("DEPRECATION")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -40,7 +40,7 @@ fun <E> Assert<Array<out E>>.asIterable(): Assert<Iterable<E>>
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -64,7 +64,7 @@ infix fun <E> Assert<Array<out E>>.asIterable(assertionCreator: Assert<Iterable<
 @Suppress("DEPRECATION")
 @JvmName("byteArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -87,7 +87,7 @@ fun Assert<ByteArray>.asIterable(): Assert<Iterable<Byte>>
  */
 @JvmName("byteArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -111,7 +111,7 @@ infix fun Assert<ByteArray>.asIterable(assertionCreator: Assert<Iterable<Byte>>.
 @Suppress("DEPRECATION")
 @JvmName("charArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -134,7 +134,7 @@ fun Assert<CharArray>.asIterable(): Assert<Iterable<Char>>
  */
 @JvmName("charArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -158,7 +158,7 @@ infix fun Assert<CharArray>.asIterable(assertionCreator: Assert<Iterable<Char>>.
 @Suppress("DEPRECATION")
 @JvmName("shortArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -181,7 +181,7 @@ fun Assert<ShortArray>.asIterable(): Assert<Iterable<Short>>
  */
 @JvmName("shortArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -205,7 +205,7 @@ infix fun Assert<ShortArray>.asIterable(assertionCreator: Assert<Iterable<Short>
 @Suppress("DEPRECATION")
 @JvmName("intArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -228,7 +228,7 @@ fun Assert<IntArray>.asIterable(): Assert<Iterable<Int>>
  */
 @JvmName("intArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -252,7 +252,7 @@ infix fun Assert<IntArray>.asIterable(assertionCreator: Assert<Iterable<Int>>.()
 @Suppress("DEPRECATION")
 @JvmName("longArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -275,7 +275,7 @@ fun Assert<LongArray>.asIterable(): Assert<Iterable<Long>>
  */
 @JvmName("longArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -299,7 +299,7 @@ infix fun Assert<LongArray>.asIterable(assertionCreator: Assert<Iterable<Long>>.
 @Suppress("DEPRECATION")
 @JvmName("floatArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -322,7 +322,7 @@ fun Assert<FloatArray>.asIterable(): Assert<Iterable<Float>>
  */
 @JvmName("floatArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -346,7 +346,7 @@ infix fun Assert<FloatArray>.asIterable(assertionCreator: Assert<Iterable<Float>
 @Suppress("DEPRECATION")
 @JvmName("doubleArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -369,7 +369,7 @@ fun Assert<DoubleArray>.asIterable(): Assert<Iterable<Double>>
  */
 @JvmName("doubleArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -393,7 +393,7 @@ infix fun Assert<DoubleArray>.asIterable(assertionCreator: Assert<Iterable<Doubl
 @Suppress("DEPRECATION")
 @JvmName("boolArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert()",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
@@ -416,7 +416,7 @@ fun Assert<BooleanArray>.asIterable(): Assert<Iterable<Boolean>>
  */
 @JvmName("boolArrAsIterable")
 @Deprecated(
-    "Switch from Assert to Expect; will be removed with 1.0.0",
+    "Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.",
     ReplaceWith(
         "this.asExpect().asList(ch.tutteli.atrium.api.infix.en_GB.o).asAssert(assertionCreator)",
         "ch.tutteli.atrium.domain.builders.migration.asExpect",
