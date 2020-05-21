@@ -13,9 +13,11 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 @Suppress("DEPRECATION")
+@Deprecated("use ch.tutteli.atrium.api.verbs.expect instead; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.verbs.expect(subject)"))
 fun <T : Any> assert(subject: T) = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
 @Suppress("DEPRECATION")
+@Deprecated("use ch.tutteli.atrium.api.verbs.expect instead; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.verbs.expect(subject, assertionCreator)"))
 fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit) =
     AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(
         AssertionVerb.ASSERT,
@@ -25,10 +27,12 @@ fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit) =
     )
 
 @Suppress("DEPRECATION")
+@Deprecated("use ch.tutteli.atrium.api.verbs.expect instead; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.verbs.expect(subject)"))
 fun <T : Any?> assert(subject: T) =
     AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
 
 @Suppress("DEPRECATION")
+@Deprecated("use ch.tutteli.atrium.api.verbs.expect instead; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.verbs.expect(subject)"))
 fun expect(act: () -> Unit) = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
 
 @Deprecated("Switch to api.verbs.internal.AssertionVerb; will be removed with 1.0.0")
