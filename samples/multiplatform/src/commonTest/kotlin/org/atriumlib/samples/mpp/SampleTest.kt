@@ -8,7 +8,6 @@ import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import kotlin.test.Test
 
 class SampleTest {
-
     @Test
     fun toBe() {
         expect(1).toBe(1)

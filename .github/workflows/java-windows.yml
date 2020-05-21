@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
     build:
+        env:
+            android-version: 26
         runs-on: windows-latest
         strategy:
             fail-fast: true
@@ -17,12 +19,22 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
+            -   name: Cache android jar
+                id: android-cache
+                uses: actions/cache@v1
+                with:
+                    path: android-jar-cache
+                    key: ${{ runner.os }}-android-version-${{ env.android-version }}
+
             -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm
 
-            -   name: download Android SDK's android.jar
+            -   name: download Android SDK's android.jar (or use cached file)
+                if: steps.android-cache.outputs.cache-hit != 'true'
                 run: |
-                    curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-26/android.jar?raw=true"
+                    md android-jar-cache
+                    cd android-jar-cache
+                    curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-${{ env.android-version }}/android.jar?raw=true"
                     $file_sha256 = $(certutil -hashfile android.jar sha256)[1] -replace " ",""
                     if ($file_sha256 -Ne "cdc1846376a14b0370cc63454a129606b4a52cc50ada75ef0d4cf956b1ad2daa") {
                         echo "wrong sha256 for android.jar: $file_sha256";
@@ -31,7 +43,7 @@ jobs:
                     }
 
             -   name: check Atrium's -android.jar can be dexed
-                run: ATRIUM_ANDROID_JAR="$PWD/android.jar" ./gradlew checkDexer
+                run: ATRIUM_ANDROID_JAR="$PWD/android-jar-cache/android.jar" ./gradlew checkDexer
                 shell: bash
 
             -   name: Upload windows build code coverage
@@ -43,5 +55,5 @@ jobs:
                     #fail_ci_if_error: true
 
             -   name: composite build atrium-samples
-                run: ./gradlew build
+                run: ./gradlew build --scan
                 working-directory: misc\tools\atrium-samples-test
