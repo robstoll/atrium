@@ -291,7 +291,7 @@ fun <T, R> of(
  * For instance:
  * ```
  * // use
- * expect(person) feature { f("first underage child", { it.children.first { it < 18 }) }
+ * expect(person) feature { f("first underage child", it.children.first { it < 18 }) }
  *
  * // instead of (which causes problems with Kotlin < 1.4)
  * expect(person) feature of("first underage child") { children.first { it < 18 }

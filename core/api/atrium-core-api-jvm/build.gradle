@@ -5,6 +5,5 @@ dependencies {
     api kotlinReflect()
 
     testImplementation prefixedProject('api-infix-en_GB-jvm')
-    testImplementation prefixedProject('api-cc-infix-en_GB-jvm')
     testImplementation prefixedProject('specs-jvm')
 }

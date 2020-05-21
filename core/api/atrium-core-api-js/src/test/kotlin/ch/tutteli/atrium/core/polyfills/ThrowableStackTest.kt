@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.any
-import ch.tutteli.atrium.api.cc.infix.en_GB.contains
-import ch.tutteli.atrium.api.cc.infix.en_GB.none
-import ch.tutteli.atrium.api.cc.infix.en_GB.startsWith
-import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.api.infix.en_GB.any
+import ch.tutteli.atrium.api.infix.en_GB.contains
+import ch.tutteli.atrium.api.infix.en_GB.none
+import ch.tutteli.atrium.api.infix.en_GB.startsWith
+import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
 class ThrowableStackTest {
@@ -12,8 +12,8 @@ class ThrowableStackTest {
     @Test
     fun illegalStateException() {
         val stack = IllegalStateException("test").stackBacktrace
-        assert(stack.first()) startsWith "${ThrowableStackTest::class.simpleName}.illegalStateException"
-        assert(stack) {
+        expect(stack.first()) startsWith "${ThrowableStackTest::class.simpleName}.illegalStateException"
+        expect(stack) {
             none { this contains "init" }
             any { this contains "mocha" }
         }
@@ -22,8 +22,8 @@ class ThrowableStackTest {
     @Test
     fun assertionError() {
         val stack = AssertionError("test").stackBacktrace
-        assert(stack.first()) startsWith "${ThrowableStackTest::class.simpleName}.assertionError"
-        assert(stack) {
+        expect(stack.first()) startsWith "${ThrowableStackTest::class.simpleName}.assertionError"
+        expect(stack) {
             none { this contains "init" }
             any { this contains "mocha" }
         }

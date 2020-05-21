@@ -4,6 +4,5 @@ dependencies {
     api "ch.tutteli.kbox:kbox-js:$kbox_version", excludeKotlin
 
     testImplementation prefixedProject('api-infix-en_GB-js')
-    testImplementation prefixedProject('api-cc-infix-en_GB-js')
     testImplementation prefixedProject('specs-js')
 }

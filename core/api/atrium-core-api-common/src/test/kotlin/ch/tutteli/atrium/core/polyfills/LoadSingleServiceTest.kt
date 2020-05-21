@@ -1,12 +1,7 @@
-@file:Suppress("DEPRECATION" /* remove once we have migrated to new infix API */)
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.Values
-import ch.tutteli.atrium.api.cc.infix.en_GB.isA
-import ch.tutteli.atrium.api.cc.infix.en_GB.messageContains
-import ch.tutteli.atrium.api.cc.infix.en_GB.toThrow
-import ch.tutteli.atrium.verbs.internal.assert
-import ch.tutteli.atrium.verbs.internal.expect
+import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
 class LoadSingleServiceTest {
@@ -15,14 +10,14 @@ class LoadSingleServiceTest {
         expect {
             loadSingleService(LoadSingleServiceTest::class)
         }.toThrow<NoSuchElementException> {
-            this messageContains Values("Could not find any implementation", LoadSingleServiceTest::class.fullName)
+            it messageContains values("Could not find any implementation", LoadSingleServiceTest::class.fullName)
         }
     }
 
     @Test
     fun oneServiceFound_ReturnsTheService() {
         val service = loadSingleService(InterfaceWithOneImplementation::class)
-        assert(service).isA<SingleService> { }
+        expect(service).isA<SingleService>()
     }
 
     @Test
@@ -30,7 +25,7 @@ class LoadSingleServiceTest {
         expect {
             loadSingleService(InterfaceWithTwoImplementation::class)
         }.toThrow<IllegalStateException> {
-            this messageContains Values(
+            its messageContains values(
                 "Found more than one implementation ",
                 Service1::class.fullName,
                 Service2::class.fullName
