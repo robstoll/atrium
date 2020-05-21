@@ -203,3 +203,25 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * @since 0.12.0
  */
 inline val <T> Expect<T>.it get() : Expect<T> = this
+
+/**
+ * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
+ *
+ * For instance, instead of:
+ * ```
+ * expect(person) {
+ *   this name toBe 1
+ * }
+ * ```
+ * You can write
+ * ```
+ * expect("hello world") {
+ *   its name toBe 1
+ * }
+ * ```
+ *
+ * @return `this`
+ *
+ * @since 0.12.0
+ */
+inline val <T> Expect<T>.its get() : Expect<T> = this

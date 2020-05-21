@@ -4,6 +4,5 @@ dependencies {
     api "ch.tutteli.kbox:kbox-common:$kbox_version", excludeKotlin
 
     testImplementation prefixedProject('api-infix-en_GB-common')
-    testImplementation prefixedProject('api-cc-infix-en_GB-common')
     testImplementation prefixedProject('specs-common')
 }

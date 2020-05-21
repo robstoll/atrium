@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION" /*TODO remove with 1.0.0 */)
-
 package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.infix.en_GB.f
@@ -8,11 +6,8 @@ import ch.tutteli.atrium.api.infix.en_GB.it
 import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.AssertImpl
-import kotlin.math.exp
 import kotlin.reflect.KClass
 import kotlin.test.Test
 
@@ -68,6 +63,7 @@ class KClassFullNameTest {
         }
     }
 
+    @Suppress(/* TODO remove with 1.0.0 and import EmptyNameAndRepresentationAssertionGroup  */ "DEPRECATION")
     @Test
     fun fun_classObject() {
         expect("dummy subject, see sub assertions") {
@@ -75,7 +71,7 @@ class KClassFullNameTest {
                 "string" to "String",
                 RootAssertionGroupType to "${RootAssertionGroupType::class.simpleName}",
                 objInterface to "`object: ${Assertion::class.simpleName}` (js: objInterface\$ObjectLiteral)",
-                objClass to "`object: ${EmptyNameAndRepresentationAssertionGroup::class.simpleName}` (js: objClass\$ObjectLiteral)",
+                objClass to "`object: ${ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup::class.simpleName}` (js: objClass\$ObjectLiteral)",
                 listOf<Int>() to "EmptyList",
                 listOf(1, 2) to "ArrayList"
             ).forEach { (value, expected) ->

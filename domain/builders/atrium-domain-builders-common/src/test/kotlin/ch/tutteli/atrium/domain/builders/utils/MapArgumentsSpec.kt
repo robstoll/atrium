@@ -47,8 +47,11 @@ object MapArgumentsSpec : Spek({
                     mapArguments(i, iX).toAssert<String> { asExpect().startsWith(it) }
 
                 val (first, others) = it("a", "b", "c")
+                @Suppress("DEPRECATION")
                 deprecatedAssert("apple").first()
+                @Suppress("DEPRECATION")
                 others[0](deprecatedAssert("banana"))
+                @Suppress("DEPRECATION")
                 others[1](deprecatedAssert("caramel"))
             }
 
@@ -58,8 +61,11 @@ object MapArgumentsSpec : Spek({
                     mapArguments(i, iX).toAssertionPlantNullable<String?> { asExpect().notToBeNull { startsWith(it) } }
 
                 val (first, others) = it("a", "b", "c")
+                @Suppress("DEPRECATION")
                 deprecatedAssert("apple" as String?).first()
+                @Suppress("DEPRECATION")
                 others[0](deprecatedAssert("banana" as String?))
+                @Suppress("DEPRECATION")
                 others[1](deprecatedAssert("caramel" as String?))
             }
 
@@ -76,6 +82,7 @@ object MapArgumentsSpec : Spek({
                             ExpectImpl.changeSubject(this).unreported { "banana" }.assertionCreator()
                         }
                     }
+                    @Suppress("DEPRECATION")
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             ExpectImpl.changeSubject(this).unreported { "caramel" }.assertionCreator()
@@ -89,13 +96,16 @@ object MapArgumentsSpec : Spek({
                         mapArguments(i, iX).toNullOr().toAssert<String> { asExpect().startsWith(it) }
 
                     val (first, others) = it(null, "b", "c")
+                    @Suppress("DEPRECATION")
                     deprecatedAssert(first).asExpect().toBe(null)
+                    @Suppress("DEPRECATION")
                     deprecatedAssert(others[0]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             @Suppress("DEPRECATION")
                             ExpectImpl.changeSubject(this).unreported { "banana" }.asAssert().assertionCreator()
                         }
                     }
+                    @Suppress("DEPRECATION")
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             @Suppress("DEPRECATION")

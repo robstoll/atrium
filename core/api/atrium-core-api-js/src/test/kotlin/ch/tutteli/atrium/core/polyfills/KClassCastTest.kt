@@ -1,21 +1,10 @@
-@file:Suppress(
-/* TODO remove annotation with 1.0.0 */ "DEPRECATION",
-/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
-)
-
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.Values
-import ch.tutteli.atrium.api.cc.infix.en_GB.isSameAs
-import ch.tutteli.atrium.api.cc.infix.en_GB.messageContains
-import ch.tutteli.atrium.api.cc.infix.en_GB.toThrow
+import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.verbs.internal.assert
-import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.reflect.KClass
 import kotlin.test.Test
 
@@ -23,7 +12,7 @@ class KClassCastTest {
 
     @Test
     fun primitives() {
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 'a' to Char::class,
                 true to Boolean::class,
@@ -41,7 +30,7 @@ class KClassCastTest {
     @Test
     fun reifiedTypes() {
 
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 'a' to type<Char>(),
                 true to type<Boolean>(),
@@ -58,14 +47,15 @@ class KClassCastTest {
     }
 
 
+    @Suppress(/* TODO remove with 1.0.0 and import EmptyNameAndRepresentationAssertionGroup  */ "DEPRECATION")
     @Test
     fun classAndObject() {
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 "string" to String::class,
                 RootAssertionGroupType to AssertionGroupType::class,
                 objInterface to Assertion::class,
-                objClass to EmptyNameAndRepresentationAssertionGroup::class,
+                objClass to ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup::class,
                 objClass to AssertionGroup::class,
                 objClass to Assertion::class,
                 listOf<Int>() to List::class,
@@ -79,7 +69,7 @@ class KClassCastTest {
         val f0: () -> Int = { 1 }
         val f1: (Int) -> Int = { 1 }
         val f2: (Int, String) -> Int = { _, _ -> 1 }
-        assert("dummy subject, see sub assertions") {
+        expect("dummy subject, see sub assertions") {
             listOf(
                 f0 to f0::class,
                 f1 to f1::class,
@@ -90,18 +80,19 @@ class KClassCastTest {
         }
     }
 
+    @Suppress(/* TODO remove with 1.0.0 and import EmptyNameAndRepresentationAssertionGroup  */ "DEPRECATION")
     @Test
     fun illegalCasts_privateAndClass_throwsClassCastException() {
         expect {
             Int::class.cast(null)
-        }.toThrow<ClassCastException> { this messageContains Values("null", "Int") }
+        }.toThrow<ClassCastException> { this messageContains values("null", "Int") }
         expect {
             Int::class.cast(1L)
-        }.toThrow<ClassCastException> { this messageContains Values("Int", "Long") }
+        }.toThrow<ClassCastException> { this messageContains values("Int", "Long") }
         expect {
             Translatable::class.cast(objInterface)
         }.toThrow<ClassCastException> {
-            this messageContains Values(
+            this messageContains values(
                 "`object: ${Assertion::class.fullName}` (js: objInterface",
                 Translatable::class.fullName
             )
@@ -109,8 +100,8 @@ class KClassCastTest {
         expect {
             Translatable::class.cast(objClass)
         }.toThrow<ClassCastException> {
-            this messageContains Values(
-                "`object: ${EmptyNameAndRepresentationAssertionGroup::class.fullName}` (js: objClass",
+            this messageContains values(
+                "`object: ${ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup::class.fullName}` (js: objClass",
                 Translatable::class.fullName
             )
         }
@@ -132,16 +123,16 @@ class KClassCastTest {
         expect {
             val f1: (Int) -> Int = { it }
             f1::class.cast({ "a" })
-        }.toThrow<ClassCastException> { this messageContains Values(" Function0", " Function1") }
+        }.toThrow<ClassCastException> { this messageContains values(" Function0", " Function1") }
 
         expect {
             type<(Int) -> Int>().cast({ "a" })
-        }.toThrow<ClassCastException> { this messageContains Values(" Function0", " Function1") }
+        }.toThrow<ClassCastException> { this messageContains values(" Function0", " Function1") }
     }
 
-    private fun Assert<String>.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit {
+    private fun Expect<String>.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit {
         return { (value, kClass) ->
-            AssertImpl.feature.property(this, { kClass.cast(value) }, Untranslatable("value")) isSameAs value
+            it feature { f("value", kClass.cast(value)) } isSameAs value
         }
     }
 }
