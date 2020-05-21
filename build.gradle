@@ -31,7 +31,7 @@ buildscript {
         mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
 
         // project setup
-        tutteli_plugins_version = '0.33.0'
+        tutteli_plugins_version = '0.33.1'
         node_plugin_version = '2.2.0'
         d8_version = '1.6.84'
 
