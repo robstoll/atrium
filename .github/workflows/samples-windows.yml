@@ -2,11 +2,11 @@ name: Samples
 
 on:
     push:
-        paths:
-            - 'samples/**'
+#        paths:
+#            - 'samples/**'
     pull_request:
-        paths:
-            - 'samples/**'
+#        paths:
+#            - 'samples/**'
 
 jobs:
     build:
@@ -22,14 +22,6 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
-
-            -   name: Cache gradle dependencies
-                uses: actions/cache@v1
-                with:
-                    path: ~/.gradle/caches
-                    key: samples-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-                    restore-keys: |
-                        samples-${{ runner.os }}-gradle-
 
             -   name: Cache maven dependencies
                 uses: actions/cache@v1
@@ -69,6 +61,3 @@ jobs:
             -   name: build maven sample
                 run: ./mvnw -B clean verify "-Djava.version=${{ env.KOTLIN_TARGET }}"
                 working-directory: samples/maven
-
-            -   name: Stop gradle daemons
-                run: ./gradlew --stop
