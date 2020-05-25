@@ -14,3 +14,8 @@ dependencies {
     // here to ease migration; so that ReplaceWith of @Deprecated works
     api prefixedProject('api-infix-en_GB-jvm')
 }
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileKotlin.dependsOn(
+    prefixedProject('domain-robstoll-jvm').compileKotlin
+)

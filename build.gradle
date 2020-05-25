@@ -546,7 +546,7 @@ def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
     }
 }
 
-def dexerProjects = getAndroidProjects().findAll {
+def dexerProjects = jvmProjects.findAll {
     !it.name.contains("-specs-")
 }
 configure(dexerProjects) { subproject ->
