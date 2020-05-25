@@ -2,11 +2,11 @@ name: Samples
 
 on:
     push:
-        paths:
-            - 'samples/**'
+#        paths:
+#            - 'samples/**'
     pull_request:
-        paths:
-            - 'samples/**'
+#        paths:
+#            - 'samples/**'
 
 jobs:
     build:
@@ -22,6 +22,14 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: ${{ matrix.java_version }}
+
+            -   name: Cache maven dependencies
+                uses: actions/cache@v1
+                with:
+                    path: ~/.m2/repository
+                    key: samples-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+                    restore-keys: |
+                        samples-${{ runner.os }}-maven-
 
             -   name: build jasmine sample
                 run: ./gradlew build
@@ -40,7 +48,7 @@ jobs:
                 working-directory: samples\jvm\junit5
 
             -   name: build MPP sample
-                run: ./gradlew build --debug
+                run: ./gradlew build
                 working-directory: samples\multiplatform
 
             # Kotlin does not yet support to generate jdk 14 byte code

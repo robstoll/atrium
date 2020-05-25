@@ -55,5 +55,5 @@ jobs:
                     #fail_ci_if_error: true
 
             -   name: composite build atrium-samples
-                run: ./gradlew build --scan
+                run: ./gradlew build
                 working-directory: misc\tools\atrium-samples-test
