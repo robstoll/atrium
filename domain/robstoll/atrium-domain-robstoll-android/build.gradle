@@ -1,8 +1,0 @@
-description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (assertion functions and builders) of Atrium for Android.'
-
-dependencies {
-    api prefixedProject('domain-api-android')
-    implementation prefixedProject('domain-robstoll-lib-android')
-}
-
-srcAndResourcesFromJvmProject(project)

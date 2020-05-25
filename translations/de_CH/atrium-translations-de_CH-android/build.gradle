@@ -1,7 +1,0 @@
-description = 'Contains translations for Atrium in de_CH for Android.'
-
-dependencies {
-    api prefixedProject('core-api-android')
-}
-
-srcAndResourcesFromJvmProject(project)

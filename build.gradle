@@ -335,6 +335,7 @@ configure(subprojects - sampleProjects - toolProjects) {
 }
 
 
+apply from: 'gradle/scripts/check-dexer.gradle'
 apply from: 'gradle/scripts/gh-pages.gradle'
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
@@ -505,15 +506,6 @@ useJupiter(
     'cc-en_GB-robstoll-jvm',
     'cc-infix-en_GB-robstoll-jvm',
 )
-//TODO merge with above as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
-if (System.getenv('CI')) {
-    useJupiter(
-        'core-api-android',
-        'cc-de_CH-robstoll-android',
-        'cc-en_GB-robstoll-android',
-        'cc-infix-en_GB-robstoll-android',
-    )
-}
 
 def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: build, description: 'builds all JVM modules')
 buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {
@@ -528,99 +520,9 @@ buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {
         !it.name.startsWith("${rootProject.name}-cc-infix-en_GB")
 }.collect { it.build })
 
-def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -commnon, -js and -android modules')
-//TODO #245 simplify to buildAllWithoutCommonJsAndAndroid.dependsOn((subprojects -getJsProjects()).collect { it.build })
-configure(subprojects - getJsProjects()) { subproject ->
-    //necessary as :jasmine does not have a build task until it was evaluated
-    subproject.afterEvaluate {
-        buildAllWithoutJs.dependsOn(subproject.build)
-    }
-}
+def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -js modules')
+buildAllWithoutJs.dependsOn((subprojects - getJsProjects()).collect { it.build })
 
-def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
-    doFirst {
-        if (System.getenv('ATRIUM_ANDROID_JAR') == null) {
-            throw new InvalidUserDataException("env variable ATRIUM_ANDROID_JAR not set. Point it to the android SDK android.jar path (e.g. /android-sdk-linux/platforms/android-26/android.jar")
-        }
-        println("Using android.jar defined at: ${System.getenv('ATRIUM_ANDROID_JAR')}")
-    }
-}
-
-def dexerProjects = getAndroidProjects().findAll {
-    !it.name.contains("-specs-")
-}
-configure(dexerProjects) { subproject ->
-    configurations {
-        r8
-        d8
-    }
-    repositories {
-        google()
-    }
-    dependencies {
-        r8 "com.android.tools:r8:$d8_version"
-        d8 subproject
-    }
-
-    afterEvaluate {
-        task('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode') {
-            inputs.property 'ATRIUM_ANDROID_JAR', System.getenv('ATRIUM_ANDROID_JAR')
-
-            def outputPath = "${subproject.buildDir}/d8"
-            outputs.dir(outputPath)
-            dependsOn jar
-            dependsOn preCheck_ATRIUM_ANDROID_JAR
-            jar.mustRunAfter(preCheck_ATRIUM_ANDROID_JAR)
-
-            classpath subproject.configurations.r8.asPath
-            main = "com.android.tools.r8.D8"
-
-            def d8Classpath = subproject.configurations.d8.files.collect {
-                ["--classpath", it.getAbsolutePath()]
-            }.flatten()
-
-            def androidJarPath = System.getenv('ATRIUM_ANDROID_JAR')
-
-            // ATRIUM_ANDROID_JAR has to point to something like /android-sdk-linux/platforms/android-XY/android.jar
-            // where Xy is the version we want to support
-            def androidJar = androidJarPath != null ? ['--lib', androidJarPath] : []
-
-            args = d8Classpath + androidJar + ['--output', outputPath, jar.archiveFile.get().asFile]
-
-            def oldStream = errorOutput
-            def outputWritten = false
-            errorOutput = new OutputStream() {
-                @Override
-                void write(int b) {
-                    outputWritten = true
-                    oldStream.write(b)
-                }
-            }
-            doLast {
-                if (outputWritten) {
-                    throw new GradleException("checkDexer failed due to output, see above.")
-                }
-            }
-        }
-    }
-}
-def preCheckDexerProjects = task('preCheckDexerProjects', dependsOn: preCheck_ATRIUM_ANDROID_JAR) {
-    doFirst {
-        if (dexerProjects.size() == 0) {
-            throw new InvalidUserDataException("env variable CI not set and hence no android projects included. Use e.g. `CI=true gradlew checkDexer`")
-        }
-    }
-}
-task('checkDexer', description: 'executes all checkDexer tasks', dependsOn: 'preCheckDexerProjects') {
-
-    dexerProjects.forEach { subproject ->
-        subproject.afterEvaluate {
-            Task subprojectCheckDexer = subproject.tasks.getByName("checkDexer")
-            dependsOn subprojectCheckDexer
-            subprojectCheckDexer.mustRunAfter(preCheckDexerProjects)
-        }
-    }
-}
 
 /*
 Release & deploy a commit

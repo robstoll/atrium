@@ -1,9 +1,0 @@
-description = 'A fluent assertion function API in en_GB with a focus on code completion for Android.'
-
-dependencies {
-    api prefixedProject('domain-builders-android')
-
-    testImplementation prefixedProject('specs-android')
-}
-
-srcAndResourcesFromJvmProject(project)

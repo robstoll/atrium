@@ -232,9 +232,8 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ## Android
 
-The setup for using Atrium in an Android project is basically the same as for the [JVM setup](#jvm), you only need to
-suffix the dependency with `-android` in addition. 
-For instance `atrium-fluent-en_GB-android` instead of `atrium-fluent-en_GB`.
+Starting with 0.12.0 we no longer deliver a dedicated `-android` jar. Instead you can use the same setup as shown in [JVM setup](#jvm).
+We start adding one again in case we have Android specific assertion functions. 
 
 ## Common
 

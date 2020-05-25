@@ -1,0 +1,85 @@
+
+def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
+    doFirst {
+        if (System.getenv('ATRIUM_ANDROID_JAR') == null) {
+            throw new InvalidUserDataException("env variable ATRIUM_ANDROID_JAR not set. Point it to the android SDK android.jar path (e.g. /android-sdk-linux/platforms/android-26/android.jar")
+        }
+        println("Using android.jar defined at: ${System.getenv('ATRIUM_ANDROID_JAR')}")
+    }
+}
+
+def dexerProjects = getJvmProjects().findAll {
+    !it.name.contains("-specs-")
+}
+configure(dexerProjects) { subproject ->
+    configurations {
+        r8
+        d8
+    }
+    repositories {
+        google()
+    }
+    dependencies {
+        r8 "com.android.tools:r8:$d8_version"
+        d8 subproject
+    }
+
+    afterEvaluate {
+        task('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode') {
+            inputs.property 'ATRIUM_ANDROID_JAR', System.getenv('ATRIUM_ANDROID_JAR')
+
+            def outputPath = "${subproject.buildDir}/d8"
+            outputs.dir(outputPath)
+            dependsOn jar
+            dependsOn preCheck_ATRIUM_ANDROID_JAR
+            jar.mustRunAfter(preCheck_ATRIUM_ANDROID_JAR)
+
+            classpath subproject.configurations.r8.asPath
+            main = "com.android.tools.r8.D8"
+
+            def d8Classpath = subproject.configurations.d8.files.collect {
+                ["--classpath", it.getAbsolutePath()]
+            }.flatten()
+
+            def androidJarPath = System.getenv('ATRIUM_ANDROID_JAR')
+
+            // ATRIUM_ANDROID_JAR has to point to something like /android-sdk-linux/platforms/android-XY/android.jar
+            // where Xy is the version we want to support
+            def androidJar = androidJarPath != null ? ['--lib', androidJarPath] : []
+
+            args = d8Classpath + androidJar + ['--output', outputPath, jar.archiveFile.get().asFile]
+
+            def oldStream = errorOutput
+            def outputWritten = false
+            errorOutput = new OutputStream() {
+                @Override
+                void write(int b) {
+                    outputWritten = true
+                    oldStream.write(b)
+                }
+            }
+            doLast {
+                if (outputWritten) {
+                    throw new GradleException("checkDexer failed due to output, see above.")
+                }
+            }
+        }
+    }
+}
+def preCheckDexerProjects = task('preCheckDexerProjects', dependsOn: preCheck_ATRIUM_ANDROID_JAR) {
+    doFirst {
+        if (dexerProjects.size() == 0) {
+            throw new InvalidUserDataException("env variable CI not set and hence no android projects included. Use e.g. `CI=true gradlew checkDexer`")
+        }
+    }
+}
+task('checkDexer', description: 'executes all checkDexer tasks', dependsOn: 'preCheckDexerProjects') {
+
+    dexerProjects.forEach { subproject ->
+        subproject.afterEvaluate {
+            Task subprojectCheckDexer = subproject.tasks.getByName("checkDexer")
+            dependsOn subprojectCheckDexer
+            subprojectCheckDexer.mustRunAfter(preCheckDexerProjects)
+        }
+    }
+}
