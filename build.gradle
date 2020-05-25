@@ -520,14 +520,8 @@ buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {
         !it.name.startsWith("${rootProject.name}-cc-infix-en_GB")
 }.collect { it.build })
 
-def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -commnon, -js and -android modules')
-//TODO #245 simplify to buildAllWithoutCommonJsAndAndroid.dependsOn((subprojects -getJsProjects()).collect { it.build })
-configure(subprojects - getJsProjects()) { subproject ->
-    //necessary as :jasmine does not have a build task until it was evaluated
-    subproject.afterEvaluate {
-        buildAllWithoutJs.dependsOn(subproject.build)
-    }
-}
+def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -js modules')
+buildAllWithoutJs.dependsOn((subprojects - getJsProjects()).collect { it.build })
 
 
 /*
