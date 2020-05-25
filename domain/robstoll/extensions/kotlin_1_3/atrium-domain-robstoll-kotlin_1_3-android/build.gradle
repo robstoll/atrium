@@ -1,9 +1,0 @@
-description = 'Kotlin 1.3 specific extension for domain-robstoll-android -- will be merged into domain-robstoll-android with 1.0.0'
-
-dependencies {
-    api prefixedProject('domain-robstoll-android')
-    api prefixedProject('domain-api-kotlin_1_3-android')
-    implementation prefixedProject('domain-robstoll-lib-kotlin_1_3-android')
-}
-
-srcAndResourcesFromJvmProject(project)

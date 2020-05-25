@@ -505,15 +505,6 @@ useJupiter(
     'cc-en_GB-robstoll-jvm',
     'cc-infix-en_GB-robstoll-jvm',
 )
-//TODO merge with above as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
-if (System.getenv('CI')) {
-    useJupiter(
-        'core-api-android',
-        'cc-de_CH-robstoll-android',
-        'cc-en_GB-robstoll-android',
-        'cc-infix-en_GB-robstoll-android',
-    )
-}
 
 def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: build, description: 'builds all JVM modules')
 buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {

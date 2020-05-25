@@ -12,25 +12,14 @@ buildscript {
 
 apply plugin: 'ch.tutteli.settings'
 
-//TODO remove as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
-def kotlinJvmJsAndAndroidIfCi = { self, String suffix ->
-    if (System.getenv('CI')) {
-        self.kotlinJvmJsAndroid(suffix)
-    } else {
-        self.kotlinJvmJs(suffix)
-    }
-}
-def kotlinJvmAndAndroidIfCi = { self, String suffix ->
+def kotlinJvm = { self, String suffix ->
     self.folder(suffix, "$suffix-") {
         prefixed('common', 'jvm')
-        if (System.getenv('CI')) {
-            prefixed('android')
-        }
     }
 }
 
 def bundleWithExtensionsAndSmokeTest = { self, String apiName ->
-    kotlinJvmJsAndAndroidIfCi(self, apiName)
+    self.kotlinJvmJs(apiName)
 
     if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
         self.folder(apiName) {
@@ -43,11 +32,11 @@ def bundleWithExtensionsAndSmokeTest = { self, String apiName ->
 }
 
 def apiWithExtensions = { self, String apiName ->
-    kotlinJvmJsAndAndroidIfCi(self, apiName)
+    self.kotlinJvmJs(apiName)
     self.folder(apiName, "$apiName-") {
         extensions {
-            kotlinJvmAndAndroidIfCi(delegate, 'jdk8')
-            kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+            kotlinJvm(delegate, 'jdk8')
+            kotlinJvmJs('kotlin_1_3')
         }
     }
 }
@@ -66,52 +55,52 @@ include {
     }
 
     domain('domain-') {
-        kotlinJvmJsAndAndroidIfCi(delegate, 'api')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'builders')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
+        kotlinJvmJs('api')
+        kotlinJvmJs('builders')
+        kotlinJvmJs('robstoll')
+        kotlinJvmJs('robstoll-lib')
 
         api('api-') {
             extensions {
-                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+                kotlinJvmJs('kotlin_1_3')
             }
         }
 
         builders('builders-') {
             extensions {
-                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+                kotlinJvmJs('kotlin_1_3')
             }
         }
 
         robstoll('robstoll-') {
             extensions {
-                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+                kotlinJvmJs('kotlin_1_3')
             }
         }
 
         folder('robstoll-lib', 'robstoll-lib-') {
             extensions {
-                kotlinJvmJsAndAndroidIfCi(delegate, 'kotlin_1_3')
+                kotlinJvmJs('kotlin_1_3')
             }
         }
     }
 
     core('core-') {
-        kotlinJvmJsAndAndroidIfCi(delegate, 'api')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
+        kotlinJvmJs('api')
+        kotlinJvmJs('robstoll')
+        kotlinJvmJs('robstoll-lib')
     }
 
     translations('translations-') {
-        kotlinJvmJsAndAndroidIfCi(delegate, 'de_CH')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'en_GB')
+        kotlinJvmJs('de_CH')
+        kotlinJvmJs('en_GB')
     }
 
     misc {
         _ 'spec'
-        kotlinJvmJsAndAndroidIfCi(delegate, 'specs')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
+        kotlinJvmJs('specs')
+        kotlinJvmJs('verbs')
+        kotlinJvmJs('verbs-internal')
 
         tools {
             _ 'bc-test'
@@ -123,9 +112,9 @@ include {
     bundles {
         _ 'cc-en_UK-robstoll'
         _ 'cc-infix-en_UK-robstoll'
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB-robstoll')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
+        kotlinJvmJs('cc-de_CH-robstoll')
+        kotlinJvmJs('cc-en_GB-robstoll')
+        kotlinJvmJs('cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
             folder('cc-en_GB-robstoll') {
@@ -140,9 +129,9 @@ include {
     folder('apis', 'api-') {
         _ 'cc-en_UK'
         _ 'cc-infix-en_UK'
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
-        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
+        kotlinJvmJs('cc-de_CH')
+        kotlinJvmJs('cc-en_GB')
+        kotlinJvmJs('cc-infix-en_GB')
     }
     domain('domain-') {
         _ 'api-deprecated'
