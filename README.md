@@ -33,7 +33,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 ---
 ❗ You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-v0.12.0/README.md).
+For instance, the [README of v0.12.0](https://github.com/robstoll/atrium/tree/v0.12.0/README.md).
 
 ---
 
