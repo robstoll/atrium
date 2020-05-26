@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.12.0-SNAPSHOT'
+    rootProject.version = '0.12.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -44,7 +44,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/master"
+        dokka_sourceMapping = "tree/v0.12.0"
 
 
         toolProjects = toolProjectsFun
@@ -519,13 +519,14 @@ buildAllWithoutJs.dependsOn((subprojects - getJsProjects()).collect { it.build }
 Release & deploy a commit
 --------------------------------
 1. update master:
-    a) change rootProject.version in build.gradle and in example-pom.xml to X.Y.Z
+    a) change rootProject.version in build.gradle to X.Y.Z
     b) search for old version in README.md and replace with new
-    c) search for `tree/master` in all .md and build.gradle files and replace it with `tree/vX.Y.Z`
-    d) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
-    e) use the release badges in README (comment out the ones for master and uncomment the ones for the release)
-    f) comment out the warning in README.md about taking a sneak peak
-    g) commit & push (modified CONTRIBUTING.md, differences.md, example-pom.xml, build.gradle and README.md)
+    c) search for `tree/master` in all .md files and replace it with `tree/vX.Y.Z`
+    d) adjust dokka_sourceMapping from `tree/master` to tree/vX.Y.Z
+    e) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
+    f) use the release badges in README (comment out the ones for master and uncomment the ones for the release)
+    g) comment out the warning in README.md about taking a sneak peak
+    h) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
 
 2. update github pages:
 assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
@@ -536,7 +537,6 @@ assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 
 3. deploy to bintray:
 (assumes you have an alias named gr pointing to ./gradlew)
-    // CI=true is a temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
     a) java -version 2>&1 | grep "version \"9" && CI=true gr clean publishToBintray
     b) Log in to bintray, check that there are 1074 artifacts and publish them
     c) synchronise to maven central
@@ -553,10 +553,10 @@ Prepare next dev cycle
    b) commit & push changes
 .
 2. update master:
-   a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/master`
+   a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/v0.12.0`
    b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
    c) use the master badges in README (uncomment them in README and comment out release badges)
-   d) uncomment the warning about taking a sneak peek in README and revert `tree/master` still point to the tag
+   d) uncomment the warning about taking a sneak peek in README and revert `tree/v0.12.0` still point to the tag
    e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
    f) commit & push changes
 
