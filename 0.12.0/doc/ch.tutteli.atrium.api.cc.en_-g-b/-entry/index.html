@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Entry - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.cc.en_GB</a>&nbsp;/&nbsp;<a href="./index.html">Entry</a><br/>
+<br/>
+<h1>Entry</h1>
+<code><span class="keyword">class </span><s><span class="identifier">Entry</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.builders.utils/-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.builders.utils/-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/cc-en_GB/atrium-api-cc-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/parameterObjects.kt#L26">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from api-cc-en_GB to api-fluent-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.<br/>
+<br/>
+<p>Parameter object to express a <a href="../../ch.tutteli.atrium.domain.builders.utils/-group/index.html">Group</a> with a single identification lambda.</p>
+<p>In case <code>null</code> is used for the identification lambda then it is expected that the corresponding entry
+is <code>null</code> as well.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreatorOrNull"></a>
+<code>assertionCreatorOrNull</code> - The identification lambda identifying the entry where an entry is considered
+to be identified if it holds all <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s the lambda might create.
+In case it is defined as <code>null</code>, then an entry is identified if it is <code>null</code> as well.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Entry</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_GB.Entry$<init>(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.Entry.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">)</span></code>
+<p>Parameter object to express a <a href="../../ch.tutteli.atrium.domain.builders.utils/-group/index.html">Group</a> with a single identification lambda.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-creator-or-null.html">assertionCreatorOrNull</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionCreatorOrNull</span><span class="symbol">: </span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span></code>
+<p>The identification lambda identifying the entry where an entry is considered
+to be identified if it holds all <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s the lambda might create.
+In case it is defined as <code>null</code>, then an entry is identified if it is <code>null</code> as well.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="to-list.html">toList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Returns the members of the group as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

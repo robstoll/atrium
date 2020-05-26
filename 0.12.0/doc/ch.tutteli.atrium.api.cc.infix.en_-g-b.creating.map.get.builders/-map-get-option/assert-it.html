@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MapGetOption.assertIt - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders</a>&nbsp;/&nbsp;<a href="index.html">MapGetOption</a>&nbsp;/&nbsp;<a href="./assert-it.html">assertIt</a><br/>
+<br/>
+<h1>assertIt</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption.V)), kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">assertIt</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption.V)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/creating/map/get/builders/MapGetOption.kt#L41">(source)</a>
+<p>Makes the assertion that the <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> contains the previously specified <a href="key.html">key</a> and that the
+corresponding value holds all assertions the given <a href="assert-it.html#ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption.V)), kotlin.Unit)))/assertionCreator">assertionCreator</a> might create for it.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if a created <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s (by calling <a href="assert-it.html#ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption.V)), kotlin.Unit)))/assertionCreator">assertionCreator</a>)
+does not hold.</p>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the given <a href="assert-it.html#ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption.V)), kotlin.Unit)))/assertionCreator">assertionCreator</a> did not create a single assertion.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

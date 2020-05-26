@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CollectingAssertionContainer.addAssertionsCreatedBy - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">CollectingAssertionContainer</a>&nbsp;/&nbsp;<a href="./add-assertions-created-by.html">addAssertionsCreatedBy</a><br/>
+<br/>
+<h1>addAssertionsCreatedBy</h1>
+<a name="ch.tutteli.atrium.creating.CollectingAssertionContainer$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.CollectingAssertionContainer.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addAssertionsCreatedBy</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.CollectingAssertionContainer$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.CollectingAssertionContainer.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">CollectingAssertionContainer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/CollectingAssertionContainer.kt#L16">(source)</a>
+<p>Overrides <a href="../-expect/add-assertions-created-by.html">Expect.addAssertionsCreatedBy</a></p>
+<p>Adds the assertions created by the <a href="../-expect/add-assertions-created-by.html#ch.tutteli.atrium.creating.Expect$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.Expect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda to this container and
+adds a failing assertion to this container in case the <a href="../-expect/add-assertions-created-by.html#ch.tutteli.atrium.creating.Expect$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.Expect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> did not create a single assertion.</p>
+<p>A failing assertion is added to the container since we assume that the user or assertion function writer
+did a mistake and forgot to add an assertion. This can happen if one only creates assertions without adding
+them to the container or if one simply let the lambda empty.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - The receiver function which should create and add assertions to this container.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> depending on the concrete implementation.</p>
+<p><strong>Return</strong><br/>
+An <a href="../-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ThrowableThrownAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.throwable.thrown.creators</a>&nbsp;/&nbsp;<a href="./index.html">ThrowableThrownAssertions</a><br/>
+<br/>
+<h1>ThrowableThrownAssertions</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">ThrowableThrownAssertions</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/throwable/thrown/creators/ThrowableThrownAssertions.kt#L24">(source)</a><br/>
+<strong>Deprecated:</strong> Use Fun0Assertions instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Defines the minimum set of "a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was <code>thrown</code>"-assertion functions,
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="nothing-thrown.html">nothingThrown</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">nothingThrown</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions$nothingThrown(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder)/throwableThrownBuilder">throwableThrownBuilder</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-builder/index.html"><span class="identifier">ThrowableThrown.Builder</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="to-be.html">toBe</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <s><span class="identifier">toBe</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions$toBe(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.reflect.KClass((ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions.toBe.TExpected)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions.toBe.TExpected)), kotlin.Unit)))/throwableThrownBuilder">throwableThrownBuilder</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-builder/index.html"><span class="identifier">ThrowableThrown.Builder</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions$toBe(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.reflect.KClass((ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions.toBe.TExpected)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions.toBe.TExpected)), kotlin.Unit)))/expectedType">expectedType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="to-be.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions$toBe(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.reflect.KClass((ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions.toBe.TExpected)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions.toBe.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="to-be.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating/-throwable-thrown-assertions-builder/index.html">ThrowableThrownAssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">ThrowableThrownAssertionsBuilder</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ThrowableThrownAssertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="./index.html">ThrowableThrownAssertions</a>.
+In detail, it implements <a href="./index.html">ThrowableThrownAssertions</a> by delegating to <a href="../throwable-thrown-assertions.html">throwableThrownAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

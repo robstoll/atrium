@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>its - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./its.html">its</a><br/>
+<br/>
+<h1>its</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$its#ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.its.T))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="its.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">its</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="its.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyAssertions.kt#L227">(source)</a>
+<p>Inline property referring actually to <code>this</code> and allows to write infix assertions within an assertion group block</p>
+<p>For instance, instead of:</p>
+<pre><code>expect(person) {
+  this name toBe 1
+}
+</code></pre>
+<p>You can write</p>
+<pre><code>expect("hello world") {
+  its name toBe 1
+}
+</code></pre>
+<p><strong>Return</strong><br/>
+<code>this</code></p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+</BODY>
+</HTML>

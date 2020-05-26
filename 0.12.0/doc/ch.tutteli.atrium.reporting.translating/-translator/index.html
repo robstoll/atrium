@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Translator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="./index.html">Translator</a><br/>
+<br/>
+<h1>Translator</h1>
+<code><span class="keyword">interface </span><span class="identifier">Translator</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/Translator.kt#L46">(source)</a>
+<p>Represents a translator of <a href="../-translatable/index.html">Translatable</a>s.</p>
+<p>It shall be more or less compatible with <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html">ResourceBundle</a>
+in terms of how candidate <a href="../-locale/index.html">Locale</a>s are determined.
+So, more or less the same rules apply as described in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.Control.html#getCandidateLocales-java.lang.String-java.util.Locale-">ResourceBundle.Control.getCandidateLocales</a>.
+However, it shall apply an extended fallback mechanism. In case not a single properties file could be found
+for one of the candidate <a href="../-locale/index.html">Locale</a>s, then instead of falling back to <code>java.util.Locale.getDefault</code>
+(as <code>ResourceBundle</code> would do per default), one shall be able to specify fallback <a href="../-locale/index.html">Locale</a>s oneself --
+whether this includes <code>java.util.Locale.getDefault</code>or not  on a JVM platform is up to the user of Atrium.
+Moreover, the fallback even applies if a properties file for one of the candidate <a href="../-locale/index.html">Locale</a>s is specified but does
+not contain the property which we are looking for (<code>ResourceBundle</code> would throw a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/MissingResourceException.html">MissingResourceException</a> in
+such a case).
+Last but not least, Atrium's <a href="../-locale/index.html">Locale</a> does not have an equivalent of java.util.Locale.ROOT<code>;
+a user can define fallback locales on its own, so there is no need for </code>ROOT`.</p>
+<p>Following an example. <code>de_CH</code> is used as primary Locale and <code>fr_CH</code> as fallback Locale.
+We are looking for the translation of <code>DescriptionAnyAssertions.TO_BE</code>. The following files exists:</p>
+<p><em>DescriptionAnyAssertions_de_CH.properties</em> with NOT_WHAT_WE_ARE_LOOKING_FOR = foo
+<em>DescriptionAnyAssertions_fr.properties</em> with TO_BE = est</p>
+<p>The resolution would be as follows:</p>
+<ul><li>de_CH</li>
+<li>de</li>
+<li>fr_CH</li>
+<li>fr =&gt; found</li>
+</ul>
+<p>Notice, that a <a href="./index.html">Translator</a> should treat the two special cases Norwegian and Chinese differently than
+<code>ResourceBundle</code> suggests (the actual implementation for Java is buggy anyway).</p>
+<p>A <a href="./index.html">Translator</a> should not support <a href="../-locale/index.html">Locale</a>s with <a href="../-locale/language.html">Locale.language</a> equal to <code>no</code> and
+should throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a> instead.
+A user has to use either <code>nn</code> (for Nynorsk) or <code>nb</code> (for Bokmål). One can still define the other Locale as
+fallback if needed (which effectively makes the ambiguous <code>no</code> Locale obsolete). As an example, one can define
+<code>nn_NO</code> as primary Locale and <code>nb_NO</code> as fallback Locale.</p>
+<p>Furthermore it should throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a> in case one has specified <code>zh</code> as language, script <code>Hant</code>
+or script <code>Hans</code> but did not define a country.
+A user has to be explicit concerning the country. One is allowed to leave out the script but can also add it to be
+explicit and avoid confusion (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="translate.html">translate</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">translate</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Translator$translate(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the translation of the given <a href="translate.html#ch.tutteli.atrium.reporting.translating.Translator$translate(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> or its <a href="../-translatable/get-default.html">getDefault</a>
+in case there is not a translation defined for it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-arguments-supporting-translator/index.html">ArgumentsSupportingTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ArgumentsSupportingTranslator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Translator</span></a></code>
+<p>Represents a <a href="./index.html">Translator</a> which supports <a href="../-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

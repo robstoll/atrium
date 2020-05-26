@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CharSequenceContains - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.charsequence.contains</a>&nbsp;/&nbsp;<a href="./index.html">CharSequenceContains</a><br/>
+<br/>
+<h1>CharSequenceContains</h1>
+<code><span class="keyword">interface </span><span class="identifier">CharSequenceContains</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/charsequence/contains/CharSequenceContains.kt#L19">(source)</a>
+<p>Defines the contract for sophisticated <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">CharSequence</a> builders.</p>
+<p>The building process is typically started by the creation of a <a href="-builder.html">Builder</a>,
+goes on by specifying a desired <a href="-search-behaviour.html">SearchBehaviour</a>,
+defines which <a href="-checker.html">Checker</a>s should be applied and
+is finalized by one of the <a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains.creators/-char-sequence-contains-assertions/index.html">CharSequenceContainsAssertions</a>
+which usually use a <a href="-creator.html">Creator</a> which in turn use a <a href="-searcher/index.html">Searcher</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-builder.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/index.html"><span class="identifier">Contains.Builder</span></a><span class="symbol">&lt;</span><a href="-builder.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-builder.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The entry point of the contract, containing the <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/subject-provider.html">subjectProvider</a> -- i.e. the subject of the assertion
+for which the sophisticated <code>contain</code> assertion should be created -- as well as the chosen <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/search-behaviour.html">searchBehaviour</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-checker.html">Checker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Checker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker/index.html"><span class="identifier">Contains.Checker</span></a></code>
+<p>Represents a check for the search result such as: the object is contained exactly once in the input of the
+search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-checker-option.html">CheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker-option/index.html"><span class="identifier">Contains.CheckerOption</span></a><span class="symbol">&lt;</span><a href="-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a><span class="symbol">,</span>&nbsp;<a href="-builder.html"><span class="identifier">CharSequenceContains.Builder</span></a><span class="symbol">&lt;</span><a href="-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="-checker.html">Checker</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-creator/index.html"><span class="identifier">Contains.Creator</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-search-behaviour.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="-searcher/index.html">Searcher</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-searcher/index.html">Searcher</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Searcher</span><span class="symbol">&lt;</span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">, </span><span class="identifier">SC</span><span class="symbol">&gt;</span></code>
+<p>Represents a searcher which supports the search behaviour <a href="-searcher/index.html#S">S</a> for a given input <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Contains.SearchBehaviour - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.basic.contains</a>&nbsp;/&nbsp;<a href="../index.html">Contains</a>&nbsp;/&nbsp;<a href="./index.html">SearchBehaviour</a><br/>
+<br/>
+<h1>SearchBehaviour</h1>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviour</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/basic/contains/Contains.kt#L61">(source)</a>
+<p>Represents a search behaviour but leaves it up to the <a href="../-creator/index.html">Creator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="decorate-description.html">decorateDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">decorateDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.basic.contains.Contains.SearchBehaviour$decorateDescription(ch.tutteli.atrium.reporting.translating.Translatable)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>Decorates the given <a href="decorate-description.html#ch.tutteli.atrium.domain.creating.basic.contains.Contains.SearchBehaviour$decorateDescription(ch.tutteli.atrium.reporting.translating.Translatable)/description">description</a> so that it represents the search behaviour and returns the result.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Contains.SearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Contains.SearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-creator.html">Creator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.basic.contains/-contains/-search-behaviour.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">SearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Contains.SearchBehaviour</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

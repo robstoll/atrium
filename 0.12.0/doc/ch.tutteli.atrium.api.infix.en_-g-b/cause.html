@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>cause - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./cause.html">cause</a><br/>
+<br/>
+<h1>cause</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$cause(ch.tutteli.atrium.creating.Expect((kotlin.Throwable)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">cause</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="cause.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/throwableAssertions.kt#L66">(source)</a>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/cause.html">Throwable.cause</a> of the subject <em>is a</em> <a href="cause.html#TExpected">TExpected</a> (the same type or a sub-type),
+creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the <a href="cause.html#TExpected">TExpected</a> type for it and returns it.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/cause.html">Throwable.cause</a> of the subject of the assertion</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$cause(ch.tutteli.atrium.creating.Expect((kotlin.Throwable)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.cause.TExpected)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">cause</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$cause(ch.tutteli.atrium.creating.Expect((kotlin.Throwable)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.cause.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="cause.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="cause.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/throwableAssertions.kt#L82">(source)</a>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/cause.html">Throwable.cause</a> of the subject <em>is a</em> <a href="cause.html#TExpected">TExpected</a> (the same type or a sub-type) and
+holds all assertions the given <a href="cause.html#ch.tutteli.atrium.api.infix.en_GB$cause(ch.tutteli.atrium.creating.Expect((kotlin.Throwable)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.cause.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and returns this assertion container.</p>
+<p>Notice, in contrast to other assertion functions which expect an <a href="cause.html#ch.tutteli.atrium.api.infix.en_GB$cause(ch.tutteli.atrium.creating.Expect((kotlin.Throwable)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.cause.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a>, this function returns not
+<a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the initial type, which was some type <code>T </code>, but an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the specified type <a href="cause.html#TExpected">TExpected</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This assertion container to support a fluent API.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isA - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./is-a.html">isA</a><br/>
+<br/>
+<h1>isA</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$isA(ch.tutteli.atrium.creating.Expect((kotlin.Any)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isA</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-a.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyAssertions.kt#L106">(source)</a>
+<p>Expects that the subject of the assertion <em>is a</em> <a href="is-a.html#TSub">TSub</a> (the same type or a sub-type)
+and changes the subject to this type.</p>
+<p>Notice, that asserting a function type is <a href="https://youtrack.jetbrains.com/issue/KT-27846">flawed</a>.
+The actual types are ignored as function types erase to Function0,
+Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
+function and has the same amount of arguments regardless if the types differ. For instance
+<code>assert({x: Int -&gt; "hello"}).isA&lt;String -&gt; Unit&gt;{}</code> holds, even though <code>(Int) -&gt; String</code> is clearly not
+a <code>(String) -&gt; Unit</code>.</p>
+<p>More generally speaking, the <a href="https://youtrack.jetbrains.com/issue/KT-27826">flaw</a> applies to all generic types.
+For instance <code>isA&lt;List&lt;String&gt;&gt;</code> would only check if the subject is a <code>List</code> without checking if
+the element type is actually <code>String</code>. Or in other words
+<code>assert(listOf(1, 2)).isA&lt;List&lt;String&gt;&gt;{}</code> holds, even though <code>List&lt;Int&gt;</code> is clearly not a <code>List&lt;String&gt;</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="is-a.html#TSub">TSub</a>.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$isA(ch.tutteli.atrium.creating.Expect((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isA.TSub)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isA</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$isA(ch.tutteli.atrium.creating.Expect((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isA.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-a.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-a.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyAssertions.kt#L150">(source)</a>
+<p>Expects that the subject of the assertion <em>is a</em> <a href="is-a.html#TSub">TSub</a> (the same type or a sub-type) and
+that it holds all assertions the given <a href="is-a.html#ch.tutteli.atrium.api.infix.en_GB$isA(ch.tutteli.atrium.creating.Expect((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isA.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<p>Notice, in contrast to other assertion functions which expect an <a href="is-a.html#ch.tutteli.atrium.api.infix.en_GB$isA(ch.tutteli.atrium.creating.Expect((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isA.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a>, this function returns not
+<a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the initial type, which was some type <code>T </code>, but an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the specified type <a href="is-a.html#TSub">TSub</a>.
+This has the side effect that a subsequent call has only assertion functions available which are suited for <a href="is-a.html#TSub">TSub</a>.
+Since <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> is invariant it especially means that an assertion function which was not written in a generic way
+will not be available. Fixing such a function is easy (in most cases),
+you need to transform it into a generic from. Following an example:</p>
+<pre><code>interface Person
+class Student: Person
+fun Expect&lt;Person&gt;.foo()        = "dummy"  // limited only to Person, not recommended
+fun &lt;T: Person&gt; Expect&lt;T&gt;.bar() = "dummy"  // available to Person and all subtypes, the way to go
+fun Expect&lt;Student&gt;.baz()       = "dummy"  // specific only for Student, ok since closed class
+
+val p: Person = Student()
+expect(p)               // subject of type Person
+  .isA&lt;Student&gt; { ... } // subject now refined to Student
+  .baz()                // available via Student
+  .foo()                // not available to Student, only to Person, results in compilation error
+  .bar()                // available via T : Person
+</code></pre>
+<p>Notice, that asserting a function type is <a href="https://youtrack.jetbrains.com/issue/KT-27846">flawed</a>.
+The actual types are ignored as function types erase to Function0,
+Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
+function and has the same amount of arguments regardless if the types differ. For instance
+<code>assert({x: Int -&gt; "hello"}).isA&lt;String -&gt; Unit&gt;{}</code> holds, even though <code>(Int) -&gt; String</code> is clearly not
+a <code>(String) -&gt; Unit</code>.</p>
+<p>More generally speaking, the <a href="https://youtrack.jetbrains.com/issue/KT-27826">flaw</a> applies to all generic types.
+For instance <code>isA&lt;List&lt;String&gt;&gt;</code> would only check if the subject is a <code>List</code> without checking if
+the element type is actually <code>String</code>. Or in other words
+<code>assert(listOf(1, 2)).isA&lt;List&lt;String&gt;&gt;{}</code> holds, even though <code>List&lt;Int&gt;</code> is clearly not a <code>List&lt;String&gt;</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="is-a.html#TSub">TSub</a>.</p>
+</BODY>
+</HTML>

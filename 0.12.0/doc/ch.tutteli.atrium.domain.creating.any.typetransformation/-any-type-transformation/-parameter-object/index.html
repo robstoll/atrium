@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnyTypeTransformation.ParameterObject - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.any.typetransformation</a>&nbsp;/&nbsp;<a href="../index.html">AnyTypeTransformation</a>&nbsp;/&nbsp;<a href="./index.html">ParameterObject</a><br/>
+<br/>
+<h1>ParameterObject</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">ParameterObject</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/any/typetransformation/AnyTypeTransformation.kt#L94">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from `Assert` to `Expect` use `SubjectChanger` instead; will be removed with 1.0.0<br/>
+<br/>
+<p>A parameter object which contains all necessary information to report a failure</p>
+<h3>Parameters</h3>
+<p><a name="description"></a>
+<code>description</code> - Describes what assertion the type transformation represents, e.g. <code>is a</code> in case of a down cast.</p>
+<p><a name="representation"></a>
+<code>representation</code> - The representation of the expected result, e.g. <code>Int::class</code> in case of a down cast
+from <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>.</p>
+<p><a name="subjectPlant"></a>
+<code>subjectPlant</code> - The plant to which the assertion (including additional assertions created by
+<a href="assertion-creator.html">assertionCreator</a>) should be added.</p>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - The lambda which can create subsequent assertions for the transformed
+<a href="../../../ch.tutteli.atrium.creating/-subject-provider/subject.html">AssertionPlant.subject</a> in case the type transformation succeeds</p>
+<p><a name="warningTransformationFailed"></a>
+<code>warningTransformationFailed</code> - Explains why the <a href="subject-plant.html">subjectPlant</a>'s <a href="../../../ch.tutteli.atrium.creating/-subject-provider/subject.html">subject</a>
+could not be transformed to the desired type.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ParameterObject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.S, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.T)), kotlin.Unit)), ch.tutteli.atrium.reporting.translating.Translatable)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.S, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.T)), kotlin.Unit)), ch.tutteli.atrium.reporting.translating.Translatable)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.S, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.T)), kotlin.Unit)), ch.tutteli.atrium.reporting.translating.Translatable)/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.S, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.T)), kotlin.Unit)), ch.tutteli.atrium.reporting.translating.Translatable)/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.S, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject.T)), kotlin.Unit)), ch.tutteli.atrium.reporting.translating.Translatable)/warningTransformationFailed">warningTransformationFailed</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span></code>
+<p>A parameter object which contains all necessary information to report a failure</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-creator.html">assertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionCreator</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>The lambda which can create subsequent assertions for the transformed
+<a href="../../../ch.tutteli.atrium.creating/-subject-provider/subject.html">AssertionPlant.subject</a> in case the type transformation succeeds</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>Describes what assertion the type transformation represents, e.g. <code>is a</code> in case of a down cast.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The representation of the expected result, e.g. <code>Int::class</code> in case of a down cast
+from <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject-plant.html">subjectPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">subjectPlant</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code>
+<p>The plant to which the assertion (including additional assertions created by
+<a href="assertion-creator.html">assertionCreator</a>) should be added.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="warning-transformation-failed.html">warningTransformationFailed</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">warningTransformationFailed</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>Explains why the <a href="subject-plant.html">subjectPlant</a>'s <a href="../../../ch.tutteli.atrium.creating/-subject-provider/subject.html">subject</a>
+could not be transformed to the desired type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

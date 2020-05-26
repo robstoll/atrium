@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isNotEqualIncludingScale - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./is-not-equal-including-scale.html">isNotEqualIncludingScale</a><br/>
+<br/>
+<h1>isNotEqualIncludingScale</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$isNotEqualIncludingScale(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale.T)), ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-not-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotEqualIncludingScale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$isNotEqualIncludingScale(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale.T)), ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-not-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-not-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/bigDecimalAssertions.kt#L142">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html">BigDecimal</a>) is not equal to <a href="is-not-equal-including-scale.html#ch.tutteli.atrium.api.fluent.en_GB$isNotEqualIncludingScale(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale.T)), ch.tutteli.atrium.api.fluent.en_GB.isNotEqualIncludingScale.T)/expected">expected</a> including <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a>.</p>
+<p>Most of the time you want to use <a href="is-not-numerically-equal-to.html">isNotNumericallyEqualTo</a> which does not compare <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a>
+in contrast to this function.
+Following the two functions compared:</p>
+<ul><li><code>expect(BigDecimal("10")).isNotEqualIncludingScale(BigDecimal("10.0"))</code> holds.</li>
+<li><code>expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))</code>  does not hold.</li>
+</ul>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

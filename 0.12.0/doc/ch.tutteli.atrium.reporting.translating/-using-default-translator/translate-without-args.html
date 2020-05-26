@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UsingDefaultTranslator.translateWithoutArgs - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="index.html">UsingDefaultTranslator</a>&nbsp;/&nbsp;<a href="./translate-without-args.html">translateWithoutArgs</a><br/>
+<br/>
+<h1>translateWithoutArgs</h1>
+<a name="ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)"></a>
+<code><span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">translateWithoutArgs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/UsingDefaultTranslator.kt#L17">(source)</a>
+<p>Overrides <a href="../-arguments-supporting-translator/translate-without-args.html">ArgumentsSupportingTranslator.translateWithoutArgs</a></p>
+<p>Do not call this method in case you want to translate a <a href="../-translatable-with-args/index.html">TranslatableWithArgs</a>
+use <a href="../-arguments-supporting-translator/translate.html">translate</a> in this case.</p>
+<p>This method needs to be implemented by sub classes, which have to return the translation for the given
+<a href="../-arguments-supporting-translator/translate-without-args.html#ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> or the result of <a href="../-translatable/get-default.html">Translatable.getDefault</a> if there is no translation defined for the given
+<a href="../-arguments-supporting-translator/translate-without-args.html#ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a>.</p>
+<h3>Parameters</h3>
+<p><a name="translatable"></a>
+<code>translatable</code> - The <a href="../-translatable/index.html">Translatable</a> which shall be translated.</p>
+<p><strong>Return</strong><br/>
+The translation for the given <a href="../-arguments-supporting-translator/translate-without-args.html#ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> or
+<a href="../-translatable/get-default.html">Translatable.getDefault</a> of the given <a href="../-arguments-supporting-translator/translate-without-args.html#ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> in case there is no translation defined.</p>
+</BODY>
+</HTML>

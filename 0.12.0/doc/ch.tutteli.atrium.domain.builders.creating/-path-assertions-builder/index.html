@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PathAssertionsBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating</a>&nbsp;/&nbsp;<a href="./index.html">PathAssertionsBuilder</a><br/>
+<br/>
+<h1>PathAssertionsBuilder</h1>
+<code><span class="keyword">object </span><span class="identifier">PathAssertionsBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating/-path-assertions/index.html"><span class="identifier">PathAssertions</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/builders/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/PathAssertionsBuilder.kt#L21">(source)</a>
+<p>Delegates inter alia to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-path-assertions/index.html">PathAssertions</a>.
+In detail, it implements <a href="../../ch.tutteli.atrium.domain.creating/-path-assertions/index.html">PathAssertions</a> by delegating to <a href="../../ch.tutteli.atrium.domain.creating/path-assertions.html">pathAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ends-not-with.html">endsNotWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">endsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$endsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.endsNotWith.T)), java.nio.file.Path)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="ends-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$endsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.endsNotWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="ends-with.html">endsWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">endsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$endsWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.endsWith.T)), java.nio.file.Path)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="ends-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$endsWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.endsWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="exists.html">exists</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">exists</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$exists(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.exists.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="exists.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="exists-not.html">existsNot</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">existsNot</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$existsNot(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.existsNot.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="exists-not.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="extension.html">extension</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">extension</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$extension(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.extension.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="extension.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="extension.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="file-name.html">fileName</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">fileName</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$fileName(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.fileName.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="file-name.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="file-name.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="file-name-without-extension.html">fileNameWithoutExtension</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">fileNameWithoutExtension</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$fileNameWithoutExtension(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.fileNameWithoutExtension.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="file-name-without-extension.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="file-name-without-extension.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="has-same-binary-content-as.html">hasSameBinaryContentAs</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">hasSameBinaryContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$hasSameBinaryContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.hasSameBinaryContentAs.T)), java.nio.file.Path)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="has-same-binary-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$hasSameBinaryContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.hasSameBinaryContentAs.T)), java.nio.file.Path)/targetPath">targetPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="has-same-textual-content-as.html">hasSameTextualContentAs</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">hasSameTextualContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$hasSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="has-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$hasSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetPath">targetPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$hasSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/sourceCharset">sourceCharset</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html"><span class="identifier">Charset</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$hasSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetCharset">targetCharset</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html"><span class="identifier">Charset</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-directory.html">isDirectory</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isDirectory</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$isDirectory(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.isDirectory.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-directory.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-readable.html">isReadable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isReadable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$isReadable(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.isReadable.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-readable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-regular-file.html">isRegularFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isRegularFile</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$isRegularFile(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.isRegularFile.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-regular-file.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-writable.html">isWritable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isWritable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$isWritable(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.isWritable.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-writable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="parent.html">parent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">parent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$parent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.parent.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="resolve.html">resolve</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">resolve</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.resolve.T)), kotlin.String)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.resolve.T)), kotlin.String)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="starts-not-with.html">startsNotWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">startsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.startsNotWith.T)), java.nio.file.Path)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.startsNotWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="starts-with.html">startsWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">startsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$startsWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.startsWith.T)), java.nio.file.Path)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder$startsWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.PathAssertionsBuilder.startsWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

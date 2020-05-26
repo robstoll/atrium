@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isFailure - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3</a>&nbsp;/&nbsp;<a href="./is-failure.html">isFailure</a><br/>
+<br/>
+<h1>isFailure</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isFailure</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultAssertions.kt#L39">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a Failure and
+that it encapsulates an exception of type <a href="is-failure.html#TExpected">TExpected</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="is-failure.html#TExpected">TExpected</a></p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isFailure.TExpected)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isFailure</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isFailure.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultAssertions.kt#L52">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a Failure,
+it encapsulates an exception of type <a href="is-failure.html#TExpected">TExpected</a> and that the exception
+holds all assertions the given <a href="is-failure.html#ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isFailure.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="is-failure.html#TExpected">TExpected</a></p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+</BODY>
+</HTML>

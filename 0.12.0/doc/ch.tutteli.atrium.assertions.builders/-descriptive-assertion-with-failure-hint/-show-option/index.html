@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DescriptiveAssertionWithFailureHint.ShowOption - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">DescriptiveAssertionWithFailureHint</a>&nbsp;/&nbsp;<a href="./index.html">ShowOption</a><br/>
+<br/>
+<h1>ShowOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">ShowOption</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/descriptiveWithFailureHint.kt#L103">(source)</a>
+<p>Option which allows to specify in which situations the failure hint should be shown.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="show-for-any-failure.html">showForAnyFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">showForAnyFailure</span><span class="symbol">: </span><a href="../../-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall be shown in any case.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="show-based-on-defined-subject-only-if.html">showBasedOnDefinedSubjectOnlyIf</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">showBasedOnDefinedSubjectOnlyIf</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showBasedOnDefinedSubjectOnlyIf(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf.T, kotlin.Boolean)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="show-based-on-defined-subject-only-if.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showBasedOnDefinedSubjectOnlyIf(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf.T, kotlin.Boolean)))/predicate">predicate</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="show-based-on-defined-subject-only-if.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall be shown if the subject is defined and the given <a href="show-based-on-defined-subject-only-if.html#ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showBasedOnDefinedSubjectOnlyIf(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf.T, kotlin.Boolean)))/predicate">predicate</a> holds for it</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-based-on-subject-only-if.html">showBasedOnSubjectOnlyIf</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">showBasedOnSubjectOnlyIf</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showBasedOnSubjectOnlyIf(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnSubjectOnlyIf.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowSubjectDefinedOption((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnSubjectOnlyIf.T)), kotlin.Pair((kotlin.Function0((kotlin.Boolean)), kotlin.Function1((, )))))))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="show-based-on-subject-only-if.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showBasedOnSubjectOnlyIf(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnSubjectOnlyIf.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowSubjectDefinedOption((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnSubjectOnlyIf.T)), kotlin.Pair((kotlin.Function0((kotlin.Boolean)), kotlin.Function1((, )))))))/showSubStep">showSubStep</span><span class="symbol">:</span>&nbsp;<a href="../-show-subject-defined-option/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.ShowSubjectDefinedOption</span></a><span class="symbol">&lt;</span><a href="show-based-on-subject-only-if.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="show-based-on-subject-only-if.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall only be shown based on a predicate influenced by the
+subject of the assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-only-if.html">showOnlyIf</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">showOnlyIf</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showOnlyIf(kotlin.Function0((kotlin.Boolean)))/predicate">predicate</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall only be shown if the given <a href="show-only-if.html#ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showOnlyIf(kotlin.Function0((kotlin.Boolean)))/predicate">predicate</a> holds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-only-if-subject-defined.html">showOnlyIfSubjectDefined</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">showOnlyIfSubjectDefined</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption$showOnlyIfSubjectDefined(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.showOnlyIfSubjectDefined.T)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="show-only-if-subject-defined.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall be shown in any case as long as the subject is defined</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.ShowOption.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.ShowOption</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

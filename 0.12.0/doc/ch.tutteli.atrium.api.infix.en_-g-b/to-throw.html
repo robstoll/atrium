@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toThrow - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-throw.html">toThrow</a><br/>
+<br/>
+<h1>toThrow</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toThrow(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toThrow</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-throw.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/fun0Assertions.kt#L16">(source)</a>
+<p>Expects that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> <em>is a</em> <a href="to-throw.html#TExpected">TExpected</a> (the same type or a sub-type).</p>
+<p>Notice, that asserting a generic type is <a href="https://youtrack.jetbrains.com/issue/KT-27826">flawed</a>.
+For instance <code>toThrow&lt;MyException&lt;String&gt;&gt;</code> would only check if the subject is a <code>MyException</code> without checking if
+the element type is actually <code>String</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="to-throw.html#TExpected">TExpected</a>.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toThrow(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toThrow.TExpected)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toThrow</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toThrow(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-throw.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-throw.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/fun0Assertions.kt#L52">(source)</a>
+<p>Expects that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> <em>is a</em> <a href="to-throw.html#TExpected">TExpected</a> (the same type or a sub-type) and
+that it holds all assertions the given <a href="to-throw.html#ch.tutteli.atrium.api.infix.en_GB$toThrow(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<p>Notice, in contrast to other assertion functions which expect an <a href="to-throw.html#ch.tutteli.atrium.api.infix.en_GB$toThrow(ch.tutteli.atrium.creating.Expect((kotlin.Function0((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a>, this function returns not
+<a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the initial type, which was <code>Throwable?</code> but an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of the specified type <a href="to-throw.html#TExpected">TExpected</a>.
+This has the side effect that a subsequent call has only assertion functions available which are suited
+for <a href="to-throw.html#TExpected">TExpected</a>. Since <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> is invariant it especially means that an assertion function which was not
+written in a generic way will not be available. Fixing such a function is easy (in most cases),
+you need to transform it into a generic from. Following an example:</p>
+<pre><code>interface Person
+class Student: Person
+fun Expect&lt;Person&gt;.foo()        = "dummy"  // limited only to Person, not recommended
+fun &lt;T: Person&gt; Expect&lt;T&gt;.bar() = "dummy"  // available to Person and all subtypes, the way to go
+fun Expect&lt;Student&gt;.baz()       = "dummy"  // specific only for Student, ok since closed class
+
+val p: Person = Student()
+expect(p)               // subject of type Person
+  .isA&lt;Student&gt; { ... } // subject now refined to Student
+  .baz()                // available via Student
+  .foo()                // not available to Student, only to Person, results in compilation error
+  .bar()                // available via T : Person
+</code></pre>
+<p>Notice, that asserting a generic type is <a href="https://youtrack.jetbrains.com/issue/KT-27826">flawed</a>.
+For instance <code>toThrow&lt;MyException&lt;String&gt;&gt;</code> would only check if the subject is a <code>MyException</code> without checking if
+the element type is actually <code>String</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="to-throw.html#TExpected">TExpected</a>.</p>
+</BODY>
+</HTML>

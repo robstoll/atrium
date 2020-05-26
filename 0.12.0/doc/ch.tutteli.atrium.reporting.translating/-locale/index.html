@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Locale - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="./index.html">Locale</a><br/>
+<br/>
+<h1>Locale</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Locale</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/Locale.kt#L12">(source)</a>
+<p>Represents a platform independent representation of a locale consisting of a <a href="language.html">language</a>, a <a href="script.html">script</a>, a <a href="country.html">country</a> and
+a <a href="variant.html">variant</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Locale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String, kotlin.String)/language">language</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String, kotlin.String)/country">country</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code><br/>
+<code><span class="identifier">Locale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String)/language">language</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code><code><span class="identifier">Locale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/language">language</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/script">script</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/country">country</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.Locale$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/variant">variant</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span></code>
+<p>Represents a platform independent representation of a locale consisting of a <a href="language.html">language</a>, a <a href="script.html">script</a>, a <a href="country.html">country</a> and
+a <a href="variant.html">variant</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="country.html">country</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">country</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>can be null or needs to consist of at least one letter and only letters</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="language.html">language</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">language</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>consists of at least one letter and only letters</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="script.html">script</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">script</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>can be null or needs to consist of at least one letter and only letters</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="variant.html">variant</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">variant</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>can be null or needs at least one character, cannot be blank though (use null instead)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="to-string.html">toString</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns a string representation of Locale.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../to-java-locale.html">toJavaLocale</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">Locale</span></a><span class="symbol">.</span><span class="identifier">toJavaLocale</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a></code>
+<p>Transforms this <a href="./index.html">Locale</a> into a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html">java.util.Locale</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

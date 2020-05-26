@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DescriptiveAssertionWithFailureHint.FinalStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">DescriptiveAssertionWithFailureHint</a>&nbsp;/&nbsp;<a href="./index.html">FinalStep</a><br/>
+<br/>
+<h1>FinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/descriptiveWithFailureHint.kt#L178">(source)</a>
+<p>Final step which creates a <a href="../../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> if the <a href="test.html">test</a> holds or an <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which includes
+additionally a failure hint created by the given <a href="failure-hint-factory.html">failureHintFactory</a> in case <a href="show-hint.html">showHint</a> evaluates to <code>true</code>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="failure-hint-factory.html">failureHintFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">failureHintFactory</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>The previously defined factory method which creates the failure hint.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The previously defined <a href="../../../ch.tutteli.atrium.assertions/-descriptive-assertion/representation.html">DescriptiveAssertion.representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-hint.html">showHint</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">showHint</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>The previously defined <a href="show-hint.html">showHint</a> predicate which defines whether the failure hint shall be shown
+in case the assertion fails or not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="test.html">test</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">test</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>The previously defined test which is used to determine <a href="../../../ch.tutteli.atrium.assertions/-assertion/holds.html">DescriptiveAssertion.holds</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-assertion-builder-final-step/build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-assertion-builder-final-step/index.html#T"><span class="identifier">T</span></a></code>
+<p>Creates and returns the new <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of type <a href="../../-assertion-builder-final-step/index.html#T">T</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/showHint">showHint</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FinalStep.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

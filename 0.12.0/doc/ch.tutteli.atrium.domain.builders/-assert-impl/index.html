@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertImpl - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders</a>&nbsp;/&nbsp;<a href="./index.html">AssertImpl</a><br/>
+<br/>
+<h1>AssertImpl</h1>
+<code><span class="keyword">object </span><s><span class="identifier">AssertImpl</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assert-impl-common/index.html"><span class="identifier">AssertImplCommon</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/AssertImpl.kt#L26">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from AssertImpl to ExpectImpl (as well as from Assert to Expect); will be removed with 1.0.0<br/>
+<br/>
+<p>Bundles different domain objects which are defined by the module atrium-domain-api
+to give users of Atrium a fluent API as well.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="any.html">any</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">any</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-any-assertions-builder/index.html"><span class="identifier">AnyAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-any-assertions-builder/index.html">AnyAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-any-assertions/index.html">AnyAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="builder.html">builder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">builder</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a> - helping you creating <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.
+In detail, its an <code>inline</code> property which returns <a href="../../ch.tutteli.atrium.assertions.builders/assertion-builder.html">ch.tutteli.atrium.assertions.builders.assertionBuilder</a>
+which in turn returns an implementation of <a href="../../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="char-sequence.html">charSequence</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">charSequence</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-char-sequence-assertions-builder/index.html"><span class="identifier">CharSequenceAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-char-sequence-assertions-builder/index.html">CharSequenceAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-char-sequence-assertions/index.html">CharSequenceAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="collection.html">collection</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">collection</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-collection-assertions-builder/index.html"><span class="identifier">CollectionAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-collection-assertions-builder/index.html">CollectionAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-collection-assertions/index.html">CollectionAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="collector.html">collector</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">collector</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html"><span class="identifier">AssertionCollectorBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html">AssertionCollectorBuilder</a> - helping you to collect feature assertions.
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html">AssertionCollector</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="comparable.html">comparable</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">comparable</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-comparable-assertions-builder/index.html"><span class="identifier">ComparableAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-comparable-assertions-builder/index.html">ComparableAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-comparable-assertions/index.html">ComparableAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="core-factory.html">coreFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><s><span class="identifier">coreFactory</span></s><span class="symbol">: </span><a href="../../ch.tutteli.atrium.core/-core-factory/index.html"><span class="identifier">CoreFactory</span></a></code>
+<p>Returns the implementation of <a href="../../ch.tutteli.atrium.core/-core-factory/index.html">CoreFactory</a>.
+In detail, its an <code>inline</code> property which returns <a href="../../ch.tutteli.atrium.core/core-factory.html">ch.tutteli.atrium.core.coreFactory</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="feature.html">feature</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">feature</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-feature-assertions-builder/index.html"><span class="identifier">FeatureAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-feature-assertions-builder/index.html">FeatureAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-feature-assertions/index.html">FeatureAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="floating-point.html">floatingPoint</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">floatingPoint</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-floating-point-assertions-builder/index.html"><span class="identifier">FloatingPointAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-floating-point-assertions-builder/index.html">FloatingPointAssertionsBuilder</a> - <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a>
+and maybe more - which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-floating-point-assertions/index.html">FloatingPointAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="iterable.html">iterable</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">iterable</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-iterable-assertions-builder/index.html"><span class="identifier">IterableAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-iterable-assertions-builder/index.html">IterableAssertionsBuilder</a>.
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-iterable-assertions/index.html">IterableAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="list.html">list</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">list</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-list-assertions-builder/index.html"><span class="identifier">ListAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-list-assertions-builder/index.html">ListAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-list-assertions/index.html">ListAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="map.html">map</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">map</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-map-assertions-builder/index.html"><span class="identifier">MapAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-map-assertions-builder/index.html">MapAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-map-assertions/index.html">MapAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pair.html">pair</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pair</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-pair-assertions-builder/index.html"><span class="identifier">PairAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-pair-assertions-builder/index.html">PairAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-pair-assertions/index.html">PairAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="throwable.html">throwable</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">throwable</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-throwable-assertions-builder/index.html"><span class="identifier">ThrowableAssertionsBuilder</span></a></code>
+<p>Returns <a href="../../ch.tutteli.atrium.domain.builders.creating/-throwable-assertions-builder/index.html">ThrowableAssertionsBuilder</a>
+which inter alia delegates to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-throwable-assertions/index.html">ThrowableAssertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assert-impl-common/change-subject.html">changeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">changeSubject</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.R)))/originalPlant">originalPlant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.R)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-assert-impl-common/change-subject.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-subject.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a new <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> based on the given <a href="../-assert-impl-common/change-subject.html#ch.tutteli.atrium.domain.builders.AssertImplCommon$changeSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.R)))/subjectProvider">subjectProvider</a> whereas the <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> delegates
+assertion checking to the given <a href="../-assert-impl-common/change-subject.html#ch.tutteli.atrium.domain.builders.AssertImplCommon$changeSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.R)))/originalPlant">originalPlant</a>.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">changeSubject</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeSubject(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T, ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.R)))/originalAssertionCreator">originalAssertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeSubject(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.T, ch.tutteli.atrium.domain.builders.AssertImplCommon.changeSubject.R)))/transformation">transformation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-assert-impl-common/change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-assert-impl-common/change-subject.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-subject.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-assert-impl-common/change-to-nullable-subject.html">changeToNullableSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <s><span class="identifier">changeToNullableSubject</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeToNullableSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.R)))/originalPlant">originalPlant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-to-nullable-subject.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeToNullableSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.R)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-assert-impl-common/change-to-nullable-subject.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-to-nullable-subject.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a new <a href="../../ch.tutteli.atrium.creating/-assertion-plant-nullable.html">AssertionPlantNullable</a> based on the given <a href="../-assert-impl-common/change-to-nullable-subject.html#ch.tutteli.atrium.domain.builders.AssertImplCommon$changeToNullableSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.R)))/subjectProvider">subjectProvider</a> whereas the <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a>
+delegates assertion checking to the given <a href="../-assert-impl-common/change-to-nullable-subject.html#ch.tutteli.atrium.domain.builders.AssertImplCommon$changeToNullableSubject(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function0((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.R)))/originalPlant">originalPlant</a>.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">changeToNullableSubject</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeToNullableSubject(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T, ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.R)))/originalAssertionCreator">originalAssertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-to-nullable-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.AssertImplCommon$changeToNullableSubject(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T)), kotlin.Function1((ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.T, ch.tutteli.atrium.domain.builders.AssertImplCommon.changeToNullableSubject.R)))/transformation">transformation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-assert-impl-common/change-to-nullable-subject.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-assert-impl-common/change-to-nullable-subject.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-assert-impl-common/change-to-nullable-subject.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../big-decimal.html">bigDecimal</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertImpl</span></a><span class="symbol">.</span><span class="identifier">bigDecimal</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-big-decimal-assertions-builder/index.html"><span class="identifier">BigDecimalAssertionsBuilder</span></a></code>
+<p>Bundles different domain objects which are defined by the module atrium-domain-api
+to give users of Atrium a fluent API for the domain as well.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

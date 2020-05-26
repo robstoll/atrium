@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>f - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./f.html">f</a><br/>
+<br/>
+<h1>f</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$f(ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption((ch.tutteli.atrium.api.infix.en_GB.f.T)), kotlin.String, ch.tutteli.atrium.api.infix.en_GB.f.R)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.domain.builders.creating/-meta-feature-option/index.html"><span class="identifier">MetaFeatureOption</span></a><span class="symbol">&lt;</span><a href="f.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">f</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$f(ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption((ch.tutteli.atrium.api.infix.en_GB.f.T)), kotlin.String, ch.tutteli.atrium.api.infix.en_GB.f.R)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$f(ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption((ch.tutteli.atrium.api.infix.en_GB.f.T)), kotlin.String, ch.tutteli.atrium.api.infix.en_GB.f.R)/provider">provider</span><span class="symbol">:</span>&nbsp;<a href="f.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.domain.creating/-meta-feature/index.html"><span class="identifier">MetaFeature</span></a><span class="symbol">&lt;</span><a href="f.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/featureAssertions.kt#L160">(source)</a>
+<p>Creates a <a href="../ch.tutteli.atrium.domain.creating/-meta-feature/index.html">MetaFeature</a> using the given <a href="f.html#ch.tutteli.atrium.api.infix.en_GB$f(ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption((ch.tutteli.atrium.api.infix.en_GB.f.T)), kotlin.String, ch.tutteli.atrium.api.infix.en_GB.f.R)/provider">provider</a> and <a href="f.html#ch.tutteli.atrium.api.infix.en_GB$f(ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption((ch.tutteli.atrium.api.infix.en_GB.f.T)), kotlin.String, ch.tutteli.atrium.api.infix.en_GB.f.R)/description">description</a>.</p>
+<p>This can be used to create complex features with a custom description or as workaround where Kotlin is not able to
+infer the types properly.</p>
+<p>For instance:</p>
+<pre><code>expect(person) feature { f("first underage child", it.children.first { it &lt; 18 }) }
+</code></pre>
+<p>Note that you can use <code>feature of("first underage child") { children.first { it &lt; 18 } }</code> with the new type inference
+enabled (e.g. if you use Kotlin 1.4 or above).
+This method will most likely be removed once Kotlin 1.4 is out (probably with Atrium 1.0)</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.domain.creating/-meta-feature/index.html">MetaFeature</a>.</p>
+</BODY>
+</HTML>

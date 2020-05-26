@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Keyword - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./-keyword.html">Keyword</a><br/>
+<br/>
+<h1>Keyword</h1>
+<code><span class="keyword">interface </span><span class="identifier">Keyword</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L11">(source)</a>
+<p>Marker interface for keywords.</p>
+<p>For instance, can be used to add a deprecated overload in case an assertion function accepts Any as argument type
+(see toBe).</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="a-directory.html">aDirectory</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">aDirectory</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>A helper construct to allow expressing assertions about a path being a directory.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="a-regular-file.html">aRegularFile</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">aRegularFile</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>A helper construct to allow expressing assertions about a path being a regular file.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="blank.html">blank</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">blank</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents a helper construct which allows to express blankness.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="case.html">case</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">case</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>case</code> as in <a href="ignoring.html">ignoring</a> <code>case</code>.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="empty.html">empty</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">empty</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents a helper construct which allows to express emptiness.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="entries.html">entries</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">entries</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>entries</code> as in <a href="grouped.html">grouped</a> <code>entries</code>.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="existing.html">existing</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">existing</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>A helper construct to allow expressing assertions about path existence.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="group.html">group</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">group</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>group</code> as in <a href="within.html">within</a> <code>group</code>.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="next.html">next</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">next</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>next</code> as in <a href="has.html">has</a> <code>next</code>.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="o.html">o</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">o</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents a filler, a pseudo keyword where there isn't really a good keyword.
+A reader should skip this filler without reading it. For instance, <code>contains o atLeast 1...</code> should be read as
+<code>contains at least once...</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="only.html">only</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">only</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>only</code> as in <a href="and.html">and</a> <code>only</code>.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="order.html">order</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">order</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>order</code> as in <a href="in-any.html">inAny</a> <code>order</code>.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="present.html">present</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">present</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents a helper construct which allows to express presence.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="readable.html">readable</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">readable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>A helper construct to allow expressing assertions about a path being readable.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="success.html">success</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">success</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>Represents the pseudo keyword <code>success</code> as in <a href="to-be.html">toBe</a> `success.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="writable.html">writable</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">writable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-keyword.html"><span class="identifier">Keyword</span></a></code>
+<p>A helper construct to allow expressing assertions about a path being writable.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

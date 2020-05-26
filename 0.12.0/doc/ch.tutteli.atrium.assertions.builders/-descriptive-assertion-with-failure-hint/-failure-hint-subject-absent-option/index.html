@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DescriptiveAssertionWithFailureHint.FailureHintSubjectAbsentOption - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">DescriptiveAssertionWithFailureHint</a>&nbsp;/&nbsp;<a href="./index.html">FailureHintSubjectAbsentOption</a><br/>
+<br/>
+<h1>FailureHintSubjectAbsentOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">FailureHintSubjectAbsentOption</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-subject-based-option/-absent-option/index.html"><span class="identifier">SubjectBasedOption.AbsentOption</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/descriptiveWithFailureHint.kt#L91">(source)</a>
+<p>Sub Option step to define a failure hint in case the subject of the assertion is not defined.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-subject-based-option/-absent-option/if-defined.html">ifDefined</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">ifDefined</span><span class="symbol">: </span><span class="symbol">(</span><a href="../../-subject-based-option/-absent-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../-subject-based-option/-absent-option/index.html#R"><span class="identifier">R</span></a></code>
+<p>The previously defined factory in case the subject of the assertion is defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-subject-based-option/-absent-option/if-absent.html">ifAbsent</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">ifAbsent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.SubjectBasedOption.AbsentOption$ifAbsent(kotlin.Function0((ch.tutteli.atrium.assertions.builders.SubjectBasedOption.AbsentOption.R)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../-subject-based-option/-absent-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../-subject-based-option/-absent-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="../../-subject-based-option/-absent-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../-subject-based-option/-absent-option/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Defines the failure hint factory which should be used if the subject of the assertion is not defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FailureHintSubjectAbsentOption.Companion$create(kotlin.Function1((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionWithFailureHint.FailureHintSubjectAbsentOption.Companion.create.T, ch.tutteli.atrium.assertions.Assertion)))/ifDefined">ifDefined</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FailureHintSubjectAbsentOption</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

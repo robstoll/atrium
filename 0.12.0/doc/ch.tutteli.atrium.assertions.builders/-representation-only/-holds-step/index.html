@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RepresentationOnly.HoldsStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">RepresentationOnly</a>&nbsp;/&nbsp;<a href="./index.html">HoldsStep</a><br/>
+<br/>
+<h1>HoldsStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">HoldsStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/index.html"><span class="identifier">HoldsStep</span></a><span class="symbol">&lt;</span><a href="../-representation-step/index.html"><span class="identifier">RepresentationOnly.RepresentationStep</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/representationOnly.kt#L18">(source)</a>
+<p>Step which allows to specify <a href="../../../ch.tutteli.atrium.assertions/-assertion/holds.html">RepresentationOnlyAssertion.holds</a>.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/failing.html">failing</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">failing</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/index.html#R"><span class="identifier">R</span></a></code>
+<p>Defines a constant failing assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/holding.html">holding</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">holding</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/index.html#R"><span class="identifier">R</span></a></code>
+<p>Defines a constant holding assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/with-test.html">withTest</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withTest</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.common.HoldsStep$withTest(kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/index.html#R"><span class="identifier">R</span></a></code>
+<p>Uses the given <a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/with-test.html#ch.tutteli.atrium.assertions.builders.common.HoldsStep$withTest(kotlin.Function0((kotlin.Boolean)))/test">test</a> as <a href="../../../ch.tutteli.atrium.assertions/-assertion/holds.html">Assertion.holds</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">withTest</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.common.HoldsStep$withTest(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T, kotlin.Boolean)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/with-test.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.common.HoldsStep$withTest(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T, kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/with-test.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/index.html#R"><span class="identifier">R</span></a></code>
+<p>Uses the given <a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/with-test.html#ch.tutteli.atrium.assertions.builders.common.HoldsStep$withTest(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T, kotlin.Boolean)))/test">test</a> as <a href="../../../ch.tutteli.atrium.assertions/-assertion/holds.html">Assertion.holds</a> based on the subject provided by <a href="../../../ch.tutteli.atrium.assertions.builders.common/-holds-step/with-test.html#ch.tutteli.atrium.assertions.builders.common.HoldsStep$withTest(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.common.HoldsStep.withTest.T, kotlin.Boolean)))/subjectProvider">subjectProvider</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">RepresentationOnly.HoldsStep</span></a></code>
+<p>Factory method to create the <a href="./index.html">HoldsStep</a> step in the process of building a descriptive assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

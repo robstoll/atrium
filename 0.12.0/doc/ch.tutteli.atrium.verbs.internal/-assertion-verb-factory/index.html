@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionVerbFactory - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.verbs.internal</a>&nbsp;/&nbsp;<a href="./index.html">AssertionVerbFactory</a><br/>
+<br/>
+<h1>AssertionVerbFactory</h1>
+<code><span class="keyword">object </span><span class="identifier">AssertionVerbFactory</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/misc/verbs-internal/atrium-verbs-internal-jvm/src/main/kotlin/ch/tutteli/atrium/verbs/internal/AssertionVerbFactory.kt#L16">(source)</a>
+<p>Only required if you implement a custom component (for instance an own <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>, <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a> etc.)
+or an own assertion function API (e.g., atrium-api-cc-en_GB in a different language)
+and you want to reuse a specification from atrium-spec to test your custom component against it.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="check-exception.html">checkException</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">checkException</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.internal.AssertionVerbFactory$checkException(kotlin.Function0((kotlin.Unit)))/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-builder/index.html"><span class="identifier">ThrowableThrown.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="check-immediately.html">checkImmediately</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">checkImmediately</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.internal.AssertionVerbFactory$checkImmediately(ch.tutteli.atrium.verbs.internal.AssertionVerbFactory.checkImmediately.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="check-immediately.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-reporting-assertion-plant.html"><span class="identifier">ReportingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="check-immediately.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="check-lazily.html">checkLazily</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">checkLazily</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.internal.AssertionVerbFactory$checkLazily(ch.tutteli.atrium.verbs.internal.AssertionVerbFactory.checkLazily.T, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.verbs.internal.AssertionVerbFactory.checkLazily.T)), kotlin.Unit)))/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="check-lazily.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.verbs.internal.AssertionVerbFactory$checkLazily(ch.tutteli.atrium.verbs.internal.AssertionVerbFactory.checkLazily.T, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.verbs.internal.AssertionVerbFactory.checkLazily.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="check-lazily.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="check-lazily.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="check-nullable.html">checkNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">checkNullable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.internal.AssertionVerbFactory$checkNullable(ch.tutteli.atrium.verbs.internal.AssertionVerbFactory.checkNullable.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="check-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-reporting-assertion-plant-nullable.html"><span class="identifier">ReportingAssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="check-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

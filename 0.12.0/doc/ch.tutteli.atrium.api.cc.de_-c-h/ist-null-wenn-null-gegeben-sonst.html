@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>istNullWennNullGegebenSonst - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.de_CH</a>&nbsp;/&nbsp;<a href="./ist-null-wenn-null-gegeben-sonst.html">istNullWennNullGegebenSonst</a><br/>
+<br/>
+<h1>istNullWennNullGegebenSonst</h1>
+<a name="ch.tutteli.atrium.api.cc.de_CH$istNullWennNullGegebenSonst(ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="ist-null-wenn-null-gegeben-sonst.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">istNullWennNullGegebenSonst</span></s><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$istNullWennNullGegebenSonst(ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="ist-null-wenn-null-gegeben-sonst.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/apis/cc-de_CH/atrium-api-cc-de_CH-common/src/main/kotlin/ch/tutteli/atrium/api/cc/de_CH/anyAssertions.kt#L98">(source)</a><br/>
+<strong>Deprecated:</strong> api-cc-de_CH is discontinued, switch to api-fluent-en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> is either <code>null</code> if <a href="ist-null-wenn-null-gegeben-sonst.html#ch.tutteli.atrium.api.cc.de_CH$istNullWennNullGegebenSonst(ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a>
+is null or is not <code>null</code> and holds all assertions <a href="ist-null-wenn-null-gegeben-sonst.html#ch.tutteli.atrium.api.cc.de_CH$istNullWennNullGegebenSonst(ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istNullWennNullGegebenSonst.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> might create.</p>
+<p>It is a shortcut for</p>
+<pre><code class="lang-kotlin">if(nullOrExpected == null) ist(null)
+else istNichtNull(assertionCreatorOrNull)
+</code></pre>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

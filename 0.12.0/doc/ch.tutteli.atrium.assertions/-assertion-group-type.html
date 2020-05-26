@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionGroupType - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./-assertion-group-type.html">AssertionGroupType</a><br/>
+<br/>
+<h1>AssertionGroupType</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/AssertionGroupType.kt#L11">(source)</a>
+<p>Represents a type of an <a href="-assertion-group/index.html">AssertionGroup</a>.</p>
+<p>This interface is essentially a marker interface and should be sub-typed by other interfaces.</p>
+<p>As side notice: I decided to use a marker interface instead of an <code>enum class</code> -- which is not open for
+extension -- so that an unknown number of types can be created without the need to modify existing implementations.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-do-not-filter-assertion-group-type.html">DoNotFilterAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DoNotFilterAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>An <a href="./-assertion-group-type.html">AssertionGroupType</a> which indicates that a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> should not filter its <a href="-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-assertion-group-type.html">FeatureAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="./-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s which contain some kind of feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-indent-assertion-group-type.html">IndentAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">IndentAssertionGroupType</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="./-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a>
+should be displayed with an extra indent. Such a group might have a <a href="-assertion-group/description.html">AssertionGroup.description</a> and
+<a href="-assertion-group/representation.html">AssertionGroup.representation</a> (by accident) but should not be mentioned in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">InvisibleAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="./-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+be displayed in a manner that the user does not even notice that the <a href="-assertion/index.html">Assertion</a>s have been grouped.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-list-assertion-group-type.html">ListAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ListAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="./-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+be displayed in a list (up to the <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> if it is a list with bullets, squares etc.).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-assertion-group-type.html">RootAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">RootAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The <a href="./-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s which are the root of all assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

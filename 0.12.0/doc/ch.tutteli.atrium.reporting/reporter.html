@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>reporter - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./reporter.html">reporter</a><br/>
+<br/>
+<h1>reporter</h1>
+<a name="ch.tutteli.atrium.reporting$reporter"></a>
+<code><span class="keyword">val </span><span class="identifier">reporter</span><span class="symbol">: </span><a href="-reporter/index.html"><span class="identifier">Reporter</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/ReporterFactory.kt#L21">(source)</a>
+<p>The access point to an implementation of <a href="-reporter/index.html">Reporter</a>.</p>
+<p>It loads implementations of <a href="-reporter-factory/index.html">ReporterFactory</a> lazily via <a href="../ch.tutteli.atrium.core.polyfills/load-services.html">loadServices</a> and searches for the id specified via
+Atrium's property with key <a href="-reporter-factory/-a-t-r-i-u-m_-p-r-o-p-e-r-t-y_-k-e-y.html">ReporterFactory.ATRIUM_PROPERTY_KEY</a> (which is
+<code>ch.tutteli.atrium.reporting.reporterFactory</code>) or uses <code>default</code> in case the property is not specified.</p>
+<p>Use <a href="-reporter-factory/specify-factory.html">ReporterFactory.specifyFactory</a> or <a href="-reporter-factory/specify-factory-if-not-yet-set.html">ReporterFactory.specifyFactoryIfNotYetSet</a> to define another value for the
+property.</p>
+<p>Notice, that searching for a <a href="-reporter-factory/index.html">ReporterFactory</a> is only done once and the result is cached afterwards.
+Please <a href="https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]%20change%20Reporter%20during%20test%20run">open an issue</a>
+if you want to able to change the <a href="-reporter/index.html">Reporter</a> during a test-run.</p>
+<p><strong>Getter</strong><br/>
+<p>The access point to an implementation of <a href="-reporter/index.html">Reporter</a>.</p>
+<p>It loads implementations of <a href="-reporter-factory/index.html">ReporterFactory</a> lazily via <a href="../ch.tutteli.atrium.core.polyfills/load-services.html">loadServices</a> and searches for the id specified via
+Atrium's property with key <a href="-reporter-factory/-a-t-r-i-u-m_-p-r-o-p-e-r-t-y_-k-e-y.html">ReporterFactory.ATRIUM_PROPERTY_KEY</a> (which is
+<code>ch.tutteli.atrium.reporting.reporterFactory</code>) or uses <code>default</code> in case the property is not specified.</p>
+<p>Use <a href="-reporter-factory/specify-factory.html">ReporterFactory.specifyFactory</a> or <a href="-reporter-factory/specify-factory-if-not-yet-set.html">ReporterFactory.specifyFactoryIfNotYetSet</a> to define another value for the
+property.</p>
+<p>Notice, that searching for a <a href="-reporter-factory/index.html">ReporterFactory</a> is only done once and the result is cached afterwards.
+Please <a href="https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]%20change%20Reporter%20during%20test%20run">open an issue</a>
+if you want to able to change the <a href="-reporter/index.html">Reporter</a> during a test-run.</p>
+</p>
+</BODY>
+</HTML>

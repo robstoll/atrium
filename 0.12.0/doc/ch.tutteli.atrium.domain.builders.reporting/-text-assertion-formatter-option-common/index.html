@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TextAssertionFormatterOptionCommon - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">TextAssertionFormatterOptionCommon</a><br/>
+<br/>
+<h1>TextAssertionFormatterOptionCommon</h1>
+<code><span class="keyword">interface </span><span class="identifier">TextAssertionFormatterOptionCommon</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/TextAssertionFormatterOption.kt#L29">(source)</a>
+<p>Provides options to register <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s to the chosen <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a> -- those options
+have to be provided on all platforms.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-pair-formatter.html">assertionPairFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionPairFormatter</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html"><span class="identifier">AssertionPairFormatter</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html">AssertionPairFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="options.html">options</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">options</span><span class="symbol">: </span><a href="../-assertion-formatter-chosen-options/index.html"><span class="identifier">AssertionFormatterChosenOptions</span></a></code>
+<p>The so far chosen options which are relevant to create <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-text-assertion-formatter.html">withTextAssertionFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withTextAssertionFormatter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOptionCommon$withTextAssertionFormatter(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))))))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-assertion-formatter-chosen-options/index.html"><span class="identifier">AssertionFormatterChosenOptions</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOptionCommon$withTextAssertionFormatter(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))))))/otherFactories">otherFactories</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-assertion-formatter-chosen-options/index.html"><span class="identifier">AssertionFormatterChosenOptions</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-atrium-error-adjuster-option/index.html"><span class="identifier">AtriumErrorAdjusterOption</span></a></code>
+<p>Uses the given <a href="with-text-assertion-formatter.html#ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOptionCommon$withTextAssertionFormatter(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))))))/factory">factory</a> and <a href="with-text-assertion-formatter.html#ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOptionCommon$withTextAssertionFormatter(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterChosenOptions, kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatter)))))))/otherFactories">otherFactories</a> to create and register <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s to
+the specified <a href="../-assertion-formatter-chosen-options/assertion-formatter-facade.html">AssertionFormatterChosenOptions.assertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-text-capabilities.html">withTextCapabilities</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withTextCapabilities</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOptionCommon$withTextCapabilities(kotlin.Array((kotlin.Pair((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)))))/bulletPoints">bulletPoints</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-atrium-error-adjuster-option/index.html"><span class="identifier">AtriumErrorAdjusterOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory-common/register-text-assertion-formatter-capabilities.html">CoreFactory.registerTextAssertionFormatterCapabilities</a> to register the default <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s
+intended for text output -- using the defined <a href="assertion-pair-formatter.html">assertionPairFormatter</a>,
+<a href="../-assertion-formatter-chosen-options/object-formatter.html">AssertionFormatterChosenOptions.objectFormatter</a> and <a href="../-assertion-formatter-chosen-options/translator.html">AssertionFormatterChosenOptions.translator</a>
+-- to the specified <a href="../-assertion-formatter-chosen-options/assertion-formatter-facade.html">AssertionFormatterChosenOptions.assertionFormatterFacade</a> where the given <a href="with-text-capabilities.html#ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOptionCommon$withTextCapabilities(kotlin.Array((kotlin.Pair((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)))))/bulletPoints">bulletPoints</a> can be used to customise
+the predefined bullet points.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-text-assertion-formatter-option/index.html">TextAssertionFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">TextAssertionFormatterOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TextAssertionFormatterOptionCommon</span></a></code>
+<p>Provides options to register <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s to the chosen <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a> -- the platform
+specific interface might provide further options.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>loadSingleService - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.core.polyfills</a>&nbsp;/&nbsp;<a href="./load-single-service.html">loadSingleService</a><br/>
+<br/>
+<h1>loadSingleService</h1>
+<a name="ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))"></a>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">loadSingleService</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="load-single-service.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="load-single-service.html#T"><span class="identifier">T</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/polyfills/loadService.kt#L14">(source)</a>
+<p>Loads the service for the given <a href="load-single-service.html#ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))/kClass">kClass</a> and throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a> if it finds more than one.</p>
+<h3>Exceptions</h3>
+<p><a name="NoSuchElementException"></a>
+<code>NoSuchElementException</code> - in case there is no service found for <a href="load-single-service.html#ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))/kClass">kClass</a>.</p>
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - in case there is more than one service found for <a href="load-single-service.html#ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))/kClass">kClass</a>.</p>
+<p><strong>Return</strong><br/>
+The loaded service.</p>
+</BODY>
+</HTML>

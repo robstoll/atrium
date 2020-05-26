@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterController.format - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AssertionFormatterController</a>&nbsp;/&nbsp;<a href="./format.html">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AssertionFormatterController.kt#L39">(source)</a>
+<p>Finds a suitable <a href="../-assertion-formatter/index.html">AssertionFormatter</a> -- which was previously <a href="register.html">register</a>ed -- for the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> and
+formats it.</p>
+<p>The <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</a> allows to define an <a href="../-assertion-formatter-parameter-object/assertion-filter.html">assertionFilter</a>
+to filter out <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s (for instance, filter out messages which hold
+&rarr; see <a href="../../ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html">CoreFactory.newOnlyFailureReporter</a>).
+Moreover the controller should take into account whether the control flow
+<a href="../-assertion-formatter-parameter-object/is-not-in-do-not-filter-group.html">AssertionFormatterParameterObject.isNotInDoNotFilterGroup</a> or is in such a group,
+in which case the filtering should not apply.</p>
+<p>Last but not least, an <a href="index.html">AssertionFormatterController</a> has to take care of <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an
+<a href="../../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a> as its <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>. Such groups should not be format as group but instead
+each <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> should be formatted. This also means, that if there are nested assertion groups
+with an <a href="../../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a>, that their <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> should be formatted as if they
+were all added directly in the surrounding assertion group.</p>
+<h3>Parameters</h3>
+<p><a name="assertion"></a>
+<code>assertion</code> - The assertion which shall be formatted.</p>
+<p><a name="parameterObject"></a>
+<code>parameterObject</code> - Used to share data between this <a href="index.html">AssertionFormatterController</a> and the <a href="register.html">register</a>ed
+<a href="../-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+<h3>Exceptions</h3>
+<p><a name="UnsupportedOperationException"></a>
+<code>UnsupportedOperationException</code> - if no suitable <a href="../-assertion-formatter/index.html">AssertionFormatter</a> is found.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a></p>
+</p>
+</BODY>
+</HTML>

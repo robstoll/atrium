@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Expect.createAndAddAssertion - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">Expect</a>&nbsp;/&nbsp;<a href="./create-and-add-assertion.html">createAndAddAssertion</a><br/>
+<br/>
+<h1>createAndAddAssertion</h1>
+<a name="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/Expect.kt#L70">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/description">description</a>, <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/expected">expected</a> and <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.Expect$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/test">test</a>
+and <a href="add-assertion.html">adds</a> it to the container.</p>
+<h3>Parameters</h3>
+<p><a name="description"></a>
+<code>description</code> - The description of the assertion, e.g., <code>is less than</code>.</p>
+<p><a name="expected"></a>
+<code>expected</code> - The expected value, e.g., <code>5</code></p>
+<p><a name="test"></a>
+<code>test</code> - Indicates whether the assertion holds or fails.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> in case <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are immediately
+evaluated (see <a href="../-reporting-assertion-container/index.html">ReportingAssertionContainer</a>).</p>
+<p><strong>Return</strong><br/>
+An <a href="index.html">Expect</a> for the current subject of the assertion.</p>
+<a name="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/Expect.kt#L85">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/description">description</a>, <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/expected">expected</a> and <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.Expect$createAndAddAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.Expect.T, kotlin.Boolean)))/test">test</a>
+and <a href="add-assertion.html">adds</a> it to the container.</p>
+<h3>Parameters</h3>
+<p><a name="description"></a>
+<code>description</code> - The description of the assertion in form of a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>.</p>
+<p><a name="expected"></a>
+<code>expected</code> - The expected value, e.g., <code>5</code></p>
+<p><a name="test"></a>
+<code>test</code> - Indicates whether the assertion holds or fails.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> in case <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are immediately
+evaluated (see <a href="../-reporting-assertion-container/index.html">ReportingAssertionContainer</a>).</p>
+<p><strong>Return</strong><br/>
+An <a href="index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

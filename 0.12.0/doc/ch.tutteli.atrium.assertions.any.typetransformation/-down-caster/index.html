@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DownCaster - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.any.typetransformation</a>&nbsp;/&nbsp;<a href="./index.html">DownCaster</a><br/>
+<br/>
+<h1>DownCaster</h1>
+<code><span class="keyword">class </span><s><span class="identifier">DownCaster</span></s><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/misc/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/any/typetransformation/DownCaster.kt#L27">(source)</a><br/>
+<strong>Deprecated:</strong> Use AssertImpl.any.typeTransformation.downcast; will be removed with 1.0.0<br/>
+<br/>
+<p>Helps to make an assertion about the <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">BaseAssertionPlant.subject</a>, that it is of type <a href="index.html#T">T</a> and can be
+down-casted to type <a href="index.html#TSub">TSub</a>.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">BaseAssertionPlant.subject</a>.</p>
+<p><a name="TSub"></a>
+<code>TSub</code> - The type to which <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">BaseAssertionPlant.subject</a> can be down-casted, hence needs to be a subtype of <a href="index.html#T">T</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DownCaster</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$<init>(ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)))/failureHandler">failureHandler</span><span class="symbol">:</span>&nbsp;<a href="../-any-type-transformation/-type-transformation-failure-handler/index.html"><span class="identifier">AnyTypeTransformation.TypeTransformationFailureHandler</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Helps to make an assertion about the <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">BaseAssertionPlant.subject</a>, that it is of type <a href="index.html#T">T</a> and can be
+down-casted to type <a href="index.html#TSub">TSub</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="down-cast.html">downCast</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">downCast</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$downCast(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), kotlin.Unit)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$downCast(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), kotlin.Unit)))/subType">subType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="index.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$downCast(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), kotlin.Unit)))/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$downCast(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Performs the down-cast and applies the given <a href="down-cast.html#ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$downCast(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> to the down-casted
+<a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">subject</a> of <a href="down-cast.html#ch.tutteli.atrium.assertions.any.typetransformation.DownCaster$downCast(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.typetransformation.DownCaster.TSub)), kotlin.Unit)))/subjectPlant">subjectPlant</a> if successful or passes it
+to a <a href="../-any-type-transformation/-type-transformation-failure-handler/index.html">AnyTypeTransformation.TypeTransformationFailureHandler</a> otherwise.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

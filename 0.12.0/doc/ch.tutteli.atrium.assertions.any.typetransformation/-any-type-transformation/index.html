@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnyTypeTransformation - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.any.typetransformation</a>&nbsp;/&nbsp;<a href="./index.html">AnyTypeTransformation</a><br/>
+<br/>
+<h1>AnyTypeTransformation</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">AnyTypeTransformation</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/misc/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/any/typetransformation/AnyTypeTransformation.kt#L21">(source)</a><br/>
+<strong>Deprecated:</strong> Use the interface from package domain.creating; will be removed with 1.0.0<br/>
+<br/>
+<p>Defines the contract for sophisticated narrowing assertion builders.</p>
+<p>The assertion is typically created by the <a href="../-down-caster/index.html">DownCaster</a> or the more generic <a href="../-type-transformer/index.html">TypeTransformer</a>
+which itself requires a <a href="-type-transformation-failure-handler/index.html">TypeTransformationFailureHandler</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-type-transformation-failure-handler/index.html">TypeTransformationFailureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">TypeTransformationFailureHandler</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>A handler which decides how the lambda -- which could have created subsequent assertions for the
+transformed <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">AssertionPlant.subject</a> if the transformation of the <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">AssertionPlant.subject</a> to type <a href="-type-transformation-failure-handler/index.html#TSub">TSub</a>
+did not fail -- should be used in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

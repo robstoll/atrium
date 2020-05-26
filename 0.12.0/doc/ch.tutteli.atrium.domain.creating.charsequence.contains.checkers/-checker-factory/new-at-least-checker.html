@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CheckerFactory.newAtLeastChecker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.charsequence.contains.checkers</a>&nbsp;/&nbsp;<a href="index.html">CheckerFactory</a>&nbsp;/&nbsp;<a href="./new-at-least-checker.html">newAtLeastChecker</a><br/>
+<br/>
+<h1>newAtLeastChecker</h1>
+<a name="ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">newAtLeastChecker</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/nameContainsNotFun">nameContainsNotFun</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastCall">atLeastCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/charsequence/contains/checkers/CheckerFactory.kt#L30">(source)</a>
+<p>Creates an <a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a> which verifies that an expected object is contained at least <a href="new-at-least-checker.html#ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a>
+in the search input.</p>
+<h3>Parameters</h3>
+<p><a name="times"></a>
+<code>times</code> - The number which the check uses to compare against the actual number of times an expected object is
+found in the input of the search.</p>
+<p><a name="nameContainsNotFun"></a>
+<code>nameContainsNotFun</code> - The function which should be used instead of <code>atLeastCall</code> when <a href="new-at-least-checker.html#ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> equals to zero.</p>
+<p><a name="atLeastCall"></a>
+<code>atLeastCall</code> - The function which was used and should not be used if <a href="new-at-least-checker.html#ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> equals to zero.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - In case <a href="new-at-least-checker.html#ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory$newAtLeastChecker(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> is smaller than 1.</p>
+</BODY>
+</HTML>

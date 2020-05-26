@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newCollectingPlant - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-collecting-plant.html">newCollectingPlant</a><br/>
+<br/>
+<h1>newCollectingPlant</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newCollectingPlant(kotlin.Function0((ch.tutteli.atrium.core.CoreFactoryCommon.newCollectingPlant.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">newCollectingPlant</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newCollectingPlant(kotlin.Function0((ch.tutteli.atrium.core.CoreFactoryCommon.newCollectingPlant.T)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="new-collecting-plant.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html"><span class="identifier">CollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="new-collecting-plant.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/CoreFactory.kt#L363">(source)</a><br/>
+<strong>Deprecated:</strong> Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html">CollectingAssertionPlant</a> which is intended to be used as receiver object in lambdas to
+collect created <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s inside the lambda.</p>
+<p>Notice, that the plant might not provide a <a href="#">CollectingAssertionPlant.subject</a> in which case it
+throws a <a href="../../ch.tutteli.atrium.creating/-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a> if subject is accessed.
+Use <a href="new-checking-plant.html">newCheckingPlant</a> instead if you want to know whether the assertions hold.</p>
+<h3>Parameters</h3>
+<p><a name="subjectProvider"></a>
+<code>subjectProvider</code> - The function which will either provide the subject for this plant or throw an
+<a href="../../ch.tutteli.atrium.creating/-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a> in case it cannot provide it. A <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html">CollectingAssertionPlant</a> should evaluate the
+<a href="new-collecting-plant.html#ch.tutteli.atrium.core.CoreFactoryCommon$newCollectingPlant(kotlin.Function0((ch.tutteli.atrium.core.CoreFactoryCommon.newCollectingPlant.T)))/subjectProvider">subjectProvider</a> only once.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion plant.</p>
+</BODY>
+</HTML>

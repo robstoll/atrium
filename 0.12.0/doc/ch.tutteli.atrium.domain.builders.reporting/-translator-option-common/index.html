@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TranslatorOptionCommon - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">TranslatorOptionCommon</a><br/>
+<br/>
+<h1>TranslatorOptionCommon</h1>
+<code><span class="keyword">interface </span><span class="identifier">TranslatorOptionCommon</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.12.0/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/TranslatorOption.kt#L14">(source)</a>
+<p>Provides options to create a <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> -- those options have to be provided on all platforms.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="locale-order-decider.html">localeOrderDecider</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">localeOrderDecider</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html"><span class="identifier">LocaleOrderDecider</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="translation-supplier.html">translationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">translationSupplier</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-default-translator.html">withDefaultTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDefaultTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory-common/new-translator.html">CoreFactory.newTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where the specified <a href="translation-supplier.html">translationSupplier</a> is used to
+retrieve translations, the specified <a href="locale-order-decider.html">localeOrderDecider</a> to determine candidate <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s and
+<a href="with-default-translator.html#ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</a> is used as primary <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> and the optional <a href="with-default-translator.html#ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withDefaultTranslator(ch.tutteli.atrium.reporting.translating.Locale, kotlin.Array((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</a> as fallback <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-translator.html">withTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withTranslator(kotlin.Function2((ch.tutteli.atrium.reporting.translating.TranslationSupplier, ch.tutteli.atrium.reporting.translating.LocaleOrderDecider, ch.tutteli.atrium.reporting.translating.Translator)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html"><span class="identifier">LocaleOrderDecider</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-option/index.html"><span class="identifier">ObjectFormatterOption</span></a></code>
+<p>Uses the given <a href="with-translator.html#ch.tutteli.atrium.domain.builders.reporting.TranslatorOptionCommon$withTranslator(kotlin.Function2((ch.tutteli.atrium.reporting.translating.TranslationSupplier, ch.tutteli.atrium.reporting.translating.LocaleOrderDecider, ch.tutteli.atrium.reporting.translating.Translator)))/factory">factory</a> to build a <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-translator-option/index.html">TranslatorOption</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">TranslatorOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TranslatorOptionCommon</span></a></code>
+<p>Provides options to create a <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> -- the platform specific interface might provide further options.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
