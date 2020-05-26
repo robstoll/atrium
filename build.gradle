@@ -164,12 +164,6 @@ subprojects {
             }
         }
         maven {
-            url "https://dl.bintray.com/spekframework/spek-dev"
-            content {
-                includeGroupByRegex 'org\\.spekframework(\\..*)?'
-            }
-        }
-        maven {
             url "https://dl.bintray.com/robstoll/tutteli-jars"
             content {
                 includeGroupByRegex 'ch\\.tutteli(\\..*)?'
@@ -264,6 +258,7 @@ def apiProjects = subprojects.findAll {
             (it.name.endsWith("-common") && (it.name.contains("api-fluent-") || it.name.contains("api-infix-")))
         )
 }
+//testJar and testSourcesJar for bc-tests
 configure(apiProjects) { apiProject ->
     createTestJarTask(apiProject)
     createTestSourcesJarTask(apiProject)
