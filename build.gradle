@@ -82,22 +82,6 @@ buildscript {
                 }
         ]
 
-        srcAndResourcesFromJvmProject = { Project project ->
-            def nameWithoutSuffix = project.name.substring(project.name.indexOf('-') + 1, project.name.lastIndexOf('-'))
-            def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
-            project.sourceSets {
-                main {
-                    kotlin.srcDirs += "${jvmProject.projectDir}/src/main/kotlin"
-                    resources.srcDirs += "${jvmProject.projectDir}/src/main/resources"
-                }
-                test {
-                    java.srcDirs += "${jvmProject.projectDir}/src/test/java"
-                    kotlin.srcDirs += ["${jvmProject.projectDir}/src/test/kotlin", "${jvmProject.projectDir}/src/test/java"]
-                    resources.srcDirs += "${jvmProject.projectDir}/src/test/resources"
-                }
-            }
-        }
-
         //TODO dependencies no longer required once all specs are with spek2 where they are set via spek plugin
         spekDep = { closure ->
             delegate = closure
