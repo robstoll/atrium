@@ -558,9 +558,10 @@ Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=0.12.0
 export ATRIUM_NEXT_VERSION=0.13.0
-(find ./ -name "*.md" | xargs perl -0777 -i \
+find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/master@g;" \
-   -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;")
+   -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
+   -pe "s/add \\\`\@since $ATRIUM_VERSION\\\` \(adapt to current/add \\\`\@since $ATRIUM_NEXT_VERSION\\\` \(adapt to current/g;"
 perl -0777 -i \
   -pe "s@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@dokka_sourceMapping = \"tree/master\"@;" \
   -pe "s/rootProject.version = '$ATRIUM_VERSION'/rootProject.version = '$ATRIUM_NEXT_VERSION-SNAPSHOT'/;" \
