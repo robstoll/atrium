@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
@@ -17,6 +18,8 @@ class LocalDateTimeFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.L
     property<LocalDateTime, DayOfWeek>(Expect<LocalDateTime>::dayOfWeek),
     fun1<LocalDateTime, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDateTime>::dayOfWeek)
 ) {
+    companion object : WithAsciiReporter()
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<LocalDateTime> = notImplemented()

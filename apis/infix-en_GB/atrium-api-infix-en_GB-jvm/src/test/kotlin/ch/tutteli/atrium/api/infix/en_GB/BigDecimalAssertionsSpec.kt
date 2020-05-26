@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.BigDecimalAssertionsSpec
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -29,7 +30,7 @@ class BigDecimalAssertionsSpec : Spek({
         }
     }
 }) {
-    companion object {
+    companion object : WithAsciiReporter() {
         @Suppress("DEPRECATION")
         fun toBeBigDecimal(expect: Expect<BigDecimal>, a: BigDecimal): Nothing = expect toBe a
 

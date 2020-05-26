@@ -44,7 +44,7 @@ def bcTests = task("bcTests", group: 'Verification') {
     dependsOn build
 }
 
-['fluent-en_GB', /* TODO remove with 1.0.0 => */ 'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB', 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
+['fluent-en_GB', 'infix-en_GB', /* TODO remove with 1.0.0 => */ 'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB', 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
     task("bcBbc-$apiName", group: 'Verification') {
         description = "runs all backward compatibility and binary backward compatibility tests for $apiName"
         dependsOn build
@@ -147,6 +147,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             exclude group: '*'
         }
 
+        //TODO remove with 1.0.0, keep only else branch
         if (oldVersion == '0.6.0') {
             add(confCommon, "$groupId:atrium-spec:$oldVersion") {
                 exclude group: '*'
@@ -173,7 +174,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
 //                exclude group: '*'
 //            }
             add(confCommon, "$groupId:atrium-specs:$oldVersion") {
-                exclude group: '*'
+                exclude group: 'ch.tutteli.atrium'
             }
             add(confCommon, prefixedProject("api-fluent-en_GB-jvm")) {  //required by atrium-specs
                 exclude group: '*'
@@ -183,6 +184,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             }
         }
 
+        //TODO keep only if branch, remove the rest with 1.0.0
         if (isFluentOrInfix) {
             add(confCommon, prefixedProject("$apiName-jvm"))
         } else if (!apiName.endsWith('en_UK')) {
@@ -377,9 +379,13 @@ createBcAndBbcTasksForApis('0.10.0',
     'forgive=^$',
     'fluent-en_GB'
 )
-createBcAndBbcTasksForApis('0.11.0',
+createBcAndBbcTasksForApis('0.11.1',
     'forgive=^$',
     'fluent-en_GB'
+)
+createBcAndBbcTasksForApis('0.12.0',
+    'forgive=.*ch/tutteli/atrium/api/infix/en_GB/Fun0AssertionsJvmSpec.*',
+    'fluent-en_GB','infix-en_GB'
 )
 //@formatter:on
 
