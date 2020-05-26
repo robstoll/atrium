@@ -2,9 +2,6 @@ buildscript {
     rootProject.version = '0.12.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
-    def sampleProjectsFun = subprojects.findAll {
-        it.projectDir.path.contains('/samples/') || it.projectDir.path.contains('\\samples\\')
-    }
     def toolProjectsFun = subprojects.findAll {
         it.projectDir.path.contains('/misc/tools/') || it.projectDir.path.contains('\\misc\\tools\\')
     }
@@ -36,7 +33,7 @@ buildscript {
         d8_version = '1.6.84'
 
         // gh-pages.gradle
-        docProjects = (subprojects - sampleProjectsFun - toolProjectsFun).findAll {
+        docProjects = (subprojects - toolProjectsFun).findAll {
                 !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
@@ -50,14 +47,13 @@ buildscript {
         dokka_sourceMapping = "tree/master"
 
 
-        sampleProjects = sampleProjectsFun
         toolProjects = toolProjectsFun
 
         // jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
-                (subprojects - deprecatedProjects - sampleProjectsFun - toolProjectsFun).findAll {
+                (subprojects - deprecatedProjects - toolProjectsFun).findAll {
                     !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
                         // would have two classes with the same name if we add it as project as well,
@@ -68,7 +64,7 @@ buildscript {
                         !it.name.startsWith("${rootProject.name}-specs")
                 },
             jacocoProjects:
-                (subprojects - deprecatedProjects - sampleProjectsFun - toolProjectsFun).findAll {
+                (subprojects - deprecatedProjects - toolProjectsFun).findAll {
                     !(it.projectDir.path.contains("/translations/") || it.projectDir.path.contains("\\translations\\")) &&
                         !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
@@ -192,7 +188,7 @@ configureAndroidProjects()
 configureJsProjects()
 configureJvmProjects()
 
-configure(subprojects - multiplatformProjects - sampleProjects) {
+configure(subprojects - multiplatformProjects) {
     apply plugin: 'kotlin'
     dependencies {
         implementation kotlinStdlib()
@@ -225,8 +221,8 @@ configure(jsProjects) { subProject ->
     }
 }
 
-def nonCommonJsAndSampleProjects = subprojects - commonProjects - jsProjects - sampleProjects
-configure(nonCommonJsAndSampleProjects - toolProjects) {
+def nonCommonAndJsProjects = subprojects - commonProjects - jsProjects
+configure(nonCommonAndJsProjects - toolProjects) {
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
@@ -234,7 +230,7 @@ configure(nonCommonJsAndSampleProjects - toolProjects) {
         logging.setLevel(LogLevel.QUIET)
     }
 }
-configure(nonCommonJsAndSampleProjects) {
+configure(nonCommonAndJsProjects) {
     compileKotlin {
         kotlinOptions {
             languageVersion = '1.2'
@@ -275,7 +271,7 @@ configure(apiProjects) { apiProject ->
 
 def bundleSmokeTests = subprojects.findAll { it.name.contains('-smoke-test') }
 
-configure(subprojects - bundleSmokeTests - sampleProjects - toolProjects) { subproject ->
+configure(subprojects - bundleSmokeTests - toolProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {
@@ -324,7 +320,7 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     }
 }
 
-configure(subprojects - sampleProjects - toolProjects) {
+configure(subprojects - toolProjects) {
     sourceSets {
         all {
             languageSettings {
