@@ -20,13 +20,13 @@ jobs:
       - env: MODE=js
         script: ./gradlew buildAllJs
 
-      - env: MODE=bbc
-        script: ./gradlew bbcTests
-        after_success: bash <(curl -s https://codecov.io/bash) -F bbc
-
       - env: MODE=bc
         script: ./gradlew bcTests
         after_success: bash <(curl -s https://codecov.io/bash) -F bc
+
+      - env: MODE=bbc
+        script: ./gradlew bbcTests
+        after_success: bash <(curl -s https://codecov.io/bash) -F bbc
 
       - env: MODE=samples
         script:
