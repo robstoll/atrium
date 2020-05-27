@@ -3,7 +3,7 @@ name: ⭐ Good First Issue (for maintainers)
 about: Create a good first issue
 labels: good first issue, help wanted
 ---
-*Platform* (jvm, js, android):
+*Platform* (jvm, js):
 *Extension* (none, kotlin 1.3): none
 
 ## Code related feature

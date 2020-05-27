@@ -5,8 +5,8 @@ labels: bug
 ---
 
 *Affected Version*:
-*API* (fluent-en_GB, cc or cc-infix):
-*Platform* (jvm, js, android):
+*API* (fluent-en_GB, infix-en_GB): fluent-en_GB
+*Platform* (jvm, js):
 *Extension* (none, kotlin 1.3): none
 
 ## How to reproduce the problem  
