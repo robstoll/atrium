@@ -3,8 +3,8 @@ Please choose the appropriate template and fill in all sections
 # Bug Report
 
 *Affected Version*:
-*API* (fluent-en_GB, cc or cc-infix):
-*Platform* (jvm, js, android):
+*API* (fluent-en_GB, infix-en_GB):
+*Platform* (jvm, js):
 *Extension* (none, kotlin 1.3): none
 
 ## How to reproduce the problem  
@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 
 # Feature Request
 
-*Platform* (jvm, js, android):
+*Platform* (all, jvm, js, android): all
 *Extension* (none, kotlin 1.3): none
 
 ## Code related feature
@@ -41,4 +41,3 @@ A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
 A clear and concise description of any alternative solutions or features you've considered.
-

@@ -4,7 +4,7 @@ about: Suggest an idea for this project
 
 ---
 
-*Platform* (jvm, js):
+*Platform* (all, jvm, js, android): all
 *Extension* (none, kotlin 1.3): none
 
 ## Code related feature
