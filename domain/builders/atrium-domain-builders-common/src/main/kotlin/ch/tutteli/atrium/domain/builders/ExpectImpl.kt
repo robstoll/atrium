@@ -123,4 +123,10 @@ object ExpectImpl {
      * which inter alia delegates to the implementation of [ThrowableAssertions].
      */
     inline val throwable get() = ThrowableAssertionsBuilder
+
+    /**
+     * Returns [IteratorAssertionsBuilder]
+     * which inter alia delegates to the implementation of [IteratorAssertions].
+     */
+    inline val iterator get() = IteratorAssertionsBuilder
 }
