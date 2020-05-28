@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 fun <E, T : Iterator<E>> Expect<T>.hasNext() = addAssertion(ExpectImpl.iterator.hasNext(this))
 
 /**
- * Expects that the subject of the assertion (an [Iterator]) does not have next element.
+ * Expects that the subject of the assertion (an [Iterator]) does not have a next element.
  *
  * @return an [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
