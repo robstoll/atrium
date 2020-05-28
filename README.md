@@ -1367,8 +1367,10 @@ expect(Paths.get("/root/.ssh/config")).isWritable()
 ```text
 expected that subject: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
 ◆ equals: writable
-    » no file system entry exists at this location
-    » the closest existing parent directory is none
+    » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
+      » access was denied
+      » the owner is root, the group is root
+      » the permissions are u=rwx g= o=
 ```
 </ex-path-writable>
 
@@ -1385,12 +1387,10 @@ expect(filePointer.resolve("subfolder/file")).isRegularFile()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
 ```text
-expected that subject: /var/folders/v1/cr70c1fn2g76xzz6sp5rytv00000gn/T/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
+expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
 ◆ equals: a file
-    » followed the symbolic link /var to /private/var
-    » followed the symbolic link /private/var/folders/v1/cr70c1fn2g76xzz6sp5rytv00000gn/T/atrium-path/directory to /var/folders/v1/cr70c1fn2g76xzz6sp5rytv00000gn/T/atrium-path/file
-    » followed the symbolic link /var to /private/var
-    » failure at parent path: /private/var/folders/v1/cr70c1fn2g76xzz6sp5rytv00000gn/T/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
+    » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
+    » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
       » was a file instead of a directory
 ```
 </ex-path-symlink-and-parent-not-folder>
