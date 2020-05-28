@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import kotlin.reflect.KClass
 
@@ -18,7 +17,7 @@ fun <T : Throwable, TExpected : Throwable> _cause(
 ): ChangedSubjectPostStep<Throwable?, TExpected> =
     ExpectImpl.feature.manualFeature(expect, DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE) { cause }
         .getExpectOfFeature()
-        .withRepresentation { it ?: RawString.create(DescriptionThrowableAssertion.NOT_CAUSED) }
+        .withRepresentation { it ?: DescriptionThrowableAssertion.NOT_CAUSED }
         .let {
             ExpectImpl.changeSubject(it).reportBuilder()
                 .downCastTo(expectedType)

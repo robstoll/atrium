@@ -12,7 +12,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 
@@ -117,11 +117,11 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             val assertions = stackTrace.asSequence()
                 .take(maxStackTrace)
                 .map {
-                    ExpectImpl.builder.explanatory.withExplanation(RawString.create(it)).build()
+                    ExpectImpl.builder.explanatory.withExplanation(Text(it)).build()
                 }
                 .let {
                     if (stackTrace.size > maxStackTrace) {
-                        it.plus(ExpectImpl.builder.explanatory.withExplanation(RawString.create("...")).build())
+                        it.plus(ExpectImpl.builder.explanatory.withExplanation(Text("...")).build())
                     } else {
                         it
                     }

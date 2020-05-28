@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
@@ -40,7 +40,7 @@ fun <K, V : Any> _containsKeyWithValueAssertion(
         @Suppress("DEPRECATION" /* TODO switch to Expect */)
         ExpectImpl.changeSubject(this).unreported { it as V }.assertionCreator()
     } else if (subjectIsNull && assertionCreator == null) {
-        addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider))
+        addAssertion(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, Text.NULL, trueProvider))
     } else {
         addAssertion(
             AssertImpl.builder.explanatoryGroup

@@ -5,7 +5,6 @@ import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -42,7 +41,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
             .withDescription(
                 TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
             )
-            .withRepresentationForFailure(RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
+            .withRepresentationForFailure(DescriptionIterableAssertion.SIZE_EXCEEDED)
             .withFeatureExtraction {
                 Option.someIf(currentIndex <= it.size) {
                     val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size

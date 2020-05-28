@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class KindStepImpl<T>(
@@ -35,7 +35,7 @@ class DescriptionRepresentationStepImpl<T>(
     ): SubjectChangerBuilder.TransformationStep<T> = SubjectChangerBuilder.TransformationStep.create(
         originalExpect,
         description,
-        representation ?: RawString.NULL
+        representation ?: Text.NULL
     )
 }
 

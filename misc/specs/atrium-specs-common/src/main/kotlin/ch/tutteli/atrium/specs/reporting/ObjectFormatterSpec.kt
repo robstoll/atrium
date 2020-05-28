@@ -4,13 +4,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -22,7 +21,6 @@ abstract class ObjectFormatterSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val translatable = AssertionVerb.ASSERT
     val translatedText = "es gilt"
     val translator = mockk<Translator> {
         every { translate(any()) } returns (translatedText)
@@ -39,17 +37,34 @@ abstract class ObjectFormatterSpec(
             }
         }
 
-        context("a ${StringBasedRawString::class.simpleName}") {
-            val text = "test message"
-            val result = testee.format(RawString.create(text))
-            it("should still be the ${StringBasedRawString::class.simpleName}") {
-                expect(result).isSameAs(text)
+        context("a ${Text::class.simpleName}") {
+            val result = testee.format(Text("hello"))
+            it("returns the containing string") {
+                expect(result).toBe("hello")
             }
         }
 
-        context("a ${TranslatableBasedRawString::class.simpleName}") {
-            val result = testee.format(RawString.create(translatable))
-            it("should be 1:1 the translation (like it was wrapped in an ${StringBasedRawString::class.simpleName})") {
+        context("a ${Translatable::class.simpleName}") {
+            val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
+            it("returns the translated string") {
+                expect(result).isSameAs(translatedText)
+            }
+        }
+
+        //TODO remove with 1.0.0
+        @Suppress("DEPRECATION")
+        context("a ${ch.tutteli.atrium.reporting.StringBasedRawString::class.simpleName}") {
+            val result = testee.format(Text("hello"))
+            it("returns the containing string") {
+                expect(result).toBe("hello")
+            }
+        }
+
+        //TODO remove with 1.0.0
+        @Suppress("DEPRECATION")
+        context("a ${ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString::class.simpleName}") {
+            val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
+            it("returns the translated string") {
                 expect(result).isSameAs(translatedText)
             }
         }

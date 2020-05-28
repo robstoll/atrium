@@ -5,13 +5,11 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_THAN
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THAN
 import org.spekframework.spek2.Spek
@@ -362,7 +360,7 @@ abstract class AnyAssertionsSpec(
                     expectFun.toThrow<AssertionError> { messageContains(TO_BE.getDefault()) }
                 }
                 it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
-                    expectFun.toThrow<AssertionError> { messageContains(RawString.NULL.string) }
+                    expectFun.toThrow<AssertionError> { messageContains(Text.NULL.string) }
                 }
             }
         }

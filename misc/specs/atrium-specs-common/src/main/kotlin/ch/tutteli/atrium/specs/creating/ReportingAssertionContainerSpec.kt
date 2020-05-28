@@ -7,7 +7,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE

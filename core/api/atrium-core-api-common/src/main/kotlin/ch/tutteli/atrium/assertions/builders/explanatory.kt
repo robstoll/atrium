@@ -3,8 +3,7 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.assertions.builders.impl.explanatory.ExplanationOptionImpl
 import ch.tutteli.atrium.assertions.builders.impl.explanatory.FinalStepImpl
-import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -36,18 +35,10 @@ interface Explanatory {
         fun withExplanation(description: String): FinalStep = withExplanation(Untranslatable(description))
 
         /**
-         * Uses the given [translatable] as explanation.
-         *
-         * In detail, the given [translatable] is turned into a [RawString] so that an [ObjectFormatter] translates the
-         * given [translatable] and treats the result as raw string.
-         */
-        fun withExplanation(translatable: Translatable): FinalStep = withExplanation(RawString.create(translatable))
-
-        /**
          * Uses the given [explanation] as [ExplanatoryAssertion.explanation].
          *
-         * Notice, if you want to use a text (e.g. a [String]) as explanation,
-         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+         * then wrap it into a [Text] and pass it instead.
          */
         fun withExplanation(explanation: Any?): FinalStep
 

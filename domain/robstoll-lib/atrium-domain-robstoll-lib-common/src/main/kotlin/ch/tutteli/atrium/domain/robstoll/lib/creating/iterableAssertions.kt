@@ -21,7 +21,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHa
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.turnSubjectToList
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NotSearchBehaviourImpl
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
@@ -86,12 +85,12 @@ private fun <E : Any> createMismatchAssertions(
 }
 
 fun <E, T : Iterable<E>> _hasNext(expect: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS, RawString.create(NEXT_ELEMENT)) {
+    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS, NEXT_ELEMENT) {
         it.iterator().hasNext()
     }
 
 fun <E, T : Iterable<E>> _hasNotNext(expect: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS_NOT, RawString.create(NEXT_ELEMENT)) {
+    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS_NOT, NEXT_ELEMENT) {
         !it.iterator().hasNext()
     }
 

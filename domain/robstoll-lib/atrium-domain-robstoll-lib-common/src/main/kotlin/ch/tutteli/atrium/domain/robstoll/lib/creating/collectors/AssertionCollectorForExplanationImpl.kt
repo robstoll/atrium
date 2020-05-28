@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
 import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 
@@ -54,7 +54,7 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
             collectingAssertionPlant.assertionCreator()
             collectingAssertionPlant.getAssertions()
         } else {
-            listOf(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL) {
+            listOf(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, Text.NULL) {
                 subject is MaybeSubject.Absent
             })
         }

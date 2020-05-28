@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting
 
 /**
@@ -9,6 +12,7 @@ package ch.tutteli.atrium.reporting
  * @constructor Use [RawString.create] to create a [String] based [RawString].
  * @param string The string which should be treated as raw [String].
  */
+@Deprecated("Switch from StringBasedRawString to Text; will be removed with 1.0.0", ReplaceWith("Text(string)"))
 data class StringBasedRawString internal constructor(val string: String) : RawString {
 
     /**

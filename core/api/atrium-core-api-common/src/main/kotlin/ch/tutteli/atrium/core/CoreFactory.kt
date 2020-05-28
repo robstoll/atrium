@@ -133,7 +133,7 @@ interface CoreFactoryCommon {
             ReportingAssertionContainer.AssertionCheckerDecorator.create(
                 assertionVerb,
                 maybeSubject,
-                maybeSubject.getOrElse { RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) },
+                maybeSubject.getOrElse { Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG) },
                 assertionChecker
             )
         )
@@ -185,7 +185,7 @@ interface CoreFactoryCommon {
                 evalOnceSubjectProvider,
                 evalOnceSubjectProvider,
                 assertionChecker,
-                RawString.NULL
+                Text.NULL
             )
         )
     }
@@ -773,7 +773,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     assertionVerb: Translatable,
     subjectProvider: () -> T,
     reporter: Reporter,
-    nullRepresentation: Any = RawString.NULL
+    nullRepresentation: Any = Text.NULL
 ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
     assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
 )
@@ -816,7 +816,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     assertionVerb: Translatable,
     subjectProvider: () -> T,
     assertionChecker: AssertionChecker,
-    nullRepresentation: Any = RawString.NULL
+    nullRepresentation: Any = Text.NULL
 ): ReportingAssertionPlantNullable<T> {
     val evalOnceSubjectProvider = subjectProvider.evalOnce()
     return newReportingPlantNullable(

@@ -9,7 +9,6 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.explainForResolvedLink
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
@@ -271,7 +270,7 @@ object SymbolicLinkResolvingSpec : Spek({
 fun <T : Assertion> Expect<T>.describesLink(link: Path, target: Path) {
     isA<ExplanatoryAssertion> {
         feature { p(it::explanation) }.toBe(
-            RawString.create(TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link, target))
+            TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link, target)
         )
     }
 }
@@ -281,7 +280,7 @@ fun <T : Assertion> Expect<T>.describesLinkLoop(vararg loop: Path) {
         feature { p(it::assertions) }.containsExactly {
             isA<ExplanatoryAssertion> {
                 val expectedExplanation = TranslatableWithArgs(FAILURE_DUE_TO_LINK_LOOP, loop.joinToString(" -> "))
-                feature { p(it::explanation) }.toBe(RawString.create(expectedExplanation))
+                feature { p(it::explanation) }.toBe(expectedExplanation)
             }
         }
         feature { p(it::type) }.toBe(WarningAssertionGroupType)

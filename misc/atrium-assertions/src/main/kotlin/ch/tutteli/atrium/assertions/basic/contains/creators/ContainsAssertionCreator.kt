@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -72,7 +72,7 @@ abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain
     private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
         return AssertImpl.builder.feature
-            .withDescriptionAndRepresentation(numberOfOccurrences, RawString.create(count.toString()))
+            .withDescriptionAndRepresentation(numberOfOccurrences, Text(count.toString()))
             .withAssertions(assertions)
             .build()
     }

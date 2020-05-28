@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -209,7 +209,7 @@ abstract class AnyAssertionsSpec(
                         expectFun.toThrow<AssertionError> { messageContains(TO_BE.getDefault()) }
                     }
                     it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
-                        expectFun.toThrow<AssertionError> { messageContains(RawString.NULL.string) }
+                        expectFun.toThrow<AssertionError> { messageContains(Text.NULL.string) }
                     }
                 }
             }

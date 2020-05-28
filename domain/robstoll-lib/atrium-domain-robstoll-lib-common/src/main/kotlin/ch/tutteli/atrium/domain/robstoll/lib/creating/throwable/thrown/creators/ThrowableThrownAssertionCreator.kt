@@ -10,7 +10,6 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators.DownCastAssertionCreator
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_NOT_THROWN_1
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.IS_NOT_THROWN_2
@@ -26,7 +25,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
         if (throwable == null) {
             subjectPlant.addAssertion(
-                AssertImpl.builder.createDescriptive(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2)) { true }
+                AssertImpl.builder.createDescriptive(IS_NOT_THROWN_1, IS_NOT_THROWN_2) { true }
             )
         } else {
             val explainingAssertion =
@@ -38,7 +37,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
                             maxStackTrace = 15
                         )
                     }
-                ).createFailingAssertion(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2))
+                ).createFailingAssertion(IS_NOT_THROWN_1, IS_NOT_THROWN_2)
             subjectPlant.addAssertion(explainingAssertion)
         }
     }

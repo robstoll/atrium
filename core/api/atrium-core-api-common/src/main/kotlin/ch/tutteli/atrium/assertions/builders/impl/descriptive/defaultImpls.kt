@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 
@@ -36,7 +36,7 @@ internal class DescriptionOptionImpl<R>(
 ) : Descriptive.DescriptionOption<R> {
 
     override fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R =
-        factory(test, description, representation ?: RawString.NULL)
+        factory(test, description, representation ?: Text.NULL)
 }
 
 

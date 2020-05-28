@@ -3,12 +3,12 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.impl.AssertionGroupDescriptionAndEmptyRepresentationOptionImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Option step which allows to specify the [AssertionGroup.description] -- [RawString.EMPTY] is
+ * Option step which allows to specify the [AssertionGroup.description] -- [Text.EMPTY] is
  * used as [AssertionGroup.representation].
  */
 interface AssertionGroupDescriptionAndEmptyRepresentationOption<out T : AssertionGroupType, R> {
@@ -20,13 +20,13 @@ interface AssertionGroupDescriptionAndEmptyRepresentationOption<out T : Assertio
 
     /**
      * Wraps the given [description] into an [Untranslatable] and uses it as [AssertionGroup.description] and
-     * uses [RawString.EMPTY] as [AssertionGroup.representation].
+     * uses [Text.EMPTY] as [AssertionGroup.representation].
      */
     fun withDescription(description: String): R = withDescription(Untranslatable(description))
 
     /**
      * Uses the given [description] as [AssertionGroup.description] and
-     * [RawString.EMPTY] as [AssertionGroup.representation].
+     * [Text.EMPTY] as [AssertionGroup.representation].
      */
     fun withDescription(description: Translatable): R
 

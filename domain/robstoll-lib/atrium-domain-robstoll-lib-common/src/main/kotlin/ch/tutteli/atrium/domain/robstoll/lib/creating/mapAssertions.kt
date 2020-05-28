@@ -12,7 +12,6 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
@@ -71,10 +70,10 @@ fun <K> _containsNotKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K)
 
 
 fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS, RawString.create(EMPTY)) { it.isEmpty() }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS, EMPTY) { it.isEmpty() }
 
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, EMPTY) { it.isNotEmpty() }
 
 fun <K, V, T : Map<out K, V>> _getExisting(expect: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
     ExpectImpl.feature.extractor(expect)

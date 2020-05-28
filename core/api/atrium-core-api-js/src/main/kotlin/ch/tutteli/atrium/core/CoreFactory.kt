@@ -2,8 +2,8 @@ package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.core.newReportingPlantNullable as newReportingPlantNullableFromCommon
 
@@ -53,7 +53,7 @@ actual interface CoreFactory : CoreFactoryCommon {
         assertionVerb: Translatable,
         subjectProvider: () -> T,
         reporter: Reporter,
-        nullRepresentation: Any = RawString.NULL
+        nullRepresentation: Any = Text.NULL
     ): ch.tutteli.atrium.creating.ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
         assertionVerb, subjectProvider, reporter, nullRepresentation
     )
@@ -98,7 +98,7 @@ actual interface CoreFactory : CoreFactoryCommon {
         assertionVerb: Translatable,
         subjectProvider: () -> T,
         assertionChecker: AssertionChecker,
-        nullRepresentation: Any = RawString.NULL
+        nullRepresentation: Any = Text.NULL
     ): ch.tutteli.atrium.creating.ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
         assertionVerb, subjectProvider, assertionChecker, nullRepresentation
     )

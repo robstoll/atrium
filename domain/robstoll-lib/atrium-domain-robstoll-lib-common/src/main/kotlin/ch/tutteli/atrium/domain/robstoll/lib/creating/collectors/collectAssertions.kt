@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.ErrorMessages
 
@@ -64,7 +64,7 @@ private fun <T> collectAssertions(
             .addAssertionsCreatedBy(assertionCreatorOrNull)
             .getAssertions()
     } else {
-        listOf(ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL) {
+        listOf(ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, Text.NULL) {
             maybeSubject.isDefined()
         })
     }

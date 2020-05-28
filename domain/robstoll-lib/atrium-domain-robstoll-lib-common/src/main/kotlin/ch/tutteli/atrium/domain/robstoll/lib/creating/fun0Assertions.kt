@@ -9,7 +9,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
@@ -31,7 +30,7 @@ fun <TExpected : Throwable> _isThrowing(
             )
         }
         .getExpectOfFeature()
-        .withRepresentation { it ?: RawString.create(NO_EXCEPTION_OCCURRED) }
+        .withRepresentation { it ?: NO_EXCEPTION_OCCURRED }
         .let {
             ExpectImpl.changeSubject(it).reportBuilder()
                 .downCastTo(expectedType)
@@ -55,7 +54,7 @@ fun <R, T : () -> R> _isNotThrowing(expect: Expect<T>): ChangedSubjectPostStep<*
         }
         .let { eitherContainer ->
             ExpectImpl.changeSubject(eitherContainer).reportBuilder()
-                .withDescriptionAndRepresentation(IS_NOT_THROWING_1, RawString.create(IS_NOT_THROWING_2))
+                .withDescriptionAndRepresentation(IS_NOT_THROWING_1, IS_NOT_THROWING_2)
                 .withTransformation { either -> either.toOption() }
                 .withFailureHandlerAdapter(ThrowableThrownFailureHandler(maxStackTrace = 15)) {
                     // must be left as otherwise the failure handler would not kick in.

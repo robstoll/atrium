@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -38,7 +38,7 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not
                     // thus it is OK to use trueProvider
-                    ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL, trueProvider)
+                    ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, Text.NULL, trueProvider)
                 )
             }
         }
@@ -75,7 +75,7 @@ internal fun <E, SC> createEntryAssertionTemplate(
             val entry = list[index]
             matches(entry, searchCriterion) to entry
         }, {
-            false to RawString.create(SIZE_EXCEEDED)
+            false to SIZE_EXCEEDED
         })
         val description = TranslatableWithArgs(entryWithIndex, index)
         ExpectImpl.builder.feature
@@ -121,9 +121,9 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
 internal fun createHasElementAssertion(iterator: Iterator<*>): AssertionGroup {
     val hasElement = iterator.hasNext()
     return ExpectImpl.builder.feature
-        .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
+        .withDescriptionAndRepresentation(HAS_ELEMENT, Text(hasElement.toString()))
         .withAssertion(
-            ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(true.toString())) { hasElement }
+            ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, Text(true.toString())) { hasElement }
         )
         .build()
 }

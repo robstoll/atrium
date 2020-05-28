@@ -6,7 +6,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -102,10 +102,10 @@ interface AssertionBuilder {
     fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
 
     /**
-     * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test]
+     * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test].
      *
-     * Notice, if you want to use text (e.g. a [String]) as representation,
-     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+     * then wrap it into a [Text] and pass it instead.
      *
      * Shortcut for:
      * ```
@@ -122,10 +122,10 @@ interface AssertionBuilder {
         createDescriptive(Untranslatable(description), representation, test)
 
     /**
-     * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test]
+     * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test].
      *
-     * Notice, if you want to use text (e.g. a [String]) as representation,
-     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+     * then wrap it into a [Text] and pass it instead.
      *
      * Shortcut for:
      * ```
@@ -148,8 +148,8 @@ interface AssertionBuilder {
      * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
      * [SubjectProvider.maybeSubject] of the given [subjectProvider].
      *
-     * Notice, if you want to use text (e.g. a [String]) as representation,
-     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+     * then wrap it into a [Text] and pass it instead.
      *
      * Shortcut for:
      * ```
@@ -159,7 +159,8 @@ interface AssertionBuilder {
      *   .build()
      * ```
      *
-     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the given [test].
+     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the
+     *   given [test].
      * @param description The description of the assertion, e.g. `to Be`.
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
@@ -180,8 +181,8 @@ interface AssertionBuilder {
      * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
      * [SubjectProvider.maybeSubject] of the given [subjectProvider].
      *
-     * Notice, if you want to use text (e.g. a [String]) as representation,
-     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+     * then wrap it into a [Text] and pass it instead.
      *
      * Shortcut for:
      * ```
@@ -191,7 +192,8 @@ interface AssertionBuilder {
      *   .build()
      * ```
      *
-     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the given [test].
+     * @param subjectProvider The [Expect] from which we take the [Expect.maybeSubject] and pass it on to the
+     *   given [test].
      * @param description The description of the assertion, e.g. `to Be`.
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.

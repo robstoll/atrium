@@ -10,7 +10,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchbehaviours.NotSearchBehaviourImpl
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
@@ -35,13 +34,13 @@ fun _endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharS
     ExpectImpl.builder.createDescriptive(subjectProvider, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
 fun _isEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS, RawString.create(EMPTY)) { it.isEmpty() }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS, EMPTY) { it.isEmpty() }
 
 fun _isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(EMPTY)) { it.isNotEmpty() }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, EMPTY) { it.isNotEmpty() }
 
 fun _isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, RawString.create(BLANK)) { it.isNotBlank() }
+    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, BLANK) { it.isNotBlank() }
 
 fun <T : CharSequence> _matches(expect: Expect<T>, expected: Regex): Assertion =
     ExpectImpl.builder.createDescriptive(expect, MATCHES, expected) { it.matches(expected) }
