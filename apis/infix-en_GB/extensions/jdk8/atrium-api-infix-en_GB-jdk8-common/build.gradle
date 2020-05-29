@@ -1,9 +1,0 @@
-description = 'dummy project, will be removed once Atrium switches to the new MPP plugin.'
-
-dependencies {
-    api prefixedProject('api-infix-en_GB-common')
-    api prefixedProject('domain-builders-common')
-    api niok()
-
-    testImplementation prefixedProject('specs-common')
-}
