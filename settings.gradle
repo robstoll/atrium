@@ -35,8 +35,11 @@ def apiWithExtensions = { self, String apiName ->
     self.kotlinJvmJs(apiName)
     self.folder(apiName, "$apiName-") {
         extensions {
-            kotlinJvm(delegate, 'jdk8')
             kotlinJvmJs('kotlin_1_3')
+            //TODO remove with 1.0.0
+            if (apiName == 'fluent-en_GB') {
+                kotlinJvm(delegate, 'jdk8')
+            }
         }
     }
 }
