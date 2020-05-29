@@ -38,8 +38,8 @@ interface SubjectProvider<out T> : AssertionHolder {
      *
      * 1.
      *      ```
-     *      fun Assert<Int>.isEven() = createAndAddAssertion(IS, RawString.create("even")) { subject % 2 == 0 }  // old
-     *      fun Expect<Int>.isEven() = createAndAddAssertion(IS, RawString.create("even")) { it % 2 == 0 }       // new
+     *      fun Assert<Int>.isEven() = createAndAddAssertion(IS, Text("even")) { subject % 2 == 0 }  // old
+     *      fun Expect<Int>.isEven() = createAndAddAssertion(IS, Text("even")) { it % 2 == 0 }       // new
      *      ```
      *      notice the switch from `Assert` to `Expect`
      *

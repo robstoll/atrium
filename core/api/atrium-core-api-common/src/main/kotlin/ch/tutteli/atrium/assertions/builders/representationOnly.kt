@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.RepresentationOnlyAssertion
 import ch.tutteli.atrium.assertions.builders.impl.representationOnly.FinalStepImpl
 import ch.tutteli.atrium.assertions.builders.impl.representationOnly.HoldsStepImpl
 import ch.tutteli.atrium.assertions.builders.impl.representationOnly.RepresentationStepImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 
 /**
  * Defines the contract to build an [RepresentationOnlyAssertion].
@@ -37,8 +37,8 @@ interface RepresentationOnly {
         /**
          * Uses the given [representation] as [RepresentationOnlyAssertion.representation].
          *
-         * Notice, if you want to use a text (e.g. a [String]) as representation,
-         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+         * then wrap it into a [Text] and pass it instead.
          */
         fun withRepresentation(representation: Any?): FinalStep
 

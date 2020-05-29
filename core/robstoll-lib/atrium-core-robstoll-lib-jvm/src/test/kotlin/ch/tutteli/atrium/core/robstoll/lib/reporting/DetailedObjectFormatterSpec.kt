@@ -3,14 +3,8 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatterCommon.Companion.INDENT
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
-import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
-import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
@@ -75,30 +69,11 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        context("a ${StringBasedRawString::class.simpleName}") {
-            val result = testee.format(RawString.create("hello"))
-            it("returns the containing string") {
-                expect(result).toBe("hello")
-            }
-        }
-
-        context("a ${TranslatableBasedRawString::class.simpleName}") {
-            val translation = "es gilt"
-            val translator = mockk<Translator> {
-                every { translate(AssertionVerb.EXPECT) } returns translation
-            }
-            val testeeWithMockedTranslation = DetailedObjectFormatter(translator)
-            val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.EXPECT))
-            it("returns the translated string") {
-                expect(result).toBe(translation)
-            }
-        }
-
         context("an enum") {
-            val enum = AssertionVerb.EXPECT
-            val result = testee.format(enum)
+            val enum = Color.Red
+            val result = testee.format(Color.Red)
             it("returns its toString representation together with its Class.name but without System.identityHash") {
-                expect(result).toBe("EXPECT" + INDENT + "(${enum::class.java.name})")
+                expect(result).toBe("Red" + INDENT + "(${enum::class.java.name})")
             }
         }
 
@@ -179,4 +154,8 @@ object DetailedObjectFormatterSpec : Spek({
     }
 }) {
     object AtriumsObjectFormatterSpec : ObjectFormatterSpec(::DetailedObjectFormatter)
+}
+
+private enum class Color {
+    Red //, Blue, Green
 }

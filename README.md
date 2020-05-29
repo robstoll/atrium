@@ -1806,11 +1806,11 @@ Consider the following assertion function:
 
 ```kotlin
 fun Expect<Int>.isEven() =
-    createAndAddAssertion("is", RawString.create("an even number")) { it % 2 == 0 }
+    createAndAddAssertion("is", Text("an even number")) { it % 2 == 0 }
 ```
 </code-own-boolean-2>
 
-We are using a [RawString](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
+We are using a [Text](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-text/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
 Its usage looks then as follows:
 
@@ -2242,7 +2242,7 @@ as second example:
 
 ```kotlin
 fun Expect<Int>.isEven(): Expect<Int> =
-    createAndAddAssertion(DescriptionBasic.IS, RawString.create(DescriptionIntAssertions.EVEN)) { it % 2 == 0 }
+    createAndAddAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")
@@ -2251,7 +2251,6 @@ enum class DescriptionIntAssertions(override val value: String) : StringBasedTra
 </code-i18n-2>
 
 Once again we have to wrap the text which we want to be able to exchange with another language into a `Translatable`. 
-Since we want that the translation as such is treated as a raw string in reporting, we wrap it into a `RawString` as we did before. 
 Notice also, that we are reusing a `Translatable` from `DescriptionBasic`.
 
 ## API in a different Language

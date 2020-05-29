@@ -3,7 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 
@@ -216,9 +216,9 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                entrySuccess(0, RawString.NULL.string)
+                                entrySuccess(0, Text.NULL.string)
                                 entrySuccess(1, 1.0)
-                                entryFailing(2, RawString.NULL.string, 3.0)
+                                entryFailing(2, Text.NULL.string, 3.0)
                                 contains(
                                     "$warningBulletPoint$additionalEntries:",
                                     "$listBulletPoint${entry(3)}: 3.0"

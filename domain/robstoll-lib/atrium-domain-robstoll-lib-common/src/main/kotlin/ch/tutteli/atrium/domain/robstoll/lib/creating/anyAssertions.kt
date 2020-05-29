@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
@@ -31,7 +31,7 @@ fun <T> _isNotSame(subjectProvider: SubjectProvider<T>, expected: T) =
 
 
 fun <T : Any?> _toBeNull(subjectProvider: SubjectProvider<T>) =
-    ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, RawString.NULL) { it == null }
+    ExpectImpl.builder.createDescriptive(subjectProvider, TO_BE, Text.NULL) { it == null }
 
 fun <T : Any> _toBeNullIfNullGivenElse(
     expect: Expect<T?>,

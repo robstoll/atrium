@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -53,7 +53,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
                 })
             }
             assertions.add(AssertImpl.builder.feature
-                .withDescriptionAndRepresentation(list::size.name, RawString.create(actualSize.toString()))
+                .withDescriptionAndRepresentation(list::size.name, Text(actualSize.toString()))
                 .withAssertions(featureAssertions)
                 .build()
             )
@@ -98,7 +98,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
             .withTest { actualSize == allSearchCriteria.size }
             .withDescriptionAndRepresentation(
                 TO_BE,
-                RawString.create(allSearchCriteria.size.toString())
+                Text(allSearchCriteria.size.toString())
             )
             .build()
         )

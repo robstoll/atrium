@@ -211,7 +211,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                             + "$failingBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 22$lineSeperator"
                             + "$indentFailingBulletPoint$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
                             + "$indentFailingBulletPoint$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
-                            + "$successBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}:  (RawString)$lineSeperator"
+                            + "$successBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}:  (Text)$lineSeperator"
                             + "$indentSuccessBulletPoint$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30$lineSeperator"
                             + "$indentSuccessBulletPoint$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 31"
                     )

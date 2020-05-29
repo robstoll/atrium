@@ -15,7 +15,6 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createSizeFeatureAssertionForInOrderOnly
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.ifWithinBound
@@ -67,7 +66,7 @@ abstract class InOrderOnlyGroupedDeprecatedAssertionCreator<E, in T : Iterable<E
             val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
             subject.subList(currentIndex, safeUntilIndex)
         }.evalOnce()
-        val sizeExceededProvider = { RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED) }
+        val sizeExceededProvider = { DescriptionIterableAssertion.SIZE_EXCEEDED }
         val representationProvider = { subject.ifWithinBound(currentIndex, subListProvider, sizeExceededProvider) }
         val featureName = TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
         AssertImpl.feature.property(this, subListProvider, representationProvider, featureName) {

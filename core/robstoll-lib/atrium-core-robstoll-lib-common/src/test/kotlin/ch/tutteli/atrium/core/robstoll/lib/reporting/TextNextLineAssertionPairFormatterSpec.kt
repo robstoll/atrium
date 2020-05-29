@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -38,7 +38,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
             expect(sb.toString()).toBe("$name:$lineSeperator$indentBulletPoint$subject")
         }
 
-        it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
+        it("does not append a new line if the subject is ${Text::class.simpleName}${Text.Companion::EMPTY.name}") {
             val assertionGroup = ExpectImpl.builder.root
                 .withDescriptionAndEmptyRepresentation(name)
                 .withAssertions(listOf())
@@ -65,12 +65,9 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
             }
         }
 
-        it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
+        it("does not append a new line if the subject is ${Text::class.simpleName}${Text.Companion::EMPTY.name}") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
-            testee.format(
-                newParameterObject, Untranslatable(name),
-                RawString.EMPTY
-            )
+            testee.format(newParameterObject, Untranslatable(name), Text.EMPTY)
             expect(sb.toString()).toBe("$name:")
         }
     }

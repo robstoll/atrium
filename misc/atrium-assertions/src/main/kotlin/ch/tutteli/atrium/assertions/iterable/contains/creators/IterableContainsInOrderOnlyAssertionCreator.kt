@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
@@ -64,9 +64,9 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
 
         val (found, entryRepresentation) = if (itr.hasNext()) {
             val entry = itr.next()
-            Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
+            Pair(matches(entry, searchCriterion), entry ?: Text.NULL)
         } else {
-            Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
+            Pair(false, DescriptionIterableAssertion.SIZE_EXCEEDED)
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
         AssertImpl.builder.feature
@@ -86,7 +86,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
 
         val sizeAssertion = AssertImpl.builder.descriptive
             .withTest { actualSize == expectedSize }
-            .withDescriptionAndRepresentation(TO_BE, RawString.create(expectedSize.toString()))
+            .withDescriptionAndRepresentation(TO_BE, Text(expectedSize.toString()))
             .build()
 
         val featureAssertions = mutableListOf<Assertion>()
@@ -111,7 +111,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             })
         }
         return AssertImpl.builder.feature
-            .withDescriptionAndRepresentation(additionalEntries::size.name, RawString.create(actualSize.toString()))
+            .withDescriptionAndRepresentation(additionalEntries::size.name, Text(actualSize.toString()))
             .withAssertions(featureAssertions)
             .build()
     }

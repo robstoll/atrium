@@ -2,14 +2,10 @@
 
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.reporting.LazyRepresentation
-import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
-
 
 abstract class AbstractDetailedObjectFormatter(
     private val translator: Translator
@@ -18,14 +14,14 @@ abstract class AbstractDetailedObjectFormatter(
      * Returns a formatted version of the given [value].
      *
      * The following rules apply for the representation of an object:
-     * - `null` is represented as [RawString.NULL].[StringBasedRawString.string]
+     * - `null` is represented as [Text.NULL].[Text.string]
      * - [LazyRepresentation] is [evaluated][LazyRepresentation.eval] and then again [format]ted
      * - [Char] is put in apostrophes
      * - [Boolean] is represented with its [toString] representation
      * - [String] is put in quotes and its [Class.getName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
-     * - [StringBasedRawString] is represented as [StringBasedRawString.string]
-     * - [TranslatableBasedRawString] is represented as result of its translation (by [translator])
+     * - [Text] is represented as [Text.string]
+     * - [Translatable] is represented as result of its translation (by [translator])
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[KClass.simpleName] ([KClass.qualifiedName])" unless the [KClass.qualifiedName]
      *   differs from [Class.getName] in which case, "-- Class: [Class.getName]" is appended in addition
@@ -67,11 +63,11 @@ abstract class AbstractDetailedObjectFormatter(
  * Consider the following error message "error, assert: 1 to be 1" would not be very helpful.
  * "error, assert: 1 (Int <123>) to be 1 (Double <456>)" on the other hand is helpful.
  *
- * @property translator The [Translator] used to translate [TranslatableBasedRawString]s.
+ * @property translator The [Translator] used to translate [Translatable]s.
  *
  * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
  *   (in most cases).
- * @param translator The [Translator] used to translate [TranslatableBasedRawString]s.
+ * @param translator The [Translator] used to translate [Translatable]s.
  */
 actual class DetailedObjectFormatter actual constructor(
     private val translator: Translator

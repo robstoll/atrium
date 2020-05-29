@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuild
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reporter
 
 @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.reporter
 annotation class ExperimentalWithOptions
 
 /**
- * Wraps the given [textRepresentation] into a [RawString] and uses it as representation of the subject
+ * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
@@ -33,8 +33,8 @@ fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> 
  * subject where it is used as new representation of the subject
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
- * Notice, if you want to use text (e.g. a [String]) as representation,
- * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+ * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+ * then wrap it into a [Text] and pass it instead.
  * If your text does not include the current subject, then we recommend to use the other overload which expects
  * a `String` and does the wrapping for you.
  *
@@ -79,7 +79,7 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> = coreFa
 )
 
 /**
- * Wraps the given [textRepresentation] into a [RawString] and uses it as representation of the subject
+ * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
@@ -95,8 +95,8 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): E
  * subject where it is used as new representation of the subject
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
- * Notice, if you want to use text (e.g. a [String]) as representation,
- * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+ * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+ * then wrap it into a [Text] and pass it instead.
  * If your text does not include the current subject, then we recommend to use the other overload which expects
  * a `String` and does the wrapping for you.
  *

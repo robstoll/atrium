@@ -10,12 +10,12 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -288,7 +288,7 @@ abstract class AssertionFormatterControllerSpec(
                         testee.format(summaryGroup, parameterObject)
                         expect(sb.toString()).toBe(
                             lineSeperator +
-                                "${AssertionVerb.ASSERT.getDefault()}: ${RawString.EMPTY}$lineSeperator" +
+                                "${AssertionVerb.ASSERT.getDefault()}: ${Text.EMPTY}$lineSeperator" +
                                 "$successfulBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$lineSeperator" +
                                 "$failingBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2"
                         )

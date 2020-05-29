@@ -2,10 +2,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
-import ch.tutteli.atrium.reporting.AssertionPairFormatter
-import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 
@@ -49,7 +46,12 @@ class TextNextLineAssertionPairFormatter(
         newParameterObject: AssertionFormatterParameterObject
     ) {
         parameterObject.sb.append(translator.translate(translatable)).append(":")
-        if (representation !is RawString || representation != RawString.EMPTY) {
+
+        @Suppress(/* TODO remove RawString.Empty with 1.0.0*/ "DEPRECATION")
+        // yes, we check only for Text.EMPTY and not for `representation !is Text || representation.string != ""`
+        // on purpose. You can only create an empty Text via a hack and not via the normal invoke function in
+        // the companion of Text
+        if (representation != Text.EMPTY && representation != RawString.EMPTY) {
             newParameterObject.appendLnAndIndent()
             newParameterObject.indent(newParameterObject.prefix.length)
             parameterObject.sb.append(objectFormatter.format(representation))

@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.builders.utils.mapArguments
 //snippet-subExpect-start
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 //snippet-subExpect-end
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.niok.deleteRecursively
@@ -432,7 +432,7 @@ object ReadmeSpec2 : Spek({
 
     //snippet-own-boolean-2-start
     fun Expect<Int>.isEven() =
-        createAndAddAssertion("is", RawString.create("an even number")) { it % 2 == 0 }
+        createAndAddAssertion("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
     test("code-own-boolean-2") {
         //snippet-own-boolean-2-insert
@@ -574,7 +574,7 @@ object I18n : Spek({
 
     test("code-i18n-2") {
         fun Expect<Int>.isEven(): Expect<Int> =
-            createAndAddAssertion(DescriptionBasic.IS, RawString.create(DescriptionIntAssertions.EVEN)) { it % 2 == 0 }
+            createAndAddAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
 
         //snippet-DescriptionIntAssertions-insert
     }

@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.reporting.LazyRepresentation
-import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.KClass
@@ -26,14 +23,14 @@ abstract class DetailedObjectFormatterCommon(
      * Returns a formatted version of the given [value].
      *
      * The following rules apply for the representation of an object:
-     * - `null` is represented as [RawString.NULL].[StringBasedRawString.string]
+     * - `null` is represented as [Text.NULL].[Text.string]
      * - [LazyRepresentation] is [evaluated][LazyRepresentation.eval] and then again [format]ted
      * - [Char] is put in apostrophes
      * - [Boolean] is represented with its [toString] representation
      * - [String] is put in quotes and its [KClass.fullName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.fullName] is used in contrast to [String]
-     * - [StringBasedRawString] is represented as [StringBasedRawString.string]
-     * - [TranslatableBasedRawString] is represented as result of its translation (by [translator])
+     * - [Text] is represented as [Text.string]
+     * - [Translatable] is represented as result of its translation (by [translator])
      * - [KClass]'s format is defined by the concrete platform specific subclass.
      * - [Enum] is represented as "[toString] ([KClass.fullName])
      * - [Throwable] is represented as "[KClass.fullName]"
@@ -43,18 +40,23 @@ abstract class DetailedObjectFormatterCommon(
      *
      * @return The formatted [value].
      */
+    @Suppress( /* TODO remove with 1.0.0 */ "DEPRECATION")
     override fun format(value: Any?): String = when (value) {
-        null -> RawString.NULL.string
+        null -> Text.NULL.string
         is LazyRepresentation -> format(safeEval(value))
         is Char -> "'$value'"
         is Boolean -> value.toString()
         is String -> format(value)
         is CharSequence -> format(value)
-        is StringBasedRawString -> value.string
-        is TranslatableBasedRawString -> translator.translate(value.translatable)
+        is Text -> value.string
+        is Translatable -> translator.translate(value)
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)
         is Throwable -> format(value)
+        //TODO remove with 1.0.0
+        is StringBasedRawString -> value.string
+        is ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString -> translator.translate(value.translatable)
+
         else -> value.toString() + classNameAndIdentity(value)
     }
 
@@ -63,7 +65,7 @@ abstract class DetailedObjectFormatterCommon(
         try {
             lazyRepresentation.eval()
         } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
-            RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED)
+            ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED
         }
 
     private fun format(string: String) = "\"$string\"" + identityHash(INDENT, string)

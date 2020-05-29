@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.reporting.MethodCallFormatter
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 
 /**
  * Responsible to format a method call for text output (e.g. to the console) where it represents arguments of a
@@ -20,7 +20,7 @@ object TextMethodCallFormatter : MethodCallFormatter {
     }
 
     override fun formatArgument(argument: Any?): String = when (argument) {
-        null -> RawString.NULL.string
+        null -> Text.NULL.string
         is CharSequence -> "\"$argument\"".replace("\r", "\\r").replace("\n", "\\n")
         is Char -> "'$argument'"
         else -> argument.toString()

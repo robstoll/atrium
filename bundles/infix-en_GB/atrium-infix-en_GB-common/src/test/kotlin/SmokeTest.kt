@@ -1,15 +1,11 @@
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.AssertionVerb
-import ch.tutteli.atrium.api.verbs.assert
 import ch.tutteli.atrium.api.verbs.assertThat
-import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.test.Test
 
 class SmokeTest {
@@ -57,7 +53,7 @@ class SmokeTest {
 object even
 
 infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
-    createAndAddAssertion(IS, RawString.create("an even number")) { it % 2 == 0 }
+    createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
 
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = addAssertion(isMultipleOf(this, base))
 

@@ -5,7 +5,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.jetbrains.spek.api.dsl.context
@@ -229,9 +229,9 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                entrySuccess(0, RawString.NULL.string)
+                                entrySuccess(0, Text.NULL.string)
                                 entrySuccess(1, 1.0)
-                                entryFailing(2, RawString.NULL.string, 3.0)
+                                entryFailing(2, Text.NULL.string, 3.0)
                                 contains(
                                     "$warningBulletPoint$additionalEntries:",
                                     "$listBulletPoint${entry(3)}: 3.0"

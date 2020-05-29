@@ -7,8 +7,8 @@ import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -44,7 +44,7 @@ class FinalStepImpl<T>(
                     this.maybeSubject.fold({ null }) { provider(it) }
                 } ?: maybeSubject.getOrElse {
                     // a RootExpect without a defined subject is almost certain a bug
-                    RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
+                    Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
                 },
                 coreFactory.newThrowingAssertionChecker(options?.reporter ?: reporter)
             )

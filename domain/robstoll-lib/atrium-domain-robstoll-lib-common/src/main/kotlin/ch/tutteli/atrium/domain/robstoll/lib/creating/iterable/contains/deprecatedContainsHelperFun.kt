@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -94,9 +94,9 @@ internal fun <E, SC> createEntryAssertionTemplate(
         val list = subjectProvider()
         val (found, entryRepresentation) = list.ifWithinBound(index, {
             val entry = list[index]
-            Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
+            Pair(matches(entry, searchCriterion), entry ?: Text.NULL)
         }, {
-            Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
+            Pair(false, DescriptionIterableAssertion.SIZE_EXCEEDED)
         })
         val description = TranslatableWithArgs(entryWithIndex, index)
         ExpectImpl.builder.feature

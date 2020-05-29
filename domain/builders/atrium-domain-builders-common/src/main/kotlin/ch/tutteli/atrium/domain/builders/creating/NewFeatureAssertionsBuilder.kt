@@ -14,7 +14,6 @@ import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.creating.newFeatureAssertions
 import ch.tutteli.atrium.reporting.MethodCallFormatter
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -321,7 +320,7 @@ object MetaFeatureBuilder {
     private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
         MetaFeature(
             ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT,
-            RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
+            ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED,
             None
         )
 
@@ -339,7 +338,7 @@ object MetaFeatureBuilder {
         return expect.maybeSubject.fold({
             MetaFeature(
                 description,
-                RawString.create(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED),
+                ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED,
                 None
             )
         }) {

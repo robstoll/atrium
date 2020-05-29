@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.impl.AssertionGroupDescriptionAndRepresentationOptionImpl
 import ch.tutteli.atrium.reporting.LazyRepresentation
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -34,17 +34,17 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
 
     /**
      * Wraps the given [description] into an [Untranslatable] and uses it as [AssertionGroup.description]
-     * and uses [RawString.EMPTY] as [AssertionGroup.representation].
+     * and uses [Text.EMPTY] as [AssertionGroup.representation].
      */
     fun withDescriptionAndEmptyRepresentation(description: String): R =
-        withDescriptionAndRepresentation(Untranslatable(description), RawString.EMPTY)
+        withDescriptionAndRepresentation(Untranslatable(description), Text.EMPTY)
 
     /**
-     * Uses the given [description] as [AssertionGroup.description] and [RawString.EMPTY] as
+     * Uses the given [description] as [AssertionGroup.description] and [Text.EMPTY] as
      * [AssertionGroup.representation].
      */
     fun withDescriptionAndEmptyRepresentation(description: Translatable): R =
-        withDescriptionAndRepresentation(description, RawString.EMPTY)
+        withDescriptionAndRepresentation(description, Text.EMPTY)
 
     /**
      * Wraps the given [description] into an [Untranslatable] and delegates to the overload
@@ -58,12 +58,12 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
     /**
      * Uses the given [description] as [AssertionGroup.description] and [representation]
      * as [AssertionGroup.representation] unless [representation] is null in which case a representation for
-     * null is used (e.g. [RawString.NULL]).
+     * null is used (e.g. [Text.NULL]).
      *
      * Use the overload which expects a representation provider in case the computation is expensive.
      *
-     * Notice, if you want to use text (e.g. a [String]) as representation,
-     * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+     * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+     * then wrap it into a [Text] and pass it instead.
      */
     fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): R
 

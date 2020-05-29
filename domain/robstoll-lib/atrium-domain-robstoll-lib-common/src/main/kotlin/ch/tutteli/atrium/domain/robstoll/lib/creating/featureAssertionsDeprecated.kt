@@ -6,7 +6,7 @@ import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -27,7 +27,7 @@ fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvi
     = coreFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider))
 
 private fun <T : Any, TFeature : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(featureName: Translatable, representationProvider: () -> Any?, subjectProvider: () -> TFeature)
-    = AssertionPlantWithCommonFields.CommonFields(featureName, subjectProvider, representationProvider, coreFactory.newFeatureAssertionChecker(this), RawString.NULL)
+    = AssertionPlantWithCommonFields.CommonFields(featureName, subjectProvider, representationProvider, coreFactory.newFeatureAssertionChecker(this), Text.NULL)
 
 
 //Arg0
@@ -140,5 +140,5 @@ private fun <T : Any, R : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFa
         subjectProvider,
         representationProvider,
         coreFactory.newFeatureAssertionChecker(this),
-        RawString.NULL
+        Text.NULL
     )

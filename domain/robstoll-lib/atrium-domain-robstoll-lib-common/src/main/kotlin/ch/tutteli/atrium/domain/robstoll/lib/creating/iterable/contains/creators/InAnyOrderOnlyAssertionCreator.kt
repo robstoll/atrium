@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
@@ -52,7 +52,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             }
             assertions.add(
                 ExpectImpl.builder.feature
-                    .withDescriptionAndRepresentation(Untranslatable("size"), RawString.create(actualSize.toString()))
+                    .withDescriptionAndRepresentation(Untranslatable("size"), Text(actualSize.toString()))
                     .withAssertions(featureAssertions)
                     .build()
             )
@@ -104,7 +104,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             .withTest { actualSize == allSearchCriteria.size }
             .withDescriptionAndRepresentation(
                 TO_BE,
-                RawString.create(allSearchCriteria.size.toString())
+                Text(allSearchCriteria.size.toString())
             )
             .build()
         )

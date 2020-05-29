@@ -8,7 +8,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionResultAssertion
 import ch.tutteli.atrium.translations.DescriptionResultAssertion.EXCEPTION
 import ch.tutteli.atrium.translations.DescriptionResultAssertion.IS_NOT_FAILURE
@@ -34,7 +33,7 @@ fun <TExpected : Throwable> _isFailure(
     val throwableExpect = ExpectImpl.feature
         .manualFeature(expect, EXCEPTION) { exceptionOrNull() }
         .getExpectOfFeature()
-        .withRepresentation { it ?: RawString.create(IS_NOT_FAILURE) }
+        .withRepresentation { it ?: IS_NOT_FAILURE }
 
     return ExpectImpl.changeSubject(throwableExpect).reportBuilder()
         .downCastTo(expectedType)

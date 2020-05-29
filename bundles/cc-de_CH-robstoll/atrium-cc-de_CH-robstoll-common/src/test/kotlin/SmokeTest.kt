@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.migration.asExpect
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.verbs.expect
@@ -66,7 +66,7 @@ class SmokeTest {
 
 @Suppress("DEPRECATION")
 fun Assert<Int>.isEven() =
-    createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
+    createAndAddAssertion(DescriptionBasic.IS, Text("an even number")) { subject % 2 == 0 }
 
 fun Assert<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 

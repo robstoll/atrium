@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.domain.creating.changers.subjectChanger
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -139,8 +139,8 @@ interface SubjectChangerBuilder {
          * such a case an alternative description and representation might be used (depending on the implementation and
          * chosen options).
          *
-         * Notice, if you want to use text (e.g. a [String]) as [representation],
-         * then wrap it into a [RawString] via [RawString.create] and pass the [RawString] instead.
+         * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
+         * then wrap it into a [Text] and pass it instead.
          */
         fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): TransformationStep<T>
 

@@ -3,8 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.checkers
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -37,7 +36,7 @@ abstract class ContainsChecker(
     }
 
     /**
-     * Creates a [DescriptiveAssertion] based on the given [description], the property [times] as [StringBasedRawString]
+     * Creates a [DescriptiveAssertion] based on the given [description], the property [times] as [Text]
      * and the given [check].
      *
      * @param description The description used for [DescriptiveAssertion.description]
@@ -46,5 +45,5 @@ abstract class ContainsChecker(
      * @return The newly created [DescriptiveAssertion].
      */
     protected fun createDescriptiveAssertion(description: Translatable, check: () -> Boolean): DescriptiveAssertion =
-        assertionBuilder.createDescriptive(description, RawString.create(times.toString()), check)
+        assertionBuilder.createDescriptive(description, Text(times.toString()), check)
 }

@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint.*
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -42,7 +42,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
             .ifAbsent {
                 assertionBuilder.explanatoryGroup
                     .withWarningType
-                    .withExplanatoryAssertion(RawString.create(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
+                    .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
                     .build()
             }
     }.showOnlyIfSubjectDefined(subjectProvider)

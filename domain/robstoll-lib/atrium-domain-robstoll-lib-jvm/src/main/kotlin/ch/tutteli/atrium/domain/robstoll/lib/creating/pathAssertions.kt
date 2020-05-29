@@ -13,18 +13,12 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.*
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
-import ch.tutteli.niok.extension
-import ch.tutteli.niok.fileNameWithoutExtension
-import ch.tutteli.niok.getFileAttributeView
-import ch.tutteli.niok.readAllBytes
-import ch.tutteli.niok.readAttributes
-import ch.tutteli.niok.readText
+import ch.tutteli.niok.*
 import java.io.IOException
 import java.nio.charset.Charset
 import java.nio.file.AccessDeniedException
@@ -75,7 +69,7 @@ fun <T : Path> _exists(expect: Expect<T>): Assertion =
                     }
                 }
             }
-            .withDescriptionAndRepresentation(TO, RawString.create(EXIST))
+            .withDescriptionAndRepresentation(TO, EXIST)
             .build()
     }
 
@@ -91,7 +85,7 @@ fun <T : Path> _existsNot(expect: Expect<T>): Assertion =
                     }
                 }
             }
-            .withDescriptionAndRepresentation(NOT_TO, RawString.create(EXIST))
+            .withDescriptionAndRepresentation(NOT_TO, EXIST)
             .build()
     }
 
@@ -131,7 +125,7 @@ private fun <T : Path> filePermissionAssertion(
                 }
             }
         }
-        .withDescriptionAndRepresentation(TO_BE, RawString.create(permissionName))
+        .withDescriptionAndRepresentation(TO_BE, permissionName)
         .build()
 }
 
@@ -150,7 +144,7 @@ private inline fun <T : Path> fileTypeAssertion(
                 }
             }
         }
-        .withDescriptionAndRepresentation(TO_BE, RawString.create(typeName))
+        .withDescriptionAndRepresentation(TO_BE, typeName)
         .build()
 }
 
@@ -306,7 +300,7 @@ private fun <T : Path> hintForExistsButMissingPermission(subject: T, permissionN
 
 private fun describeWas(actual: Translatable) =
     ExpectImpl.builder.descriptive.failing
-        .withDescriptionAndRepresentation(WAS, RawString.create(actual))
+        .withDescriptionAndRepresentation(WAS, actual)
         .build()
 
 private fun hintForIoException(path: Path, exception: IOException) = when (exception) {

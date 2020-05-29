@@ -11,8 +11,8 @@ import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 @Deprecated("Use _extractFeature instead; will be removed with 1.0.0")
@@ -34,18 +34,18 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
                     featureExtractionOnce,
                     featureExtractionOnce,
                     coreFactory.newFeatureAssertionChecker(parameterObject.subjectPlant),
-                    RawString.NULL
+                    Text.NULL
                 )
             )
         } else {
-            val representationProvider = { RawString.create(parameterObject.extractionNotSuccessful) }
+            val representationProvider = { parameterObject.extractionNotSuccessful }
             val plant = plantCreator(
                 AssertionPlantWithCommonFields.CommonFields(
                     SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
                     { throw PlantHasNoSubjectException() },
                     representationProvider,
                     coreFactory.newDelegatingAssertionChecker(parameterObject.subjectPlant),
-                    RawString.NULL
+                    Text.NULL
                 )
             )
 
@@ -82,8 +82,8 @@ abstract class BaseFeatureExtractorCreator<TSubject, T, A : BaseAssertionPlant<T
             .withFeatureType
             .withClaim(isSafeToExtract)
             .withDescriptionAndRepresentation(featureRepresentation) {
-                if (isSafeToExtract) featureExtractionOnce() ?: RawString.NULL
-                else RawString.create(parameterObject.extractionNotSuccessful)
+                if (isSafeToExtract) featureExtractionOnce() ?: Text.NULL
+                else parameterObject.extractionNotSuccessful
             }
             .withAssertion(
                 AssertImpl.collector.collectOrExplain(

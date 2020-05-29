@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -25,9 +25,9 @@ constructor(
     override val description: Translatable = Untranslatable.EMPTY
 
     /**
-     * [RawString.EMPTY] -- an empty string as [RawString].
+     * [Text.EMPTY] -- an empty string as [Text].
      */
-    override val representation: Any = RawString.EMPTY
+    override val representation: Any = Text.EMPTY
 
     /**
      * @suppress No need to document this behaviour.
