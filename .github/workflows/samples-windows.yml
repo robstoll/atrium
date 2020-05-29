@@ -2,11 +2,11 @@ name: Samples
 
 on:
     push:
-#        paths:
-#            - 'samples/**'
+        paths:
+            - 'samples/**'
     pull_request:
-#        paths:
-#            - 'samples/**'
+        paths:
+            - 'samples/**'
 
 jobs:
     build:
