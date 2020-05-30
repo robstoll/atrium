@@ -5,8 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -187,7 +186,7 @@ abstract class BigDecimalAssertionsSpec(
                         assertTenAny.toBeAnyFun(expected)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(BigDecimal.TEN, "${TO_BE.getDefault()}: $expected")
+                            contains(BigDecimal.TEN, "$toBeDescr: $expected")
                             containsNot(failureHintNumerically)
                         }
                     }
@@ -231,7 +230,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTenAny.toBeAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(BigDecimal.TEN, "${TO_BE.getDefault()}: $expected")
+                        contains(BigDecimal.TEN, "$toBeDescr: $expected")
                         containsNot(failureHintNumerically)
                     }
                 }

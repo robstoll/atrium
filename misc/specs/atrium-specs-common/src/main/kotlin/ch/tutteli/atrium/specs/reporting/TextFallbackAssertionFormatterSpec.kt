@@ -15,8 +15,9 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.toBeDescr
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
@@ -112,7 +113,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                     expect(sb).contains(
                         "group: subject of group$lineSeperator" +
                             "$bulletPoint ${IS_SAME.getDefault()}: b$lineSeperator" +
-                            "$bulletPoint ${TO_BE.getDefault()}: d"
+                            "$bulletPoint $toBeDescr: d"
                     )
                 }
             }
@@ -151,7 +152,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                         "outer group: subject of outer group$lineSeperator" +
                             "$bulletPoint inner group: subject of inner group$lineSeperator" +
                             "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$lineSeperator" +
-                            "$indentBulletPoint$bulletPoint ${TO_BE.getDefault()}: d",
+                            "$indentBulletPoint$bulletPoint $toBeDescr: d",
                         "$bulletPoint Unsupported type ${unsupportedAssertion::class.fullName}"
                     )
                 }

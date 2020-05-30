@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 
 class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
 

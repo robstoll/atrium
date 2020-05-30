@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 

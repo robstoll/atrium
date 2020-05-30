@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 
@@ -102,10 +102,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion> =
         mutableListOf(ExpectImpl.builder.descriptive
             .withTest { actualSize == allSearchCriteria.size }
-            .withDescriptionAndRepresentation(
-                TO_BE,
-                Text(allSearchCriteria.size.toString())
-            )
+            .withDescriptionAndRepresentation(TO_BE, Text(allSearchCriteria.size.toString()))
             .build()
         )
 
