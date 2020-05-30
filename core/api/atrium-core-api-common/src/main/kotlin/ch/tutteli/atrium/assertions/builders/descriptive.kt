@@ -39,7 +39,7 @@ interface Descriptive {
          *
          * Notice, this function might change its signature with 1.0.0 to something like
          * ```
-         * fun <T> withTest(expect: Expect, test: (T) -> Boolean): DescriptionOption<FinalStep>
+         * fun <T> withTest(expect: Expect<T>, test: (T) -> Boolean): DescriptionOption<FinalStep>
          * ```
          */
         fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): DescriptionOption<FinalStep>
