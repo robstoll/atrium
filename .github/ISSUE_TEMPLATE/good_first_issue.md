@@ -1,3 +1,8 @@
+---
+name: ⭐ Good First Issue (for maintainers)
+about: Create a good first issue
+labels: good first issue, help wanted
+---
 *Platform* (all, jvm, js, android): all
 *Extension* (none, kotlin 1.3): none
 
