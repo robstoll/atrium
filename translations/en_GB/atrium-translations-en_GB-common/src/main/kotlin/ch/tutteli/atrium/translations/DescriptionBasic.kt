@@ -10,8 +10,19 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {
     TO("to"),
     NOT_TO("not to"),
+
+    @Deprecated(
+        "Use DescriptionAnyAssertion.TO_BE or IS instead; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE")
+    )
     TO_BE("equals"),
+
+    @Deprecated(
+        "Use DescriptionAnyAssertion.NOT_TO_BE or IS_NOT instead; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE")
+    )
     NOT_TO_BE("does not equal"),
+
     IS("is"),
     IS_NOT("is not"),
     HAS("has"),

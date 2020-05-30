@@ -9,10 +9,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_NOT_SAME
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
-import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 import kotlin.reflect.KClass

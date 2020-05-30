@@ -8,8 +8,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
-import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_THAN
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THAN
 import org.spekframework.spek2.Spek

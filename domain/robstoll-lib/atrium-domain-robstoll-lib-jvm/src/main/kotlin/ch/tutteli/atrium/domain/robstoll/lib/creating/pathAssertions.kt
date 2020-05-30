@@ -125,7 +125,7 @@ private fun <T : Path> filePermissionAssertion(
                 }
             }
         }
-        .withDescriptionAndRepresentation(TO_BE, permissionName)
+        .withDescriptionAndRepresentation(IS, permissionName)
         .build()
 }
 
@@ -144,7 +144,7 @@ private inline fun <T : Path> fileTypeAssertion(
                 }
             }
         }
-        .withDescriptionAndRepresentation(TO_BE, typeName)
+        .withDescriptionAndRepresentation(IS, typeName)
         .build()
 }
 

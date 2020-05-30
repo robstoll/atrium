@@ -22,15 +22,15 @@ import java.text.SimpleDateFormat
  * which should be in
  *
  * the primary local: de_CH
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = ist
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = ist
  *
  * the primary Locale's natural first fallback: de
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = ist (de)
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE = ist nicht
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = ist (de)
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
  *
  * the fallback Locale: fr
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = est
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE = n'est pas
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = est
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = n'est pas
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
  * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_KNOWN = %tD était %tA
@@ -41,56 +41,56 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec.TestTranslatable-DATE_UNKNOWN = solo %tA!!
  *
  * the Locale zh_Hant_TW:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hant_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_TW
  *
  * the Locale zh_TW:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE=TO_BE zh_TW
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE=NOT_TO_BE zh_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_TW
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_TW
  *
  * the Locale zh_Hant_HK:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hant_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_HK
  *
  * the Locale zh_HK:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE=TO_BE zh_HK
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE=NOT_TO_BE zh_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_HK
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_HK
  *
  * the Locale zh_Hant_MO:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hant_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_MO
  *
  * the Locale zh_MO:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE=TO_BE zh_MO
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE=NOT_TO_BE zh_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_MO
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_MO
  *
  * the natural first fallback of zh_TW, zh_TK, zh_MO: zh_Hant
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = zh_Hant
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE = NOT_TO_BE zh_Hant
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = zh_Hant
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hant
  *
  * the Locale zh_Hans_CN:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hans_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_CN
  *
  * the Locale zh_CN:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE=TO_BE zh_CN
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE=NOT_TO_BE zh_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_CN
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_CN
  *
  * the Locale zh_Hans_SG:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hans_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_SG
  *
  * the Locale zh_SG:
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE=TO_BE zh_SG
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE=NOT_TO_BE zh_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_SG
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_SG
  *
  * the natural first fallback of zh_CN and zh_SG: zh_Hans
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE = TO_BE zh_Hans
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE = NOT_TO_BE zh_Hans
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hans
  *
  * the natural second fallback for zh_... => zh
- * ch.tutteli.atrium.translations.DescriptionBasic-TO_BE =TO_BE zh
- * ch.tutteli.atrium.translations.DescriptionBasic-NOT_TO_BE=NOT_TO_BE zh
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE =TO_BE zh
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
@@ -122,8 +122,8 @@ abstract class TranslatorIntSpec(
     val testTranslatable = TestTranslatable::class.simpleName
 
     val descriptionComparableAssertion = DescriptionComparableAssertion::class.simpleName
-    val toBe = DescriptionBasic.TO_BE
-    val notToBe = DescriptionBasic.NOT_TO_BE
+    val toBe = DescriptionAnyAssertion.TO_BE
+    val notToBe = DescriptionAnyAssertion.NOT_TO_BE
     val isNotSame = DescriptionAnyAssertion.IS_NOT_SAME
     val isSame = DescriptionAnyAssertion.IS_SAME
     val firstOfFeb2017 = SimpleDateFormat("dd.MM.yyyy").parse("01.02.2017")

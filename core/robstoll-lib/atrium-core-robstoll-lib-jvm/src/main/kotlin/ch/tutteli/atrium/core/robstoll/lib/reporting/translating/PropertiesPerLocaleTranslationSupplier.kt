@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
  * For instance, the translations for the [Locale] `de_CH` are stored in a properties file named .
  *
  * An entry in such a file would look like the following:
- * `ch.tutteli.atrium.DescriptionBasic-TO_BE = a translation for TO_BE`
+ * `ch.tutteli.atrium.DescriptionAnyAssertion-TO_BE = a translation for TO_BE`
  */
 class PropertiesPerLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<Locale>() {
 

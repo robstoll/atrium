@@ -1366,7 +1366,7 @@ expect(Paths.get("/root/.ssh/config")).isWritable()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L330)</sub> ↓ <sub>Output</sub>
 ```text
 expected that subject: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
-◆ equals: writable
+◆ is: writable
     » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
       » access was denied
       » the owner is root, the group is root
@@ -1388,7 +1388,7 @@ expect(filePointer.resolve("subfolder/file")).isRegularFile()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L335)</sub> ↓ <sub>Output</sub>
 ```text
 expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
-◆ equals: a file
+◆ is: a file
     » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
     » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
       » was a file instead of a directory

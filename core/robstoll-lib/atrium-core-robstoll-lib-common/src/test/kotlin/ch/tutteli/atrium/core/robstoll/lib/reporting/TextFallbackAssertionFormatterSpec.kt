@@ -16,8 +16,9 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
-import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.specs.toBeDescr
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
@@ -61,7 +62,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()).toBe(
                     "${EXPECT.getDefault()}: subject$lineSeperator" +
-                        "$squarePoint ${TO_BE.getDefault()}: bli$lineSeperator" +
+                        "$squarePoint $toBeDescr: bli$lineSeperator" +
                         "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
                 )
             }

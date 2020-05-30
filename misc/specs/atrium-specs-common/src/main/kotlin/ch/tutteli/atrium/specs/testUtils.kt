@@ -245,7 +245,7 @@ fun <T> notImplemented(): T = throw NotImplementedError()
 //TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
 fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
 
-val toBeDescr = DescriptionBasic.TO_BE.getDefault()
+val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
 val isDescr = DescriptionBasic.IS.getDefault()
 val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
 val isADescr = DescriptionAnyAssertion.IS_A.getDefault()

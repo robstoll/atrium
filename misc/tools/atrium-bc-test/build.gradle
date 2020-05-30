@@ -384,7 +384,12 @@ createBcAndBbcTasksForApis('0.11.1',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.12.0',
-    'forgive=.*ch/tutteli/atrium/api/infix/en_GB/Fun0AssertionsJvmSpec.*',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/(' +
+        '(PathAssertionsSpec/.*`is(Readable|Writable|RegularFile|Directory)`.*)' +
+    '))|(ch/tutteli/atrium/api/infix/en_GB/(' +
+        '(Fun0AssertionsJvmSpec/.*)|' +
+        '(PathAssertionsSpec/.*`toBe (readable|writable|aRegularFile|aDirectory)`.*)' +
+    '))',
     'fluent-en_GB','infix-en_GB'
 )
 //@formatter:on
@@ -407,3 +412,8 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { S
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
     return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')
 }
+//def apis = ['fluent-en_GB', 'cc-en_GB', 'cc-infix-en_GB']
+//apis.each {
+//createFixSrcTask('cc-infix-en_GB', '0.12.0', 'PathAssertionsSpec.kt') { String content ->
+//    return content.replaceAll(/val expectedMessage = "${"\$"}{TO_BE.getDefault()}:/, 'val expectedMessage = "$isDescr:')
+//}
