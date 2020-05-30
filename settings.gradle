@@ -36,10 +36,6 @@ def apiWithExtensions = { self, String apiName ->
     self.folder(apiName, "$apiName-") {
         extensions {
             kotlinJvmJs('kotlin_1_3')
-            //TODO remove with 1.0.0
-            if (apiName == 'fluent-en_GB') {
-                kotlinJvm(delegate, 'jdk8')
-            }
         }
     }
 }
@@ -69,7 +65,6 @@ include {
     }
 
     misc {
-        _ 'spec'
         kotlinJvmJs('specs')
         kotlinJvmJs('verbs')
         kotlinJvmJs('verbs-internal')
@@ -81,73 +76,80 @@ include {
     }
 
     //TODO remove all below with 1.0.0
-    bundles {
-        _ 'cc-en_UK-robstoll'
-        _ 'cc-infix-en_UK-robstoll'
-        kotlinJvmJs('cc-de_CH-robstoll')
-        kotlinJvmJs('cc-en_GB-robstoll')
-        kotlinJvmJs('cc-infix-en_GB-robstoll')
-
-        if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-            folder('cc-en_GB-robstoll') {
-                _ 'cc-en_GB-robstoll-smoke-test'
-            }
-            folder('cc-infix-en_GB-robstoll') {
-                _ 'cc-infix-en_GB-robstoll-smoke-test'
-            }
-        }
-    }
-
-    folder('apis', 'api-') {
-        _ 'cc-en_UK'
-        _ 'cc-infix-en_UK'
-        kotlinJvmJs('cc-de_CH')
-        kotlinJvmJs('cc-en_GB')
-        kotlinJvmJs('cc-infix-en_GB')
-    }
-
-    core('core-') {
-        _ 'api-deprecated'
-        _ 'robstoll-deprecated'
-    }
-    translations('translations-') {
-        _ 'de_CH-deprecated'
-        _ 'en_UK-deprecated'
-    }
     misc {
-        _ 'assertions'
+        folder("deprecated") {
+            bundles {
+                _ 'cc-en_UK-robstoll'
+                _ 'cc-infix-en_UK-robstoll'
+                kotlinJvmJs('cc-de_CH-robstoll')
+                kotlinJvmJs('cc-en_GB-robstoll')
+                kotlinJvmJs('cc-infix-en_GB-robstoll')
 
-        folder('deprecated-domain', 'domain-') {
-            _ 'api-deprecated'
-
-            kotlinJvmJs('api')
-            kotlinJvmJs('builders')
-            kotlinJvmJs('robstoll')
-            kotlinJvmJs('robstoll-lib')
-
-            api('api-') {
-                extensions {
-                    kotlinJvmJs('kotlin_1_3')
+                if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+                    folder('cc-en_GB-robstoll') {
+                        _ 'cc-en_GB-robstoll-smoke-test'
+                    }
+                    folder('cc-infix-en_GB-robstoll') {
+                        _ 'cc-infix-en_GB-robstoll-smoke-test'
+                    }
                 }
             }
 
-            builders('builders-') {
-                extensions {
-                    kotlinJvmJs('kotlin_1_3')
-                }
+            folder('apis', 'api-') {
+                _ 'cc-en_UK'
+                _ 'cc-infix-en_UK'
+                kotlinJvmJs('cc-de_CH')
+                kotlinJvmJs('cc-en_GB')
+                kotlinJvmJs('cc-infix-en_GB')
+                kotlinJvm(delegate, 'fluent-en_GB-jdk8')
             }
 
-            robstoll('robstoll-') {
-                extensions {
-                    kotlinJvmJs('kotlin_1_3')
-                }
+            core('core-') {
+                _ 'api-deprecated'
+                _ 'robstoll-deprecated'
             }
 
-            folder('robstoll-lib', 'robstoll-lib-') {
-                extensions {
-                    kotlinJvmJs('kotlin_1_3')
+            _ 'assertions'
+            domain('domain-') {
+                _ 'api-deprecated'
+
+                kotlinJvmJs('api')
+                kotlinJvmJs('builders')
+                kotlinJvmJs('robstoll')
+                kotlinJvmJs('robstoll-lib')
+
+                api('api-') {
+                    extensions {
+                        kotlinJvmJs('kotlin_1_3')
+                    }
                 }
+
+                builders('builders-') {
+                    extensions {
+                        kotlinJvmJs('kotlin_1_3')
+                    }
+                }
+
+                robstoll('robstoll-') {
+                    extensions {
+                        kotlinJvmJs('kotlin_1_3')
+                    }
+                }
+
+                folder('robstoll-lib', 'robstoll-lib-') {
+                    extensions {
+                        kotlinJvmJs('kotlin_1_3')
+                    }
+                }
+            }
+            _ 'spec'
+
+            translations('translations-') {
+                _ 'de_CH-deprecated'
+                _ 'en_UK-deprecated'
             }
         }
+
+
     }
 }
