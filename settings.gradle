@@ -57,37 +57,6 @@ include {
         apiWithExtensions(delegate, 'infix-en_GB')
     }
 
-    domain('domain-') {
-        kotlinJvmJs('api')
-        kotlinJvmJs('builders')
-        kotlinJvmJs('robstoll')
-        kotlinJvmJs('robstoll-lib')
-
-        api('api-') {
-            extensions {
-                kotlinJvmJs('kotlin_1_3')
-            }
-        }
-
-        builders('builders-') {
-            extensions {
-                kotlinJvmJs('kotlin_1_3')
-            }
-        }
-
-        robstoll('robstoll-') {
-            extensions {
-                kotlinJvmJs('kotlin_1_3')
-            }
-        }
-
-        folder('robstoll-lib', 'robstoll-lib-') {
-            extensions {
-                kotlinJvmJs('kotlin_1_3')
-            }
-        }
-    }
-
     core('core-') {
         kotlinJvmJs('api')
         kotlinJvmJs('robstoll')
@@ -136,9 +105,7 @@ include {
         kotlinJvmJs('cc-en_GB')
         kotlinJvmJs('cc-infix-en_GB')
     }
-    domain('domain-') {
-        _ 'api-deprecated'
-    }
+
     core('core-') {
         _ 'api-deprecated'
         _ 'robstoll-deprecated'
@@ -149,5 +116,38 @@ include {
     }
     misc {
         _ 'assertions'
+
+        folder('deprecated-domain', 'domain-') {
+            _ 'api-deprecated'
+
+            kotlinJvmJs('api')
+            kotlinJvmJs('builders')
+            kotlinJvmJs('robstoll')
+            kotlinJvmJs('robstoll-lib')
+
+            api('api-') {
+                extensions {
+                    kotlinJvmJs('kotlin_1_3')
+                }
+            }
+
+            builders('builders-') {
+                extensions {
+                    kotlinJvmJs('kotlin_1_3')
+                }
+            }
+
+            robstoll('robstoll-') {
+                extensions {
+                    kotlinJvmJs('kotlin_1_3')
+                }
+            }
+
+            folder('robstoll-lib', 'robstoll-lib-') {
+                extensions {
+                    kotlinJvmJs('kotlin_1_3')
+                }
+            }
+        }
     }
 }
