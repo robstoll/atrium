@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*

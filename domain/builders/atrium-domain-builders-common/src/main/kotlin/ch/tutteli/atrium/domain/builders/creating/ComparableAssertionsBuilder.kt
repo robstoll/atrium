@@ -3,6 +3,7 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
 import ch.tutteli.atrium.domain.creating.comparableAssertions

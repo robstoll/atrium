@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isGreaterThanOrEqual
