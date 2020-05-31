@@ -11,4 +11,5 @@ enum class DescriptionComparableAssertion(override val value: String) : StringBa
     IS_LESS_OR_EQUALS("is less or equals"),
     IS_GREATER_THAN("is greater than"),
     IS_GREATER_OR_EQUALS("is greater or equals"),
+    IS_EQUAL("is equal comparing to"),
 }

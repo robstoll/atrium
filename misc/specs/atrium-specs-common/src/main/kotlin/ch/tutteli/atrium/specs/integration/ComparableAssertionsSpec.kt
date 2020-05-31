@@ -14,6 +14,7 @@ abstract class ComparableAssertionsSpec(
     isLessOrEquals: Fun1<Int, Int>,
     isGreaterThan: Fun1<Int, Int>,
     isGreaterOrEquals: Fun1<Int, Int>,
+    isEqualComparingTo: Fun1<Int, Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -22,13 +23,15 @@ abstract class ComparableAssertionsSpec(
         isLessThan.forSubjectLess(1),
         isLessOrEquals.forSubjectLess(1),
         isGreaterThan.forSubjectLess(1),
-        isGreaterOrEquals.forSubjectLess(1)
+        isGreaterOrEquals.forSubjectLess(1),
+        isEqualComparingTo.forSubjectLess(1)
     ) {})
 
     val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
     val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_OR_EQUALS.getDefault()
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
     val isGreaterOrEqualsDescr = DescriptionComparableAssertion.IS_GREATER_OR_EQUALS.getDefault()
+    val isEqualComparingToDescr = DescriptionComparableAssertion.IS_EQUAL.getDefault()
 
     val fluent = expect(10)
     describe("$describePrefix context subject is 10") {
@@ -97,6 +100,24 @@ abstract class ComparableAssertionsSpec(
             }
             it("... 9 does not throw") {
                 fluent.isGreaterOrEqualsFun(9)
+            }
+        }
+
+        describe("${isEqualComparingTo.name} ...") {
+            val isEqualComparingToFun = isEqualComparingTo.lambda
+
+            it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_EQUAL} and `: 11`") {
+                expect {
+                    fluent.isEqualComparingToFun(11)
+                }.toThrow<AssertionError> { messageContains("$isEqualComparingToDescr: 11") }
+            }
+            it("... 10 does not throw") {
+                fluent.isEqualComparingToFun(10)
+            }
+            it("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_EQUAL} and `: 9`") {
+                expect {
+                    fluent.isEqualComparingToFun(9)
+                }.toThrow<AssertionError> { messageContains("$isEqualComparingToDescr: 9")}
             }
         }
     }

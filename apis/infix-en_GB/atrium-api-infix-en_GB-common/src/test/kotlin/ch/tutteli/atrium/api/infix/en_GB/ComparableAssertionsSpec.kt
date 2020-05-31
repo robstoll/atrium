@@ -8,7 +8,8 @@ class ComparableAssertionsSpec : ch.tutteli.atrium.specs.integration.ComparableA
     fun1(Expect<Int>::isLessThan),
     fun1(Expect<Int>::isLessThanOrEqual),
     fun1(Expect<Int>::isGreaterThan),
-    fun1(Expect<Int>::isGreaterThanOrEqual)
+    fun1(Expect<Int>::isGreaterThanOrEqual),
+    fun1(Expect<Int>::isEqualComparingTo)
 ) {
 
     @Suppress("unused")
@@ -18,5 +19,6 @@ class ComparableAssertionsSpec : ch.tutteli.atrium.specs.integration.ComparableA
         a1 isLessThanOrEqual 1
         a1 isGreaterThan 1
         a1 isGreaterThanOrEqual 1
+        a1 isEqualComparingTo 1
     }
 }
