@@ -13,10 +13,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @Deprecated("Use DescriptiveAssertion, do not rely on this specific type, will be made internal with 1.0.0")
 class BasicDescriptiveAssertion
 @Deprecated(
-    "Use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
+    "Use `assertionBuilder.descriptive` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
-        "AssertImpl.builder.descriptive.withAssertions(description, representation, test)",
-        "ch.tutteli.atrium.domain.builders.AssertImpl"
+        "assertionBuilder.descriptive.withAssertions(description, representation, test)",
+        "ch.tutteli.atrium.assertions.builders.assertionBuilder"
     )
 )
 constructor(

@@ -3,11 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isGreaterThanOrEqual
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isGreaterThan
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isLessThanOrEqual
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isLessThan
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isEqualComparingTo
+import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
 
 class ComparableAssertionsImpl : ComparableAssertions {
