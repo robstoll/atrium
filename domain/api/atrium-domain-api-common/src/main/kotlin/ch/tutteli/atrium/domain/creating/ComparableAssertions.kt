@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
@@ -27,6 +28,11 @@ interface ComparableAssertions {
     //TODO rename to isGreaterThanOrEqual with 1.0.0
     fun <T1 : Comparable<T2>, T2 : Any?> isGreaterOrEquals(
         subjectProvider: SubjectProvider<T1>,
+        expected: T2
+    ): Assertion
+
+    fun <T1 : Comparable<T2>, T2 : Any?> isEqualComparingTo(
+        expect: Expect<T1>,
         expected: T2
     ): Assertion
 }
