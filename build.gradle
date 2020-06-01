@@ -34,7 +34,7 @@ buildscript {
 
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {
-            !it.name.endsWith("-js") &&
+                !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
@@ -50,10 +50,7 @@ buildscript {
         toolProjects = toolProjectsFun
 
         // jacoco-multi-project.gradle
-        def deprecatedProjects = subprojects.findAll {
-            it.name.endsWith("-deprecated") ||
-                it.projectDir.path.contains("\\deprecated\\") || it.projectDir.path.contains("/deprecated/")
-        }
+        def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
                 (subprojects - deprecatedProjects - toolProjectsFun).findAll {
@@ -486,7 +483,17 @@ useJupiter(
 )
 
 def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: build, description: 'builds all JVM modules')
-buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.collect { it.build })
+buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {
+    it.name != "${rootProject.name}-api-cc-en_UK" &&
+        it.name != "${rootProject.name}-api-cc-infix-en_UK" &&
+        !it.name.startsWith("${rootProject.name}-api-cc-de_CH") &&
+        !it.name.startsWith("${rootProject.name}-api-cc-en_GB") &&
+        !it.name.startsWith("${rootProject.name}-api-cc-infix-en_GB") &&
+        !it.name.startsWith("${rootProject.name}-cc-de_CH") &&
+        !it.name.startsWith("${rootProject.name}-cc-en_UK") &&
+        !it.name.startsWith("${rootProject.name}-cc-en_GB") &&
+        !it.name.startsWith("${rootProject.name}-cc-infix-en_GB")
+}.collect { it.build })
 
 def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -js modules')
 buildAllWithoutJs.dependsOn((subprojects - getJsProjects()).collect { it.build })
