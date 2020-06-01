@@ -1,5 +1,4 @@
 ignore:
-
     - "misc/specs/**"
     - "misc/tools/**"
     - "samples/**"
@@ -17,7 +16,6 @@ ignore:
     - "misc/deprecated/domain/builders/**/utils/subAssert.kt$"
     - "**/IAtriumFactory.kt$"
     - "**/AtriumFactory.kt$"
-
 
 flags:
     api:
