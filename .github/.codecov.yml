@@ -2,7 +2,9 @@ ignore:
     - "misc/specs"
     - "misc/tools"
     - "samples"
-    - "misc/deprecated/atrium-assertions" #TODO remove all with misc/deprecated with 1.0.0
+
+    #TODO remove all below with 1.0.0
+    - "misc/deprecated/atrium-assertions"
     - "misc/deprecated/atrium-spec"
     - "misc/deprecated/domain/api/**/assertions/**/*"
     - "misc/deprecated/domain/atrium-domain-api-deprecated"
