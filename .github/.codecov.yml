@@ -4,6 +4,7 @@ ignore:
     - "samples"
 
     #TODO remove all below with 1.0.0
+    - "misc/verb/**/atrium/verbs/**/*"
     - "misc/deprecated/atrium-assertions"
     - "misc/deprecated/atrium-spec"
     - "misc/deprecated/domain/api/**/assertions/**/*"
