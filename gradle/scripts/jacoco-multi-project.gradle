@@ -5,9 +5,8 @@ jacoco {
     toolVersion = "$jacoco_tool_version"
 }
 
-def bcTest = prefixedProject('bc-test')
-def jacocoProjects = (jacocoMulti.jacocoProjects + bcTest)
-def jacocoSourceProjects = (jacocoMulti.sourceProjects + bcTest)
+def jacocoProjects = (jacocoMulti.jacocoProjects)
+def jacocoSourceProjects = (jacocoMulti.sourceProjects)
 
 task jacocoMerge(type: JacocoMerge) {
     jacocoProjects.each {
@@ -18,7 +17,6 @@ task jacocoMerge(type: JacocoMerge) {
 task codeCoverageReport(type: JacocoReport) {
 
     dependsOn jacocoMulti.sourceProjects.build
-    dependsOn bcTest.build
     dependsOn jacocoMerge
     jacocoMerge.mustRunAfter jacocoMulti.sourceProjects.build
 
