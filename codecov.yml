@@ -1,0 +1,46 @@
+ignore:
+    - "misc/specs/**"
+    - "misc/tools/**"
+    - "samples/**"
+
+    # TODO remove with 1.0.0
+    - "misc/deprecated/atrium-assertions/**"
+    - "misc/deprecated/atrium-spec/**"
+    - "misc/deprecated/domain/api/**/assertions/**"
+    - "misc/deprecated/domain/atrium-domain-api-deprecated/**"
+    - "misc/deprecated/domain/builders/**/AssertImpl.kt$"
+    - "misc/deprecated/domain/builders/**/ExpectImpl.kt$"
+    - "misc/deprecated/domain/builders/**/ExpectImplExtensions.kt$"
+    - "misc/deprecated/domain/builders/**/creating/**AssertionsBuilders?.kt$"
+    - "misc/deprecated/domain/builders/**/utils/nullable.kt$"
+    - "misc/deprecated/domain/builders/**/utils/subAssert.kt$"
+    - "**/IAtriumFactory.kt$"
+    - "**/AtriumFactory.kt$"
+
+flags:
+    api:
+        paths:
+            - apis/
+    domain:
+        paths:
+            - domain/
+    core:
+        paths:
+            - core/
+    misc:
+        paths:
+            - misc/
+    translations:
+        paths:
+            - translations/
+
+coverage:
+    range: 70..95
+    status:
+        project:
+            default:
+                target: 85%
+        patch:
+            default:
+                against: parent
+                target: 85%
