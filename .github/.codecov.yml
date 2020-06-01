@@ -42,5 +42,4 @@ coverage:
                 target: 85%
         patch:
             default:
-                against: parent
                 target: 85%
