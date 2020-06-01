@@ -18,7 +18,7 @@ buildscript {
         junit_platform_version = '1.6.2'
         jupiter_version = '5.6.2'
         spek_version = '1.1.5'
-        spek2_version = '2.0.10'
+        spek2_version = '2.0.11'
         spekExtensions_version = '1.1.0'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.10.0'
