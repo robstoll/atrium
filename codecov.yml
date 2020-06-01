@@ -1,19 +1,19 @@
 ignore:
-    - "misc/specs/**"
-    - "misc/tools/**"
-    - "samples/**"
-    - "misc/deprecated/atrium-assertions/**" #TODO remove all with misc/deprecated with 1.0.0
-    - "misc/deprecated/atrium-spec/**"
-    - "misc/deprecated/domain/api/**/assertions/**"
-    - "misc/deprecated/domain/atrium-domain-api-deprecated/**"
-    - "misc/deprecated/domain/builders/**/AssertImpl.kt$"
-    - "misc/deprecated/domain/builders/**/ExpectImpl.kt$"
-    - "misc/deprecated/domain/builders/**/ExpectImplExtensions.kt$"
-    - "misc/deprecated/domain/builders/**/creating/**AssertionsBuilders?.kt$"
-    - "misc/deprecated/domain/builders/**/utils/nullable.kt$"
-    - "misc/deprecated/domain/builders/**/utils/subAssert.kt$"
-    - "**/IAtriumFactory.kt$"
-    - "**/AtriumFactory.kt$"
+    - "misc/specs"
+    - "misc/tools"
+    - "samples"
+    - "misc/deprecated/atrium-assertions" #TODO remove all with misc/deprecated with 1.0.0
+    - "misc/deprecated/atrium-spec"
+    - "misc/deprecated/domain/api/**/assertions/**/*"
+    - "misc/deprecated/domain/atrium-domain-api-deprecated"
+    - "misc/deprecated/domain/builders/**/AssertImpl.kt"
+    - "misc/deprecated/domain/builders/**/ExpectImpl.kt"
+    - "misc/deprecated/domain/builders/**/ExpectImplExtensions.kt"
+    - "misc/deprecated/domain/builders/**/creating/**AssertionsBuilders?.kt"
+    - "misc/deprecated/domain/builders/**/utils/nullable.kt"
+    - "misc/deprecated/domain/builders/**/utils/subAssert.kt"
+    - "**/IAtriumFactory.kt"
+    - "**/AtriumFactory.kt"
 
 flags:
     api:
