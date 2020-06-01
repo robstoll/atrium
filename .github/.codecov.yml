@@ -17,23 +17,6 @@ ignore:
     - "**/IAtriumFactory.kt"
     - "**/AtriumFactory.kt"
 
-flags:
-    api:
-        paths:
-            - apis/
-    domain:
-        paths:
-            - domain/
-    core:
-        paths:
-            - core/
-    misc:
-        paths:
-            - misc/
-    translations:
-        paths:
-            - translations/
-
 coverage:
     range: 70..95
     status:
