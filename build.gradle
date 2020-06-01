@@ -484,15 +484,7 @@ useJupiter(
 
 def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: build, description: 'builds all JVM modules')
 buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {
-    it.name != "${rootProject.name}-api-cc-en_UK" &&
-        it.name != "${rootProject.name}-api-cc-infix-en_UK" &&
-        !it.name.startsWith("${rootProject.name}-api-cc-de_CH") &&
-        !it.name.startsWith("${rootProject.name}-api-cc-en_GB") &&
-        !it.name.startsWith("${rootProject.name}-api-cc-infix-en_GB") &&
-        !it.name.startsWith("${rootProject.name}-cc-de_CH") &&
-        !it.name.startsWith("${rootProject.name}-cc-en_UK") &&
-        !it.name.startsWith("${rootProject.name}-cc-en_GB") &&
-        !it.name.startsWith("${rootProject.name}-cc-infix-en_GB")
+    !it.projectDir.path.contains("\\deprecated\\") && !it.projectDir.path.contains("/deprecated/")
 }.collect { it.build })
 
 def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -js modules')
