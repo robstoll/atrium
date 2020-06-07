@@ -19,6 +19,8 @@ class Untranslatable(representation: String) : Translatable {
     override val name: String = representation
     override fun getDefault() = name
 
+    override fun toString(): String = "$name (Untranslatable)"
+
     companion object {
         /**
          * An empty string as [Untranslatable].

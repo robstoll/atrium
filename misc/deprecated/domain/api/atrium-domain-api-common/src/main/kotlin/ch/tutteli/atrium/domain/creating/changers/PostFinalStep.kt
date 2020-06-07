@@ -26,7 +26,7 @@ abstract class PostFinalStep<T, R, E : Expect<R>>(
     /**
      * Returns the newly created [Expect] for the feature.
      */
-    //TODO mcp#280 rename to getFeatureExpect in case also ChangedSubjectPostStep is returning FeatureExpect
+    //TODO consider for 1.0.0: rename to getFeatureExpect in case also ChangedSubjectPostStep is returning FeatureExpect
     fun getExpectOfFeature(): E = action(expect)
 
 

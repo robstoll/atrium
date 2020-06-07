@@ -7,6 +7,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Checks given [Assertion]s and reports if one of them fails.
  */
+@Deprecated("Do no longer use AssertionCheckers, use a specialised Expect instead; e.g. DelegatingExpect, FeatureExpect; will be removed with 1.0.0")
 interface AssertionChecker {
 
     /**

@@ -1,14 +1,13 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reporter
 
 @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @Experimental
@@ -50,26 +49,14 @@ infix fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> An
 infix fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser<T>.() -> Unit): Expect<T> =
     withOptions(ExpectBuilder.OptionsChooser.createAndBuild(configuration))
 
-//TODO #280 get rid of AssertionChecker, that's one root of a bug (which is more a nice to have but still) roadmap#11
-//in the same go we should get rid of  ReportingAssertionContainer.AssertionCheckerDecorator, rename it respectively.
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalExpectConfig::class)
+@UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
 infix fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> =
-    coreFactory.newReportingAssertionContainer(
-        ReportingAssertionContainer.AssertionCheckerDecorator.create(
-            options.assertionVerb ?: this.config.description,
-            this.maybeSubject,
-            options.representationInsteadOfSubject?.let { provider ->
-                this.maybeSubject.fold({ null }) { provider(it) }
-            } ?: this.config.representation,
-            //TODO #280 reporter should be configurable as well
-            coreFactory.newThrowingAssertionChecker(options.reporter ?: reporter)
-        )
-    )
+    RootExpect(this, options.toRootExpectOptions())
 
 /**
  * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
@@ -110,16 +97,6 @@ infix fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractor
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalExpectConfig::class)
+@UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
 infix fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureOptions<R>): Expect<R> =
-    coreFactory.newFeatureExpect(
-        previousExpect,
-        maybeSubject,
-        FeatureExpectConfig.create(
-            options.description ?: config.description,
-            options.representationInsteadOfFeature?.let { provider ->
-                this.maybeSubject.fold({ null }) { provider(it) }
-            } ?: this.config.representation
-        ),
-        getAssertions()
-    )
+    FeatureExpect(this, options.toFeatureExpectOptions())

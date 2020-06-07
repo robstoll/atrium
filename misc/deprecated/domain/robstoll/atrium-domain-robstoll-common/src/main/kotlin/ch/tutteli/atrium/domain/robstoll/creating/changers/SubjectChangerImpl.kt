@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.domain.robstoll.creating.changers
 
-import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
@@ -65,7 +64,8 @@ class SubjectChangerImpl : SubjectChanger {
     }
 
     //TODO remove with 1.0.0
-    private fun createDelegatingAssertionCheckerAndVerb(originalPlant: AssertionHolder): Pair<AssertionChecker, Untranslatable> {
+    @Suppress("DEPRECATION")
+    private fun createDelegatingAssertionCheckerAndVerb(originalPlant: AssertionHolder): Pair<ch.tutteli.atrium.checking.AssertionChecker, Untranslatable> {
         val assertionChecker = coreFactory.newDelegatingAssertionChecker(originalPlant)
         return assertionChecker to SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE
     }

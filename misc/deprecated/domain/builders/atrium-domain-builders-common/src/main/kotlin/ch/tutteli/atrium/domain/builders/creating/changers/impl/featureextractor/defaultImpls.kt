@@ -69,6 +69,7 @@ class FinalStepImpl<T, R>(
             extractAndApply = { assertionCreator -> extractIt(this, Some(assertionCreator)) }
         )
 
+    //TODO reuse FeatureOptions instead of doing the .? .. ?: here as well
     private fun extractIt(expect: Expect<T>, maybeSubAssertions: Option<Expect<R>.() -> Unit>): FeatureExpect<T, R> =
         featureExtractor.extract(
             expect,

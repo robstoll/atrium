@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor.*
 import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
@@ -331,6 +332,10 @@ data class FeatureOptions<R>(
             options.description ?: description,
             options.representationInsteadOfFeature ?: representationInsteadOfFeature
         )
+
+    @ExperimentalNewExpectTypes
+    fun toFeatureExpectOptions(): FeatureExpectOptions<R> =
+        FeatureExpectOptions(description, representationInsteadOfFeature)
 }
 
 @Suppress("FunctionName")

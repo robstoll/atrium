@@ -1,15 +1,10 @@
 package ch.tutteli.atrium.domain.builders.reporting.impl.verb
 
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.creating.ReportingAssertionContainer
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
-import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class AssertionVerbStepImpl<T>(override val maybeSubject: Option<T>) : ExpectBuilder.AssertionVerbStep<T> {
@@ -35,18 +30,7 @@ class FinalStepImpl<T>(
     override val options: ExpectOptions<T>?
 ) : ExpectBuilder.FinalStep<T> {
 
-    override fun build(): RootExpect<T> =
-        coreFactory.newReportingAssertionContainer(
-            ReportingAssertionContainer.AssertionCheckerDecorator.create(
-                options?.assertionVerb ?: assertionVerb,
-                maybeSubject,
-                options?.representationInsteadOfSubject?.let { provider ->
-                    this.maybeSubject.fold({ null }) { provider(it) }
-                } ?: maybeSubject.getOrElse {
-                    // a RootExpect without a defined subject is almost certain a bug
-                    Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
-                },
-                coreFactory.newThrowingAssertionChecker(options?.reporter ?: reporter)
-            )
-        )
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalNewExpectTypes::class)
+    override fun build(): RootExpect<T> = RootExpect(maybeSubject, assertionVerb, options?.toRootExpectOptions())
 }

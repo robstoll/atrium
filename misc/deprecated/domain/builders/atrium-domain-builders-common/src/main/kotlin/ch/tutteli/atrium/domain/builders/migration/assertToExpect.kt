@@ -90,7 +90,7 @@ fun <T : Any> asSubExpect(
 //@Deprecated("Switch from Assert to Expect, this function was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
 @Suppress("DEPRECATION")
 fun <T : Any?, A : BaseAssertionPlant<T, *>> A.asExpect(): Expect<T> =
-    coreFactory.newDelegatingReportingAssertionContainer(this, this.maybeSubject)
+    DelegatingExpect(this, this.maybeSubject)
 
 /**
  * Turns [Assert] or [AssertionPlantNullable] into an [Expect] so that you can use new functionality

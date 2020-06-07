@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Reporter
@@ -155,8 +154,7 @@ inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: E
  *
  * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates
  * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
- * asserts that 1 is greater than 0. If the first assertion fails, then usually (depending on the configured
- * [AssertionChecker]) the second assertion is not evaluated.
+ * asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.
  *
  * @param o The filler object [o].
  *

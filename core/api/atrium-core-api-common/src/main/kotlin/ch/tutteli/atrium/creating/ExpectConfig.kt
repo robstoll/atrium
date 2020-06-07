@@ -1,3 +1,6 @@
+//TODO remove with 0.14.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -6,17 +9,18 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @Experimental
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS)
+@Deprecated("will be removed with 0.14.0")
 annotation class ExperimentalExpectConfig
 
-//TODO #280 add doc
 @ExperimentalExpectConfig
+@Deprecated("will be removed with 0.14.0")
 interface BaseExpectConfig {
     val description: Translatable
     val representation: Any?
 }
 
-//TODO #280 add doc
 @ExperimentalExpectConfig
+@Deprecated("will be removed with 0.14.0")
 interface RootExpectConfig : BaseExpectConfig {
     companion object {
         fun create(description: Translatable, representation: Any?): RootExpectConfig =
@@ -24,8 +28,8 @@ interface RootExpectConfig : BaseExpectConfig {
     }
 }
 
-//TODO #280 add doc
 @ExperimentalExpectConfig
+@Deprecated("will be removed with 0.14.0")
 interface FeatureExpectConfig : BaseExpectConfig {
     companion object {
         fun create(description: Translatable, representation: Any?): FeatureExpectConfig =
@@ -34,6 +38,7 @@ interface FeatureExpectConfig : BaseExpectConfig {
 }
 
 @ExperimentalExpectConfig
+@Deprecated("will be removed with 0.14.0")
 private data class ExpectConfig(
     override val description: Translatable,
     override val representation: Any?

@@ -7,7 +7,6 @@ import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 
 /**
  * Creates an [Expect] for the given [subject].

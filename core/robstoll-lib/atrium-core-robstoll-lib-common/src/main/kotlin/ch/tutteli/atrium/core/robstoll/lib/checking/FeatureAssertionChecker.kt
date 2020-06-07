@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.checking
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -27,6 +30,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   For instance, if the feature is `Person::name` then [originalAssertionHolder] holds the assertions for
  *   the corresponding `Person`.
  */
+@Deprecated("Do no longer use AssertionCheckers, use FeatureExpect instead; will be removed with 1.0.0")
 class FeatureAssertionChecker(private val originalAssertionHolder: AssertionHolder) : AssertionChecker {
 
     /**

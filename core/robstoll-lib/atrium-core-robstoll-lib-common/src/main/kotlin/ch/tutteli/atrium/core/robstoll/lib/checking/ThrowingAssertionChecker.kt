@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.checking
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -19,6 +22,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
+@Deprecated("Do no longer use AssertionCheckers, use RootExpect instead; will be removed with 1.0.0")
 class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecker {
 
     /**

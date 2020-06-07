@@ -2,20 +2,16 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalExpectConfig
 import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.FeatureExpectConfig
+import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalExpectConfig::class)
+@UseExperimental(ExperimentalNewExpectTypes::class)
 fun <T, R> _extractFeature(
     originalAssertionContainer: Expect<T>,
     description: Translatable,
@@ -44,23 +40,27 @@ fun <T, R> _extractFeature(
                         })
                         .build()
                 )
-                coreFactory.newFeatureExpect(
+                FeatureExpect(
                     originalAssertionContainer,
                     None,
-                    FeatureExpectConfig.create(description, representationForFailure),
-                    listOf()
+                    description,
+                    listOf(),
+                    FeatureExpectOptions(representationInsteadOfFeature = { representationForFailure })
                 )
             },
             { subject ->
-                coreFactory.newFeatureExpect(
+                FeatureExpect(
                     originalAssertionContainer,
                     Some(subject),
-                    FeatureExpectConfig.create(description, representationInsteadOfFeature?.invoke(subject) ?: subject),
+                    description,
                     maybeSubAssertions.fold({
                         listOf<Assertion>()
                     }) { assertionCreator ->
                         ExpectImpl.collector.collectForComposition(Some(subject), assertionCreator)
-                    }
+                    },
+                    FeatureExpectOptions(
+                        representationInsteadOfFeature = representationInsteadOfFeature
+                    )
                 )
             }
         )

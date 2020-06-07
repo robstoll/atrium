@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.trueProvider
+import ch.tutteli.atrium.creating.DelegatingExpect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -11,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 fun <T, R> _changeSubjectUnreported(
     originalAssertionContainer: Expect<T>,
     transformation: (T) -> R
-): Expect<R> = coreFactory.newDelegatingReportingAssertionContainer(
+): Expect<R> = DelegatingExpect(
     originalAssertionContainer,
     //TODO wrap transformation with error handling. Could be interesting to see the exception in the context of the assertion
     originalAssertionContainer.maybeSubject.map(transformation)
@@ -26,7 +27,7 @@ fun <T, R> _changeSubject(
     maybeAssertionCreator: Option<Expect<R>.() -> Unit>
 ): Expect<R> {
 
-    val expect = coreFactory.newDelegatingReportingAssertionContainer(
+    val expect = DelegatingExpect(
         originalAssertionContainer,
         // TODO wrap transformation with error handling. Could be interesting to see the exception in the context of the assertion
         originalAssertionContainer.maybeSubject.flatMap(transformation)
