@@ -28,3 +28,9 @@ coverage:
         patch:
             default:
                 target: 85%
+
+odecov:
+    notify:
+        after_n_builds: 7
+comment:
+    after_n_builds: 7
