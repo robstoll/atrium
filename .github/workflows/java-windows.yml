@@ -48,9 +48,12 @@ jobs:
 
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1
+                env:
+                    JAVA_VERSION: ${{ matrix.java_version }}
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
                     flags: current_windows
+                    env_vars: JAVA_VERSION
                     # too many timeout errors, let's not fail at the moment
                     #fail_ci_if_error: true
 

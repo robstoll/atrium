@@ -28,3 +28,9 @@ coverage:
         patch:
             default:
                 target: 85%
+
+codecov:
+    notify:
+        after_n_builds: 8
+comment:
+    after_n_builds: 8
