@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.RootExpect
+import ch.tutteli.atrium.creating.RootExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.OptionsChooserImpl
@@ -216,6 +218,10 @@ data class ExpectOptions<T>(
             options.representationInsteadOfSubject ?: representationInsteadOfSubject,
             options.reporter ?: reporter
         )
+
+    @ExperimentalNewExpectTypes
+    fun toRootExpectOptions(): RootExpectOptions<T> =
+        RootExpectOptions(assertionVerb, representationInsteadOfSubject, reporter)
 }
 
 @Suppress("FunctionName")

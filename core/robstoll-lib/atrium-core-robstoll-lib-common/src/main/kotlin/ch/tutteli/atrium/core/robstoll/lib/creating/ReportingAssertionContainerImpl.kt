@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -7,17 +9,11 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 
+@Deprecated("Use RootExpect, will be removed with 1.0.0")
 class ReportingAssertionContainerImpl<T>(
     private val assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
 ) : MutableListBasedAssertionContainer<T>(assertionCheckerDecorator.maybeSubject),
     ReportingAssertionContainer<T> {
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalExpectConfig::class)
-    override val config: RootExpectConfig =
-        RootExpectConfig.create(
-            assertionCheckerDecorator.assertionVerb,
-            assertionCheckerDecorator.representation
-        )
 
     override val assertionChecker: AssertionChecker get() = assertionCheckerDecorator.assertionChecker
 

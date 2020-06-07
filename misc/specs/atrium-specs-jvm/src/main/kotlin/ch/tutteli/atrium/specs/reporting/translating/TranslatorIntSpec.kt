@@ -8,12 +8,11 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
 import org.spekframework.spek2.style.specification.Suite
 import java.text.SimpleDateFormat
 

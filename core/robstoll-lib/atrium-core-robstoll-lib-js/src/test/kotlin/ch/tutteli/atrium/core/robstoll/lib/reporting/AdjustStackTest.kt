@@ -1,14 +1,16 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
+import ch.tutteli.atrium.creating.RootExpect
+import ch.tutteli.atrium.creating.RootExpectOptions
+import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import kotlin.test.Test
 
 class AdjustStackTest {

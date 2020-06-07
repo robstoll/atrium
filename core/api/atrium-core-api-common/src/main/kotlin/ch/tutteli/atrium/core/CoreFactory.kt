@@ -2,12 +2,17 @@ package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.*
 import kotlin.reflect.KClass
+
+@Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@Experimental
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+annotation class ExperimentalNewExpectTypes
 
 /**
  * The access point to an implementation of [CoreFactory].
@@ -33,7 +38,7 @@ expect interface CoreFactory : CoreFactoryCommon
  * It provides factory methods to create:
  * - [ReportingAssertionContainer]
  * - [CollectingAssertionContainer]
- * - [AssertionChecker]
+ * - [ch.tutteli.atrium.checking.AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
  * - [LocaleOrderDecider]
@@ -92,22 +97,19 @@ interface CoreFactoryCommon {
      * [originalAssertionHolder].
      *
      * In Detail: it uses [SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE] as assertion verb and creates an
-     * delegating [AssertionChecker] via [newDelegatingAssertionChecker].
+     * delegating [ch.tutteli.atrium.checking.AssertionChecker] via [newDelegatingAssertionChecker].
      *
      * @param maybeSubject Used as [ReportingAssertionContainer.maybeSubject] and
      *   also as representation in reporting.
      *
      * @return The newly created assertion container.
      */
-    //TODO #280 remove, should no longer be necessary once we have newRootExpect without AssertionChecker
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Use DelegatingExpect(...) instead which does not use an AssertionChecker; will be removed with 1.0.0", ReplaceWith("DelegatingExpect(originalAssertionHolder, maybeSubject)"))
     fun <T> newDelegatingReportingAssertionContainer(
         originalAssertionHolder: AssertionHolder,
         maybeSubject: Option<T>
-    ): Expect<T> = newReportingAssertionContainer(
-        SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE,
-        maybeSubject,
-        newDelegatingAssertionChecker(originalAssertionHolder)
-    )
+    ): Expect<T> = DelegatingExpect(originalAssertionHolder, maybeSubject)
 
     /**
      * Creates a [ReportingAssertionContainer] which checks and reports added [Assertion]s.
@@ -123,11 +125,12 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion container.
      */
-    //TODO #280 rename to newRootExpect
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Use RootExpect(...) or DelegatingExpect(..) or FeatureExpect(...) which all do not use a deprecated AssertionChecker; will be removed with 1.0.0")
     fun <T> newReportingAssertionContainer(
         assertionVerb: Translatable,
         maybeSubject: Option<T>,
-        assertionChecker: AssertionChecker
+        assertionChecker: ch.tutteli.atrium.checking.AssertionChecker
     ): ReportingAssertionContainer<T> {
         return newReportingAssertionContainer(
             ReportingAssertionContainer.AssertionCheckerDecorator.create(
@@ -176,7 +179,7 @@ interface CoreFactoryCommon {
     fun <T : Any> newReportingPlant(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
-        assertionChecker: AssertionChecker
+        assertionChecker: ch.tutteli.atrium.checking.AssertionChecker
     ): ReportingAssertionPlant<T> {
         val evalOnceSubjectProvider = subjectProvider.evalOnce()
         return newReportingPlant(
@@ -200,21 +203,38 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion container.
      */
-    //TODO #280 rename to newRootExpect and change to config
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Use RootExpect(...) or DelegatingExpect(..) or FeatureExpect(...) which all do not use a deprecated AssertionChecker; will be removed with 1.0.0")
     fun <T> newReportingAssertionContainer(
         assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
     ): ReportingAssertionContainer<T>
 
 
-    //TODO #280 add KDoc
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalExpectConfig::class)
+    @UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
+    @Deprecated(
+        "Use FeatureExpect.create instead; will be removed with 0.14.0", ReplaceWith(
+            "FeatureExpect.create(\n" +
+                "        previousExpect,\n" +
+                "        maybeSubject,\n" +
+                "        featureConfig.description,\n" +
+                "        assertions,\n" +
+                "        FeatureExpectOptions(representationInsteadOfFeature = { featureConfig.representation ?: Text.NULL })\n" +
+                "    )"
+        )
+    )
     fun <T, R> newFeatureExpect(
         previousExpect: Expect<T>,
         maybeSubject: Option<R>,
         featureConfig: FeatureExpectConfig,
         assertions: List<Assertion>
-    ): FeatureExpect<T, R>
+    ): FeatureExpect<T, R> = FeatureExpect(
+        previousExpect,
+        maybeSubject,
+        featureConfig.description,
+        assertions,
+        FeatureExpectOptions(representationInsteadOfFeature = { featureConfig.representation ?: Text.NULL })
+    )
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -392,17 +412,19 @@ interface CoreFactoryCommon {
 
 
     /**
-     * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails
+     * Creates an [ch.tutteli.atrium.checking.AssertionChecker] which throws [AtriumError]s in case an assertion fails
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [Assertion]s.
      *
      * @return The newly created assertion checker.
      */
-    fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
+    @Suppress("DEPRECATION")
+    @Deprecated("Do no longer use AssertionCheckers, use a specialised Expect instead; e.g. DelegatingExpect, FeaturExpect; will be removed with 1.0.0")
+    fun newThrowingAssertionChecker(reporter: Reporter): ch.tutteli.atrium.checking.AssertionChecker
 
     /**
-     * Creates an [AssertionChecker] which creates an [AssertionGroup] of [type][AssertionGroup.type]
+     * Creates an [ch.tutteli.atrium.checking.AssertionChecker] which creates an [AssertionGroup] of [type][AssertionGroup.type]
      * [FeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
      * [originalAssertionHolder] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
      *
@@ -411,10 +433,12 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
-    fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+    @Suppress("DEPRECATION")
+    @Deprecated("Do no longer use AssertionCheckers, use a specialised Expect instead; e.g. DelegatingExpect, FeatureExpect; will be removed with 1.0.0")
+    fun newFeatureAssertionChecker(originalAssertionHolder: AssertionHolder): ch.tutteli.atrium.checking.AssertionChecker
 
     /**
-     * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given
+     * Creates an [ch.tutteli.atrium.checking.AssertionChecker] which delegates the checking of [Assertion]s to the given
      * [originalAssertionHolder] by adding (see [AssertionHolder.addAssertion]) the assertions to the given
      * [originalAssertionHolder].
      *
@@ -423,11 +447,13 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion checker.
      */
-    fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): AssertionChecker
+    @Suppress("DEPRECATION")
+    @Deprecated("Do no longer use AssertionCheckers, use a specialised Expect instead; e.g. DelegatingExpect, FeatureExpect; will be removed with 1.0.0")
+    fun newDelegatingAssertionChecker(originalAssertionHolder: AssertionHolder): ch.tutteli.atrium.checking.AssertionChecker
 
 
     /**
-     * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]
+     * Creates an [ch.tutteli.atrium.checking.AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]
      * by adding (see [AssertionPlant.addAssertion]) the assertions to the given [subjectPlant].
      *
      * @param subjectPlant The assertion plant to which the [Assertion]s will be [added][AssertionPlant.addAssertion].
@@ -435,7 +461,8 @@ interface CoreFactoryCommon {
      * @return The newly created assertion checker.
      */
     @Suppress("DEPRECATION")
-    fun <T> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
+    @Deprecated("Do no longer use AssertionCheckers, use a specialised Expect instead; e.g. DelegatingExpect, FeatureExpect; will be removed with 1.0.0")
+    fun <T> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): ch.tutteli.atrium.checking.AssertionChecker
 
 
     /**
@@ -815,7 +842,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
 fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     assertionVerb: Translatable,
     subjectProvider: () -> T,
-    assertionChecker: AssertionChecker,
+    assertionChecker: ch.tutteli.atrium.checking.AssertionChecker,
     nullRepresentation: Any = Text.NULL
 ): ReportingAssertionPlantNullable<T> {
     val evalOnceSubjectProvider = subjectProvider.evalOnce()

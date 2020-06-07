@@ -1,14 +1,8 @@
 package ch.tutteli.atrium.core.robstoll
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
-import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactoryCommon
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker
-import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
-import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.creating.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedLocaleOrderDecider
@@ -26,25 +20,10 @@ import kotlin.reflect.KClass
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     final override fun <T> newReportingAssertionContainer(
         assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
     ): ReportingAssertionContainer<T> = ReportingAssertionContainerImpl(assertionCheckerDecorator)
-
-
-    final override fun <T, R> newFeatureExpect(
-        previousExpect: Expect<T>,
-        maybeSubject: Option<R>,
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalExpectConfig::class)
-        featureConfig: FeatureExpectConfig,
-        assertions: List<Assertion>
-    ): FeatureExpect<T, R> = FeatureExpectImpl(
-        previousExpect,
-        maybeSubject,
-        featureConfig,
-        coreFactory.newFeatureAssertionChecker(previousExpect),
-        assertions
-    )
 
     @Suppress("DEPRECATION")
     @Deprecated(
@@ -105,23 +84,25 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         subjectProvider: () -> T
     ): CollectingAssertionPlantNullable<T> = CollectingAssertionPlantNullableImpl(subjectProvider)
 
-
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     final override fun newThrowingAssertionChecker(
         reporter: Reporter
-    ): AssertionChecker = ThrowingAssertionChecker(reporter)
+    ): ch.tutteli.atrium.checking.AssertionChecker = ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker(reporter)
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     final override fun newFeatureAssertionChecker(
         originalAssertionHolder: AssertionHolder
-    ): AssertionChecker = FeatureAssertionChecker(originalAssertionHolder)
+    ): ch.tutteli.atrium.checking.AssertionChecker = ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker(originalAssertionHolder)
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     override fun newDelegatingAssertionChecker(
         originalAssertionHolder: AssertionHolder
-    ): AssertionChecker = DelegatingAssertionChecker(originalAssertionHolder)
+    ): ch.tutteli.atrium.checking.AssertionChecker = ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker(originalAssertionHolder)
 
-    @Suppress("DEPRECATION")
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     final override fun <T : Any?> newDelegatingAssertionChecker(
         subjectPlant: BaseAssertionPlant<T, *>
-    ): AssertionChecker = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
+    ): ch.tutteli.atrium.checking.AssertionChecker = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
 
     final override fun newMethodCallFormatter(): MethodCallFormatter = TextMethodCallFormatter
 

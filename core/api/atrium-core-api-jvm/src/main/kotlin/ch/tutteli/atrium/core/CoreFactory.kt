@@ -3,7 +3,6 @@
 package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.Text
@@ -124,7 +123,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     fun <T : Any?> newReportingPlantNullable(
         assertionVerb: Translatable,
         subjectProvider: () -> T,
-        assertionChecker: AssertionChecker,
+        assertionChecker: ch.tutteli.atrium.checking.AssertionChecker,
         nullRepresentation: Any = Text.NULL
     ): ch.tutteli.atrium.creating.ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
         assertionVerb, subjectProvider, assertionChecker, nullRepresentation
