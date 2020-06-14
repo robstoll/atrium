@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.13.0'
+    rootProject.version = '0.13.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -207,8 +207,6 @@ configure(nonCommonAndJsProjects - toolProjects) {
     dokka {
         logging.setLevel(LogLevel.QUIET)
     }
-}
-configure(nonCommonAndJsProjects) {
     compileKotlin {
         kotlinOptions {
             languageVersion = '1.2'

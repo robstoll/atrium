@@ -1,0 +1,21 @@
+rootProject.name = 'atrium'
+
+buildscript {
+    gradle.ext.tutteli_plugins_version = '0.32.2'
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "ch.tutteli:tutteli-gradle-settings:$gradle.ext.tutteli_plugins_version"
+    }
+}
+
+apply plugin: 'ch.tutteli.settings'
+
+//noinspection GroovyAssignabilityCheck
+include {
+
+    apis("api-") {
+        _ 'fluent-en_GB-scala'
+    }
+}
