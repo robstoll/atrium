@@ -34,7 +34,7 @@ buildscript {
 
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {
-                !it.name.endsWith("-js") &&
+            !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
                 it.name != "${rootProject.name}-spec" &&
@@ -480,14 +480,29 @@ useJupiter(
     'cc-infix-en_GB-robstoll-jvm',
 )
 
-def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: build, description: 'builds all JVM modules')
+def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: 'build', description: 'builds all JVM modules')
 buildNonDeprecatedJvm.dependsOn(jacocoMulti.jacocoProjects.findAll {
     !it.projectDir.path.contains("\\deprecated\\") && !it.projectDir.path.contains("/deprecated/")
 }.collect { it.build })
 
-def buildAllWithoutJs = task('buildAllWithoutJs', group: build, description: 'builds all modules without -js modules')
+def buildAllWithoutJs = task('buildAllWithoutJs', group: 'build', description: 'builds all modules without -js modules')
 buildAllWithoutJs.dependsOn((subprojects - getJsProjects()).collect { it.build })
 
+def getSubprojectTasks(String name) {
+    return subprojects.collect { it.tasks.findByName(name) }.findAll { it != null }
+}
+
+task publishForScala(description: 'fast publish to maven local for scala projects') {
+    dependsOn getSubprojectTasks('publishToMavenLocal')
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(':publishForScala')) {
+        ['test', 'dokka', 'signTutteliPublication'].forEach {
+            getSubprojectTasks(it).forEach { it.enabled = false }
+        }
+    }
+}
 
 /*
 Release & deploy a commit
