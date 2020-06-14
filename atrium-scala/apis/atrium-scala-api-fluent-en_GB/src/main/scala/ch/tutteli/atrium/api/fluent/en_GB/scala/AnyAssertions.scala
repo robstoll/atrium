@@ -19,7 +19,7 @@ class AnyAssertions[T](expect: Expect[T]) {
   def isNotSameAs(expected: T): Expect[T] =
     addAssertion(_.isNotSame(expect, expected))
 
-  def toBeNullIfNullGivenElse(assertionCreatorOrNull: Expect[T] => Unit)(implicit kClass: KClass[T]) =
+  def toBeNullIfNullGivenElse(assertionCreatorOrNull: Expect[T] => Unit)(implicit kClass: KClass[T]): Expect[T] =
     addAssertion(_.toBeNullIfNullGivenElse[T](expect, kClass, assertionCreatorOrNull))
 
   def notToBeNull()(implicit kClass: KClass[T]): Expect[T] = isA[T]()

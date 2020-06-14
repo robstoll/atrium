@@ -1,4 +1,4 @@
-rootProject.name = 'atrium'
+rootProject.name = 'atrium-scala'
 
 buildscript {
     gradle.ext.tutteli_plugins_version = '0.32.2'
@@ -16,6 +16,6 @@ apply plugin: 'ch.tutteli.settings'
 include {
 
     apis("api-") {
-        _ 'fluent-en_GB-scala'
+        _ 'fluent-en_GB'
     }
 }
