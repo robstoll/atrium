@@ -4,28 +4,10 @@ import ch.tutteli.atrium.creating.Expect
 
 object TestUtils {
 
-  implicit def kotlinAssertionCreatorToScala[T](f: KAssertionCreator[T]): Expect[T] => Unit = {
+  implicit def kotlinAssertionCreatorToScala[T](f: KFun1[_ >: Expect[T], KUnit]): Expect[T] => Unit = {
     val scalaF = kFun1ToScala(f)
     if (scalaF == null) null else scalaF(_)
   }
-
-  implicit def scalaFun0ToKotlin[R](f: () => R): KFun0[R] =
-    if (f == null) null else f.apply _
-
-  implicit def scalaFun1ToKotlin[T, R](f: T => R): KFun1[T, R] =
-    if (f == null) null else f.apply _
-
-  implicit def scalaFun2ToKotlin[T, A1, R](f: (T, A1) => R): KFun2[T, A1, R] =
-    if (f == null) null else f.apply _
-
-  implicit def scalaFun3ToKotlin[T, A1, A2, R](f: (T, A1, A2) => R): KFun3[T, A1, A2, R] =
-    if (f == null) null else f.apply _
-
-  implicit def scalaFun4ToKotlin[T, A1, A2, A3, R](f: (T, A1, A2, A3) => R): KFun4[T, A1, A2, A3, R] =
-    if (f == null) null else f.apply _
-
-  implicit def scalaFun5ToKotlin[T, A1, A2, A3, A4, R](f: (T, A1, A2, A3, A4) => R): KFun5[T, A1, A2, A3, A4, R] =
-    if (f == null) null else f.apply _
 
   implicit def kFun0ToScala[R](f: KFun0[R]): () => R =
     if (f == null) null else () => f.invoke()
@@ -71,8 +53,10 @@ object TestUtils {
   def feature3[T, A1, A2, A3, R](name: String, f: (Expect[T], A1, A2, A3) => Expect[R]): Feature3[T, A1, A2, A3, R] =
     new kotlin.Pair(name + " (feature)", f)
 
-  def feature4[T, A1, A2, A3, A4, R](name: String,
-                                     f: (Expect[T], A1, A2, A3, A4) => Expect[R]): Feature4[T, A1, A2, A3, A4, R] =
+  def feature4[T, A1, A2, A3, A4, R](
+      name: String,
+      f: (Expect[T], A1, A2, A3, A4) => Expect[R]
+  ): Feature4[T, A1, A2, A3, A4, R] =
     new kotlin.Pair(name + " (feature)", f)
 
   def fun0[T](name: String, f: Expect[T] => Expect[T]): Fun0[T] =
