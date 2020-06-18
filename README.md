@@ -617,7 +617,7 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 <details>
 <summary>💬 Why only overloads for up to 5 parameters</summary>
  
-You might be asking yourself why we stopped at 5 Pprameters.
+You might be asking yourself why we stopped at 5 Parameters.
 You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it 😜.
 In case you have a function with 6 or more parameters and you do not want or cannot to get rid of it, 
 then we suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
