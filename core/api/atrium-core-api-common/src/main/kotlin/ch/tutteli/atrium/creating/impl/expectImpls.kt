@@ -8,16 +8,48 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
+import kotlin.reflect.KClass
+
+/**
+ * Sole purpose of this interface is to hide [AssertionContainer] from newcomers which usually don't have to deal with
+ * this.
+ *
+ * See https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas for more information about the personas.
+ */
+interface ExpectInternal<T>: Expect<T>, AssertionContainer<T>
 
 abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
-) : Expect<T> {
+) : ExpectInternal<T> {
+
+    private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
+
+    override fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I {
+        @Suppress("UNCHECKED_CAST")
+        val implFactory = implFactories[kClass] as ((() -> I) -> () -> Any)?
+        return if (implFactory != null) {
+            val impl = implFactory(defaultFactory)()
+            kClass.cast(impl)
+        } else defaultFactory()
+    }
+
+    @PublishedApi
+    internal fun <I : Any> registerImpl(kClass: KClass<I>, implFactory: (oldFactory: () -> I) -> () -> I) {
+        implFactories[kClass] = implFactory
+    }
+
+    //TODO move to ExpectOptions
+    inline fun <reified I : Any> withImplFactory(noinline implFactory: (oldFactory: () -> I) -> () -> I) {
+        registerImpl(I::class, implFactory)
+    }
+
 
     @Deprecated(
         "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
@@ -57,7 +89,7 @@ abstract class BaseExpectImpl<T>(
 }
 
 @ExperimentalNewExpectTypes
-class RootExpectImpl<T>(
+internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
     private val assertionVerb: Translatable,
     private val representation: Any?,
@@ -108,7 +140,7 @@ class RootExpectImpl<T>(
 }
 
 @ExperimentalNewExpectTypes
-class FeatureExpectImpl<T, R>(
+internal class FeatureExpectImpl<T, R>(
     private val previousExpect: Expect<T>,
     maybeSubject: Option<R>,
     private val description: Translatable,
@@ -180,7 +212,7 @@ class FeatureExpectImpl<T, R>(
     }
 }
 
-class DelegatingExpectImpl<T>(private val assertionHolder: AssertionHolder, maybeSubject: Option<T>) :
+internal class DelegatingExpectImpl<T>(private val assertionHolder: AssertionHolder, maybeSubject: Option<T>) :
     BaseExpectImpl<T>(maybeSubject), DelegatingExpect<T> {
     override fun addAssertion(assertion: Assertion): Expect<T> {
         assertionHolder.addAssertion(assertion)

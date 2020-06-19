@@ -1,0 +1,55 @@
+description = 'The domain logic of Atrium as common module.'
+
+dependencies {
+    api prefixedProject('core-api-common')
+    api prefixedProject('domain-api-common')
+
+    // it is up to the consumer of atrium-domain which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-common')
+}
+
+String packagePath = "ch/tutteli/atrium/logic"
+String generatedFolder = "src/generated/kotlin"
+
+sourceSets{
+    main.kotlin.srcDirs += generatedFolder
+}
+
+def generateExtensionMethods = task('generateExtensionMethods', description: 'generates ext. methods for AssertionContainer based on interfaces') {
+    def path = "$project.projectDir/src/main/kotlin/$packagePath/"
+    def interfaces = new FileNameFinder().getFileNames(path, '*Assertions.kt')
+    def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
+    inputs.files(interfaces)
+    outputs.dir(generatedPath)
+
+    doFirst {
+        interfaces.forEach {
+            def input = new File(it)
+            def type = input.name.substring(0, input.name.length() - "Assertions.kt".length())
+            def output = new File("$generatedPath/${type}.kt")
+            def content = input.text
+            def interfaceName = "${type.capitalize()}Assertions"
+            String tmp = content.replaceAll(
+                /\ninterface $interfaceName \{/, ""
+            ).replaceAll(
+                / *fun (<.+?> )?([a-zA-Z0-9]+)\(container: (AssertionContainer<.+?>)(,.+)?\)(:.+)/,
+                /fun $1$3.$2\($4\)$5 = _impl.$2\(this$4\)/
+            )
+            def header = """\
+                //---------------------------------------------------
+                //  Generated content, modify: 
+                //  logic/atrium-logic-common/build.gradle 
+                //  if necessary - enjoy the day 🙂 
+                //---------------------------------------------------
+                
+            """.stripIndent()
+            String generatedContent = tmp.substring(0,tmp.lastIndexOf("}"))
+            output.withWriter {w ->
+                w << header
+                w << generatedContent
+            }
+        }
+    }
+}
+compileKotlinCommon.dependsOn(generateExtensionMethods)
+
