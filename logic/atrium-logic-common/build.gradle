@@ -1,17 +1,18 @@
+import java.util.regex.Pattern
+
 description = 'The domain logic of Atrium as common module.'
 
 dependencies {
-    api prefixedProject('core-api-common')
-    api prefixedProject('domain-api-common')
+    api prefixedProject('domain-builders-common')
 
-    // it is up to the consumer of atrium-domain which atrium-translations module is used at runtime
+    // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-common')
 }
 
 String packagePath = "ch/tutteli/atrium/logic"
 String generatedFolder = "src/generated/kotlin"
 
-sourceSets{
+sourceSets {
     main.kotlin.srcDirs += generatedFolder
 }
 
@@ -23,18 +24,36 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
     outputs.dir(generatedPath)
 
     doFirst {
+        def identifier = /[a-zA-Z0-9]+/
+        def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:\n\s*)?container: (AssertionContainer<.+?>)/
+        def parameter = /,(?: |\n\s*)($identifier): ([^:]+?)/
+        def returnType = /(?:\n\s*)?\)(:.+)/
+
+        def patterns = (6..0).collect {
+            def steps = (0..<it * 2).findAll { it % 2 == 0 }
+            new Tuple3<Pattern, String, String>(
+                Pattern.compile(typeIdentifier + parameter * it + returnType),
+                /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "\n    " : " "),
+                /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
+            )
+        }
+        def implVarPattern = ~/@ImplVal\("([^"]+)"\)/
+
         interfaces.forEach {
             def input = new File(it)
             def type = input.name.substring(0, input.name.length() - "Assertions.kt".length())
             def output = new File("$generatedPath/${type}.kt")
             def content = input.text
             def interfaceName = "${type.capitalize()}Assertions"
+            def matcher = content =~ implVarPattern
+            def implValName = matcher.find() ? matcher.group(1) : "_impl"
+
             String tmp = content.replaceAll(
-                /\ninterface $interfaceName \{/, ""
-            ).replaceAll(
-                / *fun (<.+?> )?([a-zA-Z0-9]+)\(container: (AssertionContainer<.+?>)(,.+)?\)(:.+)/,
-                /fun $1$3.$2\($4\)$5 = _impl.$2\(this$4\)/
+                /(\n@ImplVal\([^\)]+\))?\ninterface $interfaceName \{/, ""
             )
+            patterns.forEach { triple ->
+                tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
+            }
             def header = """\
                 //---------------------------------------------------
                 //  Generated content, modify: 
@@ -43,8 +62,8 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
                 //---------------------------------------------------
                 
             """.stripIndent()
-            String generatedContent = tmp.substring(0,tmp.lastIndexOf("}"))
-            output.withWriter {w ->
+            String generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
+            output.withWriter { w ->
                 w << header
                 w << generatedContent
             }

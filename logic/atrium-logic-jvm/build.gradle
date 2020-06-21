@@ -1,9 +1,8 @@
 description = 'The domain logic of Atrium for the JVM platform.'
 
 dependencies {
-    api prefixedProject('core-api-jvm')
-    api prefixedProject('domain-api-jvm')
+    api prefixedProject('domain-builders-jvm')
 
-    // it is up to the consumer of atrium-domain-api which atrium-translations module is used at runtime
+    // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
 }

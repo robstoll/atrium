@@ -4,9 +4,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.get
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -158,7 +158,7 @@ abstract class FeatureAssertionsSpec(
                         if (isAbleToEvaluateDescription) {
                             messageContains(stringInExceptionMessage)
                         } else {
-                            messageContains(ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT.getDefault())
+                            messageContains(ch.tutteli.atrium.translations.ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT.getDefault())
                         }
                     }
                 }
@@ -249,7 +249,5 @@ abstract class FeatureAssertionsSpec(
                 }
             }
         }
-
-
     }
 })

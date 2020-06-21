@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Text
@@ -16,7 +17,7 @@ fun <T> _collect(
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
 ): Assertion {
-    val collectedAssertions = coreFactory.newCollectingAssertionContainer(maybeSubject)
+    val collectedAssertions = CollectingExpect(maybeSubject)
         .addAssertionsCreatedBy(assertionCreator)
         .getAssertions()
     return if (collectedAssertions.size > 1) {
@@ -60,7 +61,7 @@ private fun <T> collectAssertions(
 ): List<Assertion> {
     //TODO almost same as in _containsKeyWithNullableValueAssertions
     return if (assertionCreatorOrNull != null) {
-        coreFactory.newCollectingAssertionContainer(maybeSubject)
+        CollectingExpect(maybeSubject)
             .addAssertionsCreatedBy(assertionCreatorOrNull)
             .getAssertions()
     } else {
