@@ -12,7 +12,6 @@ import kotlin.reflect.KFunction4
 import kotlin.reflect.KFunction5
 import kotlin.reflect.KFunction6
 
-@ImplVal("_feature")
 interface FeatureAssertions {
     //@formatter:off
     fun <T, TProperty> property(container: AssertionContainer<T>, property: KProperty1<in T, TProperty>): ExtractedFeaturePostStep<T, TProperty>

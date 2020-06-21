@@ -37,7 +37,7 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
                 /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
             )
         }
-        def implVarPattern = ~/@ImplVal\("([^"]+)"\)/
+//        def implVarPattern = ~/@ImplVal\("([^"]+)"\)/
 
         interfaces.forEach {
             def input = new File(it)
@@ -45,8 +45,9 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
             def output = new File("$generatedPath/${type}.kt")
             def content = input.text
             def interfaceName = "${type.capitalize()}Assertions"
-            def matcher = content =~ implVarPattern
-            def implValName = matcher.find() ? matcher.group(1) : "_impl"
+//            def matcher = content =~ implVarPattern
+//            def implValName = matcher.find() ? matcher.group(1) : "_impl"
+            def implValName = "_${type}Impl"
 
             String tmp = content.replaceAll(
                 /(\n@ImplVal\([^\)]+\))?\ninterface $interfaceName \{/, ""

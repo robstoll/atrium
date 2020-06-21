@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.Reporter
  */
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
-fun <T> Expect<T>.toBe(expected: T) = _domain { addAssertion(toBe(expected)) }
+fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
@@ -22,7 +22,7 @@ fun <T> Expect<T>.toBe(expected: T) = _domain { addAssertion(toBe(expected)) }
  */
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
-fun <T> Expect<T>.notToBe(expected: T) = _domain { addAssertion(notToBe(expected)) }
+fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
@@ -32,7 +32,7 @@ fun <T> Expect<T>.notToBe(expected: T) = _domain { addAssertion(notToBe(expected
  */
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
-fun <T> Expect<T>.isSameAs(expected: T) = _domain { addAssertion(isSameAs(expected)) }
+fun <T> Expect<T>.isSameAs(expected: T) = _logicAppend { isSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -42,7 +42,7 @@ fun <T> Expect<T>.isSameAs(expected: T) = _domain { addAssertion(isSameAs(expect
  */
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
-fun <T> Expect<T>.isNotSameAs(expected: T) = _domain { addAssertion(isNotSameAs(expected)) }
+fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
@@ -61,7 +61,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T) = _domain { addAssertion(isNotSameAs(
 @UseExperimental(ExperimentalLogic::class)
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-) = _domain { addAssertion(toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull)) }
+): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull) }
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
@@ -74,7 +74,7 @@ inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
 inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
-    _domain { notToBeNull(T::class).getExpectOfFeature() }
+    _logic { notToBeNull(T::class) }.getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion is not null and
@@ -88,7 +88,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
 inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _domain { notToBeNull(T::class).addToFeature(assertionCreator) }
+    _logic { notToBeNull(T::class) }.addToFeature(assertionCreator)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
@@ -112,7 +112,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    _domain { isA(TSub::class).getExpectOfFeature() }
+    _logic { isA(TSub::class) }.getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -158,7 +158,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalLogic::class)
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    _domain { isA(TSub::class).addToFeature(assertionCreator) }
+    _logic { isA(TSub::class) }.addToFeature(assertionCreator)
 
 /**
  * Can be used to separate single assertions.

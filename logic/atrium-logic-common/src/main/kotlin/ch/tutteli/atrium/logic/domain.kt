@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.logic
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 
@@ -10,5 +11,21 @@ import ch.tutteli.atrium.creating.Expect
 annotation class ExperimentalLogic
 
 @ExperimentalLogic
-inline fun <T, R> Expect<T>._domain(provider: AssertionContainer<T>.() -> R): R  =
-    this.toAssertionContainer().provider()
+/**
+ * Appends the [Assertion] the given [factory] creates based on this [Expect].
+ *
+ * Use [_logic] for more sophisticated scenarios, like feature extraction.
+ */
+inline fun <T> Expect<T>._logicAppend(factory: AssertionContainer<T>.() -> Assertion): Expect<T> =
+    _logic { addAssertion(factory()) }
+
+@ExperimentalLogic
+/**
+ * Entry point to the logic of Atrium which is a level deeper than the API and does not return new [Expect] but
+ * [Assertion]s and the like.
+ *
+ * Use [_logicAppend] in case you want to create and append an [Assertion] to this [Expect].
+ */
+inline fun <T, R> Expect<T>._logic(factory: AssertionContainer<T>.() -> R): R =
+    this.toAssertionContainer().factory()
+

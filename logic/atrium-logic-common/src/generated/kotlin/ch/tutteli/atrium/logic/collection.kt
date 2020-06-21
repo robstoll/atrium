@@ -10,6 +10,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 
-fun AssertionContainer<Collection<*>>.isEmpty(): Assertion = _collectionImpl.isEmpty(this)
-fun AssertionContainer<Collection<*>>.isNotEmpty(): Assertion = _collectionImpl.isNotEmpty(this)
+fun <T : Collection<*>> AssertionContainer<T>.isEmpty(): Assertion = _collectionImpl.isEmpty(this)
+fun <T : Collection<*>> AssertionContainer<T>.isNotEmpty(): Assertion = _collectionImpl.isNotEmpty(this)
 fun <T : Collection<*>> AssertionContainer<T>.size(): ExtractedFeaturePostStep<T, Int> = _collectionImpl.size(this)
