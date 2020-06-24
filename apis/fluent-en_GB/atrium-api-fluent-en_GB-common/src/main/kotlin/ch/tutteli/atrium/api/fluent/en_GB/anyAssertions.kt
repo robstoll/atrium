@@ -10,8 +10,6 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
@@ -20,8 +18,6 @@ fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
@@ -30,8 +26,6 @@ fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expec
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <T> Expect<T>.isSameAs(expected: T) = _logicAppend { isSameAs(expected) }
 
 /**
@@ -40,8 +34,6 @@ fun <T> Expect<T>.isSameAs(expected: T) = _logicAppend { isSameAs(expected) }
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
 /**
@@ -57,8 +49,6 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSame
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull) }
@@ -71,10 +61,8 @@ inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
-    _logic { notToBeNull(T::class) }.getExpectOfFeature()
+    _logic.notToBeNull(T::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion is not null and
@@ -85,10 +73,8 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic { notToBeNull(T::class) }.addToFeature(assertionCreator)
+    _logic.notToBeNull(T::class).addToFeature(assertionCreator)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
@@ -109,10 +95,8 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * @return An [Expect] with the new type [TSub].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    _logic { isA(TSub::class) }.getExpectOfFeature()
+    _logic.isA(TSub::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -155,10 +139,8 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * @return An [Expect] with the new type [TSub].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    _logic { isA(TSub::class) }.addToFeature(assertionCreator)
+    _logic.isA(TSub::class).addToFeature(assertionCreator)
 
 /**
  * Can be used to separate single assertions.

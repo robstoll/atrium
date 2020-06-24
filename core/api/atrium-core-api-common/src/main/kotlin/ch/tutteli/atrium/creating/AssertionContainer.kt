@@ -3,8 +3,9 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.core.Option
 import kotlin.reflect.KClass
 
-interface AssertionContainer<T> {
-    val maybeSubject: Option<T>
+//TODO 0.14.0 remove SubjectProvider
+interface AssertionContainer<T> : SubjectProvider<T>{
+    override val maybeSubject: Option<T>
 
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 

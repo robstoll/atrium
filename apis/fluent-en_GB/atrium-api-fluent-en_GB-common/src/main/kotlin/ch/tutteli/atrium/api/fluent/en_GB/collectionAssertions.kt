@@ -9,8 +9,6 @@ import ch.tutteli.atrium.logic.*
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty() }
 
 /**
@@ -19,8 +17,6 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <T : Collection<*>> Expect<T>.isNotEmpty() = _logicAppend { isNotEmpty() }
 
 /**
@@ -39,10 +35,8 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(expected)
  *
  * @return The newly created [Expect] for the extracted feature.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = _logic { size() }.getExpectOfFeature()
+    get() = _logic.size().getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
@@ -52,7 +46,5 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalLogic::class)
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _logic { size() }.addToInitial(assertionCreator)
+    _logic.size().addToInitial(assertionCreator)
