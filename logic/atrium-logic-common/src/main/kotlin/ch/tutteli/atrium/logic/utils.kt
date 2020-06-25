@@ -24,7 +24,7 @@ val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
 fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
     when (this) {
         is ExpectInternal<T> -> this
-        else -> throw UnsupportedOperationException("Unsupported Expect: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20_domain")
+        else -> throw UnsupportedOperationException("Unsupported Expect: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20Expect%20to%20toAssertionContainer")
     }
 
 fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
