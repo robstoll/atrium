@@ -5,7 +5,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 import java.math.BigDecimal
 
 /**
@@ -22,4 +22,4 @@ import java.math.BigDecimal
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal) =
-    addAssertion(ExpectImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))
+    _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

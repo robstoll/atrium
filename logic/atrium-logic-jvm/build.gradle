@@ -6,3 +6,11 @@ dependencies {
     // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
 }
+
+apply from: "$project.projectDir/../generateLogic.gradle"
+def generateLogic = createGenerateLogicTask(project, "implsJvm")
+compileKotlin.dependsOn(generateLogic)
+
+sourceSets {
+    main.kotlin.srcDirs += generatedFolder
+}

@@ -1,6 +1,6 @@
 //---------------------------------------------------
 //  Generated content, modify:
-//  logic/atrium-logic-common/build.gradle
+//  logic/generateLogic.gradle
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
 package ch.tutteli.atrium.logic

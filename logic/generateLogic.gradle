@@ -1,0 +1,97 @@
+import java.util.regex.Pattern
+
+def createGenerateLogicTask(Project project, String implsFileName) {
+    String packagePath = "ch/tutteli/atrium/logic"
+    String generatedFolder = project.generatedFolder
+
+    return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
+        def path = "$project.projectDir/src/main/kotlin/$packagePath/"
+        def interfaces = new FileNameFinder().getFileNames(path, '*Assertions.kt')
+        def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
+        inputs.files(interfaces)
+        outputs.dir(generatedPath)
+
+        doFirst {
+
+            def getType = { File input -> input.name.substring(0, input.name.length() - "Assertions.kt".length()) }
+            def header = """\
+                    //---------------------------------------------------
+                    //  Generated content, modify:
+                    //  logic/generateLogic.gradle
+                    //  if necessary - enjoy the day 🙂
+                    //---------------------------------------------------
+                """.stripIndent()
+
+            new File("$generatedPath/${implsFileName}.kt").withWriter { w ->
+                w << header
+                w << """\
+                    @file:JvmMultifileClass
+                    @file:JvmName("ImplsKt")
+                    package ch.tutteli.atrium.logic
+
+                    import kotlin.jvm.JvmMultifileClass
+                    import kotlin.jvm.JvmName
+
+                    import ch.tutteli.atrium.creating.AssertionContainer
+                """.stripIndent()
+
+                interfaces.forEach {
+                    def type = getType(new File(it))
+                    w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions\n"
+                }
+
+                w << "\n"
+
+                interfaces.forEach {
+                    def type = getType(new File(it))
+                    w << """\
+                        @PublishedApi
+                        internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
+                            get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
+
+                    """.stripIndent()
+                }
+            }
+
+            def identifier = /[a-zA-Z0-9]+/
+            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:\n\s*)?container: (AssertionContainer<.+?>)/
+            def parameter = /,(?: |\n\s*)($identifier): ([^:]+?)/
+            def returnType = /(?:\n\s*)?\)(:.+)/
+
+            def patterns = (6..0).collect {
+                def steps = (0..<it * 2).findAll { it % 2 == 0 }
+                new Tuple3<Pattern, String, String>(
+                    Pattern.compile(typeIdentifier + parameter * it + returnType),
+                    /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "\n    " : " "),
+                    /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
+                )
+            }
+
+            interfaces.forEach {
+                def input = new File(it)
+                def type = getType(input)
+                def uncapitalized = type.uncapitalize()
+                def output = new File("$generatedPath/${uncapitalized}.kt")
+                def content = input.text
+                def interfaceName = "${type}Assertions"
+                def implValName = "_${uncapitalized}Impl"
+
+                String tmp = content.replaceAll(/\ninterface $interfaceName \{/, "")
+                patterns.forEach { triple ->
+                    tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
+                }
+
+                String generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
+                output.withWriter { w ->
+                    w << header
+                    w << generatedContent
+                }
+            }
+        }
+    }
+}
+
+ext {
+    createGenerateLogicTask = this.&createGenerateLogicTask
+    generatedFolder = "src/generated/kotlin"
+}
