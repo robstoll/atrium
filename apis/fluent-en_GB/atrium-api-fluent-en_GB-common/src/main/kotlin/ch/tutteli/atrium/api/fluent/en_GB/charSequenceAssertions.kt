@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.*
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -54,8 +55,10 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOrChar, vararg otherExpected: CharSequenceOrNumberOrChar): Expect<T> =
-    contains.atLeast(1).values(expected, *otherExpected)
+fun <T : CharSequence> Expect<T>.contains(
+    expected: CharSequenceOrNumberOrChar,
+    vararg otherExpected: CharSequenceOrNumberOrChar
+): Expect<T> = contains.atLeast(1).values(expected, *otherExpected)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not contain [expected]'s [toString] representation
@@ -70,8 +73,10 @@ fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOrChar, 
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar, vararg otherExpected: CharSequenceOrNumberOrChar) =
-    containsNot.values(expected, *otherExpected)
+fun <T : CharSequence> Expect<T>.containsNot(
+    expected: CharSequenceOrNumberOrChar,
+    vararg otherExpected: CharSequenceOrNumberOrChar
+) = containsNot.values(expected, *otherExpected)
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
@@ -133,8 +138,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.startsWith(this, expected))
+fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) = _logicAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
@@ -152,8 +156,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char) = startsWith(expecte
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.startsNotWith(this, expected))
+fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) = _logicAppend { startsNotWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
@@ -172,8 +175,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) = startsNotWith(e
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.endsWith(this, expected))
+fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) = _logicAppend { endsWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
@@ -191,8 +193,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char) = endsWith(expected.to
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.endsNotWith(this, expected))
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) = _logicAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -211,7 +212,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) = endsNotWith(expec
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequence.isEmpty(this))
+fun <T : CharSequence> Expect<T>.isEmpty() = _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
@@ -219,7 +220,7 @@ fun <T : CharSequence> Expect<T>.isEmpty() = addAssertion(ExpectImpl.charSequenc
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
+fun <T : CharSequence> Expect<T>.isNotEmpty() = _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
@@ -227,7 +228,7 @@ fun <T : CharSequence> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.charSequ
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequence.isNotBlank(this))
+fun <T : CharSequence> Expect<T>.isNotBlank() = _logicAppend { isNotBlank() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
@@ -239,8 +240,7 @@ fun <T : CharSequence> Expect<T>.isNotBlank() = addAssertion(ExpectImpl.charSequ
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
-    addAssertion(ExpectImpl.charSequence.matches(this, expected))
+fun <T : CharSequence> Expect<T>.matches(expected: Regex) = _logicAppend { matches(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
@@ -252,5 +252,4 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) =
-    addAssertion(ExpectImpl.charSequence.mismatches(this, expected))
+fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) = _logicAppend { mismatches(expected) }

@@ -16,7 +16,8 @@ sourceSets {
     main.kotlin.srcDirs += generatedFolder
 }
 
-def generateExtensionMethods = task('generateExtensionMethods', description: 'generates ext. methods for AssertionContainer based on interfaces') {
+
+def generateLogic = task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
     def path = "$project.projectDir/src/main/kotlin/$packagePath/"
     def interfaces = new FileNameFinder().getFileNames(path, '*Assertions.kt')
     def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
@@ -24,6 +25,43 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
     outputs.dir(generatedPath)
 
     doFirst {
+
+        def getType = { File input -> input.name.substring(0, input.name.length() - "Assertions.kt".length()) }
+        def header = """\
+                //---------------------------------------------------
+                //  Generated content, modify:
+                //  logic/atrium-logic-common/build.gradle
+                //  if necessary - enjoy the day 🙂
+                //---------------------------------------------------
+            """.stripIndent()
+
+        new File("$generatedPath/impls.kt").withWriter { w ->
+            w << header
+            w << """\
+                package ch.tutteli.atrium.logic
+
+                import ch.tutteli.atrium.creating.AssertionContainer
+            """.stripIndent()
+
+            interfaces.forEach {
+                def type = getType(new File(it))
+                w << "import ch.tutteli.atrium.logic.impl.Default${type.capitalize()}Assertions\n"
+            }
+
+            w << "\n"
+
+            interfaces.forEach {
+                def type = getType(new File(it))
+                def capitalized = type.capitalize()
+                w << """\
+                    @PublishedApi
+                    internal inline val <T> AssertionContainer<T>._${type}Impl
+                        get() = getImpl(${capitalized}Assertions::class) { Default${capitalized}Assertions() }
+
+                """.stripIndent()
+            }
+        }
+
         def identifier = /[a-zA-Z0-9]+/
         def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:\n\s*)?container: (AssertionContainer<.+?>)/
         def parameter = /,(?: |\n\s*)($identifier): ([^:]+?)/
@@ -40,7 +78,7 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
 
         interfaces.forEach {
             def input = new File(it)
-            def type = input.name.substring(0, input.name.length() - "Assertions.kt".length())
+            def type = getType(input)
             def output = new File("$generatedPath/${type}.kt")
             def content = input.text
             def interfaceName = "${type.capitalize()}Assertions"
@@ -50,14 +88,7 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
             patterns.forEach { triple ->
                 tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
             }
-            def header = """\
-                //---------------------------------------------------
-                //  Generated content, modify:
-                //  logic/atrium-logic-common/build.gradle
-                //  if necessary - enjoy the day 🙂
-                //---------------------------------------------------
 
-            """.stripIndent()
             String generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
             output.withWriter { w ->
                 w << header
@@ -66,5 +97,5 @@ def generateExtensionMethods = task('generateExtensionMethods', description: 'ge
         }
     }
 }
-compileKotlinCommon.dependsOn(generateExtensionMethods)
+compileKotlinCommon.dependsOn(generateLogic)
 
