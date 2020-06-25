@@ -45,18 +45,17 @@ def generateLogic = task('generateLogic', description: 'generates ext. methods f
 
             interfaces.forEach {
                 def type = getType(new File(it))
-                w << "import ch.tutteli.atrium.logic.impl.Default${type.capitalize()}Assertions\n"
+                w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions\n"
             }
 
             w << "\n"
 
             interfaces.forEach {
                 def type = getType(new File(it))
-                def capitalized = type.capitalize()
                 w << """\
                     @PublishedApi
-                    internal inline val <T> AssertionContainer<T>._${type}Impl
-                        get() = getImpl(${capitalized}Assertions::class) { Default${capitalized}Assertions() }
+                    internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
+                        get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
 
                 """.stripIndent()
             }
@@ -79,10 +78,11 @@ def generateLogic = task('generateLogic', description: 'generates ext. methods f
         interfaces.forEach {
             def input = new File(it)
             def type = getType(input)
-            def output = new File("$generatedPath/${type}.kt")
+            def uncapitalized = type.uncapitalize()
+            def output = new File("$generatedPath/${uncapitalized}.kt")
             def content = input.text
-            def interfaceName = "${type.capitalize()}Assertions"
-            def implValName = "_${type}Impl"
+            def interfaceName = "${type}Assertions"
+            def implValName = "_${uncapitalized}Impl"
 
             String tmp = content.replaceAll(/\ninterface $interfaceName \{/, "")
             patterns.forEach { triple ->

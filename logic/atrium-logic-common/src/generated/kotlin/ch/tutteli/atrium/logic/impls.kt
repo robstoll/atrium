@@ -9,6 +9,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
 import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
 import ch.tutteli.atrium.logic.impl.DefaultCollectionAssertions
+import ch.tutteli.atrium.logic.impl.DefaultComparableAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
 import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
 
@@ -23,6 +24,10 @@ internal inline val <T> AssertionContainer<T>._charSequenceImpl
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._collectionImpl
     get() = getImpl(CollectionAssertions::class) { DefaultCollectionAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._comparableImpl
+    get() = getImpl(ComparableAssertions::class) { DefaultComparableAssertions() }
 
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._featureImpl
