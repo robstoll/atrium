@@ -19,15 +19,18 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
+            -   name: check generateLogic committed
+                run: ./gradle/scripts/check-generateLogic-committed.sh
+
+            -   name: buildNonDeprecatedJvm
+                run: ./gradlew buildNonDeprecatedJvm
+
             -   name: Cache android jar
                 id: android-cache
                 uses: actions/cache@v1
                 with:
                     path: android-jar-cache
                     key: ${{ runner.os }}-android-version-${{ env.android-version }}
-
-            -   name: buildNonDeprecatedJvm
-                run: ./gradlew buildNonDeprecatedJvm
 
             -   name: download Android SDK's android.jar (or use cached file)
                 if: steps.android-cache.outputs.cache-hit != 'true'
