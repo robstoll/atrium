@@ -11,6 +11,8 @@ def createGenerateLogicTask(Project project, String implsFileName) {
         inputs.files(interfaces)
         outputs.dir(generatedPath)
 
+        def ln = System.lineSeparator()
+
         doFirst {
 
             def getType = { File input -> input.name.substring(0, input.name.length() - "Assertions.kt".length()) }
@@ -20,9 +22,10 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                     //  logic/generateLogic.gradle
                     //  if necessary - enjoy the day 🙂
                     //---------------------------------------------------
-                """.stripIndent()
 
-            new File("$generatedPath/${implsFileName}.kt").withWriter { w ->
+                """.stripIndent().replace("\n", ln)
+
+            new File("$generatedPath/${implsFileName}.kt").withWriter('utf-8') { w ->
                 w << header
                 w << """\
                     @file:JvmMultifileClass
@@ -33,14 +36,14 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                     import kotlin.jvm.JvmName
 
                     import ch.tutteli.atrium.creating.AssertionContainer
-                """.stripIndent()
+                """.stripIndent().replace("\n", ln)
 
                 interfaces.forEach {
                     def type = getType(new File(it))
-                    w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions\n"
+                    w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions$ln"
                 }
 
-                w << "\n"
+                w << "$ln"
 
                 interfaces.forEach {
                     def type = getType(new File(it))
@@ -49,20 +52,22 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                         internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
                             get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
 
-                    """.stripIndent()
+                    """.stripIndent().replace("\n", ln)
                 }
             }
 
             def identifier = /[a-zA-Z0-9]+/
-            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:\n\s*)?container: (AssertionContainer<.+?>)/
-            def parameter = /,(?: |\n\s*)($identifier): ([^:]+?)/
-            def returnType = /(?:\n\s*)?\)(:.+)/
+            def newLine = /(?:\r\n?|\n)/
+            def newLineAndIndent = /$newLine\s*/
+            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?container: (AssertionContainer<.+?>)/
+            def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
+            def returnType = /(?:$newLineAndIndent)?\)(:.+)/
 
             def patterns = (6..0).collect {
                 def steps = (0..<it * 2).findAll { it % 2 == 0 }
                 new Tuple3<Pattern, String, String>(
                     Pattern.compile(typeIdentifier + parameter * it + returnType),
-                    /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "\n    " : " "),
+                    /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "$ln    " : " "),
                     /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
                 )
             }
@@ -76,13 +81,13 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                 def interfaceName = "${type}Assertions"
                 def implValName = "_${uncapitalized}Impl"
 
-                String tmp = content.replaceAll(/\ninterface $interfaceName \{/, "")
+                String tmp = content.replaceAll(/${newLine}interface $interfaceName \{/, "")
                 patterns.forEach { triple ->
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
                 }
 
                 String generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
-                output.withWriter { w ->
+                output.withWriter('utf-8') { w ->
                     w << header
                     w << generatedContent
                 }
