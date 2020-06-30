@@ -381,7 +381,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1
         » stacktrace: 
           ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:70)
           ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:45)
-          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:626)
+          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:624)
           ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:45)
 ```
 </ex-toThrow1>
@@ -1651,7 +1651,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$
         » stacktrace: 
           ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:409)
           ⚬ readme.examples.ReadmeSpec2$1$31$1.invoke(ReadmeSpec.kt:221)
-          ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:626)
+          ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:624)
           ⚬ readme.examples.ReadmeSpec2$1$31.invoke(ReadmeSpec.kt:221)
         » cause: java.lang.UnsupportedOperationException
             » message: "not supported"        <1234789>
