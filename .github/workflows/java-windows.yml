@@ -21,9 +21,10 @@ jobs:
 
             -   name: check generateLogic committed
                 run: ./gradle/scripts/check-generateLogic-committed.sh
+                shell: bash
 
             -   name: buildNonDeprecatedJvm
-                run: ./gradlew buildNonDeprecatedJvm
+                run: ./gradlew clean buildNonDeprecatedJvm
 
             -   name: Cache android jar
                 id: android-cache
