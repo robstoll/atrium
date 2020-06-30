@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.hasNext
+import ch.tutteli.atrium.logic.hasNotNext
 
 /**
  * Expects that the subject of the assertion (an [Iterator]) has at least one element.
@@ -11,7 +13,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @since 0.13.0
  */
-fun <E, T : Iterator<E>> Expect<T>.hasNext() = addAssertion(ExpectImpl.iterator.hasNext(this))
+fun <E, T : Iterator<E>> Expect<T>.hasNext() = _logicAppend { hasNext() }
 
 /**
  * Expects that the subject of the assertion (an [Iterator]) does not have a next element.
@@ -21,4 +23,4 @@ fun <E, T : Iterator<E>> Expect<T>.hasNext() = addAssertion(ExpectImpl.iterator.
  *
  * @since 0.13.0
  */
-fun <E, T : Iterator<E>> Expect<T>.hasNotNext() = addAssertion(ExpectImpl.iterator.hasNotNext(this))
+fun <E, T : Iterator<E>> Expect<T>.hasNotNext() = _logicAppend { hasNotNext() }

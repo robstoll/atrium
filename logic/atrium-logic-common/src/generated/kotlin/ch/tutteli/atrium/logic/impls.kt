@@ -20,6 +20,7 @@ import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFloatingPointAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFun0Assertions
 import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
+import ch.tutteli.atrium.logic.impl.DefaultIteratorAssertions
 
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._anyImpl
@@ -52,4 +53,8 @@ internal inline val <T> AssertionContainer<T>._fun0Impl
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._iterableLikeImpl
     get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._iteratorImpl
+    get() = getImpl(IteratorAssertions::class) { DefaultIteratorAssertions() }
 
