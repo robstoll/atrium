@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(this, expected))
+infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = addAssertion(ExpectImpl.any.toBe(this, expected))
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
@@ -18,7 +18,7 @@ infix fun <T> Expect<T>.toBe(expected: T) = addAssertion(ExpectImpl.any.toBe(thi
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notToBe(this, expected))
+infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = addAssertion(ExpectImpl.any.notToBe(this, expected))
 
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
@@ -26,7 +26,7 @@ infix fun <T> Expect<T>.notToBe(expected: T) = addAssertion(ExpectImpl.any.notTo
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSame(this, expected))
+infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = addAssertion(ExpectImpl.any.isSame(this, expected))
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -34,7 +34,7 @@ infix fun <T> Expect<T>.isSameAs(expected: T) = addAssertion(ExpectImpl.any.isSa
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.isNotSame(this, expected))
+infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = addAssertion(ExpectImpl.any.isNotSame(this, expected))
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
@@ -51,7 +51,7 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T) = addAssertion(ExpectImpl.any.i
  */
 inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-) = addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+): Expect<T?> = addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
 
 
 /**
@@ -200,7 +200,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @since 0.12.0
  */
-inline val <T> Expect<T>.it get() : Expect<T> = this
+inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
 
 /**
  * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
@@ -222,4 +222,4 @@ inline val <T> Expect<T>.it get() : Expect<T> = this
  *
  * @since 0.12.0
  */
-inline val <T> Expect<T>.its get() : Expect<T> = this
+inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this

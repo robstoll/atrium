@@ -20,7 +20,7 @@ import ch.tutteli.kbox.glue
 fun <K, V, T : Map<out K, V>> Expect<T>.contains(
     keyValuePair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>
-) = addAssertion(ExpectImpl.map.contains(this, keyValuePair glue otherPairs))
+): Expect<T> = addAssertion(ExpectImpl.map.contains(this, keyValuePair glue otherPairs))
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -39,7 +39,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
-) = addAssertion(
+): Expect<T> = addAssertion(
     ExpectImpl.map.containsKeyWithValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() })
 )
 
@@ -49,7 +49,8 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImpl.map.containsKey(this, key))
+fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
+    addAssertion(ExpectImpl.map.containsKey(this, key))
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -57,7 +58,8 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectIm
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(ExpectImpl.map.containsNotKey(this, key))
+fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
+    addAssertion(ExpectImpl.map.containsNotKey(this, key))
 
 
 /**
@@ -66,7 +68,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) = addAssertion(Expec
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Map<*, *>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.map.isEmpty(this))
+fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.map.isEmpty(this))
 
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
@@ -74,7 +76,7 @@ fun <T : Map<*, *>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.map.isEmpty(th
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Map<*, *>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.map.isNotEmpty(this))
+fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> = addAssertion(ExpectImpl.map.isNotEmpty(this))
 
 
 /**
@@ -96,7 +98,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit) =
+fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     ExpectImpl.map.getExisting(this, key).addToInitial(assertionCreator)
 
 /**

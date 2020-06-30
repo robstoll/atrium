@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @since 0.13.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next) =
+infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     addAssertion(ExpectImpl.iterator.hasNext(this))
 
 /**
@@ -22,5 +22,5 @@ infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  *
  * @since 0.13.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next) =
+infix fun <E, T : Iterator<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     addAssertion(ExpectImpl.iterator.hasNotNext(this))

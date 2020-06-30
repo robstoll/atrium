@@ -26,7 +26,7 @@ fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expec
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Expect<T>.isSameAs(expected: T) = _logicAppend { isSameAs(expected) }
+fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -163,4 +163,4 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @return An [Expect] for the current subject of the assertion.
  */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit) = addAssertionsCreatedBy(assertionCreator)
+infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> = addAssertionsCreatedBy(assertionCreator)

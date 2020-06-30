@@ -190,7 +190,7 @@ infix fun <T : Path> Expect<T>.resolve(path: PathWithCreator<Path>): Expect<T> =
 /**
  * Helper function to create a [PathWithCreator] based on the given [path] and [assertionCreator].
  */
-fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit) = PathWithCreator(path, assertionCreator)
+fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCreator<E> = PathWithCreator(path, assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Path]) is readable;

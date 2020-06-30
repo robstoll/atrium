@@ -13,7 +13,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoringCase
+val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoringCase: CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour> =
         ExpectImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
@@ -22,6 +22,6 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase
+val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase: NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour> =
         NotCheckerOptionImpl(containsBuilder.ignoringCase)

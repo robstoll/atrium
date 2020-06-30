@@ -31,5 +31,5 @@ infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> 
 /**
  * Helper function to create an [IndexWithCreator] based on the given [index] and [assertionCreator].
  */
-fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit) =
+fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCreator<E> =
     IndexWithCreator(index, assertionCreator)

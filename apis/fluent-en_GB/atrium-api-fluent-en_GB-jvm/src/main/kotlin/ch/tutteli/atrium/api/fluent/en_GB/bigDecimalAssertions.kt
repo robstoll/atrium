@@ -90,7 +90,7 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseRe
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
+fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
     addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
@@ -108,7 +108,7 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
+fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
     addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
 
@@ -124,7 +124,7 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
+fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
     addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
@@ -139,5 +139,5 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T) =
+fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T): Expect<T> =
     addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))
