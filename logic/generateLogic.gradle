@@ -1,4 +1,22 @@
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.regex.Pattern
+import java.util.stream.Collectors
+
+static def getInterfaces(String path) {
+    Files.walk(Paths.get(path), 1).withCloseable { stream ->
+        return stream
+            .filter { file -> file.getFileName().toString().endsWith("Assertions.kt") }
+            .sorted(new Comparator<Path>() {
+                @Override
+                int compare(Path a, Path b) {
+                    return a.getFileName().toString() <=> b.getFileName().toString()
+
+                }
+            }).collect(Collectors.toList())
+    }
+}
 
 def createGenerateLogicTask(Project project, String implsFileName) {
     String packagePath = "ch/tutteli/atrium/logic"
@@ -6,7 +24,7 @@ def createGenerateLogicTask(Project project, String implsFileName) {
 
     return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
         def path = "$project.projectDir/src/main/kotlin/$packagePath/"
-        def interfaces = new FileNameFinder().getFileNames(path, '*Assertions.kt')
+        def interfaces = getInterfaces(path)
         def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
         inputs.files(interfaces)
         outputs.dir(generatedPath)
@@ -15,7 +33,12 @@ def createGenerateLogicTask(Project project, String implsFileName) {
 
         doFirst {
 
-            def getType = { File input -> input.name.substring(0, input.name.length() - "Assertions.kt".length()) }
+            //TODO delete all files in folder first
+
+            def getType = { Path input ->
+                def fileName = input.getFileName().toString()
+                fileName.substring(0, fileName.length() - "Assertions.kt".length())
+            }
             def header = """\
                     //---------------------------------------------------
                     //  Generated content, modify:
@@ -39,14 +62,14 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                 """.stripIndent().replace("\n", ln)
 
                 interfaces.forEach {
-                    def type = getType(new File(it))
+                    def type = getType(it)
                     w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions$ln"
                 }
 
                 w << "$ln"
 
                 interfaces.forEach {
-                    def type = getType(new File(it))
+                    def type = getType(it)
                     w << """\
                         @PublishedApi
                         internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
@@ -72,8 +95,7 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                 )
             }
 
-            interfaces.forEach {
-                def input = new File(it)
+            interfaces.forEach { input ->
                 def type = getType(input)
                 def uncapitalized = type.uncapitalize()
                 def output = new File("$generatedPath/${uncapitalized}.kt")
