@@ -3,6 +3,7 @@
 //  logic/generateLogic.gradle
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+
 @file:JvmMultifileClass
 @file:JvmName("ImplsKt")
 package ch.tutteli.atrium.logic

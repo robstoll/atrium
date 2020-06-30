@@ -3,6 +3,7 @@
 //  logic/generateLogic.gradle
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
