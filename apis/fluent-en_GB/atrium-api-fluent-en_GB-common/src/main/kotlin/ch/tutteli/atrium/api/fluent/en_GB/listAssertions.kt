@@ -2,6 +2,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.get
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and
@@ -11,7 +13,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
-    ExpectImpl.list.get(this, index).getExpectOfFeature()
+    _logic.get(index).getExpectOfFeature()
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and that
@@ -21,4 +23,4 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 fun <E, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    ExpectImpl.list.get(this, index).addToInitial(assertionCreator)
+    _logic.get(index).addToInitial(assertionCreator)

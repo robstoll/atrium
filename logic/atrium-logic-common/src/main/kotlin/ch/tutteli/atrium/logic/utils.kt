@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectInternal
+import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.builders.creating.changers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -20,6 +21,9 @@ fun <T> AssertionContainer<T>.createDescriptiveAssertion(
 
 val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
     get() = SubjectChangerBuilder.create(this.toExpect())
+
+val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.DescriptionStep<T>
+    get() = FeatureExtractorBuilder.create(this.toExpect())
 
 fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
     when (this) {
