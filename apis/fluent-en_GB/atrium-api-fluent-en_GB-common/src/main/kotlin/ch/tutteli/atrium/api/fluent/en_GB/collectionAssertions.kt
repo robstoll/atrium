@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.collection.isEmpty(this))
+fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
@@ -17,7 +17,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty() = addAssertion(ExpectImpl.collection
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isNotEmpty() = addAssertion(ExpectImpl.collection.isNotEmpty(this))
+fun <T : Collection<*>> Expect<T>.isNotEmpty() = _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) has the given [expected] size.
@@ -36,7 +36,7 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(expected)
  * @return The newly created [Expect] for the extracted feature.
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = ExpectImpl.collection.size(this).getExpectOfFeature()
+    get() = _logic.size().getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
@@ -47,4 +47,4 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.collection.size(this).addToInitial(assertionCreator)
+    _logic.size().addToInitial(assertionCreator)

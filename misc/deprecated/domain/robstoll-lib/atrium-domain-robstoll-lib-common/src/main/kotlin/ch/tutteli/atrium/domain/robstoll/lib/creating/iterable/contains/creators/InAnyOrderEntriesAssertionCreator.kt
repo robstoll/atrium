@@ -8,6 +8,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.builders.ExpectImpl
@@ -114,13 +115,13 @@ class InAnyOrderEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
         count: Int
     ) {
         if (searchCriterion != null && count == 0) {
-            val container = coreFactory.newCollectingAssertionContainer<E>(None)
+            val container = CollectingExpect<E>(None)
             // not using addAssertionsCreatedBy on purpose so that we don't get a failing assertion as well
             container.searchCriterion()
             val collectedAssertions = container.getAssertions()
             if (collectedAssertions.isEmpty()) {
                 assertions.addAll(
-                    coreFactory.newCollectingAssertionContainer<E>(None)
+                    CollectingExpect<E>(None)
                         .addAssertionsCreatedBy(searchCriterion)
                         .getAssertions()
                 )

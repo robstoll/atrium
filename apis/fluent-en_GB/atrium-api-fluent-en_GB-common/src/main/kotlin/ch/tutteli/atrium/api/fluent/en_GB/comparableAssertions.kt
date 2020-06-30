@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 
 /**
  * Expects that the subject of the assertion is less than [expected].
@@ -10,8 +10,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
-    addAssertion(ExpectImpl.comparable.isLessThan(this, expected))
+fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) = _logicAppend { isLessThan(expected) }
 
 /**
  * Expects that the subject of the assertion is less than or equal [expected].
@@ -20,8 +19,7 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T) =
-    addAssertion(ExpectImpl.comparable.isLessOrEquals(this, expected))
+fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T) = _logicAppend { isLessThanOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion is greater than [expected].
@@ -30,8 +28,7 @@ fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
-    addAssertion(ExpectImpl.comparable.isGreaterThan(this, expected))
+fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) = _logicAppend { isGreaterThan(expected) }
 
 /**
  * Expects that the subject of the assertion is greater than or equal [expected].
@@ -40,8 +37,7 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T) =
-    addAssertion(ExpectImpl.comparable.isGreaterOrEquals(this, expected))
+fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T) = _logicAppend { isGreaterThanOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion is equal to [expected]
@@ -50,7 +46,6 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.12.0
+ * @since 0.13.0
  */
-fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T) =
-    addAssertion(ExpectImpl.comparable.isEqualComparingTo(this, expected))
+fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T) = _logicAppend { isEqualComparingTo(expected) }

@@ -8,6 +8,8 @@ import ch.tutteli.atrium.assertions.AssertionGroup
  * @constructor Represents an [AssertionGroup] which is evaluated lazily where the lazy loading is not thread safe.
  * @param assertionCreator The factory function which is used for lazy loading.
  */
+//TODO 0.13.0 deprecate
+//@Deprecated("Use LazyThreadUnsafeAssertionGroup from atrium-logic; will be removed with 0.14.0")
 class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> AssertionGroup) : AssertionGroup {
     private val assertionGroup by lazy(LazyThreadSafetyMode.NONE) {
         assertionCreator()

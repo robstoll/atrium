@@ -50,7 +50,7 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.12.0
+ * @since 0.13.0
  */
 infix fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T) =
     addAssertion(ExpectImpl.comparable.isEqualComparingTo(this, expected))

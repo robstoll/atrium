@@ -59,6 +59,8 @@ include {
         kotlinJvmJs('robstoll-lib')
     }
 
+    kotlinJvmJs('logic')
+
     translations('translations-') {
         kotlinJvmJs('de_CH')
         kotlinJvmJs('en_GB')

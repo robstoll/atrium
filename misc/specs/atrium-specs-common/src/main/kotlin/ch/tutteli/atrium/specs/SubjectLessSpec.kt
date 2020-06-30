@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
@@ -20,7 +21,7 @@ abstract class SubjectLessSpec<T>(
     describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reportBuilder without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
-                val assertions = coreFactory.newCollectingAssertionContainer<T>(None)
+                val assertions = CollectingExpect<T>(None)
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
 

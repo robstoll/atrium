@@ -1,0 +1,19 @@
+import java.util.regex.Pattern
+
+description = 'The domain logic of Atrium as common module.'
+
+dependencies {
+    api prefixedProject('domain-builders-common')
+
+    // it is up to the consumer which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-common')
+}
+
+
+apply from: "$project.projectDir/../generateLogic.gradle"
+def generateLogic = createGenerateLogicTask(project, "impls")
+compileKotlinCommon.dependsOn(generateLogic)
+
+sourceSets {
+    main.kotlin.srcDirs += generatedFolder
+}

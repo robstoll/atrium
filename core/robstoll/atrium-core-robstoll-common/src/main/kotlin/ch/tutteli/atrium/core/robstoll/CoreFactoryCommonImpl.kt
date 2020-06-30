@@ -56,6 +56,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     ): CheckingAssertionPlant<T> = CheckingAssertionPlantImpl(subjectProvider)
 
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     final override fun <T> newCollectingAssertionContainer(
         maybeSubject: Option<T>
     ): CollectingAssertionContainer<T> = CollectingAssertionContainerImpl(maybeSubject)

@@ -6,7 +6,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 
 @Deprecated("Use RootExpect, will be removed with 1.0.0")
@@ -18,7 +17,7 @@ class ReportingAssertionContainerImpl<T>(
     override val assertionChecker: AssertionChecker get() = assertionCheckerDecorator.assertionChecker
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
-        val assertions = coreFactory.newCollectingAssertionContainer(maybeSubject)
+        val assertions = CollectingExpect(maybeSubject)
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
         return when (assertions.size) {
