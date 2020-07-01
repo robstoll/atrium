@@ -6,6 +6,9 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.isEqualIncludingScale
+import ch.tutteli.atrium.logic.isNumericallyEqualTo
 import java.math.BigDecimal
 
 /**
@@ -51,7 +54,7 @@ fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepl
  */
 @JvmName("toBeNull")
 fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
-    addAssertion(ExpectImpl.any.toBe(this, expected))
+    _logicAppend { toBe(expected) }
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -91,7 +94,7 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseRe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
+    _logicAppend { isNumericallyEqualTo(expected) }
 
 /**
  * Expects that the subject of the assertion (a [BigDecimal]) is not numerically equal to [expected].
@@ -109,8 +112,7 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
-
+    _logicAppend { isNotNumericallyEqualTo(expected) }
 
 /**
  * Expects that the subject of the assertion (a [BigDecimal]) is equal to [expected] including [BigDecimal.scale].
@@ -125,7 +127,7 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
+    _logicAppend { isEqualIncludingScale(expected, this::isNumericallyEqualTo.name) }
 
 /**
  * Expects that the subject of the assertion (a [BigDecimal]) is not equal to [expected] including [BigDecimal.scale].
@@ -140,4 +142,4 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))
+    _logicAppend { isNotEqualIncludingScale(expected) }

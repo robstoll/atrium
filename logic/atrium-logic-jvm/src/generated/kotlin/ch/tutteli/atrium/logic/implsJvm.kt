@@ -12,7 +12,12 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.logic.impl.DefaultBigDecimalAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFloatingPointJvmAssertions
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._bigDecimalImpl
+    get() = getImpl(BigDecimalAssertions::class) { DefaultBigDecimalAssertions() }
 
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._floatingPointJvmImpl
