@@ -23,6 +23,7 @@ import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
 import ch.tutteli.atrium.logic.impl.DefaultIteratorAssertions
 import ch.tutteli.atrium.logic.impl.DefaultListAssertions
 import ch.tutteli.atrium.logic.impl.DefaultMapAssertions
+import ch.tutteli.atrium.logic.impl.DefaultMapEntryAssertions
 
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._anyImpl
@@ -67,4 +68,8 @@ internal inline val <T> AssertionContainer<T>._listImpl
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._mapImpl
     get() = getImpl(MapAssertions::class) { DefaultMapAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._mapEntryImpl
+    get() = getImpl(MapEntryAssertions::class) { DefaultMapEntryAssertions() }
 
