@@ -29,7 +29,6 @@ val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.Descriptio
 fun <T> AssertionContainer<T>.collect(assertionCreator: Expect<T>.() -> Unit): Assertion =
     assertionCollector.collect(maybeSubject, assertionCreator)
 
-
 fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
     when (this) {
         is ExpectInternal<T> -> this
