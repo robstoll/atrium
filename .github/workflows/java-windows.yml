@@ -19,12 +19,8 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
-            -   name: check generateLogic committed
-                run: ./gradle/scripts/check-generateLogic-committed.sh
-                shell: bash
-
             -   name: buildNonDeprecatedJvm
-                run: ./gradlew clean buildNonDeprecatedJvm
+                run: ./gradlew buildNonDeprecatedJvm
 
             -   name: Cache android jar
                 id: android-cache
