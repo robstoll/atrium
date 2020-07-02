@@ -19,6 +19,7 @@ import ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFloatingPointJvmAssertions
 import ch.tutteli.atrium.logic.impl.DefaultLocalDateAssertions
 import ch.tutteli.atrium.logic.impl.DefaultLocalDateTimeAssertions
+import ch.tutteli.atrium.logic.impl.DefaultOptionalAssertions
 import ch.tutteli.atrium.logic.impl.DefaultZonedDateTimeAssertions
 
 @PublishedApi
@@ -48,6 +49,10 @@ internal inline val <T> AssertionContainer<T>._localDateImpl
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._localDateTimeImpl
     get() = getImpl(LocalDateTimeAssertions::class) { DefaultLocalDateTimeAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._optionalImpl
+    get() = getImpl(OptionalAssertions::class) { DefaultOptionalAssertions() }
 
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._zonedDateTimeImpl

@@ -138,7 +138,8 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> = _logicAppend { startsWith(expected) }
+fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
+    _logicAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
@@ -148,7 +149,8 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> = startsWith(expected.toString())
+fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
+    startsWith(expected.toString())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
@@ -167,7 +169,8 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> = startsNotWith(expected.toString())
+fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
+    startsNotWith(expected.toString())
 
 
 /**
@@ -176,7 +179,8 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> = star
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> = _logicAppend { endsWith(expected) }
+fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
+    _logicAppend { endsWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
@@ -186,7 +190,8 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> = _
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> = endsWith(expected.toString())
+fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
+    endsWith(expected.toString())
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -194,7 +199,8 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> = endsWith(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> = _logicAppend { endsNotWith(expected) }
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
+    _logicAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -204,7 +210,8 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> 
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> = endsNotWith(expected.toString())
+fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
+    endsNotWith(expected.toString())
 
 
 /**
@@ -213,7 +220,8 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> = endsNo
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty() }
+fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
+    _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
@@ -221,7 +229,8 @@ fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty()
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> = _logicAppend { isNotEmpty() }
+fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
+    _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
@@ -229,7 +238,8 @@ fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> = _logicAppend { isNotE
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> = _logicAppend { isNotBlank() }
+fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
+    _logicAppend { isNotBlank() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
@@ -241,7 +251,8 @@ fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> = _logicAppend { isNotB
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> = _logicAppend { matches(expected) }
+fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
+    _logicAppend { matches(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
@@ -253,4 +264,5 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> = _logicApp
  *
  * @since 0.9.0
  */
-fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> = _logicAppend { mismatches(expected) }
+fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
+    _logicAppend { mismatches(expected) }
