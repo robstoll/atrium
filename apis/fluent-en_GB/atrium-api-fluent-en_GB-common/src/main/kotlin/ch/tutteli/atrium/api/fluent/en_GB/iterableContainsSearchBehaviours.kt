@@ -11,7 +11,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
+val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inAnyOrder: Builder<E, T, InAnyOrderSearchBehaviour>
     get() = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
 /**
@@ -20,7 +20,7 @@ val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InAnyOrderSearchBehaviour>.only
+val <E, T : Iterable<E>> Builder<E, T, InAnyOrderSearchBehaviour>.only: Builder<E, T, InAnyOrderOnlySearchBehaviour>
     @JvmName("butOnly")
     get() = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
@@ -31,7 +31,7 @@ val <E, T : Iterable<E>> Builder<E, T, InAnyOrderSearchBehaviour>.only
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inOrder
+val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inOrder: Builder<E, T, InOrderSearchBehaviour>
     get() = ExpectImpl.iterable.contains.searchBehaviours.inOrder(this)
 
 /**
@@ -40,7 +40,7 @@ val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inOrder
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InOrderSearchBehaviour>.only
+val <E, T : Iterable<E>> Builder<E, T, InOrderSearchBehaviour>.only: Builder<E, T, InOrderOnlySearchBehaviour>
     @JvmName("andOnly")
     get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
@@ -50,7 +50,7 @@ val <E, T : Iterable<E>> Builder<E, T, InOrderSearchBehaviour>.only
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.grouped
+val <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.grouped: Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
     get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
 
 /**
@@ -58,5 +58,5 @@ val <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.grouped
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within
+val <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within: Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
     get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)

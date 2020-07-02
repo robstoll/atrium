@@ -4,7 +4,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.toBeWithErrorTolerance
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
@@ -21,7 +22,7 @@ import kotlin.jvm.JvmName
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
+fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Expect<Float> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }
 
 /**
@@ -37,5 +38,5 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double) =
+fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double): Expect<Double> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
+infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
     addAssertion(ExpectImpl.comparable.isLessThan(this, expected))
 
 /**
@@ -20,7 +20,7 @@ infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T) =
+infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
     addAssertion(ExpectImpl.comparable.isLessOrEquals(this, expected))
 
 /**
@@ -30,7 +30,7 @@ infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
+infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
     addAssertion(ExpectImpl.comparable.isGreaterThan(this, expected))
 
 /**
@@ -40,7 +40,7 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T) =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T) =
+infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
     addAssertion(ExpectImpl.comparable.isGreaterOrEquals(this, expected))
 
 /**
@@ -52,5 +52,5 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T) =
  *
  * @since 0.13.0
  */
-infix fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T) =
+infix fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T): Expect<T> =
     addAssertion(ExpectImpl.comparable.isEqualComparingTo(this, expected))

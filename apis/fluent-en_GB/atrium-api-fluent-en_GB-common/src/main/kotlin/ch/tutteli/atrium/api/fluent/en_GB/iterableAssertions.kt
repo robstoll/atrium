@@ -27,8 +27,6 @@ val <E, T : Iterable<E>> Expect<T>.contains: IterableContains.Builder<E, T, NoOp
 val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
 
-fun <T> identity(t: T): T = t
-
 /**
  * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
  * so that further fluent calls are assertions about it.
@@ -76,6 +74,9 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.max(::identity).addToInitial(assertionCreator)
+
+@Suppress("NOTHING_TO_INLINE")
+private inline fun <T> identity(t: T): T = t
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the

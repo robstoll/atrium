@@ -6,8 +6,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.zonedDateTime
+import ch.tutteli.atrium.logic.*
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
@@ -19,8 +18,8 @@ import java.time.ZonedDateTime
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.year: Expect<Int>
-    get() = ExpectImpl.zonedDateTime.year(this).getExpectOfFeature()
+val Expect<ZonedDateTime>.year: Expect<Int>
+    get() = _logic.year().getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDateTime.year][ZonedDateTime.getYear] of the subject of the assertion
@@ -32,8 +31,8 @@ val <T : ZonedDateTime> Expect<T>.year: Expect<Int>
  *
  * @since 0.9.0
  */
-fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.zonedDateTime.year(this).addToInitial(assertionCreator)
+fun Expect<ZonedDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
+    _logic.year().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue]
@@ -43,8 +42,8 @@ fun <T : ZonedDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit)
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.month: Expect<Int>
-    get() = ExpectImpl.zonedDateTime.month(this).getExpectOfFeature()
+val Expect<ZonedDateTime>.month: Expect<Int>
+    get() = _logic.month().getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue] of the subject of the assertion
@@ -56,8 +55,8 @@ val <T : ZonedDateTime> Expect<T>.month: Expect<Int>
  *
  * @since 0.9.0
  */
-fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.zonedDateTime.month(this).addToInitial(assertionCreator)
+fun Expect<ZonedDateTime>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
+    _logic.month().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek]
@@ -67,8 +66,8 @@ fun <T : ZonedDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
-    get() = ExpectImpl.zonedDateTime.dayOfWeek(this).getExpectOfFeature()
+val Expect<ZonedDateTime>.dayOfWeek: Expect<DayOfWeek>
+    get() = _logic.dayOfWeek().getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek] of the subject of the assertion
@@ -80,8 +79,8 @@ val <T : ZonedDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
  *
  * @since 0.9.0
  */
-fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
-    ExpectImpl.zonedDateTime.dayOfWeek(this).addToInitial(assertionCreator)
+fun Expect<ZonedDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<ZonedDateTime> =
+    _logic.dayOfWeek().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth]
@@ -91,8 +90,8 @@ fun <T : ZonedDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.
  *
  * @since 0.9.0
  */
-val <T : ZonedDateTime> Expect<T>.day: Expect<Int>
-    get() = ExpectImpl.zonedDateTime.day(this).getExpectOfFeature()
+val Expect<ZonedDateTime>.day: Expect<Int>
+    get() = _logic.day().getExpectOfFeature()
 
 /**
  * Expects that the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth] of the subject of the assertion
@@ -104,5 +103,5 @@ val <T : ZonedDateTime> Expect<T>.day: Expect<Int>
  *
  * @since 0.9.0
  */
-fun <T : ZonedDateTime> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.zonedDateTime.day(this).addToInitial(assertionCreator)
+fun Expect<ZonedDateTime>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
+    _logic.day().addToInitial(assertionCreator)

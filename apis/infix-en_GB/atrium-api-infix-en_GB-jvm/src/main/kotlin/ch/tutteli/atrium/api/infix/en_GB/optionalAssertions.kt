@@ -2,10 +2,9 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.empty
-import ch.tutteli.atrium.api.infix.en_GB.present
 import ch.tutteli.atrium.api.infix.en_GB.creating.PresentWithCreator
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.optional
 import java.util.*
@@ -21,7 +20,7 @@ import java.util.*
  *
  * @since 0.12.0
  */
-infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
+infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     addAssertion(ExpectImpl.optional.isEmpty(this))
 
 /**
@@ -36,7 +35,7 @@ infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: 
  *
  * @since 0.12.0
  */
-infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") present: present) =
+infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") present: present): FeatureExpect<T, E> =
     ExpectImpl.optional.isPresent(this).getExpectOfFeature()
 
 /**

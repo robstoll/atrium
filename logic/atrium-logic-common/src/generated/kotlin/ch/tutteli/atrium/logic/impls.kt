@@ -18,7 +18,14 @@ import ch.tutteli.atrium.logic.impl.DefaultCollectionAssertions
 import ch.tutteli.atrium.logic.impl.DefaultComparableAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFloatingPointAssertions
+import ch.tutteli.atrium.logic.impl.DefaultFun0Assertions
 import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
+import ch.tutteli.atrium.logic.impl.DefaultIteratorAssertions
+import ch.tutteli.atrium.logic.impl.DefaultListAssertions
+import ch.tutteli.atrium.logic.impl.DefaultMapAssertions
+import ch.tutteli.atrium.logic.impl.DefaultMapEntryAssertions
+import ch.tutteli.atrium.logic.impl.DefaultPairAssertions
+import ch.tutteli.atrium.logic.impl.DefaultThrowableAssertions
 
 @PublishedApi
 internal inline val <T> AssertionContainer<T>._anyImpl
@@ -45,6 +52,34 @@ internal inline val <T> AssertionContainer<T>._floatingPointImpl
     get() = getImpl(FloatingPointAssertions::class) { DefaultFloatingPointAssertions() }
 
 @PublishedApi
+internal inline val <T> AssertionContainer<T>._fun0Impl
+    get() = getImpl(Fun0Assertions::class) { DefaultFun0Assertions() }
+
+@PublishedApi
 internal inline val <T> AssertionContainer<T>._iterableLikeImpl
     get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._iteratorImpl
+    get() = getImpl(IteratorAssertions::class) { DefaultIteratorAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._listImpl
+    get() = getImpl(ListAssertions::class) { DefaultListAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._mapImpl
+    get() = getImpl(MapAssertions::class) { DefaultMapAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._mapEntryImpl
+    get() = getImpl(MapEntryAssertions::class) { DefaultMapEntryAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._pairImpl
+    get() = getImpl(PairAssertions::class) { DefaultPairAssertions() }
+
+@PublishedApi
+internal inline val <T> AssertionContainer<T>._throwableImpl
+    get() = getImpl(ThrowableAssertions::class) { DefaultThrowableAssertions() }
 

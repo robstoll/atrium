@@ -3,8 +3,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.chronoLocalDate
+import ch.tutteli.atrium.logic.*
 import java.time.chrono.ChronoLocalDate
 
 /**
@@ -17,7 +16,7 @@ import java.time.chrono.ChronoLocalDate
  * @since 0.9.0
  */
 fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDate.isBefore(this, expected))
+    _logicAppend { isBefore(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDate])
@@ -29,7 +28,7 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<
  * @since 0.9.0
  */
 fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDate.isBeforeOrEquals(this, expected))
+    _logicAppend { isBeforeOrEqual(expected) }
 
 
 /**
@@ -42,7 +41,7 @@ fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): 
  * @since 0.9.0
  */
 fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDate.isAfter(this, expected))
+    _logicAppend { isAfter(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDate])
@@ -54,7 +53,7 @@ fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T
  * @since 0.9.0
  */
 fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDate.isAfterOrEquals(this, expected))
+    _logicAppend { isAfterOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDate])
@@ -66,4 +65,4 @@ fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): E
  * @since 0.9.0
  */
 fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDate.isEqual(this, expected))
+    _logicAppend { isEqual(expected) }

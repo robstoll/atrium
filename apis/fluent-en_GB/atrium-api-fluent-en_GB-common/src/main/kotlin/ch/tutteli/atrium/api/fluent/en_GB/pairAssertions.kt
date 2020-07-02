@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.first
+import ch.tutteli.atrium.logic.second
 
 /**
  * Creates an [Expect] for the property [Pair.first] of the subject of the assertion,
@@ -9,8 +11,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @return The newly created [Expect] for the extracted feature.
  */
-val <K, T : Pair<K, *>> Expect<T>.first
-    get() : Expect<K> = ExpectImpl.pair.first(this).getExpectOfFeature()
+val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
+    get() : Expect<K> = _logic.first().getExpectOfFeature()
 
 /**
  * Expects that the property [Pair.first] of the subject of the assertion
@@ -21,7 +23,7 @@ val <K, T : Pair<K, *>> Expect<T>.first
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
-    ExpectImpl.pair.first(this).addToInitial(assertionCreator)
+    _logic.first().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Pair.second] of the subject of the assertion,
@@ -29,8 +31,8 @@ fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Uni
  *
  * @return The newly created [Expect] for the extracted feature.
  */
-val <V, T : Pair<*, V>> Expect<T>.second
-    get() : Expect<V> = ExpectImpl.pair.second(this).getExpectOfFeature()
+val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
+    get() : Expect<V> = _logic.second().getExpectOfFeature()
 
 /**
  * Expects that the property [Pair.second] of the subject of the assertion
@@ -41,4 +43,4 @@ val <V, T : Pair<*, V>> Expect<T>.second
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Pair<K, V>> Expect<T>.second(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
-    ExpectImpl.pair.second(this).addToInitial(assertionCreator)
+    _logic.second().addToInitial(assertionCreator)

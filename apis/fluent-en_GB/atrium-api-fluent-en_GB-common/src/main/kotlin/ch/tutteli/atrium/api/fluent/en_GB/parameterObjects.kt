@@ -43,8 +43,8 @@ class Entries<T : Any>(
     vararg val otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?
 ) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>, GroupWithNullableEntries<(Expect<T>.() -> Unit)?>,
     VarArgHelper<(Expect<T>.() -> Unit)?> {
-    override val expected get() = assertionCreatorOrNull
-    override val otherExpected get() = otherAssertionCreatorsOrNulls
+    override val expected: (Expect<T>.() -> Unit)? get() = assertionCreatorOrNull
+    override val otherExpected: Array<out (Expect<T>.() -> Unit)?> get() = otherAssertionCreatorsOrNulls
 
     override fun toList(): List<(Expect<T>.() -> Unit)?> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
 }
@@ -64,7 +64,7 @@ data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull:
  * Represents a [Group] with a single value.
  */
 data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
-    override fun toList() = listOf(expected)
+    override fun toList(): List<T> = listOf(expected)
 }
 
 /**
@@ -74,5 +74,5 @@ class Values<out T>(
     override val expected: T,
     override vararg val otherExpected: T
 ) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T> {
-    override fun toList() = listOf(expected, *otherExpected)
+    override fun toList(): List<T> = listOf(expected, *otherExpected)
 }

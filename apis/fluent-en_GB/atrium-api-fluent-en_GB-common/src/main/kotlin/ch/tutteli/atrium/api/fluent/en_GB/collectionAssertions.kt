@@ -17,7 +17,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isNotEmpty() = _logicAppend { isNotEmpty() }
+fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> = _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) has the given [expected] size.
@@ -27,7 +27,7 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty() = _logicAppend { isNotEmpty() }
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(expected) }
+fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> = size { toBe(expected) }
 
 /**
  * Creates an [Expect] for the property [Collection.size] of the subject of the assertion,

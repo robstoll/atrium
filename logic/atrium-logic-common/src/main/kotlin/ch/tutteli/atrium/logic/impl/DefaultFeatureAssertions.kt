@@ -3,11 +3,11 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.FeatureAssertions
+import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.logic.genericFeature
 import ch.tutteli.atrium.logic.toExpect
 import ch.tutteli.atrium.reporting.Text
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.*
 
-class DefaultFeatureAssertions : FeatureAssertions{
+class DefaultFeatureAssertions : FeatureAssertions {
 
     //@formatter:off
     override fun <T, TProperty> property(container: AssertionContainer<T>, property: KProperty1<in T, TProperty>): ExtractedFeaturePostStep<T, TProperty> =
@@ -78,7 +78,7 @@ class DefaultFeatureAssertions : FeatureAssertions{
         container: AssertionContainer<T>,
         description: Translatable,
         provider: (T) -> R
-    ): MetaFeature<R>  = NewFeatureAssertionsBuilder.meta.create(container.toExpect(), description, provider)
+    ): MetaFeature<R> = NewFeatureAssertionsBuilder.meta.create(container.toExpect(), description, provider)
 
     // TODO probably not the best place
     private fun <T, R> createSubjectBasedMetaFeature(
@@ -98,7 +98,7 @@ class DefaultFeatureAssertions : FeatureAssertions{
         metaFeature: MetaFeature<R>
     ): ExtractedFeaturePostStep<T, R> {
         val representation: Any = metaFeature.representation ?: Text.NULL
-        return ExpectImpl.feature.extractor(container.toExpect())
+        return container.extractFeature
             .withDescription(metaFeature.description)
             .withRepresentationForFailure(representation)
             .withFeatureExtraction { metaFeature.maybeSubject }

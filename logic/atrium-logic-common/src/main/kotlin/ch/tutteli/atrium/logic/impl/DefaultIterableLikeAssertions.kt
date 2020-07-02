@@ -90,21 +90,20 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     override fun <T : Any, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): ExtractedFeaturePostStep<T, E> = collect(container, converter,"min", Iterable<E>::min)
+    ): ExtractedFeaturePostStep<T, E> = collect(container, converter, "min", Iterable<E>::min)
 
     override fun <T : Any, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): ExtractedFeaturePostStep<T, E> = collect(container, converter,"max", Iterable<E>::max)
+    ): ExtractedFeaturePostStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
 
-    private fun <T: Any, E : Comparable<E>> collect(
+    private fun <T : Any, E : Comparable<E>> collect(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>,
         method: String,
         collect: Iterable<E>.() -> E?
-    ): ExtractedFeaturePostStep<T, E> {
-
-        return ExpectImpl.feature.extractor(container.toExpect())
+    ): ExtractedFeaturePostStep<T, E> =
+        container.extractFeature
             .methodCall(method)
             .withRepresentationForFailure(DescriptionIterableAssertion.NO_ELEMENTS)
             .withFeatureExtraction {
@@ -117,5 +116,4 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             }
             .withoutOptions()
             .build()
-    }
 }

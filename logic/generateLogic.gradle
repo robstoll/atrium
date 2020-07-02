@@ -40,11 +40,11 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                 fileName.substring(0, fileName.length() - "Assertions.kt".length())
             }
             def header = """\
-                    //---------------------------------------------------
-                    //  Generated content, modify:
-                    //  logic/generateLogic.gradle
-                    //  if necessary - enjoy the day 🙂
-                    //---------------------------------------------------
+                //---------------------------------------------------
+                //  Generated content, modify:
+                //  logic/generateLogic.gradle
+                //  if necessary - enjoy the day 🙂
+                //---------------------------------------------------
 
                 """.stripIndent().replace("\n", ln)
 
@@ -59,7 +59,7 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                     import kotlin.jvm.JvmName
 
                     import ch.tutteli.atrium.creating.AssertionContainer
-                """.stripIndent().replace("\n", ln)
+                    """.stripIndent().replace("\n", ln)
 
                 interfaces.forEach {
                     def type = getType(it)
@@ -75,7 +75,7 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                         internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
                             get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
 
-                    """.stripIndent().replace("\n", ln)
+                        """.stripIndent().replace("\n", ln)
                 }
             }
 

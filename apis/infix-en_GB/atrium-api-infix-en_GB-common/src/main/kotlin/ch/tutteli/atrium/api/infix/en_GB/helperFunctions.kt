@@ -42,7 +42,7 @@ fun <K, V> pairs(pair: Pair<K, V>, vararg otherPairs: Pair<K, V>): Pairs<K, V> =
 /**
  * Helper function to create a [PresentWithCreator] based on the given [assertionCreator].
  */
-fun <E> present(assertionCreator: Expect<E>.() -> Unit) =
+fun <E> present(assertionCreator: Expect<E>.() -> Unit): PresentWithCreator<E> =
     PresentWithCreator(assertionCreator)
 
 /**
@@ -55,7 +55,7 @@ fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns 
 /**
  * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
  */
-fun <E> success(assertionCreator: Expect<E>.() -> Unit) =
+fun <E> success(assertionCreator: Expect<E>.() -> Unit): SuccessWithCreator<E> =
     SuccessWithCreator(assertionCreator)
 
 /**

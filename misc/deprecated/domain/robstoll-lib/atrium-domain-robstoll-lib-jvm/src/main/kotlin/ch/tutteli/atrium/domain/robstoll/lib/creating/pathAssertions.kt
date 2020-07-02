@@ -1,4 +1,7 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+//TODO remove file with 1.0.0
+@file:Suppress(/* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */"JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE",
+    "DEPRECATION"
+)
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
@@ -43,8 +46,17 @@ fun <T : Path> _endsWith(expect: Expect<T>, expected: Path): Assertion =
 fun <T : Path> _endsNotWith(expect: Expect<T>, expected: Path) =
     ExpectImpl.builder.createDescriptive(expect, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
-fun <T : Path> _hasSameTextualContentAs(expect: Expect<T>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset) =
-    ExpectImpl.builder.createDescriptive(expect, TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceCharset, targetCharset), targetPath) {
+fun <T : Path> _hasSameTextualContentAs(
+    expect: Expect<T>,
+    targetPath: Path,
+    sourceCharset: Charset,
+    targetCharset: Charset
+) =
+    ExpectImpl.builder.createDescriptive(
+        expect,
+        TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceCharset, targetCharset),
+        targetPath
+    ) {
         it.readText(sourceCharset) == targetPath.readText(targetCharset)
     }
 

@@ -19,9 +19,6 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
-            -   name: check generateLogic committed
-                run: ./gradle/scripts/check-generateLogic-committed.sh
-
             -   name: buildNonDeprecatedJvm
                 run: ./gradlew buildNonDeprecatedJvm
 
