@@ -3,8 +3,13 @@ description = 'The domain logic of Atrium for the JVM platform.'
 dependencies {
     api prefixedProject('domain-builders-jvm')
 
+    implementation niok()
+
     // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
+
+    testImplementation prefixedProject('api-fluent-en_GB-jvm')
+    testImplementation prefixedProject('specs-jvm')
 }
 
 apply from: "$project.projectDir/../generateLogic.gradle"

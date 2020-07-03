@@ -1,7 +1,4 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-
-package ch.tutteli.atrium.assertions.filesystem
+package ch.tutteli.atrium.logic.impl.creating.filesystem.hints
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -11,7 +8,6 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.explainForResolvedLink
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
@@ -50,7 +46,6 @@ object SymbolicLinkResolvingSpec : Spek({
      * Throughout this suite, we have to make sure that all paths we use are already completely resolved. Otherwise, we
      * might get additional, unexpected messages because the path to the temporary folder contains a symlink.
      */
-
     describe("explainForResolvedLink", skip = ifSymlinksNotSupported) {
         describe("resolves correctly") {
             afterEachTest {

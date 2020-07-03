@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.get
 

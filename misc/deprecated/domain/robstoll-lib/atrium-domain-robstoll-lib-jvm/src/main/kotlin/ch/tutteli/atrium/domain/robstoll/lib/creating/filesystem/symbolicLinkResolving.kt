@@ -1,4 +1,8 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+//TODO remove file with 1.0.0
+@file:Suppress(
+    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */ "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE",
+    "DEPRECATION"
+)
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem
 
@@ -13,6 +17,7 @@ import java.io.IOException
 import java.nio.file.Path
 import java.util.*
 
+@Deprecated("use function from atrium-logic; will be removed with 1.0.0")
 inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (realPath: Path) -> Assertion): Assertion {
     val hintList = LinkedList<Assertion>()
     val realPath = addAllLevelResolvedSymlinkHints(path, hintList)
@@ -36,6 +41,7 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
  * Adds explanatory hints for all involved symbolic links to [hintList].
  */
 @PublishedApi
+@Deprecated("use function from atrium-logic; will be removed with 1.0.0")
 internal fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
     val absolutePath = path.toAbsolutePath().normalize()
     return addAllLevelResolvedSymlinkHints(absolutePath, hintList, Stack())
