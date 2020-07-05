@@ -26,6 +26,22 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: 
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is before the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isBefore(expected)","ch.tutteli.atrium.api.fluent.en_GB.isBefore")
+)
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: String): Expect<T> =
+    addAssertion(ExpectImpl.chronoLocalDateTime.isBefore(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
  * is before or equal the [expected] [ChronoLocalDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -39,6 +55,23 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: 
 )
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoLocalDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isBeforeOrEquals(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is before or equal the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isBeforeOrEqual(expected)","ch.tutteli.atrium.api.fluent.en_GB.isBeforeOrEqual")
+)
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
+    expected: String
 ): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isBeforeOrEquals(this, expected))
 
 /**
@@ -77,6 +110,23 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is after or equal the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isAfterOrEqual(expected)","ch.tutteli.atrium.api.fluent.en_GB.isAfterOrEqual")
+)
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
+    expected: String
+): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isAfterOrEquals(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
  * is equal to the [expected] [ChronoLocalDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -90,4 +140,21 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
 )
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoLocalDateTime<*>
+): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isEqual(this, expected))
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is equal to the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+@Deprecated(
+    "Use the function from the normal jvm module; the jdk8 extension will be removed with 1.0.0",
+    ReplaceWith("this.isEqual(expected)","ch.tutteli.atrium.api.fluent.en_GB.isEqual")
+)
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
+    expected: String
 ): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isEqual(this, expected))

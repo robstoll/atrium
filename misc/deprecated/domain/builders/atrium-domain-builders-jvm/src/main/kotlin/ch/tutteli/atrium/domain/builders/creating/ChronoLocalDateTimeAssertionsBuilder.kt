@@ -25,9 +25,19 @@ object ChronoLocalDateTimeAssertionsBuilder : ChronoLocalDateTimeAssertions {
         expected: ChronoLocalDateTime<*>
     ) = chronoLocalDateTimeAssertions.isBefore(expect, expected)
 
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
+        expect: Expect<T>,
+        expected: String
+    ) = chronoLocalDateTimeAssertions.isBefore(expect, expected)
+
     override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isBeforeOrEquals(expect, expected)
+
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
+        expect: Expect<T>,
+        expected: String
     ) = chronoLocalDateTimeAssertions.isBeforeOrEquals(expect, expected)
 
     override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
@@ -35,13 +45,28 @@ object ChronoLocalDateTimeAssertionsBuilder : ChronoLocalDateTimeAssertions {
         expected: ChronoLocalDateTime<*>
     ) = chronoLocalDateTimeAssertions.isAfter(expect, expected)
 
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
+        expect: Expect<T>,
+        expected: String
+    ) = chronoLocalDateTimeAssertions.isAfter(expect, expected)
+
     override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
     ) = chronoLocalDateTimeAssertions.isAfterOrEquals(expect, expected)
 
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: String
+    ) = chronoLocalDateTimeAssertions.isAfterOrEquals(expect, expected)
+
     override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
+    ) = chronoLocalDateTimeAssertions.isEqual(expect, expected)
+
+    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
+        expect: Expect<T>,
+        expected: String
     ) = chronoLocalDateTimeAssertions.isEqual(expect, expected)
 }

@@ -6,11 +6,16 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
 fun <T : ChronoLocalDateTime<*>> _isBefore(expect: Expect<T>, expected: ChronoLocalDateTime<*>): Assertion =
     ExpectImpl.builder.createDescriptive(expect, IS_BEFORE, expected) { it.isBefore(expected) }
+
+fun <T : ChronoLocalDateTime<*>> _isBefore(expect: Expect<T>, expected: String): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, IS_BEFORE, expected) { it.isBefore(stringToLocalDateTime(expected)) }
 
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
     expect: Expect<T>,
@@ -20,10 +25,25 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
         it.isBefore(expected) || it.isEqual(expected)
     }
 
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
+    expect: Expect<T>,
+    expected: String
+): Assertion =
+    ExpectImpl.builder.createDescriptive(expect, IS_BEFORE_OR_EQUAL, expected) {
+        it.isBefore(stringToLocalDateTime(expected)) || it.isEqual(stringToLocalDateTime(expected))
+    }
+
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfter(
     expect: Expect<T>,
     expected: ChronoLocalDateTime<*>
 ): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER, expected) { it.isAfter(expected) }
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfter(
+    expect: Expect<T>,
+    expected: String
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER, expected) {
+    it.isAfter(stringToLocalDateTime(expected))
+}
 
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
     expect: Expect<T>,
@@ -32,9 +52,31 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
     it.isAfter(expected) || it.isEqual(expected)
 }
 
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
+    expect: Expect<T>,
+    expected: String
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER_OR_EQUAL, expected) {
+    it.isAfter(stringToLocalDateTime(expected)) || it.isEqual(stringToLocalDateTime(expected))
+}
+
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isEqual(
     expect: Expect<T>,
     expected: ChronoLocalDateTime<*>
 ): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_EQUAL_TO, expected) {
     it.isEqual(expected)
+}
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isEqual(
+    expect: Expect<T>,
+    expected: String
+): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_EQUAL_TO, expected) {
+    it.isEqual(stringToLocalDateTime(expected))
+}
+
+private fun stringToLocalDateTime(data: String): LocalDateTime {
+    return if (data.contains("T")) {
+        LocalDateTime.parse(data)
+    } else {
+        LocalDate.parse(data).atStartOfDay()
+    }
 }

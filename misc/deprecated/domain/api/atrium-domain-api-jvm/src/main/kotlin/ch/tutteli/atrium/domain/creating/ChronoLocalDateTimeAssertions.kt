@@ -25,9 +25,19 @@ interface ChronoLocalDateTimeAssertions {
         expected: ChronoLocalDateTime<*>
     ): Assertion
 
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
+        expect: Expect<T>,
+        expected: String
+    ): Assertion
+
     fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
+        expect: Expect<T>,
+        expected: String
     ): Assertion
 
     fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
@@ -35,13 +45,28 @@ interface ChronoLocalDateTimeAssertions {
         expected: ChronoLocalDateTime<*>
     ): Assertion
 
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
+        expect: Expect<T>,
+        expected: String
+    ): Assertion
+
     fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: ChronoLocalDateTime<*>
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
+        expect: Expect<T>,
+        expected: String
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
     ): Assertion
 
     fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
         expect: Expect<T>,
-        expected: ChronoLocalDateTime<*>
+        expected: String
     ): Assertion
 }

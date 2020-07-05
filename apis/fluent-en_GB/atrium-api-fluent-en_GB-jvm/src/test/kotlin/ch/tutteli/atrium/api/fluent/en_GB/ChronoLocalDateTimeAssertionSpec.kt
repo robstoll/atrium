@@ -11,8 +11,17 @@ import java.time.chrono.ChronoLocalDateTime
 
 class ChronoLocalDateTimeAssertionSpec : Spek({
     include(ChronoLocalDateTimeSpec)
+    include(StringSpec)
 }) {
     object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
+        fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
+        fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
+        fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
+        fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
+        fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
+    )
+
+    object StringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
         fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
         fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
         fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
