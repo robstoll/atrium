@@ -63,7 +63,8 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * @return An [Expect] with the new type [R].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> = _logic.notToThrow().getExpectOfFeature()
+fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
+    _logic.notToThrow().getExpectOfFeature()
 
 /**
  * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
