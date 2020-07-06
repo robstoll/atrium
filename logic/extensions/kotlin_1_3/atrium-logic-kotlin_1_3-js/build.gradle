@@ -1,7 +1,7 @@
-description = 'The domain logic of Atrium for the JS platform.'
+description = 'The domain logic of the Kotlin 1.3 extension for Atrium as JS module.'
 
 dependencies {
-    api prefixedProject('domain-builders-js')
+    api prefixedProject('logic-js')
 
     // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-js')
