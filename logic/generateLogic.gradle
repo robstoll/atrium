@@ -18,8 +18,8 @@ static def getInterfaces(String path) {
     }
 }
 
-def createGenerateLogicTask(Project project, String implsFileName) {
-    String packagePath = "ch/tutteli/atrium/logic"
+def createGenerateLogicTask(Project project, String implsFileName, String suffix = '') {
+    String packagePath = "ch/tutteli/atrium/logic" + (suffix != '' ? "/" + suffix : '')
     String generatedFolder = project.generatedFolder
 
     return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
@@ -49,11 +49,12 @@ def createGenerateLogicTask(Project project, String implsFileName) {
                 """.stripIndent().replace("\n", ln)
 
             new File("$generatedPath/${implsFileName}.kt").withWriter('utf-8') { w ->
+                def packageSuffix = suffix != '' ? '.' + suffix : ''
                 w << header
                 w << """\
                     @file:JvmMultifileClass
                     @file:JvmName("ImplsKt")
-                    package ch.tutteli.atrium.logic
+                    package ch.tutteli.atrium.logic$packageSuffix
 
                     import kotlin.jvm.JvmMultifileClass
                     import kotlin.jvm.JvmName
@@ -63,7 +64,7 @@ def createGenerateLogicTask(Project project, String implsFileName) {
 
                 interfaces.forEach {
                     def type = getType(it)
-                    w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions$ln"
+                    w << "import ch.tutteli.atrium.logic${packageSuffix}.impl.Default${type}Assertions$ln"
                 }
 
                 w << "$ln"

@@ -1,7 +1,7 @@
-description = 'The domain logic of Atrium as common module.'
+description = 'The domain logic of the Kotlin 1.3 extension for Atrium as common module.'
 
 dependencies {
-    api prefixedProject('domain-builders-common')
+    implementation prefixedProject('logic-common')
 
     // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-common')
@@ -11,8 +11,8 @@ dependencies {
 }
 
 
-apply from: "$project.projectDir/../generateLogic.gradle"
-def generateLogic = createGenerateLogicTask(project, "impls")
+apply from: "$project.projectDir/../../../generateLogic.gradle"
+def generateLogic = createGenerateLogicTask(project, "impls", "kotlin_1_3")
 compileKotlinCommon.dependsOn(generateLogic)
 
 sourceSets {
