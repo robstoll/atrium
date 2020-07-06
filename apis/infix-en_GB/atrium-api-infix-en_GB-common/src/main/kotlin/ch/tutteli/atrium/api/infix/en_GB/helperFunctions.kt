@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Expect
  * Helper function to create an [All] based on the given [t] and [ts]
  * -- allows to express `T, vararg T`.
  */
-fun <T> all(t: T, vararg ts: T) = All(t, ts)
+fun <T> all(t: T, vararg ts: T): All<T> = All(t, ts)
 
 /**
  * Helper function to create an [Entry] based on the given [assertionCreatorOrNull].

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = addAssertion(ExpectImpl.any.toBe(this, expected))
+infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
  * Expects that the subject of the assertion is not (equal to) [expected].
@@ -18,7 +18,7 @@ infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = addAssertion(ExpectImpl.a
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = addAssertion(ExpectImpl.any.notToBe(this, expected))
+infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
@@ -26,7 +26,7 @@ infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = addAssertion(ExpectImp
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = addAssertion(ExpectImpl.any.isSame(this, expected))
+infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -34,7 +34,7 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = addAssertion(ExpectIm
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = addAssertion(ExpectImpl.any.isNotSame(this, expected))
+infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
@@ -51,7 +51,7 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = addAssertion(Expec
  */
 inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): Expect<T?> = addAssertion(ExpectImpl.any.toBeNullIfNullGivenElse(this, T::class, assertionCreatorOrNull))
+): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull) }
 
 
 /**
@@ -67,7 +67,8 @@ inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * @since 0.12.0
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
-inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = isA<T>()
+inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
+    _logic.notToBeNull(T::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion is not null and
@@ -80,7 +81,7 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    isA<T>(assertionCreator)
+    _logic.notToBeNull(T::class).addToFeature(assertionCreator)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
@@ -103,7 +104,7 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCrea
  */
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    ExpectImpl.any.isA(this, TSub::class).getExpectOfFeature()
+    _logic.isA(TSub::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -147,7 +148,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    ExpectImpl.any.isA(this, TSub::class).addToFeature(assertionCreator)
+    _logic.isA(TSub::class).addToFeature(assertionCreator)
 
 /**
  * Can be used to separate single assertions.
