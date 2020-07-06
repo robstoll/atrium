@@ -9,7 +9,8 @@ import ch.tutteli.atrium.logic.*
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty() }
+fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
+    _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
@@ -17,7 +18,8 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> = _logicAppend { isNotEmpty() }
+fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
+    _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) has the given [expected] size.
@@ -27,7 +29,8 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> = _logicAppend { isNot
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> = size { toBe(expected) }
+fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
+    size { toBe(expected) }
 
 /**
  * Creates an [Expect] for the property [Collection.size] of the subject of the assertion,
