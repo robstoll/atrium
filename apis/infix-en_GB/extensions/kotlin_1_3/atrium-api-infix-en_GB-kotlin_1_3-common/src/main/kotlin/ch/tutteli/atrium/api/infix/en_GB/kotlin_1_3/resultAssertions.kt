@@ -3,8 +3,9 @@ package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 import ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.kotlin_1_3.isFailure
+import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Success
@@ -16,7 +17,7 @@ import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
  * @since 0.12.0
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") success: success): Expect<E> =
-    ExpectImpl.result.isSuccess(this).getExpectOfFeature()
+    _logic.isSuccess().getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Result]]) is a Success and
@@ -30,7 +31,7 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") succes
  * @since 0.12.0
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Expect<T> =
-    ExpectImpl.result.isSuccess(this).addToInitial(success.assertionCreator)
+    _logic.isSuccess().addToInitial(success.assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure and
@@ -42,7 +43,7 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Exp
  * @since 0.12.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Expect<TExpected> =
-    ExpectImpl.result.isFailure(this, TExpected::class).getExpectOfFeature()
+    _logic.isFailure(TExpected::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure,
@@ -56,4 +57,4 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  */
 inline infix fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = ExpectImpl.result.isFailure(this, TExpected::class).addToFeature(assertionCreator)
+): Expect<TExpected> = _logic.isFailure(TExpected::class).addToFeature(assertionCreator)

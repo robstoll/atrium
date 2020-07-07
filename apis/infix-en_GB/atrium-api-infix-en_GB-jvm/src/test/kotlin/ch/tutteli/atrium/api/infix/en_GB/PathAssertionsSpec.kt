@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.path
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.charset.Charset
@@ -34,8 +33,20 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
 
-        private fun hasSameTextualContentAs(expect: Expect<Path>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Expect<Path> =
-            expect.addAssertion(ExpectImpl.path.hasSameTextualContentAs(expect, targetPath, sourceCharset, targetCharset))
+        private fun hasSameTextualContentAs(
+            expect: Expect<Path>,
+            targetPath: Path,
+            sourceCharset: Charset,
+            targetCharset: Charset
+        ): Expect<Path> =
+            expect.addAssertion(
+                ExpectImpl.path.hasSameTextualContentAs(
+                    expect,
+                    targetPath,
+                    sourceCharset,
+                    targetCharset
+                )
+            )
 
         private fun hasSameBinaryContentAs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
             expect.addAssertion(ExpectImpl.path.hasSameBinaryContentAs(expect, targetPath))

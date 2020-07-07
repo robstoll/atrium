@@ -16,8 +16,9 @@ import java.time.chrono.ChronoLocalDateTime
  *
  * @since 0.9.0
  */
-fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: ChronoLocalDateTime<*>): Expect<T> =
-    _logicAppend { isBefore(expected) }
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
+    expected: ChronoLocalDateTime<*>
+): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
