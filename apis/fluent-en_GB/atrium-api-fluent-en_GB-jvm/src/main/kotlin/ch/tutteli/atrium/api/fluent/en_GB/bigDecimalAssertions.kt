@@ -3,12 +3,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.isEqualIncludingScale
-import ch.tutteli.atrium.logic.isNumericallyEqualTo
 import java.math.BigDecimal
 
 /**
