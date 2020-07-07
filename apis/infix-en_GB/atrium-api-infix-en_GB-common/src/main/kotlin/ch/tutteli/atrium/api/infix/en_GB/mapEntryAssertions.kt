@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 
 /**
  * Expects that the property [Map.Entry.key] of the subject of the assertion
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K, V>): Expect<T> =
-    addAssertion(ExpectImpl.map.entry.isKeyValue(this, keyValuePair.first, keyValuePair.second))
+    _logicAppend { isKeyValue(keyValuePair.first, keyValuePair.second) }
 
 /**
  * Creates an [Expect] for the property [Map.Entry.key] of the subject of the assertion,
@@ -24,7 +24,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K,
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
-    get() = ExpectImpl.map.entry.key(this).getExpectOfFeature()
+    get() = _logic.key().getExpectOfFeature()
 
 /**
  * Expects that the property [Map.Entry.key] of the subject of the assertion
@@ -35,7 +35,7 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
-    ExpectImpl.map.entry.key(this).addToInitial(assertionCreator)
+    _logic.key().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.Entry.value] of the subject of the assertion,
@@ -44,7 +44,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
  * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
-    get() = ExpectImpl.map.entry.value(this).getExpectOfFeature()
+    get() = _logic.value().getExpectOfFeature()
 
 /**
  * Expects that the property [Map.Entry.value] of the subject of the assertion
@@ -55,4 +55,4 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
-    ExpectImpl.map.entry.value(this).addToInitial(assertionCreator)
+    _logic.value().addToInitial(assertionCreator)

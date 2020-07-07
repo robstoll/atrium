@@ -30,7 +30,6 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<
 fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isBeforeOrEqual(expected) }
 
-
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDate])
  * is after the [expected] [ChronoLocalDate].
