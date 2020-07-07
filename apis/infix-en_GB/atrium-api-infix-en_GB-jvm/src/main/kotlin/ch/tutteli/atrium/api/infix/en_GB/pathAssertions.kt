@@ -298,3 +298,52 @@ val <T : Path> Expect<T>.extension: Expect<String>
  */
 infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     _logic.extension().addToInitial(assertionCreator)
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * as [targetPath].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+infix fun <T : Path> Expect<T>.hasSameTextualContentAsDefaultArgs(
+    targetPath: Path
+): Expect<T> = addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, targetPath, Charsets.UTF_8, Charsets.UTF_8))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * as path in [encodingWithCreator].
+ *
+ *  Use the function `withEncoding(Path, Charset, Charset) { ... }` to create a [EncodingWithCreator].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
+    encodingWithCreator: EncodingWithCreator<T>
+): Expect<T> = addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, encodingWithCreator.path,
+    encodingWithCreator.sourceCharset, encodingWithCreator.targetCharset))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same binary content
+ * as [targetPath].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path):
+    Expect<T> = addAssertion(ExpectImpl.path.hasSameBinaryContentAs(this, targetPath))
+
+
+/**
+ * Helper function to create a [EncodingWithCreator] based on the given [path] and [assertionCreator].
+ */
+fun <T : Path> withEncoding(path: Path, assertionCreator: Expect<T>,
+                            sourceCharset: Charset = Charsets.UTF_8, targetCharset: Charset = Charsets.UTF_8):
+    EncodingWithCreator<T> = EncodingWithCreator(path, sourceCharset, targetCharset, assertionCreator)

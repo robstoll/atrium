@@ -25,7 +25,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1(Companion::hasSameTextualContentAsDefaultArgs)
 ) {
 
-    companion object {
+    companion object : WithAsciiReporter() {
         private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
             expect.hasSameTextualContentAs(targetPath)
     }
