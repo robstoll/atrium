@@ -2,7 +2,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.cause
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null,
@@ -64,7 +65,7 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  * @since 0.12.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
-    ExpectImpl.throwable.cause(this, TExpected::class).getExpectOfFeature()
+    _logic.cause(TExpected::class).getExpectOfFeature()
 
 /**
  *
@@ -81,5 +82,4 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  */
 inline infix fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> =
-    ExpectImpl.throwable.cause(this, TExpected::class).addToFeature(assertionCreator)
+): Expect<TExpected> = _logic.cause(TExpected::class).addToFeature(assertionCreator)

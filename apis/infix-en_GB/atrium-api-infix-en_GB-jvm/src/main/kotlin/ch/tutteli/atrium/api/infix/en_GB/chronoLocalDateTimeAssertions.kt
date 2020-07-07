@@ -3,8 +3,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.chronoLocalDateTime
+import ch.tutteli.atrium.logic.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
@@ -17,8 +16,9 @@ import java.time.chrono.ChronoLocalDateTime
  *
  * @since 0.12.0
  */
-infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expected: ChronoLocalDateTime<*>): Expect<T> =
-    addAssertion(ExpectImpl.chronoLocalDateTime.isBefore(this, expected))
+infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
+    expected: ChronoLocalDateTime<*>
+): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
@@ -31,7 +31,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(expe
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoLocalDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isBeforeOrEquals(this, expected))
+): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
@@ -44,7 +44,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoLocalDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isAfter(this, expected))
+): Expect<T> = _logicAppend { isAfter(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
@@ -57,7 +57,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoLocalDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isAfterOrEquals(this, expected))
+): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
@@ -70,4 +70,4 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoLocalDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoLocalDateTime.isEqual(this, expected))
+): Expect<T> = _logicAppend { isEqual(expected) }
