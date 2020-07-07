@@ -3,7 +3,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.changeSubject
 import java.io.File
 import java.nio.file.Path
 
@@ -17,9 +18,8 @@ import java.nio.file.Path
  *
  * @since 0.12.0
  */
-infix fun <T : File> Expect<T>.asPath(
-    @Suppress("UNUSED_PARAMETER") o: o
-): Expect<Path> = ExpectImpl.changeSubject(this).unreported { it.toPath() }
+infix fun <T : File> Expect<T>.asPath(@Suppress("UNUSED_PARAMETER") o: o): Expect<Path> =
+    _logic.changeSubject.unreported { it.toPath() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for

@@ -6,8 +6,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.localDateTime
+import ch.tutteli.atrium.logic.*
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
@@ -19,8 +18,8 @@ import java.time.LocalDateTime
  *
  * @since 0.12.0
  */
-val <T : LocalDateTime> Expect<T>.year: Expect<Int>
-    get() = ExpectImpl.localDateTime.year(this).getExpectOfFeature()
+val Expect<LocalDateTime>.year: Expect<Int>
+    get() = _logic.year().getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDateTime.year][LocalDateTime.getYear] of the subject of the assertion
@@ -32,8 +31,8 @@ val <T : LocalDateTime> Expect<T>.year: Expect<Int>
  *
  * @since 0.12.0
  */
-infix fun <T : LocalDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.localDateTime.year(this).addToInitial(assertionCreator)
+infix fun Expect<LocalDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDateTime> =
+    _logic.year().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [LocalDateTime.monthValue][LocalDateTime.getMonthValue]
@@ -43,8 +42,8 @@ infix fun <T : LocalDateTime> Expect<T>.year(assertionCreator: Expect<Int>.() ->
  *
  * @since 0.12.0
  */
-val <T : LocalDateTime> Expect<T>.month: Expect<Int>
-    get() = ExpectImpl.localDateTime.month(this).getExpectOfFeature()
+val Expect<LocalDateTime>.month: Expect<Int>
+    get() = _logic.month().getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDateTime.monthValue][LocalDateTime.getMonthValue]of the subject of the assertion
@@ -56,8 +55,8 @@ val <T : LocalDateTime> Expect<T>.month: Expect<Int>
  *
  * @since 0.12.0
  */
-infix fun <T : LocalDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.localDateTime.month(this).addToInitial(assertionCreator)
+infix fun Expect<LocalDateTime>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDateTime> =
+    _logic.month().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [LocalDateTime.dayOfWeek][LocalDateTime.getDayOfWeek]
@@ -67,8 +66,8 @@ infix fun <T : LocalDateTime> Expect<T>.month(assertionCreator: Expect<Int>.() -
  *
  * @since 0.12.0
  */
-val <T : LocalDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
-    get() = ExpectImpl.localDateTime.dayOfWeek(this).getExpectOfFeature()
+val Expect<LocalDateTime>.dayOfWeek: Expect<DayOfWeek>
+    get() = _logic.dayOfWeek().getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDateTime.dayOfWeek][LocalDateTime.getDayOfWeek]of the subject of the assertion
@@ -80,8 +79,8 @@ val <T : LocalDateTime> Expect<T>.dayOfWeek: Expect<DayOfWeek>
  *
  * @since 0.12.0
  */
-infix fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<T> =
-    ExpectImpl.localDateTime.dayOfWeek(this).addToInitial(assertionCreator)
+infix fun Expect<LocalDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<LocalDateTime> =
+    _logic.dayOfWeek().addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [LocalDateTime.dayOfMonth][LocalDateTime.getDayOfMonth]
@@ -91,8 +90,8 @@ infix fun <T : LocalDateTime> Expect<T>.dayOfWeek(assertionCreator: Expect<DayOf
  *
  * @since 0.12.0
  */
-val <T : LocalDateTime> Expect<T>.day: Expect<Int>
-    get() = ExpectImpl.localDateTime.day(this).getExpectOfFeature()
+val Expect<LocalDateTime>.day: Expect<Int>
+    get() = _logic.day().getExpectOfFeature()
 
 /**
  * Expects that the property [LocalDateTime.dayOfMonth][LocalDateTime.getDayOfMonth] of the subject of the assertion
@@ -104,6 +103,6 @@ val <T : LocalDateTime> Expect<T>.day: Expect<Int>
  *
  * @since 0.12.0
  */
-infix fun <T : LocalDateTime> Expect<T>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.localDateTime.day(this).addToInitial(assertionCreator)
+infix fun Expect<LocalDateTime>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDateTime> =
+    _logic.day().addToInitial(assertionCreator)
 
