@@ -10,6 +10,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
 import java.math.BigDecimal
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : BigDecimal> _isNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NUMERICALLY_EQUAL_TO, expected) {
         isNumericallyEqualTo(it, expected)
@@ -18,6 +20,8 @@ fun <T : BigDecimal> _isNumericallyEqualTo(subjectProvider: SubjectProvider<T>, 
 private fun <T : BigDecimal> isNumericallyEqualTo(subject: T, expected: T) =
     subject.compareTo(expected) == 0
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : BigDecimal> _isNotNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T) =
     ExpectImpl.builder.createDescriptive(
         subjectProvider,
@@ -25,6 +29,8 @@ fun <T : BigDecimal> _isNotNumericallyEqualTo(subjectProvider: SubjectProvider<T
         expected
     ) { !isNumericallyEqualTo(it, expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : BigDecimal> _isEqualIncludingScale(
     subjectProvider: SubjectProvider<T>,
     expected: T,
@@ -46,6 +52,8 @@ fun <T : BigDecimal> _isEqualIncludingScale(
     .withDescriptionAndRepresentation(IS_EQUAL_INCLUDING_SCALE, expected)
     .build()
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : BigDecimal> _isNotEqualIncludingScale(subjectProvider: SubjectProvider<T>, expected: T): Assertion {
     // unfortunately we cannot give a hint about isNotNumericallyEqualTo, because <<10 is not 10.0>> holds
     // so we do not get to the point where we can detect that using this function instead of isNotNumericallyEqualTo

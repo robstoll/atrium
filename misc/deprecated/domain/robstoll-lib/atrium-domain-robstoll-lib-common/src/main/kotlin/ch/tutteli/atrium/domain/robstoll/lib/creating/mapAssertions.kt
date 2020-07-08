@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 @file:JvmMultifileClass
 @file:JvmName("MapAssertionsKt")
 
@@ -21,6 +23,8 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 import kotlin.reflect.KClass
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K, V, T : Map<out K, V>> _contains(
     expect: Expect<T>,
     pairs: List<Pair<K, V>>
@@ -28,6 +32,8 @@ fun <K, V, T : Map<out K, V>> _contains(
     key to subExpect<V> { toBe(value) }
 })
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
     expect: Expect<T>,
     valueType: KClass<V>,
@@ -38,6 +44,8 @@ fun <K, V : Any, T : Map<out K, V?>> _containsKeyWithValueAssertion(
     }
 })
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K, V, T : Map<out K, V>> _containsKeyWithValueAssertion(
     expect: Expect<T>,
     keyValues: List<Pair<K, Expect<V>.() -> Unit>>
@@ -62,19 +70,29 @@ fun <K, V, T : Map<out K, V>> _containsKeyWithValueAssertion(
         .build()
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K> _containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, CONTAINS_KEY, key) { it.containsKey(key) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K> _containsNotKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, CONTAINS_NOT_KEY, key) { it.containsKey(key).not() }
 
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS, EMPTY) { it.isEmpty() }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, EMPTY) { it.isNotEmpty() }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K, V, T : Map<out K, V>> _getExisting(expect: Expect<T>, key: K): ExtractedFeaturePostStep<T, V> =
     ExpectImpl.feature.extractor(expect)
         .methodCall("get", key)
@@ -101,5 +119,7 @@ private fun <K, T : Map<out K, V>, V> extractKey(it: T, key: K): Option<V> {
     }
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Map<*, *>> _size(expect: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(expect, SIZE) { size }
