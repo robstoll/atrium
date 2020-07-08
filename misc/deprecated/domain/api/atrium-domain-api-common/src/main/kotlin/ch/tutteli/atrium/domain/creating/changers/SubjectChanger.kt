@@ -27,6 +27,7 @@ val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
  * Defines the contract to change the subject of an assertion container (e.g. the subject of [Expect]) by creating
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.
  */
+//TODO 0.14.0 move to atrium-logic
 interface SubjectChanger {
 
     /**
