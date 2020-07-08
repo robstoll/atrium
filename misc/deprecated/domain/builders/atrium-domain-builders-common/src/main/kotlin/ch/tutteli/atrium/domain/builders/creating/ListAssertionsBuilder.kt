@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.creating.listAssertions
  * In detail, it implements [ListAssertions] by delegating to [listAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object ListAssertionsBuilder : ListAssertions {
 
     override inline fun <E, T : List<E>> get(

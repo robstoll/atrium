@@ -21,6 +21,7 @@ import kotlin.reflect.KClass
  * In detail, it implements [AnyAssertions] by delegating to [anyAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object AnyAssertionsBuilder : AnyAssertions {
 
     override inline fun <T> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion =

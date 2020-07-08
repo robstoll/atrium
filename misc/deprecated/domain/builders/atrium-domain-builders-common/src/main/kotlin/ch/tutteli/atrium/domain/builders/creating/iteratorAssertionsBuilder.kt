@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.creating.iteratorAssertions
  * In detail, it implements [IteratorAssertions] by delegating to [iteratorAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object IteratorAssertionsBuilder : IteratorAssertions {
     override inline fun <E, T : Iterator<E>> hasNext(expect: Expect<T>): Assertion =
         iteratorAssertions.hasNext(expect)
