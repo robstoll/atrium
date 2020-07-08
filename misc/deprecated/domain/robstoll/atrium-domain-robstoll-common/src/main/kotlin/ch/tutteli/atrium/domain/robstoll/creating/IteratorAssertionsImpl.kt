@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.creating.IteratorAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._hasNext
 import ch.tutteli.atrium.domain.robstoll.lib.creating._hasNotNext
 
+@Deprecated("Will be removed with 1.0.0")
 class IteratorAssertionsImpl : IteratorAssertions {
     override fun <E, T : Iterator<E>> hasNext(expect: Expect<T>): Assertion = _hasNext(expect)
 

@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._toBeWithErrorTolerance
 import java.math.BigDecimal
 
 
+@Deprecated("Will be removed with 1.0.0")
 class FloatingPointAssertionsImpl : FloatingPointAssertions {
 
     override fun toBeWithErrorTolerance(

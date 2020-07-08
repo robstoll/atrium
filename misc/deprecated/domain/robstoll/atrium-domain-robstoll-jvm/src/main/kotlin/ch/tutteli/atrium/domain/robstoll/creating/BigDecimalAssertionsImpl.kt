@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotNumericallyEqualTo
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNumericallyEqualTo
 import java.math.BigDecimal
 
-
+@Deprecated("Will be removed with 1.0.0")
 class BigDecimalAssertionsImpl : BigDecimalAssertions {
 
     override fun <T : BigDecimal> isNumericallyEqualTo(subjectProvider: SubjectProvider<T>, expected: T) =

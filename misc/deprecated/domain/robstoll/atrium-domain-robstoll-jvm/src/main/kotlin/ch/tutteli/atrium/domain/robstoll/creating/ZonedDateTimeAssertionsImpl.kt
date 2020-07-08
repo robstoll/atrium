@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._month
 import ch.tutteli.atrium.domain.robstoll.lib.creating._year
 import java.time.ZonedDateTime
 
+@Deprecated("Will be removed with 1.0.0")
 class ZonedDateTimeAssertionsImpl : ZonedDateTimeAssertions {
     override fun <T : ZonedDateTime> year(expect: Expect<T>) = _year(expect)
 
