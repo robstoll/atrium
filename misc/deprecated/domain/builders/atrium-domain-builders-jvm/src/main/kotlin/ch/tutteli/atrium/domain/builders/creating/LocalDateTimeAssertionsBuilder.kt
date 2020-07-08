@@ -19,7 +19,7 @@ import java.time.LocalDateTime
  * In detail, it implements [LocalDateTimeAssertions] by delegating to [localDateTimeAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-@Deprecated("Use _logic instead; will be removed with 1.0.0")
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object LocalDateTimeAssertionsBuilder : LocalDateTimeAssertions {
     override inline fun <T : LocalDateTime> year(expect: Expect<T>) =
         localDateTimeAssertions.year(expect)
