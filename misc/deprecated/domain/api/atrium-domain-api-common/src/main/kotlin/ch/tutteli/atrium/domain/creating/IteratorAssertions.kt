@@ -11,6 +11,7 @@ import ch.tutteli.atrium.creating.Expect
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val iteratorAssertions by lazy { loadSingleService(IteratorAssertions::class) }
 
 
