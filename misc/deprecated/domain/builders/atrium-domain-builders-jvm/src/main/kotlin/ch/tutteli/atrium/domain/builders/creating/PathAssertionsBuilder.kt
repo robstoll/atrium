@@ -20,7 +20,7 @@ import java.nio.file.Path
  * In detail, it implements [PathAssertions] by delegating to [pathAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-@Deprecated("Use _logic instead; will be removed with 1.0.0")
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object PathAssertionsBuilder : PathAssertions {
     override inline fun <T : Path> startsWith(expect: Expect<T>, expected: Path) =
         pathAssertions.startsWith(expect, expected)
