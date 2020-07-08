@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.creating
 
@@ -24,6 +25,10 @@ val iterableAssertions by lazy { loadSingleService(IterableAssertions::class) }
  * Defines the minimum set of assertion functions and builders applicable to [Iterable],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use IterableAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.IterableAssertions")
+)
 interface IterableAssertions {
     fun <E, T : Iterable<E>> containsBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     fun <E, T : Iterable<E>> containsNotBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NotSearchBehaviour>

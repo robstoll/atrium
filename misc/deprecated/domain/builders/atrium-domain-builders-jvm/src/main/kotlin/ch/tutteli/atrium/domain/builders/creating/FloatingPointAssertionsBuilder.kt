@@ -1,4 +1,6 @@
+//TODO remove file with 1.0.0
 @file:Suppress(
+    "DEPRECATION",
     "OVERRIDE_BY_INLINE",
     "NOTHING_TO_INLINE",
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */

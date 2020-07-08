@@ -1,4 +1,5 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION" /* will be removed with 1.0.0 */)
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.creating
 
