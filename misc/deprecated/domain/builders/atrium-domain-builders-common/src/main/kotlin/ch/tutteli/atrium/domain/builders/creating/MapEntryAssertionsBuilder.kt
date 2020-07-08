@@ -17,6 +17,7 @@ import kotlin.reflect.KClass
  * In detail, it implements [MapEntryAssertions] by delegating to [mapEntryAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object MapEntryAssertionsBuilder : MapEntryAssertions {
     override inline fun <K, V, T : Map.Entry<K, V>> isKeyValue(
         expect: Expect<T>,
