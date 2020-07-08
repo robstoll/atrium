@@ -753,7 +753,7 @@ abstract class PathAssertionsSpec(
     describeFun(hasSameBinaryContentAs, hasSameTextualContentAs, hasSameTextualContentAsDefaultArgs) {
         val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
         val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
-        val hasSameTextualContentAsDefaultArgsAsFun = hasSameTextualContentAsDefaultArgs.lambda
+        val hasSameTextualContentAsDefaultArgsFun = hasSameTextualContentAsDefaultArgs.lambda
 
         fun errorHasSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
             TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
