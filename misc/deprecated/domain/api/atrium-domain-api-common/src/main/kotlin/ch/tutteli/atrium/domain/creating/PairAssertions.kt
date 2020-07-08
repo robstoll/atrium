@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.creating
 
@@ -21,6 +22,10 @@ val pairAssertions by lazy { loadSingleService(PairAssertions::class) }
  * Defines the minimum set of assertion functions and builders applicable to [Map],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use PairAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.PairAssertions")
+)
 interface PairAssertions {
     fun <K, T : Pair<K, *>> first(expect: Expect<T>): ExtractedFeaturePostStep<T, K>
     fun <V, T : Pair<*, V>> second(expect: Expect<T>): ExtractedFeaturePostStep<T, V>

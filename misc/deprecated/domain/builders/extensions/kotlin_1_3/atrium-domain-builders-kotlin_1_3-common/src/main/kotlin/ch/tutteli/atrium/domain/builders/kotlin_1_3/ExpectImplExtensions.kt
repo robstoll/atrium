@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.builders.kotlin_1_3
 
 import ch.tutteli.atrium.domain.builders.ExpectImpl
