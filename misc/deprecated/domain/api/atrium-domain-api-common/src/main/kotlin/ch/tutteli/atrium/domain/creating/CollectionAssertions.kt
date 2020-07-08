@@ -18,6 +18,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val collectionAssertions by lazy { loadSingleService(CollectionAssertions::class) }
 
 

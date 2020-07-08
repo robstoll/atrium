@@ -16,6 +16,7 @@ import kotlin.reflect.KClass
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val mapEntryAssertions by lazy { loadSingleService(MapEntryAssertions::class) }
 
 
