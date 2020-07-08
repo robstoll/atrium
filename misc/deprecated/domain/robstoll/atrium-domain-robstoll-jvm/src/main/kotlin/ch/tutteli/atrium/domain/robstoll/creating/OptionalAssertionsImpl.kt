@@ -14,6 +14,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isEmpty
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isPresent
 import java.util.*
 
+@Deprecated("Will be removed with 1.0.0")
 class OptionalAssertionsImpl : OptionalAssertions {
 
     override fun <T : Optional<*>> isEmpty(expect: Expect<T>) = _isEmpty(expect)

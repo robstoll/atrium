@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
 
+@Deprecated("Will be removed with 1.0.0")
 class MapAssertionsImpl : MapAssertions, MapAssertionsDeprecatedImpl() {
 
     override fun <K, V, T : Map<out K, V>> contains(

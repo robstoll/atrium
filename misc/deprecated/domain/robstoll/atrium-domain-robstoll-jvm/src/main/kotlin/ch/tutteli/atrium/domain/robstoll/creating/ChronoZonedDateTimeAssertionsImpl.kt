@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.time.chrono.ChronoZonedDateTime
 
+@Deprecated("Will be removed with 1.0.0")
 class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
 
     override fun <T : ChronoZonedDateTime<*>> isBefore(

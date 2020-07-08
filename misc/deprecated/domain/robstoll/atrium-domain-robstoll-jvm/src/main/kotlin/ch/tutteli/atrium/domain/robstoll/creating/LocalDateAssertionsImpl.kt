@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._month
 import ch.tutteli.atrium.domain.robstoll.lib.creating._year
 import java.time.LocalDate
 
+@Deprecated("Will be removed with 1.0.0")
 class LocalDateAssertionsImpl : LocalDateAssertions {
     override fun <T : LocalDate> year(expect: Expect<T>) = _year(expect)
 

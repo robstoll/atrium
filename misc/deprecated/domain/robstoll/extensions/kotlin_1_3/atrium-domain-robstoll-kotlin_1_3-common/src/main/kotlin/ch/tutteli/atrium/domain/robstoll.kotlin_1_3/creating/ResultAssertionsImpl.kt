@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.kotlin_1_3.creating._isFailure
 import ch.tutteli.atrium.domain.robstoll.lib.kotlin_1_3.creating._isSuccess
 import kotlin.reflect.KClass
 
+@Deprecated("Will be removed with 1.0.0")
 class ResultAssertionsImpl : ResultAssertions {
     override fun <E, T : Result<E>> isSuccess(expect: Expect<T>) =
         _isSuccess(expect)
