@@ -10,6 +10,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 actual fun createAdditionalHints(
     throwable: Throwable,
     maxStackTrace: Int

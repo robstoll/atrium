@@ -16,9 +16,13 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 import kotlin.math.absoluteValue
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _toBeWithErrorTolerance(subjectProvider: SubjectProvider<Float>, expected: Float, tolerance: Float): Assertion =
     toBeWithErrorToleranceOfFloatOrDouble(subjectProvider, expected, tolerance) { (it - expected).absoluteValue }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _toBeWithErrorTolerance(subjectProvider: SubjectProvider<Double>, expected: Double, tolerance: Double): Assertion =
     toBeWithErrorToleranceOfFloatOrDouble(subjectProvider, expected, tolerance) { (it - expected).absoluteValue }
 

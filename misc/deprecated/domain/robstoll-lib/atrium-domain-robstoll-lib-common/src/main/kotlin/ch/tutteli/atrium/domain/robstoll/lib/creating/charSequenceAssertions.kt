@@ -21,29 +21,47 @@ fun <T : CharSequence> _containsNotBuilder(subjectProvider: SubjectProvider<T>):
     CharSequenceContainsBuilder(subjectProvider, NotSearchBehaviourImpl())
 
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _startsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, STARTS_WITH, expected) { it.startsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _startsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _endsWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, ENDS_WITH, expected) { it.endsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _endsNotWith(subjectProvider: SubjectProvider<CharSequence>, expected: CharSequence): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS, EMPTY) { it.isEmpty() }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isNotEmpty(subjectProvider: SubjectProvider<CharSequence>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, EMPTY) { it.isNotEmpty() }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isNotBlank(subjectProvider: SubjectProvider<CharSequence>): Assertion =
     ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, BLANK) { it.isNotBlank() }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : CharSequence> _matches(expect: Expect<T>, expected: Regex): Assertion =
     ExpectImpl.builder.createDescriptive(expect, MATCHES, expected) { it.matches(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : CharSequence> _mismatches(expect: Expect<T>, expected: Regex): Assertion =
     ExpectImpl.builder.createDescriptive(expect, MISMATCHES, expected) { !it.matches(expected) }

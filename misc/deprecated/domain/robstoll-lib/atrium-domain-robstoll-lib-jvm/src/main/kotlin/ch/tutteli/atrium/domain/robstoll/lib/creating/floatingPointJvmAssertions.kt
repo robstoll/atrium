@@ -8,6 +8,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.SubjectProvider
 import java.math.BigDecimal
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : BigDecimal> _toBeWithErrorTolerance(
     subjectProvider: SubjectProvider<T>,
     expected: T,
