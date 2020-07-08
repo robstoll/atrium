@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -176,4 +178,6 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
 /**
  * Hook for platform specific additional hints.
  */
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 expect fun createAdditionalHints(throwable: Throwable, maxStackTrace: Int): List<Assertion>

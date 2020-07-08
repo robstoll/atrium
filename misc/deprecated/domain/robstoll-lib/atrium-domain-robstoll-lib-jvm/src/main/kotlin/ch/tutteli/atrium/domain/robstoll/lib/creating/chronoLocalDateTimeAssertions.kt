@@ -9,9 +9,13 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : ChronoLocalDateTime<*>> _isBefore(expect: Expect<T>, expected: ChronoLocalDateTime<*>): Assertion =
     ExpectImpl.builder.createDescriptive(expect, IS_BEFORE, expected) { it.isBefore(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
     expect: Expect<T>,
     expected: ChronoLocalDateTime<*>
@@ -20,11 +24,15 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isBeforeOrEquals(
         it.isBefore(expected) || it.isEqual(expected)
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfter(
     expect: Expect<T>,
     expected: ChronoLocalDateTime<*>
 ): Assertion = ExpectImpl.builder.createDescriptive(expect, IS_AFTER, expected) { it.isAfter(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
     expect: Expect<T>,
     expected: ChronoLocalDateTime<*>
@@ -32,6 +40,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isAfterOrEquals(
     it.isAfter(expected) || it.isEqual(expected)
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> _isEqual(
     expect: Expect<T>,
     expected: ChronoLocalDateTime<*>

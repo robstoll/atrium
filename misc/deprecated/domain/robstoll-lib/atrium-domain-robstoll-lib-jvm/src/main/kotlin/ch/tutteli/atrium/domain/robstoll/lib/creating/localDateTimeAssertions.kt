@@ -12,15 +12,23 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : LocalDateTime> _year(expect: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(expect, DescriptionDateTimeLikeAssertion.YEAR) { year }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : LocalDateTime> _month(expect: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(expect, DescriptionDateTimeLikeAssertion.MONTH) { monthValue }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : LocalDateTime> _day(expect: Expect<T>): ExtractedFeaturePostStep<T, Int> =
     ExpectImpl.feature.manualFeature(expect, DescriptionDateTimeLikeAssertion.DAY) { dayOfMonth }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : LocalDateTime> _dayOfWeek(expect: Expect<T>): ExtractedFeaturePostStep<T, DayOfWeek> =
     ExpectImpl.feature.manualFeature(expect, DescriptionDateTimeLikeAssertion.DAY_OF_WEEK) { dayOfWeek }
 
