@@ -19,7 +19,7 @@ import java.time.ZonedDateTime
  * In detail, it implements [ZonedDateTimeAssertions] by delegating to [zonedDateTimeAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-@Deprecated("Use _logic instead; will be removed with 1.0.0")
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object ZonedDateTimeAssertionsBuilder : ZonedDateTimeAssertions {
     override inline fun <T : ZonedDateTime> year(expect: Expect<T>) =
         zonedDateTimeAssertions.year(expect)
