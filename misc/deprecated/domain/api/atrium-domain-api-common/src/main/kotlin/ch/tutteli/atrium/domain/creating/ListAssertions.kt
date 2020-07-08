@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.creating
 
@@ -20,6 +21,10 @@ val listAssertions by lazy { loadSingleService(ListAssertions::class) }
  * Defines the minimum set of assertion functions and builders applicable to [List],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use ListAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.ListAssertions")
+)
 interface ListAssertions {
 
     fun <E, T : List<E>> get(
