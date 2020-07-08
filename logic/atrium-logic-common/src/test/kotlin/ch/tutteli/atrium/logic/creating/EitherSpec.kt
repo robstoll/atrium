@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.creating
+package ch.tutteli.atrium.logic.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
@@ -18,7 +18,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 /**
- * Showcase for using ExpectImpl.feature.extractor
+ * Showcase for using _logic.extractFeature
  */
 object EitherSpec : Spek({
 
@@ -59,11 +59,11 @@ object EitherSpec : Spek({
     }
 })
 
-fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = changeToLeft().getExpectOfFeature()
+fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = extractLeft().getExpectOfFeature()
 fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
-    changeToLeft().addToInitial(assertionCreator)
+    extractLeft().addToInitial(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
+private fun <A, B> Expect<Either<A, B>>.extractLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
     _logic.extractFeature
         .withDescription("value of Left")
         .withRepresentationForFailure(Text("❗❗ is not a Left"))
@@ -73,11 +73,11 @@ private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ExtractedFeaturePostStep
         .withoutOptions()
         .build()
 
-fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = changeToRight().getExpectOfFeature()
+fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = extractRight().getExpectOfFeature()
 fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
-    changeToRight().addToInitial(assertionCreator)
+    extractRight().addToInitial(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.changeToRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
+private fun <A, B> Expect<Either<A, B>>.extractRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
     _logic.extractFeature
         .withDescription("value of Right")
         .withRepresentationForFailure(Text("❗❗ is not a Right"))
