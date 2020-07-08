@@ -14,6 +14,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
+@Deprecated("Will be removed with 1.0.0")
 class ChronoLocalDateTimeAssertionsImpl : ChronoLocalDateTimeAssertions {
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(

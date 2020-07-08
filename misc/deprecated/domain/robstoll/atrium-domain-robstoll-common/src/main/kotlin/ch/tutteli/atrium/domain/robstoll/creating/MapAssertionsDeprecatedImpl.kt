@@ -12,6 +12,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
+@Deprecated("Will be removed with 1.0.0")
 abstract class MapAssertionsDeprecatedImpl : MapAssertions {
 
     override fun <K, V> contains(plant: AssertionPlant<Map<out K, V>>, keyValuePairs: List<Pair<K, V>>) =

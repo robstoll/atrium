@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._iterableAll
 import ch.tutteli.atrium.domain.robstoll.lib.creating._max
 import ch.tutteli.atrium.domain.robstoll.lib.creating._min
 
-
+@Deprecated("Will be removed with 1.0.0")
 class IterableAssertionsImpl : IterableAssertions, IterableAssertionsDeprecatedImpl() {
 
     override fun <E, T : Iterable<E>> containsBuilder(subjectProvider: SubjectProvider<T>) =

@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.nio.charset.Charset
 import java.nio.file.Path
 
+@Deprecated("Will be removed with 1.0.0")
 class PathAssertionsImpl : PathAssertions {
     override fun <T : Path> startsWith(expect: Expect<T>, expected: Path) =
         _startsWith(expect, expected)
