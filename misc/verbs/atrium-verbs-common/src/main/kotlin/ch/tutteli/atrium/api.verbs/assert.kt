@@ -5,8 +5,9 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.RootExpect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.manualFeature
 
 /**
  * Creates an [Expect] for the given [subject].
@@ -43,4 +44,4 @@ fun <T> assert(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     )
 )
 fun <T, R> Expect<T>.assert(newSubject: R): FeatureExpect<T, R> =
-    ExpectImpl.feature.manualFeature(this, ASSERT) { newSubject }.getExpectOfFeature()
+    _logic.manualFeature(ASSERT) { newSubject }.getExpectOfFeature()

@@ -22,6 +22,7 @@ val assertionCollector: AssertionCollector by lazy { loadSingleService(Assertion
 /**
  * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
+//TODO 0.14.0 move to atrium-logic
 interface AssertionCollector {
 
     /**

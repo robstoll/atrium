@@ -33,6 +33,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
 
+        @Suppress(/* TODO remove with the introduction of this functionality in infix */ "DEPRECATION")
         private fun hasSameTextualContentAs(
             expect: Expect<Path>,
             targetPath: Path,
@@ -48,6 +49,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
                 )
             )
 
+        @Suppress(/* TODO remove with the introduction of this functionality in infix */ "DEPRECATION")
         private fun hasSameBinaryContentAs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
             expect.addAssertion(ExpectImpl.path.hasSameBinaryContentAs(expect, targetPath))
     }

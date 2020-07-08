@@ -8,8 +8,9 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -63,7 +64,7 @@ fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
     changeToLeft().addToInitial(assertionCreator)
 
 private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
-    ExpectImpl.feature.extractor(this)
+    _logic.extractFeature
         .withDescription("value of Left")
         .withRepresentationForFailure(Text("❗❗ is not a Left"))
         .withFeatureExtraction {
@@ -77,7 +78,7 @@ fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) 
     changeToRight().addToInitial(assertionCreator)
 
 private fun <A, B> Expect<Either<A, B>>.changeToRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
-    ExpectImpl.feature.extractor(this)
+    _logic.extractFeature
         .withDescription("value of Right")
         .withRepresentationForFailure(Text("❗❗ is not a Right"))
         .withFeatureExtraction {
