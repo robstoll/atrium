@@ -19,6 +19,7 @@ import kotlin.reflect.KClass
  * In detail, it implements [MapAssertions] by delegating to [mapAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object MapAssertionsBuilder : MapAssertions {
 
     /**

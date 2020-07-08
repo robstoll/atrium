@@ -16,6 +16,7 @@ import ch.tutteli.atrium.domain.creating.pairAssertions
  * In detail, it implements [PairAssertions] by delegating to [pairAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object PairAssertionsBuilder : PairAssertions {
 
     override inline fun <K, T : Pair<K, *>> first(expect: Expect<T>) =

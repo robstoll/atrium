@@ -11,4 +11,5 @@ import ch.tutteli.atrium.domain.creating.floatingPointAssertions
  * In detail, it implements [FloatingPointAssertions] by delegating to [floatingPointAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 expect object FloatingPointAssertionsBuilder : FloatingPointAssertions

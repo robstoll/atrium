@@ -20,6 +20,7 @@ import java.time.chrono.ChronoLocalDateTime
  * In detail, it implements [ChronoLocalDateTimeAssertions] by delegating to [chronoLocalDateTimeAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic instead; will be removed with 1.0.0")
 object ChronoLocalDateTimeAssertionsBuilder : ChronoLocalDateTimeAssertions {
 
     override inline fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
