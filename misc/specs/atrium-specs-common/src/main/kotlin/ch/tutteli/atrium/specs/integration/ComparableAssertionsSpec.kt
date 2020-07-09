@@ -29,9 +29,9 @@ abstract class ComparableAssertionsSpec(
     ) {})
 
     val isLessThanDescr = IS_LESS_THAN.getDefault()
-    val isLessOrEqualsDescr = IS_LESS_OR_EQUALS.getDefault()
+    val isLessOrEqualsDescr = IS_LESS_THAN_OR_EQUAL.getDefault()
     val isGreaterThanDescr = IS_GREATER_THAN.getDefault()
-    val isGreaterOrEqualsDescr = IS_GREATER_OR_EQUALS.getDefault()
+    val isGreaterOrEqualsDescr = IS_GREATER_THAN_OR_EQUAL.getDefault()
     val isEqualComparingToDescr = IS_EQUAL.getDefault()
 
     val fluent = expect(10)
@@ -63,7 +63,7 @@ abstract class ComparableAssertionsSpec(
             it("... 10 does not throw") {
                 fluent.isLessOrEqualsFun(10)
             }
-            it("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.$IS_LESS_OR_EQUALS and `: 10`") {
+            it("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.$IS_LESS_THAN_OR_EQUAL and `: 10`") {
                 expect {
                     fluent.isLessOrEqualsFun(9)
                 }.toThrow<AssertionError> { messageContains("$isLessOrEqualsDescr: 9") }
@@ -91,7 +91,7 @@ abstract class ComparableAssertionsSpec(
         describe("${isGreaterOrEquals.name} ...") {
             val isGreaterOrEqualsFun = isGreaterOrEquals.lambda
 
-            it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.$IS_GREATER_OR_EQUALS and `: 11`") {
+            it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.$IS_GREATER_THAN_OR_EQUAL and `: 11`") {
                 expect {
                     fluent.isGreaterOrEqualsFun(11)
                 }.toThrow<AssertionError> { messageContains("$isGreaterOrEqualsDescr: 11") }
