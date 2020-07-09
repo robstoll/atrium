@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 )
 enum class DescriptionComparableAssertion(override val value: String) : StringBasedTranslatable {
     IS_LESS_THAN(ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THAN.value),
-    IS_LESS_OR_EQUALS(ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_OR_EQUALS.value),
+    IS_LESS_OR_EQUALS(ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.value),
     IS_GREATER_THAN(ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_THAN.value),
-    IS_GREATER_OR_EQUALS(ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_OR_EQUALS.value),
+    IS_GREATER_OR_EQUALS(ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.value),
 }
