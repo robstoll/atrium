@@ -13,7 +13,7 @@ fun <T1 : Comparable<T2>, T2 : Any?> _isLessThan(subjectProvider: SubjectProvide
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T1 : Comparable<T2>, T2 : Any?> _isLessThanOrEqual(subjectProvider: SubjectProvider<T1>, expected: T2) =
-    assertionBuilder.createDescriptive(subjectProvider, IS_LESS_OR_EQUALS, expected) { it <= expected }
+    assertionBuilder.createDescriptive(subjectProvider, IS_LESS_THAN_OR_EQUAL, expected) { it <= expected }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
@@ -23,7 +23,7 @@ fun <T1 : Comparable<T2>, T2 : Any?> _isGreaterThan(subjectProvider: SubjectProv
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T1 : Comparable<T2>, T2 : Any?> _isGreaterThanOrEqual(subjectProvider: SubjectProvider<T1>, expected: T2) =
-    assertionBuilder.createDescriptive(subjectProvider, IS_GREATER_OR_EQUALS, expected) { it >= expected }
+    assertionBuilder.createDescriptive(subjectProvider, IS_GREATER_THAN_OR_EQUAL, expected) { it >= expected }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
