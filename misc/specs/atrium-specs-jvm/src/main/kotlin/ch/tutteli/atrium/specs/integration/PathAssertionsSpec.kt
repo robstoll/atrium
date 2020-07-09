@@ -792,7 +792,7 @@ abstract class PathAssertionsSpec(
 
             it("${hasSameTextualContentAsDefaultArgs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
-                expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+                expect(sourcePath).hasSameTextualContentAsDefaultArgsFun(targetPath)
             }
         }
 
@@ -840,7 +840,7 @@ abstract class PathAssertionsSpec(
 
             it("${hasSameTextualContentAsDefaultArgs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
-                expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+                expect(sourcePath).hasSameTextualContentAsDefaultArgsFun(targetPath)
             }
         }
 
@@ -888,7 +888,7 @@ abstract class PathAssertionsSpec(
             it("${hasSameTextualContentAsDefaultArgs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
-                    expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+                    expect(sourcePath).hasSameTextualContentAsDefaultArgsFun(targetPath)
                 }.toThrow<AssertionError>().message {
                     contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
@@ -934,7 +934,7 @@ abstract class PathAssertionsSpec(
             it("${hasSameTextualContentAsDefaultArgs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
-                    expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+                    expect(sourcePath).hasSameTextualContentAsDefaultArgsFun(targetPath)
                 }.toThrow<AssertionError>().message {
                     contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
