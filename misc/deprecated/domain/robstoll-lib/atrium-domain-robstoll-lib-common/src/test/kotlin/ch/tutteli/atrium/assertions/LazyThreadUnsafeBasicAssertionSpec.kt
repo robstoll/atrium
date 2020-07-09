@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe

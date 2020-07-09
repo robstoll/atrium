@@ -1,13 +1,11 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
-
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.logic.assertions.LazyThreadUnsafeAssertionGroup
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -15,14 +13,14 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
     describe("creating it") {
         var callingCount = 0
-        val assertion = ExpectImpl.builder.descriptive
+        val assertion = assertionBuilder.descriptive
             .failing
             .withDescriptionAndRepresentation("b", 3)
             .build()
 
         val testee = LazyThreadUnsafeAssertionGroup {
             ++callingCount
-            ExpectImpl.builder.feature
+            assertionBuilder.feature
                 .withDescriptionAndRepresentation("a", 2)
                 .withAssertion(assertion)
                 .build()
