@@ -159,24 +159,28 @@ interface AssertImplCommon {
      * Returns [AnyAssertionsBuilder]
      * which inter alia delegates to the implementation of [AnyAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val any: AnyAssertionsBuilder
 
     /**
      * Returns [CharSequenceAssertionsBuilder]
      * which inter alia delegates to the implementation of [CharSequenceAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val charSequence: CharSequenceAssertionsBuilder
 
     /**
      * Returns [CollectionAssertionsBuilder]
      * which inter alia delegates to the implementation of [CollectionAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val collection: CollectionAssertionsBuilder
 
     /**
      * Returns [ComparableAssertionsBuilder]
      * which inter alia delegates to the implementation of [ComparableAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val comparable: ComparableAssertionsBuilder
 
     /**
@@ -184,41 +188,48 @@ interface AssertImplCommon {
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */
     @Suppress("DEPRECATION")
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val feature: FeatureAssertionsBuilder
 
     /**
      * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
      * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val floatingPoint: FloatingPointAssertionsBuilder
 
     /**
      * Returns [IterableAssertionsBuilder].
      * which inter alia delegates to the implementation of [IterableAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val iterable: IterableAssertionsBuilder
 
     /**
      * Returns [ListAssertionsBuilder]
      * which inter alia delegates to the implementation of [ListAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val list: ListAssertionsBuilder
 
     /**
      * Returns [MapAssertionsBuilder]
      * which inter alia delegates to the implementation of [MapAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val map: MapAssertionsBuilder
 
     /**
      * Returns [PairAssertionsBuilder]
      * which inter alia delegates to the implementation of [PairAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val pair: PairAssertionsBuilder
 
     /**
      * Returns [ThrowableAssertionsBuilder]
      * which inter alia delegates to the implementation of [ThrowableAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val throwable: ThrowableAssertionsBuilder
 }

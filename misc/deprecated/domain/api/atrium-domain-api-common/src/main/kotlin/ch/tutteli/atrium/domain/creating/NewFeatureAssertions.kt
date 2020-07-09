@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.None
@@ -16,6 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *
  * Will be renamed to featureAssertions with 1.0.0
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class) }
 
 /**
@@ -24,6 +27,10 @@ val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class
  *
  * Will be renamed to FeatureAssertions with 1.0.0
  */
+@Deprecated(
+    "Use NewFeatureAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.NewFeatureAssertions")
+)
 interface NewFeatureAssertions {
 
     /**

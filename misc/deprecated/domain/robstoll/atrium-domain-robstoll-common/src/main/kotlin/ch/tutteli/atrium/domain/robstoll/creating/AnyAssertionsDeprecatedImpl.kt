@@ -11,9 +11,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isNullIfNullGivenElse
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNullable
 import kotlin.reflect.KClass
 
-/**
- * Deprecated functionality which will be removed with 1.0.0
- */
+@Deprecated("Will be removed with 1.0.0")
 abstract class AnyAssertionsDeprecatedImpl : AnyAssertions {
 
     override fun <T : Any> isNullable(

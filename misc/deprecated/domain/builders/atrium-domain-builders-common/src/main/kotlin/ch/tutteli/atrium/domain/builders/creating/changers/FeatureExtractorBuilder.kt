@@ -4,7 +4,6 @@ import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.domain.builders.creating.changers.impl.featureextractor.*
-import ch.tutteli.atrium.domain.creating.NewFeatureAssertions
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.Text
@@ -14,8 +13,8 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
- * It is similar to [NewFeatureAssertions] but differs in the intended usage.
- * [NewFeatureAssertions] are intended to make assertions about a return value of a method call or a property,
+ * It is similar to [ch.tutteli.atrium.domain.creating.NewFeatureAssertions] but differs in the intended usage.
+ * [ch.tutteli.atrium.domain.creating.NewFeatureAssertions] are intended to make assertions about a return value of a method call or a property,
  * assuming that the call as such always succeeds (no exception is thrown).
  * The [FeatureExtractorBuilder] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.

@@ -1,4 +1,5 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DEPRECATION")
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -20,6 +21,7 @@ import kotlin.reflect.KClass
  * In detail, it implements [AnyAssertions] by delegating to [anyAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object AnyAssertionsBuilder : AnyAssertions {
 
     override inline fun <T> toBe(subjectProvider: SubjectProvider<T>, expected: T): Assertion =

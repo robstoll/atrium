@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -32,6 +34,8 @@ fun <E, T : Iterable<E>> _containsBuilder(subjectProvider: SubjectProvider<T>): 
 fun <E, T : Iterable<E>> _containsNotBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NotSearchBehaviour> =
     IterableContainsBuilder(subjectProvider, NotSearchBehaviourImpl())
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E : Any, T : Iterable<E?>> _iterableAll(
     expect: Expect<T>,
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -84,19 +88,27 @@ private fun <E : Any> createMismatchAssertions(
         .toList()
 }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E, T : Iterable<E>> _hasNext(expect: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS, NEXT_ELEMENT) {
         it.iterator().hasNext()
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E, T : Iterable<E>> _hasNotNext(expect: Expect<T>): Assertion =
     ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS_NOT, NEXT_ELEMENT) {
         !it.iterator().hasNext()
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E : Comparable<E>, T : Iterable<E>> _min(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
     collect(expect, "min", Iterable<E>::min)
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E : Comparable<E>, T : Iterable<E>> _max(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
     collect(expect, "max", Iterable<E>::max)
 

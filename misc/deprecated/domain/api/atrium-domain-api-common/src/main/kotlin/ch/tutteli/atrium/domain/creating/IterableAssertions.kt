@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.creating
 
@@ -17,6 +18,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotS
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+//TODO 0.14.0 deprecate
 val iterableAssertions by lazy { loadSingleService(IterableAssertions::class) }
 
 
@@ -24,6 +26,7 @@ val iterableAssertions by lazy { loadSingleService(IterableAssertions::class) }
  * Defines the minimum set of assertion functions and builders applicable to [Iterable],
  * which an implementation of the domain of Atrium has to provide.
  */
+//TODO 0.14.0 deprecate
 interface IterableAssertions {
     fun <E, T : Iterable<E>> containsBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     fun <E, T : Iterable<E>> containsNotBuilder(subjectProvider: SubjectProvider<T>): IterableContains.Builder<E, T, NotSearchBehaviour>

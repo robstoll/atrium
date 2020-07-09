@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */, "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.creating
 

@@ -1,6 +1,8 @@
 //TODO remove file with 1.0.0
-@file:Suppress(/* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */"JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE",
-    "DEPRECATION"
+@file:Suppress(
+    "DEPRECATION",
+    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
 )
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating
@@ -34,18 +36,28 @@ import java.util.*
 
 private const val IO_EXCEPTION_STACK_TRACE_LENGTH = 15
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _startsWith(expect: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(expect, STARTS_WITH, expected) { it.startsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _startsNotWith(expect: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(expect, STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _endsWith(expect: Expect<T>, expected: Path): Assertion =
     ExpectImpl.builder.createDescriptive(expect, ENDS_WITH, expected) { it.endsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _endsNotWith(expect: Expect<T>, expected: Path) =
     ExpectImpl.builder.createDescriptive(expect, ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _hasSameTextualContentAs(
     expect: Expect<T>,
     targetPath: Path,
@@ -60,11 +72,15 @@ fun <T : Path> _hasSameTextualContentAs(
         it.readText(sourceCharset) == targetPath.readText(targetCharset)
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _hasSameBinaryContentAs(expect: Expect<T>, targetPath: Path) =
     ExpectImpl.builder.createDescriptive(expect, HAS_SAME_BINARY_CONTENT, targetPath) {
         it.readAllBytes().contentEquals(targetPath.readAllBytes())
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _exists(expect: Expect<T>): Assertion =
     changeSubjectToFileAttributes(expect) { fileAttributesAssertionContainer ->
         ExpectImpl.builder.descriptive
@@ -85,6 +101,8 @@ fun <T : Path> _exists(expect: Expect<T>): Assertion =
             .build()
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _existsNot(expect: Expect<T>): Assertion =
     changeSubjectToFileAttributes(expect) { fileAttributesAssertionContainer ->
         ExpectImpl.builder.descriptive
@@ -101,15 +119,23 @@ fun <T : Path> _existsNot(expect: Expect<T>): Assertion =
             .build()
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _isReadable(expect: Expect<T>): Assertion =
     filePermissionAssertion(expect, READABLE, AccessMode.READ)
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _isWritable(expect: Expect<T>): Assertion =
     filePermissionAssertion(expect, WRITABLE, AccessMode.WRITE)
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _isRegularFile(expect: Expect<T>): Assertion =
     fileTypeAssertion(expect, A_FILE) { it.isRegularFile }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _isDirectory(expect: Expect<T>): Assertion =
     fileTypeAssertion(expect, A_DIRECTORY) { it.isDirectory }
 
@@ -397,12 +423,18 @@ private val BasicFileAttributes.fileType: Translatable
         else -> A_UNKNOWN_FILE_TYPE
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _fileName(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
     ExpectImpl.feature.manualFeature(expect, FILE_NAME) { fileName.toString() }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _fileNameWithoutExtension(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
     ExpectImpl.feature.manualFeature(expect, FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _parent(expect: Expect<T>): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.extractor(expect)
         .withDescription(PARENT)
@@ -414,8 +446,12 @@ fun <T : Path> _parent(expect: Expect<T>): ExtractedFeaturePostStep<T, Path> =
         .withoutOptions()
         .build()
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _resolve(expect: Expect<T>, other: String): ExtractedFeaturePostStep<T, Path> =
     ExpectImpl.feature.f1<T, String, Path>(expect, Path::resolve, other)
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <T : Path> _extension(expect: Expect<T>): ExtractedFeaturePostStep<T, String> =
     ExpectImpl.feature.manualFeature(expect, EXTENSION) { extension }

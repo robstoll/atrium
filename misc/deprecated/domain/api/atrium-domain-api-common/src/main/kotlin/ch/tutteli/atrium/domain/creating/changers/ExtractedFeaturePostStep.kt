@@ -16,6 +16,7 @@ import ch.tutteli.atrium.creating.FeatureExpect
  * @param extractAndApply The extraction of the feature which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
+//TODO 0.14.0 move to atrium-logic
 class ExtractedFeaturePostStep<T, R>(
     expect: Expect<T>,
     extract: Expect<T>.() -> FeatureExpect<T, R>,

@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.creating.CollectionAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._hasSize
 import ch.tutteli.atrium.domain.robstoll.lib.creating._size
 
-
+@Deprecated("Will be removed with 1.0.0")
 abstract class CollectionAssertionsDeprecatedImpl : CollectionAssertions {
 
     override fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int) = _hasSize(plant, size)

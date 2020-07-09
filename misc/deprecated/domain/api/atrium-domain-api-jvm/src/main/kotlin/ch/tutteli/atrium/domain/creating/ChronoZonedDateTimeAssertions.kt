@@ -1,5 +1,9 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
-
+//TODO remove file with 1.0.0
+@file:Suppress(
+    "DEPRECATION",
+    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -19,6 +23,10 @@ val chronoZonedDateTimeAssertions by lazy { loadSingleService(ChronoZonedDateTim
  * Defines the minimum set of assertion functions and builders applicable to [ChronoZonedDateTime],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use ChronoZonedDateTimeAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.ChronoZonedDateTimeAssertions")
+)
 interface ChronoZonedDateTimeAssertions {
     fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
         expect: Expect<T>,

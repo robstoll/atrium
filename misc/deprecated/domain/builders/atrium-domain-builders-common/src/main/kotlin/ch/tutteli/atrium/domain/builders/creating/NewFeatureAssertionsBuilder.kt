@@ -1,4 +1,5 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -28,6 +29,7 @@ import kotlin.reflect.*
  *
  * Will be renamed to FeatureAssertionsBuilder with 1.0.0
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object NewFeatureAssertionsBuilder : NewFeatureAssertions {
 
     /**
@@ -113,6 +115,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
  * a function which expects 2 arguments).
  */
 //TODO move to API, this could potentially be different per API
+//TODO deprecate in 0.14.0
 class MetaFeatureOption<T>(private val expect: Expect<T>) {
 
     /**

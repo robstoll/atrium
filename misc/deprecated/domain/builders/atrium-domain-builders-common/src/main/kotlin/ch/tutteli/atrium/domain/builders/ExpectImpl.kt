@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -56,6 +58,7 @@ object ExpectImpl {
      * Returns [AnyAssertionsBuilder]
      * which inter alia delegates to the implementation of [AnyAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val any get() = AnyAssertionsBuilder
 
     /**
@@ -68,30 +71,35 @@ object ExpectImpl {
      * Returns [CollectionAssertionsBuilder]
      * which inter alia delegates to the implementation of [CollectionAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val collection get() = CollectionAssertionsBuilder
 
     /**
      * Returns [ComparableAssertionsBuilder]
      * which inter alia delegates to the implementation of [ComparableAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val comparable get() = ComparableAssertionsBuilder
 
     /**
      * Returns [NewFeatureAssertionsBuilder]
      * which inter alia delegates to the implementation of [FeatureAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val feature get() = NewFeatureAssertionsBuilder
 
     /**
      * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
      * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val floatingPoint get() = FloatingPointAssertionsBuilder
 
     /**
      * Returns [Fun0AssertionsBuilder] - [Assertion]s applicable to lambdas with arity 0
      * which inter alia delegates to the implementation of [FloatingPointAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val fun0 get() = Fun0AssertionsBuilder
 
     /**
@@ -104,29 +112,34 @@ object ExpectImpl {
      * Returns [ListAssertionsBuilder]
      * which inter alia delegates to the implementation of [ListAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     val list get() = ListAssertionsBuilder
 
     /**
      * Returns [MapAssertionsBuilder]
      * which inter alia delegates to the implementation of [MapAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val map get() = MapAssertionsBuilder
 
     /**
      * Returns [PairAssertionsBuilder]
      * which inter alia delegates to the implementation of [PairAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val pair get() = PairAssertionsBuilder
 
     /**
      * Returns [ThrowableAssertionsBuilder]
      * which inter alia delegates to the implementation of [ThrowableAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val throwable get() = ThrowableAssertionsBuilder
 
     /**
      * Returns [IteratorAssertionsBuilder]
      * which inter alia delegates to the implementation of [IteratorAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val iterator get() = IteratorAssertionsBuilder
 }

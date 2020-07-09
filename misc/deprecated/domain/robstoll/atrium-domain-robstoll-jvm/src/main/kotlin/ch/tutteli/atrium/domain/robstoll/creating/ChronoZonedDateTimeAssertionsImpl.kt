@@ -1,4 +1,9 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+//TODO remove file with 1.0.0
+@file:Suppress(
+    "DEPRECATION",
+    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 
 package ch.tutteli.atrium.domain.robstoll.creating
 
@@ -8,6 +13,7 @@ import ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.time.chrono.ChronoZonedDateTime
 
+@Deprecated("Will be removed with 1.0.0")
 class ChronoZonedDateTimeAssertionsImpl : ChronoZonedDateTimeAssertions {
 
     override fun <T : ChronoZonedDateTime<*>> isBefore(
