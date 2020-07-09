@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
 
 abstract class ComparableAssertionsSpec(
@@ -28,9 +27,9 @@ abstract class ComparableAssertionsSpec(
     ) {})
 
     val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-    val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_OR_EQUALS.getDefault()
+    val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.getDefault()
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
-    val isGreaterOrEqualsDescr = DescriptionComparableAssertion.IS_GREATER_OR_EQUALS.getDefault()
+    val isGreaterOrEqualsDescr = DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.getDefault()
     val isEqualComparingToDescr = DescriptionComparableAssertion.IS_EQUAL.getDefault()
 
     val fluent = expect(10)
@@ -62,7 +61,7 @@ abstract class ComparableAssertionsSpec(
             it("... 10 does not throw") {
                 fluent.isLessOrEqualsFun(10)
             }
-            it("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_OR_EQUALS} and `: 10`") {
+            it("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL} and `: 10`") {
                 expect {
                     fluent.isLessOrEqualsFun(9)
                 }.toThrow<AssertionError> { messageContains("$isLessOrEqualsDescr: 9") }
@@ -90,7 +89,7 @@ abstract class ComparableAssertionsSpec(
         describe("${isGreaterOrEquals.name} ...") {
             val isGreaterOrEqualsFun = isGreaterOrEquals.lambda
 
-            it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_OR_EQUALS} and `: 11`") {
+            it("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL} and `: 11`") {
                 expect {
                     fluent.isGreaterOrEqualsFun(11)
                 }.toThrow<AssertionError> { messageContains("$isGreaterOrEqualsDescr: 11") }
