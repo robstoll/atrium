@@ -8,6 +8,7 @@ import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
+import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -27,7 +28,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
     assertionCreator: (Expect<E>.() -> Unit)?
 ): Boolean = when (subject) {
     null -> assertionCreator == null
-    else -> assertionCreator != null && ExpectImpl.collector.collect(Some(subject), assertionCreator).holds()
+    else -> assertionCreator != null && assertionCollector.collect(Some(subject), assertionCreator).holds()
 }
 
 

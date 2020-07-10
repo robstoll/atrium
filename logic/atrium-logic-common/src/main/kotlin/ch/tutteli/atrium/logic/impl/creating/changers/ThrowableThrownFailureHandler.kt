@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.*
 
-class ThrowableThrownFailureHandler<T : Throwable?, R>() : SubjectChanger.FailureHandler<T, R> {
+class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureHandler<T, R> {
 
     override fun createAssertion(
         originalAssertionContainer: Expect<T>,
