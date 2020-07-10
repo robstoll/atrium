@@ -22,13 +22,10 @@ annotation class ExpectMarker
  *
  * See https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas for more information about the personas.
  */
-interface ExpectInternal<T>: Expect<T>, AssertionContainer<T>
+interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>
 
 /**
- * Represents the extension point of [Assertion] functions and sophisticated builders for subjects of type [T].
- *
- * It is also the base type of all assertion container types (like [ReportingAssertionContainer],
- * [CollectingAssertionContainer] etc.)
+ * Represents the extension point for [Assertion] functions and sophisticated builders for subjects of type [T].
  *
  * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
  * further notice.
