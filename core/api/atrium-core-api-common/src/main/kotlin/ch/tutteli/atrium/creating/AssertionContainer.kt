@@ -1,12 +1,18 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import kotlin.reflect.KClass
 
 //TODO 0.14.0 remove SubjectProvider
-interface AssertionContainer<T> : SubjectProvider<T>{
+interface AssertionContainer<T> : SubjectProvider<T> {
     override val maybeSubject: Option<T>
 
+    /**
+     * Do not use yet, this is experimental
+     */
+    @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 
 //    /**
