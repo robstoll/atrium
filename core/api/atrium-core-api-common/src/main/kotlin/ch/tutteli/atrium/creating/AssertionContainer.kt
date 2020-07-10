@@ -5,6 +5,17 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import kotlin.reflect.KClass
 
+/**
+ * Represents the extension point of the logic level for subjects of type [T].
+ *
+ * In contrast to assertion function defined for [Expect] which usually return [Expect], functions defined for
+ * [AssertionContainer] return [Assertion] so that they can be appended to whatever we want.
+ *
+ * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
+ * further notice.
+ *
+ * @param T The type of the [subject] of the assertion.
+ */
 //TODO 0.14.0 remove SubjectProvider
 interface AssertionContainer<T> : SubjectProvider<T> {
     override val maybeSubject: Option<T>
