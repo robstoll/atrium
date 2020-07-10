@@ -13,7 +13,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
     expect: Expect<T>,
     assertionCreator: Expect<T>.() -> Unit
-) = collectAssertions(expect.maybeSubject, assertionCreator)
+): R = collectAssertions(expect.maybeSubject, assertionCreator)
 
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
@@ -21,4 +21,4 @@ fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAsse
 fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
-) = withAssertions(ExpectImpl.collector.collectForComposition(maybeSubject, assertionCreator))
+): R = withAssertions(ExpectImpl.collector.collectForComposition(maybeSubject, assertionCreator))
