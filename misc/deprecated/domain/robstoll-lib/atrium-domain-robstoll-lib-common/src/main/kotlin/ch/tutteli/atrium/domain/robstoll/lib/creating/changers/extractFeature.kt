@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
+import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -56,7 +57,7 @@ fun <T, R> _extractFeature(
                     maybeSubAssertions.fold({
                         listOf<Assertion>()
                     }) { assertionCreator ->
-                        ExpectImpl.collector.collectForComposition(Some(subject), assertionCreator)
+                        assertionCollector.collectForComposition(Some(subject), assertionCreator)
                     },
                     FeatureExpectOptions(
                         representationInsteadOfFeature = representationInsteadOfFeature

@@ -3,17 +3,10 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
-import ch.tutteli.atrium.translations.DescriptionBasic.IS
-import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.SIZE
 import kotlin.reflect.KClass
 
 class DefaultAnyAssertions : AnyAssertions {
@@ -55,8 +48,8 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T, TSub : Any> isA(
         container: AssertionContainer<T>,
         subType: KClass<TSub>
-    ): ChangedSubjectPostStep<T, TSub> = container.changeSubject.reportBuilder()
+    ): ChangedSubjectPostStep<T, TSub> =
+        container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()
-
 }
