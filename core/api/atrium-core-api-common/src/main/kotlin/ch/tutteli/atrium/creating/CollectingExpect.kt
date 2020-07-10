@@ -5,6 +5,12 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.impl.CollectingExpectImpl
 
+/**
+ * Represents a container for [Assertion] which is intended to serve as receiver object for lambdas which create
+ * [Assertion]s, in which this [Expect] collects the assertions created this way.
+ *
+ * @param T The type of the [subject] of this [Expect].
+ */
 interface CollectingExpect<T> : Expect<T> {
 
     /**
