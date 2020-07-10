@@ -6,6 +6,7 @@ package ch.tutteli.atrium.core.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withFailureHint
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.CollectingAssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -56,5 +57,6 @@ class CollectingAssertionContainerImpl<T>(
         return this
     }
 
+    @ExperimentalNewExpectTypes
     override fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I = defaultFactory()
 }
