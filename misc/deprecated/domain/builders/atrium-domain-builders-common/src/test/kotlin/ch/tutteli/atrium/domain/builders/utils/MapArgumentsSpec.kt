@@ -6,6 +6,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.changeSubject
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import ch.tutteli.atrium.verbs.internal.assert as deprecatedAssert
@@ -79,13 +81,13 @@ object MapArgumentsSpec : Spek({
                     expect(first).toBe(null)
                     expect(others[0]).notToBeNull {
                         maybeSubject.map { assertionCreator ->
-                            ExpectImpl.changeSubject(this).unreported { "banana" }.assertionCreator()
+                            _logic.changeSubject.unreported { "banana" }.assertionCreator()
                         }
                     }
                     @Suppress("DEPRECATION")
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
-                            ExpectImpl.changeSubject(this).unreported { "caramel" }.assertionCreator()
+                            _logic.changeSubject.unreported { "caramel" }.assertionCreator()
                         }
                     }
                 }
@@ -102,14 +104,14 @@ object MapArgumentsSpec : Spek({
                     deprecatedAssert(others[0]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             @Suppress("DEPRECATION")
-                            ExpectImpl.changeSubject(this).unreported { "banana" }.asAssert().assertionCreator()
+                            _logic.changeSubject.unreported { "banana" }.asAssert().assertionCreator()
                         }
                     }
                     @Suppress("DEPRECATION")
                     deprecatedAssert(others[1]).asExpect().notToBeNull {
                         maybeSubject.map { assertionCreator ->
                             @Suppress("DEPRECATION")
-                            ExpectImpl.changeSubject(this).unreported { "caramel" }.asAssert().assertionCreator()
+                            _logic.changeSubject.unreported { "caramel" }.asAssert().assertionCreator()
                         }
                     }
                 }
