@@ -43,6 +43,7 @@ object ExpectImpl {
      * into another representation (e.g. down-cast `Person` to `Student`) then you should use
      * [feature.extractor][NewFeatureAssertionsBuilder.extractor] instead.
      */
+    @Deprecated("Use _logic.changeSubject, will be removed with 1.0.0")
     inline fun <T> changeSubject(originalExpect: Expect<T>) =
         SubjectChangerBuilder.create(originalExpect)
 
