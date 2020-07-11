@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
  */
 @Deprecated(
     "Use LazyThreadUnsafeAssertionGroup from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.assertions.LazyThreadUnsafeAssertionGroup")
+    ReplaceWith("ch.tutteli.atrium.logic.impl.assertions.LazyThreadUnsafeAssertionGroup")
 )
 class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> AssertionGroup) : AssertionGroup {
     private val assertionGroup by lazy(LazyThreadSafetyMode.NONE) {
