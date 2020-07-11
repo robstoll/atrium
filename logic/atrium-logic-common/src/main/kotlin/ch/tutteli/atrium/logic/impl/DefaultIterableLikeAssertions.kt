@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.Option
@@ -8,7 +9,6 @@ import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.LazyThreadUnsafeAssertionGroup
@@ -35,10 +35,10 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
 
             val mismatches = createMismatchAssertions(list, assertionCreatorOrNull)
             assertions.add(
-                ExpectImpl.builder.explanatoryGroup
+                assertionBuilder.explanatoryGroup
                     .withWarningType
                     .withAssertion(
-                        ExpectImpl.builder.list
+                        assertionBuilder.list
                             .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_MISMATCHES)
                             .withAssertions(mismatches)
                             .build()
@@ -46,10 +46,10 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                     .build()
             )
 
-            ExpectImpl.builder.invisibleGroup
+            assertionBuilder.invisibleGroup
                 .withAssertions(
                     hasElementAssertion,
-                    ExpectImpl.builder.fixedClaimGroup
+                    assertionBuilder.fixedClaimGroup
                         .withListType
                         .withClaim(mismatches.isEmpty())
                         .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.ALL)
@@ -69,7 +69,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             .mapWithIndex()
             .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
             .map { (index, element) ->
-                ExpectImpl.builder.createDescriptive(
+                assertionBuilder.createDescriptive(
                     TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
                     element,
                     falseProvider

@@ -2,13 +2,12 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.ErrorMessages
@@ -21,7 +20,7 @@ fun <T> _collect(
         .addAssertionsCreatedBy(assertionCreator)
         .getAssertions()
     return if (collectedAssertions.size > 1) {
-        ExpectImpl.builder.invisibleGroup.withAssertions(collectedAssertions).build()
+        assertionBuilder.invisibleGroup.withAssertions(collectedAssertions).build()
     } else {
         collectedAssertions[0]
     }
@@ -47,7 +46,7 @@ fun <T> _collectForComposition(
     } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
         @Suppress("DEPRECATION")
         listOf(
-            ExpectImpl.builder.explanatoryGroup
+            assertionBuilder.explanatoryGroup
                 .withWarningType
                 .withExplanatoryAssertion(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY)
                 .build()
@@ -65,7 +64,7 @@ private fun <T> collectAssertions(
             .addAssertionsCreatedBy(assertionCreatorOrNull)
             .getAssertions()
     } else {
-        listOf(ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, Text.NULL) {
+        listOf(assertionBuilder.createDescriptive(DescriptionBasic.IS, Text.NULL) {
             maybeSubject.isDefined()
         })
     }
