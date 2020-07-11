@@ -9,6 +9,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import java.time.LocalDateTime
 import java.util.*
 
 fun <T : Optional<*>> AssertionContainer<T>.isEmpty(): Assertion = _optionalImpl.isEmpty(this)

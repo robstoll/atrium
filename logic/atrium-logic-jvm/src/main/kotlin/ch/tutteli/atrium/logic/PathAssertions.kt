@@ -5,7 +5,11 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.nio.charset.Charset
 import java.nio.file.Path
+import java.util.*
 
+/**
+ * Collection of assertion functions and builders which are applicable to subjects with a [Path] type.
+ */
 interface PathAssertions {
     fun <T : Path> startsWith(container: AssertionContainer<T>, expected: Path): Assertion
     fun <T : Path> startsNotWith(container: AssertionContainer<T>, expected: Path): Assertion

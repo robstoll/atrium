@@ -6,6 +6,9 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import kotlin.reflect.KClass
 
+/**
+ * Collection of assertion functions and builders which are applicable to any type (sometimes `Any?` sometimes `Any`).
+ */
 interface AnyAssertions {
     fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion

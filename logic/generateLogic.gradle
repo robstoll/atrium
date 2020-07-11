@@ -107,7 +107,7 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
                 def interfaceName = "${type}Assertions"
                 def implValName = "_${uncapitalized}Impl"
 
-                String tmp = content.replaceAll(/${newLine}interface $interfaceName \{/, "")
+                String tmp = content.replaceAll(/($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/, "")
                 patterns.forEach { triple ->
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
                 }
