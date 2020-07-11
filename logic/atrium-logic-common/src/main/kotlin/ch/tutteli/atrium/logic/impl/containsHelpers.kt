@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.reporting.Text
@@ -15,10 +15,10 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 internal fun createHasElementAssertion(iterator: Iterator<*>): AssertionGroup {
     val hasElement = iterator.hasNext()
-    return ExpectImpl.builder.feature
+    return assertionBuilder.feature
         .withDescriptionAndRepresentation(DescriptionIterableAssertion.HAS_ELEMENT, Text(hasElement.toString()))
         .withAssertion(
-            ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, Text(true.toString())) { hasElement }
+            assertionBuilder.createDescriptive(DescriptionBasic.IS, Text(true.toString())) { hasElement }
         )
         .build()
 }
@@ -43,7 +43,7 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
     noinline assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     firstOrNull: () -> Option<E>
 ): AssertionGroup {
-    return ExpectImpl.builder.explanatoryGroup
+    return assertionBuilder.explanatoryGroup
         .withDefaultType
         .let {
             if (assertionCreatorOrNull != null) {
@@ -52,7 +52,7 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not
                     // thus it is OK to use trueProvider
-                    ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, Text.NULL, trueProvider)
+                    assertionBuilder.createDescriptive(DescriptionBasic.IS, Text.NULL, trueProvider)
                 )
             }
         }

@@ -3,6 +3,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.Option
@@ -49,10 +50,10 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
 
         val mismatches = createMismatchAssertions(list, assertionCreatorOrNull)
         assertions.add(
-            ExpectImpl.builder.explanatoryGroup
+            assertionBuilder.explanatoryGroup
                 .withWarningType
                 .withAssertion(
-                    ExpectImpl.builder.list
+                    assertionBuilder.list
                         .withDescriptionAndEmptyRepresentation(WARNING_MISMATCHES)
                         .withAssertions(mismatches)
                         .build()
@@ -60,10 +61,10 @@ fun <E : Any, T : Iterable<E?>> _iterableAll(
                 .build()
         )
 
-        ExpectImpl.builder.invisibleGroup
+        assertionBuilder.invisibleGroup
             .withAssertions(
                 hasElementAssertion,
-                ExpectImpl.builder.fixedClaimGroup
+                assertionBuilder.fixedClaimGroup
                     .withListType
                     .withClaim(mismatches.isEmpty())
                     .withDescriptionAndEmptyRepresentation(ALL)
@@ -83,7 +84,7 @@ private fun <E : Any> createMismatchAssertions(
         .mapWithIndex()
         .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
         .map { (index, element) ->
-            ExpectImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element, falseProvider)
+            assertionBuilder.createDescriptive(TranslatableWithArgs(INDEX, index), element, falseProvider)
         }
         .toList()
 }
@@ -91,14 +92,14 @@ private fun <E : Any> createMismatchAssertions(
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E, T : Iterable<E>> _hasNext(expect: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS, NEXT_ELEMENT) {
+    assertionBuilder.createDescriptive(expect, DescriptionBasic.HAS, NEXT_ELEMENT) {
         it.iterator().hasNext()
     }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E, T : Iterable<E>> _hasNotNext(expect: Expect<T>): Assertion =
-    ExpectImpl.builder.createDescriptive(expect, DescriptionBasic.HAS_NOT, NEXT_ELEMENT) {
+    assertionBuilder.createDescriptive(expect, DescriptionBasic.HAS_NOT, NEXT_ELEMENT) {
         !it.iterator().hasNext()
     }
 

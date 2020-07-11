@@ -2,11 +2,11 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.logic.FloatingPointAssertions
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion.*
@@ -37,7 +37,7 @@ class DefaultFloatingPointAssertions : FloatingPointAssertions {
     ): Assertion where T : Comparable<T>, T : Number {
         return toBeWithErrorTolerance(container, expected, tolerance, absDiff) { subject ->
             listOf(
-                ExpectImpl.builder.explanatory
+                assertionBuilder.explanatory
                     .withExplanation(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, subject::class.fullName)
                     .build(),
                 createToBeWithErrorToleranceExplained(subject, expected, absDiff, tolerance)
@@ -53,7 +53,7 @@ internal fun <T> createToBeWithErrorToleranceExplained(
     expected: T,
     absDiff: (T) -> T,
     tolerance: T
-): ExplanatoryAssertion where T : Comparable<T>, T : Number = ExpectImpl.builder.explanatory
+): ExplanatoryAssertion where T : Comparable<T>, T : Number = assertionBuilder.explanatory
     .withExplanation(
         TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED,
         formatFloatingPointNumber(subject),
@@ -69,14 +69,14 @@ internal fun <T : Comparable<T>> toBeWithErrorTolerance(
     tolerance: T,
     absDiff: (T) -> T,
     explanatoryAssertionCreator: (T) -> List<Assertion>
-): Assertion = ExpectImpl.builder.descriptive
+): Assertion = assertionBuilder.descriptive
     .withTest(container) { absDiff(it) <= tolerance }
     .withFailureHintBasedOnDefinedSubject(container) { subject ->
         //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
         //we do not want to see the failure nor the exact check in the 'an entry which...' part
         //same problematic applies to feature assertions within an identification lambda
         // => yet explanatory assertion should always hold
-        ExpectImpl.builder.explanatoryGroup
+        assertionBuilder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertionCreator(subject))
             .build()
