@@ -5,9 +5,9 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -54,14 +54,14 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
                 })
             }
             assertions.add(
-                ExpectImpl.builder.feature
+                assertionBuilder.feature
                     .withDescriptionAndRepresentation(Untranslatable("size"), Text(actualSize.toString()))
                     .withAssertions(featureAssertions)
                     .build()
             )
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = ExpectImpl.builder.summary
+            val summary = assertionBuilder.summary
                 .withDescription(description)
                 .withAssertions(assertions)
                 .build()
@@ -71,7 +71,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                ExpectImpl.builder.invisibleGroup
+                assertionBuilder.invisibleGroup
                     .withAssertions(
                         summary,
                         createExplanatoryGroupForMismatchesEtc(list, warningDescription)
@@ -103,7 +103,8 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     ): Pair<Boolean, Assertion>
 
     private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion> =
-        mutableListOf(ExpectImpl.builder.descriptive
+        mutableListOf(
+            assertionBuilder.descriptive
             .withTest { actualSize == allSearchCriteria.size }
             .withDescriptionAndRepresentation(TO_BE, Text(allSearchCriteria.size.toString()))
             .build()
@@ -113,12 +114,12 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
         list: MutableList<E?>,
         warning: DescriptionIterableAssertion
     ): AssertionGroup {
-        val assertions = list.map { ExpectImpl.builder.explanatory.withExplanation(it).build() }
-        val additionalEntries = ExpectImpl.builder.list
+        val assertions = list.map { assertionBuilder.explanatory.withExplanation(it).build() }
+        val additionalEntries = assertionBuilder.list
             .withDescriptionAndEmptyRepresentation(warning)
             .withAssertions(assertions)
             .build()
-        return ExpectImpl.builder.explanatoryGroup
+        return assertionBuilder.explanatoryGroup
             .withWarningType
             .withAssertion(additionalEntries)
             .build()

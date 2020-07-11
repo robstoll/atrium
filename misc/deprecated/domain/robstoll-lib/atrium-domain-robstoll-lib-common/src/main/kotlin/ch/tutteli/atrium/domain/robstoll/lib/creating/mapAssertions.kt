@@ -7,6 +7,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
@@ -64,7 +65,7 @@ fun <K, V, T : Map<out K, V>> _containsKeyWithValueAssertion(
                 .addToInitial(assertionCreator)
         }
     }
-    return ExpectImpl.builder.list
+    return assertionBuilder.list
         .withDescriptionAndEmptyRepresentation(CONTAINS_IN_ANY_ORDER)
         .withAssertion(assertion)
         .build()
@@ -73,23 +74,23 @@ fun <K, V, T : Map<out K, V>> _containsKeyWithValueAssertion(
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K> _containsKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, CONTAINS_KEY, key) { it.containsKey(key) }
+    assertionBuilder.createDescriptive(subjectProvider, CONTAINS_KEY, key) { it.containsKey(key) }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <K> _containsNotKey(subjectProvider: SubjectProvider<Map<out K, *>>, key: K): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, CONTAINS_NOT_KEY, key) { it.containsKey(key).not() }
+    assertionBuilder.createDescriptive(subjectProvider, CONTAINS_NOT_KEY, key) { it.containsKey(key).not() }
 
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS, EMPTY) { it.isEmpty() }
+    assertionBuilder.createDescriptive(subjectProvider, IS, EMPTY) { it.isEmpty() }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _isNotEmpty(subjectProvider: SubjectProvider<Map<*, *>>): Assertion =
-    ExpectImpl.builder.createDescriptive(subjectProvider, IS_NOT, EMPTY) { it.isNotEmpty() }
+    assertionBuilder.createDescriptive(subjectProvider, IS_NOT, EMPTY) { it.isNotEmpty() }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")

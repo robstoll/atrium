@@ -27,7 +27,12 @@ object ExpectImpl {
      * In detail, its an `inline` property which returns [ch.tutteli.atrium.assertions.builders.assertionBuilder]
      * which in turn returns an implementation of [AssertionBuilder].
      */
-    inline val builder get() = assertionBuilder
+    @Deprecated(
+        "Use assertionBuilder directly, ExpectImpl will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.assertions.builders.assertionBuilder")
+    )
+    inline val builder
+        get() = assertionBuilder
 
     /**
      * Returns [SubjectChangerBuilder] - helping you to change the subject of the assertion.

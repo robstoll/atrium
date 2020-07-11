@@ -4,15 +4,14 @@ import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import org.spekframework.spek2.Spek
+import ch.tutteli.atrium.specs.lineSeperator
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
@@ -44,7 +43,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
         val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${SummaryAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(
-                ExpectImpl.builder.customType(object : SummaryAssertionGroupType {})
+                assertionBuilder.customType(object : SummaryAssertionGroupType {})
                     .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
                     .withAssertions(listOf())
                     .build()
@@ -57,16 +56,16 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
     describeFun(AssertionFormatter::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} of ${DefaultSummaryAssertionGroupType::class.simpleName} and does not hold") {
             val assertions = listOf(
-                ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(
+                assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
                     AssertionVerb.ASSERT,
                     1
                 ).build(),
-                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
                     AssertionVerb.EXPECT_THROWN,
                     2
                 ).build()
             )
-            val summaryAssertionGroup = ExpectImpl.builder.customType(DefaultSummaryAssertionGroupType)
+            val summaryAssertionGroup = assertionBuilder.customType(DefaultSummaryAssertionGroupType)
                 .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 22)
                 .withAssertions(assertions)
                 .build()
@@ -90,12 +89,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 it("puts the assertions one under the other and indents the second one including a prefix") {
                     val featureAssertions = listOf(
                         summaryAssertionGroup,
-                        ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                        assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
                             AssertionVerb.ASSERT,
                             20
                         ).build()
                     )
-                    val featureAssertionGroup = ExpectImpl.builder.feature
+                    val featureAssertionGroup = assertionBuilder.feature
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
                         .withAssertions(featureAssertions)
                         .build()
@@ -117,12 +116,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
             context("in an ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                 val listAssertions = listOf(
                     summaryAssertionGroup,
-                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
                         AssertionVerb.ASSERT,
                         20
                     ).build()
                 )
-                val listAssertionGroup = ExpectImpl.builder.list
+                val listAssertionGroup = assertionBuilder.list
                     .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
                     .withAssertions(listAssertions)
                     .build()
@@ -146,12 +145,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     it("puts the assertions one under the other and indents as the other assertions but adds an extra indent to the second assertion including a prefix") {
                         val listAssertions2 = listOf(
                             listAssertionGroup,
-                            ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                            assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
                                 AssertionVerb.EXPECT_THROWN,
                                 30
                             ).build()
                         )
-                        val listAssertionGroup2 = ExpectImpl.builder.list
+                        val listAssertionGroup2 = assertionBuilder.list
                             .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
                             .withAssertions(listAssertions2)
                             .build()
@@ -175,26 +174,26 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
 
             context("in another ${AssertionGroup::class.simpleName} of type object: ${SummaryAssertionGroupType::class.simpleName}") {
                 val summaryAssertions = listOf(
-                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
                         AssertionVerb.ASSERT,
                         21
                     ).build(),
                     summaryAssertionGroup,
-                    ExpectImpl.builder.summary
+                    assertionBuilder.summary
                         .withDescription(AssertionVerb.EXPECT_THROWN)
                         .withAssertions(
-                            ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(
+                            assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
                                 AssertionVerb.ASSERT,
                                 30
                             ).build(),
-                            ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(
+                            assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
                                 AssertionVerb.ASSERT,
                                 31
                             ).build()
                         )
                         .build()
                 )
-                val summaryAssertionGroup2 = ExpectImpl.builder.customType(object : SummaryAssertionGroupType {})
+                val summaryAssertionGroup2 = assertionBuilder.customType(object : SummaryAssertionGroupType {})
                     .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
                     .withAssertions(summaryAssertions)
                     .build()
@@ -221,12 +220,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
         context("${AssertionGroup::class.simpleName} of ${DefaultSummaryAssertionGroupType::class.simpleName} and group holds") {
             it("The group is not formatted since it is filtered out") {
                 val assertions = listOf(
-                    ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(
+                    assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
                         AssertionVerb.ASSERT,
                         1
                     ).build()
                 )
-                val summaryAssertionGroup = ExpectImpl.builder.summary
+                val summaryAssertionGroup = assertionBuilder.summary
                     .withDescription(AssertionVerb.ASSERT)
                     .withAssertions(assertions)
                     .build()
