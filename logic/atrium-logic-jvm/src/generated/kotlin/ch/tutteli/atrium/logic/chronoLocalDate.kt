@@ -8,6 +8,7 @@ package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
+import java.math.BigDecimal
 import java.time.chrono.ChronoLocalDate
 
 fun <T : ChronoLocalDate> AssertionContainer<T>.isBefore(expected: ChronoLocalDate): Assertion = _chronoLocalDateImpl.isBefore(this, expected)

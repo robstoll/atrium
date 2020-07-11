@@ -5,6 +5,9 @@ import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
 
+/**
+ * Collection of assertion functions and builders which are applicable to subjects with a [Result] type.
+ */
 interface ResultAssertions {
     fun <E, T : Result<E>> isSuccess(container: AssertionContainer<T>): ExtractedFeaturePostStep<T, E>
 

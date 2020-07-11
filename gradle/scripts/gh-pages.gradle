@@ -93,11 +93,16 @@ dokka {
 //    }
 
     [
+        "ch.tutteli.atrium.creating.impl",
+        "ch.tutteli.atrium.logic.impl",
+        "ch.tutteli.atrium.logic.kotlin_1_3.impl",
+        "ch.tutteli.atrium.api.verbs.internal",
+        //TODO remove the below with 1.0.0
         "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
         "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl",
         "ch.tutteli.atrium.assertions.builders.impl",
         "ch.tutteli.atrium.domain.builders.reporting.impl",
-        "ch.tutteli.atrium.domain.builders.creating.changers.impl",
+        "ch.tutteli.atrium.domain.builders.creating.changers.impl"
     ].each { pkg ->
         packageOptions {
             prefix = pkg

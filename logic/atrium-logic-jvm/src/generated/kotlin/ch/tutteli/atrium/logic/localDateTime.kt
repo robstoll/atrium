@@ -9,6 +9,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 fun AssertionContainer<LocalDateTime>.year(): ExtractedFeaturePostStep<LocalDateTime, Int> = _localDateTimeImpl.year(this)

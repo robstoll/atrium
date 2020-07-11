@@ -8,6 +8,7 @@ package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import java.nio.file.Path
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 

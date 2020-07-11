@@ -9,6 +9,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import java.time.chrono.ChronoLocalDate
+import java.time.chrono.ChronoLocalDateTime
 import java.time.chrono.ChronoZonedDateTime
 
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> AssertionContainer<T>.isBefore(expected: ChronoZonedDateTime<*>): Assertion = _chronoZonedDateTimeImpl.isBefore(this, expected)
