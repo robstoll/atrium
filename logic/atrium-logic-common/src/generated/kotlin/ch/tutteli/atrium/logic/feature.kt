@@ -37,7 +37,6 @@ fun <T, A1, A2, A3, A4, R> AssertionContainer<T>.f4(f: KFunction5<T, A1, A2, A3,
 
 fun <T, A1, A2, A3, A4, A5, R> AssertionContainer<T>.f5(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): ExtractedFeaturePostStep<T, R> =
     _featureImpl.f5(this, f, a1, a2, a3, a4, a5)
-
     //@formatter:on
 
 fun <T, R> AssertionContainer<T>.manualFeature(description: String, provider: T.() -> R): ExtractedFeaturePostStep<T, R> =
@@ -49,4 +48,3 @@ fun <T, R> AssertionContainer<T>.manualFeature(description: Translatable, provid
 fun <T, R> AssertionContainer<T>.genericSubjectBasedFeature(provider: (T) -> MetaFeature<R>): ExtractedFeaturePostStep<T, R> = _featureImpl.genericSubjectBasedFeature(this, provider)
 
 fun <T, R> AssertionContainer<T>.genericFeature(metaFeature: MetaFeature<R>): ExtractedFeaturePostStep<T, R> = _featureImpl.genericFeature(this, metaFeature)
-
