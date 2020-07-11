@@ -62,7 +62,7 @@ interface AssertionCollector {
      *   [None] in case a previous subject change was not successful - used as subject for the given [assertionCreator].
      * @param assertionCreator A lambda which defines the assertions for the feature.
      *
-     * @return The collected assertions as an [AssertionGroup] with an [InvisibleAssertionGroupType].
+     * @return The collected assertions as a `List<[Assertion]>`.
      *
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.

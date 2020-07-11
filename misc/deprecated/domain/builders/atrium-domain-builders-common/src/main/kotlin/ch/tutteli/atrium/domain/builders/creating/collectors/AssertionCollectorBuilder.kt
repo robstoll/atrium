@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * In detail, it implements [AssertionCollector] by delegating to [assertionCollector]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic.collect instead, will be removed with 1.0.0")
 object AssertionCollectorBuilder : AssertionCollector {
 
     override inline fun <T> collect(
