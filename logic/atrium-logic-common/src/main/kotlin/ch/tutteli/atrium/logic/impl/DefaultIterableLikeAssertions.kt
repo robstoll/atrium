@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.logic.impl.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
