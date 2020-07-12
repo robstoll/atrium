@@ -20,3 +20,14 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isAfter
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isAfterOrEqual(expected: ChronoLocalDateTime<*>): Assertion = _chronoLocalDateTimeImpl.isAfterOrEqual(this, expected)
 
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isEqual(expected: ChronoLocalDateTime<*>): Assertion = _chronoLocalDateTimeImpl.isEqual(this, expected)
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isBefore(expected: String): Assertion = _chronoLocalDateTimeImpl.isBefore(this, expected)
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isBeforeOrEqual(expected: String): Assertion = _chronoLocalDateTimeImpl.isBeforeOrEqual(this, expected)
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isAfter(expected: String): Assertion = _chronoLocalDateTimeImpl.isAfter(this, expected)
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isAfterOrEqual(expected: String): Assertion = _chronoLocalDateTimeImpl.isAfterOrEqual(this, expected)
+
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isEqual(expected: String): Assertion = _chronoLocalDateTimeImpl.isEqual(this, expected)
+

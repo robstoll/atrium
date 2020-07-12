@@ -18,19 +18,9 @@ class ChronoLocalDateTimeAssertionsImpl : ChronoLocalDateTimeAssertions {
         expected: ChronoLocalDateTime<*>
     ): Assertion = _isBefore(expect, expected)
 
-    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
-        expect: Expect<T>,
-        expected: String
-    ): Assertion = _isBefore(expect, expected)
-
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = _isBeforeOrEquals(expect, expected)
-
-    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEquals(
-        expect: Expect<T>,
-        expected: String
     ): Assertion = _isBeforeOrEquals(expect, expected)
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
@@ -38,28 +28,13 @@ class ChronoLocalDateTimeAssertionsImpl : ChronoLocalDateTimeAssertions {
         expected: ChronoLocalDateTime<*>
     ): Assertion = _isAfter(expect, expected)
 
-    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
-        expect: Expect<T>,
-        expected: String
-    ): Assertion = _isAfter(expect, expected)
-
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
     ): Assertion = _isAfterOrEquals(expect, expected)
 
-    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEquals(
-        expect: Expect<T>,
-        expected: String
-    ): Assertion = _isAfterOrEquals(expect, expected)
-
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
         expect: Expect<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = _isEqual(expect, expected)
-
-    override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
-        expect: Expect<T>,
-        expected: String
     ): Assertion = _isEqual(expect, expected)
 }
