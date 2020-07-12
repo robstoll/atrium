@@ -5,9 +5,11 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.encoding.EncodingWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import java.nio.charset.Charset
 import java.nio.file.Path
 
 /**
@@ -308,26 +310,27 @@ infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> 
  *
  * @since 0.13.0
  */
-infix fun <T : Path> Expect<T>.hasSameTextualContentAsDefaultArgs(
+infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
     targetPath: Path
-): Expect<T> = addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, targetPath, Charsets.UTF_8, Charsets.UTF_8))
+): Expect<T> = hasSameTextualContentAs(withEncoding(targetPath, this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) has the same textual content
  * as path in [encodingWithCreator].
  *
- *  Use the function `withEncoding(Path, Charset, Charset) { ... }` to create a [EncodingWithCreator].
+ *  Use the function `withEncoding(Path, Charset, Charset) { ... }` to create an [EncodingWithCreator].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */
-infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
-    encodingWithCreator: EncodingWithCreator<T>
-): Expect<T> = addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, encodingWithCreator.path,
-    encodingWithCreator.sourceCharset, encodingWithCreator.targetCharset))
-
+infix fun <T : Path> Expect<T>.hasSameTextualContentAs(encodingWithCreator: EncodingWithCreator<T>):
+    Expect<T> = _logicAppend {
+        hasSameTextualContentAs(
+            encodingWithCreator.path, encodingWithCreator.sourceCharset, encodingWithCreator.targetCharset
+        )
+    }
 /**
  * Expects that the subject of the assertion (a [Path]) has the same binary content
  * as [targetPath].
@@ -338,11 +341,13 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
  * @since 0.13.0
  */
 infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path):
-    Expect<T> = addAssertion(ExpectImpl.path.hasSameBinaryContentAs(this, targetPath))
+    Expect<T> = _logicAppend {
+    hasSameBinaryContentAs(targetPath)
+}
 
 
 /**
- * Helper function to create a [EncodingWithCreator] based on the given [path] and [assertionCreator].
+ * Helper function to create an [EncodingWithCreator] based on the given [path] and [assertionCreator].
  */
 fun <T : Path> withEncoding(path: Path, assertionCreator: Expect<T>,
                             sourceCharset: Charset = Charsets.UTF_8, targetCharset: Charset = Charsets.UTF_8):
