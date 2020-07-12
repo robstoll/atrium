@@ -1,5 +1,4 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion

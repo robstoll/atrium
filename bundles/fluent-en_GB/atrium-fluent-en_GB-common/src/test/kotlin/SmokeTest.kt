@@ -7,12 +7,12 @@ import ch.tutteli.atrium.api.verbs.assert
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import kotlin.test.Test
 
 class SmokeTest {
@@ -110,7 +110,7 @@ fun Expect<Int>.isEven() = createAndAddAssertion(IS, Text("an even number")) { i
 fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = addAssertion(_isMultipleOf(this, base))
 
 private fun _isMultipleOf(expect: Expect<Int>, base: Int): Assertion =
-    assertionBuilder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
+    ExpectImpl.builder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
         it % base == 0
     }
 

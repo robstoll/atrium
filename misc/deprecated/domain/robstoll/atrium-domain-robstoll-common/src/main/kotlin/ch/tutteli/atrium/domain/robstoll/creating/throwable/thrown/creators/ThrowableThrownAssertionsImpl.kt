@@ -8,7 +8,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators._toBe
 import kotlin.reflect.KClass
 
-@Deprecated("Use Fun0Assertions instead; will be removed with 1.0.0")
 class ThrowableThrownAssertionsImpl : ThrowableThrownAssertions {
 
     override fun <TExpected : Throwable> toBe(

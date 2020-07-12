@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.logic.creating
+package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
@@ -8,9 +8,8 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -18,7 +17,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 /**
- * Showcase for using _logic.extractFeature
+ * Showcase for using ExpectImpl.feature.extractor
  */
 object EitherSpec : Spek({
 
@@ -59,12 +58,12 @@ object EitherSpec : Spek({
     }
 })
 
-fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = extractLeft().getExpectOfFeature()
+fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = changeToLeft().getExpectOfFeature()
 fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
-    extractLeft().addToInitial(assertionCreator)
+    changeToLeft().addToInitial(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.extractLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
-    _logic.extractFeature
+private fun <A, B> Expect<Either<A, B>>.changeToLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
+    ExpectImpl.feature.extractor(this)
         .withDescription("value of Left")
         .withRepresentationForFailure(Text("❗❗ is not a Left"))
         .withFeatureExtraction {
@@ -73,12 +72,12 @@ private fun <A, B> Expect<Either<A, B>>.extractLeft(): ExtractedFeaturePostStep<
         .withoutOptions()
         .build()
 
-fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = extractRight().getExpectOfFeature()
+fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = changeToRight().getExpectOfFeature()
 fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
-    extractRight().addToInitial(assertionCreator)
+    changeToRight().addToInitial(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.extractRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
-    _logic.extractFeature
+private fun <A, B> Expect<Either<A, B>>.changeToRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
+    ExpectImpl.feature.extractor(this)
         .withDescription("value of Right")
         .withRepresentationForFailure(Text("❗❗ is not a Right"))
         .withFeatureExtraction {

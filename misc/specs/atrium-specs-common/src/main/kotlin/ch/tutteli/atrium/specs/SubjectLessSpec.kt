@@ -3,11 +3,11 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import org.spekframework.spek2.Spek
@@ -39,7 +39,7 @@ abstract class SubjectLessSpec<T>(
                     )
                     .build()
 
-                val explanatoryGroup = assertionBuilder.explanatoryGroup
+                val explanatoryGroup = ExpectImpl.builder.explanatoryGroup
                     .withDefaultType
                     .withAssertions(assertions)
                     .build()

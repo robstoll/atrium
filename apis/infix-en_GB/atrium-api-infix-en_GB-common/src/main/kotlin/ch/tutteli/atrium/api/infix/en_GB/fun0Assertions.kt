@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.notToThrow
-import ch.tutteli.atrium.logic.toThrow
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 
 /**
  * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type).
@@ -16,7 +14,7 @@ import ch.tutteli.atrium.logic.toThrow
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
-    _logic.toThrow(TExpected::class).getExpectOfFeature()
+    ExpectImpl.fun0.isThrowing(this, TExpected::class).getExpectOfFeature()
 
 /**
  * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type) and
@@ -53,7 +51,7 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Exp
  */
 inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.toThrow(TExpected::class).addToFeature(assertionCreator)
+): Expect<TExpected> = ExpectImpl.fun0.isThrowing(this, TExpected::class).addToFeature(assertionCreator)
 
 
 /**
@@ -63,8 +61,7 @@ inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * @return An [Expect] with the new type [R].
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
-    _logic.notToThrow().getExpectOfFeature()
+fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> = ExpectImpl.fun0.isNotThrowing(this).getExpectOfFeature()
 
 /**
  * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
@@ -75,4 +72,4 @@ fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
  */
 infix fun <R, T : () -> R> Expect<T>.notToThrow(
     assertionCreator: Expect<R>.() -> Unit
-): Expect<R> = _logic.notToThrow().addToFeature(assertionCreator)
+): Expect<R> = ExpectImpl.fun0.isNotThrowing(this).addToFeature(assertionCreator)

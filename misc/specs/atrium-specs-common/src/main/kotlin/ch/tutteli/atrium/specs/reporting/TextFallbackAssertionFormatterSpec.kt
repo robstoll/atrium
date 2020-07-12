@@ -4,17 +4,17 @@ import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.toBeDescr
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
@@ -69,14 +69,14 @@ abstract class TextFallbackAssertionFormatterSpec(
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
                 val assertion =
-                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
+                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
                 testee.formatNonGroup(assertion, parameterObject)
                 expect(sb.toString()).toBe("$lineSeperator${IS_SAME.getDefault()}: bli")
             }
         }
         context("assertion of type ${RepresentationOnlyAssertion::class.simpleName}") {
             it("writes ${RepresentationOnlyAssertion::representation.name} without any additional colon or such") {
-                val assertion = assertionBuilder.representationOnly.failing.withRepresentation("hello").build()
+                val assertion = ExpectImpl.builder.representationOnly.failing.withRepresentation("hello").build()
                 testee.formatNonGroup(assertion, parameterObject)
                 expect(sb.toString()).toBe("${lineSeperator}hello")
             }
@@ -98,10 +98,10 @@ abstract class TextFallbackAssertionFormatterSpec(
                             override val description = Untranslatable("group")
                             override val representation = "subject of group"
                             override val assertions = listOf(
-                                assertionBuilder.descriptive.failing
+                                ExpectImpl.builder.descriptive.failing
                                     .withDescriptionAndRepresentation(IS_SAME, "b")
                                     .build(),
-                                assertionBuilder.descriptive.failing
+                                ExpectImpl.builder.descriptive.failing
                                     .withDescriptionAndRepresentation(TO_BE, "d")
                                     .build()
                             )
@@ -133,10 +133,10 @@ abstract class TextFallbackAssertionFormatterSpec(
                                     override val description = Untranslatable("inner group")
                                     override val representation = "subject of inner group"
                                     override val assertions = listOf(
-                                        assertionBuilder.descriptive.failing
+                                        ExpectImpl.builder.descriptive.failing
                                             .withDescriptionAndRepresentation(IS_SAME, "b")
                                             .build(),
-                                        assertionBuilder.descriptive.failing
+                                        ExpectImpl.builder.descriptive.failing
                                             .withDescriptionAndRepresentation(TO_BE, "d")
                                             .build()
                                     )

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.creating.ListAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._get
 import ch.tutteli.atrium.domain.robstoll.lib.creating._getNullable
 
-@Deprecated("Will be removed with 1.0.0")
+
 abstract class ListAssertionsDeprecatedImpl : ListAssertions {
 
     override fun <T : Any> get(plant: AssertionPlant<List<T>>, index: Int): AssertionPlant<T> = _get(plant, index)

@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.changeSubject
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import kotlin.jvm.JvmName
 
 /**
@@ -16,7 +15,7 @@ import kotlin.jvm.JvmName
  * @since 0.12.0
  */
 infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<E>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -59,7 +58,7 @@ infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -
  */
 @JvmName("byteArrAsList")
 infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Byte>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -89,7 +88,7 @@ infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Un
  */
 @JvmName("charArrAsList")
 infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Char>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -119,7 +118,7 @@ infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Un
  */
 @JvmName("shortArrAsList")
 infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Short>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -148,8 +147,7 @@ infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> 
  * @since 0.12.0
  */
 @JvmName("intArrAsList")
-infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Int>> =
-    _logic.changeSubject.unreported { it.asList() }
+infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Int>> = ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -179,7 +177,7 @@ infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit
  */
 @JvmName("longArrAsList")
 infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Long>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -209,7 +207,7 @@ infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Un
  */
 @JvmName("floatArrAsList")
 infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Float>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -239,7 +237,7 @@ infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> 
  */
 @JvmName("doubleArrAsList")
 infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Double>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
@@ -269,7 +267,7 @@ infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -
  */
 @JvmName("boolArrAsList")
 infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<Boolean>> =
-    _logic.changeSubject.unreported { it.asList() }
+    ExpectImpl.changeSubject(this).unreported { it.asList() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for

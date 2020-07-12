@@ -1,5 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
@@ -10,7 +8,6 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-@Deprecated("Will be removed with 1.0.0")
 class ThrowableAssertionsImpl : ThrowableAssertions {
 
     override fun <TExpected : Throwable> cause(

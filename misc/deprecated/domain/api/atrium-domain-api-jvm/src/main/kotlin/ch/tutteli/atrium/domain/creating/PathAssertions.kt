@@ -1,9 +1,5 @@
-//TODO remove file with 1.0.0
-@file:Suppress(
-    "DEPRECATION",
-    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -24,10 +20,6 @@ val pathAssertions by lazy { loadSingleService(PathAssertions::class) }
  * Defines the minimum set of assertion functions and builders applicable to [Path],
  * which an implementation of the domain of Atrium has to provide.
  */
-@Deprecated(
-    "Use PathAssertions from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.PathAssertions")
-)
 interface PathAssertions {
     fun <T : Path> fileName(expect: Expect<T>): ExtractedFeaturePostStep<T, String>
     fun <T : Path> extension(expect: Expect<T>): ExtractedFeaturePostStep<T, String>

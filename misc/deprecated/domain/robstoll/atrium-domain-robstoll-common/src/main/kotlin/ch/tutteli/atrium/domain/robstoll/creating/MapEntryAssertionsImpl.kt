@@ -1,5 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
@@ -8,7 +6,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isKeyValue
 import ch.tutteli.atrium.domain.robstoll.lib.creating._key
 import ch.tutteli.atrium.domain.robstoll.lib.creating._value
 
-@Deprecated("Will be removed with 1.0.0")
+
 class MapEntryAssertionsImpl : MapEntryAssertions, MapEntryAssertionsDeprecatedImpl() {
     override fun <K, V, T : Map.Entry<K, V>> isKeyValue(expect: Expect<T>, key: K, value: V) =
         _isKeyValue(expect, key, value)

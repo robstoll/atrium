@@ -60,11 +60,6 @@ include {
     }
 
     kotlinJvmJs('logic')
-    logic('logic-') {
-        extensions {
-            kotlinJvmJs('kotlin_1_3')
-        }
-    }
 
     translations('translations-') {
         kotlinJvmJs('de_CH')

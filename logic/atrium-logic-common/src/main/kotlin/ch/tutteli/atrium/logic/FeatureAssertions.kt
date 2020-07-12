@@ -12,9 +12,6 @@ import kotlin.reflect.KFunction4
 import kotlin.reflect.KFunction5
 import kotlin.reflect.KFunction6
 
-/**
- * Collection of functions which help to create feature assertions by returning [ExtractedFeaturePostStep].
- */
 interface FeatureAssertions {
     //@formatter:off
     fun <T, TProperty> property(container: AssertionContainer<T>, property: KProperty1<in T, TProperty>): ExtractedFeaturePostStep<T, TProperty>
@@ -30,6 +27,7 @@ interface FeatureAssertions {
     fun <T, A1, A2, A3, A4, R> f4(container: AssertionContainer<T>, f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): ExtractedFeaturePostStep<T, R>
 
     fun <T, A1, A2, A3, A4, A5, R> f5(container: AssertionContainer<T>, f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): ExtractedFeaturePostStep<T, R>
+
     //@formatter:on
 
     fun <T, R> manualFeature(
@@ -53,4 +51,5 @@ interface FeatureAssertions {
         container: AssertionContainer<T>,
         metaFeature: MetaFeature<R>
     ): ExtractedFeaturePostStep<T, R>
+
 }

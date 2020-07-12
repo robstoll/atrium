@@ -1,17 +1,15 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 import ch.tutteli.atrium.reporting.Text
@@ -34,7 +32,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
         val assertions = mutableListOf(descriptiveAssertion)
         maybeAssertionCreator.fold({ /* nothing to do */ }) { assertionCreator ->
             assertions.add(
-                assertionBuilder.explanatoryGroup
+                ExpectImpl.builder.explanatoryGroup
                     .withDefaultType
                     .collectAssertions(None, assertionCreator)
                     .build()
@@ -46,7 +44,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
                 if (it != null) assertions.add(propertiesOfThrowable(it, maxStackTrace))
             }
         )
-        return assertionBuilder.invisibleGroup
+        return ExpectImpl.builder.invisibleGroup
             .withAssertions(assertions.toList())
             .build()
     }
@@ -62,7 +60,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             maxStackTrace: Int,
             explanation: Assertion = createExplanation(throwable)
         ): AssertionGroup {
-            return assertionBuilder.explanatoryGroup
+            return ExpectImpl.builder.explanatoryGroup
                 .withDefaultType
                 .withAssertions(
                     explanation,
@@ -72,7 +70,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
         }
 
         private fun createExplanation(throwable: Throwable) =
-            assertionBuilder.explanatory
+            ExpectImpl.builder.explanatory
                 .withExplanation(
                     DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
                     throwable::class.simpleName ?: throwable::class.fullName
@@ -95,14 +93,14 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             assertions.addAll(createAdditionalHints(throwable, maxStackTrace))
             createCauseHint(throwable, maxStackTrace)?.let { assertions.add(it) }
 
-            return assertionBuilder.explanatoryGroup
+            return ExpectImpl.builder.explanatoryGroup
                 .withDefaultType
                 .withAssertions(assertions.toList())
                 .build()
         }
 
         private fun createMessageHint(throwable: Throwable) =
-            assertionBuilder.descriptive
+            ExpectImpl.builder.descriptive
                 .holding
                 .withDescriptionAndRepresentation(
                     DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
@@ -123,17 +121,17 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             val assertions = stackTrace.asSequence()
                 .take(maxStackTrace)
                 .map {
-                    assertionBuilder.explanatory.withExplanation(Text(it)).build()
+                    ExpectImpl.builder.explanatory.withExplanation(Text(it)).build()
                 }
                 .let {
                     if (stackTrace.size > maxStackTrace) {
-                        it.plus(assertionBuilder.explanatory.withExplanation(Text("...")).build())
+                        it.plus(ExpectImpl.builder.explanatory.withExplanation(Text("...")).build())
                     } else {
                         it
                     }
                 }.toList()
 
-            return assertionBuilder.list
+            return ExpectImpl.builder.list
                 .withDescriptionAndEmptyRepresentation(DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE)
                 .withAssertions(assertions)
                 .build()
@@ -161,7 +159,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
             maxStackTrace: Int
         ): AssertionGroup {
             val secondStackTrace = if (throwable.stackBacktrace.size > 1) throwable.stackBacktrace[1] else null
-            return assertionBuilder.list
+            return ExpectImpl.builder.list
                 .withDescriptionAndRepresentation(childDescription, child)
                 .withAssertion(
                     createHints(
@@ -178,6 +176,4 @@ class ThrowableThrownFailureHandler<T : Throwable?, R>(
 /**
  * Hook for platform specific additional hints.
  */
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 expect fun createAdditionalHints(throwable: Throwable, maxStackTrace: Int): List<Assertion>

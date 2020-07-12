@@ -1,5 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
@@ -8,7 +6,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isThrowing
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotThrowing
 import kotlin.reflect.KClass
 
-@Deprecated("Will be removed with 1.0.0")
+
 class Fun0AssertionsImpl : Fun0Assertions {
 
     override fun <TExpected : Throwable> isThrowing(

@@ -9,8 +9,6 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.*
-import ch.tutteli.kbox.identity
 
 /**
  * Creates an [IterableContains.Builder] based on this [Expect] which allows to define
@@ -37,6 +35,59 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(
 ): NotCheckerOption<E, T, NotSearchBehaviour> = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
 
 /**
+ * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @param o The filler object [o].
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.12.0
+ */
+infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
+    ExpectImpl.iterable.min(this).getExpectOfFeature()
+
+/**
+ * Expects that the result of calling `min()` on the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.12.0
+ */
+infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.iterable.min(this).addToInitial(assertionCreator)
+
+
+/**
+ * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @param o The filler object [o].
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.12.0
+ */
+infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
+    ExpectImpl.iterable.max(this).getExpectOfFeature()
+
+/**
+ * Expects that the result of calling `max()` on  the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.12.0
+ */
+infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    ExpectImpl.iterable.max(this).addToInitial(assertionCreator)
+
+/**
  *  Expects that the subject of the assertion (an [Iterable]) contains the [expected] value.
  *
  * It is a shortcut for `contains o inAny order atLeast 1 value expected`
@@ -44,7 +95,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> Expect<T>.contains(expected: E): Expect<T> =
+infix fun <E, T : Iterable<E>> Expect<T>.contains(expected: E) =
     it contains o inAny order atLeast 1 value expected
 
 /**
@@ -210,7 +261,7 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsO
  * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIterable: Iterable<E>): Expect<T> =
-    it contains o inAny order atLeast 1 elementsOf expectedIterable
+    it contains o inAny order atLeast 1 elementsOf  expectedIterable
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not contain the [expected] value.
@@ -237,59 +288,6 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E): Expect<T> =
 infix fun <E, T : Iterable<E>> Expect<T>.containsNot(values: Values<E>): Expect<T> =
     it containsNot o the values
 
-/**
- * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
- * so that further fluent calls are assertions about it.
- *
- * @param o The filler object [o].
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.12.0
- */
-infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
-    _logic.min(::identity).getExpectOfFeature()
-
-/**
- * Expects that the result of calling `min()` on the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.12.0
- */
-infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.min(::identity).addToInitial(assertionCreator)
-
-
-/**
- * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
- * so that further fluent calls are assertions about it.
- *
- * @param o The filler object [o].
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.12.0
- */
-infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
-    _logic.max(::identity).getExpectOfFeature()
-
-/**
- * Expects that the result of calling `max()` on  the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.12.0
- */
-infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.max(::identity).addToInitial(assertionCreator)
-
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains an entry holding
@@ -315,7 +313,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Exp
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
     it containsNot o entry assertionCreatorOrNull
 
 /**
@@ -326,9 +324,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Ex
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { all(::identity, assertionCreatorOrNull) }
-
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+    addAssertion(ExpectImpl.iterable.all(this, assertionCreatorOrNull))
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) has at least one element.
@@ -338,8 +335,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Exp
  *
  * @since 0.12.0
  */
-infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
-    _logicAppend { hasNext(::identity) }
+infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next) =
+    addAssertion(ExpectImpl.iterable.hasNext(this))
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not have next element.
@@ -349,5 +346,5 @@ infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  *
  * @since 0.12.0
  */
-infix fun <E, T : Iterable<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
-    _logicAppend { hasNotNext(::identity) }
+infix fun <E, T : Iterable<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next) =
+    addAssertion(ExpectImpl.iterable.hasNotNext(this))

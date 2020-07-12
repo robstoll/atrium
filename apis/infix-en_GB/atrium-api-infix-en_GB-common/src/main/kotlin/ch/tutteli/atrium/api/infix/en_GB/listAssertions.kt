@@ -2,8 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.get
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 
 /**
  * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and
@@ -13,7 +12,7 @@ import ch.tutteli.atrium.logic.get
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
-    _logic.get(index).getExpectOfFeature()
+    ExpectImpl.list.get(this, index).getExpectOfFeature()
 
 /**
  * Expects that the given [index][IndexWithCreator.index] is within the bounds of the subject of the assertion
@@ -27,7 +26,7 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *   if the assertion made is not correct.
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> =
-    _logic.get(index.index).addToInitial(index.assertionCreator)
+    ExpectImpl.list.get(this, index.index).addToInitial(index.assertionCreator)
 
 /**
  * Helper function to create an [IndexWithCreator] based on the given [index] and [assertionCreator].

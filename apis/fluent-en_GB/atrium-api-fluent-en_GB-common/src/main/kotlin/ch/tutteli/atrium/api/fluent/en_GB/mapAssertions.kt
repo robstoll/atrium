@@ -49,8 +49,7 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
-    _logicAppend { containsKey(key) }
+fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> = _logicAppend { containsKey(key) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -58,8 +57,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
-    _logicAppend { containsNotKey(key) }
+fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> = _logicAppend { containsNotKey(key) }
 
 
 /**
@@ -68,8 +66,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
-    _logicAppend { isEmpty() }
+fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> = _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
@@ -77,8 +74,7 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
-    _logicAppend { isNotEmpty() }
+fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> = _logicAppend { isNotEmpty() }
 
 
 /**

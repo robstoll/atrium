@@ -1,10 +1,6 @@
-//TODO remove file with 1.0.0
 @file:Suppress(
-    "DEPRECATION",
-    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */
-    "FINAL_UPPER_BOUND",
-    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+    "FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */,
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
 )
 
 package ch.tutteli.atrium.domain.creating
@@ -26,10 +22,6 @@ val zonedDateTimeAssertions by lazy { loadSingleService(ZonedDateTimeAssertions:
  * Defines the minimum set of assertion functions and builders applicable to [ZonedDateTime],
  * which an implementation of the domain of Atrium has to provide.
  */
-@Deprecated(
-    "Use ZonedDateTimeAssertions from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.ZonedDateTimeAssertions")
-)
 interface ZonedDateTimeAssertions {
     fun <T : ZonedDateTime> year(expect: Expect<T>): ExtractedFeaturePostStep<T, Int>
 

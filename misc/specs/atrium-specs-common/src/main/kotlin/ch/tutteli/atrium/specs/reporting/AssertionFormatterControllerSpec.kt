@@ -4,10 +4,10 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.Text
@@ -67,12 +67,12 @@ abstract class AssertionFormatterControllerSpec(
         )
     )
 
-    val holdingAssertion = assertionBuilder.descriptive
+    val holdingAssertion = ExpectImpl.builder.descriptive
         .holding
         .withDescriptionAndRepresentation(IS_GREATER_THAN_OR_EQUAL, 1)
         .build()
 
-    val failingAssertion = assertionBuilder.descriptive
+    val failingAssertion = ExpectImpl.builder.descriptive
         .failing
         .withDescriptionAndRepresentation(IS_LESS_THAN_OR_EQUAL, 2)
         .build()
@@ -97,19 +97,19 @@ abstract class AssertionFormatterControllerSpec(
 
             listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.customType(t)" to { t, a ->
-                    assertionBuilder.explanatoryGroup
+                    ExpectImpl.builder.explanatoryGroup
                         .withType(t)
                         .withAssertions(a)
                         .build()
                 },
                 "${AssertionBuilder::class.simpleName}.customType(t, ..)" to { t, a ->
-                    assertionBuilder.customType(t)
+                    ExpectImpl.builder.customType(t)
                         .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
                         .withAssertions(a)
                         .build()
                 },
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixedClaimGroup.name}" to { t, a ->
-                    assertionBuilder.fixedClaimGroup
+                    ExpectImpl.builder.fixedClaimGroup
                         .withType(t)
                         .failing
                         .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
@@ -177,10 +177,10 @@ abstract class AssertionFormatterControllerSpec(
 
             context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
                 it("appends only the explanatory assertion group") {
-                    val rootGroup = assertionBuilder.root
+                    val rootGroup = ExpectImpl.builder.root
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
                         .withAssertions(
-                            assertionBuilder.explanatoryGroup.withDefaultType.withAssertion(holdingAssertion).build(),
+                            ExpectImpl.builder.explanatoryGroup.withDefaultType.withAssertion(holdingAssertion).build(),
                             holdingAssertion
                         )
                         .build()
@@ -194,11 +194,11 @@ abstract class AssertionFormatterControllerSpec(
 
             context("first a regular assertion, then an ${ExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
                 it("appends only the explanatory assertion group") {
-                    val rootGroup = assertionBuilder.root
+                    val rootGroup = ExpectImpl.builder.root
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
                         .withAssertions(
                             holdingAssertion,
-                            assertionBuilder.explanatoryGroup.withWarningType.withAssertion(holdingAssertion).build(),
+                            ExpectImpl.builder.explanatoryGroup.withWarningType.withAssertion(holdingAssertion).build(),
                             holdingAssertion
                         )
                         .build()
@@ -211,17 +211,17 @@ abstract class AssertionFormatterControllerSpec(
             }
 
             context("an assertion group with assertions within an ${ExplanatoryAssertionGroupType::class.simpleName}") {
-                val assertionGroup = assertionBuilder.list
+                val assertionGroup = ExpectImpl.builder.list
                     .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2)
                     .withAssertions(holdingAssertion, failingAssertion)
                     .build()
-                val explanatoryAssertionGroup = assertionBuilder.explanatoryGroup
+                val explanatoryAssertionGroup = ExpectImpl.builder.explanatoryGroup
                     .withDefaultType
                     .withAssertions(listOf(assertionGroup, holdingAssertion))
                     .build()
 
                 it("appends the explanatory assertion group including all its assertions") {
-                    val rootGroup = assertionBuilder.root
+                    val rootGroup = ExpectImpl.builder.root
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
                         .withAssertion(explanatoryAssertionGroup)
                         .build()
@@ -237,11 +237,11 @@ abstract class AssertionFormatterControllerSpec(
 
                 context("within another ${ExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
                     it("appends the explanatory assertion group including all its assertions") {
-                        val explanatoryAssertionGroup2 = assertionBuilder.explanatoryGroup
+                        val explanatoryAssertionGroup2 = ExpectImpl.builder.explanatoryGroup
                             .withWarningType
                             .withAssertion(explanatoryAssertionGroup)
                             .build()
-                        val rootGroup2 = assertionBuilder.root
+                        val rootGroup2 = ExpectImpl.builder.root
                             .withDescriptionAndRepresentation(IS_LESS_THAN, 10)
                             .withAssertions(failingAssertion, explanatoryAssertionGroup2, holdingAssertion)
                             .build()
@@ -281,7 +281,7 @@ abstract class AssertionFormatterControllerSpec(
                             override val representation = "representation"
                             override val assertions = listOf(holdingAssertion, failingAssertion)
                         }
-                        val summaryGroup = assertionBuilder.summary
+                        val summaryGroup = ExpectImpl.builder.summary
                             .withDescription(AssertionVerb.ASSERT)
                             .withAssertion(invisibleGroup)
                             .build()

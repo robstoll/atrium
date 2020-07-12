@@ -12,11 +12,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import kotlin.reflect.KClass
 
-@Suppress(
-    "DeprecatedCallableAddReplaceWith",
-    /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */ "DEPRECATION"
-)
-@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalWithOptions::class)
 fun <T : Throwable, TExpected : Throwable> _cause(
     expect: Expect<T>,

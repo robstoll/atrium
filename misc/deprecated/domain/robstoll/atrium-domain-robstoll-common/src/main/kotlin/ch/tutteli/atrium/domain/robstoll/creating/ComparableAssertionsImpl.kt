@@ -1,5 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
@@ -7,7 +5,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
-@Deprecated("Will be removed with 1.0.0")
+
 class ComparableAssertionsImpl : ComparableAssertions {
 
     override fun <T1 : Comparable<T2>, T2 : Any?> isLessThan(subjectProvider: SubjectProvider<T1>, expected: T2) =

@@ -69,7 +69,7 @@ infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
  * entry which holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull]
- * creates or is `null` in case [entries].[assertionCreatorOrNull][Entries.otherAssertionCreatorsOrNulls]
+ * might create or is `null` in case [entries].[assertionCreatorOrNull][Entries.otherAssertionCreatorsOrNulls]
  * is defined as `null` and likewise a further entry for each
  * [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls]
  * (if given) whereas the entries have to appear in the specified order.

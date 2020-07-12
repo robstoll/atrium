@@ -17,7 +17,6 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-@ExperimentalNewExpectTypes
 abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
 ) : ExpectInternal<T> {
@@ -73,8 +72,7 @@ abstract class BaseExpectImpl<T>(
     }
 
     companion object {
-        @ExperimentalNewExpectTypes
-        fun <R> determineRepresentation(representationInsteadOfFeature: ((R) -> Any)?, maybeSubject: Option<R>): Any? =
+        fun <R> determineRepresentation(representationInsteadOfFeature: ((R) -> Any)?, maybeSubject: Option<R>) =
             representationInsteadOfFeature?.let { provider ->
                 maybeSubject.fold({ null }) { provider(it) }
             } ?: maybeSubject.getOrElse {
@@ -208,7 +206,6 @@ internal class FeatureExpectImpl<T, R>(
     }
 }
 
-@ExperimentalNewExpectTypes
 internal class DelegatingExpectImpl<T>(private val assertionHolder: AssertionHolder, maybeSubject: Option<T>) :
     BaseExpectImpl<T>(maybeSubject), DelegatingExpect<T> {
     override fun addAssertion(assertion: Assertion): Expect<T> {
@@ -217,8 +214,7 @@ internal class DelegatingExpectImpl<T>(private val assertionHolder: AssertionHol
     }
 }
 
-@ExperimentalNewExpectTypes
-internal class CollectingExpectImpl<T>(maybeSubject: Option<T>) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
+internal class CollectingExpectImpl<T>(maybeSubject: Option<T>): BaseExpectImpl<T>(maybeSubject), CollectingExpect<T>{
     private val assertions = mutableListOf<Assertion>()
 
     override fun getAssertions(): List<Assertion> = assertions.toList()
@@ -246,10 +242,8 @@ internal class CollectingExpectImpl<T>(maybeSubject: Option<T>) : BaseExpectImpl
                     assertionBuilder.explanatoryGroup
                         .withDefaultType
                         .withAssertions(
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_ASSERTION)
-                                .build(),
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED)
-                                .build()
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_ASSERTION).build(),
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED).build()
                         )
                         .build()
                 }

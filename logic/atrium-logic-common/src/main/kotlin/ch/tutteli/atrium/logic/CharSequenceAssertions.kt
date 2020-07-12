@@ -3,9 +3,6 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 
-/**
- * Collection of assertion functions and builders which are applicable to subjects with a [CharSequence] type.
- */
 interface CharSequenceAssertions {
     //TODO add with 0.14.0
 //    fun <T : CharSequence> containsBuilder(container: AssertionContainer<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>

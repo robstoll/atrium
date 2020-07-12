@@ -16,12 +16,7 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
-
-@Suppress(
-    "DeprecatedCallableAddReplaceWith",
-    "DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */
-)
-@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isThrowing(
     expect: Expect<out () -> Any?>,
@@ -55,8 +50,6 @@ private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, 
         Left(throwable)
     }
 
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <R, T : () -> R> _isNotThrowing(expect: Expect<T>): ChangedSubjectPostStep<*, R> {
     return ExpectImpl.changeSubject(expect)
         .unreported {

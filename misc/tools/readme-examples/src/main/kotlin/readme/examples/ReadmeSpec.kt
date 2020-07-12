@@ -16,12 +16,6 @@ import ch.tutteli.atrium.domain.builders.utils.mapArguments
 //snippet-subExpect-start
 import ch.tutteli.atrium.domain.builders.utils.subExpect
 //snippet-subExpect-end
-//snippet-import-AssertionContainer-start
-import ch.tutteli.atrium.creating.AssertionContainer
-//snippet-import-AssertionContainer-end
-//snippet-import-logic-start
-import ch.tutteli.atrium.logic.*
-//snippet-import-logic-end
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -474,9 +468,9 @@ object OwnPerson : Spek({
     }
 
     //snippet-own-compose-3b-start
-    fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> =
+    fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> = apply {
         feature(Person::children) { hasSize(number) }
-
+    }
     //snippet-own-compose-3b-end
     test("code-own-compose-3b") {
         //snippet-own-compose-3b-insert
@@ -488,11 +482,11 @@ object OwnPerson : Spek({
     }
 
     //snippet-own-compose-4-start
-    fun Expect<Person>.hasAdultChildren(): Expect<Person> =
+    fun Expect<Person>.hasAdultChildren(): Expect<Person> = apply {
         feature(Person::children) {
             all { feature(Person::age).isGreaterThanOrEqual(18) }
         }
-
+    }
     //snippet-own-compose-4-end
     test("code-own-compose-4") {
         //snippet-own-compose-4-insert
@@ -586,26 +580,22 @@ object I18n : Spek({
     }
 
     //snippet-i18n-3a-start
-    fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
-        createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+    fun _isMultipleOf(container: Expect<Int>, base: Int): Assertion =
+        ExpectImpl.builder.createDescriptive(container, DescriptionIntAssertion.IS_MULTIPLE_OF, base) {
+            it % base == 0
+        }
     //snippet-i18n-3a-end
 
     test("code-i18n-3a") {
-        //snippet-import-AssertionContainer-insert
-
         //snippet-i18n-3a-insert
     }
     test("code-i18n-3b") {
-        //snippet-import-logic-insert
-
         fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
-            _logicAppend { isMultipleOf(base) }
+            addAssertion(_isMultipleOf(this, base))
     }
     test("code-i18n-3c") {
-        //snippet-import-logic-insert
-
         fun Expect<Int>.istVielfachesVon(base: Int): Expect<Int> =
-            _logicAppend { isMultipleOf(base) }
+            addAssertion(_isMultipleOf(this, base))
     }
 })
 

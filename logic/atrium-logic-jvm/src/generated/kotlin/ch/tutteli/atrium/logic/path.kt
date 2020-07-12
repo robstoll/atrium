@@ -4,11 +4,6 @@
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
 
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
-
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -16,7 +11,6 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.nio.charset.Charset
 import java.nio.file.Path
-import java.util.*
 
 fun <T : Path> AssertionContainer<T>.startsWith(expected: Path): Assertion = _pathImpl.startsWith(this, expected)
 fun <T : Path> AssertionContainer<T>.startsNotWith(expected: Path): Assertion = _pathImpl.startsNotWith(this, expected)

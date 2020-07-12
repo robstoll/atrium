@@ -5,6 +5,7 @@ import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -20,8 +21,15 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun0(Expect<Path>::isRegularFile),
     fun0(Expect<Path>::isDirectory),
     fun1(Expect<Path>::hasSameBinaryContentAs),
-    fun3(Expect<Path>::hasSameTextualContentAs)
+    fun3(Expect<Path>::hasSameTextualContentAs),
+    fun1(Companion::hasSameTextualContentAsDefaultArgs)
 ) {
+
+    companion object : WithAsciiReporter() {
+        private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
+            expect.hasSameTextualContentAs(targetPath)
+    }
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<DummyPath> = notImplemented()

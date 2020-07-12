@@ -9,8 +9,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem.explainForResolvedLink
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -39,7 +39,7 @@ object SymbolicLinkResolvingSpec : Spek({
     val ifSymlinksNotSupported =
         if (fileSystemSupportsCreatingSymlinks()) Skip.No else Skip.Yes("creating symbolic links is not supported on this file system")
 
-    val testAssertion = assertionBuilder.createDescriptive(Untranslatable("testAssertion"), null) { true }
+    val testAssertion = ExpectImpl.builder.createDescriptive(Untranslatable("testAssertion"), null) { true }
     val resolvedPathConsumer by memoized(TEST) {
         mockk<(Path) -> Assertion> {
             every { this@mockk.invoke(any()) } returns testAssertion

@@ -1,10 +1,6 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.Expect
@@ -35,7 +31,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, in T : Iterable<E>, SC>(
                 addAssertion(createSizeFeatureAssertionForInOrderOnly(index, subject, remainingList.iterator()))
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            assertionBuilder.summary
+            ExpectImpl.builder.summary
                 .withDescription(description)
                 .withAssertion(assertion)
                 .build()

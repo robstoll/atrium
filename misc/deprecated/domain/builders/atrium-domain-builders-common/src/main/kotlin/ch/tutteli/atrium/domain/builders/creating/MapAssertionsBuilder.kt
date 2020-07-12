@@ -1,5 +1,5 @@
 @file:Suppress(
-    "DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE",
+    "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE",
 /* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
 )
 
@@ -19,7 +19,6 @@ import kotlin.reflect.KClass
  * In detail, it implements [MapAssertions] by delegating to [mapAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object MapAssertionsBuilder : MapAssertions {
 
     /**

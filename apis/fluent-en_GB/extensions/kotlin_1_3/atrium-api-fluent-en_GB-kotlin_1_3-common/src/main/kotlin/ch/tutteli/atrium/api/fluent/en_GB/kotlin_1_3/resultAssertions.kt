@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.kotlin_1_3.isFailure
-import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.kotlin_1_3.result
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Success
@@ -14,8 +13,7 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  *
  * @since 0.9.0
  */
-fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
-    _logic.isSuccess().getExpectOfFeature()
+fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> = ExpectImpl.result.isSuccess(this).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Success and
@@ -27,7 +25,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
  * @since 0.9.0
  */
 fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.isSuccess().addToInitial(assertionCreator)
+    ExpectImpl.result.isSuccess(this).addToInitial(assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure and
@@ -39,7 +37,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Uni
  * @since 0.9.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Expect<TExpected> =
-    _logic.isFailure(TExpected::class).getExpectOfFeature()
+    ExpectImpl.result.isFailure(this, TExpected::class).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure,
@@ -53,4 +51,4 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.isFailure(TExpected::class).addToFeature(assertionCreator)
+): Expect<TExpected> = ExpectImpl.result.isFailure(this, TExpected::class).addToFeature(assertionCreator)

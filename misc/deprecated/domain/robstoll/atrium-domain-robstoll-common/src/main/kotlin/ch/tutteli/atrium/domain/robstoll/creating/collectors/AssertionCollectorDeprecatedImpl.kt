@@ -10,7 +10,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors._collectAsserti
 import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors._collectOrExplain
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-@Deprecated("will be removed with 1.0.0")
 abstract class AssertionCollectorDeprecatedImpl : AssertionCollector {
 
     override fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(

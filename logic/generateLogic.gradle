@@ -18,8 +18,8 @@ static def getInterfaces(String path) {
     }
 }
 
-def createGenerateLogicTask(Project project, String implsFileName, String suffix = '') {
-    String packagePath = "ch/tutteli/atrium/logic" + (suffix != '' ? "/" + suffix : '')
+def createGenerateLogicTask(Project project, String implsFileName) {
+    String packagePath = "ch/tutteli/atrium/logic"
     String generatedFolder = project.generatedFolder
 
     return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
@@ -49,14 +49,12 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
                 """.stripIndent().replace("\n", ln)
 
             new File("$generatedPath/${implsFileName}.kt").withWriter('utf-8') { w ->
-                def packageSuffix = suffix != '' ? '.' + suffix : ''
                 w << header
                 w << """\
                     @file:JvmMultifileClass
                     @file:JvmName("ImplsKt")
-                    package ch.tutteli.atrium.logic$packageSuffix
+                    package ch.tutteli.atrium.logic
 
-                    import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
                     import kotlin.jvm.JvmMultifileClass
                     import kotlin.jvm.JvmName
 
@@ -65,7 +63,7 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
 
                 interfaces.forEach {
                     def type = getType(it)
-                    w << "import ch.tutteli.atrium.logic${packageSuffix}.impl.Default${type}Assertions$ln"
+                    w << "import ch.tutteli.atrium.logic.impl.Default${type}Assertions$ln"
                 }
 
                 w << "$ln"
@@ -74,8 +72,6 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
                     def type = getType(it)
                     w << """\
                         @PublishedApi
-                        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                        @UseExperimental(ExperimentalNewExpectTypes::class)
                         internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
                             get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
 
@@ -107,7 +103,7 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
                 def interfaceName = "${type}Assertions"
                 def implValName = "_${uncapitalized}Impl"
 
-                String tmp = content.replaceAll(/($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/, "")
+                String tmp = content.replaceAll(/${newLine}interface $interfaceName \{/, "")
                 patterns.forEach { triple ->
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
                 }

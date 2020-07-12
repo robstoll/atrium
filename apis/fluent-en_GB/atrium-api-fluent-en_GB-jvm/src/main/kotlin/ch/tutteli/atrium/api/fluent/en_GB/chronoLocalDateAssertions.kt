@@ -1,7 +1,4 @@
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
@@ -32,6 +29,7 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<
  */
 fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isBeforeOrEqual(expected) }
+
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDate])

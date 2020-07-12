@@ -3,13 +3,17 @@
 ## KDoc of Atrium
 Atrium is built up by different modules, each available for different platforms.
 
-The following names do not include the platform specific suffixes which are `-common`, `-jvm`, and `-js`. 
+The packages shown below contain classes etc. 
+of all modules excluding the one of 
+_atrium-core-robstoll_, _atrium-core-robstoll-lib_, _atrium-domain-robstoll_ and _atrium-domain-robstoll-lib_.
+
+The following names do not include the platform specific suffixes which are `-common`, `-jvm`, `-js` and `-android`. 
 
 Bundle modules:
 - **atrium-fluent-en&#95;GB**  defines to have a dependency on   
-  atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB, atrium-logic and atrium-core-robstoll
+  atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
 - **atrium-infix-en&#95;GB-robstoll** defines to have a dependency on  
-  atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-logic and atrium-core-robstoll
+  atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
   
 API modules:  
 - **atrium-api-fluent-en&#95;GB** provides an assertion function API in English where the main 
@@ -18,18 +22,21 @@ API modules:
   extensions:
   - **atrium-api-fluent-en&#95;GB-kotlin_1_3** provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
   
-- **atrium-api-infix-en&#95;GB** provides an assertion function API in English where the main 
+- **atrium-api-cc-infix-en&#95;GB** provides an assertion function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
-  It is an infix API.
-  extensions:
-    - **atrium-api-infix-en&#95;GB-kotlin_1_3** provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`) 
+  It is an infix API. 
   
-Logic modules:
-- **atrium-logic** provides the implementation of assertion functions as well as helper functions for 
-  assertion writers.
-  extensions:
-     - **atrium-logic-kotlin_1_3** provides the implementation of assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
-  
+Domain modules:
+- **atrium-domain-api** defines the contracts of the domain of Atrium 
+  (contracts for impl-functions and sophisticated assertion builders). 
+- **atrium-domain-robstoll** provides the different domain services like 
+  [CharSequenceAssertions](./ch.tutteli.atrium.domain.creating/-char-sequence-assertions/index.html)  
+  which use the implementations of *atrium-domain-robstoll-lib*
+- **atrium-domain-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the domain of Atrium.
+- **atrium-domain-builders** contains [AssertImpl](./ch.tutteli.atrium.domain.builders/-assert-impl/index.html),
+  the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html)
+  and last but not least provides base classes of sophisticated assertion builders for the API modules.
+
 Core modules:
 - **atrium-core-api** defines the contracts of the core of Atrium.
 
@@ -57,7 +64,7 @@ You should not rely on them and move to the suggested predecessor:
 - **atrium-cc-de&#95;CH-robstoll** use `atrium-fluent-de_CH` instead. This bundle defines to have a dependency on 
   atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH, atrium-domain-robstoll and atrium-core-robstoll
 - **atrium-cc-en&#95;GB-robstoll** use `atrium-fluent-en_GB` instead. This bundle defines to have a dependency on   
-  atrium-api-cc-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and atrium-core-robstoll
+  atrium-api-cc-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll
 - **atrium-cc-infix-en&#95;GB-robstoll** defines to have a dependency on  
   atrium-api-cc-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-domain-robstoll and and atrium-core-robstoll  
 - **atrium-cc-en&#95;UK-robstoll** use `atrium-cc-en_GB-robstoll` instead. This bundle defines to have a dependency on   
@@ -72,10 +79,6 @@ You should not rely on them and move to the suggested predecessor:
 - **atrium-api-cc-infix-en&#95;GB** use `atrium-api-infix-en_GB` instead.
 - **atrium-api-cc-en&#95;UK** use `atrium-api-cc-en_GB` instead.
   
-- **atrium-domain-api** use `atrium-logic` instead. 
-- **atrium-domain-robstoll**  use `atrium-logic` instead. 
-- **atrium-domain-robstoll-lib**  use `atrium-logic` instead. 
-- **atrium-domain-builders** use `atrium-logic` instead.   
 - **atrium-domain-api-deprecated** contains deprecated domain-api code
 - **atrium-core-robstoll-deprecated** contains the deprecated AtriumFactory => use 
   [coreFactory](./ch.tutteli.atrium.core/core-factory.html) instead
@@ -86,6 +89,7 @@ You should not rely on them and move to the suggested predecessor:
 
 # ch.tutteli.atrium
 Contains the `@Deprecated` [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html).
+
 
 # ch.tutteli.atrium.api.cc.de_CH
 `@Deprecated` API use [ch.tutteli.atrium.api.fluent.de_CH] instead.
@@ -309,8 +313,6 @@ Contains polyfills for functionality which is missing on certain platforms so th
 # ch.tutteli.atrium.creating
 Everything involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
-# ch.tutteli.atrium.creating.impl
-Contains implementations which are involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
 # ch.tutteli.atrium.domain.assertions.composers
 The [AssertionComposer](./ch.tutteli.atrium.domain.assertions.composers/-assertion-composer/index.html) 
@@ -454,13 +456,6 @@ Type aliases to improve the API.
 # ch.tutteli.atrium.domain.kotlin_1_3.creating
 Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation 
 has to provide for the Kotlin 1.3 extension.
-
-# ch.tutteli.atrium.logic
-Contains all the assertion interfaces (e.g. [AnyAssertions](./ch.tutteli.atrium.logic/-any-assertions/index.html)
-as well as [_logic](./ch.tutteli.atrium.logic/_logic.html) and helper functions for [AssertionContainer](./ch.tutteli.atrium.creating/-assertion-container/index.html)
-
-# ch.tutteli.atrium.logic.kotlin_1_3
-Contains all the assertion interfaces for the Kotlin 1.3 extension (e.g. [ResultAssertions](./ch.tutteli.atrium.logic.kotlin_1_3/-result-assertions/index.html)
 
 # ch.tutteli.atrium.reporting
 Everything involved in reporting [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.

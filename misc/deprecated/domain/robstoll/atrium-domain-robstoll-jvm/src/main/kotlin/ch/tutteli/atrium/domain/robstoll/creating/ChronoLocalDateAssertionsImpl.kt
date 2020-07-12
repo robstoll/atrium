@@ -1,9 +1,4 @@
-//TODO remove file with 1.0.0
-@file:Suppress(
-    "DEPRECATION",
-    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
 
 package ch.tutteli.atrium.domain.robstoll.creating
 
@@ -13,7 +8,6 @@ import ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import java.time.chrono.ChronoLocalDate
 
-@Deprecated("Will be removed with 1.0.0")
 class ChronoLocalDateAssertionsImpl : ChronoLocalDateAssertions {
 
     override fun <T : ChronoLocalDate> isBefore(expect: Expect<T>, expected: ChronoLocalDate): Assertion =

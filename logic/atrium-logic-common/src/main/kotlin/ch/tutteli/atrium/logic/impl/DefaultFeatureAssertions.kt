@@ -3,6 +3,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.FeatureAssertions
@@ -65,26 +66,21 @@ class DefaultFeatureAssertions : FeatureAssertions {
     ): ExtractedFeaturePostStep<T, R> =
         container.genericFeature(createMetaFeature(container, description, provider))
 
-    // TODO 0.14.0 probably not the best place
+    // TODO probably not the best place
     private fun <T, R> createMetaFeature(
         container: AssertionContainer<T>,
         description: String,
         provider: (T) -> R
     ): MetaFeature<R> = createMetaFeature(container, Untranslatable(description), provider)
 
-    // TODO 0.14.0 probably not the best place
-    @Suppress("DEPRECATION")
+    // TODO probably not the best place
     private fun <T, R> createMetaFeature(
         container: AssertionContainer<T>,
         description: Translatable,
         provider: (T) -> R
-    ): MetaFeature<R> =
-        //TODO 0.14.0 replace NewFeatureAssertionsBuilder.meta
-        ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder.meta.create(
-            container.toExpect(), description, provider
-        )
+    ): MetaFeature<R> = NewFeatureAssertionsBuilder.meta.create(container.toExpect(), description, provider)
 
-    // TODO 0.14.0 probably not the best place
+    // TODO probably not the best place
     private fun <T, R> createSubjectBasedMetaFeature(
         container: AssertionContainer<T>,
         provider: (T) -> MetaFeature<R>

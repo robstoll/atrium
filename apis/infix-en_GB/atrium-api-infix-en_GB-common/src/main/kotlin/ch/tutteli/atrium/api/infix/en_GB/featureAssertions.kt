@@ -7,9 +7,9 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
-import ch.tutteli.atrium.logic.*
 import kotlin.reflect.*
 
 /**
@@ -22,7 +22,7 @@ import kotlin.reflect.*
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
-    _logic.property(property).getExpectOfFeature()
+    ExpectImpl.feature.property(this, property).getExpectOfFeature()
 
 /**
  * Extracts the value which is returned when calling the method [f] on the current subject of the assertion,
@@ -38,7 +38,7 @@ infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
-    _logic.f0(f).getExpectOfFeature()
+    ExpectImpl.feature.f0(this, f).getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion using the given [Feature.extractor],
@@ -59,7 +59,7 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  */
 //TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
-    _logic.manualFeature(of.description, of.extractor).getExpectOfFeature()
+    ExpectImpl.feature.manualFeature(this, of.description, of.extractor).getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion using the given [FeatureWithCreator.extractor],
@@ -84,7 +84,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
  */
 //TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
-    _logic.manualFeature(of.description, of.extractor).addToInitial(of.assertionCreator)
+    ExpectImpl.feature.manualFeature(this, of.description, of.extractor).addToInitial(of.assertionCreator)
 
 
 /**
@@ -102,7 +102,7 @@ infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
-    _logic.genericSubjectBasedFeature { MetaFeatureOption(this).provider(it) }.getExpectOfFeature()
+    ExpectImpl.feature.genericSubjectBasedFeature(this) { MetaFeatureOption(this).provider(it) }.getExpectOfFeature()
 
 /**
  * Extracts a feature out of the current subject of the assertion,
@@ -135,7 +135,7 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expect<T> =
-    _logic.genericSubjectBasedFeature {
+    ExpectImpl.feature.genericSubjectBasedFeature(this) {
         MetaFeatureOption(this).(of.provider)(it)
     }.addToInitial(of.assertionCreator)
 

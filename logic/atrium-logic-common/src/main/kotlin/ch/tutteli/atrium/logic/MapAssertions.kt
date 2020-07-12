@@ -8,9 +8,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
 
-/**
- * Collection of assertion functions and builders which are applicable to subjects with a [Map] type.
- */
 interface MapAssertions {
     fun <K, V, T : Map<out K, V>> contains(
         container: AssertionContainer<T>,

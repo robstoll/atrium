@@ -2,7 +2,7 @@ description = 'Kotlin 1.3 specific assertion functions and builders for infix-en
 
 dependencies {
     api prefixedProject('api-infix-en_GB-js')
-    api prefixedProject('logic-kotlin_1_3-js')
+    api prefixedProject('domain-builders-kotlin_1_3-js')
 
     testImplementation prefixedProject('specs-js')
 }

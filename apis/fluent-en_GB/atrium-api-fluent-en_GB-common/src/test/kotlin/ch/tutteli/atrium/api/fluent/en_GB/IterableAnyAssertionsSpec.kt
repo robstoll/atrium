@@ -89,7 +89,7 @@ class IterableAnyAssertionsSpec : Spek({
         private fun containsNullableEntrySequence(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
-        ) = expect._logic.changeSubject.unreported { it.asSequence() }.asIterable().contains(a)
+        ) = ExpectImpl.changeSubject(expect).unreported { it.asSequence() }.asIterable().contains(a)
     }
 
     @Suppress("unused", "UNUSED_VALUE")

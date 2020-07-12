@@ -1,6 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.domain.robstoll.creating.collectors
 
 import ch.tutteli.atrium.core.Option

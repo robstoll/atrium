@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.translations.DescriptionBasic
 
@@ -11,5 +11,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class NotChecker : IterableContains.Checker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        assertionBuilder.createDescriptive(DescriptionBasic.IS, 0) { foundNumberOfTimes == 0 }
+        ExpectImpl.builder.createDescriptive(DescriptionBasic.IS, 0) { foundNumberOfTimes == 0 }
 }

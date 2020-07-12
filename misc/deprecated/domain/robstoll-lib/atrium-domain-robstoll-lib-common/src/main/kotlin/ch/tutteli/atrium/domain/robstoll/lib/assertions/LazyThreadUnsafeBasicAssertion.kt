@@ -8,7 +8,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
  * @constructor Represents a [DescriptiveAssertion] which is evaluated lazily where the lazy loading is not thread safe.
  * @param assertionCreator The factory function which is used for lazy loading.
  */
-@Deprecated("Will be removed with 1.0.0")
 class LazyThreadUnsafeBasicAssertion(assertionCreator: () -> DescriptiveAssertion) : DescriptiveAssertion {
     private val basicAssertion by lazy(LazyThreadSafetyMode.NONE) {
         assertionCreator()

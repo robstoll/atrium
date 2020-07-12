@@ -10,7 +10,7 @@ ext.jacoco_additional = [
 
 dependencies {
     api prefixedProject('api-fluent-en_GB-jvm')
-    api prefixedProject('logic-kotlin_1_3-jvm')
+    api prefixedProject('domain-builders-kotlin_1_3-jvm')
 
     testImplementation prefixedProject('specs-jvm')
 }

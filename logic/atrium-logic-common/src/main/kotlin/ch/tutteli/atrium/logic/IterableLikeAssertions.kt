@@ -5,10 +5,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 
-/**
- * Collection of assertion functions and builders which are applicable to subjects which can be transformed to an
- * [Iterable] - intended for types which are Iterable like such as [Array] or [Sequence].
- */
 interface IterableLikeAssertions {
 
     //TODO add with 0.14.0

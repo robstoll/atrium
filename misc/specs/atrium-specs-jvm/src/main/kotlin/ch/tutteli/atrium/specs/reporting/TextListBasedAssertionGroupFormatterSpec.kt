@@ -3,17 +3,17 @@ package ch.tutteli.atrium.specs.reporting
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
@@ -30,10 +30,10 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val assertions = listOf(
-        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 1).build(),
-        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2).build()
+        ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 1).build(),
+        ExpectImpl.builder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2).build()
     )
-    val listAssertionGroup = assertionBuilder.customType(anonymousAssertionGroupType)
+    val listAssertionGroup = ExpectImpl.builder.customType(anonymousAssertionGroupType)
         .withDescriptionAndRepresentation(TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2)
         .withAssertions(assertions)
         .build()
@@ -45,7 +45,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
         )
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupClass.simpleName}") {
             val result = testee.canFormat(
-                assertionBuilder.customType(anonymousAssertionGroupType)
+                ExpectImpl.builder.customType(anonymousAssertionGroupType)
                     .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
                     .withAssertions(listOf())
                     .build()
@@ -109,12 +109,12 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                     context("in an ${AssertionGroup::class.simpleName} of type ${DefaultFeatureAssertionGroupType::class.simpleName}") {
                         val featureAssertions = listOf(
                             listAssertionGroup,
-                            assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
+                            ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
                                 AssertionVerb.ASSERT,
                                 20
                             ).build()
                         )
-                        val featureAssertionGroup = assertionBuilder.feature
+                        val featureAssertionGroup = ExpectImpl.builder.feature
                             .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
                             .withAssertions(featureAssertions)
                             .build()
@@ -136,16 +136,16 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                         context("in another ${AssertionGroup::class.simpleName} of type ${assertionGroupType::class.simpleName}") {
                             it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                                 val listAssertions = listOf(
-                                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
+                                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
                                         AssertionVerb.ASSERT,
                                         5
                                     ).build(), featureAssertionGroup,
-                                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
+                                    ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
                                         AssertionVerb.ASSERT,
                                         30
                                     ).build()
                                 )
-                                val listAssertionGroup2 = assertionBuilder
+                                val listAssertionGroup2 = ExpectImpl.builder
                                     .customType(assertionGroupType)
                                     .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 10)
                                     .withAssertions(listAssertions)
@@ -172,17 +172,17 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                     context("in another ${AssertionGroup::class.simpleName} of type ${assertionGroupClass.simpleName}") {
                         it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                             val listAssertions = listOf(
-                                assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
+                                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
                                     AssertionVerb.ASSERT,
                                     5
                                 ).build(),
                                 listAssertionGroup,
-                                assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
+                                ExpectImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
                                     AssertionVerb.ASSERT,
                                     30
                                 ).build()
                             )
-                            val listAssertionGroup2 = assertionBuilder.customType(anonymousAssertionGroupType)
+                            val listAssertionGroup2 = ExpectImpl.builder.customType(anonymousAssertionGroupType)
                                 .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 10)
                                 .withAssertions(listAssertions)
                                 .build()

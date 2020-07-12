@@ -1,5 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.cc.de_CH.robstoll
 
 import ch.tutteli.atrium.core.robstoll.dependOn_atrium_core_robstoll

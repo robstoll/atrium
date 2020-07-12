@@ -1,13 +1,13 @@
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
+@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.encoding.EncodingWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithCreator
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.domain.builders.path
+import java.nio.charset.Charset
 import java.nio.file.Path
 
 /**
@@ -19,7 +19,7 @@ import java.nio.file.Path
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
-    _logicAppend { startsWith(expected) }
+    addAssertion(ExpectImpl.path.startsWith(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [Path]) does not start with the [expected] [Path].
@@ -30,7 +30,7 @@ infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
-    _logicAppend { startsNotWith(expected) }
+    addAssertion(ExpectImpl.path.startsNotWith(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [Path]) ends with the expected [Path].
@@ -41,7 +41,7 @@ infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
-    _logicAppend { endsWith(expected) }
+    addAssertion(ExpectImpl.path.endsWith(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [Path]) does not end with the expected [Path];
@@ -53,7 +53,7 @@ infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
-    _logicAppend { endsNotWith(expected) }
+    addAssertion(ExpectImpl.path.endsNotWith(this, expected))
 
 /**
  * Expects that the subject of the assertion (a [Path]) exists;
@@ -68,7 +68,7 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
-    _logicAppend { exists() }
+    addAssertion(ExpectImpl.path.exists(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) does not exist;
@@ -83,7 +83,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
-    _logicAppend { existsNot() }
+    addAssertion(ExpectImpl.path.existsNot(this))
 
 /**
  * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
@@ -95,7 +95,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.fileName: Expect<String>
-    get() = _logic.fileName().getExpectOfFeature()
+    get() = ExpectImpl.path.fileName(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
@@ -109,7 +109,7 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.fileName().addToInitial(assertionCreator)
+    ExpectImpl.path.fileName(this).addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
@@ -122,7 +122,7 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
-    get() = _logic.fileNameWithoutExtension().getExpectOfFeature()
+    get() = ExpectImpl.path.fileNameWithoutExtension(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
@@ -136,7 +136,7 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.fileNameWithoutExtension().addToInitial(assertionCreator)
+    ExpectImpl.path.fileNameWithoutExtension(this).addToInitial(assertionCreator)
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and creates an [Expect] for it,
@@ -148,7 +148,7 @@ infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.parent: Expect<Path>
-    get() = _logic.parent().getExpectOfFeature()
+    get() = ExpectImpl.path.parent(this).getExpectOfFeature()
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
@@ -160,7 +160,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
-    _logic.parent().addToInitial(assertionCreator)
+    ExpectImpl.path.parent(this).addToInitial(assertionCreator)
 
 /**
  * Expects that [other] resolves against this [Path] and creates an [Expect] for the resolved [Path]
@@ -172,7 +172,7 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
-    _logic.resolve(other).getExpectOfFeature()
+    ExpectImpl.path.resolve(this, other).getExpectOfFeature()
 
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
@@ -187,13 +187,12 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.resolve(path: PathWithCreator<Path>): Expect<T> =
-    _logic.resolve(path.path).addToInitial(path.assertionCreator)
+    ExpectImpl.path.resolve(this, path.path).addToInitial(path.assertionCreator)
 
 /**
  * Helper function to create a [PathWithCreator] based on the given [path] and [assertionCreator].
  */
-fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCreator<E> =
-    PathWithCreator(path, assertionCreator)
+fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCreator<E> = PathWithCreator(path, assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Path]) is readable;
@@ -214,7 +213,7 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
-    _logicAppend { isReadable() }
+    addAssertion(ExpectImpl.path.isReadable(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) is writable;
@@ -231,7 +230,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
-    _logicAppend { isWritable() }
+    addAssertion(ExpectImpl.path.isWritable(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) is a file;
@@ -251,7 +250,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: aRegularFile): Expect<T> =
-    _logicAppend { isRegularFile() }
+    addAssertion(ExpectImpl.path.isRegularFile(this))
 
 /**
  * Expects that the subject of the assertion (a [Path]) is a directory;
@@ -271,7 +270,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
-    _logicAppend { isDirectory() }
+    addAssertion(ExpectImpl.path.isDirectory(this))
 
 /**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
@@ -283,7 +282,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.extension: Expect<String>
-    get() = _logic.extension().getExpectOfFeature()
+    get() = ExpectImpl.path.extension(this).getExpectOfFeature()
 
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
@@ -297,4 +296,53 @@ val <T : Path> Expect<T>.extension: Expect<String>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.extension().addToInitial(assertionCreator)
+    ExpectImpl.path.extension(this).addToInitial(assertionCreator)
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * as [targetPath].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
+    targetPath: Path
+): Expect<T> = addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, targetPath, Charsets.UTF_8, Charsets.UTF_8))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * as path in [encodingWithCreator].
+ *
+ *  Use the function `withEncoding(Path, Charset, Charset) { ... }` to create an [EncodingWithCreator].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
+    encodingWithCreator: EncodingWithCreator<T>
+): Expect<T> = addAssertion(ExpectImpl.path.hasSameTextualContentAs(this, encodingWithCreator.path,
+    encodingWithCreator.sourceCharset, encodingWithCreator.targetCharset))
+
+/**
+ * Expects that the subject of the assertion (a [Path]) has the same binary content
+ * as [targetPath].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path):
+    Expect<T> = addAssertion(ExpectImpl.path.hasSameBinaryContentAs(this, targetPath))
+
+
+/**
+ * Helper function to create an [EncodingWithCreator] based on the given [path] and [assertionCreator].
+ */
+fun <T : Path> withEncoding(path: Path, assertionCreator: Expect<T>,
+                            sourceCharset: Charset = Charsets.UTF_8, targetCharset: Charset = Charsets.UTF_8):
+    EncodingWithCreator<T> = EncodingWithCreator(path, sourceCharset, targetCharset, assertionCreator)

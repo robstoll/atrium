@@ -1,5 +1,4 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
 
 package ch.tutteli.atrium.domain.robstoll.creating
 
@@ -13,7 +12,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._nullableFirst
 import ch.tutteli.atrium.domain.robstoll.lib.creating._nullableSecond
 import ch.tutteli.atrium.domain.robstoll.lib.creating._second
 
-@Deprecated("Will be removed with 1.0.0")
+
 class PairAssertionsImpl : PairAssertions {
     override fun <K, T : Pair<K, *>> first(expect: Expect<T>) = _first(expect)
     override fun <V, T : Pair<*, V>> second(expect: Expect<T>) = _second(expect)

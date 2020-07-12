@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
-@Deprecated("Will be removed with 1.0.0")
+
 abstract class MapEntryAssertionsDeprecatedImpl : MapEntryAssertions {
 
     override fun <K : Any, V : Any> isKeyValue(

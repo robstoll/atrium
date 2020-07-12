@@ -1,5 +1,4 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.kotlin_1_3.creating
 
@@ -15,7 +14,6 @@ import kotlin.reflect.KClass
  * In detail, it implements [ResultAssertions] by delegating to [resultAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
-@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object ResultAssertionsBuilder : ResultAssertions {
 
     override inline fun <E, T : Result<E>> isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =

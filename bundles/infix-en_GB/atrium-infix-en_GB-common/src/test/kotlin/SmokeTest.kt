@@ -1,8 +1,8 @@
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
@@ -58,7 +58,7 @@ infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = addAssertion(isMultipleOf(this, base))
 
 private fun isMultipleOf(expect: Expect<Int>, base: Int): Assertion =
-    assertionBuilder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
+    ExpectImpl.builder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
         it % base == 0
     }
 

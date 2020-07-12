@@ -1,5 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
 @file:JvmMultifileClass
 @file:JvmName("ListAssertionsKt")
 
@@ -13,8 +11,6 @@ import ch.tutteli.atrium.translations.DescriptionListAssertion
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E, T : List<E>> _get(expect: Expect<T>, index: Int): ExtractedFeaturePostStep<T, E> =
     ExpectImpl.feature.extractor(expect)
         .methodCall("get", index)
