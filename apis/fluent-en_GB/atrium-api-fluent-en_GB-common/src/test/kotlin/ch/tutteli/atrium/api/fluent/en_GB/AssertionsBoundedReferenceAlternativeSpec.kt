@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
-class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
+class AssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.AssertionsSpec(
     propertyImmediate,
     propertyLazy,
     f0Immediate,

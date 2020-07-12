@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.integration.TestData
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 
-class FeatureAssertionsManualSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
+class AssertionsManualSpec : ch.tutteli.atrium.specs.integration.AssertionsSpec(
     propertyImmediate,
     propertyLazy,
     f0Immediate,

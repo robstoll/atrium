@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.integration.TestData
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class FeatureAssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
+class AssertionsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.specs.integration.AssertionsSpec(
     propertyImmediate,
     propertyLazy,
     f0Immediate,

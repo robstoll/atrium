@@ -13,7 +13,7 @@ import ch.tutteli.atrium.spec.integration.TestData
 internal typealias F = Assert<TestData>.() -> Unit
 
 //TODO remove with 1.0.0, no need to migrate to Spek 2
-class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
+class AssertionsBoundedReferenceSpec : ch.tutteli.atrium.spec.integration.AssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,

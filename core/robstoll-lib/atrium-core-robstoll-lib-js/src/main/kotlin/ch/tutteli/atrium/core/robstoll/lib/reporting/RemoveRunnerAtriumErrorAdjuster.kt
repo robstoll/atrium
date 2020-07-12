@@ -4,10 +4,12 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 
 actual class RemoveRunnerAtriumErrorAdjuster : FilterAtriumErrorAdjuster(), AtriumErrorAdjuster {
     override fun adjustStack(stackTrace: Sequence<String>): Sequence<String> = stackTrace.takeWhile {
-        !runnerRegex.containsMatchIn(it)
+        !runnerMochaRegex.containsMatchIn(it) &&
+            !runnerJasmineRegex.containsMatchIn(it)
     }
 
     companion object {
-        val runnerRegex: Regex = Regex("[\\\\|/]mocha[\\\\|/]")
+        val runnerMochaRegex: Regex = Regex("[\\\\|/]mocha[\\\\|/]")
+        val runnerJasmineRegex: Regex = Regex("[\\\\|/]jasmine[\\\\|/]")
     }
 }

@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 
 //TODO remove with 1.0.0 - no need to migrate to Spek2
-class FeatureAssertionsBuilderNameRepresentationSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
+class AssertionsBuilderNameRepresentationSpec : ch.tutteli.atrium.spec.integration.AssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,

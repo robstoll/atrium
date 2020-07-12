@@ -8,7 +8,7 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 internal typealias F = Expect<TestData>.() -> Unit
 
-class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
+class AssertionsBoundedReferenceSpec : ch.tutteli.atrium.specs.integration.AssertionsSpec(
     propertyImmediate,
     propertyLazy,
     f0Immediate,

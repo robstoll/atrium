@@ -31,7 +31,7 @@ data class TestData(val description: String, val nullableValue: Int?) {
 typealias F = Assert<TestData>.() -> Unit
 
 @Deprecated("Switch from Assert to Expect and use Spec from atrium-specs-common; will be removed with 1.0.0")
-abstract class FeatureAssertionsSpec(
+abstract class AssertionsSpec(
     verbs: AssertionVerbFactory,
 
     propertyImmediate: F,
