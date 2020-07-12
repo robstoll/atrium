@@ -66,7 +66,7 @@ infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehav
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] might create or
+ * holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] creates or
  * needs to be `null` in case [entries].[assertionCreatorOrNull][Entries.otherAssertionCreatorsOrNulls]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of
  * the [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].

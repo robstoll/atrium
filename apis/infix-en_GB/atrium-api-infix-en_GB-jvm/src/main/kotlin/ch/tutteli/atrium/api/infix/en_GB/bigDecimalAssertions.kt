@@ -1,11 +1,13 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress(
+    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.logic.*
 import java.math.BigDecimal
 
 /**
@@ -52,7 +54,7 @@ infix fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseU
  */
 @JvmName("toBeNull")
 infix fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
-    addAssertion(ExpectImpl.any.toBe(this, expected))
+    _logicAppend { toBe(expected) }
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -93,7 +95,7 @@ infix fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw Pleas
  *
  */
 infix fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isNumericallyEqualTo(this, expected))
+    _logicAppend { isNumericallyEqualTo(expected) }
 
 /**
  * Expects that the subject of the assertion (a [BigDecimal]) is not numerically equal to [expected].
@@ -112,7 +114,7 @@ infix fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T
  *
  */
 infix fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
+    _logicAppend { isNotNumericallyEqualTo(expected) }
 
 
 /**
@@ -129,7 +131,7 @@ infix fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expec
  *
  */
 infix fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
+    _logicAppend { isEqualIncludingScale(expected, this::isNumericallyEqualTo.name) }
 
 /**
  * Expects that the subject of the assertion (a [BigDecimal]) is not equal to [expected] including [BigDecimal.scale].
@@ -145,4 +147,4 @@ infix fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<
  *
  */
 infix fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T): Expect<T> =
-    addAssertion(ExpectImpl.bigDecimal.isNotEqualIncludingScale(this, expected))
+    _logicAppend { isNotEqualIncludingScale(expected) }

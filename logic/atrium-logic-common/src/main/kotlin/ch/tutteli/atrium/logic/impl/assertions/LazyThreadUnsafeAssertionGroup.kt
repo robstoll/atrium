@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.logic.assertions
+package ch.tutteli.atrium.logic.impl.assertions
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 

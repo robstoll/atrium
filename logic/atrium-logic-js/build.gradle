@@ -5,4 +5,7 @@ dependencies {
 
     // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-js')
+
+    testImplementation prefixedProject('api-fluent-en_GB-js')
+    testImplementation prefixedProject('specs-js')
 }

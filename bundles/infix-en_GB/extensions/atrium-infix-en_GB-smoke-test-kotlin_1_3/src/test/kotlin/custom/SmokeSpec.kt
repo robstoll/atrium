@@ -1,4 +1,7 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress(
+    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 
 package custom
 
@@ -7,8 +10,8 @@ import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -41,7 +44,7 @@ infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = addAssertion(_isMultipleOf(this, base))
 
 fun _isMultipleOf(expect: Expect<Int>, base: Int): Assertion =
-    ExpectImpl.builder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
+    assertionBuilder.createDescriptive(expect, DescriptionIntAssertions.IS_MULTIPLE_OF, base) {
         it % base == 0
     }
 

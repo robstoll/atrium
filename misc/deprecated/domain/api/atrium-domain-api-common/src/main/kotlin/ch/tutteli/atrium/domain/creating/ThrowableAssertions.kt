@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -13,12 +15,17 @@ import kotlin.reflect.KClass
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val throwableAssertions by lazy { loadSingleService(ThrowableAssertions::class) }
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to [Throwable],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use ThrowableAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.ThrowableAssertions")
+)
 interface ThrowableAssertions {
 
     fun <TExpected : Throwable> cause(

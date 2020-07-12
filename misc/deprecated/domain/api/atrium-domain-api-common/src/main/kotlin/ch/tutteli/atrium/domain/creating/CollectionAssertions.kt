@@ -18,6 +18,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val collectionAssertions by lazy { loadSingleService(CollectionAssertions::class) }
 
 
@@ -25,6 +26,10 @@ val collectionAssertions by lazy { loadSingleService(CollectionAssertions::class
  * Defines the minimum set of assertion functions and builders applicable to [Collection],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use CollectionAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.AnyAssertions")
+)
 interface CollectionAssertions {
     fun isEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion
     fun isNotEmpty(subjectProvider: SubjectProvider<Collection<*>>): Assertion

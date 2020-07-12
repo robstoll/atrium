@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Expect
  * Helper function to create an [All] based on the given [t] and [ts]
  * -- allows to express `T, vararg T`.
  */
-fun <T> all(t: T, vararg ts: T) = All(t, ts)
+fun <T> all(t: T, vararg ts: T): All<T> = All(t, ts)
 
 /**
  * Helper function to create an [Entry] based on the given [assertionCreatorOrNull].
@@ -23,7 +23,7 @@ fun <T : Any> entry(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Entry<T> =
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda might create.
+ *   to be identified if it holds all [Assertion]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */

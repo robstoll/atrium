@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.Expect
@@ -6,6 +8,7 @@ import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
 
+@Deprecated("Will be removed with 1.0.0")
 class AnyAssertionsImpl : AnyAssertions, AnyAssertionsDeprecatedImpl() {
 
     override fun <T> toBe(subjectProvider: SubjectProvider<T>, expected: T) = _toBe(subjectProvider, expected)

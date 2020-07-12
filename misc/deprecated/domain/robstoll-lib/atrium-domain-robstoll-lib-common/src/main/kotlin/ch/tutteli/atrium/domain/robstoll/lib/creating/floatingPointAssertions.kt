@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 @file:JvmMultifileClass
 @file:JvmName("floatingPointAssertionsKt")
 
@@ -5,20 +7,24 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion.*
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 import kotlin.math.absoluteValue
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _toBeWithErrorTolerance(subjectProvider: SubjectProvider<Float>, expected: Float, tolerance: Float): Assertion =
     toBeWithErrorToleranceOfFloatOrDouble(subjectProvider, expected, tolerance) { (it - expected).absoluteValue }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun _toBeWithErrorTolerance(subjectProvider: SubjectProvider<Double>, expected: Double, tolerance: Double): Assertion =
     toBeWithErrorToleranceOfFloatOrDouble(subjectProvider, expected, tolerance) { (it - expected).absoluteValue }
 
@@ -30,7 +36,7 @@ private fun <T> toBeWithErrorToleranceOfFloatOrDouble(
 ): Assertion where T : Comparable<T>, T : Number {
     return toBeWithErrorTolerance(subjectProvider, expected, tolerance, absDiff) { subject ->
         listOf(
-            ExpectImpl.builder.explanatory
+            assertionBuilder.explanatory
                 .withExplanation(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, subject::class.fullName)
                 .build(),
             createToBeWithErrorToleranceExplained(subject, expected, absDiff, tolerance)
@@ -44,7 +50,7 @@ internal fun <T> createToBeWithErrorToleranceExplained(
     expected: T,
     absDiff: (T) -> T,
     tolerance: T
-): ExplanatoryAssertion where T : Comparable<T>, T : Number = ExpectImpl.builder.explanatory
+): ExplanatoryAssertion where T : Comparable<T>, T : Number = assertionBuilder.explanatory
     .withExplanation(
         TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED,
         formatFloatingPointNumber(subject),
@@ -60,14 +66,14 @@ internal fun <T : Comparable<T>> toBeWithErrorTolerance(
     tolerance: T,
     absDiff: (T) -> T,
     explanatoryAssertionCreator: (T) -> List<Assertion>
-): Assertion = ExpectImpl.builder.descriptive
+): Assertion = assertionBuilder.descriptive
     .withTest(subjectProvider) { absDiff(it) <= tolerance }
     .withFailureHintBasedOnDefinedSubject(subjectProvider) { subject ->
         //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
         //we do not want to see the failure nor the exact check in the 'an entry which...' part
         //same problematic applies to feature assertions within an identification lambda
         // => yet explanatory assertion should always hold
-        ExpectImpl.builder.explanatoryGroup
+        assertionBuilder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertionCreator(subject))
             .build()

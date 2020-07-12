@@ -1,7 +1,7 @@
 description = 'Assertion verbs for Atrium for the JVM platform.'
 
 dependencies {
-    api prefixedProject('domain-builders-jvm')
+    api prefixedProject('logic-jvm')
     api prefixedProject('core-api-jvm')
 
     testImplementation prefixedProject('specs-jvm')

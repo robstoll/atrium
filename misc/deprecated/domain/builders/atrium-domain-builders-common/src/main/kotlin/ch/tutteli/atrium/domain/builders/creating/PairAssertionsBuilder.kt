@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */, "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -15,6 +16,7 @@ import ch.tutteli.atrium.domain.creating.pairAssertions
  * In detail, it implements [PairAssertions] by delegating to [pairAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object PairAssertionsBuilder : PairAssertions {
 
     override inline fun <K, T : Pair<K, *>> first(expect: Expect<T>) =

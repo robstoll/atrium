@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.kbox.identity
 
 /**
  * Creates an [IterableContains.Builder] based on this [Expect] which allows to define
@@ -26,57 +27,6 @@ val <E, T : Iterable<E>> Expect<T>.contains: IterableContains.Builder<E, T, NoOp
  */
 val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
-
-/**
- * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
-    _logic.min(::identity).getExpectOfFeature()
-
-/**
- * Expects that the result of calling `min()` on the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.min(::identity).addToInitial(assertionCreator)
-
-/**
- * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
-    _logic.max(::identity).getExpectOfFeature()
-
-/**
- * Expects that the result of calling `max()` on  the subject of the assertion
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.max(::identity).addToInitial(assertionCreator)
-
-@Suppress("NOTHING_TO_INLINE")
-private inline fun <T> identity(t: T): T = t
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the
@@ -240,8 +190,58 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIte
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E) =
+fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E): Expect<T> =
     containsNot.values(expected, *otherExpected)
+
+
+/**
+ * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
+    _logic.min(::identity).getExpectOfFeature()
+
+/**
+ * Expects that the result of calling `min()` on the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    _logic.min(::identity).addToInitial(assertionCreator)
+
+/**
+ * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
+    _logic.max(::identity).getExpectOfFeature()
+
+/**
+ * Expects that the result of calling `max()` on  the subject of the assertion
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of the assertion.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    _logic.max(::identity).addToInitial(assertionCreator)
+
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains an entry holding
@@ -256,7 +256,6 @@ fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected
 fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
-
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not contain a single entry
  * which holds all assertions created by [assertionCreatorOrNull] or does not contain a single entry which is `null`
@@ -267,9 +266,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     containsNot.entry(assertionCreatorOrNull)
-
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) has at least one element and
@@ -279,8 +277,9 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?) =
+fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
+
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) has at least one element.
@@ -290,7 +289,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  *
  * @since 0.9.0
  */
-fun <E, T : Iterable<E>> Expect<T>.hasNext() = _logicAppend { hasNext(::identity) }
+fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
+    _logicAppend { hasNext(::identity) }
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not have next element.
@@ -300,4 +300,5 @@ fun <E, T : Iterable<E>> Expect<T>.hasNext() = _logicAppend { hasNext(::identity
  *
  * @since 0.9.0
  */
-fun <E, T : Iterable<E>> Expect<T>.hasNotNext() = _logicAppend { hasNotNext(::identity) }
+fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
+    _logicAppend { hasNotNext(::identity) }

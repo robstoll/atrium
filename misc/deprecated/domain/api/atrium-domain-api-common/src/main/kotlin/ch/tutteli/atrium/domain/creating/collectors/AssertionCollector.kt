@@ -10,7 +10,6 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -23,6 +22,7 @@ val assertionCollector: AssertionCollector by lazy { loadSingleService(Assertion
 /**
  * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
+//TODO 0.14.0 move to atrium-logic
 interface AssertionCollector {
 
     /**
@@ -62,7 +62,7 @@ interface AssertionCollector {
      *   [None] in case a previous subject change was not successful - used as subject for the given [assertionCreator].
      * @param assertionCreator A lambda which defines the assertions for the feature.
      *
-     * @return The collected assertions as an [AssertionGroup] with an [InvisibleAssertionGroupType].
+     * @return The collected assertions as a `List<[Assertion]>`.
      *
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
@@ -78,7 +78,7 @@ interface AssertionCollector {
      *
      * This function can be useful in several cases. For instance:
      * - You are writing an assertion about a feature often enough so that it deserves an own assertion function
-     *   (see e.g. [MapAssertions.hasSize])
+     *   (see e.g. [ch.tutteli.atrium.domain.creating.MapAssertions.hasSize])
      * - You want the collected assertion to be part of an [AssertionGroup]
      *
      * @param plant The plant from which the [AssertionPlant.subject][SubjectProvider.subject] will be used as subject of the

@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */, "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -16,6 +17,7 @@ import kotlin.reflect.KClass
  * In detail, it implements [MapEntryAssertions] by delegating to [mapEntryAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object MapEntryAssertionsBuilder : MapEntryAssertions {
     override inline fun <K, V, T : Map.Entry<K, V>> isKeyValue(
         expect: Expect<T>,

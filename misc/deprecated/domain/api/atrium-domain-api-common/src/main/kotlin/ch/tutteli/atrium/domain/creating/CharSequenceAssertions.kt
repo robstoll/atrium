@@ -13,6 +13,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+//TODO 0.14.0 deprecate
 val charSequenceAssertions by lazy { loadSingleService(CharSequenceAssertions::class) }
 
 
@@ -20,6 +21,7 @@ val charSequenceAssertions by lazy { loadSingleService(CharSequenceAssertions::c
  * Defines the minimum set of assertion functions and builders applicable to [CharSequence],
  * which an implementation of the domain of Atrium has to provide.
  */
+//TODO 0.14.0 deprecate
 interface CharSequenceAssertions {
     fun <T : CharSequence> containsBuilder(subjectProvider: SubjectProvider<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     fun <T : CharSequence> containsNotBuilder(subjectProvider: SubjectProvider<T>): CharSequenceContains.Builder<T, NotSearchBehaviour>

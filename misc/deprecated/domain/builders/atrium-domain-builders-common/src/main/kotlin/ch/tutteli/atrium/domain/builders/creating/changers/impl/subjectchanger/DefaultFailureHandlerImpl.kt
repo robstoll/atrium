@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
 
@@ -18,10 +18,10 @@ class DefaultFailureHandlerImpl<T, R> : SubjectChanger.FailureHandler<T, R> {
     ): Assertion = maybeAssertionCreator.fold({
         descriptiveAssertion
     }) { assertionCreator ->
-        ExpectImpl.builder.invisibleGroup
+        assertionBuilder.invisibleGroup
             .withAssertions(
                 descriptiveAssertion,
-                ExpectImpl.builder.explanatoryGroup
+                assertionBuilder.explanatoryGroup
                     .withDefaultType
                     .collectAssertions(None, assertionCreator)
                     .build()

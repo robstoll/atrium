@@ -1,3 +1,5 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -9,6 +11,7 @@ import ch.tutteli.atrium.creating.SubjectProvider
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val floatingPointAssertions by lazy { loadSingleService(FloatingPointAssertions::class) }
 
 
@@ -18,6 +21,10 @@ val floatingPointAssertions by lazy { loadSingleService(FloatingPointAssertions:
  *
  * An `actual` or in other words platform specific interface might add further methods.
  */
+@Deprecated(
+    "Use FloatingPointAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.FloatingPointAssertions")
+)
 expect interface FloatingPointAssertions : FloatingPointAssertionsCommon
 
 /**

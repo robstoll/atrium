@@ -163,4 +163,5 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @return An [Expect] for the current subject of the assertion.
  */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> = addAssertionsCreatedBy(assertionCreator)
+infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    addAssertionsCreatedBy(assertionCreator)
