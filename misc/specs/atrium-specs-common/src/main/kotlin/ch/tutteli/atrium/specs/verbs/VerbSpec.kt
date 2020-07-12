@@ -163,8 +163,8 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
         }.toThrow<AssertionError> {
             message {
                 contains(": 1")
-                contains("${DescriptionComparableAssertion.IS_LESS_OR_EQUALS.getDefault()}: 0")
-                containsNot("${DescriptionComparableAssertion.IS_GREATER_OR_EQUALS.getDefault()}: 2")
+                contains("${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUALS.getDefault()}: 0")
+                containsNot("${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUALS.getDefault()}: 2")
             }
         }
     }

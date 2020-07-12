@@ -69,12 +69,12 @@ abstract class AssertionFormatterControllerSpec(
 
     val holdingAssertion = ExpectImpl.builder.descriptive
         .holding
-        .withDescriptionAndRepresentation(IS_GREATER_OR_EQUALS, 1)
+        .withDescriptionAndRepresentation(IS_GREATER_THAN_OR_EQUALS, 1)
         .build()
 
     val failingAssertion = ExpectImpl.builder.descriptive
         .failing
-        .withDescriptionAndRepresentation(IS_LESS_OR_EQUALS, 2)
+        .withDescriptionAndRepresentation(IS_LESS_THAN_OR_EQUALS, 2)
         .build()
 
     describeFun(testee::format.name) {
@@ -149,7 +149,7 @@ abstract class AssertionFormatterControllerSpec(
                             testee.format(holdingGroup, parameterObject)
                             expect(sb.toString()).toBe(
                                 lineSeperator +
-                                    "$prefix ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                                    "$prefix ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1"
                             )
                         }
 
@@ -157,7 +157,7 @@ abstract class AssertionFormatterControllerSpec(
                             testee.format(failingGroup, parameterObject)
                             expect(sb.toString()).toBe(
                                 lineSeperator +
-                                    "$prefix ${IS_LESS_OR_EQUALS.getDefault()}: 2"
+                                    "$prefix ${IS_LESS_THAN_OR_EQUALS.getDefault()}: 2"
                             )
                         }
                     }
@@ -187,7 +187,7 @@ abstract class AssertionFormatterControllerSpec(
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toBe(
                         "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator" +
-                            "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                            "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1"
                     )
                 }
             }
@@ -205,7 +205,7 @@ abstract class AssertionFormatterControllerSpec(
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toBe(
                         "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator" +
-                            "$indentBulletPoint$warning ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                            "$indentBulletPoint$warning ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1"
                     )
                 }
             }
@@ -229,9 +229,9 @@ abstract class AssertionFormatterControllerSpec(
                     expect(sb.toString()).toBe(
                         "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator" +
                             "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator" +
-                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$lineSeperator" +
-                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$lineSeperator" +
-                            "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1$lineSeperator" +
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUALS.getDefault()}: 2$lineSeperator" +
+                            "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1"
                     )
                 }
 
@@ -249,9 +249,9 @@ abstract class AssertionFormatterControllerSpec(
                         expect(sb.toString()).toBe(
                             "${IS_LESS_THAN.getDefault()}: 10$lineSeperator" +
                                 "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator" +
-                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$lineSeperator" +
-                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$lineSeperator" +
-                                "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1"
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1$lineSeperator" +
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUALS.getDefault()}: 2$lineSeperator" +
+                                "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1"
                         )
                     }
                 }
@@ -289,8 +289,8 @@ abstract class AssertionFormatterControllerSpec(
                         expect(sb.toString()).toBe(
                             lineSeperator +
                                 "${AssertionVerb.ASSERT.getDefault()}: ${Text.EMPTY}$lineSeperator" +
-                                "$successfulBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$lineSeperator" +
-                                "$failingBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2"
+                                "$successfulBulletPoint ${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 1$lineSeperator" +
+                                "$failingBulletPoint ${IS_LESS_THAN_OR_EQUALS.getDefault()}: 2"
                         )
                     }
                 }

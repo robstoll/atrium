@@ -42,9 +42,9 @@ abstract class ComparableAssertionsSpec(
     val (isGreaterOrEquals, isGreaterOrEqualsFun) = isGreaterOrEqualsPair
 
     val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-    val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_OR_EQUALS.getDefault()
+    val isLessOrEqualsDescr = DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUALS.getDefault()
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
-    val isGreaterOrEqualsDescr = DescriptionComparableAssertion.IS_GREATER_OR_EQUALS.getDefault()
+    val isGreaterOrEqualsDescr = DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUALS.getDefault()
 
     val fluent = verbs.checkImmediately(10)
     group("$describePrefix context subject is 10") {
@@ -71,7 +71,7 @@ abstract class ComparableAssertionsSpec(
             test("... 10 does not throw") {
                 fluent.isLessOrEqualsFun(10)
             }
-            test("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_OR_EQUALS} and `: 10`") {
+            test("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUALS} and `: 10`") {
                 expect {
                     fluent.isLessOrEqualsFun(9)
                 }.toThrow<AssertionError> { messageContains("$isLessOrEqualsDescr: 9") }
@@ -95,7 +95,7 @@ abstract class ComparableAssertionsSpec(
         }
 
         describe("$isGreaterOrEquals ...") {
-            test("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_OR_EQUALS} and `: 11`") {
+            test("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUALS} and `: 11`") {
                 expect {
                     fluent.isGreaterOrEqualsFun(11)
                 }.toThrow<AssertionError> { messageContains("$isGreaterOrEqualsDescr: 11") }

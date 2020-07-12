@@ -82,8 +82,8 @@ abstract class VerbSpec(
             }.toThrow<AssertionError> {
                 message {
                     contains(": 1")
-                    contains("${IS_LESS_OR_EQUALS.getDefault()}: 0")
-                    containsNot("${IS_GREATER_OR_EQUALS.getDefault()}: 2")
+                    contains("${IS_LESS_THAN_OR_EQUALS.getDefault()}: 0")
+                    containsNot("${IS_GREATER_THAN_OR_EQUALS.getDefault()}: 2")
                 }
             }
         }
