@@ -1,11 +1,14 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress(
+    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 @file:JvmMultifileClass
 @file:JvmName("FloatingPointAssertionsKt")
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 import java.math.BigDecimal
 
 /**
@@ -21,5 +24,5 @@ import java.math.BigDecimal
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal) =
-    addAssertion(ExpectImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))
+fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal): Expect<T> =
+    _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

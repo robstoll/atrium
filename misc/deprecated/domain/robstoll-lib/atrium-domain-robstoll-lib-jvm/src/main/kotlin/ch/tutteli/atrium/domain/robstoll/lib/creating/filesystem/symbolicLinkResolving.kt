@@ -1,11 +1,15 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+//TODO remove file with 1.0.0
+@file:Suppress(
+    /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */ "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE",
+    "DEPRECATION"
+)
 
 package ch.tutteli.atrium.domain.robstoll.lib.creating.filesystem
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
 import ch.tutteli.niok.followSymbolicLink
@@ -13,6 +17,7 @@ import java.io.IOException
 import java.nio.file.Path
 import java.util.*
 
+@Deprecated("use function from atrium-logic; will be removed with 1.0.0")
 inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (realPath: Path) -> Assertion): Assertion {
     val hintList = LinkedList<Assertion>()
     val realPath = addAllLevelResolvedSymlinkHints(path, hintList)
@@ -23,7 +28,7 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
             is AssertionGroup -> hintList.addAll(resolvedPathAssertion.assertions)
             else -> hintList.add(resolvedPathAssertion)
         }
-        ExpectImpl.builder.explanatoryGroup.withDefaultType
+        assertionBuilder.explanatoryGroup.withDefaultType
             .withAssertions(hintList)
             .build()
     } else {
@@ -36,6 +41,7 @@ inline fun explainForResolvedLink(path: Path, resolvedPathAssertionProvider: (re
  * Adds explanatory hints for all involved symbolic links to [hintList].
  */
 @PublishedApi
+@Deprecated("use function from atrium-logic; will be removed with 1.0.0")
 internal fun addAllLevelResolvedSymlinkHints(path: Path, hintList: Deque<Assertion>): Path {
     val absolutePath = path.toAbsolutePath().normalize()
     return addAllLevelResolvedSymlinkHints(absolutePath, hintList, Stack())
@@ -81,7 +87,7 @@ private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<As
             .normalize()
 
         hintList.add(
-            ExpectImpl.builder.explanatory
+            assertionBuilder.explanatory
                 .withExplanation(HINT_FOLLOWED_SYMBOLIC_LINK, absolutePath, nextPath)
                 .build()
         )
@@ -94,7 +100,7 @@ private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<As
 
 private fun hintForLinkLoop(loop: List<Path>, startIndex: Int): Assertion {
     val loopRepresentation = loop.subList(startIndex, loop.size).joinToString(" -> ")
-    return ExpectImpl.builder.explanatoryGroup.withWarningType
+    return assertionBuilder.explanatoryGroup.withWarningType
         .withExplanatoryAssertion(FAILURE_DUE_TO_LINK_LOOP, loopRepresentation)
         .build()
 }

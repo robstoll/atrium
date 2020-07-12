@@ -1,4 +1,6 @@
+//TODO remove file with 1.0.0
 @file:Suppress(
+    "DEPRECATION",
     "OVERRIDE_BY_INLINE",
     "NOTHING_TO_INLINE",
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
@@ -18,6 +20,7 @@ import java.time.chrono.ChronoZonedDateTime
  * In detail, it implements [ChronoZonedDateTimeAssertions] by delegating to [chronoZonedDateTimeAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object ChronoZonedDateTimeAssertionsBuilder : ChronoZonedDateTimeAssertions {
 
     override inline fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(

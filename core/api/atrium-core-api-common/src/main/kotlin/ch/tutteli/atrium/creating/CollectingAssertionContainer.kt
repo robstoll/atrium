@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,6 +14,7 @@ import ch.tutteli.atrium.assertions.Assertion
  *
  * @param T The type of the [subject] of this [Expect].
  */
+@Deprecated("Use CollectingExpect instead; will be removed with 1.0.0", ReplaceWith("CollectingExpect"))
 interface CollectingAssertionContainer<T> : Expect<T> {
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingAssertionContainer<T>

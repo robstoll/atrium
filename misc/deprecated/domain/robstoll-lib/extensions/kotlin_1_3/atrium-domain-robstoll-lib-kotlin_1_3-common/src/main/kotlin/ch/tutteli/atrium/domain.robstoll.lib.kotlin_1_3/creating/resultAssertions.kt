@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.kotlin_1_3.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
@@ -13,6 +16,8 @@ import ch.tutteli.atrium.translations.DescriptionResultAssertion.EXCEPTION
 import ch.tutteli.atrium.translations.DescriptionResultAssertion.IS_NOT_FAILURE
 import kotlin.reflect.KClass
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <E, T : Result<E>> _isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T, E> =
     ExpectImpl.feature.extractor(expect)
         .withDescription(DescriptionResultAssertion.VALUE)
@@ -23,13 +28,16 @@ fun <E, T : Result<E>> _isSuccess(expect: Expect<T>): ExtractedFeaturePostStep<T
         .withoutOptions()
         .build()
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@Suppress(
+    "DeprecatedCallableAddReplaceWith",
+    /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */"DEPRECATION"
+)
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isFailure(
     expect: Expect<out Result<*>>,
     expectedType: KClass<TExpected>
-): ChangedSubjectPostStep<Throwable?, TExpected>
-{
+): ChangedSubjectPostStep<Throwable?, TExpected> {
     val throwableExpect = ExpectImpl.feature
         .manualFeature(expect, EXCEPTION) { exceptionOrNull() }
         .getExpectOfFeature()

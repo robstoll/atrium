@@ -1,4 +1,5 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.creating
 
@@ -15,6 +16,7 @@ import kotlin.reflect.KClass
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 val mapEntryAssertions by lazy { loadSingleService(MapEntryAssertions::class) }
 
 
@@ -22,6 +24,10 @@ val mapEntryAssertions by lazy { loadSingleService(MapEntryAssertions::class) }
  * Defines the minimum set of assertion functions and builders applicable to [Map],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated(
+    "Use MapEntryAssertions from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.MapEntryAssertions")
+)
 interface MapEntryAssertions {
     fun <K, V, T : Map.Entry<K, V>> isKeyValue(expect: Expect<T>, key: K, value: V): Assertion
     fun <K, T : Map.Entry<K, *>> key(expect: Expect<T>): ExtractedFeaturePostStep<T, K>

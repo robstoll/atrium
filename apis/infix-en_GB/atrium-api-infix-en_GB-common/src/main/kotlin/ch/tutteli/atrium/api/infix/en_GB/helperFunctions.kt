@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Expect
  * Helper function to create an [All] based on the given [t] and [ts]
  * -- allows to express `T, vararg T`.
  */
-fun <T> all(t: T, vararg ts: T) = All(t, ts)
+fun <T> all(t: T, vararg ts: T): All<T> = All(t, ts)
 
 /**
  * Helper function to create an [Entry] based on the given [assertionCreatorOrNull].
@@ -23,7 +23,7 @@ fun <T : Any> entry(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Entry<T> =
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda might create.
+ *   to be identified if it holds all [Assertion]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
@@ -42,7 +42,7 @@ fun <K, V> pairs(pair: Pair<K, V>, vararg otherPairs: Pair<K, V>): Pairs<K, V> =
 /**
  * Helper function to create a [PresentWithCreator] based on the given [assertionCreator].
  */
-fun <E> present(assertionCreator: Expect<E>.() -> Unit) =
+fun <E> present(assertionCreator: Expect<E>.() -> Unit): PresentWithCreator<E> =
     PresentWithCreator(assertionCreator)
 
 /**
@@ -55,7 +55,7 @@ fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns 
 /**
  * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
  */
-fun <E> success(assertionCreator: Expect<E>.() -> Unit) =
+fun <E> success(assertionCreator: Expect<E>.() -> Unit): SuccessWithCreator<E> =
     SuccessWithCreator(assertionCreator)
 
 /**

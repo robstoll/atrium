@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.hasNext
+import ch.tutteli.atrium.logic.hasNotNext
 
 /**
  * Expects that the subject of the assertion (an [Iterator]) has at least one element.
@@ -11,8 +13,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  *
  * @since 0.13.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next) =
-    addAssertion(ExpectImpl.iterator.hasNext(this))
+infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
+    _logicAppend { hasNext() }
 
 /**
  * Expects that the subject of the assertion (an [Iterator]) does not have next element.
@@ -22,5 +24,5 @@ infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  *
  * @since 0.13.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next) =
-    addAssertion(ExpectImpl.iterator.hasNotNext(this))
+infix fun <E, T : Iterator<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
+    _logicAppend { hasNotNext() }

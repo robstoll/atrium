@@ -11,6 +11,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.*
 
 
 /**
@@ -97,7 +98,7 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNum
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar) =
+infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this containsNot o value expected
 
 /**
@@ -115,7 +116,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumbe
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOrNumberOrChar>) =
+infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOrNumberOrChar>): Expect<T> =
     this containsNot o the values
 
 /**
@@ -198,14 +199,15 @@ infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): E
  */
 infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T> =
     this contains o atLeast 1 matchFor patterns
+
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.startsWith(this, expected))
+infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
+    _logicAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
@@ -215,7 +217,7 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence) =
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
+infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
     it startsWith expected.toString()
 
 /**
@@ -224,8 +226,8 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.startsNotWith(this, expected))
+infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T> =
+    _logicAppend { startsNotWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
@@ -235,7 +237,7 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence) =
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
+infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     it startsNotWith expected.toString()
 
 
@@ -245,8 +247,8 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.endsWith(this, expected))
+infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
+    _logicAppend { endsWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
@@ -256,7 +258,7 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence) =
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
+infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     it endsWith expected.toString()
 
 /**
@@ -265,8 +267,8 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
-    addAssertion(ExpectImpl.charSequence.endsNotWith(this, expected))
+infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
+    _logicAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
@@ -276,7 +278,7 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence) =
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
+infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     it endsNotWith expected.toString()
 
 
@@ -288,8 +290,8 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char) =
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
-    addAssertion(ExpectImpl.charSequence.isEmpty(this))
+infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
@@ -299,8 +301,8 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
-    addAssertion(ExpectImpl.charSequence.isNotEmpty(this))
+infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
@@ -310,8 +312,8 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank) =
-    addAssertion(ExpectImpl.charSequence.isNotBlank(this))
+infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
+    _logicAppend { isNotBlank() }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
@@ -323,8 +325,8 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") bla
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
-    addAssertion(ExpectImpl.charSequence.matches(this, expected))
+infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
+    _logicAppend { matches(expected) }
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
@@ -336,5 +338,5 @@ infix fun <T : CharSequence> Expect<T>.matches(expected: Regex) =
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> Expect<T>.mismatches(expected: Regex) =
-    addAssertion(ExpectImpl.charSequence.mismatches(this, expected))
+infix fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
+    _logicAppend { mismatches(expected) }

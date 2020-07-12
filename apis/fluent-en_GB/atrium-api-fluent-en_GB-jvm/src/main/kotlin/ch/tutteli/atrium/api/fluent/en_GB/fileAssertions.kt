@@ -1,9 +1,13 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress(
+    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.changeSubject
 import java.io.File
 import java.nio.file.Path
 
@@ -18,7 +22,7 @@ import java.nio.file.Path
  * @since 0.9.0
  */
 fun <T : File> Expect<T>.asPath(): Expect<Path> =
-    ExpectImpl.changeSubject(this).unreported { it.toPath() }
+    _logic.changeSubject.unreported { it.toPath() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for

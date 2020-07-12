@@ -31,6 +31,5 @@ interface RootExpect<T> : Expect<T> {
             is RootExpectImpl -> RootExpectImpl(rootExpect, expectOptions)
             else -> throw UnsupportedOperationException("Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20RootExpect%20creation")
         }
-
     }
 }

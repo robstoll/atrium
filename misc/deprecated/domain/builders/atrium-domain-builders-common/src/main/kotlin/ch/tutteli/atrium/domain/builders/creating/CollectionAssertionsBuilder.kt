@@ -19,6 +19,7 @@ import ch.tutteli.atrium.domain.creating.collectionAssertions
  * In detail, it implements [CollectionAssertions] by delegating to [collectionAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object CollectionAssertionsBuilder : CollectionAssertions {
 
     override inline fun isEmpty(subjectProvider: SubjectProvider<Collection<*>>) =

@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
+import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
-import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>) =
+infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>): Expect<T> =
     it contains pairs(keyValuePair)
 
 /**
@@ -34,7 +34,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V>): Expect<T> =
-    addAssertion(ExpectImpl.map.contains(this, keyValuePairs.toList()))
+    _logicAppend { contains(keyValuePairs.toList()) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
@@ -73,8 +73,11 @@ fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> 
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValues: All<KeyWithValueCreator<K, V>>) =
-    addAssertion(ExpectImpl.map.containsKeyWithValueAssertions(this, V::class, keyValues.toList().map { it.toPair() }))
+inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
+    keyValues: All<KeyWithValueCreator<K, V>>
+): Expect<T> = _logicAppend {
+    containsKeyWithValueAssertions(V::class, keyValues.toList().map { it.toPair() })
+}
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key].
@@ -82,7 +85,8 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(key
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(ExpectImpl.map.containsKey(this, key))
+infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
+    _logicAppend { containsKey(key) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -90,8 +94,30 @@ infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K) = addAssertion(Ex
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) =
-    addAssertion(ExpectImpl.map.containsNotKey(this, key))
+infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
+    _logicAppend { containsNotKey(key) }
+
+/**
+ * Expects that the subject of the assertion (a [Map]) is an empty [Map].
+ *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isEmpty() }
+
+/**
+ * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
+ *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key],
@@ -102,7 +128,7 @@ infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K) =
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
-    ExpectImpl.map.getExisting(this, key).getExpectOfFeature()
+    _logic.getExisting(key).getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
@@ -116,12 +142,12 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *   if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
-    ExpectImpl.map.getExisting(this, key.key).addToInitial(key.assertionCreator)
+    _logic.getExisting(key.key).addToInitial(key.assertionCreator)
 
 /**
  * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
  */
-fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit) =
+fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K, V> =
     KeyWithCreator(key, assertionCreator)
 
 
@@ -132,7 +158,7 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit) =
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
-    get() = ExpectImpl.feature.property(this, Map<out K, *>::keys).getExpectOfFeature()
+    get() = _logic.property(Map<out K, *>::keys).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
@@ -143,29 +169,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
-    ExpectImpl.feature.property(this, Map<out K, *>::keys).addToInitial(assertionCreator)
-
-/**
- * Expects that the subject of the assertion (a [Map]) is an empty [Map].
- *
- * @param empty Use the pseudo-keyword `empty`.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
-    addAssertion(ExpectImpl.map.isEmpty(this))
-
-/**
- * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
- *
- * @param empty Use the pseudo-keyword `empty`.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
-    addAssertion(ExpectImpl.map.isNotEmpty(this))
+    _logic.property(Map<out K, *>::keys).addToInitial(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
@@ -174,7 +178,7 @@ infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty:
  * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
-    get() = ExpectImpl.feature.property(this, Map<out Any?, V>::values).getExpectOfFeature()
+    get() = _logic.property(Map<out Any?, V>::values).getExpectOfFeature()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
@@ -185,7 +189,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
-    ExpectImpl.feature.property(this, Map<out K, V>::values).addToInitial(assertionCreator)
+    _logic.property(Map<out K, V>::values).addToInitial(assertionCreator)
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
@@ -197,7 +201,7 @@ infix fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collec
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     @Suppress("UNUSED_PARAMETER") o: o
-): Expect<Set<Map.Entry<K, V>>> = ExpectImpl.changeSubject(this).unreported { it.entries }
+): Expect<Set<Map.Entry<K, V>>> = _logic.changeSubject.unreported { it.entries }
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given

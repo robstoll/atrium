@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.changeSubject
 
 /**
  * Turns `Expect<E, T : Sequence<E>>` into `Expect<Iterable<E>>`.
@@ -13,7 +14,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl.changeSubject
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asIterable(
     @Suppress("UNUSED_PARAMETER") o: o
-): Expect<Iterable<E>> = changeSubject(this).unreported { it.asIterable() }
+): Expect<Iterable<E>> = _logic.changeSubject.unreported { it.asIterable() }
 
 /**
  * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for

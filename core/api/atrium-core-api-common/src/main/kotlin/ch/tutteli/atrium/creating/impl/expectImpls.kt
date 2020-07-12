@@ -4,20 +4,47 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.assertions.builders.root
+import ch.tutteli.atrium.assertions.builders.withFailureHint
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
+import kotlin.reflect.KClass
 
+@ExperimentalNewExpectTypes
 abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
-) : Expect<T> {
+) : ExpectInternal<T> {
+
+    // TODO 0.14.0 not every expect should have an own implFactories but only the root,
+    // maybe also FeatureExpect but surely not DelegatingExpect or CollectingExpect
+    private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
+
+    override fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I {
+        @Suppress("UNCHECKED_CAST")
+        val implFactory = implFactories[kClass] as ((() -> I) -> () -> Any)?
+        return if (implFactory != null) {
+            val impl = implFactory(defaultFactory)()
+            kClass.cast(impl)
+        } else defaultFactory()
+    }
+
+    @PublishedApi
+    internal fun <I : Any> registerImpl(kClass: KClass<I>, implFactory: (oldFactory: () -> I) -> () -> I) {
+        implFactories[kClass] = implFactory
+    }
+
+    //TODO move to ExpectOptions
+    inline fun <reified I : Any> withImplFactory(noinline implFactory: (oldFactory: () -> I) -> () -> I) {
+        registerImpl(I::class, implFactory)
+    }
+
 
     @Deprecated(
         "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
@@ -31,7 +58,7 @@ abstract class BaseExpectImpl<T>(
     }
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
-        val assertions = coreFactory.newCollectingAssertionContainer(maybeSubject)
+        val assertions = CollectingExpect(maybeSubject)
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
         return addAssertions(assertions)
@@ -46,7 +73,8 @@ abstract class BaseExpectImpl<T>(
     }
 
     companion object {
-        fun <R> determineRepresentation(representationInsteadOfFeature: ((R) -> Any)?, maybeSubject: Option<R>) =
+        @ExperimentalNewExpectTypes
+        fun <R> determineRepresentation(representationInsteadOfFeature: ((R) -> Any)?, maybeSubject: Option<R>): Any? =
             representationInsteadOfFeature?.let { provider ->
                 maybeSubject.fold({ null }) { provider(it) }
             } ?: maybeSubject.getOrElse {
@@ -57,7 +85,7 @@ abstract class BaseExpectImpl<T>(
 }
 
 @ExperimentalNewExpectTypes
-class RootExpectImpl<T>(
+internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
     private val assertionVerb: Translatable,
     private val representation: Any?,
@@ -108,7 +136,7 @@ class RootExpectImpl<T>(
 }
 
 @ExperimentalNewExpectTypes
-class FeatureExpectImpl<T, R>(
+internal class FeatureExpectImpl<T, R>(
     private val previousExpect: Expect<T>,
     maybeSubject: Option<R>,
     private val description: Translatable,
@@ -180,10 +208,57 @@ class FeatureExpectImpl<T, R>(
     }
 }
 
-class DelegatingExpectImpl<T>(private val assertionHolder: AssertionHolder, maybeSubject: Option<T>) :
+@ExperimentalNewExpectTypes
+internal class DelegatingExpectImpl<T>(private val assertionHolder: AssertionHolder, maybeSubject: Option<T>) :
     BaseExpectImpl<T>(maybeSubject), DelegatingExpect<T> {
     override fun addAssertion(assertion: Assertion): Expect<T> {
         assertionHolder.addAssertion(assertion)
+        return this
+    }
+}
+
+@ExperimentalNewExpectTypes
+internal class CollectingExpectImpl<T>(maybeSubject: Option<T>) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
+    private val assertions = mutableListOf<Assertion>()
+
+    override fun getAssertions(): List<Assertion> = assertions.toList()
+
+    override fun addAssertion(assertion: Assertion): Expect<T> {
+        assertions.add(assertion)
+        return this
+    }
+
+    override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
+        // in case we run into performance problems, the code below is certainly not ideal
+        val allAssertions = mutableListOf<Assertion>()
+        allAssertions.addAll(getAssertions())
+        assertions.clear()
+        this.assertionCreator()
+        val newAssertions = getAssertions()
+        assertions.clear()
+
+        if (newAssertions.isNotEmpty()) {
+            allAssertions.addAll(newAssertions)
+        } else {
+            allAssertions.add(assertionBuilder.descriptive
+                .failing
+                .withFailureHint {
+                    assertionBuilder.explanatoryGroup
+                        .withDefaultType
+                        .withAssertions(
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_ASSERTION)
+                                .build(),
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED)
+                                .build()
+                        )
+                        .build()
+                }
+                .showForAnyFailure
+                .withDescriptionAndRepresentation(ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED, false)
+                .build()
+            )
+        }
+        allAssertions.forEach { addAssertion(it) }
         return this
     }
 }

@@ -1,10 +1,15 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress(
+    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.optional
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.isEmpty
+import ch.tutteli.atrium.logic.isPresent
 import java.util.*
 
 /**
@@ -18,7 +23,8 @@ import java.util.*
  *
  * @since 0.9.0
  */
-fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.optional.isEmpty(this))
+fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
+    _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (an [Optional]) is present
@@ -32,7 +38,8 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> = addAssertion(ExpectImpl.o
  *
  * @since 0.9.0
  */
-fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> = ExpectImpl.optional.isPresent(this).getExpectOfFeature()
+fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
+    _logic.isPresent().getExpectOfFeature()
 
 /**
  * Expects that the subject of the assertion (an [Optional]) is present and
@@ -44,4 +51,4 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> = ExpectImpl.optional.
  * @since 0.9.0
  */
 fun <E, T : Optional<E>> Expect<T>.isPresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    ExpectImpl.optional.isPresent(this).addToInitial(assertionCreator)
+    _logic.isPresent().addToInitial(assertionCreator)

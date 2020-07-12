@@ -1,10 +1,12 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */)
+@file:Suppress(
+    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+)
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.chronoZonedDateTime
+import ch.tutteli.atrium.logic.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
@@ -19,7 +21,7 @@ import java.time.chrono.ChronoZonedDateTime
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: ChronoZonedDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isBefore(this, expected))
+): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -32,7 +34,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoZonedDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isBeforeOrEqual(this, expected))
+): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -45,7 +47,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoZonedDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isAfter(this, expected))
+): Expect<T> = _logicAppend { isAfter(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -58,7 +60,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoZonedDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isAfterOrEqual(this, expected))
+): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
@@ -71,4 +73,4 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoZonedDateTime<*>
-): Expect<T> = addAssertion(ExpectImpl.chronoZonedDateTime.isEqual(this, expected))
+): Expect<T> = _logicAppend { isEqual(expected) }

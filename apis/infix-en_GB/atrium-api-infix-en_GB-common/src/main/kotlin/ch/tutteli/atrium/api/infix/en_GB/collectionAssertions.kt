@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.logic.*
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
@@ -11,8 +11,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
-    addAssertion(ExpectImpl.collection.isEmpty(this))
+infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
@@ -22,8 +22,8 @@ infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty) =
-    addAssertion(ExpectImpl.collection.isNotEmpty(this))
+infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) has the given [expected] size.
@@ -33,7 +33,8 @@ infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") em
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(expected) }
+infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
+    size { toBe(expected) }
 
 
 /**
@@ -42,7 +43,8 @@ infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int) = size { toBe(exp
  *
  * @return The newly created [Expect] for the extracted feature.
  */
-val <T : Collection<*>> Expect<T>.size get(): Expect<Int> = ExpectImpl.collection.size(this).getExpectOfFeature()
+val <T : Collection<*>> Expect<T>.size: Expect<Int>
+    get() = _logic.size().getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
@@ -53,4 +55,4 @@ val <T : Collection<*>> Expect<T>.size get(): Expect<Int> = ExpectImpl.collectio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    ExpectImpl.collection.size(this).addToInitial(assertionCreator)
+    _logic.size().addToInitial(assertionCreator)

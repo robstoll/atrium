@@ -19,15 +19,15 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
+            -   name: buildNonDeprecatedJvm
+                run: ./gradlew buildNonDeprecatedJvm
+
             -   name: Cache android jar
                 id: android-cache
                 uses: actions/cache@v1
                 with:
                     path: android-jar-cache
                     key: ${{ runner.os }}-android-version-${{ env.android-version }}
-
-            -   name: buildNonDeprecatedJvm
-                run: ./gradlew buildNonDeprecatedJvm
 
             -   name: download Android SDK's android.jar (or use cached file)
                 if: steps.android-cache.outputs.cache-hit != 'true'
@@ -36,7 +36,8 @@ jobs:
                     cd android-jar-cache
                     curl -o android.jar -L "https://github.com/Sable/android-platforms/blob/master/android-${{ env.android-version }}/android.jar?raw=true"
                     $file_sha256 = $(certutil -hashfile android.jar sha256)[1] -replace " ",""
-                    if ($file_sha256 -Ne "cdc1846376a14b0370cc63454a129606b4a52cc50ada75ef0d4cf956b1ad2daa") {
+                    $expected_sha256 = "cdc1846376a14b0370cc63454a129606b4a52cc50ada75ef0d4cf956b1ad2daa"
+                    if ($file_sha256 -Ne $expected_sha256) {
                         echo "wrong sha256 for android.jar: $file_sha256";
                         echo "                    expected: $expected_sha256";
                         exit -1
@@ -45,6 +46,10 @@ jobs:
             -   name: check Atrium's -android.jar can be dexed
                 run: ATRIUM_ANDROID_JAR="$PWD/android-jar-cache/android.jar" ./gradlew checkDexer
                 shell: bash
+
+            -   name: composite build atrium-scala
+                run: ./gradlew build
+                working-directory: misc\tools\atrium-scala-test
 
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1

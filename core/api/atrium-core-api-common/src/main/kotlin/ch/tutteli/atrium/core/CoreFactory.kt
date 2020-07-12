@@ -105,7 +105,10 @@ interface CoreFactoryCommon {
      * @return The newly created assertion container.
      */
     @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Use DelegatingExpect(...) instead which does not use an AssertionChecker; will be removed with 1.0.0", ReplaceWith("DelegatingExpect(originalAssertionHolder, maybeSubject)"))
+    @Deprecated(
+        "Use DelegatingExpect(...) instead which does not use an AssertionChecker; will be removed with 1.0.0",
+        ReplaceWith("DelegatingExpect(originalAssertionHolder, maybeSubject)")
+    )
     fun <T> newDelegatingReportingAssertionContainer(
         originalAssertionHolder: AssertionHolder,
         maybeSubject: Option<T>
@@ -213,8 +216,8 @@ interface CoreFactoryCommon {
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
     @Deprecated(
-        "Use FeatureExpect.create instead; will be removed with 0.14.0", ReplaceWith(
-            "FeatureExpect.create(\n" +
+        "Use FeatureExpect instead; will be removed with 1.0.0", ReplaceWith(
+            "FeatureExpect(\n" +
                 "        previousExpect,\n" +
                 "        maybeSubject,\n" +
                 "        featureConfig.description,\n" +
@@ -352,6 +355,11 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion container.
      */
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use CollectingExpect instead; will be removed with 1.0.0",
+        ReplaceWith("(maybeSubject)", "ch.tutteli.atrium.creating.CollectingExpect")
+    )
     fun <T> newCollectingAssertionContainer(maybeSubject: Option<T>): CollectingAssertionContainer<T>
 
     /**

@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
@@ -13,7 +16,12 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+
+@Suppress(
+    "DeprecatedCallableAddReplaceWith",
+    "DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */
+)
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 @UseExperimental(ExperimentalWithOptions::class)
 fun <TExpected : Throwable> _isThrowing(
     expect: Expect<out () -> Any?>,
@@ -47,6 +55,8 @@ private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, 
         Left(throwable)
     }
 
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("use the function from atrium-logic instead, will be removed with 1.0.0")
 fun <R, T : () -> R> _isNotThrowing(expect: Expect<T>): ChangedSubjectPostStep<*, R> {
     return ExpectImpl.changeSubject(expect)
         .unreported {

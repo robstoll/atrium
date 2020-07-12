@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.domain.builders.ExpectImpl
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
@@ -28,6 +28,6 @@ class InAnyOrderOnlyValuesAssertionCreator<E, in T : Iterable<E?>>(
         list: MutableList<E?>
     ): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)
-        return found to ExpectImpl.builder.createDescriptive(AN_ENTRY_WHICH_IS, searchCriterion) { found }
+        return found to assertionBuilder.createDescriptive(AN_ENTRY_WHICH_IS, searchCriterion) { found }
     }
 }

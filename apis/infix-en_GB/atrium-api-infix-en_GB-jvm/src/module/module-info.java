@@ -1,5 +1,5 @@
 module ch.tutteli.atrium.api.infix.en_GB {
-    requires ch.tutteli.atrium.domain.builders;
+    requires ch.tutteli.atrium.logic;
     requires kotlin.stdlib;
     requires java.base;
 

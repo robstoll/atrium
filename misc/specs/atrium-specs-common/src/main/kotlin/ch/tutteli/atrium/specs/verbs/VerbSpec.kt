@@ -7,6 +7,8 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.specs.toBeDescr
@@ -120,7 +122,7 @@ abstract class VerbSpec(
             }
         }
         context("subject is not null") {
-            testNonNullableSubject { subject -> ExpectImpl.changeSubject(assertionVerb(subject)).unreported { it!! } }
+            testNonNullableSubject { subject -> assertionVerb(subject)._logic.changeSubject.unreported { it!! } }
         }
     }
 

@@ -1,0 +1,128 @@
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.util.regex.Pattern
+import java.util.stream.Collectors
+
+static def getInterfaces(String path) {
+    Files.walk(Paths.get(path), 1).withCloseable { stream ->
+        return stream
+            .filter { file -> file.getFileName().toString().endsWith("Assertions.kt") }
+            .sorted(new Comparator<Path>() {
+                @Override
+                int compare(Path a, Path b) {
+                    return a.getFileName().toString() <=> b.getFileName().toString()
+
+                }
+            }).collect(Collectors.toList())
+    }
+}
+
+def createGenerateLogicTask(Project project, String implsFileName, String suffix = '') {
+    String packagePath = "ch/tutteli/atrium/logic" + (suffix != '' ? "/" + suffix : '')
+    String generatedFolder = project.generatedFolder
+
+    return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
+        def path = "$project.projectDir/src/main/kotlin/$packagePath/"
+        def interfaces = getInterfaces(path)
+        def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
+        inputs.files(interfaces)
+        outputs.dir(generatedPath)
+
+        def ln = System.lineSeparator()
+
+        doFirst {
+
+            //TODO delete all files in folder first
+
+            def getType = { Path input ->
+                def fileName = input.getFileName().toString()
+                fileName.substring(0, fileName.length() - "Assertions.kt".length())
+            }
+            def header = """\
+                //---------------------------------------------------
+                //  Generated content, modify:
+                //  logic/generateLogic.gradle
+                //  if necessary - enjoy the day 🙂
+                //---------------------------------------------------
+
+                """.stripIndent().replace("\n", ln)
+
+            new File("$generatedPath/${implsFileName}.kt").withWriter('utf-8') { w ->
+                def packageSuffix = suffix != '' ? '.' + suffix : ''
+                w << header
+                w << """\
+                    @file:JvmMultifileClass
+                    @file:JvmName("ImplsKt")
+                    package ch.tutteli.atrium.logic$packageSuffix
+
+                    import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+                    import kotlin.jvm.JvmMultifileClass
+                    import kotlin.jvm.JvmName
+
+                    import ch.tutteli.atrium.creating.AssertionContainer
+                    """.stripIndent().replace("\n", ln)
+
+                interfaces.forEach {
+                    def type = getType(it)
+                    w << "import ch.tutteli.atrium.logic${packageSuffix}.impl.Default${type}Assertions$ln"
+                }
+
+                w << "$ln"
+
+                interfaces.forEach {
+                    def type = getType(it)
+                    w << """\
+                        @PublishedApi
+                        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+                        @UseExperimental(ExperimentalNewExpectTypes::class)
+                        internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
+                            get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
+
+                        """.stripIndent().replace("\n", ln)
+                }
+            }
+
+            def identifier = /[a-zA-Z0-9]+/
+            def newLine = /(?:\r\n?|\n)/
+            def newLineAndIndent = /$newLine\s*/
+            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?container: (AssertionContainer<.+?>)/
+            def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
+            def returnType = /(?:$newLineAndIndent)?\)(:.+)/
+
+            def patterns = (6..0).collect {
+                def steps = (0..<it * 2).findAll { it % 2 == 0 }
+                new Tuple3<Pattern, String, String>(
+                    Pattern.compile(typeIdentifier + parameter * it + returnType),
+                    /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "$ln    " : " "),
+                    /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
+                )
+            }
+
+            interfaces.forEach { input ->
+                def type = getType(input)
+                def uncapitalized = type.uncapitalize()
+                def output = new File("$generatedPath/${uncapitalized}.kt")
+                def content = input.text
+                def interfaceName = "${type}Assertions"
+                def implValName = "_${uncapitalized}Impl"
+
+                String tmp = content.replaceAll(/($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/, "")
+                patterns.forEach { triple ->
+                    tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
+                }
+
+                String generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
+                output.withWriter('utf-8') { w ->
+                    w << header
+                    w << generatedContent
+                }
+            }
+        }
+    }
+}
+
+ext {
+    createGenerateLogicTask = this.&createGenerateLogicTask
+    generatedFolder = "src/generated/kotlin"
+}
