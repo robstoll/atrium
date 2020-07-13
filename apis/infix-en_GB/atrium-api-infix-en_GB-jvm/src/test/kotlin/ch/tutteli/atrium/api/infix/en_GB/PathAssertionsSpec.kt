@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.path
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.charset.Charset
@@ -21,8 +20,9 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     "toBe ${writable::class.simpleName}" to Companion::isWritable,
     "toBe ${aRegularFile::class.simpleName}" to Companion::isRegularFile,
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
-    "not supported in this API - hasSameBinaryContentAs" to Companion::hasSameBinaryContentAs,
-    "not supported in this API - hasSameTextualContentAs" to Companion::hasSameTextualContentAs
+    fun1(Expect<Path>::hasSameBinaryContentAs),
+    fun3(Companion::hasSameTextualContentAs),
+    fun1(Companion::hasSameTextualContentAsDefaultArgs)
 ) {
     companion object : WithAsciiReporter() {
 
@@ -32,26 +32,10 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isWritable(expect: Expect<Path>) = expect toBe writable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
-
-        @Suppress(/* TODO remove with the introduction of this functionality in infix */ "DEPRECATION")
-        private fun hasSameTextualContentAs(
-            expect: Expect<Path>,
-            targetPath: Path,
-            sourceCharset: Charset,
-            targetCharset: Charset
-        ): Expect<Path> =
-            expect.addAssertion(
-                ExpectImpl.path.hasSameTextualContentAs(
-                    expect,
-                    targetPath,
-                    sourceCharset,
-                    targetCharset
-                )
-            )
-
-        @Suppress(/* TODO remove with the introduction of this functionality in infix */ "DEPRECATION")
-        private fun hasSameBinaryContentAs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
-            expect.addAssertion(ExpectImpl.path.hasSameBinaryContentAs(expect, targetPath))
+        private fun hasSameTextualContentAs(expect: Expect<Path>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Expect<Path> =
+            expect hasSameTextualContentAs withEncoding(targetPath, expect, sourceCharset = sourceCharset, targetCharset = targetCharset)
+        private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
+            expect hasSameTextualContentAs targetPath
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -68,6 +52,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1 toBe writable
         a1 toBe aRegularFile
         a1 toBe aDirectory
+        a1 hasSameTextualContentAs withEncoding(Paths.get("a"), a1)
+        a1 hasSameTextualContentAs Paths.get("a")
     }
 }
 
