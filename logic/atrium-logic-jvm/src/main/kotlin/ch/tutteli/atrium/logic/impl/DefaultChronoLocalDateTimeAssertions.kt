@@ -24,9 +24,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE, expected) {
-        it.isBefore(stringToLocalDateTime(expected))
-    }
+    ): Assertion = container.isBefore(stringToLocalDateTime(expected))
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEqual(
         container: AssertionContainer<T>,
