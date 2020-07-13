@@ -53,12 +53,9 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
     return createAssertionGroup(checker, searcher, expected, otherExpected)
 }
 
-@Deprecated("Use AssertImpl.charSequence.contains.defaultTranslationOf; will be removed with 1.0.0",
-    ReplaceWith(
-        "AssertImpl.charSequence.contains.defaultTranslationOf(checker, expected, *otherExpected)",
-        "ch.tutteli.atrium.creating.AssertImpl"
-    )
-)
+//TODO remove with 1.0.0
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("will be removed with 1.0.0")
 fun <T : CharSequence> _containsDefaultTranslationOf(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: Translatable,
@@ -66,12 +63,9 @@ fun <T : CharSequence> _containsDefaultTranslationOf(
 ): AssertionGroup
     = _containsValues(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
-@Deprecated("Use AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase; will be removed with 1.0.0",
-    ReplaceWith(
-        "AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(checker, expected, *otherExpected)",
-        "ch.tutteli.atrium.creating.AssertImpl"
-    )
-)
+//TODO remove with 1.0.0
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("will be removed with 1.0.0")
 fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: Translatable,
