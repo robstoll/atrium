@@ -358,29 +358,31 @@ createBcAndBbcTasksForApis('0.6.0',
     'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
 createBcAndBbcTasksForApis('0.7.0',
-    'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|en_GB|(infix\\.(en_UK|en_GB)))\\.(' +
+    'forgive=(.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|en_GB|(infix\\.(en_UK|en_GB)))\\.(' +
         '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)|' +
         '(ThrowableAssertionsSpec.*throws an AssertionError.*shows message and stacktrace.*)|' +
-        '(CharSequenceContainsRegexAssertionsSpec.*16 times throws AssertionError.*)' +
-    ')',
+        '(CharSequenceContainsRegexAssertionsSpec.*16 times throws AssertionError.*)|' +
+        '(ComparableAssertionsSpec.*(isGreaterOrEquals|istGroesserOderGleich|isLessOrEquals|istKleinerOderGleich).*)' +
+    '))|(.*ch\\.tutteli\\.atrium\\.VerbSpec.*which immediately evaluates assertions.*)',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 createBcAndBbcTasksForApis('0.8.0',
-    'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_GB|(infix\\.en_GB))\\.('+
-        '(CharSequenceContainsRegexAssertionsSpec.*(16 times throws AssertionError|(roberto?.*once throws AssertionError)).*)' +
-    ')',
+    'forgive=(.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_GB|(infix\\.en_GB))\\.('+
+        '(CharSequenceContainsRegexAssertionsSpec.*(16 times throws AssertionError|(roberto?.*once throws AssertionError)).*)|' +
+        '(ComparableAssertionsSpec.*(isGreaterOrEquals|istGroesserOderGleich|isLessOrEquals|istKleinerOderGleich).*)' +
+    '))|(.*ch\\.tutteli\\.atrium\\.VerbSpec.*which immediately evaluates assertions.*)',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 createBcAndBbcTasksForApis('0.9.2',
-    'forgive=^$',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.10.0',
-    'forgive=^$',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.11.1',
-    'forgive=^$',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.12.0',
@@ -389,7 +391,7 @@ createBcAndBbcTasksForApis('0.12.0',
     '))|(ch/tutteli/atrium/api/infix/en_GB/(' +
         '(Fun0AssertionsJvmSpec/.*)|' +
         '(PathAssertionsSpec/.*`toBe (readable|writable|aRegularFile|aDirectory)`.*)' +
-    '))',
+    '))|(ch/tutteli/atrium/api/(fluent|infix)/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
     'fluent-en_GB','infix-en_GB'
 )
 //@formatter:on
