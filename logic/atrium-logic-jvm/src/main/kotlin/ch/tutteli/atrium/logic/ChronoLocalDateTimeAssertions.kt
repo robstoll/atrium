@@ -38,4 +38,30 @@ interface ChronoLocalDateTimeAssertions {
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>
     ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion
+
+    fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion
+
 }

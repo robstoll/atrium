@@ -8,12 +8,23 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ChronoLocalDateTimeAssertionSpec : Spek({
     include(ChronoLocalDateTimeSpec)
+    include(StringSpec)
 }) {
     object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
         fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
+        fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
+        fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
+        fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
+        fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
+    )
+
+    object StringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
+        fun1(Companion::isBefore),
+        //TODO #481 introduce more companions
         fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
         fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
         fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
@@ -26,6 +37,7 @@ class ChronoLocalDateTimeAssertionSpec : Spek({
             expected: ChronoLocalDateTime<*>
         ): Expect<ChronoLocalDateTime<*>> =
             //TODO #481 turn into string in ISO format
+            //expect.isBefore(expected.format(DateTimeFormatter.ISO_DATE_TIME))
             expect.isBefore(expected)
     }
 
