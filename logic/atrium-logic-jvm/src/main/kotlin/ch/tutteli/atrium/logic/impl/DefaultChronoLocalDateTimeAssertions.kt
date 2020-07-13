@@ -74,9 +74,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion = container.createDescriptiveAssertion(IS_EQUAL_TO, expected) {
-        it.isEqual(stringToLocalDateTime(expected))
-    }
+    ): Assertion = container.isEqual(stringToLocalDateTime(expected))
 
     private fun stringToLocalDateTime(data: String): LocalDateTime {
         return if (data.contains("T")) {
