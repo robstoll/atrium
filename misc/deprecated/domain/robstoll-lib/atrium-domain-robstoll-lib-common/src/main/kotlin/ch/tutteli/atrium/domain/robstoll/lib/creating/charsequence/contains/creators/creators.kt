@@ -48,11 +48,17 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
     return createAssertionGroup(checkerOption, searcher, expected, VALUE)
 }
 
+//TODO remove with 1.0.0
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("will be removed with 1.0.0")
 fun <T : CharSequence> _containsDefaultTranslationOf(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<Translatable>
 ): AssertionGroup = _containsValues(checkerOption, expected.map { it.getDefault() })
 
+//TODO remove with 1.0.0
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("will be removed with 1.0.0")
 fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<Translatable>

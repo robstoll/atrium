@@ -83,11 +83,13 @@ object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
         expected: List<CharSequenceOrNumberOrChar>
     ) = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected)
 
+    @Suppress("OverridingDeprecatedMember")
     override inline fun <T : CharSequence> defaultTranslationOf(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<Translatable>
     ) = charSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected)
 
+    @Suppress("OverridingDeprecatedMember")
     override inline fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<Translatable>

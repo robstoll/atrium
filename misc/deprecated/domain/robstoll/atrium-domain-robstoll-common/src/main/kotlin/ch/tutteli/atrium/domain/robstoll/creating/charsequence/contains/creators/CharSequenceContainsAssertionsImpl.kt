@@ -22,11 +22,13 @@ class CharSequenceContainsAssertionsImpl : CharSequenceContainsAssertions {
         expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup = _containsValuesIgnoringCase(checkerOption, expected)
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     override fun <T : CharSequence> defaultTranslationOf(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<Translatable>
     ): AssertionGroup = _containsDefaultTranslationOf(checkerOption, expected)
 
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
     override fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<Translatable>
