@@ -35,7 +35,7 @@ interface VarArgHelper<out T> {
  *
  * @throws IllegalArgumentException in case the iterable is empty.
  */
-inline fun <reified T> toVarArg(iterableLike: IterableLike<T>): Pair<T, Array<out T>> {
+inline fun <reified T> toVarArg(iterableLike: IterableLike): Pair<T, Array<out T>> {
     when (iterableLike) {
         is Iterable<*> -> {
             return iterableToPair(iterableLike.map { it as T })
