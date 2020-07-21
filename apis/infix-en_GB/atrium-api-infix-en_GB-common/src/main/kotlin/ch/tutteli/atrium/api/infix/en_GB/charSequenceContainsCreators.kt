@@ -363,7 +363,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(pattern
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
     return this the Values(first, rest)
 }
 
@@ -394,7 +394,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
 infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
     return this the Values(first, rest)
 }
 
@@ -424,6 +424,6 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.eleme
 infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
     return this the Values(first, rest)
 }

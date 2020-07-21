@@ -119,6 +119,6 @@ infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehavio
 inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<E>(expectedIterable)
     return this the values(first, *rest)
 }
