@@ -35,44 +35,21 @@ interface VarArgHelper<out T> {
  *
  * @throws IllegalArgumentException in case the iterable is empty.
  */
-inline fun <reified T> toVarArg(iterableLike: IterableLike): Pair<T, Array<out T>> {
+inline fun <reified T> toVarArg(iterableLike: IterableLike): Pair<T, Array<out T>> =
     when (iterableLike) {
-        is Iterable<*> -> {
-            return iterableToPair(iterableLike.map { it as T })
-        }
-        is Sequence<*> -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is Array<*> -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is ByteArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is CharArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is ShortArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is IntArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is LongArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is FloatArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is DoubleArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
-        is BooleanArray -> {
-            return iterableToPair(iterableLike.map { it as T }.asIterable())
-        }
+        is Sequence<*> -> iterableToPair(iterableLike.map { it as T }.asIterable())
+        is Iterable<*> -> iterableToPair(iterableLike.map { it as T })
+        is Array<*> -> iterableToPair(iterableLike.map { it as T })
+        is CharArray -> iterableToPair(iterableLike.map { it as T })
+        is ByteArray -> iterableToPair(iterableLike.map { it as T })
+        is ShortArray -> iterableToPair(iterableLike.map { it as T })
+        is IntArray -> iterableToPair(iterableLike.map { it as T })
+        is LongArray -> iterableToPair(iterableLike.map { it as T })
+        is FloatArray -> iterableToPair(iterableLike.map { it as T })
+        is DoubleArray -> iterableToPair(iterableLike.map { it as T })
+        is BooleanArray -> iterableToPair(iterableLike.map { it as T })
         else -> throw IllegalArgumentException("toVarArg accepts arguments of types Iterable, Sequence, Array")
     }
-}
 
 inline fun <reified T> iterableToPair(iterable: Iterable<T>): Pair<T, Array<out T>> {
     require(iterable.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
