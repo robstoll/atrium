@@ -253,3 +253,17 @@ val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 expect val lineSeperator: String
 
 fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
+
+val iterableLikeTypes = mapOf(
+    "Iterable" to listOf<Int>(),
+    "Sequence" to sequenceOf<Int>(),
+    "Array" to arrayOf<Int>(),
+    "CharArray" to charArrayOf(),
+    "ByteArray" to byteArrayOf(),
+    "ShortArray" to shortArrayOf(),
+    "IntArray" to intArrayOf(),
+    "LongArray" to longArrayOf(),
+    "FloatArray" to floatArrayOf(),
+    "DoubleArray" to doubleArrayOf(),
+    "BooleanArray" to booleanArrayOf()
+)

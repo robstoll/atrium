@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.iterableLikeTypes
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -29,6 +30,8 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     ) {})
 
     include(object : Spek({
+
+        // TODO remove with 1.0.0
         describe("atLeast(1).elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
@@ -36,6 +39,8 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
+
+        // TODO remove with 1.0.0
         describe("ignoringCase.atLeast(1).elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
@@ -43,11 +48,73 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
             }
         }
+
+        // TODO remove with 1.0.0
         describe("ignoringCase.elementsOf") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
                     expect("test").contains.ignoringCase.elementsOf(emptyList())
                 }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+            }
+        }
+
+        iterableLikeTypes.forEach { (description, input) ->
+            describe(description) {
+                it("passing an empty iterable throws an IllegalArgumentException") {
+                    expect {
+                        expect("test").contains.atLeast(1).elementsOf(input)
+                    }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+                }
+            }
+        }
+
+        iterableLikeTypes.forEach { (description, input) ->
+            describe(description) {
+                it("passing an empty iterable throws an IllegalArgumentException") {
+                    expect {
+                        expect("test").contains.ignoringCase.atLeast(1).elementsOf(input)
+                    }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+                }
+            }
+        }
+
+        iterableLikeTypes.forEach { (description, input) ->
+            describe(description) {
+                it("passing an empty iterable throws an IllegalArgumentException") {
+                    expect {
+                        expect("test").contains.ignoringCase.elementsOf(input)
+                    }.toThrow<IllegalArgumentException> { messageContains("Iterable without elements are not allowed") }
+                }
+            }
+        }
+
+        describe("atLeast(1).elementsOf") {
+            it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
+                expect {
+                    expect("test").contains.atLeast(1).elementsOf("test")
+                }.toThrow<IllegalArgumentException> {
+                    messageContains("toVarArg accepts arguments of types Iterable, Sequence, Array")
+                }
+            }
+        }
+
+        describe("ignoringCase.atLeast(1).elementsOf") {
+            it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
+                expect {
+                    expect("test").contains.ignoringCase.atLeast(1).elementsOf("test")
+                }.toThrow<IllegalArgumentException> {
+                    messageContains("toVarArg accepts arguments of types Iterable, Sequence, Array")
+                }
+            }
+        }
+
+        describe("ignoringCase.elementsOf") {
+            it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
+                expect {
+                    expect("test").contains.ignoringCase.elementsOf("test")
+                }.toThrow<IllegalArgumentException> {
+                    messageContains("toVarArg accepts arguments of types Iterable, Sequence, Array")
+                }
             }
         }
     }) {})
