@@ -8,6 +8,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ChronoLocalDateTimeAssertionSpec : Spek({
     include(ChronoLocalDateTimeSpec)
@@ -22,11 +23,11 @@ class ChronoLocalDateTimeAssertionSpec : Spek({
     )
 
     object StringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
-        fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
-        fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
-        fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
-        fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
-        fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
+        fun1(Companion::isBefore),
+        fun1(Companion::isBeforeOrEqual),
+        fun1(Companion::isAfter),
+        fun1(Companion::isAfterOrEqual),
+        fun1(Companion::isEqual)
     )
 
     companion object {
@@ -34,8 +35,31 @@ class ChronoLocalDateTimeAssertionSpec : Spek({
             expect: Expect<ChronoLocalDateTime<*>>,
             expected: ChronoLocalDateTime<*>
         ): Expect<ChronoLocalDateTime<*>> =
-            //TODO #481 turn into string in ISO format
-            expect.isBefore(expected)
+            expect.isBefore(expected.format(DateTimeFormatter.ISO_DATE_TIME))
+
+        fun isBeforeOrEqual(
+            expect: Expect<ChronoLocalDateTime<*>>,
+            expected: ChronoLocalDateTime<*>
+        ): Expect<ChronoLocalDateTime<*>> =
+            expect.isBeforeOrEqual(expected.format(DateTimeFormatter.ISO_DATE_TIME))
+
+        fun isAfter(
+            expect: Expect<ChronoLocalDateTime<*>>,
+            expected: ChronoLocalDateTime<*>
+        ): Expect<ChronoLocalDateTime<*>> =
+            expect.isAfter(expected.format(DateTimeFormatter.ISO_DATE_TIME))
+
+        fun isAfterOrEqual(
+            expect: Expect<ChronoLocalDateTime<*>>,
+            expected: ChronoLocalDateTime<*>
+        ): Expect<ChronoLocalDateTime<*>> =
+            expect.isAfterOrEqual(expected.format(DateTimeFormatter.ISO_DATE_TIME))
+
+        fun isEqual(
+            expect: Expect<ChronoLocalDateTime<*>>,
+            expected: ChronoLocalDateTime<*>
+        ): Expect<ChronoLocalDateTime<*>> =
+            expect.isEqual(expected.format(DateTimeFormatter.ISO_DATE_TIME))
     }
 
 

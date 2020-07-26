@@ -7,8 +7,7 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.ChronoLocalDateTimeAssertions
-import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -46,7 +45,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion = isAfter(stringToLocalDateTime(expected))
+    ): Assertion = container.isAfter(stringToLocalDateTime(expected))
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEqual(
         container: AssertionContainer<T>,
