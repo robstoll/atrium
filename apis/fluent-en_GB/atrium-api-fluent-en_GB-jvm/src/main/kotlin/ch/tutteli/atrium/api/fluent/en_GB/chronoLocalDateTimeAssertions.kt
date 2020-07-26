@@ -74,3 +74,68 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoLocalDateTime<*>
 ): Expect<T> = _logicAppend { isEqual(expected) }
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is before the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
+    expected: String
+): Expect<T> = _logicAppend { isBefore(expected) }
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is before or equal the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
+    expected: String
+): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is after the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
+    expected: String
+): Expect<T> = _logicAppend { isAfter(expected) }
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is after or equal the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
+    expected: String
+): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
+
+/**
+ * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * is equal to the [expected] [String].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
+    expected: String
+): Expect<T> = _logicAppend { isEqual(expected) }
