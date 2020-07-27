@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -114,11 +115,42 @@ infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehavio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
+ * TODO remove with 1.0.0
  * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterable)
+    return this the values(first, *rest)
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements in
+ * [expectedIterableLike] need to be contained in [Iterable] where it does not matter in which order but only as
+ * many entries should be returned by the [Iterable] as values defined.
+ *
+ * Delegates to [values].
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable]
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
+ * or the given [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> {
+    val (first, rest) = toVarArg<E>(expectedIterableLike)
     return this the values(first, *rest)
 }

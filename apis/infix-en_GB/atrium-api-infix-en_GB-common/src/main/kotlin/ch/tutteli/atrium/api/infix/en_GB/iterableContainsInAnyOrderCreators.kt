@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.CheckerOption
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
@@ -94,11 +95,38 @@ infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehav
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
+ * TODO remove with 1.0.0
  * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterable)
+    return this the values(first, *rest)
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * shall be searched within the [Iterable].
+ *
+ * Delegates to [values] which also means that it does not search for unique matches
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
+ * or the given [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> {
+    val (first, rest) = toVarArg<E>(expectedIterableLike)
     return this the values(first, *rest)
 }
