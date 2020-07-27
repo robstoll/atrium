@@ -6,6 +6,7 @@ import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.kbox.glue
 
 /**
@@ -115,10 +116,41 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlySearchBehaviour>.entri
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
  * @since 0.9.0
+ * TODO remove with 1.0.0
  */
 inline fun <reified E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<E>(expectedIterable)
+    return values(first, *rest)
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * shall be searched within the [Iterable]
+ * (if given) in the specified order.
+ *
+ * Delegates to [values].
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * Note that we might change the signature of this function with the next version
+ * which will cause a binary backward compatibility break (see
+ * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
+ * or the given [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+inline fun <reified E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> {
+    val (first, rest) = toVarArg<E>(expectedIterableLike)
     return values(first, *rest)
 }

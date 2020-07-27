@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.kbox.identity
 
@@ -191,6 +192,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(entries: Entries
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
+ * TODO remove with 1.0.0
  * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
@@ -207,10 +209,51 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsO
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
+ * TODO remove with 1.0.0
  * @since 0.12.0
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIterable: Iterable<E>): Expect<T> =
     it contains o inAny order atLeast 1 elementsOf expectedIterable
+
+/**
+ * Expects that the subject of the assertion (an [Iterable]) contains only elements of [expectedIterableLike]
+ * in same order
+ *
+ * It is a shortcut for 'contains.inOrder.only.elementsOf(anotherList)'
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
+ * or the given [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> = it contains o inGiven order and only elementsOf (expectedIterableLike)
+
+/** Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterableLike].
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
+ * or the given [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> = it contains o inAny order atLeast 1 elementsOf expectedIterableLike
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) does not contain the [expected] value.

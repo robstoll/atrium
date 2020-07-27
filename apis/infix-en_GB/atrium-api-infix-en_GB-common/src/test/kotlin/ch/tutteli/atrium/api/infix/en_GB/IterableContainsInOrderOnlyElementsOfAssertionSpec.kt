@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.iterableLikeTypes
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction2
@@ -10,6 +11,7 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 
+    // TODO remove with 1.0.0
     describe("contains o inGiven order and only elementsOf") {
         it("passing an empty iterable throws an IllegalArgumentException") {
             expect {
@@ -18,11 +20,48 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
         }
     }
 
+    // TODO remove with 1.0.0
     describe("containsExactlyElementsOf") {
         it("passing an empty iterable throws an IllegalArgumentException") {
             expect {
                 expect(listOf(1, 2)) containsExactlyElementsOf listOf()
             }.toThrow<IllegalArgumentException>()
+        }
+    }
+
+    iterableLikeTypes.forEach { (description, input) ->
+        describe(description) {
+            it("passing an empty iterable throws an IllegalArgumentException") {
+                expect {
+                    expect(listOf(1, 2)) contains o inGiven order and only elementsOf input
+                }.toThrow<IllegalArgumentException>()
+            }
+        }
+    }
+
+    iterableLikeTypes.forEach { (description, input) ->
+        describe(description) {
+            it("passing an empty iterable throws an IllegalArgumentException") {
+                expect {
+                    expect(listOf(1, 2)) containsExactlyElementsOf input
+                }.toThrow<IllegalArgumentException>()
+            }
+        }
+    }
+
+    describe("contains o inGiven order and only elementsOf") {
+        it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
+            expect {
+                expect(listOf(1, 2)) contains o inGiven order and only elementsOf "test"
+            }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
+        }
+    }
+
+    describe("containsExactlyElementsOf") {
+        it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
+            expect {
+                expect(listOf(1, 2)) containsExactlyElementsOf "test"
+            }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
         }
     }
 }) {

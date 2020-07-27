@@ -2,17 +2,39 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.iterableLikeTypes
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 class IterableContainsInAnyOrderOnlyElementsOfAssertionSpec : Spek({
     include(BuilderSpec)
 
+    // TODO remove with 1.0.0
     describe("contains.inAnyOrder.only.elementsOf") {
         it("passing an empty iterable throws an IllegalArgumentException") {
             expect {
                 expect(listOf(1, 2)).contains.inAnyOrder.only.elementsOf(listOf())
             }.toThrow<IllegalArgumentException>()
+        }
+    }
+
+    iterableLikeTypes.forEach { (description, input) ->
+        describe(description) {
+            it("passing an empty iterable throws an IllegalArgumentException") {
+                expect {
+                    expect(listOf(1, 2)).contains.inAnyOrder.only.elementsOf(input)
+                }.toThrow<IllegalArgumentException>()
+            }
+        }
+    }
+
+    describe("contains.inAnyOrder.only.elementsOf") {
+        it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
+            expect {
+                expect(listOf(1, 2)).contains.inAnyOrder.only.elementsOf("test")
+            }.toThrow<IllegalArgumentException> {
+                messageContains("toVarArg accepts arguments of types Iterable, Sequence, Array")
+            }
         }
     }
 }) {

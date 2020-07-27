@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
@@ -305,11 +306,12 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
  * [expectedIterable] does not have elements (is empty).
  *
  * @since 0.9.0
+ * TODO remove with 1.0.0
  */
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
     return values(first, *rest)
 }
 
@@ -334,12 +336,13 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * [expectedIterable] does not have elements (is empty).
  *
  * @since 0.9.0
+ * TODO remove with 1.0.0
  */
 @JvmName("elementsOfIgnoringCase")
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
     return values(first, *rest)
 }
 
@@ -364,11 +367,98 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * [expectedIterable] does not have elements (is empty).
  *
  * @since 0.11.0
+ * TODO remove with 1.0.0
  */
 @JvmName("elementsOfIgnoringCase")
 fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
-    val (first, rest) = toVarArg(expectedIterable)
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
+    return values(first, *rest)
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * shall be searched, using a non disjoint search.
+ *
+ * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
+ * [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> {
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    return values(first, *rest)
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * shall be searched (ignoring case), using a non disjoint search.
+ *
+ * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
+ * [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+@JvmName("elementsOfIgnoringCase")
+fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> {
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    return values(first, *rest)
+}
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * shall be searched (ignoring case), using a non disjoint search.
+ *
+ * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
+ * (see [values] for more information).
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ *
+ * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ *
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
+ * [expectedIterableLike] does not have elements (is empty).
+ *
+ * @since 0.13.0
+ */
+@JvmName("elementsOfIgnoringCase")
+fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike
+): Expect<T> {
+    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return values(first, *rest)
 }
