@@ -1,69 +1,14 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.iterableLikeTypes
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction2
 
 class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
-
-    // TODO remove with 1.0.0
-    describe("contains o inGiven order and only elementsOf") {
-        it("passing an empty iterable throws an IllegalArgumentException") {
-            expect {
-                expect(listOf(1, 2)) contains o inGiven order and only elementsOf listOf()
-            }.toThrow<IllegalArgumentException>()
-        }
-    }
-
-    // TODO remove with 1.0.0
-    describe("containsExactlyElementsOf") {
-        it("passing an empty iterable throws an IllegalArgumentException") {
-            expect {
-                expect(listOf(1, 2)) containsExactlyElementsOf listOf()
-            }.toThrow<IllegalArgumentException>()
-        }
-    }
-
-    iterableLikeTypes.forEach { (description, input) ->
-        describe(description) {
-            it("passing an empty iterable throws an IllegalArgumentException") {
-                expect {
-                    expect(listOf(1, 2)) contains o inGiven order and only elementsOf input
-                }.toThrow<IllegalArgumentException>()
-            }
-        }
-    }
-
-    iterableLikeTypes.forEach { (description, input) ->
-        describe(description) {
-            it("passing an empty iterable throws an IllegalArgumentException") {
-                expect {
-                    expect(listOf(1, 2)) containsExactlyElementsOf input
-                }.toThrow<IllegalArgumentException>()
-            }
-        }
-    }
-
-    describe("contains o inGiven order and only elementsOf") {
-        it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
-            expect {
-                expect(listOf(1, 2)) contains o inGiven order and only elementsOf "test"
-            }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
-        }
-    }
-
-    describe("containsExactlyElementsOf") {
-        it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
-            expect {
-                expect(listOf(1, 2)) containsExactlyElementsOf "test"
-            }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
-        }
-    }
+    include(BuilderIterableLikeSpec)
+    include(ShortcutIterableLikeSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
         getContainsPair(),
@@ -77,6 +22,20 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
         getContainsNullableShortcutPair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Shortcut] "
+    )
+
+    object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+        "contains o inGiven order and only elementsOf",
+        listOf(1, 2),
+        { input -> it contains o inGiven order and only elementsOf input },
+        { input -> it contains o inGiven order and only elementsOf input }
+    )
+
+    object ShortcutIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+        "containsExactlyElementsOf",
+        listOf(1, 2),
+        { input -> it containsExactlyElementsOf input },
+        { input -> it containsExactlyElementsOf input }
     )
 
     companion object : IterableContainsSpecBase() {
@@ -101,7 +60,8 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
         private val containsExactlyElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsExactlyElementsOf
 
-        private fun getContainsShortcutPair() = containsExactlyElementsOfShortcutFun.name to Companion::containsExactlyElementsOfShortcut
+        private fun getContainsShortcutPair() =
+            containsExactlyElementsOfShortcutFun.name to Companion::containsExactlyElementsOfShortcut
 
         private fun containsExactlyElementsOfShortcut(
             expect: Expect<Iterable<Double>>,
@@ -112,7 +72,8 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
         private val containsExactlyElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsExactlyElementsOf
 
-        private fun getContainsNullableShortcutPair() = containsExactlyElementsOfNullableShortcutFun.name to Companion::containsExactlyElementsOfNullableShortcut;
+        private fun getContainsNullableShortcutPair() =
+            containsExactlyElementsOfNullableShortcutFun.name to Companion::containsExactlyElementsOfNullableShortcut;
 
         private fun containsExactlyElementsOfNullableShortcut(
             expect: Expect<Iterable<Double?>>,

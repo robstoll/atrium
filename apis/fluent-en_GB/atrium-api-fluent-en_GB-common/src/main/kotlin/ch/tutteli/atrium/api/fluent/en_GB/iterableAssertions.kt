@@ -200,7 +200,7 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIte
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
- *  @since 0.13.0
+ * @since 0.13.0
  */
 inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
     expectedIterableLike: IterableLike
