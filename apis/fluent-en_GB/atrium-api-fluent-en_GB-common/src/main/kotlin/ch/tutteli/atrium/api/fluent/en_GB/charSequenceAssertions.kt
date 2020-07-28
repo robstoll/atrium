@@ -34,9 +34,9 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehav
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
@@ -66,9 +66,9 @@ fun <T : CharSequence> Expect<T>.contains(
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

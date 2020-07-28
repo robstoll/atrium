@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.cause
 
@@ -30,13 +31,14 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
  * Expects that the property [Throwable.message] of the subject of the assertion is not null and contains
  * [expected]'s [toString] representation using a non disjoint search.
  **
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
- * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Throwable> Expect<T>.messageContains(expected: Any): Expect<T> =
+infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this messageContains values(expected)
 
 /**

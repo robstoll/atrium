@@ -21,9 +21,9 @@ import kotlin.jvm.JvmName
  *
  * Delegates to `the values(expected)`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -41,9 +41,9 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(
  * Finishes the specification of the sophisticated `contains` assertion where the given [values]
  * shall be searched, using a non disjoint search.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -74,9 +74,9 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(
  *
  * Delegates to `the values(expected)`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -95,9 +95,9 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value
  * Finishes the specification of the sophisticated `contains` assertion where the [values]
  * shall be searched (ignoring case), using a non disjoint search.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -128,9 +128,9 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(
  *
  * Delegates to `atLeast 1 value expected`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -151,9 +151,9 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(
  *
  * Delegates to `atLeast 1 the value`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -346,9 +346,9 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(pattern
  * Delegates to `the values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
  * (see [the] for more information).
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -377,9 +377,9 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * Delegates to `the values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
  * (see [the] for more information).
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -408,9 +408,9 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.eleme
  * Delegates to `the values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
  * (see [the] for more information).
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -440,7 +440,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * (see [the] for more information).
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -469,7 +469,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * (see [the] for more information).
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
@@ -498,7 +498,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.eleme
  * (see [the] for more information).
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
