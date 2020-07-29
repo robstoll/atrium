@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.kbox.glue
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -165,3 +166,34 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     addAssertionsCreatedBy(assertionCreator)
+
+/**
+ * Expects that the subject of the assertion is not (equal to) [expected] and [otherValues].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.9.0
+ */
+inline fun <reified T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
+    _logicAppend {
+        isNotIn(expected glue otherValues)
+    }
+
+/**
+ * Expects that the subject of the assertion is not (equal to) any value of [expected].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the iterable is empty.
+ *
+ * @since 0.9.0
+ */
+inline fun <reified T> Expect<T>.isNotIn(expected: Iterable<T>): Expect<T> {
+    require(expected.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
+    return _logicAppend {
+        isNotIn(expected.toList())
+    }
+}
+
+

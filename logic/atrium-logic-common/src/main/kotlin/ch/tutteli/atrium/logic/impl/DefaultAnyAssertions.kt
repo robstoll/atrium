@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
@@ -52,4 +53,13 @@ class DefaultAnyAssertions : AnyAssertions {
         container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()
+
+    override fun <T> isNotIn(container: AssertionContainer<T>, expected: List<T>): Assertion {
+        val assertions = expected.map { assertionBuilder.representationOnly.failing.withRepresentation(it).build() }
+        return assertionBuilder.list
+            .withDescriptionAndEmptyRepresentation(IS_NONE_OF)
+            .withAssertions(assertions)
+            .build()
+    }
+
 }
