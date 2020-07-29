@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.iterableLikeTypes
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
 
 class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastAssertionsSpec(
@@ -29,89 +26,26 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
         "* ", "- "
     ) {})
 
-    include(object : Spek({
+    include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
+        "contains o atLeast 1 elementsOf",
+        "hello",
+        { input -> it contains o atLeast 1 elementsOf input },
+        { input -> it contains o atLeast 1 elementsOf input }
+    ) {})
 
-        // TODO remove with 1.0.0
-        describe("atLeast 1 elementsOf") {
-            it("passing an empty iterable throws an IllegalArgumentException") {
-                expect {
-                    expect("test") contains o atLeast 1 elementsOf emptyList()
-                }.toThrow<IllegalArgumentException> { it messageContains "Iterable without elements are not allowed" }
-            }
-        }
+    include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
+        " contains o ignoring case atLeast 1 elementsOf",
+        "hello",
+        { input -> it contains o ignoring case atLeast 1 elementsOf input },
+        { input -> it contains o ignoring case atLeast 1 elementsOf input }
+    ) {})
 
-        // TODO remove with 1.0.0
-        describe("ignoring case elementsOf") {
-            it("passing an empty iterable throws an IllegalArgumentException") {
-                expect {
-                    expect("test") contains o ignoring case elementsOf emptyList()
-                }.toThrow<IllegalArgumentException> { it messageContains "Iterable without elements are not allowed" }
-            }
-        }
-
-        // TODO remove with 1.0.0
-        describe("ignoring case atLeast 1 elementsOf") {
-            it("passing an empty iterable throws an IllegalArgumentException") {
-                expect {
-                    expect("test") contains o ignoring case atLeast 1 elementsOf emptyList()
-                }.toThrow<IllegalArgumentException> { it messageContains "Iterable without elements are not allowed" }
-            }
-        }
-
-        iterableLikeTypes.forEach { (description, input) ->
-            describe(description) {
-                it("passing an empty iterable throws an IllegalArgumentException") {
-                    expect {
-                        expect("test") contains o atLeast 1 elementsOf input
-                    }.toThrow<IllegalArgumentException> { it messageContains "Iterable without elements are not allowed" }
-                }
-            }
-        }
-
-        iterableLikeTypes.forEach { (description, input) ->
-            describe(description) {
-                it("passing an empty iterable throws an IllegalArgumentException") {
-                    expect {
-                        expect("test") contains o ignoring case elementsOf input
-                    }.toThrow<IllegalArgumentException> { it messageContains "Iterable without elements are not allowed" }
-                }
-            }
-        }
-
-        iterableLikeTypes.forEach { (description, input) ->
-            describe(description) {
-                it("passing an empty iterable throws an IllegalArgumentException") {
-                    expect {
-                        expect("test") contains o ignoring case atLeast 1 elementsOf input
-                    }.toThrow<IllegalArgumentException> { it messageContains "Iterable without elements are not allowed" }
-                }
-            }
-        }
-
-        describe("atLeast 1 elementsOf") {
-            it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
-                expect {
-                    expect("test") contains o atLeast 1 elementsOf "test"
-                }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
-            }
-        }
-
-        describe("ignoring case elementsOf") {
-            it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
-                expect {
-                    expect("test") contains o ignoring case elementsOf "test"
-                }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
-            }
-        }
-
-        describe("ignoring case atLeast 1 elementsOf") {
-            it("passing a string instead of an IterableLike throws an IllegalArgumentException") {
-                expect {
-                    expect("test") contains o ignoring case atLeast 1 elementsOf "test"
-                }.toThrow<IllegalArgumentException> { it messageContains ("toVarArg accepts arguments of types Iterable, Sequence, Array") }
-            }
-        }
-    }) {})
+    include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
+        "contains o ignoring case elementsOf",
+        "hello",
+        { input -> it contains o ignoring case elementsOf input },
+        { input -> it contains o ignoring case elementsOf input }
+    ) {})
 }) {
 
     companion object : CharSequenceContainsSpecBase() {

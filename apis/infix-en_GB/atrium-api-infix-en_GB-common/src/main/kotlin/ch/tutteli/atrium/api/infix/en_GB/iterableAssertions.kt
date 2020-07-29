@@ -222,7 +222,7 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expec
  * It is a shortcut for 'contains.inOrder.only.elementsOf(anotherList)'
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -240,7 +240,7 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsO
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
  *

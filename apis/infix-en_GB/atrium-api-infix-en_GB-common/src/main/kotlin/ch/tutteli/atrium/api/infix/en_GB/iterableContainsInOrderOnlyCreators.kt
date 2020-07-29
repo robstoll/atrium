@@ -124,7 +124,7 @@ inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBeh
  * Delegates to [values].
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed (this function expects [IterableLike] (which is a typealias for [Any]).
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see

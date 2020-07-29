@@ -43,9 +43,9 @@ infix fun <T : CharSequence> Expect<T>.containsNot(
  *
  * It is a shortcut for `contains o atLeast 1 value expected`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -60,9 +60,9 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOr
  *
  * It is a shortcut for `contains o atLeast 1 the values(expected, *otherExpected)`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
@@ -91,9 +91,9 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNum
  *
  * It is a shortcut for `contains not value expected`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * @return This assertion container to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -107,9 +107,9 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumbe
  *
  * It is a shortcut for `contains not the values(expected, *otherExpected)`.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
- * function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any] for your convenience,
- * so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * @param values The values which should not be found -- use the function `values(t, ...)` to create a [Values].
  *

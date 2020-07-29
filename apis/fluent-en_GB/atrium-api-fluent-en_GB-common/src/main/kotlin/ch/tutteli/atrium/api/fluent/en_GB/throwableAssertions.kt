@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.cause
 
@@ -33,14 +34,17 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  * It is more or less a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`, depending on
  * the implementation though.
  *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
- * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Throwable> Expect<T>.messageContains(expected: Any, vararg otherExpected: Any): Expect<T> =
-    message { contains(expected, *otherExpected) }
+fun <T : Throwable> Expect<T>.messageContains(
+    expected: CharSequenceOrNumberOrChar,
+    vararg otherExpected: CharSequenceOrNumberOrChar
+): Expect<T> = message { contains(expected, *otherExpected) }
 
 
 /**
