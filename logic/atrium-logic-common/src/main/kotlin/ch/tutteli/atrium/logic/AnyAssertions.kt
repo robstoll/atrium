@@ -29,5 +29,5 @@ interface AnyAssertions {
     // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
     fun <T, TSub : Any> isA(container: AssertionContainer<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
 
-    fun <T> isNotIn(container: AssertionContainer<T>, expected: List<T>): Assertion
+    fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 }

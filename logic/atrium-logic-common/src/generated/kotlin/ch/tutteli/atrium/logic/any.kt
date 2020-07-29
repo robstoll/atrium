@@ -28,4 +28,4 @@ fun <T : Any> AssertionContainer<T?>.notToBeNull(subType: KClass<T>): ChangedSub
     // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
 fun <T, TSub : Any> AssertionContainer<T>.isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> = _anyImpl.isA(this, subType)
 
-fun <T> AssertionContainer<T>.isNotIn(expected: List<T>): Assertion = _anyImpl.isNotIn(this, expected)
+fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = _anyImpl.isNotIn(this, expected)
