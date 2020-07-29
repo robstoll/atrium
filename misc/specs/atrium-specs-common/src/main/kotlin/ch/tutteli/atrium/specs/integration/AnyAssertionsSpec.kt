@@ -32,6 +32,14 @@ abstract class AnyAssertionsSpec(
     isNotSameDataClass: Fun1<DataClass, DataClass>,
     isNotSameNullableInt: Fun1<Int?, Int?>,
     isNotSameNullableDataClass: Fun1<DataClass?, DataClass?>,
+    isNoneOfInt: Fun2<Int, Int, Array<out Int>>,
+    isNoneOfDataClass: Fun2<DataClass, DataClass, Array<out DataClass>>,
+    isNoneOfNullableInt: Fun2<Int?, Int?, Array<out Int?>>,
+    isNoneOfNullableDataClass: Fun2<DataClass?, DataClass?, Array<out DataClass?>>,
+    isNotInInt: Fun1<Int, Iterable<Int>>,
+    isNotInDataClass: Fun1<DataClass, Iterable<DataClass>>,
+    isNotInNullableInt: Fun1<Int?, Iterable<Int?>>,
+    isNotInNullableDataClass: Fun1<DataClass?, Iterable<DataClass?>>,
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
@@ -58,6 +66,8 @@ abstract class AnyAssertionsSpec(
         notToBeInt.forSubjectLess(1),
         isSameInt.forSubjectLess(1),
         isNotSameInt.forSubjectLess(1),
+        isNoneOfInt.forSubjectLess(1, emptyArray()),
+        isNotInInt.forSubjectLess(listOf(1)),
         andPair.forSubjectLess(),
         andLazyPair.forSubjectLess { toBe(1) }
     ) {})
@@ -68,6 +78,8 @@ abstract class AnyAssertionsSpec(
         notToBeNullableInt.forSubjectLess(1),
         isSameNullableInt.forSubjectLess(1),
         isNotSameNullableInt.forSubjectLess(1),
+        isNoneOfNullableInt.forSubjectLess(1, emptyArray()),
+        isNotInNullableInt.forSubjectLess(listOf(1)),
         toBeNull.forSubjectLess(),
         isAIntFeature.forSubjectLess(),
         isAInt.forSubjectLess { toBe(1) },
@@ -107,13 +119,17 @@ abstract class AnyAssertionsSpec(
         toBe: Fun1<T, Int>,
         notToBe: Fun1<T, Int>,
         isSame: Fun1<T, Int>,
-        isNotSame: Fun1<T, Int>
+        isNotSame: Fun1<T, Int>,
+        isNoneOf: Fun2<T, Int, Array<Int>>,
+        isNotIn: Fun1<T, Iterable<Int>>
     ) {
         context(description) {
             val toBeFun = toBe.lambda
             val notToBeFun = notToBe.lambda
             val isSameFun = isSame.lambda
             val isNotSameFun = isNotSame.lambda
+            val isNoneOfFun = isNoneOf.lambda
+            val isNotInFun = isNotIn.lambda
 
             context("one equals the other") {
                 it("${toBe.name} does not throw") {
@@ -131,6 +147,16 @@ abstract class AnyAssertionsSpec(
                     expect {
                         expectSubject.isNotSameFun(1)
                     }.toThrow<AssertionError> { messageContains(IS_NOT_SAME.getDefault()) }
+                }
+                it("${isNoneOf.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNoneOfFun(1, emptyArray())
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
+                }
+                it("${isNotIn.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNotInFun(listOf(1))
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
                 }
             }
             context("one does not equal the other") {
@@ -150,6 +176,12 @@ abstract class AnyAssertionsSpec(
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(2)
                 }
+                it("${isNoneOf.name} does not throw") {
+                    expectSubject.isNoneOfFun(2, emptyArray())
+                }
+                it("${isNotIn.name} does not throw") {
+                    expectSubject.isNotInFun(listOf(2))
+                }
             }
         }
     }
@@ -161,12 +193,16 @@ abstract class AnyAssertionsSpec(
         notToBe: Fun1<T, DataClass>,
         isSame: Fun1<T, DataClass>,
         isNotSame: Fun1<T, DataClass>,
+        isNoneOf: Fun2<T, DataClass, Array<DataClass>>,
+        isNotIn: Fun1<T, Iterable<DataClass>>,
         test: DataClass
     ) {
         val toBeFun = toBe.lambda
         val notToBeFun = notToBe.lambda
         val isSameFun = isSame.lambda
         val isNotSameFun = isNotSame.lambda
+        val isNoneOfFun = isNoneOf.lambda
+        val isNotInFun = isNotIn.lambda
 
         context(description) {
             context("same") {
@@ -185,6 +221,16 @@ abstract class AnyAssertionsSpec(
                     expect {
                         expectSubject.isNotSameFun(test)
                     }.toThrow<AssertionError>()
+                }
+                it("${isNoneOf.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNoneOfFun(test, emptyArray())
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
+                }
+                it("${isNotIn.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNotInFun(listOf(test))
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
                 }
             }
             context("not same but one equals the other") {
@@ -205,6 +251,16 @@ abstract class AnyAssertionsSpec(
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(other)
                 }
+                it("${isNoneOf.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNoneOfFun(other, emptyArray())
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
+                }
+                it("${isNotIn.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNotInFun(listOf(other))
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
+                }
             }
             context("one does not equal the other") {
                 val other = DataClass(false)
@@ -224,6 +280,12 @@ abstract class AnyAssertionsSpec(
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(other)
                 }
+                it("${isNoneOf.name} does not throw") {
+                    expectSubject.isNoneOfFun(other, emptyArray())
+                }
+                it("${isNotIn.name} does not throw") {
+                    expectSubject.isNotInFun(listOf(other))
+                }
             }
         }
     }
@@ -234,13 +296,18 @@ abstract class AnyAssertionsSpec(
         notToBe: Fun1<T?, T?>,
         isSame: Fun1<T?, T?>,
         isNotSame: Fun1<T?, T?>,
-        value: T
+        isNoneOf: Fun2<T?, T?, Array<T?>>,
+        isNotIn: Fun1<T?, Iterable<T?>>,
+        value: T,
+        emptyArray: Array<T?>
     ) {
 
         val toBeFun = toBe.lambda
         val notToBeFun = notToBe.lambda
         val isSameFun = isSame.lambda
         val isNotSameFun = isNotSame.lambda
+        val isNoneOfFun = isNoneOf.lambda
+        val isNotInFun = isNotIn.lambda
         val expectSubject = expect(null as T?)
 
         context(description) {
@@ -260,6 +327,16 @@ abstract class AnyAssertionsSpec(
                     expect {
                         expectSubject.isNotSameFun(null)
                     }.toThrow<AssertionError> { messageContains(IS_NOT_SAME.getDefault()) }
+                }
+                it("${isNoneOf.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNoneOfFun(null, emptyArray)
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
+                }
+                it("${isNotIn.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNotInFun(listOf(null))
+                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
                 }
             }
             context("one does not equal the other") {
@@ -281,19 +358,27 @@ abstract class AnyAssertionsSpec(
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(value)
                 }
+                it("${isNoneOf.name} does not throw") {
+                    expectSubject.isNoneOfFun(value, emptyArray)
+                }
+                it("${isNotIn.name} does not throw") {
+                    expectSubject.isNotInFun(listOf(value))
+                }
             }
         }
     }
 
-    describeFun(toBeInt, notToBeInt, isSameInt, isNotSameInt) {
-        checkInt("primitive", expect(1), toBeInt, notToBeInt, isSameInt, isNotSameInt)
+    describeFun(toBeInt, notToBeInt, isSameInt, isNotSameInt, isNoneOfInt, isNotInInt) {
+        checkInt("primitive", expect(1), toBeInt, notToBeInt, isSameInt, isNotSameInt, isNoneOfInt, isNotInInt)
         checkInt(
             "nullable primitive",
             expect(1 as Int?),
             toBeNullableInt,
             notToBeNullableInt,
             isSameNullableInt,
-            isNotSameNullableInt
+            isNotSameNullableInt,
+            isNoneOfNullableInt,
+            isNotInNullableInt
         )
 
         val subject = DataClass(true)
@@ -304,6 +389,8 @@ abstract class AnyAssertionsSpec(
             notToBeDataClass,
             isSameDataClass,
             isNotSameDataClass,
+            isNoneOfDataClass,
+            isNotInDataClass,
             subject
         )
         checkDataClass(
@@ -313,6 +400,8 @@ abstract class AnyAssertionsSpec(
             notToBeNullableDataClass,
             isSameNullableDataClass,
             isNotSameNullableDataClass,
+            isNoneOfNullableDataClass,
+            isNotInNullableDataClass,
             subject
         )
 
@@ -322,7 +411,10 @@ abstract class AnyAssertionsSpec(
             notToBeNullableInt,
             isSameNullableInt,
             isNotSameNullableInt,
-            2
+            isNoneOfNullableInt,
+            isNotInNullableInt,
+            2,
+            emptyArray<Int?>()
         )
         checkNull(
             "null as DataClass?",
@@ -330,7 +422,10 @@ abstract class AnyAssertionsSpec(
             notToBeNullableDataClass,
             isSameNullableDataClass,
             isNotSameNullableDataClass,
-            subject
+            isNoneOfNullableDataClass,
+            isNotInNullableDataClass,
+            subject,
+            emptyArray<DataClass?>()
         )
     }
 
@@ -503,7 +598,7 @@ abstract class AnyAssertionsSpec(
                             expect(i).notToBeNullFun { isGreaterThan(2); isLessThan(0) }
                         }.toThrow<AssertionError> {
                             messageContains(IS_GREATER_THAN.getDefault())
-                            if(hasExtraHint) messageContains(IS_LESS_THAN.getDefault())
+                            if (hasExtraHint) messageContains(IS_LESS_THAN.getDefault())
                         }
                     }
                 }
