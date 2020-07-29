@@ -38,7 +38,7 @@ abstract class IterableLikeSpec<T>(
                 expect {
                     expect(subject).funIterableLike("test")
                 }.toThrow<IllegalArgumentException> {
-                    messageContains("toVarArg accepts arguments of types Iterable, Sequence, Array")
+                    messageContains("iterableLikeToIterable accepts arguments of types Iterable, Sequence, Array")
                 }
             }
         }

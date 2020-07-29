@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature0
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
@@ -25,6 +26,14 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::isNotSameAs),
     fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
+    fun2(Expect<Int>::isNoneOf),
+    fun2(Expect<DataClass>::isNoneOf),
+    fun2(Expect<Int?>::isNoneOf).withNullableSuffix(),
+    fun2(Expect<DataClass?>::isNoneOf).withNullableSuffix(),
+    fun1(Expect<Int>::isNotIn),
+    fun1(Expect<DataClass>::isNotIn),
+    fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
+    fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -39,7 +48,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     "notToBeNull" to Companion::notToBeNull,
 
     getAndImmediatePair(),
-    getAndLazyPair()
+    getAndLazyPair(),
+    "⚬ "
 ) {
 
     companion object {

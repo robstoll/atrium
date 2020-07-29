@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.iterableLikeToIterable
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.kbox.glue
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -229,15 +229,18 @@ inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
 inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
 
 /**
- * Expects that the subject of the assertion is not (equal to) [expected] and [otherValues].
+ * Expects that the subject of the assertion is not (equal to) in [values].
+ *
+ * @param values The values which are not expected to be contained within the subject of the assertion
+ *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */
-inline fun <reified T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
-    _logicAppend { isNotIn(expected glue otherValues) }
+infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
+    _logicAppend { isNotIn(values.toList()) }
 
 /**
  * Expects that the subject of the assertion is not (equal to) any value of [expected].
@@ -251,8 +254,8 @@ inline fun <reified T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): E
  *
  * @since 0.13.0
  */
-inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
+inline infix fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
     val iterable = iterableLikeToIterable<T>(expected)
-    require(iterable.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
+    require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
     return _logicAppend { isNotIn(iterable.toList()) }
 }

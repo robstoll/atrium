@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withFeatureSuffix
@@ -25,6 +26,14 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::isNotSameAs),
     fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
+    fun2(Companion::isNoneOfInt),
+    fun2(Companion::isNoneOfDataClass),
+    fun2(Companion::isNoneOfIntNullable).withNullableSuffix(),
+    fun2(Companion::isNoneOfDataClassNullable).withNullableSuffix(),
+    fun1(Expect<Int>::isNotIn),
+    fun1(Expect<DataClass>::isNotIn),
+    fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
+    fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -39,10 +48,11 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     "notToBeNull" to Companion::notToBeNull,
 
     getAndImmediatePair(),
-    getAndLazyPair()
+    getAndLazyPair(),
+    "- "
 ) {
 
-    companion object : WithAsciiReporter(){
+    companion object : WithAsciiReporter() {
         private fun toBeNull(expect: Expect<Int?>) = expect toBe null
 
         @Suppress("RemoveExplicitTypeArguments")
@@ -81,6 +91,18 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
         private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
             expect notToBeNull assertionCreator
+
+        private fun isNoneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
+            expect isNoneOf values(expected, *otherValues)
+
+        private fun isNoneOfIntNullable(expect: Expect<Int?>, expected: Int?, otherValues: Array<out Int?>): Expect<Int?> =
+            expect isNoneOf values(expected, *otherValues)
+
+        private fun isNoneOfDataClass(expect: Expect<DataClass>, expected: DataClass, otherValues: Array<out DataClass>): Expect<DataClass> =
+            expect isNoneOf values(expected, *otherValues)
+
+        private fun isNoneOfDataClassNullable(expect: Expect<DataClass?>, expected: DataClass?, otherValues: Array<out DataClass?>): Expect<DataClass?> =
+            expect isNoneOf values(expected, *otherValues)
     }
 
     @Suppress("unused")
@@ -98,6 +120,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1 isNotSameAs 1.2
         a1.isA<Int>()
         a1.isA<Int> {}
+        a1 isNoneOf values(1, 2)
+        a1 isNotIn listOf(1, 1.2)
 
         a1b toBe 1
         a1b toBe 1.2
@@ -109,6 +133,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1b isNotSameAs 1.2
         a1b.isA<Int>()
         a1b.isA<Int> {}
+        a1b isNoneOf values(1, 2)
+        a1b isNotIn listOf(1, 1.2)
 
         a1b notToBeNull o toBe 1
         a1b notToBeNull {}
