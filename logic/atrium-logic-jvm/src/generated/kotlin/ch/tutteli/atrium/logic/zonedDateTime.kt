@@ -17,10 +17,18 @@ import java.nio.file.Path
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
-fun AssertionContainer<ZonedDateTime>.year(): ExtractedFeaturePostStep<ZonedDateTime, Int> = _zonedDateTimeImpl.year(this)
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultZonedDateTimeAssertions
 
-fun AssertionContainer<ZonedDateTime>.month(): ExtractedFeaturePostStep<ZonedDateTime, Int> = _zonedDateTimeImpl.month(this)
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: ZonedDateTimeAssertions
+    get() = getImpl(ZonedDateTimeAssertions::class) { DefaultZonedDateTimeAssertions() }
 
-fun AssertionContainer<ZonedDateTime>.day(): ExtractedFeaturePostStep<ZonedDateTime, Int> = _zonedDateTimeImpl.day(this)
+fun AssertionContainer<ZonedDateTime>.year(): ExtractedFeaturePostStep<ZonedDateTime, Int> = impl.year(this)
 
-fun AssertionContainer<ZonedDateTime>.dayOfWeek(): ExtractedFeaturePostStep<ZonedDateTime, DayOfWeek> = _zonedDateTimeImpl.dayOfWeek(this)
+fun AssertionContainer<ZonedDateTime>.month(): ExtractedFeaturePostStep<ZonedDateTime, Int> = impl.month(this)
+
+fun AssertionContainer<ZonedDateTime>.day(): ExtractedFeaturePostStep<ZonedDateTime, Int> = impl.day(this)
+
+fun AssertionContainer<ZonedDateTime>.dayOfWeek(): ExtractedFeaturePostStep<ZonedDateTime, DayOfWeek> = impl.dayOfWeek(this)

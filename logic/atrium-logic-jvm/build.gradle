@@ -12,8 +12,9 @@ dependencies {
     testImplementation prefixedProject('specs-jvm')
 }
 
+apply from: "$project.projectDir/../generateCommon.gradle"
 apply from: "$project.projectDir/../generateLogic.gradle"
-def generateLogic = createGenerateLogicTask(project, "implsJvm")
+def generateLogic = createGenerateLogicTask(project)
 compileKotlin.dependsOn(generateLogic)
 
 sourceSets {

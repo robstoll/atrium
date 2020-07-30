@@ -11,8 +11,9 @@ dependencies {
 }
 
 
+apply from: "$project.projectDir/../generateCommon.gradle"
 apply from: "$project.projectDir/../generateLogic.gradle"
-def generateLogic = createGenerateLogicTask(project, "impls")
+def generateLogic = createGenerateLogicTask(project)
 compileKotlinCommon.dependsOn(generateLogic)
 
 sourceSets {

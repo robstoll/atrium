@@ -1,0 +1,41 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.util.stream.Collectors
+
+static def getInterfaces(String path) {
+    Files.walk(Paths.get(path), 1).withCloseable { stream ->
+        return stream
+            .filter { file -> file.getFileName().toString().endsWith("Assertions.kt") }
+            .sorted(new Comparator<java.nio.file.Path>() {
+                @Override
+                int compare(java.nio.file.Path a, java.nio.file.Path b) {
+                    return a.getFileName().toString() <=> b.getFileName().toString()
+
+                }
+            }).collect(Collectors.toList())
+    }
+}
+
+static String getType(java.nio.file.Path input) {
+    def fileName = input.getFileName().toString()
+    return fileName.substring(0, fileName.length() - "Assertions.kt".length())
+}
+
+static def ln() { return System.lineSeparator() }
+static String header() {
+    return """\
+        //---------------------------------------------------
+        //  Generated content, modify:
+        //  logic/generateLogic.gradle
+        //  if necessary - enjoy the day 🙂
+        //---------------------------------------------------
+
+        """.stripIndent().replace("\n", this.ln())
+}
+
+ext {
+    getInterfaces = this.&getInterfaces
+    getType = this.&getType
+    ln = this.&ln
+    header = this.&header
+}

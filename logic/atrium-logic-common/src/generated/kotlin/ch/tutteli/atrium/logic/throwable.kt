@@ -10,5 +10,13 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import kotlin.reflect.KClass
 
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultThrowableAssertions
 
-fun <TExpected : Throwable> AssertionContainer<out Throwable>.cause(expectedType: KClass<TExpected>): ChangedSubjectPostStep<Throwable?, TExpected> = _throwableImpl.cause(this, expectedType)
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: ThrowableAssertions
+    get() = getImpl(ThrowableAssertions::class) { DefaultThrowableAssertions() }
+
+
+fun <TExpected : Throwable> AssertionContainer<out Throwable>.cause(expectedType: KClass<TExpected>): ChangedSubjectPostStep<Throwable?, TExpected> = impl.cause(this, expectedType)

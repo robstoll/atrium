@@ -17,5 +17,13 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.time.LocalDateTime
 import java.util.*
 
-fun <T : Optional<*>> AssertionContainer<T>.isEmpty(): Assertion = _optionalImpl.isEmpty(this)
-fun <E, T : Optional<E>> AssertionContainer<T>.isPresent(): ExtractedFeaturePostStep<T, E> = _optionalImpl.isPresent(this)
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultOptionalAssertions
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: OptionalAssertions
+    get() = getImpl(OptionalAssertions::class) { DefaultOptionalAssertions() }
+
+fun <T : Optional<*>> AssertionContainer<T>.isEmpty(): Assertion = impl.isEmpty(this)
+fun <E, T : Optional<E>> AssertionContainer<T>.isPresent(): ExtractedFeaturePostStep<T, E> = impl.isPresent(this)

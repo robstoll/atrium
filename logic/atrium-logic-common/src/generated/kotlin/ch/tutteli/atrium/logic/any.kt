@@ -12,18 +12,26 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import kotlin.reflect.KClass
 
-fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = _anyImpl.toBe(this, expected)
-fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = _anyImpl.notToBe(this, expected)
-fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = _anyImpl.isSameAs(this, expected)
-fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = _anyImpl.isNotSameAs(this, expected)
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
 
-fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = _anyImpl.toBeNull(this)
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: AnyAssertions
+    get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }
+
+fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = impl.toBe(this, expected)
+fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(this, expected)
+fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = impl.isSameAs(this, expected)
+fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSameAs(this, expected)
+
+fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
 
 fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
-    _anyImpl.toBeNullIfNullGivenElse(this, type, assertionCreatorOrNull)
+    impl.toBeNullIfNullGivenElse(this, type, assertionCreatorOrNull)
 
-fun <T : Any> AssertionContainer<T?>.notToBeNull(subType: KClass<T>): ChangedSubjectPostStep<T?, T> = _anyImpl.notToBeNull(this, subType)
+fun <T : Any> AssertionContainer<T?>.notToBeNull(subType: KClass<T>): ChangedSubjectPostStep<T?, T> = impl.notToBeNull(this, subType)
 
     //TODO restrict TSub with T once type parameter for upper bounds are supported:
     // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-fun <T, TSub : Any> AssertionContainer<T>.isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> = _anyImpl.isA(this, subType)
+fun <T, TSub : Any> AssertionContainer<T>.isA(subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub> = impl.isA(this, subType)

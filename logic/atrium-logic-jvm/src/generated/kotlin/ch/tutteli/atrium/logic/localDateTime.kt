@@ -17,10 +17,18 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-fun AssertionContainer<LocalDateTime>.year(): ExtractedFeaturePostStep<LocalDateTime, Int> = _localDateTimeImpl.year(this)
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultLocalDateTimeAssertions
 
-fun AssertionContainer<LocalDateTime>.month(): ExtractedFeaturePostStep<LocalDateTime, Int> = _localDateTimeImpl.month(this)
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: LocalDateTimeAssertions
+    get() = getImpl(LocalDateTimeAssertions::class) { DefaultLocalDateTimeAssertions() }
 
-fun AssertionContainer<LocalDateTime>.day(): ExtractedFeaturePostStep<LocalDateTime, Int> = _localDateTimeImpl.day(this)
+fun AssertionContainer<LocalDateTime>.year(): ExtractedFeaturePostStep<LocalDateTime, Int> = impl.year(this)
 
-fun AssertionContainer<LocalDateTime>.dayOfWeek(): ExtractedFeaturePostStep<LocalDateTime, DayOfWeek> = _localDateTimeImpl.dayOfWeek(this)
+fun AssertionContainer<LocalDateTime>.month(): ExtractedFeaturePostStep<LocalDateTime, Int> = impl.month(this)
+
+fun AssertionContainer<LocalDateTime>.day(): ExtractedFeaturePostStep<LocalDateTime, Int> = impl.day(this)
+
+fun AssertionContainer<LocalDateTime>.dayOfWeek(): ExtractedFeaturePostStep<LocalDateTime, DayOfWeek> = impl.dayOfWeek(this)
