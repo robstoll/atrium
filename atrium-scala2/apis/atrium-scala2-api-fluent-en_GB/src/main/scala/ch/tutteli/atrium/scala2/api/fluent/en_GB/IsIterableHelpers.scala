@@ -1,8 +1,9 @@
-package ch.tutteli.atrium.api.fluent.en_GB.scala
+package ch.tutteli.atrium.scala2.api.fluent.en_GB
 
 import scala.collection.generic.IsIterable
 import ch.tutteli.atrium.creating.Expect
 import java.lang.{Iterable => JIterable}
+
 import scala.jdk.CollectionConverters._
 
 object IsIterableHelpers {

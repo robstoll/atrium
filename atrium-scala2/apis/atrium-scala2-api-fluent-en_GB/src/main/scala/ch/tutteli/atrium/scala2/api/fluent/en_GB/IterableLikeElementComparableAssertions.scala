@@ -1,7 +1,8 @@
-package ch.tutteli.atrium.api.fluent.en_GB.scala
+package ch.tutteli.atrium.scala2.api.fluent.en_GB
+
 import java.lang.{Iterable => JIterable}
 
-import ch.tutteli.atrium.api.fluent.en_GB.scala.IsIterableHelpers._
+import IsIterableHelpers._
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.IterableAssertionsBuilder
 

@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.api.fluent.en_GB
+package ch.tutteli.atrium.scala2.api.fluent
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 import _root_.scala.annotation.unchecked.uncheckedVariance
 import kotlin.reflect.KClass
 
-package object scala extends ScalaKotlinConversions {
+package object en_GB extends ScalaKotlinConversions {
   import IsIterableHelpers._
 
   @inline val ExpectImpl: ExpectImpl =
@@ -20,7 +20,7 @@ package object scala extends ScalaKotlinConversions {
 
 }
 
-package scala {
+package en_GB {
 
   import kotlin.jvm.internal.Reflection
 
@@ -105,4 +105,5 @@ package scala {
   }
 
   class KClassTag[T](val kClass: KClass[T]) extends AnyVal
+
 }

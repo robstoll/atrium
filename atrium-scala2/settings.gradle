@@ -1,4 +1,4 @@
-rootProject.name = 'atrium-scala'
+rootProject.name = 'atrium-scala2'
 
 buildscript {
     gradle.ext.tutteli_plugins_version = '0.32.2'

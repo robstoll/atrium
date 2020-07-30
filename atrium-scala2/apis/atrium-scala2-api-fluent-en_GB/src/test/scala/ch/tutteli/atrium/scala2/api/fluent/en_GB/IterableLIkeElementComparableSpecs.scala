@@ -1,10 +1,10 @@
-package ch.tutteli.atrium.api.fluent.en_GB.scala
+package ch.tutteli.atrium.scala2.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.scala.TestUtils._
+import TestUtils._
 import ch.tutteli.atrium.creating.Expect
 import java.lang.{Iterable => JIterable}
-import scala.reflect.ClassTag
 
+import scala.reflect.ClassTag
 import IterableFeatureAssertionsSpec._
 import IsIterableHelpers._
 
