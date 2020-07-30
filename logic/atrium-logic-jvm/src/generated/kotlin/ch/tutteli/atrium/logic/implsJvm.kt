@@ -28,59 +28,59 @@ import ch.tutteli.atrium.logic.impl.DefaultZonedDateTimeAssertions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._bigDecimalImpl
-    get() = getImpl(BigDecimalAssertions::class) { DefaultBigDecimalAssertions() }
+    get(): BigDecimalAssertions = getImpl(BigDecimalAssertions::class) { DefaultBigDecimalAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._chronoLocalDateImpl
-    get() = getImpl(ChronoLocalDateAssertions::class) { DefaultChronoLocalDateAssertions() }
+    get(): ChronoLocalDateAssertions = getImpl(ChronoLocalDateAssertions::class) { DefaultChronoLocalDateAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._chronoLocalDateTimeImpl
-    get() = getImpl(ChronoLocalDateTimeAssertions::class) { DefaultChronoLocalDateTimeAssertions() }
+    get(): ChronoLocalDateTimeAssertions = getImpl(ChronoLocalDateTimeAssertions::class) { DefaultChronoLocalDateTimeAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._chronoZonedDateTimeImpl
-    get() = getImpl(ChronoZonedDateTimeAssertions::class) { DefaultChronoZonedDateTimeAssertions() }
+    get(): ChronoZonedDateTimeAssertions = getImpl(ChronoZonedDateTimeAssertions::class) { DefaultChronoZonedDateTimeAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._floatingPointJvmImpl
-    get() = getImpl(FloatingPointJvmAssertions::class) { DefaultFloatingPointJvmAssertions() }
+    get(): FloatingPointJvmAssertions = getImpl(FloatingPointJvmAssertions::class) { DefaultFloatingPointJvmAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._localDateImpl
-    get() = getImpl(LocalDateAssertions::class) { DefaultLocalDateAssertions() }
+    get(): LocalDateAssertions = getImpl(LocalDateAssertions::class) { DefaultLocalDateAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._localDateTimeImpl
-    get() = getImpl(LocalDateTimeAssertions::class) { DefaultLocalDateTimeAssertions() }
+    get(): LocalDateTimeAssertions = getImpl(LocalDateTimeAssertions::class) { DefaultLocalDateTimeAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._optionalImpl
-    get() = getImpl(OptionalAssertions::class) { DefaultOptionalAssertions() }
+    get(): OptionalAssertions = getImpl(OptionalAssertions::class) { DefaultOptionalAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._pathImpl
-    get() = getImpl(PathAssertions::class) { DefaultPathAssertions() }
+    get(): PathAssertions = getImpl(PathAssertions::class) { DefaultPathAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._zonedDateTimeImpl
-    get() = getImpl(ZonedDateTimeAssertions::class) { DefaultZonedDateTimeAssertions() }
+    get(): ZonedDateTimeAssertions = getImpl(ZonedDateTimeAssertions::class) { DefaultZonedDateTimeAssertions() }
 
