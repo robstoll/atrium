@@ -1,0 +1,21 @@
+rootProject.name = "scala-composite"
+
+buildscript {
+    gradle.ext.getModules = { String projectName ->
+        gradle.includedBuild(projectName).getAvailableModules()
+                .collect { pair -> pair.right.projectName }
+                .findAll { it != projectName }
+    }
+}
+
+includeBuild('../../../') {
+    dependencySubstitution {
+        gradle.ext.getModules('atrium')
+                .findAll { it.endsWith("-jvm") }
+                .forEach { projectName ->
+                    def withoutSuffix = projectName.substring(0, projectName.length() - 4)
+                    substitute module("ch.tutteli.atrium:$withoutSuffix") with project(":$projectName")
+                }
+    }
+}
+includeBuild '../../../atrium-scala2/'
