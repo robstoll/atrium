@@ -148,16 +148,6 @@ abstract class AnyAssertionsSpec(
                         expectSubject.isNotSameFun(1)
                     }.toThrow<AssertionError> { messageContains(IS_NOT_SAME.getDefault()) }
                 }
-                it("${isNoneOf.name} throws AssertionError") {
-                    expect {
-                        expectSubject.isNoneOfFun(1, emptyArray())
-                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
-                }
-                it("${isNotIn.name} throws AssertionError") {
-                    expect {
-                        expectSubject.isNotInFun(listOf(1))
-                    }.toThrow<AssertionError> { messageContains(IS_NONE_OF.getDefault()) }
-                }
             }
             context("one does not equal the other") {
                 it("${toBe.name} throws AssertionError") {
@@ -176,11 +166,35 @@ abstract class AnyAssertionsSpec(
                 it("${isNotSame.name} does not throw") {
                     expectSubject.isNotSameFun(2)
                 }
+            }
+            context("one equals only one of the others") {
+                it("${isNoneOf.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNoneOfFun(1, arrayOf(2))
+                    }.toThrow<AssertionError> {
+                        message {
+//                            contains(IS_NONE_OF.getDefault())
+                            contains("1")
+                        }
+                    }
+                }
+                it("${isNotIn.name} throws AssertionError") {
+                    expect {
+                        expectSubject.isNotInFun(listOf(1, 2))
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(IS_NONE_OF.getDefault())
+                            contains("1")
+                        }
+                    }
+                }
+            }
+            context("one does not equal to any of the others") {
                 it("${isNoneOf.name} does not throw") {
-                    expectSubject.isNoneOfFun(2, emptyArray())
+                    expectSubject.isNoneOfFun(2, arrayOf(3))
                 }
                 it("${isNotIn.name} does not throw") {
-                    expectSubject.isNotInFun(listOf(2))
+                    expectSubject.isNotInFun(listOf(2, 3))
                 }
             }
         }

@@ -58,7 +58,7 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion {
         val assertions = expected.map { value ->
             assertionBuilder.representationOnly
-                .withTest { container.maybeSubject.fold(trueProvider) { it != value } }
+                .withTest(container) { it != value }
                 .withRepresentation(value)
                 .build()
         }

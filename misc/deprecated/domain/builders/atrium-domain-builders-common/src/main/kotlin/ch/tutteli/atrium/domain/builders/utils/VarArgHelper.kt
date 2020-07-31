@@ -52,7 +52,7 @@ inline fun <reified T> iterableLikeToIterable(iterableLike: IterableLike): Itera
         is FloatArray -> iterableLike.map { it as T }
         is DoubleArray -> iterableLike.map { it as T }
         is BooleanArray -> iterableLike.map { it as T }
-        else -> throw IllegalArgumentException("toVarArg accepts arguments of types Iterable, Sequence, Array")
+        else -> throw IllegalArgumentException("iterableLikeToIterable accepts arguments of types Iterable, Sequence, Array")
     }
 
 inline fun <reified T> iterableToPair(iterable: Iterable<T>): Pair<T, Array<out T>> {

@@ -177,7 +177,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @since 0.13.0
  */
-inline fun <reified T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
+fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
     _logicAppend { isNotIn(expected glue otherValues) }
 
 /**
@@ -194,7 +194,7 @@ inline fun <reified T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): E
  */
 inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
     val iterable = iterableLikeToIterable<T>(expected)
-    require(iterable.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
+    require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
     return _logicAppend { isNotIn(iterable.toList()) }
 }
 

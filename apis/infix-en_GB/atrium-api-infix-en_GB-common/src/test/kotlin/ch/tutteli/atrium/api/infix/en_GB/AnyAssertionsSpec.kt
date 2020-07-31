@@ -26,10 +26,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::isNotSameAs),
     fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
-    fun2(Expect<Int>::isNoneOf),
-    fun2(Expect<DataClass>::isNoneOf),
-    fun2(Expect<Int?>::isNoneOf).withNullableSuffix(),
-    fun2(Expect<DataClass?>::isNoneOf).withNullableSuffix(),
+    fun2(Companion::getIsNoneOfInt),
+    fun2(Companion::getIsNoneOfDataClass),
+    fun2(Companion::getIsNoneOfIntNullable).withNullableSuffix(),
+    fun2(Companion::getIsNoneOfDataClassNullable).withNullableSuffix(),
     fun1(Expect<Int>::isNotIn),
     fun1(Expect<DataClass>::isNotIn),
     fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
@@ -90,6 +90,18 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
         private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
             expect notToBeNull assertionCreator
+
+        private fun getIsNoneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
+            expect isNoneOf values(expected, *otherValues)
+
+        private fun getIsNoneOfIntNullable(expect: Expect<Int?>, expected: Int?, otherValues: Array<out Int?>): Expect<Int?> =
+            expect isNoneOf values(expected, *otherValues)
+
+        private fun getIsNoneOfDataClass(expect: Expect<DataClass>, expected: DataClass, otherValues: Array<out DataClass>): Expect<DataClass> =
+            expect isNoneOf values(expected, *otherValues)
+
+        private fun getIsNoneOfDataClassNullable(expect: Expect<DataClass?>, expected: DataClass?, otherValues: Array<out DataClass?>): Expect<DataClass?> =
+            expect isNoneOf values(expected, *otherValues)
     }
 
     @Suppress("unused")
@@ -107,6 +119,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1 isNotSameAs 1.2
         a1.isA<Int>()
         a1.isA<Int> {}
+        a1 isNoneOf values(1, 2)
+        a1 isNotIn listOf(1, 1.2)
 
         a1b toBe 1
         a1b toBe 1.2
@@ -118,6 +132,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1b isNotSameAs 1.2
         a1b.isA<Int>()
         a1b.isA<Int> {}
+        a1b isNoneOf values(1, 2)
+        a1b isNotIn listOf(1, 1.2)
 
         a1b notToBeNull o toBe 1
         a1b notToBeNull {}
