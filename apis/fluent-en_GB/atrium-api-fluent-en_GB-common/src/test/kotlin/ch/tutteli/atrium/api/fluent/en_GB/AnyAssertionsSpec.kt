@@ -48,7 +48,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     "notToBeNull" to Companion::notToBeNull,
 
     getAndImmediatePair(),
-    getAndLazyPair()
+    getAndLazyPair(),
+    "⚬ "
 ) {
 
     companion object {

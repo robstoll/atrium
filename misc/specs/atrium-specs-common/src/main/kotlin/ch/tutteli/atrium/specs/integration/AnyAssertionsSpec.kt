@@ -57,6 +57,7 @@ abstract class AnyAssertionsSpec(
 
     andPair: Fun0<Int>,
     andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -173,8 +174,8 @@ abstract class AnyAssertionsSpec(
                         expectSubject.isNoneOfFun(1, arrayOf(2))
                     }.toThrow<AssertionError> {
                         message {
-//                            contains(IS_NONE_OF.getDefault())
-                            contains("1")
+                            contains(IS_NONE_OF.getDefault(), "${listBulletPoint}1")
+                            containsNot("$listBulletPoint 2")
                         }
                     }
                 }
@@ -183,8 +184,8 @@ abstract class AnyAssertionsSpec(
                         expectSubject.isNotInFun(listOf(1, 2))
                     }.toThrow<AssertionError> {
                         message {
-                            contains(IS_NONE_OF.getDefault())
-                            contains("1")
+                            contains(IS_NONE_OF.getDefault(), "${listBulletPoint}1")
+                            containsNot("$listBulletPoint 2")
                         }
                     }
                 }
