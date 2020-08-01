@@ -26,10 +26,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::isNotSameAs),
     fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
-    fun2(Companion::getIsNoneOfInt),
-    fun2(Companion::getIsNoneOfDataClass),
-    fun2(Companion::getIsNoneOfIntNullable).withNullableSuffix(),
-    fun2(Companion::getIsNoneOfDataClassNullable).withNullableSuffix(),
+    fun2(Companion::isNoneOfInt),
+    fun2(Companion::isNoneOfDataClass),
+    fun2(Companion::isNoneOfIntNullable).withNullableSuffix(),
+    fun2(Companion::isNoneOfDataClassNullable).withNullableSuffix(),
     fun1(Expect<Int>::isNotIn),
     fun1(Expect<DataClass>::isNotIn),
     fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
@@ -92,16 +92,16 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
             expect notToBeNull assertionCreator
 
-        private fun getIsNoneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
+        private fun isNoneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
             expect isNoneOf values(expected, *otherValues)
 
-        private fun getIsNoneOfIntNullable(expect: Expect<Int?>, expected: Int?, otherValues: Array<out Int?>): Expect<Int?> =
+        private fun isNoneOfIntNullable(expect: Expect<Int?>, expected: Int?, otherValues: Array<out Int?>): Expect<Int?> =
             expect isNoneOf values(expected, *otherValues)
 
-        private fun getIsNoneOfDataClass(expect: Expect<DataClass>, expected: DataClass, otherValues: Array<out DataClass>): Expect<DataClass> =
+        private fun isNoneOfDataClass(expect: Expect<DataClass>, expected: DataClass, otherValues: Array<out DataClass>): Expect<DataClass> =
             expect isNoneOf values(expected, *otherValues)
 
-        private fun getIsNoneOfDataClassNullable(expect: Expect<DataClass?>, expected: DataClass?, otherValues: Array<out DataClass?>): Expect<DataClass?> =
+        private fun isNoneOfDataClassNullable(expect: Expect<DataClass?>, expected: DataClass?, otherValues: Array<out DataClass?>): Expect<DataClass?> =
             expect isNoneOf values(expected, *otherValues)
     }
 
