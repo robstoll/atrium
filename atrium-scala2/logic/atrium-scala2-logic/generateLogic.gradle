@@ -1,0 +1,76 @@
+import java.nio.file.Path
+import java.util.regex.Pattern
+
+def createGenerateLogicTask(Project project, String suffix = '') {
+    String packagePath = "ch/tutteli/atrium/scala2/logic" + (suffix != '' ? "/" + suffix : '')
+    String generatedFolder = project.generatedFolder
+
+    return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
+        String kotlinPackagePath = packagePath.replace('scala2/', '')
+        def pathToInterfaces = "$project.projectDir/../../../logic/atrium-logic-common/src/main/kotlin/$kotlinPackagePath/"
+        def interfaces = getInterfaces(pathToInterfaces)
+        println("interfaces: $interfaces")
+        def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
+        inputs.files(interfaces)
+        outputs.dir(generatedPath)
+
+        doFirst {
+
+            //TODO delete all files in folder first (as we might have removed things)
+            String ln = ln()
+            String header = header()
+
+            def identifier = /[a-zA-Z0-9]+/
+            def newLine = /(?:\r\n?|\n)/
+            def newLineAndIndent = /$newLine\s*/
+            def typeIdentifier = /fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?container: (AssertionContainer<.+?>)/
+            def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
+            def returnType = /(?:$newLineAndIndent)?\)(:.+)/
+
+            def patterns = (6..0).collect {
+                def steps = (0..<it * 2).findAll { it % 2 == 0 }
+                new Tuple3<Pattern, String, String>(
+                    Pattern.compile(typeIdentifier + parameter * it + returnType),
+                    /def $2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "$ln        " : " "),
+                    /.$2\(container/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
+                )
+            }
+
+            interfaces.forEach { input ->
+                def type = getType(input)
+                def uncapitalized = type.uncapitalize()
+                def output = new File("$generatedPath/${uncapitalized}.scala")
+                def content = input.text
+                def interfaceName = "${type}Assertions"
+                def implValName = "${type}Kt"
+
+                String tmp = content
+                  .replaceAll("package ${kotlinPackagePath.replace('/','.')}", "package ${packagePath.replace('/', '.')}")
+                  .replaceAll(/type: /, 'kClass: ')
+                  .replaceAll(
+                    /($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/,
+                    """\
+                    import ch.tutteli.atrium.logic._
+
+                    class ${type}Logic[T](container: AssertionContainer[T]) {
+                    """.stripIndent().replace("\n", ln)
+                    )
+                patterns.forEach { triple ->
+                    tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
+                }
+
+                String generatedContent = tmp.replaceAll(/<([^>]+)>/,/[$1]/)//tmp.substring(0, tmp.lastIndexOf("}"))
+                output.withWriter('utf-8') { w ->
+                    w << header
+                    w << generatedContent
+                }
+                return;
+            }
+        }
+    }
+}
+
+ext {
+    createGenerateLogicTask = this.&createGenerateLogicTask
+    generatedFolder = "src/generated/scala"
+}

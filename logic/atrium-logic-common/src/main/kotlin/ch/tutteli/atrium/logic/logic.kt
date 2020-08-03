@@ -18,5 +18,5 @@ inline fun <T> Expect<T>._logicAppend(factory: AssertionContainer<T>.() -> Asser
  *
  * Use [_logicAppend] in case you want to create and append an [Assertion] to this [Expect].
  */
-inline val <T> Expect<T>._logic get() = this.toAssertionContainer()
+inline val <T> Expect<T>._logic: AssertionContainer<T> get() = this.toAssertionContainer()
 

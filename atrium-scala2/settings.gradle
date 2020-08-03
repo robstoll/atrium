@@ -18,4 +18,5 @@ include {
     apis("api-") {
         _ 'fluent-en_GB'
     }
+    folder('logic') { _ 'logic' }
 }

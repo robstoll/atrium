@@ -20,6 +20,7 @@ package object en_GB extends ScalaKotlinConversions {
 
 }
 
+//TODO move, should not be here, can be part of atrium-scala2-logic
 package en_GB {
 
   import kotlin.jvm.internal.Reflection
@@ -101,7 +102,7 @@ package en_GB {
       if (f == null) null else f.apply _
 
     implicit def kClass[T](implicit classTag: ClassTag[T]): KClassTag[T] =
-      new KClassTag(Reflection.createKotlinClass(classTag.runtimeClass).asInstanceOf[KClass[T]])
+      new KClassTag(Logic.classToKClass(classTag.runtimeClass))
   }
 
   class KClassTag[T](val kClass: KClass[T]) extends AnyVal

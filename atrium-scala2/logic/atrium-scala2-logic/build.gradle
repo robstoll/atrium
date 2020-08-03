@@ -1,0 +1,14 @@
+description = 'A fluent assertion function API in en_GB with a focus on code completion for Scala.'
+
+dependencies {
+    api atriumKotlinDep('logic')
+
+    testImplementation atriumKotlinDep('specs')
+}
+
+sourceSets.main.scala.srcDirs += ['src/generated/scala']
+
+apply from: "$project.projectDir/../../../logic/generateCommon.gradle"
+apply from: "generateLogic.gradle"
+def generateLogic = createGenerateLogicTask(project)
+classes.dependsOn(generateLogic)

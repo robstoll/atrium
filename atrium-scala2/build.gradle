@@ -13,9 +13,12 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
     }
 }
+
+apply plugin: "ch.tutteli.project.utils"
 
 subprojects {
     repositories {
