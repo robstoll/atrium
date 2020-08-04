@@ -22,13 +22,13 @@ def createGenerateLogicTask(Project project, String suffix = '') {
             def identifier = /[a-zA-Z0-9]+/
             def newLine = /(?:\r\n?|\n)/
             def newLineAndIndent = /$newLine\s*/
-            def firstTypeParameter = /[A-Z][0-9]?/
-            def firstBound = /(?: : $identifier(?:<.+?>)?\??)?/
-            def firstTypeParameterWithBound = /$firstTypeParameter$firstBound/
+            def firstTypeParameter = /[A-Za-z]+[0-9]?/
+            def optionalBound = /(?: : $identifier(?:<.+?>)?\??)?/
+            def firstTypeParameterWithBound = /$firstTypeParameter$optionalBound/
             def typeIdentifier = /fun (?:<${firstTypeParameterWithBound}(?:, )?(.*?)> )?($identifier)\((?:$newLineAndIndent)?container: (AssertionContainer<.+?>)/
             def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
             def returnType = /(?:$newLineAndIndent)?\)(:.+)/
-
+ 
             def patterns = (6..0).collect {
                 def steps = (0..<it * 2).findAll { it % 2 == 0 }
                 new Tuple3<Pattern, String, String>(
@@ -46,17 +46,26 @@ def createGenerateLogicTask(Project project, String suffix = '') {
                 def interfaceName = "${type}Assertions"
                 def implValName = "${type}Kt"
 
-                def arr = content.find(/fun <($firstTypeParameter)($firstBound)/) { match, typeParameter, upperBound -> 
-                    return ["[$typeParameter${upperBound.replace(':', '<:').replace('<*>','[_]')}]", typeParameter]
+                def firstMethod = content.find(/fun <.+?> /)
+                String[] arr
+                String typeParameters
+                if (firstMethod != null) {
+                    typeParameters = firstMethod.substring(4, firstMethod.length() - 1)
+                    arr = [
+                            typeParameters
+                                .replaceAll(/ : Any\??/, '')
+                                .replaceAll(':', '<:')
+                                .replaceAll(/<\*>/,'[_]'),
+                            typeParameters.substring(1).find(identifier)
+                        ]
+                } else {
+                    def firstMethodWithoutTp = content.find(/fun $identifier\((?:$newLineAndIndent)?container: AssertionContainer<.+?>/)
+                    def a = 'AssertionContainer<'
+                    def match = firstMethodWithoutTp.find(/${a}.+?>/)
+                    arr = ['', match.substring(a.length(), match.length()-1)]
                 }
-                if (arr == null) {
-                    arr = content.find(/fun $identifier\((?:$newLineAndIndent)?container: AssertionContainer<(.+?)>/) { _, fixedType -> 
-                        return ['', fixedType] 
-                    }
-                }
-                println("$type arr $arr")
+
                 def (typeParameterList, containerParameter) = arr
-                println("($typeParameterList, $containerParameter) == (${arr[0]}, ${arr[1]}")
                 def classSignature = "class ${type}Logic$typeParameterList(container: AssertionContainer[$containerParameter]) {"
                 String tmp = content
                   .replaceAll("package ${kotlinPackagePath.replace('/','.')}", "package ${packagePath.replace('/', '.')}")
@@ -73,8 +82,19 @@ def createGenerateLogicTask(Project project, String suffix = '') {
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
                 }
 
+                def afterFirstTp = ''
+                if (typeParameters != null) {
+                    def firstLength = typeParameters.find(/<$identifier$optionalBound/).length() 
+                    def length = typeParameters.length()
+                    def rest = typeParameters.substring(firstLength + 2 < length ? firstLength + 2 : firstLength, length  - 1)
+                    if (rest != '') {
+                        afterFirstTp = /(?:${rest})?/
+                    }
+                }
+                println("$type afterFirst $afterFirstTp")
+
                 String generatedContent = tmp
-                    .replaceAll(/(def $identifier)\[\]/, /$1/)
+                    .replaceAll(/(def $identifier)\[$afterFirstTp\]/, /$1/)
                     .replaceAll(/ : Any/,'')
                     .replaceAll(/(<|, )in ([A-Z])/, /$1$2/)
                     .replaceAll(/\.\(\)/, '')

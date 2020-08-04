@@ -15,9 +15,9 @@ import kotlin.reflect.KClass
 import ch.tutteli.atrium.logic.MapKt
 import ch.tutteli.atrium.scala2.logic._
 
-class MapLogic[(container: AssertionContainer[[]) {
+class MapLogic[K, V, T <: Map[out K, V]](container: AssertionContainer[K]) {
 
-    def contains[V, T : Map[out K, V]](keyValuePairs: List[Pair[K, V]]): Assertion = MapKt.contains(container, keyValuePairs)
+    def contains(keyValuePairs: List[Pair[K, V]]): Assertion = MapKt.contains(container, keyValuePairs)
 
     def containsKeyWithValueAssertions[V, T : Map[out K, V]](valueType: KClass[V], keyValues: List[Pair[K, Expect[V] => Unit]]): Assertion =
         MapKt.containsKeyWithValueAssertions(container, valueType, keyValues)
@@ -28,7 +28,7 @@ class MapLogic[(container: AssertionContainer[[]) {
     def isEmpty(): Assertion = MapKt.isEmpty(container)
     def isNotEmpty(): Assertion = MapKt.isNotEmpty(container)
 
-    def getExisting[V, T : Map[out K, V]](key: K): ExtractedFeaturePostStep[T, V] = MapKt.getExisting(container, key)
+    def getExisting(key: K): ExtractedFeaturePostStep[T, V] = MapKt.getExisting(container, key)
 
     def size(): ExtractedFeaturePostStep[T, Int] = MapKt.size(container)
 }

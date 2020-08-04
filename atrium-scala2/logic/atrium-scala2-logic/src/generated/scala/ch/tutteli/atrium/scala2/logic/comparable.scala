@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ComparableKt
 import ch.tutteli.atrium.scala2.logic._
 
-class ComparableLogic[(container: AssertionContainer[[]) {
+class ComparableLogic[T1 <: Comparable[T2], T2](container: AssertionContainer[T1]) {
 
     def isLessThan[T2](expected: T2): Assertion = ComparableKt.isLessThan(container, expected)
 

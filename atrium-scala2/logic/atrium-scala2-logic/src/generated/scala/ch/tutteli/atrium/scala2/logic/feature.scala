@@ -13,10 +13,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.logic.FeatureKt
 import ch.tutteli.atrium.scala2.logic._
 
-class FeatureLogic[(container: AssertionContainer[[]) {
+class FeatureLogic[T, TProperty](container: AssertionContainer[T]) {
 
     //@formatter:off
-    def property[TProperty](property: Function1[T, TProperty]): ExtractedFeaturePostStep[T, TProperty] = FeatureKt.property(container, property)
+    def property(property: Function1[T, TProperty]): ExtractedFeaturePostStep[T, TProperty] = FeatureKt.property(container, property)
 
     def f0[R](f: Function1[T, R]): ExtractedFeaturePostStep[T, R] = FeatureKt.f0(container, f)
 

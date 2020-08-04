@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.FloatKt
 import ch.tutteli.atrium.scala2.logic._
 
-class FloatLogic[(container: AssertionContainer[,]) {
+class FloatLogic(container: AssertionContainer[Float]) {
 
     def toBeWithErrorTolerance(expected: Float, tolerance: Float): Assertion =
         FloatKt.toBeWithErrorTolerance(container, expected, tolerance)

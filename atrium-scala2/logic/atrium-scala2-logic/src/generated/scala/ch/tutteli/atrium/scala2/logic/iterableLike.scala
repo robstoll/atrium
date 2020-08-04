@@ -13,7 +13,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.IterableLikeKt
 import ch.tutteli.atrium.scala2.logic._
 
-class IterableLikeLogic[(container: AssertionContainer[[]) {
+class IterableLikeLogic[T, E](container: AssertionContainer[T]) {
 
 
     //TODO add with 0.14.0
@@ -30,9 +30,9 @@ class IterableLikeLogic[(container: AssertionContainer[[]) {
     def all[E](converter: (T) => Iterable[E], assertionCreatorOrNull: Expect[E] => Unit): Assertion =
         IterableLikeKt.all(container, converter, assertionCreatorOrNull)
 
-    def hasNext[E](converter: (T) => Iterable[E]): Assertion = IterableLikeKt.hasNext(container, converter)
+    def hasNext(converter: (T) => Iterable[E]): Assertion = IterableLikeKt.hasNext(container, converter)
 
-    def hasNotNext[E](converter: (T) => Iterable[E]): Assertion = IterableLikeKt.hasNotNext(container, converter)
+    def hasNotNext(converter: (T) => Iterable[E]): Assertion = IterableLikeKt.hasNotNext(container, converter)
 
     def min[E : Comparable[E]](converter: (T) => Iterable[E]): ExtractedFeaturePostStep[T, E] = IterableLikeKt.min(container, converter)
 

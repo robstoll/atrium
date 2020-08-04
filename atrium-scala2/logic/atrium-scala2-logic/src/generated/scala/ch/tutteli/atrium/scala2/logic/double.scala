@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.DoubleKt
 import ch.tutteli.atrium.scala2.logic._
 
-class DoubleLogic[(container: AssertionContainer[,]) {
+class DoubleLogic(container: AssertionContainer[Double]) {
 
     def toBeWithErrorTolerance(expected: Double, tolerance: Double): Assertion =
         DoubleKt.toBeWithErrorTolerance(container, expected, tolerance)

@@ -12,10 +12,10 @@ import kotlin.reflect.KClass
 import ch.tutteli.atrium.logic.Fun0Kt
 import ch.tutteli.atrium.scala2.logic._
 
-class Fun0Logic[(container: AssertionContainer[[]) {
+class Fun0Logic[TExpected <: Throwable](container: AssertionContainer[TExpected]) {
 
 
-    def toThrow[Expected : Throwable](expectedType: KClass[TExpected]): ChangedSubjectPostStep[*, TExpected] = Fun0Kt.toThrow(container, expectedType)
+    def toThrow(expectedType: KClass[TExpected]): ChangedSubjectPostStep[*, TExpected] = Fun0Kt.toThrow(container, expectedType)
 
     def notToThrow[T : () => R](): ChangedSubjectPostStep[*, R] = Fun0Kt.notToThrow(container)
 }

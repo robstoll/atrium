@@ -11,8 +11,8 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.ListKt
 import ch.tutteli.atrium.scala2.logic._
 
-class ListLogic[(container: AssertionContainer[[]) {
+class ListLogic[E, T <: List[E]](container: AssertionContainer[E]) {
 
 
-    def get[T : List[E]](index: Int): ExtractedFeaturePostStep[T, E] = ListKt.get(container, index)
+    def get(index: Int): ExtractedFeaturePostStep[T, E] = ListKt.get(container, index)
 }

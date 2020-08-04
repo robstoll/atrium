@@ -12,7 +12,7 @@ import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.CollectionKt
 import ch.tutteli.atrium.scala2.logic._
 
-class CollectionLogic[(container: AssertionContainer[[]) {
+class CollectionLogic[T <: Collection[_]](container: AssertionContainer[T]) {
 
     def isEmpty(): Assertion = CollectionKt.isEmpty(container)
     def isNotEmpty(): Assertion = CollectionKt.isNotEmpty(container)

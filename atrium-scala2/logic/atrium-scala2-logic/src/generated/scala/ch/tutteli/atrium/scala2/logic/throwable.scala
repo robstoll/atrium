@@ -12,8 +12,8 @@ import kotlin.reflect.KClass
 import ch.tutteli.atrium.logic.ThrowableKt
 import ch.tutteli.atrium.scala2.logic._
 
-class ThrowableLogic[(container: AssertionContainer[[]) {
+class ThrowableLogic[TExpected <: Throwable](container: AssertionContainer[TExpected]) {
 
 
-    def cause[Expected : Throwable](expectedType: KClass[TExpected]): ChangedSubjectPostStep[Throwable, TExpected] = ThrowableKt.cause(container, expectedType)
+    def cause(expectedType: KClass[TExpected]): ChangedSubjectPostStep[Throwable, TExpected] = ThrowableKt.cause(container, expectedType)
 }

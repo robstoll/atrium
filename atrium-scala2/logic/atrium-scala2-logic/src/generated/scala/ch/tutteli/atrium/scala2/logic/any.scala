@@ -14,7 +14,7 @@ import kotlin.reflect.KClass
 import ch.tutteli.atrium.logic.AnyKt
 import ch.tutteli.atrium.scala2.logic._
 
-class AnyLogic[(container: AssertionContainer[[]) {
+class AnyLogic[T, T2, T3](container: AssertionContainer[T]) {
 
     def toBe(expected: T): Assertion = AnyKt.toBe(container, expected)
     def notToBe(expected: T): Assertion = AnyKt.notToBe(container, expected)
