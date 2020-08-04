@@ -8,10 +8,11 @@ package ch.tutteli.atrium.scala2.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic._
+import ch.tutteli.atrium.logic.IteratorKt
+import ch.tutteli.atrium.scala2.logic._
 
-class IteratorLogic[T](container: AssertionContainer[T]) {
+class IteratorLogic[(container: AssertionContainer[[]) {
 
-    def hasNext(): Assertion = IteratorKt.hasNext(container)
-    def hasNotNext(): Assertion = IteratorKt.hasNotNext(container)
+    def hasNext[T : Iterator[E]](): Assertion = IteratorKt.hasNext(container)
+    def hasNotNext[T : Iterator[E]](): Assertion = IteratorKt.hasNotNext(container)
 }

@@ -8,9 +8,10 @@ package ch.tutteli.atrium.scala2.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic._
+import ch.tutteli.atrium.logic.CharSequenceKt
+import ch.tutteli.atrium.scala2.logic._
 
-class CharSequenceLogic[T](container: AssertionContainer[T]) {
+class CharSequenceLogic[(container: AssertionContainer[[]) {
 
     //TODO add with 0.14.0
 //    def containsBuilder(): CharSequenceContains.Builder[T, NoOpSearchBehaviour] = CharSequenceKt.containsBuilder(container)

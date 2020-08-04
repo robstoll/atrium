@@ -19,7 +19,7 @@ interface AnyAssertions {
 
     fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
-        type: KClass<T>,
+        kClass: KClass<T>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 

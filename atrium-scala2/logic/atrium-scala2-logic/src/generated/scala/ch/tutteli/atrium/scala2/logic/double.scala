@@ -6,13 +6,13 @@
 
 package ch.tutteli.atrium.scala2.logic
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import ch.tutteli.atrium.logic.ListKt
+import ch.tutteli.atrium.logic.DoubleKt
 import ch.tutteli.atrium.scala2.logic._
 
-class ListLogic[(container: AssertionContainer[[]) {
+class DoubleLogic[(container: AssertionContainer[,]) {
 
-
-    def get[T : List[E]](index: Int): ExtractedFeaturePostStep[T, E] = ListKt.get(container, index)
+    def toBeWithErrorTolerance(expected: Double, tolerance: Double): Assertion =
+        DoubleKt.toBeWithErrorTolerance(container, expected, tolerance)
 }

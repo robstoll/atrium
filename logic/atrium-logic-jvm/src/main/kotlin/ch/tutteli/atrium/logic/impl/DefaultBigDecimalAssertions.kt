@@ -58,4 +58,14 @@ class DefaultBigDecimalAssertions : BigDecimalAssertions {
         return container.createDescriptiveAssertion(IS_NOT_EQUAL_INCLUDING_SCALE, expected) { it != expected }
     }
 
+    override fun <T : BigDecimal> toBeWithErrorTolerance(
+        container: AssertionContainer<T>,
+        expected: BigDecimal,
+        tolerance: BigDecimal
+    ): Assertion {
+        val absDiff = { subject: BigDecimal -> (subject - expected).abs() }
+        return toBeWithErrorTolerance(container, expected, tolerance, absDiff) { subject ->
+            listOf(createToBeWithErrorToleranceExplained(subject, expected, absDiff, tolerance))
+        }
+    }
 }

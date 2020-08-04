@@ -10,30 +10,31 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
-import ch.tutteli.atrium.logic._
+import ch.tutteli.atrium.logic.IterableLikeKt
+import ch.tutteli.atrium.scala2.logic._
 
-class IterableLikeLogic[T](container: AssertionContainer[T]) {
+class IterableLikeLogic[(container: AssertionContainer[[]) {
 
 
     //TODO add with 0.14.0
-//    fun [T : Any, E] iterableLikeContainsBuilder(
+//    fun <T, E] iterableLikeContainsBuilder(
 //        container: AssertionContainer[T],
-//        converter: (T) -> Iterable[E]
+//        converter: (T) => Iterable[E]
 //    ): IterableLikeContains.Builder[T, E, NoOpSearchBehaviour]
 //
-//    fun [T : Any, E] iterableLikeContainsNotBuilder(
+//    fun <T, E] iterableLikeContainsNotBuilder(
 //        container: AssertionContainer[T],
-//        converter: (T) -> Iterable[E]
+//        converter: (T) => Iterable[E]
 //    ): IterableLikeContains.Builder[T, E, NotSearchBehaviour]
 
-    def all(converter: (T) -> Iterable[E?], assertionCreatorOrNull: (Expect[E].() -> Unit)?): Assertion =
+    def all[E](converter: (T) => Iterable[E], assertionCreatorOrNull: Expect[E] => Unit): Assertion =
         IterableLikeKt.all(container, converter, assertionCreatorOrNull)
 
-    def hasNext(converter: (T) -> Iterable[E]): Assertion = IterableLikeKt.hasNext(container, converter)
+    def hasNext[E](converter: (T) => Iterable[E]): Assertion = IterableLikeKt.hasNext(container, converter)
 
-    def hasNotNext(converter: (T) -> Iterable[E]): Assertion = IterableLikeKt.hasNotNext(container, converter)
+    def hasNotNext[E](converter: (T) => Iterable[E]): Assertion = IterableLikeKt.hasNotNext(container, converter)
 
-    def min(converter: (T) -> Iterable[E]): ExtractedFeaturePostStep[T, E] = IterableLikeKt.min(container, converter)
+    def min[E : Comparable[E]](converter: (T) => Iterable[E]): ExtractedFeaturePostStep[T, E] = IterableLikeKt.min(container, converter)
 
-    def max(converter: (T) -> Iterable[E]): ExtractedFeaturePostStep[T, E] = IterableLikeKt.max(container, converter)
+    def max[E : Comparable[E]](converter: (T) => Iterable[E]): ExtractedFeaturePostStep[T, E] = IterableLikeKt.max(container, converter)
 }

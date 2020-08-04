@@ -22,4 +22,10 @@ interface BigDecimalAssertions {
     ): Assertion
 
     fun <T : BigDecimal> isNotEqualIncludingScale(container: AssertionContainer<T>, expected: T): Assertion
+
+    fun <T : BigDecimal> toBeWithErrorTolerance(
+        container: AssertionContainer<T>,
+        expected: BigDecimal,
+        tolerance: BigDecimal
+    ): Assertion
 }

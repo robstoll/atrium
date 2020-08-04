@@ -27,11 +27,11 @@ class DefaultAnyAssertions : AnyAssertions {
 
     override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
-        type: KClass<T>,
+        kClass: KClass<T>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion =
         if (assertionCreatorOrNull == null) container.toBeNull()
-        else notToBeNull(container, type, assertionCreatorOrNull)
+        else notToBeNull(container, kClass, assertionCreatorOrNull)
 
     private fun <T : Any> notToBeNull(
         container: AssertionContainer<T?>,

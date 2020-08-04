@@ -4,7 +4,6 @@
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
 
-@file:Suppress(/* TODO remove annotation with 1.0.0 */ "DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 
 package ch.tutteli.atrium.scala2.logic
 
@@ -13,22 +12,23 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import kotlin.reflect.KClass
-import ch.tutteli.atrium.logic._
+import ch.tutteli.atrium.logic.MapKt
+import ch.tutteli.atrium.scala2.logic._
 
-class MapLogic[T](container: AssertionContainer[T]) {
+class MapLogic[(container: AssertionContainer[[]) {
 
-    def contains(keyValuePairs: List[Pair<K, V]>): Assertion = MapKt.contains(container, keyValuePairs)
+    def contains[V, T : Map[out K, V]](keyValuePairs: List[Pair[K, V]]): Assertion = MapKt.contains(container, keyValuePairs)
 
-    def containsKeyWithValueAssertions(valueType: KClass[V], keyValues: List[Pair<K, (Expect<V].() -> Unit)?>>): Assertion =
+    def containsKeyWithValueAssertions[V, T : Map[out K, V]](valueType: KClass[V], keyValues: List[Pair[K, Expect[V] => Unit]]): Assertion =
         MapKt.containsKeyWithValueAssertions(container, valueType, keyValues)
 
-    def containsKey(key: K): Assertion = MapKt.containsKey(container, key)
-    def containsNotKey(key: K): Assertion = MapKt.containsNotKey(container, key)
+    def containsKey[T : Map[out K, *>](key: K): Assertion = MapKt.containsKey(container, key)
+    def containsNotKey[T : Map[out K, *>](key: K): Assertion = MapKt.containsNotKey(container, key)
 
     def isEmpty(): Assertion = MapKt.isEmpty(container)
     def isNotEmpty(): Assertion = MapKt.isNotEmpty(container)
 
-    def getExisting(key: K): ExtractedFeaturePostStep[T, V] = MapKt.getExisting(container, key)
+    def getExisting[V, T : Map[out K, V]](key: K): ExtractedFeaturePostStep[T, V] = MapKt.getExisting(container, key)
 
     def size(): ExtractedFeaturePostStep[T, Int] = MapKt.size(container)
 }

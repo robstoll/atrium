@@ -27,8 +27,8 @@ fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSa
 
 fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
 
-fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
-    impl.toBeNullIfNullGivenElse(this, type, assertionCreatorOrNull)
+fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(kClass: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
+    impl.toBeNullIfNullGivenElse(this, kClass, assertionCreatorOrNull)
 
 fun <T : Any> AssertionContainer<T?>.notToBeNull(subType: KClass<T>): ChangedSubjectPostStep<T?, T> = impl.notToBeNull(this, subType)
 

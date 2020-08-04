@@ -29,3 +29,6 @@ fun <T : BigDecimal> AssertionContainer<T>.isEqualIncludingScale(expected: T, na
     impl.isEqualIncludingScale(this, expected, nameOfIsNumericallyEqualTo)
 
 fun <T : BigDecimal> AssertionContainer<T>.isNotEqualIncludingScale(expected: T): Assertion = impl.isNotEqualIncludingScale(this, expected)
+
+fun <T : BigDecimal> AssertionContainer<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal): Assertion =
+    impl.toBeWithErrorTolerance(this, expected, tolerance)

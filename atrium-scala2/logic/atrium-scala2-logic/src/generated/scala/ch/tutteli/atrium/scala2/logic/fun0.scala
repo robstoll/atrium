@@ -9,12 +9,13 @@ package ch.tutteli.atrium.scala2.logic
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import kotlin.reflect.KClass
-import ch.tutteli.atrium.logic._
+import ch.tutteli.atrium.logic.Fun0Kt
+import ch.tutteli.atrium.scala2.logic._
 
-class Fun0Logic[T](container: AssertionContainer[T]) {
+class Fun0Logic[(container: AssertionContainer[[]) {
 
 
-    def toThrow(expectedType: KClass[TExpected]): ChangedSubjectPostStep[*, TExpected] = Fun0Kt.toThrow(container, expectedType)
+    def toThrow[Expected : Throwable](expectedType: KClass[TExpected]): ChangedSubjectPostStep[*, TExpected] = Fun0Kt.toThrow(container, expectedType)
 
-    def notToThrow(): ChangedSubjectPostStep[*, R] = Fun0Kt.notToThrow(container)
+    def notToThrow[T : () => R](): ChangedSubjectPostStep[*, R] = Fun0Kt.notToThrow(container)
 }
