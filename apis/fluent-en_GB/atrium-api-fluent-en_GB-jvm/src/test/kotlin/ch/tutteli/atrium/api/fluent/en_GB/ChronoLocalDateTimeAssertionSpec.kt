@@ -15,11 +15,11 @@ class ChronoLocalDateTimeAssertionSpec : Spek({
     include(StringSpec)
 }) {
     object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
-        fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
-        fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
-        fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
-        fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
-        fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBefore),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfter),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isEqual)
     )
 
     object StringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
@@ -61,7 +61,6 @@ class ChronoLocalDateTimeAssertionSpec : Spek({
         ): Expect<ChronoLocalDateTime<*>> =
             expect.isEqual(expected.format(DateTimeFormatter.ISO_DATE_TIME))
     }
-
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
