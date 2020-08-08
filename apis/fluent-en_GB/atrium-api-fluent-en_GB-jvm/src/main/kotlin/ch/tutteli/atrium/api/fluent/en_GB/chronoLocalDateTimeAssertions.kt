@@ -77,7 +77,14 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
- * is before the [expected] [String].
+ * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
+ * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
+ * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a
+ * date without time in which case 00:00:00 is used. Following the supported formats from the longest to the shortest:
+ * yyyy-mm-ddThh:mm:ss.sss (up to 9 digits for nanoseconds)
+ * yyyy-mm-ddThh:mm:ss
+ * yyyy-mm-ddThh:mm
+ * yyyy-mm-dd
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -90,7 +97,14 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
- * is before or equal the [expected] [String].
+ * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
+ * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
+ * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a
+ * date without time in which case 00:00:00 is used. Following the supported formats from the longest to the shortest:
+ * yyyy-mm-ddThh:mm:ss.sss (up to 9 digits for nanoseconds)
+ * yyyy-mm-ddThh:mm:ss
+ * yyyy-mm-ddThh:mm
+ * yyyy-mm-dd
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -103,7 +117,14 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
- * is after the [expected] [String].
+ * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
+ * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
+ * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a date
+ * without time in which case 00:00:00 is used. Following the supported formats from the longest to the shortest:
+ * yyyy-mm-ddThh:mm:ss.sss (up to 9 digits for nanoseconds)
+ * yyyy-mm-ddThh:mm:ss
+ * yyyy-mm-ddThh:mm
+ * yyyy-mm-dd
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -116,7 +137,14 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
- * is after or equal the [expected] [String].
+ * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
+ * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
+ * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a date
+ * without time in which case 00:00:00 is used. Following the supported formats from the longest to the shortest:
+ * yyyy-mm-ddThh:mm:ss.sss (up to 9 digits for nanoseconds)
+ * yyyy-mm-ddThh:mm:ss
+ * yyyy-mm-ddThh:mm
+ * yyyy-mm-dd
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -129,7 +157,14 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
 
 /**
  * Expects that the subject of the assertion (a [ChronoLocalDateTime])
- * is equal to the [expected] [String].
+ * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
+ * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
+ * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a date
+ * without time in which case 00:00:00 is used. Following the supported formats from the longest to the shortest:
+ * yyyy-mm-ddThh:mm:ss.sss (up to 9 digits for nanoseconds)
+ * yyyy-mm-ddThh:mm:ss
+ * yyyy-mm-ddThh:mm
+ * yyyy-mm-dd
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
