@@ -349,6 +349,6 @@ infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path):
 /**
  * Helper function to create an [EncodingWithCreator] based on the given [path] and [assertionCreator].
  */
-fun <T : Path> withEncoding(path: Path, assertionCreator: Expect<T>,
+fun <T : Path> withEncoding(path: Path
                             sourceCharset: Charset = Charsets.UTF_8, targetCharset: Charset = Charsets.UTF_8):
-    EncodingWithCreator<T> = EncodingWithCreator(path, sourceCharset, targetCharset, assertionCreator)
+    EncodingWithCreator<T> = EncodingWithCreator(path, sourceCharset, targetCharset)
