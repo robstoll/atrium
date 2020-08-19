@@ -312,7 +312,7 @@ infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> 
  */
 infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
     targetPath: Path
-): Expect<T> = hasSameTextualContentAs(withEncoding(targetPath, this))
+): Expect<T> = hasSameTextualContentAs(withEncoding(targetPath))
 
 /**
  * Expects that the subject of the assertion (a [Path]) has the same textual content
