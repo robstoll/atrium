@@ -17,116 +17,112 @@ import java.time.format.DateTimeParseException
 class ChronoLocalDateTimeAssertionSpec : Spek({
     include(ChronoLocalDateTimeSpec)
     include(StringSpec)
-    mapOf(
-        "20200101010101111" to "wrong string format",
-        "20200101010101" to "wrong string format",
-        "202001010101" to "wrong string format",
-        "2020010101" to "wrong string format",
-        "2020-1-01T01:01" to "wrong string format",
-        "2020-01-1T01:01" to "wrong string format",
-        "20-01-01T01:01" to "wrong string format",
-        "2020-01-01T1:01" to "wrong string format",
-        "2020-01-01T01:1" to "wrong string format",
-        "2020-01-01T01:01:1" to "wrong string format",
-        "2020-01-01t01:01:01" to "wrong string format"
-    ).forEach{(value, description) ->
-        run {
-            val now = expect(LocalDateTime.now())
-            describe(description) {
-                it("throws an DateTimeParseException") {
-                    expect {
-                        now.isBefore(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
-                }
-                it("throws an DateTimeParseException") {
-                    expect {
-                        now.isBeforeOrEqual(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
-                }
-                it("throws an DateTimeParseException") {
-                    expect {
-                        now.isAfter(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
-                }
-                it("throws an DateTimeParseException") {
-                    expect {
-                        now.isAfterOrEqual(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
-                }
-                it("throws an DateTimeParseException") {
-                    expect {
-                        now.isEqual(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
-                }
+    listOf(
+        "20200101010101111",
+        "20200101010101",
+        "202001010101",
+        "2020010101",
+        "2020-1-01T01:01",
+        "2020-01-1T01:01",
+        "20-01-01T01:01" ,
+        "2020-01-01T1:01",
+        "2020-01-01T01:1",
+        "2020-01-01T01:01:1",
+        "2020-01-01t01:01:01"
+    ).forEach{ value ->
+        val now = expect(LocalDateTime.now())
+        describe("wrong string format") {
+            it("isBefore throws an DateTimeParseException") {
+                expect {
+                    now.isBefore(value)
+                }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+            }
+            it("isBeforeOrEqual throws an DateTimeParseException") {
+                expect {
+                    now.isBeforeOrEqual(value)
+                }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+            }
+            it("isAfter throws an DateTimeParseException") {
+                expect {
+                    now.isAfter(value)
+                }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+            }
+            it("isAfterOrEqual throws an DateTimeParseException") {
+                expect {
+                    now.isAfterOrEqual(value)
+                }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+            }
+            it("isEqual throws an DateTimeParseException") {
+                expect {
+                    now.isEqual(value)
+                }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
             }
         }
     }
 
-    mapOf(
-        "2020-01-01T01:01:01" to "allowed shortcuts",
-        "2020-01-01T01:01" to "allowed shortcuts",
-        "2020-01-01" to "allowed shortcuts"
-    ).forEach{(value, description) ->
-        run {
-            val nowLocalDateTime = LocalDateTime.now()
-            val now = expect(nowLocalDateTime)
-            val before = LocalDateTime.now()
-            describe(description) {
-                it("throws an AtriumError") {
-                    expect {
-                        now.isBefore(value)
-                    }.toThrow<AtriumError> { messageContains("is before: $value") }
-                }
-                it("doesn't throw any Error") {
-                    expect {
-                        now.isBefore(before.format(ISO_DATE_TIME))
-                    }
-                }
-                it("doesn't throw any Error") {
-                    expect {
-                        now.isBeforeOrEqual(nowLocalDateTime.format(ISO_DATE_TIME))
-                    }
-                }
-                it("throws an AtriumError") {
-                    expect {
-                        now.isBeforeOrEqual(value)
-                    }.toThrow<AtriumError> { messageContains("is before or equal: $value") }
-                }
-                it("doesn't throw any Error") {
-                    expect {
-                        now.isAfter(value)
-                    }
-                }
-                it("throws an AtriumError") {
-                    expect {
-                        now.isAfter(before.format(ISO_DATE_TIME))
-                    }.toThrow<AtriumError> { messageContains("is after: ${before.format(ISO_DATE_TIME)}") }
-                }
-                it("doesn't throw any Error") {
-                    expect {
-                        now.isAfterOrEqual(nowLocalDateTime.format(ISO_DATE_TIME))
-                    }
-                }
-                it("doesn't throw any Error") {
-                    expect {
-                        now.isAfterOrEqual(value)
-                    }
-                }
-                it("throws an AtriumError") {
-                    expect {
-                        now.isAfterOrEqual(before.format(ISO_DATE_TIME))
-                    }.toThrow<AtriumError> { messageContains("is after or equal: ${before.format(ISO_DATE_TIME)}") }
-                }
-                it("throws an AtriumError") {
-                    expect {
-                        now.isEqual(value)
-                    }.toThrow<AtriumError> { messageContains("is equal to: $value") }
-                }
-                it("doesn't throw any error") {
-                    expect {
-                        now.isEqual(nowLocalDateTime.format(ISO_DATE_TIME))
-                    }
-                }
+    listOf(
+        "2020-01-01T01:01:01",
+        "2020-01-01T01:01",
+        "2020-01-01"
+    ).forEach{value ->
+        val nowLocalDateTime = LocalDateTime.now()
+        val now = expect(nowLocalDateTime)
+        val before = LocalDateTime.now()
+        describe("allowed shortcuts") {
+            it("isBefore throws an AtriumError") {
+                expect {
+                    now.isBefore(value)
+                }.toThrow<AtriumError> { messageContains("is before: $value") }
+            }
+            it("isBefore doesn't throw any Error") {
+                expect {
+                    now.isBefore(before.format(ISO_DATE_TIME))
+                }.notToThrow()
+            }
+            it("isBeforeOrEqual doesn't throw any Error") {
+                expect {
+                    now.isBeforeOrEqual(nowLocalDateTime.format(ISO_DATE_TIME))
+                }.notToThrow()
+            }
+            it("isBeforeOrEqual throws an AtriumError") {
+                expect {
+                    now.isBeforeOrEqual(value)
+                }.toThrow<AtriumError> { messageContains("is before or equal: $value") }
+            }
+            it("isAfter doesn't throw any Error") {
+                expect {
+                    now.isAfter(value)
+                }.notToThrow()
+            }
+            it("isAfter throws an AtriumError") {
+                expect {
+                    now.isAfter(before.format(ISO_DATE_TIME))
+                }.toThrow<AtriumError> { messageContains("is after: ${before.format(ISO_DATE_TIME)}") }
+            }
+            it("isAfterOrEqual doesn't throw any Error") {
+                expect {
+                    now.isAfterOrEqual(nowLocalDateTime.format(ISO_DATE_TIME))
+                }.notToThrow()
+            }
+            it("isAfterOrEqual doesn't throw any Error") {
+                expect {
+                    now.isAfterOrEqual(value)
+                }.notToThrow()
+            }
+            it("isAfterOrEqual throws an AtriumError") {
+                expect {
+                    now.isAfterOrEqual(before.format(ISO_DATE_TIME))
+                }.toThrow<AtriumError> { messageContains("is after or equal: ${before.format(ISO_DATE_TIME)}") }
+            }
+            it("isEqual throws an AtriumError") {
+                expect {
+                    now.isEqual(value)
+                }.toThrow<AtriumError> { messageContains("is equal to: $value") }
+            }
+            it("isEqual doesn't throw any error") {
+                expect {
+                    now.isEqual(nowLocalDateTime.format(ISO_DATE_TIME))
+                }.notToThrow()
             }
         }
     }
