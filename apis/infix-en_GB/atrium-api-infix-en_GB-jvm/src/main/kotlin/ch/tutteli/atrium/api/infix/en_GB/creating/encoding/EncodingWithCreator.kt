@@ -12,5 +12,4 @@ import java.nio.file.Path
  *
  *  @since 0.13.0
  */
-data class EncodingWithCreator<E> internal constructor(val path: Path, val sourceCharset: Charset, val targetCharset: Charset,
-                                                       val assertionCreator: Expect<E>)
+data class EncodingWithCreator<E> internal constructor(val path: Path, val sourceCharset: Charset, val targetCharset: Charset)
