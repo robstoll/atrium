@@ -4,18 +4,33 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
+import org.spekframework.spek2.Spek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
-class ChronoLocalDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
-    fun1(Expect<ChronoLocalDateTime<*>>::isBefore),
-    fun1(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
-    fun1(Expect<ChronoLocalDateTime<*>>::isAfter),
-    fun1(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
-    fun1(Expect<ChronoLocalDateTime<*>>::isEqual)
-) {
+class ChronoLocalDateTimeAssertionSpec : Spek({
+    include(ChronoLocalDateTimeSpec)
+    include(ChronoLocalDateTimeAsStringSpec)
+}) {
+    object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBefore),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfter),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isEqual)
+    )
+
+    object ChronoLocalDateTimeAsStringSpec :
+        ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAsStringAssertionSpec(
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isBefore),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isAfter),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isEqual)
+        )
+
     companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
