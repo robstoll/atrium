@@ -325,8 +325,8 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
  *
  * @since 0.13.0
  */
-infix fun <T : Path> Expect<T>.hasSameTextualContentAs(encodingWithCreator: EncodingWithCreator<T>):
-    Expect<T> = _logicAppend {
+infix fun <T : Path> Expect<T>.hasSameTextualContentAs(encodingWithCreator: EncodingWithCreator<T>): Expect<T> =
+    _logicAppend {
         hasSameTextualContentAs(
             encodingWithCreator.path, encodingWithCreator.sourceCharset, encodingWithCreator.targetCharset
         )
