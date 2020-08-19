@@ -8,7 +8,6 @@ import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -28,7 +27,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1(Companion::hasSameTextualContentAsDefaultArgs)
 ) {
 
-    companion object : WithAsciiReporter() {
+    companion object {
         private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
             expect.hasSameTextualContentAs(targetPath)
     }

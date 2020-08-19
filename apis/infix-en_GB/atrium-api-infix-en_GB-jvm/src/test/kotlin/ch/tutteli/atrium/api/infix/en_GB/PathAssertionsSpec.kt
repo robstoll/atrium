@@ -32,10 +32,18 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isWritable(expect: Expect<Path>) = expect toBe writable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
-        private fun hasSameTextualContentAs(expect: Expect<Path>, targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Expect<Path> =
-            expect hasSameTextualContentAs withEncoding(targetPath, expect, sourceCharset = sourceCharset, targetCharset = targetCharset)
-        private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
-            expect hasSameTextualContentAs targetPath
+
+        private fun hasSameTextualContentAs(
+            expect: Expect<Path>,
+            targetPath: Path,
+            sourceCharset: Charset,
+            targetCharset: Charset
+        ): Expect<Path> = expect hasSameTextualContentAs withEncoding(targetPath, sourceCharset, targetCharset)
+
+        private fun hasSameTextualContentAsDefaultArgs(
+            expect: Expect<Path>,
+            targetPath: Path
+        ): Expect<Path> = expect hasSameTextualContentAs targetPath
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -52,7 +60,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1 toBe writable
         a1 toBe aRegularFile
         a1 toBe aDirectory
-        a1 hasSameTextualContentAs withEncoding(Paths.get("a"), a1)
+        a1 hasSameTextualContentAs withEncoding(Paths.get("a"))
         a1 hasSameTextualContentAs Paths.get("a")
     }
 }

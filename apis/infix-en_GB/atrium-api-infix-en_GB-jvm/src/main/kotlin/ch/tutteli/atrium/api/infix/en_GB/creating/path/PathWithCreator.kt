@@ -8,7 +8,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.path
 import ch.tutteli.atrium.creating.Expect
 
 /**
- *  Parameter object which combines an [path] (as [String]) with an [assertionCreator] which defines assertions for
+ *  Parameter object which combines a [path] (as [String]) with an [assertionCreator] which defines assertions for
  *  a resulting feature of type [E].
  *
  *  Use the function `path(String) { ... }` to create this representation.
