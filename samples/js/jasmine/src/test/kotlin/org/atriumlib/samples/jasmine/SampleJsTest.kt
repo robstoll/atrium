@@ -27,7 +27,6 @@ class SampleJsTest {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
             messageContains("hello")
-            messageContains("jasmine")
         }
     }
 
