@@ -340,10 +340,8 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(encodingWithCreator: Enco
  *
  * @since 0.13.0
  */
-infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path):
-    Expect<T> = _logicAppend {
-    hasSameBinaryContentAs(targetPath)
-}
+infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> = 
+    _logicAppend { hasSameBinaryContentAs(targetPath) }
 
 
 /**
