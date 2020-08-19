@@ -59,6 +59,7 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
     hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
+    hasSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -75,7 +76,8 @@ abstract class PathAssertionsSpec(
         isRegularFile.forSubjectLess(),
         isDirectory.forSubjectLess(),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
-        hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1)
+        hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1) ,
+        hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
     ) {})
 
     val tempFolder by memoizedTempFolder()
@@ -748,9 +750,10 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(hasSameBinaryContentAs, hasSameTextualContentAs) {
+    describeFun(hasSameBinaryContentAs, hasSameTextualContentAs, hasSameTextualContentAsDefaultArgs) {
         val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
         val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
+        val hasSameTextualContentAsDefaultArgsAsFun = hasSameTextualContentAsDefaultArgs.lambda
 
         fun errorHasSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
             TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
@@ -781,9 +784,15 @@ abstract class PathAssertionsSpec(
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
             }
+
             it("${hasSameTextualContentAs.name} - does not throw if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
+            }
+
+            it("${hasSameTextualContentAsDefaultArgs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
             }
         }
 
@@ -828,6 +837,11 @@ abstract class PathAssertionsSpec(
                     contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
                 }
             }
+
+            it("${hasSameTextualContentAsDefaultArgs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+            }
         }
 
         context("has same textual content in UTF-8 and UTF-16") {
@@ -870,6 +884,15 @@ abstract class PathAssertionsSpec(
                     contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_8))
                 }
             }
+
+            it("${hasSameTextualContentAsDefaultArgs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                }
+            }
         }
 
         context("has different textual content") {
@@ -905,6 +928,15 @@ abstract class PathAssertionsSpec(
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
                 }.toThrow<AssertionError>().message {
                     contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_16))
+                }
+            }
+
+            it("${hasSameTextualContentAsDefaultArgs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+                val (sourcePath, targetPath) = createFiles(maybeLink)
+                expect {
+                    expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
+                }.toThrow<AssertionError>().message {
+                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
         }

@@ -292,7 +292,7 @@ fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit):
 
 /**
  * Expects that the subject of the assertion (a [Path]) has the same textual content
- * as [targetPath].
+ * as [targetPath] taking the given encodings into account (UTF-8 if none given).
  *
  * @param sourceCharset source file encoding - UTF-8 per default.
  * @param targetCharset target file encoding - UTF-8 per default.
