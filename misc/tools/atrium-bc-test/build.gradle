@@ -396,8 +396,8 @@ createBcAndBbcTasksForApis('0.12.0',
 )
 //@formatter:on
 
-def apis = ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB']
-apis.each { apiName ->
+
+['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'].each { apiName ->
     createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
         return content.replaceAll(/Assert<Array<Int>>::asIterable.name/, '"asIterable"')
     }
@@ -414,8 +414,8 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { S
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
     return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')
 }
-//def apis = ['fluent-en_GB', 'cc-en_GB', 'cc-infix-en_GB']
-//apis.each {
-//createFixSrcTask('cc-infix-en_GB', '0.12.0', 'PathAssertionsSpec.kt') { String content ->
-//    return content.replaceAll(/val expectedMessage = "${"\$"}{TO_BE.getDefault()}:/, 'val expectedMessage = "$isDescr:')
-//}
+['fluent-en_GB', 'infix-en_GB'].each { apiName ->
+    createFixSrcTask(apiName, '0.12.0', 'ChronoLocalDateTimeAssertionSpec.kt') { String content ->
+        return content.replaceAll(/ fun1/, ' fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>')
+    }
+}
