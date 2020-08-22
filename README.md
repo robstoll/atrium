@@ -466,7 +466,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1
 Notice that stacks are filtered so that you only see what is of interest. 
 Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate 
 [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
-Stack frames of Atrium and of test runners (Spek, Kotlintest and JUnit for JVM, mocha for JS) are excluded per default.
+Stack frames of Atrium and of test runners (Spek, Kotlintest and JUnit for JVM, mocha and jasmine for JS) are excluded per default.
 [Create a Feature Request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 in case you use a different runner, we can add yours to the list as well. 
  

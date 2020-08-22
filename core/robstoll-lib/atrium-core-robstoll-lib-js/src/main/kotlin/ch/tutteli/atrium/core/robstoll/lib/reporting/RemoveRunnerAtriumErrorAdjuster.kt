@@ -8,6 +8,6 @@ actual class RemoveRunnerAtriumErrorAdjuster : FilterAtriumErrorAdjuster(), Atri
     }
 
     companion object {
-        val runnerRegex: Regex = Regex("[\\\\|/]mocha[\\\\|/]")
+        val runnerRegex: Regex = Regex("[\\\\|/]node_modules[\\\\|/](mocha|jasmine)[\\\\|/]")
     }
 }
