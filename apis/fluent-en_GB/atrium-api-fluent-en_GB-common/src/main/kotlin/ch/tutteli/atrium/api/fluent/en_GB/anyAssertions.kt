@@ -1,8 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.builders.utils.iterableLikeToIterable
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.kbox.glue
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -165,3 +168,34 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     addAssertionsCreatedBy(assertionCreator)
+
+/**
+ * Expects that the subject of the assertion is not (equal to) [expected] and [otherValues].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.13.0
+ */
+fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
+    _logicAppend { isNotIn(expected glue otherValues) }
+
+/**
+ * Expects that the subject of the assertion is not (equal to) any value of [expected].
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case the iterable is empty.
+ *
+ * @since 0.13.0
+ */
+inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
+    val iterable = iterableLikeToIterable<T>(expected)
+    require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
+    return _logicAppend { isNotIn(iterable.toList()) }
+}
+
+
