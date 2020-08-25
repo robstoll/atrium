@@ -10,3 +10,4 @@ node_modules
 .history
 .bloop
 .metals
+.vscode

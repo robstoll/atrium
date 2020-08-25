@@ -1,7 +1,7 @@
 description = 'A fluent assertion function API in en_GB with a focus on code completion for Scala.'
 
 dependencies {
-    api atriumKotlinDep('domain-builders')
+    api atriumKotlinDep('logic')
 
     testImplementation atriumKotlinDep('specs')
 }

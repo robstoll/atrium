@@ -12,8 +12,8 @@ import kotlin.reflect.KProperty1
 class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1<Int, Int>(Expect<Int>::toBe),
     fun1<DataClass, DataClass>(Expect<DataClass>::toBe),
-    fun1<Int?, Int?>(Expect<Int?>::toBe),
-    fun1<DataClass?, DataClass?>(Expect<DataClass?>::toBe),
+    fun1<Int?, Int?>(Expect<Int?>::toBe).withNullableSuffix(),
+    fun1<DataClass?, DataClass?>(Expect<DataClass?>::toBe).withNullableSuffix(),
     fun1(Expect<Int>::notToBe),
     fun1(Expect<DataClass>::notToBe),
     fun1(Expect<Int?>::notToBe).withNullableSuffix(),
