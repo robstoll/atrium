@@ -3,6 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB.scala
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder
+import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
+import ch.tutteli.atrium.creating.AssertionContainer
 
 class AnyAssertions[T](expect: Expect[T]) {
   @inline private def anyAssertions: AnyAssertionsBuilder = ExpectImpl.getAny
@@ -34,6 +36,17 @@ class AnyAssertions[T](expect: Expect[T]) {
 
   val and: Expect[T] = expect
   def and(assertionCreator: Expect[T] => Unit): Expect[T] = expect.addAssertionsCreatedBy(assertionCreator)
+
+  def isNoneOf(expected: T, otherValues: T*): Expect[T] = {
+    isNotIn(expected +: otherValues)
+  }
+
+  def isNotIn(iterable: Iterable[T]): Expect[T] = {
+    import scala.jdk.CollectionConverters._
+    expect.addAssertion(new DefaultAnyAssertions().isNotIn(expect.asInstanceOf[AssertionContainer[T]], iterable.asJava))
+  }
+    
+    
 
   @inline private def addAssertion(f: AnyAssertionsBuilder => Assertion): Expect[T] =
     expect.addAssertion(f(anyAssertions))

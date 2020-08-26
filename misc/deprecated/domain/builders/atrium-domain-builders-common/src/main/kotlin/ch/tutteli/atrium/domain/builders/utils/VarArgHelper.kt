@@ -37,19 +37,22 @@ interface VarArgHelper<out T> {
  * @throws IllegalArgumentException in case the iterable is empty.
  */
 inline fun <reified T> toVarArg(iterableLike: IterableLike): Pair<T, Array<out T>> =
+    iterableToPair(iterableLikeToIterable(iterableLike))
+
+inline fun <reified T> iterableLikeToIterable(iterableLike: IterableLike): Iterable<T> =
     when (iterableLike) {
-        is Sequence<*> -> iterableToPair(iterableLike.map { it as T }.asIterable())
-        is Iterable<*> -> iterableToPair(iterableLike.map { it as T })
-        is Array<*> -> iterableToPair(iterableLike.map { it as T })
-        is CharArray -> iterableToPair(iterableLike.map { it as T })
-        is ByteArray -> iterableToPair(iterableLike.map { it as T })
-        is ShortArray -> iterableToPair(iterableLike.map { it as T })
-        is IntArray -> iterableToPair(iterableLike.map { it as T })
-        is LongArray -> iterableToPair(iterableLike.map { it as T })
-        is FloatArray -> iterableToPair(iterableLike.map { it as T })
-        is DoubleArray -> iterableToPair(iterableLike.map { it as T })
-        is BooleanArray -> iterableToPair(iterableLike.map { it as T })
-        else -> throw IllegalArgumentException("toVarArg accepts arguments of types Iterable, Sequence, Array")
+        is Sequence<*> -> iterableLike.map { it as T }.asIterable()
+        is Iterable<*> -> iterableLike.map { it as T }
+        is Array<*> -> iterableLike.map { it as T }
+        is CharArray -> iterableLike.map { it as T }
+        is ByteArray -> iterableLike.map { it as T }
+        is ShortArray -> iterableLike.map { it as T }
+        is IntArray -> iterableLike.map { it as T }
+        is LongArray -> iterableLike.map { it as T }
+        is FloatArray -> iterableLike.map { it as T }
+        is DoubleArray -> iterableLike.map { it as T }
+        is BooleanArray -> iterableLike.map { it as T }
+        else -> throw IllegalArgumentException("iterableLikeToIterable accepts arguments of types Iterable, Sequence, Array")
     }
 
 inline fun <reified T> iterableToPair(iterable: Iterable<T>): Pair<T, Array<out T>> {
