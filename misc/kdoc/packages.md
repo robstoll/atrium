@@ -45,7 +45,7 @@ Translation modules:
   [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
 
 Misc modules:
-- **atrium-spec** contains [Spek](https://spekframework.org/) specifications for interfaces (defined in 
+- **atrium-specs** contains [Spek](https://spekframework.org/) specifications for interfaces (defined in 
   _atrium-core-api_) and assertion functions. The specifications can be reused by implementation of the core of Atrium 
   as well as by API implementations to assure they fulfill the specifications.  
 - **atrium-verbs** contains out of the box assertion verbs 
