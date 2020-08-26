@@ -507,7 +507,30 @@ gradle.taskGraph.whenReady { graph ->
 /*
 Release & deploy a commit
 --------------------------------
+
 1. update master:
+
+Either use the following commands or the manual steps below
+
+export ATRIUM_VERSION=0.13.0
+find ./ -name "*.md" | xargs perl -0777 -i \
+   -pe "s@tree/master@tree/v$ATRIUM_VERSION@g;" \
+   -pe "s@latest#/doc@$ATRIUM_VERSION/doc@g;"
+perl -0777 -i \
+  -pe "s@dokka_sourceMapping = \"tree/master\"@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@;" \
+  -pe "s/rootProject.version = '$ATRIUM_VERSION-SNAPSHOT'/rootProject.version = '$ATRIUM_VERSION'/;" \
+  ./build.gradle
+perl -0777 -i \
+  -pe 's/(<!-- for master -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# <img)/$1<!--\n$2-->$3\n$4\n$5/;' \
+  -pe 's/(---\n❗ You are taking[^-]*?---)/<!$1>/;' \
+  ./README.md
+git commit -a -m "v$ATRIUM_VERSION"
+
+check changes
+git push
+
+alternatively the manual steps:
+
     a) change rootProject.version in build.gradle to X.Y.Z
     b) search for old version in README.md and replace with new
     c) search for `tree/master` in all .md files and replace it with `tree/vX.Y.Z`
@@ -540,7 +563,7 @@ Prepare next dev cycle
 1. update samples
    a) use newly released version in samples (search again for the old-version and replace with new)
    b) commit & push changes
-.
+
 2. update master:
 
 Either use the following commands or the manual steps below
@@ -564,6 +587,8 @@ git commit -a -m "prepare dev cycle of $ATRIUM_NEXT_VERSION"
 
 check changes
 git push
+
+alternatively the manual steps:
 
    a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/v0.12.0`
    b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
