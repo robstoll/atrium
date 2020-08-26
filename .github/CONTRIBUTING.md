@@ -12,7 +12,7 @@ Following a few guidelines so that others can quickly benefit from your contribu
 
 ## Code of Conduct
 This project and everyone participating in it is governed by Atrium's 
-[Code of Conduct](https://github.com/robstoll/atrium/tree/master/.github/CODE_OF_CONDUCT.md). 
+[Code of Conduct](https://github.com/robstoll/atrium/tree/v0.13.0/.github/CODE_OF_CONDUCT.md). 
 By participating, you are expected to uphold this code. Please report unacceptable behavior to info@tutteli.ch
 
 ## How to Contribute
