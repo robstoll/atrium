@@ -541,7 +541,26 @@ alternatively the manual steps:
     h) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
 
 2. update github pages:
-assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
+Assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
+
+Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
+
+gr ghPages
+export ATRIUM_PREVIOUS_VERSION=0.12.0
+perl -0777 -i \
+  -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
+  ../atrium-gh-pages/latest/index.html
+perl -0777 -i \
+  -pe "s@(- \[$ATRIUM_PREVIOUS_VERSION\]\($ATRIUM_PREVIOUS_VERSION\))@- \[$ATRIUM_VERSION\]\($ATRIUM_VERSION\)\n\$1@;" \
+  ../atrium-gh-pages/README.md
+cd ../atrium-gh-pages
+git commit -a -m "v$ATRIUM_VERSION"
+cd ../atrium
+
+check changes
+git push
+
+alternatively the manual steps:
     a) gr ghPages
     b) change version number in atrium-gh-pages/latest/index.html
     c) add new version to atrium-gh-pages/README.md
@@ -550,7 +569,7 @@ assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 3. deploy to bintray:
 (assumes you have an alias named gr pointing to ./gradlew)
     a) java -version 2>&1 | grep "version \"9" && CI=true gr clean publishToBintray
-    b) Log in to bintray, check that there are 934 artifacts and publish them
+    b) Log in to bintray, check that there are 960 artifacts and publish them
     c) synchronise to maven central
 
 4. create release on github
